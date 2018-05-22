@@ -3,9 +3,12 @@ import CoreData
 
 public class ReadingList: NSManagedObject {
     
-    open var articleKeys: [String] {
+    @objc public static let entriesLimitReachedNotification = NSNotification.Name(rawValue:"WMFEntriesLimitReachedNotification")
+    @objc public static let entriesLimitReachedReadingListKey = "readingList"
+    
+    public var articleKeys: [String] {
         let entries = self.entries ?? []
-        let existingKeys = entries.flatMap { (entry) -> String? in
+        let existingKeys = entries.compactMap { (entry) -> String? in
             guard entry.isDeletedLocally == false else {
                 return nil
             }
@@ -14,21 +17,24 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
-    public func updateCountOfEntries() {
-        guard let entries = entries else {
-            countOfEntries = 0
-            return
+    private var previousCountOfEntries: Int64 = 0
+    private var isEntriesLimitReached: Bool = false {
+        didSet {
+            guard isEntriesLimitReached, countOfEntries > previousCountOfEntries else {
+                return
+            }
+            let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self]
+            NotificationCenter.default.post(name: ReadingList.entriesLimitReachedNotification, object: nil, userInfo: userInfo)
         }
-        countOfEntries = Int64(entries.filter({ (entry) -> Bool in
-            return !entry.isDeletedLocally
-        }).count)
     }
     
     public func updateArticlesAndEntries() throws {
+        previousCountOfEntries = countOfEntries
+        
         let previousArticles = articles ?? []
-        let previousKeys = Set<String>(previousArticles.flatMap { $0.key })
+        let previousKeys = Set<String>(previousArticles.compactMap { $0.key })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
-        let validArticleKeys = Set<String>(validEntries.flatMap { $0.articleKey })
+        let validArticleKeys = Set<String>(validEntries.compactMap { $0.articleKey })
         for article in previousArticles {
             guard let key = article.key, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
@@ -68,6 +74,10 @@ public class ReadingList: NSManagedObject {
             countOfEntries = 0
             articles = []
             previewArticles = []
+        }
+        
+        if let moc = managedObjectContext {
+            isEntriesLimitReached = countOfEntries >= moc.wmf_readingListsConfigMaxEntriesPerList.int64Value
         }
     }
 }

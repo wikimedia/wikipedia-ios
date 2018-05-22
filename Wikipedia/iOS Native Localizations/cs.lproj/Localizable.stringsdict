@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Přidat %1$d článek do seznamu k přečtení</string>
+			<key>other</key>
+			<string>Přidat %1$d článků do seznamu k přečtení</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>Článek odstraněn</string>
 			<key>other</key>
 			<string>Články odstraněny</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Přidat %1$d článek do seznamu k přečtení</string>
+			<key>other</key>
+			<string>Přidat %1$d článků do seznamu k přečtení</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -45,9 +77,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d seznam čtení</string>
+			<string>%1$d seznam k přečtení</string>
 			<key>other</key>
-			<string>%1$d seznamů čtení</string>
+			<string>%1$d seznamů k přečtení</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do tohoto seznamu nebudou uloženy.</string>
+			<key>other</key>
+			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do těchto seznamů nebudou uloženy.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -64,6 +112,38 @@
 			<string>Odstranit seznam?</string>
 			<key>other</key>
 			<string>Odstranit seznamy?</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neuložit tento článek a odstranit je ze všech asociovaných seznamů k přečtení</string>
+			<key>other</key>
+			<string>Neuložit tyto články a odstranit je ze všech asociovaných seznamů k přečtení</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Neuložit článek?</string>
+			<key>other</key>
+			<string>Neuložit články?</string>
 		</dict>
 	</dict>
 </dict>

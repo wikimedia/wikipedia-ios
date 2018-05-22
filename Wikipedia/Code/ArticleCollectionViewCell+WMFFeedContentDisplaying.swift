@@ -13,24 +13,6 @@ public extension ArticleCollectionViewCell {
         layoutMarginsMultipliers = newMultipliers
     }
     
-    @objc(setTitleText:highlightingText:locale:)
-    func set(titleTextToAttribute: String?, highlightingText: String?, locale: Locale?) {
-        guard let titleTextToAttribute = titleTextToAttribute, let titleFont = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline) else {
-            titleLabel.text = nil
-            return
-        }
-        let attributedTitle = NSMutableAttributedString(string: titleTextToAttribute, attributes: [NSAttributedStringKey.font: titleFont])
-        if let highlightingText = highlightingText {
-            let range = (titleTextToAttribute.lowercased(with: locale) as NSString).range(of: highlightingText.lowercased(with: locale))
-            if !WMFRangeIsNotFoundOrEmpty(range), let boldFont = UIFont.wmf_preferredFontForFontFamily(.systemSemiBold, withTextStyle: .subheadline) {
-                attributedTitle.setAttributes([NSAttributedStringKey.font: boldFont], range: range)
-            }
-        }
-        titleTextStyle = nil
-        titleFontFamily = nil
-        titleLabel.attributedText = attributedTitle
-    }
-    
     @objc(configureWithArticle:displayType:index:count:shouldAdjustMargins:theme:layoutOnly:)
     public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, count: Int, shouldAdjustMargins: Bool = true, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
@@ -44,8 +26,10 @@ public extension ArticleCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+        
         let articleLanguage = article.url?.wmf_language
-        titleLabel.text = article.displayTitle
+        
+        titleHTML = article.displayTitleHTML
         
         switch displayType {
         case .random:
@@ -81,9 +65,7 @@ public extension ArticleCollectionViewCell {
             }
         case .mainPage:
             isSaveButtonHidden = true
-            titleFontFamily = .georgia
-            titleTextStyle = .title1
-            descriptionFontFamily = .system
+            titleTextStyle = .georgiaTitle1
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")

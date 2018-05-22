@@ -87,6 +87,10 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [PiwikTracker wmf_start];
 
     [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
+    NSDate *appInstallDate = [[NSUserDefaults wmf_userDefaults] wmf_appInstallDate];
+    if (!appInstallDate) {
+        [[KeychainCredentialsManager shared] resetAppInstallID];
+    }
     [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
     self.appNeedsResume = YES;
@@ -150,13 +154,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 #pragma mark - NSURL Handling
-
-- (BOOL)application:(UIApplication *)application
-              openURL:(NSURL *)url
-    sourceApplication:(NSString *)sourceApplication
-           annotation:(id)annotation {
-    return [self application:application openURL:url options:@{}];
-}
 
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url

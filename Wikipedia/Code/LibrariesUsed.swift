@@ -81,7 +81,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
             return []
         }
         return librariesUsedDataArray
-            .flatMap {library -> LibraryUsed? in
+            .compactMap {library -> LibraryUsed? in
                 guard
                     let title = library[LibrariesUsedViewController.plistTitleKey] as? String,
                     let licenseName = library[LibrariesUsedViewController.plistLicenseNameKey] as? String,

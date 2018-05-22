@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bæta %1$d grein á leslista</string>
+			<key>other</key>
+			<string>Bæta %1$d greinum á leslista</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>grein eytt</string>
 			<key>other</key>
 			<string>greinum eytt</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Færa %1$d grein á leslista</string>
+			<key>other</key>
+			<string>Færa %1$d greinar á leslista</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -66,6 +98,22 @@
 			<string>%1$d greinar</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Get ekki bætt grein á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
+			<key>other</key>
+			<string>Get ekki bætt greinum á þennan lista. Þú hefur náð %2$d greina takmörkum á hvern lista fyrir %3$@</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -80,6 +128,38 @@
 			<string>%1$d leslistann</string>
 			<key>other</key>
 			<string>%1$d leslistana</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í þennan lista verða óvistaðar.</string>
+			<key>other</key>
+			<string>Þessa aðgerð er ekki hægt að afturkalla. Allar greinar sem einungis eru vistaðar í þessa lista verða óvistaðar.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Eyða lista?</string>
+			<key>other</key>
+			<string>Eyða listum?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -152,6 +232,22 @@
 			<string>Fyrir %1$d ári síðan</string>
 			<key>zero</key>
 			<string>Á þessu ári</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Afturköllun á vistun þessarar greinar mun fjarlægja hana af öllum tengdum leslistum</string>
+			<key>other</key>
+			<string>Afturköllun á vistun þessara greina mun fjarlægja þær af öllum tengdum leslistum</string>
 		</dict>
 	</dict>
 </dict>

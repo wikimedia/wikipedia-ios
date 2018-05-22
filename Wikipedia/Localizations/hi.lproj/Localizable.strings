@@ -323,6 +323,7 @@
 "reading-list-login-or-create-account-button-title" = "लॉग इन करें या खाता बनाएं";
 "reading-list-login-or-create-account-title" = "सहेजे गए लेख समन्वयित करने के लिए लॉग इन करें";
 "reading-list-sync-enable-button-title" = "समन्वयन सक्षम करें";
+"reading-list-sync-enable-subtitle" = "आपके सहेजे गए लेख और पठन सूचियों को अब आपके विकिपीडिया खाते में सहेजा जा सकता है और विकिपीडिया एप्स में समन्वयित किया जा सकता है।";
 "reading-list-sync-enable-title" = "पठन सूची को सिंक करना चालू करें?";
 "reading-themes-controls-accessibility-black-theme-button" = "काला रूपरंग";
 "reading-themes-controls-accessibility-brightness-slider" = "चमक स्लाइडर";
@@ -340,12 +341,9 @@
 "relogin-failed-subtitle" = "आपका सत्र समाप्त हो चूका है या पिछले लॉग इन क्रेडेंशियल्स अब मान्य नहीं हैं";
 "relogin-failed-title" = "लॉग इन को पुन: स्थापित करने में असमर्थ";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
-"saved-clear-all" = "साफ़ करें";
-"saved-pages-clear-cancel" = "रद्द करें";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "क्या आप वास्तव में अपने सभी सहेजे गए पेजों को मिटाना चाहते हैं?";
-"saved-pages-clear-delete-all" = "हाँ, सभी मिटायें";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
+// Fuzzy
+"saved-pages-progress-syncing" = "अनुच्छेद सिंकिंग प्रगति में हैं...";
 "saved-title" = "सहेजा गया";
 "search-button-accessibility-label" = "विकिपीडिया में खोजें";
 "search-did-you-mean" = "क्या आपका मतलब $1 था?";

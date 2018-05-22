@@ -74,11 +74,11 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
     [self asynchronouslyCacheArticle:article toDisk:toDisk completion:nil];
 }
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion {
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable void (^)(NSError *error))completion {
     [self addArticleToMemoryCache:article];
     if (!toDisk) {
         if (completion) {
-            completion();
+            completion(nil);
         }
         return;
     }
@@ -97,12 +97,13 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
         }
 
         op = [NSBlockOperation blockOperationWithBlock:^{
-            [article save];
+            NSError *error = nil;
+            [article save:&error];
             @synchronized(queue) {
                 [operations removeObjectForKey:key];
             }
+            completion(error);
         }];
-        op.completionBlock = completion;
 
         if (!op) {
             return;
@@ -397,7 +398,7 @@ static uint64_t bundleHash() {
             article.viewedScrollPosition = entry.scrollPosition;
         }
         if (preview) {
-            article.displayTitle = preview.displayTitle;
+            article.displayTitleHTML = preview.displayTitle;
             article.wikidataDescription = preview.wikidataDescription;
             article.snippet = preview.snippet;
             article.thumbnailURL = preview.thumbnailURL;
@@ -1079,50 +1080,33 @@ static uint64_t bundleHash() {
     return [self saveData:data toFile:name atPath:path error:error];
 }
 
-- (void)saveDictionary:(NSDictionary *)dict path:(NSString *)path name:(NSString *)name {
-    [self saveDictionary:dict path:path name:name error:NULL];
-}
-
 - (BOOL)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name error:(NSError **)error {
     return [self saveData:[string dataUsingEncoding:NSUTF8StringEncoding] toFile:name atPath:path error:error];
 }
 
-- (void)saveString:(NSString *)string path:(NSString *)path name:(NSString *)name {
-    [self saveString:string path:path name:name error:NULL];
-}
-
-- (void)saveArticle:(MWKArticle *)article {
+- (BOOL)saveArticle:(MWKArticle *)article error:(NSError **)outError {
     if (article.url.wmf_title == nil) {
-        return;
+        return YES; // OK to fail without error
     }
 
     if (article.url.wmf_isNonStandardURL) {
-        return;
+        return YES;  // OK to fail without error
     }
     [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
     NSDictionary *export = [article dataExport];
-    [self saveDictionary:export path:path name:@"Article.plist"];
+    return [self saveDictionary:export path:path name:@"Article.plist" error:outError];
 }
 
-- (void)saveSection:(MWKSection *)section {
+- (BOOL)saveSection:(MWKSection *)section error:(NSError **)outError {
     NSString *path = [self pathForSection:section];
     NSDictionary *export = [section dataExport];
-    [self saveDictionary:export path:path name:@"Section.plist"];
+    return [self saveDictionary:export path:path name:@"Section.plist" error:outError];
 }
 
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section {
+- (BOOL)saveSectionText:(NSString *)html section:(MWKSection *)section error:(NSError **)outError {
     NSString *path = [self pathForSection:section];
-    [self saveString:html path:path name:@"Section.html"];
-}
-
-- (void)saveImage:(MWKImage *)image {
-    if ([image.article isMain]) {
-        return;
-    }
-    NSString *path = [self pathForImage:image];
-    NSDictionary *export = [image dataExport];
-    [self saveDictionary:export path:path name:@"Image.plist"];
+    return [self saveString:html path:path name:@"Section.html" error:outError];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error {
@@ -1283,6 +1267,11 @@ static uint64_t bundleHash() {
 
 #pragma mark - helper methods
 
+- (NSInteger)sitesDirectorySize {
+    NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
+    return [[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
+}
+
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         NSFetchRequest *articlesWithHTMLInTitlesFetchRequest = [WMFArticle fetchRequest];
@@ -1294,7 +1283,6 @@ static uint64_t bundleHash() {
         }
 
         for (WMFArticle *article in articlesWithHTMLInTheTitle) {
-            article.displayTitle = [article.displayTitle wmf_stringByRemovingHTML];
             article.wikidataDescription = [article.wikidataDescription wmf_stringByRemovingHTML];
         }
 
@@ -1551,9 +1539,20 @@ static uint64_t bundleHash() {
     [self.articlePreviewCache removeAllObjects];
 }
 
+- (void)clearCachesForUnsavedArticles {
+    [[WMFImageController sharedInstance] deleteTemporaryCache];
+    [[WMFImageController sharedInstance] removeLegacyCache];
+    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
+        DDLogError(@"Error removing unreferenced articles: %@", error);
+    }
+        success:^{
+            DDLogDebug(@"Successfully removed unreferenced articles");
+        }];
+}
+
 #pragma mark - Remote Configuration
 
-- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError * nullable))completion {
+- (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion {
     void (^combinedCompletion)(NSError *) = ^(NSError *error) {
         if (completion) {
             completion(error);
@@ -1635,7 +1634,7 @@ static uint64_t bundleHash() {
     if (!article) {
         article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:moc] insertIntoManagedObjectContext:moc];
         article.key = key;
-        article.displayTitle = title.wmf_unescapedNormalizedPageTitle;
+        article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
             [self.articlePreviewCache setObject:article forKey:key];
         }

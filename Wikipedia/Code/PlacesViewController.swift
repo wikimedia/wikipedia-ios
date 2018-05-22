@@ -460,7 +460,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func region(thatFits articles: [WMFArticle]) -> MKCoordinateRegion {
-        let coordinates: [CLLocationCoordinate2D] =  articles.flatMap({ (article) -> CLLocationCoordinate2D? in
+        let coordinates: [CLLocationCoordinate2D] =  articles.compactMap({ (article) -> CLLocationCoordinate2D? in
             return article.coordinate
         })
         guard coordinates.count > 1 else {
@@ -783,8 +783,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         var keysToFetch: [String] = []
         var sort = 1
         for result in searchResults {
-            guard let displayTitle = result.displayTitle,
-                let articleURL = siteURL.wmf_URL(withTitle: displayTitle),
+            guard let articleURL = result.articleURL(forSiteURL: siteURL),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
                 let _ = article.quadKey,
                 let articleKey = article.key else {
@@ -805,12 +804,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let request = WMFArticle.fetchRequest()
         request.predicate = NSPredicate(format: "key in %@", keysToFetch)
-        request.sortDescriptors = [NSSortDescriptor(key: "placesSortOrder", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFArticle.placesSortOrder, ascending: true)]
         articleFetchedResultsController = NSFetchedResultsController<WMFArticle>(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     func updatePlaces() {
-        let articleURLs = articleFetchedResultsController.fetchedObjects?.flatMap({ (article) -> URL? in
+        let articleURLs = articleFetchedResultsController.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
         listViewController.articleURLs = articleURLs ?? []
@@ -1293,7 +1292,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let moc = dataStore.viewContext
             let request = WMFKeyValue.fetchRequest()
             request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
-            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFKeyValue.date, ascending: false)]
             let results = try moc.fetch(request)
             for result in results {
                 moc.delete(result)
@@ -1341,9 +1340,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
         
-        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler)
+        let enableLocationPanelVC = EnableLocationPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableLocationButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissEnableLocationPanelHandler, theme: theme)
         
-        enableLocationPanelVC.apply(theme: theme)
         present(enableLocationPanelVC, animated: true, completion: nil)
     }
 
@@ -1776,8 +1774,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
             if didSave {
                 tracker?.wmf_logActionSave(inContext: context, contentType: article)
-            }else {
+                ReadingListsFunnel.shared.logSaveInPlaces()
+            } else {
                 tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
+                ReadingListsFunnel.shared.logUnsaveInPlaces()
             }
             break
         case .share:
@@ -2101,7 +2101,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 let moc = dataStore.viewContext
                 let request = WMFKeyValue.fetchRequest()
                 request.predicate = NSPredicate(format: "group == %@", currentSearchHistoryGroup())
-                request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                request.sortDescriptors = [NSSortDescriptor(keyPath: \WMFKeyValue.date, ascending: false)]
                 let results = try moc.fetch(request)
                 let count = results.count
                 if count > searchHistoryCountLimit {
@@ -2159,11 +2159,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     func handleCompletion(searchResults: [MWKSearchResult], siteURL: URL) -> [PlaceSearch] {
         var set = Set<String>()
-        let completions = searchResults.flatMap { (result) -> PlaceSearch? in
+        let completions = searchResults.compactMap { (result) -> PlaceSearch? in
             guard let location = result.location,
                 let dimension = result.geoDimension?.doubleValue,
-                let title = result.displayTitle,
-                let url = self.siteURL.wmf_URL(withTitle: title),
+                let url = result.articleURL(forSiteURL: siteURL),
                 let key = url.wmf_articleDatabaseKey,
                 !set.contains(key) else {
                     return nil
@@ -2195,7 +2194,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         let region = self.region(thatFits: [article])
-        let searchResult = MWKSearchResult(articleID: 0, revID: 0, displayTitle: title, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        let displayTitleHTML = article.displayTitleHTML
+        let displayTitle = article.displayTitle ?? title
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     

@@ -16,7 +16,7 @@ public struct ImageViewAndModel {
 
 open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
 
-    open lazy var imageModels:[ImageModel]? = nil
+    private(set) var imageModels:[ImageModel]? = nil
 
     private lazy var imageViewsAndModels: [ImageViewAndModel]? = {
         guard let imageModels = imageModels else {

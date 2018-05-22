@@ -2,17 +2,25 @@
 #import "Wikipedia-Swift.h"
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 
-static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
 static NSString *const kAppInstallIdKey = @"appInstallID";
+static NSString *const kAppInstallAgeKey = @"appInstallAgeDays";
+static NSString *const kTimestampKey = @"ts";
+static NSString *const kIsAnonKey = @"is_anon";
 
 @implementation WMFDailyStatsLoggingFunnel
 
++ (WMFDailyStatsLoggingFunnel *)shared {
+    static dispatch_once_t onceToken;
+    static WMFDailyStatsLoggingFunnel *shared;
+    dispatch_once(&onceToken, ^{
+        shared = [self new];
+    });
+    return shared;
+}
+
 - (instancetype)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppDailyStats
-    self = [super initWithSchema:@"MobileWikiAppDailyStats" version:12637385];
-    if (self) {
-        self.appInstallId = [self persistentUUID:@"WMFDailyStatsLoggingFunnel"];
-    }
+    self = [super initWithSchema:@"MobileWikiAppDailyStats" version:17984412];
     return self;
 }
 
@@ -28,7 +36,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     NSDate *currentDate = [NSDate date];
     NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:installDate toDate:currentDate];
 
-    NSNumber *daysInstalledNumber = [userDefaults wmf_daysInstalled];
+    NSNumber *daysInstalledNumber = [userDefaults wmf_loggedDaysInstalled];
 
     if (daysInstalledNumber != nil) {
         NSInteger lastLoggedDaysInstalled = [daysInstalledNumber integerValue];
@@ -38,16 +46,20 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     }
 
     [self log:@{ kAppInstallAgeKey: @(daysInstalled) }];
-    [userDefaults wmf_setDaysInstalled:@(daysInstalled)];
 }
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
-    if (!eventData) {
-        return nil;
-    }
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = self.appInstallId;
-    return [dict copy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    BOOL isAnonymous = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
+    dict[kIsAnonKey] = [NSNumber numberWithBool:isAnonymous];
+    dict[kTimestampKey] = [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:[NSDate date]];
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (void)logged:(NSDictionary *)eventData {
+    NSInteger daysInstalled = (NSInteger)eventData[kAppInstallAgeKey];
+    [[NSUserDefaults wmf_userDefaults] wmf_setLoggedDaysInstalled:@(daysInstalled)];
 }
 
 @end

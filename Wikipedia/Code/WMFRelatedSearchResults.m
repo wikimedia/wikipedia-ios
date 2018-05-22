@@ -21,7 +21,7 @@
 }
 
 - (NSURL *)urlForResult:(MWKSearchResult *)result {
-    return [self.siteURL wmf_URLWithTitle:result.displayTitle];
+    return [result articleURLForSiteURL:self.siteURL];
 }
 
 @end

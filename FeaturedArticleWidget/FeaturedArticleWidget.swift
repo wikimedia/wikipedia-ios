@@ -65,16 +65,9 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         currentArticleKey = articleKey
         isEmptyViewHidden = true
 
-        let theme:Theme
-        
-        if #available(iOSApplicationExtension 10.0, *) {
-            theme = Theme.widget
-        } else {
-            theme = Theme.widgetiOS9
-        }
-        
+        let theme:Theme = .widget
+
         collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: theme, layoutOnly: false)
-        collapsedArticleView.titleFontFamily = .systemSemiBold
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link

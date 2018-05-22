@@ -10,6 +10,7 @@
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
+        self.requiresAppInstallID = YES;
     }
     return self;
 }
@@ -33,10 +34,12 @@
             chosen = (self.getEventLogSamplingID % self.rate) == 0;
         }
         if (chosen) {
-            (void)[[EventLogger alloc] initAndLogEvent:[self preprocessData:eventData]
+            NSMutableDictionary *preprocessedEventData = [[self preprocessData:eventData] mutableCopy];
+            (void)[[EventLogger alloc] initAndLogEvent:preprocessedEventData
                                              forSchema:self.schema
                                               revision:self.revision
                                                   wiki:wiki];
+            [self logged:eventData];
         }
     }
 }
@@ -45,15 +48,15 @@
     return [[NSUUID UUID] UUIDString];
 }
 
-- (NSString *)persistentUUID:(NSString *)key {
-    NSString *prefKey = [@"EventLoggingID-" stringByAppendingString:key];
-    NSString *uuid = [[NSUserDefaults wmf_userDefaults] objectForKey:prefKey];
-    if (!uuid) {
-        uuid = [self singleUseUUID];
-        [[NSUserDefaults wmf_userDefaults] setObject:uuid forKey:prefKey];
-        [[NSUserDefaults wmf_userDefaults] synchronize];
-    }
-    return uuid;
+- (void)logged:(NSDictionary *)eventData {
+}
+
+- (NSString *)wmf_appInstallID {
+    return [[KeychainCredentialsManager shared] appInstallID];
+}
+
+- (NSString *)wmf_sessionID {
+    return [[KeychainCredentialsManager shared] sessionID];
 }
 
 /**

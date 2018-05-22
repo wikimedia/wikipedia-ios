@@ -4,6 +4,7 @@
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFComparison.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSString+WMFExtras.h>
 
 @interface MWKSearchResult ()
 
@@ -11,7 +12,11 @@
 
 @property (nonatomic, assign, readwrite) NSInteger revID;
 
+@property (nonatomic, copy, readwrite) NSString *title;
+
 @property (nonatomic, copy, readwrite) NSString *displayTitle;
+
+@property (nonatomic, copy, readwrite) NSString *displayTitleHTML;
 
 @property (nonatomic, copy, readwrite) NSString *wikidataDescription;
 
@@ -35,7 +40,9 @@
 
 - (instancetype)initWithArticleID:(NSInteger)articleID
                             revID:(NSInteger)revID
+                            title:(NSString *)title
                      displayTitle:(NSString *)displayTitle
+                 displayTitleHTML:(NSString *)displayTitleHTML
               wikidataDescription:(NSString *)wikidataDescription
                           extract:(NSString *)extract
                      thumbnailURL:(NSURL *)thumbnailURL
@@ -47,7 +54,9 @@
     if (self) {
         self.articleID = articleID;
         self.revID = revID;
+        self.title = title;
         self.displayTitle = displayTitle;
+        self.displayTitleHTML = displayTitleHTML;
         self.wikidataDescription = wikidataDescription;
         self.extract = extract;
         self.thumbnailURL = thumbnailURL;
@@ -57,6 +66,10 @@
         self.titleNamespace = titleNamespace;
     }
     return self;
+}
+
++ (NSUInteger)modelVersion {
+    return 3;
 }
 
 #pragma mark - MTLJSONSerializing
@@ -73,12 +86,6 @@
                                  NSError *__autoreleasing *error) {
             return [thumbnailURL absoluteString];
         }];
-}
-
-+ (NSValueTransformer *)wikidataDescriptionJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value, BOOL *success, NSError *__autoreleasing *error) {
-        return [value firstObject];
-    }];
 }
 
 + (MTLValueTransformer *)extractJSONTransformer {
@@ -102,17 +109,43 @@
             }
             // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
             // so double-check wiki data description for "disambiguation page" string.
-            NSArray *descriptions = value[@"terms.description"];
-            return @(descriptions.count && [descriptions.firstObject containsString:@"disambiguation page"]);
+            NSString *description = value[@"description"];
+            return @(description && [description containsString:@"disambiguation page"]);
         }];
 }
 
-+ (NSValueTransformer *)isListJSONTransformer {
++ (NSString *)displayTitleFromValue:(NSDictionary *)value {
+    NSString *displayTitle = value[@"pageprops.displaytitle"];
+    if ([displayTitle isKindOfClass:[NSString class]]) { // nil & type check just to be safe
+        return displayTitle;
+    }
+    NSString *title = value[@"title"];
+    if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
+        return title;
+    }
+    return @"";
+}
+
++ (NSValueTransformer *)displayTitleJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^(NSArray *value, BOOL *success, NSError **error) {
+            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+                return [[self displayTitleFromValue:value] wmf_stringByRemovingHTML];
+            }];
+}
+
++ (NSValueTransformer *)displayTitleHTMLJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+                return [self displayTitleFromValue:value];
+            }];
+}
+
++ (MTLValueTransformer *)isListJSONTransformer {
+    return [MTLValueTransformer
+        transformerUsingForwardBlock:^(NSString *value, BOOL *success, NSError **error) {
             // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
             // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
-            return @(value.count && [value.firstObject containsString:@"Wikimedia list article"]);
+            return @(value && [value containsString:@"Wikimedia list article"]);
         }];
 }
 
@@ -215,15 +248,17 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
+    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitleHTML): @[@"pageprops.displaytitle", @"title"],
               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"description",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description",
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"description"],
+              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"description",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
               WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
@@ -234,10 +269,14 @@
     if (siteURL == nil) {
         return nil;
     }
-    if (self.displayTitle == nil) {
+    if (self.title == nil) {
         return nil;
     }
-    return [siteURL wmf_URLWithTitle:self.displayTitle];
+    return [siteURL wmf_URLWithTitle:self.title];
+}
+
+- (NSString *)displayTitleHTML {
+    return _displayTitleHTML && ![_displayTitleHTML isEqualToString:@""] ? _displayTitleHTML : _displayTitle;
 }
 
 @end

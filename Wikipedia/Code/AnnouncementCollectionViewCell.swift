@@ -46,6 +46,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.isEditable = false
         addSubview(captionTextView)
         
+        actionButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 6)
+        
         actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
         dismissButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
@@ -77,9 +79,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        messageLabel.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .subheadline, compatibleWithTraitCollection: traitCollection)
-        actionButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .body, compatibleWithTraitCollection: traitCollection)
-        dismissButton.titleLabel?.font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection)
+        messageLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        actionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        dismissButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
     }
     
@@ -114,7 +116,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
         pStyle.alignment = .center
-        let font = UIFont.wmf_preferredFontForFontFamily(.system, withTextStyle: .footnote, compatibleWithTraitCollection: traitCollection) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
         mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))

@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Додавање на %1$d статија во список за читање</string>
+			<key>other</key>
+			<string>Додавање на %1$d статии во список за читање</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>Статијата е избришана</string>
 			<key>other</key>
 			<string>Статиите се избришани</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Преместување на %1$d статија во список за читање</string>
+			<key>other</key>
+			<string>Преместување на %1$d статии во список за читање</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -66,7 +98,7 @@
 			<string>%1$d статии</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Не можеете да ја додадете статијава во „%2$@“ бидејќи ја достгнува границата на дозволени статии во списокот.</string>
+			<string>Статијата не може да се додаде во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
 			<key>other</key>
-			<string>Не можеете да ги додадете статииве во „%2$@“ бидејќи ја достгнува границата на дозволени статии во списокот.</string>
+			<string>Статиите не можат да се додадат во списоков. Ја достигнавте границата од %2$d статии по список за %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

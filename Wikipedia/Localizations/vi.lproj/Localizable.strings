@@ -3,6 +3,7 @@
 // Author: Brion
 // Author: Darcy Le
 // Author: Dinhxuanduyet
+// Author: Harriettruong3
 // Author: KhangND
 // Author: Macofe
 // Author: Max20091
@@ -53,21 +54,33 @@
 "account-creation-passwords-mismatched" = "Mật khẩu không khớp.";
 "account-creation-saving" = "Đang lưu…";
 "account-creation-title" = "Mở tài khoản mới";
+"action-add-to" = "Thêm vào…";
+"action-add-to-reading-list" = "Thêm vào danh sách đọc";
+"action-cancel" = "Hủy bỏ";
+"action-move-to" = "Chuyển tới…";
+"action-move-to-reading-list" = "Di chuyển tới danh sách đọc";
 "action-read" = "Đọc";
 "action-save" = "Lưu";
 "action-saved" = "Đã lưu";
 "action-saved-accessibility" = "Đã lưu. Kích hoạt để bác bỏ.";
+"action-saved-accessibility-notification" = "Đã lưu bài để đọc sau";
 "action-share" = "Chia sẻ";
+"action-sort" = "Sắp xếp";
 "action-unsave" = "Bỏ lưu";
+"action-update" = "Cập nhật";
+"add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
 "alert-no-internet" = "Không có kết nối Internet";
 "announcements-dismiss" = "Thôi";
 "appearance-settings-adjust-text-sizing" = "Điều chỉnh kích thước văn bản trong bài";
+"appearance-settings-expand-tables" = "Mở rộng các bảng";
 "appearance-settings-image-dimming-footer" = "Giảm độ mờ hình ảnh trên giao diện tối";
 "appearance-settings-reading-themes" = "Giao diện đọc";
+"appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
 "appearance-settings-text-sizing-example-text" = "Kéo con trượt bên trên để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
 "article-about-title" = "Thông tin về bài viết";
 "article-delete" = "Xóa";
+"article-deleted-accessibility-notification" = "đã xóa {{PLURAL:$1|bài|các bài}}";
 "article-languages-filter-placeholder" = "Tìm ngôn ngữ";
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-others" = "Ngôn ngữ khác";
@@ -231,6 +244,8 @@
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
 "menu-trash-accessibility-label" = "Xóa";
+"more-languages-tooltip-description" = "Tìm trong Wikipedia trong gần 300 ngôn ngữ";
+"more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
 "nearby-distance-label-feet" = "$1 foot";
 "nearby-distance-label-km" = "$1 km";
@@ -301,6 +316,30 @@
 "preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
 "rank-accessibility-label" = "Hạng $1";
 "readers-accessibility-label" = "$1 người đọc";
+"reading-list-add-hint-title" = "Thêm “$1” vào danh sách đọc?";
+"reading-list-add-saved-button-title" = "Có, thêm chúng vào các danh sách đọc của tôi";
+"reading-list-add-saved-title" = "Tìm thấy bài đã lưu";
+"reading-list-create-new-list-button-title" = "Tạo danh sách đọc";
+"reading-list-create-new-list-description" = "Miêu tả";
+"reading-list-create-new-list-reading-list-name" = "Tên danh sách đọc";
+"reading-list-create-new-list-title" = "Tạo danh sách mới";
+"reading-list-deleted-accessibility-notification" = "Đã xóa danh sách đọc";
+"reading-list-do-not-keep-button-title" = "Không, xóa các bài khỏi thiết bị";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sắp xếp bài viết";
+"reading-list-login-button-title" = "Đăng nhập để đồng bộ các bài đã lưu của bạn";
+"reading-list-login-or-create-account-button-title" = "Đăng nhập hoặc mở tài khoản";
+"reading-list-login-or-create-account-title" = "Đăng nhập để đồng bộ bài đã lưu";
+"reading-list-login-title" = "Đồng bộ hóa các bài đã lưu của bạn?";
+"reading-list-sync-disabled-panel-title" = "Đồng bộ hóa bị tắt";
+"reading-list-sync-enable-button-title" = "Bật đồng bộ hóa";
+"reading-lists-article-added-confirmation" = "Đã thêm bài vào “$1”";
+"reading-lists-conflicting-reading-list-name-updated" = "Đã đổi tên danh sách “$1” của bạn thành “$2”";
+"reading-lists-count" = "$1 danh sách đọc";
+"reading-lists-default-list-description" = "Danh sách mặc định cho các bài bạn lưu";
+"reading-lists-default-list-title" = "Đã lưu";
+"reading-lists-delete-reading-list-alert-title" = "Xóa {{PLURAL:$1|danh sách|các danh sách}}?";
+"reading-lists-sort-saved-articles" = "Sắp xếp các bài đã lưu";
+"reading-themes-controls-accessibility-black-theme-button" = "Giao diện Đen";
 "reading-themes-controls-accessibility-brightness-slider" = "Con trượt độ sáng";
 "reading-themes-controls-accessibility-dark-theme-button" = "Giao diện tối";
 "reading-themes-controls-accessibility-light-theme-button" = "Giao diện sáng";
@@ -311,16 +350,20 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Năm nay|Năm ngoái|Cách đây $1 năm}}";
+"relogin-failed-retry-login-button-title" = "Thử đăng nhập lại";
+"relogin-failed-stay-logged-out-button-title" = "Giữ trạng thái đăng xuất";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
-"saved-clear-all" = "Xóa sạch";
-"saved-pages-clear-cancel" = "Hủy bỏ";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các trang đã lưu của bạn?";
-"saved-pages-clear-delete-all" = "Có, xóa toàn bộ";
+"saved-all-articles-title" = "Tất cả các bài";
+"saved-default-reading-list-tag" = "Không thể xóa danh sách này";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
+"saved-pages-progress-syncing" = "Đang tải về bài viết…";
+"saved-reading-lists-title" = "Danh sách đọc";
+"saved-search-default-text" = "Tìm kiếm";
 "saved-title" = "Đã lưu";
+"search-button-accessibility-label" = "Tìm trong Wikipedia";
 "search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
 "search-field-placeholder-text" = "Tìm trong Wikipedia";
+"search-reading-list-placeholder-text" = "Tìm trong danh sách đọc";
 "search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
@@ -328,8 +371,7 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
-// Fuzzy
-"settings-appearance" = "Giao diện";
+"settings-appearance" = "Tùy chọn đọc";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
@@ -346,6 +388,16 @@
 "settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-primary-language" = "Chính";
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Cho phép Wikimedia lưu bài viết và danh sách đọc của bạn vào tùy chọn khi đăng nhập vào đồng bộ hóa.";
+"settings-storage-and-syncing-enable-sync-title" = "Đồng bộ hóa những bài viết và danh sách đã lưu";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Xóa các bài đã lưu?";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Xóa";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Xóa những bài đã lưu sẽ đưa những bài đó ra khỏi tài khoản, nếu bạn đã đồng bộ hóa nó, cũng như khỏi thiết bị này.\n\nXóa những trang được lưu sẽ tiết kiệm vào khoảng $1.";
+"settings-storage-and-syncing-erase-saved-articles-title" = "Xóa những bài viết đã được lưu";
+"settings-storage-and-syncing-server-sync-footer-text" = "Yêu cầu nâng cấp những bài viết đã được đồng bộ hóa và danh sách đọc.";
+"settings-storage-and-syncing-server-sync-title" = "Cập nhật các danh sách đọc được đồng bộ hóa";
+"settings-storage-and-syncing-show-default-reading-list-title" = "Hiện danh sách đọc được lưu";
+"settings-storage-and-syncing-title" = "Lưu trữ và đồng bộ hóa bài viết";
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";
@@ -362,6 +414,8 @@
 "share-open-in-maps" = "Mở trọng Bản đồ";
 "share-social-format" = "“$1” tại Wikipedia: $2";
 "share-social-mention-format" = "“$1” tại @Wikipedia: $2";
+"sort-by-recently-added-action" = "Thêm gần đây";
+"sort-by-title-action" = "Tên";
 "status-saved-for-later" = "Đã lưu để đọc sau";
 "status-saving-for-later" = "Đang lưu để đọc sau…";
 "table-of-contents-button-label" = "Mục lục";
@@ -369,6 +423,7 @@
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";
 "table-of-contents-heading" = "Mục lục";
 "table-title-other" = "Thêm thông tin";
+"theme-black-display-name" = "Đen";
 "theme-dark-display-name" = "Tối";
 "theme-default-display-name" = "Mặc định";
 "theme-sepia-display-name" = "Nâu";

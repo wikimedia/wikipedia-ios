@@ -13,16 +13,28 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
     @IBOutlet fileprivate var loginButton: WMFAuthButton!
     @IBOutlet weak var scrollContainer: UIView!
     
-    @objc public var funnel: LoginFunnel?
+    public var loginSuccessCompletion: (() -> Void)?
+    public var loginDismissedCompletion: (() -> Void)?
+    
+    @objc public var funnel: WMFLoginFunnel?
+
+    private var startDate: Date? // to calculate time elapsed between login start and login success
     
     fileprivate var theme: Theme = Theme.standard
     
     fileprivate lazy var captchaViewController: WMFCaptchaViewController? = WMFCaptchaViewController.wmf_initialViewControllerFromClassStoryboard()
     private let loginInfoFetcher = WMFAuthLoginInfoFetcher()
     let tokenFetcher = WMFAuthTokenFetcher()
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        startDate = Date()
+        
+    }
 
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+        loginDismissedCompletion?()
     }
 
     @IBAction fileprivate func loginButtonTapped(withSender sender: UIButton) {
@@ -143,12 +155,16 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
             let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
             WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+            self.loginSuccessCompletion?()
             self.setViewControllerUserInteraction(enabled: true)
-            let presenter = self.presentingViewController
-            self.dismiss(animated: true, completion: {
-                presenter?.wmf_showEnableReadingListSyncPanelOncePerLogin(theme: self.theme)
-            })
+            self.dismiss(animated: true)
             self.funnel?.logSuccess()
+            
+            if let start = self.startDate {
+                LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+            } else {
+                assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
+            }
         
         }, failure: { error in
 
@@ -245,6 +261,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         createAcctVC.apply(theme: theme)
         funnel?.logCreateAccountAttempt()
+        LoginFunnel.shared.logCreateAccountAttempt()
         dismiss(animated: true, completion: {
             createAcctVC.funnel = CreateAccountFunnel()
             createAcctVC.funnel?.logStart(fromLogin: self.funnel?.loginSessionToken)

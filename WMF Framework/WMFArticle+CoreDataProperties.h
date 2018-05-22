@@ -8,7 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<WMFArticle *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *displayTitle;
+@property (nullable, nonatomic, copy) NSString *displayTitle; // Don't use this property, use displayTitleHTML. It will set the plain text version to displayTitle.
+@property (nullable, nonatomic, copy) NSString *displayTitleHTMLString; // Don't use this property, use displayTitleHTML
 @property (nonatomic, copy) NSNumber *geoDimensionNumber;
 @property (nonatomic, copy) NSNumber *geoTypeNumber;
 @property (nonatomic, copy) NSNumber *imageHeight;
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
-@property (nullable, nonatomic, copy) NSString *errorCode;
+@property (nullable, nonatomic, copy) NSNumber *errorCodeNumber;
 
 @end
 

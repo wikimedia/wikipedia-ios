@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ein Artikel zu einer Leseliste hinzufügen</string>
+			<key>other</key>
+			<string>%1$d Artikel zu einer Leseliste hinzufügen</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -14,6 +30,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>Artikel gelöscht</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Einen Artikel in eine Leseliste verschieben</string>
+			<key>other</key>
+			<string>%1$d Artikel in eine Leseliste verschieben</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -64,7 +96,7 @@
 			<string>%1$d Artikel</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -75,9 +107,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Du kannst diesen Artikel nicht zu „%2$@“ hinzufügen, da es eine Begrenzung bei der Anzahl von Artikeln gibt, die du in einer Leseliste haben kannst.</string>
+			<string>Der Artikel konnte nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
 			<key>other</key>
-			<string>Du kannst diese Artikel nicht zu „%2$@“ hinzufügen, da es eine Begrenzung bei der Anzahl von Artikeln gibt, die du in einer Leseliste haben kannst.</string>
+			<string>Die Artikel konnten nicht zu dieser Liste hinzugefügt werden. Du hast die Grenze von %2$d Artikeln pro Leseliste für %3$@ erreicht.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

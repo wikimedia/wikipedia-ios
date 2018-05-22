@@ -1,5 +1,6 @@
 #import "WMFSharing.h"
 #import <WMF/MWKSiteDataObject.h>
+#import <WMF/WMFBlockDefinitions.h>
 
 @class MWKArticle;
 @class MWKImageList;
@@ -39,7 +40,7 @@ extern NSString *const MWKSectionShareSnippetXPath;
 
 - (BOOL)isEqualToSection:(MWKSection *)section;
 
-- (void)save;
+- (BOOL)save:(NSError **)error;
 
 ///
 /// @name Extraction

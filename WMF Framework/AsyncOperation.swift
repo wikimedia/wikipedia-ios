@@ -8,14 +8,12 @@ enum AsyncOperationError: Error {
 
 @objc(WMFAsyncOperation) open class AsyncOperation: Operation {
     
-    let progress = Progress(totalUnitCount: 1)
-    
     // MARK: - Operation State
 
     static fileprivate let stateKeyPath = "state" // For KVO
     fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
-    fileprivate enum State: Int {
+    @objc public enum State: Int {
         case ready
         case executing
         case finished
@@ -25,7 +23,7 @@ enum AsyncOperationError: Error {
     
     fileprivate var _state = AsyncOperation.State.ready
     
-    fileprivate var state: AsyncOperation.State {
+    @objc public var state: AsyncOperation.State {
         get {
             semaphore.wait()
             let state = _state
@@ -94,12 +92,10 @@ enum AsyncOperationError: Error {
     // MARK: - Custom behavior
     
     @objc open func finish() {
-        progress.completedUnitCount = progress.totalUnitCount
         state = .finished
     }
     
     @objc open func finish(with error: Error) {
-        progress.completedUnitCount = progress.totalUnitCount
         self.error = error
         state = .finished
     }

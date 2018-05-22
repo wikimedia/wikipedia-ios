@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Chameleon222
 // Author: Danmichaelo
+// Author: Imre Eilertsen
 // Author: Jeblad
 // Author: Jon Harald Søby
 // Author: Kingu
@@ -116,6 +117,7 @@
 "empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-history-message" = "Her kan du holde styr på hva du har lest";
 "empty-no-history-title" = "Ingen historikk å vise";
+"empty-no-saved-pages-in-reading-list-title" = "Ingen sider er lagret i denne listen";
 "empty-no-saved-pages-message" = "Lagre sider for senere visning, også offline.";
 "empty-no-saved-pages-title" = "Ingen sider lagret enda";
 "empty-no-search-results-message" = "Ingen resultater ble funnet";
@@ -311,6 +313,7 @@
 "preference-title-eventlogging-opt-in" = "Send bruksrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lesere";
+"reading-list-sync-disabled-panel-title" = "Synkronisering er skrudd av";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart drakt";
 "reading-themes-controls-accessibility-brightness-slider" = "Glidebryter for lysstyrke";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk drakt";
@@ -323,11 +326,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nettopp|For $1 minutt siden|For $1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I år|I fjor|For $1 år siden}}";
 "request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
-"saved-clear-all" = "Tøm";
-"saved-pages-clear-cancel" = "Avbryt";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Er du sikker på at du ønsker å fjerne alle dine lagrede sider?";
-"saved-pages-clear-delete-all" = "Ja, slett alt";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
 "saved-title" = "Lagret";
 "search-button-accessibility-label" = "Søk i Wikipedia";

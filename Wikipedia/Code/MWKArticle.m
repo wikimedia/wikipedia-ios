@@ -267,9 +267,15 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Save
 
-- (void)save {
-    [self.dataStore saveArticle:self];
-    [self.sections save];
+- (BOOL)save:(NSError **)outError {
+    NSError *error = nil;
+    if (![self.dataStore saveArticle:self error:&error]) {
+        if (outError) {
+            *outError = error;
+        }
+        return NO;
+    }
+    return [self.sections save:outError];
 }
 
 #pragma mark - Accessors

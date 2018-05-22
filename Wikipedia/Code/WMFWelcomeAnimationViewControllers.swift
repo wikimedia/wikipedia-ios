@@ -2,7 +2,7 @@ class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
     fileprivate var hasAlreadyAnimated = false
     
-    open lazy var animationView: WMFWelcomeAnimationView? = nil
+    private(set) var animationView: WMFWelcomeAnimationView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,10 @@ class WMFWelcomeAnimationViewController: UIViewController {
 }
 
 class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewController {
-    override lazy var animationView: WMFWelcomeAnimationView? = {
+    override var animationView: WMFWelcomeAnimationView? {
+        return animationViewForWelcomePageType
+    }
+    private lazy var animationViewForWelcomePageType: WMFWelcomeAnimationView? = {
         switch welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionAnimationView()
@@ -57,7 +60,10 @@ class WMFWelcomeAnimationForgroundViewController: WMFWelcomeAnimationViewControl
 }
 
 class WMFWelcomeAnimationBackgroundViewController: WMFWelcomeAnimationViewController {
-    override lazy var animationView: WMFWelcomeAnimationView? = {
+    override var animationView: WMFWelcomeAnimationView? {
+        return animationViewForWelcomePageType
+    }
+    private lazy var animationViewForWelcomePageType: WMFWelcomeAnimationView? = {
         switch welcomePageType {
         case .intro:
             return nil

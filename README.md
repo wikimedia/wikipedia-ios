@@ -26,7 +26,7 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 * [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 * A pre-commit hook that runs clang-format on any changed files
 
-At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+) or messaging us on IRC in #wikimedia-ios on Freenode.
+At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A) or messaging us on IRC in #wikimedia-ios on Freenode.
 
 ## Development
 
@@ -48,11 +48,7 @@ We use [Carthage](https://github.com/Carthage/Carthage) to manage third-party na
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action.
 
 ## Contributing
-If you're interested in contributing to the project, you can find our current product, bug, and engineering backlogs on the [iOS App Phabricator project board](https://phabricator.wikimedia.org/project/view/782/). Once you pick a task, make sure you assign it to yourself to ensure nobody else duplicates your work.  The **#Easy** tag in Phabricator can also help you find tasks that are ideal for new contributors because they're small and/or well-defined.  We suggest you [filter the **#Easy** project to only show tasks in the Wikipedia iOS app projects](https://phabricator.wikimedia.org/project/board/169/query/OuulRzaqbmPh/).
-
-We do all of our active development on the [develop](https://github.com/wikimedia/wikipedia-ios) branch. Your pull requests will automatically be targeted at that branch by Github. To make merging easier, be sure you create your branches based on the develop branch.
-
-Once your contributions are ready for review, post a pull request on GitHub and Travis should verify your changes.  Once the build succeeds, one of the maintainers will stop to approve the changes for merging.
+Covered in the [contributing document](CONTRIBUTING.md).
 
 ### Gerrit
 We also maintain a mirror of this repository on Gerrit (see above), syncing the code after every release. If you'd rather use Gerrit to send us a patch, you'll need to:
@@ -77,6 +73,11 @@ Certain development and maintenance tasks will require the installation of speci
 `brew install carthage`
 
 We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. It is required to build the project. After installing carthage, (or running `scripts/setup`) you should be able to build & run in Xcode. `scripts/carthage_bootstrap` is run as a build step by Xcode. Your first build will take a while as the dependencies are built. Subsequent builds will re-use the prebuilt dependencies.
+
+
+### Manually imported dependencies
+
+HockeySDK is manually imported from their binary release. New binary releases of HockeySDK can be downloaded from https://www.hockeyapp.net/releases/ and copied over the existing version in the `Wikipedia/Frameworks` folder. We use the release in the `HockeySDKCrashOnly` folder.
 
 ### Clang-Format
  

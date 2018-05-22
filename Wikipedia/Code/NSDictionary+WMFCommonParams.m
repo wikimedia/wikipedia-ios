@@ -17,11 +17,9 @@
                                          @"", @"continue",
                                          @"json", @"format",
                                          @"query", @"action",
-                                         @"pageterms|pageimages|pageprops|revisions", @"prop",
+                                         @"description|pageimages|pageprops|revisions", @"prop",
                                          // pageprops
-                                         @"ppprop", @"ns",
-                                         // pageterms
-                                         @"description", @"wbptterms",
+                                         @"ns|disambiguation|displaytitle", @"ppprop",
                                          // pageimage
                                          @"thumbnail", @"piprop",
                                          //@"any", @"pilicense",

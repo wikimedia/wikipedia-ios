@@ -1,4 +1,6 @@
 #import <WMF/MWKDataObject.h>
+#import <WMF/WMFBlockDefinitions.h>
+NS_ASSUME_NONNULL_BEGIN
 @class MWKArticle;
 @class MWKSection;
 
@@ -35,7 +37,7 @@
 
 - (MWKSection *)sectionWithFragment:(NSString *)fragment;
 
-- (void)save;
+- (BOOL)save:(NSError **)outError;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;
 
@@ -53,3 +55,4 @@
 - (NSArray *)topLevelSections;
 
 @end
+NS_ASSUME_NONNULL_END

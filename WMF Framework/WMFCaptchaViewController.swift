@@ -30,29 +30,6 @@ extension UIStackView {
     func captchaHideSubtitle() -> Bool
 }
 
-public class WMFCaptcha: NSObject {
-    @objc let captchaID: String
-    @objc let captchaURL: URL
-    @objc init(captchaID:String, captchaURL:URL) {
-        self.captchaID = captchaID
-        self.captchaURL = captchaURL
-    }
-    static func captcha(from requests: [[String : AnyObject]]) -> WMFCaptcha? {
-        guard
-            let captchaAuthenticationRequest = requests.first(where:{$0["id"]! as! String == "CaptchaAuthenticationRequest"}),
-            let fields = captchaAuthenticationRequest["fields"] as? [String : AnyObject],
-            let captchaId = fields["captchaId"] as? [String : AnyObject],
-            let captchaInfo = fields["captchaInfo"] as? [String : AnyObject],
-            let captchaIdValue = captchaId["value"] as? String,
-            let captchaInfoValue = captchaInfo["value"] as? String,
-            let captchaURL = URL(string: captchaInfoValue)
-            else {
-                return nil
-        }
-        return WMFCaptcha(captchaID: captchaIdValue, captchaURL: captchaURL)
-    }
-}
-
 class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable {
 
     @IBOutlet fileprivate var captchaImageView: UIImageView!
@@ -166,7 +143,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             return
         }
         
-        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
+        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, stackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         
         
 

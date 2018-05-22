@@ -5,6 +5,7 @@
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMFContentGroup+Extensions.h>
 #import <WMF/WMFArticle+Extensions.h>
+#import <WMF/WMF-Swift.h>
 
 @interface WMFMainPageContentSource ()
 
@@ -83,43 +84,50 @@
         }
         [self.siteInfoFetcher fetchSiteInfoForSiteURL:self.siteURL
             completion:^(MWKSiteInfo *_Nonnull data) {
-                if (data.mainPageURL == nil) {
-                    if (completion) {
-                        completion();
-                    }
-                    return;
-                }
-
-                [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
-                    siteURL:self.siteURL
-                    completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
-                        if ([results count] == 0) {
-                            if (completion) {
-                                completion();
-                            }
-                            return;
+                [moc performBlock:^{
+                    if (data.mainPageURL == nil) {
+                        if (completion) {
+                            completion();
                         }
-                        [moc performBlock:^{
-                            WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
-                            [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
-                            section.contentPreview = data.mainPageURL;
-                            [section updateDailySortPriority];
-                            [self cleanupOldSectionsInManagedObjectContext:moc];
+                        return;
+                    }
 
+                    if (data.readingListsConfigMaxEntriesPerList != nil) {
+                        moc.wmf_readingListsConfigMaxEntriesPerList = data.readingListsConfigMaxEntriesPerList;
+                    }
+
+                    if (data.readingListsConfigMaxListsPerUser != nil) {
+                        moc.wmf_readingListsConfigMaxListsPerUser = [data.readingListsConfigMaxListsPerUser intValue];
+                    }
+
+                    [self.previewFetcher fetchArticlePreviewResultsForArticleURLs:@[data.mainPageURL]
+                        siteURL:self.siteURL
+                        completion:^(NSArray<MWKSearchResult *> *_Nonnull results) {
+                            if ([results count] == 0) {
+                                if (completion) {
+                                    completion();
+                                }
+                                return;
+                            }
+                            [moc performBlock:^{
+                                WMFContentGroup *section = [moc fetchOrCreateGroupForURL:groupURL ofKind:WMFContentGroupKindMainPage forDate:[NSDate date] withSiteURL:siteURL associatedContent:nil customizationBlock:NULL];
+                                [moc fetchOrCreateArticleWithURL:data.mainPageURL updatedWithSearchResult:[results firstObject]];
+                                section.contentPreview = data.mainPageURL;
+                                [section updateDailySortPriority];
+                                [self cleanupOldSectionsInManagedObjectContext:moc];
+
+                                if (completion) {
+                                    completion();
+                                }
+                            }];
+                        }
+                        failure:^(NSError *_Nonnull error) {
+                            //TODO??
                             if (completion) {
                                 completion();
                             }
                         }];
-
-                    }
-                    failure:^(NSError *_Nonnull error) {
-                        //TODO??
-                        if (completion) {
-                            completion();
-                        }
-
-                    }];
-
+                }];
             }
             failure:^(NSError *_Nonnull error) {
                 //TODO??

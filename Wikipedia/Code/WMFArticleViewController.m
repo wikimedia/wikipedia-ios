@@ -88,7 +88,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListAlertControllerDelegate>
+                                        WMFReadingListsAlertControllerDelegate,
+                                        WMFReadingListHintPresenter>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -146,7 +147,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
-@property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
+@property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @end
 
@@ -1287,9 +1288,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self dismissReadingThemesPopoverIfActive];
     WMFArticle *articleToUnsave = [self.savedPages entryForURL:self.articleURL];
     if (articleToUnsave && articleToUnsave.userCreatedReadingListsCount > 0) {
-        WMFReadingListAlertController *readingListAlertController = [[WMFReadingListAlertController alloc] init];
-        [readingListAlertController showAlertWithPresenter:self article:articleToUnsave];
-        return; // don't unsave immediately, wait for a callback from WMFReadingListAlertControllerDelegate
+        WMFReadingListsAlertController *readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
+        [readingListsAlertController showAlertWithPresenter:self article:articleToUnsave];
+        return; // don't unsave immediately, wait for a callback from WMFReadingListsAlertControllerDelegate
     }
     [self updateSavedState];
 }
@@ -1311,9 +1312,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
     } else {
         [self.savedPagesFunnel logDelete];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1327,9 +1330,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
 }
 
-#pragma mark - WMFReadingListActionSheetControllerDelegate
+#pragma mark - WMFReadingListsAlertControllerDelegate
 
-- (void)readingListAlertController:(WMFReadingListAlertController *)readingListAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
+- (void)readingListsAlertController:(WMFReadingListsAlertController *)readingListsAlertController didSelectUnsaveForArticle:(WMFArticle *_Nonnull)article {
     [self updateSavedState];
 }
 
@@ -1576,6 +1579,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [[ReadingListsFunnel shared] logArticleSaveInReadMore];
+    } else {
+        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore];
+    }
 }
 
 - (void)showLocation {
@@ -1909,6 +1917,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
+    if (didSave) {
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+    } else {
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+    }
 }
 
 #pragma mark - Article Navigation

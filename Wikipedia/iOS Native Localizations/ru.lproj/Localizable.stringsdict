@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Добавить %1$d статью в список для чтения</string>
+			<key>other</key>
+			<string>Добавить %1$d статей в список для чтения</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>статья удалена</string>
 			<key>other</key>
 			<string>статьи удалена</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Перенести %1$d статью в список для чтения</string>
+			<key>other</key>
+			<string>Перенести %1$d статей в список для чтения</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -34,6 +66,22 @@
 			<string>%1$d исторических событий</string>
 		</dict>
 	</dict>
+	<key>page-read-in-other-languages</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>@</string>
+			<key>one</key>
+			<string>Доступно на %1$@ one=другом языке</string>
+			<key>other</key>
+			<string>Доступно на %1$@ других языках</string>
+		</dict>
+	</dict>
 	<key>places-filter-saved-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -47,7 +95,7 @@
 			<key>one</key>
 			<string>Найдено %1$d место</string>
 			<key>other</key>
-			<string>Найдено %1$d места</string>
+			<string>Найдено %1$d мест</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -66,7 +114,7 @@
 			<string>%1$d статьи</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Вы не можете добавить эта статья в “%2$@” потому что существует ограничение на количество статей, которые вы можете иметь в списке чтения.</string>
+			<string>Вы превысили ограничение в %1$d статью на учётную запись.</string>
 			<key>other</key>
-			<string>Вы не можете добавить эти статьи в “%2$@” потому что существует ограничение на количество статей, которые вы можете иметь в списке чтения.</string>
+			<string>Вы превысили ограничение в %1$d статей на учётную запись.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

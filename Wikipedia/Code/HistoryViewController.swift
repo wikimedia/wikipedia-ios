@@ -10,7 +10,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
         articleRequest.predicate = NSPredicate(format: "viewedDate != NULL")
-        articleRequest.sortDescriptors = [NSSortDescriptor(key: "viewedDateWithoutTime", ascending: false), NSSortDescriptor(key: "viewedDate", ascending: false)]
+        articleRequest.sortDescriptors = [NSSortDescriptor(keyPath: \WMFArticle.viewedDateWithoutTime, ascending: false), NSSortDescriptor(keyPath: \WMFArticle.viewedDate, ascending: false)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: articleRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "viewedDateWithoutTime", cacheName: nil)
     }
     
@@ -86,6 +86,10 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             }
             headerView.text = titleForHeaderInSection(indexPath.section)
         }
+    }
+    
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .history
     }
 
 }

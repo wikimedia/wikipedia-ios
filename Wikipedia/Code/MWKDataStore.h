@@ -92,7 +92,7 @@ extern NSString *const WMFArticleUpdatedNotification;
  **/
 - (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk;
 
-- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable dispatch_block_t)completion;
+- (void)asynchronouslyCacheArticle:(MWKArticle *)article toDisk:(BOOL)toDisk completion:(nullable void (^)(NSError *error))completion;
 
 /**
  *  Cancel the asynchronous save for the @c article.
@@ -145,8 +145,10 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  Saves the article to the store
  *
  *  @param article the article to save
+ *  @param error out error
+ *  @returns whether or not the save succeeded
  */
-- (void)saveArticle:(MWKArticle *)article;
+- (BOOL)saveArticle:(MWKArticle *)article error:(NSError **)error;
 
 /**
  *  Adds the article to the memory cache
@@ -160,8 +162,10 @@ extern NSString *const WMFArticleUpdatedNotification;
  *  This is a non-op if the section.article is a main page
  *
  *  @param section the section to save
+ *  @param error out error
+ *  @returns whether or not the save succeeded
  */
-- (void)saveSection:(MWKSection *)section;
+- (BOOL)saveSection:(MWKSection *)section error:(NSError **)error;
 
 /**
  *  Saves the section to the store
@@ -169,16 +173,10 @@ extern NSString *const WMFArticleUpdatedNotification;
  *
  *  @param html    The text to save
  *  @param section the section to save
+ *  @param error out error
+ *  @returns whether or not the save succeeded
  */
-- (void)saveSectionText:(NSString *)html section:(MWKSection *)section;
-
-/**
- *  Saves the image to the store
- *  This is a non-op if the image.article is a main page
- *
- *  @param image The image to save
- */
-- (void)saveImage:(MWKImage *)image;
+- (BOOL)saveSectionText:(NSString *)html section:(MWKSection *)section error:(NSError **)error;
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList *)list error:(NSError **)error;
 
@@ -243,11 +241,15 @@ extern NSString *const WMFArticleUpdatedNotification;
 
 // Storage helper methods
 
+- (NSInteger)sitesDirectorySize;
+
 - (NSError *)removeFolderAtBasePath;
 
 - (BOOL)hasHTMLFileForSection:(MWKSection *)section;
 
 - (void)clearMemoryCache;
+
+- (void)clearCachesForUnsavedArticles;
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success;
 - (void)removeArticlesWithURLsFromCache:(NSArray<NSURL *> *)titlesToRemove;

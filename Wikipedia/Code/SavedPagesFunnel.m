@@ -8,9 +8,6 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 - (instancetype)init {
     // http://meta.wikimedia.org/wiki/Schema:MobileWikiAppSavedPages
     self = [super initWithSchema:@"MobileWikiAppSavedPages" version:10375480];
-    if (self) {
-        self.appInstallId = [self persistentUUID:@"ReadingAction"];
-    }
     return self;
 }
 
@@ -21,6 +18,12 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     } else {
         [funnel logDelete];
     }
+}
+
+- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
+    NSMutableDictionary *dict = [eventData mutableCopy];
+    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 - (void)logSaveNew {
@@ -52,18 +55,6 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditAfterRefresh {
     [self log:@{@"action": @"editafterrefresh"}];
-}
-
-- (NSDictionary *)preprocessData:(NSDictionary *)eventData {
-    if (!eventData) {
-        NSAssert(false, @"%@ : %@",
-                 kEventDataAssertVerbiage,
-                 eventData);
-        return nil;
-    }
-    NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = self.appInstallId;
-    return [dict copy];
 }
 
 @end

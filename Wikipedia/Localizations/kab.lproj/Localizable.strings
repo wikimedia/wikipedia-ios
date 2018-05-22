@@ -309,11 +309,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=tura kan|$1 n tesdat|$1 n tisdatin aya}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aseggas-a|Aseggas yezrin|$1 n useggas aya}}";
 "request-feedback-on-error" = "Asnas yemmuger-d ugur anida ineflayen-nneɣ ad bɣan ad ẓren ugar fell-as. Nnal dagi akken aɣ-d-azneḍ imayl s telqayt ɣef tuccḍa.";
-"saved-clear-all" = "Sfeḍ";
-"saved-pages-clear-cancel" = "Sefsex";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk isebtar yettwaskelsen melmi kan?";
-"saved-pages-clear-delete-all" = "Ih, kkes akk";
 "saved-pages-image-download-error" = "Ur izmir ara ad d-isali tugniwin n usebter-agi yettwaskelsen.";
 "saved-title" = "Yettwasekles";
 "search-button-accessibility-label" = "Nadi di Wikipedia";

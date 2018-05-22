@@ -153,6 +153,11 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  */
 - (nullable NSString *)moreTitle;
 
+/*
+ *  Specifies if group's visibility should be updated.
+ */
+- (BOOL)requiresVisibilityUpdate;
+
 @end
 
 NS_ASSUME_NONNULL_END

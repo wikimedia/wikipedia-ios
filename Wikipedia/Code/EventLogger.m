@@ -21,6 +21,7 @@ NSString *const WMFLoggingEndpoint =
 
 #if WMF_IS_NEW_EVENT_LOGGING_ENABLED
             NSDictionary *capsule = [NSDictionary wmf_eventCapsuleWithEvent:event schema:schema revision:revision wiki:wiki];
+            // NSLog(@"%@", capsule);
             [[WMFEventLoggingService sharedInstance] logEvent:capsule];
 #else
             NSDictionary *payload =
@@ -32,17 +33,11 @@ NSString *const WMFLoggingEndpoint =
                 };
             NSData *payloadJsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
             NSString *payloadJsonString = [[NSString alloc] initWithData:payloadJsonData encoding:NSUTF8StringEncoding];
-            //NSLog(@"%@", payloadJsonString);
+            // NSLog(@"%@", payload);
             NSString *encodedPayloadJsonString = [payloadJsonString wmf_UTF8StringWithPercentEscapes];
             NSString *urlString = [NSString stringWithFormat:@"%@?%@;", WMFLoggingEndpoint, encodedPayloadJsonString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]];
             [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
-            // arguably, we don't need to add the UUID to these requests
-            /*
-               ReadingActionFunnel *funnel = [[ReadingActionFunnel alloc] init];
-               [manager.requestSerializer setValue:funnel.appInstallID forHTTPHeaderField:@"X-WMF-UUID"];
-             */
-
             [[[NSURLSession sharedSession] dataTaskWithRequest:request] resume];
 #endif
         }

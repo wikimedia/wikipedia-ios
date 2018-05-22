@@ -6,13 +6,13 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemDisclosureType) {
     WMFSettingsMenuItemDisclosureType_ViewController,
     WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText,
     WMFSettingsMenuItemDisclosureType_ExternalLink,
-    WMFSettingsMenuItemDisclosureType_Switch
+    WMFSettingsMenuItemDisclosureType_Switch,
+    WMFSettingsMenuItemDisclosureType_TitleButton
 };
 
 typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_Login,
     WMFSettingsMenuItemType_StorageAndSyncing,
-    WMFSettingsMenuItemType_ShowDefaultList,
     WMFSettingsMenuItemType_StorageAndSyncingDebug,
     WMFSettingsMenuItemType_Support,
     WMFSettingsMenuItemType_SearchLanguage,

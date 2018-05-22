@@ -5,23 +5,12 @@ import WMF
 public enum TableOfContentsItemType {
     case primary
     case secondary
-
-    var titleFontFamily: WMFFontFamily {
-        get {
-            switch (self) {
-            case .primary:
-                return .georgia
-            case .secondary:
-                return .system
-            }
-        }
-    }
     
-    var titleFontTextStyle: UIFontTextStyle {
+    var titleTextStyle: DynamicTextStyle {
         get {
             switch (self) {
             case .primary:
-                return .title1
+                return .georgiaTitle1
             case .secondary:
                 return .subheadline
             }

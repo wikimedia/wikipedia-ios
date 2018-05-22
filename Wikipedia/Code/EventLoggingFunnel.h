@@ -5,6 +5,8 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
     WMFEventLoggingMaxStringLength_Snippet = 191 ///< MySQL length in practice
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Base class for EventLogging multi-stage funnels.
  *
@@ -21,6 +23,7 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 
 @property (nonatomic, strong) NSString *schema;
 @property (nonatomic, assign) int revision;
+@property (nonatomic, assign) BOOL requiresAppInstallID;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
@@ -73,13 +76,27 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki;
 
 /**
- * Helper function to generate a per-use UUID
+ * Called after eventData was logged through log:.
+ */
+- (void)logged:(NSDictionary *)eventData;
+
+/**
+ * Helper function to generate a per-use UUID.
  */
 - (NSString *)singleUseUUID;
 
 /**
- * Helper function to generate a persistent per-app-install UUID
+ * Helper function that returns a persistent appInstallID.
+ * appInstallID is generated once per install.
  */
-- (NSString *)persistentUUID:(NSString *)key;
+- (NSString *)wmf_appInstallID;
+
+/**
+ * Helper function that returns a sessionID.
+ * SessionID is reset when app is launched for the first time or resumed.
+ */
+- (NSString *)wmf_sessionID;
+
+NS_ASSUME_NONNULL_END
 
 @end

@@ -1,12 +1,11 @@
 import UIKit
 
 protocol CreateReadingListDelegate: NSObjectProtocol {
-    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle])
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle])
 }
 
 class CreateReadingListViewController: WMFScrollViewController, UITextFieldDelegate {
         
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var readingListNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var readingListNameErrorLabel: UILabel!
@@ -27,18 +26,18 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
+        navigationItem.title = WMFLocalizedString("reading-list-create-new-list-title", value: "Create a new list", comment: "Title for the view in charge of creating a new reading list.")
+        readingListNameLabel.text = WMFLocalizedString("reading-list-create-new-list-reading-list-name", value: "Reading list name", comment: "Title for label above text field for entering new list name.")
+        descriptionLabel.text = WMFLocalizedString("reading-list-create-new-list-description", value: "Description", comment: "Title for label above text field for entering new list description.")
         readingListNameTextField.placeholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")
         descriptionTextField.placeholder = WMFLocalizedString("reading-list-new-list-description-placeholder", value: "optional short description", comment: "Placeholder text appearing in text field for entering new list description")
+        createReadingListButton.titleLabel?.text = WMFLocalizedString("reading-list-create-new-list-button-title", value: "Create reading list", comment: "Title for button allowing the user to create a new reading list.")
         
         createReadingListButton.isEnabled = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         view.endEditing(false)
-    }
-    
-    @objc func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
     }
     
     init(theme: Theme, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil) {
@@ -59,7 +58,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             return
         }
         let trimmedDescription = descriptionTextField.text?.trimmingCharacters(in: .whitespaces)
-        delegate?.createReadingList(self, shouldCreateReadingList: true, with: trimmedName, description: trimmedDescription, articles: articles)
+        delegate?.createReadingListViewController(self, didCreateReadingListWith: trimmedName, description: trimmedDescription, articles: articles)
     }
     
     func handleReadingListNameError(_ error: ReadingListError) {
@@ -154,7 +153,6 @@ extension CreateReadingListViewController: Themeable {
         readingListNameTextField.apply(theme: theme)
         descriptionTextField.apply(theme: theme)
         
-        titleLabel.textColor = theme.colors.primaryText
         readingListNameLabel.textColor = theme.colors.secondaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         readingListNameErrorLabel.textColor = theme.colors.error

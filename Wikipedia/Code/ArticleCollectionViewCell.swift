@@ -1,21 +1,51 @@
 import UIKit
 
-
-
 @objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
-    
+
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()
     @objc public let imageView = UIImageView()
     @objc public let saveButton = SaveButton()
     @objc public var extractLabel: UILabel?
     public let actionsView = ActionsView()
+    public var alertIcon = UIImageView()
+    public var alertLabel = UILabel()
+    open var alertType: ReadingListAlertType?
+    public var statusView = UIImageView() // the circle that appears next to the article name to indicate the article's status
 
+    private var _titleHTML: String? = nil
+    private var _titleBoldedString: String? = nil
+    
+    private func updateTitleLabel() {
+        if let titleHTML = _titleHTML {
+            titleLabel.attributedText = titleHTML.byAttributingHTML(with: titleTextStyle, matching: traitCollection, withBoldedString: _titleBoldedString)
+        } else {
+            let titleFont = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+            titleLabel.font = titleFont
+        }
+    }
+    
+    @objc public var titleHTML: String? {
+        set {
+            _titleHTML = newValue
+            updateTitleLabel()
+        }
+        get {
+            return _titleHTML
+        }
+    }
+    
+    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+        _titleHTML = titleHTML
+        _titleBoldedString = boldedString
+        updateTitleLabel()
+    }
+    
     public var actions: [Action] {
         set {
             actionsView.actions = newValue
@@ -29,9 +59,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        titleFontFamily = .georgia
+        titleTextStyle = .georgiaTitle1
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        statusView.clipsToBounds = true
         
         if #available(iOSApplicationExtension 11.0, *) {
             imageView.accessibilityIgnoresInvertColors = true
@@ -42,6 +73,9 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.isOpaque = true
         saveButton.isOpaque = true
         
+        contentView.addSubview(alertIcon)
+        contentView.addSubview(alertLabel)
+        contentView.addSubview(statusView)
         contentView.addSubview(saveButton)
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
@@ -60,24 +94,27 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        _titleHTML = nil
+        _titleBoldedString = nil
         layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
-        titleFontFamily = .georgia
-        titleTextStyle = .title1
-        descriptionFontFamily = .system
+        titleTextStyle = .georgiaTitle1
         descriptionTextStyle  = .subheadline
-        extractFontFamily = .system
         extractTextStyle  = .subheadline
-        saveButtonFontFamily = .systemMedium
-        saveButtonTextStyle  = .subheadline
+        saveButtonTextStyle  = .mediumSubheadline
         layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
+        statusViewDimension = 6
+        alertIconDimension = 12
         saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
         isBatchEditing = false
         isBatchEditable = false
         actions = []
+        isAlertLabelHidden = true
+        isAlertIconHidden = true
+        isStatusViewHidden = true
         updateFonts(with: traitCollection)
     }
 
@@ -88,6 +125,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         extractLabel?.backgroundColor = labelBackgroundColor
         saveButton.backgroundColor = labelBackgroundColor
         saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+        alertIcon.backgroundColor = labelBackgroundColor
+        alertLabel.backgroundColor = labelBackgroundColor
     }
     
     deinit {
@@ -112,17 +151,96 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    public final var statusViewDimension: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public final var alertIconDimension: CGFloat = 0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public var isStatusViewHidden: Bool = true {
+        didSet {
+            statusView.isHidden = isStatusViewHidden
+            setNeedsLayout()
+        }
+    }
+    
+    public var isAlertLabelHidden: Bool = true {
+        didSet {
+            alertLabel.isHidden = isAlertLabelHidden
+            setNeedsLayout()
+        }
+    }
+    
+    public var isAlertIconHidden: Bool = true {
+        didSet {
+            alertIcon.isHidden = isAlertIconHidden
+            setNeedsLayout()
+        }
+    }
+    
+    public var isDeviceRTL: Bool {
+        return effectiveUserInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    public var isArticleRTL: Bool {
+        return articleSemanticContentAttribute == .forceRightToLeft
+    }
+    
+    public var layoutMarginsWithAdditionsAndMultipliers: UIEdgeInsets {
+        let margins = self.layoutMargins
+        let multipliers = self.layoutMarginsMultipliers
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+    }
+    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let batchEditX = batchEditingTranslation > 0 ? layoutMargins.left : -layoutMargins.left
-            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: abs(batchEditingTranslation), height: size.height)
+            let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+            let isBatchEditOnRight = isDeviceRTL
+            var batchEditSelectViewWidth: CGFloat = 0
+            var batchEditX: CGFloat = 0
+
+            if isBatchEditingPaneOpen {
+                if isArticleRTL {
+                    batchEditSelectViewWidth = isBatchEditOnRight ? layoutMargins.left : layoutMargins.right // left and and right here are really leading and trailing, should change to UIDirectionalEdgeInsets when available
+                } else {
+                    batchEditSelectViewWidth = isBatchEditOnRight ? layoutMargins.right : layoutMargins.left
+                }
+                if isBatchEditOnRight {
+                    batchEditX = size.width - batchEditSelectViewWidth
+                } else {
+                    batchEditX = 0
+                }
+            } else {
+                if isBatchEditOnRight {
+                    batchEditX = size.width
+                } else {
+                    batchEditX = 0 - batchEditSelectViewWidth
+                }
+            }
+            
+            if #available(iOSApplicationExtension 11.0, *) {
+                let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
+                batchEditSelectViewWidth -= safeX
+                if !isBatchEditOnRight && isBatchEditingPaneOpen {
+                    batchEditX += safeX
+                }
+                if isBatchEditOnRight && !isBatchEditingPaneOpen {
+                    batchEditX -= batchEditSelectViewWidth
+                }
+            }
+            
+            batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
             batchEditSelectView?.layoutIfNeeded()
             
-            let isActionsViewLeftAligned = effectiveUserInterfaceLayoutDirection == .rightToLeft
-
-            let actionsViewWidth = isActionsViewLeftAligned ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
-            let x = isActionsViewLeftAligned ? 0 : size.width - actionsViewWidth
+            let actionsViewWidth = isDeviceRTL ? max(0, swipeTranslation) : -1 * min(0, swipeTranslation)
+            let x = isDeviceRTL ? 0 : size.width - actionsViewWidth
             actionsView.frame = CGRect(x: x, y: 0, width: actionsViewWidth, height: size.height)
             actionsView.layoutIfNeeded()
         }
@@ -132,17 +250,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     // MARK - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
-    public var titleFontFamily: WMFFontFamily?
-    public var titleTextStyle: UIFontTextStyle?
-    
-    public var descriptionFontFamily: WMFFontFamily?
-    public var descriptionTextStyle: UIFontTextStyle?
-    
-    public var extractFontFamily: WMFFontFamily?
-    public var extractTextStyle: UIFontTextStyle?
-    
-    public var saveButtonFontFamily: WMFFontFamily?
-    public var saveButtonTextStyle: UIFontTextStyle?
+    public var titleTextStyle: DynamicTextStyle!
+    public var descriptionTextStyle: DynamicTextStyle!
+    public var extractTextStyle: DynamicTextStyle!
+    public var saveButtonTextStyle: DynamicTextStyle!
     
     public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat!
@@ -164,10 +275,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.setFont(with:titleFontFamily, style: titleTextStyle, traitCollection: traitCollection)
-        descriptionLabel.setFont(with:descriptionFontFamily, style: descriptionTextStyle, traitCollection: traitCollection)
-        extractLabel?.setFont(with:extractFontFamily, style: extractTextStyle, traitCollection: traitCollection)
-        saveButton.titleLabel?.setFont(with:saveButtonFontFamily, style: saveButtonTextStyle, traitCollection: traitCollection)
+
+        updateTitleLabel()
+        
+        descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
+        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+        alertLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
     // MARK - Semantic content
@@ -257,17 +371,41 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var swipeTranslation: CGFloat = 0 {
         didSet {
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
-            layoutMarginsAdditions.right = 0 - swipeTranslation
-            layoutMarginsAdditions.left = swipeTranslation
+            let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
+            if isArticleRTL {
+                layoutMarginsAdditions.left = 0 - swipeTranslation
+                layoutMarginsAdditions.right = swipeTranslation
+            } else {
+                layoutMarginsAdditions.right = 0 - swipeTranslation
+                layoutMarginsAdditions.left = swipeTranslation
+            }
             setNeedsLayout()
         }
+    }
+    
+    private var isBatchEditingPaneOpen: Bool {
+        return batchEditingTranslation > 0
     }
 
     private var batchEditingTranslation: CGFloat = 0 {
         didSet {
-            layoutMarginsAdditions.left = batchEditingTranslation / 1.5
-            let isOpen = batchEditingTranslation > 0
-            if isOpen, let batchEditSelectView = batchEditSelectView {
+            let marginAddition = batchEditingTranslation / 1.5
+
+            if isArticleRTL {
+                if isDeviceRTL {
+                    layoutMarginsAdditions.left = marginAddition
+                } else {
+                    layoutMarginsAdditions.right = marginAddition
+                }
+            } else {
+                if isDeviceRTL {
+                    layoutMarginsAdditions.right = marginAddition
+                } else {
+                    layoutMarginsAdditions.left = marginAddition
+                }
+            }
+            
+            if isBatchEditingPaneOpen, let batchEditSelectView = batchEditSelectView {
                 contentView.addSubview(batchEditSelectView)
                 batchEditSelectView.clipsToBounds = true
             }

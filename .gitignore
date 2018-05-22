@@ -37,6 +37,9 @@ vendor/bundle
 # Fastlane
 fastlane/report.xml
 fastlane/Error*.png
+fastlane/metadata/trade_representative_contact_information
+fastlane/metadata/review_information
+
 *.mobileprovision
 
 # Ignore baselines, which we'll eventually maintain in CI to prevent

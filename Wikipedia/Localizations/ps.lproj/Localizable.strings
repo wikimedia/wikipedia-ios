@@ -112,11 +112,6 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ليکنې|$1 ليکنې}}";
 "potd-description-prefix" = "د $1 د ورځې انځور";
 "preference-title-eventlogging-opt-in" = "د کارېدنې راپورونه لېږل";
-"saved-clear-all" = "سپينول";
-"saved-pages-clear-cancel" = "ناگارل";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "ټول خوندي شوي توکي ړنگوۍ؟";
-"saved-pages-clear-delete-all" = "هو، ټول ړنگول";
 "saved-title" = "خوندي شو";
 "search-did-you-mean" = "آيا $1 مو موخه ده؟";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";

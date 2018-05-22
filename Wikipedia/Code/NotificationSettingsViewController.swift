@@ -71,7 +71,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
             let title = WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
             let message = "\(WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))"
             let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: WMFLocalizedString("welcome-explore-tell-me-more-done-button", value:"Got it", comment:"Text for button dismissing detailed explanation of new features"), style: UIAlertActionStyle.default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: UIAlertActionStyle.default, handler: { (action) in
             }))
             self?.present(alertController, animated: true, completion: nil)
         })]
@@ -81,12 +81,13 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
             return UserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
-            }, switchAction: { (isOn) in
+            }, switchAction: { [weak self] (isOn) in
+                guard let strongSelf = self else { return }
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
-                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { (granted, error) in
+                    WMFNotificationsController.shared().requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
                         if let error = error as NSError? {
-                            self.wmf_showAlertWithError(error)
+                            self?.wmf_showAlertWithError(error)
                         }
                     })
                 } else {
@@ -94,9 +95,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
                 }
                 
                 if isOn {
-                    PiwikTracker.sharedInstance()?.wmf_logActionEnable(inContext: self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionEnable(inContext: strongSelf, contentType: strongSelf)
                 }else{
-                    PiwikTracker.sharedInstance()?.wmf_logActionDisable(inContext: self, contentType: self)
+                    PiwikTracker.sharedInstance()?.wmf_logActionDisable(inContext: strongSelf, contentType: strongSelf)
                 }
             UserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
@@ -177,7 +178,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+        guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return nil
         }
         if let th = header as Themeable? {
@@ -188,7 +189,7 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let header = WMFTableHeaderLabelView.wmf_viewFromClassNib() else {
+        guard let header = WMFTableHeaderFooterLabelView.wmf_viewFromClassNib() else {
             return 0
         }
         header.text = sections[section].headerTitle

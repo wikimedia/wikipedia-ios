@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tambahkan %1$d artikel ke daftar bacaan</string>
+			<key>other</key>
+			<string>Tambahkan %1$d artikel ke daftar bacaan</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>artikel terhapus</string>
 			<key>other</key>
 			<string>artikel terhapus</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Pindahkan %1$d artikel ke daftar bacaan</string>
+			<key>other</key>
+			<string>Pindahkan %1$d artikel ke daftar bacaan</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -66,7 +98,7 @@
 			<string>%1$d artikel</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Anda tidak dapat menambahkan artikel ini ke “%2$@” karena ada batasan jumlah artikel yang dapat Anda miliki dalam daftar bacaan.</string>
+			<string>Artikel tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas %2$d artikel per daftar bacaan untuk %3$@</string>
 			<key>other</key>
-			<string>Anda tidak dapat menambahkan artikel ini ke “%2$@” karena ada batasan jumlah artikel yang dapat Anda miliki dalam daftar bacaan.</string>
+			<string>Artikel tidak dapat ditambahkan ke daftar ini. Anda telah mencapai batas %2$d artikel per daftar bacaan untuk %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

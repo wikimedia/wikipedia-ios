@@ -68,9 +68,12 @@
 }
 
 - (void)updateWithSearchResult:(nullable MWKSearchResult *)searchResult {
-    if ([searchResult.displayTitle length] > 0) {
-        self.displayTitle = searchResult.displayTitle;
+    if ([searchResult.displayTitleHTML length] > 0) {
+        self.displayTitleHTML = searchResult.displayTitleHTML;
+    } else if ([searchResult.displayTitle length] > 0) {
+        self.displayTitleHTML = searchResult.displayTitle;
     }
+    
     if ([searchResult.wikidataDescription length] > 0) {
         self.wikidataDescription = searchResult.wikidataDescription;
     }
@@ -147,9 +150,12 @@
     }
 
     WMFArticle *preview = [self fetchOrCreateArticleWithURL:articleURL];
-    if ([feedPreview.displayTitle length] > 0) {
-        preview.displayTitle = feedPreview.displayTitle;
+    if ([feedPreview.displayTitleHTML length] > 0) {
+        preview.displayTitleHTML = feedPreview.displayTitleHTML;
+    } else if ([feedPreview.displayTitle length] > 0) {
+        preview.displayTitleHTML = feedPreview.displayTitle;
     }
+    
     if ([feedPreview.wikidataDescription length] > 0) {
         preview.wikidataDescription = feedPreview.wikidataDescription;
     }

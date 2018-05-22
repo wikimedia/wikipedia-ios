@@ -1,9 +1,11 @@
 // Messages for Occitan (occitan)
 // Exported from translatewiki.net
 // Author: Cedric31
+// Author: Guilhelma
 // Author: Macofe
 // Author: Nemo bis
 // Author: Nicolas Eynaud
+// Author: Unuaiga
 
 "about-content-license" = "Licéncia del contengut";
 "about-contributors" = "!Contributors";
@@ -65,6 +67,7 @@
 "edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-other" = "Autre";
 "empty-no-feed-title" = "Pas de connexion a Internet";
+"empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
 "explore-another-random" = "Un autre article a l'azard";
 "explore-continue-reading-heading" = "Contunhar de legir";
@@ -144,6 +147,7 @@
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "menu-cancel-accessibility-label" = "Anullar";
 "menu-trash-accessibility-label" = "Suprimir";
+"move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "nearby-distance-label-feet" = "$1 pès";
 "nearby-distance-label-km" = "$1 km";
@@ -175,13 +179,12 @@
 "preference-title-eventlogging-opt-in" = "Mandar los rapòrts d’utilizacion";
 "rank-accessibility-label" = "Numèro $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-list-sync-enable-subtitle" = "Vòstres articles e listas de lectura salvagardats pòdon ara èstre salvats dins vòstre compte Wikipedia e sincronizats demest las aplicacions Wikipedia.";
+"reading-lists-article-queued-to-be-downloaded" = "Article ajustat a la tièra per èstre teledescargat";
 "reference-title" = "Referéncia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Uèi|Ièr|Fa $1 jorns}}";
-"saved-clear-all" = "Escafar";
-"saved-pages-clear-cancel" = "Anullar";
 // Fuzzy
-"saved-pages-clear-confirmation-heading" = "Sètz segur que volètz suprimir totes vòstres elements enregistrats ?";
-"saved-pages-clear-delete-all" = "Òc, suprimir tot";
+"saved-pages-progress-syncing" = "Sincronizacion de l'article en cors...";
 "saved-title" = "Enregistrat";
 "search-did-you-mean" = "Volètz dire $1 ?";
 "search-field-placeholder-text" = "Recercar dins Wikipèdia";
@@ -201,6 +204,7 @@
 "settings-notifications-system-turn-on" = "Activar las notificacions";
 "settings-notifications-trending" = "Tendéncias dels eveniments actuals";
 "settings-primary-language" = "Principal";
+"settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
 // Fuzzy

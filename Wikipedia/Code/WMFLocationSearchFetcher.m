@@ -173,7 +173,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
         NSString *gsrsearch = [gsrSearchArray componentsJoinedByString:@" "];
         NSMutableDictionary<NSString *, NSObject *> *serializedParams = [NSMutableDictionary dictionaryWithDictionary:@{
             @"action": @"query",
-            @"prop": @"coordinates|pageimages|pageterms",
+            @"prop": @"coordinates|pageimages|description|pageprops",
             @"coprop": @"type|dim",
             @"colimit": @(params.numberOfResults),
             @"generator": @"search",
@@ -183,6 +183,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             //@"pilicense": @"any",
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
             @"pilimit": @(params.numberOfResults),
+            @"ppprop": @"displaytitle|disambiguation",
             @"format": @"json",
         }];
         switch (params.sortStyle) {
@@ -205,13 +206,13 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
             [NSString stringWithFormat:@"%f|%f", params.region.center.latitude, params.region.center.longitude];
         return @{
             @"action": @"query",
-            @"prop": @"coordinates|pageimages|pageterms|extracts",
+            @"prop": @"coordinates|pageimages|description|pageprops|extracts",
             @"coprop": @"type|dim",
             @"colimit": @(params.numberOfResults),
             @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
             @"pilimit": @(params.numberOfResults),
             //@"pilicense": @"any",
-            @"wbptterms": @"description",
+            @"ppprop": @"displaytitle|disambiguation",
             @"generator": @"geosearch",
             @"ggscoord": coords,
             @"codistancefrompoint": coords,

@@ -1,6 +1,7 @@
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
+let WMFSessionStartDate = "WMFSessionStartDate"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -27,6 +28,10 @@ let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
 let WMFDidShowEnableReadingListSyncPanelKey = "WMFDidShowEnableReadingListSyncPanelKey"
 let WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey = "WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey"
+let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedArticlesPanel"
+let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
+let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
+let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -102,6 +107,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
+    }
+    
+    @objc public var wmf_sessionStartDate: Date? {
+        get {
+            return wmf_dateForKey(WMFSessionStartDate)
+        }
+        set {
+            set(newValue, forKey: WMFSessionStartDate)
+            synchronize()
+        }
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
@@ -262,12 +277,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
     
-    @objc public func wmf_setDaysInstalled(_ daysInstalled: NSNumber) {
+    @objc public func wmf_setLoggedDaysInstalled(_ daysInstalled: NSNumber) {
         self.set(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
         self.synchronize()
     }
 
-    @objc public func wmf_daysInstalled() -> NSNumber? {
+    @objc public func wmf_loggedDaysInstalled() -> NSNumber? {
         return self.object(forKey: "DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 
@@ -468,5 +483,39 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() -> Bool {
         return self.bool(forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
+    }
+    
+    @objc public func wmf_didShowLimitHitForUnsortedArticlesPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowLimitHitForUnsortedArticlesPanel)
+    }
+    
+    @objc public func wmf_setDidShowLimitHitForUnsortedArticlesPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowLimitHitForUnsortedArticlesPanel)
+        self.synchronize()
+    }
+    
+    @objc public func wmf_didShowSyncDisabledPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowSyncDisabledPanel)
+    }
+    
+    @objc public func wmf_setDidShowSyncDisabledPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowSyncDisabledPanel)
+    }
+    
+    @objc public func wmf_didShowSyncEnabledPanel() -> Bool {
+        return self.bool(forKey: WMFDidShowSyncEnabledPanel)
+    }
+    
+    @objc public func wmf_setDidShowSyncEnabledPanel(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowSyncEnabledPanel)
+    }
+    
+    @objc public func wmf_didSplitExistingReadingLists() -> Bool {
+        return self.bool(forKey: WMFDidSplitExistingReadingLists)
+    }
+    
+    @objc public func wmf_setDidSplitExistingReadingLists(_ didSplit: Bool) {
+        self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
+        self.synchronize()
     }
 }

@@ -19,13 +19,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
     
     var articleURL: URL?
 
-    var theme: Theme = {
-        if #available(iOSApplicationExtension 10.0, *) {
-            return Theme.widget
-        } else {
-            return Theme.widgetiOS9
-        }
-    }()
+    var theme: Theme = .widget
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,9 +135,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.daysAgoView.isHidden = true
         }
         
-        
-        self.titleLabel.text = article.displayTitle
-        
+        self.titleLabel.attributedText = article.displayTitleHTML.byAttributingHTML(with: .headline, matching: traitCollection)
         
         if #available(iOSApplicationExtension 10.0, *) {
             if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
@@ -168,6 +160,10 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         return true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        _ = updateView()
+    }
 
     @IBAction func continueReading(_ sender: AnyObject) {
         let URL = articleURL as NSURL?

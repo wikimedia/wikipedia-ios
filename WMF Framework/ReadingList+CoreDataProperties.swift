@@ -23,7 +23,7 @@ extension ReadingList {
     @NSManaged public var articles: Set<WMFArticle>?
     @NSManaged public var entries: Set<ReadingListEntry>?
     @NSManaged public var previewArticles: NSOrderedSet?
-    
+    @NSManaged public var sortOrder: NSNumber?
     
     public var name: String? {
         set {
@@ -32,6 +32,13 @@ extension ReadingList {
         get {
             return isDefault ? CommonStrings.readingListsDefaultListTitle : canonicalName
         }
+    }
+    
+    public var APIError: APIReadingListError? {
+        guard let errorCode = errorCode ?? entries?.first(where: { !$0.isDeletedLocally && $0.errorCode != nil })?.errorCode else {
+            return nil
+        }
+        return APIReadingListError(rawValue: errorCode)
     }
     
     @objc static let defaultListCanonicalName = "default"

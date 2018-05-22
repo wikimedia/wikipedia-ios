@@ -58,6 +58,7 @@
 "action-unsave" = "ឈប់រក្សាទុក";
 "action-unsaved-accessibility-notification" = "អត្ថបទឈប់រក្សាទុករួច";
 "action-update" = "បន្ទាន់សម័យ";
+// Fuzzy
 "add-articles-to-reading-list" = "បន្ថែម $1 ទៅបញ្ជីអំណាន";
 "alert-no-internet" = "គ្មានបណ្ដាញអ៊ីនធើណិត";
 "announcements-dismiss" = "លាក់";
@@ -312,11 +313,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ថ្មីៗនេះ|$1 ១ម៉ោងមុន|$1 ម៉ោងមុន}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=អម្បាញ់មិញ|$1 ១នាទីមុន|$1 នាទីមុន}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ឆ្នាំនេះ|ឆ្នាំមុន|$1 ឆ្នាំមុន}}";
-"saved-clear-all" = "សម្អាត";
-"saved-pages-clear-cancel" = "បោះបង់";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "តើអ្នកពិតជាចង់លុបចោលទំព័រដែលបានរក្សាទុកទាំងអស់ឬ?";
-"saved-pages-clear-delete-all" = "លុបចោលទាំងអស់";
 "saved-pages-image-download-error" = "ទាញយករូបភាពរបស់ទំព័រដែលបានរក្សាទុកនេះមិនបានសម្រេចទេ។";
 "saved-title" = "រក្សាទុករួច";
 "search-button-accessibility-label" = "ស្វែងរកក្នុងវិគីភីឌា";

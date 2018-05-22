@@ -82,11 +82,11 @@ class ReadingListsTests: XCTestCase {
     func testCreatingReadingListWithArticles() {
         let readingListName = "foo"
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
-        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let articleKeys = articles.flatMap { (article) -> String? in
+        let articleKeys = articles.compactMap { (article) -> String? in
             return article.key
         }
         
@@ -105,15 +105,15 @@ class ReadingListsTests: XCTestCase {
         let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!]
         let otherArticleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Bar")!, URL(string: "//en.wikipedia.org/wiki/Baz")!]
         
-        let articles = articleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let otherArticles = otherArticleURLs.flatMap { (articleURL) -> WMFArticle? in
+        let otherArticles = otherArticleURLs.compactMap { (articleURL) -> WMFArticle? in
             return dataStore.fetchOrCreateArticle(with: articleURL)
         }
         
-        let otherArticleKeys = otherArticles.flatMap { (article) -> String? in
+        let otherArticleKeys = otherArticles.compactMap { (article) -> String? in
             return article.key
         }
         
@@ -133,6 +133,27 @@ class ReadingListsTests: XCTestCase {
         
     }
     
+    func testAddingDuplicateArticlesToExistingReadingList() {
+        let readingListName = "foo"
+        let articleURLs = [URL(string: "//en.wikipedia.org/wiki/Foo")!, URL(string: "//en.wikipedia.org/wiki/Foo")!]
+        
+        let articles = articleURLs.compactMap { (articleURL) -> WMFArticle? in
+            return dataStore.fetchOrCreateArticle(with: articleURL)
+        }
+        
+        let articleKeys = articles.compactMap { (article) -> String? in
+            return article.key
+        }
+        
+        do {
+            let readingList = try dataStore.readingListsController.createReadingList(named: readingListName, description: "Foo", with: articles)
+            let existingArticleKeys = readingList.articleKeys
+            XCTAssert(existingArticleKeys.wmf_containsObjectsInAnyOrder(articleKeys) && existingArticleKeys.count == 1)
+        } catch let error {
+            XCTAssert(false, "Should be able to add articles to \(readingListName) reading list: \(error)")
+        }
+    }
+    
     // MARK: - Performance
     
     func testPerformanceCreatingReadingList() {
@@ -146,9 +167,13 @@ class ReadingListsTests: XCTestCase {
 
 extension Array where Element: Hashable {
     func wmf_containsObjectsInAnyOrderAndMatchesCount(_ other: [Element]) -> Bool {
+        return wmf_containsObjectsInAnyOrder(other) && self.count == other.count
+    }
+    
+    func wmf_containsObjectsInAnyOrder(_ other: [Element]) -> Bool {
         let selfSet = Set(self)
         let otherSet = Set(other)
-        return otherSet.isSubset(of: selfSet) && self.count == other.count
+        return otherSet.isSubset(of: selfSet)
     }
 }
 

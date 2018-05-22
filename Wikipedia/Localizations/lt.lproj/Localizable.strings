@@ -226,10 +226,6 @@
 "relogin-failed-retry-login-button-title" = "Bandyti prisijungti iš naujo";
 "relogin-failed-stay-logged-out-button-title" = "Palikite mane neprijungtą";
 "saved-all-articles-title" = "Visi straipsniai";
-"saved-clear-all" = "Išvalyti";
-"saved-pages-clear-cancel" = "Atšaukti";
-"saved-pages-clear-confirmation-heading" = "Ar jūs tikrai norite ištrinti visus išsaugotus straipsnius ir pašalinti juos iš visų skaitymo sąrašų?";
-"saved-pages-clear-delete-all" = "Taip, ištrinti viską";
 "saved-title" = "Išsaugota";
 "search-did-you-mean" = "Galbūt norėjote ieškoti: $1?";
 "search-field-placeholder-text" = "Paieška Vikipedijoje";

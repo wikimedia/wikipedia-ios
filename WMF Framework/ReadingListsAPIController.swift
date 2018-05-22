@@ -4,12 +4,22 @@ internal let APIReadingListUpdateLimitForFullSyncFallback = 1000 // if we receiv
 
 public enum APIReadingListError: String, Error, Equatable {
     case generic = "readinglists-client-error-generic"
+    case notLoggedIn = "notloggedin"
+    case badtoken = "badtoken"
     case notSetup = "readinglists-db-error-not-set-up"
+    case alreadySetUp = "readinglists-db-error-already-set-up"
     case listLimit = "readinglists-db-error-list-limit"
     case entryLimit = "readinglists-db-error-entry-limit"
     case duplicateEntry = "readinglists-db-error-duplicate-page"
     case needsFullSync = "readinglists-client-error-needs-full-sync"
     case listDeleted = "readinglists-db-error-list-deleted"
+    case listEntryDeleted = "readinglists-db-error-list-entry-deleted"
+    case defaultListCannotBeUpdated = "readinglists-db-error-cannot-update-default-list"
+    case defaultListCannotBeDeleted = "readinglists-db-error-cannot-delete-default-list"
+    case noSuchProject = "readinglists-db-error-no-such-project"
+    case noSuchListEntry = "readinglists-db-error-no-such-list-entry"
+    case noSuchList = "readinglists-db-error-no-such-list"
+    case duplicateList = "readinglists-db-error-duplicate-list"
     
     public var localizedDescription: String {
         switch self {
@@ -89,6 +99,10 @@ struct APIReadingListErrorResponse: Codable {
     let detail: String?
 }
 
+enum APIReadingListRequestType: String {
+    case setup, teardown
+}
+
 extension APIReadingListEntry {
     var articleURL: URL? {
         guard let site = URL(string: project) else {
@@ -110,6 +124,8 @@ class ReadingListsAPIController: NSObject {
     
     private var pendingTasks: [String: Any] = [:]
     private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    
+    public var lastRequestType: APIReadingListRequestType?
     
     func addPendingTask(_ task: Any, for key: String) {
         pendingTaskQueue.async {
@@ -176,13 +192,17 @@ class ReadingListsAPIController: NSObject {
     }
     
     @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {
-        post(path: "setup") { (result, response, error) in
+        let requestType = APIReadingListRequestType.setup
+        post(path: requestType.rawValue) { (result, response, error) in
+            self.lastRequestType = requestType
             completion(error)
         }
     }
     
     @objc func teardownReadingLists(completion: @escaping (Error?) -> Void) {
-        post(path: "teardown") { (result, response, error) in
+        let requestType = APIReadingListRequestType.teardown
+        post(path: requestType.rawValue) { (result, response, error) in
+            self.lastRequestType = requestType
             completion(error)
         }
     }
@@ -251,7 +271,7 @@ class ReadingListsAPIController: NSObject {
                 }
                 return
             }
-            completion(batch.flatMap {
+            completion(batch.compactMap {
                 let id = $0["id"] as? Int64
                 var error: Error? = nil
                 if let errorString = $0["error"] as? String {
@@ -364,7 +384,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
 
-            completion(batch.flatMap {
+            completion(batch.compactMap {
                 let id = $0["id"] as? Int64
                 var error: Error? = nil
                 if let errorString = $0["error"] as? String {

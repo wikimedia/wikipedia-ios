@@ -36,16 +36,13 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewDidLoad() {
         super.viewDidLoad()
         register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-    
         setupEditController()
-        
         isRefreshControlEnabled = true
-        
         emptyViewType = .noSavedPages
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }
@@ -60,13 +57,17 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isNavigationBarHidingEnabled = false
+        navigationBarHider.isBarHidingEnabled = false
+        navigationBarHider.isUnderBarViewHidingEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
+        if !isEmpty {
+            self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,18 +95,20 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     // MARK: - Sorting
     
-    var sort: (descriptors: [NSSortDescriptor], action: UIAlertAction?) = (descriptors: [NSSortDescriptor(key: "savedDate", ascending: false)], action: nil)
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], alertAction: nil)
     
-    var defaultSortAction: UIAlertAction? { return sortActions[.byRecentlyAdded] }
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
 
-    lazy var sortActions: [SortActionType: UIAlertAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(key: "displayTitle", ascending: true)], handler: { (sortDescriptors, action) in
-            self.updateSort(with: sortDescriptors, newAction: action)
+    lazy var sortActions: [SortActionType: SortAction] = {
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, alertAction, _) in
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
         })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(key: "savedDate", ascending: false)], handler: { (sortDescriptors, action) in
-            self.updateSort(with:  sortDescriptors, newAction: action)
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, alertAction, _) in
+            self.updateSort(with: sortDescriptors, alertAction: alertAction)
         })
-        return [title.type: title.action, recentlyAdded.type: recentlyAdded.action]
+        return [title.type: title, recentlyAdded.type: recentlyAdded]
     }()
     
     lazy var sortAlert: UIAlertController = {
@@ -137,7 +140,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.predicate = NSPredicate(format:"ANY articles == %@ && isDefault == NO", article)
-        request.sortDescriptors = [NSSortDescriptor(key: "canonicalName", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
         request.fetchLimit = 4
         
         do {
@@ -183,22 +186,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
-    
-    // MARK: - Clear Saved Articles
-    
-    @objc func clear(_ completion: @escaping () -> Void) {
-        let clearMessage = WMFLocalizedString("saved-pages-clear-confirmation-heading", value: "Are you sure you want to delete all your saved articles and remove them from all reading lists?", comment: "Heading text of delete all confirmation dialog")
-        let clearCancel = WMFLocalizedString("saved-pages-clear-cancel", value: "Cancel", comment: "Button text for cancelling delete all action\n{{Identical|Cancel}}")
-        let clearConfirm = WMFLocalizedString("saved-pages-clear-delete-all", value: "Yes, delete all", comment: "Button text for confirming delete all action\n{{Identical|Delete all}}")
-        let sheet = UIAlertController(title: nil, message: clearMessage, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction(title: clearCancel, style: .cancel, handler: { (action) in
-            completion()
-        }))
-        sheet.addAction(UIAlertAction(title: clearConfirm, style: .destructive, handler: { (action) in
-            self.dataStore.readingListsController.unsaveAllArticles(completion)
-        }))
-        present(sheet, animated: true, completion: nil)
     }
 }
 
@@ -276,20 +263,21 @@ extension SavedArticlesViewController {
             return
         }
         
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
+        if let defaultListEntry = try? article.fetchDefaultListEntry(), let entry = defaultListEntry {
+            cell.configureAlert(for: entry, with: article, in: nil, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue, isInDefaultReadingList: true)
+        }
         
+        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
+        
+        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         cell.delegate = self
-        
         cell.layoutMargins = layout.readableMargins
         
-        guard !layoutOnly, let translation = editController.swipeTranslationForItem(at: indexPath) else {
-            return
-        }
-        cell.swipeTranslation = translation
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
 }
 
@@ -305,6 +293,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return
         }
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        ReadingListsFunnel.shared.logReadStartIReadingList()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -316,7 +305,7 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         }
         
-        let articles = selectedIndexPaths.flatMap({ article(at: $0) })
+        let articles = selectedIndexPaths.compactMap({ article(at: $0) })
         
         switch action.type {
         case .update:
@@ -327,12 +316,12 @@ extension SavedArticlesViewController: ActionDelegate {
             present(addArticlesToReadingListViewController, animated: true, completion: nil)
             return true
         case .unsave:
-            let alertController = ReadingListAlertController()
-            let delete = ReadingListAlertActionType.delete.action {
+            let alertController = ReadingListsAlertController()
+            let delete = ReadingListsAlertActionType.delete.action {
                 self.delete(articles: articles)
             }
             var didPerform = false
-            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: articles, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.delete(articles: articles)
                 didPerform = true
                 return didPerform
@@ -345,7 +334,9 @@ extension SavedArticlesViewController: ActionDelegate {
     
     private func delete(articles: [WMFArticle]) {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articles.count))
+        let articlesCount = articles.count
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount)
     }
     
     func willPerformAction(_ action: Action) -> Bool {
@@ -355,9 +346,9 @@ extension SavedArticlesViewController: ActionDelegate {
         guard action.type == .delete else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let unsave = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
+        let alertController = ReadingListsAlertController()
+        let unsave = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
         return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
             return self.editController.didPerformAction(action)
         }
@@ -376,22 +367,12 @@ extension SavedArticlesViewController: ActionDelegate {
                 delete(articles: [article])
             }
             return true
-        case .save:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
-                return true
-            }
-        case .unsave:
-            if let articleURL = articleURL(at: indexPath) {
-                dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
-                return true
-            }
         case .share:
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+        default:
+            assertionFailure("Unsupported action type")
+            return false
         }
-        return false
     }
     
     func availableActions(at indexPath: IndexPath) -> [Action] {
@@ -422,12 +403,25 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
         updateSearchString(searchText)
         
         if searchText.isEmpty {
-            searchBar.resignFirstResponder()
+            makeSearchBarResignFirstResponder(searchBar)
         }
     }
     
     func saved(_ saved: SavedViewController, searchBarSearchButtonClicked searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
+        navigationBarHider.isHidingEnabled = false
+    }
+    
+    func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
+        makeSearchBarResignFirstResponder(searchBar)
+    }
+    
+    private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        navigationBarHider.isHidingEnabled = true
     }
 }
 
@@ -483,4 +477,3 @@ extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewN
         return analyticsName
     }
 }
-

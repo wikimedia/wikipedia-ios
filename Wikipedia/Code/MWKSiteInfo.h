@@ -12,8 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Raw title for the receiver's main page.
 @property (readonly, copy, nonatomic) NSString *mainPageTitleText;
 
+@property (readonly, copy, nonatomic) NSNumber *readingListsConfigMaxEntriesPerList;
+@property (readonly, copy, nonatomic) NSNumber *readingListsConfigMaxListsPerUser;
+
 - (instancetype)initWithSiteURL:(NSURL *)siteURL
-              mainPageTitleText:(NSString *)mainPage NS_DESIGNATED_INITIALIZER;
+                      mainPageTitleText:(NSString *)mainPage
+    readingListsConfigMaxEntriesPerList:(NSNumber *)readingListsConfigMaxEntriesPerList
+      readingListsConfigMaxListsPerUser:(NSNumber *)readingListsConfigMaxListsPerUser NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)isEqualToSiteInfo:(MWKSiteInfo *)siteInfo;
 

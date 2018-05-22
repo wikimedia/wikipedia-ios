@@ -40,11 +40,15 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
     @IBOutlet fileprivate weak var stackView: UIStackView!
     @IBOutlet fileprivate weak var roundedCornerContainer: UIView!
+    @IBOutlet fileprivate weak var effectsView: UIVisualEffectView!
 
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var showCloseButton = true
+    private var discardDismissHandlerOnPrimaryButtonTap = false
+    private var primaryButtonTapped = false
+    private var theme: Theme = Theme.standard
     
     var image:UIImage? {
         get {
@@ -106,12 +110,16 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
     }
     
-    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?) {
+    init(showCloseButton: Bool, primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme) {
         super.init(nibName: "ScrollableEducationPanelView", bundle: nil)
+        self.modalPresentationStyle = .overFullScreen
+        self.modalTransitionStyle = .crossDissolve
+        self.theme = theme
         self.showCloseButton = showCloseButton
         self.primaryButtonTapHandler = primaryButtonTapHandler
         self.secondaryButtonTapHandler = secondaryButtonTapHandler
         self.dismissHandler = dismissHandler
+        self.discardDismissHandlerOnPrimaryButtonTap = discardDismissHandlerOnPrimaryButtonTap
     }
     required public init?(coder aDecoder: NSCoder) {
         return nil
@@ -119,19 +127,21 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, "\n\nAll stackview arrangedSubview height constraints need to have a priority of < 1000 so the stackview can collapse the 'cell' if the arrangedSubview's isHidden property is set to true. This arrangedSubview was determined to have a required height: \(String(describing: stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint())). To fix reduce the priority of its height constraint to < 1000.\n\n")
-        
-        modalPresentationStyle = .overFullScreen
-        modalTransitionStyle = .crossDissolve
+        assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, stackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         
         reset()
         primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
-        secondaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
+        secondaryButton.titleLabel?.numberOfLines = 2
+        secondaryButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        secondaryButton.titleLabel?.textAlignment = .center
         closeButton.isHidden = !showCloseButton
-        
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
         }
+        
+        closeButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        apply(theme: theme)
     }
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
@@ -163,6 +173,11 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         view.layoutIfNeeded()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        secondaryButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
+    }
+    
     fileprivate func adjustImageViewVisibility(for verticalSizeClass: UIUserInterfaceSizeClass) {
         imageView.isHidden = (imageView.image == nil || verticalSizeClass == .compact)
     }
@@ -186,8 +201,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let primaryButtonTapHandler = primaryButtonTapHandler else {
             return
         }
+        primaryButtonTapped = true
         primaryButtonTapHandler(sender)
-
     }
 
     @IBAction fileprivate func secondaryButtonTapped(_ sender: Any) {
@@ -202,10 +217,31 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         guard let dismissHandler = dismissHandler else {
             return
         }
+        guard !(discardDismissHandlerOnPrimaryButtonTap && primaryButtonTapped) else {
+            return
+        }
         dismissHandler()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        primaryButtonTapped = false
+    }
+    
     func apply(theme: Theme) {
-        view.tintColor = theme.colors.link
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        headingLabel?.textColor = theme.colors.primaryText
+        subheadingLabel?.textColor = theme.colors.primaryText
+        footerLabel?.textColor = theme.colors.primaryText
+        closeButton.tintColor = theme.colors.primaryText
+        primaryButton?.tintColor = theme.colors.link
+        secondaryButton?.tintColor = theme.colors.link
+        primaryButton?.layer.borderColor = theme.colors.link.cgColor
+        
+        effectsView.effect = UIBlurEffect(style: theme.colors.blurEffectStyle)
+        effectsView.backgroundColor = theme.colors.blurEffectBackground
     }
 }

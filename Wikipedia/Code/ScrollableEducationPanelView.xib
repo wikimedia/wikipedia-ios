@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScrollableEducationPanelViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="BAe-h0-y6b" id="eXa-fB-phT"/>
+                <outlet property="effectsView" destination="i3Y-1u-tKd" id="O8S-b1-HYo"/>
                 <outlet property="footerLabel" destination="NCF-lS-nEw" id="Cpg-ot-4y5"/>
                 <outlet property="headingLabel" destination="Cta-dZ-grZ" id="rDC-RM-LOF"/>
                 <outlet property="imageView" destination="rFJ-kb-kte" id="Dmh-26-vvR"/>
@@ -30,55 +31,61 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-Db-J92" userLabel="Rounded Corner Container">
-                    <rect key="frame" x="9" y="37" width="280" height="454.5"/>
+                    <rect key="frame" x="9" y="44.5" width="280" height="440"/>
                     <subviews>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-1u-tKd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="454.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="440"/>
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OsN-uF-riJ">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="454.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="440"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <blurEffect style="extraLight"/>
                         </visualEffectView>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="454.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="440.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.5" width="280" height="454.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="280" height="440.5"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                            <rect key="frame" x="15" y="16" width="250" height="420.5"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a">
+                                            <rect key="frame" x="0.0" y="16" width="280" height="15"/>
                                             <subviews>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="15"/>
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BAe-h0-y6b">
+                                                    <rect key="frame" x="240" y="0.0" width="40" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="15" id="Zfm-Kv-h00"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="40" id="C4N-RO-Pf1"/>
+                                                        <constraint firstAttribute="height" priority="999" constant="15" id="jNS-Hb-YCs"/>
                                                     </constraints>
                                                     <state key="normal" image="places-auth-close"/>
                                                     <connections>
                                                         <action selector="close:" destination="-1" eventType="touchUpInside" id="5Lo-Ac-Q3z"/>
                                                     </connections>
                                                 </button>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
+                                            <rect key="frame" x="15" y="31" width="250" height="391.5"/>
+                                            <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
-                                                    <rect key="frame" x="0.0" y="29" width="250" height="95"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="95"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="95" id="jWo-IS-JDh"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="This is a reasonably long sample TITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cta-dZ-grZ">
-                                                    <rect key="frame" x="0.0" y="138" width="250" height="64.5"/>
+                                                    <rect key="frame" x="0.0" y="109" width="250" height="64.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" text="This is a reasonably long sample SUBITITLE for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ka1-Ou-kwY">
-                                                    <rect key="frame" x="0.0" y="216.5" width="250" height="52"/>
+                                                    <rect key="frame" x="0.0" y="187.5" width="250" height="52"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8">
-                                                    <rect key="frame" x="0.0" y="282.5" width="250" height="40"/>
+                                                    <rect key="frame" x="0.0" y="253.5" width="250" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="40" id="C08-Su-Zrl"/>
                                                     </constraints>
@@ -101,7 +108,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX">
-                                                    <rect key="frame" x="0.0" y="336.5" width="250" height="18"/>
+                                                    <rect key="frame" x="0.0" y="307.5" width="250" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="18" id="85p-VQ-b8x"/>
                                                     </constraints>
@@ -120,7 +127,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCF-lS-nEw">
-                                                    <rect key="frame" x="0.0" y="368.5" width="250" height="52"/>
+                                                    <rect key="frame" x="0.0" y="339.5" width="250" height="52"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -129,8 +136,11 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="Evj-R4-67a" secondAttribute="bottom" id="06h-rf-lHy"/>
+                                        <constraint firstAttribute="trailing" secondItem="Evj-R4-67a" secondAttribute="trailing" id="6Cg-Jh-Ds6"/>
                                         <constraint firstItem="zdf-Q2-cLc" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" constant="15" id="7CU-RZ-a8R"/>
-                                        <constraint firstItem="zdf-Q2-cLc" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="16" id="WBN-Oz-gDa"/>
+                                        <constraint firstItem="Evj-R4-67a" firstAttribute="leading" secondItem="BhM-b3-oKp" secondAttribute="leading" id="KNk-Au-DKq"/>
+                                        <constraint firstItem="Evj-R4-67a" firstAttribute="top" secondItem="BhM-b3-oKp" secondAttribute="top" constant="16" id="LHX-JW-L5j"/>
                                         <constraint firstAttribute="trailing" secondItem="zdf-Q2-cLc" secondAttribute="trailing" constant="15" id="crP-8H-B4A"/>
                                         <constraint firstAttribute="bottom" secondItem="zdf-Q2-cLc" secondAttribute="bottom" constant="18" id="rCR-qx-yj8"/>
                                     </constraints>
@@ -160,9 +170,9 @@
                     <constraints>
                         <constraint firstItem="e3o-Ht-LDd" firstAttribute="leading" secondItem="qtK-Db-J92" secondAttribute="leading" id="Ddf-FG-9Ec"/>
                         <constraint firstAttribute="width" constant="280" id="EvZ-1i-fo7"/>
+                        <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="LTF-k8-oqQ"/>
                         <constraint firstAttribute="bottom" secondItem="i3Y-1u-tKd" secondAttribute="bottom" id="OP0-IS-QyH"/>
                         <constraint firstAttribute="trailing" secondItem="e3o-Ht-LDd" secondAttribute="trailing" id="Td2-3d-O5E"/>
-                        <constraint firstItem="e3o-Ht-LDd" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="YS2-jM-5Yn"/>
                         <constraint firstItem="i3Y-1u-tKd" firstAttribute="top" secondItem="qtK-Db-J92" secondAttribute="top" id="ZN6-Kj-6SM"/>
                         <constraint firstItem="i3Y-1u-tKd" firstAttribute="leading" secondItem="qtK-Db-J92" secondAttribute="leading" id="hga-nf-cM1"/>
                         <constraint firstAttribute="bottom" secondItem="e3o-Ht-LDd" secondAttribute="bottom" id="kV7-O6-Yke"/>

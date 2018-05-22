@@ -1,4 +1,4 @@
-@import Foundation;
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,14 +41,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)wmf_stringByCollapsingConsecutiveSpaces;
 - (NSString *)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons;
 - (NSString *)wmf_stringByCollapsingAllWhitespaceToSingleSpaces;
-- (NSString *)wmf_stringByDecodingHTMLNonBreakingSpaces;
-- (NSString *)wmf_stringByDecodingHTMLAndpersands;
-- (NSString *)wmf_stringByDecodingHTMLLessThanAndGreaterThan;
 
 - (NSString *)wmf_summaryFromText;
 
 - (void)wmf_enumerateHTMLImageTagContentsWithHandler:(nonnull void (^)(NSString *imageTagContents, NSRange range))handler;
+
+- (nonnull NSString *)wmf_stringByRemovingHTML;
+
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
+- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont;
+
+/**
+ *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
+ *  Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
+ *  It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
+ */
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
 
 @end
 

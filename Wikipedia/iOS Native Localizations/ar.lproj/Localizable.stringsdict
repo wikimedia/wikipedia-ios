@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Add %1$d article to reading list</string>
+			<key>other</key>
+			<string>Add %1$d articles to reading list</string>
+		</dict>
+	</dict>
 	<key>article-deleted-accessibility-notification</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,6 +32,22 @@
 			<string>article deleted</string>
 			<key>other</key>
 			<string>articles deleted</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Move %1$d article to reading list</string>
+			<key>other</key>
+			<string>Move %1$d articles to reading list</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -66,7 +98,7 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
-	<key>reading-list-unable-to-add-entries-due-to-list-limit</key>
+	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -77,9 +109,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>You cannot add this article to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+			<string>Article cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@</string>
 			<key>other</key>
-			<string>You cannot add these articles to “%2$@” because there is a limit to the number of articles you can have in a reading list.</string>
+			<string>Articles cannot be added to this list. You have reached the limit of %2$d articles per reading list for %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

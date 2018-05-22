@@ -72,8 +72,14 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
+        func checkmarkItem(for theme: Theme) -> (AppearanceSettingsCheckmarkItem) {
+            return AppearanceSettingsCheckmarkItem(title: theme.displayName, theme: theme) { [weak self] in
+                self?.userDidSelect(theme: theme)
+            }
+        }
+
         let readingThemesSection =
-            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCheckmarkItem(title: Theme.light.displayName, theme: Theme.light, checkmarkAction: {self.userDidSelect(theme: Theme.light)}), AppearanceSettingsCheckmarkItem(title: Theme.sepia.displayName, theme: Theme.sepia, checkmarkAction: {self.userDidSelect(theme: Theme.sepia)}), AppearanceSettingsCheckmarkItem(title: Theme.dark.displayName, theme: Theme.dark, checkmarkAction: {self.userDidSelect(theme: Theme.dark)}), AppearanceSettingsCheckmarkItem(title: Theme.black.displayName, theme: Theme.black, checkmarkAction: {self.userDidSelect(theme: Theme.black)})])
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)])
         
         let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle)])
         
@@ -233,10 +239,10 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
             if currentAppTheme.withDimmingEnabled(false) === checkmarkItem.theme {
                 cell.accessoryType = .checkmark
-                cell.backgroundView?.backgroundColor = theme.colors.midBackground
+                cell.isSelected = true
             } else {
                 cell.accessoryType = .none
-                cell.backgroundView?.backgroundColor = theme.colors.paperBackground
+                cell.isSelected = false
             }
         }
     }

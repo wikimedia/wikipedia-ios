@@ -7,6 +7,7 @@
 }
 
 @dynamic displayTitle;
+@dynamic displayTitleHTMLString;
 @dynamic geoDimensionNumber;
 @dynamic geoTypeNumber;
 @dynamic imageHeight;
@@ -32,6 +33,6 @@
 @dynamic wikidataDescription;
 @dynamic readingLists;
 @dynamic previewReadingLists;
-@dynamic errorCode;
+@dynamic errorCodeNumber;
 
 @end

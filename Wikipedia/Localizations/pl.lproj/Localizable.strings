@@ -18,6 +18,8 @@
 // Author: Peter Bowman
 // Author: Pio387
 // Author: Py64
+// Author: Railfail536
+// Author: Stojex
 // Author: The Polish
 // Author: Ty221
 // Author: Vesihiisi
@@ -62,20 +64,25 @@
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
+"action-cancel" = "Anuluj";
+"action-read" = "Czytaj";
+"action-remove" = "Usuń";
 "action-save" = "Zapisz";
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
+"action-sort" = "Sortuj";
+"action-update" = "Aktualizuj";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Odrzuć";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artykuł został usunięty";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artykuł usunięty|artykuły usunięte}}";
 "article-languages-filter-placeholder" = "Znajdź język";
 "article-languages-label" = "Wybierz język";
 "article-languages-others" = "Inne języki";
 "article-languages-yours" = "Twoje języki";
 "article-read-more-title" = "Czytaj więcej";
+"article-save-error-not-enough-space" = "Masz za mało miejsca na urządzeniu, by zapisać ten artykuł";
 "article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
@@ -194,6 +201,7 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Anuluj";
 "menu-trash-accessibility-label" = "Usuń";
+"more-languages-tooltip-title" = "Dodaj języki";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "nearby-distance-label-feet" = "$1 stopy";
 "nearby-distance-label-km" = "$1 km";
@@ -222,6 +230,7 @@
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
 "page-read-in-other-languages" = "Dostępne w $1 innych językach";
 "page-similar-titles" = "Podobne strony";
+"page-talk-page" = "Zobacz stronę dyskusji";
 "pictured" = "z obrazkiem";
 "places-accessibility-close-search" = "Zamknij wyszukiwanie";
 "places-accessibility-group" = "$1 artykułów";
@@ -245,18 +254,27 @@
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "readers-accessibility-label" = "$1 czytelników";
+"reading-list-create-new-list-description" = "Opis";
+"reading-list-create-new-list-title" = "Utwórz nową listę";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortuj artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
+"reading-list-new-list-description-placeholder" = "opcjonalny krótki opis";
+"reading-lists-article-queued-to-be-downloaded" = "Artykuł zakolejkowany do pobrania";
+"reading-lists-default-list-title" = "Zapisane";
+"reading-lists-delete-reading-list-alert-title" = "Usunąć {{PLURAL:$1|listę|listy}}?";
+"reading-lists-sort-saved-articles" = "Sortuj zapisane artykuły";
+"reading-themes-controls-accessibility-black-theme-button" = "Czarny motyw";
+"reading-themes-controls-accessibility-dark-theme-button" = "Ciemny motyw";
+"reading-themes-controls-accessibility-light-theme-button" = "Jasny motyw";
 "reference-title" = "Przypis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dzisiaj|Wczoraj|$1 dni temu}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
 "relogin-failed-retry-login-button-title" = "Spróbuj zalogować się ponownie";
-"saved-clear-all" = "Wyczyść";
-"saved-pages-clear-cancel" = "Anuluj";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Czy na pewno chcesz usunąć wszystkie swoje zapisane strony?";
-"saved-pages-clear-delete-all" = "Tak, usuń wszystko";
+"saved-all-articles-title" = "Wszystkie artykuły";
+"saved-pages-progress-syncing" = "Trwa pobieranie artykułu...";
+"saved-search-default-text" = "Szukaj";
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
@@ -283,6 +301,7 @@
 "share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-menu-item" = "Udostępnij...";
 "share-message-format" = "„$1” $2";
+"sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
@@ -297,12 +316,14 @@
 "two-factor-login-with-regular-code" = "Użyj kodu weryfikacyjnego";
 "view-in-browser-footer-link" = "Zobacz artykuł w przeglądarce";
 "welcome-exploration-on-this-day-title" = "W tym dniu";
+"welcome-explore-continue-button" = "Rozpocznij";
 "welcome-explore-tell-me-more-done-button" = "Wszystko jasne";
 "welcome-intro-free-encyclopedia-more" = "Dowiedz się więcej o Wikipedii";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
 "welcome-intro-free-encyclopedia-title" = "Wolna encyklopedia";
 "welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
+"welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
 "wikitext-download-success" = "Zawartość załadowana.";
 "wikitext-downloading" = "Wczytywanie treści...";

@@ -25,6 +25,7 @@
 #import "WMFChange.h"
 
 #import "WMFArticleFetcher.h"
+#import "SavedArticlesFetcher.h"
 
 // Model
 #import "MWKLicense.h"
@@ -43,9 +44,10 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFArticleNavigationController.h"
+#import "PreviewAndSaveViewController.h"
 
 // Views
-#import "WMFTableHeaderLabelView.h"
+#import "WMFTableHeaderFooterLabelView.h"
 #import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
@@ -61,7 +63,7 @@
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"
-#import "LoginFunnel.h"
+#import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
 

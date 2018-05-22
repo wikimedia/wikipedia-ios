@@ -10,7 +10,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageLeadingWidth;
 @property (nonatomic) CGFloat titleLabelLeadingWidthForVisibleImage;
+@property (nonatomic) NSInteger controlTag;
+@property (nonatomic) BOOL isSwitchOn;
 @property (nonatomic, strong) WMFTheme *theme;
+@property (nonatomic, strong) UIColor *labelBackgroundColor;
 
 @end
 
@@ -56,6 +59,15 @@
     return image;
 }
 
+- (void)setControlTag:(NSInteger)controlTag {
+    self.disclosureSwitch.tag = controlTag;
+}
+
+- (void)setIsSwitchOn:(BOOL)isSwitchOn {
+    _isSwitchOn = isSwitchOn;
+    [self.disclosureSwitch setOn:isSwitchOn];
+}
+
 - (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
     switch (disclosureType) {
@@ -76,6 +88,8 @@
             self.disclosureLabel.hidden = YES;
             self.disclosureIcon.image = nil;
             self.disclosureSwitch.hidden = NO;
+            [self.disclosureSwitch addTarget:self action:@selector(didToggleDisclosureSwitch:) forControlEvents:UIControlEventValueChanged];
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewController:
             self.disclosureIcon.hidden = NO;
@@ -89,9 +103,20 @@
             self.disclosureIcon.image = [self backChevronImage];
             self.disclosureSwitch.hidden = YES;
             break;
+        case WMFSettingsMenuItemDisclosureType_TitleButton:
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
+            self.disclosureSwitch.hidden = YES;
+            break;
         default:
             break;
     }
+    [self applyTheme:self.theme];
+}
+
+- (void)didToggleDisclosureSwitch:(UISwitch *)sender {
+    [self.delegate settingsTableViewCell:self didToggleDisclosureSwitch:sender];
 }
 
 - (void)setIconColor:(UIColor *)iconColor {
@@ -126,15 +151,34 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType title:(NSString *)title iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
+    self.isSwitchOn = isSwitchOn;
+    self.disclosureType = disclosureType;
+    self.title = title;
+    self.iconName = iconName;
+    self.iconColor = iconColor;
+    self.iconBackgroundColor = iconBackgroundColor;
+    self.controlTag = controlTag;
+
+    [self applyTheme:theme];
+}
+
+- (void)setLabelBackgroundColor:(UIColor *)labelBackgroundColor {
+    self.titleLabel.backgroundColor = labelBackgroundColor;
+    self.disclosureLabel.backgroundColor = labelBackgroundColor;
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
-    self.titleLabel.textColor = theme.colors.primaryText;
+    self.titleLabel.textColor = _disclosureType == WMFSettingsMenuItemDisclosureType_TitleButton ? theme.colors.link : theme.colors.primaryText;
     self.disclosureLabel.textColor = theme.colors.secondaryText;
-    self.iconBackgroundColor = theme.colors.iconBackground;
-    self.iconColor = theme.colors.icon;
+    self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;
+    self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;
     self.disclosureIcon.tintColor = theme.colors.secondaryText;
+    self.disclosureSwitch.backgroundColor = theme.colors.paperBackground;
+    self.labelBackgroundColor = [UIColor clearColor];
 }
 
 @end

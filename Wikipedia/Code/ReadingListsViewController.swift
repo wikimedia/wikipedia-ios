@@ -27,6 +27,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     func setupFetchedResultsController() {
         let request: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
         request.relationshipKeyPathsForPrefetching = ["previewArticles"]
+        let isDefaultListEnabled = readingListsController.isDefaultListEnabled
+        
         if let readingLists = readingLists, readingLists.count > 0 {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [basePredicate, NSPredicate(format:"self IN %@", readingLists)])
         } else if displayType == .addArticlesToReadingList {
@@ -35,21 +37,21 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             if commonReadingLists.count > 0 {
                 subpredicates.append(NSPredicate(format:"NOT (self IN %@)", commonReadingLists))
             }
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 subpredicates.append(NSPredicate(format: "isDefault != YES"))
             }
             subpredicates.append(basePredicate)
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subpredicates)
         } else {
             var predicate = basePredicate
-            if !dataStore.readingListsController.isDefaultListEnabled {
+            if !isDefaultListEnabled {
                 predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "isDefault != YES"), basePredicate])
             }
             request.predicate = predicate
         }
         
         var sortDescriptors = baseSortDescriptors
-        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true))
+        sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -64,12 +66,22 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         collectionViewUpdater?.delegate = self
     }
     
+    var isShowingDefaultReadingListOnly: Bool {
+        guard readingListsController.isDefaultListEnabled else {
+            return false
+        }
+        guard let readingList = readingList(at: IndexPath(item: 0, section: 0)), readingList.isDefault else {
+            return false
+        }
+        return collectionView.numberOfSections == 1 && collectionView(collectionView, numberOfItemsInSection: 0) == 1
+    }
+    
     var basePredicate: NSPredicate {
         return NSPredicate(format: "isDeletedLocally == NO")
     }
     
     var baseSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: "isDefault", ascending: false)]
+        return [NSSortDescriptor(keyPath: \ReadingList.isDefault, ascending: false)]
     }
     
     init(with dataStore: MWKDataStore) {
@@ -108,7 +120,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     override func refresh() {
-        dataStore.readingListsController.backgroundUpdate {
+        dataStore.readingListsController.fullSync {
             self.endRefreshing()
         }
     }
@@ -117,6 +129,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
     
@@ -146,7 +159,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         }
         createReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: createReadingListViewController, theme: theme)
-        createReadingListViewController.navigationItem.rightBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
+        createReadingListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -160,7 +173,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     private func handleReadingListError(_ error: Error) {
         if let readingListsError = error as? ReadingListError {
-            WMFAlertManager.sharedInstance.showAlert(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(readingListsError.localizedDescription, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
         } else {
             WMFAlertManager.sharedInstance.showErrorAlertWithMessage(
                 CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
@@ -178,14 +191,11 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
         cell.layoutMargins = layout.readableMargins
+        
+        cell.configureAlert(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
 
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-            if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-                // placeholder for now, this should be a separate label or button
-                cell.descriptionLabel.text = error.localizedDescription
-                cell.descriptionLabel.textColor = theme.colors.error
-            }
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
             cell.isBatchEditable = false
@@ -200,12 +210,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 cell.swipeTranslation = translation
             }
             cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
-        }
-    
-        if let errorCode = readingList.errorCode, let error = APIReadingListError(rawValue: errorCode) {
-            // placeholder for now, this should be a separate label or button
-            cell.descriptionLabel.text = error.localizedDescription
-            cell.descriptionLabel.textColor = theme.colors.error
         }
     }
     
@@ -280,23 +284,29 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 // MARK: - CreateReadingListViewControllerDelegate
 
 extension ReadingListsViewController: CreateReadingListDelegate {
-    func createReadingList(_ createReadingList: CreateReadingListViewController, shouldCreateReadingList: Bool, with name: String, description: String?, articles: [WMFArticle]) {
-        guard shouldCreateReadingList else {
-            return
-        }
+    func createReadingListViewController(_ createReadingListViewController: CreateReadingListViewController, didCreateReadingListWith name: String, description: String?, articles: [WMFArticle]) {
         do {
             let readingList = try readingListsController.createReadingList(named: name, description: description, with: articles)
-            if let moveFromReadingList = createReadingList.moveFromReadingList {
+            if let moveFromReadingList = createReadingListViewController.moveFromReadingList {
                 try readingListsController.remove(articles: articles, readingList: moveFromReadingList)
             }
             delegate?.readingListsViewController(self, didAddArticles: articles, to: readingList)
-            createReadingList.dismiss(animated: true, completion: nil)
-        } catch let error {
-            if let readingListError = error as? ReadingListError, readingListError == .listExistsWithTheSameName {
-                createReadingListViewController?.handleReadingListNameError(readingListError)
+            createReadingListViewController.dismiss(animated: true, completion: nil)
+            if displayType == .addArticlesToReadingList {
+                ReadingListsFunnel.shared.logCreateInAddToReadingList()
             } else {
-                handleReadingListError(error)
+                ReadingListsFunnel.shared.logCreateInReadingLists()
             }
+        } catch let error {
+            switch error {
+            case let readingListError as ReadingListError where readingListError == .listExistsWithTheSameName:
+                createReadingListViewController.handleReadingListNameError(readingListError)
+            default:
+                createReadingListViewController.dismiss(animated: true) {
+                    self.handleReadingListError(error)
+                }
+            }
+            
         }
     }
 }
@@ -337,9 +347,10 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
         updateEmptyState()
+        editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         collectionView.setNeedsLayout()
     }
-    
+
 }
 
 // MARK: - ActionDelegate
@@ -352,9 +363,9 @@ extension ReadingListsViewController: ActionDelegate {
         guard action.type == .delete else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
         return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
             return self.editController.didPerformAction(action)
         }
@@ -364,6 +375,12 @@ extension ReadingListsViewController: ActionDelegate {
         do {
             try self.readingListsController.delete(readingLists: readingLists)
             self.editController.close()
+            let readingListsCount = readingLists.count
+            if displayType == .addArticlesToReadingList {
+                ReadingListsFunnel.shared.logDeleteInAddToReadingList(readingListsCount: readingListsCount)
+            } else {
+                ReadingListsFunnel.shared.logDeleteInReadingLists(readingListsCount: readingListsCount)
+            }
         } catch let error {
             handleReadingListError(error)
         }
@@ -374,18 +391,18 @@ extension ReadingListsViewController: ActionDelegate {
             return false
         }
         
-        let readingLists: [ReadingList] = selectedIndexPaths.flatMap({ readingList(at: $0) })
+        let readingLists: [ReadingList] = selectedIndexPaths.compactMap({ readingList(at: $0) })
         
         switch action.type {
         case .update:
             return true
         case .delete:
-            let alertController = ReadingListAlertController()
-            let delete = ReadingListAlertActionType.delete.action {
+            let alertController = ReadingListsAlertController()
+            let delete = ReadingListsAlertActionType.delete.action {
                 self.deleteReadingLists(readingLists)
             }
             var didPerform = false
-            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
+            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
                 self.deleteReadingLists(readingLists)
                 didPerform = true
                 return didPerform

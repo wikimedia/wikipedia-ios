@@ -8,7 +8,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection {
+class ArticleCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter, EditableCollection, EventLoggingEventValuesProviding {
     @objc var dataStore: MWKDataStore! {
         didSet {
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
@@ -78,6 +78,16 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         cellLayoutEstimate = nil
     }
     
+    // MARK: - EventLoggingEventValuesProviding
+    
+    var eventLoggingCategory: EventLoggingCategory {
+        assertionFailure("Subclassers should override this property")
+        return .unknown
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
+    }
 }
 
 extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
@@ -190,9 +200,9 @@ extension ArticleCollectionViewController: ActionDelegate {
         guard action.type == .unsave else {
             return self.editController.didPerformAction(action)
         }
-        let alertController = ReadingListAlertController()
-        let cancel = ReadingListAlertActionType.cancel.action { self.editController.close() }
-        let delete = ReadingListAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
             return self.editController.didPerformAction(action)
         }
@@ -216,6 +226,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }
@@ -225,6 +236,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel)
                 }
                 return true
             }

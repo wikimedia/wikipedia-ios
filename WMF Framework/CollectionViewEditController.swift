@@ -8,10 +8,14 @@ enum CollectionViewCellState {
     case idle, open
 }
 
+class EditBarButton: UIBarButtonItem {
+    var systemItem: UIBarButtonSystemItem?
+}
+
 public protocol CollectionViewEditControllerNavigationDelegate: class {
-    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
-    func willChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState)
+    func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
 }
@@ -23,6 +27,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     struct SwipeInfo {
         let translation: CGFloat
         let velocity: CGFloat
+        let state: SwipeState
     }
     var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
     
@@ -42,7 +47,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             if activeIndexPath != nil {
                 editingState = .swiping
             } else {
-                editingState = .none
+                editingState = isCollectionViewEmpty ? .empty : .none
             }
         }
     }
@@ -87,6 +92,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
         return swipeInfoByIndexPath[indexPath]?.translation
+    }
+    
+    public func configureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        guard !layoutOnly,
+            let cell = cell as? SwipeableCell,
+            let info = swipeInfoByIndexPath[indexPath] else {
+            return
+        }
+        cell.swipeState = info.state
+        cell.actionsView.delegate = self
+        cell.swipeTranslation = info.translation
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -215,7 +231,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private lazy var batchEditToolbarViewController: BatchEditToolbarViewController = {
-       let batchEditToolbarViewController = BatchEditToolbarViewController()
+       let batchEditToolbarViewController = BatchEditToolbarViewController(nibName: "BatchEditToolbarViewController", bundle: Bundle.wmf)
         batchEditToolbarViewController.items = self.batchEditToolbarItems
         return batchEditToolbarViewController
     }()
@@ -245,7 +261,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
                 swipeTranslation = isRTL ? maxWidth + (maxExtension * log(delta)) : 0 - maxWidth - (maxExtension * log(delta))
             }
             cell.swipeTranslation = swipeTranslation
-            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX)
+            swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: swipeTranslation, velocity: velocityX, state: .swiping)
         case .cancelled:
             fallthrough
         case .failed:
@@ -299,7 +315,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         let targetTranslation =  cell.swipeTranslationWhenOpen
         let velocity = swipeInfoByIndexPath[indexPath]?.velocity ?? 0
-        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity)
+        swipeInfoByIndexPath[indexPath] = SwipeInfo(translation: targetTranslation, velocity: velocity, state: .open)
         cell.swipeState = .open
         animateActionPane(of: cell, to: targetTranslation, with: velocity, completion: completion)
     }
@@ -349,6 +365,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     // MARK: - Batch editing
     
+    public var isShowingDefaultCellOnly: Bool = false {
+        didSet {
+            guard oldValue != isShowingDefaultCellOnly else {
+                return
+            }
+            editingState = isCollectionViewEmpty || isShowingDefaultCellOnly ? .empty : .none
+        }
+    }
+    
     public weak var navigationDelegate: CollectionViewEditControllerNavigationDelegate? {
         willSet {
             batchEditToolbarViewController.remove()
@@ -360,7 +385,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             if navigationDelegate == nil {
                 editingState = .unknown
             } else {
-                editingState = isCollectionViewEmpty ? .empty : .none
+                editingState = isCollectionViewEmpty || isShowingDefaultCellOnly ? .empty : .none
             }
         }
     }
@@ -386,46 +411,69 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
-        var newBarButtonSystemItem: (left: UIBarButtonSystemItem?, right: UIBarButtonSystemItem) = (left: nil, right: UIBarButtonSystemItem.edit)
-        var enabled = true
         
-        defer {
-            let rightButton = UIBarButtonItem(barButtonSystemItem: newBarButtonSystemItem.right, target: self, action: #selector(barButtonPressed(_:)))
-            let leftButton: UIBarButtonItem?
-            if let barButtonSystemItem = newBarButtonSystemItem.left {
-                leftButton = UIBarButtonItem(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            } else {
-                leftButton = nil
-            }
-            leftButton?.tag = editingState.tag
-            rightButton.tag = editingState.tag
-            rightButton.isEnabled = enabled
-            activeBarButton.left = leftButton
-            activeBarButton.right = rightButton
-            navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
-        }
+        let rightBarButtonSystemItem: UIBarButtonSystemItem?
+        let leftBarButtonSystemItem: UIBarButtonSystemItem?
+        var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly) || shouldShowEditButtonsForEmptyState
         
         switch newValue {
         case .editing:
             areSwipeActionsDisabled = true
-            newBarButtonSystemItem.left = .cancel
-            fallthrough
+            leftBarButtonSystemItem = .cancel
+            rightBarButtonSystemItem = .done
+            isRightBarButtonEnabled = true
+            if oldValue == .open {
+                transformBatchEditPane(for: editingState)
+            }
         case .swiping:
-            newBarButtonSystemItem.right = .done
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .edit
         case .open:
-            newBarButtonSystemItem.right = UIBarButtonSystemItem.cancel
-            fallthrough
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .cancel
+            transformBatchEditPane(for: editingState)
         case .closed:
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .edit
             transformBatchEditPane(for: editingState)
         case .empty:
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = shouldShowEditButtonsForEmptyState ? .edit : nil
             isBatchEditToolbarHidden = true
-            enabled = false
         default:
-            break
+            leftBarButtonSystemItem = nil
+            rightBarButtonSystemItem = .edit
         }
+        
+        var rightButton: EditBarButton?
+        var leftButton: EditBarButton?
+        
+        if let barButtonSystemItem = rightBarButtonSystemItem {
+            rightButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            rightButton?.systemItem = barButtonSystemItem
+        }
+        
+        if let barButtonSystemItem = leftBarButtonSystemItem {
+            leftButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
+            leftButton?.systemItem = barButtonSystemItem
+        }
+        
+        leftButton?.tag = editingState.tag
+        rightButton?.tag = editingState.tag
+        rightButton?.isEnabled = isRightBarButtonEnabled
+        
+        let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_font(.semiboldBody) : UIFont.wmf_font(.body)
+        let attributes = [NSAttributedStringKey.font: font]
+        rightButton?.setTitleTextAttributes(attributes, for: .normal)
+        leftButton?.setTitleTextAttributes(attributes, for: .normal)
+        
+        navigationDelegate?.didChangeEditingState(from: oldValue, to: editingState, rightBarButton: rightButton, leftBarButton: leftButton)
     }
     
     private func transformBatchEditPane(for state: EditingState, animated: Bool = true) {
+        guard !isCollectionViewEmpty else {
+            return
+        }
         let willOpen = state == .open
         areSwipeActionsDisabled = willOpen
         collectionView.allowsMultipleSelection = willOpen
@@ -469,7 +517,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     private func emptyStateDidChange() {
-        if isCollectionViewEmpty {
+        if isCollectionViewEmpty || isShowingDefaultCellOnly {
             editingState = .empty
         } else {
             editingState = .none
@@ -486,29 +534,22 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
     }
     
-    var activeBarButton: (left: UIBarButtonItem?, right: UIBarButtonItem?) = (left: nil, right: nil)
+    public var shouldShowEditButtonsForEmptyState: Bool = false
     
-    @objc private func barButtonPressed(_ sender: UIBarButtonItem) {
-        let currentEditingState = editingState
-        let newEditingState: EditingState
-        
-        switch currentEditingState {
-
-        case .open:
-            newEditingState = .closed
-        case .swiping:
-            closeActionPane()
-            newEditingState = .done
-        case .editing where sender == activeBarButton.left:
-            newEditingState = .cancelled
-        case .editing where sender == activeBarButton.right:
-            newEditingState = .done
-        default:
-            newEditingState = .open
+    @objc private func barButtonPressed(_ sender: EditBarButton) {
+        guard let navigationDelegate = navigationDelegate else {
+            assertionFailure("Unable to set new editing state - navigationDelegate is nil")
+            return
         }
-        
-        navigationDelegate?.willChangeEditingState(from: currentEditingState, to: newEditingState)
-        editingState = newEditingState
+        guard let systemItem = sender.systemItem else {
+            assertionFailure("Unable to set new editing state - systemItem is nil")
+            return
+        }
+        let currentEditingState = editingState
+        if currentEditingState == .swiping {
+            closeActionPane()
+        }
+        editingState = navigationDelegate.newEditingState(for: currentEditingState, fromEditBarButtonWithSystemItem: systemItem)
     }
     
     public func changeEditingState(to newEditingState: EditingState) {
