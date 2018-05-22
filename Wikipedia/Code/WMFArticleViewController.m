@@ -1877,7 +1877,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if (!providesEventValues) {
             return;
         }
-        id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)self.articlePreviewingActionsDelegate;
+        id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)weakArticlePreviewingActionsDelegate;
         EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
         EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
         [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel measure:1 language:articleLanguage];
