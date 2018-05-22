@@ -1,7 +1,20 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+    private let targetCountries: [String] = [
+        "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
+        "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
+        "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
+        "PT", "HU", "GR", "EG"
+    ]
     @objc public static let shared = UserHistoryFunnel()
+    
+    private var isTarget: Bool {
+        guard let countryCode = Locale.current.regionCode else {
+            return false
+        }
+        return targetCountries.contains(countryCode)
+    }
     
     private override init() {
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 17990229)
@@ -51,6 +64,9 @@
         guard let latestSnapshot = latestSnapshot else {
             return
         }
+        guard isTarget else {
+            return
+        }
         
         let newSnapshot = event()
         
@@ -66,6 +82,9 @@
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            return
+        }
+        guard isTarget else {
             return
         }
         log(event())
