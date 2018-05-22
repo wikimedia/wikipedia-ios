@@ -289,20 +289,22 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             
             [allImageURLs addObject:imageURL];
             NSNumber *width = [original wmf_numberForKey:@"width"];
-            NSNumber *height = original[@"height"];
-            if (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height) {
+            NSNumber *height = [original wmf_numberForKey:@"height"];
+            if ((!width && !height) || (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height)) {
                 NSNumber *currentWidth = width;
                 NSNumber *currentHeight = height;
                 NSURL *scaledImageURL = imageURL;
-                if ([width integerValue] > targetWidth) {
+                if (!width || [width integerValue] > targetWidth) {
                     NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
                     if (scaledImageURLString) {
                         scaledImageURL = [NSURL URLWithString:scaledImageURLString];
                         if (scaledImageURL) {
                             currentWidth = [NSNumber numberWithInteger:targetWidth];
-                            double ratio = [currentWidth doubleValue] / [width doubleValue];
-                            double currentHeightDouble = ratio * [height doubleValue];
-                            currentHeight = [NSNumber numberWithInteger:(NSInteger)round(currentHeightDouble)];
+                            if (width && [width doubleValue] > 0) {
+                                double ratio = [currentWidth doubleValue] / [width doubleValue];
+                                double currentHeightDouble = ratio * [height doubleValue];
+                                currentHeight = [NSNumber numberWithInteger:(NSInteger)round(currentHeightDouble)];
+                            }
                         } else {
                             scaledImageURL = imageURL;
                         }
@@ -311,10 +313,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
                 [galleryImageURLs addObject:scaledImageURL];
                 [imageURLsForSaving addObject:scaledImageURL];
                 NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
-                [imageDictionary setObject:currentWidth forKey:@"width"];
-                [imageDictionary setObject:currentHeight forKey:@"height"];
-                [imageDictionary setObject:width forKey:@"originalFileWidth"];
-                [imageDictionary setObject:height forKey:@"originalFileHeight"];
+
+                [imageDictionary wmf_maybeSetObject:currentWidth forKey:@"width"];
+                [imageDictionary wmf_maybeSetObject:currentHeight forKey:@"height"];
+                [imageDictionary wmf_maybeSetObject:width forKey:@"originalFileWidth"];
+                [imageDictionary wmf_maybeSetObject:height forKey:@"originalFileHeight"];
+
                 NSString *mime = [original wmf_stringForKey:@"mime"];
                 if (mime) {
                     [imageDictionary setObject:mime forKey:@"mimeType"];
