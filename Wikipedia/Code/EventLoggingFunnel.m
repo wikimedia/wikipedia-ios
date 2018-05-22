@@ -20,9 +20,17 @@
 }
 
 - (void)log:(NSDictionary *)eventData {
-    SessionSingleton *session = [SessionSingleton sharedInstance];
-    NSString *wiki = [session.currentArticleSiteURL.wmf_language stringByAppendingString:@"wiki"];
+    NSString *wiki = [self.primaryLanguage stringByAppendingString:@"wiki"];
     [self log:eventData wiki:wiki];
+}
+
+- (void)log:(NSDictionary *)eventData language:(nullable NSString *)language {
+    if (language) {
+        NSString *wiki = [language stringByAppendingString:@"wiki"];
+        [self log:eventData wiki:wiki];
+    } else {
+        [self log:eventData];
+    }
 }
 
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki {
@@ -42,6 +50,16 @@
             [self logged:eventData];
         }
     }
+}
+
+- (NSString *)primaryLanguage {
+    NSString *primaryLanguage = @"en";
+    MWKLanguageLink *appLanguage = [MWKLanguageLinkController sharedInstance].appLanguage;
+    if (appLanguage) {
+        primaryLanguage = appLanguage.languageCode;
+    }
+    assert(primaryLanguage);
+    return primaryLanguage;
 }
 
 - (NSString *)singleUseUUID {
