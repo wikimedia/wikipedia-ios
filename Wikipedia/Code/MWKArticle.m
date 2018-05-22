@@ -251,121 +251,124 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 - (void)importMediaJSON:(NSDictionary *)media {
     NSArray *items = media[@"items"];
-    if ([items count] > 0) {
-        NSMutableSet *allImageURLs = [NSMutableSet setWithCapacity:[items count]];
-        NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
-        NSMutableArray *imageURLsForSaving = [NSMutableArray arrayWithCapacity:[items count]];
-        NSMutableArray *galleryImages = [NSMutableArray arrayWithCapacity:[items count]];
-        NSMutableArray *galleryImageInfos = [NSMutableArray arrayWithCapacity:[items count]];
-        NSInteger targetWidth = [MWKArticle articleImageWidth];
-        for (id item in items) {
-            if (![item isKindOfClass:[NSDictionary class]]) {
-                continue;
-            }
-            
-            NSString *type = [item wmf_stringForKey:@"type"];
-            if (![type isEqualToString:@"image"]) {
-                continue;
-            }
-            
-            NSDictionary *original = [item wmf_dictionaryForKey:@"original"];
-            if (!original) {
-                continue;
-            }
+    if ([items count] == 0) {
+        return;
+    }
+    
+    NSMutableSet *allImageURLs = [NSMutableSet setWithCapacity:[items count]];
+    NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
+    NSMutableArray *imageURLsForSaving = [NSMutableArray arrayWithCapacity:[items count]];
+    NSMutableArray *galleryImages = [NSMutableArray arrayWithCapacity:[items count]];
+    NSMutableArray *galleryImageInfos = [NSMutableArray arrayWithCapacity:[items count]];
+    NSInteger targetWidth = [MWKArticle articleImageWidth];
+    for (id item in items) {
+        if (![item isKindOfClass:[NSDictionary class]]) {
+            continue;
+        }
         
-            NSString *source = [original wmf_stringForKey:@"source"];
-            if (!source) {
-                continue;
-            }
-            
-            if ([source hasPrefix:@"http:"]) {
-                source = [source stringByReplacingCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
-            }
-            
-            NSURL *imageURL = [NSURL URLWithString:source];
-            if (!imageURL) {
-                continue;
-            }
-            
-            [allImageURLs addObject:imageURL];
-            NSNumber *width = [original wmf_numberForKey:@"width"];
-            NSNumber *height = [original wmf_numberForKey:@"height"];
-            if ((!width && !height) || (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height)) {
-                NSNumber *currentWidth = width;
-                NSNumber *currentHeight = height;
-                NSURL *scaledImageURL = imageURL;
-                if (!width || [width integerValue] > targetWidth) {
-                    NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
-                    if (scaledImageURLString) {
-                        scaledImageURL = [NSURL URLWithString:scaledImageURLString];
-                        if (scaledImageURL) {
-                            currentWidth = [NSNumber numberWithInteger:targetWidth];
-                            if (width && [width doubleValue] > 0) {
-                                double ratio = [currentWidth doubleValue] / [width doubleValue];
-                                double currentHeightDouble = ratio * [height doubleValue];
-                                currentHeight = [NSNumber numberWithInteger:(NSInteger)round(currentHeightDouble)];
-                            }
-                        } else {
-                            scaledImageURL = imageURL;
+        NSString *type = [item wmf_stringForKey:@"type"];
+        if (![type isEqualToString:@"image"]) {
+            continue;
+        }
+        
+        NSDictionary *original = [item wmf_dictionaryForKey:@"original"];
+        if (!original) {
+            continue;
+        }
+    
+        NSString *source = [original wmf_stringForKey:@"source"];
+        if (!source) {
+            continue;
+        }
+        
+        if ([source hasPrefix:@"http:"]) {
+            source = [source stringByReplacingCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
+        }
+        
+        NSURL *imageURL = [NSURL URLWithString:source];
+        if (!imageURL) {
+            continue;
+        }
+        
+        [allImageURLs addObject:imageURL];
+        NSNumber *width = [original wmf_numberForKey:@"width"];
+        NSNumber *height = [original wmf_numberForKey:@"height"];
+    
+        if ((!width && !height) || (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height)) {
+            NSNumber *currentWidth = width;
+            NSNumber *currentHeight = height;
+            NSURL *scaledImageURL = imageURL;
+            if (!width || [width integerValue] > targetWidth) {
+                NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
+                if (scaledImageURLString) {
+                    scaledImageURL = [NSURL URLWithString:scaledImageURLString];
+                    if (scaledImageURL) {
+                        currentWidth = [NSNumber numberWithInteger:targetWidth];
+                        if (width && [width doubleValue] > 0) {
+                            double ratio = [currentWidth doubleValue] / [width doubleValue];
+                            double currentHeightDouble = ratio * [height doubleValue];
+                            currentHeight = [NSNumber numberWithInteger:(NSInteger)round(currentHeightDouble)];
                         }
+                    } else {
+                        scaledImageURL = imageURL;
                     }
                 }
-                [galleryImageURLs addObject:scaledImageURL];
-                [imageURLsForSaving addObject:scaledImageURL];
-                NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
-
-                [imageDictionary wmf_maybeSetObject:currentWidth forKey:@"width"];
-                [imageDictionary wmf_maybeSetObject:currentHeight forKey:@"height"];
-                [imageDictionary wmf_maybeSetObject:width forKey:@"originalFileWidth"];
-                [imageDictionary wmf_maybeSetObject:height forKey:@"originalFileHeight"];
-
-                NSString *mime = [original wmf_stringForKey:@"mime"];
-                if (mime) {
-                    [imageDictionary setObject:mime forKey:@"mimeType"];
-                }
-                [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
-                MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
-                [galleryImages addObject:galleryImage];
-                
-                NSDictionary *titles = [item wmf_dictionaryForKey:@"titles"];
-                NSString *canonicalTitle = [titles wmf_stringForKey:@"canonical"];
-                
-                NSURL *filePageURL = [item wmf_URLFromStringForKey:@"file_page"];
-                
-                NSDictionary *licenseDictionary = [item wmf_dictionaryForKey:@"license"];
-                NSString *licenseType = [licenseDictionary wmf_stringForKey:@"type"];
-                NSString *licenseCode = [licenseDictionary wmf_stringForKey:@"code"];
-                NSURL *licenseURL = [licenseDictionary wmf_URLFromStringForKey:@"url"];
-                
-                NSDictionary *artist = [item wmf_dictionaryForKey:@"artist"];
-                NSString *artistText = [artist wmf_stringForKey:@"name"];
-                NSString *artistHTML = [artist wmf_stringForKey:@"html"];
-                NSString *owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
-
-                
-                NSDictionary *descriptionDictionary = [item wmf_dictionaryForKey:@"description"];
-                NSString *imageDescription = nil;
-                if (descriptionDictionary) {
-                    imageDescription = [descriptionDictionary wmf_stringForKey:@"text"] ?: [[descriptionDictionary wmf_stringForKey:@"html"] wmf_stringByRemovingHTML];
-                } else {
-                    imageDescription = [[item wmf_stringForKey:@"description"] wmf_stringByRemovingHTML];
-                }
-    
-                CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
-                CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
-                MWKLicense *license = [[MWKLicense alloc] initWithCode:licenseCode shortDescription:licenseType URL:licenseURL];
-                MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:imageDescription license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
-                [galleryImageInfos addObject:galleryImageInfo];
-            } else {
-                [imageURLsForSaving addObject:imageURL];
             }
+            [galleryImageURLs addObject:scaledImageURL];
+            [imageURLsForSaving addObject:scaledImageURL];
+            NSMutableDictionary *imageDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
+
+            [imageDictionary wmf_maybeSetObject:currentWidth forKey:@"width"];
+            [imageDictionary wmf_maybeSetObject:currentHeight forKey:@"height"];
+            [imageDictionary wmf_maybeSetObject:width forKey:@"originalFileWidth"];
+            [imageDictionary wmf_maybeSetObject:height forKey:@"originalFileHeight"];
+
+            NSString *mime = [original wmf_stringForKey:@"mime"];
+            if (mime) {
+                [imageDictionary setObject:mime forKey:@"mimeType"];
+            }
+            [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
+            MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
+            [galleryImages addObject:galleryImage];
+            
+            NSDictionary *titles = [item wmf_dictionaryForKey:@"titles"];
+            NSString *canonicalTitle = [titles wmf_stringForKey:@"canonical"];
+            
+            NSURL *filePageURL = [item wmf_URLFromStringForKey:@"file_page"];
+            
+            NSDictionary *licenseDictionary = [item wmf_dictionaryForKey:@"license"];
+            NSString *licenseType = [licenseDictionary wmf_stringForKey:@"type"];
+            NSString *licenseCode = [licenseDictionary wmf_stringForKey:@"code"];
+            NSURL *licenseURL = [licenseDictionary wmf_URLFromStringForKey:@"url"];
+            
+            NSDictionary *artist = [item wmf_dictionaryForKey:@"artist"];
+            NSString *artistText = [artist wmf_stringForKey:@"name"];
+            NSString *artistHTML = [artist wmf_stringForKey:@"html"];
+            NSString *owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
+
+            
+            NSDictionary *descriptionDictionary = [item wmf_dictionaryForKey:@"description"];
+            NSString *imageDescription = nil;
+            if (descriptionDictionary) {
+                imageDescription = [descriptionDictionary wmf_stringForKey:@"text"] ?: [[descriptionDictionary wmf_stringForKey:@"html"] wmf_stringByRemovingHTML];
+            } else {
+                imageDescription = [[item wmf_stringForKey:@"description"] wmf_stringByRemovingHTML];
+            }
+
+            CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
+            CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
+            MWKLicense *license = [[MWKLicense alloc] initWithCode:licenseCode shortDescription:licenseType URL:licenseURL];
+            MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:imageDescription license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
+            [galleryImageInfos addObject:galleryImageInfo];
+        } else {
+            [imageURLsForSaving addObject:imageURL];
         }
-        self.allMediaImageURLs = allImageURLs;
-        self.mediaImageURLsForGallery = galleryImageURLs;
-        self.mediaImagesForGallery = galleryImages;
-        self.mediaImageURLsForSaving = imageURLsForSaving;
-        self.imageInfosForGallery = galleryImageInfos;
     }
+    self.allMediaImageURLs = allImageURLs;
+    self.mediaImageURLsForGallery = galleryImageURLs;
+    self.mediaImagesForGallery = galleryImages;
+    self.mediaImageURLsForSaving = imageURLsForSaving;
+    self.imageInfosForGallery = galleryImageInfos;
 }
 
 #pragma mark - Image Helpers
