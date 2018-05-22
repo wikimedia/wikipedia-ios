@@ -1251,9 +1251,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return;
         } else {
             NSURL *articleURL = self.articleURL;
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:self eventLogAction:^{
-                [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:articleURL];
-            }]];
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil
+                                                                                           fromButton:self->_shareToolbarItem
+                                                                                          shareFunnel:self.shareFunnel
+                                                                                       customActivity:[self addToReadingListActivityWithPresenter:self
+                                                                                                                                   eventLogAction:^{
+                                                                                                                                       [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:articleURL];
+                                                                                                                                   }]];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
@@ -1262,7 +1266,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (nullable UIActivity *)addToReadingListActivityWithPresenter:(UIViewController *)presenter eventLogAction:(nullable void(^)(void))eventLogAction {
+- (nullable UIActivity *)addToReadingListActivityWithPresenter:(UIViewController *)presenter eventLogAction:(nullable void (^)(void))eventLogAction {
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     if (!article) {
         return nil;
@@ -1320,7 +1324,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
-        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle: self.articleURL];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1865,10 +1869,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                          [self.articlePreviewingActionsDelegate saveArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController didSave:YES articleURL:self.articleURL];
                                      }
                                  }];
-    
+
     NSString *articleLanguage = self.articleURL.wmf_language;
+    __weak id<WMFArticlePreviewingActionsDelegate> weakArticlePreviewingActionsDelegate = self.articlePreviewingActionsDelegate;
     void (^logPreviewSaveIfNeeded)(void) = ^{
-        BOOL providesEventValues = [self.articlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
+        BOOL providesEventValues = [weakArticlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
         if (!providesEventValues) {
             return;
         }
