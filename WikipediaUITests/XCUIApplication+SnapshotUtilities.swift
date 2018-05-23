@@ -2,7 +2,8 @@ import XCTest
 
 // This this uitest target sleeps - the app target this test target taps doesn't.
 // This delay just give everything an extra moment to settle.
-let sleepBeforeTap:UInt32 = 1
+let sleepBeforeTap: UInt32 = 1
+let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
 extension XCUIApplication {
     func wmf_dismissPopover() {
@@ -47,6 +48,49 @@ extension XCUIApplication {
     func wmf_tapFirstCollectionViewCell() {
         sleep(sleepBeforeTap)
         collectionViews.children(matching: .any).firstMatch.tap()
+    }
+    
+    func wmf_scrollToTop() {
+        statusBars.firstMatch.tap()
+        sleep(1)
+    }
+    
+    func wmf_scrollElementToTop(element: XCUIElement) {
+        let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
+        elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
+    }
+    
+    func wmf_otherElementStartingWith(key: String) -> XCUIElement {
+        
+        var translation = wmf_localizedString(key: key)
+        
+        // HACK: if there's a substitution string - ie "%1$@" - just ignore everything after it (including it) so the BEGINSWITH logic works without us having to get the actual substition value.
+        if let rangeOfSubstitutionString = translation.range(of: "%1$@") {
+            translation = String(translation[..<rangeOfSubstitutionString.lowerBound])
+        }
+        
+        return otherElements.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation))
+    }
+    
+    func wmf_scrollDown() {
+        coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 1.0)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
+    }
+    
+    func wmf_scrollToOtherElementStartingWith(key: String, success: () -> ()){
+        wmf_scrollToTop()
+        let maxScrollSeconds: Double = 240
+        let start = Date()
+        repeat {
+            let element = wmf_otherElementStartingWith(key: key)
+            if element.exists {
+                wmf_scrollElementToTop(element: element)
+                sleep(1)
+                success()
+                return
+            }
+            wmf_scrollDown()
+        } while Date().timeIntervalSince(start) < maxScrollSeconds
+        wmf_scrollToTop()
     }
     
     // Gets localized string from localized string key (so we can navigate the app regardless of lang).
