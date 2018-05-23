@@ -78,11 +78,11 @@
 }
 
 - (NSString *)timestamp {
-    NSString *wmf_iso8601DateString = [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:[NSDate date]];
+    NSString *wmf_iso8601DateWithoutZoneString = [[NSDateFormatter wmf_iso8601FormatterWithoutZone] stringFromDate:[NSDate date]];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.timeZone = [NSTimeZone localTimeZone];
     dateFormatter.dateFormat = @"Z";
-    return [NSString stringWithFormat:@"%@%@", wmf_iso8601DateString, [dateFormatter stringFromDate:[NSDate date]]];
+    return [NSString stringWithFormat:@"%@%@", wmf_iso8601DateWithoutZoneString, [dateFormatter stringFromDate:[NSDate date]]];
 }
 
 /**
