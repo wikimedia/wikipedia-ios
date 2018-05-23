@@ -80,22 +80,22 @@ extern NSString *const WMFEditPencil;
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  *
  * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param escapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/Main_Page#section`.
+ * @param escapedDenormalizedTitleQueryAndFragment           A Wikimedia path and fragment. For exmaple: `/Main_Page?wprov=sfii1#section`.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
 //WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleQueryAndFragment:(NSString *)escapedDenormalizedTitleQueryAndFragment;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  *
  * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param unescapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/99%_Invisible#section`. Note the % is not escaped.
+ * @param unescapedDenormalizedTitleQueryAndFragment    A Wikimedia path and fragment. For exmaple: `/99%_Invisible?wprov=sfii1#section`. Note the % is not escaped.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)unescapedDenormalizedTitleAndFragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleQueryAndFragment:(NSString *)unescapedDenormalizedTitleQueryAndFragment;
 
 /**
  *  Return a URL for the mobile API Endpoint for the current URL

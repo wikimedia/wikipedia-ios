@@ -60,12 +60,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithString:(NSString *)string site:(MWKSite *)site {
-    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleQueryAndFragment:string];
     return [self initWithURL:URL];
 }
 
 - (instancetype)initWithUnescapedString:(NSString *)string site:(MWKSite *)site {
-    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleQueryAndFragment:string];
     return [self initWithURL:URL];
 }
 

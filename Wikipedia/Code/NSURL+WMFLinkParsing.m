@@ -72,16 +72,22 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return percentEscapesRegex;
 }
 
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL titleAndFragment:(NSString *)path removePercentEncoding:(BOOL)removePercentEncoding {
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL titleQueryAndFragment:(NSString *)titleQueryAndFragment removePercentEncoding:(BOOL)removePercentEncoding {
     // Resist the urge to use NSURLComponents, it doesn't handle certain page paths we need to handle like "Talk:India"
-    NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
-    path = [splitQuery firstObject];
+    NSArray *splitQuery = [titleQueryAndFragment componentsSeparatedByString:@"?"];
     NSString *query = nil;
+    NSString *fragment = nil;
+    NSArray *bits = nil;
+    NSString *title = nil;
     if (splitQuery.count > 1) {
         query = [splitQuery lastObject];
+        bits = [query componentsSeparatedByString:@"#"];
+        query = [bits firstObject];
+        title = [splitQuery firstObject];
+    } else {
+        bits = [titleQueryAndFragment componentsSeparatedByString:@"#"];
+        title = [bits firstObject];
     }
-    NSArray *bits = [path componentsSeparatedByString:@"#"];
-    NSString *fragment = nil;
     if (bits.count > 1) {
         if (removePercentEncoding) {
             fragment = [bits[1] stringByRemovingPercentEncoding];
@@ -90,27 +96,26 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
         }
     }
     fragment = [fragment precomposedStringWithCanonicalMapping];
-    NSString *title = nil;
     if (removePercentEncoding) {
-        title = [[bits firstObject] wmf_unescapedNormalizedPageTitle];
+        title = [title wmf_unescapedNormalizedPageTitle];
     } else {
-        title = [[bits firstObject] wmf_normalizedPageTitle];
+        title = [title wmf_normalizedPageTitle];
     }
     return [NSURL wmf_URLWithSiteURL:siteURL title:title fragment:fragment query:query];
 }
 
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)path {
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleQueryAndFragment:(NSString *)path {
     NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
-        return [self wmf_URLWithSiteURL:siteURL titleAndFragment:path removePercentEncoding:NO];
+        return [self wmf_URLWithSiteURL:siteURL titleQueryAndFragment:path removePercentEncoding:NO];
     }
 }
 
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)path {
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleQueryAndFragment:(NSString *)path {
     NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
              path);
@@ -118,20 +123,20 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
-        return [self wmf_URLWithSiteURL:siteURL titleAndFragment:path removePercentEncoding:YES];
+        return [self wmf_URLWithSiteURL:siteURL titleQueryAndFragment:path removePercentEncoding:YES];
     }
 }
 
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedInternalLink:(NSString *)internalLink {
     NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
+    return [self wmf_URLWithSiteURL:siteURL unescapedDenormalizedTitleQueryAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedInternalLink:(NSString *)internalLink {
     NSAssert(internalLink.length == 0 || [internalLink wmf_isWikiResource],
              @"Expected string with internal link prefix but got: %@", internalLink);
-    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
+    return [self wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:[internalLink wmf_pathWithoutWikiPrefix]];
 }
 
 - (NSURL *)wmf_URLWithTitle:(NSString *)title {
