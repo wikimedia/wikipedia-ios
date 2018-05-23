@@ -112,10 +112,10 @@ import UIKit
         
         if isSaved {
             PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: sender, contentType: sender)
-            savedPagesFunnel.logSaveNew()
+            savedPagesFunnel.logSaveNew(withArticleURL: updatedArticle?.url)
         } else {
             PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
-            savedPagesFunnel.logDelete()
+            savedPagesFunnel.logDelete(withArticleURL: updatedArticle?.url)
         }
         notifyDelegateArticleSavedStateChanged()
     }

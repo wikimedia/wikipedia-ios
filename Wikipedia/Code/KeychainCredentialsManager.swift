@@ -50,4 +50,8 @@ public class KeychainCredentialsManager: NSObject {
             keychainCredentials.lastLoggedUserHistorySnapshot = newValue
         }
     }
+    
+    @objc func resetLastLoggedUserHistorySnapshot() {
+        lastLoggedUserHistorySnapshot = nil
+    }
 }
