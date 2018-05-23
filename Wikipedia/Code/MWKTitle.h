@@ -69,8 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Convenience factory method wrapping `initWithString:site:`.
 + (MWKTitle *)titleWithString:(NSString *)str site:(MWKSite *)site;
 
-+ (MWKTitle *)titleWithUnescapedString:(NSString *)str site:(MWKSite *)site;
-
 #pragma mark - Comparison
 
 - (BOOL)isEqualToTitle:(MWKTitle *)title;

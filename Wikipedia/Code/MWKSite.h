@@ -76,18 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A title initialized with the receiver as its @c site.
  * @see -[MWKTitle initWithString:site:]
  */
-- (MWKTitle *)titleWithString:(NSString *)string;
-
-/**
- * @return A title initialized with the receiver as its @c site.
- * @see -[MWKTitle initWithUnescapedString:site:]
- */
-- (MWKTitle *)titleWithUnescapedString:(NSString *)string;
-
-/**
- * @return A title initialized with the receiver as its @c site.
- * @see -[MWKTitle initWithString:site:]
- */
 - (MWKTitle *)titleWithInternalLink:(NSString *)path;
 
 /**

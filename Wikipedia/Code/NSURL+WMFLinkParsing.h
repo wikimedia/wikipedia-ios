@@ -88,16 +88,6 @@ extern NSString *const WMFEditPencil;
 + (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleQueryAndFragment:(NSString *)escapedDenormalizedTitleQueryAndFragment;
 
 /**
- * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
- *
- * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param unescapedDenormalizedTitleQueryAndFragment    A Wikimedia path and fragment. For exmaple: `/99%_Invisible?wprov=sfii1#section`. Note the % is not escaped.
- *
- * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
- **/
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleQueryAndFragment:(NSString *)unescapedDenormalizedTitleQueryAndFragment;
-
-/**
  *  Return a URL for the mobile API Endpoint for the current URL
  *
  *  @return return value description

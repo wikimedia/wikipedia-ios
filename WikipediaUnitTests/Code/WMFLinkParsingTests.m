@@ -62,6 +62,12 @@
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
 }
 
+- (void)testQueryPreservation {
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
+    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Main_Page?wprov=stii1&a=%3F#blah"];
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page?wprov=stii1&a=%3F#blah", nonInternalPageURL.absoluteString);
+}
+
 - (void)testWMFLanguagelessLinks {
     NSURL *siteURL = [NSURL wmf_URLWithDomain:@"mediawiki.org" language:nil];
     NSURL *desktopURL = [NSURL wmf_desktopURLForURL:siteURL];
