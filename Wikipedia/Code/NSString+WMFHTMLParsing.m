@@ -291,6 +291,10 @@
 }
 
 - (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont withAdditionalBoldingForMatchingSubstring:stringToBold boldLinks:NO];
+}
+
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold boldLinks:(BOOL)shouldBoldLinks {
     boldFont = boldFont ?: font;
     italicFont = italicFont ?: font;
     boldItalicFont = boldItalicFont ?: font;
@@ -301,6 +305,9 @@
     __block NSInteger startLocation = NSNotFound;
     NSString *cleanedString = [self wmf_stringByRemovingHTMLWithParsingBlock:^(NSString *HTMLTagName, NSInteger offset, NSInteger currentLocation) {
         HTMLTagName = [HTMLTagName lowercaseString];
+        if (shouldBoldLinks && [HTMLTagName isEqualToString:@"a"]) {
+            HTMLTagName = @"b";
+        }
         if (startLocation != NSNotFound && currentLocation > startLocation) {
             [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
             [tags addObject:[currentTags copy]];
@@ -350,53 +357,6 @@
     }];
 
     return attributedString;
-}
-
-// TODO: Fix - returns nil if self contains no HTML. Can this be consolidated with wmf_attributedStringWithLinksFromHTMLTags ?
-- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont {
-    if (self.length == 0) {
-        return [[NSAttributedString alloc] initWithString:self attributes:nil];
-    }
-
-    static NSRegularExpression *tagRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *pattern = @"(<[^>]*>)([^<]*)";
-        tagRegex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                             options:NSRegularExpressionCaseInsensitive
-                                                               error:nil];
-    });
-
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"" attributes:nil];
-    __block BOOL shouldTrimLeadingWhitespace = YES;
-    [tagRegex enumerateMatchesInString:self
-                               options:0
-                                 range:NSMakeRange(0, self.length)
-                            usingBlock:^(NSTextCheckingResult *_Nullable result, NSMatchingFlags flags, BOOL *_Nonnull stop) {
-                                *stop = false;
-                                NSString *tagContents = [[[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$2"] wmf_stringByRemovingBracketedContent] wmf_stringByDecodingHTMLEntities];
-                                if (!tagContents) {
-                                    return;
-                                }
-                                if (shouldTrimLeadingWhitespace) {
-                                    shouldTrimLeadingWhitespace = NO;
-                                    NSRange range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-                                    while (range.length > 0) {
-                                        tagContents = [tagContents stringByReplacingCharactersInRange:range withString:@""];
-                                        range = [tagContents rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet] options:NSAnchoredSearch];
-                                    }
-                                }
-                                NSString *tag = [[tagRegex replacementStringForResult:result inString:self offset:0 template:@"$1"] lowercaseString];
-                                NSDictionary *attributes = nil;
-                                if ([tag hasPrefix:@"<a"] && linkFont) {
-                                    attributes = @{NSFontAttributeName: linkFont};
-                                } else if (font) {
-                                    attributes = @{NSFontAttributeName: font};
-                                }
-                                NSAttributedString *attributedNode = [[NSAttributedString alloc] initWithString:tagContents attributes:attributes];
-                                [attributedString appendAttributedString:attributedNode];
-                            }];
-    return [attributedString copy];
 }
 
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags {

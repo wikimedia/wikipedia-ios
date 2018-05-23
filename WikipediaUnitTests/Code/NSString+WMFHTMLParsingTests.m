@@ -80,4 +80,15 @@
                           @" This should not have so much space! ");
 }
 
+- (void)testNewsNotificationHTMLRemoving {
+    NSString *plaintext = @"Nothing happened";
+    NSString *newsHTML = @"<!--May 19-->Nothing happened";
+    NSString *newsPlainText = [newsHTML wmf_stringByRemovingHTML];
+    XCTAssertEqualObjects(newsPlainText, plaintext);
+    
+    newsHTML = @"<!-- May 19 -->Nothing happened";
+    newsPlainText = [newsHTML wmf_stringByRemovingHTML];
+    XCTAssertEqualObjects(newsPlainText, plaintext);
+}
+
 @end

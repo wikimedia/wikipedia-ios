@@ -3,6 +3,34 @@
 
 @implementation NSDictionary (WMFExtensions)
 
+- (nullable id)wmf_objectOfClass:(Class)objectClass forKey:(id)key {
+    id value = [self objectForKey:key];
+    if (![value isKindOfClass:objectClass]) {
+        return nil;
+    }
+    return value;
+}
+
+- (nullable NSString *)wmf_stringForKey:(id)key {
+    return [self wmf_objectOfClass:[NSString class] forKey:key];
+}
+
+- (nullable NSDictionary *)wmf_dictionaryForKey:(id)key {
+    return [self wmf_objectOfClass:[NSDictionary class] forKey:key];
+}
+
+- (nullable NSNumber *)wmf_numberForKey:(id)key {
+    return [self wmf_objectOfClass:[NSNumber class] forKey:key];
+}
+
+- (nullable NSURL *)wmf_URLFromStringForKey:(id)key {
+    NSString *URLString = [self wmf_stringForKey:key];
+    if (!URLString) {
+        return nil;
+    }
+    return [NSURL URLWithString:URLString];
+}
+
 - (BOOL)wmf_containsNullObjects {
     NSNull *null = [self wmf_match:^BOOL(id key, id obj) {
         return [obj isKindOfClass:[NSNull class]];
