@@ -97,6 +97,9 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
+        // Resist the urge to use NSURLComponents, it doesn't handle special page paths like "Talk:India"
+        NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
+        path = [splitQuery firstObject];
         NSArray *bits = [path componentsSeparatedByString:@"#"];
         NSString *fragment = nil;
         if (bits.count > 1) {
