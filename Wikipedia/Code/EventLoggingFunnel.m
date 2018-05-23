@@ -85,6 +85,11 @@
     return [NSString stringWithFormat:@"%@%@", wmf_iso8601DateWithoutZoneString, [dateFormatter stringFromDate:[NSDate date]]];
 }
 
+- (NSNumber *)isAnon {
+    BOOL isAnon = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
+    return [NSNumber numberWithBool:isAnon];
+}
+
 /**
  *  Persistent random integer id used for sampling.
  *

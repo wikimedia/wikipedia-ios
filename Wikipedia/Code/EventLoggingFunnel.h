@@ -120,6 +120,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)timestamp;
 
+- (NSNumber *)isAnon;
+
 NS_ASSUME_NONNULL_END
 
 @end
