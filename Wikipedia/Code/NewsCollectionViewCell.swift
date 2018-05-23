@@ -26,7 +26,7 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
             descriptionLabel.text = nil
             return
         }
-        let attributedString = descriptionHTML.wmf_attributedStringByRemovingHTML(with: descriptionFont, linkFont: descriptionLinkFont)
+        let attributedString = descriptionHTML.wmf_attributedStringFromHTML(with: descriptionFont, boldFont: descriptionLinkFont, italicFont: descriptionFont, boldItalicFont: descriptionLinkFont, withAdditionalBoldingForMatchingSubstring:nil, boldLinks: true).wmf_trim()
         descriptionLabel.attributedText = attributedString
     }
     

@@ -35,7 +35,7 @@
  *
  *  @return The thumbnail width to request for the modal image gallery, according to the receiver's @c scale.
  */
-- (NSNumber *)wmf_galleryImageWidthForScale;
+- (NSInteger)wmf_galleryImageWidthForScale;
 
 /**
  *  @return The thumbnail width to request for the article, according to the receiver's @c scale.

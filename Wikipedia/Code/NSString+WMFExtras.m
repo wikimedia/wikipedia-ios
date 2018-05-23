@@ -3,7 +3,6 @@
 #import <WMF/SessionSingleton.h>
 #import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
-#import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 
@@ -106,7 +105,7 @@
 }
 
 - (NSString *)wmf_trim {
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (NSString *)wmf_substringBeforeString:(NSString *)string {

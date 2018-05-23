@@ -1,6 +1,34 @@
 @import Foundation;
 
-@interface NSDictionary (WMFExtensions)
+NS_ASSUME_NONNULL_BEGIN
+
+@interface NSDictionary<__covariant KeyType, __covariant ObjectType> (WMFExtensions)
+
+/**
+ *  @return objectForKey if it isKindOf objectClass, nil otherwise
+ */
+- (nullable ObjectType)wmf_objectOfClass:(Class)objectClass forKey:(KeyType)key;
+
+/**
+ *  @return objectForKey if it is an NSString, nil otherwise
+ */
+- (nullable NSString *)wmf_stringForKey:(KeyType)key;
+
+/**
+ *  @return objectForKey if it is an NSDictionary, nil otherwise
+ */
+- (nullable NSDictionary *)wmf_dictionaryForKey:(KeyType)key;
+
+/**
+ *  @return objectForKey if it is an NSNumber, nil otherwise
+ */
+- (nullable NSNumber *)wmf_numberForKey:(KeyType)key;
+
+
+/**
+ *  @return objectForKey if it is an NSString that can be converted into a NSURL, nil otherwise
+ */
+- (nullable NSURL *)wmf_URLFromStringForKey:(KeyType)key;
 
 /**
  *  Used to find dictionaries that contain Nulls
@@ -21,6 +49,8 @@
  *
  *  @return A dictionary without any [NSNull nulls]
  */
-- (NSDictionary *)wmf_dictionaryByRemovingNullObjects;
+- (nullable NSDictionary *)wmf_dictionaryByRemovingNullObjects;
 
 @end
+
+NS_ASSUME_NONNULL_END
