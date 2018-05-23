@@ -1,6 +1,6 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 
-static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
+static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ssZ";
 
 @implementation NSDateFormatter (WMFExtensions)
 
