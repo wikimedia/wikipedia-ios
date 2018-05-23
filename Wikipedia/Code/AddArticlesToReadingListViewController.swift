@@ -29,6 +29,8 @@ class AddArticlesToReadingListViewController: UIViewController {
     private var readingListsViewController: ReadingListsViewController?
     @IBOutlet weak var containerView: UIView!
     public weak var delegate: AddArticlesToReadingListDelegate?
+    
+    @objc var eventLogAction: (() -> Void)?
 
     private var theme: Theme
     
@@ -86,6 +88,7 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             self.dismiss(animated: true, completion: nil)
         }
+        eventLogAction?()
     }
 }
 

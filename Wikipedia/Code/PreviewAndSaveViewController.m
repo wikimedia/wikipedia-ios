@@ -566,7 +566,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
 
     [self.funnel logSaveAttempt];
     if (self.savedPagesFunnel) {
-        [self.savedPagesFunnel logEditAttempt];
+        [self.savedPagesFunnel logEditAttemptWithArticleURL:self.section.article.url];
     }
 
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager wmf_cancelAllTasksWithCompletionHandler:^{

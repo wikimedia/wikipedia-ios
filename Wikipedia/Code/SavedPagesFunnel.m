@@ -1,4 +1,5 @@
 #import "SavedPagesFunnel.h"
+#import "NSURL+WMFLinkParsing.h"
 
 static NSString *const kEventDataAssertVerbiage = @"Event data not present";
 static NSString *const kAppInstallIdKey = @"appInstallID";
@@ -11,12 +12,12 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     return self;
 }
 
-+ (void)logStateChange:(BOOL)didSave {
++ (void)logStateChange:(BOOL)didSave articleURL:(NSURL *)articleURL {
     SavedPagesFunnel *funnel = [self new];
     if (didSave) {
-        [funnel logSaveNew];
+        [funnel logSaveNewWithArticleURL:articleURL];
     } else {
-        [funnel logDelete];
+        [funnel logDeleteWithArticleURL:articleURL];
     }
 }
 
@@ -26,32 +27,36 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
-- (void)logSaveNew {
-    [self log:@{@"action": @"savenew"}];
+- (void)logSaveNewWithArticleURL:(NSURL *)articleURL {
+    [self log:@{@"action": @"savenew"} language:articleURL.wmf_language];
 }
 
+// TODO: Unused
 - (void)logUpdate {
     [self log:@{@"action": @"update"}];
 }
 
+// TODO: Unused
 - (void)logImportOnSubdomain:(NSString *)subdomain {
     [self log:@{@"action": @"import"}
          wiki:[subdomain stringByAppendingString:@"wiki"]];
 }
 
-- (void)logDelete {
-    [self log:@{@"action": @"delete"}];
+- (void)logDeleteWithArticleURL:(NSURL *)articleURL {
+    [self log:@{@"action": @"delete"} language:articleURL.wmf_language];
 }
 
-- (void)logEditAttempt {
-    [self log:@{@"action": @"editattempt"}];
+- (void)logEditAttemptWithArticleURL:(NSURL *)articleURL {
+    [self log:@{@"action": @"editattempt"} language:articleURL.wmf_language];
 }
 
+// TODO: Unused
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditRefresh {
     [self log:@{@"action": @"editrefresh"}];
 }
 
+// TODO: Unused
 // Doesn't seem to be relevant to iOS version?
 - (void)logEditAfterRefresh {
     [self log:@{@"action": @"editafterrefresh"}];

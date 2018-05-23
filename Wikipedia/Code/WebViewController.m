@@ -192,7 +192,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)toggleReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
     BOOL isSaved = [self.article.dataStore.savedPageList toggleSavedPageForURL:url];
-    [self logReadMoreSaveButtonToggle:isSaved];
+    [self logReadMoreSaveButtonToggle:isSaved url:url];
     [self updateReadMoreSaveButtonIsSavedStateForURL:url];
     [self.delegate webViewController:self didTapFooterReadMoreSaveForLaterForArticleURL:url didSave:isSaved];
 }
@@ -330,12 +330,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 #pragma mark - Read more save button event logging
 
-- (void)logReadMoreSaveButtonToggle:(BOOL)isSaved {
+- (void)logReadMoreSaveButtonToggle:(BOOL)isSaved url:(NSURL *)url {
     if (isSaved) {
-        [self.savedPagesFunnel logSaveNew];
+        [self.savedPagesFunnel logSaveNewWithArticleURL:url];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
     } else {
-        [self.savedPagesFunnel logDelete];
+        [self.savedPagesFunnel logDeleteWithArticleURL:url];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
     }
 }

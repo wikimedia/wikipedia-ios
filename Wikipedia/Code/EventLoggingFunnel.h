@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
  * get run through preprocessData: and then sent off to the
  * background logging operation queue.
  *
- * The current wiki as recorded in the SessionSingleton will
+ * Primary language as recorded in MWKLanguageLinkController will
  * be used as the target of the logging request.
  *
  * For convenience, derived classes should contain specific
@@ -66,6 +66,21 @@ NS_ASSUME_NONNULL_BEGIN
  * readibility in calling code (and type safety on params!)
  */
 - (void)log:(NSDictionary *)eventData;
+
+/**
+ * The basic log: method takes a bare dictionary, which will
+ * get run through preprocessData: and then sent off to the
+ * background logging operation queue.
+ *
+ * language will be used to determine the target wiki.
+ * If language is nil, primary language as recorded in
+ * MWKLanguageLinkController will be used instead.
+ *
+ * For convenience, derived classes should contain specific
+ * log* methods for each potential logging action variant for
+ * readibility in calling code (and type safety on params!)
+ */
+- (void)log:(NSDictionary *)eventData language:(nullable NSString *)language;
 
 /**
  * In some cases logging should go to a specific wiki
@@ -79,6 +94,12 @@ NS_ASSUME_NONNULL_BEGIN
  * Called after eventData was logged through log:.
  */
 - (void)logged:(NSDictionary *)eventData;
+
+/**
+ * Helper function to get the app's primary language.
+ * Falls back on English if primary language was not set.
+ */
+- (NSString *)primaryLanguage;
 
 /**
  * Helper function to generate a per-use UUID.
