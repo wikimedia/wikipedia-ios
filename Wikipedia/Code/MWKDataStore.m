@@ -1260,6 +1260,11 @@ static uint64_t bundleHash() {
 }
 
 - (NSArray *)imageInfoForArticleWithURL:(NSURL *)url {
+    MWKArticle *article = [self articleWithURL:url];
+    NSArray *infos = [article imageInfosForGallery];
+    if (infos) {
+        return infos;
+    }
     return [[NSArray arrayWithContentsOfFile:[self pathForImageInfoForArticleWithURL:url]] wmf_mapAndRejectNil:^MWKImageInfo *(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
     }];

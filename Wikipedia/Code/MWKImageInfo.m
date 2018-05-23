@@ -103,6 +103,31 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
     return [dict copy];
 }
 
+- (nullable NSURL *)imageURLForTargetWidth:(NSInteger)targetWidth {
+    NSInteger width = (NSInteger)self.imageSize.width;
+    if (width <= 0) {
+        return self.imageThumbURL;
+    }
+    
+    if (width <= targetWidth) {
+        return self.canonicalFileURL;
+    }
+    
+    NSString *source = self.canonicalFileURL.absoluteString;
+    
+    NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
+    if (!scaledImageURLString) {
+        return self.imageThumbURL;
+    }
+    
+    NSURL *scaledImageURL = [NSURL URLWithString:scaledImageURLString];
+    if (!scaledImageURL) {
+        return self.imageThumbURL;
+    }
+    
+    return scaledImageURL;
+}
+
 - (BOOL)isEqual:(id)obj {
     if (obj == self) {
         return YES;

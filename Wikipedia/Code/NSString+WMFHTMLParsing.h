@@ -49,7 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull NSString *)wmf_stringByRemovingHTML;
 
 - (NSAttributedString *)wmf_attributedStringWithLinksFromHTMLTags;
-- (nonnull NSAttributedString *)wmf_attributedStringByRemovingHTMLWithFont:(nonnull UIFont *)font linkFont:(nonnull UIFont *)linkFont;
 
 /**
  *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
@@ -57,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
  */
 - (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
+
+- (NSAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold boldLinks:(BOOL)shouldBoldLinks;
 
 @end
 

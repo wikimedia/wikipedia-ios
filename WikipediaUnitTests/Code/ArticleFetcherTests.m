@@ -64,6 +64,13 @@
                                                   options:0
                                                     error:nil];
     stubRequest(@"GET", anySummaryRequest).andReturn(200);
+    
+    NSRegularExpression *anyMediaRequest =
+    [NSRegularExpression regularExpressionWithPattern:
+     [NSString stringWithFormat:@"%@/api/rest_v1/page/media/.*", [siteURL absoluteString]]
+                                              options:0
+                                                error:nil];
+    stubRequest(@"GET", anyMediaRequest).andReturn(200);
 
     __block MWKArticle *firstFetchResult;
 
