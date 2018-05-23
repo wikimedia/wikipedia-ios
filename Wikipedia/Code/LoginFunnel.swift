@@ -27,7 +27,7 @@
             event["label"] = labelValue
         }
         if let measure = measure {
-            event["measure"] = Int(measure)
+            event["measure"] = Int(round(measure))
         }
         return event
     }
