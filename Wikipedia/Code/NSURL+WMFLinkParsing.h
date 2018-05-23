@@ -59,10 +59,11 @@ extern NSString *const WMFEditPencil;
  * @param siteURL       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
  * @param title         A Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ * @param query         An optional query string, for example `wprov=spi1&foo=bar`.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
  **/
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the `internalLink`.
@@ -79,22 +80,12 @@ extern NSString *const WMFEditPencil;
  * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  *
  * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param escapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/Main_Page#section`.
+ * @param escapedDenormalizedTitleQueryAndFragment           A Wikimedia path and fragment. For exmaple: `/Main_Page?wprov=sfii1#section`.
  *
  * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
  **/
 //WMF_TECH_DEBT_TODO(this method should be folded into the above method and should handle the presence of a #)
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleAndFragment:(NSString *)escapedDenormalizedTitleAndFragment;
-
-/**
- * Return a new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
- *
- * @param siteURL                                       A Wikimedia site URL. For exmaple: `https://en.wikipedia.org`.
- * @param unescapedDenormalizedTitleAndFragment           A Wikimedia path and fragment. For exmaple: `/99%_Invisible#section`. Note the % is not escaped.
- *
- * @return A new URL constructed from the `siteURL`, replacing the `path` with the internal link prefix and the `path`.
- **/
-+ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)unescapedDenormalizedTitleAndFragment;
++ (nullable NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL escapedDenormalizedTitleQueryAndFragment:(NSString *)escapedDenormalizedTitleQueryAndFragment;
 
 /**
  *  Return a URL for the mobile API Endpoint for the current URL
@@ -160,10 +151,11 @@ extern NSString *const WMFEditPencil;
  *
  * @param title         A Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
+ * @param query         An optional query string.
  *
  * @return A new URL based on the URL you call this method on with the given title and fragment.
  **/
-- (nullable NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment;
+- (nullable NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query;
 
 /**
  * Return a new URL similar to the URL you call this method on but replace the fragemnt.
