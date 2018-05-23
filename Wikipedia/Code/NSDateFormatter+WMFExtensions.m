@@ -25,7 +25,7 @@ static NSString *const WMF_ISO8601_LOCALIZED_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm
     dispatch_once(&onceToken, ^{
         // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
         iso8601LocalizedFormatter = [NSDateFormatter new];
-        iso8601LocalizedFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+        iso8601LocalizedFormatter.timeZone = [NSTimeZone localTimeZone];
         iso8601LocalizedFormatter.dateFormat = WMF_ISO8601_LOCALIZED_FORMAT;
         ;
         iso8601LocalizedFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
