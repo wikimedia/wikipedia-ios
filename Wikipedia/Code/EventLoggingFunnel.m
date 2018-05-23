@@ -77,6 +77,14 @@
     return [[KeychainCredentialsManager shared] sessionID];
 }
 
+- (NSString *)timestamp {
+    NSString *wmf_iso8601DateString = [[NSDateFormatter wmf_iso8601Formatter] stringFromDate:[NSDate date]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.dateFormat = @"Z";
+    return [NSString stringWithFormat:@"%@%@", wmf_iso8601DateString, [dateFormatter stringFromDate:[NSDate date]]];
+}
+
 /**
  *  Persistent random integer id used for sampling.
  *

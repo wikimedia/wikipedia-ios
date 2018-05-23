@@ -53,7 +53,7 @@ static NSString *const kIsAnonKey = @"is_anon";
     dict[kAppInstallIdKey] = [self wmf_appInstallID];
     BOOL isAnonymous = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
     dict[kIsAnonKey] = [NSNumber numberWithBool:isAnonymous];
-    dict[kTimestampKey] = [[NSDateFormatter wmf_iso8601LocalizedFormatter] stringFromDate:[NSDate date]];
+    dict[kTimestampKey] = [self timestamp];
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

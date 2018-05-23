@@ -118,6 +118,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)wmf_sessionID;
 
+- (NSString *)timestamp;
+
 NS_ASSUME_NONNULL_END
 
 @end
