@@ -1698,7 +1698,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Article link and image peeking via WKUIDelegate
 
+- (BOOL)wasReadMoreItemTouchedRecently {
+    NSDate *lastReadMoreItemTouchStartDate = self.webViewController.lastReadMoreItemTouchStartDate;
+    if (lastReadMoreItemTouchStartDate != nil) {
+        NSTimeInterval timeSinceLastReadMoreItemTouchStart = [[NSDate date] timeIntervalSinceDate: self.webViewController.lastReadMoreItemTouchStartDate];
+        if (timeSinceLastReadMoreItemTouchStart < 1) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (BOOL)webView:(WKWebView *)webView shouldPreviewElement:(WKPreviewElementInfo *)elementInfo {
+    BOOL isReadMoreItemBeingPeeked = [self wasReadMoreItemTouchedRecently];
+    
+// TODO: add event logging here (can now know if peeked item is a `Read more` item by checking `isReadMoreItemBeingPeeked`.
+NSLog(@"\nisReadMoreItemBeingPeeked = %d\n", isReadMoreItemBeingPeeked);
+    
     return elementInfo.linkURL && [elementInfo.linkURL wmf_isPeekable];
 }
 

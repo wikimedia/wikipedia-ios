@@ -122,6 +122,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageFooterContainerAdded:
             [self handleFooterContainerAddedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageReadMoreItemTouch:
+            [self handleReadMoreItemTouchScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageUnknown:
             NSAssert(NO, @"Unhandled script message type!");
             break;
@@ -423,6 +426,12 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     return MAX(MAX(layoutMargins.left, layoutMargins.right), floor(0.5 * size.width * (1 - self.contentWidthPercentage)));
 }
 
+- (void)handleReadMoreItemTouchScriptMessage:(NSString*)message {
+    if([message isEqualToString:@"start"]){
+        self.lastReadMoreItemTouchStartDate = [NSDate date];
+    }
+}
+
 - (void)handleFooterContainerAddedScriptMessage:(id)message {
     //TODO: only need to do the "window.wmf.footerContainer.updateLeftAndRightMargin" part here... may be ok though as it's not changing the other values so shouldn't cause extra reflow...
     [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
@@ -588,7 +597,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"footerContainerAdded",
         @"footerMenuItemClicked",
         @"footerLegalLicenseLinkClicked",
-        @"footerBrowserLinkClicked"
+        @"footerBrowserLinkClicked",
+        @"readMoreItemTouch"
     ];
     for (NSString *handlerName in handlerNames) {
         [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];
