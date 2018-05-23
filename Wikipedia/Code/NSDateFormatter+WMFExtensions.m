@@ -1,7 +1,6 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 
 static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
-static NSString *const WMF_ISO8601_LOCALIZED_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZ";
 
 @implementation NSDateFormatter (WMFExtensions)
 
@@ -17,20 +16,6 @@ static NSString *const WMF_ISO8601_LOCALIZED_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm
         iso8601Formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
     });
     return iso8601Formatter;
-}
-
-+ (NSDateFormatter *)wmf_iso8601LocalizedFormatter {
-    static NSDateFormatter *iso8601LocalizedFormatter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
-        iso8601LocalizedFormatter = [NSDateFormatter new];
-        iso8601LocalizedFormatter.timeZone = [NSTimeZone localTimeZone];
-        iso8601LocalizedFormatter.dateFormat = WMF_ISO8601_LOCALIZED_FORMAT;
-        ;
-        iso8601LocalizedFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
-    });
-    return iso8601LocalizedFormatter;
 }
 
 + (NSDateFormatter *)wmf_shortTimeFormatter {
