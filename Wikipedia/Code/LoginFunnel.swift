@@ -4,7 +4,7 @@
     @objc public static let shared = LoginFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSLoginAction", version: 17990227)
+        super.init(schema: "MobileWikiAppiOSLoginAction", version: 18064101)
     }
     
     private enum Action: String {
@@ -17,17 +17,17 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
-        let category = category.rawValue
+        let category = category.value
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage, "is_anon": isAnon]
-        if let label = label {
-            event["label"] = label.rawValue
+        if let labelValue = label?.value {
+            event["label"] = labelValue
         }
         if let measure = measure {
-            event["measure"] = measure
+            event["measure"] = Int(measure)
         }
         return event
     }

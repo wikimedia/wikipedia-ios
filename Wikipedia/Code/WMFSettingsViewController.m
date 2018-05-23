@@ -304,7 +304,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSString *userName = [WMFAuthenticationManager sharedInstance].loggedInUsername;
     if (userName) {
         [self showLogoutActionSheet];
-        [[LoginFunnel shared] logLogoutInSettings];
     } else {
         WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
         [loginVC applyTheme:self.theme];
@@ -351,6 +350,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                                      theme:self.theme
                                                                 completion:^{
                                                                     [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+                                                                        [[LoginFunnel shared] logLogoutInSettings];
                                                                     }];
                                                                 }];
 }
