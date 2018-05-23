@@ -57,14 +57,14 @@
 }
 
 - (void)testFragment {
-    NSURL *title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo#bar"];
+    NSURL *title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"foo#bar"];
     assertThat(title.wmf_siteURL, is(siteURL));
     assertThat(title.wmf_title, is(@"foo"));
     assertThat(title.fragment, is(@"bar"));
 }
 
 - (void)testPercentEscaped {
-    NSURL *title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"foo%20baz#bar"];
+    NSURL *title = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"foo%20baz#bar"];
     assertThat(title.wmf_siteURL, is(siteURL));
     assertThat(title.wmf_title, is(@"foo baz"));
     assertThat(title.fragment, is(@"bar"));
