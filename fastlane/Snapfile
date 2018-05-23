@@ -9,7 +9,6 @@ devices([
   "iPhone 6 Plus",
   "iPhone X",
   "iPad Air"
-  # "iPad Pro (12.9-inch)"
 ])
 
 # A list of localizations you want to take the screenshots from.
@@ -26,7 +25,16 @@ languages([
   "pt-PT",
   "ru", 
   "sv",
-  "zh-Hans"
+  "zh-Hans",
+  "da",
+  "el",
+  "fi",
+  "id",
+  "ko",
+  "ms",
+  "th",
+  "tr",
+  "vi"
 ])
 
 # The name of the scheme which contains the UI Tests.
