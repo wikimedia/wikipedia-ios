@@ -72,6 +72,33 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return percentEscapesRegex;
 }
 
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL titleAndFragment:(NSString *)path removePercentEncoding:(BOOL)removePercentEncoding {
+    // Resist the urge to use NSURLComponents, it doesn't handle certain page paths we need to handle like "Talk:India"
+    NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
+    path = [splitQuery firstObject];
+    NSString *query = nil;
+    if (splitQuery.count > 1) {
+        query = [splitQuery lastObject];
+    }
+    NSArray *bits = [path componentsSeparatedByString:@"#"];
+    NSString *fragment = nil;
+    if (bits.count > 1) {
+        if (removePercentEncoding) {
+            fragment = [bits[1] stringByRemovingPercentEncoding]
+        } else {
+            fragment = bits[1];
+        }
+    }
+    fragment = [fragment precomposedStringWithCanonicalMapping];
+    NSString *title = nil;
+    if (removePercentEncoding) {
+        title = [[bits firstObject] wmf_unescapedNormalizedPageTitle];
+    } else {
+        title = [[bits firstObject] wmf_normalizedPageTitle];
+    }
+    return [NSURL wmf_URLWithSiteURL:siteURL title: fragment:fragment query:query];
+}
+
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)path {
     NSAssert(![path wmf_isWikiResource],
              @"Didn't expect %@ to be an internal link. Use initWithInternalLink:site: instead.",
@@ -79,19 +106,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
-        NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
-        path = [splitQuery firstObject];
-        NSString *query = nil;
-        if (splitQuery.count > 1) {
-            query = [splitQuery lastObject];
-        }
-        NSArray *bits = [path componentsSeparatedByString:@"#"];
-        NSString *fragment = nil;
-        if (bits.count > 1) {
-            fragment = bits[1];
-        }
-        fragment = [fragment precomposedStringWithCanonicalMapping];
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment query:query];
+        return [self wmf_URLWithSiteURL:siteURL titleAndFragment:path removePercentEncoding:NO];
     }
 }
 
@@ -103,19 +118,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:path];
     } else {
-        // Resist the urge to use NSURLComponents, it doesn't handle special page paths like "Talk:India"
-        NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
-        path = [splitQuery firstObject];
-        NSString *query = nil;
-        if (splitQuery.count > 1) {
-            query = [splitQuery lastObject];
-        }
-        NSArray *bits = [path componentsSeparatedByString:@"#"];
-        NSString *fragment = nil;
-        if (bits.count > 1) {
-            fragment = [bits[1] stringByRemovingPercentEncoding];
-        }
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:fragment query:query];
+        return [self wmf_URLWithSiteURL:siteURL titleAndFragment:path removePercentEncoding:YES];
     }
 }
 
