@@ -84,7 +84,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     NSString *fragment = nil;
     if (bits.count > 1) {
         if (removePercentEncoding) {
-            fragment = [bits[1] stringByRemovingPercentEncoding]
+            fragment = [bits[1] stringByRemovingPercentEncoding];
         } else {
             fragment = bits[1];
         }
@@ -96,7 +96,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     } else {
         title = [[bits firstObject] wmf_normalizedPageTitle];
     }
-    return [NSURL wmf_URLWithSiteURL:siteURL title: fragment:fragment query:query];
+    return [NSURL wmf_URLWithSiteURL:siteURL title:title fragment:fragment query:query];
 }
 
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL unescapedDenormalizedTitleAndFragment:(NSString *)path {
