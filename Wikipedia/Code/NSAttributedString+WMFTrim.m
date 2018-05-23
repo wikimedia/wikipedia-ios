@@ -1,5 +1,5 @@
-#import "NSAttributedString+WMFTrim.h"
-#import "NSCharacterSet+WMFExtras.h"
+#import <WMF/NSAttributedString+WMFTrim.h>
+#import <WMF/NSCharacterSet+WMFExtras.h>
 
 @implementation NSAttributedString (WMFTrim)
 
