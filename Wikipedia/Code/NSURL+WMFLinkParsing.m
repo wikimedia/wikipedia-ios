@@ -59,8 +59,8 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
 }
 
-+ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment {
-    return [siteURL wmf_URLWithTitle:title fragment:fragment];
++ (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query {
+    return [siteURL wmf_URLWithTitle:title fragment:fragment query:query];
 }
 
 + (NSRegularExpression *)invalidPercentEscapesRegex {
@@ -79,13 +79,19 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if ([path wmf_isWikiResource]) {
         return [NSURL wmf_URLWithSiteURL:siteURL unescapedDenormalizedInternalLink:path];
     } else {
+        NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
+        path = [splitQuery firstObject];
+        NSString *query = nil;
+        if (splitQuery.count > 1) {
+            query = [splitQuery lastObject];
+        }
         NSArray *bits = [path componentsSeparatedByString:@"#"];
         NSString *fragment = nil;
         if (bits.count > 1) {
             fragment = bits[1];
         }
         fragment = [fragment precomposedStringWithCanonicalMapping];
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment];
+        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_normalizedPageTitle] fragment:fragment query:query];
     }
 }
 
@@ -100,12 +106,16 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
         // Resist the urge to use NSURLComponents, it doesn't handle special page paths like "Talk:India"
         NSArray *splitQuery = [path componentsSeparatedByString:@"?"];
         path = [splitQuery firstObject];
+        NSString *query = nil;
+        if (splitQuery.count > 1) {
+            query = [splitQuery lastObject];
+        }
         NSArray *bits = [path componentsSeparatedByString:@"#"];
         NSString *fragment = nil;
         if (bits.count > 1) {
             fragment = [bits[1] stringByRemovingPercentEncoding];
         }
-        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:fragment];
+        return [NSURL wmf_URLWithSiteURL:siteURL title:[[bits firstObject] wmf_unescapedNormalizedPageTitle] fragment:fragment query:query];
     }
 }
 
@@ -140,10 +150,11 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return components.URL;
 }
 
-- (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(NSString *)fragment {
+- (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
     components.wmf_fragment = fragment;
+    components.query = query;
     return components.URL;
 }
 
