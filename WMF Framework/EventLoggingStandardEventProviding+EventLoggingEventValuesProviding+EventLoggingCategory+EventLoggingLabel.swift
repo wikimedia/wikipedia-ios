@@ -10,7 +10,7 @@ public protocol EventLoggingStandardEventProviding {
 public extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
     var standardEvent: Dictionary<String, Any> {
         let appInstallID = wmf_appInstallID()
-        let timestamp = DateFormatter.wmf_iso8601().string(from: Date())
+        let timestamp = DateFormatter.wmf_iso8601Localized().string(from: Date())
         let sessionID = wmf_sessionID()
         return ["app_install_id": appInstallID, "session_id": sessionID, "event_dt": timestamp];
     }

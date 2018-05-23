@@ -42,7 +42,13 @@
 - (void)testStrings {
     XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"India"].wmf_title, @"India");
     XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"Talk:India"].wmf_title, @"Talk:India");
-    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"Talk:India#History"].wmf_title, @"Talk:India");
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Talk:India#History"].wmf_title, @"Talk:India");
+}
+
+- (void)testStringsWithQuery {
+    XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"India"].wmf_title, @"India");
+    XCTAssertEqualObjects([siteURL wmf_URLWithTitle:@"Talk:India"].wmf_title, @"Talk:India");
+    XCTAssertEqualObjects([NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Talk:India?wprov=stii1&a=%3Fb&c=%3F%3F#History"].wmf_title, @"Talk:India");
 }
 
 - (void)testLinks {

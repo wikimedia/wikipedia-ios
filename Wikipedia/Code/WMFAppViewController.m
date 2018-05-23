@@ -284,6 +284,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
+    
+    [[SessionsFunnel shared] logSessionStart];
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
@@ -296,8 +298,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [[WMFEventLoggingService sharedInstance] start];
 #endif
     }
-
-    [[SessionsFunnel shared] logSessionStart];
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -562,6 +562,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
+                                    [[SessionsFunnel shared] logSessionStart];
                                     [[UserHistoryFunnel shared] logStartingSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
@@ -697,7 +698,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 #endif
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
-    [[SessionsFunnel shared] logSessionStart];
 
     [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
         [self checkRemoteAppConfigIfNecessary];
