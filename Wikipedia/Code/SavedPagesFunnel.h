@@ -2,12 +2,12 @@
 
 @interface SavedPagesFunnel : EventLoggingFunnel
 
-+ (void)logStateChange:(BOOL)didSave;
++ (void)logStateChange:(BOOL)didSave articleURL:(NSURL *)articleURL;
 
 /**
  * Log the saving of a new page to the saved set.
  */
-- (void)logSaveNew;
+- (void)logSaveNewWithArticleURL:(NSURL *)articleURL;
 
 /**
  * What does this represent? Update of a single page, or of the entire data set?
@@ -22,12 +22,12 @@
 /**
  * Log the removal of a saved page from the saved list
  */
-- (void)logDelete;
+- (void)logDeleteWithArticleURL:(NSURL *)articleURL;
 
 /**
  * @fixme What does this represent
  */
-- (void)logEditAttempt;
+- (void)logEditAttemptWithArticleURL:(NSURL *)articleURL;
 
 /**
  * @fixme What does this represent
