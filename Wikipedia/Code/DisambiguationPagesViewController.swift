@@ -71,4 +71,12 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     override var analyticsName: String {
         return "Disambiguation"
     }
+    
+    override var eventLoggingLabel: EventLoggingLabel {
+        return .similarPage
+    }
+    
+    override var eventLoggingCategory: EventLoggingCategory {
+        return .article
+    }
 }
