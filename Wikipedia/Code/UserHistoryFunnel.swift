@@ -24,11 +24,10 @@
         let userDefaults = UserDefaults.wmf_userDefaults()
         
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let primaryLanguage = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode ?? "en"
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
         
-        var event: [String: Any] = ["primary_language": primaryLanguage, "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
+        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
         
         guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
             return event
