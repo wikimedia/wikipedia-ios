@@ -34,6 +34,9 @@
             return event
         }
         
+        let savedArticlesCount = dataStore.savedPageList.numberOfItems()
+        event["measure_readinglist_itemcount"] = savedArticlesCount
+        
         let isSyncEnabled = dataStore.readingListsController.isSyncEnabled
         let isDefaultListEnabled = dataStore.readingListsController.isDefaultListEnabled
         event["readinglist_sync"] = isSyncEnabled
@@ -41,9 +44,6 @@
         
         if let readingListCount = try? dataStore.viewContext.allReadingListsCount() {
             event["measure_readinglist_listcount"] = readingListCount
-        }
-        if let savedArticlesCount = try? dataStore.viewContext.allSavedArticlesCount() {
-            event["measure_readinglist_itemcount"] = savedArticlesCount
         }
         
         return wholeEvent(with: event)
