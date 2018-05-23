@@ -759,7 +759,7 @@ public extension NSManagedObjectContext {
     func allSavedArticlesCount() throws -> Int {
         assert(Thread.isMainThread)
         let request: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        request.predicate = NSPredicate(format: "isDeletedLocally == NO")
+        request.predicate = NSPredicate(format: "isDeletedLocally == NO && list.isDefault == YES")
         return try self.count(for: request)
     }
 }
