@@ -360,16 +360,16 @@ extension ReadingListDetailViewController: ActionDelegate {
     }
     
     private func delete(_ entries: [ReadingListEntry], indexPath: IndexPath? = nil) {
+        var articleLanguage: String? = nil
+        if let indexPath = indexPath, let articleURL = articleURL(at: indexPath) {
+            articleLanguage = articleURL.wmf_language
+        }
         do {
             try dataStore.readingListsController.remove(entries: entries)
             let entriesCount = entries.count
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
             guard readingList.isDefault else {
                 return
-            }
-            var articleLanguage: String? = nil
-            if let indexPath = indexPath, let articleURL = articleURL(at: indexPath) {
-                articleLanguage = articleURL.wmf_language
             }
             ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: entriesCount, language: articleLanguage)
         } catch let err {
