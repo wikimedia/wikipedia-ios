@@ -42,7 +42,9 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
         self.index = [self optionalString:@"index" dict:dict];   // deceptively named, this must be a string
 
         if ([dict[@"fromtitle"] length] > 0) {
-            self.fromURL = [self.url wmf_URLWithTitle:dict[@"fromtitle"]];
+            NSURLComponents *components = [NSURLComponents componentsWithURL:self.url resolvingAgainstBaseURL:NO];
+            components.wmf_titleWithUnderscores = dict[@"fromtitle"];
+            self.fromURL = components.URL;
         }
         self.anchor = [self optionalString:@"anchor" dict:dict];
         self.sectionId = [[self requiredNumber:@"id" dict:dict] intValue];
