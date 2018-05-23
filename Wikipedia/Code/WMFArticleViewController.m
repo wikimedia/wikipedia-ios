@@ -169,7 +169,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
-        self.articleURL = url;
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.query = nil;
+        self.articleURL = components.URL;
         self.dataStore = dataStore;
         self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
 

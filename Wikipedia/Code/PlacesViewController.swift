@@ -1783,6 +1783,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .share:
             let addToReadingListActivity = AddToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSaveInPlaces(url) }
                 self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
             }
             let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])
