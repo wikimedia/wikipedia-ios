@@ -222,11 +222,13 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapStaticText(key: "main-menu-account-login")
         wmf_snapshot("LoginScreen1")
 
+        
         // Create account
         app.wmf_tapStaticTextStartingWith(key: "login-no-account")
         wmf_snapshot("CreateAccountScreen1")
         app.wmf_tapUnlocalizedCloseButton()
 
+        
         // Forgot password
         app.wmf_tapStaticText(key: "main-menu-account-login")
         app.wmf_tapStaticText(key: "login-forgot-password")
@@ -234,22 +236,10 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapUnlocalizedCloseButton()
 
         
-        // Support Wikipedia
-        // app.wmf_tapStaticText(key: "settings-support")
-        // wmf_snapshot("SupportScreen1")
-        // TODO: how do we get back from Safari popover?
-
-        
         // My languages
         app.wmf_tapStaticText(key: "settings-my-languages")
         wmf_snapshot("MyLanguagesScreen1")
         app.wmf_tapButton(key: "close-button-accessibility-label")
-
-        
-        // NOT NEEDED - just a toggle
-        // Show languages on search
-        // app.wmf_tapStaticText(key: "settings-language-bar")
-        // wmf_snapshot("LanguageBarScreen1")
 
         
         // Notifications
@@ -273,36 +263,6 @@ class WikipediaUITests: XCTestCase {
         // Clear cached data
         app.wmf_tapStaticText(key: "settings-clear-cache")
         wmf_snapshot("ClearCacheScreen1")
-
-        
-        // Privacy policy
-        // app.wmf_tapStaticText(key: "main-menu-privacy-policy")
-        // wmf_snapshot("PrivacyPolicyScreen1")
-        // TODO: how do we get back from Safari popover?
-
-        
-        // Terms of use
-        // app.wmf_tapStaticText(key: "main-menu-terms-of-use")
-        // wmf_snapshot("TermsOfUseScreen1")
-        // TODO: how do we get back from Safari popover?
-
-        
-        // NOT NEEDED - just a toggle
-        // Send usage reports
-        // app.wmf_tapStaticText(key: "preference-title-eventlogging-opt-in")
-        // wmf_snapshot("EventLoggingOptInScreen1")
-
-        
-        // Wikipedia Zero FAQ
-        // app.wmf_tapStaticText(key: "main-menu-zero-faq")
-        // wmf_snapshot("ZeroFAQScreen1")
-        // TODO: how do we get back from Safari popover?
-
-        
-        // Rate the app
-        // app.wmf_tapStaticText(key: "main-menu-rate-app")
-        // wmf_snapshot("RateAppScreen1")
-        // TODO: how do we get back from Safari popover?
 
         
         // Help and feedback
