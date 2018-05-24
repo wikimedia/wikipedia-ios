@@ -1,5 +1,7 @@
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSURLComponents (WMFLinkParsing)
 
 /**
@@ -105,4 +107,9 @@
 @property (nonatomic, readonly, nullable) NSString *wmf_eventLoggingLabel;
 @property (nonatomic, readonly, nullable) NSURLComponents *wmf_componentsByRemovingInternalQueryParameters;
 
+- (NSURLComponents *)wmf_componentsByRemovingQueryItemsNamed:(NSSet<NSString *> *)queryItemNames;
+- (nullable NSString *)wmf_valueForQueryItemNamed:(NSString *)queryItemName;
+
 @end
+
+NS_ASSUME_NONNULL_END
