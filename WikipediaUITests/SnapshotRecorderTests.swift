@@ -230,11 +230,25 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("ArticleScreenFooter")
         }
         
+        
         // Article theme panel
         app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
-        wmf_snapshot("ArticleScreenThemes")
+        wmf_snapshot("ArticleScreenThemesLight")
+        
+        app.wmf_tapButton(key: "reading-themes-controls-accessibility-sepia-theme-button")
+        wmf_snapshot("ArticleScreenThemesSepia")
+
+        app.wmf_tapButton(key: "reading-themes-controls-accessibility-dark-theme-button")
+        wmf_snapshot("ArticleScreenThemesDark")
+
+        app.wmf_tapButton(key: "reading-themes-controls-accessibility-black-theme-button")
+        wmf_snapshot("ArticleScreenThemesBlack")
+
+        app.wmf_tapButton(key: "reading-themes-controls-accessibility-light-theme-button")
+
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
+        
         // Article find in page
         app.wmf_tapButton(key: "find-in-page-button-label")
         wmf_snapshot("ArticleScreenFindInPage1")
