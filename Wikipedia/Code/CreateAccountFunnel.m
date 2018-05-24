@@ -2,7 +2,6 @@
 
 static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kTimestampKey = @"ts";
-static NSString *const kIsAnonKey = @"is_anon";
 
 @implementation CreateAccountFunnel
 
@@ -19,10 +18,9 @@ static NSString *const kIsAnonKey = @"is_anon";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[@"createAccountSessionToken"] = self.createAccountSessionToken;
+    dict[@"sessionToken"] = self.createAccountSessionToken;
     dict[kAppInstallIdKey] = [self wmf_appInstallID];
     dict[kTimestampKey] = [self timestamp];
-    dict[kIsAnonKey] = [self isAnon];
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
