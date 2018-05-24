@@ -51,7 +51,7 @@ static NSString *const kIsAnonKey = @"is_anon";
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[kAppInstallIdKey] = self.appInstallID;
-    dict[kIsAnonKey] = [self isAnon];
+    dict[kIsAnonKey] = self.isAnon;
     dict[kTimestampKey] = self.timestamp;
     return [NSDictionary dictionaryWithDictionary:dict];
 }

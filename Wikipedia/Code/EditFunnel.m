@@ -20,7 +20,7 @@ static NSString *const kTimestampKey = @"ts";
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"sessionToken"] = self.editSessionToken;
-    dict[kAnonKey] = [self isAnon];
+    dict[kAnonKey] = self.isAnon;
     dict[kAppInstallIdKey] = self.appInstallID;
     dict[kTimestampKey] = self.timestamp;
     //dict[@"pageNS"] = @0; // @todo actually get the namespace...

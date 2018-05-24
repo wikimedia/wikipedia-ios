@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSString *timestamp;
+@property (nonatomic, readonly) NSNumber *isAnon;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
@@ -114,8 +115,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Helper function to generate a per-use UUID.
  */
 - (NSString *)singleUseUUID;
-
-- (NSNumber *)isAnon;
 
 NS_ASSUME_NONNULL_END
 
