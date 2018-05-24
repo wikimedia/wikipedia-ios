@@ -105,4 +105,32 @@
     return [self.fragment precomposedStringWithCanonicalMapping];
 }
 
+- (nullable NSString *)wmf_eventLoggingLabel {
+    NSString *eventLoggingLabel = nil;
+    for (NSURLQueryItem *queryItem in self.queryItems) {
+        if (![queryItem.name isEqualToString:@"event_logging_label"]) {
+            continue;
+        }
+        eventLoggingLabel = queryItem.value;
+        break;
+    }
+    return eventLoggingLabel;
+}
+
+- (nullable NSURLComponents *)wmf_componentsByRemovingInternalQueryParameters {
+    if (self.queryItems.count == 0) {
+        return self;
+    }
+    NSURLComponents *updatedComponents = [self copy];
+    NSMutableArray *validQueryItems = [NSMutableArray arrayWithCapacity:self.queryItems.count];
+    for (NSURLQueryItem *queryItem in self.queryItems) {
+        if ([queryItem.name isEqualToString:@"event_logging_label"]) {
+            continue;
+        }
+        [validQueryItems addObject:queryItem];
+    }
+    updatedComponents.queryItems = validQueryItems.count > 0 ? validQueryItems : nil;
+    return updatedComponents;
+}
+
 @end

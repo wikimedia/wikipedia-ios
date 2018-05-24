@@ -102,4 +102,7 @@
 @property (nonatomic, copy, nullable) NSString *wmf_titleWithUnderscores;
 @property (nullable, copy) NSString *wmf_fragment;
 
+@property (nonatomic, readonly, nullable) NSString *wmf_eventLoggingLabel;
+@property (nonatomic, readonly, nullable) NSURLComponents *wmf_componentsByRemovingInternalQueryParameters;
+
 @end

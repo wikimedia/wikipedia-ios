@@ -1705,7 +1705,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
-    UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
+    NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:elementInfo.linkURL resolvingAgainstBaseURL:NO];
+    NSString *eventLoggingLabel = linkURLComponents.wmf_eventLoggingLabel;
+    DDLogDebug(@"Event logging label is %@", eventLoggingLabel);
+    NSURLComponents *updatedLinkURLComponents = linkURLComponents.wmf_componentsByRemovingInternalQueryParameters;
+    NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
+    UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
     if (peekVC) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
