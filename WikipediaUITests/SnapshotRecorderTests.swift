@@ -180,6 +180,7 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("ArticleScreen1")
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
+        // TOC and ARTICLE FOOTERS
         if UIDevice.current.userInterfaceIdiom != .pad {
             // TOC
             app.wmf_tapButton(key: "table-of-contents-button-label")
@@ -199,10 +200,12 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("ArticleScreenFooter")
         }
         
+        // Article theme panel
         app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
         wmf_snapshot("ArticleScreenThemes")
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
+        // Article find in page
         app.wmf_tapButton(key: "find-in-page-button-label")
         wmf_snapshot("ArticleScreenFindInPage1")
         app.textFields.firstMatch.typeText("a")
