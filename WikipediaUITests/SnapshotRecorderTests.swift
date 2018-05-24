@@ -133,36 +133,66 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapButton(key: "home-title")
         wmf_snapshot("ExploreScreen1")
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-potd-heading", success: {
-          wmf_snapshot("ExploreScreenPicOfTheDay")
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-potd-heading", success: { element in
+            wmf_snapshot("ExploreScreenPicOfTheDay")
+
+            element.tap()
+            sleep(8)
+            wmf_snapshot("GalleryScreen")
+            app.wmf_tapUnlocalizedCloseButton()
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-featured-article-heading", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-featured-article-heading", success: { element in
             wmf_snapshot("ExploreScreenFeaturedArticle")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-most-read-heading", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-most-read-heading", success: { element in
             wmf_snapshot("ExploreScreenMostRead")
+
+            element.tap()
+            sleep(4)
+            wmf_snapshot("MostReadDetail")
+            app.wmf_tapButton(key: "back")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: { element in
             wmf_snapshot("ExploreScreenOnThisDay")
+
+            element.tap()
+            sleep(4)
+            wmf_snapshot("OnThisDayDetail")
+            app.wmf_tapButton(key: "back")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-nearby-placeholder-heading", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-nearby-placeholder-heading", success: { element in
             wmf_snapshot("ExploreScreenNearbyPlaces")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-random-article-heading", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-random-article-heading", success: { element in
             wmf_snapshot("ExploreScreenRandom")
+            
+            element.tap()
+            sleep(8)
+            wmf_snapshot("RandomDetail")
+            app.wmf_tapButton(key: "back")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
+
+            element.tap()
+            sleep(8)
+            wmf_snapshot("MainPageDetail")
+            app.wmf_tapButton(key: "back")
         })
 
-        app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: {
+        app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: { element in
             wmf_snapshot("ExploreScreenInTheNews")
+            
+            element.tap()
+            sleep(4)
+            wmf_snapshot("InTheNewsDetail")
+            app.wmf_tapButton(key: "back")
         })
     
         

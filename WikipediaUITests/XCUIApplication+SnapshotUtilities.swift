@@ -82,7 +82,7 @@ extension XCUIApplication {
         coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: iPadSafeBottomDragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
     }
     
-    func wmf_scrollToOtherElementStartingWith(key: String, success: () -> ()){
+    func wmf_scrollToOtherElementStartingWith(key: String, success: (XCUIElement) -> ()){
         wmf_scrollToTop()
         let maxScrollSeconds: Double = 240
         let start = Date()
@@ -91,7 +91,7 @@ extension XCUIApplication {
             if element.exists {
                 wmf_scrollElementToTop(element: element)
                 sleep(1)
-                success()
+                success(element)
                 return
             }
             wmf_scrollDown()
