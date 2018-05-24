@@ -10,7 +10,6 @@
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
-        self.requiresAppInstallID = YES;
     }
     return self;
 }

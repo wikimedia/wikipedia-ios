@@ -8,7 +8,6 @@
                         version:8234533];
     if (self) {
         self.loginSessionToken = [self singleUseUUID];
-        self.requiresAppInstallID = NO;
     }
     return self;
 }
