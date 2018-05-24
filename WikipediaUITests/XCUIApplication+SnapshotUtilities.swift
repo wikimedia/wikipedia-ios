@@ -73,7 +73,8 @@ extension XCUIApplication {
     }
     
     func wmf_scrollDown() {
-        coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 1.0)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
+        let iPadSafeBottomDragStartY: Double = 0.8 // If set to 1.0 it drags from very bottom of the screen which triggers an iPad task switcher and zooms out the app. So drag from a little above the very bottom.
+        coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: iPadSafeBottomDragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
     }
     
     func wmf_scrollToOtherElementStartingWith(key: String, success: () -> ()){

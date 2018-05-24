@@ -8,7 +8,8 @@ devices([
   "iPhone 6",
   "iPhone 6 Plus",
   "iPhone X",
-  "iPad Air"
+  "iPad Air",
+  "iPad Pro (12.9-inch)"
 ])
 
 # A list of localizations you want to take the screenshots from.

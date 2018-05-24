@@ -179,10 +179,12 @@ class WikipediaUITests: XCTestCase {
         sleep(8)
         wmf_snapshot("ArticleScreen1")
         sleep(10) // give popover time to disappear (this uitest target sleeps - the app doesn't)
-        
-        app.wmf_tapButton(key: "table-of-contents-button-label")
-        wmf_snapshot("ArticleScreenTOC")
-        app.wmf_tapButton(key: "table-of-contents-close-accessibility-label")
+
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            app.wmf_tapButton(key: "table-of-contents-button-label")
+            wmf_snapshot("ArticleScreenTOC")
+            app.wmf_tapButton(key: "table-of-contents-close-accessibility-label")
+        }
         
         app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
         wmf_snapshot("ArticleScreenThemes")
