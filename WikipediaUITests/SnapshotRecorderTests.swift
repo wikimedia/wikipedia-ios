@@ -136,7 +136,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "explore-potd-heading", success: { element in
             wmf_snapshot("ExploreScreenPicOfTheDay")
 
-            element.tap()
+            element.wmf_tap()
             sleep(8)
             wmf_snapshot("GalleryScreen")
             app.wmf_tapUnlocalizedCloseButton()
@@ -149,7 +149,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "explore-most-read-heading", success: { element in
             wmf_snapshot("ExploreScreenMostRead")
 
-            element.tap()
+            element.wmf_tap()
             sleep(4)
             wmf_snapshot("MostReadDetail")
             app.wmf_tapButton(key: "back")
@@ -158,7 +158,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: { element in
             wmf_snapshot("ExploreScreenOnThisDay")
 
-            element.tap()
+            element.wmf_tap()
             sleep(4)
             wmf_snapshot("OnThisDayDetail")
             app.wmf_tapButton(key: "back")
@@ -171,7 +171,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "explore-random-article-heading", success: { element in
             wmf_snapshot("ExploreScreenRandom")
             
-            element.tap()
+            element.wmf_tap()
             sleep(8)
             wmf_snapshot("RandomDetail")
             app.wmf_tapButton(key: "back")
@@ -180,7 +180,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
 
-            element.tap()
+            element.wmf_tap()
             sleep(8)
             wmf_snapshot("MainPageDetail")
             app.wmf_tapButton(key: "back")
@@ -189,7 +189,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: { element in
             wmf_snapshot("ExploreScreenInTheNews")
             
-            element.tap()
+            element.wmf_tap()
             sleep(4)
             wmf_snapshot("InTheNewsDetail")
             app.wmf_tapButton(key: "back")

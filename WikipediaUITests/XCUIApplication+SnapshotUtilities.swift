@@ -5,6 +5,13 @@ import XCTest
 let sleepBeforeTap: UInt32 = 1
 let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
+extension XCUIElement {
+    func wmf_tap() {
+        sleep(sleepBeforeTap)
+        tap()
+    }
+}
+
 extension XCUIApplication {
     func wmf_dismissPopover() {
         sleep(sleepBeforeTap)
@@ -92,7 +99,7 @@ extension XCUIApplication {
                 wmf_scrollElementToTop(element: element)
                 sleep(1)
                 success(element)
-                return
+                break
             }
             wmf_scrollDown()
         } while Date().timeIntervalSince(start) < maxScrollSeconds
