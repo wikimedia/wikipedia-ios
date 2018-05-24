@@ -21,7 +21,6 @@ static NSString *const kTimestampKey = @"ts";
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"sessionToken"] = self.editSessionToken;
-    dict[@"userID"] = @(self.userId);
     dict[kAnonKey] = [self isAnon];
     dict[kAppInstallIdKey] = [self wmf_appInstallID];
     dict[kTimestampKey] = [self timestamp];
