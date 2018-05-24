@@ -23,15 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 - (NSURL *)wmf_urlWithValue:(NSString *)value forQueryKey:(NSString *)key;
 
-/**
- * Gets NSURL with key and its value removed.
- *
- * @param key       Key to remove if present.
- *
- * @return          URL with key and its value removed. For the url http://www.wikipedia.org?somekey=somevalue&color=red using the key 'somekey' would return the http://www.wikipedia.org?color=red
- **/
-- (NSURL *)wmf_urlWithoutQueryKey:(NSString *)key;
-
 @end
 
 NS_ASSUME_NONNULL_END

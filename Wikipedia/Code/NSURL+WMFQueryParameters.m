@@ -1,14 +1,12 @@
 #import <WMF/NSURL+WMFQueryParameters.h>
 #import <WMF/WMF-Swift.h>
+#import <WMF/NSURLComponents+WMFLinkParsing.h>
 
 @implementation NSURL (WMFQueryParameters)
 
 - (nullable NSString *)wmf_valueForQueryKey:(NSString *)key {
-    NSURLQueryItem *matchingItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
-        wmf_match:^BOOL(NSURLQueryItem *item) {
-            return [item.name isEqualToString:key];
-        }];
-    return matchingItem.value;
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
+    return [components wmf_valueForQueryItemNamed:key];
 }
 
 - (NSURL *)wmf_urlWithValue:(NSString *)value forQueryKey:(NSString *)key {
@@ -37,16 +35,6 @@
             }
         }
     }
-    return components.URL;
-}
-
-- (NSURL *)wmf_urlWithoutQueryKey:(NSString *)key {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES];
-    NSArray<NSURLQueryItem *> *queryItems = [components.queryItems
-        wmf_select:^BOOL(NSURLQueryItem *item) {
-            return ([item.name isEqualToString:key]) ? NO : YES;
-        }];
-    components.queryItems = queryItems;
     return components.URL;
 }
 
