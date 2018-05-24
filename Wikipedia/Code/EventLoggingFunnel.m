@@ -68,11 +68,11 @@
 - (void)logged:(NSDictionary *)eventData {
 }
 
-- (NSString *)wmf_appInstallID {
+- (NSString *)appInstallID {
     return [[KeychainCredentialsManager shared] appInstallID];
 }
 
-- (NSString *)wmf_sessionID {
+- (NSString *)sessionID {
     return [[KeychainCredentialsManager shared] sessionID];
 }
 

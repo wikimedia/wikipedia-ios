@@ -23,7 +23,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *schema;
 @property (nonatomic, assign) int revision;
-@property (nonatomic, assign) BOOL requiresAppInstallID;
+/**
+ * Helper function that returns a persistent appInstallID.
+ * appInstallID is generated once per install.
+ */
+@property (nonatomic, readonly) NSString *appInstallID;
+/**
+ * SessionID is reset when app is launched for the first time or resumed.
+ */
+@property (nonatomic, readonly) NSString *sessionID;
+@property (nonatomic, readonly) NSString *timestamp;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
@@ -105,20 +114,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Helper function to generate a per-use UUID.
  */
 - (NSString *)singleUseUUID;
-
-/**
- * Helper function that returns a persistent appInstallID.
- * appInstallID is generated once per install.
- */
-- (NSString *)wmf_appInstallID;
-
-/**
- * Helper function that returns a sessionID.
- * SessionID is reset when app is launched for the first time or resumed.
- */
-- (NSString *)wmf_sessionID;
-
-- (NSString *)timestamp;
 
 NS_ASSUME_NONNULL_END
 
