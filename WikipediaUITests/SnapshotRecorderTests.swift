@@ -181,9 +181,22 @@ class WikipediaUITests: XCTestCase {
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         if UIDevice.current.userInterfaceIdiom != .pad {
+            // TOC
             app.wmf_tapButton(key: "table-of-contents-button-label")
             wmf_snapshot("ArticleScreenTOC")
-            app.wmf_tapButton(key: "table-of-contents-close-accessibility-label")
+            
+            // `About this article` footer
+            app.wmf_tapStaticText(key: "article-about-title")
+            wmf_snapshot("ArticleScreenFooterAboutThisArticle")
+
+            // `Read more` footer
+            app.wmf_tapButton(key: "table-of-contents-button-label")
+            app.wmf_tapStaticText(key: "article-read-more-title")
+            wmf_snapshot("ArticleScreenFooterReadMore")
+        } else {
+            // Article footer (both the `About this article` and `Read more` footers are visible on larger iPad screens so no need to do separate screenshot for `Read more`)
+            app.wmf_tapStaticText(key: "article-about-title")
+            wmf_snapshot("ArticleScreenFooter")
         }
         
         app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
