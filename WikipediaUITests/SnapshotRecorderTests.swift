@@ -178,7 +178,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapFirstCollectionViewCell()
         sleep(8)
         wmf_snapshot("ArticleScreen1")
-        sleep(10) // give popover time to disappear (this uitest target sleeps - the app doesn't)
+        sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         if UIDevice.current.userInterfaceIdiom != .pad {
             app.wmf_tapButton(key: "table-of-contents-button-label")
@@ -188,7 +188,7 @@ class WikipediaUITests: XCTestCase {
         
         app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
         wmf_snapshot("ArticleScreenThemes")
-        sleep(10) // give popover time to disappear (this uitest target sleeps - the app doesn't)
+        sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         app.wmf_tapButton(key: "find-in-page-button-label")
         wmf_snapshot("ArticleScreenFindInPage1")
@@ -294,15 +294,15 @@ class WikipediaUITests: XCTestCase {
         
         // Help and feedback
         app.wmf_tapStaticText(key: "settings-help-and-feedback")
-        sleep(10)
+        sleep(8)
         wmf_snapshot("HelpAndFeedbackScreen1")
-        sleep(10) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
+        sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
         app.wmf_tapButton(key: "settings-title")
 
         
         // About the app
         app.wmf_tapStaticText(key: "main-menu-about")
-        sleep(10)
+        sleep(8)
         wmf_snapshot("AboutTheAppScreen1")
         app.wmf_tapButton(key: "settings-title")
         app.wmf_tapButton(key: "close-button-accessibility-label")
