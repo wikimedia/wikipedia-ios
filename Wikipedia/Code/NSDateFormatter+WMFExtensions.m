@@ -18,18 +18,15 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return iso8601Formatter;
 }
 
-+ (NSDateFormatter *)wmf_iso8601FormatterWithoutZone {
-    static NSDateFormatter *iso8601Formatter = nil;
++ (NSISO8601DateFormatter *)wmf_rfc3339LocalTimeZoneFormatter {
+    static NSISO8601DateFormatter *wmf_rfc3339LocalTimeZoneFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
-        iso8601Formatter = [NSDateFormatter new];
-        iso8601Formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
-        iso8601Formatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'";
-        ;
-        iso8601Formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+        wmf_rfc3339LocalTimeZoneFormatter = [NSISO8601DateFormatter new];
+        wmf_rfc3339LocalTimeZoneFormatter.timeZone = [NSTimeZone localTimeZone];
+        wmf_rfc3339LocalTimeZoneFormatter.formatOptions = NSISO8601DateFormatWithInternetDateTime;
     });
-    return iso8601Formatter;
+    return wmf_rfc3339LocalTimeZoneFormatter;
 }
 
 + (NSDateFormatter *)wmf_shortTimeFormatter {
