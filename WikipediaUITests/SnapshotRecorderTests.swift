@@ -208,6 +208,16 @@ class WikipediaUITests: XCTestCase {
         // Login
         app.wmf_tapStaticText(key: "main-menu-account-login")
         wmf_snapshot("LoginScreen1")
+
+        // Create account
+        app.wmf_tapStaticTextStartingWith(key: "login-no-account")
+        wmf_snapshot("CreateAccountScreen1")
+        app.wmf_tapUnlocalizedCloseButton()
+
+        // Forgot password
+        app.wmf_tapStaticText(key: "main-menu-account-login")
+        app.wmf_tapStaticText(key: "login-forgot-password")
+        wmf_snapshot("ForgotPasswordScreen1")
         app.wmf_tapUnlocalizedCloseButton()
 
         

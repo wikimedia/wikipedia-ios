@@ -39,7 +39,12 @@ extension XCUIApplication {
         sleep(sleepBeforeTap)
         wmf_staticText(key: key).tap()
     }
-    
+
+    func wmf_tapStaticTextStartingWith(key: String) {
+        sleep(sleepBeforeTap)
+        wmf_elementStartingWith(key: key, from: staticTexts).tap()
+    }
+
     func wmf_tapUnlocalizedCloseButton() {
         sleep(sleepBeforeTap)
         buttons["close"].firstMatch.tap()
@@ -60,7 +65,7 @@ extension XCUIApplication {
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
     }
     
-    func wmf_otherElementStartingWith(key: String) -> XCUIElement {
+    func wmf_elementStartingWith(key: String, from elementQuery: XCUIElementQuery) -> XCUIElement {
         
         var translation = wmf_localizedString(key: key)
         
@@ -69,7 +74,7 @@ extension XCUIApplication {
             translation = String(translation[..<rangeOfSubstitutionString.lowerBound])
         }
         
-        return otherElements.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation))
+        return elementQuery.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation))
     }
     
     func wmf_scrollDown() {
@@ -82,7 +87,7 @@ extension XCUIApplication {
         let maxScrollSeconds: Double = 240
         let start = Date()
         repeat {
-            let element = wmf_otherElementStartingWith(key: key)
+            let element = wmf_elementStartingWith(key: key, from: otherElements)
             if element.exists {
                 wmf_scrollElementToTop(element: element)
                 sleep(1)
