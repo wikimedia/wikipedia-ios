@@ -12,7 +12,6 @@ static NSString *const kTimestampKey = @"ts";
     self = [super initWithSchema:@"MobileWikiAppEdit" version:17837072];
     if (self) {
         self.editSessionToken = [self singleUseUUID];
-        self.requiresAppInstallID = NO;
     }
     self.userId = userId;
     return self;
@@ -22,8 +21,8 @@ static NSString *const kTimestampKey = @"ts";
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"sessionToken"] = self.editSessionToken;
     dict[kAnonKey] = [self isAnon];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
-    dict[kTimestampKey] = [self timestamp];
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     //dict[@"pageNS"] = @0; // @todo actually get the namespace...
     return [NSDictionary dictionaryWithDictionary:dict];
 }

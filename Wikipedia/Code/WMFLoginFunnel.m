@@ -11,7 +11,6 @@ static NSString *const kTimestampKey = @"ts";
                         version:17836928];
     if (self) {
         self.loginSessionToken = [self singleUseUUID];
-        self.requiresAppInstallID = NO;
     }
     return self;
 }
@@ -19,8 +18,8 @@ static NSString *const kTimestampKey = @"ts";
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
     dict[@"sessionToken"] = self.loginSessionToken;
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
-    dict[kTimestampKey] = [self timestamp];
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

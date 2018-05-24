@@ -10,7 +10,6 @@
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
-        self.requiresAppInstallID = YES;
     }
     return self;
 }
@@ -69,20 +68,16 @@
 - (void)logged:(NSDictionary *)eventData {
 }
 
-- (NSString *)wmf_appInstallID {
+- (NSString *)appInstallID {
     return [[KeychainCredentialsManager shared] appInstallID];
 }
 
-- (NSString *)wmf_sessionID {
+- (NSString *)sessionID {
     return [[KeychainCredentialsManager shared] sessionID];
 }
 
 - (NSString *)timestamp {
-    NSString *wmf_iso8601DateWithoutZoneString = [[NSDateFormatter wmf_iso8601FormatterWithoutZone] stringFromDate:[NSDate date]];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.timeZone = [NSTimeZone localTimeZone];
-    dateFormatter.dateFormat = @"Z";
-    return [NSString stringWithFormat:@"%@%@", wmf_iso8601DateWithoutZoneString, [dateFormatter stringFromDate:[NSDate date]]];
+    return [[NSDateFormatter wmf_rfc3339LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
 }
 
 - (NSNumber *)isAnon {

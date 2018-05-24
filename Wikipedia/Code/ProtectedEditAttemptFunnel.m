@@ -9,15 +9,12 @@ static NSString *const kTimestampKey = @"ts";
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppProtectedEditAttempt
     self = [super initWithSchema:@"MobileWikiAppProtectedEditAttempt"
                          version:17836991];
-    if (self) {
-        self.requiresAppInstallID = NO;
-    }
     return self;
 }
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
-    dict[kTimestampKey] = [self timestamp];
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     return dict;
 }
 

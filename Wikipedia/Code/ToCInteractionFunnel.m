@@ -14,8 +14,8 @@ static NSString *const kTimestampKey = @"ts";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
-    dict[kTimestampKey] = [self timestamp];
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
