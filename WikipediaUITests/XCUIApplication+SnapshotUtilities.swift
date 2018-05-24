@@ -74,7 +74,7 @@ extension XCUIApplication {
             translation = String(translation[..<rangeOfSubstitutionString.lowerBound])
         }
         
-        return elementQuery.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation))
+        return elementQuery.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation)).firstMatch
     }
     
     func wmf_scrollDown() {
