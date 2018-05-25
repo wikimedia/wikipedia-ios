@@ -150,8 +150,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
-@property (nonatomic, readwrite) NSString *eventLoggingCategory;
-@property (nonatomic, readwrite) NSString *eventLoggingLabel;
+@property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
+@property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 
 @end
 
@@ -737,8 +737,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self hideProgressViewAnimated:NO];
     
-    self.eventLoggingCategory = @"default";
-    self.eventLoggingLabel = @"out_link";
+    self.eventLoggingCategory = EventLoggingCategoryArticle;
+    self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -1718,7 +1718,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (eventLoggingLabel) {
         self.eventLoggingLabel = eventLoggingLabel;
     } else {
-        self.eventLoggingLabel = @"out_link";
+        self.eventLoggingLabel = EventLoggingLabelOutLink;
     }
     NSURLComponents *updatedLinkURLComponents = linkURLComponents.wmf_componentsByRemovingInternalQueryParameters;
     NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
@@ -1897,8 +1897,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return;
         }
         id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)weakArticlePreviewingActionsDelegate;
-        NSString *eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
-        NSString *eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
+        EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
+        EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
         [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel articleURL:articleURL];
     };
 
