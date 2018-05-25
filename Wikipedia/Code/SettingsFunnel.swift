@@ -16,7 +16,6 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> Dictionary<String, Any> {
         let category = category.value
         let action = action.rawValue
-        let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         if let labelValue = label?.value {
