@@ -1,11 +1,14 @@
 #import "CreateAccountFunnel.h"
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
+static NSString *const kTimestampKey = @"ts";
+
 @implementation CreateAccountFunnel
 
 - (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppCreateAccount
     self = [self initWithSchema:@"MobileWikiAppCreateAccount"
-                        version:8240702];
+                        version:17836914];
     if (self) {
         self.createAccountSessionToken = [self singleUseUUID];
     }
@@ -14,7 +17,9 @@
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[@"createAccountSessionToken"] = self.createAccountSessionToken;
+    dict[@"sessionToken"] = self.createAccountSessionToken;
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

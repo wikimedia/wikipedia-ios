@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) NSString *sessionID;
 @property (nonatomic, readonly) NSString *timestamp;
+@property (nonatomic, readonly) NSNumber *isAnon;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
