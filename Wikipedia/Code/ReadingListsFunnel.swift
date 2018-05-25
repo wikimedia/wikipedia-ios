@@ -16,12 +16,12 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1) -> Dictionary<String, Any> {
-        let category = category.value
+        let category = category.rawValue
         let action = action.rawValue
         
         var event: [String: Any] = ["category": category, "action": action, "measure": measure, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let labelValue = label?.value {
-            event["label"] = labelValue
+        if let label = label?.rawValue {
+            event["label"] = label
         }
         return event
     }
@@ -33,19 +33,11 @@
     // - MARK: Article
     
     @objc public func logArticleSaveInCurrentArticle(_ articleURL: URL) {
-        logSave(category: .article, label: .current, articleURL: articleURL)
+        logSave(category: .article, label: .default, articleURL: articleURL)
     }
     
     @objc public func logArticleUnsaveInCurrentArticle(_ articleURL: URL) {
-        logUnsave(category: .article, label: .current, articleURL: articleURL)
-    }
-    
-    @objc public func logOutLinkSaveInCurrentArticle(_ articleURL: URL) {
-        logSave(category: .article, label: .outLink, articleURL: articleURL)
-    }
-    
-    @objc public func logOutLinkUnsaveInCurrentArticle(_ articleURL: URL) {
-        logUnsave(category: .article, label: .outLink, articleURL: articleURL)
+        logUnsave(category: .article, label: .default, articleURL: articleURL)
     }
     
     // - MARK: Read more
@@ -96,8 +88,12 @@
         log(event(category: category, label: label, action: .save, measure: measure), language: articleURL.wmf_language)
     }
     
-    @objc public func logSave(category: EventLoggingCategory, label: EventLoggingLabel, measure: Int = 1, language: String?) {
-        log(event(category: category, label: label, action: .save, measure: measure), language: language)
+    @objc public func logSave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
+        log(event(category: category, label: label, action: .save, measure: 1), language: articleURL?.wmf_language)
+    }
+    
+    @objc public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
+        log(event(category: category, label: label, action: .unsave, measure: 1), language: articleURL?.wmf_language)
     }
     
     private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, language: String?) {

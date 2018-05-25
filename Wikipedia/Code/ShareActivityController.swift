@@ -52,7 +52,7 @@ extension ShareableArticlesProvider where Self: ColumnarCollectionViewController
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
             if let category = eventLoggingCategory, let label = eventLoggingLabel {
-                addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, language: article.url?.wmf_language) }
+                addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
             }
             self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
         }

@@ -2101,7 +2101,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return EventLoggingCategoryFeed;
 }
 
-- (EventLoggingLabel)eventLoggingLabel {
+- (nullable EventLoggingLabel)eventLoggingLabel {
     return self.groupForPreviewedCell.eventLoggingLabel;
 }
 
