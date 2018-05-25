@@ -158,7 +158,7 @@ extension NewsViewController: EventLoggingEventValuesProviding {
         return .feed
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
+    var eventLoggingLabel: EventLoggingLabel? {
         return .news
     }
 }

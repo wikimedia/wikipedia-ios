@@ -160,7 +160,7 @@ extension ArticleLocationCollectionViewController: EventLoggingEventValuesProvid
         return .places
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
-        return .none
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }

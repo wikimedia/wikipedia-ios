@@ -89,7 +89,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
                                         WMFReadingListsAlertControllerDelegate,
-                                        WMFReadingListHintPresenter>
+                                        WMFReadingListHintPresenter,
+                                        EventLoggingEventValuesProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -148,6 +149,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
+
+@property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
+@property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 
 @end
 
@@ -732,6 +736,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
+    
+    self.eventLoggingCategory = EventLoggingCategoryArticle;
+    self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -1708,6 +1715,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:elementInfo.linkURL resolvingAgainstBaseURL:NO];
     NSString *eventLoggingLabel = linkURLComponents.wmf_eventLoggingLabel;
     DDLogDebug(@"Event logging label is %@", eventLoggingLabel);
+    if (eventLoggingLabel) {
+        self.eventLoggingLabel = eventLoggingLabel;
+    } else {
+        self.eventLoggingLabel = EventLoggingLabelOutLink;
+    }
     NSURLComponents *updatedLinkURLComponents = linkURLComponents.wmf_componentsByRemovingInternalQueryParameters;
     NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
     UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
@@ -1877,7 +1889,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      }
                                  }];
 
-    NSString *articleLanguage = self.articleURL.wmf_language;
+    NSURL *articleURL = self.articleURL;
     __weak id<WMFArticlePreviewingActionsDelegate> weakArticlePreviewingActionsDelegate = self.articlePreviewingActionsDelegate;
     void (^logPreviewSaveIfNeeded)(void) = ^{
         BOOL providesEventValues = [weakArticlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
@@ -1887,7 +1899,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)weakArticlePreviewingActionsDelegate;
         EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
         EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
-        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel measure:1 language:articleLanguage];
+        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel articleURL:articleURL];
     };
 
     UIPreviewAction *shareAction =
@@ -1948,9 +1960,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logOutLinkSaveInCurrentArticle:articleURL];
+        [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logOutLinkUnsaveInCurrentArticle:articleURL];
+        [[ReadingListsFunnel shared] logUnsaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     }
 }
 

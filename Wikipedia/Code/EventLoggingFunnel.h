@@ -7,6 +7,41 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSString *EventLoggingCategory NS_TYPED_EXTENSIBLE_ENUM;
+typedef NSString *EventLoggingLabel NS_TYPED_EXTENSIBLE_ENUM;
+
+extern EventLoggingCategory const EventLoggingCategoryFeed;
+extern EventLoggingCategory const EventLoggingCategoryHistory;
+extern EventLoggingCategory const EventLoggingCategoryPlaces;
+extern EventLoggingCategory const EventLoggingCategoryArticle;
+extern EventLoggingCategory const EventLoggingCategorySearch;
+extern EventLoggingCategory const EventLoggingCategoryAddToList;
+extern EventLoggingCategory const EventLoggingCategorySaved;
+extern EventLoggingCategory const EventLoggingCategoryLogin;
+extern EventLoggingCategory const EventLoggingCategorySetting;
+extern EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover;
+extern EventLoggingCategory const EventLoggingCategoryEnableSyncPopover;
+extern EventLoggingCategory const EventLoggingCategoryUnknown;
+
+extern EventLoggingLabel const EventLoggingLabelFeaturedArticle;
+extern EventLoggingLabel const EventLoggingLabelTopRead;
+extern EventLoggingLabel const EventLoggingLabelReadMore;
+extern EventLoggingLabel const EventLoggingLabelOnThisDay;
+extern EventLoggingLabel const EventLoggingLabelRandom;
+extern EventLoggingLabel const EventLoggingLabelNews;
+extern EventLoggingLabel const EventLoggingLabelRelatedPages;
+extern EventLoggingLabel const EventLoggingLabelArticleList;
+extern EventLoggingLabel const EventLoggingLabelOutLink;
+extern EventLoggingLabel const EventLoggingLabelSimilarPage;
+extern EventLoggingLabel const EventLoggingLabelItems;
+extern EventLoggingLabel const EventLoggingLabelLists;
+extern EventLoggingLabel const EventLoggingLabelDefault;
+extern EventLoggingLabel const EventLoggingLabelSyncEducation;
+extern EventLoggingLabel const EventLoggingLabelLogin;
+extern EventLoggingLabel const EventLoggingLabelSyncArticle;
+extern EventLoggingLabel const EventLoggingLabelLocation;
+extern EventLoggingLabel const EventLoggingLabelMainPage;
+
 /**
  * Base class for EventLogging multi-stage funnels.
  *
