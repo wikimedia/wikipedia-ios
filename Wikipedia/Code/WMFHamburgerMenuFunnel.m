@@ -25,7 +25,7 @@ static NSString *const kMenuTypeKey = @"menuItem";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    dict[kAppInstallIdKey] = self.appInstallID;
     dict[kSessionTokenKey] = self.sessionToken;
     return [dict copy];
 }
