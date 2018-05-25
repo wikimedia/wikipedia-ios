@@ -72,8 +72,21 @@
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)wmf_stringByReplacingApostrophesWithBackslashApostrophes {
-    return [self stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+- (NSString *)wmf_stringBySanitizingForJavascript {
+    NSRegularExpression *regex = [NSRegularExpression wmf_charactersToEscapeForJSRegex];
+    NSMutableString *mutableSelf = [self mutableCopy];
+    __block NSInteger offset = 0;
+    [regex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        NSString *match = [regex replacementStringForResult:result inString:mutableSelf offset:offset template:@"$0"];
+        if (!match) {
+            return;
+        }
+        NSRange range = NSMakeRange(result.range.location + offset, result.range.length);
+        NSString *replacement = [@[@"\\", match] componentsJoinedByString:@""];
+        [mutableSelf replaceCharactersInRange:range withString:replacement];
+        offset += replacement.length - range.length;
+    }];
+    return mutableSelf;
 }
 
 - (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage {

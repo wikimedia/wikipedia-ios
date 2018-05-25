@@ -149,8 +149,8 @@ extension WKWebView {
         
         return """
         new window.wmf.sections.Language(
-            '\(langCode.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            '\(langDir.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            '\(langCode.wmf_stringBySanitizingForJavascript())',
+            '\(langDir.wmf_stringBySanitizingForJavascript())',
             \((langDir == "rtl").toString())
         )
         """
@@ -163,9 +163,9 @@ extension WKWebView {
         return """
         new window.wmf.sections.Article(
             \(article.isMain.toString()),
-            '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            '\(articleDisplayTitle.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-            '\(articleEntityDescription.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+            '\(title.wmf_stringBySanitizingForJavascript())',
+            '\(articleDisplayTitle.wmf_stringBySanitizingForJavascript())',
+            '\(articleEntityDescription.wmf_stringBySanitizingForJavascript())',
             \(article.editable.toString()),
             \(languageJS(for: article))
         )
@@ -206,12 +206,12 @@ extension WKWebView {
         let addFooterCallbackJS = """
         () => {
             const footer = new window.wmf.footers.Footer(
-                '\(title.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+                '\(title.wmf_stringBySanitizingForJavascript())',
                 \(menuItemsJS(for: article)),
                 \(article.hasReadMore.toString()),
                 3,
                 \(FooterLocalizedStrings.init(for: article).toJSON()),
-                '\(proxyURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+                '\(proxyURLString.wmf_stringBySanitizingForJavascript())'
             )
             footer.add()
         }
@@ -220,13 +220,13 @@ extension WKWebView {
         let sectionErrorMessageLocalizedString = WMFLocalizedString("article-unable-to-load-section", language: (article.url as NSURL).wmf_language, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
         
         evaluateJavaScript("""
-            window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())'
+            window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringBySanitizingForJavascript())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
             window.wmf.sections.collapseTablesInitially = \(collapseTables ? "true" : "false")
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
-                '\(apiURLString.wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
-                '\((fragment ?? "").wmf_stringByReplacingApostrophesWithBackslashApostrophes())',
+                '\(apiURLString.wmf_stringBySanitizingForJavascript())',
+                '\((fragment ?? "").wmf_stringBySanitizingForJavascript())',
                 \(addFooterCallbackJS)
             )
             """) { (result, error) in

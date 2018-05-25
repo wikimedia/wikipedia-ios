@@ -4,7 +4,7 @@
 @implementation WKWebView (ElementLocation)
 
 - (void)getScreenRectForHtmlElementWithId:(NSString *)elementId completion:(void (^)(CGRect rect))completion {
-    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.wmf.elementLocation.getElementRect(document.getElementById('%@'));", [elementId wmf_stringByReplacingApostrophesWithBackslashApostrophes]]
+    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.wmf.elementLocation.getElementRect(document.getElementById('%@'));", [elementId wmf_stringBySanitizingForJavascript]]
                                                completion:completion];
 }
 
@@ -16,7 +16,7 @@
 }
 
 - (void)getScreenRectForHtmlImageWithSrc:(NSString *)src completion:(void (^)(CGRect rect))completion {
-    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.wmf.elementLocation.getElementRect(window.wmf.elementLocation.getImageWithSrc('%@'));", [src wmf_stringByReplacingApostrophesWithBackslashApostrophes]]
+    [self getScreenRectForHtmlElementFromJavascriptString:[NSString stringWithFormat:@"window.wmf.elementLocation.getElementRect(window.wmf.elementLocation.getImageWithSrc('%@'));", [src wmf_stringBySanitizingForJavascript]]
                                                completion:completion];
 }
 
@@ -55,7 +55,7 @@
 }
 
 - (void)getIndexOfTopOnScreenElementWithPrefix:(NSString *)prefix count:(NSUInteger)count completion:(void (^)(id index, NSError *error))completion {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu)", [prefix wmf_stringByReplacingApostrophesWithBackslashApostrophes], (unsigned long)count]
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu)", [prefix wmf_stringBySanitizingForJavascript], (unsigned long)count]
            completionHandler:^(id _Nullable index, NSError *_Nullable error) {
                completion(index, error);
            }];

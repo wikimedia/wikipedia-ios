@@ -178,11 +178,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)updateReadMoreSaveButtonIsSavedStateForURL:(NSURL *)url {
     BOOL isSaved = [self.article.dataStore.savedPageList isSaved:url];
-    NSString *title = [[url.absoluteString.lastPathComponent stringByRemovingPercentEncoding] wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    NSString *title = [[url.absoluteString.lastPathComponent stringByRemovingPercentEncoding] wmf_stringBySanitizingForJavascript];
     if (title) {
         NSString *saveTitle = [WMFCommonStrings saveTitleWithLanguage:url.wmf_language];
         NSString *savedTitle = [WMFCommonStrings savedTitleWithLanguage:url.wmf_language];
-        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+        NSString *saveButtonText = [(isSaved ? savedTitle : saveTitle)wmf_stringBySanitizingForJavascript];
         [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.footerReadMore.updateSaveButtonForTitle('%@', '%@', %@, document)", title, saveButtonText, (isSaved ? @"true" : @"false")] completionHandler:nil];
     }
 }
@@ -543,7 +543,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma FindInPageKeyboardBarDelegate
 
 - (void)keyboardBar:(WMFFindInPageKeyboardBar *)keyboardBar searchTermChanged:(NSString *)term {
-    term = [term wmf_stringByReplacingApostrophesWithBackslashApostrophes];
+    term = [term wmf_stringBySanitizingForJavascript];
     [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm('%@')", term]
                    completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
                        [self scrollToAndFocusOnFirstMatch];
