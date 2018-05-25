@@ -13,7 +13,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    dict[kAppInstallIdKey] = self.appInstallID;
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

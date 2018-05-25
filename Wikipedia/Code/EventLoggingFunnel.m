@@ -10,7 +10,6 @@
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
-        self.requiresAppInstallID = YES;
     }
     return self;
 }
@@ -69,12 +68,16 @@
 - (void)logged:(NSDictionary *)eventData {
 }
 
-- (NSString *)wmf_appInstallID {
+- (NSString *)appInstallID {
     return [[KeychainCredentialsManager shared] appInstallID];
 }
 
-- (NSString *)wmf_sessionID {
+- (NSString *)sessionID {
     return [[KeychainCredentialsManager shared] sessionID];
+}
+
+- (NSString *)timestamp {
+    return [[NSDateFormatter wmf_rfc3339LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
 }
 
 /**

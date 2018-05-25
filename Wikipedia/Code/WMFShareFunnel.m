@@ -66,7 +66,7 @@ static NSString *const kSelectionAssertVerbiage = @"No selection provided";
         return nil;
     }
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    dict[kAppInstallIdKey] = self.appInstallID;
     dict[kShareSessionTokenKey] = self.sessionToken;
     dict[kPageIdKey] = @(self.articleId);
     dict[kArticleKey] = self.articleTitle;
