@@ -11,7 +11,7 @@
  */
 + (NSDateFormatter *)wmf_iso8601Formatter;
 
-+ (NSDateFormatter *)wmf_iso8601LocalizedFormatter;
++ (NSISO8601DateFormatter *)wmf_rfc3339LocalTimeZoneFormatter;
 
 /**
  * Formatter which can be used to present a short time string for a given date.
