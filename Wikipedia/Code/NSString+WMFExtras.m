@@ -77,14 +77,12 @@
     NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;
     [regex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
-        NSString *match = [regex replacementStringForResult:result inString:mutableSelf offset:offset template:@"$0"];
-        if (!match) {
+        NSInteger indexForBackslash = result.range.location + offset;
+        if (indexForBackslash >= mutableSelf.length) {
             return;
         }
-        NSRange range = NSMakeRange(result.range.location + offset, result.range.length);
-        NSString *replacement = [@[@"\\", match] componentsJoinedByString:@""];
-        [mutableSelf replaceCharactersInRange:range withString:replacement];
-        offset += replacement.length - range.length;
+        [mutableSelf insertString:@"\\" atIndex:indexForBackslash];
+        offset += 1;
     }];
     return mutableSelf;
 }
