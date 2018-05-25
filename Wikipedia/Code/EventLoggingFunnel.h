@@ -7,8 +7,8 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSString *EventLoggingCategory NS_EXTENSIBLE_STRING_ENUM;
-typedef NSString *EventLoggingLabel NS_EXTENSIBLE_STRING_ENUM;
+typedef NSString *EventLoggingCategory NS_TYPED_EXTENSIBLE_ENUM;
+typedef NSString *EventLoggingLabel NS_TYPED_EXTENSIBLE_ENUM;
 
 extern EventLoggingCategory const EventLoggingCategoryFeed;
 extern EventLoggingCategory const EventLoggingCategoryHistory;
