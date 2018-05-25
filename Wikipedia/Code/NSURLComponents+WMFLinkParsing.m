@@ -105,4 +105,40 @@
     return [self.fragment precomposedStringWithCanonicalMapping];
 }
 
+- (NSURLComponents *)wmf_componentsByRemovingQueryItemsNamed:(NSSet<NSString *> *)queryItemNames {
+    if (self.queryItems.count == 0) {
+        return self;
+    }
+    NSURLComponents *updatedComponents = [self copy];
+    NSMutableArray *validQueryItems = [NSMutableArray arrayWithCapacity:self.queryItems.count];
+    for (NSURLQueryItem *queryItem in self.queryItems) {
+        if ([queryItemNames containsObject:queryItem.name]) {
+            continue;
+        }
+        [validQueryItems addObject:queryItem];
+    }
+    updatedComponents.queryItems = validQueryItems.count > 0 ? validQueryItems : nil;
+    return updatedComponents;
+}
+
+- (nullable NSString *)wmf_valueForQueryItemNamed:(NSString *)queryItemName {
+    NSString *value = nil;
+    for (NSURLQueryItem *queryItem in self.queryItems) {
+        if (![queryItem.name isEqualToString:queryItemName]) {
+            continue;
+        }
+        value = queryItem.value;
+        break;
+    }
+    return value;
+}
+
+- (nullable NSString *)wmf_eventLoggingLabel {
+    return [self wmf_valueForQueryItemNamed:@"event_logging_label"];
+}
+
+- (nullable NSURLComponents *)wmf_componentsByRemovingInternalQueryParameters {
+    return [self wmf_componentsByRemovingQueryItemsNamed:[NSSet setWithObject:@"event_logging_label"]];
+}
+
 @end

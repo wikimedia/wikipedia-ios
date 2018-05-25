@@ -194,7 +194,7 @@
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
 		7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */; };
-		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */; };
+		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */; };
 		7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */; };
 		7A6ED50B20ADBF950001849F /* SessionsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */; };
 		7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */; };
@@ -3287,7 +3287,7 @@
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
-		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift"; sourceTree = "<group>"; };
+		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingStandardEventProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
@@ -5606,7 +5606,7 @@
 				B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */,
 				B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */,
 				B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */,
-				7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift */,
+				7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */,
 			);
 			name = "Event Logging";
 			sourceTree = "<group>";
@@ -10729,7 +10729,7 @@
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
 				D84C35FF1F323E0900895FA1 /* WMFColumnarCollectionViewLayout.m in Sources */,
-				7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding+EventLoggingEventValuesProviding+EventLoggingCategory+EventLoggingLabel.swift in Sources */,
+				7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding.swift in Sources */,
 				D844D9DC1D6CBBFA0042D692 /* NSString+WMFHTMLParsing.m in Sources */,
 				D8FA18D71E1BD899009675C3 /* NSURL+WMFExtras.m in Sources */,
 				D813FDA51EC34B2600FA4690 /* WMFArticle+Description.swift in Sources */,

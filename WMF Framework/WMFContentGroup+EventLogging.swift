@@ -1,5 +1,5 @@
 @objc public extension WMFContentGroup {
-    public var eventLoggingLabel: EventLoggingLabel {
+    public var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
             return .featuredArticle
@@ -20,7 +20,7 @@
         case .mainPage:
             return .mainPage
         default:
-            return .none
+            return nil
         }
     }
 }

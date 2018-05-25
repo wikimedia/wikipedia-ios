@@ -85,8 +85,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return .unknown
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
-        return .none
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }
 

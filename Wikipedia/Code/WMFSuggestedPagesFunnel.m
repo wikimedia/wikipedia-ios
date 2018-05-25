@@ -54,7 +54,7 @@ static NSString *const kInitMustUseSpecificInitializer = @"Wrong initializer. Us
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[kAppInstallIdKey] = [self wmf_appInstallID];
+    dict[kAppInstallIdKey] = self.appInstallID;
     dict[kPageTitleKey] = self.pageTitle;
     dict[kReadMoreListKey] = self.readMoreList;
     return [dict copy];

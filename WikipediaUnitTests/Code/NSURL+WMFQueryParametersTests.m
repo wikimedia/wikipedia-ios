@@ -47,28 +47,4 @@
     assertThat([url absoluteString], is(@"http://localhost:8080?KEY=NEWVALUE&originalSrc=http://this.jpg"));
 }
 
-- (void)testRemovingValueForQueryKey {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
-    url = [url wmf_urlWithoutQueryKey:@"KEY"];
-    assertThat([url absoluteString], is(@"http://localhost:8080?"));
-}
-
-- (void)testRemovingValueForQueryKeyWithoutChangingOtherKeysOrValues {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE&originalSrc=http://this.jpg"];
-    url = [url wmf_urlWithoutQueryKey:@"KEY"];
-    assertThat([url absoluteString], is(@"http://localhost:8080?originalSrc=http://this.jpg"));
-}
-
-- (void)testAttemptToRemoveQueryKeyWhichDoesNotExist {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080?KEY=VALUE"];
-    url = [url wmf_urlWithoutQueryKey:@"BLA"];
-    assertThat([url absoluteString], is(@"http://localhost:8080?KEY=VALUE"));
-}
-
-- (void)testAttemptToRemoveQueryKeyWhenNoneExist {
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8080"];
-    url = [url wmf_urlWithoutQueryKey:@"BLA"];
-    assertThat([url absoluteString], is(@"http://localhost:8080"));
-}
-
 @end
