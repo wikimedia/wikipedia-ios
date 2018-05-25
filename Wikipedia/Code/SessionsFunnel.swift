@@ -13,11 +13,12 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
+        let category = category.rawValue
         let action = action.rawValue
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         
-        if let label = label {
+        if let label = label?.rawValue {
             event["label"] = label
         }
         if let measure = measure {
