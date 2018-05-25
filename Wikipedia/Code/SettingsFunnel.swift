@@ -14,13 +14,12 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> Dictionary<String, Any> {
-        let category = category.value
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let labelValue = label?.value {
-            event["label"] = labelValue
+        if let label = label {
+            event["label"] = label
         }
         return event
     }
@@ -30,18 +29,18 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     }
     
     public func logSyncEnabledInSettings() {
-        log(event(category: .setting, label: .syncArticle, action: .sync))
+        log(event(category: "setting", label: "sync_article", action: .sync))
     }
     
     public func logSyncDisabledInSettings() {
-        log(event(category: .setting, label: .syncArticle, action: .unsync))
+        log(event(category: "setting", label: "sync_article", action: .unsync))
     }
     
     public func logEnableSyncPopoverImpression() {
-        log(event(category: .enableSyncPopover, label: nil, action: .impression))
+        log(event(category: "enable_sync_popover", label: nil, action: .impression))
     }
     
     public func logEnableSyncPopoverSyncEnabled() {
-        log(event(category: .enableSyncPopover, label: nil, action: .sync))
+        log(event(category: "enable_sync_popover", label: nil, action: .sync))
     }
 }

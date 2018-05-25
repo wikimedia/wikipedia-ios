@@ -13,14 +13,13 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
-        let category = category.value
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         
-        if let labelValue = label?.value {
-            event["label"] = labelValue
+        if let label = label {
+            event["label"] = label
         }
         if let measure = measure {
             event["measure"] = Int(round(measure))
@@ -35,7 +34,7 @@
     
     @objc public func logSessionStart() {
         resetSession()
-        log(event(category: .unknown, label: nil, action: .sessionStart))
+        log(event(category: "unknown", label: nil, action: .sessionStart))
     }
     
     private func resetSession() {
@@ -48,7 +47,7 @@
             assertionFailure("Session start date cannot be nil")
             return
         }
-        log(event(category: .unknown, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow)))
+        log(event(category: "unknown", label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow)))
     }
     
 }

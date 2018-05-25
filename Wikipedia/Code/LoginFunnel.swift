@@ -17,13 +17,12 @@
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
-        let category = category.value
         let action = action.rawValue
         let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
-        if let labelValue = label?.value {
-            event["label"] = labelValue
+        if let label = label {
+            event["label"] = label
         }
         if let measure = measure {
             event["measure"] = Int(round(measure))
@@ -38,45 +37,45 @@
     // MARK: - Feed
     
     @objc public func logLoginImpressionInFeed() {
-        log(event(category: .feed, label: .syncEducation, action: .impression))
+        log(event(category: "feed", label: "sync_education", action: .impression))
     }
     
     @objc public func logLoginStartInFeed() {
-        log(event(category: .feed, label: .syncEducation, action: .loginStart))
+        log(event(category: "feed", label: "sync_education", action: .loginStart))
     }
     
     // MARK: - Login screen
     
     public func logSuccess(timeElapsed: Double?) {
-        log(event(category: .login, label: nil, action: .loginSuccess, measure: timeElapsed))
+        log(event(category: "login", label: nil, action: .loginSuccess, measure: timeElapsed))
     }
     
     @objc public func logCreateAccountAttempt() {
-        log(event(category: .login, label: nil, action: .createAccountStart))
+        log(event(category: "login", label: nil, action: .createAccountStart))
     }
     
     public func logCreateAccountSuccess(timeElapsed: Double?) {
-        log(event(category: .login, label: nil, action: .createAccountSuccess, measure: timeElapsed))
+        log(event(category: "login", label: nil, action: .createAccountSuccess, measure: timeElapsed))
     }
     
     // MARK: - Settings
     
     @objc public func logLoginStartInSettings() {
-        log(event(category: .setting, label: .login, action: .loginStart))
+        log(event(category: "setting", label: "login", action: .loginStart))
     }
     
     @objc public func logLogoutInSettings() {
-        log(event(category: .setting, label: .login, action: .logout))
+        log(event(category: "setting", label: "login", action: .logout))
     }
     
     // MARK: - Sync popovers
     
     public func logLoginImpressionInSyncPopover() {
-        log(event(category: .loginToSyncPopover, label: nil, action: .impression))
+        log(event(category: "login_to_sync_popover", label: nil, action: .impression))
     }
     
     public func logLoginStartInSyncPopover() {
-        log(event(category: .loginToSyncPopover, label: nil, action: .loginStart))
+        log(event(category: "login_to_sync_popover", label: nil, action: .loginStart))
     }
     
 }

@@ -2097,11 +2097,11 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 }
 
-- (EventLoggingCategory)eventLoggingCategory {
-    return EventLoggingCategoryFeed;
+- (NSString *)eventLoggingCategory {
+    return @"feed";
 }
 
-- (EventLoggingLabel)eventLoggingLabel {
+- (nullable NSString *)eventLoggingLabel {
     return self.groupForPreviewedCell.eventLoggingLabel;
 }
 

@@ -155,10 +155,10 @@ extension NewsViewController {
 // MARK: - EventLoggingEventValuesProviding
 extension NewsViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
-        return .feed
+        return "feed"
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
-        return .news
+    var eventLoggingLabel: EventLoggingLabel? {
+        return "news"
     }
 }

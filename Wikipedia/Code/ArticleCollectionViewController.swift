@@ -82,11 +82,11 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     var eventLoggingCategory: EventLoggingCategory {
         assertionFailure("Subclassers should override this property")
-        return .unknown
+        return "unknown"
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
-        return .none
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }
 

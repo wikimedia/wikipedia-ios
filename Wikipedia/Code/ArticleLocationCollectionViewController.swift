@@ -157,10 +157,10 @@ extension ArticleLocationCollectionViewController {
 
 extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
-        return .places
+        return "places"
     }
     
-    var eventLoggingLabel: EventLoggingLabel {
-        return .none
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }

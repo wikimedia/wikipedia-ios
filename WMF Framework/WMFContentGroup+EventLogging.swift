@@ -1,26 +1,26 @@
 @objc public extension WMFContentGroup {
-    public var eventLoggingLabel: EventLoggingLabel {
+    public var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
-            return .featuredArticle
+            return "featured_article"
         case .topRead:
-            return .topRead
+            return "top_read"
         case .onThisDay:
-            return .onThisDay
+            return "on_this_day"
         case .random:
-            return .random
+            return "random"
         case .news:
-            return .news
+            return "news"
         case .relatedPages:
-            return .relatedPages
+            return "related_pages"
         case .locationPlaceholder:
             fallthrough
         case .location:
-            return .location
+            return "location"
         case .mainPage:
-            return .mainPage
+            return "main_page"
         default:
-            return .none
+            return nil
         }
     }
 }
