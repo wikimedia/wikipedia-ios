@@ -152,7 +152,7 @@ class WikipediaUITests: XCTestCase {
             element.wmf_tap()
             sleep(4)
             wmf_snapshot("MostReadDetail")
-            app.wmf_tapButton(key: "back")
+            app.wmf_tapNavigationBarBackButton()
         })
 
         app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: { element in
@@ -161,7 +161,7 @@ class WikipediaUITests: XCTestCase {
             element.wmf_tap()
             sleep(4)
             wmf_snapshot("OnThisDayDetail")
-            app.wmf_tapButton(key: "back")
+            app.wmf_tapNavigationBarBackButton()
         })
 
         app.wmf_scrollToOtherElementStartingWith(key: "explore-nearby-placeholder-heading", success: { element in
@@ -174,7 +174,7 @@ class WikipediaUITests: XCTestCase {
             element.wmf_tap()
             sleep(8)
             wmf_snapshot("RandomDetail")
-            app.wmf_tapButton(key: "back")
+            app.wmf_tapNavigationBarBackButton()
         })
 
         app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
@@ -183,7 +183,7 @@ class WikipediaUITests: XCTestCase {
             element.wmf_tap()
             sleep(8)
             wmf_snapshot("MainPageDetail")
-            app.wmf_tapButton(key: "back")
+            app.wmf_tapNavigationBarBackButton()
         })
 
         app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: { element in
@@ -192,7 +192,7 @@ class WikipediaUITests: XCTestCase {
             element.wmf_tap()
             sleep(4)
             wmf_snapshot("InTheNewsDetail")
-            app.wmf_tapButton(key: "back")
+            app.wmf_tapNavigationBarBackButton()
         })
     
         
@@ -200,6 +200,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToTop()
         app.wmf_tapSearchField(key: "search-field-placeholder-text")
         wmf_snapshot("SearchScreen1")
+        sleep(4)
         app.wmf_searchField(key: "search-field-placeholder-text").typeText("a")
         wmf_snapshot("SearchScreen2")
         

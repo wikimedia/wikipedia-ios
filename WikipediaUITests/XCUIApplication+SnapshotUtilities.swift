@@ -12,59 +12,96 @@ extension XCUIElement {
     }
 }
 
-extension XCUIApplication {
-    func wmf_dismissPopover() {
-        sleep(sleepBeforeTap)
-        otherElements["PopoverDismissRegion"].firstMatch.tap()
+extension XCUIElementQuery {
+    func wmf_firstMatching(key: String) -> XCUIElement {
+        // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking.
+        return matching(NSPredicate(format: "label == %@", key)).element(boundBy: 0)
     }
+}
+
+extension XCUIApplication {
     
     // Quick way to get button which works with non-EN langs too (vs. recording which only works for language recorded in)
     func wmf_button(key: String) -> XCUIElement {
-        return buttons[wmf_localizedString(key: key)].firstMatch
+        return buttons.wmf_firstMatching(key: wmf_localizedString(key: key))
     }
     
     // Quick way to tap button which works with non-EN langs too
-    func wmf_tapButton(key: String) {
+    func wmf_tapButton(key: String) -> Bool {
         sleep(sleepBeforeTap)
-        wmf_button(key: key).tap()
+        let button = wmf_button(key: key)
+        guard button.exists else { return false }
+        button.tap()
+        return true
     }
     
     func wmf_searchField(key: String) -> XCUIElement {
-        return searchFields[wmf_localizedString(key: key)].firstMatch
+        return searchFields.matching(NSPredicate(format:"placeholderValue == %@", wmf_localizedString(key: key))).element(boundBy: 0)
     }
     
-    func wmf_tapSearchField(key: String) {
+    func wmf_tapSearchField(key: String) -> Bool {
         sleep(sleepBeforeTap)
-        wmf_searchField(key: key).tap()
+        let field = wmf_searchField(key: key)
+        guard field.exists else { return false }
+        field.tap()
+        return true
     }
     
     func wmf_staticText(key: String) -> XCUIElement {
-        return staticTexts[wmf_localizedString(key: key)].firstMatch
+        return staticTexts.wmf_firstMatching(key: wmf_localizedString(key: key))
     }
     
-    func wmf_tapStaticText(key: String) {
+    func wmf_tapStaticText(key: String) -> Bool {
         sleep(sleepBeforeTap)
-        wmf_staticText(key: key).tap()
+        let text = wmf_staticText(key: key)
+        guard text.exists else { return false }
+        text.tap()
+        return true
     }
 
-    func wmf_tapStaticTextStartingWith(key: String) {
+    func wmf_tapStaticTextStartingWith(key: String) -> Bool {
         sleep(sleepBeforeTap)
-        wmf_elementStartingWith(key: key, from: staticTexts).tap()
+        let staticText = wmf_elementStartingWith(key: key, from: staticTexts)
+        guard staticText.exists else { return false }
+        staticText.tap()
+        return true
     }
 
-    func wmf_tapUnlocalizedCloseButton() {
+    func wmf_tapUnlocalizedCloseButton() -> Bool {
         sleep(sleepBeforeTap)
-        buttons["close"].firstMatch.tap()
+        let button = buttons.wmf_firstMatching(key: wmf_localizedString(key: "close"))
+        guard button.exists else { return false }
+        button.tap()
+        return true
     }
     
-    func wmf_tapFirstCollectionViewCell() {
-        sleep(sleepBeforeTap)
-        collectionViews.children(matching: .any).firstMatch.tap()
+    func wmf_tapNavigationBarBackButton() -> Bool {
+        let backButtonTapped = wmf_tapButton(key: "back")
+        guard backButtonTapped else {
+            sleep(sleepBeforeTap)
+            // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
+            let button = navigationBars.buttons.element(boundBy: 0)
+            guard button.exists else { return false }
+            button.tap()
+            return true
+        }
+        return backButtonTapped
     }
     
-    func wmf_scrollToTop() {
-        statusBars.firstMatch.tap()
+    func wmf_tapFirstCollectionViewCell() -> Bool {
+        sleep(sleepBeforeTap)
+        let cell = collectionViews.children(matching: .cell).element(boundBy: 0)
+        guard cell.exists else { return false }
+        cell.tap()
+        return true
+    }
+    
+    func wmf_scrollToTop() -> Bool {
+        let bar = statusBars.element(boundBy: 0)
+        guard bar.exists else  { return false }
+        bar.tap()
         sleep(1)
+        return true
     }
     
     func wmf_scrollElementToTop(element: XCUIElement) {
@@ -81,7 +118,7 @@ extension XCUIApplication {
             translation = String(translation[..<rangeOfSubstitutionString.lowerBound])
         }
         
-        return elementQuery.element(matching: NSPredicate(format: "label BEGINSWITH %@", translation)).firstMatch
+        return elementQuery.matching(NSPredicate(format: "label BEGINSWITH %@", translation)).element(boundBy: 0)
     }
     
     func wmf_scrollDown() {
