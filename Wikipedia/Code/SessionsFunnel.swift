@@ -33,7 +33,7 @@
     
     @objc public func logSessionStart() {
         resetSession()
-        log(event(category: "unknown", label: nil, action: .sessionStart))
+        log(event(category: .unknown, label: nil, action: .sessionStart))
     }
     
     private func resetSession() {
@@ -46,7 +46,7 @@
             assertionFailure("Session start date cannot be nil")
             return
         }
-        log(event(category: "unknown", label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow)))
+        log(event(category: .unknown, label: nil, action: .sessionEnd, measure: fabs(sessionStartDate.timeIntervalSinceNow)))
     }
     
 }

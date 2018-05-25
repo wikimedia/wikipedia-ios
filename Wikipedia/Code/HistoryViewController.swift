@@ -89,7 +89,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
     
     override var eventLoggingCategory: EventLoggingCategory {
-        return "history"
+        return .history
     }
 
 }

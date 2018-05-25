@@ -21,7 +21,7 @@ import UIKit
     public var analyticsContentType = "unknown"
     
     public var eventLoggingLabel: EventLoggingLabel? = nil
-    public var eventLoggingCategory: EventLoggingCategory = "feed"
+    public var eventLoggingCategory: EventLoggingCategory = .feed
     
     public var saveButtonState: SaveButton.State = .shortSave {
         didSet {

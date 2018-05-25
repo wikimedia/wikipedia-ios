@@ -36,45 +36,45 @@
     // MARK: - Feed
     
     @objc public func logLoginImpressionInFeed() {
-        log(event(category: "feed", label: "sync_education", action: .impression))
+        log(event(category: .feed, label: .syncEducation, action: .impression))
     }
     
     @objc public func logLoginStartInFeed() {
-        log(event(category: "feed", label: "sync_education", action: .loginStart))
+        log(event(category: .feed, label: .syncEducation, action: .loginStart))
     }
     
     // MARK: - Login screen
     
     public func logSuccess(timeElapsed: Double?) {
-        log(event(category: "login", label: nil, action: .loginSuccess, measure: timeElapsed))
+        log(event(category: .login, label: nil, action: .loginSuccess, measure: timeElapsed))
     }
     
     @objc public func logCreateAccountAttempt() {
-        log(event(category: "login", label: nil, action: .createAccountStart))
+        log(event(category: .login, label: nil, action: .createAccountStart))
     }
     
     public func logCreateAccountSuccess(timeElapsed: Double?) {
-        log(event(category: "login", label: nil, action: .createAccountSuccess, measure: timeElapsed))
+        log(event(category: .login, label: nil, action: .createAccountSuccess, measure: timeElapsed))
     }
     
     // MARK: - Settings
     
     @objc public func logLoginStartInSettings() {
-        log(event(category: "setting", label: "login", action: .loginStart))
+        log(event(category: .setting, label: .login, action: .loginStart))
     }
     
     @objc public func logLogoutInSettings() {
-        log(event(category: "setting", label: "login", action: .logout))
+        log(event(category: .setting, label: .login, action: .logout))
     }
     
     // MARK: - Sync popovers
     
     public func logLoginImpressionInSyncPopover() {
-        log(event(category: "login_to_sync_popover", label: nil, action: .impression))
+        log(event(category: .loginToSyncPopover, label: nil, action: .impression))
     }
     
     public func logLoginStartInSyncPopover() {
-        log(event(category: "login_to_sync_popover", label: nil, action: .loginStart))
+        log(event(category: .loginToSyncPopover, label: nil, action: .loginStart))
     }
     
 }

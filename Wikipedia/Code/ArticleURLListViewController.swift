@@ -39,11 +39,11 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     }
     
     override var eventLoggingCategory: EventLoggingCategory {
-        return "feed"
+        return .feed
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel ?? nil
+        return contentGroup?.eventLoggingLabel
     }
 }
 

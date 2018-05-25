@@ -73,10 +73,10 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return "similar_page"
+        return .similarPage
     }
     
     override var eventLoggingCategory: EventLoggingCategory {
-        return "article"
+        return .article
     }
 }

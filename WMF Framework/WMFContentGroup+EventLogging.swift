@@ -2,23 +2,23 @@
     public var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
-            return "featured_article"
+            return .featuredArticle
         case .topRead:
-            return "top_read"
+            return .topRead
         case .onThisDay:
-            return "on_this_day"
+            return .onThisDay
         case .random:
-            return "random"
+            return .random
         case .news:
-            return "news"
+            return .news
         case .relatedPages:
-            return "related_pages"
+            return .relatedPages
         case .locationPlaceholder:
             fallthrough
         case .location:
-            return "location"
+            return .location
         case .mainPage:
-            return "main_page"
+            return .mainPage
         default:
             return nil
         }

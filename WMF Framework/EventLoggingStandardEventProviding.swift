@@ -1,6 +1,3 @@
-public typealias EventLoggingCategory = String
-public typealias EventLoggingLabel = String
-
 @objc public protocol EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory { get }
     var eventLoggingLabel: EventLoggingLabel? { get }

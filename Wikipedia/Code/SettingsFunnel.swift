@@ -28,18 +28,18 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     }
     
     public func logSyncEnabledInSettings() {
-        log(event(category: "setting", label: "sync_article", action: .sync))
+        log(event(category: .setting, label: .syncArticle, action: .sync))
     }
     
     public func logSyncDisabledInSettings() {
-        log(event(category: "setting", label: "sync_article", action: .unsync))
+        log(event(category: .setting, label: .syncArticle, action: .unsync))
     }
     
     public func logEnableSyncPopoverImpression() {
-        log(event(category: "enable_sync_popover", label: nil, action: .impression))
+        log(event(category: .enableSyncPopover, label: nil, action: .impression))
     }
     
     public func logEnableSyncPopoverSyncEnabled() {
-        log(event(category: "enable_sync_popover", label: nil, action: .sync))
+        log(event(category: .enableSyncPopover, label: nil, action: .sync))
     }
 }
