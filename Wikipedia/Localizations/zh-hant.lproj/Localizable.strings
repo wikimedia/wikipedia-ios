@@ -4,6 +4,7 @@
 // Author: Cathypilot0117
 // Author: Cwlin0416
 // Author: Eric850130
+// Author: Kanashimi
 // Author: Kc kennylau
 // Author: Kly
 // Author: LEEJACK
@@ -543,7 +544,7 @@
 "wikitext-upload-save" = "發佈中...";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您 $1，您將擁有更多隱私。";
 "wikitext-upload-save-sign-in" = "登入";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "依據發佈變更，代表著您同意 $1 以及依照 $2 與 $3 授權條款來釋出您的貢獻。";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "依據發布變更，代表著您同意 $1 以及依照 $2 與 $3 授權條款來釋出您的貢獻。";
 "wikitext-upload-save-terms-name" = "使用條款";
 "zero-charged-verbiage" = "維基百科零計劃已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";

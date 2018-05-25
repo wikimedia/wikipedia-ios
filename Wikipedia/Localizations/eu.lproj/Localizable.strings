@@ -71,6 +71,7 @@
 "add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
+"app-store-short-description" = "Jaitsi Wikipedia app zugandik gertu dauden lekuak exploratzeko, sinkronizatu artikuluak offline irakurtzeko eta zure irakurtze-esperientziari probetxua ateratzeko.";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
 "appearance-settings-expand-tables-footer" = "Ezarri artikulu guztietako taula guztiak lehenespenez irekitzeko, Quick facts, References, Notes eta Kanpoko estekak barne.";
@@ -87,6 +88,7 @@
 "article-languages-others" = "Beste hizkuntzak";
 "article-languages-yours" = "Zure hizkuntzak";
 "article-read-more-title" = "Irakurri gehiago";
+"article-save-error-not-enough-space" = "Ez duzu espazio nahikorik gailuan artikulu hau gordetzeko";
 "article-share" = "Partekatu";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Gaiak Irakurtzen";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
@@ -124,6 +126,7 @@
 "empty-no-history-title" = "Erakusteko historiarik ez";
 "empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
+"empty-no-saved-pages-in-reading-list-message" = "Gorde orrialdeak zerrenda honetan hemen agertarazteko";
 "empty-no-saved-pages-in-reading-list-title" = "Ez da orririk gorde zerrenda honetan";
 "empty-no-saved-pages-message" = "Orrialdeak gorde gero ikusteko, nahiz eta konexiorik gabe egon";
 "empty-no-saved-pages-title" = "Oraindik gordetako orrialderik ez";
@@ -329,6 +332,8 @@
 "reading-list-api-error-entry-limit" = "Sarrera hau ez dago sinkronizatuta zerrenda honetako sarrera muga jadanik gainditu duzulako.";
 "reading-list-api-error-generic" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak sinkronizatzen ari ziren bitartean.";
 "reading-list-api-error-list-limit" = "Zerrenda hau ez dago sinkronizatuta zure sinkronizatutako zerrenden muga gainditu duzulako.";
+"reading-list-create-new-list-button-title" = "Irakurketa zerrenda sortu";
+"reading-list-create-new-list-description" = "Deskribapena";
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
 "reading-list-entry-limit-exceeded-message" = "Mesedez, gutxitu zerrenda honetako artikulu kopurua $ 1-ra zerrendako artikulu guztien sinkronizazioa berreskuratzeko.";
