@@ -46,6 +46,8 @@
 }
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL *)url forceSafari:(BOOL)forceSafari {
+    url = url.wmf_URLByMakingiOSCompatibilityAdjustments;
+    
     if (forceSafari || [url.scheme.lowercaseString isEqualToString:@"mailto"]) {
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:NULL];
     } else {
