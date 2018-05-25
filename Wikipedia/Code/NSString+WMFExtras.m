@@ -72,7 +72,7 @@
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)wmf_stringBySanitizingForJavascript {
+- (NSString *)wmf_stringBySanitizingForJavaScript {
     NSRegularExpression *regex = [NSRegularExpression wmf_charactersToEscapeForJSRegex];
     NSMutableString *mutableSelf = [self mutableCopy];
     __block NSInteger offset = 0;

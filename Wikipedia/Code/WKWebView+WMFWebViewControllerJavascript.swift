@@ -149,8 +149,8 @@ extension WKWebView {
         
         return """
         new window.wmf.sections.Language(
-            '\(langCode.wmf_stringBySanitizingForJavascript())',
-            '\(langDir.wmf_stringBySanitizingForJavascript())',
+            '\(langCode.wmf_stringBySanitizingForJavaScript())',
+            '\(langDir.wmf_stringBySanitizingForJavaScript())',
             \((langDir == "rtl").toString())
         )
         """
@@ -163,9 +163,9 @@ extension WKWebView {
         return """
         new window.wmf.sections.Article(
             \(article.isMain.toString()),
-            '\(title.wmf_stringBySanitizingForJavascript())',
-            '\(articleDisplayTitle.wmf_stringBySanitizingForJavascript())',
-            '\(articleEntityDescription.wmf_stringBySanitizingForJavascript())',
+            '\(title.wmf_stringBySanitizingForJavaScript())',
+            '\(articleDisplayTitle.wmf_stringBySanitizingForJavaScript())',
+            '\(articleEntityDescription.wmf_stringBySanitizingForJavaScript())',
             \(article.editable.toString()),
             \(languageJS(for: article))
         )
@@ -206,12 +206,12 @@ extension WKWebView {
         let addFooterCallbackJS = """
         () => {
             const footer = new window.wmf.footers.Footer(
-                '\(title.wmf_stringBySanitizingForJavascript())',
+                '\(title.wmf_stringBySanitizingForJavaScript())',
                 \(menuItemsJS(for: article)),
                 \(article.hasReadMore.toString()),
                 3,
                 \(FooterLocalizedStrings.init(for: article).toJSON()),
-                '\(proxyURLString.wmf_stringBySanitizingForJavascript())'
+                '\(proxyURLString.wmf_stringBySanitizingForJavaScript())'
             )
             footer.add()
         }
@@ -220,13 +220,13 @@ extension WKWebView {
         let sectionErrorMessageLocalizedString = WMFLocalizedString("article-unable-to-load-section", language: (article.url as NSURL).wmf_language, value: "Unable to load this section. Try refreshing the article to see if it fixes the problem.", comment: "Displayed within the article content when a section fails to render for some reason.")
         
         evaluateJavaScript("""
-            window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringBySanitizingForJavascript())'
+            window.wmf.sections.sectionErrorMessageLocalizedString = '\(sectionErrorMessageLocalizedString.wmf_stringBySanitizingForJavaScript())'
             window.wmf.sections.collapseTablesLocalizedStrings = \(CollapseTablesLocalizedStrings.init(for: (article.url as NSURL).wmf_language).toJSON())
             window.wmf.sections.collapseTablesInitially = \(collapseTables ? "true" : "false")
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
-                '\(apiURLString.wmf_stringBySanitizingForJavascript())',
-                '\((fragment ?? "").wmf_stringBySanitizingForJavascript())',
+                '\(apiURLString.wmf_stringBySanitizingForJavaScript())',
+                '\((fragment ?? "").wmf_stringBySanitizingForJavaScript())',
                 \(addFooterCallbackJS)
             )
             """) { (result, error) in
