@@ -80,6 +80,11 @@
     return [[NSDateFormatter wmf_rfc3339LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
 }
 
+- (NSNumber *)isAnon {
+    BOOL isAnon = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
+    return [NSNumber numberWithBool:isAnon];
+}
+
 /**
  *  Persistent random integer id used for sampling.
  *

@@ -14,7 +14,6 @@
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
         let action = action.rawValue
-        let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         
         var event: [String: Any] = ["category": category, "action": action, "primary_language": primaryLanguage(), "is_anon": isAnon]
         
