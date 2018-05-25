@@ -40,14 +40,6 @@
         logUnsave(category: "article", label: "default", articleURL: articleURL)
     }
     
-    @objc public func logOutLinkSaveInCurrentArticle(_ articleURL: URL) {
-        logSave(category: "article", label: "out_link", articleURL: articleURL)
-    }
-    
-    @objc public func logOutLinkUnsaveInCurrentArticle(_ articleURL: URL) {
-        logUnsave(category: "article", label: "out_link", articleURL: articleURL)
-    }
-    
     // - MARK: Read more
     
     @objc public func logArticleSaveInReadMore(_ articleURL: URL) {
