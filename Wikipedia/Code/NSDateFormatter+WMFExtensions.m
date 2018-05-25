@@ -18,7 +18,7 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return iso8601Formatter;
 }
 
-+ (NSISO8601DateFormatter *)wmf_iso8601LocalTimeZoneFormatter {
++ (NSISO8601DateFormatter *)wmf_rfc3339LocalTimeZoneFormatter {
     static NSISO8601DateFormatter *wmf_rfc3339LocalTimeZoneFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

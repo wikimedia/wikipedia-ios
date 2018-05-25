@@ -77,7 +77,7 @@
 }
 
 - (NSString *)timestamp {
-    return [[NSDateFormatter wmf_iso8601LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
+    return [[NSDateFormatter wmf_rfc3339LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
 }
 
 /**
