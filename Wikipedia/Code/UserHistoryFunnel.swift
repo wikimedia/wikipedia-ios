@@ -23,7 +23,6 @@
     private func event() -> Dictionary<String, Any> {
         let userDefaults = UserDefaults.wmf_userDefaults()
         
-        let isAnon = !WMFAuthenticationManager.sharedInstance.isLoggedIn
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
         

@@ -1,11 +1,14 @@
 #import "WMFLoginFunnel.h"
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
+static NSString *const kTimestampKey = @"ts";
+
 @implementation WMFLoginFunnel
 
 - (id)init {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppLogin
     self = [self initWithSchema:@"MobileWikiAppLogin"
-                        version:8234533];
+                        version:17836928];
     if (self) {
         self.loginSessionToken = [self singleUseUUID];
     }
@@ -14,7 +17,9 @@
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[@"loginSessionToken"] = self.loginSessionToken;
+    dict[@"sessionToken"] = self.loginSessionToken;
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
