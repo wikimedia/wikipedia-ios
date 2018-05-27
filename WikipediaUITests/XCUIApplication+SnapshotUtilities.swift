@@ -2,18 +2,22 @@ import XCTest
 
 // This this uitest target sleeps - the app target this test target taps doesn't.
 // This delay just give everything an extra moment to settle.
-let sleepBeforeTap: UInt32 = 1
+let oneSecond: UInt32 = 1
 let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
 extension XCUIElement {
-    func wmf_tap() {
-        sleep(sleepBeforeTap)
+    func wmf_tap() -> Bool {
+        sleep(oneSecond)
+        guard exists else { return false }
         tap()
+        sleep(oneSecond)
+        return true
     }
 }
 
 extension XCUIElementQuery {
     func wmf_firstMatching(key: String) -> XCUIElement {
+        sleep(oneSecond)
         // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking.
         return matching(NSPredicate(format: "label == %@", key)).element(boundBy: 0)
     }
@@ -23,85 +27,57 @@ extension XCUIApplication {
     
     // Quick way to get button which works with non-EN langs too (vs. recording which only works for language recorded in)
     func wmf_button(key: String) -> XCUIElement {
+        sleep(oneSecond)
         return buttons.wmf_firstMatching(key: wmf_localizedString(key: key))
     }
     
-    // Quick way to tap button which works with non-EN langs too
-    func wmf_tapButton(key: String) -> Bool {
-        sleep(sleepBeforeTap)
-        let button = wmf_button(key: key)
-        guard button.exists else { return false }
-        button.tap()
-        return true
-    }
-    
     func wmf_searchField(key: String) -> XCUIElement {
+        sleep(oneSecond)
         return searchFields.matching(NSPredicate(format:"placeholderValue == %@", wmf_localizedString(key: key))).element(boundBy: 0)
     }
     
-    func wmf_tapSearchField(key: String) -> Bool {
-        sleep(sleepBeforeTap)
-        let field = wmf_searchField(key: key)
-        guard field.exists else { return false }
-        field.tap()
-        return true
-    }
-    
     func wmf_staticText(key: String) -> XCUIElement {
+        sleep(oneSecond)
         return staticTexts.wmf_firstMatching(key: wmf_localizedString(key: key))
+    }
+
+    // Quick way to tap button which works with non-EN langs too
+    func wmf_tapButton(key: String) -> Bool {
+        return wmf_button(key: key).wmf_tap()
     }
     
     func wmf_tapStaticText(key: String) -> Bool {
-        sleep(sleepBeforeTap)
-        let text = wmf_staticText(key: key)
-        guard text.exists else { return false }
-        text.tap()
-        return true
+        return wmf_staticText(key: key).wmf_tap()
     }
 
     func wmf_tapStaticTextStartingWith(key: String) -> Bool {
-        sleep(sleepBeforeTap)
-        let staticText = wmf_elementStartingWith(key: key, from: staticTexts)
-        guard staticText.exists else { return false }
-        staticText.tap()
-        return true
+        return wmf_elementStartingWith(key: key, from: staticTexts).wmf_tap()
     }
 
     func wmf_tapUnlocalizedCloseButton() -> Bool {
-        sleep(sleepBeforeTap)
-        let button = buttons.wmf_firstMatching(key: wmf_localizedString(key: "close"))
-        guard button.exists else { return false }
-        button.tap()
-        return true
+        return buttons.wmf_firstMatching(key: wmf_localizedString(key: "close")).wmf_tap()
     }
     
     func wmf_tapNavigationBarBackButton() -> Bool {
         let backButtonTapped = wmf_tapButton(key: "back")
         guard backButtonTapped else {
-            sleep(sleepBeforeTap)
+            sleep(oneSecond)
             // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
-            let button = navigationBars.buttons.element(boundBy: 0)
-            guard button.exists else { return false }
-            button.tap()
-            return true
+            return navigationBars.buttons.element(boundBy: 0).wmf_tap()
         }
         return backButtonTapped
     }
     
     func wmf_tapFirstCollectionViewCell() -> Bool {
-        sleep(sleepBeforeTap)
-        let cell = collectionViews.children(matching: .cell).element(boundBy: 0)
-        guard cell.exists else { return false }
-        cell.tap()
-        return true
+        sleep(oneSecond)
+        return collectionViews.children(matching: .cell).element(boundBy: 0).wmf_tap()
     }
     
     func wmf_scrollToTop() -> Bool {
-        let bar = statusBars.element(boundBy: 0)
-        guard bar.exists else  { return false }
-        bar.tap()
-        sleep(1)
-        return true
+        sleep(oneSecond)
+        let result = statusBars.element(boundBy: 0).wmf_tap()
+        sleep(oneSecond)
+        return result
     }
     
     func wmf_scrollElementToTop(element: XCUIElement) {
@@ -110,7 +86,8 @@ extension XCUIApplication {
     }
     
     func wmf_elementStartingWith(key: String, from elementQuery: XCUIElementQuery) -> XCUIElement {
-        
+        sleep(oneSecond)
+
         var translation = wmf_localizedString(key: key)
         
         // HACK: if there's a substitution string - ie "%1$@" - just ignore everything after it (including it) so the BEGINSWITH logic works without us having to get the actual substition value.
@@ -127,7 +104,6 @@ extension XCUIApplication {
     }
     
     func wmf_scrollToOtherElementStartingWith(key: String, success: (XCUIElement) -> ()){
-        wmf_scrollToTop()
         let maxScrollSeconds: Double = 240
         let start = Date()
         repeat {
@@ -140,7 +116,6 @@ extension XCUIApplication {
             }
             wmf_scrollDown()
         } while Date().timeIntervalSince(start) < maxScrollSeconds
-        wmf_scrollToTop()
     }
     
     // Gets localized string from localized string key (so we can navigate the app regardless of lang).

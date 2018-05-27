@@ -91,256 +91,267 @@ class WikipediaUITests: XCTestCase {
     }
     
     // Prepends an auto-incremented numeric prefix to screenshot names so they appear on the index html page in the order they were captured.
-    func wmf_snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 20) {
+    func wmf_snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 45) {
+        sleep(2)
         snapshot("\(String(format: "%04d", snapshotIndex))-\(name)", timeWaitingForIdle: timeout)
         snapshotIndex = snapshotIndex + 1
+        sleep(2)
     }
     
     // This UI test is used as a harness to navigate to various parts of the app and record screenshots. Fastlane snapshots don't seem to play nice with multiple tests taking snapshots, so we have all of them in this single test.
     func testRecordAppScreenshots() {
 
-        
+
         // WECOME
         wmf_snapshot("WelcomeScreen1")
 
-        app.wmf_tapButton(key: "welcome-intro-free-encyclopedia-more")
+        _ = app.wmf_tapButton(key: "welcome-intro-free-encyclopedia-more")
         wmf_snapshot("WelcomeScreen2")
 
-        app.wmf_tapButton(key: "welcome-explore-tell-me-more-done-button")
+        _ = app.wmf_tapButton(key: "welcome-explore-tell-me-more-done-button")
         wmf_snapshot("WelcomeScreen3")
 
-        app.wmf_tapButton(key: "button-next")
+        _ = app.wmf_tapButton(key: "button-next")
         wmf_snapshot("WelcomeScreen4")
 
-        app.wmf_tapButton(key: "button-next")
+        _ = app.wmf_tapButton(key: "button-next")
         wmf_snapshot("WelcomeScreen5")
 
-        app.wmf_tapButton(key: "welcome-languages-add-or-edit-button")
+        _ = app.wmf_tapButton(key: "welcome-languages-add-or-edit-button")
         wmf_snapshot("WelcomeScreen6")
 
-        app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
 
-        app.wmf_tapButton(key: "button-next")
+        _ = app.wmf_tapButton(key: "button-next")
         wmf_snapshot("WelcomeScreen7")
-        app.wmf_tapButton(key: "welcome-explore-continue-button")
+        _ = app.wmf_tapButton(key: "welcome-explore-continue-button")
 
-        
+
         // Useful if you temporarily comment out the welcome screens above.
-        // app.wmf_tapButton(key: "button-skip")
+        // _ = app.wmf_tapButton(key: "button-skip")
 
-        
+
         // EXPLORE
-        app.wmf_tapButton(key: "home-title")
+        _ = app.wmf_tapButton(key: "home-title")
         wmf_snapshot("ExploreScreen1")
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-potd-heading", success: { element in
             wmf_snapshot("ExploreScreenPicOfTheDay")
 
-            element.wmf_tap()
-            sleep(8)
+            _ = element.wmf_tap()
+            sleep(5)
             wmf_snapshot("GalleryScreen")
-            app.wmf_tapUnlocalizedCloseButton()
+            _ = app.wmf_tapUnlocalizedCloseButton()
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-featured-article-heading", success: { element in
             wmf_snapshot("ExploreScreenFeaturedArticle")
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-most-read-heading", success: { element in
             wmf_snapshot("ExploreScreenMostRead")
 
-            element.wmf_tap()
-            sleep(4)
+            _ = element.wmf_tap()
             wmf_snapshot("MostReadDetail")
-            app.wmf_tapNavigationBarBackButton()
+            _ = app.wmf_tapNavigationBarBackButton()
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: { element in
             wmf_snapshot("ExploreScreenOnThisDay")
 
-            element.wmf_tap()
-            sleep(4)
+            _ = element.wmf_tap()
             wmf_snapshot("OnThisDayDetail")
-            app.wmf_tapNavigationBarBackButton()
+            _ = app.wmf_tapNavigationBarBackButton()
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-nearby-placeholder-heading", success: { element in
             wmf_snapshot("ExploreScreenNearbyPlaces")
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-random-article-heading", success: { element in
             wmf_snapshot("ExploreScreenRandom")
             
-            element.wmf_tap()
-            sleep(8)
+            _ = element.wmf_tap()
+            sleep(5)
             wmf_snapshot("RandomDetail")
-            app.wmf_tapNavigationBarBackButton()
+            _ = app.wmf_tapNavigationBarBackButton()
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
 
-            element.wmf_tap()
-            sleep(8)
+            _ = element.wmf_tap()
+            sleep(5)
             wmf_snapshot("MainPageDetail")
-            app.wmf_tapNavigationBarBackButton()
+            _ = app.wmf_tapNavigationBarBackButton()
         })
 
+        _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: { element in
             wmf_snapshot("ExploreScreenInTheNews")
             
-            element.wmf_tap()
-            sleep(4)
+            _ = element.wmf_tap()
             wmf_snapshot("InTheNewsDetail")
-            app.wmf_tapNavigationBarBackButton()
+            _ = app.wmf_tapNavigationBarBackButton()
         })
-    
+        
         
         // SEARCH
-        app.wmf_scrollToTop()
-        app.wmf_tapSearchField(key: "search-field-placeholder-text")
-        wmf_snapshot("SearchScreen1")
-        sleep(4)
-        app.wmf_searchField(key: "search-field-placeholder-text").typeText("a")
-        wmf_snapshot("SearchScreen2")
+        sleep(3)
+        _ = app.wmf_scrollToTop()
+        let searchField = app.wmf_searchField(key: "search-field-placeholder-text")
+        if searchField.wmf_tap() {
+            wmf_snapshot("SearchScreen1")
+            sleep(3)
+            searchField.typeText("a")
+            sleep(3)
+            wmf_snapshot("SearchScreen2")
+        }
         
         
         // ARTICLE
-        app.wmf_tapFirstCollectionViewCell()
-        sleep(8)
+        _ = app.wmf_tapFirstCollectionViewCell()
+        sleep(6)
         wmf_snapshot("ArticleScreen1")
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         // TOC and ARTICLE FOOTERS
         if UIDevice.current.userInterfaceIdiom != .pad {
             // TOC
-            app.wmf_tapButton(key: "table-of-contents-button-label")
+            _ = app.wmf_tapButton(key: "table-of-contents-button-label")
             wmf_snapshot("ArticleScreenTOC")
             
             // `About this article` footer
-            app.wmf_tapStaticText(key: "article-about-title")
+            _ = app.wmf_tapStaticText(key: "article-about-title")
             wmf_snapshot("ArticleScreenFooterAboutThisArticle")
 
             // `Read more` footer
-            app.wmf_tapButton(key: "table-of-contents-button-label")
-            app.wmf_tapStaticText(key: "article-read-more-title")
+            _ = app.wmf_tapButton(key: "table-of-contents-button-label")
+            _ = app.wmf_tapStaticText(key: "article-read-more-title")
             wmf_snapshot("ArticleScreenFooterReadMore")
         } else {
             // Article footer (both the `About this article` and `Read more` footers are visible on larger iPad screens so no need to do separate screenshot for `Read more`)
-            app.wmf_tapStaticText(key: "article-about-title")
+            _ = app.wmf_tapStaticText(key: "article-about-title")
             wmf_snapshot("ArticleScreenFooter")
         }
         
         
         // Article theme panel
-        app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
+        _ = app.wmf_tapButton(key: "article-toolbar-reading-themes-controls-toolbar-item")
         wmf_snapshot("ArticleScreenThemesLight")
         
-        app.wmf_tapButton(key: "reading-themes-controls-accessibility-sepia-theme-button")
+        _ = app.wmf_tapButton(key: "reading-themes-controls-accessibility-sepia-theme-button")
         wmf_snapshot("ArticleScreenThemesSepia")
 
-        app.wmf_tapButton(key: "reading-themes-controls-accessibility-dark-theme-button")
+        _ = app.wmf_tapButton(key: "reading-themes-controls-accessibility-dark-theme-button")
         wmf_snapshot("ArticleScreenThemesDark")
 
-        app.wmf_tapButton(key: "reading-themes-controls-accessibility-black-theme-button")
+        _ = app.wmf_tapButton(key: "reading-themes-controls-accessibility-black-theme-button")
         wmf_snapshot("ArticleScreenThemesBlack")
 
-        app.wmf_tapButton(key: "reading-themes-controls-accessibility-light-theme-button")
+        _ = app.wmf_tapButton(key: "reading-themes-controls-accessibility-light-theme-button")
 
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         
         // Article find in page
-        app.wmf_tapButton(key: "find-in-page-button-label")
+        _ = app.wmf_tapButton(key: "find-in-page-button-label")
         wmf_snapshot("ArticleScreenFindInPage1")
-        app.textFields.firstMatch.typeText("a")
+        app.textFields.element(boundBy: 0).typeText("a")
         wmf_snapshot("ArticleScreenFindInPage2")
 
-        app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapUnlocalizedCloseButton()
         
-        app.wmf_tapButton(key: "home-button-explore-accessibility-label")
+        _ = app.wmf_tapButton(key: "home-button-explore-accessibility-label")
 
         
         // SETTINGS
-        app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "settings-title")
         wmf_snapshot("SettingsScreen1")
 
-        
+
         // Login
-        app.wmf_tapStaticText(key: "main-menu-account-login")
+        _ = app.wmf_tapStaticText(key: "main-menu-account-login")
         wmf_snapshot("LoginScreen1")
 
         
         // Create account
-        app.wmf_tapStaticTextStartingWith(key: "login-no-account")
+        _ = app.wmf_tapStaticTextStartingWith(key: "login-no-account")
         wmf_snapshot("CreateAccountScreen1")
-        app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapUnlocalizedCloseButton()
 
         
         // Forgot password
-        app.wmf_tapStaticText(key: "main-menu-account-login")
-        app.wmf_tapStaticText(key: "login-forgot-password")
+        _ = app.wmf_tapStaticText(key: "main-menu-account-login")
+        _ = app.wmf_tapStaticText(key: "login-forgot-password")
         wmf_snapshot("ForgotPasswordScreen1")
-        app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapUnlocalizedCloseButton()
 
         
         // My languages
-        app.wmf_tapStaticText(key: "settings-my-languages")
+        _ = app.wmf_tapStaticText(key: "settings-my-languages")
         wmf_snapshot("MyLanguagesScreen1")
-        app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
 
-        
+
         // Notifications
-        app.wmf_tapStaticText(key: "settings-notifications")
+        _ = app.wmf_tapStaticText(key: "settings-notifications")
         wmf_snapshot("NotificationsScreen1")
-        app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "settings-title")
 
         
         // Reading preferences
-        app.wmf_tapStaticText(key: "settings-appearance")
+        _ = app.wmf_tapStaticText(key: "settings-appearance")
         wmf_snapshot("AppearanceScreen1")
-        app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "settings-title")
 
         
         // Article storage and syncing
-        app.wmf_tapStaticText(key: "settings-storage-and-syncing-title")
+        _ = app.wmf_tapStaticText(key: "settings-storage-and-syncing-title")
         wmf_snapshot("StorageAndSyncingScreen1")
-        app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "settings-title")
 
         
         // Clear cached data
-        app.wmf_tapStaticText(key: "settings-clear-cache")
+        _ = app.wmf_tapStaticText(key: "settings-clear-cache")
         wmf_snapshot("ClearCacheScreen1")
 
         
         // Help and feedback
-        app.wmf_tapStaticText(key: "settings-help-and-feedback")
-        sleep(8)
+        _ = app.wmf_tapStaticText(key: "settings-help-and-feedback")
+        sleep(6)
         wmf_snapshot("HelpAndFeedbackScreen1")
         sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
-        app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "settings-title")
 
         
         // About the app
-        app.wmf_tapStaticText(key: "main-menu-about")
-        sleep(8)
+        _ = app.wmf_tapStaticText(key: "main-menu-about")
+        sleep(6)
         wmf_snapshot("AboutTheAppScreen1")
-        app.wmf_tapButton(key: "settings-title")
-        app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapButton(key: "settings-title")
+        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
 
         
         // SAVED
-        app.wmf_tapButton(key: "saved-title")
+        _ = app.wmf_tapButton(key: "saved-title")
         wmf_snapshot("SavedScreen1")
 
         
         // HISTORY
-        app.wmf_tapButton(key: "history-title")
+        _ = app.wmf_tapButton(key: "history-title")
         wmf_snapshot("HistoryScreen1")
 
         
         // PLACES
-        app.wmf_tapButton(key: "places-title")
+        _ = app.wmf_tapButton(key: "places-title")
         wmf_snapshot("PlacesScreen1")
     }
 }
