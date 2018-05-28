@@ -1,25 +1,40 @@
 import XCTest
 
-// This this uitest target sleeps - the app target this test target taps doesn't.
-// This delay just give everything an extra moment to settle.
-let oneSecond: UInt32 = 1
 let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
 extension XCUIElement {
     func wmf_tap() -> Bool {
-        sleep(oneSecond)
         guard exists else { return false }
         tap()
-        sleep(oneSecond)
         return true
+    }
+    func wmf_typeText(text: String) -> Bool {
+        guard exists else { return false }
+        typeText(text)
+        return true
+    }
+    func wmf_waitUntilExists(timeout: TimeInterval = 30) -> XCUIElement {
+        _ = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == true"), object: self)], timeout: timeout)
+        return self
     }
 }
 
 extension XCUIElementQuery {
-    func wmf_firstMatching(key: String) -> XCUIElement {
-        sleep(oneSecond)
-        // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking.
-        return matching(NSPredicate(format: "label == %@", key)).element(boundBy: 0)
+    // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
+    
+    func wmf_firstElementWithLabel(text: String) -> XCUIElement {
+        return matching(NSPredicate(format: "label == %@", text)).element(boundBy: 0).wmf_waitUntilExists()
+    }
+    func wmf_firstElementWithPlaceholderValue(text: String) -> XCUIElement {
+        return matching(NSPredicate(format:"placeholderValue == %@", text)).element(boundBy: 0).wmf_waitUntilExists()
+    }
+    func wmf_firstElementWithLabelStartingWith(text: String, timeout: TimeInterval = 20) -> XCUIElement {
+        var textToUse = text
+        // HACK: if there's a substitution string - ie "%1$@" - just ignore everything after it (including it) so the BEGINSWITH logic works without us having to get the actual substition value.
+        if let rangeOfSubstitutionString = text.range(of: "%1$@") {
+            textToUse = String(text[..<rangeOfSubstitutionString.lowerBound])
+        }
+        return matching(NSPredicate(format: "label BEGINSWITH %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
 }
 
@@ -27,18 +42,15 @@ extension XCUIApplication {
     
     // Quick way to get button which works with non-EN langs too (vs. recording which only works for language recorded in)
     func wmf_button(key: String) -> XCUIElement {
-        sleep(oneSecond)
-        return buttons.wmf_firstMatching(key: wmf_localizedString(key: key))
+        return buttons.wmf_firstElementWithLabel(text: wmf_localizedString(key: key))
     }
     
     func wmf_searchField(key: String) -> XCUIElement {
-        sleep(oneSecond)
-        return searchFields.matching(NSPredicate(format:"placeholderValue == %@", wmf_localizedString(key: key))).element(boundBy: 0)
+        return searchFields.wmf_firstElementWithPlaceholderValue(text: wmf_localizedString(key: key))
     }
     
     func wmf_staticText(key: String) -> XCUIElement {
-        sleep(oneSecond)
-        return staticTexts.wmf_firstMatching(key: wmf_localizedString(key: key))
+        return staticTexts.wmf_firstElementWithLabel(text: wmf_localizedString(key: key))
     }
 
     // Quick way to tap button which works with non-EN langs too
@@ -51,51 +63,33 @@ extension XCUIApplication {
     }
 
     func wmf_tapStaticTextStartingWith(key: String) -> Bool {
-        return wmf_elementStartingWith(key: key, from: staticTexts).wmf_tap()
+        return staticTexts.wmf_firstElementWithLabelStartingWith(text: wmf_localizedString(key: key)).wmf_tap()
     }
 
     func wmf_tapUnlocalizedCloseButton() -> Bool {
-        return buttons.wmf_firstMatching(key: wmf_localizedString(key: "close")).wmf_tap()
+        return buttons.wmf_firstElementWithLabel(text: wmf_localizedString(key: "close")).wmf_tap()
     }
     
     func wmf_tapNavigationBarBackButton() -> Bool {
         let backButtonTapped = wmf_tapButton(key: "back")
         guard backButtonTapped else {
-            sleep(oneSecond)
             // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
-            return navigationBars.buttons.element(boundBy: 0).wmf_tap()
+            return navigationBars.buttons.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
         }
         return backButtonTapped
     }
     
     func wmf_tapFirstCollectionViewCell() -> Bool {
-        sleep(oneSecond)
-        return collectionViews.children(matching: .cell).element(boundBy: 0).wmf_tap()
+        return collectionViews.children(matching: .cell).element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
     }
     
     func wmf_scrollToTop() -> Bool {
-        sleep(oneSecond)
-        let result = statusBars.element(boundBy: 0).wmf_tap()
-        sleep(oneSecond)
-        return result
+        return statusBars.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
     }
     
     func wmf_scrollElementToTop(element: XCUIElement) {
         let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
-    }
-    
-    func wmf_elementStartingWith(key: String, from elementQuery: XCUIElementQuery) -> XCUIElement {
-        sleep(oneSecond)
-
-        var translation = wmf_localizedString(key: key)
-        
-        // HACK: if there's a substitution string - ie "%1$@" - just ignore everything after it (including it) so the BEGINSWITH logic works without us having to get the actual substition value.
-        if let rangeOfSubstitutionString = translation.range(of: "%1$@") {
-            translation = String(translation[..<rangeOfSubstitutionString.lowerBound])
-        }
-        
-        return elementQuery.matching(NSPredicate(format: "label BEGINSWITH %@", translation)).element(boundBy: 0)
     }
     
     func wmf_scrollDown() {
@@ -107,7 +101,7 @@ extension XCUIApplication {
         let maxScrollSeconds: Double = 240
         let start = Date()
         repeat {
-            let element = wmf_elementStartingWith(key: key, from: otherElements)
+            let element = otherElements.wmf_firstElementWithLabelStartingWith(text: wmf_localizedString(key: key), timeout: TimeInterval(1))
             if element.exists {
                 wmf_scrollElementToTop(element: element)
                 sleep(1)

@@ -20,11 +20,11 @@ languages([
   "de-DE",
   "es-ES",
   "fr-FR",
-  "it", 
+  "it",
   "ja",
   "nl-NL",
   "pt-PT",
-  "ru", 
+  "ru",
   "sv",
   "zh-Hans",
   "da",
@@ -66,5 +66,7 @@ clean false
 
 # Much faster when config'ed with it's own derived data folder - didn't seem to re-use otherwise.
 derived_data_path "fastlane/snapshot_derived_data"
+
+localize_simulator true
 
 # For more information about all available options run `fastlane snapshot --help`

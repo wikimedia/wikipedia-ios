@@ -34,7 +34,8 @@ TIPS:
 - set a breakpoint on a call to `sleep(n)` in location of interest, then `print(XCUIApplication().debugDescription)` to get tree of what's onscreen so you can find button string to use to search for localization key for that string so you can programatically "push" that button
 - you can use control-option-command-U to re-run last test you ran!
 - remember that when this gets run by fastlane the app is a clean install every time (so we start from the first welcome screen) but when tweaking tests you may have left off after the welcome screens (so you can just temporarily comment out the welcome screen lines below when adding new screenshots). just be sure that when you're done adding new screenshots you test with clean install and that all the steps progress normally - you should be able to watch it progress through the first welcome screen all the way to the last item below - that way you'll know when fastlane does the same thing from a clean install that everything will go smoothly.
-
+- when debugging it can be helpful to watch the screenshots appear in this temp dir: `/Library/Caches/tools.fastlane/screenshots/`
+ 
 */
 
 class WikipediaUITests: XCTestCase {
@@ -209,10 +210,9 @@ class WikipediaUITests: XCTestCase {
         let searchField = app.wmf_searchField(key: "search-field-placeholder-text")
         if searchField.wmf_tap() {
             wmf_snapshot("SearchScreen1")
-            sleep(3)
-            searchField.typeText("a")
-            sleep(3)
-            wmf_snapshot("SearchScreen2")
+            if searchField.wmf_typeText(text: "a") {
+                wmf_snapshot("SearchScreen2")
+            }
         }
         
         
@@ -264,11 +264,13 @@ class WikipediaUITests: XCTestCase {
         // Article find in page
         _ = app.wmf_tapButton(key: "find-in-page-button-label")
         wmf_snapshot("ArticleScreenFindInPage1")
-        app.textFields.element(boundBy: 0).typeText("a")
-        wmf_snapshot("ArticleScreenFindInPage2")
-
+        let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists()
+        if textField.wmf_tap() {
+            if textField.wmf_typeText(text: "a") {
+                wmf_snapshot("ArticleScreenFindInPage2")
+            }
+        }
         _ = app.wmf_tapUnlocalizedCloseButton()
-        
         _ = app.wmf_tapButton(key: "home-button-explore-accessibility-label")
 
         
@@ -326,7 +328,7 @@ class WikipediaUITests: XCTestCase {
         
         // Help and feedback
         _ = app.wmf_tapStaticText(key: "settings-help-and-feedback")
-        sleep(6)
+        sleep(8)
         wmf_snapshot("HelpAndFeedbackScreen1")
         sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
         _ = app.wmf_tapButton(key: "settings-title")
