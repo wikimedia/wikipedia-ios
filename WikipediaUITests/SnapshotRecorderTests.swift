@@ -34,7 +34,7 @@ TIPS:
 - set a breakpoint on a call to `sleep(n)` in location of interest, then `print(XCUIApplication().debugDescription)` to get tree of what's onscreen so you can find button string to use to search for localization key for that string so you can programatically "push" that button
 - you can use control-option-command-U to re-run last test you ran!
 - remember that when this gets run by fastlane the app is a clean install every time (so we start from the first welcome screen) but when tweaking tests you may have left off after the welcome screens (so you can just temporarily comment out the welcome screen lines below when adding new screenshots). just be sure that when you're done adding new screenshots you test with clean install and that all the steps progress normally - you should be able to watch it progress through the first welcome screen all the way to the last item below - that way you'll know when fastlane does the same thing from a clean install that everything will go smoothly.
-- when debugging it can be helpful to watch the screenshots appear in this temp dir: `/Library/Caches/tools.fastlane/screenshots/`
+- when debugging it can be helpful to watch the screenshots appear in this temp dir: `~/Library/Caches/tools.fastlane/screenshots/`
  
 */
 
