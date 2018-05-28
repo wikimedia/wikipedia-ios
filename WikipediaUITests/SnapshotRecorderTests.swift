@@ -141,7 +141,7 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("ExploreScreenPicOfTheDay")
 
             _ = element.wmf_tap()
-            sleep(5)
+            sleep(8)
             wmf_snapshot("GalleryScreen")
             _ = app.wmf_tapUnlocalizedCloseButton()
         })
@@ -179,17 +179,16 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("ExploreScreenRandom")
             
             _ = element.wmf_tap()
-            sleep(5)
+            sleep(8)
             wmf_snapshot("RandomDetail")
             _ = app.wmf_tapNavigationBarBackButton()
         })
-
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
 
             _ = element.wmf_tap()
-            sleep(5)
+            sleep(8)
             wmf_snapshot("MainPageDetail")
             _ = app.wmf_tapNavigationBarBackButton()
         })
@@ -205,7 +204,6 @@ class WikipediaUITests: XCTestCase {
         
         
         // SEARCH
-        sleep(3)
         _ = app.wmf_scrollToTop()
         let searchField = app.wmf_searchField(key: "search-field-placeholder-text")
         if searchField.wmf_tap() {
@@ -218,7 +216,7 @@ class WikipediaUITests: XCTestCase {
         
         // ARTICLE
         _ = app.wmf_tapFirstCollectionViewCell()
-        sleep(6)
+        sleep(8)
         wmf_snapshot("ArticleScreen1")
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
@@ -336,7 +334,7 @@ class WikipediaUITests: XCTestCase {
         
         // About the app
         _ = app.wmf_tapStaticText(key: "main-menu-about")
-        sleep(6)
+        sleep(8)
         wmf_snapshot("AboutTheAppScreen1")
         _ = app.wmf_tapButton(key: "settings-title")
         _ = app.wmf_tapButton(key: "close-button-accessibility-label")

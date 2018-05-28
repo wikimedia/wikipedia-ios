@@ -1,4 +1,5 @@
 import XCTest
+import WMF
 
 let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
@@ -29,13 +30,22 @@ extension XCUIElementQuery {
     func wmf_firstElementWithPlaceholderValue(text: String) -> XCUIElement {
         return matching(NSPredicate(format:"placeholderValue == %@", text)).element(boundBy: 0).wmf_waitUntilExists()
     }
+    
+    
+    
+    
+// TODO:
+// - rename wmf_firstElementWithLabelStartingWith and wmf_tapStaticTextStartingWith and wmf_scrollToOtherElementStartingWith
+// - make the other 2 methods above use "like" approach too?
+// - document the "like" wildcard approach in a comment (potentially move the string manip to a func)
+
     func wmf_firstElementWithLabelStartingWith(text: String, timeout: TimeInterval = 20) -> XCUIElement {
         var textToUse = text
-        // HACK: if there's a substitution string - ie "%1$@" - just ignore everything after it (including it) so the BEGINSWITH logic works without us having to get the actual substition value.
-        if let rangeOfSubstitutionString = text.range(of: "%1$@") {
-            textToUse = String(text[..<rangeOfSubstitutionString.lowerBound])
+        for i in 0...9 {
+            textToUse = textToUse.replacingOccurrences(of: "%\(i)$@", with: "*")
         }
-        return matching(NSPredicate(format: "label BEGINSWITH %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
+        textToUse = "*\(textToUse)*"
+        return matching(NSPredicate(format: "label like[cd] %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
 }
 
@@ -85,7 +95,9 @@ extension XCUIApplication {
     }
     
     func wmf_scrollToTop() -> Bool {
-        return statusBars.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
+        let tapResult = statusBars.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
+        sleep(3) // Give it time to scroll up and settle.
+        return tapResult
     }
     
     func wmf_scrollElementToTop(element: XCUIElement) {
@@ -115,40 +127,7 @@ extension XCUIApplication {
     
     // Gets localized string from localized string key (so we can navigate the app regardless of lang).
     // ( localization strings are copied into this scheme during a build phase: https://stackoverflow.com/a/38133902/135557 )
-    // there's surely a cleaner way to get this path than using all the re-tries below (perhaps using the localization methods in WMF framework?), but this works for the langs we're testing at the moment
     func wmf_localizedString(key: String) -> String {
-        let bundle = Bundle(for: WikipediaUITests.self)
-        
-        // try first with deviceLanguage as-is - i.e. "en-US"
-        var bundlePath = bundle.path(forResource:deviceLanguage, ofType: "lproj")
-        
-        // if no bundlePath try lower case (fixes Chinese)
-        if bundlePath == nil {
-            bundlePath = bundle.path(forResource:deviceLanguage.lowercased(), ofType: "lproj")
-        }
-        
-        // if no bundlePath try with just the "en" part of "en-US"
-        if bundlePath == nil {
-            let lang = deviceLanguage.split(separator: "-").first // gets "en" from "en-US", for example
-            if lang == nil {
-                return ""
-            }
-            bundlePath = bundle.path(forResource:String(lang!), ofType: "lproj")
-        }
-        
-        if bundlePath == nil {
-            return ""
-        }
-        guard let localizationBundle = Bundle(path: bundlePath!) else {
-            return ""
-        }
-        
-        var translation = NSLocalizedString(key, bundle: localizationBundle, comment: "")
-        
-        if (translation == key || (translation.count == 0)) {
-            let enBundlePath = bundle.path(forResource: "en", ofType: "lproj")
-            translation = NSLocalizedString(key, bundle: Bundle(path: enBundlePath!)!, comment: "")
-        }
-        return translation
+        return WMFLocalizedString(key, value: "", comment: "")
     }
 }
