@@ -14,6 +14,7 @@ extension XCUIElement {
         return true
     }
     func wmf_waitUntilExists(timeout: TimeInterval = 30) -> XCUIElement {
+        if self.exists { return self }
         _ = XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == true"), object: self)], timeout: timeout)
         return self
     }
