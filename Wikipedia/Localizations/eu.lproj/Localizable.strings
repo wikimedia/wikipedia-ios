@@ -361,6 +361,7 @@
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta Wikipedia aplikazioetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
+"reading-list-sync-enabled-panel-title" = "Sinkronizatzea gaitu da kontu honetan";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-delete" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda ezabatzen ari zen bitartean. Mesedez, saia ezazu geroago.";
