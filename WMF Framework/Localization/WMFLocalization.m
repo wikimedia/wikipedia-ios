@@ -18,19 +18,23 @@
 
 - (nullable NSBundle *)wmf_languageBundleForLanguage:(nonnull NSString *)language {
     NSMutableDictionary *bundles = [NSBundle wmf_languageBundles];
-    if ([language isEqualToString:@"zh"]) {
-        language = @"zh-hans";
-        for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
-            if (![code hasPrefix:@"zh"]) {
-                continue;
-            }
-            language = code;
-            break;
-        }
-    }
-    NSString *path = [self pathForResource:language ofType:@"lproj"];
-    NSBundle *bundle = bundles[path];
+    NSBundle *bundle = bundles[language];
     if (!bundle) {
+        if ([language isEqualToString:@"zh"]) {
+            language = @"zh-Hans";
+            for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
+                if (![code hasPrefix:@"zh"]) {
+                    continue;
+                }
+                NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
+                if ([components count] > 1) {
+                    language = [@[components[0], [components[1] capitalizedStringWithLocale:[NSLocale localeWithLocaleIdentifier:@"en"]]] componentsJoinedByString:@"-"];
+                    break;
+                }
+
+            }
+        }
+        NSString *path = [self pathForResource:language ofType:@"lproj"];
         bundle = [NSBundle bundleWithPath:path];
         if (bundle) {
             bundles[path] = bundle;
