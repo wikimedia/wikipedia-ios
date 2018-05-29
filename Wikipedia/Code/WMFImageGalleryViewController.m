@@ -55,7 +55,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFArticlePhoto : NSObject <WMFPhoto>
+@interface WMFBasePhoto: NSObject
+
+@property (nullable, nonatomic, strong) WMFTypedImageData *typedImageData;
+
+@property (nullable, nonatomic, strong) NSString *imageDataUTType;
+
+@property (nullable, nonatomic, strong) NSData *imageData;
+
+//used for metadaata
+@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
+
+
+@end
+
+@interface WMFArticlePhoto : WMFBasePhoto <WMFPhoto>
 
 //set to display a thumbnail during download
 @property (nonatomic, strong, nullable) MWKImage *thumbnailImageObject;
@@ -63,10 +77,37 @@ NS_ASSUME_NONNULL_BEGIN
 //used to fetch the full size image
 @property (nonatomic, strong, nullable) MWKImage *imageObject;
 
-//used for metadaata
-@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
+
+@implementation WMFBasePhoto
+
+- (nullable WMFTypedImageData *)typedImageData {
+    @synchronized(self) {
+        if (!_typedImageData) {
+            NSURL *URL = self.imageInfo.canonicalFileURL;
+            if (URL) {
+                _typedImageData = [[WMFImageController sharedInstance] dataWithURL:URL];
+            }
+        }
+        return _typedImageData;
+    }
+}
+
+- (BOOL)isGIF {
+    return [self.imageInfo.canonicalFileURL.absoluteString.lowercaseString hasSuffix:@".gif"];
+}
+
+- (nullable NSData *)imageData {
+    return self.isGIF ? self.typedImageData.data : nil;
+}
+
+- (nullable NSString *)imageDataUTType {
+    return  self.isGIF ? (NSString *)kUTTypeGIF : nil;
+}
+
+@end
+
 
 @implementation WMFArticlePhoto
 
@@ -155,11 +196,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         return nil;
     }
-}
-
-- (nullable NSData *)imageData {
-    NSURL *URL = self.imageInfo.canonicalFileURL;
-    return [URL.absoluteString.lowercaseString containsString:@".gif"] ? [[[WMFImageController sharedInstance] dataWithURL:URL] data] : nil;
 }
 
 - (nullable NSAttributedString *)attributedCaptionTitle {
@@ -586,16 +622,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFPOTDPhoto : NSObject <WMFPhoto>
+@interface WMFPOTDPhoto : WMFBasePhoto <WMFPhoto>
 
 //used to fetch imageInfo
 @property (nonatomic, strong, nullable) NSDate *potdDate;
 
 //set to display a thumbnail during download
 @property (nonatomic, strong, nullable) MWKImageInfo *thumbnailImageInfo;
-
-//used for metadaata
-@property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
 
@@ -656,10 +689,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSURL *)imageURL {
     return [self.imageInfo imageURLForTargetWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]];
-}
-
-- (nullable NSData *)imageData {
-    return nil;
 }
 
 - (nullable NSAttributedString *)attributedCaptionTitle {
