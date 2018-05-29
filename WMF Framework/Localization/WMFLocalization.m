@@ -16,11 +16,33 @@
     return wmf_languageBundles;
 }
 
-- (nullable NSBundle *)wmf_languageBundleForLanguage:(nonnull NSString *)language {
+- (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguage:(nonnull NSString *)language {
+    NSString *bundleName = language;
+    if ([language isEqualToString:@"zh"]) {
+        bundleName = @"zh-Hans";
+        for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
+            if (![code hasPrefix:@"zh"]) {
+                continue;
+            }
+            NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
+            if ([components count] > 1) {
+                bundleName = [@[components[0], [components[1] capitalizedStringWithLocale:[NSLocale localeWithLocaleIdentifier:@"en"]]] componentsJoinedByString:@"-"];
+                break;
+            }
+            
+        }
+    } else if ([language isEqualToString:@"sr"]) {
+        bundleName = @"sr-EC";
+    }
+    return bundleName;
+}
+
+- (nullable NSBundle *)wmf_languageBundleForWikipediaLanguage:(nonnull NSString *)language {
     NSMutableDictionary *bundles = [NSBundle wmf_languageBundles];
-    NSString *path = [self pathForResource:language ofType:@"lproj"];
-    NSBundle *bundle = bundles[path];
+    NSBundle *bundle = bundles[language];
     if (!bundle) {
+        NSString *languageBundleName = [self wmf_languageBundleNameForWikipediaLanguage:language];
+        NSString *path = [self pathForResource:languageBundleName ofType:@"lproj"];
         bundle = [NSBundle bundleWithPath:path];
         if (bundle) {
             bundles[path] = bundle;
@@ -50,7 +72,7 @@ NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable 
     if (wikipediaLanguage == nil) {
         translation = [bundle localizedStringForKey:key value:nil table:nil];
     } else {
-        NSBundle *languageBundle = [bundle wmf_languageBundleForLanguage:wikipediaLanguage];
+        NSBundle *languageBundle = [bundle wmf_languageBundleForWikipediaLanguage:wikipediaLanguage];
         translation = [languageBundle localizedStringForKey:key value:nil table:nil];
     }
 
