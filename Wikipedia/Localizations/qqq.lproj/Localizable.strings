@@ -391,7 +391,7 @@
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with appropriate plural for number of days ago.";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with appropriate plural for number of hours ago.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with appropriate plural for number of minutes ago.";
-"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year (or 'one' 1, 21, 31, 41, 51...  rule if it applies, add a $1). $1 will be replaced with appropriate plural for number of years ago.";
+"relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with appropriate plural for number of years ago.";
 "relogin-failed-retry-login-button-title" = "Title for button to let user attempt to log in again.";
 "relogin-failed-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
 "relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
