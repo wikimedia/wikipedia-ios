@@ -339,7 +339,7 @@ func importLocalizationsFromTWN(_ path: String) {
     
     let fm = FileManager.default
     do {
-        let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
+        let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"], "ru": ["one", "few", "many"]]
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders

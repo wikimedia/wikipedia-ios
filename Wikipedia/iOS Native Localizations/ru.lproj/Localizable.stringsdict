@@ -12,6 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Добавить %1$d статьи в список для чтения</string>
 			<key>one</key>
 			<string>Добавить %1$d статью в список для чтения</string>
 			<key>other</key>
@@ -44,6 +46,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Перенести %1$d статьи в список для чтения</string>
 			<key>one</key>
 			<string>Перенести %1$d статью в список для чтения</string>
 			<key>other</key>
@@ -60,6 +64,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d исторических события</string>
 			<key>one</key>
 			<string>%1$d историческое событие</string>
 			<key>other</key>
@@ -92,6 +98,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Найдено %1$d места</string>
 			<key>one</key>
 			<string>Найдено %1$d место</string>
 			<key>other</key>
@@ -108,6 +116,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d статей</string>
 			<key>one</key>
 			<string>%1$d статья</string>
 			<key>other</key>
@@ -124,6 +134,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Вы превысили лимит в %1$d статьи на учётную запись.</string>
 			<key>one</key>
 			<string>Вы превысили лимит в %1$d статью на учётную запись.</string>
 			<key>other</key>
@@ -156,6 +168,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d списка для чтения</string>
 			<key>one</key>
 			<string>%1$d список для чтения</string>
 			<key>other</key>
@@ -204,6 +218,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d дней назад</string>
 			<key>one</key>
 			<string>Вчера</string>
 			<key>other</key>
@@ -222,6 +238,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d часов назад</string>
 			<key>one</key>
 			<string>%1$d час назад</string>
 			<key>other</key>
@@ -240,6 +258,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d минут назад</string>
 			<key>one</key>
 			<string>%1$d минуту назад</string>
 			<key>other</key>
@@ -258,8 +278,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d года назад</string>
 			<key>one</key>
-			<string>прошлый год</string>
+			<string>%1$d лет назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
@@ -292,6 +314,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Несохраненная статьи</string>
 			<key>one</key>
 			<string>Несохраненная статья</string>
 			<key>other</key>
