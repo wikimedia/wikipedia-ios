@@ -3,7 +3,6 @@
 #import <WMF/SessionSingleton.h>
 #import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
-#import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>
 
@@ -73,8 +72,19 @@
     return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)wmf_stringByReplacingApostrophesWithBackslashApostrophes {
-    return [self stringByReplacingOccurrencesOfString:@"'" withString:@"\\'"];
+- (NSString *)wmf_stringBySanitizingForJavaScript {
+    NSRegularExpression *regex = [NSRegularExpression wmf_charactersToEscapeForJSRegex];
+    NSMutableString *mutableSelf = [self mutableCopy];
+    __block NSInteger offset = 0;
+    [regex enumerateMatchesInString:self options:0 range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+        NSInteger indexForBackslash = result.range.location + offset;
+        if (indexForBackslash >= mutableSelf.length) {
+            return;
+        }
+        [mutableSelf insertString:@"\\" atIndex:indexForBackslash];
+        offset += 1;
+    }];
+    return mutableSelf;
 }
 
 - (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage {
@@ -106,7 +116,7 @@
 }
 
 - (NSString *)wmf_trim {
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 - (NSString *)wmf_substringBeforeString:(NSString *)string {

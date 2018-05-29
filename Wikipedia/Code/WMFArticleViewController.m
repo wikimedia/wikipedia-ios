@@ -89,7 +89,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
                                         WMFReadingListsAlertControllerDelegate,
-                                        WMFReadingListHintPresenter>
+                                        WMFReadingListHintPresenter,
+                                        EventLoggingEventValuesProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -149,6 +150,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
+@property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
+@property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
+
 @end
 
 @implementation WMFArticleViewController
@@ -169,7 +173,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
-        self.articleURL = url;
+        NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+        components.query = nil;
+        self.articleURL = components.URL;
         self.dataStore = dataStore;
         self.readingListHintController = [[WMFReadingListHintController alloc] initWithDataStore:dataStore presenter:self];
 
@@ -730,6 +736,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
+    
+    self.eventLoggingCategory = EventLoggingCategoryArticle;
+    self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -1250,7 +1259,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             }
             return;
         } else {
-            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self->_shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+            NSURL *articleURL = self.articleURL;
+            UIActivityViewController *vc = [self.article sharingActivityViewControllerWithTextSnippet:nil
+                                                                                           fromButton:self->_shareToolbarItem
+                                                                                          shareFunnel:self.shareFunnel
+                                                                                       customActivity:[self addToReadingListActivityWithPresenter:self
+                                                                                                                                   eventLogAction:^{
+                                                                                                                                       [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:articleURL];
+                                                                                                                                   }]];
             vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
             if (vc) {
                 [self presentViewController:vc animated:YES completion:NULL];
@@ -1259,7 +1275,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }];
 }
 
-- (nullable UIActivity *)addToReadingListActivity {
+- (nullable UIActivity *)addToReadingListActivityWithPresenter:(UIViewController *)presenter eventLogAction:(nullable void (^)(void))eventLogAction {
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     if (!article) {
         return nil;
@@ -1267,7 +1283,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
         WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
-        [self presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
+        addArticlesToReadingListViewController.eventLogAction = eventLogAction;
+        [presenter presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
         ;
     }];
 
@@ -1310,13 +1327,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)updateSavedState {
     BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
     if (isSaved) {
-        [self.savedPagesFunnel logSaveNew];
+        [self.savedPagesFunnel logSaveNewWithArticleURL:self.articleURL];
         [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
-        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:self.articleURL];
     } else {
-        [self.savedPagesFunnel logDelete];
+        [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
         [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
-        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
 }
@@ -1580,9 +1597,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)articleURL didSave:(BOOL)didSave {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logArticleSaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleSaveInReadMore:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore];
+        [[ReadingListsFunnel shared] logArticleUnsaveInReadMore:articleURL];
     }
 }
 
@@ -1695,7 +1712,17 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
-    UIViewController *peekVC = [self peekViewControllerForURL:elementInfo.linkURL];
+    NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:elementInfo.linkURL resolvingAgainstBaseURL:NO];
+    NSString *eventLoggingLabel = linkURLComponents.wmf_eventLoggingLabel;
+    DDLogDebug(@"Event logging label is %@", eventLoggingLabel);
+    if (eventLoggingLabel) {
+        self.eventLoggingLabel = eventLoggingLabel;
+    } else {
+        self.eventLoggingLabel = EventLoggingLabelOutLink;
+    }
+    NSURLComponents *updatedLinkURLComponents = linkURLComponents.wmf_componentsByRemovingInternalQueryParameters;
+    NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
+    UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
     if (peekVC) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
@@ -1862,12 +1889,26 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                      }
                                  }];
 
+    NSURL *articleURL = self.articleURL;
+    __weak id<WMFArticlePreviewingActionsDelegate> weakArticlePreviewingActionsDelegate = self.articlePreviewingActionsDelegate;
+    void (^logPreviewSaveIfNeeded)(void) = ^{
+        BOOL providesEventValues = [weakArticlePreviewingActionsDelegate conformsToProtocol:@protocol(EventLoggingEventValuesProviding)];
+        if (!providesEventValues) {
+            return;
+        }
+        id<EventLoggingEventValuesProviding> eventLoggingValuesProvider = (id<EventLoggingEventValuesProviding>)weakArticlePreviewingActionsDelegate;
+        EventLoggingCategory eventLoggingCategory = [eventLoggingValuesProvider eventLoggingCategory];
+        EventLoggingLabel eventLoggingLabel = [eventLoggingValuesProvider eventLoggingLabel];
+        [[ReadingListsFunnel shared] logSaveWithCategory:eventLoggingCategory label:eventLoggingLabel articleURL:articleURL];
+    };
+
     UIPreviewAction *shareAction =
         [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
-                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+                                     UIViewController *presenter = (UIViewController *)self.articlePreviewingActionsDelegate;
+                                     UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
                                      shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                      if (shareActivityController) {
                                          NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
@@ -1883,7 +1924,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivity]];
+                                         UIViewController *presenter = (UIViewController *)self.articlePreviewingActionsDelegate;
+                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
                                          shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
                                          if (shareActivityController) {
                                              NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
@@ -1918,9 +1960,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)saveArticlePreviewActionSelectedWithArticleController:(nonnull WMFArticleViewController *)articleController didSave:(BOOL)didSave articleURL:(nonnull NSURL *)articleURL {
     [self.readingListHintController didSave:didSave articleURL:articleURL theme:self.theme];
     if (didSave) {
-        [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logSaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     } else {
-        [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle];
+        [[ReadingListsFunnel shared] logUnsaveWithCategory:self.eventLoggingCategory label:self.eventLoggingLabel articleURL:articleURL];
     }
 }
 

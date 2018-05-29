@@ -74,8 +74,12 @@
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
+        NSArray *countries = [obj countries];
+        if (countries.count == 0) {
+            return YES;
+        }
         __block BOOL valid = NO;
-        [[obj countries] enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        [countries enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if ([header containsString:[NSString stringWithFormat:@"GeoIP=%@", obj]]) {
                 valid = YES;
                 *stop = YES;

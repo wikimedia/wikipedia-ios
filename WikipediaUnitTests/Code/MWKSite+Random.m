@@ -13,7 +13,7 @@
 }
 
 + (instancetype)wmf_randomArticleURLWithFragment:(NSString *)fragment {
-    return [[self wmf_randomSiteURL] wmf_URLWithTitle:[[NSUUID UUID] UUIDString] fragment:fragment ?: [@"#" stringByAppendingString:[[NSUUID UUID] UUIDString]]];
+    return [[self wmf_randomSiteURL] wmf_URLWithTitle:[[NSUUID UUID] UUIDString] fragment:fragment ?: [@"#" stringByAppendingString:[[NSUUID UUID] UUIDString]] query:nil];
 }
 
 @end

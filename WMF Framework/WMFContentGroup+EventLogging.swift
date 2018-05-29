@@ -1,4 +1,4 @@
-public extension WMFContentGroup {
+@objc public extension WMFContentGroup {
     public var eventLoggingLabel: EventLoggingLabel? {
         switch contentGroupKind {
         case .featuredArticle:
@@ -17,13 +17,11 @@ public extension WMFContentGroup {
             fallthrough
         case .location:
             return .location
+        case .mainPage:
+            return .mainPage
         default:
             return nil
         }
-    }
-    
-    @objc public var eventLoggingLabelRawValue: String? {
-        return eventLoggingLabel?.rawValue
     }
 }
 

@@ -1774,15 +1774,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
             if didSave {
                 tracker?.wmf_logActionSave(inContext: context, contentType: article)
-                ReadingListsFunnel.shared.logSaveInPlaces()
+                ReadingListsFunnel.shared.logSaveInPlaces(url)
             } else {
                 tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
-                ReadingListsFunnel.shared.logUnsaveInPlaces()
+                ReadingListsFunnel.shared.logUnsaveInPlaces(url)
             }
             break
         case .share:
             let addToReadingListActivity = AddToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSaveInPlaces(url) }
                 self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
             }
             let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])

@@ -29,29 +29,31 @@ class CustomShareActivity: UIActivity {
 }
 
 protocol ShareableArticlesProvider: NSObjectProtocol {
-    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool
 }
 
 extension ShareableArticlesProvider where Self: ColumnarCollectionViewController & AnalyticsContextProviding {
-    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil) -> Bool {
         if let article = article {
-            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme)
+            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
         } else if let articleURL = articleURL {
             dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (articles) in
                 guard let first = articles.first else {
                     return
                 }
-                let _ = self.createAndPresentShareActivityController(for: first, at: indexPath, dataStore: dataStore, theme: theme)
+                let _ = self.createAndPresentShareActivityController(for: first, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
             })
             return true
         }
         return false
     }
     
-    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme) -> Bool {
+    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory?, eventLoggingLabel: EventLoggingLabel?) -> Bool {
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+            if let category = eventLoggingCategory, let label = eventLoggingLabel {
+                addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
+            }
             self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
         }
         customActivities.append(addToReadingListActivity)

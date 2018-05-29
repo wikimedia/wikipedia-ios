@@ -1,14 +1,17 @@
 #import "EditFunnel.h"
 #import <WMF/SessionSingleton.h>
 
+static NSString *const kAppInstallIdKey = @"appInstallID";
+static NSString *const kAnonKey = @"anon";
+static NSString *const kTimestampKey = @"ts";
+
 @implementation EditFunnel
 
 - (id)initWithUserId:(int)userId {
     // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppEdit
-    self = [super initWithSchema:@"MobileWikiAppEdit" version:9003125];
+    self = [super initWithSchema:@"MobileWikiAppEdit" version:17837072];
     if (self) {
         self.editSessionToken = [self singleUseUUID];
-        self.requiresAppInstallID = NO;
     }
     self.userId = userId;
     return self;
@@ -16,9 +19,10 @@
 
 - (NSDictionary *)preprocessData:(NSDictionary *)eventData {
     NSMutableDictionary *dict = [eventData mutableCopy];
-    dict[@"editSessionToken"] = self.editSessionToken;
-    dict[@"userID"] = @(self.userId);
-
+    dict[@"sessionToken"] = self.editSessionToken;
+    dict[kAnonKey] = self.isAnon;
+    dict[kAppInstallIdKey] = self.appInstallID;
+    dict[kTimestampKey] = self.timestamp;
     //dict[@"pageNS"] = @0; // @todo actually get the namespace...
     return [NSDictionary dictionaryWithDictionary:dict];
 }

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
             MWKSite *site = [self decodeValueForKey:@"site" withCoder:coder modelVersion:0];
             NSString *fragment = [self decodeValueForKey:@"fragment" withCoder:coder modelVersion:0];
             if (site && text) {
-                self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment];
+                self.URL = [NSURL wmf_URLWithSiteURL:site.URL title:text fragment:fragment query:nil];
             } else {
                 return nil;
             }
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSite:(MWKSite *)site
              normalizedTitle:(NSString *)text
                     fragment:(NSString *__nullable)fragment {
-    NSURL *titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment];
+    NSURL *titleURL = [site.URL wmf_URLWithTitle:text fragment:fragment query:nil];
     return [self initWithURL:titleURL];
 }
 
@@ -60,23 +60,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithString:(NSString *)string site:(MWKSite *)site {
-    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleAndFragment:string];
-    return [self initWithURL:URL];
-}
-
-- (instancetype)initWithUnescapedString:(NSString *)string site:(MWKSite *)site {
-    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL unescapedDenormalizedTitleAndFragment:string];
+    NSURL *URL = [NSURL wmf_URLWithSiteURL:site.URL escapedDenormalizedTitleQueryAndFragment:string];
     return [self initWithURL:URL];
 }
 
 + (MWKTitle *)titleWithString:(NSString *)str site:(MWKSite *)site {
     return [[MWKTitle alloc] initWithString:str site:site];
 }
-
-+ (MWKTitle *)titleWithUnescapedString:(NSString *)str site:(MWKSite *)site {
-    return [[MWKTitle alloc] initWithUnescapedString:str site:site];
-}
-
 #pragma mark - Computed Properties
 
 - (NSString *)text {

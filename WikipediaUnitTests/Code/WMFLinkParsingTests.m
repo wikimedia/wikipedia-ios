@@ -43,11 +43,11 @@
 
 - (void)testWMFLinksFromLinks {
     NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"fr"];
-    NSURL *titledURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:nil];
+    NSURL *titledURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:nil query:nil];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
     titledURL = [siteURL wmf_URLWithTitle:@"Main Page"];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
-    NSURL *titledAndFragmentedURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:@"section"];
+    NSURL *titledAndFragmentedURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:@"section" query:nil];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page#section", titledAndFragmentedURL.absoluteString);
     NSURL *mobileURL = [siteURL wmf_URLWithPath:@"/w/api.php" isMobile:YES];
     XCTAssertEqualObjects(@"https://fr.m.wikipedia.org/w/api.php", mobileURL.absoluteString);
@@ -58,8 +58,14 @@
     XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
     NSURL *pageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", pageURL.absoluteString);
-    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleAndFragment:@"Main_Page"];
+    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", nonInternalPageURL.absoluteString);
+}
+
+- (void)testQueryPreservation {
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
+    NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Main_Page?wprov=stii1&a=%3F#blah"];
+    XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page?wprov=stii1&a=%3F#blah", nonInternalPageURL.absoluteString);
 }
 
 - (void)testWMFLanguagelessLinks {
@@ -147,9 +153,9 @@
     XCTAssertEqualObjects(ole, secondOle);
     XCTAssertEqualObjects(ole, thirdOle);
 
-    ole = [URL wmf_URLWithTitle:@"Olé" fragment:@"Olé"];
-    secondOle = [URL wmf_URLWithTitle:@"Ol\u00E9" fragment:@"Ol\u00E9"];
-    thirdOle = [URL wmf_URLWithTitle:@"Ole\u0301" fragment:@"Ole\u0301"];
+    ole = [URL wmf_URLWithTitle:@"Olé" fragment:@"Olé" query:nil];
+    secondOle = [URL wmf_URLWithTitle:@"Ol\u00E9" fragment:@"Ol\u00E9" query:nil];
+    thirdOle = [URL wmf_URLWithTitle:@"Ole\u0301" fragment:@"Ole\u0301" query:nil];
     XCTAssertEqualObjects(ole, secondOle);
     XCTAssertEqualObjects(ole, thirdOle);
 
@@ -158,6 +164,20 @@
     thirdOle = [URL wmf_URLWithPath:@"/wiki/Ole\u0301#Ole\u0301" isMobile:NO];
     XCTAssertEqualObjects(ole, secondOle);
     XCTAssertEqualObjects(ole, thirdOle);
+}
+
+- (void)testEventLoggingLabel {
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/wiki/ISO_8601?event_logging_label=read_more"];
+    NSString *readMore = components.wmf_eventLoggingLabel;
+    XCTAssertEqualObjects(readMore, @"read_more");
+    XCTAssertEqualObjects(components.wmf_componentsByRemovingInternalQueryParameters.URL.absoluteString, @"https://en.wikipedia.org/wiki/ISO_8601");
+}
+
+- (void)testEventLoggingLabelWithMultipleParams {
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/wiki/ISO_8601?event_logging_label=read_more&wprov=stii1"];
+    NSString *readMore = components.wmf_eventLoggingLabel;
+    XCTAssertEqualObjects(readMore, @"read_more");
+    XCTAssertEqualObjects(components.wmf_componentsByRemovingInternalQueryParameters.URL.absoluteString, @"https://en.wikipedia.org/wiki/ISO_8601?wprov=stii1");
 }
 
 @end

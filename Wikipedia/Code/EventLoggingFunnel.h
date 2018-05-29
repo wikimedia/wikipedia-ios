@@ -7,6 +7,41 @@ typedef NS_ENUM(NSUInteger, WMFEventLoggingMaxStringLength) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NSString *EventLoggingCategory NS_TYPED_EXTENSIBLE_ENUM;
+typedef NSString *EventLoggingLabel NS_TYPED_EXTENSIBLE_ENUM;
+
+extern EventLoggingCategory const EventLoggingCategoryFeed;
+extern EventLoggingCategory const EventLoggingCategoryHistory;
+extern EventLoggingCategory const EventLoggingCategoryPlaces;
+extern EventLoggingCategory const EventLoggingCategoryArticle;
+extern EventLoggingCategory const EventLoggingCategorySearch;
+extern EventLoggingCategory const EventLoggingCategoryAddToList;
+extern EventLoggingCategory const EventLoggingCategorySaved;
+extern EventLoggingCategory const EventLoggingCategoryLogin;
+extern EventLoggingCategory const EventLoggingCategorySetting;
+extern EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover;
+extern EventLoggingCategory const EventLoggingCategoryEnableSyncPopover;
+extern EventLoggingCategory const EventLoggingCategoryUnknown;
+
+extern EventLoggingLabel const EventLoggingLabelFeaturedArticle;
+extern EventLoggingLabel const EventLoggingLabelTopRead;
+extern EventLoggingLabel const EventLoggingLabelReadMore;
+extern EventLoggingLabel const EventLoggingLabelOnThisDay;
+extern EventLoggingLabel const EventLoggingLabelRandom;
+extern EventLoggingLabel const EventLoggingLabelNews;
+extern EventLoggingLabel const EventLoggingLabelRelatedPages;
+extern EventLoggingLabel const EventLoggingLabelArticleList;
+extern EventLoggingLabel const EventLoggingLabelOutLink;
+extern EventLoggingLabel const EventLoggingLabelSimilarPage;
+extern EventLoggingLabel const EventLoggingLabelItems;
+extern EventLoggingLabel const EventLoggingLabelLists;
+extern EventLoggingLabel const EventLoggingLabelDefault;
+extern EventLoggingLabel const EventLoggingLabelSyncEducation;
+extern EventLoggingLabel const EventLoggingLabelLogin;
+extern EventLoggingLabel const EventLoggingLabelSyncArticle;
+extern EventLoggingLabel const EventLoggingLabelLocation;
+extern EventLoggingLabel const EventLoggingLabelMainPage;
+
 /**
  * Base class for EventLogging multi-stage funnels.
  *
@@ -23,7 +58,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *schema;
 @property (nonatomic, assign) int revision;
-@property (nonatomic, assign) BOOL requiresAppInstallID;
+/**
+ * Helper function that returns a persistent appInstallID.
+ * appInstallID is generated once per install.
+ */
+@property (nonatomic, readonly) NSString *appInstallID;
+/**
+ * SessionID is reset when app is launched for the first time or resumed.
+ */
+@property (nonatomic, readonly) NSString *sessionID;
+@property (nonatomic, readonly) NSString *timestamp;
+@property (nonatomic, readonly) NSNumber *isAnon;
 
 /**
  *  Sampling rate used to calculate sampling ratio.
@@ -58,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
  * get run through preprocessData: and then sent off to the
  * background logging operation queue.
  *
- * The current wiki as recorded in the SessionSingleton will
+ * Primary language as recorded in MWKLanguageLinkController will
  * be used as the target of the logging request.
  *
  * For convenience, derived classes should contain specific
@@ -66,6 +111,21 @@ NS_ASSUME_NONNULL_BEGIN
  * readibility in calling code (and type safety on params!)
  */
 - (void)log:(NSDictionary *)eventData;
+
+/**
+ * The basic log: method takes a bare dictionary, which will
+ * get run through preprocessData: and then sent off to the
+ * background logging operation queue.
+ *
+ * language will be used to determine the target wiki.
+ * If language is nil, primary language as recorded in
+ * MWKLanguageLinkController will be used instead.
+ *
+ * For convenience, derived classes should contain specific
+ * log* methods for each potential logging action variant for
+ * readibility in calling code (and type safety on params!)
+ */
+- (void)log:(NSDictionary *)eventData language:(nullable NSString *)language;
 
 /**
  * In some cases logging should go to a specific wiki
@@ -81,21 +141,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)logged:(NSDictionary *)eventData;
 
 /**
+ * Helper function to get the app's primary language.
+ * Falls back on English if primary language was not set.
+ */
+- (NSString *)primaryLanguage;
+
+/**
  * Helper function to generate a per-use UUID.
  */
 - (NSString *)singleUseUUID;
-
-/**
- * Helper function that returns a persistent appInstallID.
- * appInstallID is generated once per install.
- */
-- (NSString *)wmf_appInstallID;
-
-/**
- * Helper function that returns a sessionID.
- * SessionID is reset when app is launched for the first time or resumed.
- */
-- (NSString *)wmf_sessionID;
 
 NS_ASSUME_NONNULL_END
 

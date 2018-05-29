@@ -3,6 +3,38 @@
 #import <WMF/SessionSingleton.h>
 #import <WMF/WMF-Swift.h>
 
+EventLoggingCategory const EventLoggingCategoryFeed = @"feed";
+EventLoggingCategory const EventLoggingCategoryHistory = @"history";
+EventLoggingCategory const EventLoggingCategoryPlaces = @"places";
+EventLoggingCategory const EventLoggingCategoryArticle = @"article";
+EventLoggingCategory const EventLoggingCategorySearch = @"search";
+EventLoggingCategory const EventLoggingCategoryAddToList = @"add_to_list";
+EventLoggingCategory const EventLoggingCategorySaved = @"saved";
+EventLoggingCategory const EventLoggingCategoryLogin = @"login";
+EventLoggingCategory const EventLoggingCategorySetting = @"setting";
+EventLoggingCategory const EventLoggingCategoryLoginToSyncPopover = @"login_to_sync_popover";
+EventLoggingCategory const EventLoggingCategoryEnableSyncPopover = @"enable_sync_popover";
+EventLoggingCategory const EventLoggingCategoryUnknown = @"unknown";
+
+EventLoggingLabel const EventLoggingLabelFeaturedArticle = @"featured_article";
+EventLoggingLabel const EventLoggingLabelTopRead = @"top_read";
+EventLoggingLabel const EventLoggingLabelReadMore = @"read_more";
+EventLoggingLabel const EventLoggingLabelRandom = @"random";
+EventLoggingLabel const EventLoggingLabelNews = @"news";
+EventLoggingLabel const EventLoggingLabelOnThisDay = @"on_this_day";
+EventLoggingLabel const EventLoggingLabelRelatedPages = @"related_pages";
+EventLoggingLabel const EventLoggingLabelArticleList = @"article_list";
+EventLoggingLabel const EventLoggingLabelOutLink = @"out_link";
+EventLoggingLabel const EventLoggingLabelSimilarPage = @"similar_page";
+EventLoggingLabel const EventLoggingLabelItems = @"items";
+EventLoggingLabel const EventLoggingLabelLists = @"lists";
+EventLoggingLabel const EventLoggingLabelDefault = @"default";
+EventLoggingLabel const EventLoggingLabelSyncEducation = @"sync_education";
+EventLoggingLabel const EventLoggingLabelLogin = @"login";
+EventLoggingLabel const EventLoggingLabelSyncArticle = @"sync_article";
+EventLoggingLabel const EventLoggingLabelLocation = @"location";
+EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
+
 @implementation EventLoggingFunnel
 
 - (id)initWithSchema:(NSString *)schema version:(int)revision {
@@ -10,7 +42,6 @@
         self.schema = schema;
         self.revision = revision;
         self.rate = 1;
-        self.requiresAppInstallID = YES;
     }
     return self;
 }
@@ -20,9 +51,17 @@
 }
 
 - (void)log:(NSDictionary *)eventData {
-    SessionSingleton *session = [SessionSingleton sharedInstance];
-    NSString *wiki = [session.currentArticleSiteURL.wmf_language stringByAppendingString:@"wiki"];
+    NSString *wiki = [self.primaryLanguage stringByAppendingString:@"wiki"];
     [self log:eventData wiki:wiki];
+}
+
+- (void)log:(NSDictionary *)eventData language:(nullable NSString *)language {
+    if (language) {
+        NSString *wiki = [language stringByAppendingString:@"wiki"];
+        [self log:eventData wiki:wiki];
+    } else {
+        [self log:eventData];
+    }
 }
 
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki {
@@ -44,6 +83,16 @@
     }
 }
 
+- (NSString *)primaryLanguage {
+    NSString *primaryLanguage = @"en";
+    MWKLanguageLink *appLanguage = [MWKLanguageLinkController sharedInstance].appLanguage;
+    if (appLanguage) {
+        primaryLanguage = appLanguage.languageCode;
+    }
+    assert(primaryLanguage);
+    return primaryLanguage;
+}
+
 - (NSString *)singleUseUUID {
     return [[NSUUID UUID] UUIDString];
 }
@@ -51,12 +100,21 @@
 - (void)logged:(NSDictionary *)eventData {
 }
 
-- (NSString *)wmf_appInstallID {
+- (NSString *)appInstallID {
     return [[KeychainCredentialsManager shared] appInstallID];
 }
 
-- (NSString *)wmf_sessionID {
+- (NSString *)sessionID {
     return [[KeychainCredentialsManager shared] sessionID];
+}
+
+- (NSString *)timestamp {
+    return [[NSDateFormatter wmf_rfc3339LocalTimeZoneFormatter] stringFromDate:[NSDate date]];
+}
+
+- (NSNumber *)isAnon {
+    BOOL isAnon = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
+    return [NSNumber numberWithBool:isAnon];
 }
 
 /**
