@@ -137,22 +137,22 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("ExploreScreen1")
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-potd-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-potd-heading", success: { element in
             wmf_snapshot("ExploreScreenPicOfTheDay")
 
             _ = element.wmf_tap()
             sleep(8)
             wmf_snapshot("GalleryScreen")
-            _ = app.wmf_tapUnlocalizedCloseButton()
+            _ = app.wmf_tapCloseButton()
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-featured-article-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-featured-article-heading", success: { element in
             wmf_snapshot("ExploreScreenFeaturedArticle")
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-most-read-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-most-read-heading", success: { element in
             wmf_snapshot("ExploreScreenMostRead")
 
             _ = element.wmf_tap()
@@ -161,7 +161,7 @@ class WikipediaUITests: XCTestCase {
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "on-this-day-title", success: { element in
+        app.wmf_scrollToOtherElement(key: "on-this-day-title", success: { element in
             wmf_snapshot("ExploreScreenOnThisDay")
 
             _ = element.wmf_tap()
@@ -170,12 +170,12 @@ class WikipediaUITests: XCTestCase {
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-nearby-placeholder-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-nearby-placeholder-heading", success: { element in
             wmf_snapshot("ExploreScreenNearbyPlaces")
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-random-article-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-random-article-heading", success: { element in
             wmf_snapshot("ExploreScreenRandom")
             
             _ = element.wmf_tap()
@@ -184,7 +184,7 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapNavigationBarBackButton()
         })
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "explore-main-page-heading", success: { element in
+        app.wmf_scrollToOtherElement(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
 
             _ = element.wmf_tap()
@@ -194,7 +194,7 @@ class WikipediaUITests: XCTestCase {
         })
 
         _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElementStartingWith(key: "in-the-news-title", success: { element in
+        app.wmf_scrollToOtherElement(key: "in-the-news-title", success: { element in
             wmf_snapshot("ExploreScreenInTheNews")
             
             _ = element.wmf_tap()
@@ -268,7 +268,7 @@ class WikipediaUITests: XCTestCase {
                 wmf_snapshot("ArticleScreenFindInPage2")
             }
         }
-        _ = app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapCloseButton()
         _ = app.wmf_tapButton(key: "home-button-explore-accessibility-label")
 
         
@@ -283,16 +283,16 @@ class WikipediaUITests: XCTestCase {
 
         
         // Create account
-        _ = app.wmf_tapStaticTextStartingWith(key: "login-no-account")
+        _ = app.wmf_tapStaticText(key: "login-no-account", convertSubstitutionStringsToWildcards: true)
         wmf_snapshot("CreateAccountScreen1")
-        _ = app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapCloseButton()
 
         
         // Forgot password
         _ = app.wmf_tapStaticText(key: "main-menu-account-login")
         _ = app.wmf_tapStaticText(key: "login-forgot-password")
         wmf_snapshot("ForgotPasswordScreen1")
-        _ = app.wmf_tapUnlocalizedCloseButton()
+        _ = app.wmf_tapCloseButton()
 
         
         // My languages

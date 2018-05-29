@@ -21,68 +21,51 @@ extension XCUIElement {
     }
 }
 
-extension XCUIElementQuery {
-    // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
-    
-    func wmf_firstElementWithLabel(text: String) -> XCUIElement {
-        return matching(NSPredicate(format: "label == %@", text)).element(boundBy: 0).wmf_waitUntilExists()
-    }
-    func wmf_firstElementWithPlaceholderValue(text: String) -> XCUIElement {
-        return matching(NSPredicate(format:"placeholderValue == %@", text)).element(boundBy: 0).wmf_waitUntilExists()
-    }
-    
-    
-    
-    
-// TODO:
-// - rename wmf_firstElementWithLabelStartingWith and wmf_tapStaticTextStartingWith and wmf_scrollToOtherElementStartingWith
-// - make the other 2 methods above use "like" approach too?
-// - document the "like" wildcard approach in a comment (potentially move the string manip to a func)
+private enum ElementPropertyType: String {
+    case label
+    case placeholderValue
+}
 
-    func wmf_firstElementWithLabelStartingWith(text: String, timeout: TimeInterval = 20) -> XCUIElement {
+private extension XCUIElementQuery {
+    // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
+    func wmf_firstElement(with propertyType: ElementPropertyType, equalTo text: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false, timeout: TimeInterval = 30) -> XCUIElement {
+        guard shouldConvert else {
+            return matching(NSPredicate(format: "\(propertyType.rawValue) == %@", text)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
+        }
         var textToUse = text
         for i in 0...9 {
             textToUse = textToUse.replacingOccurrences(of: "%\(i)$@", with: "*")
         }
         textToUse = "*\(textToUse)*"
-        return matching(NSPredicate(format: "label like[cd] %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
+        return matching(NSPredicate(format: "\(propertyType.rawValue) like[cd] %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
 }
 
 extension XCUIApplication {
-    
-    // Quick way to get button which works with non-EN langs too (vs. recording which only works for language recorded in)
-    func wmf_button(key: String) -> XCUIElement {
-        return buttons.wmf_firstElementWithLabel(text: wmf_localizedString(key: key))
+    func wmf_button(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
     }
-    
-    func wmf_searchField(key: String) -> XCUIElement {
-        return searchFields.wmf_firstElementWithPlaceholderValue(text: wmf_localizedString(key: key))
-    }
-    
-    func wmf_staticText(key: String) -> XCUIElement {
-        return staticTexts.wmf_firstElementWithLabel(text: wmf_localizedString(key: key))
+    func wmf_tapButton(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_button(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
     }
 
-    // Quick way to tap button which works with non-EN langs too
-    func wmf_tapButton(key: String) -> Bool {
-        return wmf_button(key: key).wmf_tap()
+    func wmf_staticText(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return staticTexts.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
     }
-    
-    func wmf_tapStaticText(key: String) -> Bool {
-        return wmf_staticText(key: key).wmf_tap()
+    func wmf_tapStaticText(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_staticText(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
     }
 
-    func wmf_tapStaticTextStartingWith(key: String) -> Bool {
-        return staticTexts.wmf_firstElementWithLabelStartingWith(text: wmf_localizedString(key: key)).wmf_tap()
+    func wmf_searchField(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return searchFields.wmf_firstElement(with: .placeholderValue, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
     }
 
-    func wmf_tapUnlocalizedCloseButton() -> Bool {
-        return buttons.wmf_firstElementWithLabel(text: wmf_localizedString(key: "close")).wmf_tap()
+    func wmf_tapCloseButton() -> Bool {
+        return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: "close")).wmf_tap()
     }
     
     func wmf_tapNavigationBarBackButton() -> Bool {
-        let backButtonTapped = wmf_tapButton(key: "back")
+        let backButtonTapped = wmf_button(key: "back").wmf_tap()
         guard backButtonTapped else {
             // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
             return navigationBars.buttons.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
@@ -96,7 +79,7 @@ extension XCUIApplication {
     
     func wmf_scrollToTop() -> Bool {
         let tapResult = statusBars.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
-        sleep(3) // Give it time to scroll up and settle.
+        sleep(3) // Give it time to scroll up.
         return tapResult
     }
     
@@ -110,11 +93,11 @@ extension XCUIApplication {
         coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: iPadSafeBottomDragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
     }
     
-    func wmf_scrollToOtherElementStartingWith(key: String, success: (XCUIElement) -> ()){
+    func wmf_scrollToOtherElement(key: String, success: (XCUIElement) -> ()){
         let maxScrollSeconds: Double = 240
         let start = Date()
         repeat {
-            let element = otherElements.wmf_firstElementWithLabelStartingWith(text: wmf_localizedString(key: key), timeout: TimeInterval(1))
+            let element = otherElements.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: true, timeout: TimeInterval(1))
             if element.exists {
                 wmf_scrollElementToTop(element: element)
                 sleep(1)
