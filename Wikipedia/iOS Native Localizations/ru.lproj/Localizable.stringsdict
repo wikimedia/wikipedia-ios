@@ -125,9 +125,25 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Вы превысили ограничение в %1$d статью на учётную запись.</string>
+			<string>Вы превысили лимит в %1$d статью на учётную запись.</string>
 			<key>other</key>
-			<string>Вы превысили ограничение в %1$d статей на учётную запись.</string>
+			<string>Вы превысили лимит в %1$d статей на учётную запись.</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Вы превысили лимит в %1$d список  чтения на одну учётную запись.</string>
+			<key>other</key>
+			<string>Вы превысили лимит в %1$d списков  чтения на одну учётную запись.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>

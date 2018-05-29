@@ -5,6 +5,7 @@
 // Author: Dinhxuanduyet
 // Author: Harriettruong3
 // Author: KhangND
+// Author: Leducthn
 // Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
@@ -60,6 +61,7 @@
 "action-move-to" = "Chuyển tới…";
 "action-move-to-reading-list" = "Di chuyển tới danh sách đọc";
 "action-read" = "Đọc";
+"action-remove" = "Xóa";
 "action-save" = "Lưu";
 "action-saved" = "Đã lưu";
 "action-saved-accessibility" = "Đã lưu. Kích hoạt để bác bỏ.";
@@ -67,6 +69,7 @@
 "action-share" = "Chia sẻ";
 "action-sort" = "Sắp xếp";
 "action-unsave" = "Bỏ lưu";
+"action-unsaved-accessibility-notification" = "Bài viết đã bị xoá khỏi thiết bị.";
 "action-update" = "Cập nhật";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
 "alert-no-internet" = "Không có kết nối Internet";
@@ -86,6 +89,7 @@
 "article-languages-others" = "Ngôn ngữ khác";
 "article-languages-yours" = "Ngôn ngữ của bạn";
 "article-read-more-title" = "Đọc tiếp";
+"article-save-error-not-enough-space" = "Bạn không có đủ dung lượng trống trên bộ nhớ để lưu bài viết này";
 "article-share" = "Chia sẻ";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Điều khiển Giao diện Đọc bài";
 "article-unable-to-load-article" = "Không thể tải bài này.";
@@ -121,6 +125,10 @@
 "empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc ở đây";
 "empty-no-history-title" = "Không có gì để hiển thị";
+"empty-no-reading-lists-message" = "Bấm nút '+' màu xanh dương để tạo danh sách đọc về những điểm du lịch thú vị, những chủ để bạn yêu thích và nhiều hơn nữa";
+"empty-no-reading-lists-title" = "Sắp xếp các bài viết được lưu vào thiết bị bằng danh sách đọc";
+"empty-no-saved-pages-in-reading-list-message" = "Lưu các trang vào danh sách này để chúng xuất hiện ở đây";
+"empty-no-saved-pages-in-reading-list-title" = "Chưa có trang nào được lưu vào danh sách này";
 "empty-no-saved-pages-message" = "Lưu trang để xem sau, thậm chí để xem ngoại tuyến.";
 "empty-no-saved-pages-title" = "Chưa lưu trang nào.";
 "empty-no-search-results-message" = "Không tìm thấy kết quả";
@@ -244,8 +252,9 @@
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
 "menu-trash-accessibility-label" = "Xóa";
-"more-languages-tooltip-description" = "Tìm trong Wikipedia trong gần 300 ngôn ngữ";
+"more-languages-tooltip-description" = "Tìm kiếm Wikipedia trong gần 300 ngôn ngữ";
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
+"move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
 "nearby-distance-label-feet" = "$1 foot";
 "nearby-distance-label-km" = "$1 km";
@@ -325,7 +334,13 @@
 "reading-list-create-new-list-title" = "Tạo danh sách mới";
 "reading-list-deleted-accessibility-notification" = "Đã xóa danh sách đọc";
 "reading-list-do-not-keep-button-title" = "Không, xóa các bài khỏi thiết bị";
+"reading-list-entry-limit-exceeded-title" = "Bạn đã vượt quá giới hạn $1 bài viết mỗi tài khoản.";
+"reading-list-generic-error" = "Có lỗi bất ngờ đã xảy đến khi cập nhật danh sách đọc của bạn.";
+"reading-list-keep-button-title" = "Có, giữ các bài viết trong danh sách";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sắp xếp bài viết";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Số bài viết tối đa chưa được phân loại mà bạn có thể lưu là 5000. Xin hãy xếp các bài viết vào các danh sách đọc để tiếp tục quá trình đồng bộ hoá các bài viết chưa được phân loại.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Đã đạt giới hạn về bài viết chưa phân loại";
+"reading-list-list-limit-exceeded-message" = "Danh sách đọc này cũng như toàn bộ các bài viết trong danh sách sẽ không được đồng bộ hoá, xin hãy giảm số danh sách xuống còn $1 để tiếp tục quá trình đồng bộ hoá.";
 "reading-list-login-button-title" = "Đăng nhập để đồng bộ các bài đã lưu của bạn";
 "reading-list-login-or-create-account-button-title" = "Đăng nhập hoặc mở tài khoản";
 "reading-list-login-or-create-account-title" = "Đăng nhập để đồng bộ bài đã lưu";
@@ -333,6 +348,7 @@
 "reading-list-sync-disabled-panel-title" = "Đồng bộ hóa bị tắt";
 "reading-list-sync-enable-button-title" = "Bật đồng bộ hóa";
 "reading-lists-article-added-confirmation" = "Đã thêm bài vào “$1”";
+"reading-lists-article-not-synced" = "Chưa đồng bộ hoá";
 "reading-lists-conflicting-reading-list-name-updated" = "Đã đổi tên danh sách “$1” của bạn thành “$2”";
 "reading-lists-count" = "$1 danh sách đọc";
 "reading-lists-default-list-description" = "Danh sách mặc định cho các bài bạn lưu";
@@ -395,7 +411,7 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Xóa những bài đã lưu sẽ đưa những bài đó ra khỏi tài khoản, nếu bạn đã đồng bộ hóa nó, cũng như khỏi thiết bị này.\n\nXóa những trang được lưu sẽ tiết kiệm vào khoảng $1.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Xóa những bài viết đã được lưu";
 "settings-storage-and-syncing-server-sync-footer-text" = "Yêu cầu nâng cấp những bài viết đã được đồng bộ hóa và danh sách đọc.";
-"settings-storage-and-syncing-server-sync-title" = "Cập nhật các danh sách đọc được đồng bộ hóa";
+"settings-storage-and-syncing-server-sync-title" = "Cập nhật các danh sách đọc đã đồng bộ hóa";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Hiện danh sách đọc được lưu";
 "settings-storage-and-syncing-title" = "Lưu trữ và đồng bộ hóa bài viết";
 "settings-support" = "Hỗ trợ Wikimedia";
@@ -415,7 +431,7 @@
 "share-social-format" = "“$1” tại Wikipedia: $2";
 "share-social-mention-format" = "“$1” tại @Wikipedia: $2";
 "sort-by-recently-added-action" = "Thêm gần đây";
-"sort-by-title-action" = "Tên";
+"sort-by-title-action" = "Tựa đề";
 "status-saved-for-later" = "Đã lưu để đọc sau";
 "status-saving-for-later" = "Đang lưu để đọc sau…";
 "table-of-contents-button-label" = "Mục lục";

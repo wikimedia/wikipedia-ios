@@ -10,6 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Matches HTML entities &amp; &nbsp; etc
 + (NSRegularExpression *)wmf_HTMLEntityRegularExpression;
 
+// Matches ' " ; '
++ (NSRegularExpression *)wmf_charactersToEscapeForJSRegex;
+
 @end
 
 NS_ASSUME_NONNULL_END

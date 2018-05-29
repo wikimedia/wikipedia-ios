@@ -60,8 +60,17 @@ extension WKScriptMessage {
              .editClicked,
              .javascriptConsoleLog,
              .footerReadMoreSaveClicked:
-            if body is Dictionary<String, Any>{
-                return (body as! NSDictionary).wmf_dictionaryByRemovingNullObjects()
+            if var body = body as? Dictionary<String, Any> {
+                if let href = body["href"] as? String, let components = URLComponents(string: href) {
+                    if let eventLoggingLabel = (components as NSURLComponents).wmf_eventLoggingLabel {
+                        body["event_logging_label"] = eventLoggingLabel
+                    }
+                    let cleanedComponents = (components as NSURLComponents).wmf_componentsByRemovingInternalQueryParameters
+                    if let href = cleanedComponents?.url?.absoluteString {
+                        body["href"] = href
+                    }
+                }
+                return (body as NSDictionary).wmf_dictionaryByRemovingNullObjects()
             }
         case .articleState,
              .footerLegalLicenseLinkClicked,

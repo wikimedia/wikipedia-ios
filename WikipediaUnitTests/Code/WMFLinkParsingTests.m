@@ -166,4 +166,18 @@
     XCTAssertEqualObjects(ole, thirdOle);
 }
 
+- (void)testEventLoggingLabel {
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/wiki/ISO_8601?event_logging_label=read_more"];
+    NSString *readMore = components.wmf_eventLoggingLabel;
+    XCTAssertEqualObjects(readMore, @"read_more");
+    XCTAssertEqualObjects(components.wmf_componentsByRemovingInternalQueryParameters.URL.absoluteString, @"https://en.wikipedia.org/wiki/ISO_8601");
+}
+
+- (void)testEventLoggingLabelWithMultipleParams {
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://en.wikipedia.org/wiki/ISO_8601?event_logging_label=read_more&wprov=stii1"];
+    NSString *readMore = components.wmf_eventLoggingLabel;
+    XCTAssertEqualObjects(readMore, @"read_more");
+    XCTAssertEqualObjects(components.wmf_componentsByRemovingInternalQueryParameters.URL.absoluteString, @"https://en.wikipedia.org/wiki/ISO_8601?wprov=stii1");
+}
+
 @end

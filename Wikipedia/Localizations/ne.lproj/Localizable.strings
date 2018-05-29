@@ -100,14 +100,14 @@
 "field-alert-password-confirm-mismatch" = "पासवर्डहरू मिलेनन्";
 "field-alert-password-invalid" = "अमान्य पासवर्ड";
 "field-alert-token-invalid" = "अमान्य कोड";
-"field-alert-username-unavailable" = "प्रयोगकर्ता उपलब्ध छैन";
+"field-alert-username-unavailable" = "प्रयोगकर्ता नाम उपलब्ध छैन";
 "field-backup-token-title" = "जगेडा कोड";
 "field-captcha-placeholder" = "क्याप्चा पाठ";
 "field-captcha-title" = "माथि देख्नु भएको अक्षरहरू लेख्नुहोस्";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "इमेल";
 "field-email-title-optional" = "इमेल (वैकल्पिक)";
-"field-new-password-confirm-placeholder" = "पासवर्ड पुनः लेख्नुहोस्";
+"field-new-password-confirm-placeholder" = "पासवर्ड पुनः प्रविष्ट गर्नुहोस्";
 "field-new-password-confirm-title" = "नयाँ पासवर्ड निश्चित गर्नुहोस्";
 "field-new-password-placeholder" = "नयाँ पासवर्ड लेख्नुहोस्";
 "field-new-password-title" = "नयाँ पासवर्ड";
@@ -162,7 +162,7 @@
 "main-menu-debug-crash" = "क्र्यास";
 "main-menu-debug-tweaks" = "डेभलोपर सेटिङ";
 "main-menu-heading-debug" = "डिबग";
-"main-menu-heading-legal" = "गोपनीयता र सर्तहरू";
+"main-menu-heading-legal" = "गोपनीयता र शर्तहरू";
 "main-menu-heading-zero" = "विकिपिडिया शून्य";
 "main-menu-nearby" = "नजिकै";
 "main-menu-privacy-policy" = "गोप्नियता नीति";
