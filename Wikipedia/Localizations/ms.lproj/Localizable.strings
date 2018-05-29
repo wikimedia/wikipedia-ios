@@ -377,6 +377,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Had rencana melebihi, tidak dapat menyegerakkan rencana";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Had senarai melebihi, tidak dapat menyegerakkan rencana";
 "reading-lists-article-queued-to-be-downloaded" = "Rencana yang dihantarkan dimuat turun";
+"reading-lists-article-save-to-disk-failed" = "Had peranti melebihi, tidak dapat menyegerakkan rencana";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Kosongkan beberapa ruang pada peranti anda dan cuba lagi";
 "reading-lists-articles-not-synced-limit-exceeded" = "Beberapa rencana tidak disegerakkan, had melebihi";
 "reading-lists-conflicting-reading-list-name-updated" = "Senarai anda '$1' telah dinamakan semula kepada '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 senarai bacaan|$1 senarai bacaan}}";

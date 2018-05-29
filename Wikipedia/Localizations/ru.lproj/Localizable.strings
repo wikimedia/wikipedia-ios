@@ -352,9 +352,9 @@
 "reading-list-add-saved-button-title" = "Да, добавьте их в мои списки чтения";
 "reading-list-add-saved-subtitle" = "Есть статьи, сохранённые в вашем приложении в Википедии. Хотите сохранить их и объединить с списками чтения, синхронизированными с вашей учётной записью?";
 "reading-list-add-saved-title" = "Сохраненные статьи найдены";
-"reading-list-api-error-entry-limit" = "Эта запись не синхронизируется, потому что вы достигли предела для количества записей в этом списке.";
+"reading-list-api-error-entry-limit" = "Эта запись не синхронизируется, потому что вы достигли лимита для количества записей в этом списке.";
 "reading-list-api-error-generic" = "При синхронизации списков чтения произошла непредвиденная ошибка.";
-"reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли предела для количества синхронизированных списков.";
+"reading-list-api-error-list-limit" = "Этот список не синхронизирован, потому что вы достигли лимита для количества синхронизированных списков.";
 "reading-list-create-new-list-button-title" = "Создать список для чтения";
 "reading-list-create-new-list-description" = "Описание";
 "reading-list-create-new-list-reading-list-name" = "Название списка для чтения";
@@ -362,7 +362,7 @@
 "reading-list-deleted-accessibility-notification" = "Список чтения удален";
 "reading-list-do-not-keep-button-title" = "Нет, удалять статьи с устройства";
 "reading-list-entry-limit-exceeded-message" = "Пожалуйста уменьшите число статей в этом списке до $1, чтобы возобновить их синхронизацию.";
-"reading-list-entry-limit-exceeded-title" = "Вы превысили ограничение в {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} на учётную запись.";
+"reading-list-entry-limit-exceeded-title" = "Вы превысили лимит в {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} на учётную запись.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Статья не может быть добавлена|Статьи не могут быть добавлены}} в этот список. Вы достигли лимита в $2 {{PLURAL:$1|статьи|статей}} на список чтения для $3";
 "reading-list-exists-with-same-name" = "Это название списка для чтения уже используется";
 "reading-list-generic-error" = "При обновлении списков чтения произошла непредвиденная ошибка.";
@@ -372,10 +372,10 @@
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Нет, удалить статьи с этого устройства и из учётной записи Википедии";
 "reading-list-keep-title" = "Сохранять сохраненные статьи на устройстве?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Сортировать статьи";
-"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Существует ограничение в 5000 неотсортированных статей. Пожалуйста, отсортируйте существующие статьи по спискам, чтобы продолжить синхронизацию несортированных статей.";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Существует лимит в 5000 неотсортированных статей. Пожалуйста, отсортируйте существующие статьи по спискам, чтобы продолжить синхронизацию несортированных статей.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Предельное ограничение для неотсортированных статей";
 "reading-list-list-limit-exceeded-message" = "Этот список чтения и сохранённые в нём статьи не будут синхронизированы. Пожалуйста, уменьшите количество списков до $1, чтобы возобновить синхронизацию этого списка.";
-"reading-list-list-limit-exceeded-title" = "Вы превысили ограничение в $1 списков чтения на одну учётную запись.";
+"reading-list-list-limit-exceeded-title" = "Вы превысили лимит в $1 {{PLURAL:$1|список|списков}}  чтения на одну учётную запись.";
 "reading-list-list-limit-reached" = "Вы достигли лимита в $1 списков для чтения на одну учётную запись";
 "reading-list-login-button-title" = "Войдите в систему, чтобы синхронизировать сохраненные статьи";
 "reading-list-login-or-create-account-button-title" = "Войти или создать учётную запись";

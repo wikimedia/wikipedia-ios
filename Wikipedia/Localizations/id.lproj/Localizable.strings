@@ -388,6 +388,8 @@
 "reading-lists-article-not-synced-article-limit-exceeded" = "Batas artikel terlampaui, tidak dapat menyinkronkan artikel";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Batas daftar terlampaui, tidak dapat menyinkronkan artikel";
 "reading-lists-article-queued-to-be-downloaded" = "Artikel diantrekan untuk diunduh";
+"reading-lists-article-save-to-disk-failed" = "Batas perangkat terlampaui, tidak dapat menyinkronkan artikel";
+"reading-lists-article-save-to-disk-recovery-suggestion" = "Hapus sebagian ruang pada perangkat Anda dan coba lagi";
 "reading-lists-articles-not-synced-limit-exceeded" = "Beberapa artikel tidak disinkronkan, batas terlampaui";
 "reading-lists-conflicting-reading-list-name-updated" = "Daftar Anda '$1' telah diganti namanya menjadi '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 daftar bacaan|$1 daftar bacaan}}";
