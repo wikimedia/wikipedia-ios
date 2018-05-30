@@ -68,6 +68,7 @@ extension String {
         guard let dictionaryRegex = dictionaryRegex else {
             return nil
         }
+        var remainingKeys = keys
         let fullRange = self.fullRange
         let mutableDictionary = NSMutableDictionary(capacity: 5)
         let results = dictionaryRegex.matches(in: self, options: [], range: fullRange)
@@ -95,41 +96,41 @@ extension String {
             return nil
         }
         
-        let token = firstComponent.substring(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
+        let token = firstComponent.suffix(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7))
         guard (token as NSString).length == 2 else {
             return nil
         }
         
-        let other = components[countOfComponents - 1]
         let range = result.range
         let nsSelf = self as NSString
         let keyDictionary = NSMutableDictionary(capacity: 5)
         let formatValueType = tokens["1"] ?? "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
-        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
-        
-        var keyIndex = 0
+
         guard let countPrefixRegex = countPrefixRegex else {
             abort()
         }
-        for component in components[1..<(countOfComponents - 1)]{
+        
+        var unlabeledComponents: [String] = []
+        for component in components[1..<countOfComponents] {
             var keyForComponent: String?
             var actualComponent: String? = component
-            if let match = countPrefixRegex.firstMatch(in: component, options: [], range: component.fullRange) {
-                // Support for 0= 2=
-                let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
-                if let key = keysByPrefix[numberString] {
-                    keyForComponent = key
-                    actualComponent = (component as NSString).substring(from: match.range.length) as String?
-                } else {
-                    print("Unsupported prefix. Ignoring \(String(describing: component))")
-                }
+            guard let match = countPrefixRegex.firstMatch(in: component, options: [], range: component.fullRange) else {
+                unlabeledComponents.append(component)
+                continue
+            }
+            
+            // Support for 0= 1= 2=
+            let numberString = countPrefixRegex.replacementString(for: match, in: component, offset: 0, template: "$1")
+            if let key = keysByPrefix[numberString] {
+                keyForComponent = key
+                remainingKeys = remainingKeys.filter({ (aKey) -> Bool in
+                    return key != aKey
+                })
+                actualComponent = String(component.suffix(from: component.index(component.startIndex, offsetBy: match.range.length)))
             } else {
-                if keyIndex < keys.count {
-                    keyForComponent = keys[keyIndex]
-                    keyIndex += 1
-                }
+                print("Unsupported prefix. Ignoring \(String(describing: component))")
             }
             
             guard let keyToInsert = keyForComponent, let componentToInsert = actualComponent else {
@@ -137,8 +138,23 @@ extension String {
             }
             
             keyDictionary[keyToInsert] = nsSelf.replacingCharacters(in:range, with: componentToInsert).iOSNativeLocalization(tokens: tokens)
-            
         }
+        
+        guard let other = unlabeledComponents.last else {
+            print("missing base translation for \(keys) \(tokens)")
+            abort()
+        }
+        keyDictionary["other"] = nsSelf.replacingCharacters(in:range, with: other).iOSNativeLocalization(tokens: tokens)
+        
+        var keyIndex = 0
+        for component in unlabeledComponents[0..<(unlabeledComponents.count - 1)] {
+            guard keyIndex < remainingKeys.count else {
+                break
+            }
+            keyDictionary[remainingKeys[keyIndex]] = nsSelf.replacingCharacters(in:range, with: component).iOSNativeLocalization(tokens: tokens)
+            keyIndex += 1
+        }
+        
         
         let key = "v0"
         mutableDictionary[key] = keyDictionary
@@ -291,7 +307,7 @@ func exportLocalizationsFromSourceCode(_ path: String) {
                 let quotesRemoved = cleanedLine.trimmingCharacters(in: quoteSet)
                 
                 if let range = quotesRemoved.range(of: "\" = \"") {
-                    currentKey = quotesRemoved.substring(to: range.lowerBound)
+                    currentKey = String(quotesRemoved.prefix(upTo: range.lowerBound))
                 }
             }
             if let key = currentKey, let comment =  currentComment {
@@ -339,7 +355,7 @@ func importLocalizationsFromTWN(_ path: String) {
     
     let fm = FileManager.default
     do {
-        let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"]]
+        let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"], "ru": ["one", "few", "many"]]
         let defaultKeys = ["one"]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
