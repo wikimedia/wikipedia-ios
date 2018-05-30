@@ -9,6 +9,7 @@ NSString *const WMFDefaultSiteMainDomain = @"wikipedia.org";
 #else
 NSString *const WMFDefaultSiteDomain = @"wikipedia.org";
 #endif
+NSString *const WMFCommonsHost = @"upload.wikimedia.org";
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFInternalLinkPathPrefix = @"/wiki/";
 NSString *const WMFAPIPath = @"/w/api.php";
@@ -312,6 +313,36 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 
 - (BOOL)wmf_isNonStandardURL {
     return self.wmf_language == nil;
+}
+
+- (BOOL)wmf_isCommonsLink {
+    return [self.host.lowercaseString isEqualToString:WMFCommonsHost];
+}
+
+- (NSURL *)wmf_URLByMakingiOSCompatibilityAdjustments {
+    if (!self.wmf_isCommonsLink) {
+        return self;
+    }
+    
+    if (![self.pathExtension.lowercaseString isEqualToString:@"ogg"]) {
+        return self;
+    }
+    
+    NSMutableArray<NSString *> *pathComponents = [self.pathComponents mutableCopy];
+    NSInteger index = [pathComponents indexOfObject:@"commons"];
+    if (index == NSNotFound || index + 1 >= pathComponents.count) {
+        return self;
+    }
+    
+    [pathComponents insertObject:@"transcoded" atIndex:index + 1];
+    NSString *filename = [pathComponents lastObject];
+    NSString *mp3Filename = [filename stringByAppendingPathExtension:@"mp3"];
+    [pathComponents addObject:mp3Filename];
+    
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.path = [pathComponents componentsJoinedByString:@"/"];
+    
+    return components.URL;
 }
 
 @end
