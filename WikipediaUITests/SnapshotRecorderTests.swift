@@ -233,7 +233,13 @@ class WikipediaUITests: XCTestCase {
             // `About this article` footer
             _ = app.wmf_tapStaticText(key: "article-about-title")
             wmf_snapshot("ArticleScreenFooterAboutThisArticle")
-
+            
+            // Article history
+            _ = app.wmf_tapStaticText(key: "page-last-edited", convertSubstitutionStringsToWildcards: true)
+            sleep(8)
+            wmf_snapshot("ArticleScreenFooterArticleHistory")
+            _ = app.wmf_tapCloseButton()
+            
             // `Read more` footer
             _ = app.wmf_tapButton(key: "table-of-contents-button-label")
             _ = app.wmf_tapStaticText(key: "article-read-more-title")

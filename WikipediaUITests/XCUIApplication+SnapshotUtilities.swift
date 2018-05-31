@@ -68,7 +68,11 @@ extension XCUIApplication {
     }
 
     func wmf_tapCloseButton() -> Bool {
-        return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: "close")).wmf_tap()
+        let unlocalizedCloseButton = buttons.wmf_firstElement(with: .label, equalTo: "close", convertSubstitutionStringsToWildcards: false, timeout: 8)
+        guard unlocalizedCloseButton.exists else {
+            return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: "close-button-accessibility-label")).wmf_tap()
+        }
+        return unlocalizedCloseButton.wmf_tap()
     }
     
     func wmf_tapNavigationBarBackButton() -> Bool {
