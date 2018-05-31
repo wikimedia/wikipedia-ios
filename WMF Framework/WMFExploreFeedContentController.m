@@ -92,7 +92,7 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                                 [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
                                 [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
         }
-       
+        _contentSources = [mutableContentSources copy];
     }
     return _contentSources;
 }
