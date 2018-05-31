@@ -77,15 +77,15 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.siteURLs);
     if (!_contentSources) {
-        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:self.siteURLs.count * 9];
+        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
+        [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
         for (NSURL *siteURL in self.siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
                                                                                       userDataStore:self.dataStore
                                                                             notificationsController:[WMFNotificationsController sharedNotificationsController]];
             feedContentSource.notificationSchedulingEnabled = YES;
             [mutableContentSources addObjectsFromArray: @[[[WMFMainPageContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore],
                                 [[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
