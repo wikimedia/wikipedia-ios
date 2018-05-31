@@ -185,6 +185,11 @@ class WikipediaUITests: XCTestCase {
             _ = element.wmf_tap()
             sleep(8)
             wmf_snapshot("RandomDetail")
+            
+            _ = app.wmf_tapButton(key: "button-save-for-later")
+            sleep(8)
+            wmf_snapshot("RandomDetailSaved")
+
             _ = app.wmf_tapNavigationBarBackButton()
         })
         _ = app.wmf_scrollToTop()
