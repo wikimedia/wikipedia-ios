@@ -75,23 +75,25 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
-    NSParameterAssert([self siteURL]);
+    NSParameterAssert(self.siteURLs);
     if (!_contentSources) {
-        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                                                                  userDataStore:self.dataStore
-                                                                        notificationsController:[WMFNotificationsController sharedNotificationsController]];
-        feedContentSource.notificationSchedulingEnabled = YES;
-        _contentSources = @[
-            [[WMFRelatedPagesContentSource alloc] init],
-            [[WMFMainPageContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore],
-            [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
-                                                  dataStore:self.dataStore],
-            feedContentSource,
-            [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFOnThisDayContentSource alloc] initWithSiteURL:[self siteURL]]
-        ];
+        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:self.siteURLs.count * 9];
+        [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
+        for (NSURL *siteURL in self.siteURLs) {
+            WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
+                                                                                      userDataStore:self.dataStore
+                                                                            notificationsController:[WMFNotificationsController sharedNotificationsController]];
+            feedContentSource.notificationSchedulingEnabled = YES;
+            [mutableContentSources addObjectsFromArray: @[[[WMFMainPageContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore],
+                                [[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
+                                feedContentSource,
+                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]
+                                ];
+        }
+       
     }
     return _contentSources;
 }
