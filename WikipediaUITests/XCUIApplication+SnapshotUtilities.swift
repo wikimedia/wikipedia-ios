@@ -56,6 +56,13 @@ extension XCUIApplication {
         return wmf_staticText(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
     }
 
+    func wmf_switch(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return switches.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
+    }
+    func wmf_tapSwitch(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_switch(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
+    }
+    
     func wmf_searchField(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
         return searchFields.wmf_firstElement(with: .placeholderValue, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
     }

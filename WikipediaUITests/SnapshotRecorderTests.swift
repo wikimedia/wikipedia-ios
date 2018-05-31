@@ -27,7 +27,7 @@ STEPS FOR CAPTURING NEW SCREENSHOTS:
 TIPS:
  
 - setting a breakpoint in the `testRecordAppScreenshots()` test, running it, and using `print(XCUIApplication().debugDescription)` in the console when the breakpoint hits is handy for seeing what buttons/elements we can interact with or tap on the current screen. Find the button with the label string you are looking for (in the tree printed by `print(XCUIApplication().debugDescription)`) then find the key for that label's localized string and use it (this is what enables these tests to work in non-EN langs).
-- the Xcode Accessiblity Inspector ("Xcode > Open Developer Tool > Accessibility Inspector") is also VERY useful for seeing what accessibility label strings are associated with text-less image buttons.
+- the Xcode Accessibility Inspector ("Xcode > Open Developer Tool > Accessibility Inspector") is also VERY useful for seeing what accessibility label strings are associated with text-less image buttons.
 - `sleep(n)` is also handy for pausing when debugging (this uitest target sleeps - the app doesn't)
 - uncheck "main thread checker" https://github.com/fastlane/fastlane/issues/10381#issuecomment-332183767 and https://forums.developer.apple.com/thread/86476
 - it appears to not work correctly if you try to have more than one test kick off screenshot recording. weird freezes, etc. so below we just use the single test method: `testRecordAppScreenshots()` for now
@@ -125,6 +125,10 @@ class WikipediaUITests: XCTestCase {
 
         _ = app.wmf_tapButton(key: "button-next")
         wmf_snapshot("WelcomeScreen7")
+        
+        _ = app.wmf_tapSwitch(key: "preference-title-eventlogging-opt-in")
+        wmf_snapshot("WelcomeScreen8")
+
         _ = app.wmf_tapButton(key: "welcome-explore-continue-button")
 
 
