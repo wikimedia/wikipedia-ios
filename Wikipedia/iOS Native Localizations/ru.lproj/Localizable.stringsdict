@@ -259,7 +259,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>прошлый год</string>
+			<string>%1$d года назад</string>
 			<key>other</key>
 			<string>%1$d лет назад</string>
 			<key>zero</key>
