@@ -345,6 +345,9 @@
 "reading-list-login-or-create-account-button-title" = "Đăng nhập hoặc mở tài khoản";
 "reading-list-login-or-create-account-title" = "Đăng nhập để đồng bộ bài đã lưu";
 "reading-list-login-title" = "Đồng bộ hóa các bài đã lưu của bạn?";
+"reading-list-name-user-created-annotation" = "_[do người dùng tạo]";
+"reading-list-new-list-description-placeholder" = "miêu tả ngắn tùy chọn";
+"reading-list-new-list-name-placeholder" = "tên danh sách đọc";
 "reading-list-sync-disabled-panel-title" = "Đồng bộ hóa bị tắt";
 "reading-list-sync-enable-button-title" = "Bật đồng bộ hóa";
 "reading-lists-article-added-confirmation" = "Đã thêm bài vào “$1”";
