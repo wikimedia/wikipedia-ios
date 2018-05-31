@@ -24,20 +24,25 @@ extension XCUIElement {
 private enum ElementPropertyType: String {
     case label
     case placeholderValue
+    
+    func predicate(for text: String) -> NSPredicate {
+        return NSPredicate(format: "\(rawValue) == %@", text)
+    }
+    func wildcardPredicate(for text: String) -> NSPredicate {
+        var mutableText = text
+        for i in 0...9 {
+            mutableText = mutableText.replacingOccurrences(of: "%\(i)$@", with: "*")
+        }
+        mutableText = "*\(mutableText)*"
+        return NSPredicate(format: "\(rawValue) like[cd] %@", mutableText)
+    }
 }
 
 private extension XCUIElementQuery {
-    // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
     func wmf_firstElement(with propertyType: ElementPropertyType, equalTo text: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false, timeout: TimeInterval = 30) -> XCUIElement {
-        guard shouldConvert else {
-            return matching(NSPredicate(format: "\(propertyType.rawValue) == %@", text)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
-        }
-        var textToUse = text
-        for i in 0...9 {
-            textToUse = textToUse.replacingOccurrences(of: "%\(i)$@", with: "*")
-        }
-        textToUse = "*\(textToUse)*"
-        return matching(NSPredicate(format: "\(propertyType.rawValue) like[cd] %@", textToUse)).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
+        let predicate = shouldConvert ? propertyType.wildcardPredicate(for: text) : propertyType.predicate(for: text)
+        // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
+        return matching(predicate).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
 }
 
