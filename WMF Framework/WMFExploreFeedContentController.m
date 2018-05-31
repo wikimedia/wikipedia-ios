@@ -128,18 +128,23 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
             WMFTaskGroup *group = [WMFTaskGroup new];
 #if DEBUG
-            NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
+            NSMutableArray *entered = [NSMutableArray arrayWithCapacity:self.contentSources.count];
 #endif
             [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                 [group enter];
 #if DEBUG
                 NSString *classString = NSStringFromClass([obj class]);
-                [entered addObject:classString];
+                @synchronized(self) {
+                    [entered addObject:classString];
+                }
 #endif
                 dispatch_block_t contentSourceCompletion = ^{
 #if DEBUG
-                    assert([entered containsObject:classString]);
-                    [entered removeObject:classString];
+                    @synchronized(self) {
+                        NSInteger index = [entered indexOfObject:classString];
+                        assert(index != NSNotFound);
+                        [entered removeObjectAtIndex:index];
+                    }
 #endif
                     [group leave];
                 };
