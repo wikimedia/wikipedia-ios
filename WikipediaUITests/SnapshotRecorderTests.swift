@@ -121,7 +121,7 @@ class WikipediaUITests: XCTestCase {
         _ = app.wmf_tapButton(key: "welcome-languages-add-or-edit-button")
         wmf_snapshot("WelcomeScreen6")
 
-        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapCloseButton()
 
         _ = app.wmf_tapButton(key: "button-next")
         wmf_snapshot("WelcomeScreen7")
@@ -187,11 +187,12 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("RandomDetail")
             
             _ = app.wmf_tapButton(key: "button-save-for-later")
-            sleep(8)
+            sleep(2)
             wmf_snapshot("RandomDetailSaved")
 
             _ = app.wmf_tapNavigationBarBackButton()
         })
+
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
@@ -284,6 +285,8 @@ class WikipediaUITests: XCTestCase {
             }
         }
         _ = app.wmf_tapCloseButton()
+        _ = app.wmf_tapButton(key: "button-save-for-later")
+        
         _ = app.wmf_tapButton(key: "home-button-explore-accessibility-label")
 
         
@@ -313,7 +316,7 @@ class WikipediaUITests: XCTestCase {
         // My languages
         _ = app.wmf_tapStaticText(key: "settings-my-languages")
         wmf_snapshot("MyLanguagesScreen1")
-        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapCloseButton()
 
 
         // Notifications
@@ -352,12 +355,14 @@ class WikipediaUITests: XCTestCase {
         sleep(8)
         wmf_snapshot("AboutTheAppScreen1")
         _ = app.wmf_tapButton(key: "settings-title")
-        _ = app.wmf_tapButton(key: "close-button-accessibility-label")
+        _ = app.wmf_tapCloseButton()
 
         
         // SAVED
         _ = app.wmf_tapButton(key: "saved-title")
         wmf_snapshot("SavedScreen1")
+        _ = app.wmf_tapCloseButton()
+        wmf_snapshot("SavedScreen2")
 
         
         // HISTORY
