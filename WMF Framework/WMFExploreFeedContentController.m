@@ -90,8 +90,7 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
                                 [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]
-                                ];
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
         }
        
     }
@@ -276,8 +275,8 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 
 #pragma mark - SiteURL
 
-- (void)setSiteURL:(NSURL *)siteURL {
-    _siteURL = [siteURL copy];
+- (void)setSiteURLs:(NSURL *)siteURLs {
+    _siteURLs = [siteURLs copy];
     if ([_contentSources count] == 0) {
         return;
     }
