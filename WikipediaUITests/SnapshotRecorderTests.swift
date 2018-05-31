@@ -354,6 +354,17 @@ class WikipediaUITests: XCTestCase {
         _ = app.wmf_tapStaticText(key: "main-menu-about")
         sleep(8)
         wmf_snapshot("AboutTheAppScreen1")
+        sleep(2)
+        app.wmf_scrollDown()
+        wmf_snapshot("AboutTheAppScreen2")
+        
+
+        // Libraries used
+        _ = app.wmf_tapStaticText(key: "about-libraries-complete-list")
+        wmf_snapshot("AboutTheAppScreenLibrariesUsed")
+        _ = app.wmf_tapCloseButton()
+
+        
         _ = app.wmf_tapButton(key: "settings-title")
         _ = app.wmf_tapCloseButton()
 

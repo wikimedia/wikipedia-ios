@@ -91,18 +91,20 @@ extension XCUIApplication {
     
     func wmf_scrollToTop() -> Bool {
         let tapResult = statusBars.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
-        sleep(3) // Give it time to scroll up.
+        sleep(2) // Give it time to scroll up.
         return tapResult
     }
     
     func wmf_scrollElementToTop(element: XCUIElement) {
         let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
+        sleep(2) // Give it time to scroll down.
     }
     
     func wmf_scrollDown() {
         let iPadSafeBottomDragStartY: Double = 0.8 // If set to 1.0 it drags from very bottom of the screen which triggers an iPad task switcher and zooms out the app. So drag from a little above the very bottom.
         coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: iPadSafeBottomDragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: -1.0)))
+        sleep(2) // Give it time to scroll down.
     }
     
     func wmf_scrollToOtherElement(key: String, success: (XCUIElement) -> ()){
@@ -112,8 +114,8 @@ extension XCUIApplication {
             let element = otherElements.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: true, timeout: TimeInterval(1))
             if element.exists {
                 wmf_scrollElementToTop(element: element)
-                sleep(1)
                 success(element)
+                sleep(2)
                 break
             }
             wmf_scrollDown()
