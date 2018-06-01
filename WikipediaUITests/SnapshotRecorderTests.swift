@@ -136,6 +136,13 @@ class WikipediaUITests: XCTestCase {
         // _ = app.wmf_tapFirstButton(withTranslationIn: ["button-skip"])
 
 
+        // Sleep for a bit to give Explore data some time to be fetched.
+        sleep(6)
+        // Scroll down a ways then back up to increase odds that feed elements are in place and won't be freshing underneath us while the code below scrolls and attempts to tap on elements.
+        app.wmf_scrollDown(times: 20)
+        _ = app.wmf_scrollToTop()
+
+
         // EXPLORE
         _ = app.wmf_tapFirstButton(withTranslationIn: ["home-title"])
         wmf_snapshot("ExploreScreen1")
