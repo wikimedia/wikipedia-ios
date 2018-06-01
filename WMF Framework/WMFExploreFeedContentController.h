@@ -8,7 +8,7 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 
 @property (nonatomic, getter=isBusy) BOOL busy;
 @property (nonatomic, weak, nullable) MWKDataStore *dataStore;
-@property (nonatomic, copy, nullable) NSURL *siteURL;
+@property (nonatomic, copy, nullable) NSArray<NSURL *> *siteURLs;
 
 - (void)startContentSources;
 - (void)stopContentSources;

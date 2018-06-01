@@ -114,6 +114,12 @@ static id _sharedInstance;
     }];
 }
 
+- (NSArray<NSURL *> *)preferredSiteURLs {
+    return [[self preferredLanguages] wmf_mapAndRejectNil:^NSURL * _Nullable(MWKLanguageLink * _Nonnull obj) {
+        return [obj siteURL];
+    }];
+}
+
 - (NSArray<MWKLanguageLink *> *)otherLanguages {
     return [self.allLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
         return ![self.preferredLanguages containsObject:langLink];
