@@ -365,6 +365,8 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("AboutTheAppScreen2")
         app.wmf_scrollDown()
         wmf_snapshot("AboutTheAppScreen3")
+        app.wmf_scrollDown()
+        wmf_snapshot("AboutTheAppScreen4")
 
 
         // Libraries used
