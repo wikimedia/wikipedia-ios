@@ -354,10 +354,11 @@ class WikipediaUITests: XCTestCase {
         _ = app.wmf_tapFirstStaticText(withTranslationIn: ["main-menu-about"])
         sleep(8)
         wmf_snapshot("AboutTheAppScreen1")
-        sleep(2)
         app.wmf_scrollDown()
         wmf_snapshot("AboutTheAppScreen2")
-        
+        app.wmf_scrollDown()
+        wmf_snapshot("AboutTheAppScreen3")
+
 
         // Libraries used
         _ = app.wmf_tapFirstStaticText(withTranslationIn: ["about-libraries-complete-list"])
