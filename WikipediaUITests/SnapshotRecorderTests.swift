@@ -147,6 +147,7 @@ class WikipediaUITests: XCTestCase {
         _ = app.wmf_tapFirstButton(withTranslationIn: ["home-title"])
         wmf_snapshot("ExploreScreen1")
 
+        // Picture of the day / Gallery
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-potd-heading", success: { element in
             wmf_snapshot("ExploreScreenPicOfTheDay")
@@ -157,11 +158,13 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapFirstCloseButton()
         })
 
+        // Featured article
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-featured-article-heading", success: { element in
             wmf_snapshot("ExploreScreenFeaturedArticle")
         })
 
+        // Top read
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-most-read-heading", success: { element in
             wmf_snapshot("ExploreScreenMostRead")
@@ -171,6 +174,7 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapFirstNavigationBarBackButton()
         })
 
+        // On this day
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "on-this-day-title", success: { element in
             wmf_snapshot("ExploreScreenOnThisDay")
@@ -180,11 +184,13 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapFirstNavigationBarBackButton()
         })
 
+        // Nearby
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-nearby-placeholder-heading", success: { element in
             wmf_snapshot("ExploreScreenNearbyPlaces")
         })
 
+        // Random article
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-random-article-heading", success: { element in
             wmf_snapshot("ExploreScreenRandom")
@@ -200,6 +206,7 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapFirstNavigationBarBackButton()
         })
 
+        // Main page
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "explore-main-page-heading", success: { element in
             wmf_snapshot("ExploreScreenMainPage")
@@ -210,6 +217,7 @@ class WikipediaUITests: XCTestCase {
             _ = app.wmf_tapFirstNavigationBarBackButton()
         })
 
+        // In the news
         _ = app.wmf_scrollToTop()
         app.wmf_scrollToOtherElement(key: "in-the-news-title", success: { element in
             wmf_snapshot("ExploreScreenInTheNews")
