@@ -24,11 +24,11 @@ extension XCUIElement {
 private enum ElementPropertyType: String {
     case label
     case placeholderValue
-    
-    func predicate(for text: String) -> NSPredicate {
+
+    private func predicate(for text: String) -> NSPredicate {
         return NSPredicate(format: "\(rawValue) == %@", text)
     }
-    func wildcardPredicate(for text: String) -> NSPredicate {
+    private func wildcardPredicate(for text: String) -> NSPredicate {
         var mutableText = text
         for i in 0...9 {
             mutableText = mutableText.replacingOccurrences(of: "%\(i)$@", with: "*")
@@ -36,53 +36,61 @@ private enum ElementPropertyType: String {
         mutableText = "*\(mutableText)*"
         return NSPredicate(format: "\(rawValue) like[cd] %@", mutableText)
     }
+    
+    func predicate(for texts: [String]) -> NSPredicate {
+        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map{text in predicate(for: text)})
+    }
+    func wildcardPredicate(for texts: [String]) -> NSPredicate {
+        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map{text in wildcardPredicate(for: text)})
+    }
 }
 
 private extension XCUIElementQuery {
-    func wmf_firstElement(with propertyType: ElementPropertyType, equalTo text: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false, timeout: TimeInterval = 30) -> XCUIElement {
-        let predicate = shouldConvert ? propertyType.wildcardPredicate(for: text) : propertyType.predicate(for: text)
+    func wmf_firstElement(with propertyType: ElementPropertyType, withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false, timeout: TimeInterval = 30) -> XCUIElement {
+        let translations = keys.map{key in WMFLocalizedString(key, value: "", comment: "")} // localization strings are copied into this scheme during a build phase: https://stackoverflow.com/a/38133902/135557
+        let predicate = shouldConvert ? propertyType.wildcardPredicate(for: translations) : propertyType.predicate(for: translations)
         // Used `element:boundBy:0` rather than `firstMatch` because the latter doesn't play nice with `exists` checking as of Xcode 9.3
         return matching(predicate).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
 }
 
 extension XCUIApplication {
-    func wmf_button(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
-        return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
+    func wmf_firstButton(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return buttons.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
-    func wmf_tapButton(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
-        return wmf_button(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
-    }
-
-    func wmf_staticText(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
-        return staticTexts.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
-    }
-    func wmf_tapStaticText(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
-        return wmf_staticText(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
+    func wmf_tapFirstButton(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_firstButton(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
     }
 
-    func wmf_switch(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
-        return switches.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
+    func wmf_firstStaticText(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return staticTexts.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
-    func wmf_tapSwitch(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
-        return wmf_switch(key: key, convertSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
+    func wmf_tapFirstStaticText(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_firstStaticText(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
+    }
+
+    func wmf_firstSwitch(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return switches.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
+    }
+    func wmf_tapFirstSwitch(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+        return wmf_firstSwitch(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert).wmf_tap()
     }
     
-    func wmf_searchField(key: String, convertSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
-        return searchFields.wmf_firstElement(with: .placeholderValue, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: shouldConvert)
+    func wmf_firstSearchField(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement {
+        return searchFields.wmf_firstElement(with: .placeholderValue, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
 
-    func wmf_tapCloseButton() -> Bool {
-        return buttons.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: "close-button-accessibility-label")).wmf_tap()
+    func wmf_tapFirstCloseButton() -> Bool {
+        return buttons.wmf_firstElement(with: .label, withTranslationIn: ["close-button-accessibility-label"]).wmf_tap()
     }
     
-    func wmf_tapNavigationBarBackButton() -> Bool {
-        let backButtonTapped = wmf_button(key: "back").wmf_tap()
-        guard backButtonTapped else {
-            // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
-            return navigationBars.buttons.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
+    func wmf_tapFirstNavigationBarBackButton() -> Bool {
+        let backButtonTapped = wmf_tapFirstButton(withTranslationIn: ["back", "back-button-accessibility-label"])
+        guard !backButtonTapped else {
+            return backButtonTapped
         }
-        return backButtonTapped
+        // Needed because if the title is long, the back button sometimes won't have text, as seen on https://stackoverflow.com/q/38595242/135557
+        return navigationBars.buttons.element(boundBy: 0).wmf_waitUntilExists().wmf_tap()
     }
     
     func wmf_tapFirstCollectionViewCell() -> Bool {
@@ -111,7 +119,7 @@ extension XCUIApplication {
         let maxScrollSeconds: Double = 240
         let start = Date()
         repeat {
-            let element = otherElements.wmf_firstElement(with: .label, equalTo: wmf_localizedString(key: key), convertSubstitutionStringsToWildcards: true, timeout: TimeInterval(1))
+            let element = otherElements.wmf_firstElement(with: .label, withTranslationIn: [key], convertTranslationSubstitutionStringsToWildcards: true, timeout: TimeInterval(1))
             if element.exists {
                 wmf_scrollElementToTop(element: element)
                 success(element)
@@ -120,11 +128,5 @@ extension XCUIApplication {
             }
             wmf_scrollDown()
         } while Date().timeIntervalSince(start) < maxScrollSeconds
-    }
-    
-    // Gets localized string from localized string key (so we can navigate the app regardless of lang).
-    // ( localization strings are copied into this scheme during a build phase: https://stackoverflow.com/a/38133902/135557 )
-    func wmf_localizedString(key: String) -> String {
-        return WMFLocalizedString(key, value: "", comment: "")
     }
 }
