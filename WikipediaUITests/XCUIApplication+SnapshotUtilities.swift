@@ -106,7 +106,7 @@ extension XCUIApplication {
     func wmf_scrollElementToTop(element: XCUIElement) {
         let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
-        sleep(2) // Give it time to scroll down.
+        sleep(2) // Give it time to scroll up.
     }
     
     func wmf_scrollDown(times: Int = 1) {
