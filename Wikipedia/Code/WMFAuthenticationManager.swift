@@ -145,10 +145,8 @@ public class WMFAuthenticationManager: NSObject {
             self.loggedInUsername = nil
             
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
-                if let error = error as? URLError {
-                    if error.code != .notConnectedToInternet {
-                        self.logout()
-                    }
+                if !(error is URLError) {
+                    self.logout()
                 }
                 failure(error)
             })
