@@ -45,8 +45,8 @@ struct WMFKeychainCredentials {
     
     public var appInstallID: String? {
         get {
-            guard let appInstallID = tryGetString(forKey: appInstallIDKey) else {
-                if let previousID = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppInstallID") {
+            guard let appInstallID = tryGetString(forKey: appInstallIDKey), appInstallID != "" else {
+                if let previousID = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppInstallID"), previousID != "" {
                     trySet(previousID, forKey: appInstallIDKey)
                     return previousID
                 }
