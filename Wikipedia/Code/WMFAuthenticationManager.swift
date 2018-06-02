@@ -73,7 +73,7 @@ public class WMFAuthenticationManager: NSObject {
         return baseURL!
     }
     
-    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping () -> Void = {}) {
+    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
                 completion()
@@ -88,7 +88,9 @@ public class WMFAuthenticationManager: NSObject {
         }, failure: { (error) in
             DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
             performCompletionOnTheMainThread()
-            failure()
+            DispatchQueue.main.async {
+                failure(error)
+            }
         })
     }
     
