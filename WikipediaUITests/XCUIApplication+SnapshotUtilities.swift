@@ -81,7 +81,7 @@ extension XCUIApplication {
     }
 
     func wmf_tapFirstCloseButton() -> Bool {
-        return buttons.wmf_firstElement(with: .label, withTranslationIn: ["close-button-accessibility-label"]).wmf_tap()
+        return wmf_tapFirstButton(withTranslationIn: ["close-button-accessibility-label"])
     }
     
     func wmf_tapFirstNavigationBarBackButton() -> Bool {
