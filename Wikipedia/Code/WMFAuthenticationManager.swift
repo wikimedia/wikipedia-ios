@@ -142,12 +142,19 @@ public class WMFAuthenticationManager: NSObject {
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
-            self.loggedInUsername = nil
-            
+            guard !(error is URLError) else {
+                self.loggedInUsername = userName
+                success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
+                return
+            }
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
-                if !(error is URLError) {
-                    self.logout()
+                guard !(error is URLError) else {
+                    self.loggedInUsername = userName
+                    success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
+                    return
                 }
+                self.loggedInUsername = nil
+                self.logout()
                 failure(error)
             })
         })
