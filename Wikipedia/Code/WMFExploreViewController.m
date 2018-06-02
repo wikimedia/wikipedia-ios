@@ -407,7 +407,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"FASTLANE_SNAPSHOT"]) {
+        if (![[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
             // Causes SnapshotRecorderTests.swift to hang for a few minutes. See https://stackoverflow.com/questions/40983184/xcode-8-ui-testing-taking-very-long
             [self.refreshControl beginRefreshing];
         }
@@ -1983,6 +1983,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
+        // Needed because XCUIApplication's `pressforDuration:thenDragTo:` method causes inertial scrolling if the
+        // distance scrolled exceeds a certain amount. When we use `pressforDuration:thenDragTo:` to scroll an
+        // element to the top of the screen this can be problematic because the extra inertia can cause the element
+        // to be scrolled beyond the top of the screen.
+        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
