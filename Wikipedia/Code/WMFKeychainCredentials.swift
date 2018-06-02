@@ -62,7 +62,7 @@ struct WMFKeychainCredentials {
     
     public var sessionID: String? {
         get {
-            guard let sessionID = tryGetString(forKey: sessionIDKey) else {
+            guard let sessionID = tryGetString(forKey: sessionIDKey), sessionID != "" else {
                 setNewUUID(forKey: sessionIDKey)
                 return tryGetString(forKey: sessionIDKey)
             }
