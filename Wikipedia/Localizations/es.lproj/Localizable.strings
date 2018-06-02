@@ -460,7 +460,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-see-more" = "Ver otros de los más leídos";
-"two-factor-login-continue" = "Continuar con el inicio de sesión";
+"two-factor-login-continue" = "Continuar con el acceso";
 "two-factor-login-instructions" = "Escribe el código de verificación de 2 factores";
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
 "two-factor-login-with-backup-code" = "Usar uno de tus códigos de respaldo";
