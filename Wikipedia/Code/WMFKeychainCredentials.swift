@@ -167,6 +167,7 @@ struct WMFKeychainCredentials {
         do {
             return try set(value: newValue, forKey: key)
         } catch  {
+            DDLogError("Error setting keychain value for \(key): \(error)") // don't log the value
             assertionFailure("\(error)")
         }
     }
