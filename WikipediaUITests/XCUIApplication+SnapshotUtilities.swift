@@ -118,7 +118,7 @@ extension XCUIApplication {
     }
     
     // Scrolls to first items for each key. Does so in single scrolling pass.
-    func wmf_scrollToFirstElements(items: [KeyAndSuccess], timeout seconds: Double = 360) {
+    func wmf_scrollToFirstElements(items: [ScrollItem], timeout seconds: Double = 360) {
         let start = Date()
         var keys = items.map{$0.key}
         scrollLoop: repeat {
@@ -139,7 +139,7 @@ extension XCUIApplication {
     }
 }
 
-class KeyAndSuccess {
+struct ScrollItem {
     let key: String
     let success: (XCUIElement) -> ()
     let predicate: NSPredicate

@@ -150,7 +150,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToFirstElements(items:
             [
                 // Picture of the day / Gallery
-                KeyAndSuccess(key: "explore-potd-heading", success: { element in
+                ScrollItem(key: "explore-potd-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenPicOfTheDay")
                     _ = element.wmf_tap()
                     sleep(8)
@@ -159,12 +159,12 @@ class WikipediaUITests: XCTestCase {
                 }),
 
                 // Featured article
-                KeyAndSuccess(key: "explore-featured-article-heading", success: { element in
+                ScrollItem(key: "explore-featured-article-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenFeaturedArticle")
                 }),
 
                 // Top read
-                KeyAndSuccess(key: "explore-most-read-heading", success: { element in
+                ScrollItem(key: "explore-most-read-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenMostRead")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("MostReadDetail")
@@ -172,7 +172,7 @@ class WikipediaUITests: XCTestCase {
                 }),
 
                 // On this day
-                KeyAndSuccess(key: "on-this-day-title", success: { element in
+                ScrollItem(key: "on-this-day-title", success: { element in
                     self.wmf_snapshot("ExploreScreenOnThisDay")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("OnThisDayDetail")
@@ -180,12 +180,12 @@ class WikipediaUITests: XCTestCase {
                 }),
                 
                 // Nearby
-                KeyAndSuccess(key: "explore-nearby-placeholder-heading", success: { element in
+                ScrollItem(key: "explore-nearby-placeholder-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenNearbyPlaces")
                 }),
                 
                 // Random article
-                KeyAndSuccess(key: "explore-random-article-heading", success: { element in
+                ScrollItem(key: "explore-random-article-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenRandom")
                     _ = element.wmf_tap()
                     sleep(8)
@@ -197,7 +197,7 @@ class WikipediaUITests: XCTestCase {
                 }),
                 
                 // Main page
-                KeyAndSuccess(key: "explore-main-page-heading", success: { element in
+                ScrollItem(key: "explore-main-page-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenMainPage")
                     _ = element.wmf_tap()
                     sleep(8)
@@ -206,7 +206,7 @@ class WikipediaUITests: XCTestCase {
                 }),
                 
                 // In the news
-                KeyAndSuccess(key: "in-the-news-title", success: { element in
+                ScrollItem(key: "in-the-news-title", success: { element in
                     self.wmf_snapshot("ExploreScreenInTheNews")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("InTheNewsDetail")
