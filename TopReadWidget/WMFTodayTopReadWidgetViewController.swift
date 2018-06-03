@@ -71,14 +71,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard let appLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
             return
         }
-
+    
         siteURL = appLanguage.siteURL()
         userStore = SessionSingleton.sharedInstance().dataStore
         contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         view.addGestureRecognizer(tapGR)
-
+        
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     func layoutForSize(_ size: CGSize) {
@@ -135,7 +136,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         if let context = self.extensionContext {
             var updatedIsExpanded: Bool?
-            context.widgetLargestAvailableDisplayMode = .expanded
             updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
             maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
             if isExpanded != updatedIsExpanded {
