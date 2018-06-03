@@ -120,7 +120,7 @@ extension XCUIApplication {
     // Scrolls to first items for each key. Does so in single scrolling pass.
     func wmf_scrollToFirstElements(items: [KeyAndSuccess], timeout seconds: Double = 360) {
         let start = Date()
-        var keys = items.map{item in item.key}
+        var keys = items.map{$0.key}
         scrollLoop: repeat {
             let element = otherElements.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
             if element.exists {
