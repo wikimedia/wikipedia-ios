@@ -1274,7 +1274,7 @@ static uint64_t bundleHash() {
 
 - (NSInteger)sitesDirectorySize {
     NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
-    return [[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
+    return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
 }
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
