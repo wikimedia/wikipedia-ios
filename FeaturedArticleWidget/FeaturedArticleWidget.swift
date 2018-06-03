@@ -93,13 +93,8 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
         if let context = extensionContext {
-            if #available(iOSApplicationExtension 10.0, *) {
-                isExpanded = context.widgetActiveDisplayMode == .expanded
-                maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
-            } else {
-                isExpanded = true
-                maximumSize = UIScreen.main.bounds.size
-            }
+            isExpanded = context.widgetActiveDisplayMode == .expanded
+            maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
         }
         updateViewAlpha(isExpanded: isExpanded)
         updateViewWithMaximumSize(maximumSize, isExpanded: isExpanded)
@@ -118,7 +113,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         preferredContentSize = CGSize(width: maximumSize.width, height: sizeThatFits.height)
     }
     
-    @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         debounceViewUpdate()
     }
