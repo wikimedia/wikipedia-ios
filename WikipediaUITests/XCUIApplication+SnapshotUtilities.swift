@@ -117,7 +117,7 @@ extension XCUIApplication {
         }
     }
     
-    // Scrolls to first items for each key. Does so in single scrolling pass.
+    // Scrolls to first element for each ScrollItem key in single scrolling pass (i.e. without scrolling back to top between items).
     func wmf_scrollToFirstElements(items: [ScrollItem], timeout seconds: Double = 360) {
         let start = Date()
         var keys = items.map{$0.key}
