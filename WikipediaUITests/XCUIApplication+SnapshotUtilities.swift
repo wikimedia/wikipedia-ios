@@ -118,25 +118,20 @@ extension XCUIApplication {
     }
     
     // Scrolls to first items for each key. Does so in single scrolling pass.
-    func wmf_scrollToFirstElements(items: [KeyAndSuccess], timeout seconds: Double = 240) {
+    func wmf_scrollToFirstElements(items: [KeyAndSuccess], timeout seconds: Double = 360) {
         let start = Date()
-        for item in items {
-            item.predicate = ElementPropertyType.`self`.wildcardPredicate(for: WMFLocalizedString(item.key, value: "", comment: ""))
-        }
         var keys = items.map{item in item.key}
         scrollLoop: repeat {
             let element = otherElements.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
             if element.exists {
-                for item in items {
-                    if let predicate = item.predicate, predicate.evaluate(with: element.label) {
-                        wmf_scrollElementToTop(element: element)
-                        item.success(element)
-                        sleep(2)
-                        if let index = keys.index(of: item.key) {
-                            keys.remove(at: index)
-                        }
-                        continue scrollLoop // Need to skip `wmf_scrollDown()` because other elements may already be onscreen and we don't want to scroll any of them offscreen. This lets the next pass(es) through the loop catch 'em.
+                if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
+                    wmf_scrollElementToTop(element: element)
+                    item.success(element)
+                    sleep(2)
+                    if let index = keys.index(of: item.key) {
+                        keys.remove(at: index)
                     }
+                    continue scrollLoop // Need to skip `wmf_scrollDown()` because other elements may already be onscreen and we don't want to scroll any of them offscreen. This lets the next pass(es) through the loop catch 'em.
                 }
             }
             wmf_scrollDown()
@@ -147,9 +142,10 @@ extension XCUIApplication {
 class KeyAndSuccess {
     let key: String
     let success: (XCUIElement) -> ()
-    var predicate: NSPredicate? = nil
+    let predicate: NSPredicate
     init(key: String, success: @escaping (XCUIElement) -> ()) {
         self.key = key
         self.success = success
+        self.predicate = ElementPropertyType.`self`.wildcardPredicate(for: WMFLocalizedString(key, value: "", comment: ""))
     }
 }
