@@ -57,7 +57,7 @@
         }
         bundle = [NSBundle bundleWithPath:path];
         if (bundle) {
-            bundles[path] = bundle;
+            bundles[language] = bundle;
         }
     }
     return bundle;
