@@ -106,7 +106,8 @@ extension XCUIApplication {
     
     func wmf_scrollElementToTop(element: XCUIElement) {
         let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
-        elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0)))
+        let iPhoneXSafeTopOffset = 0.04 // As of Xcode 9.4 an offset of 0 drags elements a little too far up.
+        elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: iPhoneXSafeTopOffset)))
         sleep(2) // Give it time to scroll up.
     }
     
