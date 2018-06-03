@@ -54,12 +54,6 @@ import UIKit
             layoutIfNeeded()
         }
     }
-
-    override open func layoutSubviews() {
-        UIView.performWithoutAnimation {
-            super.layoutSubviews()
-        }
-    }
     
     @objc func addToReadingList(_ sender: UIControl) -> Bool {
         return saveButtonDelegate?.saveButtonDidReceiveAddToReadingListAction(self) ?? false
