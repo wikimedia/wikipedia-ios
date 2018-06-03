@@ -147,86 +147,74 @@ class WikipediaUITests: XCTestCase {
         _ = app.wmf_tapFirstButton(withTranslationIn: ["home-title"])
         wmf_snapshot("ExploreScreen1")
 
-        // Picture of the day / Gallery
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-potd-heading", success: { element in
-            wmf_snapshot("ExploreScreenPicOfTheDay")
+        app.wmf_scrollToFirstElements(items:
+            [
+                // Picture of the day / Gallery
+                KeyAndSuccess(key: "explore-potd-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenPicOfTheDay")
+                    _ = element.wmf_tap()
+                    sleep(8)
+                    self.wmf_snapshot("GalleryScreen")
+                    _ = self.app.wmf_tapFirstCloseButton()
+                }),
 
-            _ = element.wmf_tap()
-            sleep(8)
-            wmf_snapshot("GalleryScreen")
-            _ = app.wmf_tapFirstCloseButton()
-        })
+                // Featured article
+                KeyAndSuccess(key: "explore-featured-article-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenFeaturedArticle")
+                }),
 
-        // Featured article
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-featured-article-heading", success: { element in
-            wmf_snapshot("ExploreScreenFeaturedArticle")
-        })
+                // Top read
+                KeyAndSuccess(key: "explore-most-read-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenMostRead")
+                    _ = element.wmf_tap()
+                    self.wmf_snapshot("MostReadDetail")
+                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                }),
 
-        // Top read
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-most-read-heading", success: { element in
-            wmf_snapshot("ExploreScreenMostRead")
+                // On this day
+                KeyAndSuccess(key: "on-this-day-title", success: { element in
+                    self.wmf_snapshot("ExploreScreenOnThisDay")
+                    _ = element.wmf_tap()
+                    self.wmf_snapshot("OnThisDayDetail")
+                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                }),
+                
+                // Nearby
+                KeyAndSuccess(key: "explore-nearby-placeholder-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenNearbyPlaces")
+                }),
+                
+                // Random article
+                KeyAndSuccess(key: "explore-random-article-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenRandom")
+                    _ = element.wmf_tap()
+                    sleep(8)
+                    self.wmf_snapshot("RandomDetail")
+                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
+                    sleep(2)
+                    self.wmf_snapshot("RandomDetailSaved")
+                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                }),
+                
+                // Main page
+                KeyAndSuccess(key: "explore-main-page-heading", success: { element in
+                    self.wmf_snapshot("ExploreScreenMainPage")
+                    _ = element.wmf_tap()
+                    sleep(8)
+                    self.wmf_snapshot("MainPageDetail")
+                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                }),
+                
+                // In the news
+                KeyAndSuccess(key: "in-the-news-title", success: { element in
+                    self.wmf_snapshot("ExploreScreenInTheNews")
+                    _ = element.wmf_tap()
+                    self.wmf_snapshot("InTheNewsDetail")
+                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                })
+            ]
+        )
 
-            _ = element.wmf_tap()
-            wmf_snapshot("MostReadDetail")
-            _ = app.wmf_tapFirstNavigationBarBackButton()
-        })
-
-        // On this day
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "on-this-day-title", success: { element in
-            wmf_snapshot("ExploreScreenOnThisDay")
-
-            _ = element.wmf_tap()
-            wmf_snapshot("OnThisDayDetail")
-            _ = app.wmf_tapFirstNavigationBarBackButton()
-        })
-
-        // Nearby
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-nearby-placeholder-heading", success: { element in
-            wmf_snapshot("ExploreScreenNearbyPlaces")
-        })
-
-        // Random article
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-random-article-heading", success: { element in
-            wmf_snapshot("ExploreScreenRandom")
-            
-            _ = element.wmf_tap()
-            sleep(8)
-            wmf_snapshot("RandomDetail")
-            
-            _ = app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
-            sleep(2)
-            wmf_snapshot("RandomDetailSaved")
-
-            _ = app.wmf_tapFirstNavigationBarBackButton()
-        })
-
-        // Main page
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "explore-main-page-heading", success: { element in
-            wmf_snapshot("ExploreScreenMainPage")
-
-            _ = element.wmf_tap()
-            sleep(8)
-            wmf_snapshot("MainPageDetail")
-            _ = app.wmf_tapFirstNavigationBarBackButton()
-        })
-
-        // In the news
-        _ = app.wmf_scrollToTop()
-        app.wmf_scrollToOtherElement(key: "in-the-news-title", success: { element in
-            wmf_snapshot("ExploreScreenInTheNews")
-            
-            _ = element.wmf_tap()
-            wmf_snapshot("InTheNewsDetail")
-            _ = app.wmf_tapFirstNavigationBarBackButton()
-        })
-        
         
         // SEARCH
         _ = app.wmf_scrollToTop()
