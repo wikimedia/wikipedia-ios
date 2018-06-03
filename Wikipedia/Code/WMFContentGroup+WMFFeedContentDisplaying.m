@@ -10,34 +10,52 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - In The News
 
-- (nullable UIImage *)headerIcon {
+- (nullable NSString *)headerIconName {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return [UIImage imageNamed:@"home-continue-reading-mini"];
+            return @"home-continue-reading-mini";
         case WMFContentGroupKindMainPage:
-            return [UIImage imageNamed:@"today-mini"];
+            return @"today-mini";
         case WMFContentGroupKindRelatedPages:
-            return [UIImage imageNamed:@"recent-mini"];
+            return @"recent-mini";
         case WMFContentGroupKindLocation:
-            return [UIImage imageNamed:@"nearby-mini"];
+            return @"nearby-mini";
         case WMFContentGroupKindLocationPlaceholder:
-            return [UIImage imageNamed:@"nearby-mini"];
+            return @"nearby-mini";
         case WMFContentGroupKindPictureOfTheDay:
-            return [UIImage imageNamed:@"potd-mini"];
+            return @"potd-mini";
         case WMFContentGroupKindRandom:
-            return [UIImage imageNamed:@"random-mini"];
+            return @"random-mini";
         case WMFContentGroupKindFeaturedArticle:
-            return [UIImage imageNamed:@"featured-mini"];
+            return @"featured-mini";
         case WMFContentGroupKindTopRead:
-            return [UIImage imageNamed:@"trending-mini"];
+            return @"trending-mini";
         case WMFContentGroupKindNews:
-            return [UIImage imageNamed:@"in-the-news-mini"];
+            return @"in-the-news-mini";
         case WMFContentGroupKindOnThisDay:
-            return [UIImage imageNamed:@"on-this-day-mini"];
+            return @"on-this-day-mini";
         default:
             break;
     }
     return nil;
+}
+
+- (nullable UIImage *)headerIcon {
+    static dispatch_once_t onceToken;
+    static NSMutableDictionary<NSString *, UIImage *> *headerIcons;
+    dispatch_once(&onceToken, ^{
+        headerIcons = [NSMutableDictionary dictionaryWithCapacity:12];
+    });
+    NSString *name = [self headerIconName];
+    if (!name) {
+        return nil;
+    }
+    UIImage *image = headerIcons[name];
+    if (!image) {
+        image = [UIImage imageNamed:name];
+        headerIcons[name] = image;
+    }
+    return image;
 }
 
 - (nullable UIColor *)headerIconTintColor {
