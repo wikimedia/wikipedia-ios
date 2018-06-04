@@ -144,7 +144,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    unicode-display_width (1.3.2)
+    unicode-display_width (1.3.3)
     word_wrap (1.0.0)
     xcode-install (2.4.0)
       claide (>= 0.9.1, < 1.1.0)

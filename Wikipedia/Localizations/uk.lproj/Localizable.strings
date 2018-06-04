@@ -6,6 +6,7 @@
 // Author: Choomaq
 // Author: Green Zero
 // Author: Macofe
+// Author: Movses
 // Author: Nemo bis
 // Author: NickK
 // Author: Piramidion
@@ -303,7 +304,6 @@
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
-// Fuzzy
 "share-a-fact-share-menu-item" = "Поділіться фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-custom-menu-item" = "Поділитися...";
@@ -336,8 +336,7 @@
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до Вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
 "welcome-notifications-tell-me-more-title" = "Більше про сповіщення";
-// Fuzzy
-"welcome-send-data-sub-title" = "Допоможіть Фондові Вікімедіа зробити цей додаток кращим, повідомивши нас, яким чином Ви ним користуєтесь. Зібрані дані є анонімними";
+"welcome-send-data-sub-title" = "Допоможіть Фондові Вікімедіа зробити цей додаток кращим, повідомивши нас, яким чином Ви ним користуєтесь. Зібрані дані є анонімними.";
 "welcome-volunteer-send-usage-reports" = "Надсилати звіти про використання";
 "wikitext-download-failed" = "Не вдається отримати останню версію програми.";
 "wikitext-download-success" = "Зміст завантажено.";

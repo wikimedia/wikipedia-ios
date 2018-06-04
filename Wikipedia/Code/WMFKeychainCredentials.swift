@@ -45,8 +45,8 @@ struct WMFKeychainCredentials {
     
     public var appInstallID: String? {
         get {
-            guard let appInstallID = tryGetString(forKey: appInstallIDKey) else {
-                if let previousID = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppInstallID") {
+            guard let appInstallID = tryGetString(forKey: appInstallIDKey), appInstallID != "" else {
+                if let previousID = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppInstallID"), previousID != "" {
                     trySet(previousID, forKey: appInstallIDKey)
                     return previousID
                 }
@@ -62,7 +62,7 @@ struct WMFKeychainCredentials {
     
     public var sessionID: String? {
         get {
-            guard let sessionID = tryGetString(forKey: sessionIDKey) else {
+            guard let sessionID = tryGetString(forKey: sessionIDKey), sessionID != "" else {
                 setNewUUID(forKey: sessionIDKey)
                 return tryGetString(forKey: sessionIDKey)
             }
@@ -167,6 +167,7 @@ struct WMFKeychainCredentials {
         do {
             return try set(value: newValue, forKey: key)
         } catch  {
+            DDLogError("Error setting keychain value for \(key): \(error)") // don't log the value
             assertionFailure("\(error)")
         }
     }
