@@ -75,23 +75,24 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
-    NSParameterAssert([self siteURL]);
+    NSParameterAssert(self.siteURLs);
     if (!_contentSources) {
-        WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:[self siteURL]
-                                                                                  userDataStore:self.dataStore
-                                                                        notificationsController:[WMFNotificationsController sharedNotificationsController]];
-        feedContentSource.notificationSchedulingEnabled = YES;
-        _contentSources = @[
-            [[WMFRelatedPagesContentSource alloc] init],
-            [[WMFMainPageContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore],
-            [[WMFNearbyContentSource alloc] initWithSiteURL:[self siteURL]
-                                                  dataStore:self.dataStore],
-            feedContentSource,
-            [[WMFRandomContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFAnnouncementsContentSource alloc] initWithSiteURL:[self siteURL]],
-            [[WMFOnThisDayContentSource alloc] initWithSiteURL:[self siteURL]]
-        ];
+        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
+        [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
+        [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
+        for (NSURL *siteURL in self.siteURLs) {
+            WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
+                                                                                      userDataStore:self.dataStore
+                                                                            notificationsController:[WMFNotificationsController sharedNotificationsController]];
+            feedContentSource.notificationSchedulingEnabled = YES;
+            [mutableContentSources addObjectsFromArray: @[[[WMFMainPageContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
+                                feedContentSource,
+                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
+        }
+        _contentSources = [mutableContentSources copy];
     }
     return _contentSources;
 }
@@ -127,18 +128,23 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
             WMFTaskGroup *group = [WMFTaskGroup new];
 #if DEBUG
-            NSMutableSet *entered = [NSMutableSet setWithCapacity:self.contentSources.count];
+            NSMutableArray *entered = [NSMutableArray arrayWithCapacity:self.contentSources.count];
 #endif
             [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                 [group enter];
 #if DEBUG
                 NSString *classString = NSStringFromClass([obj class]);
-                [entered addObject:classString];
+                @synchronized(self) {
+                    [entered addObject:classString];
+                }
 #endif
                 dispatch_block_t contentSourceCompletion = ^{
 #if DEBUG
-                    assert([entered containsObject:classString]);
-                    [entered removeObject:classString];
+                    @synchronized(self) {
+                        NSInteger index = [entered indexOfObject:classString];
+                        assert(index != NSNotFound);
+                        [entered removeObjectAtIndex:index];
+                    }
 #endif
                     [group leave];
                 };
@@ -274,8 +280,8 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 
 #pragma mark - SiteURL
 
-- (void)setSiteURL:(NSURL *)siteURL {
-    _siteURL = [siteURL copy];
+- (void)setSiteURLs:(NSURL *)siteURLs {
+    _siteURLs = [siteURLs copy];
     if ([_contentSources count] == 0) {
         return;
     }

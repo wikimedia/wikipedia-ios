@@ -30,6 +30,11 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *preferredLanguages;
 
 /**
+ * Returns the user's preferred site URLs.
+ */
+@property (readonly, copy, nonatomic) NSArray<NSURL *> *preferredSiteURLs;
+
+/**
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
