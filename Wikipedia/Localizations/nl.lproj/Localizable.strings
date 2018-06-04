@@ -62,12 +62,23 @@
 "account-creation-passwords-mismatched" = "De wachtwoorden komen niet overeen.";
 "account-creation-saving" = "Aan het opslaan...";
 "account-creation-title" = "Een nieuw account aanmaken";
+"action-add-to" = "Toevoegen aan…";
+"action-add-to-reading-list" = "Aan leeslijst toevoegen";
+"action-cancel" = "Annuleren";
+"action-move-to" = "Verplaatsen naar…";
+"action-move-to-reading-list" = "Naar leeslijst verplaatsen";
 "action-read" = "Lezen";
+"action-remove" = "Verwijderen";
 "action-save" = "Opslaan";
 "action-saved" = "Opgeslagen";
 "action-saved-accessibility" = "Bewaard. Activeer om ongedaan te maken.";
+"action-saved-accessibility-notification" = "Pagina opgeslagen voor later";
 "action-share" = "Delen";
+"action-sort" = "Sorteren";
 "action-unsave" = "Opslaan ongedaan maken";
+"action-unsaved-accessibility-notification" = "Artikel terug opgeslagen";
+"action-update" = "Bijwerken";
+"add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
@@ -119,6 +130,7 @@
 "empty-no-feed-title" = "Geen internetverbinding";
 "empty-no-history-message" = "Blijf op de hoogte van wat je hebt gelezen";
 "empty-no-history-title" = "Geen geschiedenis om te weergeven";
+"empty-no-saved-pages-in-reading-list-title" = "Geen pagina's aan deze lijst toegevoegd";
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
@@ -324,6 +336,8 @@
 "reading-lists-article-not-synced-list-limit-exceeded" = "Lijstmaximum overschreden, kan artikel niet synchroniseren";
 "reading-lists-article-queued-to-be-downloaded" = "Artikel in te downloaden wachtrij";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele artikelen niet gesynchroniseerd, maximum overschreden";
+"reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
+"reading-lists-default-list-title" = "Opgeslagen";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
@@ -335,9 +349,12 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
+"saved-all-articles-title" = "Alle pagina's";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
 // Fuzzy
 "saved-pages-progress-syncing" = "Artikelsynchronisatie loopt...";
+"saved-reading-lists-title" = "Leeslijsten";
+"saved-search-default-text" = "Zoeken";
 "saved-title" = "Opgeslagen";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-did-you-mean" = "Bedoelde u $1?";
@@ -349,8 +366,7 @@
 "search-recent-title" = "Recente zoekopdrachten";
 "search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "search-title" = "Zoeken";
-// Fuzzy
-"settings-appearance" = "Uiterlijk";
+"settings-appearance" = "Leesvoorkeuren";
 "settings-clear-cache" = "Cache legen";
 "settings-clear-cache-are-you-sure-message" = "Door het legen van de cache komt er $1 beschikbaar. Er worden geen opgeslagen pagina's verwijderd.";
 "settings-clear-cache-are-you-sure-title" = "Cache legen?";
@@ -368,6 +384,7 @@
 "settings-primary-language" = "Primair";
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen artikelen wissen?";
+"settings-storage-and-syncing-title" = "Pagina-opslag en -synchronisatie";
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
@@ -384,6 +401,8 @@
 "share-open-in-maps" = "Openen in Kaarten";
 "share-social-format" = "“$1” via Wikipedia: $2";
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
+"sort-by-recently-added-action" = "Recent toegevoegd";
+"sort-by-title-action" = "Naam";
 "status-saved-for-later" = "Opgeslagen voor later";
 "status-saving-for-later" = "Aan het opslaan voor later...";
 "table-of-contents-button-label" = "Inhoudsopgave";
