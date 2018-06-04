@@ -35,6 +35,13 @@ def get_devices_by_scheme_from_options(options)
   return devices_by_scheme
 end
 
+ 
+def get_version_number_from_options(options)
+  scheme = options[:scheme] || 'Wikipedia'
+  config = options[:configuration] || 'Release'
+  return get_version_number(target: scheme, configuration: config)
+end
+
 platform :ios do
   before_all do
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
@@ -178,7 +185,7 @@ platform :ios do
 
   desc "Add a tag for the current version number push to repo."
   lane :tag_release do |options|
-    version = options[:version] || get_version_number
+    version = options[:version] || get_version_number_from_options(options)
     tag_name = "releases/#{version}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags"
@@ -259,7 +266,7 @@ platform :ios do
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
-    version = get_version_number
+    version = get_version_number_from_options(options)
     tag_prefix = options[:tag_prefix]
 
     increment_build_number(
@@ -378,7 +385,7 @@ platform :ios do
     app_identifier = "org.wikimedia.wikipedia.tfalpha"
     hockey_app_id = "2295c3698bbd0b050f257772dd2bdbb2"
     ipa_path = "build/Wikipedia Alpha.ipa"
-    version = options[:version] || get_version_number
+    version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
@@ -392,7 +399,7 @@ platform :ios do
     app_identifier = "org.wikimedia.wikipedia"
     hockey_app_id = "5d80da08a6761e5c6456736af7ebad88"
     ipa_path = "build/Wikipedia.ipa"
-    version = options[:version] || get_version_number
+    version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
@@ -406,7 +413,7 @@ platform :ios do
     app_identifier = "org.wikimedia.wikipedia.tfbeta"
     hockey_app_id = "c7ab1c41a3eb4b7581a0057624730467"
     ipa_path = "build/Wikipedia.ipa"
-    version = options[:version] || get_version_number
+    version = options[:version] || get_version_number_from_options(options)
     dsyms(
       app_identifier: app_identifier,
       version: version,
