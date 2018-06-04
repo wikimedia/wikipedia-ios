@@ -119,14 +119,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                              [taskGroup leave];
                                                          }];
     
-//    __block id mediaResponse = nil;
-//    [taskGroup enter];
-//    [[WMFSession shared] fetchMediaForArticleURL:articleURL
-//                                          priority:priority
-//                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-//                                     mediaResponse = media;
-//                                     [taskGroup leave];
-//                                 }];
+    __block id mediaResponse = nil;
+    [taskGroup enter];
+    [[WMFSession shared] fetchMediaForArticleURL:articleURL
+                                          priority:priority
+                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                     mediaResponse = media;
+                                     [taskGroup leave];
+                                 }];
     
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
@@ -158,7 +158,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
                                           if (articleResponse && [articleResponse isKindOfClass:[NSDictionary class]]) {
                                               NSMutableDictionary *mutableArticleResponse = [articleResponse mutableCopy];
-                                              //[mutableArticleResponse setValue:mediaResponse forKey:@"media"];
+                                              [mutableArticleResponse setValue:mediaResponse forKey:@"media"];
                                               if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
                                               }
