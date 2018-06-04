@@ -62,11 +62,11 @@ extern EventLoggingLabel const EventLoggingLabelMainPage;
  * Helper function that returns a persistent appInstallID.
  * appInstallID is generated once per install.
  */
-@property (nonatomic, readonly) NSString *appInstallID;
+@property (nonatomic, readonly, nullable) NSString *appInstallID;
 /**
  * SessionID is reset when app is launched for the first time or resumed.
  */
-@property (nonatomic, readonly) NSString *sessionID;
+@property (nonatomic, readonly, nullable) NSString *sessionID;
 @property (nonatomic, readonly) NSString *timestamp;
 @property (nonatomic, readonly) NSNumber *isAnon;
 

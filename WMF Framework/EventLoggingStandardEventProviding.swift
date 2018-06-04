@@ -9,7 +9,10 @@ public protocol EventLoggingStandardEventProviding {
 
 public extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
     var standardEvent: Dictionary<String, Any> {
-        return ["app_install_id": appInstallID, "session_id": sessionID, "event_dt": timestamp];
+        guard let aii = appInstallID, let si = sessionID else {
+            return ["event_dt": timestamp]
+        }
+        return ["app_install_id": aii, "session_id": si, "event_dt": timestamp]
     }
     
     func wholeEvent(with event: Dictionary<AnyHashable, Any>) -> Dictionary<String, Any> {
