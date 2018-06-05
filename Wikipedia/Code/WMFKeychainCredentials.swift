@@ -1,6 +1,7 @@
 
 struct WMFKeychainCredentials {
-    
+    fileprivate let semaphore = DispatchSemaphore(value: 1)
+
     // Based on:
     // https://developer.apple.com/library/content/samplecode/GenericKeychain/Introduction/Intro.html
     // Note from the example:
@@ -116,25 +117,26 @@ struct WMFKeychainCredentials {
     }
     
     private func string(forKey key: String) throws -> String {
-        let queryDictionary = matchQuery(forKey: key) as CFDictionary
-        
-        var result: AnyObject?
-        let status = withUnsafeMutablePointer(to: &result) {
-            SecItemCopyMatching(queryDictionary, UnsafeMutablePointer($0))
+        let dataForKey = try data(forKey: key)
+        guard let string = String(data: dataForKey, encoding: String.Encoding.utf8) else {
+            throw WMFKeychainCredentialsError.unexpectedData
         }
-        
-        guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
-        guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
-        guard
-            let data = result as? Data,
-            let value = String(data: data, encoding: String.Encoding.utf8)
-            else {
-                throw WMFKeychainCredentialsError.unexpectedData
-        }
-        return value
+        return string
     }
     
     fileprivate func value(forKey key: String) throws -> Any {
+        let dataForKey = try data(forKey: key)
+        guard let value = NSKeyedUnarchiver.unarchiveObject(with: dataForKey) else {
+            throw WMFKeychainCredentialsError.unexpectedData
+        }
+        return value
+    }
+    
+    fileprivate func data(forKey key: String) throws -> Data {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
         let queryDictionary = matchQuery(forKey: key) as CFDictionary
         
         var result: AnyObject?
@@ -145,20 +147,11 @@ struct WMFKeychainCredentials {
         guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
         guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
         guard
-            let data = result as? Data,
-            let value = NSKeyedUnarchiver.unarchiveObject(with: data)
+            let data = result as? Data
             else {
                 throw WMFKeychainCredentialsError.unexpectedData
         }
-        return value
-    }
-    
-    // MARK: Deleting values from keychain
-    
-    fileprivate func deleteValue(forKey key:String) throws {
-        let query = commonConfigurationDictionary(forKey: key)
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
+        return data
     }
     
     // MARK: Saving values to keychain
@@ -177,11 +170,15 @@ struct WMFKeychainCredentials {
     }
     
     fileprivate func set(value: Any?, forKey key: String) throws {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
         // nil value causes the key/value pair to be removed from the keychain
         guard let value = value else {
-            do {
-                try deleteValue(forKey: key)
-            } catch  {
+            let query = commonConfigurationDictionary(forKey: key)
+            let status = SecItemDelete(query as CFDictionary)
+            guard status == noErr || status == errSecItemNotFound else {
                 throw WMFKeychainCredentialsError.couldNotDeleteData
             }
             return
