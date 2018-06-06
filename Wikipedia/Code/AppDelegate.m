@@ -86,9 +86,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
 
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
-
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:

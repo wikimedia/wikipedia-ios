@@ -1,4 +1,3 @@
-let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
@@ -71,15 +70,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_dateForKey(_ key: String) -> Date? {
         return self.object(forKey: key) as? Date
-    }
-
-    @objc public func wmf_appLaunchDate() -> Date? {
-        return self.wmf_dateForKey(WMFAppLaunchDateKey)
-    }
-    
-    @objc public func wmf_setAppLaunchDate(_ date: Date) {
-        self.set(date, forKey: WMFAppLaunchDateKey)
-        self.synchronize()
     }
     
     @objc public func wmf_appBecomeActiveDate() -> Date? {
@@ -247,32 +237,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }else{
             return false
         }
-    }
-    
-    @objc public func wmf_setAppInstallDateIfNil(_ date: Date) {
-        let previous = self.wmf_appInstallDate()
-        
-        if previous == nil {
-            self.set(date, forKey: "AppInstallDate")
-            self.synchronize()
-        }
-    }
-    
-    @objc public func wmf_appInstallDate() -> Date? {
-        if let date = self.object(forKey: "AppInstallDate") as? Date {
-            return date
-        }else{
-            return nil
-        }
-    }
-    
-    @objc public func wmf_setLoggedDaysInstalled(_ daysInstalled: NSNumber) {
-        self.set(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
-        self.synchronize()
-    }
-
-    @objc public func wmf_loggedDaysInstalled() -> NSNumber? {
-        return self.object(forKey: "DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 
     @objc public func wmf_setShowSearchLanguageBar(_ enabled: Bool) {

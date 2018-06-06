@@ -2,6 +2,12 @@ import Foundation
 
 @objc(WMFEventLoggingService)
 public class EventLoggingService : NSObject, URLSessionDelegate {
+    private struct Key {
+        static let appInstallID = "WMFAppInstallID"
+        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
+        static let appInstallDate = "AppInstallDate"
+        static let loggedDaysInstalled = "DailyLoggingStatsDaysInstalled"
+    }
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
@@ -190,7 +196,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     public func stop() {
-        
         assert(Thread.isMainThread, "must be stopped on main thread")
         guard self.started else {
             return
@@ -207,7 +212,15 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.timer?.invalidate()
         self.timer = nil
         
-        self.save()
+        self.managedObjectContext.performAndWait {
+            self.save()
+        }
+    }
+    
+    @objc
+    public func reset() {
+        self.resetSession()
+        self.resetInstall()
     }
     
     private func prune() {
@@ -414,6 +427,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     // mark stored values
     
     private func save() {
+        guard managedObjectContext.hasChanges else {
+            return
+        }
         do {
             try managedObjectContext.save()
         } catch let error {
@@ -423,61 +439,91 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var semaphore = DispatchSemaphore(value: 1)
     
-    private struct Key {
-        static let appInstallID = "WMFAppInstallID"
-        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
-    }
-    
-    private var _appInstallID: String?
-    @objc public var appInstallID: String? {
+    private var libraryValueCache: [String: NSCoding] = [:]
+    private func libraryValue(for key: String) -> NSCoding? {
         semaphore.wait()
         defer {
             semaphore.signal()
         }
-        if _appInstallID == nil {
-            var installID: String? = nil
-            managedObjectContext.performAndWait {
-                installID = managedObjectContext.wmf_stringValue(forKey: Key.appInstallID)
-                if installID == nil || installID == "" {
-                    installID = UserDefaults.wmf_userDefaults().string(forKey: Key.appInstallID)
-                    if installID == nil || installID == "" {
-                        installID = UUID().uuidString
-                    }
-                    if let installIDToPersist = installID as NSString? {
-                        managedObjectContext.wmf_setValue(installIDToPersist, forKey: Key.appInstallID)
-                    }
-                }
+        var value = libraryValueCache[key]
+        if value != nil {
+            return value
+        }
+        
+        managedObjectContext.performAndWait {
+            value = managedObjectContext.wmf_keyValue(forKey: key)?.value
+            if value != nil {
+                libraryValueCache[key] = value
+                return
+            }
+            
+            if let legacyValue = UserDefaults.wmf_userDefaults().object(forKey: key) as? NSCoding {
+                value = legacyValue
+                libraryValueCache[key] = legacyValue
+                managedObjectContext.wmf_setValue(legacyValue, forKey: key)
+                UserDefaults.wmf_userDefaults().removeObject(forKey: key)
                 save()
             }
-            _appInstallID = installID
         }
-        return _appInstallID
+    
+        return value
     }
     
-    private var _lastLoggedSnapshot: NSCoding?
-    @objc public var lastLoggedSnapshot: NSCoding? {
+    private func setLibraryValue(_ value: NSCoding?, for key: String) {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        libraryValueCache[key] = value
+        managedObjectContext.performAndWait {
+            managedObjectContext.wmf_keyValue(forKey: key)?.value = value
+            save()
+        }
+    }
+    
+    @objc public var appInstallID: String? {
         get {
-            semaphore.wait()
-            defer {
-                semaphore.signal()
+            var installID = libraryValue(for: Key.appInstallID) as? String
+            if installID == nil || installID == "" {
+                installID = UUID().uuidString
+                setLibraryValue(installID as NSString?, for: Key.appInstallID)
             }
-            if _lastLoggedSnapshot == nil {
-                managedObjectContext.performAndWait {
-                    _lastLoggedSnapshot = managedObjectContext.wmf_keyValue(forKey: Key.lastLoggedSnapshot)?.value
-                }
-            }
-            return _lastLoggedSnapshot
+            return installID
         }
         set {
-            semaphore.wait()
-            defer {
-                semaphore.signal()
+            setLibraryValue(newValue as NSString?, for: Key.appInstallID)
+        }
+    }
+    
+    @objc public var lastLoggedSnapshot: NSCoding? {
+        get {
+            return libraryValue(for: Key.lastLoggedSnapshot)
+        }
+        set {
+            setLibraryValue(newValue, for: Key.lastLoggedSnapshot)
+        }
+    }
+    
+    @objc public var appInstallDate: Date? {
+        get {
+            var value = libraryValue(for: Key.appInstallDate) as? Date
+            if value == nil {
+                value = Date()
+                setLibraryValue(value as NSDate?, for: Key.appInstallDate)
             }
-            _lastLoggedSnapshot = newValue
-            managedObjectContext.perform {
-                self.managedObjectContext.wmf_setValue(newValue, forKey: Key.lastLoggedSnapshot)
-                self.save()
-            }
+            return value
+        }
+        set {
+            setLibraryValue(newValue as NSDate?, for: Key.appInstallDate)
+        }
+    }
+    
+    @objc public var loggedDaysInstalled: NSNumber? {
+        get {
+            return libraryValue(for: Key.loggedDaysInstalled) as? NSNumber
+        }
+        set {
+            setLibraryValue(newValue, for: Key.loggedDaysInstalled)
         }
     }
     
@@ -512,5 +558,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
         _sessionID = nil
         _sessionStartDate = Date()
+    }
+    
+    private func resetInstall() {
+        appInstallID = nil
+        lastLoggedSnapshot = nil
+        loggedDaysInstalled = nil
+        appInstallDate = nil
     }
 }
