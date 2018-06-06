@@ -2,6 +2,13 @@ import Foundation
 
 @objc(WMFEventLoggingService)
 public class EventLoggingService : NSObject, URLSessionDelegate {
+    private struct Key {
+        static let isEnabled = "SendUsageReports"
+        static let appInstallID = "WMFAppInstallID"
+        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
+        static let appInstallDate = "AppInstallDate"
+        static let loggedDaysInstalled = "DailyLoggingStatsDaysInstalled"
+    }
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
@@ -11,11 +18,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var debugDisableImmediateSend = false
     
-    private static let LoggingEndpoint =
-        // production
-        "https://meta.wikimedia.org/beacon/event"
-        // testing
-        // "http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
+    private static let scheme = "https" // testing is http
+    private static let host = "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
+    private static let path = "/beacon/event"
     
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
@@ -53,6 +58,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         return EventLoggingService(permanentStorageURL: permanentStorageURL)
     }()
+    
+    @objc
+    public func log(event: Dictionary<String, Any>, schema: String, revision: Int, wiki: String) {
+        let event: NSDictionary = ["event": event, "schema": schema, "revision": revision, "wiki": wiki]
+        logEvent(event)
+    }
     
     private var shouldSendImmediately: Bool {
         
@@ -120,7 +131,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public convenience init(permanentStorageURL: URL) {
      
-        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: URL(string: WMFLoggingEndpoint)!.host!)
+        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
         let urlSessionConfig = URLSessionConfiguration.default
         urlSessionConfig.httpShouldUsePipelining = true
@@ -190,7 +201,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     public func stop() {
-        
         assert(Thread.isMainThread, "must be stopped on main thread")
         guard self.started else {
             return
@@ -207,7 +217,15 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.timer?.invalidate()
         self.timer = nil
         
-        self.save()
+        self.managedObjectContext.performAndWait {
+            self.save()
+        }
+    }
+    
+    @objc
+    public func reset() {
+        self.resetSession()
+        self.resetInstall()
     }
     
     private func prune() {
@@ -373,9 +391,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 return nil
             }
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
-            let urlString = "\(EventLoggingService.LoggingEndpoint)?\(encodedPayloadJsonString)"
-            guard let url = URL(string: urlString) else {
-                DDLogError("EventLoggingService: Could not convert string '\(urlString)' to URL object")
+            var components = URLComponents()
+            components.scheme = EventLoggingService.scheme
+            components.host = EventLoggingService.host
+            components.path = EventLoggingService.path
+            components.percentEncodedQuery = encodedPayloadJsonString
+            guard let url = components.url else {
+                DDLogError("EventLoggingService: Could not creatre URL")
                 eventRecord.failed = true
                 return nil
             }
@@ -414,6 +436,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     // mark stored values
     
     private func save() {
+        guard managedObjectContext.hasChanges else {
+            return
+        }
         do {
             try managedObjectContext.save()
         } catch let error {
@@ -423,61 +448,104 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var semaphore = DispatchSemaphore(value: 1)
     
-    private struct Key {
-        static let appInstallID = "WMFAppInstallID"
-        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
-    }
-    
-    private var _appInstallID: String?
-    @objc public var appInstallID: String? {
+    private var libraryValueCache: [String: NSCoding] = [:]
+    private func libraryValue(for key: String) -> NSCoding? {
         semaphore.wait()
         defer {
             semaphore.signal()
         }
-        if _appInstallID == nil {
-            var installID: String? = nil
-            managedObjectContext.performAndWait {
-                installID = managedObjectContext.wmf_stringValue(forKey: Key.appInstallID)
-                if installID == nil || installID == "" {
-                    installID = UserDefaults.wmf_userDefaults().string(forKey: Key.appInstallID)
-                    if installID == nil || installID == "" {
-                        installID = UUID().uuidString
-                    }
-                    if let installIDToPersist = installID as NSString? {
-                        managedObjectContext.wmf_setValue(installIDToPersist, forKey: Key.appInstallID)
-                    }
-                }
+        var value = libraryValueCache[key]
+        if value != nil {
+            return value
+        }
+        
+        managedObjectContext.performAndWait {
+            value = managedObjectContext.wmf_keyValue(forKey: key)?.value
+            if value != nil {
+                libraryValueCache[key] = value
+                return
+            }
+            
+            if let legacyValue = UserDefaults.wmf_userDefaults().object(forKey: key) as? NSCoding {
+                value = legacyValue
+                libraryValueCache[key] = legacyValue
+                managedObjectContext.wmf_setValue(legacyValue, forKey: key)
+                UserDefaults.wmf_userDefaults().removeObject(forKey: key)
                 save()
             }
-            _appInstallID = installID
         }
-        return _appInstallID
+    
+        return value
     }
     
-    private var _lastLoggedSnapshot: NSCoding?
-    @objc public var lastLoggedSnapshot: NSCoding? {
+    private func setLibraryValue(_ value: NSCoding?, for key: String) {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        libraryValueCache[key] = value
+        managedObjectContext.perform {
+            self.managedObjectContext.wmf_keyValue(forKey: key)?.value = value
+            self.save()
+        }
+    }
+    
+    @objc public var isEnabled: Bool {
         get {
-            semaphore.wait()
-            defer {
-                semaphore.signal()
+            var isEnabled = false
+            if let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber {
+                isEnabled = enabledNumber.boolValue
             }
-            if _lastLoggedSnapshot == nil {
-                managedObjectContext.performAndWait {
-                    _lastLoggedSnapshot = managedObjectContext.wmf_keyValue(forKey: Key.lastLoggedSnapshot)?.value
-                }
-            }
-            return _lastLoggedSnapshot
+            return isEnabled
         }
         set {
-            semaphore.wait()
-            defer {
-                semaphore.signal()
+            setLibraryValue(NSNumber(booleanLiteral: newValue), for: Key.isEnabled)
+        }
+    }
+    
+    @objc public var appInstallID: String? {
+        get {
+            var installID = libraryValue(for: Key.appInstallID) as? String
+            if installID == nil || installID == "" {
+                installID = UUID().uuidString
+                setLibraryValue(installID as NSString?, for: Key.appInstallID)
             }
-            _lastLoggedSnapshot = newValue
-            managedObjectContext.perform {
-                self.managedObjectContext.wmf_setValue(newValue, forKey: Key.lastLoggedSnapshot)
-                self.save()
+            return installID
+        }
+        set {
+            setLibraryValue(newValue as NSString?, for: Key.appInstallID)
+        }
+    }
+    
+    @objc public var lastLoggedSnapshot: NSCoding? {
+        get {
+            return libraryValue(for: Key.lastLoggedSnapshot)
+        }
+        set {
+            setLibraryValue(newValue, for: Key.lastLoggedSnapshot)
+        }
+    }
+    
+    @objc public var appInstallDate: Date? {
+        get {
+            var value = libraryValue(for: Key.appInstallDate) as? Date
+            if value == nil {
+                value = Date()
+                setLibraryValue(value as NSDate?, for: Key.appInstallDate)
             }
+            return value
+        }
+        set {
+            setLibraryValue(newValue as NSDate?, for: Key.appInstallDate)
+        }
+    }
+    
+    @objc public var loggedDaysInstalled: NSNumber? {
+        get {
+            return libraryValue(for: Key.loggedDaysInstalled) as? NSNumber
+        }
+        set {
+            setLibraryValue(newValue, for: Key.loggedDaysInstalled)
         }
     }
     
@@ -512,5 +580,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
         _sessionID = nil
         _sessionStartDate = Date()
+    }
+    
+    private func resetInstall() {
+        appInstallID = nil
+        lastLoggedSnapshot = nil
+        loggedDaysInstalled = nil
+        appInstallDate = nil
     }
 }
