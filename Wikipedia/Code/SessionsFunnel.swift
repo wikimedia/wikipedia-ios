@@ -42,7 +42,7 @@
     }
     
     @objc public func logSessionEnd() {
-        guard let sessionStartDate = UserDefaults.wmf_userDefaults().wmf_sessionStartDate else {
+        guard let sessionStartDate = EventLoggingService.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }

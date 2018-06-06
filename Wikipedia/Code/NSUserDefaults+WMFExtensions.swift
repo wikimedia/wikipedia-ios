@@ -1,7 +1,6 @@
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFSessionStartDate = "WMFSessionStartDate"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -107,16 +106,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
-    }
-    
-    @objc public var wmf_sessionStartDate: Date? {
-        get {
-            return wmf_dateForKey(WMFSessionStartDate)
-        }
-        set {
-            set(newValue, forKey: WMFSessionStartDate)
-            synchronize()
-        }
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
