@@ -128,9 +128,7 @@
     if (sendUsageReports == [self shouldSendUsageReports]) {
         return;
     }
-    [[WMFSession shared] setShouldSendUsageReports:sendUsageReports];
     [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:sendUsageReports];
-    [[QueuesSingleton sharedInstance] reset];
 }
 
 @end

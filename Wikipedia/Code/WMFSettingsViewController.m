@@ -186,6 +186,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[UserHistoryFunnel shared] logSnapshot];
                 [[WMFEventLoggingService sharedInstance] reset];
             }
+            [[WMFSession shared] setShouldSendUsageReports:isOn];
+            [[QueuesSingleton sharedInstance] reset];
         } break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
