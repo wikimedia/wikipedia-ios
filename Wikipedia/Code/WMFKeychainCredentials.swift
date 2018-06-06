@@ -119,7 +119,7 @@ struct WMFKeychainCredentials {
         }
         
         var query = commonConfigurationDictionary(forKey: key)
-        let valueData = value.data(using: String.Encoding.utf8)!
+        let valueData = value.data(using: String.Encoding.utf8)
         query[kSecValueData as String] = valueData as AnyObject?
         query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
 
@@ -143,7 +143,7 @@ struct WMFKeychainCredentials {
     fileprivate func update(value:String, forKey key:String) throws {
         let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
-        let valueData = value.data(using: String.Encoding.utf8)!
+        let valueData = value.data(using: String.Encoding.utf8)
         dataDict[kSecValueData as String] = valueData as AnyObject?
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
         if (status != errSecSuccess) {
