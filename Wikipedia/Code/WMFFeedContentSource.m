@@ -496,8 +496,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    [[PiwikTracker sharedInstance] wmf_logActionPushInContext:self contentType:articlePreviewToNotifyAbout.URL.host date:[NSDate date]];
-
     done();
 }
 

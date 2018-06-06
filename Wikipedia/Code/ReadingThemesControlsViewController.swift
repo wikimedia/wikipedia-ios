@@ -147,7 +147,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     }
 
     @objc fileprivate func _logBrightnessChange() {
-        PiwikTracker.sharedInstance()?.wmf_logActionAdjustBrightness(inContext: self, contentType: self)
     }
 
     fileprivate func logBrightnessChange() {
@@ -169,7 +168,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
-        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(theme.displayName))
     }
     
     @IBAction func sepiaThemeButtonPressed(_ sender: Any) {

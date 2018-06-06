@@ -9,6 +9,7 @@
 #import "WMFArticleBaseFetcher_Testing.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFAsyncTestCase.h"
+@import WMF;
 
 @interface ArticleFetcherTests : XCTestCase
 
@@ -64,12 +65,12 @@
                                                   options:0
                                                     error:nil];
     stubRequest(@"GET", anySummaryRequest).andReturn(200);
-    
+
     NSRegularExpression *anyMediaRequest =
-    [NSRegularExpression regularExpressionWithPattern:
-     [NSString stringWithFormat:@"%@/api/rest_v1/page/media/.*", [siteURL absoluteString]]
-                                              options:0
-                                                error:nil];
+        [NSRegularExpression regularExpressionWithPattern:
+                                 [NSString stringWithFormat:@"%@/api/rest_v1/page/media/.*", [siteURL absoluteString]]
+                                                  options:0
+                                                    error:nil];
     stubRequest(@"GET", anyMediaRequest).andReturn(200);
 
     __block MWKArticle *firstFetchResult;
@@ -94,7 +95,7 @@
             firstFetchResult = article;
             [self.tempDataStore asynchronouslyCacheArticle:article
                                                     toDisk:YES
-                                                completion:^(NSError *error){
+                                                completion:^(NSError *error) {
                                                     savedArticleAfterFirstFetch = [self.tempDataStore articleWithURL:dummyArticleURL];
                                                     XCTAssertNil(error);
                                                     XCTAssert([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]);
@@ -117,7 +118,7 @@
 
                     [self.tempDataStore asynchronouslyCacheArticle:article
                                                             toDisk:YES
-                                                        completion:^(NSError *error){
+                                                        completion:^(NSError *error) {
                                                             XCTAssertNil(error);
                                                             MWKArticle *savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithURL:dummyArticleURL];
                                                             XCTAssert([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]);
@@ -145,7 +146,7 @@
 }
 
 - (void)testRequestHeadersForOptInUUID {
-    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
+    if ([WMFEventLoggingService sharedInstance].isEnabled) {
         XCTAssert([self requestHeaders][@"X-WMF-UUID"] != nil);
     } else {
         XCTAssert([self requestHeaders][@"X-WMF-UUID"] == nil);
