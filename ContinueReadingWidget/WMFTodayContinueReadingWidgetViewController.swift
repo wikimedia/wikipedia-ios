@@ -137,16 +137,12 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         self.titleLabel.attributedText = article.displayTitleHTML.byAttributingHTML(with: .headline, matching: traitCollection)
         
-        if #available(iOSApplicationExtension 10.0, *) {
-            if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
-                self.collapseImageAndWidenLabels = false
-                self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                    self.collapseImageAndWidenLabels = true
-                }) {
-                    self.collapseImageAndWidenLabels = false
-                }
-            } else {
+        if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
+            self.collapseImageAndWidenLabels = false
+            self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 self.collapseImageAndWidenLabels = true
+            }) {
+                self.collapseImageAndWidenLabels = false
             }
         } else {
             self.collapseImageAndWidenLabels = true
