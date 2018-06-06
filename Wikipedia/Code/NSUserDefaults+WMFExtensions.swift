@@ -225,20 +225,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         self.synchronize()
     }
 
-    @objc public func wmf_setSendUsageReports(_ enabled: Bool) {
-        self.set(NSNumber(value: enabled as Bool), forKey: "SendUsageReports")
-        self.synchronize()
-
-    }
-
-    @objc public func wmf_sendUsageReports() -> Bool {
-        if let enabled = self.object(forKey: "SendUsageReports") as? NSNumber {
-            return enabled.boolValue
-        }else{
-            return false
-        }
-    }
-
     @objc public func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
         self.set(NSNumber(value: enabled as Bool), forKey: "ShowLanguageBar")
         self.synchronize()

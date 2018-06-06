@@ -3,6 +3,7 @@ import Foundation
 @objc(WMFEventLoggingService)
 public class EventLoggingService : NSObject, URLSessionDelegate {
     private struct Key {
+        static let isEnabled = "SendUsageReports"
         static let appInstallID = "WMFAppInstallID"
         static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
         static let appInstallDate = "AppInstallDate"
@@ -17,11 +18,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var debugDisableImmediateSend = false
     
-    private static let LoggingEndpoint =
-        // production
-        "https://meta.wikimedia.org/beacon/event"
-        // testing
-        // "http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
+    private static let scheme = "https" // testing is http
+    private static let host = "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
+    private static let path = "/beacon/event"
     
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
@@ -59,6 +58,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         return EventLoggingService(permanentStorageURL: permanentStorageURL)
     }()
+    
+    @objc
+    public func log(event: Dictionary<String, Any>, schema: String, revision: Int, wiki: String) {
+        let event: NSDictionary = ["event": event, "schema": schema, "revision": revision, "wiki": wiki]
+        logEvent(event)
+    }
     
     private var shouldSendImmediately: Bool {
         
@@ -126,7 +131,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public convenience init(permanentStorageURL: URL) {
      
-        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: URL(string: WMFLoggingEndpoint)!.host!)
+        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
         let urlSessionConfig = URLSessionConfiguration.default
         urlSessionConfig.httpShouldUsePipelining = true
@@ -386,9 +391,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 return nil
             }
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
-            let urlString = "\(EventLoggingService.LoggingEndpoint)?\(encodedPayloadJsonString)"
-            guard let url = URL(string: urlString) else {
-                DDLogError("EventLoggingService: Could not convert string '\(urlString)' to URL object")
+            var components = URLComponents()
+            components.scheme = EventLoggingService.scheme
+            components.host = EventLoggingService.host
+            components.path = EventLoggingService.path
+            components.percentEncodedQuery = encodedPayloadJsonString
+            guard let url = components.url else {
+                DDLogError("EventLoggingService: Could not creatre URL")
                 eventRecord.failed = true
                 return nil
             }
@@ -475,9 +484,22 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             semaphore.signal()
         }
         libraryValueCache[key] = value
-        managedObjectContext.performAndWait {
-            managedObjectContext.wmf_keyValue(forKey: key)?.value = value
-            save()
+        managedObjectContext.perform {
+            self.managedObjectContext.wmf_keyValue(forKey: key)?.value = value
+            self.save()
+        }
+    }
+    
+    @objc public var isEnabled: Bool {
+        get {
+            var isEnabled = false
+            if let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber {
+                isEnabled = enabledNumber.boolValue
+            }
+            return isEnabled
+        }
+        set {
+            setLibraryValue(NSNumber(booleanLiteral: newValue), for: Key.isEnabled)
         }
     }
     

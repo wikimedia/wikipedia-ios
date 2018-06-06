@@ -34,7 +34,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         WMFZeroWarnWhenLeaving: @YES,
         WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
-        @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO
     }];
 }
