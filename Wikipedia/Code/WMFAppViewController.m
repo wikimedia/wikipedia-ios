@@ -1522,7 +1522,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             WMFArticleViewController *articleVC = [self showArticleForURL:articleURL animated:NO];
             [articleVC shareArticleWhenReady];
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:@"notification" contentType:articleURL.host];
             [self showInTheNewsForNotificationInfo:info];
         } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
         }

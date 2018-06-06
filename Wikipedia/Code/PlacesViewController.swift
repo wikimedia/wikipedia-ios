@@ -86,7 +86,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
-    fileprivate let tracker = PiwikTracker.sharedInstance()
     fileprivate let mapTrackerContext: AnalyticsContext = "Places_map"
     fileprivate let listTrackerContext: AnalyticsContext = "Places_list"
     fileprivate let searchTrackerContext: AnalyticsContext = "Places_search"
@@ -277,8 +276,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
-        
-        tracker?.wmf_logView(self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -325,10 +322,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
 
     public func logListViewImpression(forIndexPath indexPath: IndexPath) {
-        guard let article = article(at: indexPath) else {
-            return
-        }
-        tracker?.wmf_logActionImpression(inContext: listTrackerContext, contentType: article)
+
     }
 
     public func logListViewImpressionsForVisibleCells() {
@@ -613,9 +607,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             if (search.needsWikidataQuery) {
                 performWikidataQuery(forSearch: search)
                 return
-            } else {
-                // TODO: ARM: I don't understand this
-                tracker?.wmf_logActionTapThrough(inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
             }
         }
         
@@ -631,8 +622,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         switch search.filter {
         case .saved:
-            tracker?.wmf_logAction("Saved_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-            
             let moc = dataStore.viewContext
             placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
@@ -666,8 +655,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             })
 
         case .top:
-            tracker?.wmf_logAction("Top_article_search", inContext: searchTrackerContext, contentType: AnalyticsContent(siteURL))
-            
             placeSearchService.performSearch(search, defaultSiteURL: siteURL, region: region, completion: { (result) in
                 defer { done() }
                 
@@ -1720,8 +1707,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             articleVC.view.transform = CGAffineTransform.identity
             articleVC.view.alpha = 1
         }
-
-        tracker?.wmf_logActionImpression(inContext: mapTrackerContext, contentType: article)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -1766,17 +1751,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let context = viewMode == .list ? listTrackerContext : mapTrackerContext
         switch action {
         case .read:
-            tracker?.wmf_logActionTapThrough(inContext: context, contentType: article)
             wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
 
             break
         case .save:
             let didSave = dataStore.savedPageList.toggleSavedPage(for: url)
             if didSave {
-                tracker?.wmf_logActionSave(inContext: context, contentType: article)
                 ReadingListsFunnel.shared.logSaveInPlaces(url)
             } else {
-                tracker?.wmf_logActionUnsave(inContext: context, contentType: article)
                 ReadingListsFunnel.shared.logUnsaveInPlaces(url)
             }
             break
