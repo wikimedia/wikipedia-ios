@@ -38,8 +38,7 @@
     }
     
     private func resetSession() {
-        KeychainCredentialsManager.shared.resetSessionID()
-        UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
+        EventLoggingService.shared.resetSession()
     }
     
     @objc public func logSessionEnd() {

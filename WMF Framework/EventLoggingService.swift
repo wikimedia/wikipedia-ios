@@ -31,6 +31,99 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let managedObjectContext: NSManagedObjectContext
     
+    private var semaphore = DispatchSemaphore(value: 1)
+    
+    private struct Key {
+        static let appInstallID = "WMFAppInstallID"
+        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
+    }
+    
+    private var _appInstallID: String?
+    @objc public var appInstallID: String? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        if _appInstallID == nil {
+            var installID: String? = nil
+            managedObjectContext.performAndWait {
+                installID = managedObjectContext.wmf_stringValue(forKey: Key.appInstallID)
+                if installID == nil || installID == "" {
+                    installID = UserDefaults.wmf_userDefaults().string(forKey: Key.appInstallID)
+                    if installID == nil || installID == "" {
+                        installID = UUID().uuidString
+                    }
+                    if let installIDToPersist = installID as NSString? {
+                        managedObjectContext.wmf_setValue(installIDToPersist, forKey: Key.appInstallID)
+                    }
+                }
+                try? managedObjectContext.save()
+            }
+            _appInstallID = installID
+        }
+        return _appInstallID
+    }
+    
+    private var _lastLoggedSnapshot: NSCoding?
+    @objc public var lastLoggedSnapshot: NSCoding? {
+        get {
+            semaphore.wait()
+            defer {
+                semaphore.signal()
+            }
+            if _lastLoggedSnapshot == nil {
+                managedObjectContext.performAndWait {
+                    _lastLoggedSnapshot = managedObjectContext.wmf_keyValue(forKey: Key.lastLoggedSnapshot)?.value
+                }
+            }
+            return _lastLoggedSnapshot
+        }
+        set {
+            semaphore.wait()
+            defer {
+                semaphore.signal()
+            }
+            _lastLoggedSnapshot = newValue
+            managedObjectContext.perform {
+                self.managedObjectContext.wmf_setValue(newValue, forKey: Key.lastLoggedSnapshot)
+                try? self.managedObjectContext.save()
+            }
+        }
+    }
+    
+    private var _sessionID: String?
+    @objc public var sessionID: String? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        if _sessionID == nil {
+            _sessionID = UUID().uuidString
+        }
+        return _sessionID
+    }
+    
+    private var _sessionStartDate: Date?
+    @objc public var sessionStartDate: Date? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        if _sessionStartDate == nil {
+            _sessionStartDate = Date()
+        }
+        return _sessionStartDate
+    }
+    
+    @objc public func resetSession() {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        _sessionID = nil
+        _sessionStartDate = Date()
+    }
+    
     @objc(sharedInstance) public static let shared: EventLoggingService = {
         let fileManager = FileManager.default
         var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Event Logging", isDirectory: true)

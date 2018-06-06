@@ -101,11 +101,11 @@ EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
 }
 
 - (NSString *)appInstallID {
-    return [[KeychainCredentialsManager shared] appInstallID];
+    return [[WMFEventLoggingService sharedInstance] appInstallID];
 }
 
 - (NSString *)sessionID {
-    return [[KeychainCredentialsManager shared] sessionID];
+    return [[WMFEventLoggingService sharedInstance] sessionID];
 }
 
 - (NSString *)timestamp {
