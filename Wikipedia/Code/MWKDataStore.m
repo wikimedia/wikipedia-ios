@@ -162,7 +162,7 @@ static uint64_t bundleHash() {
         [self setupHistoryAndSavedPageLists];
         self.feedContentController = [[WMFExploreFeedContentController alloc] init];
         self.feedContentController.dataStore = self;
-        self.feedContentController.siteURL = [[[MWKLanguageLinkController sharedInstance] appLanguage] siteURL];
+        self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
     }
@@ -1274,7 +1274,7 @@ static uint64_t bundleHash() {
 
 - (NSInteger)sitesDirectorySize {
     NSURL *sitesURL = [NSURL fileURLWithPath:[self pathForSites]];
-    return [[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
+    return (NSInteger)[[NSFileManager defaultManager] sizeOfDirectoryAt:sitesURL];
 }
 
 - (void)removeUnreferencedArticlesFromDiskCacheWithFailure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {

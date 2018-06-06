@@ -19,20 +19,20 @@
 - (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguage:(nonnull NSString *)language {
     NSString *bundleName = language;
     if ([language isEqualToString:@"zh"]) {
-        bundleName = @"zh-Hans";
+        bundleName = @"zh-hans";
         for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
             if (![code hasPrefix:@"zh"]) {
                 continue;
             }
             NSArray<NSString *> *components = [code componentsSeparatedByString:@"-"];
-            if ([components count] > 1) {
-                bundleName = [@[components[0], [components[1] capitalizedStringWithLocale:[NSLocale localeWithLocaleIdentifier:@"en"]]] componentsJoinedByString:@"-"];
+            if ([components count] == 2) {
+                bundleName = [code lowercaseString];
                 break;
             }
             
         }
     } else if ([language isEqualToString:@"sr"]) {
-        bundleName = @"sr-EC";
+        bundleName = @"sr-ec";
     }
     return bundleName;
 }
@@ -42,10 +42,22 @@
     NSBundle *bundle = bundles[language];
     if (!bundle) {
         NSString *languageBundleName = [self wmf_languageBundleNameForWikipediaLanguage:language];
-        NSString *path = [self pathForResource:languageBundleName ofType:@"lproj"];
+        NSArray *paths = [self pathsForResourcesOfType:@"lproj" inDirectory:nil];
+        NSString *filename = [[languageBundleName lowercaseString] stringByAppendingPathExtension:@"lproj"];
+        NSString *path = nil;
+        for (NSString *possiblePath in paths) {
+            if (![[possiblePath lowercaseString] hasSuffix:filename]) {
+                continue;
+            }
+            path = possiblePath;
+            break;
+        }
+        if (!path) {
+            return nil;
+        }
         bundle = [NSBundle bundleWithPath:path];
         if (bundle) {
-            bundles[path] = bundle;
+            bundles[language] = bundle;
         }
     }
     return bundle;

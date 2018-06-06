@@ -39,15 +39,22 @@ extension WKWebView {
             return
         }
 
-        assert(fileContents.split(separator: "@").count == (5 + 1), """
+        assert(fileContents.split(separator: "@").count == (6 + 1), """
                 HTML template file does not have required number of percent-ampersand occurences (5).
                 Number of percent-ampersands must match number of values passed to 'stringWithFormat:'
         """)
         
         let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
         
-        // index.html and preview.html have 5 "%@" subsitition markers. Replace these with actual content.
-        let templateAndContent = String(format: fileContents, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
+        var siteCSSLink = ""
+        if let baseSite = baseURL.wmf_site?.absoluteString {
+            siteCSSLink = """
+            <link href="\(baseSite)/api/rest_v1/data/css/mobile/site" rel="stylesheet" type="text/css"></link>
+            """
+        }
+        
+        // index.html and preview.html have 6 "%@" subsitition markers. Replace these with actual content.
+        let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
         proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath)
@@ -80,6 +87,7 @@ extension WKWebView {
              because this fires before any of the head tag contents are resolved, including references to our JS
              libraries - we'd have to make a larger set of changes to make this work.
         */
+        
         return """
             <style type='text/css'>
                 body {
