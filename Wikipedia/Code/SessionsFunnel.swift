@@ -38,12 +38,11 @@
     }
     
     private func resetSession() {
-        KeychainCredentialsManager.shared.resetSessionID()
-        UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
+        EventLoggingService.shared.resetSession()
     }
     
     @objc public func logSessionEnd() {
-        guard let sessionStartDate = UserDefaults.wmf_userDefaults().wmf_sessionStartDate else {
+        guard let sessionStartDate = EventLoggingService.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }

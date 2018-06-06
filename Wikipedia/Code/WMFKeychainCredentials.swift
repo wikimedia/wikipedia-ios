@@ -1,7 +1,6 @@
 
 struct WMFKeychainCredentials {
-    fileprivate let semaphore = DispatchSemaphore(value: 1)
-
+    
     // Based on:
     // https://developer.apple.com/library/content/samplecode/GenericKeychain/Introduction/Intro.html
     // Note from the example:
@@ -13,90 +12,65 @@ struct WMFKeychainCredentials {
     fileprivate let userNameKey = "org.wikimedia.wikipedia.username"
     fileprivate let passwordKey = "org.wikimedia.wikipedia.password"
     fileprivate let hostKey = "org.wikimedia.wikipedia.host"
-    private let appInstallIDKey = "org.wikimedia.wikipedia.appinstallid"
-    private let sessionIDKey = "org.wikimedia.wikipedia.sessionid"
-    private let lastLoggedUserHistorySnapshotKey = "org.wikimedia.wikipedia.lastloggeduserhistorysnapshot"
     
     public var userName: String? {
         get {
-            return tryGetString(forKey: userNameKey)
+            do {
+                return try getValue(forKey: userNameKey)
+            } catch  {
+                return nil
+            }
         }
         set(newUserName) {
-            trySet(newUserName, forKey: userNameKey)
+            do {
+                return try set(value: newUserName, forKey: userNameKey)
+            } catch let error {
+                assertionFailure("\(error)")
+            }
         }
     }
-    
+
     public var password: String? {
         get {
-            return tryGetString(forKey: passwordKey)
+            do {
+                return try getValue(forKey: passwordKey)
+            } catch  {
+                return nil
+            }
         }
         set(newPassword) {
-            trySet(newPassword, forKey: passwordKey)
+            do {
+                return try set(value: newPassword, forKey: passwordKey)
+            } catch  {
+                assertionFailure("\(error)")
+            }
         }
     }
     
     public var host: String? {
         get {
-            return tryGetString(forKey: hostKey)
-        }
-        set {
-            trySet(newValue, forKey: hostKey)
-        }
-    }
-    
-    public var appInstallID: String? {
-        get {
-            guard let appInstallID = tryGetString(forKey: appInstallIDKey), appInstallID != "" else {
-                if let previousID = UserDefaults.wmf_userDefaults().string(forKey: "WMFAppInstallID"), previousID != "" {
-                    trySet(previousID, forKey: appInstallIDKey)
-                    return previousID
-                }
-                setNewUUID(forKey: appInstallIDKey)
-                return tryGetString(forKey: appInstallIDKey)
-            }
-            return appInstallID
-        }
-        set {
-            trySet(newValue, forKey: appInstallIDKey)
-        }
-    }
-    
-    public var sessionID: String? {
-        get {
-            guard let sessionID = tryGetString(forKey: sessionIDKey), sessionID != "" else {
-                setNewUUID(forKey: sessionIDKey)
-                return tryGetString(forKey: sessionIDKey)
-            }
-            return sessionID
-        }
-        set {
-            trySet(newValue, forKey: sessionIDKey)
-        }
-    }
-    
-    public func resetSessionID() {
-        setNewUUID(forKey: sessionIDKey)
-    }
-    
-    public var lastLoggedUserHistorySnapshot: Dictionary<String, Any>? {
-        get {
-            guard let value = tryGetValue(forKey: lastLoggedUserHistorySnapshotKey) else {
+            do {
+                return try getValue(forKey: hostKey)
+            } catch  {
                 return nil
             }
-            return value as? Dictionary<String, Any>
         }
         set {
-            trySet(newValue, forKey: lastLoggedUserHistorySnapshotKey)
+            do {
+                return try set(value: newValue, forKey: hostKey)
+            } catch  {
+                assertionFailure("\(error)")
+            }
         }
     }
-    
+
     fileprivate enum WMFKeychainCredentialsError: Error {
         case noValue
         case unexpectedData
         case couldNotDeleteData
         case unhandledError(status: OSStatus)
     }
-    
+
     fileprivate func commonConfigurationDictionary(forKey key:String) -> [String : AnyObject] {
         return [
             kSecClass as String : kSecClassGenericPassword,
@@ -105,92 +79,52 @@ struct WMFKeychainCredentials {
             kSecAttrAccount as String : key as AnyObject
         ]
     }
-    
-    // MARK: Getting values from keychain
-    
-    private func tryGetString(forKey key: String) -> String? {
-        return try? string(forKey: key)
-    }
-    
-    private func tryGetValue(forKey key: String) -> Any? {
-        return try? value(forKey: key)
-    }
-    
-    private func string(forKey key: String) throws -> String {
-        let dataForKey = try data(forKey: key)
-        guard let string = String(data: dataForKey, encoding: String.Encoding.utf8) else {
-            throw WMFKeychainCredentialsError.unexpectedData
-        }
-        return string
-    }
-    
-    fileprivate func value(forKey key: String) throws -> Any {
-        let dataForKey = try data(forKey: key)
-        guard let value = NSKeyedUnarchiver.unarchiveObject(with: dataForKey) else {
-            throw WMFKeychainCredentialsError.unexpectedData
-        }
-        return value
-    }
-    
-    fileprivate func data(forKey key: String) throws -> Data {
-        semaphore.wait()
-        defer {
-            semaphore.signal()
-        }
-        let queryDictionary = matchQuery(forKey: key) as CFDictionary
+
+    fileprivate func getValue(forKey key:String) throws -> String {
+        var query = commonConfigurationDictionary(forKey: key)
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+        query[kSecReturnData as String] = kCFBooleanTrue
         
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) {
-            SecItemCopyMatching(queryDictionary, UnsafeMutablePointer($0))
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
         }
         
         guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
         guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
         guard
-            let data = result as? Data
-            else {
-                throw WMFKeychainCredentialsError.unexpectedData
+            let data = result as? Data,
+            let value = String(data: data, encoding: String.Encoding.utf8)
+        else {
+            throw WMFKeychainCredentialsError.unexpectedData
         }
-        return data
+        return value
     }
     
-    // MARK: Saving values to keychain
-    
-    private func trySet(_ newValue: Any?, forKey key: String) {
-        do {
-            return try set(value: newValue, forKey: key)
-        } catch  {
-            DDLogError("Error setting keychain value for \(key): \(error)") // don't log the value
-            assertionFailure("\(error)")
-        }
+    fileprivate func deleteValue(forKey key:String) throws {
+        let query = commonConfigurationDictionary(forKey: key)
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == noErr || status == errSecItemNotFound else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
     }
     
-    private func setNewUUID(forKey key: String) {
-        trySet(UUID().uuidString, forKey: key)
-    }
-    
-    fileprivate func set(value: Any?, forKey key: String) throws {
-        semaphore.wait()
-        defer {
-            semaphore.signal()
-        }
+    fileprivate func set(value:String?, forKey key:String) throws {
         // nil value causes the key/value pair to be removed from the keychain
         guard let value = value else {
-            let query = commonConfigurationDictionary(forKey: key)
-            let status = SecItemDelete(query as CFDictionary)
-            guard status == noErr || status == errSecItemNotFound else {
+            do {
+                try deleteValue(forKey: key)
+            } catch  {
                 throw WMFKeychainCredentialsError.couldNotDeleteData
             }
             return
         }
         
         var query = commonConfigurationDictionary(forKey: key)
-        let valueData = data(for: value)
+        let valueData = value.data(using: String.Encoding.utf8)!
         query[kSecValueData as String] = valueData as AnyObject?
         query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
-        
+
         let status = SecItemAdd(query as CFDictionary, nil)
-        
+
         guard status != errSecSuccess else {
             return
         }
@@ -206,33 +140,14 @@ struct WMFKeychainCredentials {
         }
     }
     
-    // MARK: Saving values in keychain
-    
-    fileprivate func update(value: Any, forKey key: String) throws {
+    fileprivate func update(value:String, forKey key:String) throws {
         let query = commonConfigurationDictionary(forKey: key)
         var dataDict = [String : AnyObject]()
-        let valueData = data(for: value)
+        let valueData = value.data(using: String.Encoding.utf8)!
         dataDict[kSecValueData as String] = valueData as AnyObject?
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
         if (status != errSecSuccess) {
             throw WMFKeychainCredentialsError.unhandledError(status: status)
         }
-    }
-    
-    // MARK: Helper functions to interact with keychain values
-    
-    private func data(for value: Any) -> Data? {
-        if let value = value as? String {
-            return value.data(using: String.Encoding.utf8)
-        } else {
-            return NSKeyedArchiver.archivedData(withRootObject: value)
-        }
-    }
-    
-    private func matchQuery(forKey key: String) -> Dictionary<String, AnyObject> {
-        var query = commonConfigurationDictionary(forKey: key)
-        query[kSecMatchLimit as String] = kSecMatchLimitOne
-        query[kSecReturnData as String] = kCFBooleanTrue
-        return query
     }
 }
