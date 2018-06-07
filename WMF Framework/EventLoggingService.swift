@@ -272,6 +272,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             let record = NSEntityDescription.insertNewObject(forEntityName: "WMFEventRecord", into: self.managedObjectContext) as! EventRecord
             record.event = event
             record.recorded = now
+            record.userAgent = WikipediaAppUtils.versionedUserAgent()
             
             DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
             
@@ -403,7 +404,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             }
             
             var request = URLRequest(url: url)
-            request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+            let userAgent = eventRecord.userAgent ?? WikipediaAppUtils.versionedUserAgent()
+            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
             eventRecord.postAttempts += 1
             let task = urlSession.dataTask(with: request, completionHandler: { (_, response, error) in
