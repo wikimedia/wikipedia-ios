@@ -14,7 +14,6 @@
 
 // Persistent settings and credentials
 @property (strong, nonatomic) WMFZeroConfigurationManager *zeroConfigurationManager;
-@property (nonatomic) BOOL shouldSendUsageReports;
 
 // Data access objects
 @property (strong, nonatomic, readonly) MWKDataStore *dataStore;

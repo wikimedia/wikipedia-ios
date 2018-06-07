@@ -1,7 +1,5 @@
-let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
-let WMFSessionStartDate = "WMFSessionStartDate"
 let WMFOpenArticleURLKey = "WMFOpenArticleURLKey"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
@@ -73,15 +71,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc public func wmf_dateForKey(_ key: String) -> Date? {
         return self.object(forKey: key) as? Date
     }
-
-    @objc public func wmf_appLaunchDate() -> Date? {
-        return self.wmf_dateForKey(WMFAppLaunchDateKey)
-    }
-    
-    @objc public func wmf_setAppLaunchDate(_ date: Date) {
-        self.set(date, forKey: WMFAppLaunchDateKey)
-        self.synchronize()
-    }
     
     @objc public func wmf_appBecomeActiveDate() -> Date? {
         return self.wmf_dateForKey(WMFAppBecomeActiveDateKey)
@@ -107,16 +96,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
         self.synchronize()
-    }
-    
-    @objc public var wmf_sessionStartDate: Date? {
-        get {
-            return wmf_dateForKey(WMFSessionStartDate)
-        }
-        set {
-            set(newValue, forKey: WMFSessionStartDate)
-            synchronize()
-        }
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
@@ -244,46 +223,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         
         self.set(url, forKey: WMFOpenArticleURLKey)
         self.synchronize()
-    }
-
-    @objc public func wmf_setSendUsageReports(_ enabled: Bool) {
-        self.set(NSNumber(value: enabled as Bool), forKey: "SendUsageReports")
-        self.synchronize()
-
-    }
-
-    @objc public func wmf_sendUsageReports() -> Bool {
-        if let enabled = self.object(forKey: "SendUsageReports") as? NSNumber {
-            return enabled.boolValue
-        }else{
-            return false
-        }
-    }
-    
-    @objc public func wmf_setAppInstallDateIfNil(_ date: Date) {
-        let previous = self.wmf_appInstallDate()
-        
-        if previous == nil {
-            self.set(date, forKey: "AppInstallDate")
-            self.synchronize()
-        }
-    }
-    
-    @objc public func wmf_appInstallDate() -> Date? {
-        if let date = self.object(forKey: "AppInstallDate") as? Date {
-            return date
-        }else{
-            return nil
-        }
-    }
-    
-    @objc public func wmf_setLoggedDaysInstalled(_ daysInstalled: NSNumber) {
-        self.set(daysInstalled, forKey: "DailyLoggingStatsDaysInstalled")
-        self.synchronize()
-    }
-
-    @objc public func wmf_loggedDaysInstalled() -> NSNumber? {
-        return self.object(forKey: "DailyLoggingStatsDaysInstalled") as? NSNumber
     }
 
     @objc public func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
@@ -517,5 +456,9 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc public func wmf_setDidSplitExistingReadingLists(_ didSplit: Bool) {
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
         self.synchronize()
+    }
+    
+    @objc public func wmf_isFastlaneSnapshotInProgress() -> Bool {
+        return bool(forKey: "FASTLANE_SNAPSHOT")
     }
 }

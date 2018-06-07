@@ -73,7 +73,7 @@ public class WMFAuthenticationManager: NSObject {
         return baseURL!
     }
     
-    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping () -> Void = {}) {
+    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
                 completion()
@@ -88,7 +88,9 @@ public class WMFAuthenticationManager: NSObject {
         }, failure: { (error) in
             DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
             performCompletionOnTheMainThread()
-            failure()
+            DispatchQueue.main.async {
+                failure(error)
+            }
         })
     }
     
@@ -140,14 +142,19 @@ public class WMFAuthenticationManager: NSObject {
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
-            self.loggedInUsername = nil
-            
+            guard !(error is URLError) else {
+                self.loggedInUsername = userName
+                success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
+                return
+            }
             self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
-                if let error = error as? URLError {
-                    if error.code != .notConnectedToInternet {
-                        self.logout()
-                    }
+                guard !(error is URLError) else {
+                    self.loggedInUsername = userName
+                    success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
+                    return
                 }
+                self.loggedInUsername = nil
+                self.logout()
                 failure(error)
             })
         })
