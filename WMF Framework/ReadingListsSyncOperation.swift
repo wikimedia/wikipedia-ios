@@ -78,7 +78,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             taskGroup.enter()
             authenticationDelegate.attemptLogin({
                 taskGroup.leave()
-            }, failure: {})
+            }, failure: { _ in })
             taskGroup.wait()
         }
         
