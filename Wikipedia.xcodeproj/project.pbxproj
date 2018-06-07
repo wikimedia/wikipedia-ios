@@ -15062,10 +15062,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"PIWIK_ENABLED=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = InTheNewsNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -15093,7 +15090,6 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"PIWIK_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;

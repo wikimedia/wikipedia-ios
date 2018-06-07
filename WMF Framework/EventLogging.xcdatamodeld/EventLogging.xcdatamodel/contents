@@ -6,6 +6,7 @@
         <attribute name="postAttempts" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="posted" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="recorded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="userAgent" optional="YES" attributeType="String" syncable="YES"/>
         <fetchIndex name="byRecordedIndex">
             <fetchIndexElement property="recorded" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -20,7 +21,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="WMFEventRecord" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="WMFEventRecord" positionX="-63" positionY="-18" width="128" height="135"/>
         <element name="WMFKeyValue" positionX="-45" positionY="36" width="128" height="105"/>
     </elements>
 </model>
