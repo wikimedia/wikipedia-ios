@@ -161,7 +161,7 @@
 "explore-main-page-heading" = "今日についての記事";
 "explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
 "explore-most-read-generic-heading" = "よく読まれている記事";
-"explore-most-read-heading" = "$1 版ウィキペディアでよく読まれている記事";
+"explore-most-read-heading" = "$1版ウィキペディアでよく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
 "explore-nearby-placeholder-cancel" = "キャンセル";
@@ -457,7 +457,7 @@
 "settings-clear-cache-cancel" = "キャンセル";
 "settings-clear-cache-ok" = "消去";
 "settings-help-and-feedback" = "ヘルプとフィードバック";
-"settings-language-bar" = "検索結果に表示する言語";
+"settings-language-bar" = "検索画面で言語を表示";
 "settings-my-languages" = "お使いになる言語";
 "settings-notifications" = "通知";
 "settings-notifications-info" = "トレンドのWikipediaトップ記事をプッシュ通知で読むことができます。すべてはプライバシーと時間データまで提供されます。";
@@ -519,7 +519,7 @@
 "two-factor-login-with-regular-code" = "確認コードを使用する";
 "view-in-browser-footer-link" = "ブラウザで記事を表示する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
-"welcome-exploration-explore-feed-title" = "フィードを調べる";
+"welcome-exploration-explore-feed-title" = "「探してみよう」フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";
 "welcome-exploration-on-this-day-title" = "この日";
 "welcome-exploration-places-description" = "近くのランドマークを発見したり、世界中の場所を検索したりできます";
