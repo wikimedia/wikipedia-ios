@@ -9,6 +9,7 @@ extension EventRecord {
     }
 
     @NSManaged public var event: NSObject?
+    @NSManaged public var userAgent: String?
     @NSManaged public var recorded: NSDate?
     @NSManaged public var posted: NSDate?
     @NSManaged public var postAttempts: Int16

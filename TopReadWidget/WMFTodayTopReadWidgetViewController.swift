@@ -71,20 +71,15 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         guard let appLanguage = MWKLanguageLinkController.sharedInstance().appLanguage else {
             return
         }
-
+    
         siteURL = appLanguage.siteURL()
         userStore = SessionSingleton.sharedInstance().dataStore
         contentSource = WMFFeedContentSource(siteURL: siteURL, userDataStore: userStore, notificationsController: nil)
-        
-        if #available(iOSApplicationExtension 10.0, *) {
-        } else {
-            headerLabelLeadingConstraint.constant = 0
-            footerLabelLeadingConstraint.constant = 0
-        }
 
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:)))
         view.addGestureRecognizer(tapGR)
-
+        
+        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
     func layoutForSize(_ size: CGSize) {
@@ -110,18 +105,12 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        if #available(iOSApplicationExtension 10.0, *) {
-            coordinator.animate(alongsideTransition: { (context) in
-
+        coordinator.animate(alongsideTransition: { (context) in
+            self.layoutForSize(size)
+        }) { (context) in
+            if (!context.isAnimated) {
                 self.layoutForSize(size)
-            }) { (context) in
-                if (!context.isAnimated) {
-                    self.layoutForSize(size)
-                }
             }
-        } else {
-            layoutForSize(size)
         }
     }
     
@@ -132,9 +121,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         rowCount = isExpanded ? maximumRowCount : 1
     }
 
-
-    
-    @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         debounceViewUpdate()
     }
@@ -150,16 +136,8 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         }
         if let context = self.extensionContext {
             var updatedIsExpanded: Bool?
-            if #available(iOSApplicationExtension 10.0, *) {
-                context.widgetLargestAvailableDisplayMode = .expanded
-                updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
-                maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
-            } else {
-                updatedIsExpanded = true
-                maximumSize = UIScreen.main.bounds.size
-                headerViewHeightConstraint.constant = 40
-                footerViewHeightConstraint.constant = 40
-            }
+            updatedIsExpanded = context.widgetActiveDisplayMode == .expanded
+            maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
             if isExpanded != updatedIsExpanded {
                 isExpanded = updatedIsExpanded
                 updateViewPropertiesForIsExpanded(isExpanded ?? false)
@@ -277,15 +255,11 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.viewCountAndSparklineContainerView.isHidden = true
             }
             
-            if #available(iOSApplicationExtension 10.0, *) {
-                if let imageURL = result.thumbnailURL {
-                    vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
-                        vc.collapseImageAndWidenLabels = true
-                    }) {
-                        vc.collapseImageAndWidenLabels = false
-                    }
-                } else {
+            if let imageURL = result.thumbnailURL {
+                vc.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                     vc.collapseImageAndWidenLabels = true
+                }) {
+                    vc.collapseImageAndWidenLabels = false
                 }
             } else {
                 vc.collapseImageAndWidenLabels = true
@@ -297,11 +271,6 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 vc.separatorView.isHidden = false
             }
             vc.separatorView.backgroundColor = theme.colors.border
-
-            if #available(iOSApplicationExtension 10.0, *) {
-            } else {
-                vc.marginWidthConstraint.constant = 0
-            }
             
             i += 1
         }

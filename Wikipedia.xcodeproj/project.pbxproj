@@ -875,7 +875,6 @@
 		B34B0EDA1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B34B0EDB1E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */; };
 		B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A341EE1F69E0075953E /* EventLoggingService.swift */; };
-		B3632E801EE5F98F007A2464 /* EventCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A331EE1F69E0075953E /* EventCapsule.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */; };
 		B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */; };
@@ -1416,8 +1415,6 @@
 		D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */ = {isa = PBXBuildFile; fileRef = B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */; };
 		D83FA6B51D74CDE0008CAB00 /* EventLoggingFunnel.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */; };
-		D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
-		D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83FD28A1EF4724700532B15 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E8380641D64989F0076EDE4 /* NotificationCenter.framework */; };
 		D83FD28D1EF4724700532B15 /* FeaturedArticleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83FD28C1EF4724700532B15 /* FeaturedArticleWidget.swift */; };
 		D83FD2901EF4724700532B15 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83FD28E1EF4724700532B15 /* MainInterface.storyboard */; };
@@ -3743,8 +3740,6 @@
 		B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateAccountFunnel.m; path = Wikipedia/Code/CreateAccountFunnel.m; sourceTree = SOURCE_ROOT; };
 		B0E805791C0CE2C60065EBC0 /* EditFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditFunnel.h; path = Wikipedia/Code/EditFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditFunnel.m; path = Wikipedia/Code/EditFunnel.m; sourceTree = SOURCE_ROOT; };
-		B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLogger.h; path = Wikipedia/Code/EventLogger.h; sourceTree = SOURCE_ROOT; };
-		B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLogger.m; path = Wikipedia/Code/EventLogger.m; sourceTree = SOURCE_ROOT; };
 		B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLoggingFunnel.h; path = Wikipedia/Code/EventLoggingFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = EventLoggingFunnel.m; path = Wikipedia/Code/EventLoggingFunnel.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E8057F1C0CE2C60065EBC0 /* WMFLoginFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLoginFunnel.h; path = Wikipedia/Code/WMFLoginFunnel.h; sourceTree = SOURCE_ROOT; };
@@ -4054,7 +4049,6 @@
 		B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EventLogging.xcdatamodel; sourceTree = "<group>"; };
 		B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B3369A331EE1F69E0075953E /* EventCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventCapsule.swift; path = "WMF Framework/EventCapsule.swift"; sourceTree = SOURCE_ROOT; };
 		B3369A341EE1F69E0075953E /* EventLoggingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventLoggingService.swift; path = "WMF Framework/EventLoggingService.swift"; sourceTree = SOURCE_ROOT; };
 		B34B0ED81E9EBD0400716D75 /* TouchOutsideOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchOutsideOverlayView.swift; sourceTree = "<group>"; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
@@ -5633,8 +5627,6 @@
 		0E728D141DAEE0790074EB4B /* Event Logging */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */,
-				B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */,
 				B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */,
 				B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */,
 				7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */,
@@ -6300,7 +6292,6 @@
 			children = (
 				B32535FE1EE87A6200372E93 /* EventRecord+CoreDataClass.swift */,
 				B32535FF1EE87A6200372E93 /* EventRecord+CoreDataProperties.swift */,
-				B3369A331EE1F69E0075953E /* EventCapsule.swift */,
 				B3369A341EE1F69E0075953E /* EventLoggingService.swift */,
 				B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */,
 			);
@@ -8394,7 +8385,6 @@
 				D844D9B21D6CB7770042D692 /* MWKSavedPageList.h in Headers */,
 				D8FA18F01E1BDA2F009675C3 /* UIImage+WMFNormalization.h in Headers */,
 				D87E54001D6CC704005134EF /* WMFMantleJSONResponseSerializer.h in Headers */,
-				D83FA6BA1D74CE48008CAB00 /* EventLogger.h in Headers */,
 				0E52FD691DA44D7800587426 /* WMFZeroConfigurationManager.h in Headers */,
 				D80A79291F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.h in Headers */,
 				D8FA18E81E1BD8B2009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h in Headers */,
@@ -10871,7 +10861,6 @@
 				D84C36051F323E0900895FA1 /* WMFCVLInvalidationContext.m in Sources */,
 				D8CAD1E3203EEFDD006467E2 /* CSRFTokenOperation.swift in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
-				D83FA6B91D74CE45008CAB00 /* EventLogger.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
@@ -10884,7 +10873,6 @@
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
-				B3632E801EE5F98F007A2464 /* EventCapsule.swift in Sources */,
 				83222DB41F8E554800338BE5 /* WMFContent+CoreDataProperties.m in Sources */,
 				83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */,
 				D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,

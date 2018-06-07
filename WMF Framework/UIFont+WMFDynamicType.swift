@@ -107,11 +107,7 @@ let fontSizeTable: [FontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloat]]
 
 public extension UITraitCollection {
     var wmf_preferredContentSizeCategory: UIContentSizeCategory {
-        if #available(iOSApplicationExtension 10.0, *) {
-            return preferredContentSizeCategory
-        } else {
-            return UIContentSizeCategory.medium
-        }
+         return preferredContentSizeCategory
     }
 }
 

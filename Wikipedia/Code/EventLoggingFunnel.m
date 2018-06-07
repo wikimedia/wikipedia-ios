@@ -1,5 +1,4 @@
 #import <WMF/EventLoggingFunnel.h>
-#import <WMF/EventLogger.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/WMF-Swift.h>
 
@@ -65,7 +64,8 @@ EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
 }
 
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki {
-    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
+    WMFEventLoggingService *service = [WMFEventLoggingService sharedInstance];
+    if (service.isEnabled) {
         BOOL chosen = NO;
         if (self.rate == 1) {
             chosen = YES;
@@ -74,10 +74,7 @@ EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
         }
         if (chosen) {
             NSMutableDictionary *preprocessedEventData = [[self preprocessData:eventData] mutableCopy];
-            (void)[[EventLogger alloc] initAndLogEvent:preprocessedEventData
-                                             forSchema:self.schema
-                                              revision:self.revision
-                                                  wiki:wiki];
+            [service logWithEvent:preprocessedEventData schema:self.schema revision:self.revision wiki:wiki];
             [self logged:eventData];
         }
     }
@@ -101,11 +98,11 @@ EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
 }
 
 - (NSString *)appInstallID {
-    return [[KeychainCredentialsManager shared] appInstallID];
+    return [[WMFEventLoggingService sharedInstance] appInstallID];
 }
 
 - (NSString *)sessionID {
-    return [[KeychainCredentialsManager shared] sessionID];
+    return [[WMFEventLoggingService sharedInstance] sessionID];
 }
 
 - (NSString *)timestamp {
