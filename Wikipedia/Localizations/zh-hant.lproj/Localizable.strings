@@ -208,7 +208,7 @@
 "hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
 "home-button-history-accessibility-label" = "維基百科，返回歷史清單";
-"home-button-popover-description" = "輕觸「W」來返回探索訊息來源";
+"home-button-popover-description" = "點選「W」返回至探索摘要";
 "home-button-popover-title" = "輕觸來返回首頁";
 "home-button-saved-accessibility-label" = "維基百科，返回已儲存條目";
 "home-hide-suggestion-cancel" = "取消";
@@ -439,7 +439,7 @@
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自: $1";
 "search-title" = "搜尋";
-"settings-appearance" = "讀取偏好設定";
+"settings-appearance" = "閱讀偏好設定";
 "settings-clear-cache" = "清除快取資料";
 "settings-clear-cache-are-you-sure-message" = "清除快取資料將會釋放出 $1 空間大小。此操作並不會刪除掉您儲存的頁面。";
 "settings-clear-cache-are-you-sure-title" = "清除快取資料？";
@@ -508,7 +508,7 @@
 "two-factor-login-with-regular-code" = "使用驗證代碼";
 "view-in-browser-footer-link" = "在瀏覽器裡檢視條目";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
-"welcome-exploration-explore-feed-title" = "探索訊息來源";
+"welcome-exploration-explore-feed-title" = "探索摘要";
 "welcome-exploration-on-this-day-description" = "返回時間來了解在歷史上的今天發生了什麼事";
 "welcome-exploration-on-this-day-title" = "歷史上的今天";
 "welcome-exploration-places-description" = "發掘接近您所在的地標，或搜尋世界上的地點";
