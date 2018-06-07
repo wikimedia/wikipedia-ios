@@ -1,5 +1,9 @@
 import Foundation
 
+enum EventLoggingError {
+    case generic
+}
+
 @objc(WMFEventLoggingService)
 public class EventLoggingService : NSObject, URLSessionDelegate {
     private struct Key {
@@ -327,60 +331,71 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func postEvents(_ eventRecords: [EventRecord]) {
-        
         assert(posting, "method expects posting to be set when called")
 
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
-        var tasks = [URLSessionTask]()
-        var completedRecords = [EventRecord]()
         
-        self.queue.addOperation({
-            for record in eventRecords {
-                if let task = self.task(forEventRecord: record, completion: {
-                    if (record.posted != nil) {
-                        completedRecords.append(record)
-                    }
-                    taskGroup.leave()
-                }) {
-                    taskGroup.enter()
-                    tasks.append(task)
-                    task.resume()
-                }
+        var completedRecordIDs = Set<NSManagedObjectID>()
+        var failedRecordIDs = Set<NSManagedObjectID>()
+        
+        for record in eventRecords {
+            let moid = record.objectID
+            guard let payload = record.event else {
+                failedRecordIDs.insert(moid)
+                continue
             }
-            
-            taskGroup.waitInBackground(withTimeout: self.postTimeout, completion: {
-                for task in tasks {
-                    if task.state == URLSessionTask.State.running {
-                        task.cancel()
-                    }
+            taskGroup.enter()
+            let userAgent = record.userAgent ?? WikipediaAppUtils.versionedUserAgent()
+            submit(payload: payload, userAgent: userAgent) { (error) in
+                if error != nil {
+                    failedRecordIDs.insert(moid)
+                } else {
+                    completedRecordIDs.insert(moid)
                 }
+                taskGroup.leave()
+            }
+        }
+        
+        
+        taskGroup.waitInBackground {
+            self.managedObjectContext.perform {
+                let postDate = NSDate()
+                for moid in completedRecordIDs {
+                    let mo = try? self.managedObjectContext.existingObject(with: moid)
+                    guard let record = mo as? EventRecord else {
+                        continue
+                    }
+                    record.posted = postDate
+                }
+                
+                for moid in failedRecordIDs {
+                    let mo = try? self.managedObjectContext.existingObject(with: moid)
+                    guard let record = mo as? EventRecord else {
+                        continue
+                    }
+                    record.failed = true
+                }
+                self.save()
                 self.postLock.lock()
                 self.posting = false
                 self.postLock.unlock()
-
-                self.asyncSave()
-                
-                if (completedRecords.count == eventRecords.count) {
+                if (completedRecordIDs.count == eventRecords.count) {
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
                 } else {
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
-            })
-        })
+            }
+        }
     }
     
-    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
+    private func submit(payload: NSObject, userAgent: String, completion: @escaping (EventLoggingError?) -> Void) {
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
-            return nil
-        }
-        
-        guard let payload = eventRecord.event else {
-            eventRecord.failed = true
-            return nil
+            completion(EventLoggingError.generic)
+            return
         }
         
         do {
@@ -388,9 +403,10 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             
             guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
                 DDLogError("EventLoggingService: Could not convert JSON data to string")
-                eventRecord.failed = true
-                return nil
+                completion(EventLoggingError.generic)
+                return
             }
+            
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
             var components = URLComponents()
             components.scheme = EventLoggingService.scheme
@@ -399,39 +415,29 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             components.percentEncodedQuery = encodedPayloadJsonString
             guard let url = components.url else {
                 DDLogError("EventLoggingService: Could not creatre URL")
-                eventRecord.failed = true
-                return nil
+                completion(EventLoggingError.generic)
+                return
             }
             
             var request = URLRequest(url: url)
-            let userAgent = eventRecord.userAgent ?? WikipediaAppUtils.versionedUserAgent()
             request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
-            eventRecord.postAttempts += 1
             let task = urlSession.dataTask(with: request, completionHandler: { (_, response, error) in
-                
-                defer { completion() }
-                
                 guard error == nil,
                     let httpResponse = response as? HTTPURLResponse,
                     httpResponse.statusCode / 100 == 2 else {
+                        completion(EventLoggingError.generic)
                         return
                 }
-                
-                eventRecord.posted = NSDate()
-                self.managedObjectContext.perform {
-                    self.managedObjectContext.delete(eventRecord)
-                    self.save()
-                }
-                
+                completion(nil)
                 // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
             })
-            return task
+            task.resume()
             
         } catch let error {
-            eventRecord.failed = true
             DDLogError(error.localizedDescription)
-            return nil
+            completion(EventLoggingError.generic)
+            return
         }
     }
     
