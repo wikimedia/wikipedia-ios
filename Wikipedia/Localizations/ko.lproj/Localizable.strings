@@ -469,6 +469,7 @@
 "settings-storage-and-syncing-full-sync" = "읽기 목록이 백그라운드 상태로 동기화됩니다";
 "settings-storage-and-syncing-server-sync-footer-text" = "동기화된 문서와 읽기 목록의 업데이트를 요청합니다.";
 "settings-storage-and-syncing-server-sync-title" = "동기화된 읽기 목록 업데이트";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "저장된(예: 기본값) 읽기 목록을 읽기 목록 뷰에 별도의 목록으로 표시합니다. 이 목록은 안드로이드 장치에 표시됩니다.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "저장된 읽기 목록 표시";
 "settings-storage-and-syncing-title" = "문서의 저장 및 동기화";
 "settings-support" = "위키백과 지원";

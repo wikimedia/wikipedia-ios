@@ -51,11 +51,11 @@
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        KeychainCredentialsManager.shared.lastLoggedUserHistorySnapshot = eventData
+        EventLoggingService.shared.lastLoggedSnapshot = eventData as NSCoding
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
-        return KeychainCredentialsManager.shared.lastLoggedUserHistorySnapshot
+        return EventLoggingService.shared.lastLoggedSnapshot as? Dictionary<String, Any>
     }
     
     @objc public func logSnapshot() {

@@ -22,7 +22,8 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
         super.viewDidLoad()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
-    
+        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+
         titleLabel.text = WMFLocalizedString("forgot-password-title", value:"Reset password", comment:"Title for reset password interface\n{{Identical|Reset password}}")
         subTitleLabel.text = WMFLocalizedString("forgot-password-instructions", value:"Fill in one of the fields below to receive password reset instructions via email", comment:"Instructions for resetting password")
         usernameField.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")

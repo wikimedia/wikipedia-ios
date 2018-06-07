@@ -25,9 +25,8 @@ static NSString *const kIsAnonKey = @"is_anon";
 }
 
 - (void)logAppNumberOfDaysSinceInstall {
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
-
-    NSDate *installDate = [userDefaults wmf_appInstallDate];
+    WMFEventLoggingService *eventLoggingService = [WMFEventLoggingService sharedInstance];
+    NSDate *installDate = [eventLoggingService appInstallDate];
     NSParameterAssert(installDate);
     if (!installDate) {
         return;
@@ -36,7 +35,7 @@ static NSString *const kIsAnonKey = @"is_anon";
     NSDate *currentDate = [NSDate date];
     NSInteger daysInstalled = [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:installDate toDate:currentDate];
 
-    NSNumber *daysInstalledNumber = [userDefaults wmf_loggedDaysInstalled];
+    NSNumber *daysInstalledNumber = [eventLoggingService loggedDaysInstalled];
 
     if (daysInstalledNumber != nil) {
         NSInteger lastLoggedDaysInstalled = [daysInstalledNumber integerValue];
@@ -57,8 +56,11 @@ static NSString *const kIsAnonKey = @"is_anon";
 }
 
 - (void)logged:(NSDictionary *)eventData {
-    NSInteger daysInstalled = (NSInteger)eventData[kAppInstallAgeKey];
-    [[NSUserDefaults wmf_userDefaults] wmf_setLoggedDaysInstalled:@(daysInstalled)];
+    NSNumber *daysInstalledNumber = eventData[kAppInstallAgeKey];
+    if (![daysInstalledNumber isKindOfClass:[NSNumber class]]) {
+        return;
+    }
+    [[WMFEventLoggingService sharedInstance] setLoggedDaysInstalled:daysInstalledNumber];
 }
 
 @end

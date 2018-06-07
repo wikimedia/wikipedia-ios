@@ -45,6 +45,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
+        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         loginButton.setTitle(WMFLocalizedString("main-menu-account-login", value:"Log in", comment:"Button text for logging in.\n{{Identical|Log in}}"), for: .normal)
         

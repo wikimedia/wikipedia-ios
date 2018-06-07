@@ -22,6 +22,7 @@
     [self hideUndoRedoIcons];
     self.previousButton.enabled = NO;
     self.nextButton.enabled = NO;
+    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
 }
 
 - (void)hideUndoRedoIcons {

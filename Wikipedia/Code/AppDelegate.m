@@ -34,7 +34,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
         WMFZeroWarnWhenLeaving: @YES,
         WMFZeroOnDialogShownOnce: @NO,
         @"LastHousekeepingDate": [NSDate date],
-        @"SendUsageReports": @NO,
         @"AccessSavedPagesMessageShown": @NO
     }];
 }
@@ -85,14 +84,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[NSUserDefaults wmf_userDefaults] wmf_migrateFontSizeMultiplier];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker wmf_start];
-
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppLaunchDate:[NSDate date]];
-    NSDate *appInstallDate = [[NSUserDefaults wmf_userDefaults] wmf_appInstallDate];
-    if (!appInstallDate) {
-        [[KeychainCredentialsManager shared] resetAppInstallID];
-        [[KeychainCredentialsManager shared] resetLastLoggedUserHistorySnapshot];
-    }
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
