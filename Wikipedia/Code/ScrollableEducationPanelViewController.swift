@@ -140,6 +140,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         }
         
         closeButton.setImage(UIImage(named:"places-auth-close")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         
         apply(theme: theme)
     }
