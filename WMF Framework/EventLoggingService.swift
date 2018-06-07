@@ -29,7 +29,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
     private var urlSession: URLSession?
-    private var queue: OperationQueue
     private let postLock = NSLock()
     private var posting = false
     private var started = false
@@ -97,7 +96,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
-        self.queue = OperationQueue.init() //DispatchQueue.init(label: "org.wikimedia.EventLogging")
         
         let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "EventLogging", withExtension: "momd")!
@@ -170,11 +168,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             switch status {
             case .reachableViaWiFi:
                 self.tryPostEvents()
-                fallthrough
-            case .reachableViaWWAN:
-                self.queue.isSuspended = false
             default:
-                self.queue.isSuspended = true
+                break
             }
         }
         self.reachabilityManager.startMonitoring()
