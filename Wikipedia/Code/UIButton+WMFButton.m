@@ -1,4 +1,5 @@
 #import "UIButton+WMFButton.h"
+#import "Wikipedia-Swift.h"
 #import "UIFont+WMFStyle.h"
 @import WMF.UIImage_WMFStyle;
 
@@ -21,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     switch (type) {
         case WMFButtonTypeX:
             [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+            self.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
             break;
         case WMFButtonTypeCaretLeft:
             [self setImage:[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] forState:UIControlStateNormal];

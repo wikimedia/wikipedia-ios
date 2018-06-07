@@ -109,6 +109,8 @@ public class CommonStrings: NSObject {
     
     @objc public static let keepSavedArticlesOnDeviceMessage = WMFLocalizedString("reading-list-keep-subtitle", value: "There are articles synced to your Wikipedia account. Would you like to keep them on this device after you log out?", comment: "Subtitle asking if synced articles should be kept on device after logout.")
     
+    @objc public static let closeButtonAccessibilityLabel = WMFLocalizedStringWithDefaultValue("close-button-accessibility-label", nil, nil, "Close", "Accessibility label for a button that closes a dialog.\n{{Identical|Close}}")
+    
     // REMINDER: do not delete the "appStoreShortDescription" below. We're not using it anywhere within the app itself but we need it to remain so it gets upstreamed into TWN. (We are manually copying the translations of this string into respective language app stores. We may automate this copying at some point in the future.)
     @objc public static let appStoreShortDescription = WMFLocalizedString("app-store-short-description", value: "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.", comment: "Short description of the app for the app store")
 }

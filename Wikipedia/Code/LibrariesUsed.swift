@@ -29,6 +29,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
+        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
     }
     
     lazy private var tableHeaderView: UIView = {

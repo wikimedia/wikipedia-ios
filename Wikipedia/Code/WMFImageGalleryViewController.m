@@ -251,6 +251,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton)];
         close.tintColor = [UIColor whiteColor];
+        close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
     }
 }
