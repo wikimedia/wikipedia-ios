@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSNumber *)wmf_numberValueForKey:(NSString *)key;
 - (nullable NSString *)wmf_stringValueForKey:(NSString *)key;
 
-- (WMFKeyValue *)wmf_setValue:(id<NSCoding>)value forKey:(NSString *)key;
+- (WMFKeyValue *)wmf_setValue:(nullable id<NSCoding>)value forKey:(NSString *)key;
 
 @end
 
