@@ -50,7 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         NSAssert(false, @"Unexpected view controller hierarchy");
     }
-    [[PiwikTracker sharedInstance] wmf_logView:viewController];
 }
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {

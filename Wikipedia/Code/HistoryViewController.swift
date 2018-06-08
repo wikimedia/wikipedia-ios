@@ -35,7 +35,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
     }
     
