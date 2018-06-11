@@ -259,11 +259,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     public func logEvent(_ event: NSDictionary) {
-        
-        if (!self.started) {
-            DDLogWarn("EventLoggingService not started. Event will be recorded, but not posted")
-        }
-        
         let now = NSDate()
         
         let moc = self.managedObjectContext
