@@ -13,8 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) Class modelClass;
 @property (nonatomic, copy, readonly) NSString *jsonKeypath;
+@property (nonatomic, getter=isEmptyValueForJSONKeypathAllowed) BOOL emptyValueForJSONKeypathAllowed;
 
-- (instancetype)initWithModelClass:(Class)modelClass jsonKeypath:(NSString *__nullable)keypath NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithModelClass:(Class)modelClass jsonKeypath:(NSString *__nullable)keypath emptyValueForJSONKeypathAllowed:(BOOL)emptyValueAllowed NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -38,19 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONResponseSerializer
 
-+ (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString *__nullable)keypath {
-    return [[WMFMantleJSONDictionaryValueResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
++ (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString *__nullable)keypath emptyValueForJSONKeypathAllowed:(BOOL)emptyValueAllowed {
+    return [[WMFMantleJSONDictionaryValueResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath emptyValueForJSONKeypathAllowed:emptyValueAllowed];
 }
 
-+ (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString *__nullable)keypath {
-    return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
++ (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString *__nullable)keypath emptyValueForJSONKeypathAllowed:(BOOL)emptyValueAllowed {
+    return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath emptyValueForJSONKeypathAllowed:emptyValueAllowed];
 }
 
-+ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString *__nullable)keypath {
-    return [[WMFMantleArrayResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
++ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString *__nullable)keypath emptyValueForJSONKeypathAllowed:(BOOL)emptyValueAllowed {
+    return [[WMFMantleArrayResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath emptyValueForJSONKeypathAllowed:emptyValueAllowed];
 }
 
-- (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString *__nullable)keypath {
+- (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString *__nullable)keypath emptyValueForJSONKeypathAllowed:(BOOL)emptyValueAllowed {
     self = [super init];
     if (self) {
         NSAssert([modelClass isSubclassOfClass:[MTLModel class]],
@@ -61,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
                  modelClass, NSStringFromProtocol(@protocol(MTLJSONSerializing)), self);
         _modelClass = modelClass;
         _jsonKeypath = [keypath copy] ?: @"";
+        _emptyValueForJSONKeypathAllowed = emptyValueAllowed;
     }
     return self;
 }
@@ -73,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     id value = self.jsonKeypath.length ? [json valueForKeyPath:self.jsonKeypath] : json;
-    if (!value && self.jsonKeypath.length) {
+    if (!self.isEmptyValueForJSONKeypathAllowed && !value && self.jsonKeypath.length) {
         DDLogWarn(@"No value returned when serializing %@ with keypath %@ from response: %@",
                   self.modelClass, self.jsonKeypath, json);
     }
