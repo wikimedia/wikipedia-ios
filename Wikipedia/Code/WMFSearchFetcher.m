@@ -151,7 +151,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             @"ppprop": @"displaytitle|disambiguation",
             @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
             @"pilimit": numResults,
-            @"rrvlimit": @(1),
+            //@"rrvlimit": @(1),
             @"rvprop": @"ids",
             // -- Parameters causing prefix search to efficiently return suggestion.
             @"list": @"search",
@@ -185,7 +185,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             //@"pilicense": @"any",
             @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
             @"pilimit": numResults,
-            @"rrvlimit": @(1),
+            //@"rrvlimit": @(1),
             @"rvprop": @"ids",
             @"continue": @"",
             @"format": @"json",
