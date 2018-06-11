@@ -172,7 +172,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import <WMF/WMFFIFOCache.h>
 
 //UI

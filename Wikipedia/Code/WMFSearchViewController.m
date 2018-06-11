@@ -1,5 +1,4 @@
 #import "WMFSearchViewController.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 #import <WMF/MWKLanguageLinkController.h>
@@ -226,7 +225,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
     [self.searchFunnel logSearchStart];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
