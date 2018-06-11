@@ -66,6 +66,16 @@
                                            disclosureText:nil
                                                isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
         }
+        case WMFSettingsMenuItemType_ExploreFeed: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:@"Explore feed" // TODO
+                                             iconName:nil // TODO
+                                            iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                       disclosureText:@"On" // TODO
+                                           isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_Notifications: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
