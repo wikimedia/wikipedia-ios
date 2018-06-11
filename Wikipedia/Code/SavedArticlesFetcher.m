@@ -475,7 +475,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
         [self.errorsByArticleTitle removeAllObjects];
 
-        DDLogInfo(@"Finished downloading all saved pages!");
+        DDLogDebug(@"Finished downloading all saved pages!");
 
         [self finishWithError:reportedError
                   fetchedData:nil];
