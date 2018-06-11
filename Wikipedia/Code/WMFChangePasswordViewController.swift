@@ -69,6 +69,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
+        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         titleLabel.text = WMFLocalizedString("new-password-title", value:"Set your password", comment:"Title for password change interface")
         subTitleLabel.text = WMFLocalizedString("new-password-instructions", value:"You logged in with a temporary password. To finish logging in set a new password here.", comment:"Instructions for password change interface")

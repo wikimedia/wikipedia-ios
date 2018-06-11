@@ -74,6 +74,9 @@ Certain development and maintenance tasks will require the installation of speci
 
 We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. It is required to build the project. After installing carthage, (or running `scripts/setup`) you should be able to build & run in Xcode. `scripts/carthage_bootstrap` is run as a build step by Xcode. Your first build will take a while as the dependencies are built. Subsequent builds will re-use the prebuilt dependencies.
 
+#### Carthage Troubleshooting
+
+Remove the `Carthage` and `Carthage Cache` folders inside of the repo directory. Also remove the  `org.carthage.CarthageKit` and `Carthage` folders from `~/Library/Caches/`. Then, run `make deps` or build in Xcode.
 
 ### Manually imported dependencies
 

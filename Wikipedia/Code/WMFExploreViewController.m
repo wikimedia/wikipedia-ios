@@ -407,7 +407,10 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
     self.loadingNewContent = YES;
     if (!self.refreshControl.isRefreshing) {
-        [self.refreshControl beginRefreshing];
+        if (![[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
+            // Causes SnapshotRecorderTests.swift to hang for a few minutes. See https://stackoverflow.com/questions/40983184/xcode-8-ui-testing-taking-very-long
+            [self.refreshControl beginRefreshing];
+        }
         if (self.isScrolledToTop && self.numberOfSectionsInExploreFeed == 0) {
             self.collectionView.contentOffset = CGPointMake(0, 0 - self.collectionView.contentInset.top - self.refreshControl.frame.size.height);
         }
@@ -462,7 +465,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(self.userStore);
     [super viewDidAppear:animated];
 
-    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
     [self startMonitoringReachabilityIfNeeded];
     [self showOfflineEmptyViewIfNeeded];
@@ -862,7 +864,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
     if (section.contentGroupKind == WMFContentGroupKindReadingList) {
         [[LoginFunnel shared] logLoginImpressionInFeed];
@@ -1380,8 +1381,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
-
     UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     if (!vc) {
         NSAssert(false, @"Missing VC for group: %@", group);
@@ -1531,8 +1530,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:indexPath];
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
-
+    
     if (vc == nil || vc == self) {
         return;
     }
@@ -1673,7 +1671,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath group:group sectionCount:sectionCount peekedHeader:peekedHeader peekedFooter:peekedFooter];
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
@@ -1684,7 +1681,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
@@ -1847,16 +1843,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
 
 - (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell *)cell {
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionDismissInContext:self contentType:group value:group];
     [self dismissAnnouncementCell:cell];
 }
 
 - (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
     switch (group.contentGroupKind) {
         case WMFContentGroupKindTheme: {
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];
@@ -1980,6 +1972,16 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
+        // Needed because XCUIApplication's `pressforDuration:thenDragTo:` method causes inertial scrolling if the
+        // distance scrolled exceeds a certain amount. When we use `pressforDuration:thenDragTo:` to scroll an
+        // element to the top of the screen this can be problematic because the extra inertia can cause the element
+        // to be scrolled beyond the top of the screen.
+        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {

@@ -1,5 +1,4 @@
 #import "WMFSearchViewController.h"
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 #import <WMF/MWKLanguageLinkController.h>
@@ -188,7 +187,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
 
-    self.closeButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"close-button-accessibility-label", nil, nil, @"Close", @"Accessibility label for a button that closes a dialog.\n{{Identical|Close}}");
+    self.closeButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
     self.clearRecentSearchesButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}");
 
     [self applyTheme:self.theme];
@@ -226,7 +225,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
     [self.searchFunnel logSearchStart];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }

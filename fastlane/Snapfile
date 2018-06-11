@@ -1,0 +1,72 @@
+# This config file controls which devices and languages we'll use to take automated screenshots.
+# Reminder: launch automated screenshot taking via `bundle exec fastlane snapshot`
+# see: https://docs.fastlane.tools/actions/snapshot/
+
+# A list of devices you want to take the screenshots from.
+devices([
+  "iPhone 5s",
+  "iPhone 6",
+  "iPhone 6 Plus",
+  "iPhone X",
+  "iPad Air",
+  "iPad Pro (12.9-inch)"
+])
+
+# A list of localizations you want to take the screenshots from.
+# For supported langs see: https://docs.fastlane.tools/actions/snapshot/#available-language-codes 
+# TODO: investigate getting an RTL lang added to this list.
+languages([
+  "en-US",
+  "de-DE",
+  "es-ES",
+  "fr-FR",
+  "it",
+  "ja",
+  "nl-NL",
+  "pt-PT",
+  "ru",
+  "sv",
+  "zh-Hans",
+  "da",
+  "el",
+  "fi",
+  "id",
+  "ko",
+  "ms",
+  "th",
+  "tr",
+  "vi"
+])
+
+# The name of the scheme which contains the UI Tests.
+scheme "WikipediaUITests"
+
+# Where should the resulting screenshots be stored?
+output_directory "./WikipediaUITests/Snapshots/"
+
+# Clear all previously generated screenshots before creating new ones.
+clear_previous_screenshots true
+
+# Choose which project/workspace to use.
+project "./Wikipedia.xcodeproj"
+# workspace "./Wikipedia.xcworkspace"
+
+# Arguments to pass to the app on launch.
+# See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
+launch_arguments(["-FASTLANE_SNAPSHOT YES"])
+
+# Re-install so every test can start from our Welcome screens.
+reinstall_app true
+
+# One retry.
+number_of_retries 1
+
+# Don't clean or it'll take one billion years when running the full device/lang matrix.
+clean false
+
+# Much faster when config'ed with it's own derived data folder - didn't seem to re-use otherwise.
+derived_data_path "fastlane/snapshot_derived_data"
+
+localize_simulator true
+
+# For more information about all available options run `fastlane snapshot --help`
