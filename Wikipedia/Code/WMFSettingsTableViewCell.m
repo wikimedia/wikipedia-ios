@@ -151,6 +151,17 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType separatorInset:(UIEdgeInsets)separatorInset title:(NSString *)title iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
+    self.disclosureType = disclosureType;
+    self.separatorInset = separatorInset;
+    self.title = title;
+    self.iconName = iconName;
+    self.iconColor = iconColor;
+    self.iconBackgroundColor = iconBackgroundColor;
+
+    [self applyTheme:theme];
+}
+
 - (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType title:(NSString *)title iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
     self.isSwitchOn = isSwitchOn;
     self.disclosureType = disclosureType;
