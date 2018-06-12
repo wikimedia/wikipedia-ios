@@ -268,20 +268,10 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
 
 func writeLocalizedDescriptionForAppStore(localizedDescription: String, locale: String, path: String) throws {
     let pathForFastlaneMetadataForLocale = "\(path)/fastlane/metadata/\(locale)"
-    do {
-        try FileManager.default.createDirectory(atPath: pathForFastlaneMetadataForLocale, withIntermediateDirectories: true, attributes: nil)
-    } catch let error as NSError {
-        print(error.localizedDescription)
-        return
-    }
+    try FileManager.default.createDirectory(atPath: pathForFastlaneMetadataForLocale, withIntermediateDirectories: true, attributes: nil)
     
     let descriptionFileURL = URL(fileURLWithPath:"\(pathForFastlaneMetadataForLocale)/description.txt",  isDirectory: false)
-    do {
-        try localizedDescription.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
-    } catch let error as NSError {
-        print(error.localizedDescription)
-        return
-    }
+    try localizedDescription.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
 }
 
 func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
