@@ -1,9 +1,16 @@
 import UIKit
 
-class ExploreCardCollectionViewCell: CollectionViewCell {
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    let footerButton = AlignedImageButton()
+public class ExploreCardCollectionViewCell: CollectionViewCell {
+    public let titleLabel = UILabel()
+    public let subtitleLabel = UILabel()
+    public let footerButton = AlignedImageButton()
+    
+    public override func setup() {
+        super.setup()
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
+        addSubview(footerButton)
+    }
     
     var cardContentView: UIView? = nil {
         didSet {
@@ -18,7 +25,7 @@ class ExploreCardCollectionViewCell: CollectionViewCell {
         }
     }
     
-    override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+    override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
