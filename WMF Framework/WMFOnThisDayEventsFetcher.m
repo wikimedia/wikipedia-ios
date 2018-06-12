@@ -14,7 +14,7 @@
     self = [super init];
     if (self) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createIgnoreCacheManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFFeedOnThisDayEvent class] fromKeypath:@"events"];
+        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFFeedOnThisDayEvent class] fromKeypath:@"events" emptyValueForJSONKeypathAllowed:NO];
         NSMutableIndexSet *set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
         [set removeIndex:304];
         manager.responseSerializer.acceptableStatusCodes = set;

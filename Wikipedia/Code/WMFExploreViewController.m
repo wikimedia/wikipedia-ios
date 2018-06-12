@@ -465,7 +465,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     NSParameterAssert(self.userStore);
     [super viewDidAppear:animated];
 
-    [[PiwikTracker sharedInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
     [self startMonitoringReachabilityIfNeeded];
     [self showOfflineEmptyViewIfNeeded];
@@ -865,7 +864,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     WMFContentGroup *section = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:section value:section];
 
     if (section.contentGroupKind == WMFContentGroupKindReadingList) {
         [[LoginFunnel shared] logLoginImpressionInFeed];
@@ -1383,8 +1381,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - More View Controller
 
 - (void)presentMoreViewControllerForGroup:(WMFContentGroup *)group animated:(BOOL)animated {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:group value:group];
-
     UIViewController *vc = [group detailViewControllerWithDataStore:self.userStore siteURL:[self currentSiteURL] theme:self.theme];
     if (!vc) {
         NSAssert(false, @"Missing VC for group: %@", group);
@@ -1534,8 +1530,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     UIViewController *vc = [self detailViewControllerForItemAtIndexPath:indexPath];
 
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
-
+    
     if (vc == nil || vc == self) {
         return;
     }
@@ -1676,7 +1671,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     }
 
     UIViewController *vc = [self peekViewControllerForItemAtIndexPath:previewIndexPath group:group sectionCount:sectionCount peekedHeader:peekedHeader peekedFooter:peekedFooter];
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:group];
 
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         ((WMFArticleViewController *)vc).articlePreviewingActionsDelegate = self;
@@ -1687,7 +1681,6 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController *)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.groupForPreviewedCell];
     self.groupForPreviewedCell = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
@@ -1850,16 +1843,12 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 #pragma mark - WMFAnnouncementCollectionViewCellDelegate
 
 - (void)announcementCellDidTapDismiss:(WMFAnnouncementCollectionViewCell *)cell {
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionDismissInContext:self contentType:group value:group];
     [self dismissAnnouncementCell:cell];
 }
 
 - (void)announcementCellDidTapActionButton:(WMFAnnouncementCollectionViewCell *)cell {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     WMFContentGroup *group = [self sectionAtIndex:indexPath.section];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:group value:group];
     switch (group.contentGroupKind) {
         case WMFContentGroupKindTheme: {
             [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:[NSUserActivity wmf_appearanceSettingsActivity]];

@@ -104,17 +104,15 @@ import UIKit
     }
     
     @objc func updateSavedState() {
-        guard let key = activeKey, let sender = activeSender else {
+        guard let key = activeKey else {
             return
         }
 
         let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
         
         if isSaved {
-            PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: sender, contentType: sender)
             savedPagesFunnel.logSaveNew(withArticleURL: updatedArticle?.url)
         } else {
-            PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
             savedPagesFunnel.logDelete(withArticleURL: updatedArticle?.url)
         }
         notifyDelegateArticleSavedStateChanged()

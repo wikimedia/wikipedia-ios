@@ -330,10 +330,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)logReadMoreSaveButtonToggle:(BOOL)isSaved url:(NSURL *)url {
     if (isSaved) {
         [self.savedPagesFunnel logSaveNewWithArticleURL:url];
-        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
     } else {
         [self.savedPagesFunnel logDeleteWithArticleURL:url];
-        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:[self analyticsContext] contentType:[self analyticsContentType]];
     }
 }
 

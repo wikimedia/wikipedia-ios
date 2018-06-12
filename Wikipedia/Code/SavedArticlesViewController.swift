@@ -63,7 +63,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
         if !isEmpty {
             self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
