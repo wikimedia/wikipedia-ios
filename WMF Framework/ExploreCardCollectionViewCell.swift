@@ -5,9 +5,16 @@ class ExploreCardCollectionViewCell: CollectionViewCell {
     let subtitleLabel = UILabel()
     let footerButton = AlignedImageButton()
     
-    var contentViewController: UIViewController? = nil {
+    var cardContentView: UIView? = nil {
         didSet {
-            
+            defer {
+                setNeedsLayout()
+            }
+            oldValue?.removeFromSuperview()
+            guard let view = cardContentView else {
+                return
+            }
+            addSubview(view)
         }
     }
     
@@ -20,8 +27,8 @@ class ExploreCardCollectionViewCell: CollectionViewCell {
         let subtitleLabelFrame = subtitleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += subtitleLabelFrame.layoutHeight(with: 8)
         
-        if let contentView = contentViewController?.view {
-            let contentViewFrame = contentView.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        if let cardContentView = cardContentView {
+            let contentViewFrame = cardContentView.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
             origin.y += contentViewFrame.layoutHeight(with: 8)
         }
         
