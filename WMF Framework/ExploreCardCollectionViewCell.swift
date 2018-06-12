@@ -29,6 +29,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell {
             guard let view = cardContent?.view else {
                 return
             }
+            view.removeFromSuperview()
+            view.isHidden = false
             view.autoresizingMask = []
             view.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(view)

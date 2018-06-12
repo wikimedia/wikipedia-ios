@@ -125,8 +125,7 @@ class ExploreViewController: ColumnarCollectionViewController {
     
     private var cardViewControllers: [IndexPath: ExploreCardViewController] = [:]
     private var reusableCardViewControllers: Set<ExploreCardViewController> = []
-    
-    
+
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
@@ -180,11 +179,15 @@ class ExploreViewController: ColumnarCollectionViewController {
             if cardVC == nil {
                 let newCardVC = ExploreCardViewController()
                 newCardVC.dataStore = dataStore
+                newCardVC.contentGroup = group
+                newCardVC.view.isHidden = true
                 addChildViewController(newCardVC)
+                view.addSubview(newCardVC.view)
                 didMove(toParentViewController: self)
                 cardVC = newCardVC
+            } else {
+                cardVC?.contentGroup = group
             }
-            cardVC?.contentGroup = group
             if let cardVC = cardVC, !layoutOnly {
                 cardViewControllers[indexPath] = cardVC
                 reusableCardViewControllers.remove(cardVC)
