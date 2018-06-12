@@ -99,9 +99,11 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     if (self.metrics && self.metrics.readableWidth != readableWidth) {
         self.layoutValid = NO;
     }
-    if (!self.isLayoutValid) {
+    
+    CGSize size = self.collectionView.bounds.size;
+    if (!self.isLayoutValid && size.width > 0 && size.height > 0) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size readableWidth:readableWidth];
+        self.metrics = [self.delegate metricsWithBoundsSize:size readableWidth:readableWidth];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
