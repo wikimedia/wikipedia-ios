@@ -8,7 +8,7 @@ class ColumnarCollectionViewController: ViewController {
     }()
     
     @objc lazy var collectionView: UICollectionView = {
-        let cv = SizeThatFitsCollectionView(frame: .zero, collectionViewLayout: layout)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
         scrollView = cv
