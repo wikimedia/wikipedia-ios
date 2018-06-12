@@ -488,7 +488,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
         libraryValueCache[key] = value
         managedObjectContext.perform {
-            self.managedObjectContext.wmf_keyValue(forKey: key)?.value = value
+            self.managedObjectContext.wmf_setValue(value, forKey: key)
             self.save()
         }
     }
