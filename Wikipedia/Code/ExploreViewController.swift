@@ -9,6 +9,8 @@ class ExploreViewController: ColumnarCollectionViewController {
         register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
     }
     
+    private var contentGroupViewControllers: [IndexPath: UIViewController] = [:]
+    
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
 
@@ -57,6 +59,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         let group = fetchedResultsController.object(at: indexPath)
         cell.titleLabel.text = group.headerTitle()
         cell.subtitleLabel.text = group.headerSubTitle()
+        cell.footerButton.setTitle(group.moreTitle(), for: .normal)
     }
     
 }
@@ -83,6 +86,6 @@ extension ExploreViewController {
     }
     
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+        return WMFCVLMetrics(boundsSize: size, readableWidth: readableWidth, layoutDirection: UIApplication.shared.userInterfaceLayoutDirection)
     }
 }
