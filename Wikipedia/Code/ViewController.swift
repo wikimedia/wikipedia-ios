@@ -43,6 +43,10 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         })
     }
     
+    open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        return size
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
