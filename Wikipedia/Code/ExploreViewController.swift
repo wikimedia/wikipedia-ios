@@ -167,6 +167,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         guard let cell = maybeCell as? ExploreCardCollectionViewCell else {
             return maybeCell
         }
+        cell.apply(theme: theme)
         configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }

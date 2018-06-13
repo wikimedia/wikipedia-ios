@@ -5,7 +5,7 @@ public protocol CardContent {
     func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize
 }
     
-public class ExploreCardCollectionViewCell: CollectionViewCell {
+public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public let titleLabel = UILabel()
     public let subtitleLabel = UILabel()
     public let customizationButton = UIButton()
@@ -73,6 +73,22 @@ public class ExploreCardCollectionViewCell: CollectionViewCell {
         origin.y += footerButtonFrame.layoutHeight(with: 8)
         
         return CGSize(width: size.width, height: origin.y)
+    }
+    
+    public override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    
+    public func apply(theme: Theme) {
+        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
+        titleLabel.textColor = theme.colors.primaryText
+        subtitleLabel.textColor = theme.colors.secondaryText
+        customizationButton.setTitleColor(theme.colors.link, for: .normal)
+        footerButton.setTitleColor(theme.colors.link, for: .normal)
+        updateSelectedOrHighlighted()
     }
     
 }
