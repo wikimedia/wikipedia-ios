@@ -18,8 +18,7 @@
     if (self) {
         self.requestManager = [AFHTTPSessionManager wmf_createDefaultManager];
         self.requestManager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFRevisionQueryResults class]
-                                                      fromKeypath:@"query.pages"];
+            [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFRevisionQueryResults class] fromKeypath:@"query.pages" emptyValueForJSONKeypathAllowed:NO];
     }
     return self;
 }

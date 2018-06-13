@@ -22,8 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
-                                                                                                fromKeypath:@"query.pages"];
+        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages" emptyValueForJSONKeypathAllowed:NO];
         self.operationManager = manager;
     }
     return self;
