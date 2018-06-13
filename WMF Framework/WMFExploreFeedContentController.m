@@ -280,6 +280,60 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     [self.operationQueue addOperation:op];
 }
 
+#pragma mark - Preferences
+
+- (void)updateExploreFeedPreferencesForPreferredSiteURLs {
+    NSArray *preferredSiteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+    [self updateExploreFeedPreferencesForSiteURLs:preferredSiteURLs shouldHideAllContentSources:NO];
+}
+
+- (void)updateExploreFeedPreferencesForSiteURLs:(NSArray<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
+    WMFAssertMainThread(@"updateVisibleContentSourcesForSiteURL: must be called on the main thread");
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+            WMFTaskGroup *group = [WMFTaskGroup new];
+            if (![moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey]) {
+                [group enter];
+                [moc wmf_setValue:[NSMutableDictionary dictionary] forKey:WMFExploreFeedPreferencesKey];
+                [group leave];
+            }
+            [group wait];
+            NSMutableDictionary *oldPreferences = (NSMutableDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+            assert(oldPreferences);
+            for (NSURL *siteURL in siteURLs) {
+                if (shouldHideAllContentSources) { // hide all content sources for siteURL
+                    if ([oldPreferences objectForKey:siteURL]) {
+                        [oldPreferences removeObjectForKey:siteURL];
+                    }
+                } else { // show all content sources for siteURL
+                    NSArray *visibleContentSources = @[[NSNumber numberWithInt:WMFCustomizableContentSourcesAll]];
+                    NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
+                    [newPreferences setObject:visibleContentSources forKey:siteURL];
+                    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
+                }
+            }
+            [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
+                                    completion:^{
+                                        [moc performBlock:^{
+                                            [self save:moc];
+                                            dispatch_async(dispatch_get_main_queue(), ^{
+                                                [op finish];
+                                            });
+                                        }];
+                                    }];
+        });
+    }];
+    [self.operationQueue addOperation:op];
+}
+
+- (void)save:(NSManagedObjectContext *)moc {
+    NSError *error = nil;
+    if (moc.hasChanges && ![moc save:&error]) {
+        DDLogError(@"Error saving WMFExploreFeedContentController managedObjectContext");
+    }
+}
+
 #pragma mark - SiteURL
 
 - (void)setSiteURLs:(NSURL *)siteURLs {
