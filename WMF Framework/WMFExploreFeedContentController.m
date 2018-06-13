@@ -283,11 +283,11 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 #pragma mark - Preferences
 
 - (void)updateExploreFeedPreferencesForPreferredSiteURLs {
-    NSArray *preferredSiteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+    NSSet *preferredSiteURLs = [NSSet setWithArray:[[MWKLanguageLinkController sharedInstance] preferredSiteURLs]];
     [self updateExploreFeedPreferencesForSiteURLs:preferredSiteURLs shouldHideAllContentSources:NO];
 }
 
-- (void)updateExploreFeedPreferencesForSiteURLs:(NSArray<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
+- (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
     WMFAssertMainThread(@"updateVisibleContentSourcesForSiteURL: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
