@@ -6,15 +6,40 @@ private struct Section {
     let items: [Item]
 }
 
-private struct Item {
+private protocol Item {
+    var title: String { get }
+    var disclosureType: WMFSettingsMenuItemDisclosureType { get }
+    var type: ItemType { get }
+    var separatorInset: UIEdgeInsets { get }
+    var iconName: String? { get }
+    var iconColor: UIColor? { get }
+    var iconBackgroundColor: UIColor? { get }
+}
+
+private protocol SwitchItem: Item {
+    var controlTag: Int { get }
+    var isOn: Bool { get set }
+}
+
+extension SwitchItem {
+    var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
+    var separatorInset: UIEdgeInsets { return .zero }
+    var iconName: String? { return nil }
+    var iconColor: UIColor? { return nil }
+    var iconBackgroundColor: UIColor? { return nil }
+}
+
+private struct FeedCard: Item {
     let title: String
     let disclosureType: WMFSettingsMenuItemDisclosureType
+    let type: ItemType
     let separatorInset: UIEdgeInsets
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
 
     init(type: ItemType) {
+        self.type = type
         switch type {
         case .inTheNews:
             title = "In the news"
@@ -30,14 +55,8 @@ private struct Item {
             iconName = "on-this-day-mini"
             iconColor = UIColor(red: 0.243, green: 0.243, blue: 0.773, alpha: 1.0)
             iconBackgroundColor = UIColor(red: 0.922, green: 0.953, blue: 0.996, alpha: 1.0)
-        case .language(let name):
-            title = name
-            disclosureType = .switch
-            separatorInset = .zero
-            iconName = nil
-            iconColor = nil
-            iconBackgroundColor = nil
         default:
+            assertionFailure() // TODO
             title = "In the news"
             disclosureType = .viewController
             separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
@@ -45,6 +64,22 @@ private struct Item {
             iconColor = UIColor(red: 0.639, green: 0.663, blue: 0.690, alpha: 1.0)
             iconBackgroundColor = UIColor.wmf_lighterGray
         }
+    }
+}
+
+private struct Language: SwitchItem {
+    let title: String
+    let type: ItemType
+    let controlTag: Int
+    var isOn: Bool
+    let siteURL: URL
+
+    init(_ languageLink: MWKLanguageLink, controlTag: Int) {
+        type = ItemType.language(languageLink)
+        title = languageLink.localizedName
+        self.controlTag = controlTag
+        isOn = true
+        siteURL = languageLink.siteURL()
     }
 }
 
@@ -58,13 +93,14 @@ private enum ItemType {
     case pictureOfTheDay
     case places
     case randomizer
-    case language(String)
+    case language(MWKLanguageLink)
 }
 
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @objc var dataStore: MWKDataStore?
 
     private var theme = Theme.standard
 
@@ -77,15 +113,20 @@ class ExploreFeedSettingsViewController: UIViewController {
         apply(theme: theme)
     }
 
+    private lazy var languages: [Language] = { // maybe a set
+        let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+        let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
+            Language(languageLink, controlTag: index)
+        }
+        return languages
+    }()
+
     private var sections: [Section] {
-        let inTheNews = Item(type: .inTheNews)
-        let onThisDay = Item(type: .onThisDay)
+        let inTheNews = FeedCard(type: .inTheNews)
+        let onThisDay = FeedCard(type: .onThisDay)
         let customization = Section(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay])
 
-        let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
-        let preferredLanguagesNames = preferredLanguages.compactMap { $0.localizedName }
-        let items = preferredLanguagesNames.compactMap { Item(type: .language($0)) }
-        let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: items)
+        let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
 
         return [customization, languages]
     }
@@ -115,10 +156,21 @@ extension ExploreFeedSettingsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-        cell.configure(item.disclosureType, separatorInset: item.separatorInset, title: item.title, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
+        if let switchItem = item as? SwitchItem {
+            configureSwitch(cell, switchItem: switchItem)
+        } else {
+            cell.configure(item.disclosureType, separatorInset: item.separatorInset, title: item.title, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
+        }
         return cell
     }
+
+    private func configureSwitch(_ cell: WMFSettingsTableViewCell, switchItem: SwitchItem) {
+        cell.configure(.switch, title: switchItem.title, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
+        cell.delegate = self
+    }
 }
+
+// MARK: - UITableViewDelegate
 
 extension ExploreFeedSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -140,6 +192,8 @@ extension ExploreFeedSettingsViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - Themeable
+
 extension ExploreFeedSettingsViewController: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
@@ -147,5 +201,17 @@ extension ExploreFeedSettingsViewController: Themeable {
             return
         }
         tableView.backgroundColor = theme.colors.baseBackground
+    }
+}
+
+// MARK: - WMFSettingsTableViewCellDelegate
+
+extension ExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
+    func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
+            assertionFailure("No language for a given control tag")
+            return
+        }
+        dataStore?.feedContentController.updateExploreFeedPreferences(forSiteURLs: [language.siteURL], shouldHideAllContentSources: !sender.isOn)
     }
 }
