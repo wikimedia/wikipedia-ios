@@ -25,6 +25,9 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
+// Preferences
+- (void)updateExploreFeedPreferencesForSiteURLs:(nonnull NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources;
+
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
 #endif
