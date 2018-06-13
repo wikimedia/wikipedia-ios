@@ -386,7 +386,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showFeed {
     WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] initWithNibName:@"ExploreFeedSettingsViewController" bundle:nil];
-    // [feedSettingsVC applyTheme:self.theme];
+    feedSettingsVC.dataStore = self.dataStore;
+    [feedSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:feedSettingsVC animated:YES];
 }
 
