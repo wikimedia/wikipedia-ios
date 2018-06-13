@@ -69,8 +69,6 @@ class ExploreViewController: ColumnarCollectionViewController {
         let cardVC = ExploreCardViewController()
         cardVC.dataStore = dataStore
         cardVC.view.isHidden = true
-        cardVC.view.autoresizingMask = []
-        cardVC.view.translatesAutoresizingMaskIntoConstraints = false
         addChildViewController(cardVC)
         view.addSubview(cardVC.view)
         cardVC.didMove(toParentViewController: self)
@@ -88,7 +86,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         let group = fetchedResultsController.object(at: indexPath)
         let cardVC = dequeueReusableCardViewController()
         assert(cardVC.view.superview === view)
-        cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: 1))
+        cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: 100))
         cardVC.view.layoutIfNeeded()
         cardVC.contentGroup = group
         cell.cardContentSize = cardVC.collectionView.contentSize
