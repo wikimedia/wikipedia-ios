@@ -4,7 +4,7 @@
     @objc public static let shared = SessionsFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSSessions", version: 18064102)
+        super.init(schema: "MobileWikiAppiOSSessions", version: 18121261)
     }
     
     private enum Action: String {
@@ -22,7 +22,7 @@
             event["label"] = label
         }
         if let measure = measure {
-            event["measure"] = Int(round(measure))
+            event["measure_time"] = Int(round(measure))
         }
         
         return event
