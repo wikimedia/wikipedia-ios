@@ -16,6 +16,8 @@ static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
+NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
+
 @interface WMFExploreFeedContentController ()
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
