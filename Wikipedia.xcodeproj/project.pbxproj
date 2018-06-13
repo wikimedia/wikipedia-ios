@@ -390,6 +390,11 @@
 		83B87ECC1F71431F00F342F1 /* ArticleCollectionViewCell+ListDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */; };
 		83BF87D01FA7463300EAF3DD /* WMFFIFOCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83BF87D11FA7463300EAF3DD /* WMFFIFOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */; };
+		83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		83CA612C20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		83CA612D20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		83CA612E20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
@@ -3347,6 +3352,7 @@
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
 		83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFFIFOCache.m; sourceTree = "<group>"; };
+		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
@@ -5824,6 +5830,7 @@
 				B31B6AE51EC4CBFA009C76DD /* WMFExploreViewController.h */,
 				B31B6AE61EC4CBFA009C76DD /* WMFExploreViewController.m */,
 				83EE476920D019A100A21F34 /* ExploreViewController.swift */,
+				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
 				D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
 				0E52FD631DA4008A00587426 /* Content Display */,
@@ -10075,6 +10082,7 @@
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
 				B0CD9DDA1F70997300051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
+				83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -10387,6 +10395,7 @@
 				D80ED2BE1EE57F4800CE8C50 /* MenuLabel.m in Sources */,
 				D80ED2C11EE57F4800CE8C50 /* WMFArticleRevisionFetcher.m in Sources */,
 				D80ED2C21EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.m in Sources */,
+				83CA612E20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D80ED2C31EE57F4800CE8C50 /* PreviewLicenseView.m in Sources */,
 				D80ED2C41EE57F4800CE8C50 /* WMFFixtureRecording.m in Sources */,
 				D80ED2C51EE57F4800CE8C50 /* UIView+WMFRoundCorners.m in Sources */,
@@ -11046,6 +11055,7 @@
 				D8A42AA91E815A9C00D8E281 /* WMFFixtureRecording.m in Sources */,
 				D818D3891ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				D8A42AAA1E815A9C00D8E281 /* UIView+WMFRoundCorners.m in Sources */,
+				83CA612D20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8A42AAB1E815A9C00D8E281 /* UIView+WMFShadow.m in Sources */,
 				D8A42AAD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0CD9DEF1F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
@@ -11358,6 +11368,7 @@
 				D8CE25291E698E2400DAE2E0 /* WMFUnderlineButton.m in Sources */,
 				D8CE252A1E698E2400DAE2E0 /* WMFArticleRequestSerializer.m in Sources */,
 				D8CE252B1E698E2400DAE2E0 /* MenuLabel.m in Sources */,
+				83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8CE252E1E698E2400DAE2E0 /* WMFArticleRevisionFetcher.m in Sources */,
 				D8CE252F1E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8CE25301E698E2400DAE2E0 /* PreviewLicenseView.m in Sources */,
@@ -11679,6 +11690,7 @@
 				D8EC3E1F1E9BDA35006712EB /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				D8EC3E201E9BDA35006712EB /* WMFUnderlineButton.m in Sources */,
 				D8EC3E211E9BDA35006712EB /* WMFArticleRequestSerializer.m in Sources */,
+				83CA612C20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8EC3E221E9BDA35006712EB /* MenuLabel.m in Sources */,
 				D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */,
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,

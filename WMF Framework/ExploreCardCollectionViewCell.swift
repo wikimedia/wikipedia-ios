@@ -2,7 +2,6 @@ import UIKit
 
 public protocol CardContent {
     var view: UIView! { get }
-    func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize
 }
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
@@ -20,6 +19,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(footerButton)
     }
     
+    // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
+    override open func reset() {
+        super.reset()
+        layoutMargins = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+        cardContent = nil
+        cardContentSize = .zero
+    }
+    
     public var cardContent: CardContent? = nil {
         didSet {
             defer {
@@ -35,6 +42,16 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             view.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(view)
         }
+    }
+    
+    public var cardContentSize: CGSize = .zero {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    public func contentWidth(for cellWidth: CGFloat) -> CGFloat {
+        return cellWidth - layoutMargins.left - layoutMargins.right
     }
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -60,14 +77,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         let subtitleLabelFrame = subtitleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += subtitleLabelFrame.layoutHeight(with: 8)
         
-        if let cardContent = cardContent, let cardContentView = cardContent.view {
-            let cardContentViewSize = cardContent.sizeThatFits(CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), apply: apply)
-            let cardContentViewFrame = CGRect(origin: origin, size: cardContentViewSize)
-            if apply {
-                cardContentView.frame = cardContentViewFrame
-            }
-            origin.y += cardContentViewFrame.layoutHeight(with: 8)
+        let cardContentViewFrame = CGRect(origin: origin, size: cardContentSize)
+        if apply {
+            cardContent?.view.frame = cardContentViewFrame
         }
+        origin.y += cardContentViewFrame.layoutHeight(with: 8)
+
         
         let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += footerButtonFrame.layoutHeight(with: 8)
