@@ -33,12 +33,14 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.dataStore.viewContext];
     }
     return self;
 }
 
 - (void)dealloc {
     self.operationQueue = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setOperationQueue:(NSOperationQueue *)operationQueue {
@@ -292,6 +294,25 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     }
     return _exploreFeedPreferences;
 }
+
+- (void)viewContextDidChange:(NSNotification *)note {
+    NSDictionary *userInfo = note.userInfo;
+    NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
+    for (NSString *key in keys) {
+        NSSet<NSManagedObject *> *changedObjects = userInfo[key];
+        for (NSManagedObject *object in changedObjects) {
+            if (![object isKindOfClass:[WMFKeyValue class]]) {
+                continue;
+            }
+            WMFKeyValue *keyValue = (WMFKeyValue *)object;
+            if (![keyValue.key isEqualToString:WMFExploreFeedPreferencesKey]) {
+                continue;
+            }
+            self.exploreFeedPreferences = (NSDictionary *)keyValue.value;
+        }
+    }
+}
+
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
     NSDictionary *preferences = self.exploreFeedPreferencesCopy;
     return [preferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
