@@ -343,8 +343,26 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
+    [self updateExploreFeedPreferencesIfNecessary];
     self.dataStore.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
     [self configureExploreViewController];
+}
+
+
+/**
+ Updates explore feed preferences if new preferred language was appeneded or removed.
+ */
+- (void)updateExploreFeedPreferencesIfNecessary {
+    MWKLanguageLinkController *languageLinkController = [MWKLanguageLinkController sharedInstance];
+    NSArray<MWKLanguageLink *> *preferredLanguages = languageLinkController.preferredLanguages;
+    NSArray<MWKLanguageLink *> *previousPreferredLanguages = languageLinkController.previousPreferredLanguages;
+    if (preferredLanguages.count == previousPreferredLanguages.count) { // reordered
+        return;
+    }
+    MWKLanguageLink *mostRecentlyModifiedPreferredLanguage = languageLinkController.mostRecentlyModifiedPreferredLanguage;
+    NSURL *siteURL = mostRecentlyModifiedPreferredLanguage.siteURL;
+    BOOL appendedNewPreferredLanguage = [preferredLanguages containsObject:mostRecentlyModifiedPreferredLanguage];
+    [self.dataStore.feedContentController updateExploreFeedPreferencesForSiteURL:siteURL shouldHideAllContentSources:!appendedNewPreferredLanguage];
 }
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
