@@ -7,7 +7,7 @@ class ExploreViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
     }
     
     private var cardViewControllers: [IndexPath: ExploreCardViewController] = [:]
@@ -91,7 +91,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: 1))
         cardVC.view.layoutIfNeeded()
         cardVC.contentGroup = group
-        cell.cardContentSize = cardVC.collectionView.contentSize
+        cell.cardContentSize = cardVC.collectionView!.contentSize
         if layoutOnly {
             enqueueReusableCardViewController(cardVC)
         } else {
@@ -123,7 +123,7 @@ extension ExploreViewController: CollectionViewUpdaterDelegate {
 extension ExploreViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: cellReuseIdentifier) as? ExploreCardCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: cellReuseIdentifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()

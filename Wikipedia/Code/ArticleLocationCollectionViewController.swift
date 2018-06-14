@@ -26,7 +26,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(WMFNearbyArticleCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: ArticleLocationCollectionViewController.cellReuseIdentifier)
+        layoutManager.register(WMFNearbyArticleCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: ArticleLocationCollectionViewController.cellReuseIdentifier)
         readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
     

@@ -78,8 +78,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         origin.y += subtitleLabelFrame.layoutHeight(with: 8)
         
         let cardContentViewFrame = CGRect(origin: origin, size: cardContentSize)
-        if apply {
-            cardContent?.view.frame = cardContentViewFrame
+        if apply, let view = cardContent?.view {
+            assert(view.superview == contentView)
+            view.frame = cardContentViewFrame
         }
         origin.y += cardContentViewFrame.layoutHeight(with: 8)
 
