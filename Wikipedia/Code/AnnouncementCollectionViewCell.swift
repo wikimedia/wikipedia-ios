@@ -1,29 +1,26 @@
 import UIKit
 
-@objc(WMFAnnouncementCollectionViewCellDelegate)
-protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
+public protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell)
     func announcementCellDidTapActionButton(_ cell: AnnouncementCollectionViewCell)
-    @objc(announcementCell:didTapLinkURL:)
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL: URL)
 }
 
-@objc(WMFAnnouncementCollectionViewCell)
 open class AnnouncementCollectionViewCell: CollectionViewCell {
-    @objc var delegate: AnnouncementCollectionViewCellDelegate?
+    public weak var delegate: AnnouncementCollectionViewCellDelegate?
     
-    @objc public let imageView = UIImageView()
-    @objc public let messageLabel = UILabel()
-    @objc public let actionButton = UIButton()
-    @objc public let dismissButton = UIButton()
-    @objc public let captionTextView = UITextView()
-    @objc public let captionSeparatorView = UIView()
+    public let imageView = UIImageView()
+    public let messageLabel = UILabel()
+    public let actionButton = UIButton()
+    public let dismissButton = UIButton()
+    public let captionTextView = UITextView()
+    public let captionSeparatorView = UIView()
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
     public let actionButtonHeight: CGFloat = 40
     public let dismissButtonSpacing: CGFloat = 8
     public let dismissButtonHeight: CGFloat = 32
-    @objc public var imageViewDimension: CGFloat = 150
+    public var imageViewDimension: CGFloat = 150
     public let captionSpacing: CGFloat = 20
 
     open override func setup() {
@@ -85,7 +82,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         updateCaptionTextViewWithAttributedCaption()
     }
     
-    @objc var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
@@ -125,7 +122,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         isCaptionHidden = false
     }
 
-    @objc var caption: NSAttributedString? {
+    public var caption: NSAttributedString? {
         didSet {
             updateCaptionTextViewWithAttributedCaption()
         }

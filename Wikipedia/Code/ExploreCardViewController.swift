@@ -1,6 +1,7 @@
 import UIKit
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
+    
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
@@ -79,6 +80,33 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells()) + 1)
         default:
             return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells()))
+        }
+    }
+    
+    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
+        switch group.contentGroupKind {
+        case .relatedPages:
+            guard let url = group.headerContentURL() else {
+                return nil
+            }
+            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
+                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
+                self.dataStore.viewContext.remove(group)
+            }))
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
+            return sheet
+        case .locationPlaceholder:
+            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
+                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+                group.wasDismissed = true
+                group.updateVisibility()
+            }))
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
+            return sheet
+        default:
+            return nil
         }
     }
     
@@ -192,6 +220,51 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    private func configureAnnouncementCell(_ cell: UICollectionViewCell, displayType: WMFFeedDisplayType, layoutOnly: Bool) {
+        guard let cell = cell as? AnnouncementCollectionViewCell else {
+            return
+        }
+        switch displayType {
+        case .announcement:
+            guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement else {
+                return
+            }
+            if let imageURL = announcement.imageURL {
+                cell.isImageViewHidden = false
+                if !layoutOnly {
+                    cell.imageView.wmf_setImage(with: imageURL, detectFaces: false, onGPU: false, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+                }
+            } else {
+                cell.isImageViewHidden = true
+            }
+            cell.messageLabel.text = announcement.text
+            cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
+            cell.caption = announcement.caption
+        case .notification:
+            cell.isImageViewHidden = false
+            cell.imageView.image = UIImage(named: "feed-card-notification")
+            cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
+            cell.messageLabel.text = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
+            cell.actionButton.setTitle(WMFLocalizedString("feed-news-notification-button-text", value: "Turn on notifications", comment: "Text for button to turn on trending news notifications"), for:.normal)
+        case .theme:
+            cell.isImageViewHidden = false
+            cell.imageView.image = UIImage(named: "feed-card-themes")
+            cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
+            cell.messageLabel.text = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
+            cell.actionButton.setTitle(WMFLocalizedString("home-themes-action-title", value: "Manage preferences", comment: "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences."), for:.normal)
+        case .readingList:
+            cell.isImageViewHidden = false
+            cell.imageView.image = UIImage(named: "feed-card-reading-list")
+            cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
+            cell.messageLabel.text = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
+            cell.actionButton.setTitle(CommonStrings.readingListLoginButtonTitle, for:.normal)
+        default:
+            break
+        }
+        cell.apply(theme: theme)
+        cell.delegate = self
+    }
+    
     private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let displayType = displayTypeAt(indexPath)
         switch displayType {
@@ -206,7 +279,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .event:
              configureOnThisDayCell(cell, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
-            break
+            configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
         }
     }
     
@@ -248,3 +321,17 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
 }
 
+
+extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
+    func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell) {
+        
+    }
+    
+    func announcementCellDidTapActionButton(_ cell: AnnouncementCollectionViewCell) {
+        
+    }
+    
+    func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL: URL) {
+        
+    }
+}

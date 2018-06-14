@@ -11,7 +11,7 @@
 #import <WMF/WMF-Swift.h>
 
 NSString *const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";
-
+const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";

@@ -45,7 +45,9 @@ extension WMFContentGroup: AnalyticsValueProviding {
             guard let announcement = contentPreview as? WMFAnnouncement else {
                 fallthrough
             }
-            let numberString = announcement.identifier.trimmingCharacters(in: nonNumericCharacterSet)
+            guard let numberString = announcement.identifier?.trimmingCharacters(in: nonNumericCharacterSet) else {
+                fallthrough
+            }
             guard let integer = Int(numberString) else {
                 fallthrough
             }
