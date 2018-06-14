@@ -78,7 +78,7 @@ private struct Language: SwitchItem {
         type = ItemType.language(languageLink)
         title = languageLink.localizedName
         self.controlTag = controlTag
-        isOn = true
+        isOn = languageLink.isInFeed
         siteURL = languageLink.siteURL()
     }
 }

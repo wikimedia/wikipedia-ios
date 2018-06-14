@@ -16,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// User-readable name for @c languageCode in the language specified by @c languageCode.
 @property (readonly, copy, nonatomic) NSString *name;
 
+
+/**
+ Flag indicating whether there are any visible customizable feed content sources in this language.
+ Returns YES if there is at least one content source in this language visible in the feed.
+ Returns NO if there are no content sources in this language visible in the feed.
+ */
+@property (readonly) BOOL isInFeed;
+
 - (instancetype)initWithLanguageCode:(NSString *)languageCode
                        pageTitleText:(NSString *)pageTitleText
                                 name:(NSString *)name

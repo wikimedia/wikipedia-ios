@@ -2,6 +2,9 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/WMFHashing.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/SessionSingleton.h>
+#import <WMF/MWKDataStore.h>
+#import <WMF/WMFExploreFeedContentController.h>
 
 @interface MWKLanguageLink ()
 
@@ -70,6 +73,10 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 
 - (NSURL *)articleURL {
     return [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
+}
+
+-(BOOL)isInFeed {
+    return [[SessionSingleton sharedInstance].dataStore.feedContentController anyContentSourcesVisibleInTheFeedForSiteURL:self.siteURL];
 }
 
 @end
