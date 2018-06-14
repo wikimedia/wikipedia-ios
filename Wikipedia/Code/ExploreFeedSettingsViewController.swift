@@ -212,6 +212,9 @@ extension ExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
             assertionFailure("No language for a given control tag")
             return
         }
-        dataStore?.feedContentController.updateExploreFeedPreferences(forSiteURLs: [language.siteURL], shouldHideAllContentSources: !sender.isOn)
+        let feedContentController = dataStore?.feedContentController
+        feedContentController?.updateExploreFeedPreferences(forSiteURLs: [language.siteURL], shouldHideAllContentSources: !sender.isOn) {
+            feedContentController?.updateFeedSourcesUserInitiated(true)
+        }
     }
 }
