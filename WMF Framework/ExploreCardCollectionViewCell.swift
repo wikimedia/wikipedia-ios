@@ -38,8 +38,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             }
             view.removeFromSuperview()
             view.isHidden = false
-            view.autoresizingMask = []
-            view.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(view)
         }
     }
@@ -79,7 +77,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         
         let cardContentViewFrame = CGRect(origin: origin, size: cardContentSize)
         if apply, let view = cardContent?.view {
-            assert(view.superview == contentView)
             view.frame = cardContentViewFrame
         }
         origin.y += cardContentViewFrame.layoutHeight(with: 8)
