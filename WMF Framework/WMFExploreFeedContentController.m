@@ -282,9 +282,6 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 #pragma mark - Preferences
 
-- (void)updateExploreFeedPreferencesForPreferredSiteURLs {
-    NSSet *preferredSiteURLs = [NSSet setWithArray:[[MWKLanguageLinkController sharedInstance] preferredSiteURLs]];
-    [self updateExploreFeedPreferencesForSiteURLs:preferredSiteURLs shouldHideAllContentSources:NO];
 + (NSSet *)customizableContentSources {
     static NSSet *customizableContentSources;
     static dispatch_once_t onceToken;
