@@ -289,39 +289,36 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
     WMFAssertMainThread(@"updateVisibleContentSourcesForSiteURL: must be called on the main thread");
+- (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion {
+    WMFAssertMainThread(@"updateExploreFeedPreferencesForSiteURLs: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
-            WMFTaskGroup *group = [WMFTaskGroup new];
-            if (![moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey]) {
-                [group enter];
-                [moc wmf_setValue:[NSMutableDictionary dictionary] forKey:WMFExploreFeedPreferencesKey];
-                [group leave];
-            }
-            [group wait];
-            NSMutableDictionary *oldPreferences = (NSMutableDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
-            assert(oldPreferences);
-            for (NSURL *siteURL in siteURLs) {
-                if (shouldHideAllContentSources) { // hide all content sources for siteURL
-                    if ([oldPreferences objectForKey:siteURL]) {
-                        [oldPreferences removeObjectForKey:siteURL];
+            [moc performBlock:^{
+                NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+                NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
+                assert(oldPreferences);
+                for (NSURL *siteURL in siteURLs) {
+                    NSString *key = siteURL.wmf_articleDatabaseKey;
+                    if (shouldHideAllContentSources) { // hide all content sources for siteURL
+                        if ([newPreferences objectForKey:key]) {
+                            [newPreferences removeObjectForKey:key];
+                        }
+                    } else { // show all content sources for siteURL
+                        NSSet *visibleContentSources = [WMFExploreFeedContentController customizableContentSources];
+                        [newPreferences setObject:visibleContentSources forKey:key];
                     }
-                } else { // show all content sources for siteURL
-                    NSArray *visibleContentSources = @[[NSNumber numberWithInt:WMFCustomizableContentSourcesAll]];
-                    NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
-                    [newPreferences setObject:visibleContentSources forKey:siteURL];
                     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
                 }
-            }
-            [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
-                                    completion:^{
-                                        [moc performBlock:^{
-                                            [self save:moc];
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                [op finish];
-                                            });
-                                        }];
-                                    }];
+                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                [self save:moc];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion();
+                    }
+                    [op finish];
+                });
+            }];
         });
     }];
     [self.operationQueue addOperation:op];
