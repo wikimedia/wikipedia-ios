@@ -41,6 +41,31 @@ class ExploreViewController: ColumnarCollectionViewController {
         return sections.count
     }
     
+    private func resetRefreshControl() {
+        
+    }
+    
+    private func startMonitoringReachabilityIfNeeded() {
+        
+    }
+    
+    private func showOfflineEmptyViewIfNeeded() {
+        
+    }
+    
+    @objc var titleButton: UIButton? = nil
+    
+    @objc(updateFeedSourcesWithDate:userInitiated:completion:)
+    public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
+        self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
+           self.resetRefreshControl()
+            if date == nil {
+                self.startMonitoringReachabilityIfNeeded()
+                self.showOfflineEmptyViewIfNeeded()
+            }
+            completion()
+        }
+    }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections, sections.count > section else {

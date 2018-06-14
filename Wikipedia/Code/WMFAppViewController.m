@@ -723,10 +723,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-#warning fix
-        //[self.exploreViewController updateFeedSourcesUserInitiated:NO
-        //                                                completion:^{
-        //                                                }];
+        [self.exploreViewController updateFeedSourcesWithDate:nil userInitiated:NO completion:^{ }];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -1003,19 +1000,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                     [navController pushViewController:vc animated:animated];
                 }
             } else {
-#warning fix
-//                [self.exploreViewController updateFeedSourcesUserInitiated:NO
-//                                                                completion:^{
-//                                                                    dispatch_async(dispatch_get_main_queue(), ^{
-//                                                                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
-//                                                                        if (group) {
-//                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
-//                                                                            if (vc) {
-//                                                                                [navController pushViewController:vc animated:NO];
-//                                                                            }
-//                                                                        }
-//                                                                    });
-//                                                                }];
+                [self.exploreViewController updateFeedSourcesWithDate:nil userInitiated:NO
+                                                                completion:^{
+                                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                                        WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
+                                                                        if (group) {
+                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                                                                            if (vc) {
+                                                                                [navController pushViewController:vc animated:NO];
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }];
             }
 
         } break;
@@ -1396,7 +1392,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeExplore: {
                 ExploreViewController *exploreViewController = (ExploreViewController *)[self exploreViewController];
-                //[exploreViewController scrollToTop];
+                [exploreViewController scrollToTop];
             } break;
         }
     }
@@ -1409,7 +1405,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[ExploreViewController class]]) {
         ExploreViewController *vc = (ExploreViewController *)viewController;
-//        vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
+        vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
     } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
         if (self.rootTabBarController.selectedIndex == WMFAppTabTypeExplore) {

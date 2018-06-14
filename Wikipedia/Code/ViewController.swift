@@ -164,7 +164,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     
     // MARK: - Scrolling
     
-    func scrollToTop() {
+    @objc func scrollToTop() {
         guard let scrollView = scrollView else {
             return
         }
