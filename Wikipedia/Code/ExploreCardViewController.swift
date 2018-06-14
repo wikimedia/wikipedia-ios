@@ -35,7 +35,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(WMFPicOfTheDayCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: WMFPicOfTheDayCollectionViewCell.wmf_nibName())
     }
     
-    var dataStore: MWKDataStore?
+    var dataStore: MWKDataStore!
     
     public var contentGroup: WMFContentGroup? {
         didSet {
@@ -58,6 +58,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return numberOfItems
+    }
+    
+    var numberOfItems: Int {
         guard let contentGroup = contentGroup else {
             return 0
         }
@@ -78,8 +82,35 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    private func displayTypeAt(_ indexPath: IndexPath) -> WMFFeedDisplayType {
+        return contentGroup?.displayTypeForItem(at: indexPath.row) ?? .page
+    }
+    
     private func resuseIdentifierAt(_ indexPath: IndexPath) -> String {
-        return "ArticleRightAlignedImageCollectionViewCell"
+        switch displayTypeAt(indexPath) {
+        case .ranked:
+            return "RankedArticleCollectionViewCell"
+        case .story:
+            return "NewsCollectionViewCell"
+        case .event:
+            return "OnThisDayExploreCollectionViewCell"
+        case .continueReading:
+            fallthrough
+        case .relatedPagesSourceArticle:
+            fallthrough
+        case .random:
+            fallthrough
+        case .pageWithPreview:
+            return "ArticleFullWidthImageCollectionViewCell"
+        case .photo:
+            return WMFPicOfTheDayCollectionViewCell.wmf_nibName()
+        case .pageWithLocation:
+            return WMFNearbyArticleCollectionViewCell.wmf_nibName()
+        case .page, .relatedPages, .mainPage, .compactList:
+            return "ArticleRightAlignedImageCollectionViewCell"
+        case .announcement, .notification, .theme, .readingList:
+            return "AnnouncementCollectionViewCell"
+        }
     }
     
     private func articleURL(forItemAt indexPath: IndexPath) -> URL? {
@@ -113,15 +144,73 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return content[index]
     }
     
-    private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let cell = cell as? ArticleCollectionViewCell else {
-            return
-        }
-        guard let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
-            return
-        }
-        cell.configure(article: article, displayType: WMFFeedDisplayType.page, index: 0, count: 0, theme: theme, layoutOnly: layoutOnly)
+    var eventLoggingLabel: EventLoggingLabel? {
+        return contentGroup?.eventLoggingLabel
     }
+    
+    private func configureArticleCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
+        guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+            return
+        }
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.saveButton.eventLoggingLabel = eventLoggingLabel
+    }
+    
+    private func configureNearbyCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
+        guard let cell = cell as? WMFNearbyArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+            return
+        }
+        cell.titleText = article.displayTitle
+        cell.descriptionText = article.capitalizedWikidataDescription
+        cell.setImageURL(article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth))
+        (cell as Themeable).apply(theme: theme)
+    }
+    
+    private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
+        guard let cell = cell as? NewsCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
+            return
+        }
+        cell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+    }
+    
+    private func configureOnThisDayCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 1 else {
+            return
+        }
+        cell.configure(with: events[1], previousEvent: events[0], dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+    }
+    
+    private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
+        guard let cell = cell as? WMFPicOfTheDayCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
+            return
+        }
+        cell.setImageURL(imageInfo.imageThumbURL)
+        if imageInfo.imageDescription.count > 0 {
+            cell.setDisplayTitle(imageInfo.imageDescription.wmf_stringByRemovingHTML())
+        } else {
+            cell.setDisplayTitle(imageInfo.canonicalPageTitle)
+        }
+    }
+    
+    private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        let displayType = displayTypeAt(indexPath)
+        switch displayType {
+        case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
+            configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
+        case .pageWithLocation:
+            configureNearbyCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
+        case .photo:
+            break
+        case .story:
+            configureNewsCell(cell, layoutOnly: layoutOnly)
+        case .event:
+             configureOnThisDayCell(cell, layoutOnly: layoutOnly)
+        case .theme, .notification, .announcement, .readingList:
+            break
+        }
+    }
+    
+    
     
     // MARK - WMFColumnarCollectionViewLayoutDelegate
     
