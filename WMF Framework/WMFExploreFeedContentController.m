@@ -169,8 +169,11 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
                                     completion:^{
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
-                                            if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                DDLogError(@"Error saving: %@", saveError);
+                                            if ([moc hasChanges]) {
+                                                [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
+                                                if (![moc save:&saveError]) {
+                                                    DDLogError(@"Error saving: %@", saveError);
+                                                }
                                             }
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 [self.dataStore teardownFeedImportContext];
