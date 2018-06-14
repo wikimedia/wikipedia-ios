@@ -2,10 +2,6 @@
 
 @class MWKDataStore;
 
-typedef enum {
-    WMFCustomizableContentSourcesAll
-} WMFCustomizableContentSources;
-
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 
 @interface WMFExploreFeedContentController : NSObject
