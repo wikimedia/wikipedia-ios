@@ -69,6 +69,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         let cardVC = ExploreCardViewController()
         cardVC.dataStore = dataStore
         cardVC.view.isHidden = true
+        cardVC.view.autoresizingMask = []
         addChildViewController(cardVC)
         view.addSubview(cardVC.view)
         cardVC.didMove(toParentViewController: self)
