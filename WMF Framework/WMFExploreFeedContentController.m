@@ -286,6 +286,11 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 #pragma mark - Preferences
 
+- (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
+    NSDictionary *preferences = self.exploreFeedPreferencesCopy;
+    return [preferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
+}
+
 + (NSSet<NSNumber *> *)customizableContentSources {
     static NSSet *customizableContentSources;
     static dispatch_once_t onceToken;
