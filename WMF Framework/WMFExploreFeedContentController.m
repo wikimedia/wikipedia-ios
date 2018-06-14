@@ -293,6 +293,20 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     });
     return customizableContentSources;
 }
+
+- (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
+    WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
+    if (keyValue) {
+        return (NSMutableDictionary *)keyValue.value;
+    }
+    NSArray *preferredSiteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+    NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:preferredSiteURLs.count];
+    for (NSURL *siteURL in preferredSiteURLs) {
+        [preferences setObject:[WMFExploreFeedContentController customizableContentSources] forKey:siteURL.wmf_articleDatabaseKey];
+    }
+    [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
+    [self save:moc];
+    return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
