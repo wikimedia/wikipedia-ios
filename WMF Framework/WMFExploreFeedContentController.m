@@ -285,6 +285,14 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 - (void)updateExploreFeedPreferencesForPreferredSiteURLs {
     NSSet *preferredSiteURLs = [NSSet setWithArray:[[MWKLanguageLinkController sharedInstance] preferredSiteURLs]];
     [self updateExploreFeedPreferencesForSiteURLs:preferredSiteURLs shouldHideAllContentSources:NO];
++ (NSSet *)customizableContentSources {
+    static NSSet *customizableContentSources;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        customizableContentSources = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindRandom)]];
+    });
+    return customizableContentSources;
+}
 }
 
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
