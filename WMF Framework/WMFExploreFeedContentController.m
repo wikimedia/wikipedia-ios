@@ -22,6 +22,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
 
 @end
 
@@ -285,6 +286,12 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 #pragma mark - Preferences
 
+- (NSDictionary *)exploreFeedPreferences {
+    if (!_exploreFeedPreferences) {
+        _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
+    }
+    return _exploreFeedPreferences;
+}
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
     NSDictionary *preferences = self.exploreFeedPreferencesCopy;
     return [preferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
