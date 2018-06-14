@@ -362,6 +362,9 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
         NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+        if (![[WMFExploreFeedContentController customizableContentSources] containsObject:contentGroup.contentGroupKindInteger]) {
+            continue;
+        }
         if ([visibleContentGroupKinds containsObject:@(contentGroup.contentGroupKindInteger)]) {
             contentGroup.isVisible = YES;
         } else {
