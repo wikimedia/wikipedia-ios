@@ -314,8 +314,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 }
 
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
-    NSDictionary *preferences = self.exploreFeedPreferencesCopy;
-    return [preferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
+    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
 }
 
 + (NSSet<NSNumber *> *)customizableContentSources {
