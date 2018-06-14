@@ -327,6 +327,37 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     [self.operationQueue addOperation:op];
 }
 
+- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    NSError *error = nil;
+    NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"Error fetching WMFContentGroup: %@", error);
+    }
+    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
+}
+
+- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSDictionary *preferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+    for (NSManagedObject *object in objects) {
+        if (![object isKindOfClass:[WMFContentGroup class]]) {
+            continue;
+        }
+        WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+        if ([visibleContentGroupKinds containsObject:@(contentGroup.contentGroupKindInteger)]) {
+            contentGroup.isVisible = YES;
+        } else {
+            contentGroup.isVisible = NO;
+        }
+
+    }
+}
+
+- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
+    [self applyExploreFeedPreferencesToObjects:[moc updatedObjects] inManagedObjectContext:moc];
+}
+
 - (void)save:(NSManagedObjectContext *)moc {
     NSError *error = nil;
     if (moc.hasChanges && ![moc save:&error]) {
