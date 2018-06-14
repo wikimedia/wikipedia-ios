@@ -22,6 +22,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSDictionary *exploreFeedPreferencesCopy;
 
 @end
 
@@ -306,6 +307,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     }
     [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
+    self.exploreFeedPreferencesCopy = preferences;
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
@@ -332,6 +334,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
                 }
                 [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                 [self save:moc];
+                self.exploreFeedPreferencesCopy = newPreferences;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (completion) {
                         completion();
