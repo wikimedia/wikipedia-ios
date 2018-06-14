@@ -309,8 +309,6 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
-- (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
-    WMFAssertMainThread(@"updateVisibleContentSourcesForSiteURL: must be called on the main thread");
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferencesForSiteURLs: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
