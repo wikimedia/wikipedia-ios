@@ -285,7 +285,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 
 #pragma mark - Preferences
 
-+ (NSSet *)customizableContentSources {
++ (NSSet<NSNumber *> *)customizableContentSources {
     static NSSet *customizableContentSources;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
