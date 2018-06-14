@@ -87,7 +87,7 @@ class ExploreViewController: ColumnarCollectionViewController {
         let group = fetchedResultsController.object(at: indexPath)
         let cardVC = dequeueReusableCardViewController()
         assert(cardVC.view.superview === view)
-        cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: 100))
+        cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: cell.contentWidth(for: width), height: 100))
         cardVC.contentGroup = group
         cell.cardContentSize = cardVC.precalculatedLayoutSize
         if layoutOnly {
