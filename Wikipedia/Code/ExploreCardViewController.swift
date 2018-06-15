@@ -6,7 +6,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
     
-    lazy var layout: UICollectionViewLayout = {
+    lazy var layout: WMFColumnarCollectionViewLayout = {
         return WMFColumnarCollectionViewLayout()
     }()
     
@@ -44,10 +44,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    public var precalculatedContentSize: CGSize {
-        layout.invalidateLayout()
-        layout.prepare()
-        return layout.collectionViewContentSize
+    public func contentHeight(forWidth width: CGFloat) -> CGFloat {
+        return layout.layoutHeight(forWidth: width)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -13,6 +13,8 @@
 @property (nonatomic) BOOL slideInNewContentFromTheTop;
 @property (nonatomic, readonly) UIEdgeInsets readableMargins;
 
+- (CGFloat)layoutHeightForWidth:(CGFloat)width;
+
 @end
 
 struct WMFLayoutEstimate {

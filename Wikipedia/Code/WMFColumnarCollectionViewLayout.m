@@ -110,6 +110,16 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     [super prepareLayout];
 }
 
+- (CGFloat)layoutHeightForWidth:(CGFloat)width {
+    if (width < 1) {
+        return 0;
+    }
+    WMFCVLInfo *info = [[WMFCVLInfo alloc] init];
+    WMFCVLMetrics *metrics = [self.delegate metricsWithBoundsSize:CGSizeMake(width, 100) readableWidth:width];
+    [info layoutWithMetrics:metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
+    return info.contentSize.height;
+}
+
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {
     return proposedContentOffset;
 }

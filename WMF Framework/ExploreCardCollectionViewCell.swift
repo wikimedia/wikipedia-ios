@@ -2,7 +2,7 @@ import UIKit
 
 public protocol CardContent {
     var view: UIView! { get }
-    var precalculatedContentSize: CGSize { get }
+    func contentHeight(forWidth: CGFloat) -> CGFloat
 }
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
@@ -61,9 +61,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         
         if let cardContent = cardContent {
             let view = cardContent.view
-            view?.frame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: 100))
-            let size = cardContent.precalculatedContentSize
-            let cardContentViewFrame = CGRect(origin: origin, size: size)
+            let height = cardContent.contentHeight(forWidth: widthMinusMargins)
+            let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
             if apply {
                 view?.frame = cardContentViewFrame
             }
