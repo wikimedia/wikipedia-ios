@@ -134,9 +134,7 @@ class ShareActivityController: UIActivityViewController {
     private var articleApplicationActivities: [UIActivity] = [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()]
     
     @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivities: [UIActivity]) {
-        let tracker = PiwikTracker.sharedInstance()
-        tracker?.wmf_logActionShare(inContext: context, contentType: article)
-        
+
         var items = [Any]()
         
         if let title = article.displayTitle {

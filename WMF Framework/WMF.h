@@ -153,7 +153,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/MWKLocationSearchResult.h>
 
-#import <WMF/EventLogger.h>
 #import <WMF/EventLoggingFunnel.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/AFHTTPRequestSerializer+WMFRequestHeaders.h>
@@ -173,7 +172,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFAnnouncement.h>
 #import <WMF/NSUserActivity+WMFExtensions.h>
 
-#import <WMF/PiwikTracker+WMFExtensions.h>
 #import <WMF/WMFFIFOCache.h>
 
 //UI

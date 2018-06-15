@@ -46,8 +46,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
         manager.requestSerializer = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
-                                                                       fromKeypath:@"query.pages"];
+            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages" emptyValueForJSONKeypathAllowed:NO];
         self.operationManager = manager;
     }
     return self;

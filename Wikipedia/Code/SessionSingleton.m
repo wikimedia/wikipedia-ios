@@ -118,19 +118,4 @@
     return self.fallback ? [NSURL wmf_desktopAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]] : [NSURL wmf_mobileAPIURLForURL:[NSURL wmf_URLWithDefaultSiteAndlanguage:language]];
 }
 
-#pragma mark - Usage Reports
-
-- (BOOL)shouldSendUsageReports {
-    return [[NSUserDefaults wmf_userDefaults] wmf_sendUsageReports];
-}
-
-- (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
-    if (sendUsageReports == [self shouldSendUsageReports]) {
-        return;
-    }
-    [[WMFSession shared] setShouldSendUsageReports:sendUsageReports];
-    [[NSUserDefaults wmf_userDefaults] wmf_setSendUsageReports:sendUsageReports];
-    [[QueuesSingleton sharedInstance] reset];
-}
-
 @end

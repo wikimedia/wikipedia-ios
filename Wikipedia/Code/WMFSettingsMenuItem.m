@@ -124,7 +124,7 @@
                                                 iconColor:[UIColor wmf_colorWithHex:0x95D15A]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
-                                               isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
+                                               isSwitchOn:[WMFEventLoggingService sharedInstance].isEnabled];
         }
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving: {
             return

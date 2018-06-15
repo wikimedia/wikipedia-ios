@@ -4,7 +4,7 @@
     @objc public static let shared = SessionsFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSSessions", version: 18064102)
+        super.init(schema: "MobileWikiAppiOSSessions", version: 18121261)
     }
     
     private enum Action: String {
@@ -22,7 +22,7 @@
             event["label"] = label
         }
         if let measure = measure {
-            event["measure"] = Int(round(measure))
+            event["measure_time"] = Int(round(measure))
         }
         
         return event
@@ -38,12 +38,11 @@
     }
     
     private func resetSession() {
-        KeychainCredentialsManager.shared.resetSessionID()
-        UserDefaults.wmf_userDefaults().wmf_sessionStartDate = Date()
+        EventLoggingService.shared.resetSession()
     }
     
     @objc public func logSessionEnd() {
-        guard let sessionStartDate = UserDefaults.wmf_userDefaults().wmf_sessionStartDate else {
+        guard let sessionStartDate = EventLoggingService.shared.sessionStartDate else {
             assertionFailure("Session start date cannot be nil")
             return
         }

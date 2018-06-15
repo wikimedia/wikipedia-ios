@@ -29,6 +29,9 @@ public enum WMFAccountLoginError: LocalizedError {
 public typealias WMFAccountLoginResultBlock = (WMFAccountLoginResult) -> Void
 
 public class WMFAccountLoginResult: NSObject {
+    public struct Status {
+        static let offline = "offline"
+    }
     @objc var status: String
     @objc var username: String
     @objc var message: String?

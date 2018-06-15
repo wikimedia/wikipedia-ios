@@ -1,7 +1,18 @@
 import Foundation
 
+enum EventLoggingError {
+    case generic
+}
+
 @objc(WMFEventLoggingService)
 public class EventLoggingService : NSObject, URLSessionDelegate {
+    private struct Key {
+        static let isEnabled = "SendUsageReports"
+        static let appInstallID = "WMFAppInstallID"
+        static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
+        static let appInstallDate = "AppInstallDate"
+        static let loggedDaysInstalled = "DailyLoggingStatsDaysInstalled"
+    }
     
     public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
@@ -11,16 +22,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public var debugDisableImmediateSend = false
     
-    private static let LoggingEndpoint =
-        // production
-        "https://meta.wikimedia.org/beacon/event"
-        // testing
-        // "http://deployment.wikimedia.beta.wmflabs.org/beacon/event";
+    private static let scheme = "https" // testing is http
+    private static let host = "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
+    private static let path = "/beacon/event"
     
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
     private var urlSession: URLSession?
-    private var queue: OperationQueue
     private let postLock = NSLock()
     private var posting = false
     private var started = false
@@ -54,6 +62,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         return EventLoggingService(permanentStorageURL: permanentStorageURL)
     }()
     
+    @objc
+    public func log(event: Dictionary<String, Any>, schema: String, revision: Int, wiki: String) {
+        let event: NSDictionary = ["event": event, "schema": schema, "revision": revision, "wiki": wiki]
+        logEvent(event)
+    }
+    
     private var shouldSendImmediately: Bool {
         
         if !started {
@@ -82,7 +96,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
-        self.queue = OperationQueue.init() //DispatchQueue.init(label: "org.wikimedia.EventLogging")
         
         let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "EventLogging", withExtension: "momd")!
@@ -120,7 +133,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     public convenience init(permanentStorageURL: URL) {
      
-        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: URL(string: WMFLoggingEndpoint)!.host!)
+        let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
         let urlSessionConfig = URLSessionConfiguration.default
         urlSessionConfig.httpShouldUsePipelining = true
@@ -155,11 +168,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             switch status {
             case .reachableViaWiFi:
                 self.tryPostEvents()
-                fallthrough
-            case .reachableViaWWAN:
-                self.queue.isSuspended = false
             default:
-                self.queue.isSuspended = true
+                break
             }
         }
         self.reachabilityManager.startMonitoring()
@@ -185,12 +195,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     private func timerFired() {
         tryPostEvents()
-        save()
+        asyncSave()
     }
     
     @objc
     public func stop() {
-        
         assert(Thread.isMainThread, "must be stopped on main thread")
         guard self.started else {
             return
@@ -207,11 +216,15 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.timer?.invalidate()
         self.timer = nil
         
-        do {
-            try self.managedObjectContext.save()
-        } catch let error {
-            DDLogError(error.localizedDescription)
+        self.managedObjectContext.performAndWait {
+            self.save()
         }
+    }
+    
+    @objc
+    public func reset() {
+        self.resetSession()
+        self.resetInstall()
     }
     
     private func prune() {
@@ -246,11 +259,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     public func logEvent(_ event: NSDictionary) {
-        
-        if (!self.started) {
-            DDLogWarn("EventLoggingService not started. Event will be recorded, but not posted")
-        }
-        
         let now = NSDate()
         
         let moc = self.managedObjectContext
@@ -258,6 +266,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             let record = NSEntityDescription.insertNewObject(forEntityName: "WMFEventRecord", into: self.managedObjectContext) as! EventRecord
             record.event = event
             record.recorded = now
+            record.userAgent = WikipediaAppUtils.versionedUserAgent()
             
             DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
             
@@ -305,72 +314,78 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func save() {
-        let moc = self.managedObjectContext
-        moc.perform {
-            do {
-                try moc.save()
-            } catch let error {
-                DDLogError(error.localizedDescription)
-            }
+    private func asyncSave() {
+        self.managedObjectContext.perform {
+            self.save()
         }
     }
     
     private func postEvents(_ eventRecords: [EventRecord]) {
-        
         assert(posting, "method expects posting to be set when called")
 
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
-        var tasks = [URLSessionTask]()
-        var completedRecords = [EventRecord]()
         
-        self.queue.addOperation({
-            for record in eventRecords {
-                if let task = self.task(forEventRecord: record, completion: {
-                    if (record.posted != nil) {
-                        completedRecords.append(record)
-                    }
-                    taskGroup.leave()
-                }) {
-                    taskGroup.enter()
-                    tasks.append(task)
-                    task.resume()
-                }
+        var completedRecordIDs = Set<NSManagedObjectID>()
+        var failedRecordIDs = Set<NSManagedObjectID>()
+        
+        for record in eventRecords {
+            let moid = record.objectID
+            guard let payload = record.event else {
+                failedRecordIDs.insert(moid)
+                continue
             }
-            
-            taskGroup.waitInBackground(withTimeout: self.postTimeout, completion: {
-                for task in tasks {
-                    if task.state == URLSessionTask.State.running {
-                        task.cancel()
-                    }
+            taskGroup.enter()
+            let userAgent = record.userAgent ?? WikipediaAppUtils.versionedUserAgent()
+            submit(payload: payload, userAgent: userAgent) { (error) in
+                if error != nil {
+                    failedRecordIDs.insert(moid)
+                } else {
+                    completedRecordIDs.insert(moid)
                 }
+                taskGroup.leave()
+            }
+        }
+        
+        
+        taskGroup.waitInBackground {
+            self.managedObjectContext.perform {
+                let postDate = NSDate()
+                for moid in completedRecordIDs {
+                    let mo = try? self.managedObjectContext.existingObject(with: moid)
+                    guard let record = mo as? EventRecord else {
+                        continue
+                    }
+                    record.posted = postDate
+                }
+                
+                for moid in failedRecordIDs {
+                    let mo = try? self.managedObjectContext.existingObject(with: moid)
+                    guard let record = mo as? EventRecord else {
+                        continue
+                    }
+                    record.failed = true
+                }
+                self.save()
                 self.postLock.lock()
                 self.posting = false
                 self.postLock.unlock()
-
-                self.save()
-                
-                if (completedRecords.count == eventRecords.count) {
+                if (completedRecordIDs.count == eventRecords.count) {
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
                 } else {
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
-            })
-        })
+            }
+        }
     }
     
-    private func task(forEventRecord eventRecord: EventRecord, completion: @escaping () -> Void) -> URLSessionTask? {
+    private func submit(payload: NSObject, userAgent: String, completion: @escaping (EventLoggingError?) -> Void) {
         guard let urlSession = self.urlSession else {
             assertionFailure("urlSession was nil")
-            return nil
-        }
-        
-        guard let payload = eventRecord.event else {
-            eventRecord.failed = true
-            return nil
+            completion(EventLoggingError.generic)
+            return
         }
         
         do {
@@ -378,45 +393,197 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             
             guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
                 DDLogError("EventLoggingService: Could not convert JSON data to string")
-                eventRecord.failed = true
-                return nil
+                completion(EventLoggingError.generic)
+                return
             }
+            
             let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
-            let urlString = "\(EventLoggingService.LoggingEndpoint)?\(encodedPayloadJsonString)"
-            guard let url = URL(string: urlString) else {
-                DDLogError("EventLoggingService: Could not convert string '\(urlString)' to URL object")
-                eventRecord.failed = true
-                return nil
+            var components = URLComponents()
+            components.scheme = EventLoggingService.scheme
+            components.host = EventLoggingService.host
+            components.path = EventLoggingService.path
+            components.percentEncodedQuery = encodedPayloadJsonString
+            guard let url = components.url else {
+                DDLogError("EventLoggingService: Could not creatre URL")
+                completion(EventLoggingError.generic)
+                return
             }
             
             var request = URLRequest(url: url)
-            request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
+            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
-            eventRecord.postAttempts += 1
             let task = urlSession.dataTask(with: request, completionHandler: { (_, response, error) in
-                
-                defer { completion() }
-                
                 guard error == nil,
                     let httpResponse = response as? HTTPURLResponse,
                     httpResponse.statusCode / 100 == 2 else {
+                        completion(EventLoggingError.generic)
                         return
                 }
-                
-                eventRecord.posted = NSDate()
-                self.managedObjectContext.perform {
-                    self.managedObjectContext.delete(eventRecord)
-                    self.save()
-                }
-                
+                completion(nil)
                 // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
             })
-            return task
+            task.resume()
             
         } catch let error {
-            eventRecord.failed = true
             DDLogError(error.localizedDescription)
-            return nil
+            completion(EventLoggingError.generic)
+            return
         }
+    }
+    
+    // mark stored values
+    
+    private func save() {
+        guard managedObjectContext.hasChanges else {
+            return
+        }
+        do {
+            try managedObjectContext.save()
+        } catch let error {
+            DDLogError("Error saving EventLoggingService managedObjectContext: \(error)")
+        }
+    }
+    
+    private var semaphore = DispatchSemaphore(value: 1)
+    
+    private var libraryValueCache: [String: NSCoding] = [:]
+    private func libraryValue(for key: String) -> NSCoding? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        var value = libraryValueCache[key]
+        if value != nil {
+            return value
+        }
+        
+        managedObjectContext.performAndWait {
+            value = managedObjectContext.wmf_keyValue(forKey: key)?.value
+            if value != nil {
+                libraryValueCache[key] = value
+                return
+            }
+            
+            if let legacyValue = UserDefaults.wmf_userDefaults().object(forKey: key) as? NSCoding {
+                value = legacyValue
+                libraryValueCache[key] = legacyValue
+                managedObjectContext.wmf_setValue(legacyValue, forKey: key)
+                UserDefaults.wmf_userDefaults().removeObject(forKey: key)
+                save()
+            }
+        }
+    
+        return value
+    }
+    
+    private func setLibraryValue(_ value: NSCoding?, for key: String) {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        libraryValueCache[key] = value
+        managedObjectContext.perform {
+            self.managedObjectContext.wmf_setValue(value, forKey: key)
+            self.save()
+        }
+    }
+    
+    @objc public var isEnabled: Bool {
+        get {
+            var isEnabled = false
+            if let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber {
+                isEnabled = enabledNumber.boolValue
+            }
+            return isEnabled
+        }
+        set {
+            setLibraryValue(NSNumber(booleanLiteral: newValue), for: Key.isEnabled)
+        }
+    }
+    
+    @objc public var appInstallID: String? {
+        get {
+            var installID = libraryValue(for: Key.appInstallID) as? String
+            if installID == nil || installID == "" {
+                installID = UUID().uuidString
+                setLibraryValue(installID as NSString?, for: Key.appInstallID)
+            }
+            return installID
+        }
+        set {
+            setLibraryValue(newValue as NSString?, for: Key.appInstallID)
+        }
+    }
+    
+    @objc public var lastLoggedSnapshot: NSCoding? {
+        get {
+            return libraryValue(for: Key.lastLoggedSnapshot)
+        }
+        set {
+            setLibraryValue(newValue, for: Key.lastLoggedSnapshot)
+        }
+    }
+    
+    @objc public var appInstallDate: Date? {
+        get {
+            var value = libraryValue(for: Key.appInstallDate) as? Date
+            if value == nil {
+                value = Date()
+                setLibraryValue(value as NSDate?, for: Key.appInstallDate)
+            }
+            return value
+        }
+        set {
+            setLibraryValue(newValue as NSDate?, for: Key.appInstallDate)
+        }
+    }
+    
+    @objc public var loggedDaysInstalled: NSNumber? {
+        get {
+            return libraryValue(for: Key.loggedDaysInstalled) as? NSNumber
+        }
+        set {
+            setLibraryValue(newValue, for: Key.loggedDaysInstalled)
+        }
+    }
+    
+    private var _sessionID: String?
+    @objc public var sessionID: String? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        if _sessionID == nil {
+            _sessionID = UUID().uuidString
+        }
+        return _sessionID
+    }
+    
+    private var _sessionStartDate: Date?
+    @objc public var sessionStartDate: Date? {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        if _sessionStartDate == nil {
+            _sessionStartDate = Date()
+        }
+        return _sessionStartDate
+    }
+    
+    @objc public func resetSession() {
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
+        _sessionID = nil
+        _sessionStartDate = Date()
+    }
+    
+    private func resetInstall() {
+        appInstallID = nil
+        lastLoggedSnapshot = nil
+        loggedDaysInstalled = nil
+        appInstallDate = nil
     }
 }

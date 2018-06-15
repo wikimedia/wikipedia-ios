@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="WMFEventRecord" representedClassName="WMFEventRecord" syncable="YES">
         <attribute name="event" attributeType="Transformable" syncable="YES"/>
         <attribute name="failed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="postAttempts" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="posted" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="recorded" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="recorded" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="userAgent" optional="YES" attributeType="String" syncable="YES"/>
+        <fetchIndex name="byRecordedIndex">
+            <fetchIndexElement property="recorded" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <fetchIndex name="byKeyIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <elements>
-        <element name="WMFEventRecord" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="WMFEventRecord" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="WMFKeyValue" positionX="-45" positionY="36" width="128" height="105"/>
     </elements>
 </model>
