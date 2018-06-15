@@ -10,10 +10,6 @@ class ExploreViewController: ColumnarCollectionViewController {
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
     }
     
-    private var cardViewControllers: [IndexPath: ExploreCardViewController] = [:]
-    private var reusableCardViewControllers: [ExploreCardViewController] = []
-
-    
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
 
@@ -85,54 +81,24 @@ class ExploreViewController: ColumnarCollectionViewController {
         return cell
     }
     
-    func dequeueReusableCardViewController() -> ExploreCardViewController {
-        if let cardVC = reusableCardViewControllers.last {
-            reusableCardViewControllers.removeLast()
-            return cardVC
-        }
-        
+    func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
         let cardVC = ExploreCardViewController()
         cardVC.dataStore = dataStore
-        cardVC.view.isHidden = true
         cardVC.view.autoresizingMask = []
         addChildViewController(cardVC)
-        view.addSubview(cardVC.view)
+        cell.cardContent = cardVC
         cardVC.didMove(toParentViewController: self)
         return cardVC
     }
-    
-    func enqueueReusableCardViewController(_ cardVC: ExploreCardViewController) {
-        cardVC.view.removeFromSuperview()
-        cardVC.view.isHidden = true
-        view.addSubview(cardVC.view)
-        reusableCardViewControllers.append(cardVC)
-    }
-    
+
     func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, width: CGFloat, layoutOnly: Bool) {
+        let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
-        let cardVC = dequeueReusableCardViewController()
-        assert(cardVC.view.superview === view)
-        cardVC.view.frame = CGRect(origin: .zero, size: CGSize(width: cell.contentWidth(for: width), height: 100))
         cardVC.contentGroup = group
-        cell.cardContentSize = cardVC.precalculatedLayoutSize
-        if layoutOnly {
-            enqueueReusableCardViewController(cardVC)
-        } else {
-            cell.cardContent = cardVC
-        }
         cell.titleLabel.text = group.headerTitle()
         cell.subtitleLabel.text = group.headerSubTitle()
         cell.footerButton.setTitle(group.moreTitle(), for: .normal)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? ExploreCardCollectionViewCell, let vc = cell.cardContent as? ExploreCardViewController else {
-            return
-        }
-        cell.cardContent = nil
-        enqueueReusableCardViewController(vc)
-    }
-    
 }
 
 

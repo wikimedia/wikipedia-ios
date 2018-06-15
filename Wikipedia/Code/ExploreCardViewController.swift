@@ -44,7 +44,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    public var precalculatedLayoutSize: CGSize {
+    public var precalculatedContentSize: CGSize {
         layout.invalidateLayout()
         layout.prepare()
         return layout.collectionViewContentSize

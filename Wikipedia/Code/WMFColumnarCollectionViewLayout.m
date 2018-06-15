@@ -59,7 +59,6 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
 
     NSMutableArray *attributesArray = [NSMutableArray array];
-
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         if (CGRectIntersectsRect(section.frame, rect)) {
             [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
