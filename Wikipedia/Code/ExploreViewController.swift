@@ -4,10 +4,12 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController {
     fileprivate let cellReuseIdentifier = "org.wikimedia.explore.card.cell"
-    
+    fileprivate let headerReuseIdentifier = "org.wikimedia.explore.card.header"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -81,6 +83,25 @@ class ExploreViewController: ColumnarCollectionViewController {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionElementKindSectionHeader else {
+            abort()
+        }
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
+            abort()
+        }
+        configureHeader(header, for: indexPath.section)
+        return header
+    }
+    
+    func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
+        guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
+            return
+        }
+        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
+        header.titleLabel.text = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
+    }
+    
     func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
         let cardVC = ExploreCardViewController()
         cardVC.dataStore = dataStore
@@ -118,6 +139,18 @@ extension ExploreViewController {
         placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? ExploreHeaderCollectionReusableView else {
+            return estimate
+        }
+        header.prepareForReuse()
+        configureHeader(header, for: section)
+        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }

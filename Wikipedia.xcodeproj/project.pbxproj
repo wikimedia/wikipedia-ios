@@ -346,6 +346,11 @@
 		834400AF20B334A0005F087D /* NSAttributedString+WMFTrim.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804871C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		834400B020B3368A005F087D /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8048C1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m */; };
 		834400B120B3368E005F087D /* NSCharacterSet+WMFExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8048B1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8351CE7820D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */; };
+		8351CE7920D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */; };
+		8351CE7A20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */; };
+		8351CE7B20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */; };
+		8351CE7C20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */; };
 		8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */; };
 		8367A28020D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */; };
 		8367A28120D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */; };
@@ -3322,6 +3327,7 @@
 		83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataProperties.m"; sourceTree = "<group>"; };
 		832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeThatFitsReusableView.swift; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
+		8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -5795,6 +5801,7 @@
 			isa = PBXGroup;
 			children = (
 				83EE476920D019A100A21F34 /* ExploreViewController.swift */,
+				8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */,
 				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
 				D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
@@ -10013,6 +10020,7 @@
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
 				B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
+				8351CE7820D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
@@ -10307,6 +10315,7 @@
 				D80ED2901EE57F4800CE8C50 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				D80ED2921EE57F4800CE8C50 /* WMFPageCollectionViewController.m in Sources */,
 				7A20AE0C2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
+				8351CE7C20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				D8E27BA51F82B38300F9D2B3 /* RMessageView.m in Sources */,
 				D80ED2931EE57F4800CE8C50 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D80ED2951EE57F4800CE8C50 /* PlaceSearch.swift in Sources */,
@@ -10982,6 +10991,7 @@
 				D8A42A8D1E815A9C00D8E281 /* UIView+WMFSubviews.swift in Sources */,
 				D8A42A8E1E815A9C00D8E281 /* WMFExploreCollectionViewCell.m in Sources */,
 				D8A42A8F1E815A9C00D8E281 /* WMFReferencePopoverMessageViewController.m in Sources */,
+				8351CE7B20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				D8A42A901E815A9C00D8E281 /* WMFSearchFetcher.m in Sources */,
 				7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8A42A921E815A9C00D8E281 /* LoggingDefaults.swift in Sources */,
@@ -11276,6 +11286,7 @@
 				D8CE24FF1E698E2400DAE2E0 /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				D8CE25011E698E2400DAE2E0 /* PreviewHtmlFetcher.m in Sources */,
+				8351CE7920D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				7A20AE092057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8CE25021E698E2400DAE2E0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				D8E27BA21F82B38100F9D2B3 /* RMessageView.m in Sources */,
@@ -11596,6 +11607,7 @@
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
+				8351CE7A20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
