@@ -28,7 +28,14 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
+/**
+ Toggles all customizable content groups on or off for a given siteURL.
 
+ @param siteURL A Wikipedia site url for which all customizable content groups will be visible or hidden in the feed.
+ @param isOn A flag that indicates whether all customizable content groups should be visible or hidden for a given siteURL in the feed.
+ @param updateFeed A flag that indicates whether feed should be updated after Explore feed preferences are updated.
+ */
+-(void)toggleContentForSiteURL:(nonnull NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed;
 /**
  Toggles a content group of given kind on or off for all preferred languages.
  If it's on, the group will appear in the feed in all preferred languages.
