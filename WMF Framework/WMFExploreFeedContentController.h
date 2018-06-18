@@ -1,3 +1,5 @@
+#import "WMFContentGroup+Extensions.h"
+
 @import UIKit;
 
 @class MWKDataStore;
@@ -25,6 +27,7 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (void)updateExploreFeedPreferencesForSiteURL:(nonnull NSURL *)siteURL shouldHideAllContentSources:(BOOL)shouldHideAllContentSources;
 - (void)updateExploreFeedPreferencesForSiteURLs:(nonnull NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion;
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
+- (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;

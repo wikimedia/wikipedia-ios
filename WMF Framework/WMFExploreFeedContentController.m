@@ -317,6 +317,16 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
 }
 
+- (NSSet<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
+    NSMutableSet *languageCodes = [NSMutableSet new];
+    [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSSet<NSNumber *> *value, BOOL * _Nonnull stop) {
+        if ([value containsObject:@(contentGroupKind)]) {
+            [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
+        }
+    }];
+    return languageCodes;
+}
+
 + (NSSet<NSNumber *> *)customizableContentSources {
     static NSSet *customizableContentSources;
     static dispatch_once_t onceToken;
