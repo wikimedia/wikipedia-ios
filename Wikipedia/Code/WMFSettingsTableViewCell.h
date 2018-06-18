@@ -13,6 +13,7 @@
 @property (nonatomic) WMFSettingsMenuItemDisclosureType disclosureType;
 
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *subtitle;
 @property (strong, nonatomic) NSString *iconName;
 
 /// Shown only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText

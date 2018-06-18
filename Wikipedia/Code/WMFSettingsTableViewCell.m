@@ -5,6 +5,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *titleIcon;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
@@ -22,6 +23,12 @@
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = title;
+}
+
+- (void)setSubtitle:(NSString *)subtitle {
+    _subtitle = subtitle;
+    self.subtitleLabel.text = subtitle;
+    [self.subtitleLabel setHidden:![self.subtitleLabel wmf_hasNonWhitespaceText]];
 }
 
 - (void)setIconName:(NSString *)iconName {
@@ -156,6 +163,7 @@
     self.disclosureType = disclosureType;
     self.disclosureText = disclosureText;
     self.title = title;
+    self.subtitle = subtitle;
     self.iconName = iconName;
     self.iconColor = iconColor;
     self.iconBackgroundColor = iconBackgroundColor;
@@ -185,6 +193,7 @@
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = _disclosureType == WMFSettingsMenuItemDisclosureType_TitleButton ? theme.colors.link : theme.colors.primaryText;
+    self.subtitleLabel.textColor = theme.colors.secondaryText;
     self.disclosureLabel.textColor = theme.colors.secondaryText;
     self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;
     self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;
