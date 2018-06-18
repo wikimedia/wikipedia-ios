@@ -307,7 +307,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .pageWithLocation:
             configureNearbyCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .photo:
-            break
+            configurePhotoCell(cell, layoutOnly: layoutOnly)
         case .story:
             configureNewsCell(cell, layoutOnly: layoutOnly)
         case .event:
@@ -358,12 +358,20 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
-            return estimate
+        switch displayTypeAt(indexPath) {
+        case .theme, .notification, .announcement, .readingList, .ranked, .page, .story, .event, .continueReading, .mainPage, .pageWithPreview, .random, .relatedPages, .relatedPagesSourceArticle, .compactList:
+            guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
+                return estimate
+            }
+            configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+            estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+            estimate.precalculated = true
+        case .pageWithLocation:
+            estimate.height = WMFNearbyArticleCollectionViewCell.estimatedRowHeight()
+        case .photo:
+            estimate.height = WMFPicOfTheDayCollectionViewCell.estimatedRowHeight()
         }
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
+       
         return estimate
     }
     
