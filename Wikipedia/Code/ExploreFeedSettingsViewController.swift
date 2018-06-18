@@ -42,7 +42,8 @@ private struct FeedCard: Item {
     let iconBackgroundColor: UIColor?
 
     init(contentGroupKind: WMFContentGroupKind) {
-        self.type = ItemType.feedCard(contentGroupKind)
+        type = ItemType.feedCard(contentGroupKind)
+
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
         let disclosureTextString: () -> String = {
