@@ -24,7 +24,6 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
 // Preferences
-- (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 /**
  Toggles all customizable content groups on or off for a given siteURL.
