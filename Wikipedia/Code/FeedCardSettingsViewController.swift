@@ -172,14 +172,18 @@ extension FeedCardSettingsViewController: Themeable {
 extension FeedCardSettingsViewController: WMFSettingsTableViewCellDelegate {
     func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         let controlTag = sender.tag
-        let feedContentController = dataStore?.feedContentController
+        guard let feedContentController = dataStore?.feedContentController else {
+            assertionFailure("feedContentController is nil")
+            return
+        }
         guard controlTag != -1 else { // master switch
-            feedContentController?.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
             return
         }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
             assertionFailure("No language for a given control tag")
             return
         }
+        feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn, forSiteURL: language.siteURL)
     }
 }

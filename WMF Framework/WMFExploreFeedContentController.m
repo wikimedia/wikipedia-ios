@@ -361,6 +361,12 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     }];
 }
 
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn completion:^{
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
+    }];
+}
+
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferencesForSiteURLs:[NSSet setWithArray:@[siteURL]] shouldHideAllContentSources:!isOn completion:^{
         if (updateFeed) {
