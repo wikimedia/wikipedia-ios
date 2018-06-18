@@ -108,6 +108,7 @@ class ExploreFeedSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Explore feed"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
         tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())

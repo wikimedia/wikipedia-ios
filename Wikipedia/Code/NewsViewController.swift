@@ -12,8 +12,8 @@ class NewsViewController: ColumnarCollectionViewController {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
-        title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+        title = CommonStrings.inTheNewsTitle
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target:nil, action:nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

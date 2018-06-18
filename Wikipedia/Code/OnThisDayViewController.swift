@@ -18,7 +18,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
         super.init()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target:nil, action:nil)
     }
     
     var isDateVisibleInTitle: Bool {
