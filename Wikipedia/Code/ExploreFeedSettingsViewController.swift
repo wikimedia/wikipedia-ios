@@ -106,7 +106,6 @@ class ExploreFeedSettingsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @objc var dataStore: MWKDataStore?
-
     private var theme = Theme.standard
 
     override func viewDidLoad() {
@@ -195,6 +194,18 @@ extension ExploreFeedSettingsViewController: UITableViewDelegate {
             footer.apply(theme: theme)
         }
         return footer
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = getItem(at: indexPath)
+        switch item.type {
+        case .feedCard(let contentGroupKind):
+            let feedCardSettingsViewController = FeedCardSettingsViewController()
+            feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
+            navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
+        default:
+            assertionFailure()
+        }
     }
 }
 
