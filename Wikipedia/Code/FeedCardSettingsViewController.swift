@@ -70,6 +70,7 @@ class FeedCardSettingsViewController: UIViewController {
         tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())
+        apply(theme: theme)
     }
 
     func configure(with title: String, dataStore: MWKDataStore?, contentGroupKind: WMFContentGroupKind, theme: Theme) {
@@ -77,7 +78,6 @@ class FeedCardSettingsViewController: UIViewController {
         self.dataStore = dataStore
         self.contentGroupKind = contentGroupKind
         self.theme = theme
-        apply(theme: theme)
     }
 
     private lazy var languages: [Language] = { // maybe a set
