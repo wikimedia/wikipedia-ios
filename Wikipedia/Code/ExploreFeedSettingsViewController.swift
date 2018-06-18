@@ -8,6 +8,7 @@ private struct Section {
 
 private protocol Item {
     var title: String { get }
+    var subtitle: String? { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
     var discloureText: String? { get }
     var type: ItemType { get }
@@ -22,6 +23,7 @@ private protocol SwitchItem: Item {
 }
 
 extension SwitchItem {
+    var subtitle: String? { return nil }
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
     var discloureText: String? { return nil }
     var iconName: String? { return nil }
@@ -31,6 +33,7 @@ extension SwitchItem {
 
 private struct FeedCard: Item {
     let title: String
+    let subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
     let discloureText: String?
     let type: ItemType
@@ -40,6 +43,7 @@ private struct FeedCard: Item {
 
     init(contentGroupKind: WMFContentGroupKind) {
         self.type = ItemType.feedCard(contentGroupKind)
+        let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
         let disclosureTextString: () -> String = {
             let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
@@ -51,6 +55,7 @@ private struct FeedCard: Item {
             }
         }
 
+        subtitle = languageCodes.joined(separator: ", ").uppercased()
         switch contentGroupKind {
         case .news:
             title = CommonStrings.inTheNewsTitle
@@ -162,7 +167,7 @@ extension ExploreFeedSettingsViewController: UITableViewDataSource {
         if let switchItem = item as? SwitchItem {
             configureSwitch(cell, switchItem: switchItem)
         } else {
-            cell.configure(item.disclosureType, disclosureText: item.discloureText, title: item.title, subtitle: "EN, PL", iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
+            cell.configure(item.disclosureType, disclosureText: item.discloureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
         }
         return cell
     }
