@@ -45,12 +45,15 @@ private struct FeedCard: Item {
             title = "In the news"
             disclosureType = .viewController
             separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
+            disclosureType = .viewControllerWithDisclosureText
+            discloureText = disclosureTextString()
             iconName = "in-the-news-mini"
             iconColor = UIColor(red: 0.639, green: 0.663, blue: 0.690, alpha: 1.0)
             iconBackgroundColor = UIColor.wmf_lighterGray
         case .onThisDay:
             title = "On this day"
-            disclosureType = .viewController
+            disclosureType = .viewControllerWithDisclosureText
+            discloureText = disclosureTextString()
             iconName = "on-this-day-mini"
             iconColor = UIColor(red: 0.243, green: 0.243, blue: 0.773, alpha: 1.0)
             iconBackgroundColor = UIColor(red: 0.922, green: 0.953, blue: 0.996, alpha: 1.0)
