@@ -18,7 +18,7 @@ private protocol Item {
 
 private protocol SwitchItem: Item {
     var controlTag: Int { get }
-    var isOn: Bool { get set }
+    var isOn: Bool { get }
 }
 
 extension SwitchItem {
@@ -69,7 +69,7 @@ private struct Language: SwitchItem {
     let title: String
     let type: ItemType
     let controlTag: Int
-    var isOn: Bool
+    let isOn: Bool
     let siteURL: URL
 
     init(_ languageLink: MWKLanguageLink, controlTag: Int) {
