@@ -336,14 +336,17 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     return customizableContentSources;
 }
 
+- (NSArray *)preferredSiteURLs {
+    return [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
+}
+
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     if (keyValue) {
         return (NSMutableDictionary *)keyValue.value;
     }
-    NSArray *preferredSiteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
-    NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:preferredSiteURLs.count];
-    for (NSURL *siteURL in preferredSiteURLs) {
+    NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
+    for (NSURL *siteURL in self.preferredSiteURLs) {
         [preferences setObject:[WMFExploreFeedContentController customizableContentSources] forKey:siteURL.wmf_articleDatabaseKey];
     }
     [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
