@@ -1,6 +1,6 @@
 import UIKit
 
-@objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
+@objc public protocol SaveButtonsControllerDelegate: NSObjectProtocol {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle)
     func willUnsaveArticle(_ article: WMFArticle)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
@@ -85,7 +85,7 @@ import UIKit
         notifyDelegateArticleSavedStateChanged()
     }
     
-    @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
+    @objc public weak var delegate: SaveButtonsControllerDelegate?
     
     @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
