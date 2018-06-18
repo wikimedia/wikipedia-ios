@@ -364,6 +364,52 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
         [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
 }
+
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn completion:(nullable dispatch_block_t)completion {
+    WMFAssertMainThread(@"toggleContentGroupForSiteURLs: must be called on the main thread");
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+            [moc performBlock:^{
+                NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+                NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
+                assert(oldPreferences);
+
+                for (NSURL *siteURL in siteURLs) {
+                    NSString *key = siteURL.wmf_articleDatabaseKey;
+                    NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
+                    NSMutableSet *newVisibleContentSources;
+
+                    if (oldVisibleContentSources) {
+                        newVisibleContentSources = [oldVisibleContentSources mutableCopy];
+                    } else {
+                        newVisibleContentSources = [NSMutableSet set];
+                    }
+
+                    if (isOn) {
+                        [newVisibleContentSources addObject:@(contentGroupKind)];
+                    } else {
+                        [newVisibleContentSources removeObject:@(contentGroupKind)];
+                    }
+
+                    [newPreferences setObject:newVisibleContentSources forKey:key];
+                    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
+                }
+
+                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                [self save:moc];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion();
+                    }
+                    [op finish];
+                });
+            }];
+        });
+    }];
+    [self.operationQueue addOperation:op];
+}
+// consolidate
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferencesForSiteURLs: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
