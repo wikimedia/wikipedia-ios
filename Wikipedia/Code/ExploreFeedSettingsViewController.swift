@@ -126,8 +126,8 @@ class ExploreFeedSettingsViewController: UIViewController {
     }()
 
     private var sections: [Section] {
-        let inTheNews = FeedCard(type: .inTheNews)
-        let onThisDay = FeedCard(type: .onThisDay)
+        let inTheNews = FeedCard(contentGroupKind: .news)
+        let onThisDay = FeedCard(contentGroupKind: .onThisDay)
         let customization = Section(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay])
 
         let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
