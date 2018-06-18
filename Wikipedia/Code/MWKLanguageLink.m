@@ -12,6 +12,7 @@
 @property (readwrite, copy, nonatomic) NSString *pageTitleText;
 @property (readwrite, copy, nonatomic) NSString *localizedName;
 @property (readwrite, copy, nonatomic) NSString *name;
+@property (readonly, copy, nonatomic) WMFExploreFeedContentController *feedContentController;
 
 @end
 
@@ -75,8 +76,18 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
     return [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
 }
 
--(BOOL)isInFeed {
-    return [[SessionSingleton sharedInstance].dataStore.feedContentController anyContentSourcesVisibleInTheFeedForSiteURL:self.siteURL];
+#pragma Explore feed preferences
+
+- (WMFExploreFeedContentController *)feedContentController {
+    return [SessionSingleton sharedInstance].dataStore.feedContentController;
+}
+
+- (BOOL)isInFeed {
+    return [self.feedContentController anyContentGroupsVisibleInTheFeedForSiteURL:self.siteURL];
+}
+
+- (BOOL)isInFeedForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
+    return [[self.feedContentController languageCodesForContentGroupKind:contentGroupKind] containsObject:self.languageCode];
 }
 
 @end

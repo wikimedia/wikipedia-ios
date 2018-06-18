@@ -1,3 +1,4 @@
+#import "WMFContentGroup+Extensions.h"
 @import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,6 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
  Returns NO if there are no content sources in this language visible in the feed.
  */
 @property (readonly) BOOL isInFeed;
+
+/**
+ Flag indicating whether the content group of given kind is visible in the feed in this language.
+ Returns YES if the content group of given kind is visible in the feed in this language.
+ Returns NO if the content group of given kind is not visible in the feed in this language.
+ */
+- (BOOL)isInFeedForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 - (instancetype)initWithLanguageCode:(NSString *)languageCode
                        pageTitleText:(NSString *)pageTitleText
