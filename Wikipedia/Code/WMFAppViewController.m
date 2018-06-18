@@ -362,7 +362,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     MWKLanguageLink *mostRecentlyModifiedPreferredLanguage = languageLinkController.mostRecentlyModifiedPreferredLanguage;
     NSURL *siteURL = mostRecentlyModifiedPreferredLanguage.siteURL;
     BOOL appendedNewPreferredLanguage = [preferredLanguages containsObject:mostRecentlyModifiedPreferredLanguage];
-    [self.dataStore.feedContentController updateExploreFeedPreferencesForSiteURL:siteURL shouldHideAllContentSources:!appendedNewPreferredLanguage];
 }
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {

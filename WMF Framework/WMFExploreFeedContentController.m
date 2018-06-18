@@ -354,10 +354,6 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
-- (void)updateExploreFeedPreferencesForSiteURL:(NSURL *)siteURL shouldHideAllContentSources:(BOOL)shouldHideAllContentSources {
-    [self updateExploreFeedPreferencesForSiteURLs:[NSSet setWithArray:@[siteURL]] shouldHideAllContentSources:shouldHideAllContentSources completion:nil];
-}
-
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
     NSSet *preferredSiteURLs = [NSSet setWithArray:self.preferredSiteURLs];
     [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn completion:^{

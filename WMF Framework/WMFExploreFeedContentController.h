@@ -24,7 +24,6 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
 // Preferences
-- (void)updateExploreFeedPreferencesForSiteURL:(nonnull NSURL *)siteURL shouldHideAllContentSources:(BOOL)shouldHideAllContentSources;
 - (void)updateExploreFeedPreferencesForSiteURLs:(nonnull NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion;
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
