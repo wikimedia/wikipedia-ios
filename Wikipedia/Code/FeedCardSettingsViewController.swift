@@ -44,11 +44,11 @@ private struct Language: SwitchItem {
     let isOn: Bool
     let siteURL: URL
 
-    init(_ languageLink: MWKLanguageLink, controlTag: Int) {
+    init(_ languageLink: MWKLanguageLink, controlTag: Int, contentGroupKind: WMFContentGroupKind) {
         type = ItemType.language(languageLink)
         title = languageLink.localizedName
         self.controlTag = controlTag
-        isOn = languageLink.isInFeed
+        isOn = languageLink.isInFeed(for: contentGroupKind)
         siteURL = languageLink.siteURL()
     }
 }
@@ -83,7 +83,7 @@ class FeedCardSettingsViewController: UIViewController {
     private lazy var languages: [Language] = { // maybe a set
         let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
         let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
-            Language(languageLink, controlTag: index)
+            Language(languageLink, controlTag: index, contentGroupKind: self.contentGroupKind)
         }
         return languages
     }()
