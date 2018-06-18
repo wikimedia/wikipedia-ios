@@ -38,13 +38,22 @@ private struct FeedCard: Item {
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
 
-    init(type: ItemType) {
-        self.type = type
-        switch type {
-        case .inTheNews:
-            title = "In the news"
-            disclosureType = .viewController
-            separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
+    init(contentGroupKind: WMFContentGroupKind) {
+        self.type = ItemType.feedCard(contentGroupKind)
+
+        let disclosureTextString: () -> String = {
+            let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
+            let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+            if (languageCodes.count == preferredLanguages.count) {
+                return "On all"
+            } else {
+                return "On \(languageCodes.count)"
+            }
+        }
+
+        switch contentGroupKind {
+        case .news:
+            title = CommonStrings.inTheNewsTitle
             disclosureType = .viewControllerWithDisclosureText
             discloureText = disclosureTextString()
             iconName = "in-the-news-mini"
