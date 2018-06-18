@@ -1,5 +1,7 @@
 import UIKit
 
+// consolidate
+
 private struct Section {
     let headerTitle: String
     let footerTitle: String
