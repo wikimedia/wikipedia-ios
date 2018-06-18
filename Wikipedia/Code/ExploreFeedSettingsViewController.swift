@@ -85,15 +85,7 @@ private struct Language: SwitchItem {
 }
 
 private enum ItemType {
-    case inTheNews
-    case onThisDay
-    case continueReading
-    case becauseYouRead
-    case featuredArticle
-    case topRead
-    case pictureOfTheDay
-    case places
-    case randomizer
+    case feedCard(WMFContentGroupKind)
     case language(MWKLanguageLink)
 }
 
