@@ -29,6 +29,17 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 - (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
+
+/**
+ Toggles a content group of given kind on or off for all preferred languages.
+ If it's on, the group will appear in the feed in all preferred languages.
+ If it's off, the group will not appear in the feed at all.
+
+ @param contentGroupKind The kind of the content group that is about to be toggled on/off in the feed.
+ @param isOn Specifies whether the group should be visible in the feed or not.
+ */
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
+
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
 #endif
