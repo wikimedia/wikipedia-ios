@@ -47,7 +47,6 @@ private struct FeedCard: Item {
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
         let disclosureTextString: () -> String = {
-            let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
             let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
             if (languageCodes.count == preferredLanguages.count) {
                 return "On all"
