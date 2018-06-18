@@ -154,6 +154,21 @@
 		7A2432E41FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */; };
 		7A2432E51FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
+		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
+		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
+		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
+		7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
+		7A28126720D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
+		7A28126820D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
+		7A28126920D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
+		7A28126A20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
+		7A28126B20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
+		7A28126C20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
+		7A28127420D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */; };
+		7A28127520D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */; };
+		7A28127620D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */; };
+		7A28127720D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */; };
+		7A28127820D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */; };
 		7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
@@ -3291,6 +3306,9 @@
 		7A2432E01FCF45B200FB4BA5 /* ThemeableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableTextView.swift; sourceTree = "<group>"; };
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
+		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
+		7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCardSettingsViewController.xib; sourceTree = "<group>"; };
+		7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+FeedCustomization.swift"; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
@@ -6013,6 +6031,9 @@
 			children = (
 				7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */,
 				7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */,
+				7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */,
+				7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */,
+				7A28127320D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift */,
 			);
 			name = "Explore Feed";
 			sourceTree = "<group>";
@@ -9053,6 +9074,7 @@
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
+				7A28126820D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				7AFA21C020110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9189,6 +9211,7 @@
 				D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */,
 				D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */,
 				D80ED3F31EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.xib in Resources */,
+				7A28126C20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
@@ -9300,6 +9323,7 @@
 				D8A42BC91E815A9C00D8E281 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */,
 				D8A42BCB1E815A9C00D8E281 /* WMFAppViewController.storyboard in Resources */,
+				7A28126B20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8A42BCD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C320110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9402,6 +9426,7 @@
 				D8CE26501E698E2400DAE2E0 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8CE26521E698E2400DAE2E0 /* WMFAppViewController.storyboard in Resources */,
+				7A28126920D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8CE26541E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C120110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9504,6 +9529,7 @@
 				D8EC3F501E9BDA35006712EB /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8EC3F521E9BDA35006712EB /* WMFAppViewController.storyboard in Resources */,
+				7A28126A20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8EC3F541E9BDA35006712EB /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C220110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -10244,6 +10270,7 @@
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D82E95281F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
+				7A28127420D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
@@ -10255,6 +10282,7 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				B34B0ED91E9EBD0400716D75 /* TouchOutsideOverlayView.swift in Sources */,
+				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -10448,6 +10476,7 @@
 				B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D80ED2FC1EE57F4800CE8C50 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
+				7A28127820D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				D80ED2FD1EE57F4800CE8C50 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D80ED2FE1EE57F4800CE8C50 /* AboutViewController.m in Sources */,
 				D80ED2FF1EE57F4800CE8C50 /* WMFTabBarController.m in Sources */,
@@ -10484,6 +10513,7 @@
 				D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */,
+				7A28126720D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D80ED3201EE57F4800CE8C50 /* WMFRandomArticleViewController.m in Sources */,
 				D8703DC31EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D80ED3231EE57F4800CE8C50 /* WMFArticleViewController.m in Sources */,
@@ -11214,6 +11244,7 @@
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
 				D8A42B4D1E815A9C00D8E281 /* WMFArticleFetcher.m in Sources */,
 				D8A42B4E1E815A9C00D8E281 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
+				7A28127720D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				D8A42B4F1E815A9C00D8E281 /* NewsViewController.swift in Sources */,
 				D8A42B501E815A9C00D8E281 /* main.m in Sources */,
 				B03103301F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
@@ -11225,6 +11256,7 @@
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
+				7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D8A42B611E815A9C00D8E281 /* NSString+FormattedAttributedString.m in Sources */,
 				83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D8A42B621E815A9C00D8E281 /* WMFProxyServer.m in Sources */,
@@ -11418,6 +11450,7 @@
 				B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
+				7A28127520D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				B3B7945D1ECB3723005E2392 /* WMFExploreViewController.m in Sources */,
 				D8CE25661E698E2400DAE2E0 /* WMFTabBarController.m in Sources */,
@@ -11454,6 +11487,7 @@
 				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
+				7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D8CE25841E698E2400DAE2E0 /* WMFRandomArticleViewController.m in Sources */,
 				8304D7C11F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				D80ED25D1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift in Sources */,
@@ -11739,6 +11773,7 @@
 				B07F823D203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0CD9DE81F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D88C701A1EE595E90022A26A /* MapView.swift in Sources */,
+				7A28127620D41771009B42B5 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				D8EC3E561E9BDA35006712EB /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D8EC3E5A1E9BDA35006712EB /* WikiGlyphLabel.m in Sources */,
 				D8EC3E5B1E9BDA35006712EB /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
@@ -11775,6 +11810,7 @@
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
 				D8EC3E7C1E9BDA35006712EB /* WMFRotationRespectingTabBarController.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
+				7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D8EC3E7E1E9BDA35006712EB /* WMFCompassView.m in Sources */,
 				D8EC3E7F1E9BDA35006712EB /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				D8EC3E801E9BDA35006712EB /* WMFRandomArticleViewController.m in Sources */,
