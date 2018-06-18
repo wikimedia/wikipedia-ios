@@ -78,6 +78,7 @@
 "add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
+"app-store-short-description" = "Baixeu l'aplicació de la Viquipèdia per explorar llocs propers, sincronitzar articles per llegir-los fora de línia i personalitzar l'experiència de lectura.";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
 "appearance-settings-expand-tables" = "Expandeix les taules";
 "appearance-settings-expand-tables-footer" = "Estableix que totes les taules en tots els articles es despleguin per defecte, incloent les infotaules, referències, notes i enllaços externs.";
@@ -94,6 +95,7 @@
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
+"article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
@@ -339,6 +341,7 @@
 "reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
 "reading-list-entry-limit-exceeded-title" = "Heu sobrepassat el límit de $1 articles per compte.";
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
+"reading-list-generic-error" = "S'ha produït un error inesperat mentre s'actualitzaven les llistes de lectura.";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "No, suprimeix els articles del dispositiu i del meu compte de Viquipèdia";
 "reading-list-keep-title" = "Voleu mantenir els articles desats al dispositiu?";
@@ -358,10 +361,13 @@
 "reading-lists-article-not-synced" = "No sincronitzat";
 "reading-lists-article-queued-to-be-downloaded" = "Articles a la cua per baixar";
 "reading-lists-articles-not-synced-limit-exceeded" = "No s'han sincronitzat alguns articles. S'ha excedit el límit.";
+"reading-lists-conflicting-reading-list-name-updated" = "S'ha reanomenat la llista «$1» a «$2»";
 "reading-lists-count" = "{{PLURAL:$1|$1 llista de lectura|$1 llistes de lectures}}";
 "reading-lists-default-list-description" = "Llista per defecte dels vostres articles desats";
 "reading-lists-default-list-title" = "Desats";
+"reading-lists-delete-reading-list-alert-message" = "No es pot desfer l'acció. Aquells articles desats només en {{PLURAL:$1|aquesta llista|aquestes llistes}} deixaran d'estar-hi desats.";
 "reading-lists-delete-reading-list-alert-title" = "Voleu suprimir {{PLURAL:$1|la llista|les llistes}}?";
+"reading-lists-large-sync-completed" = "$1 articles i $2 llistes de lectura sincronitzades des del vostre compte";
 "reading-lists-list-not-synced-limit-exceeded" = "La llista no s'ha sincronitzat. S'ha excedit el límit";
 "reading-lists-sort-saved-articles" = "Ordena els articles desats";
 "reading-lists-sync-error-no-internet-connection" = "Es reprendrà la sincronització quan la connexió a Internet torni a ser disponible";
@@ -378,6 +384,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|L'any passat|Fa $1 anys}}";
 "relogin-failed-retry-login-button-title" = "Proveu de tornar a iniciar una sessió";
 "relogin-failed-stay-logged-out-button-title" = "Manteniu-me fora de la sessió";
+"relogin-failed-title" = "No s'ha pogut restablir l'inici de sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "saved-all-articles-title" = "Tots els articles";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
@@ -418,6 +425,8 @@
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Voleu esborrar tots els articles desats?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Esborra";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Esborra els articles desats";
+"settings-storage-and-syncing-full-sync" = "Les llistes de lectures se sincronitzaran en segon pla";
+"settings-storage-and-syncing-server-sync-footer-text" = "Sol·licita una actualització dels vostres articles sincronitzats i llistes de lectura.";
 "settings-storage-and-syncing-server-sync-title" = "Actualitza les llistes de lectura sincronitzades";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Mostra la llista de lectura Desats";
 "settings-storage-and-syncing-title" = "Emmagatzemament d'articles i sincronització";
