@@ -33,6 +33,7 @@
     } else {
         self.titleIcon.hidden = YES;
         self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
+        self.separatorInset = UIEdgeInsetsZero;
     }
 }
 
@@ -151,9 +152,8 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
-- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType separatorInset:(UIEdgeInsets)separatorInset title:(NSString *)title iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
     self.disclosureType = disclosureType;
-    self.separatorInset = separatorInset;
     self.title = title;
     self.iconName = iconName;
     self.iconColor = iconColor;

@@ -10,7 +10,6 @@ private protocol Item {
     var title: String { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
     var type: ItemType { get }
-    var separatorInset: UIEdgeInsets { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
     var iconBackgroundColor: UIColor? { get }
@@ -33,7 +32,6 @@ private struct FeedCard: Item {
     let title: String
     let disclosureType: WMFSettingsMenuItemDisclosureType
     let type: ItemType
-    let separatorInset: UIEdgeInsets
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
@@ -51,7 +49,6 @@ private struct FeedCard: Item {
         case .onThisDay:
             title = "On this day"
             disclosureType = .viewController
-            separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
             iconName = "on-this-day-mini"
             iconColor = UIColor(red: 0.243, green: 0.243, blue: 0.773, alpha: 1.0)
             iconBackgroundColor = UIColor(red: 0.922, green: 0.953, blue: 0.996, alpha: 1.0)
@@ -59,7 +56,6 @@ private struct FeedCard: Item {
             assertionFailure() // TODO
             title = "In the news"
             disclosureType = .viewController
-            separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
             iconName = "in-the-news-mini"
             iconColor = UIColor(red: 0.639, green: 0.663, blue: 0.690, alpha: 1.0)
             iconBackgroundColor = UIColor.wmf_lighterGray
