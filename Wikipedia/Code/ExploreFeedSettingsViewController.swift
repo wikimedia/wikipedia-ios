@@ -22,7 +22,6 @@ private protocol SwitchItem: Item {
 
 extension SwitchItem {
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
-    var separatorInset: UIEdgeInsets { return .zero }
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
