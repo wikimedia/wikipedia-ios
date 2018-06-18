@@ -96,11 +96,11 @@ private struct FeedCard: Item {
             iconColor = UIColor.wmf_red
             iconBackgroundColor = UIColor.wmf_lightRed
         default:
-            assertionFailure("Group of kind \(contentGroupKind) is not customizable") // fix
-            title = "On this day"
-            iconName = "on-this-day-mini"
-            iconColor = UIColor(red: 0.243, green: 0.243, blue: 0.773, alpha: 1.0)
-            iconBackgroundColor = UIColor(red: 0.922, green: 0.953, blue: 0.996, alpha: 1.0)
+            assertionFailure("Group of kind \(contentGroupKind) is not customizable")
+            title = ""
+            iconName = nil
+            iconColor = nil
+            iconBackgroundColor = nil
         }
     }
 }
