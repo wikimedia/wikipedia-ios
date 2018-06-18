@@ -154,6 +154,7 @@
 
 - (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
     self.disclosureType = disclosureType;
+    self.disclosureText = disclosureText;
     self.title = title;
     self.iconName = iconName;
     self.iconColor = iconColor;

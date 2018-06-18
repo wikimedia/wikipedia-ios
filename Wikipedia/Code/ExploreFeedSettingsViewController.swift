@@ -9,6 +9,7 @@ private struct Section {
 private protocol Item {
     var title: String { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
+    var discloureText: String? { get }
     var type: ItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
@@ -22,6 +23,7 @@ private protocol SwitchItem: Item {
 
 extension SwitchItem {
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
+    var discloureText: String? { return nil }
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
@@ -30,6 +32,7 @@ extension SwitchItem {
 private struct FeedCard: Item {
     let title: String
     let disclosureType: WMFSettingsMenuItemDisclosureType
+    let discloureText: String?
     let type: ItemType
     let iconName: String?
     let iconColor: UIColor?
@@ -154,7 +157,7 @@ extension ExploreFeedSettingsViewController: UITableViewDataSource {
         if let switchItem = item as? SwitchItem {
             configureSwitch(cell, switchItem: switchItem)
         } else {
-            cell.configure(item.disclosureType, separatorInset: item.separatorInset, title: item.title, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
+            cell.configure(item.disclosureType, disclosureText: item.discloureText, title: item.title, subtitle: "EN, PL", iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
         }
         return cell
     }
