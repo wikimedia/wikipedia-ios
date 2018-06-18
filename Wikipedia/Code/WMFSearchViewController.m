@@ -9,7 +9,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
-#import "UIFont+WMFStyle.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFSearchFunnel.h"

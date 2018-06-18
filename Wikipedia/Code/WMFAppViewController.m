@@ -13,7 +13,6 @@
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIFont+WMFStyle.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers

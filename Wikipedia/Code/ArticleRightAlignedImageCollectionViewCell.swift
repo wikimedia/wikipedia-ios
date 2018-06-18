@@ -32,10 +32,8 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        let layoutMargins = UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        
+        let layoutMargins = calculatedLayoutMargins
 
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom

@@ -3,7 +3,6 @@
 #import "RMessageView.h"
 
 #import "NSString+FormattedAttributedString.h"
-#import "UIFont+WMFStyle.h"
 #import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFExploreCollectionViewCell.h"
@@ -47,7 +46,6 @@
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
-#import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
@@ -60,6 +58,7 @@
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
+#import "WMFCompassView.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

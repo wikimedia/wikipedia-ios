@@ -6,6 +6,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var calculatedLayoutMargins: UIEdgeInsets {
+        let margins = self.layoutMargins
+        let multipliers = self.layoutMarginsMultipliers
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+    }
 
     @objc public let titleLabel = UILabel()
     @objc public let descriptionLabel = UILabel()

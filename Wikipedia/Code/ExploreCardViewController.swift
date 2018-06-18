@@ -36,13 +36,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.isScrollEnabled = false
-        layoutManager.register(AnnouncementCollectionViewCell.self, forCellWithReuseIdentifier: "AnnouncementCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: "ArticleRightAlignedImageCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(RankedArticleCollectionViewCell.self, forCellWithReuseIdentifier: "RankedArticleCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(ArticleFullWidthImageCollectionViewCell.self, forCellWithReuseIdentifier: "ArticleFullWidthImageCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: "NewsCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(OnThisDayExploreCollectionViewCell.self, forCellWithReuseIdentifier: "OnThisDayExploreCollectionViewCell", addPlaceholder: true)
-        layoutManager.register(WMFNearbyArticleCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: WMFNearbyArticleCollectionViewCell.wmf_nibName())
+        layoutManager.register(AnnouncementCollectionViewCell.self, forCellWithReuseIdentifier: AnnouncementCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(RankedArticleCollectionViewCell.self, forCellWithReuseIdentifier: RankedArticleCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleFullWidthImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleFullWidthImageCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(OnThisDayExploreCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayExploreCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(WMFPicOfTheDayCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: WMFPicOfTheDayCollectionViewCell.wmf_nibName())
     }
     
@@ -142,11 +142,11 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     private func resuseIdentifierAt(_ indexPath: IndexPath) -> String {
         switch displayTypeAt(indexPath) {
         case .ranked:
-            return "RankedArticleCollectionViewCell"
+            return RankedArticleCollectionViewCell.identifier
         case .story:
-            return "NewsCollectionViewCell"
+            return NewsCollectionViewCell.identifier
         case .event:
-            return "OnThisDayExploreCollectionViewCell"
+            return OnThisDayExploreCollectionViewCell.identifier
         case .continueReading:
             fallthrough
         case .relatedPagesSourceArticle:
@@ -154,15 +154,15 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .random:
             fallthrough
         case .pageWithPreview:
-            return "ArticleFullWidthImageCollectionViewCell"
+            return ArticleFullWidthImageCollectionViewCell.identifier
         case .photo:
             return WMFPicOfTheDayCollectionViewCell.wmf_nibName()
         case .pageWithLocation:
-            return WMFNearbyArticleCollectionViewCell.wmf_nibName()
+            return ArticleLocationCollectionViewCell.identifier
         case .page, .relatedPages, .mainPage, .compactList:
-            return "ArticleRightAlignedImageCollectionViewCell"
+            return ArticleRightAlignedImageCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
-            return "AnnouncementCollectionViewCell"
+            return AnnouncementCollectionViewCell.identifier
         }
     }
     
@@ -218,14 +218,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
     }
     
-    private func configureNearbyCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
-        guard let cell = cell as? WMFNearbyArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+    private func configureLocationCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
+        guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.titleText = article.displayTitle
-        cell.descriptionText = article.capitalizedWikidataDescription
-        cell.setImageURL(article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth))
-        (cell as Themeable).apply(theme: theme)
+        cell.configure(article: article, displayType: .pageWithLocation, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.distanceLabel.text = "unknown distance"
     }
     
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -306,7 +304,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .pageWithLocation:
-            configureNearbyCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
+            configureLocationCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .photo:
             configurePhotoCell(cell, layoutOnly: layoutOnly)
         case .story:
@@ -360,15 +358,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
         switch displayTypeAt(indexPath) {
-        case .theme, .notification, .announcement, .readingList, .ranked, .page, .story, .event, .continueReading, .mainPage, .pageWithPreview, .random, .relatedPages, .relatedPagesSourceArticle, .compactList:
+        case .theme, .notification, .announcement, .readingList, .ranked, .page, .story, .event, .continueReading, .mainPage, .pageWithPreview, .random, .relatedPages, .relatedPagesSourceArticle, .compactList, .pageWithLocation:
             guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
                 return estimate
             }
             configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
             estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
             estimate.precalculated = true
-        case .pageWithLocation:
-            estimate.height = WMFNearbyArticleCollectionViewCell.estimatedRowHeight()
         case .photo:
             estimate.height = WMFPicOfTheDayCollectionViewCell.estimatedRowHeight()
         }

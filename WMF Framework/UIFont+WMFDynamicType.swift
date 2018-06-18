@@ -6,7 +6,7 @@ import UIKit
 }
 
 @objc (WMFDynamicTextStyle) public class DynamicTextStyle: NSObject {
-    public static let subheadline = DynamicTextStyle(.system, .subheadline)
+    @objc public static let subheadline = DynamicTextStyle(.system, .subheadline)
     @objc public static let semiboldSubheadline = DynamicTextStyle(.system, .subheadline, .semibold)
     public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
     
@@ -23,6 +23,7 @@ import UIKit
     public static let body = DynamicTextStyle(.system, .body)
     public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
     
+    public static let caption1 = DynamicTextStyle(.system, .caption1)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
     public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [.traitItalic])
