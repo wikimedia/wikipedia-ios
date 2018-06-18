@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerNavigationDelegate {
     fileprivate let cellReuseIdentifier = "org.wikimedia.explore.card.cell"
     fileprivate let headerReuseIdentifier = "org.wikimedia.explore.card.header"
 
@@ -31,6 +31,16 @@ class ExploreViewController: ColumnarCollectionViewController {
             collectionViewUpdater.delegate = self
         }
     }
+    
+    lazy var saveButtonsController: SaveButtonsController = {
+        let sbc = SaveButtonsController(dataStore: dataStore)
+        sbc.delegate = self
+        return sbc
+    }()
+    
+    lazy var readingListHintController: ReadingListHintController = {
+        return ReadingListHintController(dataStore: dataStore, presenter: self)
+    }()
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let sections = fetchedResultsController.sections else {
@@ -104,6 +114,7 @@ class ExploreViewController: ColumnarCollectionViewController {
     
     func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
         let cardVC = ExploreCardViewController()
+        cardVC.navigationDelegate = self
         cardVC.dataStore = dataStore
         cardVC.view.autoresizingMask = []
         addChildViewController(cardVC)
@@ -159,3 +170,50 @@ extension ExploreViewController {
         return WMFCVLMetrics(boundsSize: size, readableWidth: readableWidth, layoutDirection: UIApplication.shared.userInterfaceLayoutDirection)
     }
 }
+
+// MARK - Analytics
+extension ExploreViewController {
+    private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle) {
+        guard let articleURL = article.url else {
+            assert(false, "Article missing url: \(article)")
+            return
+        }
+        if wasArticleSaved {
+            ReadingListsFunnel.shared.logSaveInFeed(saveButton: saveButton, articleURL: articleURL)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(saveButton: saveButton, articleURL: articleURL)
+            
+        }
+    }
+}
+
+extension ExploreViewController: SaveButtonsControllerDelegate {
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle) {
+        readingListHintController.didSave(didSave, article: article, theme: theme)
+        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article)
+    }
+    
+    func willUnsaveArticle(_ article: WMFArticle) {
+        if article.userCreatedReadingListsCount > 0 {
+            let alertController = ReadingListsAlertController()
+            alertController.showAlert(presenter: self, article: article)
+        } else {
+            saveButtonsController.updateSavedState()
+        }
+    }
+    
+    func showAddArticlesToReadingListViewController(for article: WMFArticle) {
+        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        present(addToArticlesReadingListViewController, animated: true)
+    }
+}
+
+extension ExploreViewController: ReadingListsAlertControllerDelegate {
+    func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle) {
+        saveButtonsController.updateSavedState()
+    }
+}
+
+
+
+

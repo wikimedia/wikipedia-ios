@@ -1,20 +1,12 @@
 import UIKit
 
+protocol ExploreCardViewControllerNavigationDelegate {
+    var saveButtonsController: SaveButtonsController { get }
+    var readingListHintController: ReadingListHintController { get }
+}
+
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
-    weak var navigationDelegate: (UIViewController & ReadingListsAlertControllerDelegate)?
-    
-    lazy var saveButtonsController: SaveButtonsController = {
-        let sbc = SaveButtonsController(dataStore: dataStore)
-        sbc.delegate = self
-        return sbc
-    }()
-    
-    lazy var readingListHintController: ReadingListHintController? = {
-        guard let delegate = navigationDelegate else {
-            return nil
-        }
-        return ReadingListHintController(dataStore: dataStore, presenter: delegate)
-    }()
+    weak var navigationDelegate: (ExploreCardViewControllerNavigationDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
@@ -28,14 +20,18 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return view as! UICollectionView
     }
     
+    var theme: Theme = Theme.standard
+    
+    var dataStore: MWKDataStore!
+    
+    // MARK - View Lifecycle
+    
     override func loadView() {
         super.loadView()
         self.view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
-    
-    var theme: Theme = Theme.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +46,24 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(WMFPicOfTheDayCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: WMFPicOfTheDayCollectionViewCell.wmf_nibName())
     }
     
-    var dataStore: MWKDataStore!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            collectionView.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+    
+    // MARK - Navigation
+    
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        guard let delegate = navigationDelegate else {
+            super.present(viewControllerToPresent, animated: flag, completion: completion)
+            return
+        }
+        delegate.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
+    // MARK - Data
     
     public var contentGroup: WMFContentGroup? {
         didSet {
@@ -119,20 +132,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return sheet
         default:
             return nil
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(forItemAt: indexPath) else {
-            return
-        }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
-            collectionView.deselectItem(at: indexPath, animated: animated)
         }
     }
     
@@ -336,18 +335,24 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-            saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
+            navigationDelegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-            saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+            navigationDelegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
     }
     
     // MARK - UICollectionViewDelegate
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let articleURL = articleURL(forItemAt: indexPath) else {
+            return
+        }
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+    }
     
     // MARK - WMFColumnarCollectionViewLayoutDelegate
     
@@ -379,23 +384,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
 }
 
-// MARK - Analytics
-extension ExploreCardViewController {
-    private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle) {
-        guard let articleURL = article.url else {
-            assert(false, "Article missing url: \(article)")
-            return
-        }
-        if wasArticleSaved {
-            ReadingListsFunnel.shared.logSaveInFeed(saveButton: saveButton, articleURL: articleURL)
-        } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(saveButton: saveButton, articleURL: articleURL)
-
-        }
-    }
-}
-
-
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell) {
         
@@ -410,23 +398,3 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     }
 }
 
-extension ExploreCardViewController: SaveButtonsControllerDelegate {
-    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle) {
-        readingListHintController?.didSave(didSave, article: article, theme: theme)
-        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article)
-    }
-    
-    func willUnsaveArticle(_ article: WMFArticle) {
-        if let delegate = navigationDelegate, article.userCreatedReadingListsCount > 0 {
-            let alertController = ReadingListsAlertController()
-            alertController.showAlert(presenter: delegate, article: article)
-        } else {
-            saveButtonsController.updateSavedState()
-        }
-    }
-    
-    func showAddArticlesToReadingListViewController(for article: WMFArticle) {
-        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
-        navigationDelegate?.present(addToArticlesReadingListViewController, animated: true)
-    }
-}
