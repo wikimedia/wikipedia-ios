@@ -63,13 +63,38 @@ private struct FeedCard: Item {
         case .news:
             title = CommonStrings.inTheNewsTitle
             iconName = "in-the-news-mini"
-            iconColor = UIColor(red: 0.639, green: 0.663, blue: 0.690, alpha: 1.0)
+            iconColor = UIColor.wmf_lightGray
             iconBackgroundColor = UIColor.wmf_lighterGray
         case .onThisDay:
             title = "On this day"
             iconName = "on-this-day-mini"
-            iconColor = UIColor(red: 0.243, green: 0.243, blue: 0.773, alpha: 1.0)
-            iconBackgroundColor = UIColor(red: 0.922, green: 0.953, blue: 0.996, alpha: 1.0)
+            iconColor = UIColor.wmf_blue
+            iconBackgroundColor = UIColor.wmf_lightBlue
+        case .featuredArticle:
+            title = "Featured article"
+            iconName = "featured-mini"
+            iconColor = UIColor.wmf_yellow
+            iconBackgroundColor = UIColor.wmf_lightYellow
+        case .topRead:
+            title = "Top read"
+            iconName = "trending-mini"
+            iconColor = UIColor.wmf_blue
+            iconBackgroundColor = UIColor.wmf_lightBlue
+        case .pictureOfTheDay:
+            title = "Picture of the day"
+            iconName = "potd-mini"
+            iconColor = UIColor.wmf_purple
+            iconBackgroundColor = UIColor.wmf_lightPurple
+        case .location:
+            title = "Places"
+            iconName = "nearby-mini"
+            iconColor = UIColor.wmf_green
+            iconBackgroundColor = UIColor.wmf_lightGreen
+        case .random:
+            title = "Randomizer"
+            iconName = "random-mini"
+            iconColor = UIColor.wmf_red
+            iconBackgroundColor = UIColor.wmf_lightRed
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable") // fix
             title = "On this day"
