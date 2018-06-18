@@ -25,7 +25,6 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
 
 // Preferences
 - (void)updateExploreFeedPreferencesForSiteURLs:(nonnull NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion;
-- (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 /**
@@ -43,6 +42,19 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
+/**
+ Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
+
+ @param contentGroupKind The kind of the content group whose language codes you want to get.
+ @return A set of language codes representing languages in which a given content group kind is visible in the feed.
+ If a given content group kind is not visible in any languages, the set will be empty.
+ */
+- (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
+/**
+ Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
+ */
+- (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;

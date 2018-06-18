@@ -313,7 +313,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     }
 }
 
-- (BOOL)anyContentSourcesVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
+- (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
     return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
 }
 
