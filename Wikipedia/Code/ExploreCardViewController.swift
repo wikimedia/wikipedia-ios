@@ -236,10 +236,11 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
-        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 1 else {
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0 else {
             return
         }
-        cell.configure(with: events[1], previousEvent: events[0], dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        let previousEvent: WMFFeedOnThisDayEvent? = events.count > 1 ? events[1] : events[0]
+        cell.configure(with: events[0], previousEvent: previousEvent, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
     }
     
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
