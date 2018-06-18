@@ -419,7 +419,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     }];
     [self.operationQueue addOperation:op];
 }
-// consolidate
+
 - (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferencesForSiteURLs: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
@@ -429,6 +429,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
                 NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
                 NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
                 assert(oldPreferences);
+
                 for (NSURL *siteURL in siteURLs) {
                     NSString *key = siteURL.wmf_articleDatabaseKey;
                     if (shouldHideAllContentSources) { // hide all content sources for siteURL
@@ -441,6 +442,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
                     }
                     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
                 }
+
                 [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
