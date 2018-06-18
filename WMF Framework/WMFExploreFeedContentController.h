@@ -42,6 +42,14 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
 /**
+ Toggles a content group of given kind on or off for a given siteURL.
+
+ @param contentGroupKind The kind of the content group that is about to be toggled on or off in the feed.
+ @param isOn A flag indicating whether the group should be visible in the feed or not.
+ @param siteURL A Wikipedia site url for which a content group of given kind will be visible or hidden in the feed.
+ */
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
+/**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
 
  @param contentGroupKind The kind of the content group whose language codes you want to get.
@@ -49,7 +57,6 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
  If a given content group kind is not visible in any languages, the set will be empty.
  */
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
 /**
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
