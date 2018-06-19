@@ -3,13 +3,12 @@ import WMF
 
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate {
-    fileprivate let cellReuseIdentifier = "org.wikimedia.explore.card.cell"
-    fileprivate let headerReuseIdentifier = "org.wikimedia.explore.card.header"
-
+    // MARK - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier, addPlaceholder: true)
-        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -17,6 +16,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
        return ColumnarCollectionViewControllerLayoutCache()
     }()
+    
+    // MARK - State
     
     @objc var dataStore: MWKDataStore! {
         didSet {
@@ -95,6 +96,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutCache.reset()
     }
     
+    // MARK - UICollectionViewDataSource
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
             return 0
@@ -103,7 +106,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let maybeCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath)
+        let maybeCell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCardCollectionViewCell.identifier, for: indexPath)
         guard let cell = maybeCell as? ExploreCardCollectionViewCell else {
             return maybeCell
         }
@@ -117,11 +120,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard kind == UICollectionElementKindSectionHeader else {
             abort()
         }
-        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
             abort()
         }
         configureHeader(header, for: indexPath.section)
         return header
+    }
+    
+    // MARK - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let group = fetchedResultsController.object(at: indexPath)
+        guard let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) else {
+            return
+        }
+        wmf_push(vc, animated: true)
     }
     
     func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
@@ -164,7 +177,7 @@ extension ExploreViewController: CollectionViewUpdaterDelegate {
 extension ExploreViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: cellReuseIdentifier) as? ExploreCardCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -176,7 +189,7 @@ extension ExploreViewController {
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? ExploreHeaderCollectionReusableView else {
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
             return estimate
         }
         header.prepareForReuse()
