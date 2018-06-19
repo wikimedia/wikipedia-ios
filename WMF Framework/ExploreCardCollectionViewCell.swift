@@ -14,15 +14,16 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(5)
-    private let cardShadowOpacity = Float(0.5)
-
+    private let cardShadowOpacity = Float(0.25)
+    private let cardShadowOffset =  CGSize(width: 0, height: 5)
+    
     public override func setup() {
         super.setup()
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         customizationButton.setTitle("⋮", for: UIControlState.normal)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
-        cardBackgroundView.layer.shadowOffset = CGSize(width: -2, height: 2)
+        cardBackgroundView.layer.shadowOffset = cardShadowOffset
         cardBackgroundView.layer.shadowRadius = cardShadowRadius
         cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
@@ -100,9 +101,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
     }
     
-    private var cardShadowColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+    private var cardShadowColor: UIColor = .black {
         didSet {
-            cardContent?.view.layer.shadowColor = cardShadowColor.cgColor
+            cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         }
     }
     
@@ -114,7 +115,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = theme.colors.paperBackground
-        cardShadowColor = theme.colors.shadow
+        cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
     }
     
