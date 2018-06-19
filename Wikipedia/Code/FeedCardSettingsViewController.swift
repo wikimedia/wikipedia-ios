@@ -34,7 +34,18 @@ private struct Master: SwitchItem {
     let type: ItemType = .masterSwitch
     let controlTag: Int = -1
     let isOn: Bool
+
+    init(title: String, contentGroupKind: WMFContentGroupKind) {
+        self.title = title
+        isOn = contentGroupKind.isInFeed
+    }
     
+}
+
+extension WMFContentGroupKind {
+    var isInFeed: Bool {
+        return !SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self).isEmpty
+    }
 }
 
 private struct Language: SwitchItem {
@@ -89,7 +100,7 @@ class FeedCardSettingsViewController: UIViewController {
     }()
 
     private lazy var sections: [Section] = {
-        let master = Master(title: "Show in the news card", isOn: true)
+        let master = Master(title: "Show card", contentGroupKind: contentGroupKind)
         let main = Section(headerTitle: nil, footerTitle: "Turning off the In the news card will turn the card off in all available languages.", items: [master])
         let languages = Section(headerTitle: "Languages", footerTitle: "Additional languages can be added in the ‘My languages’ settings page. Turning off all available languages will turn off the In the news card.", items: self.languages)
         return [main, languages]
