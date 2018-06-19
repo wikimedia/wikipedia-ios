@@ -4,7 +4,6 @@ class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
     let gradientView: WMFGradientView = WMFGradientView()
     let captionLabel: UILabel = UILabel()
-    let dimension: CGFloat = 345
     
     override func setup() {
         super.setup()
@@ -13,7 +12,7 @@ class ImageCollectionViewCell: CollectionViewCell {
         }
         imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
-        gradientView.setStart(.clear, end: UIColor(white: 0, alpha: 0.33))
+        gradientView.setStart(.clear, end: UIColor(white: 0, alpha: 0.8))
         addSubview(gradientView)
         captionLabel.numberOfLines = 3
         addSubview(captionLabel)
@@ -32,15 +31,13 @@ class ImageCollectionViewCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var size = super.sizeThatFits(size, apply: apply)
-        if size.width == UIViewNoIntrinsicMetric {
-            size.width = dimension
-        }
-        if size.height == UIViewNoIntrinsicMetric {
-            size.height = dimension
+        if size.width != UIViewNoIntrinsicMetric {
+            size.height = size.width
+        }else if size.height != UIViewNoIntrinsicMetric {
+            size.width = size.height
         }
         if apply {
             let boundsInsetByMargins = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), layoutMargins)
-            
             imageView.frame = CGRect(origin: .zero, size: size)
             if captionLabel.wmf_hasAnyNonWhitespaceText {
                 captionLabel.isHidden = false
