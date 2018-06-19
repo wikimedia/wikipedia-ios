@@ -10,7 +10,7 @@ class ExploreHeaderCollectionReusableView: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.heavyHeadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {

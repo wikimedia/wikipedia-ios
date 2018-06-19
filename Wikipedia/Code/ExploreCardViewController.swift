@@ -6,7 +6,7 @@ protocol ExploreCardViewControllerDelegate {
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
 }
 
-class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
+class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -449,5 +449,56 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL: URL) {
         
     }
+}
+
+extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
+    func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        
+    }
+    
+    func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        
+    }
+    
+    func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        
+    }
+    
+    func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        
+    }
+}
+
+extension ExploreCardViewController {
+
+    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let detailType = contentGroup?.detailType,
+            let indexPath = collectionView.indexPathForItem(at: location),
+            let cell = collectionView.cellForItem(at: indexPath) else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.frame
+        let viewControllerToCommit = detailViewControllerForDetailType(detailType, atIndexPath: indexPath)
+        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+            potd.setOverlayViewTopBarHidden(true)
+        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+            avc.articlePreviewingActionsDelegate = self
+            avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+        }
+        return viewControllerToCommit
+    }
+    
+    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+            potd.setOverlayViewTopBarHidden(false)
+            present(potd, animated: false)
+        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+            avc.wmf_removePeekableChildViewControllers()
+            wmf_push(avc, animated: false)
+        } else {
+            wmf_push(viewControllerToCommit, animated: true)
+        }
+    }
+    
 }
 

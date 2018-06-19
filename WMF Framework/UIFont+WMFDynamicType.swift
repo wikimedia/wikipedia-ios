@@ -17,6 +17,7 @@ import UIKit
     @objc public static let semiboldFootnote = DynamicTextStyle(.system, .footnote, .semibold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+    public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
     public static let title3 = DynamicTextStyle(.system, .title3)
     

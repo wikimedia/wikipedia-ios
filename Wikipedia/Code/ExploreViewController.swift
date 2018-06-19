@@ -164,6 +164,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.subtitleLabel.text = group.headerSubTitle
         cell.footerButton.setTitle(group.moreTitle, for: .normal)
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        collectionView.backgroundColor = theme.colors.paperBackground
+    }
 }
 
 

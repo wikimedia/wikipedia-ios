@@ -11,11 +11,23 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public let customizationButton = UIButton()
     public let footerButton = AlignedImageButton()
     
+    private let cardBackgroundView = UIView()
+    private let cardCornerRadius = CGFloat(10)
+    private let cardShadowRadius = CGFloat(5)
+    private let cardShadowOpacity = Float(0.5)
+
     public override func setup() {
         super.setup()
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
-        customizationButton.setTitle(":", for: UIControlState.normal)
+        customizationButton.setTitle("⋮", for: UIControlState.normal)
+        cardBackgroundView.layer.cornerRadius = cardCornerRadius
+        cardBackgroundView.layer.shadowOffset = CGSize(width: -2, height: 2)
+        cardBackgroundView.layer.shadowRadius = cardShadowRadius
+        cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
+        cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
+        cardBackgroundView.layer.masksToBounds = false
+        contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         contentView.addSubview(footerButton)
     }
@@ -32,6 +44,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             guard let view = cardContent?.view else {
                 return
             }
+            view.layer.cornerRadius = cardCornerRadius
             contentView.addSubview(view)
         }
     }
@@ -57,7 +70,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += titleLabelFrame.layoutHeight(with: 4)
         let subtitleLabelFrame = subtitleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, apply: apply)
-        origin.y += subtitleLabelFrame.layoutHeight(with: 8)
+        origin.y += subtitleLabelFrame.layoutHeight(with: 20)
         
         if let cardContent = cardContent {
             let view = cardContent.view
@@ -65,22 +78,33 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
             if apply {
                 view?.frame = cardContentViewFrame
+                cardBackgroundView.frame = cardContentViewFrame
             }
-            origin.y += cardContentViewFrame.layoutHeight(with: 8)
+            origin.y += cardContentViewFrame.layoutHeight(with: 20)
         }
     
-        let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
-        origin.y += footerButtonFrame.layoutHeight(with: 8)
+        if footerButton.titleLabel?.wmf_hasAnyNonWhitespaceText ?? false {
+            let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+            origin.y += footerButtonFrame.layoutHeight(with: 20)
+        }
+       
         
         return CGSize(width: size.width, height: origin.y)
     }
     
     public override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        footerButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
     }
     
+    private var cardShadowColor: UIColor = UIColor(white: 0, alpha: 0.3) {
+        didSet {
+            cardContent?.view.layer.shadowColor = cardShadowColor.cgColor
+        }
+    }
     
     public func apply(theme: Theme) {
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
@@ -89,6 +113,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         customizationButton.setTitleColor(theme.colors.link, for: .normal)
         footerButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
+        cardBackgroundView.backgroundColor = theme.colors.paperBackground
+        cardShadowColor = theme.colors.shadow
     }
     
 }
