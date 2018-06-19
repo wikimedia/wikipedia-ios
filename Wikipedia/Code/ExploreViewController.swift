@@ -143,6 +143,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
         header.titleLabel.text = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
+        header.apply(theme: theme)
     }
     
     func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
@@ -163,11 +164,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
         cell.footerButton.setTitle(group.moreTitle, for: .normal)
+        cell.apply(theme: theme)
     }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        collectionView.backgroundColor = theme.colors.paperBackground
+        guard viewIfLoaded != nil else {
+            return
+        }
+        collectionView.backgroundColor = .clear
+        view.backgroundColor = theme.colors.paperBackground
+        for cell in collectionView.visibleCells {
+            guard let themeable = cell as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+        for header in collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionHeader) {
+            guard let themeable = header as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
     }
 }
 

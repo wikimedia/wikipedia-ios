@@ -21,5 +21,13 @@ class ExploreHeaderCollectionReusableView: SizeThatFitsReusableView {
         origin.y += frame.layoutHeight(with: layoutMargins.bottom)
         return CGSize(width: size.width, height: origin.y)
     }
+    
 }
 
+extension ExploreHeaderCollectionReusableView: Themeable {
+    func apply(theme: Theme) {
+        titleLabel.textColor = theme.colors.primaryText
+        titleLabel.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
+    }
+}

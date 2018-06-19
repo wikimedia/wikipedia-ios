@@ -38,7 +38,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         layoutMargins = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     }
     
-    public var cardContent: CardContent? = nil {
+    public var cardContent: (CardContent & Themeable)? = nil {
         didSet {
             oldValue?.view?.removeFromSuperview()
             guard let view = cardContent?.view else {
@@ -115,6 +115,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = theme.colors.paperBackground
         cardShadowColor = theme.colors.shadow
+        cardContent?.apply(theme: theme)
     }
     
 }
