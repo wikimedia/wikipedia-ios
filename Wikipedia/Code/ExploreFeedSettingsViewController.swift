@@ -31,6 +31,18 @@ extension SwitchItem {
     var iconBackgroundColor: UIColor? { return nil }
 }
 
+private struct Master: SwitchItem {
+    let title: String
+    let type: ItemType = .masterSwitch
+    let controlTag: Int = -1
+    let isOn: Bool
+
+    init(title: String) {
+        self.title = title
+        isOn = false
+    }
+}
+
 private struct FeedCard: Item {
     let title: String
     let subtitle: String?
@@ -124,6 +136,7 @@ private struct Language: SwitchItem {
 private enum ItemType {
     case feedCard(WMFContentGroupKind)
     case language(MWKLanguageLink)
+    case masterSwitch
 }
 
 @objc(WMFExploreFeedSettingsViewController)
@@ -163,8 +176,10 @@ class ExploreFeedSettingsViewController: UIViewController {
 
         let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
 
-        return [customization, languages]
-    }
+        let master = Master(title: "Turn off Explore tab")
+        let main = Section(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
+
+        return [customization, languages, main]
 
     private func getItem(at indexPath: IndexPath) -> Item {
         return sections[indexPath.section].items[indexPath.row]
