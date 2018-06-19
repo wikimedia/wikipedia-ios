@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFArticleLocationCollectionViewController)
 class ArticleLocationCollectionViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     var readingListHintController: ReadingListHintController?
     
@@ -12,7 +11,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
 
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, theme: Theme) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()

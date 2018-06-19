@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFRankedArticleCollectionViewCell)
 public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
 
     var rankView = CircledRankView(frame: .zero)

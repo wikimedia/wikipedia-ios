@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFArticleRightAlignedImageCollectionViewCell)
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     public var bottomSeparator = UIView()
     public var topSeparator = UIView()

@@ -1,7 +1,6 @@
 import UIKit
 import WMF
 
-@objc(WMFColumnarCollectionViewController)
 class ColumnarCollectionViewController: ViewController {
     lazy var layout: WMFColumnarCollectionViewLayout = {
         return WMFColumnarCollectionViewLayout()

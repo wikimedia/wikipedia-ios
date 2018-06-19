@@ -126,7 +126,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
         
-        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore)
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, theme: theme)
         addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]

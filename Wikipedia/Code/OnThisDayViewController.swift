@@ -1,6 +1,5 @@
 import WMF;
 
-@objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
@@ -11,13 +10,13 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
     
-    @objc(initWithEvents:dataStore:midnightUTCDate:)
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
         super.init()
+        self.theme = theme
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
     }
     

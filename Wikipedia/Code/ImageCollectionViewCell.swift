@@ -55,7 +55,7 @@ class ImageCollectionViewCell: CollectionViewCell {
         return size
     }
     
-    
+
 }
 
 extension ImageCollectionViewCell: Themeable {

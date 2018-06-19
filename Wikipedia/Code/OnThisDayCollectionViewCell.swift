@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFOnThisDayCollectionViewCell)
 public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
     public let timelineView = OnThisDayTimelineView()

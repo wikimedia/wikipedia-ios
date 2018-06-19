@@ -31,7 +31,6 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
-#import "WMFContentGroup+DetailViewControllers.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -994,7 +993,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
                 if (vc) {
                     [navController pushViewController:vc animated:animated];
                 }
@@ -1004,7 +1003,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
                                                                         if (group) {
-                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
                                                                             if (vc) {
                                                                                 [navController pushViewController:vc animated:NO];
                                                                             }
@@ -1554,7 +1553,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore];
+    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore theme:self.theme];
     if (!vc) {
         return;
     }

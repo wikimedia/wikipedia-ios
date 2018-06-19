@@ -147,9 +147,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
-        cell.titleLabel.text = group.headerTitle()
-        cell.subtitleLabel.text = group.headerSubTitle()
-        cell.footerButton.setTitle(group.moreTitle(), for: .normal)
+        cell.titleLabel.text = group.headerTitle
+        cell.subtitleLabel.text = group.headerSubTitle
+        cell.footerButton.setTitle(group.moreTitle, for: .normal)
     }
 }
 

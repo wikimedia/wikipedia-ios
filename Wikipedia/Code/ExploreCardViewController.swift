@@ -55,6 +55,22 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        guard let delegateVC = delegate else {
+            super.present(viewControllerToPresent, animated: flag, completion: completion)
+            return
+        }
+        delegateVC.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        guard let delegateVC = delegate else {
+            super.dismiss(animated: flag, completion: completion)
+            return
+        }
+        delegateVC.dismiss(animated: flag, completion: completion)
+    }
+    
     // MARK - Data
     
     public var contentGroup: WMFContentGroup? {
@@ -94,16 +110,16 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .onThisDay:
             return 1
         case .relatedPages:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells()) + 1)
+            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells) + 1)
         default:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells()))
+            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells))
         }
     }
     
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
         switch group.contentGroupKind {
         case .relatedPages:
-            guard let url = group.headerContentURL() else {
+            guard let url = group.headerContentURL else {
                 return nil
             }
             let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -331,13 +347,50 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    // MARK - Detail views
+    
+    private func detailViewControllerForDetailType(_ detailType: WMFFeedDetailType, atIndexPath indexPath: IndexPath) -> UIViewController? {
+        switch detailType {
+        case .page:
+            guard let articleURL = self.articleURL(forItemAt: indexPath) else {
+                return nil
+            }
+            return WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        case .pageWithRandomButton:
+            guard let articleURL = self.articleURL(forItemAt: indexPath) else {
+                return nil
+            }
+            return WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        case .gallery:
+            guard let date = contentGroup?.date else {
+                return nil
+            }
+            return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
+        case .story, .event:
+            return contentGroup?.detailViewControllerWithDataStore(dataStore, theme: theme)
+        default:
+            return nil
+        }
+    }
+    
+    private func presentDetailViewControllerForItemAtIndexPath(_ indexPath: IndexPath, animated: Bool) {
+        guard let detailType = contentGroup?.detailType, let vc = detailViewControllerForDetailType(detailType, atIndexPath: indexPath) else {
+            return
+        }
+        
+        switch detailType {
+        case .gallery:
+            present(vc, animated: animated)
+        default:
+            wmf_push(vc, animated: animated)
+        }
+        
+    }
+    
     // MARK - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let articleURL = articleURL(forItemAt: indexPath) else {
-            return
-        }
-        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+        presentDetailViewControllerForItemAtIndexPath(indexPath, animated: true)
     }
     
     // MARK - WMFColumnarCollectionViewLayoutDelegate

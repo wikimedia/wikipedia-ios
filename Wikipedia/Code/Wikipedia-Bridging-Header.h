@@ -43,6 +43,7 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFArticleNavigationController.h"
 #import "PreviewAndSaveViewController.h"
+#import "WMFFirstRandomViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
