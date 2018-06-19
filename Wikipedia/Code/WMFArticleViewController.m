@@ -1765,8 +1765,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Peeking registration
 
 - (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        if (self.peekingAllowed && [[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        if (self.peekingAllowed) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
         } else {
@@ -1774,10 +1774,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+    } else {
+        [self unregisterForPreviewing];
     }
-        unavailable:^{
-            [self unregisterForPreviewing];
-        }];
 }
 
 - (void)unregisterForPreviewing {

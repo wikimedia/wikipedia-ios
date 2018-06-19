@@ -754,7 +754,6 @@
 		B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
 		B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */; };
 		B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */; };
-		B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
 		B0E805601C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */; };
 		B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
@@ -1113,7 +1112,6 @@
 		D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */; };
 		D80ED30A1EE57F4800CE8C50 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
 		D80ED30B1EE57F4800CE8C50 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
-		D80ED30C1EE57F4800CE8C50 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
 		D80ED30F1EE57F4800CE8C50 /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804E71C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift */; };
 		D80ED3101EE57F4800CE8C50 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
 		D80ED3111EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
@@ -1817,7 +1815,6 @@
 		D8A42AE71E815A9C00D8E281 /* UIViewController+WMFHideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */; };
 		D8A42AE81E815A9C00D8E281 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
 		D8A42AE91E815A9C00D8E281 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
-		D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
 		D8A42AEE1E815A9C00D8E281 /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804E71C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift */; };
 		D8A42AEF1E815A9C00D8E281 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
 		D8A42AF01E815A9C00D8E281 /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
@@ -2153,7 +2150,6 @@
 		D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */; };
 		D8CE256E1E698E2400DAE2E0 /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
 		D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
-		D8CE25701E698E2400DAE2E0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
 		D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804E71C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift */; };
 		D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
 		D8CE25761E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B011FA491D470F5A00AD7C5E /* WMFFindInPageKeyboardBar.m */; };
@@ -2515,7 +2511,6 @@
 		D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */; };
 		D8EC3E661E9BDA35006712EB /* WMFCollectionViewPageLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043A1C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m */; };
 		D8EC3E671E9BDA35006712EB /* WeakScriptMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069FA2D1CEACB8400083D59 /* WeakScriptMessageDelegate.swift */; };
-		D8EC3E681E9BDA35006712EB /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */; };
 		D8EC3E6C1E9BDA35006712EB /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804E71C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift */; };
 		D8EC3E6D1E9BDA35006712EB /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E294CC1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift */; };
 		D8EC3E6E1E9BDA35006712EB /* WMFDeleteBackwardReportingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01CFC5E1E70B00100B3546A /* WMFDeleteBackwardReportingTextField.swift */; };
@@ -3682,7 +3677,6 @@
 		B0E805201C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFFrameUtils.m"; path = "Wikipedia/Code/UIView+WMFFrameUtils.m"; sourceTree = SOURCE_ROOT; };
 		B0E805211C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFRoundCorners.h"; path = "Wikipedia/Code/UIView+WMFRoundCorners.h"; sourceTree = SOURCE_ROOT; };
 		B0E805221C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFRoundCorners.m"; path = "Wikipedia/Code/UIView+WMFRoundCorners.m"; sourceTree = SOURCE_ROOT; };
-		B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+SafePreviewing.swift"; path = "Wikipedia/Code/UIViewController+SafePreviewing.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8052B1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFOpenExternalUrl.h"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.h"; sourceTree = SOURCE_ROOT; };
 		B0E8052C1C0CE0DC0065EBC0 /* UIViewController+WMFOpenExternalUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFOpenExternalUrl.m"; path = "Wikipedia/Code/UIViewController+WMFOpenExternalUrl.m"; sourceTree = SOURCE_ROOT; };
 		B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WKWebView+ElementLocation.h"; path = "Wikipedia/Code/WKWebView+ElementLocation.h"; sourceTree = SOURCE_ROOT; };
@@ -6594,7 +6588,6 @@
 				B0E803E41C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.h */,
 				B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */,
 				B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */,
-				B0E805261C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift */,
 				B027447E1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift */,
 				B066F0D41E513DAA00A199F8 /* UIViewController+WMFHideKeyboard.swift */,
 				BC45D5801C32F68A007C72F3 /* External Link Handling */,
@@ -10062,7 +10055,6 @@
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
-				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				B0E8053C1C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				B0E294CD1DB2CF4300861D04 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
@@ -10369,7 +10361,6 @@
 				D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D80ED30A1EE57F4800CE8C50 /* WMFCollectionViewPageLayout.m in Sources */,
 				D80ED30B1EE57F4800CE8C50 /* WeakScriptMessageDelegate.swift in Sources */,
-				D80ED30C1EE57F4800CE8C50 /* UIViewController+SafePreviewing.swift in Sources */,
 				D80ED30F1EE57F4800CE8C50 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D80ED3101EE57F4800CE8C50 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				D80ED3111EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.m in Sources */,
@@ -11027,7 +11018,6 @@
 				D8E27BA41F82B38200F9D2B3 /* RMessageView.m in Sources */,
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
-				D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */,
 				7A998ABE1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E41FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
 				D8A42AEE1E815A9C00D8E281 /* UIButton+WMFMultiLineHeight.swift in Sources */,
@@ -11336,7 +11326,6 @@
 				D8CE256E1E698E2400DAE2E0 /* WMFCollectionViewPageLayout.m in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0C7A0831F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
-				D8CE25701E698E2400DAE2E0 /* UIViewController+SafePreviewing.swift in Sources */,
 				D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11658,7 +11647,6 @@
 				D8EC3E651E9BDA35006712EB /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8EC3E661E9BDA35006712EB /* WMFCollectionViewPageLayout.m in Sources */,
 				D8EC3E671E9BDA35006712EB /* WeakScriptMessageDelegate.swift in Sources */,
-				D8EC3E681E9BDA35006712EB /* UIViewController+SafePreviewing.swift in Sources */,
 				D8EC3E6C1E9BDA35006712EB /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8EC3E6D1E9BDA35006712EB /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				D8EC3E6E1E9BDA35006712EB /* WMFDeleteBackwardReportingTextField.swift in Sources */,

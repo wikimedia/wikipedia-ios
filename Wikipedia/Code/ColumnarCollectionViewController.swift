@@ -45,7 +45,6 @@ class ColumnarCollectionViewController: ViewController {
         } else {
             updateEmptyState()
         }
-        registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
                 collectionView.deselectItem(at: selectedIndexPath, animated: animated)
@@ -60,39 +59,11 @@ class ColumnarCollectionViewController: ViewController {
     }
     
     open func viewWillHaveFirstAppearance(_ animated: Bool) {
-
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        unregisterForPreviewing()
-    }
-    
-    
-    
-    // MARK - 3D Touch
-    
-    var previewingContext: UIViewControllerPreviewing?
-    
-    func unregisterForPreviewing() {
-        guard let context = previewingContext else {
-            return
-        }
-        unregisterForPreviewing(withContext: context)
-    }
-    
-    func registerForPreviewingIfAvailable() {
-        wmf_ifForceTouchAvailable({
-            self.unregisterForPreviewing()
-            self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
-        }, unavailable: {
-            self.unregisterForPreviewing()
-        })
+        // subclassers can override
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.registerForPreviewingIfAvailable()
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             contentSizeCategoryDidChange(nil)
         }
@@ -220,16 +191,6 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
 
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension ColumnarCollectionViewController: UIViewControllerPreviewingDelegate {
-    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        return nil
-    }
-    
-    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-    }
 }
 
 extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDelegate {

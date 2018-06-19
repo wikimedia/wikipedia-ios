@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
+class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
     var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
