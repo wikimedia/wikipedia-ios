@@ -1,7 +1,7 @@
 import UIKit
 
 private struct Section {
-    let headerTitle: String
+    let headerTitle: String?
     let footerTitle: String
     let items: [Item]
 }
@@ -164,13 +164,13 @@ class ExploreFeedSettingsViewController: UIViewController {
         return languages
     }()
 
-    private var sections: [Section] {
+    private lazy var sections: [Section] = {
         let inTheNews = FeedCard(contentGroupKind: .news)
         let onThisDay = FeedCard(contentGroupKind: .onThisDay)
         let featuredArticle = FeedCard(contentGroupKind: .featuredArticle)
         let topRead = FeedCard(contentGroupKind: .topRead)
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay)
-        let places = FeedCard(contentGroupKind: .location) // ?
+        let places = FeedCard(contentGroupKind: .location)
         let randomizer = FeedCard(contentGroupKind: .random)
         let customization = Section(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay, featuredArticle, topRead, pictureOfTheDay, places, randomizer])
 
@@ -180,6 +180,7 @@ class ExploreFeedSettingsViewController: UIViewController {
         let main = Section(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
 
         return [customization, languages, main]
+    }()
 
     private func getItem(at indexPath: IndexPath) -> Item {
         return sections[indexPath.section].items[indexPath.row]
