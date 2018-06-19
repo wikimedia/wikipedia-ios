@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerNavigationDelegate {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate {
     fileprivate let cellReuseIdentifier = "org.wikimedia.explore.card.cell"
     fileprivate let headerReuseIdentifier = "org.wikimedia.explore.card.header"
 
@@ -14,7 +14,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
-
+    lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
+       return ColumnarCollectionViewControllerLayoutCache()
+    }()
+    
     @objc var dataStore: MWKDataStore! {
         didSet {
             let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
@@ -75,6 +78,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        layoutCache.reset()
+        super.traitCollectionDidChange(previousTraitCollection)
+        registerForPreviewingIfAvailable()
+    }
+    
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
+        layoutCache.reset()
+        super.contentSizeCategoryDidChange(notification)
+        collectionView.reloadData()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        layoutCache.reset()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
             return 0
@@ -114,7 +134,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
         let cardVC = ExploreCardViewController()
-        cardVC.navigationDelegate = self
+        cardVC.delegate = self
         cardVC.dataStore = dataStore
         cardVC.view.autoresizingMask = []
         addChildViewController(cardVC)

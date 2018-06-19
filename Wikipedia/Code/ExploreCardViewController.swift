@@ -1,12 +1,13 @@
 import UIKit
 
-protocol ExploreCardViewControllerNavigationDelegate {
+protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var readingListHintController: ReadingListHintController { get }
+    var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
 }
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
-    weak var navigationDelegate: (ExploreCardViewControllerNavigationDelegate & UIViewController)?
+    weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
@@ -52,16 +53,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
             collectionView.deselectItem(at: indexPath, animated: animated)
         }
-    }
-    
-    // MARK - Navigation
-    
-    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        guard let delegate = navigationDelegate else {
-            super.present(viewControllerToPresent, animated: flag, completion: completion)
-            return
-        }
-        delegate.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
     // MARK - Data
@@ -140,8 +131,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return contentGroup?.displayTypeForItem(at: indexPath.row) ?? .page
     }
     
-    private func resuseIdentifierAt(_ indexPath: IndexPath) -> String {
-        switch displayTypeAt(indexPath) {
+    private func resuseIdentifierFor(_ displayType: WMFFeedDisplayType) -> String {
+        switch displayType {
         case .ranked:
             return RankedArticleCollectionViewCell.identifier
         case .story:
@@ -302,8 +293,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         cell.delegate = self
     }
     
-    private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        let displayType = displayTypeAt(indexPath)
+    private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         switch displayType {
         case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
@@ -323,20 +313,21 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resuseIdentifierAt(indexPath), for: indexPath)
-        configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        let displayType = displayTypeAt(indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resuseIdentifierFor(displayType), for: indexPath)
+        configure(cell: cell, forItemAt: indexPath, with: displayType, layoutOnly: false)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-            navigationDelegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
+            delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-            navigationDelegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+            delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
     }
     
@@ -352,12 +343,26 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     // MARK - WMFColumnarCollectionViewLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        let displayType = displayTypeAt(indexPath)
+        let reuseIdentifier = resuseIdentifierFor(displayType)
+        let key: String?
+        if displayType == .story || displayType == .event {
+            key = contentGroup?.key
+        } else {
+            key = article(forItemAt: indexPath)?.key
+        }
+        let userInfo = "\(key ?? "")-\(displayType.rawValue)"
+        if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
+            return WMFLayoutEstimate(precalculated: true, height: height)
+        }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
+        let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
+        estimate.height = height
         estimate.precalculated = true
         return estimate
     }
