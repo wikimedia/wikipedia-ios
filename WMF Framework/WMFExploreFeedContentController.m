@@ -331,7 +331,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     static NSSet *customizableContentSources;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentSources = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindRandom)]];
+        customizableContentSources = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
     });
     return customizableContentSources;
 }
