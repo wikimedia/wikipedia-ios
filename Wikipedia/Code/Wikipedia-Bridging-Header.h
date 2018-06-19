@@ -46,7 +46,6 @@
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
-#import "WMFPicOfTheDayCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFColumnarCollectionViewLayout.h"

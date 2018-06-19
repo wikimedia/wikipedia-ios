@@ -43,7 +43,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(OnThisDayExploreCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayExploreCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(WMFPicOfTheDayCollectionViewCell.wmf_classNib(), forCellWithReuseIdentifier: WMFPicOfTheDayCollectionViewCell.wmf_nibName())
+        layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -156,7 +157,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         case .pageWithPreview:
             return ArticleFullWidthImageCollectionViewCell.identifier
         case .photo:
-            return WMFPicOfTheDayCollectionViewCell.wmf_nibName()
+            return ImageCollectionViewCell.identifier
         case .pageWithLocation:
             return ArticleLocationCollectionViewCell.identifier
         case .page, .relatedPages, .mainPage, .compactList:
@@ -242,15 +243,18 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
-        guard let cell = cell as? WMFPicOfTheDayCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
+        guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
         }
-        cell.setImageURL(imageInfo.imageThumbURL)
+        
+        let imageURL: URL? = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth))
+        cell.imageView.setImageWith(imageURL ?? imageInfo.imageThumbURL)
         if imageInfo.imageDescription.count > 0 {
-            cell.setDisplayTitle(imageInfo.imageDescription.wmf_stringByRemovingHTML())
+            cell.captionLabel.text = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
-            cell.setDisplayTitle(imageInfo.canonicalPageTitle)
+            cell.captionLabel.text = imageInfo.canonicalPageTitle
         }
+        cell.apply(theme: theme)
     }
     
     private func configureAnnouncementCell(_ cell: UICollectionViewCell, displayType: WMFFeedDisplayType, layoutOnly: Bool) {
@@ -316,14 +320,6 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-//    if ([cell isKindOfClass:[WMFArticleCollectionViewCell class]]) {
-//    WMFSaveButton *saveButton = [(WMFArticleCollectionViewCell *)cell saveButton];
-//    if (saveButton) {
-//    WMFArticle *article = [self articleForIndexPath:indexPath];
-//    [self.saveButtonsController willDisplaySaveButton:saveButton forArticle:article];
-//    }
-//    }
-    
     // MARK - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -357,18 +353,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        switch displayTypeAt(indexPath) {
-        case .theme, .notification, .announcement, .readingList, .ranked, .page, .story, .event, .continueReading, .mainPage, .pageWithPreview, .random, .relatedPages, .relatedPagesSourceArticle, .compactList, .pageWithLocation:
-            guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
-                return estimate
-            }
-            configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-            estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-            estimate.precalculated = true
-        case .photo:
-            estimate.height = WMFPicOfTheDayCollectionViewCell.estimatedRowHeight()
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: resuseIdentifierAt(indexPath)) as? CollectionViewCell else {
+            return estimate
         }
-       
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
         return estimate
     }
     

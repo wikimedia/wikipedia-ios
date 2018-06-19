@@ -11,8 +11,6 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func setup() {
         super.setup()
-        titleTextStyle = .georgiaTitle3
-        descriptionTextStyle = .subheadline
         insertSubview(compassView, belowSubview: imageView)
         isImageViewHidden = false
         imageViewDimension = 72
@@ -21,6 +19,12 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         addSubview(distanceLabelBackground)
         addSubview(distanceLabel)
         distanceLabelBackground.layer.cornerRadius = 2.0
+    }
+    
+    override func reset() {
+        super.reset()
+        titleTextStyle = .georgiaTitle3
+        descriptionTextStyle = .subheadline
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -52,7 +56,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         origin.y += titleLabelFrame.layoutHeight(with: spacing)
         
         
-        if descriptionLabel.wmf_hasNonWhitespaceText {
+        if descriptionLabel.wmf_hasAnyNonWhitespaceText {
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: spacing)
             descriptionLabel.isHidden = false
