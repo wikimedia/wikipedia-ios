@@ -189,6 +189,10 @@ extension ExploreViewController {
     override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
         return WMFCVLMetrics(boundsSize: size, readableWidth: readableWidth, layoutDirection: UIApplication.shared.userInterfaceLayoutDirection)
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
+        return index % 2 == 0
+    }
 }
 
 // MARK - Analytics
