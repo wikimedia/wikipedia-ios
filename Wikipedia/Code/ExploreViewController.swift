@@ -91,12 +91,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         let lastSectionIndex = numberOfSectionsInExploreFeed - 1
-        guard lastSectionIndex > 0 else {
+        guard lastSectionIndex >= 0 else {
             return
         }
 
         let lastItemIndex = numberOfItemsInSection(lastSectionIndex) - 1
-        guard lastItemIndex > 0 else {
+        guard lastItemIndex >= 0 else {
             return
         }
         
