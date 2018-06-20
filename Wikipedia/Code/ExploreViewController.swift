@@ -160,9 +160,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     var isLoadingNewContent = false
-    var isScrolledToTop: Bool {
-        return collectionView.contentOffset.y <= 0 - collectionView.contentInset.top
-    }
+
     @objc(updateFeedSourcesWithDate:userInitiated:completion:)
     public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
         assert(Thread.isMainThread)
@@ -175,7 +173,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             #else
             refreshControl.beginRefreshing()
             #endif
-            if isScrolledToTop && numberOfSectionsInExploreFeed == 0 {
+            if numberOfSectionsInExploreFeed == 0 {
                 collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top - refreshControl.frame.size.height)
             }
         }
