@@ -39,9 +39,10 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationCollectionV
         let size = super.sizeThatFits(size, apply: apply)
         var origin = CGPoint(x: layoutMargins.left, y: size.height + spacing - layoutMargins.bottom)
         let widthForLabels = size.width - layoutMargins.left - layoutMargins.right
-        origin.y += authorizeTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: spacing, apply: apply)
-        origin.y += authorizeButton.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: spacing, apply: apply)
-        origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: spacing, apply: apply)
+        let authorizeSpacing = 2 * spacing
+        origin.y += authorizeTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
+        origin.y += authorizeButton.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
+        origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
         return CGSize(width: size.width, height: origin.y + layoutMargins.bottom)
     }
     
