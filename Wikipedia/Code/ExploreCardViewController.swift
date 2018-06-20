@@ -53,6 +53,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
             collectionView.deselectItem(at: indexPath, animated: animated)
         }
+        for cell in collectionView.visibleCells {
+            guard let subCell = cell as? SubCellProtocol else {
+                continue
+            }
+            subCell.deselectSelectedSubItems(animated: animated)
+        }
     }
     
     override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -212,6 +218,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             return
         }
         cell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        cell.selectionDelegate = self
     }
     
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -220,6 +227,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         let previousEvent: WMFFeedOnThisDayEvent? = events.count > 1 ? events[1] : events[0]
         cell.configure(with: events[0], previousEvent: previousEvent, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        cell.selectionDelegate = self
     }
     
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -386,17 +394,59 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
 }
 
+extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
+        wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
+    }
+}
+
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
+    func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
+        contentGroup?.markDismissed()
+        contentGroup?.updateVisibility()
+        do {
+            try dataStore.save()
+        } catch let error {
+            DDLogError("Error saving after cell dismissal: \(error)")
+        }
+    }
+    
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell) {
-        
+        dismissAnnouncementCell(cell)
     }
     
     func announcementCellDidTapActionButton(_ cell: AnnouncementCollectionViewCell) {
-        
+        guard let kind = contentGroup?.contentGroupKind else {
+            return
+        }
+        switch kind {
+        case .theme:
+            NotificationCenter.default.post(name: .WMFNavigateToActivity, object: NSUserActivity.wmf_appearanceSettings())
+            dismissAnnouncementCell(cell)
+        case .readingList:
+            wmf_showLoginViewController(theme: theme)
+            LoginFunnel.shared.logLoginStartInFeed()
+            dismissAnnouncementCell(cell)
+        case .notification:
+            WMFNotificationsController.shared().requestAuthenticationIfNecessary { (granted, error) in
+                if let error = error {
+                    self.wmf_showAlertWithError(error as NSError)
+                }
+            }
+            UserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(true)
+            dismissAnnouncementCell(cell)
+        default:
+            guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
+                let url = announcement.actionURL else {
+                return
+            }
+            wmf_openExternalUrl(url)
+            dismissAnnouncementCell(cell)
+        }
     }
     
-    func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL: URL) {
-        
+    func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL linkURL: URL) {
+        wmf_openExternalUrl(linkURL)
     }
 }
 
