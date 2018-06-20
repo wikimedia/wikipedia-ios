@@ -13,6 +13,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         navigationItem.titleView = titleView
         navigationBar.addExtendedNavigationBarView(searchBarContainerView)
+        isRefreshControlEnabled = true
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -67,6 +68,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return titleView
     }()
 
+    // MARK - Refresh
+    
+    open override func refresh() {
+        updateFeedSources(with: nil, userInitiated: true) {
+            
+        }
+    }
+    
     // MARK - Search
     
     lazy var searchBarContainerView: UIView = {
@@ -123,15 +132,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return ReadingListHintController(dataStore: dataStore, presenter: self)
     }()
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    var numberOfSectionsInExploreFeed: Int {
         guard let sections = fetchedResultsController.sections else {
             return 0
         }
         return sections.count
     }
     
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return numberOfSectionsInExploreFeed
+    }
+    
     private func resetRefreshControl() {
-        
+        guard let refreshControl = collectionView.refreshControl,
+            refreshControl.isRefreshing else {
+            return
+        }
+        refreshControl.endRefreshing()
     }
     
     private func startMonitoringReachabilityIfNeeded() {
@@ -142,15 +159,36 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
     }
     
+    var isLoadingNewContent = false
+    var isScrolledToTop: Bool {
+        return collectionView.contentOffset.y <= 0 - collectionView.contentInset.top
+    }
     @objc(updateFeedSourcesWithDate:userInitiated:completion:)
     public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
-        self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
-           self.resetRefreshControl()
-            if date == nil {
-                self.startMonitoringReachabilityIfNeeded()
-                self.showOfflineEmptyViewIfNeeded()
+        assert(Thread.isMainThread)
+        guard !isLoadingNewContent else {
+            return
+        }
+        isLoadingNewContent = true
+        if let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing {
+            #if UI_TEST
+            #else
+            refreshControl.beginRefreshing()
+            #endif
+            if isScrolledToTop && numberOfSectionsInExploreFeed == 0 {
+                collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top - refreshControl.frame.size.height)
             }
-            completion()
+        }
+        self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
+            DispatchQueue.main.async {
+                self.isLoadingNewContent = false
+                self.resetRefreshControl()
+                if date == nil {
+                    self.startMonitoringReachabilityIfNeeded()
+                    self.showOfflineEmptyViewIfNeeded()
+                }
+                completion()
+            }
         }
     }
     
