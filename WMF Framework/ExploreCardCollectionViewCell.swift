@@ -58,7 +58,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
         var customizationButtonSize = CGSize.zero
         if !customizationButton.isHidden {
-            customizationButtonSize = customizationButton.sizeThatFits(CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric))
+            customizationButtonSize = customizationButton.wmf_sizeThatFits(CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric))
             var x = layoutMargins.right
             if !isRTL {
                 x = size.width - x - customizationButtonSize.width
