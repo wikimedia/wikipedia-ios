@@ -19,6 +19,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationCollectionV
         authorizeButton.layer.cornerRadius = 5
         authorizeButton.layer.borderWidth = 1
         authorizeButton.titleLabel?.numberOfLines = 2
+        authorizeButton.titleLabel?.textAlignment = .center
         authorizeButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         authorizeButton.addTarget(self, action: #selector(authorizeButtonPressed(_:)), for: .touchUpInside)
         addSubview(authorizeButton)
@@ -41,7 +42,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationCollectionV
         let widthForLabels = size.width - layoutMargins.left - layoutMargins.right
         let authorizeSpacing = 3 * spacing
         origin.y += authorizeTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
-        origin.y += authorizeButton.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
+        origin.y += authorizeButton.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, minimumWidth: min(250, widthForLabels), horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
         origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
         return CGSize(width: size.width, height: origin.y + layoutMargins.bottom)
     }

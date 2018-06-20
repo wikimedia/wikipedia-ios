@@ -45,10 +45,13 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         actionButton.titleLabel?.numberOfLines = 0
+        actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
+        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
         dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
+        dismissButton.titleLabel?.textAlignment = .center
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
         captionTextView.delegate = self
@@ -144,9 +147,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
+        let buttonMinimumWidth = min(250, widthMinusMargins)
         
-        origin.y += actionButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: .center, spacing: dismissButtonSpacing, apply: apply)
-        origin.y += dismissButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: .center, spacing: 0, apply: apply)
+        origin.y += actionButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, minimumWidth: buttonMinimumWidth, horizontalAlignment: .center, spacing: dismissButtonSpacing, apply: apply)
+        origin.y += dismissButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, minimumWidth: buttonMinimumWidth, horizontalAlignment: .center, spacing: 0, apply: apply)
 
         
         if !isCaptionHidden {
