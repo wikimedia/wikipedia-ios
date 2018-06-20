@@ -33,7 +33,7 @@
 }
 
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
-    return [self metricsWithBoundsSize:boundsSize readableWidth:readableWidth firstColumnRatio:1.179 secondColumnRatio:0.821 collapseSectionSpacing:NO layoutDirection:layoutDirection];
+    return [self metricsWithBoundsSize:boundsSize readableWidth:readableWidth firstColumnRatio:1 secondColumnRatio:1 collapseSectionSpacing:NO layoutDirection:layoutDirection];
 }
 
 + (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
@@ -52,7 +52,7 @@
     metrics.interSectionSpacing = collapseSectionSpacing ? 0 : useTwoColumns ? 20 : 30;
 
     if (useTwoColumns) {
-        CGFloat marginWidth = MAX(20, round(0.5 * (boundsSize.width - readableWidth)));
+        CGFloat marginWidth = MAX(20, round(0.5 * (boundsSize.width - (readableWidth * metrics.numberOfColumns))));
         metrics.margins = UIEdgeInsetsMake(20, marginWidth, 20, marginWidth);
     } else {
         metrics.margins = UIEdgeInsetsMake(0, 0, collapseSectionSpacing ? 0 : 50, 0);
