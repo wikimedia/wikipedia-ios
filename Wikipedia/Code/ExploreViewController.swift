@@ -90,12 +90,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let lastGroupIndex = Int(fetchedResultsController.sections?.last?.numberOfObjects ?? 0) - 1
-        if lastGroupIndex < 0 {
+        let lastSectionIndex = numberOfSectionsInExploreFeed - 1
+        guard lastSectionIndex > 0 else {
+            return
+        }
+
+        let lastItemIndex = numberOfItemsInSection(lastSectionIndex) - 1
+        guard lastItemIndex > 0 else {
             return
         }
         
-        let lastGroup = fetchedResultsController.object(at: IndexPath(item: lastGroupIndex, section: 0))
+        let lastGroup = fetchedResultsController.object(at: IndexPath(item: lastItemIndex, section: lastSectionIndex))
         let now = Date()
         let midnightUTC: Date = (now as NSDate).wmf_midnightUTCDateFromLocal
         guard let lastGroupMidnightUTC = lastGroup.midnightUTCDate else {
@@ -181,6 +186,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return sections.count
     }
     
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        guard let sections = fetchedResultsController.sections, sections.count > section else {
+            return 0
+        }
+        return sections[section].numberOfObjects
+    }
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return numberOfSectionsInExploreFeed
     }
@@ -253,10 +265,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sections = fetchedResultsController.sections, sections.count > section else {
-            return 0
-        }
-        return sections[section].numberOfObjects
+       return numberOfItemsInSection(section)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
