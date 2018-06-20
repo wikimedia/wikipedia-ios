@@ -120,7 +120,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 
 #import <WMF/WMFContentSource.h>
 #import <WMF/WMFRelatedPagesContentSource.h>
-#import <WMF/WMFMainPageContentSource.h>
 #import <WMF/WMFNearbyContentSource.h>
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
