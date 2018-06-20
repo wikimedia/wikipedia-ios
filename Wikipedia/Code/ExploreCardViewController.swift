@@ -174,42 +174,15 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
     }
     
+    private func articleURL(forItemAt indexPath: IndexPath) -> URL? {
+        return contentGroup?.previewArticleURLForItemAtIndex(indexPath.row)
+    }
+    
     private func article(forItemAt indexPath: IndexPath) -> WMFArticle? {
         guard let url = articleURL(forItemAt: indexPath) else {
             return nil
         }
         return dataStore.fetchArticle(with: url)
-    }
-    
-    private func articleURL(forItemAt indexPath: IndexPath) -> URL? {
-        guard let contentGroup = contentGroup else {
-            return nil
-        }
-        let displayType = contentGroup.displayTypeForItem(at: indexPath.row)
-        var index = indexPath.row
-        switch displayType {
-        case .relatedPagesSourceArticle:
-            return contentGroup.articleURL
-        case .relatedPages:
-            index = indexPath.row - 1
-        case .ranked:
-            guard let content = contentGroup.contentPreview as? [WMFFeedTopReadArticlePreview], content.count > indexPath.row else {
-                return nil
-            }
-            return content[indexPath.row].articleURL
-        default:
-            break
-        }
-        
-        if let contentURL = contentGroup.contentPreview as? URL {
-            return contentURL
-        }
-        
-        guard let content = contentGroup.contentPreview as? [URL], content.count > index else {
-            return nil
-        }
-        
-        return content[index]
     }
     
     var eventLoggingLabel: EventLoggingLabel? {
@@ -349,32 +322,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     
     // MARK - Detail views
     
-    private func detailViewControllerForDetailType(_ detailType: WMFFeedDetailType, atIndexPath indexPath: IndexPath) -> UIViewController? {
-        switch detailType {
-        case .page:
-            guard let articleURL = self.articleURL(forItemAt: indexPath) else {
-                return nil
-            }
-            return WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-        case .pageWithRandomButton:
-            guard let articleURL = self.articleURL(forItemAt: indexPath) else {
-                return nil
-            }
-            return WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
-        case .gallery:
-            guard let date = contentGroup?.date else {
-                return nil
-            }
-            return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
-        case .story, .event:
-            return contentGroup?.detailViewControllerWithDataStore(dataStore, theme: theme)
-        default:
-            return nil
-        }
-    }
-    
     private func presentDetailViewControllerForItemAtIndexPath(_ indexPath: IndexPath, animated: Bool) {
-        guard let detailType = contentGroup?.detailType, let vc = detailViewControllerForDetailType(detailType, atIndexPath: indexPath) else {
+        guard let detailType = contentGroup?.detailType, let vc = contentGroup?.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
             return
         }
         
@@ -472,13 +421,14 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
 extension ExploreCardViewController {
 
     open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let detailType = contentGroup?.detailType,
-            let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionView.indexPathForItem(at: location),
             let cell = collectionView.cellForItem(at: indexPath) else {
             return nil
         }
         previewingContext.sourceRect = cell.frame
-        let viewControllerToCommit = detailViewControllerForDetailType(detailType, atIndexPath: indexPath)
+        guard let viewControllerToCommit = contentGroup?.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
+            return nil
+        }
         if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
             potd.setOverlayViewTopBarHidden(true)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {

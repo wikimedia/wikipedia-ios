@@ -20,6 +20,58 @@ extension WMFContentGroup {
         }
     }
     
+    public func previewArticleURLForItemAtIndex(_ index: Int) -> URL? {
+        let displayType = displayTypeForItem(at: index)
+        var index = index
+        switch displayType {
+        case .relatedPagesSourceArticle:
+            return articleURL
+        case .relatedPages:
+            index -= 1
+        case .ranked:
+            guard let content = contentPreview as? [WMFFeedTopReadArticlePreview], content.count > index else {
+                return nil
+            }
+            return content[index].articleURL
+        default:
+            break
+        }
+        
+        if let contentURL = contentPreview as? URL {
+            return contentURL
+        }
+        
+        guard let content = contentPreview as? [URL], content.count > index else {
+            return nil
+        }
+        
+        return content[index]
+    }
+    
+    public func detailViewControllerForPreviewItemAtIndex(_ index: Int, dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        switch detailType {
+        case .page:
+            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
+                return nil
+            }
+            return WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        case .pageWithRandomButton:
+            guard let articleURL = previewArticleURLForItemAtIndex(index) else {
+                return nil
+            }
+            return WMFRandomArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        case .gallery:
+            guard let date = self.date else {
+                return nil
+            }
+            return WMFPOTDImageGalleryViewController(dates: [date], theme: theme, overlayViewTopBarHidden: false)
+        case .story, .event:
+            return detailViewControllerWithDataStore(dataStore, theme: theme)
+        default:
+            return nil
+        }
+    }
+    
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
         switch moreType {

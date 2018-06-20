@@ -206,10 +206,19 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let group = fetchedResultsController.object(at: indexPath)
-        guard let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) else {
+        if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+            wmf_push(vc, animated: true)
             return
         }
-        wmf_push(vc, animated: true)
+        
+        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
+            if vc is WMFImageGalleryViewController {
+                present(vc, animated: true)
+            } else {
+                wmf_push(vc, animated: true)
+            }
+            return
+        }
     }
     
     func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
