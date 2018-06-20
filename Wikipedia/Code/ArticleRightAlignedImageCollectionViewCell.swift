@@ -39,7 +39,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension
+            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
         }
         
         var x = layoutMargins.left

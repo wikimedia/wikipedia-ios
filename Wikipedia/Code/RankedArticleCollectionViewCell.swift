@@ -9,22 +9,22 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         super.setup()
     }
     
+    let minimumRankDimension: CGFloat = 22
+
     override open func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         rankView.labelBackgroundColor = labelBackgroundColor
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let headerIconDimension: CGFloat = 40
-        let rankViewLeftMargin = self.layoutMargins.left
-        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: headerIconDimension + rankViewLeftMargin, bottom: 0, right: 0)
+        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: minimumRankDimension + self.layoutMargins.left, bottom: 0, right: 0)
         let superSize = super.sizeThatFits(size, apply: apply)
-        let layoutMargins = calculatedLayoutMargins
         let isLTR = articleSemanticContentAttribute != .forceRightToLeft
-        let x = isLTR ? calculatedLayoutMargins.left - layoutMarginsAdditions.left : size.width - calculatedLayoutMargins.left + layoutMarginsAdditions.left - headerIconDimension
+        let layoutMargins = calculatedLayoutMargins
+        let x = isLTR ? layoutMargins.left - layoutMarginsAdditions.left : size.width - layoutMargins.left + layoutMarginsAdditions.left - minimumRankDimension
         let maximumHeight = superSize.height - layoutMargins.top  - layoutMargins.bottom
-        let maximumWidth = headerIconDimension
-        let _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: calculatedLayoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: headerIconDimension, height: headerIconDimension), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
+        let maximumWidth = minimumRankDimension
+        let _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: minimumRankDimension, height: minimumRankDimension), horizontalAlignment: isLTR ? .right : .right, verticalAlignment: .center, apply: apply)
         return superSize
     }
 
