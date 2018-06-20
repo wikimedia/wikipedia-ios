@@ -53,7 +53,7 @@ class TagCollectionViewCell: CollectionViewCell {
 
         var origin = CGPoint(x: margins.left, y: margins.top)
 
-        let tagLabelFrame = label.wmf_preferredFrame(at: origin, fitting: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
+        let tagLabelFrame = label.wmf_preferredFrame(at: origin, maximumWidth: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
         origin.y += tagLabelFrame.height
         origin.y += margins.bottom
 

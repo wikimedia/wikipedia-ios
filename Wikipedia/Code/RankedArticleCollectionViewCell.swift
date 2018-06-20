@@ -16,15 +16,16 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let headerIconDimension: CGFloat = 40
-        let rankViewLeftMargin = ArticleCollectionViewCell.defaultMargins.left
-        layoutMargins = UIEdgeInsets(top: layoutMargins.top, left: 2 * ArticleCollectionViewCell.defaultMargins.left + headerIconDimension, bottom: layoutMargins.bottom, right: layoutMargins.right)
+        let rankViewLeftMargin = self.layoutMargins.left
+        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: headerIconDimension + rankViewLeftMargin, bottom: 0, right: 0)
         let superSize = super.sizeThatFits(size, apply: apply)
-        
-        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-        let rankViewWidthPlusPadding =  (2 * rankViewLeftMargin) + headerIconDimension
-        let x = isRTL ? size.width - rankViewWidthPlusPadding : 0
-        let rankViewFrame = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumViewSize: CGSize(width: rankViewWidthPlusPadding, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: rankViewWidthPlusPadding, height: superSize.height - layoutMargins.top - layoutMargins.bottom), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
-        return CGSize(width: superSize.width, height: max(superSize.height, rankViewFrame.size.height + layoutMargins.top + layoutMargins.bottom))
+        let layoutMargins = calculatedLayoutMargins
+        let isLTR = articleSemanticContentAttribute != .forceRightToLeft
+        let x = isLTR ? calculatedLayoutMargins.left - layoutMarginsAdditions.left : size.width - calculatedLayoutMargins.left + layoutMarginsAdditions.left - headerIconDimension
+        let maximumHeight = superSize.height - layoutMargins.top  - layoutMargins.bottom
+        let maximumWidth = headerIconDimension
+        let _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: calculatedLayoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: headerIconDimension, height: headerIconDimension), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
+        return superSize
     }
 
 }

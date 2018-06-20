@@ -17,6 +17,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         return WMFColumnarCollectionViewLayout()
     }()
     
+    lazy var locationManager: WMFLocationManager = {
+        let lm = WMFLocationManager.fine()
+        lm.delegate = self
+        return lm
+    }()
+    
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
@@ -44,8 +50,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(OnThisDayExploreCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayExploreCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleLocationAuthorizationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationAuthorizationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,11 +84,20 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     // MARK - Data
+    private var visibleLocationCellCount: Int = 0
     
     public var contentGroup: WMFContentGroup? {
         didSet {
-            collectionView.reloadData()
+            reloadData()
         }
+    }
+    
+    private func reloadData() {
+        if visibleLocationCellCount > 0 {
+            locationManager.stopMonitoringLocation()
+        }
+        visibleLocationCellCount = 0
+        collectionView.reloadData()
     }
     
     public func contentHeight(forWidth width: CGFloat) -> CGFloat {
@@ -173,6 +188,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             return ImageCollectionViewCell.identifier
         case .pageWithLocation:
             return ArticleLocationCollectionViewCell.identifier
+        case .pageWithLocationPlaceholder:
+            return ArticleLocationAuthorizationCollectionViewCell.identifier
         case .page, .relatedPages, .mainPage, .compactList:
             return ArticleRightAlignedImageCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
@@ -209,8 +226,19 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.configure(article: article, displayType: .pageWithLocation, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
-        cell.distanceLabel.text = "unknown distance"
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
+            authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
+            authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
+            authCell.authorizeDescriptionLabel.text = CommonStrings.localizedEnableLocationDescription
+            authCell.authorizationDelegate = self
+        }
+        if WMFLocationManager.isAuthorized() {
+            locationManager.startMonitoringLocation()
+            cell.update(userLocation: locationManager.location, heading: locationManager.heading)
+        } else {
+            cell.configureForUnknownDistance()
+        }
     }
     
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -294,7 +322,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         switch displayType {
         case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
-        case .pageWithLocation:
+        case .pageWithLocation, .pageWithLocationPlaceholder:
             configureLocationCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)
         case .photo:
             configurePhotoCell(cell, layoutOnly: layoutOnly)
@@ -320,11 +348,23 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
         }
+        if cell is ArticleLocationCollectionViewCell {
+            visibleLocationCellCount += 1
+            if WMFLocationManager.isAuthorized() {
+                locationManager.startMonitoringLocation()
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+        }
+        if cell is ArticleLocationCollectionViewCell {
+            visibleLocationCellCount -= 1
+            if visibleLocationCellCount == 0 {
+                locationManager.stopMonitoringLocation()
+            }
         }
     }
     
@@ -499,7 +539,43 @@ extension ExploreCardViewController {
             wmf_push(viewControllerToCommit, animated: true)
         }
     }
+}
+
+extension ExploreCardViewController: ArticleLocationAuthorizationCollectionViewCellDelegate {
+    func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell) {
+        UserDefaults.wmf_userDefaults().wmf_setExploreDidPromptForLocationAuthorization(true)
+        if WMFLocationManager.isAuthorizationNotDetermined() {
+            locationManager.startMonitoringLocation()
+            return
+        }
+        UIApplication.shared.wmf_openAppSpecificSystemSettings()
+    }
+}
+
+extension ExploreCardViewController: WMFLocationManagerDelegate {
+    func updateLocationCells() {
+        let userLocation = locationManager.location
+        let heading = locationManager.heading
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? ArticleLocationCollectionViewCell else {
+                return
+            }
+            cell.update(userLocation: userLocation, heading: heading)
+        }
+    }
     
+    func locationManager(_ controller: WMFLocationManager, didUpdate location: CLLocation) {
+        updateLocationCells()
+    }
+    
+    func locationManager(_ controller: WMFLocationManager, didUpdate heading: CLHeading) {
+        updateLocationCells()
+    }
+    
+    func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
+        UserDefaults.wmf_userDefaults().wmf_setLocationAuthorized(enabled)
+        dataStore.feedContentController.updateNearbyForce(false, completion: nil)
+    }
 }
 
 extension ExploreCardViewController: Themeable {

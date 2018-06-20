@@ -1677,8 +1677,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         articleVC.configureView(withTraitCollection: traitCollection)
         
         let articleLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        if locationManager.isUpdating {
-            let userLocation = locationManager.location
+        if locationManager.isUpdating, let userLocation = locationManager.location {
             let distance = articleLocation.distance(from: userLocation)
             let distanceString = MKDistanceFormatter().string(fromDistance: distance)
             articleVC.descriptionLabel.text = distanceString
@@ -2397,11 +2396,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @IBAction fileprivate func recenterOnUserLocation(_ sender: Any) {
-        guard WMFLocationManager.isAuthorized() else {
+        guard WMFLocationManager.isAuthorized(), let userLocation = locationManager.location else {
             promptForLocationAccess()
             return
         }
-        zoomAndPanMapView(toLocation: locationManager.location)
+        zoomAndPanMapView(toLocation: userLocation)
     }
     
     // MARK: - NSFetchedResultsControllerDelegate

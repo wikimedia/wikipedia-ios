@@ -68,10 +68,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             }
         }
         
-        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, apply: apply)
-        origin.y += titleLabelFrame.layoutHeight(with: 4)
-        let subtitleLabelFrame = subtitleLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, apply: apply)
-        origin.y += subtitleLabelFrame.layoutHeight(with: 20)
+        origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, spacing: 4, apply: apply)
+        origin.y += subtitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, spacing: 20, apply: apply)
         
         if let cardContent = cardContent {
             let view = cardContent.view
@@ -85,7 +83,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     
         if footerButton.titleLabel?.wmf_hasAnyNonWhitespaceText ?? false {
-            let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+            let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
             origin.y += footerButtonFrame.layoutHeight(with: 20)
         }
        

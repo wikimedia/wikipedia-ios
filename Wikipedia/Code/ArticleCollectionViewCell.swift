@@ -5,10 +5,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var layoutMarginsSwipeAdditions: UIEdgeInsets = .zero
+
     public var calculatedLayoutMargins: UIEdgeInsets {
         let margins = self.layoutMargins
         let multipliers = self.layoutMarginsMultipliers
-        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + layoutMarginsSwipeAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left + layoutMarginsSwipeAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom + layoutMarginsSwipeAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right + layoutMarginsSwipeAdditions.right)
     }
 
     public let titleLabel = UILabel()
@@ -377,11 +379,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             if isArticleRTL {
-                layoutMarginsAdditions.left = 0 - swipeTranslation
-                layoutMarginsAdditions.right = swipeTranslation
+                layoutMarginsSwipeAdditions.left = 0 - swipeTranslation
+                layoutMarginsSwipeAdditions.right = swipeTranslation
             } else {
-                layoutMarginsAdditions.right = 0 - swipeTranslation
-                layoutMarginsAdditions.left = swipeTranslation
+                layoutMarginsSwipeAdditions.right = 0 - swipeTranslation
+                layoutMarginsSwipeAdditions.left = swipeTranslation
             }
             setNeedsLayout()
         }
@@ -397,15 +399,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
             if isArticleRTL {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsSwipeAdditions.left = marginAddition
                 } else {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsSwipeAdditions.right = marginAddition
                 }
             } else {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsSwipeAdditions.right = marginAddition
                 } else {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsSwipeAdditions.left = marginAddition
                 }
             }
             

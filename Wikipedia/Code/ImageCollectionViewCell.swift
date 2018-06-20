@@ -42,7 +42,7 @@ class ImageCollectionViewCell: CollectionViewCell {
             if captionLabel.wmf_hasAnyNonWhitespaceText {
                 captionLabel.isHidden = false
                 gradientView.isHidden = false
-                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, fitting: boundsInsetByMargins.size, alignedBy: semanticContentAttribute, apply: false)
+                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, alignedBy: semanticContentAttribute, apply: false)
                 labelFrame.origin = CGPoint(x: labelFrame.origin.x, y: size.height - labelFrame.height - layoutMargins.bottom)
                 captionLabel.frame = labelFrame
                 let gradientOriginY = labelFrame.minY - layoutMargins.bottom

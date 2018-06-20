@@ -19,7 +19,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeNotification,
     WMFFeedDisplayTypeCompactList,
     WMFFeedDisplayTypeTheme,
-    WMFFeedDisplayTypeReadingList
+    WMFFeedDisplayTypeReadingList,
+    WMFFeedDisplayTypePageWithLocationPlaceholder
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {

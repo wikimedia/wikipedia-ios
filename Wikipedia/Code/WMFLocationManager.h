@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
-@property (nonatomic, strong, readonly) CLLocation *location;
+@property (nonatomic, strong, readonly, nullable) CLLocation *location;
 
-@property (nonatomic, strong, readonly) CLHeading *heading;
+@property (nonatomic, strong, readonly, nullable) CLHeading *heading;
 
 @property (nonatomic, readonly, getter=isUpdating) BOOL updating;
 

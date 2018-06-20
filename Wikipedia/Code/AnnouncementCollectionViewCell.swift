@@ -43,16 +43,15 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.isEditable = false
         addSubview(captionTextView)
         
-        actionButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 6)
-        
-        actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        dismissButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
+        actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        actionButton.titleLabel?.numberOfLines = 0
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+
+        dismissButton.titleLabel?.numberOfLines = 0
+        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
-        captionTextView.delegate = self
         
+        captionTextView.delegate = self
         super.setup()
     }
     
@@ -142,21 +141,13 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
         
-        let actionButtonFrame = CGRect(x: buttonMargin, y: origin.y, width: size.width - 2*buttonMargin, height: actionButtonHeight)
-        if (apply) {
-            actionButton.frame = actionButtonFrame
-        }
-        origin.y += actionButtonFrame.layoutHeight(with: dismissButtonSpacing)
-        
-        let dismissButtonFrame = CGRect(x: buttonMargin, y: origin.y, width: size.width - 2*buttonMargin, height: dismissButtonHeight)
-        if (apply) {
-            dismissButton.frame = dismissButtonFrame
-        }
-        origin.y += dismissButtonFrame.layoutHeight(with: 0)
+        origin.y += actionButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: .center, spacing: dismissButtonSpacing, apply: apply)
+        origin.y += dismissButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: .center, spacing: 0, apply: apply)
+
         
         if !isCaptionHidden {
             origin.y += dismissButtonSpacing

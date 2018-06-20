@@ -52,12 +52,12 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
        
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += titleLabelFrame.layoutHeight(with: spacing)
         
         
         if descriptionLabel.wmf_hasAnyNonWhitespaceText {
-            let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: spacing)
             descriptionLabel.isHidden = false
         } else {
@@ -65,7 +65,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         }
         
         let distanceLabelPadding = UIEdgeInsetsMake(-2, -5, -2, -5)
-        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x - distanceLabelPadding.left, y: origin.y - distanceLabelPadding.top), fitting: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x - distanceLabelPadding.left, y: origin.y - distanceLabelPadding.top), maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += distanceLabelFrame.layoutHeight(with: spacing)
         if apply {
             distanceLabelBackground.frame = UIEdgeInsetsInsetRect(distanceLabelFrame, distanceLabelPadding)
@@ -74,7 +74,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         if !isSaveButtonHidden {
             origin.y += spacing
             origin.y += saveButtonTopSpacing
-            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
         }
         
