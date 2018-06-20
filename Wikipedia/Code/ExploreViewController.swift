@@ -109,6 +109,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             collectionView.reloadData()
             collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
             collectionViewUpdater.delegate = self
+            collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
         }
     }
     
