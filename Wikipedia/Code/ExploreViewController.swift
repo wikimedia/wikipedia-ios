@@ -76,6 +76,48 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
+    // MARK - Scroll
+    
+    var isLoadingOlderContent: Bool = false
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        guard !isLoadingOlderContent else {
+            return
+        }
+        
+        let ratio: CGFloat = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height)
+        if ratio < 0.8 {
+            return
+        }
+        
+        let lastGroupIndex = Int(fetchedResultsController.sections?.last?.numberOfObjects ?? 0) - 1
+        if lastGroupIndex < 0 {
+            return
+        }
+        
+        let lastGroup = fetchedResultsController.object(at: IndexPath(item: lastGroupIndex, section: 0))
+        let now = Date()
+        let midnightUTC: Date = (now as NSDate).wmf_midnightUTCDateFromLocal
+        guard let lastGroupMidnightUTC = lastGroup.midnightUTCDate else {
+            return
+        }
+        
+        let calendar = NSCalendar.wmf_gregorian()
+        let days: Int = calendar?.wmf_days(from: lastGroupMidnightUTC, to: midnightUTC) ?? 0
+        guard days < Int(WMFExploreFeedMaximumNumberOfDays) else {
+            return
+        }
+        
+        guard let nextOldestDate: Date = calendar?.date(byAdding: .day, value: -1, to: lastGroupMidnightUTC, options: .matchStrictly) else {
+            return
+        }
+        
+        isLoadingOlderContent = true
+        updateFeedSources(with: (nextOldestDate as NSDate).wmf_midnightLocalDateForEquivalentUTC, userInitiated: false) {
+            self.isLoadingOlderContent = false
+        }
+    }
+    
     // MARK - Search
     
     lazy var searchBarContainerView: UIView = {
@@ -165,6 +207,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
         assert(Thread.isMainThread)
         guard !isLoadingNewContent else {
+            completion()
             return
         }
         isLoadingNewContent = true
