@@ -22,6 +22,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
        return ColumnarCollectionViewControllerLayoutCache()
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startMonitoringReachabilityIfNeeded()
+        showOfflineEmptyViewIfNeeded()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopMonitoringReachability()
+    }
+    
     // MARK - ViewController
     
     override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
@@ -205,18 +216,66 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         refreshControl.endRefreshing()
     }
     
+    lazy var reachabilityManager: AFNetworkReachabilityManager = {
+        return AFNetworkReachabilityManager(forDomain: WMFDefaultSiteDomain)
+    }()
+    
+    private func stopMonitoringReachability() {
+        reachabilityManager.setReachabilityStatusChange(nil)
+        reachabilityManager.stopMonitoring()
+    }
+    
     private func startMonitoringReachabilityIfNeeded() {
+        guard numberOfSectionsInExploreFeed == 0 else {
+            stopMonitoringReachability()
+            return
+        }
         
+        reachabilityManager.startMonitoring()
+        reachabilityManager.setReachabilityStatusChange { [weak self] (status) in
+            switch status {
+            case .reachableViaWiFi:
+                fallthrough
+            case .reachableViaWWAN:
+                DispatchQueue.main.async {
+                    self?.updateFeedSources(userInitiated: false)
+                }
+            case .notReachable:
+                DispatchQueue.main.async {
+                    self?.showOfflineEmptyViewIfNeeded()
+                }
+            default:
+                break
+            }
+        }
     }
     
     private func showOfflineEmptyViewIfNeeded() {
+        guard isViewLoaded && fetchedResultsController != nil else {
+            return
+        }
         
+        guard numberOfSectionsInExploreFeed == 0 else {
+            wmf_hideEmptyView()
+            return
+        }
+        
+        guard !wmf_isShowingEmptyView() else {
+            return
+        }
+        
+        guard reachabilityManager.networkReachabilityStatus == .notReachable else {
+            return
+        }
+        
+        resetRefreshControl()
+        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
     }
     
     var isLoadingNewContent = false
 
     @objc(updateFeedSourcesWithDate:userInitiated:completion:)
-    public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
+    public func updateFeedSources(with date: Date? = nil, userInitiated: Bool, completion: @escaping () -> Void = { }) {
         assert(Thread.isMainThread)
         guard !isLoadingNewContent else {
             completion()
