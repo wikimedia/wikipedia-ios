@@ -215,37 +215,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return [addToListItem, moveToListItem, removeItem]
     }()
     
-    // MARK: - Hiding extended view
+    // MARK: - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
-    }
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     // MARK: - Filtering

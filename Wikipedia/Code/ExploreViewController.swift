@@ -2,13 +2,17 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate {
+    
     // MARK - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
+        
+        navigationItem.titleView = titleView
+        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -16,6 +20,78 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
        return ColumnarCollectionViewControllerLayoutCache()
     }()
+    
+    // MARK - ViewController
+    
+    override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
+        shortTitleButton.alpha = extendedViewPercentHidden
+        longTitleButton.alpha = 1.0 - extendedViewPercentHidden
+        navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
+    }
+    
+    // MARK - NavBar
+    
+    @objc func titleBarButtonPressed(_ sender: UIButton?) {
+        scrollToTop()
+    }
+    
+    @objc public var titleButton: UIView {
+        return titleView
+    }
+    
+    lazy var longTitleButton: UIButton = {
+        let longTitleButton = UIButton(type: .custom)
+        longTitleButton.adjustsImageWhenHighlighted = true
+        longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
+        longTitleButton.sizeToFit()
+        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        return longTitleButton
+    }()
+    
+    lazy var shortTitleButton: UIButton = {
+        let shortTitleButton = UIButton(type: .custom)
+        shortTitleButton.adjustsImageWhenHighlighted = true
+        shortTitleButton.setImage(UIImage(named: "W"), for: .normal)
+        shortTitleButton.alpha = 0
+        shortTitleButton.sizeToFit()
+        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        return shortTitleButton
+    }()
+    
+    lazy var titleView: UIView = {
+        let titleView = UIView(frame: longTitleButton.bounds)
+        titleView.addSubview(longTitleButton)
+        titleView.addSubview(shortTitleButton)
+        shortTitleButton.center = titleView.center
+        return titleView
+    }()
+
+    // MARK - Search
+    
+    lazy var searchBarContainerView: UIView = {
+        let searchContainerView = UIView()
+        let searchHeightConstraint = searchContainerView.heightAnchor.constraint(equalToConstant: 44)
+        searchContainerView.addConstraint(searchHeightConstraint)
+        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0), priority: .required)
+        return searchContainerView
+    }()
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        return searchBar
+    }()
+    
+    // MARK - UISearchBarDelegate
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        let searchActivity = NSUserActivity.wmf_searchView()
+        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
+        return false
+    }
     
     // MARK - State
     
@@ -64,8 +140,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     private func showOfflineEmptyViewIfNeeded() {
         
     }
-    
-    @objc var titleButton: UIButton? = nil
     
     @objc(updateFeedSourcesWithDate:userInitiated:completion:)
     public func updateFeedSources(with date: Date?, userInitiated: Bool, completion: @escaping () -> Void) {
@@ -172,6 +246,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
+        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
+        searchBar.wmf_enumerateSubviewTextFields { (textField) in
+            textField.textColor = theme.colors.primaryText
+            textField.keyboardAppearance = theme.keyboardAppearance
+            textField.font = UIFont.systemFont(ofSize: 14)
+        }
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0) 
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {

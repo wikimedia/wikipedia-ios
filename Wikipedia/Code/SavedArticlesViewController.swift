@@ -158,34 +158,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         return [addToListItem, unsaveItem]
     }()
     
-    // MARK: - Hiding extended view
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
