@@ -223,7 +223,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         isLoadingNewContent = true
-        if let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing {
+        if date == nil, let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing {
             #if UI_TEST
             #else
             refreshControl.beginRefreshing()
