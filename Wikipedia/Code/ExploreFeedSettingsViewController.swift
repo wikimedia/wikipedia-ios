@@ -43,7 +43,7 @@ private struct Master: SwitchItem {
     }
 }
 
-private struct FeedCard: Item {
+private struct FeedCard: SwitchItem {
     let title: String
     let subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
