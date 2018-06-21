@@ -38,10 +38,6 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     return (id<WMFColumnarCollectionViewLayoutDelegate>)self.collectionView.delegate;
 }
 
-- (NSInteger)numberOfItemsInSection:(NSInteger)section {
-    return [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:section];
-}
-
 - (CGSize)collectionViewContentSize {
     return self.info.contentSize;
 }
@@ -166,24 +162,6 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
         self.layoutValid = NO;
     }
     [super invalidateLayoutWithContext:context];
-}
-
-#pragma mark - Hit Detection
-
-- (nullable UICollectionViewLayoutAttributes *)layoutAttributesAtPoint:(CGPoint)point {
-    __block UICollectionViewLayoutAttributes *attributesToReturn = nil;
-    [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
-        if (CGRectContainsPoint(section.frame, point)) {
-            [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
-                if (CGRectContainsPoint(attributes.frame, point)) {
-                    attributesToReturn = attributes;
-                    *stop = YES;
-                }
-            }];
-        }
-        *stop = attributesToReturn != nil;
-    }];
-    return attributesToReturn;
 }
 
 #pragma mark - Animation
