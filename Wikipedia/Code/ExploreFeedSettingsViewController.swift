@@ -211,7 +211,8 @@ class ExploreFeedSettingsViewController: UIViewController {
         let master = Master(title: "Turn off Explore tab")
         let main = Section(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
 
-        return [customization, languages, main]
+        let sections = displayType == .singleLanguage ? [customization, main] : [customization, languages, main]
+        return sections
     }()
 
     private func getItem(at indexPath: IndexPath) -> Item {
