@@ -212,7 +212,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             [self showLanguages];
             break;
         case WMFSettingsMenuItemType_ExploreFeed:
-            [self showFeed];
+            [self showExploreFeedSettings];
             break;
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
@@ -384,7 +384,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Feed
 
-- (void)showFeed {
+- (void)showExploreFeedSettings {
     WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] initWithNibName:@"ExploreFeedSettingsViewController" bundle:nil];
     feedSettingsVC.dataStore = self.dataStore;
     [feedSettingsVC applyTheme:self.theme];
