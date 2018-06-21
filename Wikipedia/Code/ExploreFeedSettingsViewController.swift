@@ -304,14 +304,28 @@ extension ExploreFeedSettingsViewController: Themeable {
 
 extension ExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
     func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
-        guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
-            assertionFailure("No language for a given control tag")
-            return
-        }
+        let controlTag = sender.tag
         guard let feedContentController = dataStore?.feedContentController else {
             assertionFailure("feedContentController is nil")
             return
         }
-        feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
+        guard controlTag != -1 else { // master switch
+            feedContentController.changeMainTab(to: sender.isOn ? .settings : .explore)
+            return
+        }
+        if displayType == .singleLanguage {
+            let customizable = WMFExploreFeedContentController.customizableContentGroupKinds()
+            guard let contentGroupKindNumber = customizable.first(where: { $0.intValue == controlTag }), let contentGroupKind = WMFContentGroupKind(rawValue: contentGroupKindNumber.int32Value) else {
+                assertionFailure("No content group kind card for a given control tag")
+                return
+            }
+            feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
+        } else {
+            guard let language = languages.first(where: { $0.controlTag == controlTag }) else {
+                assertionFailure("No language for a given control tag")
+                return
+            }
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
+        }
     }
 }
