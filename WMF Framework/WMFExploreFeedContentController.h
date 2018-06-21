@@ -5,6 +5,7 @@
 @class MWKDataStore;
 
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
+extern NSString *_Nonnull const WMFExplorePreferencesDidChangeNotification;
 
 @interface WMFExploreFeedContentController : NSObject
 
