@@ -327,13 +327,13 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
     return languageCodes;
 }
 
-+ (NSSet<NSNumber *> *)customizableContentSources {
-    static NSSet *customizableContentSources;
++ (NSSet<NSNumber *> *)customizableContentGroupKinds {
+    static NSSet *customizableContentGroupKinds;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentSources = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
+        customizableContentGroupKinds = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
     });
-    return customizableContentSources;
+    return customizableContentGroupKinds;
 }
 
 - (NSArray *)preferredSiteURLs {
@@ -476,7 +476,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
         NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
         NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
-        if (![[WMFExploreFeedContentController customizableContentSources] containsObject:contentGroupNumber]) {
+        if (![[WMFExploreFeedContentController customizableContentGroupKinds] containsObject:contentGroupNumber]) {
             continue;
         }
         if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {

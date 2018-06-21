@@ -60,6 +60,7 @@ extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChang
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
++ (nonnull NSSet<NSNumber *> *)customizableContentGroupKinds;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
