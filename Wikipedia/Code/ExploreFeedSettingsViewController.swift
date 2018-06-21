@@ -139,12 +139,22 @@ private enum ItemType {
     case masterSwitch
 }
 
+private enum DisplayType {
+    case singleLanguage
+    case multipleLanguages
+}
+
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @objc var dataStore: MWKDataStore?
     private var theme = Theme.standard
+
+    private lazy var displayType: DisplayType = {
+        assert(preferredLanguages.count > 0)
+        return preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
