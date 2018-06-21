@@ -30,6 +30,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardBackgroundView.layer.masksToBounds = false
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
+        footerButton.imageIsRightAligned = true
+        footerButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
+        footerButton.isUserInteractionEnabled = false
         contentView.addSubview(footerButton)
     }
     
@@ -37,6 +40,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     override open func reset() {
         super.reset()
         layoutMargins = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
+        footerButton.isHidden = true
     }
     
     public var cardContent: (CardContent & Themeable)? = nil {
@@ -82,12 +86,13 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         }
     
-        if footerButton.titleLabel?.wmf_hasAnyNonWhitespaceText ?? false {
-            let footerButtonFrame = footerButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
-            origin.y += footerButtonFrame.layoutHeight(with: 20)
+        if footerButton.title(for: .normal) != nil {
+            footerButton.isHidden = false
+            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: semanticContentAttribute == .forceRightToLeft ? .left : .right, spacing: 20, apply: apply)
+        } else {
+            footerButton.isHidden = true
         }
-       
-        
+
         return CGSize(width: size.width, height: origin.y)
     }
     
@@ -106,6 +111,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     }
     
     public func apply(theme: Theme) {
+        contentView.tintColor = theme.colors.link
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
