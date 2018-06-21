@@ -102,7 +102,7 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     CGSize size = self.collectionView.bounds.size;
     if (!self.isLayoutValid && size.width > 0 && size.height > 0) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [self.delegate metricsWithBoundsSize:size readableWidth:readableWidth];
+        self.metrics = [self.delegate metricsWithBoundsSize:size readableWidth:readableWidth layoutMargins:self.collectionView.scrollIndicatorInsets];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
@@ -115,7 +115,7 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
         return 0;
     }
     WMFCVLInfo *info = [[WMFCVLInfo alloc] init];
-    WMFCVLMetrics *metrics = [self.delegate metricsWithBoundsSize:CGSizeMake(width, 100) readableWidth:width];
+    WMFCVLMetrics *metrics = [self.delegate metricsWithBoundsSize:CGSizeMake(width, 100) readableWidth:width layoutMargins:UIEdgeInsetsZero];
     [info layoutWithMetrics:metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
     return info.contentSize.height;
 }
