@@ -55,7 +55,7 @@ private struct FeedCard: SwitchItem {
     var controlTag: Int = 0
     var isOn: Bool = true
 
-    init(contentGroupKind: WMFContentGroupKind) {
+    init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
         type = ItemType.feedCard(contentGroupKind)
 
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
@@ -177,13 +177,13 @@ class ExploreFeedSettingsViewController: UIViewController {
     }()
 
     private lazy var sections: [Section] = {
-        let inTheNews = FeedCard(contentGroupKind: .news)
-        let onThisDay = FeedCard(contentGroupKind: .onThisDay)
-        let featuredArticle = FeedCard(contentGroupKind: .featuredArticle)
-        let topRead = FeedCard(contentGroupKind: .topRead)
-        let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay)
-        let places = FeedCard(contentGroupKind: .location)
-        let randomizer = FeedCard(contentGroupKind: .random)
+        let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
+        let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)
+        let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
+        let topRead = FeedCard(contentGroupKind: .topRead, displayType: displayType)
+        let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
+        let places = FeedCard(contentGroupKind: .location, displayType: displayType)
+        let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
         let customization = Section(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay, featuredArticle, topRead, pictureOfTheDay, places, randomizer])
 
         let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
