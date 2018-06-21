@@ -358,15 +358,11 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
     NSSet *preferredSiteURLs = [NSSet setWithArray:self.preferredSiteURLs];
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn completion:^{
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn completion:^{
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn];
 }
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
