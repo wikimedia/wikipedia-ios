@@ -249,7 +249,7 @@ extension ExploreFeedSettingsViewController: UITableViewDataSource {
     }
 
     private func configureSwitch(_ cell: WMFSettingsTableViewCell, switchItem: SwitchItem) {
-        cell.configure(.switch, title: switchItem.title, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
+        cell.configure(.switch, title: switchItem.title, subtitle: switchItem.subtitle, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
         cell.delegate = self
     }
 }
