@@ -58,8 +58,6 @@ import UIKit
         }
     }
     
-
-    
     func saveButtonDidReceiveLongPress(_ saveButton: SaveButton) {
         _ = saveButtonDidReceiveAddToReadingListAction(saveButton)
     }
