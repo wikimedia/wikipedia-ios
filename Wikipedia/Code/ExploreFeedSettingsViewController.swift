@@ -69,43 +69,48 @@ private struct FeedCard: SwitchItem {
             }
         }
 
-        subtitle = languageCodes.joined(separator: ", ").uppercased()
-        disclosureType = .viewControllerWithDisclosureText
-        discloureText = disclosureTextString()
+        var feedCardDescription: String?
 
         switch contentGroupKind {
         case .news:
             title = CommonStrings.inTheNewsTitle
+            feedCardDescription = "Articles about current events"
             iconName = "in-the-news-mini"
             iconColor = UIColor.wmf_lightGray
             iconBackgroundColor = UIColor.wmf_lighterGray
         case .onThisDay:
             title = "On this day"
+            feedCardDescription = "Events in history on this day"
             iconName = "on-this-day-mini"
             iconColor = UIColor.wmf_blue
             iconBackgroundColor = UIColor.wmf_lightBlue
         case .featuredArticle:
             title = "Featured article"
+            feedCardDescription = "Daily featured article on Wikipedia"
             iconName = "featured-mini"
             iconColor = UIColor.wmf_yellow
             iconBackgroundColor = UIColor.wmf_lightYellow
         case .topRead:
             title = "Top read"
+            feedCardDescription = "Daily most read articles"
             iconName = "trending-mini"
             iconColor = UIColor.wmf_blue
             iconBackgroundColor = UIColor.wmf_lightBlue
         case .pictureOfTheDay:
             title = "Picture of the day"
+            feedCardDescription = "Daily featured image from Commons"
             iconName = "potd-mini"
             iconColor = UIColor.wmf_purple
             iconBackgroundColor = UIColor.wmf_lightPurple
         case .location:
             title = "Places"
+            feedCardDescription = "Wikipedia articles near your location"
             iconName = "nearby-mini"
             iconColor = UIColor.wmf_green
             iconBackgroundColor = UIColor.wmf_lightGreen
         case .random:
             title = "Randomizer"
+            feedCardDescription = "Generate random artilces to read"
             iconName = "random-mini"
             iconColor = UIColor.wmf_red
             iconBackgroundColor = UIColor.wmf_lightRed
@@ -115,6 +120,18 @@ private struct FeedCard: SwitchItem {
             iconName = nil
             iconColor = nil
             iconBackgroundColor = nil
+        }
+
+        if displayType == .singleLanguage {
+            subtitle = feedCardDescription
+            disclosureType = .switch
+            discloureText = nil
+            controlTag = Int(contentGroupKind.rawValue)
+            isOn = contentGroupKind.isInFeed
+        } else {
+            subtitle = languageCodes.joined(separator: ", ").uppercased()
+            disclosureType = .viewControllerWithDisclosureText
+            discloureText = disclosureTextString()
         }
     }
 }
