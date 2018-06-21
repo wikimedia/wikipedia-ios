@@ -42,12 +42,6 @@ private struct Master: SwitchItem {
     
 }
 
-extension WMFContentGroupKind {
-    var isInFeed: Bool {
-        return !SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self).isEmpty
-    }
-}
-
 private struct Language: SwitchItem {
     let title: String
     let type: ItemType
