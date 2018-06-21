@@ -370,10 +370,21 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
-    [self updateExploreFeedPreferencesForSiteURLs:[NSSet setWithArray:@[siteURL]] shouldHideAllContentSources:!isOn completion:^{
-        if (updateFeed) {
-            [self updateFeedSourcesUserInitiated:YES completion:nil];
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
+        NSString *key = siteURL.wmf_articleDatabaseKey;
+        if (isOn) {
+            [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKinds] forKey:key];
+        } else {
+            if ([newPreferences objectForKey:key]) {
+                [newPreferences removeObjectForKey:key];
+            }
         }
+        completion();
+    } completion:^{
+        if (!updateFeed) {
+            return;
+        }
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
 }
 
