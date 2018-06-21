@@ -74,7 +74,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 
         [moc fetchOrCreateGroupForURL:continueReadingURL
                                ofKind:WMFContentGroupKindContinueReading
-                              forDate:userData.viewedDate
+                              forDate:NSDate.distantFuture
                           withSiteURL:nil
                     associatedContent:nil
                    customizationBlock:^(WMFContentGroup *_Nonnull group) {

@@ -449,6 +449,10 @@ extension ExploreViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: section))
+        guard let date = group.midnightUTCDate, date < Date() else {
+            return WMFLayoutEstimate(precalculated: true, height: 0)
+        }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
         guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
             return estimate

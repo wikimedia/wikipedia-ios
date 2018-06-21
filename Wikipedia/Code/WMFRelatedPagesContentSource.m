@@ -239,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
                 }
                 [moc fetchOrCreateGroupForURL:groupURL
                                        ofKind:WMFContentGroupKindRelatedPages
-                                      forDate:date
+                                      forDate:[NSDate distantFuture]
                                   withSiteURL:article.URL.wmf_siteURL
                             associatedContent:urls
                            customizationBlock:^(WMFContentGroup *_Nonnull group) {
