@@ -52,6 +52,8 @@ private struct FeedCard: SwitchItem {
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
+    var controlTag: Int = 0
+    var isOn: Bool = true
 
     init(contentGroupKind: WMFContentGroupKind) {
         type = ItemType.feedCard(contentGroupKind)
