@@ -377,49 +377,31 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     }];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn completion:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"toggleContentGroupForSiteURLs: must be called on the main thread");
-    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
-            [moc performBlock:^{
-                NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
-                NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
-                assert(oldPreferences);
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
+        for (NSURL *siteURL in siteURLs) {
+            NSString *key = siteURL.wmf_articleDatabaseKey;
+            NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
+            NSMutableSet *newVisibleContentSources;
 
-                for (NSURL *siteURL in siteURLs) {
-                    NSString *key = siteURL.wmf_articleDatabaseKey;
-                    NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
-                    NSMutableSet *newVisibleContentSources;
+            if (oldVisibleContentSources) {
+                newVisibleContentSources = [oldVisibleContentSources mutableCopy];
+            } else {
+                newVisibleContentSources = [NSMutableSet set];
+            }
 
-                    if (oldVisibleContentSources) {
-                        newVisibleContentSources = [oldVisibleContentSources mutableCopy];
-                    } else {
-                        newVisibleContentSources = [NSMutableSet set];
-                    }
+            if (isOn) {
+                [newVisibleContentSources addObject:@(contentGroupKind)];
+            } else {
+                [newVisibleContentSources removeObject:@(contentGroupKind)];
+            }
 
-                    if (isOn) {
-                        [newVisibleContentSources addObject:@(contentGroupKind)];
-                    } else {
-                        [newVisibleContentSources removeObject:@(contentGroupKind)];
-                    }
-
-                    [newPreferences setObject:newVisibleContentSources forKey:key];
-                    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
-                }
-
-                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
-                [self save:moc];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (completion) {
-                        completion();
-                    }
-                    [op finish];
-                });
-            }];
-        });
+            [newPreferences setObject:newVisibleContentSources forKey:key];
+            completion();
+        }
+    } completion:^{
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
-    [self.operationQueue addOperation:op];
 }
 
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences, dispatch_block_t completion))update completion:(nullable dispatch_block_t)completion {
