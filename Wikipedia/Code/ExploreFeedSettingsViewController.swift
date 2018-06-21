@@ -185,7 +185,10 @@ class ExploreFeedSettingsViewController: UIViewController {
         apply(theme: theme)
     }
 
-        let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+    private var preferredLanguages: [MWKLanguageLink] {
+        return MWKLanguageLinkController.sharedInstance().preferredLanguages
+    }
+
     private lazy var languages: [Language] = {
         let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
             Language(languageLink, controlTag: index)
