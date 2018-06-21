@@ -422,29 +422,18 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     [self.operationQueue addOperation:op];
 }
 
-- (void)updateExploreFeedPreferencesForSiteURLs:(NSSet<NSURL *> *)siteURLs shouldHideAllContentSources:(BOOL)shouldHideAllContentSources completion:(nullable dispatch_block_t)completion {
-    WMFAssertMainThread(@"updateExploreFeedPreferencesForSiteURLs: must be called on the main thread");
+- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences, dispatch_block_t completion))update completion:(nullable dispatch_block_t)completion {
+    WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
             [moc performBlock:^{
                 NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
-                NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
                 assert(oldPreferences);
-
-                for (NSURL *siteURL in siteURLs) {
-                    NSString *key = siteURL.wmf_articleDatabaseKey;
-                    if (shouldHideAllContentSources) { // hide all content sources for siteURL
-                        if ([newPreferences objectForKey:key]) {
-                            [newPreferences removeObjectForKey:key];
-                        }
-                    } else { // show all content sources for siteURL
-                        NSSet *visibleContentSources = [WMFExploreFeedContentController customizableContentSources];
-                        [newPreferences setObject:visibleContentSources forKey:key];
-                    }
+                NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
+                update(newPreferences, ^{
                     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
-                }
-
+                });
                 [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
