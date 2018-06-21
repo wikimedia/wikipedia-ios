@@ -5,7 +5,7 @@ fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    var headerLayoutEstimate: WMFLayoutEstimate?
+    var headerLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -69,7 +69,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
         headerView.text = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.readableMargins
+        headerView.layoutMargins = layout.itemLayoutMargins
         return headerView
     }
 
@@ -90,16 +90,13 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override var eventLoggingCategory: EventLoggingCategory {
         return .history
     }
-
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension HistoryViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         if let estimate = headerLayoutEstimate {
             return estimate
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
         guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
@@ -112,3 +109,4 @@ extension HistoryViewController {
         return estimate
     }
 }
+

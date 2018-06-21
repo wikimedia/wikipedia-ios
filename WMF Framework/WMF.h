@@ -183,15 +183,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFFeedContentDisplaying.h>
 #import <WMF/WMFContentGroup+WMFFeedContentDisplaying.h>
 
-//Collection view layout
-#import <WMF/WMFColumnarCollectionViewLayout.h>
-#import <WMF/WMFCVLInfo.h>
-#import <WMF/WMFCVLMetrics.h>
-#import <WMF/WMFCVLColumn.h>
-#import <WMF/WMFCVLSection.h>
-#import <WMF/WMFCVLAttributes.h>
-#import <WMF/WMFCVLInvalidationContext.h>
-
 //Deprecated
 #import <WMF/MWKHistoryEntry.h>
 #import <WMF/MWKList.h>

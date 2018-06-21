@@ -6,15 +6,15 @@ protocol ExploreCardViewControllerDelegate {
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
 }
 
-class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
+class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
     
-    lazy var layout: WMFColumnarCollectionViewLayout = {
-        return WMFColumnarCollectionViewLayout()
+    lazy var layout: ColumnarCollectionViewLayout = {
+        return ColumnarCollectionViewLayout()
     }()
     
     lazy var locationManager: WMFLocationManager = {
@@ -395,9 +395,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         presentDetailViewControllerForItemAtIndexPath(indexPath, animated: true)
     }
     
-    // MARK - WMFColumnarCollectionViewLayoutDelegate
+    // MARK - ColumnarCollectionViewLayoutDelegate
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
@@ -408,9 +408,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
-            return WMFLayoutEstimate(precalculated: true, height: height)
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: height)
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
@@ -422,20 +422,20 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         return estimate
     }
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: true, height: 0)
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: true, height: 0)
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
         return true
     }
     
-    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 0)
+    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 0)
     }
 }
 

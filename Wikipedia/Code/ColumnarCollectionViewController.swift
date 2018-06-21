@@ -1,9 +1,9 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController {
-    lazy var layout: WMFColumnarCollectionViewLayout = {
-        return WMFColumnarCollectionViewLayout()
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate {
+    lazy var layout: ColumnarCollectionViewLayout = {
+        return ColumnarCollectionViewLayout()
     }()
     
     @objc lazy var collectionView: UICollectionView = {
@@ -170,6 +170,23 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.reloadData()
         wmf_applyTheme(toEmptyView: theme)
     }
+    
+    // MARK -
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
@@ -188,28 +205,6 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
 
-}
-
-extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDelegate {
-    open func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
-        return index % 2 == 0
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
-    }
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate
