@@ -17,6 +17,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
+NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
 
 @interface WMFExploreFeedContentController ()
 
@@ -309,6 +310,7 @@ NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
                 continue;
             }
             self.exploreFeedPreferences = (NSDictionary *)keyValue.value;
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFExplorePreferencesDidChangeNotification object:self.exploreFeedPreferences];
         }
     }
 }
