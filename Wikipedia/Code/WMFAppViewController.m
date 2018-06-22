@@ -1501,6 +1501,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
+    [self updateMainTabIfNeeded];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
