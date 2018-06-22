@@ -7,6 +7,11 @@
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *_Nonnull const WMFExplorePreferencesDidChangeNotification;
 
+typedef NS_ENUM(NSUInteger, WMFAppMainTabType) {
+    WMFAppMainTabTypeExplore = 0,
+    WMFAppMainTabTypeSettings
+};
+
 @interface WMFExploreFeedContentController : NSObject
 
 @property (nonatomic, getter=isBusy) BOOL busy;
