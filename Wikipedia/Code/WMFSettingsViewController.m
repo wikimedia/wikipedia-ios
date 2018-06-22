@@ -126,6 +126,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)closeButtonPressed {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate settingsViewControllerWasDismissed];
 }
 
 - (nullable NSString *)title {
