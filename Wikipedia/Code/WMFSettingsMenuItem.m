@@ -68,13 +68,13 @@
         }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:@"Explore feed" // TODO
-                                             iconName:nil // TODO
-                                            iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:SessionSingleton.sharedInstance.dataStore.feedContentController.isDefaultTabExplore ? @"Off" : @"On"
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:@"Explore feed" // TODO
+                                                 iconName:nil             // TODO
+                                                iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:SessionSingleton.sharedInstance.dataStore.feedContentController.isDefaultTabExplore ? @"Off" : @"On"
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
             return
@@ -98,13 +98,13 @@
         }
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:[WMFCommonStrings settingsStorageAndSyncing]
-                                             iconName:@"settings-saved-articles"
-                                            iconColor:[UIColor wmf_colorWithHex:0x00b4ce]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings settingsStorageAndSyncing]
+                                                 iconName:@"settings-saved-articles"
+                                                iconColor:[UIColor wmf_colorWithHex:0x00b4ce]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
