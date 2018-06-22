@@ -39,7 +39,7 @@ private struct Master: SwitchItem {
 
     init(title: String) {
         self.title = title
-        isOn = false
+        isOn = SessionSingleton.sharedInstance().dataStore.feedContentController.mainTabType != .explore
     }
 }
 
