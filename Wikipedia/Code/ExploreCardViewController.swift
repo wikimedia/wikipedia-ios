@@ -96,11 +96,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
         }
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-                delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
-            }
-        }
         visibleLocationCellCount = 0
         collectionView.reloadData()
     }
