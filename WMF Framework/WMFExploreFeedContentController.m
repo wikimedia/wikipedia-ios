@@ -358,6 +358,13 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
+- (void)changeMainTabTo:(WMFAppMainTabType)mainTabType {
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
+        [newPreferences setObject:@(mainTabType) forKey:WMFExploreFeedPreferencesMainTabTypeKey];
+        completion();
+    } completion:nil];
+}
+
 - (WMFAppMainTabType)mainTabType {
     NSNumber *mainTabTypeNumber = (NSNumber *)[self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesMainTabTypeKey];
     WMFAppMainTabType mainTabType = (WMFAppMainTabType)[mainTabTypeNumber intValue];

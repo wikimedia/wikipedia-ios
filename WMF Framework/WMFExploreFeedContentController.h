@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, WMFAppMainTabType) {
  @param siteURL A Wikipedia site url for which a content group of given kind will be visible or hidden in the feed.
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
+- (void)changeMainTabTo:(WMFAppMainTabType)mainTabType;
 @property (nonatomic, readonly) WMFAppMainTabType mainTabType;
 /**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
