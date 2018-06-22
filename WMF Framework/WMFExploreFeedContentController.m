@@ -17,6 +17,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
+NSString *const WMFExploreFeedPreferencesMainTabTypeKey = @"WMFExploreFeedPreferencesMainTabTypeKey";
 NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
 
 @interface WMFExploreFeedContentController ()
@@ -349,8 +350,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     }
     NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [preferences setObject:[WMFExploreFeedContentController customizableContentSources] forKey:siteURL.wmf_articleDatabaseKey];
+        [preferences setObject:[WMFExploreFeedContentController customizableContentGroupKinds] forKey:siteURL.wmf_articleDatabaseKey];
     }
+    [preferences setObject:@(WMFAppMainTabTypeExplore) forKey:WMFExploreFeedPreferencesMainTabTypeKey];
     [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
