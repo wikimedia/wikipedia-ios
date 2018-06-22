@@ -140,7 +140,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
         let languages = ExploreFeedSettingsSection(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
 
-        let master = ExploreFeedSettingsMaster(title: "Turn off Explore tab", isOn: feedContentController?.mainTabType != .explore)
+        let master = ExploreFeedSettingsMaster(title: "Turn off Explore tab", isOn: feedContentController?.isDefaultTabExplore ?? false)
         let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
 
         let sections = displayType == .singleLanguage ? [customization, main] : [customization, languages, main]
@@ -175,7 +175,7 @@ extension ExploreFeedSettingsViewController {
         }
         guard controlTag != -1 else { // master switch
             didToggleMasterSwitch = true
-            feedContentController.changeMainTab(to: sender.isOn ? .settings : .explore)
+            feedContentController.changeDefaultTab(to: sender.isOn ? .settings : .explore)
             return
         }
         if displayType == .singleLanguage {

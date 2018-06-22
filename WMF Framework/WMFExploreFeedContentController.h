@@ -7,9 +7,9 @@
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *_Nonnull const WMFExplorePreferencesDidChangeNotification;
 
-typedef NS_ENUM(NSUInteger, WMFAppMainTabType) {
-    WMFAppMainTabTypeExplore = 0,
-    WMFAppMainTabTypeSettings
+typedef NS_ENUM(NSUInteger, WMFAppDefaultTabType) {
+    WMFAppDefaultTabTypeExplore = 0,
+    WMFAppDefaultTabTypeSettings
 };
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
@@ -56,8 +56,19 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param siteURL A Wikipedia site url for which a content group of given kind will be visible or hidden in the feed.
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
-- (void)changeMainTabTo:(WMFAppMainTabType)mainTabType;
-@property (nonatomic, readonly) WMFAppMainTabType mainTabType;
+
+/**
+ Updates explore feed preferences with a given default tab type.
+
+ @param defaultTabType Preferred default tab type.
+ */
+- (void)changeDefaultTabTo:(WMFAppDefaultTabType)defaultTabType;
+
+/**
+ Returns current preferred default tab type.
+ */
+@property (nonatomic, readonly) WMFAppDefaultTabType defaultTabType;
+
 /**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
 
@@ -70,7 +81,16 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
+
+/**
+ Returns a set of integers that represent customizable content group kinds.
+ */
 + (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
+
+/**
+ Indicates whether Explore tab is currently hidden.
+ */
+@property (nonatomic, readonly) BOOL isDefaultTabExplore;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
