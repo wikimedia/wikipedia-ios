@@ -119,9 +119,9 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         }
 
         let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.scrollIndicatorInsets)
+        metrics = delegateMetrics
         let newInfo = ColumnarCollectionViewLayoutInfo()
         newInfo.layout(with: delegateMetrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
-        metrics = delegateMetrics
         info = newInfo
         isLayoutValid = true
     }

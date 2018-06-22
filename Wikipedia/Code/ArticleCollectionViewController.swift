@@ -100,7 +100,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         }
         placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        // intentionally set all text and unhide image view to get largest possible size
         placeholderCell.isImageViewHidden = false
+        placeholderCell.titleLabel.text = "any"
+        placeholderCell.descriptionLabel.text = "any"
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
