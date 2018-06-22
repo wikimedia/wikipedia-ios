@@ -44,7 +44,6 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     open override func reset() {
         super.reset()
         spacing = 6
-        saveButtonTopSpacing = 10
         imageViewDimension = 150
     }
     
@@ -93,9 +92,9 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         }
 
         if !isSaveButtonHidden {
-            origin.y += saveButtonTopSpacing
+            origin.y += spacing
             let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + saveButtonTopSpacing
+            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
         }
         
         origin.y += layoutMargins.bottom

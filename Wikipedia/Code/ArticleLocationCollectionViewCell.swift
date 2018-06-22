@@ -73,9 +73,8 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         
         if !isSaveButtonHidden {
             origin.y += spacing
-            origin.y += saveButtonTopSpacing
             let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
+            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
         }
         
         origin.y += layoutMargins.bottom
