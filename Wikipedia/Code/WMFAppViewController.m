@@ -13,7 +13,6 @@
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIFont+WMFStyle.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers
@@ -32,7 +31,6 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
-#import "WMFContentGroup+DetailViewControllers.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -72,7 +70,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, readonly) WMFAppMainTabType mainTabType;
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
-@property (nonatomic, strong) WMFExploreViewController *exploreViewController;
+@property (nonatomic, strong) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
@@ -292,7 +290,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)configureExploreViewController {
-    [self.exploreViewController setUserStore:self.dataStore];
+    self.exploreViewController.dataStore = self.dataStore;
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
@@ -787,9 +785,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     BOOL locationAuthorized = [WMFLocationManager isAuthorized];
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
-        [self.exploreViewController updateFeedSourcesUserInitiated:NO
-                                                        completion:^{
-                                                        }];
+        [self.exploreViewController updateFeedSourcesWithDate:nil userInitiated:NO completion:^{ }];
     } else if (locationAuthorized != [defaults wmf_locationAuthorized]) {
         [self.dataStore.feedContentController updateNearbyForce:NO completion:NULL];
     }
@@ -1061,17 +1057,17 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             NSURL *url = [activity wmf_contentURL];
             WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
             if (group) {
-                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
                 if (vc) {
                     [navController pushViewController:vc animated:animated];
                 }
             } else {
-                [self.exploreViewController updateFeedSourcesUserInitiated:NO
+                [self.exploreViewController updateFeedSourcesWithDate:nil userInitiated:NO
                                                                 completion:^{
                                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                                         WMFContentGroup *group = [self.dataStore.viewContext contentGroupForURL:url];
                                                                         if (group) {
-                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore siteURL:[self siteURL] theme:self.theme];
+                                                                            UIViewController *vc = [group detailViewControllerWithDataStore:self.dataStore theme:self.theme];
                                                                             if (vc) {
                                                                                 [navController pushViewController:vc animated:NO];
                                                                             }
@@ -1230,9 +1226,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     return self.session.dataStore;
 }
 
-- (WMFExploreViewController *)exploreViewController {
+- (ExploreViewController *)exploreViewController {
     if (!_exploreViewController) {
-        _exploreViewController = [[WMFExploreViewController alloc] init];
+        _exploreViewController = [[ExploreViewController alloc] init];
     }
     return _exploreViewController;
 }
@@ -1460,7 +1456,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (viewController == tabBarController.selectedViewController) {
         switch (tabBarController.selectedIndex) {
             case WMFAppTabTypeMain: {
-                WMFExploreViewController *exploreViewController = (WMFExploreViewController *)[self exploreViewController];
+                ExploreViewController *exploreViewController = (ExploreViewController *)[self exploreViewController];
                 [exploreViewController scrollToTop];
             } break;
         }
@@ -1472,8 +1468,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)updateActiveTitleAccessibilityButton:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
-        WMFExploreViewController *vc = (WMFExploreViewController *)viewController;
+    if ([viewController isKindOfClass:[ExploreViewController class]]) {
+        ExploreViewController *vc = (ExploreViewController *)viewController;
         vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
     } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
@@ -1496,7 +1492,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([viewController conformsToProtocol:@protocol(WMFSearchButtonProviding)] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
-        if ([viewController isKindOfClass:[WMFExploreViewController class]]) {
+        if ([viewController isKindOfClass:[ExploreViewController class]]) {
             viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
         }
     }
@@ -1625,7 +1621,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore];
+    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore theme:self.theme];
     if (!vc) {
         return;
     }

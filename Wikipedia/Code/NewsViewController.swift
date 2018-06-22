@@ -8,7 +8,7 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
@@ -22,13 +22,22 @@ class NewsViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
-        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, interItemSpacing: 0, interSectionSpacing: 15)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 15, interItemSpacing: 0)
+    }
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 50)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
     }
 }
 
@@ -48,7 +57,7 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
-        cell.layoutMargins = layout.readableMargins
+        cell.layoutMargins = layout.itemLayoutMargins
         let story = stories[indexPath.section]
         newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         return newsCell
@@ -98,17 +107,6 @@ extension NewsViewController {
             return nil
         }
         return NewsViewController.headerDateFormatter.string(from: date)
-    }
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension NewsViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 50)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 350)
     }
 }
 

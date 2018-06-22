@@ -1,14 +1,14 @@
 import UIKit
 
-@objc(WMFArticleURLListViewController)
 class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
     private let contentGroup: WMFContentGroup?
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.contentGroup = contentGroup
         super.init()
+        self.theme = theme
         self.dataStore = dataStore
     }
     

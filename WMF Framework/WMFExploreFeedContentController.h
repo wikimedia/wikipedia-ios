@@ -12,6 +12,8 @@ typedef NS_ENUM(NSUInteger, WMFAppMainTabType) {
     WMFAppMainTabTypeSettings
 };
 
+extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
+
 @interface WMFExploreFeedContentController : NSObject
 
 @property (nonatomic, getter=isBusy) BOOL busy;

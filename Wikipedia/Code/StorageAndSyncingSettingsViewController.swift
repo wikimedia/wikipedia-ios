@@ -88,9 +88,9 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         super.viewDidLoad()
         title = CommonStrings.settingsStorageAndSyncing
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier())
-        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())
+        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: self.theme)
@@ -194,7 +194,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         let settingsItem = getItem(at: indexPath)
         
         guard let disclosureType = settingsItem.disclosureType else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier(), for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.identifier, for: indexPath)
             cell.selectionStyle = .none
             cell.backgroundColor = theme.colors.paperBackground
             if let eraseSavedArticlesView = eraseSavedArticlesView {
@@ -211,7 +211,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         
@@ -254,7 +254,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
 
 extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier()) as? WMFTableHeaderFooterLabelView else {
+        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
             return nil
         }
         footer.setShortTextAsProse(sections[section].footerText)

@@ -83,11 +83,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (CLHeading *)heading {
+- (nullable CLHeading *)heading {
     return self.lastHeading;
 }
 
-- (CLLocation *)location {
+- (nullable CLLocation *)location {
     return self.lastLocation;
 }
 

@@ -8,6 +8,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     
     let fetchedResultsController: NSFetchedResultsController<T>
     let collectionView: UICollectionView
+    var isSlidingNewContentInFromTheTopEnabled: Bool = false
     var sectionChanges: [WMFSectionChange] = []
     var objectChanges: [WMFObjectChange] = []
     weak var delegate: CollectionViewUpdaterDelegate?
@@ -44,18 +45,68 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         sectionChanges.append(sectionChange)
     }
     
+    private var sectionCounts: [Int] = []
+    private func updateSectionCounts() {
+        let sections = fetchedResultsController.sections ?? []
+        sectionCounts = sections.map { $0.numberOfObjects }
+    }
+    
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        let collectionView = self.collectionView
-        guard objectChanges.count < 1000 && sectionChanges.count < 1 else { // reload data for larger changes
+        let previousSectionCounts = self.sectionCounts
+        updateSectionCounts()
+        let sectionCounts = self.sectionCounts
+        var didInsertFirstSection = false
+        var sectionDelta = 0
+        for sectionChange in sectionChanges {
+            switch sectionChange.type {
+            case .delete:
+                sectionDelta -= 1
+            case .insert:
+                sectionDelta += 1
+                if sectionChange.sectionIndex == 0 {
+                    didInsertFirstSection = true
+                }
+            default:
+                break
+            }
+        }
+        let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
+        guard sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for larger changes
             collectionView.reloadData()
-            self.delegate?.collectionViewUpdater(self, didUpdate: collectionView)
+            self.delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return
         }
+        
+        guard isSlidingNewContentInFromTheTopEnabled else {
+            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            return
+        }
+
+        guard let columnarLayout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout else {
+            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            return
+        }
+        
+        guard previousSectionCounts.count > 0 && didInsertFirstSection && sectionDelta > 0 else {
+            columnarLayout.slideInNewContentFromTheTop = false
+            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            return
+        }
+        
+        columnarLayout.slideInNewContentFromTheTop = true
+        UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(sectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+            self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+        }, completion: nil)
+    }
+    
+    func performBatchUpdates(sectionCounts: [Int], previousSectionCounts: [Int]) {
+        let collectionView = self.collectionView
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START ===")
             let insertedSections = NSMutableIndexSet()
             let deletedSections = NSMutableIndexSet()
             let updatedSections = NSMutableIndexSet()
+            
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
