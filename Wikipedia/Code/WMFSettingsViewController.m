@@ -54,6 +54,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
+@property (nonatomic) BOOL didPressCloseButton;
+
 @end
 
 @implementation WMFSettingsViewController
@@ -121,7 +123,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.delegate settingsViewControllerDidDisappear];
+    if (self.didPressCloseButton) {
+        [self.delegate settingsViewControllerDidDisappear];
+    }
 }
 
 - (void)configureBackButton {
@@ -138,6 +142,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)closeButtonPressed {
+    self.didPressCloseButton = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
