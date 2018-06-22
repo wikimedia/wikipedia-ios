@@ -8413,6 +8413,7 @@
 				D870215C1EBA63EE000D02D6 /* Sources */,
 				D870215D1EBA63EE000D02D6 /* Frameworks */,
 				D870215E1EBA63EE000D02D6 /* CopyFiles */,
+				B033620620D0573A006BCDCE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -9385,6 +9386,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		B033620620D0573A006BCDCE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -f -R \"${BUILT_PRODUCTS_DIR}/${APPLICATION_NAME}/localization\" \"${SRCROOT}/scripts\"";
+		};
 		D80ED42B1EE57F4800CE8C50 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
