@@ -1788,10 +1788,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self presentViewController:self.searchViewController animated:animated completion:nil];
 }
 
-- (void)showSettingsWithSubViewController:(nullable UIViewController *)subViewController animated:(BOOL)animated {
-    NSParameterAssert(self.dataStore);
-    [self dismissPresentedViewControllers];
-
 - (nonnull WMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
@@ -1803,11 +1799,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return _settingsViewController;
 }
 
-    if (!self.settingsNavigationController) {
+- (nonnull UINavigationController *)settingsNavigationController {
+    if (!_settingsNavigationController) {
         WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
-        self.settingsNavigationController = navController;
+        _settingsNavigationController = navController;
     }
+
+    if (_settingsNavigationController.viewControllers.count == 0) {
+        _settingsNavigationController.viewControllers = @[self.settingsViewController];
+    }
+
+    return _settingsNavigationController;
+}
+
+- (void)showSettingsWithSubViewController:(nullable UIViewController *)subViewController animated:(BOOL)animated {
+    NSParameterAssert(self.dataStore);
+    [self dismissPresentedViewControllers];
 
     if (subViewController) {
         [self.settingsNavigationController pushViewController:subViewController animated:NO];
