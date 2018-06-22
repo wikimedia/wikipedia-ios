@@ -377,7 +377,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureExploreViewController];
 }
 
-
 /**
  Updates explore feed preferences if new preferred language was appeneded or removed.
  */
@@ -455,6 +454,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                  dismissPreviousAlerts:YES
                                            tapCallBack:nil];
 }
+
+#pragma mark - Explore feed preferences
 
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     self.shouldUpdateMainTab = YES;
