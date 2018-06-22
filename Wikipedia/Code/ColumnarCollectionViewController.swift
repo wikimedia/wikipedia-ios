@@ -185,7 +185,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 

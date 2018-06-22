@@ -29,7 +29,7 @@ class NewsViewController: ColumnarCollectionViewController {
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 15)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 15, interItemSpacing: 0)
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

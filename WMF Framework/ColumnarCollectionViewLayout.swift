@@ -86,10 +86,13 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         guard let collectionView = collectionView, width >= 1 else {
             return 0
         }
-        let info = ColumnarCollectionViewLayoutInfo()
-        let metrics = delegate.metrics(with: CGSize(width: width, height: 100), readableWidth: width, layoutMargins: .zero)
-        info.layout(with: metrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
-        return info.contentSize.height
+        let oldMetrics = metrics
+        let newInfo = ColumnarCollectionViewLayoutInfo()
+        let newMetrics = delegate.metrics(with: CGSize(width: width, height: 100), readableWidth: width, layoutMargins: .zero)
+        metrics = newMetrics // needs to be set so that layout margins can be queried. probably not the best solution.
+        newInfo.layout(with: newMetrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
+        metrics = oldMetrics
+        return newInfo.contentSize.height
     }
 
     override public func prepare() {

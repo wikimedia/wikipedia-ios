@@ -209,5 +209,15 @@ open class CollectionViewCell: UICollectionViewCell {
     open func updateFonts(with traitCollection: UITraitCollection) {
         
     }
+    
+    // MARK - Layout Margins
+    
+    public var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var layoutMarginsInteractiveAdditions: UIEdgeInsets = .zero
+    
+    public var calculatedLayoutMargins: UIEdgeInsets {
+        let margins = self.layoutMargins
+        return UIEdgeInsets(top: margins.top + layoutMarginsAdditions.top + layoutMarginsInteractiveAdditions.top, left:margins.left + layoutMarginsAdditions.left + layoutMarginsInteractiveAdditions.left, bottom: margins.bottom + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom, right:margins.right + layoutMarginsAdditions.right + layoutMarginsInteractiveAdditions.right)
+    }
 
 }

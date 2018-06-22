@@ -223,7 +223,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
     }
     
@@ -231,7 +231,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
             authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
             authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
@@ -338,6 +338,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
         }
+        cell.layoutMargins = layout.itemLayoutMargins
     }
     
     // MARK - UICollectionViewDataSource
@@ -435,7 +436,19 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: size.width, layoutMargins: .zero, interItemSpacing: 0, interSectionSpacing: 0)
+        let kind = contentGroup?.contentGroupKind ?? .unknown
+        let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
+        let layoutMargins: UIEdgeInsets
+        switch kind {
+        case .topRead, .location, .locationPlaceholder, .onThisDay:
+            layoutMargins = UIEdgeInsets(top: 25 - itemLayoutMargins.top, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+        case .relatedPages:
+            layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+        default:
+            layoutMargins = .zero
+        }
+        return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
+
     }
 }
 

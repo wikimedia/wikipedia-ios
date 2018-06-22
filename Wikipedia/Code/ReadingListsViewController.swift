@@ -186,7 +186,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         guard let readingList = readingList(at: indexPath) else {
             return
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         let articleCount = readingList.countOfEntries
         let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
         
@@ -195,7 +194,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         cell.configureAlert(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
 
         if readingList.isDefault {
-            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+            cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.isBatchEditing = false
             cell.swipeTranslation = 0
             cell.isBatchEditable = false
@@ -209,7 +208,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
                 cell.swipeTranslation = translation
             }
-            cell.configure(readingList: readingList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
+            cell.configure(readingList: readingList, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
     }
     
@@ -228,7 +227,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
     // MARK: - Empty state

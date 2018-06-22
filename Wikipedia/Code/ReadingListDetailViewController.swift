@@ -293,7 +293,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 
@@ -529,10 +529,9 @@ extension ReadingListDetailViewController {
             assertionFailure("Coudn't fetch an article with \(articleKey) articleKey")
             return
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true

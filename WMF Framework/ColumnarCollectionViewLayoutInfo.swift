@@ -15,11 +15,9 @@ public class ColumnarCollectionViewLayoutInfo {
         guard let countOfSections = dataSource.numberOfSections?(in: collectionView) else {
             return
         }
-        let bounds = CGRect(origin: .zero, size: metrics.boundsSize)
-        let insetBounds = UIEdgeInsetsInsetRect(bounds, metrics.layoutMargins)
-        let x = insetBounds.minX
-        var y = insetBounds.minY
-        let width = insetBounds.width
+        let x = metrics.layoutMargins.left
+        var y = metrics.layoutMargins.top
+        let width = metrics.boundsSize.width - metrics.layoutMargins.left - metrics.layoutMargins.right
         for sectionIndex in 0..<countOfSections {
             let section = ColumnarCollectionViewLayoutSection(sectionIndex: sectionIndex, frame: CGRect(x: x, y: y, width: width, height: 0), metrics: metrics)
             sections.append(section)
@@ -54,7 +52,7 @@ public class ColumnarCollectionViewLayoutInfo {
             }
             y += section.frame.size.height + metrics.interSectionSpacing
         }
-        
+        y += metrics.layoutMargins.bottom
         contentSize = CGSize(width: metrics.boundsSize.width, height: y)
     }
     

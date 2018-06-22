@@ -30,8 +30,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         guard let article = article(at: indexPath) else {
             return
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: .compactList, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.itemLayoutMargins
     }
@@ -111,7 +110,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 

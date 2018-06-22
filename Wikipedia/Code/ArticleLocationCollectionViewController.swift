@@ -57,7 +57,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 
@@ -96,7 +96,7 @@ extension ArticleLocationCollectionViewController {
         cell.articleLocation = article.location
         cell.update(userLocation: userLocation, heading: userHeading)
         
-        cell.configure(article: article, displayType: .pageWithLocation, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: .pageWithLocation, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

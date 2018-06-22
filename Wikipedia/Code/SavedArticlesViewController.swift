@@ -183,7 +183,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
 }
@@ -243,8 +243,7 @@ extension SavedArticlesViewController {
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
         cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true

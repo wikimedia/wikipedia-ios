@@ -1,5 +1,5 @@
 public struct ColumnarCollectionViewLayoutMetrics {
-    static let defaultItemLayoutMargins = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
+    public static let defaultItemLayoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
     let boundsSize: CGSize
     let layoutMargins: UIEdgeInsets
     let countOfColumns: Int
@@ -32,15 +32,16 @@ public struct ColumnarCollectionViewLayoutMetrics {
     }
     
     
-    public static func singleColumnMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return  ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: boundsSize, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 0)
-    }
-    
-    public static func singleColumnMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interItemSpacing: CGFloat, interSectionSpacing: CGFloat) -> ColumnarCollectionViewLayoutMetrics {
+    public static func tableViewMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interSectionSpacing: CGFloat = 0, interItemSpacing: CGFloat  = 0) -> ColumnarCollectionViewLayoutMetrics {
         let marginWidth = max(max(layoutMargins.left, layoutMargins.right), round(0.5 * (boundsSize.width - readableWidth)))
         var itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         itemLayoutMargins.left = max(marginWidth, itemLayoutMargins.left)
         itemLayoutMargins.right = max(marginWidth, itemLayoutMargins.right)
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: 0,  interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: 0, interColumnSpacing: 0,  interItemSpacing: 0, shouldMatchColumnHeights: false)
+    }
+    
+    public static func exploreCardMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: layoutMargins, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: 0, interColumnSpacing: 0,  interItemSpacing: 0, shouldMatchColumnHeights: false)
     }
 }

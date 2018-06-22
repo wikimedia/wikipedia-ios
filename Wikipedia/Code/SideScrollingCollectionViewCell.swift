@@ -86,7 +86,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     
     override open func reset() {
         super.reset()
-        layoutMargins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
     }
     
@@ -101,9 +100,9 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     public let spacing: CGFloat = 13
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let layoutMargins = calculatedLayoutMargins
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
-    
         if !isImageViewHidden {
             if (apply) {
                 imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)

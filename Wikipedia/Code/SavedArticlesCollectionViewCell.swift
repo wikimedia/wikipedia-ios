@@ -126,7 +126,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+        let layoutMargins = calculatedLayoutMargins
         
         var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
@@ -292,7 +292,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    func configure(article: WMFArticle, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
 
         titleHTML = article.displayTitleHTML
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
@@ -328,10 +328,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 100
-        
-        if (shouldAdjustMargins) {
-            adjustMargins(for: index, count: count)
-        }
+    
         setNeedsLayout()
     }
     

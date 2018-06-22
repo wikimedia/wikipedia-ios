@@ -427,7 +427,6 @@
 		83BF87D11FA7463300EAF3DD /* WMFFIFOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */; };
 		83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
-		83CA612C20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CA612D20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CA612E20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -11461,7 +11460,6 @@
 				D8EC3E1F1E9BDA35006712EB /* WMFSearchLanguagesBarViewController.swift in Sources */,
 				D8EC3E201E9BDA35006712EB /* WMFUnderlineButton.m in Sources */,
 				D8EC3E211E9BDA35006712EB /* WMFArticleRequestSerializer.m in Sources */,
-				83CA612C20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D8EC3E221E9BDA35006712EB /* MenuLabel.m in Sources */,
 				D8EC3E251E9BDA35006712EB /* WMFArticleRevisionFetcher.m in Sources */,
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
