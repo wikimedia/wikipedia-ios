@@ -1792,12 +1792,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSParameterAssert(self.dataStore);
     [self dismissPresentedViewControllers];
 
-    if (!self.settingsViewController) {
+- (nonnull WMFSettingsViewController *)settingsViewController {
+    if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
+        settingsVC.delegate = self;
         [settingsVC applyTheme:self.theme];
-        self.settingsViewController = settingsVC;
+        _settingsViewController = settingsVC;
     }
+    return _settingsViewController;
+}
 
     if (!self.settingsNavigationController) {
         WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self.settingsViewController theme:self.theme];
