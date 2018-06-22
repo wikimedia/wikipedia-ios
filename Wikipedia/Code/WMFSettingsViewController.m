@@ -124,6 +124,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.navigationItem.leftBarButtonItems = @[xButton];
 }
 
+- (void)setShowCloseButton:(BOOL)showCloseButton {
+    if (showCloseButton) {
+        [self configureBackButton];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
 - (void)closeButtonPressed {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.delegate settingsViewControllerWasDismissed];
