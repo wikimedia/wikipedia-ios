@@ -56,7 +56,7 @@
 "account-creation-saving" = "Mentés…";
 "account-creation-title" = "Új fiók létrehozása";
 "action-add-to" = "Hozzáad...";
-"action-add-to-reading-list" = "Hozzáadás az olvasási listához";
+"action-add-to-reading-list" = "Hozzáadás az olvasólistához";
 "action-cancel" = "Mégse";
 "action-move-to" = "Áthelyezés ide...";
 "action-move-to-reading-list" = "Mentés olvasólistára";
@@ -205,6 +205,7 @@
 "home-nearby-footer" = "Több a közeledből";
 "home-nearby-location-footer" = "Több $1 közeléből";
 "home-news-footer" = "További hírek";
+"home-reading-list-prompt" = "A mentett szócikkeidet mostantól olvasólistákba tudod szervezni, amelyek a különböző eszközeid között szinkronizálásra kerülnek. Jelentkezz be, hogy az olvasólistáidat a felhasználói beállításaid közé tudd menteni.";
 "home-themes-action-title" = "Beállítások kezelése";
 "home-title" = "Felfedezés";
 "home-title-accessibility-label" = "Wikipédia, görgetés a Felfedezés tetejére";
@@ -249,6 +250,7 @@
 "menu-trash-accessibility-label" = "Törlés";
 "more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
 "more-languages-tooltip-title" = "Nyelvek hozzáadása";
+"move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
 "navbar-title-mode-edit-wikitext-preview" = "Előnézet";
 "nearby-distance-label-feet" = "$1 láb";
 "nearby-distance-label-km" = "$1 km";
@@ -315,21 +317,30 @@
 "places-unknown-distance" = "ismeretlen távolság";
 "potd-description-prefix" = "A $1 nap képe";
 "potd-empty-error-description" = "A $1 nap képének lekérése sikertelen";
-"preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az appot, hogy még jobbá tehessük.";
+"preference-summary-eventlogging-opt-in" = "A Wikimédia Alapítvány adatokat gyűjthet arról, hogy hogyan használod az alkalmazást, hogy még jobbá tehessük.";
 "preference-title-eventlogging-opt-in" = "Használati jelentés küldése";
 "rank-accessibility-label" = "$1.";
 "readers-accessibility-label" = "$1 olvasó";
-"reading-list-create-new-list-button-title" = "Olvasási lista létrehozása";
+"reading-list-add-saved-button-title" = "Igen, vedd fel az olvasólistáimhoz";
+"reading-list-api-error-generic" = "Váratlan hiba történt az olvasólisták szinkronizálása során.";
+"reading-list-create-new-list-button-title" = "Olvasólista létrehozása";
 "reading-list-create-new-list-description" = "Leírás";
 "reading-list-create-new-list-reading-list-name" = "Az olvasólista neve";
 "reading-list-create-new-list-title" = "Új lista létrehozása";
 "reading-list-deleted-accessibility-notification" = "Olvasólista törölve";
+"reading-list-do-not-keep-button-title" = "Nem, töröld a szócikket az eszközről";
 "reading-list-entry-limit-exceeded-title" = "A szócikkek száma legfeljebb $1 lehet.";
+"reading-list-entry-limit-reached" = "A {{PLURAL:$1|szócikket|szócikkeket}} nem lehet hozzáadni ehhez a listához. Elérted a maximális $2 szócikket a $3 olvasólistában.";
+"reading-list-generic-error" = "Váratlan hiba történt az olvasólisták frissítése során.";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Szócikkek rendezése";
-"reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet.";
+"reading-list-list-limit-exceeded-message" = "Az olvasólista és benne mentett szócikkek nem fognak szinkronizálódni. Csökkentsd a listák számát $1-ra/re a listák szinkronizálásának folytatásához.";
+"reading-list-list-limit-exceeded-title" = "Az olvasólisták száma legfeljebb $1 lehet fiókonként.";
 "reading-list-list-limit-reached" = "Az olvasólisták száma legfeljebb $1 lehet.";
 "reading-list-login-button-title" = "Jelentkezz be a mentett szócikkek szinkronizálásához";
 "reading-list-login-or-create-account-button-title" = "Bejelentkezés / fiók létrehozása";
+"reading-list-new-list-description-placeholder" = "opcionális rövid leírás";
+"reading-list-new-list-name-placeholder" = "olvasólista címe";
+"reading-themes-controls-accessibility-black-theme-button" = "Fekete téma";
 "reading-themes-controls-accessibility-brightness-slider" = "Fényerő csúszka";
 "reading-themes-controls-accessibility-dark-theme-button" = "Sötét téma";
 "reading-themes-controls-accessibility-light-theme-button" = "Világos téma";
@@ -340,8 +351,9 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nemrég|$1 órája|$1 órája}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Épp most|$1 perce|$1 perce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ez évben|Tavaly|$1 évvel ezelőtt}}";
-"request-feedback-on-error" = "Az alkalmazás egy hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
+"request-feedback-on-error" = "Az alkalmazás egy olyan hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
+"saved-reading-lists-title" = "Olvasólisták";
 "saved-search-default-text" = "Keresés";
 "saved-title" = "Elmentve";
 "search-button-accessibility-label" = "Keresés a Wikipédiában";
@@ -354,8 +366,7 @@
 "search-recent-title" = "Legutóbbi keresések";
 "search-result-redirected-from" = "$1 szócikkből átirányítva";
 "search-title" = "Keresés";
-// Fuzzy
-"settings-appearance" = "Megjelenés";
+"settings-appearance" = "Olvasási preferenciák";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
 "settings-clear-cache-are-you-sure-message" = "A gyorsítótárazott adatok törlése körülbelül $1 helyet fog felszabadítani, az elmentett lapokat nem érinti.";
 "settings-clear-cache-are-you-sure-title" = "Törlöd a gyorsítótárazott adatokat?";
@@ -421,7 +432,7 @@
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";
 "welcome-notifications-tell-me-more-title" = "További információk az értesítésekről";
-"welcome-send-data-helps-title" = "Segítsen jobbá tenni az appot";
+"welcome-send-data-helps-title" = "Segítsen jobbá tenni az alkalmazást";
 "welcome-send-data-learn-more" = "Tudjon meg többet a gyűjtött adatokról";
 "welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
