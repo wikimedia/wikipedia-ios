@@ -453,6 +453,7 @@
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
 "settings-notifications" = "알림";
+"settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인 정보와 시간 데이터까지 모두 제공됩니다.";
 "settings-notifications-learn-more" = "알림에 대해 더 알아보기";
 "settings-notifications-push-notifications" = "푸시 알림";
 "settings-notifications-system-turn-on" = "알림 켜기";
@@ -548,7 +549,7 @@
 "wikitext-upload-save" = "게시 중...";
 "wikitext-upload-save-anonymously-warning" = "편집에 당신의 장치의 IP 주소가 들어갑니다. $1하면 개인 정보를 더 보호할 수 있습니다.";
 "wikitext-upload-save-sign-in" = "로그인";
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "변경사항을 저장한다는 것은 $1에 동의하고 $2 및 $3 라이선스에 따라 이 기여를 배포하는 데 동의한다는 것을 의미합니다.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "변경 사항을 저장하게 되면 $1에 동의하고 $2 및 $3 라이선스에 따라 이 기여를 배포하는 데 동의한다는 것을 의미합니다.";
 "wikitext-upload-save-terms-name" = "이용 약관";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";

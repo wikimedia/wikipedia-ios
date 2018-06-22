@@ -1,376 +1,521 @@
 import UIKit
+import WMF
 
-@objc(WMFExploreViewController)
-class ExploreViewController: UIViewController, WMFExploreCollectionViewControllerDelegate, UISearchBarDelegate, AnalyticsViewNameProviding, AnalyticsContextProviding
-{
-    public var collectionViewController: WMFExploreCollectionViewController!
 
-    @IBOutlet weak var extendedNavBarView: UIView!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var extendNavBarViewTopSpaceConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBar: UISearchBar!
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate {
     
-    private var longTitleButton: UIButton?
-    private var shortTitleButton: UIButton?
-    
-    private var isUserScrolling = false
-    
-    fileprivate var theme: Theme = Theme.standard
-    
-    @objc public var userStore: MWKDataStore? {
-        didSet {
-            guard let newValue = userStore else {
-                assertionFailure("cannot set CollectionViewController.userStore to nil")
-                return
-            }
-            collectionViewController.userStore = newValue
-        }
-    }
-    
-    @objc public var titleButton: UIButton? {
-        guard let button = self.navigationItem.titleView as? UIButton else {
-            return nil
-        }
-        return button
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-         super.init(coder: aDecoder)
-
-        // manually instiate child exploreViewController
-        // originally did via an embed segue but this caused the `exploreViewController` to load too late
-        let storyBoard = UIStoryboard(name: "Explore", bundle: nil)
-        let vc = storyBoard.instantiateViewController(withIdentifier: "CollectionViewController")
-        guard let collectionViewController = (vc as? WMFExploreCollectionViewController) else {
-            assertionFailure("Could not load WMFExploreCollectionViewController")
-            return nil
-        }
-        self.collectionViewController = collectionViewController
-        self.collectionViewController.delegate = self
-
-        let longTitleButton = UIButton(type: .custom)
-        longTitleButton.adjustsImageWhenHighlighted = true
-        longTitleButton.setImage(#imageLiteral(resourceName: "wikipedia"), for: UIControlState.normal)
-        longTitleButton.sizeToFit()
-        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: UIControlEvents.touchUpInside)
-        self.longTitleButton = longTitleButton
-        let shortTitleButton = UIButton(type: .custom)
-        shortTitleButton.adjustsImageWhenHighlighted = true
-        shortTitleButton.setImage(#imageLiteral(resourceName: "W"), for: UIControlState.normal)
-        shortTitleButton.sizeToFit()
-        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: UIControlEvents.touchUpInside)
-        self.shortTitleButton = shortTitleButton
-        
-        let titleView = UIView()
-        titleView.frame = longTitleButton.bounds
-        titleView.addSubview(longTitleButton)
-        titleView.addSubview(shortTitleButton)
-        shortTitleButton.center = titleView.center
-        
-        self.navigationItem.titleView = titleView
-        self.navigationItem.isAccessibilityElement = true
-        self.navigationItem.accessibilityTraits |= UIAccessibilityTraitHeader
-    }
+    // MARK - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
         
-        // programmatically add sub view controller
-        // originally did via an embed segue but this caused the `exploreViewController` to load too late
-        self.addChildViewController(collectionViewController)
-        self.collectionViewController.view.frame = self.containerView.bounds
-        self.collectionViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.containerView.addSubview(collectionViewController.view)
-        self.collectionViewController.didMove(toParentViewController: self)
-        
-        addStatusBarUnderlay()
-        
-        self.searchBar.placeholder = WMFLocalizedString("search-field-placeholder-text", value:"Search Wikipedia", comment:"Search field placeholder text")
-        apply(theme: self.theme)
+        navigationItem.titleView = titleView
+        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
+        isRefreshControlEnabled = true
     }
+    
+    private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
+    private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
+    lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
+       return ColumnarCollectionViewControllerLayoutCache()
+    }()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startMonitoringReachabilityIfNeeded()
+        showOfflineEmptyViewIfNeeded()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopMonitoringReachability()
+    }
+    
+    // MARK - ViewController
+    
+    override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
+        super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
+        shortTitleButton.alpha = extendedViewPercentHidden
+        longTitleButton.alpha = 1.0 - extendedViewPercentHidden
+        navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
+    }
+    
+    // MARK - NavBar
+    
+    @objc func titleBarButtonPressed(_ sender: UIButton?) {
+        scrollToTop()
+    }
+    
+    @objc public var titleButton: UIView {
+        return titleView
+    }
+    
+    lazy var longTitleButton: UIButton = {
+        let longTitleButton = UIButton(type: .custom)
+        longTitleButton.adjustsImageWhenHighlighted = true
+        longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
+        longTitleButton.sizeToFit()
+        longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        return longTitleButton
+    }()
+    
+    lazy var shortTitleButton: UIButton = {
+        let shortTitleButton = UIButton(type: .custom)
+        shortTitleButton.adjustsImageWhenHighlighted = true
+        shortTitleButton.setImage(UIImage(named: "W"), for: .normal)
+        shortTitleButton.alpha = 0
+        shortTitleButton.sizeToFit()
+        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        return shortTitleButton
+    }()
+    
+    lazy var titleView: UIView = {
+        let titleView = UIView(frame: longTitleButton.bounds)
+        titleView.addSubview(longTitleButton)
+        titleView.addSubview(shortTitleButton)
+        shortTitleButton.center = titleView.center
+        return titleView
+    }()
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.wmf_updateNavigationBar(removeUnderline: true)
-        self.updateNavigationBar()
-    }
+    // MARK - Refresh
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.wmf_updateNavigationBar(removeUnderline: false)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        isToolbarViewVisible = false
-    }
-    
-    private func updateNavigationBar() {
-        updateNavigationBar(newOffset: abs(extendNavBarViewTopSpaceConstraint.constant))
-    }
-    
-    private func updateNavigationBar(newOffset extNavBarOffset: CGFloat) {
-        let extNavBarHeight = extendedNavBarView.frame.size.height
-        let percentHidden: CGFloat = extNavBarOffset / extNavBarHeight
-        self.navigationItem.rightBarButtonItem?.customView?.alpha = percentHidden
-        self.shortTitleButton?.alpha = percentHidden
-        self.longTitleButton?.alpha = 1 - percentHidden
-        self.searchBar.alpha = max(1 - (percentHidden * 1.5), 0)
-    }
-    
-    // MARK: - Actions
-    
-    @objc public func titleBarButtonPressed() {
-        self.showSearchBar(animated: true)
-        
-        guard let cv = self.collectionViewController.collectionView else {
-            return
-        }
-        cv.setContentOffset(CGPoint(x: 0, y: -cv.contentInset.top), animated: true)
-    }
-    
-    // MARK: - WMFExploreCollectionViewControllerDelegate
-    
-    func updateSearchBar(offset: CGFloat, animated: Bool)
-    {
-        if (animated) {
-            self.view.layoutIfNeeded() // Apple recommends you call layoutIfNeeded before the animation block ensure all pending layout changes are applied
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-                self.extendNavBarViewTopSpaceConstraint.constant = -offset
-                // self.searchBarButtonItem?.alpha = newAlpha
-                self.updateNavigationBar(newOffset: offset)
-                self.view.layoutIfNeeded() // layoutIfNeeded must be called from within the animation block
-            });
-        } else {
-            self.extendNavBarViewTopSpaceConstraint.constant = -offset
-            self.updateNavigationBar(newOffset: offset)
+    open override func refresh() {
+        updateFeedSources(with: nil, userInitiated: true) {
+            
         }
     }
     
-    public func showSearchBar(animated: Bool) {
-        updateSearchBar(offset: 0, animated: animated)
-    }
+    // MARK - Scroll
     
-    public func hideSearchBar(animated: Bool) {
-        let extNavBarHeight = extendedNavBarView.frame.size.height
-        updateSearchBar(offset: extNavBarHeight, animated: animated)
-    }
-    
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willBeginScrolling scrollView: UIScrollView) {
-        isUserScrolling = true
-    }
-    
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didScroll scrollView: UIScrollView) {
-        //DDLogDebug("scrolled! \(scrollView.contentOffset)")
-        
-        guard isUserScrolling else {
+    var isLoadingOlderContent: Bool = false
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        guard !isLoadingOlderContent else {
             return
         }
         
-        let extNavBarHeight = extendedNavBarView.frame.size.height
-        let extNavBarOffset = abs(extendNavBarViewTopSpaceConstraint.constant)
-        let scrollY = scrollView.contentOffset.y
+        let ratio: CGFloat = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.size.height)
+        if ratio < 0.8 {
+            return
+        }
         
-        // no change in scrollY
-        if (scrollY == 0) {
-            //DDLogDebug("no change in scroll")
+        let lastSectionIndex = numberOfSectionsInExploreFeed - 1
+        guard lastSectionIndex >= 0 else {
             return
         }
 
-        // pulling down when nav bar is already extended
-        if (extNavBarOffset == 0 && scrollY < 0) {
-            //DDLogDebug("  bar already extended")
+        let lastItemIndex = numberOfItemsInSection(lastSectionIndex) - 1
+        guard lastItemIndex >= 0 else {
             return
         }
         
-        // pulling up when navbar isn't fully collapsed
-        if (extNavBarOffset == extNavBarHeight && scrollY > 0) {
-            //DDLogDebug("  bar already collapsed")
+        let lastGroup = fetchedResultsController.object(at: IndexPath(item: lastItemIndex, section: lastSectionIndex))
+        let now = Date()
+        let midnightUTC: Date = (now as NSDate).wmf_midnightUTCDateFromLocal
+        guard let lastGroupMidnightUTC = lastGroup.midnightUTCDate else {
             return
         }
         
-        let newOffset: CGFloat
-        
-        // pulling down when nav bar is partially hidden
-        if (scrollY <= 0) {
-            newOffset = max(extNavBarOffset - abs(scrollY), 0)
-            //DDLogDebug("  showing bar newOffset:\(newOffset)")
-
-        // pulling up when navbar isn't fully collapsed
-        } else {
-            newOffset = min(extNavBarOffset + abs(scrollY), extNavBarHeight)
-            //DDLogDebug("  hiding bar newOffset:\(newOffset)")
-        }
-        
-        updateSearchBar(offset: newOffset, animated: false)
-        
-        scrollView.contentOffset = CGPoint(x: 0, y: 0)
-    }
-    
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didEndScrolling scrollView: UIScrollView) {
-        
-        defer {
-            isUserScrolling = false
-        }
-
-        let extNavBarHeight = extendedNavBarView.frame.size.height
-        let extNavBarOffset = abs(extendNavBarViewTopSpaceConstraint.constant)
-
-        var newOffset: CGFloat?
-        if (extNavBarOffset > 0 && extNavBarOffset < extNavBarHeight/2) {
-            //DDLogDebug("Need to scroll down")
-            newOffset = 0
-        } else if (extNavBarOffset >= extNavBarHeight/2 && extNavBarOffset < extNavBarHeight) {
-            //DDLogDebug("Need to scroll up")
-            newOffset = extNavBarHeight
-        }
-        
-        if (newOffset != nil) {
-            updateSearchBar(offset: newOffset!, animated: true)
-        } else {
-            updateNavigationBar()
-        }
-    }
-    
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, shouldScrollToTop scrollView: UIScrollView) -> Bool {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        showSearchBar(animated: true)
-        return true
-    }
-    
-    var statusBarUnderlay: UIView?
-    
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, willEndDragging scrollView: UIScrollView, velocity: CGPoint) {
-        let velocity = velocity.y
-        guard velocity != 0 else { // don't hide or show on 0 velocity tap
+        let calendar = NSCalendar.wmf_gregorian()
+        let days: Int = calendar?.wmf_days(from: lastGroupMidnightUTC, to: midnightUTC) ?? 0
+        guard days < Int(WMFExploreFeedMaximumNumberOfDays) else {
             return
         }
-        self.navigationController?.setNavigationBarHidden(velocity > 0, animated: true)
+        
+        guard let nextOldestDate: Date = calendar?.date(byAdding: .day, value: -1, to: lastGroupMidnightUTC, options: .matchStrictly) else {
+            return
+        }
+        
+        isLoadingOlderContent = true
+        updateFeedSources(with: (nextOldestDate as NSDate).wmf_midnightLocalDateForEquivalentUTC, userInitiated: false) {
+            self.isLoadingOlderContent = false
+        }
     }
     
-    func addStatusBarUnderlay() {
-        let statusBarUnderlay = UIView()
-        statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
-        let topConstraint = self.view.topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
-        let bottomConstraint = self.topLayoutGuide.bottomAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
-        let leadingConstraint = self.view.leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
-        let trailingConstraint = self.view.trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
-        self.view.addSubview(statusBarUnderlay)
-        self.view.addConstraints([topConstraint, bottomConstraint, leadingConstraint, trailingConstraint])
-        self.statusBarUnderlay = statusBarUnderlay
-    }
+    // MARK - Search
     
-    // MARK: - UISearchBarDelegate
+    lazy var searchBarContainerView: UIView = {
+        let searchContainerView = UIView()
+        let searchHeightConstraint = searchContainerView.heightAnchor.constraint(equalToConstant: 44)
+        searchContainerView.addConstraint(searchHeightConstraint)
+        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0), priority: .required)
+        return searchContainerView
+    }()
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
+        return searchBar
+    }()
+    
+    // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let searchActivity = NSUserActivity.wmf_searchView()
-        NotificationCenter.default.post(name: NSNotification.Name.WMFNavigateToActivity, object: searchActivity)
+        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
         return false
     }
     
-    // MARK: - Analytics
+    // MARK - State
     
-    public var analyticsContext: String {
-        return "Explore"
+    @objc var dataStore: MWKDataStore! {
+        didSet {
+            let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
+            do {
+                try fetchedResultsController.performFetch()
+            } catch let error {
+                DDLogError("Error fetching explore feed: \(error)")
+            }
+            collectionView.reloadData()
+            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+            collectionViewUpdater.delegate = self
+            collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
+        }
     }
     
-    public var analyticsName: String {
-        return analyticsContext
-    }
-    
-    // MARK: -
-    
-    @objc(updateFeedSourcesUserInitiated:completion:)
-    public func updateFeedSources(userInitiated wasUserInitiated: Bool, completion: @escaping () -> Void) {
-        self.collectionViewController.updateFeedSourcesUserInitiated(wasUserInitiated, completion: completion)
-    }
-    
-    // MARK: - Reading lists toolbar view
-    
-    internal lazy var toolbarViewController: AddArticleToReadingListToolbarViewController = {
-        let toolbarViewController = AddArticleToReadingListToolbarViewController()
-        toolbarViewController.dataStore = userStore
-        updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
-        return toolbarViewController
+    lazy var saveButtonsController: SaveButtonsController = {
+        let sbc = SaveButtonsController(dataStore: dataStore)
+        sbc.delegate = self
+        return sbc
     }()
     
-    fileprivate func updateToolbarViewFrame(_ toolbarView: UIView?) {
-        let toolbarHeight: CGFloat = 50
-        toolbarView?.frame = CGRect(x: 0, y: view.bounds.height - toolbarHeight, width: view.bounds.width, height: toolbarHeight)
+    lazy var readingListHintController: ReadingListHintController = {
+        return ReadingListHintController(dataStore: dataStore, presenter: self)
+    }()
+    
+    var numberOfSectionsInExploreFeed: Int {
+        guard let sections = fetchedResultsController.sections else {
+            return 0
+        }
+        return sections.count
     }
     
-    fileprivate var isToolbarViewVisible: Bool = false {
-        didSet {
-            if isToolbarViewVisible {
-                addChildViewController(toolbarViewController)
-                updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
-                toolbarViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                view.addSubview(toolbarViewController.view)
-                toolbarViewController.didMove(toParentViewController: self)
-                toolbarViewController.delegate = self
-            } else {
-                toolbarViewController.view.removeFromSuperview()
-                toolbarViewController.willMove(toParentViewController: nil)
-                toolbarViewController.removeFromParentViewController()
-                toolbarViewController.reset()
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        guard let sections = fetchedResultsController.sections, sections.count > section else {
+            return 0
+        }
+        return sections[section].numberOfObjects
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return numberOfSectionsInExploreFeed
+    }
+    
+    private func resetRefreshControl() {
+        guard let refreshControl = collectionView.refreshControl,
+            refreshControl.isRefreshing else {
+            return
+        }
+        refreshControl.endRefreshing()
+    }
+    
+    lazy var reachabilityManager: AFNetworkReachabilityManager = {
+        return AFNetworkReachabilityManager(forDomain: WMFDefaultSiteDomain)
+    }()
+    
+    private func stopMonitoringReachability() {
+        reachabilityManager.setReachabilityStatusChange(nil)
+        reachabilityManager.stopMonitoring()
+    }
+    
+    private func startMonitoringReachabilityIfNeeded() {
+        guard numberOfSectionsInExploreFeed == 0 else {
+            stopMonitoringReachability()
+            return
+        }
+        
+        reachabilityManager.startMonitoring()
+        reachabilityManager.setReachabilityStatusChange { [weak self] (status) in
+            switch status {
+            case .reachableViaWiFi:
+                fallthrough
+            case .reachableViaWWAN:
+                DispatchQueue.main.async {
+                    self?.updateFeedSources(userInitiated: false)
+                }
+            case .notReachable:
+                DispatchQueue.main.async {
+                    self?.showOfflineEmptyViewIfNeeded()
+                }
+            default:
+                break
             }
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        if isToolbarViewVisible {
-            updateToolbarViewFrame(toolbarViewController.viewIfLoaded)
+    private func showOfflineEmptyViewIfNeeded() {
+        guard isViewLoaded && fetchedResultsController != nil else {
+            return
+        }
+        
+        guard numberOfSectionsInExploreFeed == 0 else {
+            wmf_hideEmptyView()
+            return
+        }
+        
+        guard !wmf_isShowingEmptyView() else {
+            return
+        }
+        
+        guard reachabilityManager.networkReachabilityStatus == .notReachable else {
+            return
+        }
+        
+        resetRefreshControl()
+        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
+    }
+    
+    var isLoadingNewContent = false
+
+    @objc(updateFeedSourcesWithDate:userInitiated:completion:)
+    public func updateFeedSources(with date: Date? = nil, userInitiated: Bool, completion: @escaping () -> Void = { }) {
+        assert(Thread.isMainThread)
+        guard !isLoadingNewContent else {
+            completion()
+            return
+        }
+        isLoadingNewContent = true
+        if date == nil, let refreshControl = collectionView.refreshControl, !refreshControl.isRefreshing {
+            #if UI_TEST
+            #else
+            refreshControl.beginRefreshing()
+            #endif
+            if numberOfSectionsInExploreFeed == 0 {
+                collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top - refreshControl.frame.size.height)
+            }
+        }
+        self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
+            DispatchQueue.main.async {
+                self.isLoadingNewContent = false
+                self.resetRefreshControl()
+                if date == nil {
+                    self.startMonitoringReachabilityIfNeeded()
+                    self.showOfflineEmptyViewIfNeeded()
+                }
+                completion()
+            }
         }
     }
     
-    func exploreCollectionViewController(_ collectionVC: WMFExploreCollectionViewController, didSave: Bool, article: WMFArticle) {
-        let didSaveOtherArticle = didSave && isToolbarViewVisible && article != toolbarViewController.article
-        let didUnsaveOtherArticle = !didSave && isToolbarViewVisible && article != toolbarViewController.article
-        
-        if didUnsaveOtherArticle {
-            return
-        }
-        if didSaveOtherArticle {
-            toolbarViewController.article = article
-            return
-        }
-
-        toolbarViewController.article = article
-        isToolbarViewVisible = didSave
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(8)) {
-            self.isToolbarViewVisible = false
-        }
-    }
-}
-
-extension ExploreViewController: AddArticleToReadingListToolbarViewControllerDelegate {
-    // Show a confirmation.
-    func addedArticleToReadingList(named name: String) {
-        isToolbarViewVisible = true
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        layoutCache.reset()
+        super.traitCollectionDidChange(previousTraitCollection)
+        registerForPreviewingIfAvailable()
     }
     
-    func viewControllerWillBeDismissed() {
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
+        layoutCache.reset()
+        super.contentSizeCategoryDidChange(notification)
+        collectionView.reloadData()
     }
-}
 
-extension ExploreViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        layoutCache.reset()
+    }
+    
+    // MARK - UICollectionViewDataSource
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       return numberOfItemsInSection(section)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let maybeCell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCardCollectionViewCell.identifier, for: indexPath)
+        guard let cell = maybeCell as? ExploreCardCollectionViewCell else {
+            return maybeCell
+        }
+        cell.apply(theme: theme)
+        let width = self.layout.layoutAttributesForItem(at: indexPath)?.bounds.size.width ?? 1
+        configure(cell: cell, forItemAt: indexPath, width: width, layoutOnly: false)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionElementKindSectionHeader else {
+            abort()
+        }
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
+            abort()
+        }
+        configureHeader(header, for: indexPath.section)
+        return header
+    }
+    
+    // MARK - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let group = fetchedResultsController.object(at: indexPath)
+        guard group.contentGroupKind != .announcement else {
+            return false
+        }
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let group = fetchedResultsController.object(at: indexPath)
+        if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+            wmf_push(vc, animated: true)
+            return
+        }
+        
+        if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
+            if vc is WMFImageGalleryViewController {
+                present(vc, animated: true)
+            } else {
+                wmf_push(vc, animated: true)
+            }
+            return
+        }
+    }
+    
+    func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
+        guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
+            return
+        }
+        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
+        header.titleLabel.text = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
+        header.apply(theme: theme)
+    }
+    
+    func createNewCardVCFor(_ cell: ExploreCardCollectionViewCell) -> ExploreCardViewController {
+        let cardVC = ExploreCardViewController()
+        cardVC.delegate = self
+        cardVC.dataStore = dataStore
+        cardVC.view.autoresizingMask = []
+        addChildViewController(cardVC)
+        cell.cardContent = cardVC
+        cardVC.didMove(toParentViewController: self)
+        return cardVC
+    }
+
+    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, width: CGFloat, layoutOnly: Bool) {
+        let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
+        let group = fetchedResultsController.object(at: indexPath)
+        cardVC.contentGroup = group
+        cell.titleLabel.text = group.headerTitle
+        cell.subtitleLabel.text = group.headerSubTitle
+        cell.footerButton.setTitle(group.moreTitle, for: .normal)
+        cell.apply(theme: theme)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
         searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
+        searchBar.wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
             textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
-        view.backgroundColor = theme.colors.baseBackground
-        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        if let cvc = collectionViewController as Themeable? {
-            cvc.apply(theme: theme)
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0) 
+        collectionView.backgroundColor = .clear
+        view.backgroundColor = theme.colors.paperBackground
+        for cell in collectionView.visibleCells {
+            guard let themeable = cell as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
         }
-        statusBarUnderlay?.backgroundColor = theme.colors.chromeBackground
-        wmf_addBottomShadow(view: extendedNavBarView, theme: theme)
-        toolbarViewController.apply(theme: theme)
+        for header in collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionHeader) {
+            guard let themeable = header as? Themeable else {
+                continue
+            }
+            themeable.apply(theme: theme)
+        }
+    }
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: section))
+        guard let date = group.midnightUTCDate, date < Date() else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
+            return estimate
+        }
+        configureHeader(header, for: section)
+        estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
+
+
+extension ExploreViewController: CollectionViewUpdaterDelegate {
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
+}
+
+// MARK - Analytics
+extension ExploreViewController {
+    private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle) {
+        guard let articleURL = article.url else {
+            assert(false, "Article missing url: \(article)")
+            return
+        }
+        if wasArticleSaved {
+            ReadingListsFunnel.shared.logSaveInFeed(saveButton: saveButton, articleURL: articleURL)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(saveButton: saveButton, articleURL: articleURL)
+            
+        }
+    }
+}
+
+extension ExploreViewController: SaveButtonsControllerDelegate {
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle) {
+        readingListHintController.didSave(didSave, article: article, theme: theme)
+        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article)
+    }
+    
+    func willUnsaveArticle(_ article: WMFArticle) {
+        if article.userCreatedReadingListsCount > 0 {
+            let alertController = ReadingListsAlertController()
+            alertController.showAlert(presenter: self, article: article)
+        } else {
+            saveButtonsController.updateSavedState()
+        }
+    }
+    
+    func showAddArticlesToReadingListViewController(for article: WMFArticle) {
+        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        present(addToArticlesReadingListViewController, animated: true)
+    }
+}
+
+extension ExploreViewController: ReadingListsAlertControllerDelegate {
+    func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle) {
+        saveButtonsController.updateSavedState()
+    }
+}
+
+
+
+

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Acamicamacaraca
 // Author: Aktron
+// Author: BadDog
 // Author: Fendo99
 // Author: Mhurd
 // Author: Milicevic01
@@ -289,8 +290,7 @@
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
 "rank-accessibility-label" = "Број: $1";
 "readers-accessibility-label" = "Читалаца: $1";
-// Fuzzy
-"reading-lists-default-list-title" = "Обележавачи";
+"reading-lists-default-list-title" = "Сачувано";
 "reference-title" = "Референца $1";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=управо сад|пре један минут|пре $1 минута}}";
 "request-feedback-on-error" = "Апликација је наишла на проблем за који би наши девелопери желели да сазнају. Кликните овде да нам пошаљете имејл да информацијама о квару.";

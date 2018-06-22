@@ -1,21 +1,18 @@
 import Foundation
 
-extension WMFNearbyArticleCollectionViewCell {
+extension ArticleLocationCollectionViewCell {
     func update(userLocation: CLLocation?, heading: CLHeading?) {
         guard let articleLocation = articleLocation, let userLocation = userLocation else {
             configureForUnknownDistance()
             return
         }
-        
-        let distance = articleLocation.distance(from: userLocation)
-        setDistance(distance)
-        
+
+        distance = articleLocation.distance(from: userLocation)
+
         if let heading = heading  {
-            let bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
-            setBearing(bearing)
+            bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
         } else {
-            let bearing = userLocation.wmf_bearing(to: articleLocation)
-            setBearing(bearing)
+            bearing = userLocation.wmf_bearing(to: articleLocation)
         }
     }
 }

@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFNewsCollectionViewCell)
 public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     var descriptionFont:UIFont? = nil
     var descriptionLinkFont:UIFont? = nil

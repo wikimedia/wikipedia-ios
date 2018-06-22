@@ -3,6 +3,7 @@
 @class MWKDataStore;
 
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
+extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 @interface WMFExploreFeedContentController : NSObject
 

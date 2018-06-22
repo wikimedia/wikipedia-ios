@@ -245,7 +245,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocation:
             return WMFFeedDisplayTypePageWithLocation;
         case WMFContentGroupKindLocationPlaceholder:
-            return WMFFeedDisplayTypePageWithLocation;
+            return WMFFeedDisplayTypePageWithLocationPlaceholder;
         case WMFContentGroupKindPictureOfTheDay:
             return WMFFeedDisplayTypePhoto;
         case WMFContentGroupKindRandom:

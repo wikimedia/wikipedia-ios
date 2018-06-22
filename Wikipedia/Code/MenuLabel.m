@@ -1,5 +1,4 @@
 #import "MenuLabel.h"
-#import "UIFont+WMFStyle.h"
 
 @interface MenuLabel ()
 
