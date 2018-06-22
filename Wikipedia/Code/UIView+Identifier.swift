@@ -1,5 +1,5 @@
 extension UIView {
-    @objc static func identifier() -> String {
+    @objc static var identifier: String {
         return String(describing: self)
     }
 }

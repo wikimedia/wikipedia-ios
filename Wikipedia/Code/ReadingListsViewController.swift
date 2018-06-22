@@ -107,7 +107,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         
         emptyViewType = .noReadingLists
         
@@ -276,7 +276,8 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         return [deleteItem]
     }()
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
 }
@@ -438,7 +439,7 @@ extension ReadingListsViewController: ActionDelegate {
 extension ReadingListsViewController {
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -448,7 +449,7 @@ extension ReadingListsViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }

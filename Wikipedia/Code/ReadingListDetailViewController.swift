@@ -85,7 +85,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         setupEditController()
         fetch()
         
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
@@ -215,37 +215,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return [addToListItem, moveToListItem, removeItem]
     }()
     
-    // MARK: - Hiding extended view
+    // MARK: - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
-    }
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     // MARK: - Filtering
@@ -503,7 +477,7 @@ extension ReadingListDetailViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -514,8 +488,8 @@ extension ReadingListDetailViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 

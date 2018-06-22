@@ -15,7 +15,6 @@ class PreviewingViewController: UIViewController {
     
     var previewingContext: UIViewControllerPreviewing?
     
-    
     func unregisterForPreviewing() {
         guard let context = previewingContext else {
             return
@@ -24,20 +23,16 @@ class PreviewingViewController: UIViewController {
     }
     
     func registerForPreviewingIfAvailable() {
-        wmf_ifForceTouchAvailable({
-            self.unregisterForPreviewing()
-            guard let view = view else {
-                return
-            }
-            self.previewingContext = self.registerForPreviewing(with: self, sourceView: view)
-        }, unavailable: {
-            self.unregisterForPreviewing()
-        })
+        unregisterForPreviewing()
+        guard traitCollection.forceTouchCapability == .available, let sourceView = viewIfLoaded else {
+            return
+        }
+        previewingContext = registerForPreviewing(with: self, sourceView: sourceView)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.registerForPreviewingIfAvailable()
+        registerForPreviewingIfAvailable()
     }
 }
 

@@ -1,6 +1,5 @@
 import WMF;
 
-@objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
@@ -11,13 +10,13 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
     
-    @objc(initWithEvents:dataStore:midnightUTCDate:)
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
         super.init()
+        self.theme = theme
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
     }
     
@@ -41,8 +40,8 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         }
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -51,9 +50,9 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
-        register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
-        register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
         readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
 }
@@ -148,7 +147,7 @@ extension OnThisDayViewController {
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
         var estimate = WMFLayoutEstimate(precalculated: false, height: 350)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier) as? OnThisDayCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier) as? OnThisDayCollectionViewCell else {
             return estimate
         }
         let event = events[indexPath.section]

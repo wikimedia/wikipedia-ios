@@ -60,9 +60,9 @@
 
 @property (nonatomic) BOOL shouldMatchColumnHeights;
 
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
-+ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio collapseSectionSpacing:(BOOL)collapseSectionSpacing layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth;
-+ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth interItemSpacing:(CGFloat)interItemSpacing interSectionSpacing:(CGFloat)interSectionSpacing;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutMargins:(UIEdgeInsets)layoutMargins layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
++ (nonnull WMFCVLMetrics *)metricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutMargins:(UIEdgeInsets)layoutMargins firstColumnRatio:(CGFloat)firstColumnRatio secondColumnRatio:(CGFloat)secondColumnRatio layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection; // ratios should add up to 2
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutMargins:(UIEdgeInsets)layoutMargins;
++ (nonnull WMFCVLMetrics *)singleColumnMetricsWithBoundsSize:(CGSize)boundsSize readableWidth:(CGFloat)readableWidth layoutMargins:(UIEdgeInsets)layoutMargins interItemSpacing:(CGFloat)interItemSpacing interSectionSpacing:(CGFloat)interSectionSpacing;
 
 @end

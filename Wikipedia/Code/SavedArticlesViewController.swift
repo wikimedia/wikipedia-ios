@@ -35,7 +35,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         setupEditController()
         isRefreshControlEnabled = true
         emptyViewType = .noSavedPages
@@ -158,34 +158,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         return [addToListItem, unsaveItem]
     }()
     
-    // MARK: - Hiding extended view
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -213,7 +191,7 @@ extension SavedArticlesViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -224,8 +202,8 @@ extension SavedArticlesViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 

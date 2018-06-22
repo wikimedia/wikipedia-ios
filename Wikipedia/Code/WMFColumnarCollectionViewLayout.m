@@ -59,7 +59,6 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
 - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
 
     NSMutableArray *attributesArray = [NSMutableArray array];
-
     [self.info enumerateSectionsWithBlock:^(WMFCVLSection *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
         if (CGRectIntersectsRect(section.frame, rect)) {
             [section enumerateLayoutAttributesWithBlock:^(WMFCVLAttributes *attributes, BOOL *stop) {
@@ -99,14 +98,26 @@ static const CGFloat WMFColumnarCollectionViewLayoutMaxReadableWidth = 740;
     if (self.metrics && self.metrics.readableWidth != readableWidth) {
         self.layoutValid = NO;
     }
-    if (!self.isLayoutValid) {
+    
+    CGSize size = self.collectionView.bounds.size;
+    if (!self.isLayoutValid && size.width > 0 && size.height > 0) {
         self.info = [[WMFCVLInfo alloc] init];
-        self.metrics = [self.delegate metricsWithBoundsSize:self.collectionView.bounds.size readableWidth:readableWidth];
+        self.metrics = [self.delegate metricsWithBoundsSize:size readableWidth:readableWidth layoutMargins:self.collectionView.scrollIndicatorInsets];
         [self.info layoutWithMetrics:self.metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
         self.layoutValid = YES;
     }
 
     [super prepareLayout];
+}
+
+- (CGFloat)layoutHeightForWidth:(CGFloat)width {
+    if (width < 1) {
+        return 0;
+    }
+    WMFCVLInfo *info = [[WMFCVLInfo alloc] init];
+    WMFCVLMetrics *metrics = [self.delegate metricsWithBoundsSize:CGSizeMake(width, 100) readableWidth:width layoutMargins:UIEdgeInsetsZero];
+    [info layoutWithMetrics:metrics delegate:self.delegate collectionView:self.collectionView invalidationContext:nil];
+    return info.contentSize.height;
 }
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset {

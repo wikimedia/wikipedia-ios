@@ -88,7 +88,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListsAlertControllerDelegate,
+                                        ReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding>
 
@@ -1612,7 +1612,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore theme:self.theme];
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     articleListVC.navigationItem.leftBarButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(dismissPresentedViewController)];
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
@@ -1765,8 +1765,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Peeking registration
 
 - (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        if (self.peekingAllowed && [[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        if (self.peekingAllowed) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
         } else {
@@ -1774,10 +1774,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+    } else {
+        [self unregisterForPreviewing];
     }
-        unavailable:^{
-            [self unregisterForPreviewing];
-        }];
 }
 
 - (void)unregisterForPreviewing {

@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFOnThisDayExploreCollectionViewCell)
 public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     fileprivate var topGradientView: WMFGradientView = WMFGradientView()
     fileprivate var bottomGradientView: WMFGradientView = WMFGradientView()

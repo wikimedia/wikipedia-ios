@@ -1,5 +1,5 @@
 #import "WMFUnderlineButton.h"
-#import "UIFont+WMFStyle.h"
+@import WMF;
 
 IB_DESIGNABLE
 @interface WMFUnderlineButton ()
@@ -37,7 +37,7 @@ IB_DESIGNABLE
 
 - (void)configureStyle {
     if (self.useDefaultFont) {
-        self.titleLabel.font = [UIFont wmf_subtitle];
+        self.titleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle subheadline]];
     }
     [self addUnderline];
     [self setTitleColor:self.tintColor forState:UIControlStateSelected];

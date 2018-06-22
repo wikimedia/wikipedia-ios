@@ -8,10 +8,11 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
+        self.theme = theme
         title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
     }
@@ -22,13 +23,13 @@ class NewsViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
-        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, interItemSpacing: 0, interSectionSpacing: 15)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 15)
     }
 }
 

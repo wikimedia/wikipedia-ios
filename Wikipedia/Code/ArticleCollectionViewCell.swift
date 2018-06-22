@@ -1,17 +1,23 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
     static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
     static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var layoutMarginsSwipeAdditions: UIEdgeInsets = .zero
 
-    @objc public let titleLabel = UILabel()
-    @objc public let descriptionLabel = UILabel()
-    @objc public let imageView = UIImageView()
-    @objc public let saveButton = SaveButton()
-    @objc public var extractLabel: UILabel?
+    public var calculatedLayoutMargins: UIEdgeInsets {
+        let margins = self.layoutMargins
+        let multipliers = self.layoutMarginsMultipliers
+        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + layoutMarginsSwipeAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left + layoutMarginsSwipeAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom + layoutMarginsSwipeAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right + layoutMarginsSwipeAdditions.right)
+    }
+
+    public let titleLabel = UILabel()
+    public let descriptionLabel = UILabel()
+    public let imageView = UIImageView()
+    public let saveButton = SaveButton()
+    public var extractLabel: UILabel?
     public let actionsView = ActionsView()
     public var alertIcon = UIImageView()
     public var alertLabel = UILabel()
@@ -30,7 +36,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    @objc public var titleHTML: String? {
+    public var titleHTML: String? {
         set {
             _titleHTML = newValue
             updateTitleLabel()
@@ -40,7 +46,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+    public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
         _titleHTML = titleHTML
         _titleBoldedString = boldedString
         updateTitleLabel()
@@ -259,14 +265,14 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var spacing: CGFloat!
     public var saveButtonTopSpacing: CGFloat!
     
-    @objc public var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    @objc public var isSaveButtonHidden = false {
+    public var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()
@@ -373,11 +379,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             if isArticleRTL {
-                layoutMarginsAdditions.left = 0 - swipeTranslation
-                layoutMarginsAdditions.right = swipeTranslation
+                layoutMarginsSwipeAdditions.left = 0 - swipeTranslation
+                layoutMarginsSwipeAdditions.right = swipeTranslation
             } else {
-                layoutMarginsAdditions.right = 0 - swipeTranslation
-                layoutMarginsAdditions.left = swipeTranslation
+                layoutMarginsSwipeAdditions.right = 0 - swipeTranslation
+                layoutMarginsSwipeAdditions.left = swipeTranslation
             }
             setNeedsLayout()
         }
@@ -393,15 +399,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
             if isArticleRTL {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsSwipeAdditions.left = marginAddition
                 } else {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsSwipeAdditions.right = marginAddition
                 }
             } else {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsSwipeAdditions.right = marginAddition
                 } else {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsSwipeAdditions.left = marginAddition
                 }
             }
             

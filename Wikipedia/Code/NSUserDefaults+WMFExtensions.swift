@@ -457,8 +457,4 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
         self.synchronize()
     }
-    
-    @objc public func wmf_isFastlaneSnapshotInProgress() -> Bool {
-        return bool(forKey: "FASTLANE_SNAPSHOT")
-    }
 }

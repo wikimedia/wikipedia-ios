@@ -1,6 +1,5 @@
 #import <WMF/WMFExploreFeedContentController.h>
 #import <WMF/WMFRelatedPagesContentSource.h>
-#import <WMF/WMFMainPageContentSource.h>
 #import <WMF/WMFNearbyContentSource.h>
 #import <WMF/WMFContinueReadingContentSource.h>
 #import <WMF/WMFFeedContentSource.h>
@@ -11,7 +10,7 @@
 #import <WMF/WMF-Swift.h>
 
 NSString *const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";
-
+const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
 static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
@@ -85,8 +84,7 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
                                                                                       userDataStore:self.dataStore
                                                                             notificationsController:[WMFNotificationsController sharedNotificationsController]];
             feedContentSource.notificationSchedulingEnabled = YES;
-            [mutableContentSources addObjectsFromArray: @[[[WMFMainPageContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
+            [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
                                 [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],

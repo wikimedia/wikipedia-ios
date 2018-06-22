@@ -60,7 +60,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: .normal)
-        otherLanguagesButton?.titleLabel?.font = UIFont.wmf_subtitle()
+        otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
             guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {

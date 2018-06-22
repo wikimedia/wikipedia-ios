@@ -1,6 +1,5 @@
 #import "UIButton+WMFButton.h"
 #import "Wikipedia-Swift.h"
-#import "UIFont+WMFStyle.h"
 @import WMF.UIImage_WMFStyle;
 
 NS_ASSUME_NONNULL_BEGIN

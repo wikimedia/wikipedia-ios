@@ -1,29 +1,26 @@
 import UIKit
 
-@objc(WMFAnnouncementCollectionViewCellDelegate)
-protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
+public protocol AnnouncementCollectionViewCellDelegate: NSObjectProtocol {
     func announcementCellDidTapDismiss(_ cell: AnnouncementCollectionViewCell)
     func announcementCellDidTapActionButton(_ cell: AnnouncementCollectionViewCell)
-    @objc(announcementCell:didTapLinkURL:)
     func announcementCell(_ cell: AnnouncementCollectionViewCell, didTapLinkURL: URL)
 }
 
-@objc(WMFAnnouncementCollectionViewCell)
 open class AnnouncementCollectionViewCell: CollectionViewCell {
-    @objc var delegate: AnnouncementCollectionViewCellDelegate?
+    public weak var delegate: AnnouncementCollectionViewCellDelegate?
     
-    @objc public let imageView = UIImageView()
-    @objc public let messageLabel = UILabel()
-    @objc public let actionButton = UIButton()
-    @objc public let dismissButton = UIButton()
-    @objc public let captionTextView = UITextView()
-    @objc public let captionSeparatorView = UIView()
+    public let imageView = UIImageView()
+    public let messageLabel = UILabel()
+    public let actionButton = UIButton()
+    public let dismissButton = UIButton()
+    public let captionTextView = UITextView()
+    public let captionSeparatorView = UIView()
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
     public let actionButtonHeight: CGFloat = 40
     public let dismissButtonSpacing: CGFloat = 8
     public let dismissButtonHeight: CGFloat = 32
-    @objc public var imageViewDimension: CGFloat = 150
+    public var imageViewDimension: CGFloat = 150
     public let captionSpacing: CGFloat = 20
 
     open override func setup() {
@@ -46,16 +43,18 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionTextView.isEditable = false
         addSubview(captionTextView)
         
-        actionButton.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 6)
-        
-        actionButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        dismissButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
+        actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        actionButton.titleLabel?.numberOfLines = 0
+        actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+
+        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        dismissButton.titleLabel?.numberOfLines = 0
+        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
+        dismissButton.titleLabel?.textAlignment = .center
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
-        captionTextView.delegate = self
         
+        captionTextView.delegate = self
         super.setup()
     }
     
@@ -85,7 +84,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         updateCaptionTextViewWithAttributedCaption()
     }
     
-    @objc var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
@@ -125,7 +124,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         isCaptionHidden = false
     }
 
-    @objc var caption: NSAttributedString? {
+    public var caption: NSAttributedString? {
         didSet {
             updateCaptionTextViewWithAttributedCaption()
         }
@@ -145,21 +144,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
+        let buttonMinimumWidth = min(250, widthMinusMargins)
         
-        let actionButtonFrame = CGRect(x: buttonMargin, y: origin.y, width: size.width - 2*buttonMargin, height: actionButtonHeight)
-        if (apply) {
-            actionButton.frame = actionButtonFrame
-        }
-        origin.y += actionButtonFrame.layoutHeight(with: dismissButtonSpacing)
-        
-        let dismissButtonFrame = CGRect(x: buttonMargin, y: origin.y, width: size.width - 2*buttonMargin, height: dismissButtonHeight)
-        if (apply) {
-            dismissButton.frame = dismissButtonFrame
-        }
-        origin.y += dismissButtonFrame.layoutHeight(with: 0)
+        origin.y += actionButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, minimumWidth: buttonMinimumWidth, horizontalAlignment: .center, spacing: dismissButtonSpacing, apply: apply)
+        origin.y += dismissButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, minimumWidth: buttonMinimumWidth, horizontalAlignment: .center, spacing: 0, apply: apply)
+
         
         if !isCaptionHidden {
             origin.y += dismissButtonSpacing

@@ -1,47 +1,60 @@
-public enum HorizontalAlignment : Int {
+@objc public enum HorizontalAlignment : Int {
     case center
     case left
     case right
 }
 
-public enum VerticalAlignment : Int {
+@objc public enum VerticalAlignment: Int {
     case center
     case top
     case bottom
 }
 
+public let NoIntrinsicSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+
 extension UIView {
-    public func wmf_preferredFrame(at point: CGPoint, maximumViewSize: CGSize, minimumLayoutAreaSize: CGSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric), horizontalAlignment: HorizontalAlignment, verticalAlignment: VerticalAlignment, apply: Bool) -> CGRect {
-        let viewSize = sizeThatFits(maximumViewSize)
-        var x = point.x
-        var y = point.y
+    @objc public func wmf_sizeThatFits(_ size: CGSize) -> CGSize {
+        return sizeThatFits(size)
+    }
+    
+    @objc public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment = .center, verticalAlignment: VerticalAlignment = .center, apply: Bool = false) -> CGRect {
+        let viewSize: CGSize = wmf_sizeThatFits(maximumSize)
+       
+        var x: CGFloat = point.x
+        var y: CGFloat = point.y
         
         let viewWidth: CGFloat
-        if maximumViewSize.width == UIViewNoIntrinsicMetric { // width can be anything
+        let widthToFit: CGFloat
+
+        if minimumSize.width != UIViewNoIntrinsicMetric && maximumSize.width != UIViewNoIntrinsicMetric { // max and min defined
+            viewWidth = max(min(maximumSize.width, viewSize.width), minimumSize.width)
+            widthToFit = maximumSize.width
+        } else if minimumSize.width != UIViewNoIntrinsicMetric && maximumSize.width == UIViewNoIntrinsicMetric { // only min defined
+            viewWidth = max(minimumSize.width, viewSize.width)
+            widthToFit = viewWidth
+        } else if minimumSize.width == UIViewNoIntrinsicMetric && maximumSize.width != UIViewNoIntrinsicMetric { // only max defined
+            viewWidth = min(maximumSize.width, viewSize.width)
+            widthToFit = maximumSize.width
+        } else { // neither defined
             viewWidth = viewSize.width
-        } else {
-            viewWidth = min(maximumViewSize.width, viewSize.width)
+            widthToFit = viewWidth
         }
         
         let viewHeight: CGFloat
-        if maximumViewSize.height == UIViewNoIntrinsicMetric { // height can be anything
-            viewHeight = viewSize.height
-        } else {
-            viewHeight = min(maximumViewSize.width, viewSize.height)
-        }
-        
-        let widthToFit: CGFloat
-        if minimumLayoutAreaSize.width == UIViewNoIntrinsicMetric { // width can be 0
-            widthToFit = maximumViewSize.width
-        } else {
-            widthToFit = max(minimumLayoutAreaSize.width, viewWidth)
-        }
-        
         let heightToFit: CGFloat
-        if minimumLayoutAreaSize.height == UIViewNoIntrinsicMetric { // height can be 0
+     
+        if minimumSize.height != UIViewNoIntrinsicMetric && maximumSize.height != UIViewNoIntrinsicMetric { // max and min defined
+            viewHeight = max(min(maximumSize.height, viewSize.height), minimumSize.height)
+            heightToFit = maximumSize.height
+        } else if minimumSize.height != UIViewNoIntrinsicMetric && maximumSize.height == UIViewNoIntrinsicMetric { // only min defined
+            viewHeight = max(minimumSize.height, viewSize.height)
             heightToFit = viewHeight
-        } else {
-            heightToFit = max(minimumLayoutAreaSize.height, viewHeight)
+        } else if minimumSize.height == UIViewNoIntrinsicMetric && maximumSize.height != UIViewNoIntrinsicMetric { // only max defined
+            viewHeight = min(maximumSize.height, viewSize.height)
+            heightToFit = maximumSize.height
+        } else { // neither defined
+            viewHeight = viewSize.height
+            heightToFit = viewHeight
         }
         
         switch verticalAlignment {
@@ -69,35 +82,82 @@ extension UIView {
         return fitFrame
     }
     
-    @objc public func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
-        let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
-        return wmf_preferredFrame(at: point, maximumViewSize: size, minimumLayoutAreaSize: size, horizontalAlignment: horizontalAlignment, verticalAlignment: .top, apply: apply)
+    public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment, apply: Bool) -> CGRect {
+        return wmf_preferredFrame(at: point, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: .top, apply: apply)
     }
     
-    @objc(wmf_preferredFrameAtPoint:fittingAvailableWidth:alignedBySemanticContentAttribute:apply:)
-    public func wmf_preferredFrame(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
-        if let imageButton = self as? AlignedImageButton {
-            let size = CGSize(width: availableWidth + imageButton.leftPadding + imageButton.rightPadding, height: UIViewNoIntrinsicMetric)
-            return self.wmf_preferredFrame(at: CGPoint(x: point.x - imageButton.leftPadding, y: point.y - imageButton.verticalPadding), fitting: size, alignedBy: semanticContentAttribute, apply: apply)
-        } else {
-            let size = CGSize(width: availableWidth, height: UIViewNoIntrinsicMetric)
-            return self.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+    public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+        let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
+        return wmf_preferredFrame(at: point, maximumSize: maximumSize, horizontalAlignment: horizontalAlignment, apply: apply)
+    }
+
+    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, horizontalAlignment: HorizontalAlignment, apply: Bool) -> CGRect {
+        let minimumSize = CGSize(width: minimumWidth, height: UIViewNoIntrinsicMetric)
+        let maximumSize = CGSize(width: maximumWidth, height: UIViewNoIntrinsicMetric)
+        return wmf_preferredFrame(at: point, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, apply: apply)
+    }
+    
+    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+        let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
+        return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, horizontalAlignment: horizontalAlignment, apply: apply)
+    }
+    
+    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
+        return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, alignedBy: semanticContentAttribute, apply: apply).layoutHeight(with: spacing)
+    }
+    
+    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, horizontalAlignment: HorizontalAlignment, spacing: CGFloat, apply: Bool) -> CGFloat {
+        return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, horizontalAlignment: horizontalAlignment, apply: apply).layoutHeight(with: spacing)
+    }
+}
+
+extension UIButton {
+    public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
+        guard let buttonTitleLabel = titleLabel else {
+            return sizeThatFits(maximumSize)
+        }
+        var buttonAdjustedSize = maximumSize
+        var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
+        var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
+        
+        if let image = imageView?.image {
+            heightAdjustment += imageEdgeInsets.top + imageEdgeInsets.bottom + image.size.height
+            widthAdjustment += imageEdgeInsets.left + imageEdgeInsets.right + image.size.width
         }
         
+        heightAdjustment += titleEdgeInsets.top + titleEdgeInsets.bottom
+        widthAdjustment += titleEdgeInsets.left + titleEdgeInsets.right
+        
+        if buttonAdjustedSize.width != UIViewNoIntrinsicMetric {
+            buttonAdjustedSize.width = buttonAdjustedSize.width - widthAdjustment
+        }
+        
+        if buttonAdjustedSize.height != UIViewNoIntrinsicMetric {
+            buttonAdjustedSize.height = buttonAdjustedSize.height - heightAdjustment
+        }
+        
+        let buttonLabelSize = buttonTitleLabel.sizeThatFits(buttonAdjustedSize)
+        return CGSize(width: buttonLabelSize.width + widthAdjustment, height: buttonLabelSize.height + heightAdjustment)
     }
-    
-    public func wmf_preferredHeight(at point: CGPoint, fitting availableWidth: CGFloat, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
-        return wmf_preferredFrame(at: point, fitting: availableWidth, alignedBy: semanticContentAttribute, apply: apply).layoutHeight(with: spacing)
+}
+
+extension AlignedImageButton {
+    override public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment = .center, verticalAlignment: VerticalAlignment = .center, apply: Bool = false) -> CGRect  {
+        let adjustedPoint = CGPoint(x: point.x - leftPadding, y: point.y - verticalPadding)
+        var adjustedSize = maximumSize
+        if adjustedSize.width != UIViewNoIntrinsicMetric {
+            adjustedSize.width = adjustedSize.width + leftPadding + rightPadding
+        }
+        return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
     }
-    
-    
 }
 
 extension UILabel {
-    public override func wmf_preferredFrame(at point: CGPoint, fitting size: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
-        guard self.wmf_hasText else {
+    public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
+        guard wmf_hasAnyText else {
             return .zero
         }
-        return super.wmf_preferredFrame(at: point, fitting: size, alignedBy: semanticContentAttribute, apply: apply)
+        return sizeThatFits(maximumSize)
     }
 }
+

@@ -1,4 +1,4 @@
-@objc public protocol WMFReadingListsAlertControllerDelegate: NSObjectProtocol {
+@objc public protocol ReadingListsAlertControllerDelegate: NSObjectProtocol {
     func readingListsAlertController(_ readingListsAlertController: ReadingListsAlertController, didSelectUnsaveForArticle: WMFArticle)
 }
 
@@ -27,11 +27,11 @@ public enum ReadingListsAlertActionType {
 
 @objc (WMFReadingListsAlertController)
 public class ReadingListsAlertController: NSObject {
-    @objc public weak var delegate: WMFReadingListsAlertControllerDelegate?
+    @objc public weak var delegate: ReadingListsAlertControllerDelegate?
     
     // MARK: UIAlertController presentation
     
-    @objc func showAlert(presenter: UIViewController & WMFReadingListsAlertControllerDelegate, article: WMFArticle) {
+    @objc func showAlert(presenter: UIViewController & ReadingListsAlertControllerDelegate, article: WMFArticle) {
         delegate = presenter
         let unsave = ReadingListsAlertActionType.unsave.action {
             self.delegate?.readingListsAlertController(self, didSelectUnsaveForArticle: article)

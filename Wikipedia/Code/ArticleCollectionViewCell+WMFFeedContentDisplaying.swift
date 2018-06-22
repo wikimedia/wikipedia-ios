@@ -70,6 +70,16 @@ public extension ArticleCollectionViewCell {
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
             extractLabel?.text = nil
+        case .pageWithLocationPlaceholder:
+            fallthrough
+        case .pageWithLocation:
+            isSaveButtonHidden = true
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
+            if (shouldAdjustMargins) {
+                adjustMargins(for: index, count: count)
+            }
+            break
         case .compactList:
             configureForCompactList(at: index)
             fallthrough

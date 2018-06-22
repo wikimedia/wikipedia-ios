@@ -3,7 +3,6 @@
 #import "RMessageView.h"
 
 #import "NSString+FormattedAttributedString.h"
-#import "UIFont+WMFStyle.h"
 #import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFExploreCollectionViewCell.h"
@@ -35,7 +34,6 @@
 #import "WMFThemeableNavigationController.h"
 #import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
-#import "WMFExploreViewController.h"
 #import "WMFLanguagesViewController.h"
 #import "WMFTableOfContentsDisplay.h"
 #import "WMFReferencePopoverMessageViewController.h"
@@ -45,10 +43,10 @@
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFArticleNavigationController.h"
 #import "PreviewAndSaveViewController.h"
+#import "WMFFirstRandomViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
-#import "WMFNearbyArticleCollectionViewCell.h"
 #import "WMFFeedContentDisplaying.h"
 #import "WMFContentGroup+WMFFeedContentDisplaying.h"
 #import "WMFColumnarCollectionViewLayout.h"
@@ -60,6 +58,7 @@
 #import "UIView+WMFSnapshotting.h"
 #import "WMFLanguageCell.h"
 #import "WMFRandomArticleViewController.h"
+#import "WMFCompassView.h"
 
 // Diagnostics
 #import "ToCInteractionFunnel.h"

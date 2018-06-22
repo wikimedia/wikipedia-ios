@@ -8,24 +8,20 @@ internal struct CellArticle {
     let imageURL: URL?
 }
 
-@objc(WMFSideScrollingCollectionViewCellDelegate)
-public protocol SideScrollingCollectionViewCellDelegate {
+public protocol SideScrollingCollectionViewCellDelegate: class {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
 }
 
 
-@objc(WMFSubCellProtocol)
 public protocol SubCellProtocol {
-    @objc(deselectSelectedSubItemsAnimated:)
     func deselectSelectedSubItems(animated: Bool)
 }
 
-@objc(WMFSideScrollingCollectionViewCell)
 public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
-    @objc public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
+    public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     public let imageView = UIImageView()
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()
@@ -117,19 +113,19 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
 
         if titleLabel.wmf_hasAnyText {
             origin.y += spacing
-            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
         }
         
         if subTitleLabel.wmf_hasAnyText {
             origin.y += 0
-            origin.y += subTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+            origin.y += subTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         }
         
         origin.y += spacing
-        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         
         let collectionViewSpacing: CGFloat = 10
-        var height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
+        var height = prototypeCell.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
 
         if articles.count == 0 {
             height = 0
@@ -155,7 +151,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
 
         if bottomTitleLabel.wmf_hasAnyText {
             origin.y += spacing
-            origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+            origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         }else{
             origin.y += layoutMargins.bottom
         }
@@ -259,7 +255,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell {
-    @objc(subItemIndexAtPoint:)
     public func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
         let collectionViewFrame = collectionView.frame
         guard collectionViewFrame.contains(point) else {
@@ -273,7 +268,6 @@ extension SideScrollingCollectionViewCell {
         return indexPath.item
     }
     
-    @objc(viewForSubItemAtIndex:)
     public func viewForSubItem(at index: Int) -> UIView? {
         guard index != NSNotFound, index >= 0, index < collectionView.numberOfItems(inSection: 0) else {
             return nil

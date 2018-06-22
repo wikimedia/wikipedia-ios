@@ -22,7 +22,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
         setupEditController()
     }
@@ -169,7 +169,7 @@ extension ArticleCollectionViewController {
             return estimate
         }
         var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
         placeholderCell.prepareForReuse()
@@ -180,8 +180,8 @@ extension ArticleCollectionViewController {
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
+        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 
