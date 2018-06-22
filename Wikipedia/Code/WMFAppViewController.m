@@ -228,7 +228,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self applyTheme:self.theme];
 
     [self configureTabController];
-    [self configureExploreViewController];
     [self configurePlacesViewController];
     [self configureSavedViewController];
     self.recentArticlesViewController.dataStore = self.dataStore;
