@@ -261,9 +261,27 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                 break;
             case WMFAppTabTypeMain:
             default:
-                navigationController.title = [WMFCommonStrings exploreTabTitle];
+                [self configureMainNavigationController:navigationController];
                 break;
         }
+    }
+}
+
+- (void)configureMainNavigationController:(UINavigationController *)navigationController {
+    switch (self.mainTabType) {
+        case WMFAppMainTabTypeExplore:
+            navigationController.title = [WMFCommonStrings exploreTabTitle];
+            [navigationController setNavigationBarHidden:YES animated:NO];
+            self.settingsViewController.showCloseButton = YES;
+            navigationController.viewControllers = @[self.exploreViewController];
+            [self configureExploreViewController];
+            break;
+        case WMFAppMainTabTypeSettings:
+            navigationController.title = [WMFCommonStrings settingsTitle];
+            self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
+            [navigationController setNavigationBarHidden:NO animated:NO];
+            self.settingsViewController.showCloseButton = NO;
+            navigationController.viewControllers = @[self.settingsViewController];
     }
 }
 
