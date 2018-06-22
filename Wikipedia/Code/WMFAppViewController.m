@@ -116,6 +116,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
 
+@property (nonatomic) BOOL shouldUpdateMainTab;
+
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -185,6 +187,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleSaveToDiskDidFail:)
                                                  name:WMFArticleSaveToDiskDidFailNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(exploreFeedPreferencesDidChange:)
+                                                 name:WMFExplorePreferencesDidChangeNotification
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
@@ -449,6 +456,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                            tapCallBack:nil];
 }
 
+- (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
+    self.shouldUpdateMainTab = YES;
+}
 #pragma mark - Background Fetch
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
