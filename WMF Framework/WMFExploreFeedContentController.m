@@ -358,6 +358,12 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
 }
 
+- (WMFAppMainTabType)mainTabType {
+    NSNumber *mainTabTypeNumber = (NSNumber *)[self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesMainTabTypeKey];
+    WMFAppMainTabType mainTabType = (WMFAppMainTabType)[mainTabTypeNumber intValue];
+    return mainTabType;
+}
+
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
     NSSet *preferredSiteURLs = [NSSet setWithArray:self.preferredSiteURLs];
     [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn];
