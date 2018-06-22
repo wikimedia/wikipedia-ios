@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, WMFAppMainTabType) {
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
-+ (nonnull NSSet<NSNumber *> *)customizableContentGroupKinds;
++ (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;

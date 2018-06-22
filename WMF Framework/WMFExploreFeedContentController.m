@@ -310,7 +310,11 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
             if (![keyValue.key isEqualToString:WMFExploreFeedPreferencesKey]) {
                 continue;
             }
-            self.exploreFeedPreferences = (NSDictionary *)keyValue.value;
+            NSDictionary *newExploreFeedPreferences = (NSDictionary *)keyValue.value;
+            if (self.exploreFeedPreferences == newExploreFeedPreferences) {
+                return;
+            }
+            self.exploreFeedPreferences = newExploreFeedPreferences;
             [NSNotificationCenter.defaultCenter postNotificationName:WMFExplorePreferencesDidChangeNotification object:self.exploreFeedPreferences];
         }
     }
@@ -330,13 +334,13 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return languageCodes;
 }
 
-+ (NSSet<NSNumber *> *)customizableContentGroupKinds {
-    static NSSet *customizableContentGroupKinds;
++ (NSSet<NSNumber *> *)customizableContentGroupKindNumbers {
+    static NSSet *customizableContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentGroupKinds = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
+        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
     });
-    return customizableContentGroupKinds;
+    return customizableContentGroupKindNumbers;
 }
 
 - (NSArray *)preferredSiteURLs {
@@ -350,7 +354,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     }
     NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [preferences setObject:[WMFExploreFeedContentController customizableContentGroupKinds] forKey:siteURL.wmf_articleDatabaseKey];
+        [preferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
     [preferences setObject:@(WMFAppMainTabTypeExplore) forKey:WMFExploreFeedPreferencesMainTabTypeKey];
     [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
@@ -384,7 +388,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
         NSString *key = siteURL.wmf_articleDatabaseKey;
         if (isOn) {
-            [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKinds] forKey:key];
+            [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:key];
         } else {
             if ([newPreferences objectForKey:key]) {
                 [newPreferences removeObjectForKey:key];
@@ -471,7 +475,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
         NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
         NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
-        if (![[WMFExploreFeedContentController customizableContentGroupKinds] containsObject:contentGroupNumber]) {
+        if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
             continue;
         }
         if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
