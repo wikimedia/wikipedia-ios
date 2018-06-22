@@ -1,18 +1,6 @@
 import UIKit
 
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
-    static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
-    static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
-    public var layoutMarginsAdditions: UIEdgeInsets = .zero
-    public var layoutMarginsSwipeAdditions: UIEdgeInsets = .zero
-
-    public var calculatedLayoutMargins: UIEdgeInsets {
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top + layoutMarginsSwipeAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left + layoutMarginsSwipeAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom + layoutMarginsSwipeAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right + layoutMarginsSwipeAdditions.right)
-    }
-
     public let titleLabel = UILabel()
     public let descriptionLabel = UILabel()
     public let imageView = UIImageView()
@@ -102,12 +90,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
         titleTextStyle = .georgiaTitle1
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumSubheadline
-        layoutMargins = ArticleCollectionViewCell.defaultMargins
         spacing = 5
         imageViewDimension = 70
         statusViewDimension = 6
@@ -198,16 +184,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return articleSemanticContentAttribute == .forceRightToLeft
     }
     
-    public var layoutMarginsWithAdditionsAndMultipliers: UIEdgeInsets {
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
-    }
-    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+            let layoutMargins = calculatedLayoutMargins
             let isBatchEditOnRight = isDeviceRTL
             var batchEditSelectViewWidth: CGFloat = 0
             var batchEditX: CGFloat = 0
@@ -379,11 +359,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             if isArticleRTL {
-                layoutMarginsSwipeAdditions.left = 0 - swipeTranslation
-                layoutMarginsSwipeAdditions.right = swipeTranslation
+                layoutMarginsInteractiveAdditions.left = 0 - swipeTranslation
+                layoutMarginsInteractiveAdditions.right = swipeTranslation
             } else {
-                layoutMarginsSwipeAdditions.right = 0 - swipeTranslation
-                layoutMarginsSwipeAdditions.left = swipeTranslation
+                layoutMarginsInteractiveAdditions.right = 0 - swipeTranslation
+                layoutMarginsInteractiveAdditions.left = swipeTranslation
             }
             setNeedsLayout()
         }
@@ -399,15 +379,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
             if isArticleRTL {
                 if isDeviceRTL {
-                    layoutMarginsSwipeAdditions.left = marginAddition
+                    layoutMarginsInteractiveAdditions.left = marginAddition
                 } else {
-                    layoutMarginsSwipeAdditions.right = marginAddition
+                    layoutMarginsInteractiveAdditions.right = marginAddition
                 }
             } else {
                 if isDeviceRTL {
-                    layoutMarginsSwipeAdditions.right = marginAddition
+                    layoutMarginsInteractiveAdditions.right = marginAddition
                 } else {
-                    layoutMarginsSwipeAdditions.left = marginAddition
+                    layoutMarginsInteractiveAdditions.left = marginAddition
                 }
             }
             

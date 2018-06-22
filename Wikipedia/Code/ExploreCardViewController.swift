@@ -6,15 +6,15 @@ protocol ExploreCardViewControllerDelegate {
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
 }
 
-class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, WMFColumnarCollectionViewLayoutDelegate {
+class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
         return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
     }()
     
-    lazy var layout: WMFColumnarCollectionViewLayout = {
-        return WMFColumnarCollectionViewLayout()
+    lazy var layout: ColumnarCollectionViewLayout = {
+        return ColumnarCollectionViewLayout()
     }()
     
     lazy var locationManager: WMFLocationManager = {
@@ -95,11 +95,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     private func reloadData() {
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
-        }
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
-                delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
-            }
         }
         visibleLocationCellCount = 0
         collectionView.reloadData()
@@ -223,7 +218,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
     }
     
@@ -231,7 +226,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
-        cell.configure(article: article, displayType: displayType, index: indexPath.row, count: numberOfItems, shouldAdjustMargins: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
             authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
             authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
@@ -338,6 +333,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
         }
+        cell.layoutMargins = layout.itemLayoutMargins
     }
     
     // MARK - UICollectionViewDataSource
@@ -395,9 +391,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         presentDetailViewControllerForItemAtIndexPath(indexPath, animated: true)
     }
     
-    // MARK - WMFColumnarCollectionViewLayoutDelegate
+    // MARK - ColumnarCollectionViewLayoutDelegate
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
@@ -408,9 +404,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
-            return WMFLayoutEstimate(precalculated: true, height: height)
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: height)
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 100)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
@@ -422,20 +418,32 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         return estimate
     }
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: true, height: 0)
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: true, height: 0)
+    func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
         return true
     }
     
-    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 0)
+    func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        let kind = contentGroup?.contentGroupKind ?? .unknown
+        let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
+        let layoutMargins: UIEdgeInsets
+        switch kind {
+        case .topRead, .location, .locationPlaceholder, .onThisDay:
+            layoutMargins = UIEdgeInsets(top: 25 - itemLayoutMargins.top, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+        case .relatedPages:
+            layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+        default:
+            layoutMargins = .zero
+        }
+        return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
+
     }
 }
 

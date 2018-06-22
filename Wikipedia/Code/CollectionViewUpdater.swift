@@ -82,7 +82,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             return
         }
 
-        guard let columnarLayout = collectionView.collectionViewLayout as? WMFColumnarCollectionViewLayout else {
+        guard let columnarLayout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout else {
             performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
             return
         }

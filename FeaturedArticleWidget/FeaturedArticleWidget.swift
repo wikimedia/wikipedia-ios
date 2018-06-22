@@ -69,13 +69,13 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
 
         let theme:Theme = .widget
 
-        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, count: 1, shouldAdjustMargins: false, shouldShowSeparators: false, theme: theme, layoutOnly: false)
+        collapsedArticleView.configure(article: article, displayType: .relatedPages, index: 0, shouldShowSeparators: false, theme: theme, layoutOnly: false)
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
         collapsedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
 
-        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
+        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.tintColor = theme.colors.link
         expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
         

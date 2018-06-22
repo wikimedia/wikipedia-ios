@@ -1,22 +1,21 @@
 @import UIKit;
 @class WMFCVLColumn;
+@class WMFCVLSection;
 @class WMFCVLAttributes;
 @class WMFCVLInvalidationContext;
 
 /*!
- @class        WMFCVLSection
- @abstract     A WMFCVLSection represents a section within a column of a WMFColumnarCollectionViewLayout. It handles adjusting the size and offset of items within the section.
+ @class        WMFCVLSectionColumn
+ @abstract     A WMFCVLSection represents a column within a section of a WMFColumnarCollectionViewLayout. It handles adjusting the size and offset of items within the section.
  @discussion   ...
  */
-@interface WMFCVLSection : NSObject
+@interface WMFCVLSectionColumn : NSObject
 
 @property (nonatomic, readonly) NSInteger index;
 @property (nonatomic) NSInteger columnIndex;
 @property (nonatomic) CGRect frame;
 @property (nonatomic) BOOL needsToRecalculateEstimatedLayout;
 
-@property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *headers;
-@property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *footers;
 @property (nonatomic, strong, readonly, nonnull) NSArray<WMFCVLAttributes *> *items;
 
 + (nonnull WMFCVLSection *)sectionWithIndex:(NSInteger)index;
