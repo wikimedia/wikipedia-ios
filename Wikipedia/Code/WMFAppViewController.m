@@ -239,6 +239,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
+- (WMFAppMainTabType)mainTabType {
+    return self.dataStore.feedContentController.mainTabType;
+}
+
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
