@@ -63,34 +63,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [self loadContentForDate:date inManagedObjectContext:moc force:force completion:completion];
 }
 
-- (void)preloadContentForNumberOfDays:(NSInteger)days inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    if (days < 1) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    NSDate *now = [NSDate date];
-
-    NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
-
-    WMFTaskGroup *group = [WMFTaskGroup new];
-
-    for (NSUInteger i = 0; i < days; i++) {
-        [group enter];
-        NSDate *date = [calendar dateByAddingUnit:NSCalendarUnitDay value:-i toDate:now options:NSCalendarMatchStrictly];
-        [self loadContentForDate:date
-            inManagedObjectContext:(NSManagedObjectContext *)moc
-                             force:force
-                        completion:^{
-                            [group leave];
-                        }];
-    }
-
-    [group waitInBackgroundWithCompletion:completion];
-}
-
 - (void)fetchContentForDate:(NSDate *)date force:(BOOL)force completion:(void (^)(WMFFeedDayResponse *__nullable feedResponse, NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *__nullable pageViews))completion {
 
     [self.fetcher fetchFeedContentForURL:self.siteURL
@@ -212,7 +184,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
-
+        
         if (!completion) {
             return;
         }

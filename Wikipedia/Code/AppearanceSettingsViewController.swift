@@ -60,7 +60,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         title = CommonStrings.readingPreferences
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
-        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
+        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
 
         tableView.delegate = self
@@ -128,7 +128,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         

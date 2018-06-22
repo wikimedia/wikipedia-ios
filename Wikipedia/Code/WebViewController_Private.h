@@ -4,7 +4,6 @@
 #import "EditFunnel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
-#import "UIFont+WMFStyle.h"
 @import WMF;
 
 const CGFloat WebViewControllerHeaderImageHeight = 210;
