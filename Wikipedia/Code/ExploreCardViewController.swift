@@ -87,6 +87,13 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     private var visibleLocationCellCount: Int = 0
     
     public var contentGroup: WMFContentGroup? {
+        willSet {
+            for indexPath in collectionView.indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
+                    delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+                }
+            }
+        }
         didSet {
             reloadData()
         }
