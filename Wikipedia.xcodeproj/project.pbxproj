@@ -362,6 +362,7 @@
 		837227C220AF6AC700BDACD7 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		837227C320AF6AC800BDACD7 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
 		837227C420AF6AC800BDACD7 /* EditSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F82AD8C20690C8C00156E29 /* EditSummaryViewController.swift */; };
+		8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */; };
 		8382F8C720D844C600AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
 		8382F8C820D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
 		8382F8C920D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
@@ -3269,6 +3270,7 @@
 		8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationAuthorizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8351CE7720D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutManager.swift; sourceTree = "<group>"; };
+		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
 		8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewControllerLayoutCache.swift; sourceTree = "<group>"; };
@@ -7775,6 +7777,7 @@
 			isa = PBXGroup;
 			children = (
 				83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */,
+				8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */,
 			);
 			name = "Columnar Collection View Layout";
 			sourceTree = "<group>";
@@ -10655,6 +10658,7 @@
 				D89D43FF1D74D35F00F7862E /* WMFArticlePreviewFetcher.m in Sources */,
 				0E728D461DAEEE880074EB4B /* NSString+WMFDistance.m in Sources */,
 				D844D9911D6CB5970042D692 /* MWKArticle.m in Sources */,
+				8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */,
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
