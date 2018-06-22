@@ -459,6 +459,14 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     self.shouldUpdateMainTab = YES;
 }
+- (void)updateMainTabIfNeeded {
+    if (!self.shouldUpdateMainTab) {
+        return;
+    }
+    [self configureMainNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain]];
+    self.shouldUpdateMainTab = NO;
+}
+
 #pragma mark - Background Fetch
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
