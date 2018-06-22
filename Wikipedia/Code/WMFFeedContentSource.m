@@ -184,21 +184,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
-
-        NSDate *midnightUTCDate = [date wmf_midnightUTCDateFromLocalDate];
-        if ([midnightUTCDate wmf_UTCDateIsTodayLocal]) {
-            NSFetchRequest<WMFContentGroup *> *futureGroupFetchRequest = [WMFContentGroup fetchRequest];
-            [futureGroupFetchRequest setPredicate:[NSPredicate predicateWithFormat:@"midnightUTCDate > %@", midnightUTCDate]];
-            NSError *futureGroupFetchRequestError = nil;
-            NSArray *futureGroups = [moc executeFetchRequest:futureGroupFetchRequest error:&futureGroupFetchRequestError];
-            if (!futureGroups) {
-                DDLogError(@"Error fetching future groups: %@", futureGroupFetchRequestError);
-            }
-            for (WMFContentGroup *group in futureGroups) {
-                group.date = date;
-                group.midnightUTCDate = midnightUTCDate;
-            }
-        }
         
         if (!completion) {
             return;
