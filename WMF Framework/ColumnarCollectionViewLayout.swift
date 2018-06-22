@@ -178,8 +178,62 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
 
     // MARK - Animation
     
+    var maxNewSection: Int = -1
+    var newSectionDeltaY: CGFloat = 0
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
+        guard slideInNewContentFromTheTop,
+            let info = info else {
+            maxNewSection = -1
+            newSectionDeltaY = 0
+            return
+        }
+        var maxSection = -1
+        for updateItem in updateItems {
+            guard let after = updateItem.indexPathAfterUpdate, after.item == NSNotFound, updateItem.indexPathBeforeUpdate == nil else {
+                continue
+            }
+            let section: Int = after.section
+            guard section == maxSection + 1 else {
+                continue
+            }
+            maxSection = section
+        }
+        guard maxSection < info.sections.count else {
+            maxNewSection = -1
+            return
+        }
+        maxNewSection = maxSection
+        let sectionFrame = info.sections[maxSection].frame
+        newSectionDeltaY = 0 - sectionFrame.maxY
+    }
+    
+    private func adjustAttributesIfNecessary(_ attributes: UICollectionViewLayoutAttributes, forItemOrElementAppearingAtIndexPath indexPath: IndexPath) {
+        guard indexPath.section <= maxNewSection else {
+            return
+        }
+        attributes.frame.origin.y += newSectionDeltaY
+        attributes.alpha = 1
+    }
+    
+    public override func initialLayoutAttributesForAppearingSupplementaryElement(ofKind elementKind: String, at elementIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.initialLayoutAttributesForAppearingSupplementaryElement(ofKind: elementKind, at: elementIndexPath) else {
+            return nil
+        }
+        adjustAttributesIfNecessary(attributes, forItemOrElementAppearingAtIndexPath: elementIndexPath)
+        return attributes
+    }
+    
+    public override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath) else {
+            return nil
+        }
+        adjustAttributesIfNecessary(attributes, forItemOrElementAppearingAtIndexPath: itemIndexPath)
+        return attributes
+    }
+    
+    public override func initialLayoutAttributesForAppearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return super.initialLayoutAttributesForAppearingDecorationElement(ofKind: elementKind, at: decorationIndexPath)
     }
 }
 
