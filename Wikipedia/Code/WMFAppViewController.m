@@ -70,7 +70,9 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
-@property (nonatomic, strong, readonly) WMFExploreViewController *exploreViewController;
+@property (nonatomic, readonly) WMFAppMainTabType mainTabType;
+@property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
+@property (nonatomic, strong) WMFExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
@@ -106,7 +108,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) WMFTheme *theme;
 
 @property (nonatomic, strong) WMFSearchViewController *searchViewController;
-@property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
