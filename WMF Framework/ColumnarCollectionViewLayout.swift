@@ -2,7 +2,7 @@ public protocol ColumnarCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
-    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics
+    func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics
 }
 
 public class ColumnarCollectionViewLayout: UICollectionViewLayout {
@@ -87,7 +87,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return 0
         }
         let info = ColumnarCollectionViewLayoutInfo()
-        let metrics = delegate.metrics(withBoundsSize: CGSize(width: width, height: 100), readableWidth: width, layoutMargins: .zero)
+        let metrics = delegate.metrics(with: CGSize(width: width, height: 100), readableWidth: width, layoutMargins: .zero)
         info.layout(with: metrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
         return info.contentSize.height
     }
@@ -118,7 +118,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
 
-        let delegateMetrics = delegate.metrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: collectionView.scrollIndicatorInsets)
+        let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.scrollIndicatorInsets)
         let newInfo = ColumnarCollectionViewLayoutInfo()
         newInfo.layout(with: delegateMetrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
         metrics = delegateMetrics
@@ -148,7 +148,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         guard let metrics = metrics else {
             return true
         }
-        return newBounds.size.width != metrics.boundsSize.width
+        return !newBounds.size.width.isEqual(to: metrics.boundsSize.width)
     }
     
     override public func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
@@ -159,7 +159,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     }
     
     override public func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> Bool {
-        return preferredAttributes.frame != originalAttributes.frame
+        return !preferredAttributes.frame.equalTo(originalAttributes.frame)
     }
     
     override public func invalidationContext(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutInvalidationContext {
@@ -172,30 +172,11 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         }
         return context
     }
-    
+
     // MARK - Animation
     
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
-    }
-}
-
-public struct ColumnarCollectionViewLayoutMetrics {
-    let boundsSize: CGSize
-    let layoutInset: UIEdgeInsets
-    let itemLayoutMargins: UIEdgeInsets
-    let countOfColumns: Int = 1
-    let readableWidth: CGFloat
-    let interSectionSpacing: CGFloat
-    let interItemSpacing: CGFloat
-    var shouldMatchColumnHeights = false
-    
-    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
-    }
-    
-    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interItemSpacing: CGFloat, interSectionSpacing: CGFloat) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
     }
 }
 

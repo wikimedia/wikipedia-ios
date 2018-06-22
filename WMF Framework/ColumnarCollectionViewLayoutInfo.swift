@@ -12,22 +12,22 @@ public class ColumnarCollectionViewLayoutInfo {
         guard let dataSource = collectionView.dataSource else {
             return
         }
-        
         guard let countOfSections = dataSource.numberOfSections?(in: collectionView) else {
             return
         }
         let bounds = CGRect(origin: .zero, size: metrics.boundsSize)
-        let insetBounds = UIEdgeInsetsInsetRect(bounds, metrics.layoutInset)
+        let insetBounds = UIEdgeInsetsInsetRect(bounds, metrics.layoutMargins)
         let x = insetBounds.minX
         var y = insetBounds.minY
         let width = insetBounds.width
         for sectionIndex in 0..<countOfSections {
-            let section = ColumnarCollectionViewLayoutSection(sectionIndex: sectionIndex, frame: CGRect(x: x, y: y, width: width, height: 0), countOfColumns: metrics.countOfColumns, columnSpacing: 0)
+            let section = ColumnarCollectionViewLayoutSection(sectionIndex: sectionIndex, frame: CGRect(x: x, y: y, width: width, height: 0), metrics: metrics)
             sections.append(section)
             let headerWidth = section.widthForSupplementaryViews
             let headerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForHeaderInSection: sectionIndex, forColumnWidth: headerWidth)
             if !headerHeightEstimate.height.isEqual(to: 0) {
                 let headerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: sectionIndex))
+                headerAttributes.layoutMargins = metrics.itemLayoutMargins
                 headerAttributes.precalculated = headerHeightEstimate.precalculated
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
                 section.addHeader(headerAttributes)
@@ -39,6 +39,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 let itemSizeEstimate = delegate.collectionView(collectionView, estimatedHeightForItemAt: indexPath, forColumnWidth: itemWidth)
                 let itemAttributes = ColumnarCollectionViewLayoutAttributes(forCellWith: indexPath)
                 itemAttributes.precalculated = itemSizeEstimate.precalculated
+                itemAttributes.layoutMargins = metrics.itemLayoutMargins
                 itemAttributes.frame = CGRect(origin: section.originForNextItem, size: CGSize(width: itemWidth, height: itemSizeEstimate.height))
                 section.addItem(itemAttributes)
             }
@@ -46,6 +47,7 @@ public class ColumnarCollectionViewLayoutInfo {
             let footerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForFooterInSection: sectionIndex, forColumnWidth: footerWidth)
             if !footerHeightEstimate.height.isEqual(to: 0) {
                 let footerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: sectionIndex))
+                footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
                 footerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: width, height: footerHeightEstimate.height))
                 section.addFooter(footerAttributes)

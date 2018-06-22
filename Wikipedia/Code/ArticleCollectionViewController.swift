@@ -23,7 +23,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-
         setupEditController()
     }
     
@@ -101,14 +100,15 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         }
         placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        placeholderCell.isImageViewHidden = false
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 

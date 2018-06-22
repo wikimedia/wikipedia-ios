@@ -16,16 +16,23 @@ class ColumnarCollectionViewLayoutSection {
         var originForNextItem: CGPoint {
             return CGPoint(x: frame.minX, y: frame.maxY)
         }
+        
+        func addSpace(_ space: CGFloat) {
+            frame.size.height += space
+        }
     }
     
     let sectionIndex: Int
     var frame: CGRect = .zero
+    let metrics: ColumnarCollectionViewLayoutMetrics
     var headers: [ColumnarCollectionViewLayoutAttributes] = []
     var items: [ColumnarCollectionViewLayoutAttributes] = []
     var footers: [ColumnarCollectionViewLayoutAttributes] = []
     private let columns: [ColumnarCollectionViewLayoutColumn]
     
-    init(sectionIndex: Int, frame: CGRect, countOfColumns: Int, columnSpacing: CGFloat) {
+    init(sectionIndex: Int, frame: CGRect, metrics: ColumnarCollectionViewLayoutMetrics) {
+        let countOfColumns = metrics.countOfColumns
+        let columnSpacing = metrics.interColumnSpacing
         let columnWidth: CGFloat = floor((frame.size.width - (columnSpacing * CGFloat(countOfColumns - 1))) / CGFloat(countOfColumns))
         var columns: [ColumnarCollectionViewLayoutColumn] = []
         var x: CGFloat = frame.origin.x
@@ -36,6 +43,7 @@ class ColumnarCollectionViewLayoutSection {
         self.columns = columns
         self.frame = frame
         self.sectionIndex = sectionIndex
+        self.metrics = metrics
     }
     
     private func columnForItem(at index: Int) -> ColumnarCollectionViewLayoutColumn {
@@ -43,7 +51,7 @@ class ColumnarCollectionViewLayoutSection {
     }
     
     private var columnForNextItem: ColumnarCollectionViewLayoutColumn {
-        return columnForItem(at: columns.count)
+        return columnForItem(at: items.count)
     }
     
     var widthForNextItem: CGFloat {
@@ -69,10 +77,16 @@ class ColumnarCollectionViewLayoutSection {
     func addHeader(_ attributes: ColumnarCollectionViewLayoutAttributes) {
         headers.append(attributes)
         frame.size.height += attributes.frame.size.height
+        for column in columns {
+            column.addSpace(attributes.frame.size.height)
+        }
     }
     
     func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
         let column = columnForNextItem
+        if metrics.interItemSpacing > 0 && items.count >= columns.count {
+            column.addSpace(metrics.interItemSpacing)
+        }
         column.addItem(attributes)
         items.append(attributes)
         if column.frame.height > frame.height {
