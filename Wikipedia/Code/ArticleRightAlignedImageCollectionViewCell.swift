@@ -31,16 +31,15 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+    
+        var widthMinusMargins = layoutWidth(for: size)
+        if !isImageViewHidden {
+            widthMinusMargins = widthMinusMargins - self.layoutMargins.right - imageViewDimension
+        }
         
         let layoutMargins = calculatedLayoutMargins
-
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
-        
-        if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
-        }
         
         var x = layoutMargins.left
         if isRTL {
@@ -58,9 +57,8 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
+                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
@@ -70,10 +68,10 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         }
 
         origin.y += layoutMargins.bottom
-        let height = max(origin.y, minHeight)
+        let height = ceil(max(origin.y, minHeight))
         
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: 0, y: bounds.maxY - singlePixelDimension, width: size.width, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {

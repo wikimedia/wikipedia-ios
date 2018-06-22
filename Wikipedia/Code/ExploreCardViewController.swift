@@ -23,6 +23,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         return lm
     }()
     
+    lazy var editController: CollectionViewEditController = {
+        let editController = CollectionViewEditController(collectionView: collectionView)
+        editController.delegate = self
+        return editController
+    }()
+    
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
@@ -87,6 +93,13 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     private var visibleLocationCellCount: Int = 0
     
     public var contentGroup: WMFContentGroup? {
+        willSet {
+            for indexPath in collectionView.indexPathsForVisibleItems {
+                if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+                    delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+                }
+            }
+        }
         didSet {
             reloadData()
         }
@@ -197,33 +210,31 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
     }
     
-    private func articleURL(forItemAt indexPath: IndexPath) -> URL? {
+    private func articleURL(at indexPath: IndexPath) -> URL? {
         return contentGroup?.previewArticleURLForItemAtIndex(indexPath.row)
     }
     
-    private func article(forItemAt indexPath: IndexPath) -> WMFArticle? {
-        guard let url = articleURL(forItemAt: indexPath) else {
+    private func article(at indexPath: IndexPath) -> WMFArticle? {
+        guard let url = articleURL(at: indexPath) else {
             return nil
         }
         return dataStore.fetchArticle(with: url)
     }
     
-    var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel
-    }
-    
     // MARK - cell configuration
     
     private func configureArticleCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
-        guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+        guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
+        cell.actions = availableActions(at: indexPath)
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     private func configureLocationCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
-        guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(forItemAt: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+        guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
@@ -233,6 +244,11 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             authCell.authorizeDescriptionLabel.text = CommonStrings.localizedEnableLocationDescription
             authCell.authorizationDelegate = self
         }
+        guard !layoutOnly else {
+            cell.configureForUnknownDistance()
+            return
+        }
+        cell.articleLocation = article.location
         if WMFLocationManager.isAuthorized() {
             locationManager.startMonitoringLocation()
             cell.update(userLocation: locationManager.location, heading: locationManager.heading)
@@ -263,8 +279,10 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             return
         }
         
-        let imageURL: URL? = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth))
-        cell.imageView.setImageWith(imageURL ?? imageInfo.imageThumbURL)
+        let imageURL: URL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
+        if !layoutOnly {
+            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+        }
         if imageInfo.imageDescription.count > 0 {
             cell.captionLabel.text = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
@@ -346,7 +364,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
+        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
         }
         if cell is ArticleLocationCollectionViewCell {
@@ -358,7 +376,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(forItemAt: indexPath) {
+        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
         if cell is ArticleLocationCollectionViewCell {
@@ -387,6 +405,15 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     
     // MARK - UICollectionViewDelegate
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        switch contentGroup?.contentGroupKind ?? .unknown {
+        case .announcement:
+            return false
+        default:
+            return true
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presentDetailViewControllerForItemAtIndexPath(indexPath, animated: true)
     }
@@ -400,7 +427,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         if displayType == .story || displayType == .event {
             key = contentGroup?.key
         } else {
-            key = article(forItemAt: indexPath)?.key
+            key = article(at: indexPath)?.key
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
@@ -444,6 +471,77 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
 
+    }
+}
+
+extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
+    func willPerformAction(_ action: Action) -> Bool {
+        guard let article = article(at: action.indexPath) else {
+            return false
+        }
+        guard action.type == .unsave else {
+            return self.editController.didPerformAction(action)
+        }
+        let alertController = ReadingListsAlertController()
+        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
+            return self.editController.didPerformAction(action)
+        }
+    }
+
+    func availableActions(at indexPath: IndexPath) -> [Action] {
+        guard let article = article(at: indexPath) else {
+            return []
+        }
+        
+        var actions: [Action] = []
+        
+        if article.savedDate == nil {
+            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
+        } else {
+            actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
+        }
+        
+        actions.append(ActionType.share.action(with: self, indexPath: indexPath))
+        return actions
+    }
+    
+    func didPerformAction(_ action: Action) -> Bool {
+        let indexPath = action.indexPath
+        let sourceView = collectionView.cellForItem(at: indexPath)
+        defer {
+            if let cell = sourceView as? ArticleCollectionViewCell {
+                cell.actions = availableActions(at: indexPath)
+            }
+        }
+        switch action.type {
+        case .save:
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.addSavedPage(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
+                if let article = article(at: indexPath) {
+                    delegate?.readingListHintController.didSave(true, article: article, theme: theme)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                }
+                return true
+            }
+        case .unsave:
+            if let articleURL = articleURL(at: indexPath) {
+                dataStore.savedPageList.removeEntry(with: articleURL)
+                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+                if let article = article(at: indexPath) {
+                    delegate?.readingListHintController.didSave(false, article: article, theme: theme)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                }
+                return true
+            }
+        case .share:
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
+        default:
+            return false
+        }
+        return false
     }
 }
 
@@ -598,5 +696,27 @@ extension ExploreCardViewController: Themeable {
             return
         }
         collectionView.backgroundColor = .clear
+    }
+}
+
+extension ExploreCardViewController: AnalyticsContextProviding {
+    var analyticsContext: String {
+        return "explore"
+    }
+}
+
+extension ExploreCardViewController: AnalyticsContentTypeProviding {
+    var analyticsContentType: String {
+        return contentGroup?.analyticsContentType ?? "unknown"
+    }
+}
+
+extension ExploreCardViewController: EventLoggingEventValuesProviding {
+    var eventLoggingLabel: EventLoggingLabel? {
+        return contentGroup?.eventLoggingLabel
+    }
+    
+    var eventLoggingCategory: EventLoggingCategory {
+        return EventLoggingCategory.feed
     }
 }

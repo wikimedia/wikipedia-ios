@@ -93,7 +93,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             footerButton.isHidden = true
         }
 
-        return CGSize(width: size.width, height: origin.y)
+        return CGSize(width: size.width, height: ceil(origin.y))
     }
     
     public override func updateFonts(with traitCollection: UITraitCollection) {

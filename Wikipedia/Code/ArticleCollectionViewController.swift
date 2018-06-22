@@ -97,7 +97,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         // intentionally set all text and unhide image view to get largest possible size
         placeholderCell.isImageViewHidden = false
@@ -208,8 +207,9 @@ extension ArticleCollectionViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
+        let sourceView = collectionView.cellForItem(at: indexPath)
         defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
+            if let cell = sourceView as? ArticleCollectionViewCell {
                 cell.actions = availableActions(at: indexPath)
             }
         }
@@ -239,7 +239,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         }
         return false
     }
