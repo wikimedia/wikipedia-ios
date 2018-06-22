@@ -56,8 +56,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
-        
+        let widthMinusMargins = layoutWidth(for: size)
         var origin = CGPoint(x: layoutMargins.left, y: 0)
         
         if !isImageViewHidden {

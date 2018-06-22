@@ -128,7 +128,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let size = super.sizeThatFits(size, apply: apply)
         let layoutMargins = calculatedLayoutMargins
         
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         

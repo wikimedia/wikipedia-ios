@@ -31,16 +31,15 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         let isRTL = articleSemanticContentAttribute == .forceRightToLeft
+    
+        var widthMinusMargins = layoutWidth(for: size)
+        if !isImageViewHidden {
+            widthMinusMargins = widthMinusMargins - self.layoutMargins.right - imageViewDimension
+        }
         
         let layoutMargins = calculatedLayoutMargins
-
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
-        
-        if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - layoutMargins.right - imageViewDimension
-        }
         
         var x = layoutMargins.left
         if isRTL {
