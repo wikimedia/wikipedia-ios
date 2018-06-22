@@ -240,6 +240,11 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             authCell.authorizeDescriptionLabel.text = CommonStrings.localizedEnableLocationDescription
             authCell.authorizationDelegate = self
         }
+        guard !layoutOnly else {
+            cell.configureForUnknownDistance()
+            return
+        }
+        cell.articleLocation = article.location
         if WMFLocationManager.isAuthorized() {
             locationManager.startMonitoringLocation()
             cell.update(userLocation: locationManager.location, heading: locationManager.heading)
