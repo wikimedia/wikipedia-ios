@@ -10,11 +10,10 @@ public struct ColumnarCollectionViewLayoutMetrics {
     let interItemSpacing: CGFloat
     var shouldMatchColumnHeights = false
     
-    public static func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        
+    public static func exploreViewMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         let useTwoColumns = boundsSize.width >= 600 || (boundsSize.width > boundsSize.height && readableWidth >= 500)
         let countOfColumns = useTwoColumns ? 2 : 1
-        let interColumnSpacing: CGFloat = useTwoColumns ? 20 : 0
+        let interColumnSpacing: CGFloat = useTwoColumns ? 10 : 0
         let interItemSpacing: CGFloat = 20
         let interSectionSpacing: CGFloat = useTwoColumns ? 20 : 0
         
