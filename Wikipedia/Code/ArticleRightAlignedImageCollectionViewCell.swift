@@ -69,10 +69,10 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         }
 
         origin.y += layoutMargins.bottom
-        let height = max(origin.y, minHeight)
+        let height = ceil(max(origin.y, minHeight))
         
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: height - singlePixelDimension, width: size.width, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: 0, y: bounds.maxY - singlePixelDimension, width: size.width, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {
