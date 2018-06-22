@@ -1,4 +1,5 @@
 public struct ColumnarCollectionViewLayoutMetrics {
+    static let defaultItemLayoutMargins = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
     let boundsSize: CGSize
     let layoutMargins: UIEdgeInsets
     let countOfColumns: Int
@@ -26,7 +27,7 @@ public struct ColumnarCollectionViewLayoutMetrics {
             layoutMarginsForMetrics = UIEdgeInsetsMake(0, marginWidth, 0, marginWidth)
         }
         
-        let itemLayoutMargins = UIEdgeInsetsMake(15, 13, 15, 13);
+        let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: layoutMarginsForMetrics, countOfColumns: countOfColumns, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: interColumnSpacing, interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
     }
     
@@ -37,8 +38,9 @@ public struct ColumnarCollectionViewLayoutMetrics {
     
     public static func singleColumnMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interItemSpacing: CGFloat, interSectionSpacing: CGFloat) -> ColumnarCollectionViewLayoutMetrics {
         let marginWidth = max(max(layoutMargins.left, layoutMargins.right), round(0.5 * (boundsSize.width - readableWidth)))
-        let itemLayoutMargins = UIEdgeInsetsMake(10, marginWidth, 10, marginWidth)
-        let layoutMarginsForMetrics = UIEdgeInsetsMake(0, marginWidth, 0, marginWidth)
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: layoutMarginsForMetrics, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: 0,  interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
+        var itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
+        itemLayoutMargins.left = max(marginWidth, itemLayoutMargins.left)
+        itemLayoutMargins.right = max(marginWidth, itemLayoutMargins.right)
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: 0,  interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
     }
 }

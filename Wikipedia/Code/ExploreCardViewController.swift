@@ -435,7 +435,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interItemSpacing: 0, interSectionSpacing: 0)
+        return ColumnarCollectionViewLayoutMetrics.singleColumnMetrics(with: size, readableWidth: size.width, layoutMargins: .zero, interItemSpacing: 0, interSectionSpacing: 0)
     }
 }
 
