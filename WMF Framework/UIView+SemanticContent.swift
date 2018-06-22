@@ -75,7 +75,7 @@ extension UIView {
             break
         }
         
-        let fitFrame = CGRect(x: x, y: y, width: viewWidth, height: viewHeight)
+        let fitFrame = CGRect(x: round(x), y: round(y), width: ceil(viewWidth), height: ceil(viewHeight))
         if apply {
             frame = fitFrame
         }
@@ -149,15 +149,6 @@ extension AlignedImageButton {
             adjustedSize.width = adjustedSize.width + leftPadding + rightPadding
         }
         return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
-    }
-}
-
-extension UILabel {
-    public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
-        guard wmf_hasAnyText else {
-            return .zero
-        }
-        return sizeThatFits(maximumSize)
     }
 }
 
