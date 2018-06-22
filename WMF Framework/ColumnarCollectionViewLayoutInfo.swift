@@ -1,52 +1,7 @@
-import UIKit
-
-class ColumnarCollectionViewLayoutInvalidationContext: UICollectionViewLayoutInvalidationContext {
-    var originalLayoutAttributes: UICollectionViewLayoutAttributes?
-    var preferredLayoutAttributes: UICollectionViewLayoutAttributes?
-    var boundsDidChange: Bool = false
-}
-
-public class ColumnarCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
-    public var precalculated: Bool = false
-    public var layoutMargins: UIEdgeInsets = .zero
-    
-    override public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = super.copy(with: zone)
-        guard let la = copy as? ColumnarCollectionViewLayoutAttributes else {
-            return copy
-        }
-        la.precalculated = precalculated
-        la.layoutMargins = layoutMargins
-        return la
-    }
-}
-
-public struct ColumnarCollectionViewLayoutHeightEstimate {
-    public var precalculated: Bool
-    public var height: CGFloat
-    public init(precalculated: Bool, height: CGFloat) {
-        self.precalculated = precalculated
-        self.height = height
-    }
-}
-
-public struct ColumnarCollectionViewLayoutMetrics {
-    let boundsSize: CGSize
-    let layoutInset: UIEdgeInsets
-    let itemLayoutMargins: UIEdgeInsets
-    let countOfColumns: Int = 1
-    let readableWidth: CGFloat
-    let interSectionSpacing: CGFloat
-    let interItemSpacing: CGFloat
-    var shouldMatchColumnHeights = false
-    
-    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
-    }
-    
-    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interItemSpacing: CGFloat, interSectionSpacing: CGFloat) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
-    }
+struct ColumnarCollectionViewLayoutSectionInvalidationResults {
+    let invalidatedHeaderIndexPaths: [IndexPath]
+    let invalidatedItemIndexPaths: [IndexPath]
+    let invalidatedFooterIndexPaths: [IndexPath]
 }
 
 public class ColumnarCollectionViewLayoutInfo {
@@ -179,169 +134,32 @@ public class ColumnarCollectionViewLayoutInfo {
     }
 }
 
-struct ColumnarCollectionViewLayoutSectionInvalidationResults {
-    let invalidatedHeaderIndexPaths: [IndexPath]
-    let invalidatedItemIndexPaths: [IndexPath]
-    let invalidatedFooterIndexPaths: [IndexPath]
+class ColumnarCollectionViewLayoutInvalidationContext: UICollectionViewLayoutInvalidationContext {
+    var originalLayoutAttributes: UICollectionViewLayoutAttributes?
+    var preferredLayoutAttributes: UICollectionViewLayoutAttributes?
+    var boundsDidChange: Bool = false
 }
 
-class ColumnarCollectionViewLayoutSection {
-    private class ColumnarCollectionViewLayoutColumn {
-        var frame: CGRect
-        init(frame: CGRect) {
-            self.frame = frame
+public class ColumnarCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+    public var precalculated: Bool = false
+    public var layoutMargins: UIEdgeInsets = .zero
+    
+    override public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = super.copy(with: zone)
+        guard let la = copy as? ColumnarCollectionViewLayoutAttributes else {
+            return copy
         }
-        
-        func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
-            frame.size.height += attributes.frame.height
-        }
-        
-        var widthForNextItem: CGFloat {
-            return frame.width
-        }
-        
-        var originForNextItem: CGPoint {
-            return CGPoint(x: frame.minX, y: frame.maxY)
-        }
+        la.precalculated = precalculated
+        la.layoutMargins = layoutMargins
+        return la
     }
-    
-    let sectionIndex: Int
-    var frame: CGRect = .zero
-    var headers: [ColumnarCollectionViewLayoutAttributes] = []
-    var items: [ColumnarCollectionViewLayoutAttributes] = []
-    var footers: [ColumnarCollectionViewLayoutAttributes] = []
-    private let columns: [ColumnarCollectionViewLayoutColumn]
-    
-    init(sectionIndex: Int, frame: CGRect, countOfColumns: Int, columnSpacing: CGFloat) {
-        let columnWidth: CGFloat = floor((frame.size.width - (columnSpacing * CGFloat(countOfColumns - 1))) / CGFloat(countOfColumns))
-        var columns: [ColumnarCollectionViewLayoutColumn] = []
-        var x: CGFloat = frame.origin.x
-        for _ in 0..<countOfColumns {
-            columns.append(ColumnarCollectionViewLayoutColumn(frame: CGRect(x: x, y: frame.origin.y, width: columnWidth, height: 0)))
-            x += columnWidth + columnSpacing
-        }
-        self.columns = columns
-        self.frame = frame
-        self.sectionIndex = sectionIndex
-    }
-    
-    private func columnForItem(at index: Int) -> ColumnarCollectionViewLayoutColumn {
-        return columns[index % columns.count]
-    }
-    
-    private var columnForNextItem: ColumnarCollectionViewLayoutColumn {
-        return columnForItem(at: columns.count)
-    }
-    
-    var widthForNextItem: CGFloat {
-        return columnForNextItem.widthForNextItem
-    }
-    
-    var widthForNextSupplementaryView: CGFloat {
-        return frame.size.width
-    }
-    
-    var originForNextSupplementaryView: CGPoint {
-        return CGPoint(x: frame.minX, y: frame.minY)
-    }
-    
-    var originForNextItem: CGPoint {
-        return columnForNextItem.originForNextItem
-    }
-    
-    var widthForSupplementaryViews: CGFloat {
-        return frame.width
-    }
-    
-    func addHeader(_ attributes: ColumnarCollectionViewLayoutAttributes) {
-        headers.append(attributes)
-        frame.size.height += attributes.frame.size.height
-    }
-    
-    func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
-        let column = columnForNextItem
-        column.addItem(attributes)
-        items.append(attributes)
-        if column.frame.height > frame.height {
-            frame.size.height = column.frame.height
-        }
-    }
-    
-    func addFooter(_ attributes: ColumnarCollectionViewLayoutAttributes) {
-        footers.append(attributes)
-        frame.size.height += attributes.frame.size.height
-    }
-    
-    func updateAttributes(at index: Int, in array: [ColumnarCollectionViewLayoutAttributes], with attributes: ColumnarCollectionViewLayoutAttributes) -> CGFloat {
-        guard index < array.count else {
-            return 0
-        }
-        let oldAttributes = array[index]
-        oldAttributes.frame = attributes.frame
-        return attributes.frame.height - oldAttributes.frame.height
-    }
-    
-    
-    func translateAttributesBy(_ deltaY: CGFloat, at index: Int, in array: [ColumnarCollectionViewLayoutAttributes]) -> [IndexPath] {
-        guard !deltaY.isEqual(to: 0), index < array.count else {
-            return []
-        }
-        var invalidatedIndexPaths: [IndexPath] = []
-        for (index, attributes) in array[index..<array.count].enumerated() {
-            attributes.frame.origin.y += deltaY
-            invalidatedIndexPaths.append(IndexPath(item: index, section: sectionIndex))
-        }
-        return invalidatedIndexPaths
-    }
-    
-    
-    func invalidate(_ originalAttributes: ColumnarCollectionViewLayoutAttributes, with attributes: ColumnarCollectionViewLayoutAttributes) -> ColumnarCollectionViewLayoutSectionInvalidationResults {
-        let index = originalAttributes.indexPath.item
-        switch originalAttributes.representedElementCategory {
-        case UICollectionElementCategory.cell:
-            var invalidatedItemIndexPaths: [IndexPath] = []
-            let deltaY = updateAttributes(at: index, in: items, with: attributes)
-            let column = columnForItem(at: index)
-            column.frame.size.height += deltaY
-            if column.frame.height > frame.height {
-                frame.size.height = column.frame.height
-            }
-            var affectedIndex = index + columns.count // next item in the column
-            while affectedIndex < items.count {
-                items[affectedIndex].frame.origin.y += deltaY
-                invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
-                affectedIndex += columns.count
-            }
-            let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
-            return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
-        case UICollectionElementCategory.decorationView:
-            return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
-        case UICollectionElementCategory.supplementaryView:
-            switch originalAttributes.representedElementKind {
-            case UICollectionElementKindSectionHeader:
-                let deltaY = updateAttributes(at: index, in: headers, with: attributes)
-                frame.size.height += deltaY
-                let invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: items)
-                let invalidatedItemIndexPaths = translateAttributesBy(deltaY, at: 0, in: items)
-                let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
-                return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: invalidatedHeaderIndexPaths, invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
-            case UICollectionElementKindSectionFooter:
-                let deltaY = updateAttributes(at: index, in: footers, with: attributes)
-                frame.size.height += deltaY
-                let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: footers)
-                return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
-            default:
-                return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
-            }
-        }
-        
-    }
-    
-    func translate(deltaY: CGFloat) -> ColumnarCollectionViewLayoutSectionInvalidationResults {
-        let invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: 0, in: headers)
-        let invalidatedItemIndexPaths = translateAttributesBy(deltaY, at: 0, in: items)
-        let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
-        frame.origin.y += deltaY
-        return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: invalidatedHeaderIndexPaths, invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
+}
+
+public struct ColumnarCollectionViewLayoutHeightEstimate {
+    public var precalculated: Bool
+    public var height: CGFloat
+    public init(precalculated: Bool, height: CGFloat) {
+        self.precalculated = precalculated
+        self.height = height
     }
 }

@@ -1,5 +1,3 @@
-import UIKit
-
 public protocol ColumnarCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
@@ -181,3 +179,23 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         super.prepare(forCollectionViewUpdates: updateItems)
     }
 }
+
+public struct ColumnarCollectionViewLayoutMetrics {
+    let boundsSize: CGSize
+    let layoutInset: UIEdgeInsets
+    let itemLayoutMargins: UIEdgeInsets
+    let countOfColumns: Int = 1
+    let readableWidth: CGFloat
+    let interSectionSpacing: CGFloat
+    let interItemSpacing: CGFloat
+    var shouldMatchColumnHeights = false
+    
+    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
+    }
+    
+    public static func singleColumnMetrics(withBoundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets, interItemSpacing: CGFloat, interSectionSpacing: CGFloat) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: withBoundsSize, layoutInset: layoutMargins, itemLayoutMargins: UIEdgeInsets.zero, readableWidth: readableWidth, interSectionSpacing: 0, interItemSpacing: 0, shouldMatchColumnHeights: false)
+    }
+}
+
