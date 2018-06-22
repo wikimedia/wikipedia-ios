@@ -3,7 +3,7 @@
 
 @protocol WMFSettingsViewControllerDelegate
 
-- (void)settingsViewControllerWasDismissed;
+- (void)settingsViewControllerDidDisappear;
 
 @end
 

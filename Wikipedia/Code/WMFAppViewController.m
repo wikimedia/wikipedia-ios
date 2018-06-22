@@ -461,7 +461,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.shouldUpdateMainTab = YES;
 }
 
-- (void)settingsViewControllerWasDismissed {
+- (void)settingsViewControllerDidDisappear {
     [self updateMainTabIfNeeded];
 }
 

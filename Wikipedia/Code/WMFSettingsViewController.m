@@ -119,6 +119,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self loadSections];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.delegate settingsViewControllerDidDisappear];
+}
+
 - (void)configureBackButton {
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.leftBarButtonItems = @[xButton];
@@ -134,7 +139,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)closeButtonPressed {
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.delegate settingsViewControllerWasDismissed];
 }
 
 - (nullable NSString *)title {
