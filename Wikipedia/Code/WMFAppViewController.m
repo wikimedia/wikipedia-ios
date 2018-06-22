@@ -65,7 +65,7 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFSettingsViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -459,6 +459,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     self.shouldUpdateMainTab = YES;
 }
+
+- (void)settingsViewControllerWasDismissed {
+    [self updateMainTabIfNeeded];
+}
+
 - (void)updateMainTabIfNeeded {
     if (!self.shouldUpdateMainTab) {
         return;
