@@ -112,3 +112,10 @@ extension HistoryViewController {
         return estimate
     }
 }
+
+// MARK: WMFSearchButtonProviding
+
+extension HistoryViewController: WMFSearchButtonProviding {
+
+}
+
