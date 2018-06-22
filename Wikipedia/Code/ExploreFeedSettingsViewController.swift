@@ -1,54 +1,11 @@
 import UIKit
 
-private struct Section {
-    let headerTitle: String?
-    let footerTitle: String
-    let items: [Item]
-}
-
-private protocol Item {
-    var title: String { get }
-    var subtitle: String? { get }
-    var disclosureType: WMFSettingsMenuItemDisclosureType { get }
-    var disclosureText: String? { get }
-    var type: ItemType { get }
-    var iconName: String? { get }
-    var iconColor: UIColor? { get }
-    var iconBackgroundColor: UIColor? { get }
-}
-
-private protocol SwitchItem: Item {
-    var controlTag: Int { get }
-    var isOn: Bool { get }
-}
-
-extension SwitchItem {
-    var subtitle: String? { return nil }
-    var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
-    var disclosureText: String? { return nil }
-    var iconName: String? { return nil }
-    var iconColor: UIColor? { return nil }
-    var iconBackgroundColor: UIColor? { return nil }
-}
-
-private struct Master: SwitchItem {
-    let title: String
-    let type: ItemType = .masterSwitch
-    let controlTag: Int = -1
-    let isOn: Bool
-
-    init(title: String) {
-        self.title = title
-        isOn = SessionSingleton.sharedInstance().dataStore.feedContentController.mainTabType != .explore
-    }
-}
-
-private struct FeedCard: SwitchItem {
+private struct FeedCard: ExploreFeedSettingsSwitchItem {
     let title: String
     let subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
     let disclosureText: String?
-    let type: ItemType
+    let type: ExploreFeedSettingsItemType
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
@@ -56,7 +13,7 @@ private struct FeedCard: SwitchItem {
     var isOn: Bool = true
 
     init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
-        type = ItemType.feedCard(contentGroupKind)
+        type = ExploreFeedSettingsItemType.feedCard(contentGroupKind)
 
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
@@ -64,8 +21,10 @@ private struct FeedCard: SwitchItem {
             let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
             if (languageCodes.count == preferredLanguages.count) {
                 return "On all"
-            } else {
+            } else if languageCodes.count > 0 {
                 return "On \(languageCodes.count)"
+            } else {
+                return "Off"
             }
         }
 
@@ -136,67 +95,40 @@ private struct FeedCard: SwitchItem {
     }
 }
 
-private struct Language: SwitchItem {
-    let title: String
-    let type: ItemType
-    let controlTag: Int
-    let isOn: Bool
-    let siteURL: URL
-
-    init(_ languageLink: MWKLanguageLink, controlTag: Int) {
-        type = ItemType.language(languageLink)
-        title = languageLink.localizedName
-        self.controlTag = controlTag
-        isOn = languageLink.isInFeed
-        siteURL = languageLink.siteURL()
-    }
-}
-
-private enum ItemType {
-    case feedCard(WMFContentGroupKind)
-    case language(MWKLanguageLink)
-    case masterSwitch
-}
-
 private enum DisplayType {
     case singleLanguage
     case multipleLanguages
 }
 
 @objc(WMFExploreFeedSettingsViewController)
-class ExploreFeedSettingsViewController: UIViewController {
+class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    @objc var dataStore: MWKDataStore?
-    private var theme = Theme.standard
+    private var didToggleMasterSwitch = false
 
     private lazy var displayType: DisplayType = {
         assert(preferredLanguages.count > 0)
         return preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }()
 
+    override var shouldReload: Bool {
+        return !didToggleMasterSwitch
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Explore feed"
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
-        tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension
-        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
-        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier())
-        apply(theme: theme)
     }
 
-    private var preferredLanguages: [MWKLanguageLink] {
-        return MWKLanguageLinkController.sharedInstance().preferredLanguages
+    override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
+        return item is FeedCard
     }
 
-    private lazy var languages: [Language] = {
-        let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
-            Language(languageLink, controlTag: index)
-        }
-        return languages
-    }()
+    override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
+        return languageLink.isInFeed
+    }
 
-    private lazy var sections: [Section] = {
+    override var sections: [ExploreFeedSettingsSection] {
         let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
         let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)
         let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
@@ -204,82 +136,26 @@ class ExploreFeedSettingsViewController: UIViewController {
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let places = FeedCard(contentGroupKind: .location, displayType: displayType)
         let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
-        let customization = Section(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay, featuredArticle, topRead, pictureOfTheDay, places, randomizer])
+        let customization = ExploreFeedSettingsSection(headerTitle: "Customize the Explore feed", footerTitle: "Hiding an card type will stop this card type from appearing in the Explore feed. Hiding all Explore feed cards will turn off the Explore tab. ", items: [inTheNews, onThisDay, featuredArticle, topRead, pictureOfTheDay, places, randomizer])
 
-        let languages = Section(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
+        let languages = ExploreFeedSettingsSection(headerTitle: "Languages", footerTitle: "Hiding all Explore feed cards in all of your languages will turn off the Explore Tab.", items: self.languages)
 
-        let master = Master(title: "Turn off Explore tab")
-        let main = Section(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
+        let master = ExploreFeedSettingsMaster(title: "Turn off Explore tab", isOn: feedContentController?.mainTabType != .explore)
+        let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: "Turning off the Explore tab will replace the Explore tab with a Settings tab. ", items: [master])
 
         let sections = displayType == .singleLanguage ? [customization, main] : [customization, languages, main]
         return sections
-    }()
-
-    private func getItem(at indexPath: IndexPath) -> Item {
-        return sections[indexPath.section].items[indexPath.row]
-    }
-
-    private func getSection(at index: Int) -> Section {
-        assert(sections.indices.contains(index), "Section at index \(index) doesn't exist")
-        return sections[index]
-    }
-}
-
-extension ExploreFeedSettingsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = getSection(at: section)
-        return section.items.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
-            return UITableViewCell()
-        }
-        let item = getItem(at: indexPath)
-        if let switchItem = item as? SwitchItem {
-            configureSwitch(cell, switchItem: switchItem)
-        } else {
-            cell.configure(item.disclosureType, disclosureText: item.discloureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
-        }
-        return cell
-    }
-
-    private func configureSwitch(_ cell: WMFSettingsTableViewCell, switchItem: SwitchItem) {
-        cell.configure(switchItem.disclosureType, disclosureText: switchItem.disclosureText, title: switchItem.title, subtitle: switchItem.subtitle, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
-        cell.delegate = self
     }
 }
 
 // MARK: - UITableViewDelegate
 
-extension ExploreFeedSettingsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = getSection(at: section)
-        return section.headerTitle
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier()) as? WMFTableHeaderFooterLabelView else {
-            return nil
-        }
-        let section = getSection(at: section)
-        footer.setShortTextAsProse(section.footerTitle)
-        footer.type = .footer
-        if let footer = footer as Themeable? {
-            footer.apply(theme: theme)
-        }
-        return footer
-    }
-
+extension ExploreFeedSettingsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = getItem(at: indexPath)
         switch item.type {
         case .feedCard(let contentGroupKind):
-            let feedCardSettingsViewController = FeedCardSettingsViewController()
+            let feedCardSettingsViewController = FeedCardSettingsViewController(nibName: "BaseExploreFeedSettingsViewController", bundle: nil)
             feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
             navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         default:
@@ -288,33 +164,22 @@ extension ExploreFeedSettingsViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - Themeable
-
-extension ExploreFeedSettingsViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        tableView.backgroundColor = theme.colors.baseBackground
-    }
-}
-
 // MARK: - WMFSettingsTableViewCellDelegate
 
-extension ExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
-    func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+extension ExploreFeedSettingsViewController {
+    override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         let controlTag = sender.tag
-        guard let feedContentController = dataStore?.feedContentController else {
+        guard let feedContentController = feedContentController else {
             assertionFailure("feedContentController is nil")
             return
         }
         guard controlTag != -1 else { // master switch
+            didToggleMasterSwitch = true
             feedContentController.changeMainTab(to: sender.isOn ? .settings : .explore)
             return
         }
         if displayType == .singleLanguage {
-            let customizable = WMFExploreFeedContentController.customizableContentGroupKinds()
+            let customizable = WMFExploreFeedContentController.customizableContentGroupKindNumbers()
             guard let contentGroupKindNumber = customizable.first(where: { $0.intValue == controlTag }), let contentGroupKind = WMFContentGroupKind(rawValue: contentGroupKindNumber.int32Value) else {
                 assertionFailure("No content group kind card for a given control tag")
                 return
