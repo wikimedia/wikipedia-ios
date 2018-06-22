@@ -1186,7 +1186,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (WMFExploreViewController *)exploreViewController {
-    return (WMFExploreViewController *)[self rootViewControllerForTab:WMFAppTabTypeExplore];
+    if (!_exploreViewController) {
+        _exploreViewController = [[WMFExploreViewController alloc] init];
+    }
+    return _exploreViewController;
 }
 
 - (WMFSavedViewController *)savedViewController {
