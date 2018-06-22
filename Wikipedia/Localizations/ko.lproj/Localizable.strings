@@ -453,6 +453,7 @@
 "settings-language-bar" = "검색 결과에 표시할 언어";
 "settings-my-languages" = "내 언어";
 "settings-notifications" = "알림";
+"settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인 정보와 시간 데이터까지 모두 제공됩니다.";
 "settings-notifications-learn-more" = "알림에 대해 더 알아보기";
 "settings-notifications-push-notifications" = "푸시 알림";
 "settings-notifications-system-turn-on" = "알림 켜기";

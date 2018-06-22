@@ -29,6 +29,7 @@
 "action-save" = "Saglabāt";
 "action-saved" = "Saglabāts";
 "action-share" = "Dalīties";
+"action-sort" = "Kārtot";
 "action-update" = "Atjaunināt";
 // Fuzzy
 "announcements-dismiss" = "Nē, paldies";
@@ -49,6 +50,7 @@
 "button-read-now" = "Lasīt tagad";
 "button-report-a-bug" = "Ziņot par kļūdu";
 "button-skip" = "Izlaist";
+"cancel" = "Atcelt";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Aizvērt";
 "edit-summary-choice-fixed-grammar" = "Labota gramatika";
@@ -148,6 +150,7 @@
 "reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
 "saved-all-articles-title" = "Visi raksti";
+"saved-search-default-text" = "Meklēt";
 "saved-title" = "Saglabāts";
 "search-did-you-mean" = "Vai tu domāji $1?";
 "search-field-placeholder-text" = "Meklēt Vikipēdijā";
@@ -168,6 +171,7 @@
 "settings-support" = "Atbalsti Vikipēdiju";
 "settings-title" = "Iestatījumi";
 "share-custom-menu-item" = "Dalīties...";
+"share-menu-item" = "Dalīties...";
 "status-saved-for-later" = "Saglabāts vēlākam laikam";
 "status-saving-for-later" = "Saglabā vēlākam laikam...";
 "table-of-contents-button-label" = "Satura rādītājs";
@@ -175,6 +179,7 @@
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";
 "table-of-contents-heading" = "Saturs";
 "table-title-other" = "Vairāk informācijas";
+"theme-default-display-name" = "Noklusējuma";
 "top-read-header-generic" = "Vikipēdija";
 "top-read-header-with-language" = "$1 Vikipēdija";
 "welcome-exploration-on-this-day-title" = "Šajā dienā";
