@@ -118,16 +118,21 @@
 		7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
-		7A0DE50520CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */; };
-		7A0DE50620CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */; };
-		7A0DE50720CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */; };
-		7A0DE50820CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */; };
-		7A0DE50920CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */; };
+		7A0DE50520CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
+		7A0DE50620CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
+		7A0DE50720CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
+		7A0DE50820CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
+		7A0DE50920CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
 		7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89C2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89D2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
+		7A19C64820DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */; };
+		7A19C64920DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */; };
+		7A19C64A20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */; };
+		7A19C64B20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */; };
+		7A19C64C20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */; };
 		7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
 		7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
 		7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */; };
@@ -159,11 +164,6 @@
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126720D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
-		7A28126820D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
-		7A28126920D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
-		7A28126A20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
-		7A28126B20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
-		7A28126C20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */; };
 		7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5C91F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
 		7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */; };
@@ -3297,8 +3297,9 @@
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
-		7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreFeedSettingsViewController.xib; sourceTree = "<group>"; };
+		7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseExploreFeedSettingsViewController.xib; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
+		7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
 		7A203F091FDEDCDD00A229EC /* ReadingListHintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintController.swift; sourceTree = "<group>"; };
 		7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Identifier.swift"; sourceTree = "<group>"; };
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
@@ -3307,7 +3308,6 @@
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
-		7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCardSettingsViewController.xib; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
@@ -6031,9 +6031,8 @@
 			children = (
 				7AA7011220DB352000F3F0BC /* Common */,
 				7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */,
-				7A0DE4FF20CEEC760032AB57 /* ExploreFeedSettingsViewController.xib */,
+				7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */,
 				7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */,
-				7A28126220D3F84A009B42B5 /* FeedCardSettingsViewController.xib */,
 			);
 			name = "Explore Feed";
 			sourceTree = "<group>";
@@ -6050,6 +6049,7 @@
 			isa = PBXGroup;
 			children = (
 				7AA7011320DB355200F3F0BC /* WMFContentGroupKind+IsInFeed.swift */,
+				7A19C64720DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -9082,7 +9082,6 @@
 				0E4D071D1CC5526200AE968B /* WMFLanguageCell.xib in Resources */,
 				192275511E5376CA00860E55 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9361EB9344E001FA294 /* InfoPlist.strings in Resources */,
-				7A28126820D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */,
 				D8D92B631DF22E1700B95311 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				7AFA21C020110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9138,7 +9137,7 @@
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50520CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */,
+				7A0DE50520CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9188,7 +9187,7 @@
 				D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D80ED3DF1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				7A410B83205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */,
-				7A0DE50920CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */,
+				7A0DE50920CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				D80ED3E01EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C420110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
 				D80ED3E11EE57F4800CE8C50 /* PageHistoryResultPrototypeView.xib in Resources */,
@@ -9219,7 +9218,6 @@
 				D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */,
 				D80ED3F11EE57F4800CE8C50 /* WMFAppModalProgressViewController.xib in Resources */,
 				D80ED3F31EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.xib in Resources */,
-				7A28126C20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
@@ -9331,7 +9329,6 @@
 				D8A42BC91E815A9C00D8E281 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9391EB93450001FA294 /* InfoPlist.strings in Resources */,
 				D8A42BCB1E815A9C00D8E281 /* WMFAppViewController.storyboard in Resources */,
-				7A28126B20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8A42BCC1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8A42BCD1E815A9C00D8E281 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C320110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9387,7 +9384,7 @@
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50820CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */,
+				7A0DE50820CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9434,7 +9431,6 @@
 				D8CE26501E698E2400DAE2E0 /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9371EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8CE26521E698E2400DAE2E0 /* WMFAppViewController.storyboard in Resources */,
-				7A28126920D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8CE26531E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8CE26541E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C120110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9490,7 +9486,7 @@
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50620CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */,
+				7A0DE50620CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9537,7 +9533,6 @@
 				D8EC3F501E9BDA35006712EB /* WMFTitledExploreSectionFooter.xib in Resources */,
 				D801C9381EB9344F001FA294 /* InfoPlist.strings in Resources */,
 				D8EC3F521E9BDA35006712EB /* WMFAppViewController.storyboard in Resources */,
-				7A28126A20D3F84A009B42B5 /* FeedCardSettingsViewController.xib in Resources */,
 				D8EC3F531E9BDA35006712EB /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				D8EC3F541E9BDA35006712EB /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C220110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
@@ -9593,7 +9588,7 @@
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50720CEEC760032AB57 /* ExploreFeedSettingsViewController.xib in Resources */,
+				7A0DE50720CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -10189,6 +10184,7 @@
 				7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E11FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
 				832289DB1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
+				7A19C64820DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
@@ -10389,6 +10385,7 @@
 				83E52BB81F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D80ED2871EE57F4800CE8C50 /* WMFAppModalProgressViewController.swift in Sources */,
 				D80ED2891EE57F4800CE8C50 /* WMFWelcomePanelViewController.swift in Sources */,
+				7A19C64C20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				D80ED28B1EE57F4800CE8C50 /* WebViewController+WMFReferencePopover.m in Sources */,
 				D80ED28C1EE57F4800CE8C50 /* UIViewController+WMFAlerts.swift in Sources */,
 				D80ED28D1EE57F4800CE8C50 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -11163,6 +11160,7 @@
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
 				D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */,
+				7A19C64B20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				7A998ABE1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E41FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
 				D8A42AEE1E815A9C00D8E281 /* UIButton+WMFMultiLineHeight.swift in Sources */,
@@ -11363,6 +11361,7 @@
 				B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D8CE24F81E698E2400DAE2E0 /* UIApplication+RTL.swift in Sources */,
+				7A19C64920DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				D8CE24F91E698E2400DAE2E0 /* WMFAppModalProgressViewController.swift in Sources */,
 				D8CE24FB1E698E2400DAE2E0 /* WMFWelcomePanelViewController.swift in Sources */,
 				D8533ED61ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */,
@@ -11686,6 +11685,7 @@
 				D8EC3DEE1E9BDA35006712EB /* WMFNearbyArticleCollectionViewCell.m in Sources */,
 				83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				B04C809C1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
+				7A19C64A20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				D8EC3DEF1E9BDA35006712EB /* UIApplication+RTL.swift in Sources */,
 				D8EC3DF01E9BDA35006712EB /* WMFAppModalProgressViewController.swift in Sources */,
 				D8EC3DF21E9BDA35006712EB /* WMFWelcomePanelViewController.swift in Sources */,
