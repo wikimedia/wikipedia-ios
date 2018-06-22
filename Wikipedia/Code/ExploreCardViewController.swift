@@ -263,8 +263,10 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             return
         }
         
-        let imageURL: URL? = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth))
-        cell.imageView.setImageWith(imageURL ?? imageInfo.imageThumbURL)
+        let imageURL: URL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
+        if !layoutOnly {
+            cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
+        }
         if imageInfo.imageDescription.count > 0 {
             cell.captionLabel.text = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
