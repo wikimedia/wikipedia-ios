@@ -188,8 +188,7 @@
 "in-the-news-notification-share-action-title" = "Поділитися...";
 "in-the-news-title" = "У новинах";
 "info-box-close-text" = "Закрити";
-// Fuzzy
-"info-box-title" = "Швидкі факти";
+"info-box-title" = "Табличка основної інформації";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -254,18 +253,14 @@
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";
 "places-enable-location-title" = "Перегляньте статті поблизу Вашого місця перебування, увімкнувши доступ до Вашого розташування";
 "places-filter-saved-articles" = "Збережені статті";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 місць знайдено";
-// Fuzzy
-"places-filter-top-articles" = "Топ-статті";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 статей";
+"places-filter-saved-articles-count" = "Знайдено $1 {{PLURAL:$1|місце|місць}}";
+"places-filter-top-articles" = "Найбільш читають";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|стаття|статей}}";
 "places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";
 "places-search-recently-searched-header" = "Недавні пошукові запити";
 "places-search-saved-articles" = "Всі збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
-// Fuzzy
-"places-search-this-area" = "Пошук у цій ділянці";
+"places-search-this-area" = "Оновити у цій ділянці";
 "places-search-top-articles" = "Всі найбільш читані статті";
 "places-unknown-distance" = "невідома відстань";
 "potd-description-prefix" = "Зображення дня за $1";
@@ -287,7 +282,6 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
-// Fuzzy
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";
