@@ -488,7 +488,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                 });
             }];
         }
-            failure:^(NSError *error){
+            failure:^(NSError *error) {
                 if ([error.domain isEqualToString:NSURLErrorDomain]) {
                     return;
                 }
@@ -771,7 +771,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         [self.savedArticlesFetcher start];
         self.resumeComplete = YES;
     }
-        failure:^(NSError *error){
+        failure:^(NSError *error) {
             if ([error.domain isEqualToString:NSURLErrorDomain]) {
                 return;
             }
