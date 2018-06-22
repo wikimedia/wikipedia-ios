@@ -97,7 +97,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         // intentionally set all text and unhide image view to get largest possible size
         placeholderCell.isImageViewHidden = false
