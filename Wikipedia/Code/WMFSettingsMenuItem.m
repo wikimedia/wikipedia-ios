@@ -72,8 +72,8 @@
                                                 title:@"Explore feed" // TODO
                                              iconName:nil // TODO
                                             iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:@"On" // TODO
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                       disclosureText:SessionSingleton.sharedInstance.dataStore.feedContentController.isDefaultTabExplore ? @"Off" : @"On"
                                            isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
