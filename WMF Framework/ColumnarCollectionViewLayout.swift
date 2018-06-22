@@ -12,7 +12,8 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     let defaultColumnWidth: CGFloat = 315
     let maxColumnWidth: CGFloat = 740
     public var slideInNewContentFromTheTop: Bool = false
-    
+    public var animateItems: Bool = false
+
     override public class var layoutAttributesClass: Swift.AnyClass {
         return ColumnarCollectionViewLayoutAttributes.self
     }
@@ -180,36 +181,63 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     
     var maxNewSection: Int = -1
     var newSectionDeltaY: CGFloat = 0
+    var appearingIndexPaths: Set<IndexPath> = []
+    var disappearingIndexPaths: Set<IndexPath> = []
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
-        guard slideInNewContentFromTheTop,
+        guard animateItems,
             let info = info else {
+            appearingIndexPaths.removeAll(keepingCapacity: true)
+            disappearingIndexPaths.removeAll(keepingCapacity: true)
             maxNewSection = -1
             newSectionDeltaY = 0
             return
         }
-        var maxSection = -1
-        for updateItem in updateItems {
-            guard let after = updateItem.indexPathAfterUpdate, after.item == NSNotFound, updateItem.indexPathBeforeUpdate == nil else {
-                continue
+        
+        if slideInNewContentFromTheTop {
+            var maxSection = -1
+            for updateItem in updateItems {
+                guard let after = updateItem.indexPathAfterUpdate, after.item == NSNotFound, updateItem.indexPathBeforeUpdate == nil else {
+                    continue
+                }
+                let section: Int = after.section
+                guard section == maxSection + 1 else {
+                    continue
+                }
+                maxSection = section
             }
-            let section: Int = after.section
-            guard section == maxSection + 1 else {
-                continue
+            guard maxSection < info.sections.count else {
+                maxNewSection = -1
+                return
             }
-            maxSection = section
-        }
-        guard maxSection < info.sections.count else {
+            maxNewSection = maxSection
+            let sectionFrame = info.sections[maxSection].frame
+            newSectionDeltaY = 0 - sectionFrame.maxY
+            appearingIndexPaths.removeAll(keepingCapacity: true)
+            disappearingIndexPaths.removeAll(keepingCapacity: true)
+        } else {
+            appearingIndexPaths.removeAll(keepingCapacity: true)
+            disappearingIndexPaths.removeAll(keepingCapacity: true)
+            newSectionDeltaY = 0
             maxNewSection = -1
-            return
+            for updateItem in updateItems {
+                if let after = updateItem.indexPathAfterUpdate, updateItem.indexPathBeforeUpdate == nil {
+                    appearingIndexPaths.insert(after)
+                } else if let before = updateItem.indexPathBeforeUpdate, updateItem.indexPathAfterUpdate == nil {
+                    disappearingIndexPaths.insert(before)
+                }
+            }
         }
-        maxNewSection = maxSection
-        let sectionFrame = info.sections[maxSection].frame
-        newSectionDeltaY = 0 - sectionFrame.maxY
     }
     
     private func adjustAttributesIfNecessary(_ attributes: UICollectionViewLayoutAttributes, forItemOrElementAppearingAtIndexPath indexPath: IndexPath) {
         guard indexPath.section <= maxNewSection else {
+            guard animateItems, appearingIndexPaths.contains(indexPath) else {
+                return
+            }
+            attributes.zIndex = -1000
+            attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
+            attributes.alpha = 0
             return
         }
         attributes.frame.origin.y += newSectionDeltaY
@@ -234,6 +262,19 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     
     public override func initialLayoutAttributesForAppearingDecorationElement(ofKind elementKind: String, at decorationIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return super.initialLayoutAttributesForAppearingDecorationElement(ofKind: elementKind, at: decorationIndexPath)
+    }
+    
+    public override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) else {
+            return nil
+        }
+        guard animateItems, disappearingIndexPaths.contains(itemIndexPath) else {
+            return attributes
+        }
+        attributes.zIndex = -1000
+        attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
+        attributes.alpha = 0
+        return attributes
     }
 }
 
