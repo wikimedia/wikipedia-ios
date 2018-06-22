@@ -4,13 +4,17 @@ public protocol CardContent {
     var view: UIView! { get }
     func contentHeight(forWidth: CGFloat) -> CGFloat
 }
+
+public protocol ExploreCardCollectionViewCellDelegate: class {
+    func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell)
+}
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public let titleLabel = UILabel()
     public let subtitleLabel = UILabel()
     public let customizationButton = UIButton()
     public let footerButton = AlignedImageButton()
-    
+    public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(5)
@@ -22,6 +26,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         customizationButton.setTitle("⋮", for: UIControlState.normal)
+        customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
         cardBackgroundView.layer.shadowRadius = cardShadowRadius
@@ -123,4 +128,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardContent?.apply(theme: theme)
     }
     
+    @objc func customizationButtonPressed() {
+        delegate?.exploreCardCollectionViewCellWantsCustomization(self)
+    }
 }

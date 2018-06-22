@@ -150,33 +150,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
     }
     
-    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
-        switch group.contentGroupKind {
-        case .relatedPages:
-            guard let url = group.headerContentURL else {
-                return nil
-            }
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
-                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
-                self.dataStore.viewContext.remove(group)
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        case .locationPlaceholder:
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
-                group.wasDismissed = true
-                group.updateVisibility()
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        default:
-            return nil
-        }
-    }
-    
     private func displayTypeAt(_ indexPath: IndexPath) -> WMFFeedDisplayType {
         return contentGroup?.displayTypeForItem(at: indexPath.row) ?? .page
     }
