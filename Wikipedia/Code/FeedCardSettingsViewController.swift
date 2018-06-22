@@ -135,7 +135,7 @@ extension FeedCardSettingsViewController: UITableViewDataSource {
     }
 
     private func configureSwitch(_ cell: WMFSettingsTableViewCell, switchItem: SwitchItem) {
-        cell.configure(.switch, title: switchItem.title, subtitle: nil, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
+        cell.configure(.switch, disclosureText: switchItem.disclosureText, title: switchItem.title, subtitle: nil, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
         cell.delegate = self
     }
 }

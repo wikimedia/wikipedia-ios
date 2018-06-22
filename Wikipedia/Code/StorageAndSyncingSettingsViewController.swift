@@ -216,7 +216,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
         }
         
         cell.delegate = self
-        cell.configure(disclosureType, title: settingsItem.title, subtitle: nil, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, controlTag: settingsItem.type.rawValue, theme: theme)
+        cell.configure(disclosureType, disclosureText: nil, title: settingsItem.title, subtitle: nil, iconName: nil, isSwitchOn: settingsItem.isSwitchOn, iconColor: nil, iconBackgroundColor: nil, controlTag: settingsItem.type.rawValue, theme: theme)
     
         if settingsItem.type == .syncSavedArticlesAndLists {
             indexPathForCellWithSyncSwitch = indexPath
