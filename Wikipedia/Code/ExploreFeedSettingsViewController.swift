@@ -10,7 +10,7 @@ private protocol Item {
     var title: String { get }
     var subtitle: String? { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
-    var discloureText: String? { get }
+    var disclosureText: String? { get }
     var type: ItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
@@ -25,7 +25,7 @@ private protocol SwitchItem: Item {
 extension SwitchItem {
     var subtitle: String? { return nil }
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
-    var discloureText: String? { return nil }
+    var disclosureText: String? { return nil }
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
@@ -47,7 +47,7 @@ private struct FeedCard: SwitchItem {
     let title: String
     let subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
-    let discloureText: String?
+    let disclosureText: String?
     let type: ItemType
     let iconName: String?
     let iconColor: UIColor?
@@ -125,13 +125,13 @@ private struct FeedCard: SwitchItem {
         if displayType == .singleLanguage {
             subtitle = feedCardDescription
             disclosureType = .switch
-            discloureText = nil
+            disclosureText = nil
             controlTag = Int(contentGroupKind.rawValue)
             isOn = contentGroupKind.isInFeed
         } else {
             subtitle = languageCodes.joined(separator: ", ").uppercased()
             disclosureType = .viewControllerWithDisclosureText
-            discloureText = disclosureTextString()
+            disclosureText = disclosureTextString()
         }
     }
 }

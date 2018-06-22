@@ -9,7 +9,7 @@ private struct Section {
 private protocol Item {
     var title: String { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
-    var discloureText: String? { get }
+    var disclosureText: String? { get }
     var type: ItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
@@ -23,7 +23,7 @@ private protocol SwitchItem: Item {
 
 extension SwitchItem {
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
-    var discloureText: String? { return nil }
+    var disclosureText: String? { return nil }
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
