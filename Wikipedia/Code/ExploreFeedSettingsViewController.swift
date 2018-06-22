@@ -283,7 +283,7 @@ extension ExploreFeedSettingsViewController: UITableViewDelegate {
             feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
             navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         default:
-            assertionFailure()
+            return
         }
     }
 }
