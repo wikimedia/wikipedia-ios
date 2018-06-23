@@ -471,6 +471,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+    
+    // MARK - Prefetching
+    
+    override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        let contentGroup = fetchedResultsController.object(at: indexPath)
+        return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
+    }
 }
 
 

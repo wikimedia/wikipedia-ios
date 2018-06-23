@@ -130,24 +130,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     var numberOfItems: Int {
-        guard let contentGroup = contentGroup else {
-            return 0
-        }
-        
-        guard let preview = contentGroup.contentPreview as? [Any] else {
-            return 1
-        }
-        let countOfFeedContent = preview.count
-        switch contentGroup.contentGroupKind {
-        case .news:
-            return 1
-        case .onThisDay:
-            return 1
-        case .relatedPages:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells) + 1)
-        default:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells))
-        }
+        return contentGroup?.countOfPreviewItems ?? 0
     }
     
     private func displayTypeAt(_ indexPath: IndexPath) -> WMFFeedDisplayType {
@@ -251,9 +234,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
         }
-        
-        let imageURL: URL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
-        if !layoutOnly {
+        if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if imageInfo.imageDescription.count > 0 {

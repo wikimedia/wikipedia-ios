@@ -40,6 +40,20 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return nil
     }
     
+    open func imageURL(at indexPath: IndexPath) -> URL? {
+        guard let article = article(at: indexPath) else {
+            return nil
+        }
+        return article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth)
+    }
+    
+    override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        guard let imageURL = imageURL(at: indexPath) else {
+            return nil
+        }
+        return [imageURL]
+    }
+    
     open func article(at indexPath: IndexPath) -> WMFArticle? {
         assert(false, "Subclassers should override this function")
         return nil

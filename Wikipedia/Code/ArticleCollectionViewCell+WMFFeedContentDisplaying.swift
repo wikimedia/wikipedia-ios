@@ -5,7 +5,7 @@ public extension ArticleCollectionViewCell {
     public func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         apply(theme: theme)
         
-        let imageWidthToRequest = imageView.frame.size.width < 300 ? traitCollection.wmf_nearbyThumbnailWidth : traitCollection.wmf_leadImageWidth // 300 is used to distinguish between full-awidth images and thumbnails. Ultimately this (and other thumbnail requests) should be updated with code that checks all the available buckets for the width that best matches the size of the image view.
+        let imageWidthToRequest = displayType.imageWidthCompatibleWithTraitCollection(traitCollection)
         if displayType != .mainPage, let imageURL = article.imageURL(forWidth: imageWidthToRequest) {
             isImageViewHidden = false
             if !layoutOnly {
