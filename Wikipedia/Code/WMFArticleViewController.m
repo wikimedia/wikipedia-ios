@@ -216,7 +216,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
-        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
+        self.headerImageView.backgroundColor = UIColor.clearColor;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
         } else {
@@ -2033,10 +2033,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [[self wmf_emptyView] applyTheme:self.theme];
-    self.headerView.backgroundColor = theme.colors.paperBackground;
+    self.headerView.backgroundColor = theme.colors.midBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
-        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
+        self.headerImageView.backgroundColor = UIColor.clearColor;
+    } else {
+        self.headerImageView.backgroundColor = UIColor.whiteColor;
     }
     self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];
