@@ -90,7 +90,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFArticlePreviewingActionsDelegate,
                                         ReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter,
-                                        EventLoggingEventValuesProviding>
+                                        EventLoggingEventValuesProviding, WMFImageScaleTransitionProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -129,6 +129,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
+@property (nonatomic, readwrite, nullable) UIImageView *imageScaleTransitionView;
 
 // Table of Contents
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
@@ -739,6 +740,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
+    self.imageScaleTransitionView = self.headerImageView;
+    
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 

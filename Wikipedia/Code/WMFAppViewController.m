@@ -31,6 +31,7 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
+#import "Wikipedia-Swift.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -1430,6 +1431,23 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
     [self updateActiveTitleAccessibilityButton:viewController];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    UIImageView *fromImageView = nil;
+    UIImageView *toImageView = nil;
+    if ([fromVC conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)]) {
+        fromImageView = [(id)fromVC imageScaleTransitionView];
+    }
+    if ([toVC conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)]) {
+        [toVC loadViewIfNeeded];
+        toImageView = [(id)toVC imageScaleTransitionView];
+    }
+    if (fromImageView || toImageView) {
+        return [[WMFImageScaleTransitionController alloc] initWithFromImageView:fromImageView toImageView:toImageView];
+    } else {
+        return nil;
+    }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
