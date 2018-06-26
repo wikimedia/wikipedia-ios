@@ -351,6 +351,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // MARK - UICollectionViewDelegate
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let group = fetchedResultsController.object(at: indexPath)
+        guard group.contentGroupKind != .announcement else {
+            return false
+        }
+        return true
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let group = fetchedResultsController.object(at: indexPath)
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
@@ -432,7 +440,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -448,7 +455,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
             return estimate
         }
-        header.prepareForReuse()
         configureHeader(header, for: section)
         estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true

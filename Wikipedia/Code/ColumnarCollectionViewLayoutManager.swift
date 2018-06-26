@@ -13,12 +13,18 @@ class ColumnarCollectionViewLayoutManager {
     
     // MARK - Cell & View Registration
     
+    final private func placeholderForIdentifier(_ identifier: String) -> UICollectionReusableView? {
+        let view = placeholders[identifier]
+        view?.prepareForReuse()
+        return view
+    }
+    
     final public func placeholder(forCellWithReuseIdentifier identifier: String) -> UICollectionViewCell? {
-        return placeholders[identifier] as? UICollectionViewCell
+        return placeholderForIdentifier(identifier) as? UICollectionViewCell
     }
     
     final public func placeholder(forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) -> UICollectionReusableView? {
-        return placeholders["\(elementKind)-\(identifier)"]
+        return placeholderForIdentifier("\(elementKind)-\(identifier)")
     }
     
     @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)

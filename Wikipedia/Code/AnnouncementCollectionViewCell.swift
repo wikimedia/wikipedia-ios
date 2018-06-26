@@ -131,7 +131,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        let widthMinusMargins = layoutWidth(for: size)
         let displayScale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 2.0
         var origin = CGPoint(x: layoutMargins.left, y: 0)
         

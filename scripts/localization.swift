@@ -266,6 +266,14 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
 
+func writeLocalizedDescriptionForAppStore(localizedDescription: String, locale: String, path: String) throws {
+    let pathForFastlaneMetadataForLocale = "\(path)/fastlane/metadata/\(locale)"
+    try FileManager.default.createDirectory(atPath: pathForFastlaneMetadataForLocale, withIntermediateDirectories: true, attributes: nil)
+    
+    let descriptionFileURL = URL(fileURLWithPath:"\(pathForFastlaneMetadataForLocale)/description.txt",  isDirectory: false)
+    try localizedDescription.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
+}
+
 func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
     var output = ""
     let sortedDictionary = dictionary.sorted(by: { (kv1, kv2) -> Bool in
@@ -392,6 +400,11 @@ func importLocalizationsFromTWN(_ path: String) {
             if locale != "en" { // only write the english plurals, skip the main file
                 if strings.count > 0 {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
+
+                    // If we have a localized app store description, write a fastlane "description.txt" to a folder for its locale.
+                    if let localizedDescription = strings["app-store-short-description"] as? String {
+                        try writeLocalizedDescriptionForAppStore(localizedDescription: localizedDescription, locale: locale, path: path)
+                    }
                 } else {
                     do {
                         try fm.removeItem(atPath: stringsFilePath)

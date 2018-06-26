@@ -44,7 +44,6 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     open override func reset() {
         super.reset()
         spacing = 6
-        saveButtonTopSpacing = 10
         imageViewDimension = 150
     }
     
@@ -57,8 +56,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
-        
+        let widthMinusMargins = layoutWidth(for: size)
         var origin = CGPoint(x: layoutMargins.left, y: 0)
         
         if !isImageViewHidden {
@@ -93,9 +91,9 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         }
 
         if !isSaveButtonHidden {
-            origin.y += saveButtonTopSpacing
+            origin.y += spacing
             let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + saveButtonTopSpacing
+            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
         }
         
         origin.y += layoutMargins.bottom

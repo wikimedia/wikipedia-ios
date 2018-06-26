@@ -19,6 +19,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         super.init()
         self.fetchedResultsController.delegate = self
         self.collectionView.reloadData()
+        self.updateSectionCounts()
     }
     
     deinit {
@@ -56,8 +57,10 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         updateSectionCounts()
         let sectionCounts = self.sectionCounts
         var didInsertFirstSection = false
+        var didOnlyChangeItems = true
         var sectionDelta = 0
         for sectionChange in sectionChanges {
+            didOnlyChangeItems = false
             switch sectionChange.type {
             case .delete:
                 sectionDelta -= 1
@@ -70,6 +73,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 break
             }
         }
+        
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
         guard sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for larger changes
             collectionView.reloadData()
@@ -88,11 +92,20 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         }
         
         guard previousSectionCounts.count > 0 && didInsertFirstSection && sectionDelta > 0 else {
-            columnarLayout.slideInNewContentFromTheTop = false
-            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            if didOnlyChangeItems {
+                columnarLayout.animateItems = true
+                columnarLayout.slideInNewContentFromTheTop = false
+                UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                    self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+                }, completion: nil)
+            } else {
+                columnarLayout.animateItems = false
+                columnarLayout.slideInNewContentFromTheTop = false
+                performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            }
             return
         }
-        
+        columnarLayout.animateItems = true
         columnarLayout.slideInNewContentFromTheTop = true
         UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(sectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
