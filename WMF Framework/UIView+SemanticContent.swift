@@ -120,7 +120,7 @@ extension UIButton {
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
         
-        if let image = imageView?.image {
+        if let image = image(for: .normal) {
             heightAdjustment += imageEdgeInsets.top + imageEdgeInsets.bottom + image.size.height
             widthAdjustment += imageEdgeInsets.left + imageEdgeInsets.right + image.size.width
         }
