@@ -163,6 +163,7 @@ extension ExploreFeedSettingsViewController {
         default:
             return
         }
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
