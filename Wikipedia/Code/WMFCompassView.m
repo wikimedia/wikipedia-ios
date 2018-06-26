@@ -24,6 +24,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
+    self.lineColor = [UIColor wmf_green];
 }
 
 - (void)setAngleRadians:(double)angleRadians {
@@ -44,7 +45,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     double diameter = rect.size.width;
     double radius = diameter / 2.0f;
 
-    CGColorRef tickColor = [UIColor wmf_green].CGColor;
+    CGColorRef tickColor = self.lineColor.CGColor;
     CGContextSetFillColorWithColor(ctx, tickColor);
     CGContextSetStrokeColorWithColor(ctx, tickColor);
 
@@ -57,7 +58,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
                                size:CGSizeMake(WMFCompassLineWidth / scale, compassLineLength)
                               count:WMFCompassLineCount];
 
-    CGColorRef arrowColor = [UIColor wmf_green].CGColor;
+    CGColorRef arrowColor = self.lineColor.CGColor;
     CGContextSetFillColorWithColor(ctx, arrowColor);
     CGContextSetStrokeColorWithColor(ctx, arrowColor);
 

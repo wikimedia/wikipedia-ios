@@ -34,7 +34,9 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        distanceLabelBackground.layer.borderWidth = 1.0 / (traitCollection.displayScale > 0 ? traitCollection.displayScale : 1)
+        let borderWidth = 1.0 / (traitCollection.displayScale > 0 ? traitCollection.displayScale : 1)
+        distanceLabelBackground.layer.borderWidth = borderWidth
+        imageView.layer.borderWidth = borderWidth
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -96,11 +98,13 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     public func configureForUnknownDistance() {
         distanceLabel.text = WMFLocalizedString("places-unknown-distance", value: "unknown distance", comment: "Indicates that a place is an unknown distance away").lowercased()
+        setNeedsLayout()
     }
     
     var distance: CLLocationDistance = 0 {
         didSet {
             distanceLabel.text = NSString.wmf_localizedString(forDistance: distance)
+            setNeedsLayout()
         }
     }
     
@@ -112,7 +116,10 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        imageView.backgroundColor = theme.colors.midBackground
+        imageView.layer.borderColor = theme.colors.border.cgColor
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.cgColor
+        compassView.lineColor = theme.colors.accent
     }
 }

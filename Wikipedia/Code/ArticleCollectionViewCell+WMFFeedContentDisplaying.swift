@@ -59,6 +59,7 @@ public extension ArticleCollectionViewCell {
             fallthrough
         case .pageWithLocation:
             isSaveButtonHidden = true
+            isImageViewHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
             break
