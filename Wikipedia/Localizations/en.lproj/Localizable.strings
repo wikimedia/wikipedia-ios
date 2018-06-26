@@ -125,6 +125,9 @@
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
 "explore-feed-preferences-featured-article-description" = "Daily featured article on Wikipedia";
+"explore-feed-preferences-feed-card-visibility-all-languages" = "On all";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
+"explore-feed-preferences-feed-card-visibility-no-languages" = "On all";
 "explore-feed-preferences-in-the-news-description" = "Articles about current events";
 "explore-feed-preferences-on-this-day-description" = "Events in history on this day";
 "explore-feed-preferences-picture-of-the-day-description" = "Daily featured image from Commons";

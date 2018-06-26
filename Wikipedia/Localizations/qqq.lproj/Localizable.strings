@@ -125,6 +125,9 @@
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-feed-preferences-featured-article-description" = "Description of Featured article section of Explore feed";
+"explore-feed-preferences-feed-card-visibility-all-languages" = "Text for Explore feed card setting indicating that the feed card is active in all preferred languages";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
+"explore-feed-preferences-feed-card-visibility-no-languages" = "Text for Explore feed card setting indicating that the feed card is hidden in all preferred languages";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-on-this-day-description" = "Description of On this day section of Explore feed";
 "explore-feed-preferences-picture-of-the-day-description" = "Description of Picture of the day section of Explore feed";
