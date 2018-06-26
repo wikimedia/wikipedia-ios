@@ -29,12 +29,14 @@ class ImageCollectionViewCell: CollectionViewCell {
         captionLabel.text = nil
     }
     
+    let ratio: CGFloat = 1.1111111
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var size = super.sizeThatFits(size, apply: apply)
         if size.width != UIViewNoIntrinsicMetric {
-            size.height = size.width
+            size.height = round(ratio * size.width)
         }else if size.height != UIViewNoIntrinsicMetric {
-            size.width = size.height
+            size.width = round(size.height / ratio)
         }
         if apply {
             let boundsInsetByMargins = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), layoutMargins)

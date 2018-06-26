@@ -365,6 +365,7 @@
 		8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */; };
 		8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */; };
 		8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753A20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift */; };
+		8380754520DE627E000D222C /* WMFContentGroup+Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380754420DE627D000D222C /* WMFContentGroup+Display.swift */; };
 		8382F8C720D844C600AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
 		8382F8C820D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
 		8382F8C920D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */; };
@@ -3274,6 +3275,7 @@
 		8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutInfo.swift; sourceTree = "<group>"; };
 		8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumarCollectionViewLayoutSection.swift; sourceTree = "<group>"; };
 		8380753A20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayoutMetrics.swift; sourceTree = "<group>"; };
+		8380754420DE627D000D222C /* WMFContentGroup+Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+Display.swift"; sourceTree = "<group>"; };
 		8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewControllerLayoutCache.swift; sourceTree = "<group>"; };
@@ -7548,6 +7550,7 @@
 				D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */,
 				D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */,
 				7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */,
+				8380754420DE627D000D222C /* WMFContentGroup+Display.swift */,
 				83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */,
 				83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */,
 				83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */,
@@ -10690,6 +10693,7 @@
 				D8FA18F61E1BDA3F009675C3 /* UIFont+WMFDynamicType.swift in Sources */,
 				7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */,
+				8380754520DE627E000D222C /* WMFContentGroup+Display.swift in Sources */,
 				D844485F1DDCE4E500425630 /* WMFContentGroup+Extensions.m in Sources */,
 				7A3AD05C20ADB1F500C92E04 /* WMFKeychainCredentials.swift in Sources */,
 				D844D99A1D6CB5F00042D692 /* NSString+WMFPageUtilities.m in Sources */,
