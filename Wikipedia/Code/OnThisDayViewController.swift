@@ -33,7 +33,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
             })
             
             guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
-                title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
+                title = CommonStrings.onThisDayTitle
                 return
             }
             title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)

@@ -124,6 +124,13 @@
 "explore-continue-reading-heading" = "Continue reading";
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
+"explore-feed-preferences-featured-article-description" = "Daily featured article on Wikipedia";
+"explore-feed-preferences-in-the-news-description" = "Articles about current events";
+"explore-feed-preferences-on-this-day-description" = "Events in history on this day";
+"explore-feed-preferences-picture-of-the-day-description" = "Daily featured image from Commons";
+"explore-feed-preferences-places-description" = "Wikipedia articles near your location";
+"explore-feed-preferences-randomizer-description" = "Generate random artilces to read";
+"explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
