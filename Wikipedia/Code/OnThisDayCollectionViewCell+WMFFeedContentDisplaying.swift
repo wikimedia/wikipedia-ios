@@ -1,8 +1,7 @@
 import UIKit
 
 extension OnThisDayCollectionViewCell {
-    @objc(configureWithOnThisDayEvent:dataStore:theme:layoutOnly:shouldAnimateDots:)
-    public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool, shouldAnimateDots: Bool) {
+    public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, dataStore: MWKDataStore, showArticles: Bool = true, theme: Theme, layoutOnly: Bool, shouldAnimateDots: Bool) {
         let previews = onThisDayEvent.articlePreviews ?? []
         let currentYear = Calendar.current.component(.year, from: Date())
         
@@ -22,10 +21,11 @@ extension OnThisDayCollectionViewCell {
             
         descriptionLabel.text = onThisDayEvent.text
         
-        articles = previews.map { (articlePreview) -> CellArticle in
-            return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, titleHTML: articlePreview.displayTitleHTML, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
+        if showArticles {
+            articles = previews.map { (articlePreview) -> CellArticle in
+                return CellArticle(articleURL:articlePreview.articleURL, title: articlePreview.displayTitle, titleHTML: articlePreview.displayTitleHTML, description: articlePreview.descriptionOrSnippet, imageURL: articlePreview.thumbnailURL)
+            }
         }
-        
         
         descriptionLabel.accessibilityLanguage = articleLanguage
         semanticContentAttributeOverride = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleLanguage)

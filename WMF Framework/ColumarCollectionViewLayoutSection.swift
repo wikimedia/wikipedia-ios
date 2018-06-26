@@ -30,11 +30,12 @@ class ColumnarCollectionViewLayoutSection {
     var footers: [ColumnarCollectionViewLayoutAttributes] = []
     private let columns: [ColumnarCollectionViewLayoutColumn]
     
-    init(sectionIndex: Int, frame: CGRect, metrics: ColumnarCollectionViewLayoutMetrics) {
+    init(sectionIndex: Int, frame: CGRect, metrics: ColumnarCollectionViewLayoutMetrics, countOfItems: Int) {
         let countOfColumns = metrics.countOfColumns
         let columnSpacing = metrics.interColumnSpacing
         let columnWidth: CGFloat = floor((frame.size.width - (columnSpacing * CGFloat(countOfColumns - 1))) / CGFloat(countOfColumns))
         var columns: [ColumnarCollectionViewLayoutColumn] = []
+        columns.reserveCapacity(countOfColumns)
         var x: CGFloat = frame.origin.x
         for _ in 0..<countOfColumns {
             columns.append(ColumnarCollectionViewLayoutColumn(frame: CGRect(x: x, y: frame.origin.y, width: columnWidth, height: 0)))
@@ -44,6 +45,7 @@ class ColumnarCollectionViewLayoutSection {
         self.frame = frame
         self.sectionIndex = sectionIndex
         self.metrics = metrics
+        items.reserveCapacity(countOfItems)
     }
     
     private func columnForItem(at index: Int) -> ColumnarCollectionViewLayoutColumn {

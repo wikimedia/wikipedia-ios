@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate {
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching {
     lazy var layout: ColumnarCollectionViewLayout = {
         return ColumnarCollectionViewLayout()
     }()
@@ -10,6 +10,8 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
+        cv.isPrefetchingEnabled = true
+        cv.prefetchDataSource = self
         scrollView = cv
         return cv
     }()
@@ -171,7 +173,34 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         wmf_applyTheme(toEmptyView: theme)
     }
     
-    // MARK -
+    
+    // MARK - UICollectionViewDataSourcePrefetching
+    
+    private lazy var imageURLsCurrentlyBeingPrefetched: Set<URL> = {
+        return []
+    }()
+    
+    open func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        return nil
+    }
+
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            guard let imageURLs = imageURLsForItemAt(indexPath) else {
+                continue
+            }
+            let imageURLsToPrefetch = imageURLs.subtracting(imageURLsCurrentlyBeingPrefetched)
+            let imageController = ImageController.shared
+            imageURLsCurrentlyBeingPrefetched.formUnion(imageURLsToPrefetch)
+            for imageURL in imageURLsToPrefetch {
+                imageController.prefetch(withURL: imageURL) {
+                    self.imageURLsCurrentlyBeingPrefetched.remove(imageURL)
+                }
+            }
+        }
+    }
+    
+    // MARK - ColumnarCollectionViewLayoutDelegate
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
     }

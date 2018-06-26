@@ -200,7 +200,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             cell.isBatchEditable = false
         } else {
             cell.isBatchEditable = true
-            cell.actions = availableActions(at: indexPath)
             if editController.isBatchEditing {
                 cell.isBatchEditing = editController.isBatchEditing
             } else {

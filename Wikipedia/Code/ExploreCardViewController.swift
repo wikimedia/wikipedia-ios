@@ -95,9 +95,10 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     public var contentGroup: WMFContentGroup? {
         willSet {
             for indexPath in collectionView.indexPathsForVisibleItems {
-                if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(at: indexPath) {
-                    delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+                guard let cell = collectionView.cellForItem(at: indexPath) else {
+                    return
                 }
+                self.collectionView(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
             }
         }
         didSet {
@@ -130,51 +131,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     var numberOfItems: Int {
-        guard let contentGroup = contentGroup else {
-            return 0
-        }
-        
-        guard let preview = contentGroup.contentPreview as? [Any] else {
-            return 1
-        }
-        let countOfFeedContent = preview.count
-        switch contentGroup.contentGroupKind {
-        case .news:
-            return 1
-        case .onThisDay:
-            return 1
-        case .relatedPages:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells) + 1)
-        default:
-            return min(countOfFeedContent, Int(contentGroup.maxNumberOfCells))
-        }
-    }
-    
-    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
-        switch group.contentGroupKind {
-        case .relatedPages:
-            guard let url = group.headerContentURL else {
-                return nil
-            }
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
-                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
-                self.dataStore.viewContext.remove(group)
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        case .locationPlaceholder:
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
-                group.wasDismissed = true
-                group.updateVisibility()
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        default:
-            return nil
-        }
+        return contentGroup?.countOfPreviewItems ?? 0
     }
     
     private func displayTypeAt(_ indexPath: IndexPath) -> WMFFeedDisplayType {
@@ -229,7 +186,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
-        cell.actions = availableActions(at: indexPath)
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -255,13 +211,14 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         } else {
             cell.configureForUnknownDistance()
         }
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? NewsCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
             return
         }
-        cell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(with: story, dataStore: dataStore, showArticles: false, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
     
@@ -278,9 +235,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
         }
-        
-        let imageURL: URL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
-        if !layoutOnly {
+        if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if imageInfo.imageDescription.count > 0 {
@@ -385,6 +340,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
                 locationManager.stopMonitoringLocation()
             }
         }
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
     // MARK - Detail views
@@ -510,11 +466,6 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
-        defer {
-            if let cell = sourceView as? ArticleCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .save:
             if let articleURL = articleURL(at: indexPath) {
