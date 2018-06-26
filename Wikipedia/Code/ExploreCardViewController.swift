@@ -217,7 +217,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         guard let cell = cell as? NewsCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
             return
         }
-        cell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(with: story, dataStore: dataStore, showArticles: false, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
     
