@@ -146,7 +146,7 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-        if let switchItem = item as? ExploreFeedSettingsSwitchItem { // rewrite
+        if let switchItem = item as? ExploreFeedSettingsSwitchItem {
             configureSwitch(cell, switchItem: switchItem)
         } else {
             cell.configure(item.disclosureType, disclosureText: item.disclosureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
