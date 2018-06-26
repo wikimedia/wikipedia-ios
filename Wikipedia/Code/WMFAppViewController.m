@@ -68,7 +68,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
-@property (nonatomic, readonly) WMFAppDefaultTabType defaultTabType;
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
@@ -125,6 +124,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSUserDefaults wmf_userDefaults] removeObserver:self forKeyPath:@"WMFDefaultTabTypeKey"];
 }
 
 - (void)viewDidLoad {
@@ -187,10 +187,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                  name:WMFArticleSaveToDiskDidFailNotification
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(exploreFeedPreferencesDidChange:)
-                                                 name:WMFExplorePreferencesDidChangeNotification
-                                               object:nil];
+    [[NSUserDefaults wmf_userDefaults] addObserver:self
+                                        forKeyPath:@"WMFDefaultTabTypeKey"
+                                           options:NSKeyValueObservingOptionNew
+                                           context:NULL];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
@@ -243,10 +243,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 }
 
-- (WMFAppDefaultTabType)defaultTabType {
-    return self.dataStore.feedContentController.defaultTabType;
-}
-
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
@@ -272,7 +268,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)configureDefaultNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
-    switch (self.defaultTabType) {
+    switch ([NSUserDefaults wmf_userDefaults].defaultTabType) {
         case WMFAppDefaultTabTypeExplore:
             navigationController.title = [WMFCommonStrings exploreTabTitle];
             [navigationController setNavigationBarHidden:YES animated:animated];
@@ -454,10 +450,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 #pragma mark - Explore feed preferences
-
-- (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
-    self.shouldUpdateDefaultTab = YES;
-}
 
 - (void)settingsViewControllerDidDisappear {
     [self updateDefaultTabIfNeeded];
@@ -1215,6 +1207,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
+    } else if ([object isKindOfClass:[NSUserDefaults class]]) {
+        self.shouldUpdateDefaultTab = YES;
     }
 }
 
