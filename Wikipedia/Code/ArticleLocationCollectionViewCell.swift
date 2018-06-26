@@ -19,6 +19,8 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         addSubview(distanceLabelBackground)
         addSubview(distanceLabel)
         distanceLabelBackground.layer.cornerRadius = 2.0
+        titleLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 2
     }
     
     override func reset() {
