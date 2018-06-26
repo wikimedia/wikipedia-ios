@@ -286,7 +286,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 }
 
 - (void)configureExploreViewController {
-    self.exploreViewController.dataStore = self.dataStore;
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
@@ -1229,6 +1228,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 - (ExploreViewController *)exploreViewController {
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
+        _exploreViewController.dataStore = self.dataStore;
+
     }
     return _exploreViewController;
 }
