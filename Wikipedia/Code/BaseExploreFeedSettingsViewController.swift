@@ -71,7 +71,7 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedSectionFooterHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         apply(theme: theme)
