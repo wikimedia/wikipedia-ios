@@ -16,7 +16,7 @@ extension WMFContentGroup {
             guard let imageInfo = contentPreview as? WMFFeedImage else {
                 return nil
             }
-            let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
+            let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_leadImageWidth)) ?? imageInfo.imageThumbURL
             return [imageURL]
         case .announcement:
             guard let announcement = contentPreview as? WMFAnnouncement else {
