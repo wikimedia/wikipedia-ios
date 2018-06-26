@@ -26,6 +26,10 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
         customizationButton.setTitle("⋮", for: UIControlState.normal)
+        customizationButton.contentEdgeInsets = .zero
+        customizationButton.imageEdgeInsets = .zero
+        customizationButton.titleEdgeInsets = .zero
+        customizationButton.titleLabel?.textAlignment = .center
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
@@ -36,7 +40,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
-        footerButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
+        let image = #imageLiteral(resourceName: "places-more").imageFlippedForRightToLeftLayoutDirection()
+        footerButton.setImage(image, for: .normal)
         footerButton.isUserInteractionEnabled = false
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
@@ -65,22 +70,28 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
-        let isRTL = semanticContentAttribute == .forceRightToLeft
-
-        var customizationButtonSize = CGSize.zero
+        let isRTL = traitCollection.layoutDirection == .rightToLeft
+        let labelHorizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
+        let buttonHorizontalAlignment: HorizontalAlignment = isRTL ? .left : .right
+        
+        var customizationButtonDeltaWidthMinusMargins: CGFloat = 0
         if !customizationButton.isHidden {
-            customizationButtonSize = customizationButton.wmf_sizeThatFits(CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric))
-            var x = layoutMargins.right
-            if !isRTL {
-                x = size.width - x - customizationButtonSize.width
-            }
+            var customizationButtonFrame = customizationButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: 44, horizontalAlignment: buttonHorizontalAlignment, apply: false)
+            let halfWidth = round(0.5 * customizationButtonFrame.width)
+            customizationButtonFrame.origin.x = isRTL ? layoutMargins.left - halfWidth : size.width - layoutMargins.right - halfWidth
+            customizationButtonDeltaWidthMinusMargins = halfWidth
             if apply {
-                customizationButton.frame = CGRect(origin: CGPoint(x: x, y: origin.y), size: customizationButtonSize)
+                customizationButton.frame = customizationButtonFrame
             }
         }
         
-        origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, spacing: 4, apply: apply)
-        origin.y += subtitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins - customizationButtonSize.width, alignedBy: semanticContentAttribute, spacing: 20, apply: apply)
+        var labelOrigin = origin
+        if isRTL {
+            labelOrigin.x += customizationButtonDeltaWidthMinusMargins
+        }
+        origin.y += titleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
+        labelOrigin.y = origin.y
+        origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         
         if let cardContent = cardContent {
             let view = cardContent.view
@@ -95,7 +106,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
         if footerButton.title(for: .normal) != nil {
             footerButton.isHidden = false
-            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: semanticContentAttribute == .forceRightToLeft ? .left : .right, spacing: 20, apply: apply)
+            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         } else {
             footerButton.isHidden = true
         }
