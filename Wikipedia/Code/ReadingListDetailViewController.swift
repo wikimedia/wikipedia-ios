@@ -377,11 +377,6 @@ extension ReadingListDetailViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
-        defer {
-            if let cell = sourceView as? ArticleCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -533,11 +528,13 @@ extension ReadingListDetailViewController {
         cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
-        
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 

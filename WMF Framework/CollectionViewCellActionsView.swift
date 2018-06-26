@@ -16,10 +16,11 @@ public class Action: UIAccessibilityCustomAction {
 }
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
+    @objc func availableActions(at indexPath: IndexPath) -> [Action]
     @objc func didPerformAction(_ action: Action) -> Bool
     @objc func willPerformAction(_ action: Action) -> Bool
     @objc optional func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
-    @objc optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
+    @objc     optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
 }
 
 public enum ActionType {

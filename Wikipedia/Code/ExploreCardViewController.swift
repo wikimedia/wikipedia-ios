@@ -95,9 +95,10 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     public var contentGroup: WMFContentGroup? {
         willSet {
             for indexPath in collectionView.indexPathsForVisibleItems {
-                if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, let article = article(at: indexPath) {
-                    delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
+                guard let cell = collectionView.cellForItem(at: indexPath) else {
+                    return
                 }
+                self.collectionView(collectionView, didEndDisplaying: cell, forItemAt: indexPath)
             }
         }
         didSet {
@@ -185,7 +186,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         cell.saveButton.eventLoggingLabel = eventLoggingLabel
-        cell.actions = availableActions(at: indexPath)
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -211,6 +211,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         } else {
             cell.configureForUnknownDistance()
         }
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -339,6 +340,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
                 locationManager.stopMonitoringLocation()
             }
         }
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
     // MARK - Detail views
@@ -464,11 +466,6 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
-        defer {
-            if let cell = sourceView as? ArticleCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .save:
             if let articleURL = articleURL(at: indexPath) {

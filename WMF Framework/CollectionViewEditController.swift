@@ -30,7 +30,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let state: SwipeState
     }
     var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
-    
+    var configuredCellsByIndexPath: [IndexPath: SwipeableCell] = [:]
+
     var activeCell: SwipeableCell? {
         guard let indexPath = activeIndexPath else {
             return nil
@@ -84,10 +85,17 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func articleWasUpdated(_ notification: Notification) {
+        for (indexPath, cell) in configuredCellsByIndexPath {
+            cell.actions = availableActions(at: indexPath)
+        }
     }
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
@@ -95,14 +103,23 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public func configureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard !layoutOnly,
-            let cell = cell as? SwipeableCell,
-            let info = swipeInfoByIndexPath[indexPath] else {
+        guard
+            !layoutOnly,
+            let cell = cell as? SwipeableCell else {
+            return
+        }
+        cell.actions = availableActions(at: indexPath)
+        configuredCellsByIndexPath[indexPath] = cell
+        guard let info = swipeInfoByIndexPath[indexPath] else {
             return
         }
         cell.swipeState = info.state
         cell.actionsView.delegate = self
         cell.swipeTranslation = info.translation
+    }
+    
+    public func deconfigureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        configuredCellsByIndexPath.removeValue(forKey: indexPath)
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -141,6 +158,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public func willPerformAction(_ action: Action) -> Bool {
         return delegate?.willPerformAction(action) ?? didPerformAction(action)
+    }
+    
+    public func availableActions(at indexPath: IndexPath) -> [Action] {
+        return delegate?.availableActions(at: indexPath) ?? []
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -191,11 +212,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
 
         activeIndexPath = indexPath
+        
         guard let cell = activeCell, cell.actions.count > 0 else {
             activeIndexPath = nil
             return shouldBegin
         }
-        
+    
         shouldBegin = true
         return shouldBegin
     }

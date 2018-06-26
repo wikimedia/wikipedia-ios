@@ -31,8 +31,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             return
         }
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.itemLayoutMargins
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
@@ -169,6 +169,10 @@ extension ArticleCollectionViewController {
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -222,11 +226,6 @@ extension ArticleCollectionViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
-        defer {
-            if let cell = sourceView as? ArticleCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -276,15 +275,6 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
 
         return actions
-    }
-    
-    func updateVisibleCellActions() {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
-                continue
-            }
-            cell.actions = availableActions(at: indexPath)
-        }
     }
 }
 
