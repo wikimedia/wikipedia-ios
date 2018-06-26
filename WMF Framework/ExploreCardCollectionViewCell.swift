@@ -39,6 +39,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.setImage(#imageLiteral(resourceName: "places-more"), for: .normal)
         footerButton.isUserInteractionEnabled = false
         footerButton.titleLabel?.numberOfLines = 0
+        footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
     }
     
