@@ -16,7 +16,6 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
-NSString *const WMFExploreFeedPreferencesDefaultTabTypeKey = @"WMFExploreFeedPreferencesDefaultTabTypeKey";
 NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
 
 @interface WMFExploreFeedContentController ()
@@ -354,27 +353,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     for (NSURL *siteURL in self.preferredSiteURLs) {
         [preferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
-    [preferences setObject:@(WMFAppDefaultTabTypeExplore) forKey:WMFExploreFeedPreferencesDefaultTabTypeKey];
     [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
-}
-
-- (void)changeDefaultTabTo:(WMFAppDefaultTabType)defaultTabType {
-    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
-        [newPreferences setObject:@(defaultTabType) forKey:WMFExploreFeedPreferencesDefaultTabTypeKey];
-        completion();
-    } completion:nil];
-}
-
-- (WMFAppDefaultTabType)defaultTabType {
-    NSNumber *defaultTabTypeNumber = (NSNumber *)[self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesDefaultTabTypeKey];
-    WMFAppDefaultTabType defaultTabType = (WMFAppDefaultTabType)[defaultTabTypeNumber intValue];
-    return defaultTabType;
-}
-
-- (BOOL)isDefaultTabExplore {
-    return (self.defaultTabType != WMFAppDefaultTabTypeExplore);
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {

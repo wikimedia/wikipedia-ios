@@ -7,11 +7,6 @@
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *_Nonnull const WMFExplorePreferencesDidChangeNotification;
 
-typedef NS_ENUM(NSUInteger, WMFAppDefaultTabType) {
-    WMFAppDefaultTabTypeExplore = 0,
-    WMFAppDefaultTabTypeSettings
-};
-
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 @interface WMFExploreFeedContentController : NSObject
@@ -41,6 +36,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param updateFeed A flag that indicates whether feed should be updated after Explore feed preferences are updated.
  */
 -(void)toggleContentForSiteURL:(nonnull NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed;
+
 /**
  Toggles a content group of given kind on or off for all preferred languages.
 
@@ -48,6 +44,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
+
 /**
  Toggles a content group of given kind on or off for a given siteURL.
 
@@ -58,18 +55,6 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
 
 /**
- Updates explore feed preferences with a given default tab type.
-
- @param defaultTabType Preferred default tab type.
- */
-- (void)changeDefaultTabTo:(WMFAppDefaultTabType)defaultTabType;
-
-/**
- Returns current preferred default tab type.
- */
-@property (nonatomic, readonly) WMFAppDefaultTabType defaultTabType;
-
-/**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
 
  @param contentGroupKind The kind of the content group whose language codes you want to get.
@@ -77,6 +62,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  If a given content group kind is not visible in any languages, the set will be empty.
  */
 - (NSSet<NSString *> *_Nonnull)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
+
 /**
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
@@ -86,11 +72,6 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  Returns a set of integers that represent customizable content group kinds.
  */
 + (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
-
-/**
- Indicates whether Explore tab is currently hidden.
- */
-@property (nonatomic, readonly) BOOL isDefaultTabExplore;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
