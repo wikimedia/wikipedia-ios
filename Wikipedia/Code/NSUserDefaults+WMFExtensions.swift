@@ -30,11 +30,16 @@ let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedA
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
+let WMFDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
+@objc public enum WMFAppDefaultTabType: Int {
+    case explore
+    case settings
+}
 
 @objc public extension UserDefaults {
     
@@ -456,5 +461,21 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc public func wmf_setDidSplitExistingReadingLists(_ didSplit: Bool) {
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
         self.synchronize()
+    }
+
+    @objc public var defaultTabType: WMFAppDefaultTabType {
+        get {
+            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: WMFDefaultTabTypeKey)) else {
+                let explore = WMFAppDefaultTabType.explore
+                set(explore.rawValue, forKey: WMFDefaultTabTypeKey)
+                synchronize()
+                return explore
+            }
+            return defaultTabType
+        }
+        set {
+            set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
+            synchronize()
+        }
     }
 }
