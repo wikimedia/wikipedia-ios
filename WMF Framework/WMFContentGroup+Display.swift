@@ -81,7 +81,7 @@ extension WMFContentGroup {
         case .onThisDay:
             return 1
         case .relatedPages:
-            return min(countOfFeedContent, Int(maxNumberOfCells) + 1)
+            return min(countOfFeedContent, Int(maxNumberOfCells)) + 1
         default:
             return min(countOfFeedContent, Int(maxNumberOfCells))
         }
