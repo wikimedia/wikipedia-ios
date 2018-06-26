@@ -333,8 +333,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return maybeCell
         }
         cell.apply(theme: theme)
-        let width = self.layout.layoutAttributesForItem(at: indexPath)?.bounds.size.width ?? 1
-        configure(cell: cell, forItemAt: indexPath, width: width, layoutOnly: false)
+        configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
@@ -396,7 +395,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return cardVC
     }
 
-    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, width: CGFloat, layoutOnly: Bool) {
+    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
@@ -447,7 +446,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
-        configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
