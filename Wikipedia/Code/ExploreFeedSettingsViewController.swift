@@ -117,7 +117,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Explore feed"
+        title = CommonStrings.exploreFeedTitle
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
     }
 

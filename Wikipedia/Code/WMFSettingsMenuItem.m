@@ -69,7 +69,7 @@
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:@"Explore feed" // TODO
+                                                    title:[WMFCommonStrings exploreFeedTitle]
                                                  iconName:nil             // TODO
                                                 iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
