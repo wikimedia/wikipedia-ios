@@ -17,7 +17,8 @@ class ExploreHeaderCollectionReusableView: SizeThatFitsReusableView {
         let size = super.sizeThatFits(size, apply: apply)
         let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
-        let frame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), alignedBy: semanticContentAttribute, apply: apply)
+        let horizontalAlignment: HorizontalAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
+        let frame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), horizontalAlignment: horizontalAlignment, apply: apply)
         origin.y += frame.layoutHeight(with: layoutMargins.bottom)
         return CGSize(width: size.width, height: origin.y)
     }
