@@ -1,7 +1,7 @@
 extension WMFFeedDisplayType {
     public func imageWidthCompatibleWithTraitCollection(_ traitCollection: UITraitCollection) -> Int {
         switch self {
-        case .pageWithPreview, .relatedPagesSourceArticle:
+        case .pageWithPreview, .relatedPagesSourceArticle, .random:
             return traitCollection.wmf_leadImageWidth
         default:
             return traitCollection.wmf_nearbyThumbnailWidth
