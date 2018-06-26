@@ -73,7 +73,7 @@
                                                  iconName:nil             // TODO
                                                 iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:SessionSingleton.sharedInstance.dataStore.feedContentController.isDefaultTabExplore ? @"Off" : @"On"
+                                           disclosureText:[NSUserDefaults wmf_userDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
