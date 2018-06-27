@@ -128,7 +128,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let size = super.sizeThatFits(size, apply: apply)
         let layoutMargins = calculatedLayoutMargins
         
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
@@ -162,9 +162,8 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing
                 let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
+                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left

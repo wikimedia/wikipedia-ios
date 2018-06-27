@@ -16,25 +16,33 @@ public class Action: UIAccessibilityCustomAction {
 }
 
 @objc public protocol ActionDelegate: NSObjectProtocol {
+    @objc func availableActions(at indexPath: IndexPath) -> [Action]
     @objc func didPerformAction(_ action: Action) -> Bool
     @objc func willPerformAction(_ action: Action) -> Bool
     @objc optional func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool
-    @objc optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
+    @objc     optional var availableBatchEditToolbarActions: [BatchEditToolbarAction] { get }
 }
 
 public enum ActionType {
     case delete, save, unsave, share
+    
+    private struct Icon {
+        static let delete = UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil)
+        static let save = UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil)
+        static let unsave = UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil)
+        static let share = UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil)
+    }
 
     public func action(with target: Any?, indexPath: IndexPath) -> Action {
         switch self {
         case .delete:
-            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: UIImage(named: "swipe-action-delete", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.deleteActionTitle, icon: Icon.delete, confirmationIcon: nil, type: .delete, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .save:
-            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.saveTitle, icon: Icon.save, confirmationIcon: Icon.unsave, type: .save, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .unsave:
-            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: UIImage(named: "swipe-action-unsave", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: UIImage(named: "swipe-action-save", in: Bundle.wmf, compatibleWith: nil), type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.accessibilitySavedTitle, icon: Icon.unsave, confirmationIcon: Icon.save, type: .unsave, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         case .share:
-            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: UIImage(named: "swipe-action-share", in: Bundle.wmf, compatibleWith: nil), confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
+            return Action(accessibilityTitle: CommonStrings.shareActionTitle, icon: Icon.share, confirmationIcon: nil, type: .share, indexPath: indexPath, target: target, selector: #selector(ActionDelegate.willPerformAction(_:)))
         }
     }
 }

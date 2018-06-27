@@ -15,11 +15,13 @@ public class ColumnarCollectionViewLayoutInfo {
         guard let countOfSections = dataSource.numberOfSections?(in: collectionView) else {
             return
         }
+        sections.reserveCapacity(countOfSections)
         let x = metrics.layoutMargins.left
         var y = metrics.layoutMargins.top
         let width = metrics.boundsSize.width - metrics.layoutMargins.left - metrics.layoutMargins.right
         for sectionIndex in 0..<countOfSections {
-            let section = ColumnarCollectionViewLayoutSection(sectionIndex: sectionIndex, frame: CGRect(x: x, y: y, width: width, height: 0), metrics: metrics)
+            let countOfItems = dataSource.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
+            let section = ColumnarCollectionViewLayoutSection(sectionIndex: sectionIndex, frame: CGRect(x: x, y: y, width: width, height: 0), metrics: metrics, countOfItems: countOfItems)
             sections.append(section)
             let headerWidth = section.widthForSupplementaryViews
             let headerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForHeaderInSection: sectionIndex, forColumnWidth: headerWidth)
@@ -30,7 +32,6 @@ public class ColumnarCollectionViewLayoutInfo {
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
                 section.addHeader(headerAttributes)
             }
-            let countOfItems = dataSource.collectionView(collectionView, numberOfItemsInSection: sectionIndex)
             for itemIndex in 0..<countOfItems {
                 let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
                 let itemWidth = section.widthForNextItem

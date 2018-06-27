@@ -284,7 +284,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -377,17 +376,13 @@ extension ReadingListDetailViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView = collectionView.cellForItem(at: indexPath)
         switch action.type {
         case .delete:
             delete(at: indexPath)
             return true
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, sourceView: sourceView)
         default:
             assertionFailure("Unsupported action type")
             return false
@@ -533,11 +528,13 @@ extension ReadingListDetailViewController {
         cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
-        
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 
@@ -672,5 +669,15 @@ extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsV
     
     var analyticsContext: String {
         return analyticsName
+    }
+}
+
+extension ReadingListDetailViewController: EventLoggingEventValuesProviding {
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
+    }
+    
+    var eventLoggingCategory: EventLoggingCategory {
+        return EventLoggingCategory.saved
     }
 }

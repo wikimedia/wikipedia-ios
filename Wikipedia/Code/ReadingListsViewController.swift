@@ -200,7 +200,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             cell.isBatchEditable = false
         } else {
             cell.isBatchEditable = true
-            cell.actions = availableActions(at: indexPath)
             if editController.isBatchEditing {
                 cell.isBatchEditing = editController.isBatchEditing
             } else {
@@ -219,7 +218,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true

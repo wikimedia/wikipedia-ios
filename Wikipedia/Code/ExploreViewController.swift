@@ -333,8 +333,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return maybeCell
         }
         cell.apply(theme: theme)
-        let width = self.layout.layoutAttributesForItem(at: indexPath)?.bounds.size.width ?? 1
-        configure(cell: cell, forItemAt: indexPath, width: width, layoutOnly: false)
+        configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
@@ -350,6 +349,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK - UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let group = fetchedResultsController.object(at: indexPath)
+        guard group.contentGroupKind != .announcement else {
+            return false
+        }
+        return true
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let group = fetchedResultsController.object(at: indexPath)
@@ -388,14 +395,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return cardVC
     }
 
-    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, width: CGFloat, layoutOnly: Bool) {
+    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
         cell.footerButton.setTitle(group.moreTitle, for: .normal)
+        switch group.contentGroupKind {
+        case .relatedPages, .locationPlaceholder:
+            cell.customizationButton.isHidden = false
+        default:
+            cell.customizationButton.isHidden = true
+        }
         cell.apply(theme: theme)
+        cell.delegate = self
     }
     
     override func apply(theme: Theme) {
@@ -432,8 +446,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
@@ -448,7 +461,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
             return estimate
         }
-        header.prepareForReuse()
         configureHeader(header, for: section)
         estimate.height = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -457,6 +469,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK - Prefetching
+    
+    override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        let contentGroup = fetchedResultsController.object(at: indexPath)
+        return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
 }
 
@@ -510,6 +529,47 @@ extension ExploreViewController: ReadingListsAlertControllerDelegate {
     }
 }
 
+extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
+    func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell) {
+        guard let vc = cell.cardContent as? ExploreCardViewController,
+            let group = vc.contentGroup else {
+            return
+        }
+        guard let sheet = menuActionSheetForGroup(group) else {
+            return
+        }
+        present(sheet, animated: true)
+    }
+    
+    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
+        switch group.contentGroupKind {
+        case .relatedPages:
+            guard let url = group.headerContentURL else {
+                return nil
+            }
+            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
+                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
+                self.dataStore.viewContext.remove(group)
+            }))
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
+            return sheet
+        case .locationPlaceholder:
+            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
+                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
+                group.wasDismissed = true
+                group.updateVisibility()
+            }))
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
+            return sheet
+        default:
+            return nil
+        }
+    }
+    
+    
+}
 
 
 

@@ -31,13 +31,27 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             return
         }
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        cell.actions = availableActions(at: indexPath)
         cell.layoutMargins = layout.itemLayoutMargins
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
+    }
+    
+    open func imageURL(at indexPath: IndexPath) -> URL? {
+        guard let article = article(at: indexPath) else {
+            return nil
+        }
+        return article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth)
+    }
+    
+    override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        guard let imageURL = imageURL(at: indexPath) else {
+            return nil
+        }
+        return [imageURL]
     }
     
     open func article(at indexPath: IndexPath) -> WMFArticle? {
@@ -97,7 +111,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
-        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         // intentionally set all text and unhide image view to get largest possible size
         placeholderCell.isImageViewHidden = false
@@ -156,6 +169,10 @@ extension ArticleCollectionViewController {
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -208,11 +225,7 @@ extension ArticleCollectionViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView = collectionView.cellForItem(at: indexPath)
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -239,7 +252,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         }
         return false
     }
@@ -262,15 +275,6 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
 
         return actions
-    }
-    
-    func updateVisibleCellActions() {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
-                continue
-            }
-            cell.actions = availableActions(at: indexPath)
-        }
     }
 }
 
