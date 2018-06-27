@@ -543,13 +543,15 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         switch group.contentGroupKind {
         case .featuredArticle:
             let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-card-prompt", value: "Hide this card", comment: "Title of button shown for users to confirm the hiding of a card in the explore feed"), style: .default, handler: { (action) in
-//                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
-//                self.dataStore.viewContext.remove(group)
-//            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-all-featured-article-cards", value: "Hide all Featured article cards", comment: "Title of the button to confirm the hiding of all Featured article cards in the explore feed"), style: .cancel, handler: { (action) in
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-all-featured-article-cards", value: "Hide all Featured article cards", comment: "Title of the button to confirm the hiding of all Featured article cards in the explore feed"), style: .default, handler: { (action) in
                 self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
             }))
+            sheet.addAction(UIAlertAction(title: "Customize Explore feed", style: .default, handler: { (action) in
+                let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
+                let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
+                self.present(themeableNavigationController, animated: true)
+            }))
+            sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
             return sheet
         case .relatedPages:
             guard let url = group.headerContentURL else {

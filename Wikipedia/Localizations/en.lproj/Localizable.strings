@@ -154,6 +154,7 @@
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-feed" = "Turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
+"explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
@@ -220,7 +221,6 @@
 "home-button-popover-title" = "Tap to go home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-hide-all-featured-article-cards" = "Hide all Featured article cards";
-"home-hide-card-prompt" = "Hide this card";
 "home-hide-suggestion-cancel" = "Cancel";
 "home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-more-like-footer" = "More like $1";
