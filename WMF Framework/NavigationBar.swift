@@ -340,19 +340,19 @@ extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
-        backgroundView.backgroundColor = theme.colors.chromeBackground
+        statusBarUnderlay.backgroundColor = theme.colors.paperBackground
+        backgroundView.backgroundColor = theme.colors.paperBackground
         
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
-        bar.barTintColor = theme.colors.chromeBackground
+        bar.barTintColor = theme.colors.paperBackground
         bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-        bar.tintColor = theme.colors.chromeText
+        bar.tintColor = theme.colors.primaryText
         
-        extendedView.backgroundColor = theme.colors.chromeBackground
+        extendedView.backgroundColor = theme.colors.paperBackground
         
-        shadow.backgroundColor = theme.colors.chromeShadow
+        shadow.backgroundColor = theme.colors.paperBackground
         
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear

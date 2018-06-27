@@ -232,7 +232,7 @@ public class Theme: NSObject {
     }
 
     @objc public lazy var navigationBarBackgroundImage: UIImage = {
-        return UIImage.wmf_image(from: colors.chromeBackground)
+        return UIImage.wmf_image(from: colors.paperBackground)
     }()
 
     @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedStringKey: Any] = {

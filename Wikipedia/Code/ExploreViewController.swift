@@ -145,12 +145,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
-        searchBar.barStyle = .default
         searchBar.delegate = self
-        searchBar.isTranslucent = true
         searchBar.returnKeyType = .search
-        searchBar.contentMode = .redraw
+        searchBar.searchBarStyle = .minimal
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
