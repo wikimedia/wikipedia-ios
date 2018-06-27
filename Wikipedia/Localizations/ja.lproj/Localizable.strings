@@ -92,13 +92,13 @@
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
 "app-store-short-description" = "ウィキペディアアプリをダウンロードして、お近くのスポットを探したり、オフラインで読む記事を同期したり、記事の読み方をカスタマイズしたりしてみましょう。";
-"appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整する";
-"appearance-settings-expand-tables" = "テーブルを展開する";
-"appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべてのテーブルをデフォルトで開くように設定します。";
-"appearance-settings-image-dimming-footer" = "ダークモードのときに画像の透過度を下げる";
-"appearance-settings-reading-themes" = "テーマを読み込む";
+"appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整";
+"appearance-settings-expand-tables" = "表を展開する";
+"appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべての表をデフォルトで開くように設定します。";
+"appearance-settings-image-dimming-footer" = "ダークモード/黒モードのときに画像の透過度を下げる";
+"appearance-settings-reading-themes" = "閲覧時のテーマ";
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
-"appearance-settings-text-sizing-example-text" = "上記のスライダをドラッグして記事のテキストサイズを変更します。システムのテキストサイズを利用して、アプリ内の他のテキスト領域のサイズを変更します。";
+"appearance-settings-text-sizing-example-text" = "下のスライダーをドラッグして記事のテキストサイズを変更します。アプリ内の他のテキスト領域のサイズを変更するには、システムのテキストサイズをご利用ください。";
 "appearance-settings-theme-options" = "テーマオプション";
 "article-about-title" = "この記事について";
 "article-delete" = "削除";
@@ -167,7 +167,7 @@
 "explore-nearby-placeholder-cancel" = "キャンセル";
 "explore-nearby-placeholder-dismiss" = "断る";
 "explore-nearby-placeholder-heading" = "場所";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "ウィキペディアで$1";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアで";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-potd-heading" = "今日の一枚";
@@ -326,7 +326,7 @@
 "places-filter-top-articles" = "よく読まれている記事";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
 "places-no-saved-articles-have-location" = "保存した記事のいずれも位置情報を持っていません";
-"places-search-articles-that-match" = "$1 一致した “$2”";
+"places-search-articles-that-match" = "“$2”に一致する$1";
 "places-search-default-text" = "場所を検索";
 "places-search-did-you-mean" = "もしかして: $1";
 "places-search-recently-searched-header" = "最近検索した";
@@ -506,7 +506,7 @@
 "table-of-contents-heading" = "目次";
 "table-title-other" = "さらに見る";
 "theme-black-display-name" = "黒";
-"theme-dark-display-name" = "暗";
+"theme-dark-display-name" = "ダーク";
 "theme-default-display-name" = "既定";
 "theme-sepia-display-name" = "セピア";
 "top-read-header-generic" = "ウィキペディア";
@@ -536,8 +536,8 @@
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";
 "welcome-languages-description" = "お使いの端末で次の言語が見つかりました：";
 "welcome-languages-search-title" = "約300言語で検索";
-"welcome-notifications-tell-me-more-creation" = "通知は、当社の（または第三者）サーバーからではなく、アプリケーションによってデバイス上に作成され、配信されます。";
-"welcome-notifications-tell-me-more-storage" = "通知設定は、個人情報や活動に基づくものではなく、デバイスに保存されます。";
+"welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
+"welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";
 "welcome-send-data-helps-title" = "アプリの改善に役立てる";
 "welcome-send-data-learn-more" = "収集されたデータの詳細";

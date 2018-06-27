@@ -1,9 +1,7 @@
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
 @import WMF.MWKLicense;
 

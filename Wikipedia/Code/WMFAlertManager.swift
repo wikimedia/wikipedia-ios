@@ -43,7 +43,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
             return
         }
         showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            let title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
+            let title = CommonStrings.inTheNewsTitle
             RMessage.showNotification(in: nil, title: title, subtitle: message, iconImage: UIImage(named:"trending-notification-icon"), type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }

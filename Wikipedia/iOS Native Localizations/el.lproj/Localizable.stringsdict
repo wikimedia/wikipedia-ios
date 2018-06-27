@@ -218,5 +218,21 @@
 			<string>Αυτό το έτος</string>
 		</dict>
 	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ξεαποθήκευση λήμμα;</string>
+			<key>other</key>
+			<string>Ξεαποθήκευση λημμάτων;</string>
+		</dict>
+	</dict>
 </dict>
 </plist>

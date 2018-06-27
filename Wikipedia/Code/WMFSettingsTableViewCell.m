@@ -5,6 +5,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *titleIcon;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *disclosureIcon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabelLeadingWidth;
@@ -24,6 +25,12 @@
     self.titleLabel.text = title;
 }
 
+- (void)setSubtitle:(NSString *)subtitle {
+    _subtitle = subtitle;
+    self.subtitleLabel.text = subtitle;
+    [self.subtitleLabel setHidden:![self.subtitleLabel wmf_hasNonWhitespaceText]];
+}
+
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
     self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -33,6 +40,7 @@
     } else {
         self.titleIcon.hidden = YES;
         self.titleLabelLeadingWidth.constant = self.imageLeadingWidth.constant;
+        self.separatorInset = UIEdgeInsetsZero;
     }
 }
 
@@ -151,10 +159,24 @@
     [self wmf_configureSubviewsForDynamicType];
 }
 
-- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType title:(NSString *)title iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor theme:(WMFTheme *)theme {
+    self.disclosureType = disclosureType;
+    self.disclosureText = disclosureText;
+    self.title = title;
+    self.subtitle = subtitle;
+    self.iconName = iconName;
+    self.iconColor = iconColor;
+    self.iconBackgroundColor = iconBackgroundColor;
+
+    [self applyTheme:theme];
+}
+
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
     self.isSwitchOn = isSwitchOn;
     self.disclosureType = disclosureType;
+    self.disclosureText = disclosureText;
     self.title = title;
+    self.subtitle = subtitle;
     self.iconName = iconName;
     self.iconColor = iconColor;
     self.iconBackgroundColor = iconBackgroundColor;
@@ -173,6 +195,7 @@
     self.selectedBackgroundView.backgroundColor = theme.colors.midBackground;
     self.backgroundView.backgroundColor = theme.colors.paperBackground;
     self.titleLabel.textColor = _disclosureType == WMFSettingsMenuItemDisclosureType_TitleButton ? theme.colors.link : theme.colors.primaryText;
+    self.subtitleLabel.textColor = theme.colors.secondaryText;
     self.disclosureLabel.textColor = theme.colors.secondaryText;
     self.iconBackgroundColor = theme.colors.iconBackground == NULL ? self.iconBackgroundColor : theme.colors.iconBackground;
     self.iconColor = theme.colors.icon == NULL ? self.iconColor : theme.colors.icon;

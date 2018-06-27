@@ -12,7 +12,7 @@ class PlaceSearchFilterListController: UITableViewController, Themeable {
     fileprivate var theme: Theme = Theme.standard
     
     static var savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
-    static var topArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment:"Title of places search filter that searches top articles")
+    static var topArticlesFilterLocalizedTitle = CommonStrings.topReadTitle
     
     weak var delegate: PlaceSearchFilterListDelegate?
     

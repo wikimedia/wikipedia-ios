@@ -13,20 +13,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         reload()
     }
     
     func reload() {
         collectionView.reloadData()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func articleWasUpdated(_ notification: Notification) {
-        updateVisibleCellActions()
     }
     
     @objc var searchSiteURL: URL? = nil
@@ -108,7 +99,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.imageURL = result.thumbnailURL
         } 
         cell.apply(theme: theme)
-        cell.actions = availableActions(at: indexPath)
     }
 
 }

@@ -78,8 +78,8 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attributesToFit = layoutAttributes as? WMFCVLAttributes {
-            layoutMargins = attributesToFit.readableMargins
+        if let attributesToFit = layoutAttributes as? ColumnarCollectionViewLayoutAttributes {
+            layoutMargins = attributesToFit.layoutMargins
             if attributesToFit.precalculated {
                 return attributesToFit
             }

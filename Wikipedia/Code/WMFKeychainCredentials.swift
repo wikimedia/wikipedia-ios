@@ -84,7 +84,7 @@ struct WMFKeychainCredentials {
         var query = commonConfigurationDictionary(forKey: key)
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         query[kSecReturnData as String] = kCFBooleanTrue
-        
+        query[kSecReturnAttributes as String] = kCFBooleanTrue
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) {
             SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
@@ -93,11 +93,18 @@ struct WMFKeychainCredentials {
         guard status != errSecItemNotFound else { throw WMFKeychainCredentialsError.noValue }
         guard status == noErr else { throw WMFKeychainCredentialsError.unhandledError(status: status) }
         guard
-            let data = result as? Data,
+            let dictionary = result as? [String: Any],
+            let data = dictionary[kSecValueData as String] as? Data,
             let value = String(data: data, encoding: String.Encoding.utf8)
         else {
             throw WMFKeychainCredentialsError.unexpectedData
         }
+        
+        // update accessibility of value from kSecAttrAccessibleWhenUnlocked to kSecAttrAccessibleAfterFirstUnlock
+        if let attrAccessible = dictionary[kSecAttrAccessible as String] as? String, attrAccessible == (kSecAttrAccessibleWhenUnlocked as String)  {
+            try? update(value: value, forKey: key)
+        }
+        
         return value
     }
     
@@ -121,8 +128,8 @@ struct WMFKeychainCredentials {
         var query = commonConfigurationDictionary(forKey: key)
         let valueData = value.data(using: String.Encoding.utf8)
         query[kSecValueData as String] = valueData as AnyObject?
-        query[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlocked
-
+        query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        
         let status = SecItemAdd(query as CFDictionary, nil)
 
         guard status != errSecSuccess else {
@@ -145,6 +152,7 @@ struct WMFKeychainCredentials {
         var dataDict = [String : AnyObject]()
         let valueData = value.data(using: String.Encoding.utf8)
         dataDict[kSecValueData as String] = valueData as AnyObject?
+        dataDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
         if (status != errSecSuccess) {
             throw WMFKeychainCredentialsError.unhandledError(status: status)

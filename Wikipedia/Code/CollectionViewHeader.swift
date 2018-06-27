@@ -18,7 +18,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let margins = adjustedMargins
-        let frame = label.wmf_preferredFrame(at:  CGPoint(x: margins.left, y: margins.top), fitting: CGSize(width: size.width - margins.left - margins.right, height: UIViewNoIntrinsicMetric), alignedBy: .unspecified, apply: apply)
+        let frame = label.wmf_preferredFrame(at:  CGPoint(x: margins.left, y: margins.top), maximumSize: CGSize(width: size.width - margins.left - margins.right, height: UIViewNoIntrinsicMetric), alignedBy: .unspecified, apply: apply)
         return CGSize(width: size.width, height: frame.maxY + margins.bottom)
     }
     

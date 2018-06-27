@@ -1,5 +1,5 @@
-bplist00—]LibrariesUsedØ
- %*/49>DINSX”	UTitle[LicenseText[LicenseNameTMaps_DApple Maps: 
+bplist00—]LibrariesUsedØ
+ %*/49?DINS”	UTitle[LicenseText[LicenseNameTMaps_DApple Maps: 
 
 https://gspe21-ssl.ls.apple.com/html/attribution.html
 P”[LicenseText[LicenseName\AFNetworking_MCopyright (c) 2011-2016 Alamofire Software Foundation (http://alamofire.org/)
@@ -210,11 +210,7 @@ Redistribution and use in source and binary forms, with or without modification,
  * Neither the name of the Bitswift, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-”!"#$[LicenseText[LicenseName\PiwikTracker_˛Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.”&'()[LicenseText[LicenseNameUhpple_JCopyright (c) 2009 Topfunky Corporation, http://topfunky.com
+”!"#$[LicenseText[LicenseNameUhpple_JCopyright (c) 2009 Topfunky Corporation, http://topfunky.com
 
 MIT LICENSE
 
@@ -236,7 +232,7 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-”+,-.[LicenseText[LicenseNameZlibextobjc_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
+”&'()[LicenseText[LicenseNameZlibextobjc_3**Copyright (c) 2012 - 2014 Justin Spahr-Summers**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -254,7 +250,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-”0123[LicenseText[LicenseName_FLAnimatedImage_9The MIT License (MIT)
+”+,-.[LicenseText[LicenseName_FLAnimatedImage_9The MIT License (MIT)
 
 Copyright (c) 2014-2016 Flipboard
 
@@ -275,7 +271,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-”5678[LicenseText[LicenseName\GCDWebServer_…Copyright (c) 2012-2014, Pierre-Olivier Latour
+”0123[LicenseText[LicenseName\GCDWebServer_…Copyright (c) 2012-2014, Pierre-Olivier Latour
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -299,7 +295,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-”:;<=[LicenseText[LicenseNameYHexColors_SThe MIT License (MIT)
+”5678[LicenseText[LicenseNameYHexColors_SThe MIT License (MIT)
 Copyright (c) 2012 Marius Landwehr marius.landwehr@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -307,7 +303,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-”?@ABC[LicenseText[LicenseName^NYTPhotoViewer_FCopyright (c) 2015-2016 The New York Times Company
+”:;<=>[LicenseText[LicenseName^NYTPhotoViewer_FCopyright (c) 2015-2016 The New York Times Company
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this library except in compliance with the License.
@@ -320,7 +316,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-ZApache 2.0”EFGH[LicenseText[LicenseNameXRMessage_DCopyright (c) 2016 TouchSix, Inc. Adonis Peralta <donileo@gmail.com>
+ZApache 2.0”@ABC[LicenseText[LicenseNameXRMessage_DCopyright (c) 2016 TouchSix, Inc. Adonis Peralta <donileo@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -338,7 +334,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.”JKLM[LicenseText[LicenseName\SWStepSlider_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
+THE SOFTWARE.”EFGH[LicenseText[LicenseName\SWStepSlider_CCopyright (c) 2016 Sarun Wongpatcharapakorn <artwork.th@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -357,7 +353,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-”OPQR[LicenseText[LicenseName_TUSafariActivity_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
+”JKLM[LicenseText[LicenseName_TUSafariActivity_;Copyright (c) 2012 ThinkUltimate (http://thinkultimate.com).
 
 http://github.com/davbeck/TUSafariActivity
 
@@ -380,7 +376,7 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
-”TUVW[LicenseText[LicenseNameVTweaks_ÔBSD License
+”OPQR[LicenseText[LicenseNameVTweaks_ÔBSD License
 
 For Tweaks software
 
@@ -410,7 +406,7 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
 ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-”YZ[\][LicenseText[LicenseName_TharLon Myanmar Unicode Font_ZCopyright (c) 2010-2012, Sai Zin Di Di Zone (www.yunghkio.com/unicode|saiddzone@gmail.com), with Reserved Font Name 'Yunghkio'. Copyright (c) 2012, Google, Inc (http://code.google.com/p/googlefontdirectory/), with Reserved Font Name 'Arimo'. Copyright (c) 2012, Sun Tun, Ngwe Tun, Solveware Solution (http://code.google.com/p/tharlon-font|info@parabaik.info), with Reserved Font Name 'TharLon'.
+”TUVWX[LicenseText[LicenseName_TharLon Myanmar Unicode Font_ZCopyright (c) 2010-2012, Sai Zin Di Di Zone (www.yunghkio.com/unicode|saiddzone@gmail.com), with Reserved Font Name 'Yunghkio'. Copyright (c) 2012, Google, Inc (http://code.google.com/p/googlefontdirectory/), with Reserved Font Name 'Arimo'. Copyright (c) 2012, Sun Tun, Ngwe Tun, Solveware Solution (http://code.google.com/p/tharlon-font|info@parabaik.info), with Reserved Font Name 'TharLon'.
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
@@ -503,11 +499,10 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
-SOFL    - 4 : F R W û ü ¶ ≤ æ À '3?Q
-ó
-õ
-¢
-Æ
-∫
-ƒ%“%Ÿ%Â%Ò%¯/â/ê/ú/®/µ3∑3æ3 3÷3‹8*818=8I8T<ã<í<û<™<º@˘A AAA%FÚF˘GGGKrKyKÖKëK†MÍMıM¸NNNReRlRxRÑRëVÿVﬂVÎV˜W
-\I\P\\\h\obbbibubÅb†t˛             ^              u
+SOFL    , 3 9 E Q V ù û • ± Ω  &2>P
+ñ
+ö
+°
+≠
+π
+√%—%ÿ%‰%%˜/à/è/õ/ß/≠3˚4444%8\8c8o8{8ç< <—<›<È<ˆB√B B÷B‚BÏGCGJGVGbGqIªI∆IÕIŸIÂIÓN6N=NINUNbR©R∞RºR»R€XX!X-X9X@^3^:^F^R^qpœ             Y              p”
