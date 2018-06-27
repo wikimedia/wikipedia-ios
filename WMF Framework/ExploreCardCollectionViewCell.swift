@@ -23,7 +23,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     public override func setup() {
         super.setup()
+        titleLabel.numberOfLines = 0
         contentView.addSubview(titleLabel)
+        subtitleLabel.numberOfLines = 0
         contentView.addSubview(subtitleLabel)
         customizationButton.setTitle("⋮", for: UIControlState.normal)
         customizationButton.contentEdgeInsets = .zero
