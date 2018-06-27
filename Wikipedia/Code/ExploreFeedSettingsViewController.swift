@@ -155,6 +155,9 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension ExploreFeedSettingsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard displayType == .multipleLanguages else {
+            return
+        }
         let item = getItem(at: indexPath)
         switch item.type {
         case .feedCard(let contentGroupKind):
