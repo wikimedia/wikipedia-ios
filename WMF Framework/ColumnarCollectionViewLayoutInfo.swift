@@ -2,6 +2,8 @@ struct ColumnarCollectionViewLayoutSectionInvalidationResults {
     let invalidatedHeaderIndexPaths: [IndexPath]
     let invalidatedItemIndexPaths: [IndexPath]
     let invalidatedFooterIndexPaths: [IndexPath]
+    
+    static let empty: ColumnarCollectionViewLayoutSectionInvalidationResults = ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
 }
 
 public class ColumnarCollectionViewLayoutInfo {
