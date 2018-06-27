@@ -535,9 +535,22 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         present(sheet, animated: true)
     }
-    
+
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
+        guard group.contentGroupKind.isCustomizable else {
+            return nil
+        }
         switch group.contentGroupKind {
+        case .featuredArticle:
+            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-card-prompt", value: "Hide this card", comment: "Title of button shown for users to confirm the hiding of a card in the explore feed"), style: .default, handler: { (action) in
+//                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
+//                self.dataStore.viewContext.remove(group)
+//            }))
+            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-all-featured-article-cards", value: "Hide all Featured article cards", comment: "Title of the button to confirm the hiding of all Featured article cards in the explore feed"), style: .cancel, handler: { (action) in
+                self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
+            }))
+            return sheet
         case .relatedPages:
             guard let url = group.headerContentURL else {
                 return nil

@@ -219,6 +219,8 @@
 "home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-popover-title" = "Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
+"home-hide-all-featured-article-cards" = "Title of the button to confirm the hiding of all Featured article cards in the explore feed";
+"home-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a card in the explore feed";
 "home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
 "home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
