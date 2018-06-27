@@ -110,3 +110,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
 }
 
+// MARK: WMFSearchButtonProviding
+
+extension HistoryViewController: WMFSearchButtonProviding {
+
+}
