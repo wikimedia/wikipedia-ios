@@ -135,19 +135,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK - Search
+    let searchBarPadding = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
-        let searchHeightConstraint = searchContainerView.heightAnchor.constraint(equalToConstant: 44)
-        searchContainerView.addConstraint(searchHeightConstraint)
-        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0), priority: .required)
+        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: searchBarPadding, priority: .required)
         return searchContainerView
     }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
+        searchBar.barStyle = .default
         searchBar.delegate = self
+        searchBar.isTranslucent = true
+        searchBar.returnKeyType = .search
+        searchBar.contentMode = .redraw
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
@@ -417,13 +420,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
         searchBar.wmf_enumerateSubviewTextFields { (textField) in
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
         }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0) 
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {

@@ -241,41 +241,32 @@ public class Theme: NSObject {
 
     @objc public let imageOpacity: CGFloat
     
-    @objc public let searchBarBackgroundImage: UIImage?
-    
     @objc public let name: String
     @objc public let displayName: String
-
-    fileprivate static let lightSearchBarBackground = UIImage(named: "corner_light", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
-
-    fileprivate static let sepiaSearchBarBackground = UIImage(named: "corner_sepia", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
-
-    fileprivate static let darkSearchBarBackground = UIImage(named: "corner_dark", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
 
     @objc public let multiSelectIndicatorImage: UIImage?
     fileprivate static let lightMultiSelectIndicator = UIImage(named: "selected", in: Bundle.main, compatibleWith:nil)
     fileprivate static let darkMultiSelectIndicator = UIImage(named: "selected-dark", in: Bundle.main, compatibleWith:nil)
     
-    @objc public static let light = Theme(colors: .light, imageOpacity: 1, searchBarBackgroundImage: Theme.lightSearchBarBackground, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
+    @objc public static let light = Theme(colors: .light, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
     
-    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, searchBarBackgroundImage: Theme.sepiaSearchBarBackground, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
+    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
     
-    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
     
-    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
 
-    @objc public static let black = Theme(colors: .black, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
+    @objc public static let black = Theme(colors: .black, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
 
-    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
+    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
 
-    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, searchBarBackgroundImage: nil, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
+    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
     
-    init(colors: Colors, imageOpacity: CGFloat, searchBarBackgroundImage: UIImage?, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
+    init(colors: Colors, imageOpacity: CGFloat, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
         self.colors = colors
         self.imageOpacity = imageOpacity
         self.name = name
         self.displayName = displayName
-        self.searchBarBackgroundImage = searchBarBackgroundImage
         self.multiSelectIndicatorImage = multiSelectIndicatorImage
         self.isDark = isDark
     }
