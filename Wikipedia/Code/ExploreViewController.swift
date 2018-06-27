@@ -402,12 +402,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
         cell.footerButton.setTitle(group.moreTitle, for: .normal)
-        switch group.contentGroupKind {
-        case .relatedPages, .locationPlaceholder:
-            cell.customizationButton.isHidden = false
-        default:
-            cell.customizationButton.isHidden = true
-        }
+        cell.customizationButton.isHidden = group.contentGroupKind.isCustomizable ? false : true
         cell.apply(theme: theme)
         cell.delegate = self
     }
