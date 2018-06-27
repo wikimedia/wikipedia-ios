@@ -33,6 +33,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
+        self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.dataStore.viewContext];
     }
     return self;
@@ -286,13 +287,6 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 #pragma mark - Preferences
-
-- (NSDictionary *)exploreFeedPreferences {
-    if (!_exploreFeedPreferences) {
-        _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
-    }
-    return _exploreFeedPreferences;
-}
 
 - (void)viewContextDidChange:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
