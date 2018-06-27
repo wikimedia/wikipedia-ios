@@ -368,7 +368,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
-    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
         NSString *key = siteURL.wmf_articleDatabaseKey;
         if (isOn) {
             [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:key];
@@ -377,7 +377,6 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
                 [newPreferences removeObjectForKey:key];
             }
         }
-        completion();
     } completion:^{
         if (!updateFeed) {
             return;
@@ -387,7 +386,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
-    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences, dispatch_block_t completion) {
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
         for (NSURL *siteURL in siteURLs) {
             NSString *key = siteURL.wmf_articleDatabaseKey;
             NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
@@ -406,14 +405,13 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
             }
 
             [newPreferences setObject:newVisibleContentSources forKey:key];
-            completion();
         }
     } completion:^{
         [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
 }
 
-- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences, dispatch_block_t completion))update completion:(nullable dispatch_block_t)completion {
+- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -422,9 +420,8 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
                 NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
                 assert(oldPreferences);
                 NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
-                update(newPreferences, ^{
-                    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
-                });
+                update(newPreferences);
+                [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
                 [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
