@@ -35,45 +35,45 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
             title = CommonStrings.inTheNewsTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-in-the-news-description", value: "Articles about current events", comment: "Description of In the news section of Explore feed")
             iconName = "in-the-news-mini"
-            iconColor = UIColor.wmf_lightGray
-            iconBackgroundColor = UIColor.wmf_lighterGray
+            iconColor = .wmf_lightGray
+            iconBackgroundColor = .wmf_lighterGray
         case .onThisDay:
             title = CommonStrings.onThisDayTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-on-this-day-description", value: "Events in history on this day", comment: "Description of On this day section of Explore feed")
             iconName = "on-this-day-mini"
-            iconColor = UIColor.wmf_blue
-            iconBackgroundColor = UIColor.wmf_lightBlue
+            iconColor = .wmf_blue
+            iconBackgroundColor = .wmf_lightBlue
         case .featuredArticle:
             title = "Featured article"
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
             iconName = "featured-mini"
-            iconColor = UIColor.wmf_yellow
-            iconBackgroundColor = UIColor.wmf_lightYellow
+            iconColor = .wmf_yellow
+            iconBackgroundColor = .wmf_lightYellow
         case .topRead:
             title = CommonStrings.topReadTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-top-read-description", value: "Daily most read articles", comment: "Description of Top read section of Explore feed")
             iconName = "trending-mini"
-            iconColor = UIColor.wmf_blue
-            iconBackgroundColor = UIColor.wmf_lightBlue
+            iconColor = .wmf_blue
+            iconBackgroundColor = .wmf_lightBlue
         case .pictureOfTheDay:
             title = CommonStrings.pictureOfTheDayTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-picture-of-the-day-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
             iconName = "potd-mini"
-            iconColor = UIColor.wmf_purple
-            iconBackgroundColor = UIColor.wmf_lightPurple
+            iconColor = .wmf_purple
+            iconBackgroundColor = .wmf_lightPurple
         case .location:
             title = CommonStrings.placesTabTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-places-description", value: "Wikipedia articles near your location", comment: "Description of Places section of Explore feed")
             iconName = "nearby-mini"
-            iconColor = UIColor.wmf_green
-            iconBackgroundColor = UIColor.wmf_lightGreen
+            iconColor = .wmf_green
+            iconBackgroundColor = .wmf_lightGreen
         case .random:
             title = CommonStrings.randomizerTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random artilces to read", comment: "Description of Randomizer section of Explore feed")
 
             iconName = "random-mini"
-            iconColor = UIColor.wmf_red
-            iconBackgroundColor = UIColor.wmf_lightRed
+            iconColor = .wmf_red
+            iconBackgroundColor = .wmf_lightRed
         default:
             assertionFailure("Group of kind \(contentGroupKind) is not customizable")
             title = ""
