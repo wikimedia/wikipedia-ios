@@ -33,7 +33,6 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
-        self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.dataStore.viewContext];
     }
     return self;
@@ -58,6 +57,11 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     if (_operationQueue) {
         [_operationQueue addObserver:self forKeyPath:@"operationCount" options:NSKeyValueObservingOptionNew context:&kvo_WMFExploreFeedContentController_operationQueue_operationCount];
     }
+}
+
+- (void)setDataStore:(MWKDataStore *)dataStore {
+    _dataStore = dataStore;
+    self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:dataStore.viewContext];
 }
 
 #pragma mark - Content Sources
@@ -343,13 +347,15 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     if (keyValue) {
         return (NSMutableDictionary *)keyValue.value;
     }
-    NSMutableDictionary *preferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
+    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [preferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
+        [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
-    [moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey];
+    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
-    return (NSMutableDictionary *)[moc wmf_setValue:preferences forKey:WMFExploreFeedPreferencesKey].value;
+    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+    assert(preferences);
+    return preferences;
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {

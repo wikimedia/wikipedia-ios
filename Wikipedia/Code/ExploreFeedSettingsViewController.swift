@@ -70,7 +70,6 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
         case .random:
             title = CommonStrings.randomizerTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random artilces to read", comment: "Description of Randomizer section of Explore feed")
-
             iconName = "random-mini"
             iconColor = .wmf_red
             iconBackgroundColor = .wmf_lightRed
@@ -112,7 +111,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }()
 
     override var shouldReload: Bool {
-        return !didToggleMasterSwitch
+        return displayType == .multipleLanguages && !didToggleMasterSwitch
     }
 
     override func viewDidLoad() {
