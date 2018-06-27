@@ -474,7 +474,7 @@ static uint64_t bundleHash() {
 }
 
 - (NSManagedObjectContext *)feedImportContext {
-    WMFAssertMainThread(@"feedImportContext be created on the main thread");
+    WMFAssertMainThread(@"feedImportContext must be created on the main thread");
     if (!_feedImportContext) {
         _feedImportContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _feedImportContext.parentContext = _viewContext;
