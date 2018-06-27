@@ -156,7 +156,7 @@ extension ExploreFeedSettingsViewController {
         let item = getItem(at: indexPath)
         switch item.type {
         case .feedCard(let contentGroupKind):
-            let feedCardSettingsViewController = FeedCardSettingsViewController(nibName: "BaseExploreFeedSettingsViewController", bundle: nil)
+            let feedCardSettingsViewController = FeedCardSettingsViewController()
             feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
             navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         default:

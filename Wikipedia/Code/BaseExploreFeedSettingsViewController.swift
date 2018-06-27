@@ -69,6 +69,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     var theme = Theme.standard
     var indexPathsForCellsThatNeedReloading: [IndexPath] = []
 
+    override var nibName: String? {
+        return "BaseExploreFeedSettingsViewController"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedSectionFooterHeight = 44
