@@ -443,6 +443,11 @@
 		83AE1C871F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C881F34BB65004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
 		83AE1C891F34BB66004B62E0 /* ImageDimmingExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA7683C11F30C56300A487AA /* ImageDimmingExampleViewController.xib */; };
+		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
+		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
+		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
+		83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
+		83B4CDC320E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B87EC11F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC01F71314D00F342F1 /* RecentSearchesViewController.swift */; };
 		83B87EC21F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC01F71314D00F342F1 /* RecentSearchesViewController.swift */; };
 		83B87EC31F71314D00F342F1 /* RecentSearchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B87EC01F71314D00F342F1 /* RecentSearchesViewController.swift */; };
@@ -3317,6 +3322,7 @@
 		83927D801F705B7B00051890 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
+		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC01F71314D00F342F1 /* RecentSearchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
@@ -5182,6 +5188,7 @@
 		0E09EAC71C442A130058F2D8 /* Container VC */ = {
 			isa = PBXGroup;
 			children = (
+				83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */,
 				B0E803391C0CD76B0065EBC0 /* WMFSearchViewController.h */,
 				B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */,
 			);
@@ -9901,6 +9908,7 @@
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
+				83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
@@ -10305,6 +10313,7 @@
 				D80ED2FB1EE57F4800CE8C50 /* WikiGlyphLabel.m in Sources */,
 				B07F823F203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D80ED2FC1EE57F4800CE8C50 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
+				83B4CDC320E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				D80ED2FD1EE57F4800CE8C50 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D80ED2FE1EE57F4800CE8C50 /* AboutViewController.m in Sources */,
@@ -10869,6 +10878,7 @@
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
+				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8A42A761E815A9C00D8E281 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -10981,7 +10991,6 @@
 				D8E27BA41F82B38200F9D2B3 /* RMessageView.m in Sources */,
 				83FBE9721F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				7ABAD6B720338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */,
-				D8A42AEA1E815A9C00D8E281 /* UIViewController+SafePreviewing.swift in Sources */,
 				7A19C64B20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				7A998ABE1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				7A2432E41FCF45B200FB4BA5 /* ThemeableTextView.swift in Sources */,
@@ -11274,6 +11283,7 @@
 				D8CE25631E698E2400DAE2E0 /* NSUserDefaults+WMFApplicationDefaults.swift in Sources */,
 				83FBE9701F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				B07F823C203F690800317D78 /* UILabel+WMFStyling.swift in Sources */,
+				83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				D8CE25641E698E2400DAE2E0 /* WMFRotationRespectingNavigationController.m in Sources */,
 				D8CE25651E698E2400DAE2E0 /* AboutViewController.m in Sources */,
 				B0CD9DE11F70997400051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
@@ -11511,6 +11521,7 @@
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
+				83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8351CE7A20D4424100E32FC1 /* ExploreHeaderCollectionReusableView.swift in Sources */,
 				7A20AE0A2057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
