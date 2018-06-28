@@ -217,6 +217,10 @@ extension ExploreFeedSettingsViewController {
             UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .settings : .explore
             return
         }
+        guard controlTag != -2 else { // global cards
+            feedContentController.toggleGlobalContentGroups(sender.isOn)
+            return
+        }
         if displayType == .singleLanguage {
             let customizable = WMFExploreFeedContentController.customizableContentGroupKindNumbers()
             guard let contentGroupKindNumber = customizable.first(where: { $0.intValue == controlTag }), let contentGroupKind = WMFContentGroupKind(rawValue: contentGroupKindNumber.int32Value) else {
