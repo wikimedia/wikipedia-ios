@@ -16,7 +16,6 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
-        var multipleLanguagesDescription: String?
 
         switch contentGroupKind {
         case .news:
@@ -83,25 +82,19 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
             iconBackgroundColor = nil
         }
 
-        if contentGroupKind.isGlobal {
-            multipleLanguagesDescription = "Not language specific"
-        } else {
-            multipleLanguagesDescription = contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
-        }
-
         if displayType == .singleLanguage {
             subtitle = singleLanguageDescription
             disclosureType = .switch
             controlTag = Int(contentGroupKind.rawValue)
             isOn = contentGroupKind.isInFeed
         } else {
-            subtitle = multipleLanguagesDescription
             disclosureType = .viewControllerWithDisclosureText
-            disclosureText = disclosureTextForContentGroupKind(contentGroupKind)
+            disclosureText = multipleLanguagesDisclosureText(for: contentGroupKind)
+            subtitle = multipleLanguagesSubtitle(for: contentGroupKind)
         }
     }
 
-    private func disclosureTextForContentGroupKind(_ contentGroupKind: WMFContentGroupKind) -> String {
+    private func multipleLanguagesDisclosureText(for contentGroupKind: WMFContentGroupKind) -> String {
         let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
         let languageCodes = contentGroupKind.languageCodes
         switch languageCodes.count {
@@ -127,14 +120,22 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         guard displayType == .multipleLanguages else {
             return
         }
-        disclosureText = disclosureTextForContentGroupKind(contentGroupKind)
+        disclosureText = multipleLanguagesDisclosureText(for: contentGroupKind)
+    }
+
+    private func multipleLanguagesSubtitle(for contentGroupKind: WMFContentGroupKind) -> String {
+        if contentGroupKind.isGlobal {
+            return "Not language specific"
+        } else {
+            return contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
+        }
     }
 
     func updateSubtitle(for displayType: DisplayType) {
         guard displayType == .multipleLanguages else {
             return
         }
-        self.subtitle = contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
+        subtitle = multipleLanguagesSubtitle(for: contentGroupKind)
     }
 }
 
