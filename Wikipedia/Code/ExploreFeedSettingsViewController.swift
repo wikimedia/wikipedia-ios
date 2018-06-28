@@ -1,11 +1,11 @@
 import UIKit
 
 private struct FeedCard: ExploreFeedSettingsSwitchItem {
+    let contentGroupKind: WMFContentGroupKind
     let title: String
     let subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
     let disclosureText: String?
-    let type: ExploreFeedSettingsItemType
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
@@ -13,7 +13,6 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
     var isOn: Bool = true
 
     init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
-        type = ExploreFeedSettingsItemType.feedCard(contentGroupKind)
 
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
@@ -30,6 +29,7 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
                 return CommonStrings.offTitle
             }
         }
+        self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
         var multipleLanguagesDescription: String?
@@ -191,14 +191,12 @@ extension ExploreFeedSettingsViewController {
             return
         }
         let item = getItem(at: indexPath)
-        switch item.type {
-        case .feedCard(let contentGroupKind):
-            let feedCardSettingsViewController = FeedCardSettingsViewController()
-            feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
-            navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
-        default:
+        guard let feedCard = item as? FeedCard else {
             return
         }
+        let feedCardSettingsViewController = FeedCardSettingsViewController()
+        feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
+        navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }

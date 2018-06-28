@@ -3,7 +3,6 @@ protocol ExploreFeedSettingsItem {
     var subtitle: String? { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
     var disclosureText: String? { get }
-    var type: ExploreFeedSettingsItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
     var iconBackgroundColor: UIColor? { get }
@@ -29,22 +28,14 @@ struct ExploreFeedSettingsSection {
     let items: [ExploreFeedSettingsItem]
 }
 
-enum ExploreFeedSettingsItemType {
-    case feedCard(WMFContentGroupKind)
-    case language(MWKLanguageLink)
-    case genericSwitch
-}
-
 struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     let title: String
     let subtitle: String?
-    let type: ExploreFeedSettingsItemType
     let controlTag: Int
     let isOn: Bool
     let siteURL: URL
 
     init(_ languageLink: MWKLanguageLink, controlTag: Int, isOn: Bool) {
-        type = ExploreFeedSettingsItemType.language(languageLink)
         title = languageLink.localizedName
         subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
@@ -54,7 +45,6 @@ struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
 }
 
 struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
-    let type: ExploreFeedSettingsItemType = .genericSwitch
     let disclosureType: WMFSettingsMenuItemDisclosureType = .switch
     let title: String = WMFLocalizedString("explore-feed-preferences-global-cards-title", value: "Global cards", comment: "Title for the setting that allows users to toggle non-language specific feed cards")
     let subtitle: String? = WMFLocalizedString("explore-feed-preferences-global-cards-description", value: "Non-language specific cards", comment: "Description of global feed cards")
@@ -64,7 +54,6 @@ struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
 
 struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType = .genericSwitch
     let controlTag: Int = -1
     let isOn: Bool
 
