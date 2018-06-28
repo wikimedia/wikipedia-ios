@@ -407,7 +407,7 @@ func importLocalizationsFromTWN(_ path: String) {
                     }
                     
                     // If we have a localized app store subtitle, write a fastlane "subtitle.txt" to a folder for its locale.
-                    if let localizedSubtitle = strings["welcome-intro-free-encyclopedia-title"] as? String {
+                    if let localizedSubtitle = strings["app-store-subtitle"] as? String {
                         try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "subtitle.txt", contents: localizedSubtitle, locale: locale, path: path)
                     }
 
