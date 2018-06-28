@@ -548,7 +548,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: "Hide this card", style: .default) { (_) in
-            //
+            self.dataStore.viewContext.remove(group)
+            group.updateVisibility()
         }
         let hideAllCards = UIAlertAction(title: "Hide all cards of this kind", style: .default) { (_) in
             self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
