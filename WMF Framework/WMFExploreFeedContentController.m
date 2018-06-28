@@ -358,17 +358,13 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return true;
 }
 
-- (NSArray *)preferredSiteURLs {
-    return [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
-}
-
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     if (keyValue) {
         return (NSMutableDictionary *)keyValue.value;
     }
-    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
-    for (NSURL *siteURL in self.preferredSiteURLs) {
+    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.siteURLs.count];
+    for (NSURL *siteURL in self.siteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
@@ -379,8 +375,8 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
-    NSSet *preferredSiteURLs = [NSSet setWithArray:self.preferredSiteURLs];
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn];
+    NSSet *siteURLs = [NSSet setWithArray:self.siteURLs];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:siteURLs isOn:isOn];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
