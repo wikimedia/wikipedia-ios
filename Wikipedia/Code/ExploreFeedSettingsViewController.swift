@@ -13,9 +13,6 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
     var isOn: Bool = true
 
     init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
-
-        let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
-
         self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
