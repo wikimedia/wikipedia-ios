@@ -417,10 +417,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
-        searchBar.wmf_enumerateSubviewTextFields { (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
+        searchBar.apply(theme: theme)
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {

@@ -230,10 +230,7 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
+        searchBar.apply(theme: theme)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link

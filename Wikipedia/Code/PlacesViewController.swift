@@ -2743,21 +2743,11 @@ extension PlacesViewController: Themeable {
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         navigationBar.apply(theme: theme)
         
+        titleViewSearchBar.apply(theme: theme)
         titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
-        titleViewSearchBar.barTintColor = theme.colors.chromeBackground
-        titleViewSearchBar.isTranslucent = false
-        titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
         
+        listAndSearchOverlaySearchBar.apply(theme: theme)
         listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
-        listAndSearchOverlaySearchBar.isTranslucent = false
-        listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
         
         filterDropDownContainerView.wmf_addBottomShadow(with: theme)
         extendedNavBarView.wmf_addBottomShadow(with: theme)

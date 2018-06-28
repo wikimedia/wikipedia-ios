@@ -433,6 +433,11 @@
 		83927D841F705B7B00051890 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D801F705B7B00051890 /* SearchResultsViewController.swift */; };
 		83927D851F705B7B00051890 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927D801F705B7B00051890 /* SearchResultsViewController.swift */; };
 		8392E8681F55801B007E2EE2 /* NSTextAttachment+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */; };
+		83987AD020E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
+		83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
+		83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
+		83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
+		83987AD420E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */; };
 		83A1561420DBE08C0052487B /* ColumnarCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -3321,6 +3326,7 @@
 		83927D7A1F70570400051890 /* DisambiguationPagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisambiguationPagesViewController.swift; sourceTree = "<group>"; };
 		83927D801F705B7B00051890 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		8392E8671F557FC0007E2EE2 /* NSTextAttachment+WMFExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+WMFExtras.swift"; sourceTree = "<group>"; };
+		83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Theme.swift"; sourceTree = "<group>"; };
 		83A1561320DBE08C0052487B /* ColumnarCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewLayout.swift; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC01F71314D00F342F1 /* RecentSearchesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesViewController.swift; sourceTree = "<group>"; };
@@ -7439,6 +7445,7 @@
 				D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */,
 				D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */,
 				7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */,
+				83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -9886,6 +9893,7 @@
 				D87234011E1FF0A500751E83 /* PlacesViewController.swift in Sources */,
 				B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				B0CD9DDC1F70997300051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				83987AD020E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
@@ -10362,6 +10370,7 @@
 				D80ED32D1EE57F4800CE8C50 /* WMFTableOfContentsCell.swift in Sources */,
 				D80ED32F1EE57F4800CE8C50 /* WMFSettingsMenuItem.m in Sources */,
 				D80ED3311EE57F4800CE8C50 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				83987AD420E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				832289DF1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -10856,6 +10865,7 @@
 				D84DAA141EEEF527008E4B18 /* HexColors.m in Sources */,
 				830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
+				83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8A42A5E1E815A9C00D8E281 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
@@ -11332,6 +11342,7 @@
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */,
 				D8CE25931E698E2400DAE2E0 /* WMFSettingsMenuItem.m in Sources */,
+				83987AD120E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -11499,6 +11510,7 @@
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */,
+				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D84DAA131EEEF527008E4B18 /* HexColors.m in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
