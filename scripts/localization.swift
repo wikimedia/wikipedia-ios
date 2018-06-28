@@ -405,6 +405,12 @@ func importLocalizationsFromTWN(_ path: String) {
                     if let localizedDescription = strings["app-store-short-description"] as? String {
                         try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "description.txt", contents: localizedDescription, locale: locale, path: path)
                     }
+                    
+                    // If we have a localized app store subtitle, write a fastlane "subtitle.txt" to a folder for its locale.
+                    if let localizedSubtitle = strings["welcome-intro-free-encyclopedia-title"] as? String {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "subtitle.txt", contents: localizedSubtitle, locale: locale, path: path)
+                    }
+
                 } else {
                     do {
                         try fm.removeItem(atPath: stringsFilePath)
