@@ -12,7 +12,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
-        navigationBar.addExtendedNavigationBarView(searchView)
+        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
         navigationBar.isExtendedViewHidingEnabled = true
         isRefreshControlEnabled = true
     }
@@ -138,12 +138,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK - Search
-    lazy var searchView: UIStackView = {
-        let searchContainerView = UIStackView()
-        searchContainerView.axis = .vertical
-        searchContainerView.addArrangedSubview(searchBarContainerView)
-        return searchContainerView
-    }()
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
@@ -166,36 +160,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return searchBar
     }()
     
-    var searchLanguageBarViewController: SearchLanguagesBarViewController?
-        
-    func setupSearchLanguageBarViewController() {
-        guard searchLanguageBarViewController == nil else {
-            return
-        }
-        let newSearchLanguageBarViewController = SearchLanguagesBarViewController()
-        newSearchLanguageBarViewController.apply(theme: theme)
-        addChildViewController(newSearchLanguageBarViewController)
-        searchView.addArrangedSubview(newSearchLanguageBarViewController.view)
-        newSearchLanguageBarViewController.didMove(toParentViewController: self)
-        searchLanguageBarViewController = newSearchLanguageBarViewController
-    }
+
     
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.setShowsCancelButton(true, animated: true)
-        if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
-            setupSearchLanguageBarViewController()
-            searchLanguageBarViewController?.view.isHidden = false
-        }
-        return true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        searchBar.endEditing(true)
-        searchBar.setShowsCancelButton(false, animated: true)
-        searchLanguageBarViewController?.view.isHidden = true
+        let searchActivity = NSUserActivity.wmf_searchView()
+        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
+        return false
     }
     
     // MARK - State

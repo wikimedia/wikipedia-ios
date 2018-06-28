@@ -6,7 +6,6 @@ extension UISearchBar: Themeable {
             textField.textColor = theme.colors.primaryText
             textField.keyboardAppearance = theme.keyboardAppearance
         }
-        tintColor = theme.colors.primaryText
         searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         setSearchFieldBackgroundImage(theme.searchFieldBackgroundImage, for: .normal)
     }

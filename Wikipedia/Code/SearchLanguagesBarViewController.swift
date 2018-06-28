@@ -20,7 +20,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
-    @IBOutlet weak var bottomSeparatorView: UIView!
     
     @objc var theme: Theme = Theme.standard
     
@@ -197,7 +196,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             languageButton.tintColor = theme.colors.link
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
-        bottomSeparatorView.backgroundColor = theme.colors.border
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
     }
 }

@@ -14,7 +14,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchLanguagesBarViewController" customModule="Wikipedia" customModuleProvider="target">
             <connections>
-                <outlet property="bottomSeparatorView" destination="zWH-o6-RgJ" id="sDM-tU-hrG"/>
                 <outlet property="gradientView" destination="jb0-vp-xHE" id="vBt-Ic-u1T"/>
                 <outlet property="otherLanguagesButton" destination="uA2-xO-xXY" id="5OR-hD-yyX"/>
                 <outlet property="otherLanguagesButtonBackgroundView" destination="M74-Jn-h71" id="GW1-7W-oZo"/>
@@ -113,26 +112,10 @@
                         <action selector="openLanguagePicker" destination="-1" eventType="touchUpInside" id="W9R-8x-fFH"/>
                     </connections>
                 </button>
-                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWH-o6-RgJ" userLabel="Separator View">
-                    <rect key="frame" x="0.0" y="43" width="375" height="1"/>
-                    <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="1" id="Zws-OK-YHw"/>
-                        <constraint firstAttribute="height" constant="1" id="pZR-ab-gyg"/>
-                        <constraint firstAttribute="height" constant="32" id="xCI-aE-cQw"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="xCI-aE-cQw"/>
-                            <exclude reference="Zws-OK-YHw"/>
-                        </mask>
-                    </variation>
-                </view>
             </subviews>
             <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Yuq-ja-3NK" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="07m-Gf-lMh"/>
-                <constraint firstItem="zWH-o6-RgJ" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="0vv-eh-1El"/>
                 <constraint firstItem="uA2-xO-xXY" firstAttribute="centerY" secondItem="tPw-FY-7pj" secondAttribute="centerY" id="4RB-9j-lcn"/>
                 <constraint firstItem="M74-Jn-h71" firstAttribute="leading" secondItem="jb0-vp-xHE" secondAttribute="trailing" id="62I-UV-161"/>
                 <constraint firstAttribute="trailing" secondItem="LQt-NK-neD" secondAttribute="trailing" id="6rQ-6w-KOQ"/>
@@ -140,15 +123,11 @@
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="bottom" secondItem="hUX-g2-rde" secondAttribute="bottom" id="AyO-Wu-UMI"/>
                 <constraint firstItem="LQt-NK-neD" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" id="BV5-mE-fCP"/>
                 <constraint firstItem="LQt-NK-neD" firstAttribute="width" secondItem="tPw-FY-7pj" secondAttribute="width" id="E5c-np-RRB"/>
-                <constraint firstAttribute="trailing" secondItem="zWH-o6-RgJ" secondAttribute="trailing" id="J0x-QR-Kqb"/>
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="trailingMargin" secondItem="Yuq-ja-3NK" secondAttribute="trailing" id="Sg6-Rs-bLF"/>
                 <constraint firstAttribute="bottom" secondItem="M74-Jn-h71" secondAttribute="bottom" id="TMM-HO-3n5"/>
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="top" secondItem="LQt-NK-neD" secondAttribute="top" id="X1R-CS-J9q"/>
                 <constraint firstAttribute="trailing" secondItem="M74-Jn-h71" secondAttribute="trailing" id="YGh-nU-r0V"/>
-                <constraint firstAttribute="bottom" secondItem="zWH-o6-RgJ" secondAttribute="bottom" id="YWh-Bu-hhF"/>
                 <constraint firstAttribute="trailingMargin" secondItem="uA2-xO-xXY" secondAttribute="trailing" id="bkc-hs-NfC"/>
-                <constraint firstItem="zWH-o6-RgJ" firstAttribute="top" secondItem="Yuq-ja-3NK" secondAttribute="bottom" constant="5" id="d1U-EP-doD"/>
-                <constraint firstItem="zWH-o6-RgJ" firstAttribute="top" secondItem="uA2-xO-xXY" secondAttribute="bottom" constant="5" id="m5N-cj-xps"/>
                 <constraint firstItem="M74-Jn-h71" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" id="t0m-Au-c3T"/>
                 <constraint firstItem="LQt-NK-neD" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="zav-78-dOg"/>
                 <constraint firstItem="Yuq-ja-3NK" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" constant="6" id="ze1-R7-NFN"/>

@@ -163,7 +163,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        fakeProgressController = FakeProgressController(progressView: progressView)
+        fakeProgressController = FakeProgressController(progress: self, delegate: self)
         
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
 
@@ -2774,4 +2774,27 @@ extension PlacesViewController: Themeable {
         updateSearchFilterTitle()
         listViewController.apply(theme: theme)
     }
+}
+
+extension PlacesViewController: FakeProgressReceiving, FakeProgressDelegate {
+    var progress: Float {
+        return progressView.progress
+    }
+    
+    func setProgress(_ progress: Float, animated: Bool) {
+        progressView.setProgress(progress, animated: animated)
+    }
+    
+    func setProgressHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            self.progressView.alpha = hidden ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
+    }
+    
+    
 }

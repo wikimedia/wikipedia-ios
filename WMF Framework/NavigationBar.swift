@@ -1,5 +1,5 @@
 @objc(WMFNavigationBar)
-public class NavigationBar: SetupView {
+public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     public let bar: UINavigationBar = UINavigationBar()
     public let underBarView: UIView = UIView() // this is always visible below the navigation bar
@@ -262,8 +262,12 @@ public class NavigationBar: SetupView {
             self.extendedView.alpha = 1.0 - extendedViewPercentHidden
         }
         
-        if isExtendedViewHidingEnabled {
+        if isExtendedViewHidingEnabled && isUnderBarViewHidingEnabled {
+            self.shadow.alpha = underBarViewPercentHidden
+        } else if isExtendedViewHidingEnabled {
             self.shadow.alpha = extendedViewPercentHidden
+        } else if isUnderBarViewHidingEnabled {
+            self.shadow.alpha = underBarViewPercentHidden
         } else {
             self.shadow.alpha = 1.0
         }
@@ -281,7 +285,7 @@ public class NavigationBar: SetupView {
         setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, animated: animated)
     }
     
-    @objc public func setProgressViewHidden(_ hidden: Bool, animated: Bool) {
+    @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
             self.progressView.alpha = hidden ? 0 : 1
         }

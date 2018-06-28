@@ -39,8 +39,90 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         }
     }
     
+    var siteURL: URL? {
+        return searchLanguageBarViewController.currentlySelectedSearchLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+    }
+    
     @objc func search() {
+
+    }
+    
+    private func search(for searchTerm: String, suggested: Bool) {
+        guard let siteURL = siteURL else {
+            assert(false)
+            return
+        }
         
+        guard searchTerm.wmf_hasNonWhitespaceText else {
+                return
+        }
+        
+        let start = Date()
+        
+        AFNetworkActivityIndicatorManager.shared().incrementActivityCount()
+        fakeProgressController.start()
+        
+        let commonCompletion = {
+            AFNetworkActivityIndicatorManager.shared().decrementActivityCount()
+        }
+        let failure = { (error: Error, type: WMFSearchType) in
+            DispatchQueue.main.async {
+                commonCompletion()
+                self.areResultsVisible = true
+                self.fakeProgressController.stop()
+                guard searchTerm == self.searchBar.text else {
+                    return
+                }
+                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start))
+            }
+        }
+        
+        let sucess = { (results: WMFSearchResults, type: WMFSearchType) in
+            DispatchQueue.main.async {
+                commonCompletion()
+                self.areResultsVisible = true
+                self.fakeProgressController.finish()
+                guard
+                    let resultsArray = results.results,
+                    resultsArray.count > 0
+                else {
+                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                    return
+                }
+                self.resultsViewController.resultsInfo = results
+                self.resultsViewController.searchSiteURL = siteURL
+                self.resultsViewController.results = resultsArray
+                guard !suggested else {
+                    return
+                }
+                self.funnel.logSearchResults(withTypeOf: type, resultCount: UInt(resultsArray.count), elapsedTime: Date().timeIntervalSince(start))
+
+            }
+        }
+        
+        fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { (error) in
+            failure(error, .prefix)
+        }) { (results) in
+            DispatchQueue.main.async {
+                guard searchTerm == self.searchBar.text else {
+                    commonCompletion()
+                    return
+                }
+                NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchResultsActivitySearchSiteURL(siteURL, searchTerm: searchTerm))
+                sucess(results, .prefix)
+                guard let resultsArray = results.results, resultsArray.count < 12 else {
+                    return
+                }
+                self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
+                    failure(error, .full)
+                }) { (results) in
+                    sucess(results, .full)
+                }
+            }
+            
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,16 +131,60 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
-        navigationBar.isBackVisible = false
+        hidesBottomBarWhenPushed = true
+        navigationBarHider.isHidingEnabled = false
+        navigationBarHider.isBarHidingEnabled = false
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        updateLanguageBarVisibility()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBar.becomeFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        funnel.logSearchStart()
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
+    }
+    
+    private func updateLanguageBarVisibility() {
+        if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
+            navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
+            searchLanguageBarViewController.view.isHidden = false
+        } else {
+            navigationBar.removeExtendedNavigationBarView()
+            searchLanguageBarViewController.view.isHidden = true
+        }
     }
 
     // MARK - Search
-    let searchBarPadding = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
+    
+    lazy var fetcher: WMFSearchFetcher = {
+       return WMFSearchFetcher()
+    }()
+    
+    lazy var funnel: WMFSearchFunnel = {
+        return WMFSearchFunnel()
+    }()
+    
+    
+    func didCancelSearch() {
+        resultsViewController.results = []
+        resultsViewController.wmf_hideEmptyView()
+        searchBar.text = nil
+    }
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
-        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: searchBarPadding, priority: .required)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchContainerView.addSubview(searchBar)
+        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
+        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
+        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
+        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
+        searchContainerView.addConstraints([leading, trailing, top, bottom])
         return searchContainerView
     }()
     
@@ -71,24 +197,74 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         return searchBar
     }()
     
+    lazy var searchLanguageBarViewController: SearchLanguagesBarViewController = {
+        let searchLanguageBarViewController = SearchLanguagesBarViewController()
+        searchLanguageBarViewController.apply(theme: theme)
+        addChildViewController(searchLanguageBarViewController)
+        searchLanguageBarViewController.view.isHidden = true
+        view.addSubview(searchLanguageBarViewController.view)
+        searchLanguageBarViewController.didMove(toParentViewController: self)
+        return searchLanguageBarViewController
+    }()
+    
+    var areResultsVisible: Bool {
+        get {
+            return resultsViewController.view.isHidden
+        }
+        set {
+            resultsViewController.view.isHidden = !newValue
+            collectionView.isHidden = newValue
+        }
+    }
+    
+    lazy var resultsViewController: SearchResultsViewController = {
+        let resultsViewController = SearchResultsViewController()
+        resultsViewController.dataStore = dataStore
+        resultsViewController.apply(theme: theme)
+        addChildViewController(resultsViewController)
+        view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
+        resultsViewController.didMove(toParentViewController: self)
+        return resultsViewController
+    }()
+    
+    lazy var fakeProgressController: FakeProgressController = {
+        return FakeProgressController(progress: navigationBar, delegate: navigationBar)
+    }()
+
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true)
-        searchBar.showsCancelButton = true
+        searchBar.setShowsCancelButton(true, animated: true)
         return true
     }
     
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        return true
-    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard
+            let query = searchBar.text,
+            query.wmf_hasNonWhitespaceText else {
+                didCancelSearch()
+                return
+        }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true)
-        searchBar.showsCancelButton = false
+        guard (query as NSString).character(at: 0) != NSAttachmentCharacter else {
+            return
+        }
+     
+       search(for: query, suggested: false)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(false)
+        searchBar.text = nil
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    // MARK - Theme
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        searchBar.apply(theme: theme)
+        searchLanguageBarViewController.apply(theme: theme)
+        resultsViewController.apply(theme: theme)
     }
 }

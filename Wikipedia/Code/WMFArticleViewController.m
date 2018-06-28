@@ -638,11 +638,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Progress
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:NO animated:animated];
+    [self.navigationBar setProgressHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:YES animated:animated];
+    [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
