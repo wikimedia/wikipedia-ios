@@ -140,6 +140,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBar.isBackVisible = false
         hidesBottomBarWhenPushed = true
         navigationBarHider.isHidingEnabled = false
         navigationBarHider.isBarHidingEnabled = false
@@ -199,6 +200,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
@@ -243,7 +245,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.setShowsCancelButton(true, animated: true)
         return true
     }
     
@@ -252,9 +253,11 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        searchBar.endEditing(true)
-        searchBar.setShowsCancelButton(false, animated: true)
+        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+            navigationController.popViewController(animated: true)
+        } else {
+            didCancelSearch()
+        }
     }
 
     // MARK - Theme
