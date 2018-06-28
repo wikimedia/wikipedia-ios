@@ -92,13 +92,15 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         if displayType == .singleLanguage {
             subtitle = singleLanguageDescription
             disclosureType = .switch
-            disclosureText = nil
             controlTag = Int(contentGroupKind.rawValue)
             isOn = contentGroupKind.isInFeed
         } else {
             subtitle = multipleLanguagesDescription
             disclosureType = .viewControllerWithDisclosureText
-            disclosureText = disclosureTextString()
+            disclosureText = disclosureTextForContentGroupKind(contentGroupKind)
+        }
+    }
+
     private func disclosureTextForContentGroupKind(_ contentGroupKind: WMFContentGroupKind) -> String {
         let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
         let languageCodes = contentGroupKind.languageCodes
