@@ -23,6 +23,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
+@property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
 
 @end
 
@@ -333,13 +334,33 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     static NSSet *customizableContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
+        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
     });
     return customizableContentGroupKindNumbers;
 }
 
-- (NSArray *)preferredSiteURLs {
-    return [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
++ (NSSet<NSNumber *> *)globalContentGroupKindNumbers {
+    static NSSet *globalContentGroupKindNumbers;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
+    });
+    return globalContentGroupKindNumbers;
+}
+
+- (BOOL)areGlobalContentGroupKindsInFeed {
+    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+        WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
+        NSSet *languageCodes = [self languageCodesForContentGroupKind:globalContentGroupKind];
+        if (languageCodes.count == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+- (NSSet <NSURL *> *)preferredSiteURLs {
+    return [NSSet setWithArray:[MWKLanguageLinkController sharedInstance].preferredSiteURLs];
 }
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -359,8 +380,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
-    NSSet *preferredSiteURLs = [NSSet setWithArray:self.preferredSiteURLs];
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:preferredSiteURLs isOn:isOn];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
@@ -386,29 +406,39 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
+    [self toggleContentGroupKinds:[NSSet setWithObject:@(contentGroupKind)] forSiteURLs:siteURLs isOn:isOn];
+}
+
+- (void)toggleContentGroupKinds:(NSSet <NSNumber *> *)contentGroupKindNumbers forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
         for (NSURL *siteURL in siteURLs) {
-            NSString *key = siteURL.wmf_articleDatabaseKey;
-            NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
-            NSMutableSet *newVisibleContentSources;
+            for (NSNumber *contentGroupKindNumber in contentGroupKindNumbers) {
+                NSString *key = siteURL.wmf_articleDatabaseKey;
+                NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
+                NSMutableSet *newVisibleContentGroupKindNumbers;
 
-            if (oldVisibleContentSources) {
-                newVisibleContentSources = [oldVisibleContentSources mutableCopy];
-            } else {
-                newVisibleContentSources = [NSMutableSet set];
+                if (oldVisibleContentGroupKindNumbers) {
+                    newVisibleContentGroupKindNumbers = [oldVisibleContentGroupKindNumbers mutableCopy];
+                } else {
+                    newVisibleContentGroupKindNumbers = [NSMutableSet set];
+                }
+
+                if (isOn) {
+                    [newVisibleContentGroupKindNumbers addObject:contentGroupKindNumber];
+                } else {
+                    [newVisibleContentGroupKindNumbers removeObject:contentGroupKindNumber];
+                }
+
+                [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
             }
-
-            if (isOn) {
-                [newVisibleContentSources addObject:@(contentGroupKind)];
-            } else {
-                [newVisibleContentSources removeObject:@(contentGroupKind)];
-            }
-
-            [newPreferences setObject:newVisibleContentSources forKey:key];
         }
     } completion:^{
         [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
+}
+
+- (void)toggleGlobalContentGroupKinds:(BOOL)on {
+    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:self.preferredSiteURLs isOn:on];
 }
 
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {

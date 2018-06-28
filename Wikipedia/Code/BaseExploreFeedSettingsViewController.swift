@@ -3,7 +3,6 @@ protocol ExploreFeedSettingsItem {
     var subtitle: String? { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
     var disclosureText: String? { get }
-    var type: ExploreFeedSettingsItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
     var iconBackgroundColor: UIColor? { get }
@@ -29,31 +28,32 @@ struct ExploreFeedSettingsSection {
     let items: [ExploreFeedSettingsItem]
 }
 
-enum ExploreFeedSettingsItemType {
-    case feedCard(WMFContentGroupKind)
-    case language(MWKLanguageLink)
-    case masterSwitch
-}
-
 struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType
+    let subtitle: String?
     let controlTag: Int
     let isOn: Bool
     let siteURL: URL
 
     init(_ languageLink: MWKLanguageLink, controlTag: Int, isOn: Bool) {
-        type = ExploreFeedSettingsItemType.language(languageLink)
         title = languageLink.localizedName
+        subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
         self.isOn = isOn
         siteURL = languageLink.siteURL()
     }
 }
 
+struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
+    let disclosureType: WMFSettingsMenuItemDisclosureType = .switch
+    let title: String = WMFLocalizedString("explore-feed-preferences-global-cards-title", value: "Global cards", comment: "Title for the setting that allows users to toggle non-language specific feed cards")
+    let subtitle: String? = WMFLocalizedString("explore-feed-preferences-global-cards-description", value: "Non-language specific cards", comment: "Description of global feed cards")
+    let controlTag: Int = -2
+    let isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
+}
+
 struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType = .masterSwitch
     let controlTag: Int = -1
     let isOn: Bool
 
@@ -131,6 +131,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         return sections[index]
     }
 
+    open func reload() {
+        self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .none)
+    }
+
 }
 
 // MARK: - UITableViewDataSource
@@ -205,7 +209,7 @@ extension BaseExploreFeedSettingsViewController {
             guard self.shouldReload else {
                 return
             }
-            self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .automatic)
+            self.reload()
         }
     }
 }
