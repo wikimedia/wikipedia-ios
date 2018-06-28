@@ -133,6 +133,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "On all";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
+"explore-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Explore feed.";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
 "explore-feed-preferences-global-cards-title" = "Global cards";
