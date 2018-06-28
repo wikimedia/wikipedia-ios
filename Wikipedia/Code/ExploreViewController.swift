@@ -540,42 +540,26 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard group.contentGroupKind.isCustomizable else {
             return nil
         }
-        switch group.contentGroupKind {
-        case .featuredArticle:
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-all-featured-article-cards", value: "Hide all Featured article cards", comment: "Title of the button to confirm the hiding of all Featured article cards in the explore feed"), style: .default, handler: { (action) in
-                self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
-            }))
-            sheet.addAction(UIAlertAction(title: "Customize Explore feed", style: .default, handler: { (action) in
-                let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
-                let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
-                self.present(themeableNavigationController, animated: true)
-            }))
-            sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
-            return sheet
-        case .relatedPages:
-            guard let url = group.headerContentURL else {
-                return nil
-            }
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
-                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
-                self.dataStore.viewContext.remove(group)
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        case .locationPlaceholder:
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
-                group.wasDismissed = true
-                group.updateVisibility()
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        default:
-            return nil
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let customizeExploreFeed = UIAlertAction(title: "Customize Explore feed", style: .default) { (_) in
+            let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
+            exploreFeedSettingsViewController.showCloseButton = true
+            let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
+            self.present(themeableNavigationController, animated: true)
         }
+        let hideThisCard = UIAlertAction(title: "Hide this card", style: .default) { (_) in
+            //
+        }
+        let hideAllCards = UIAlertAction(title: "Hide all cards of this kind", style: .default) { (_) in
+            self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
+        }
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        sheet.addAction(hideThisCard)
+        sheet.addAction(hideAllCards)
+        sheet.addAction(customizeExploreFeed)
+        sheet.addAction(cancel)
+
+        return sheet
     }
     
     
