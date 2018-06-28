@@ -431,6 +431,34 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     }];
 }
 
+- (void)toggleGlobalContentGroups:(BOOL)on {
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
+        for (NSNumber *contentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+            for (NSURL *siteURL in self.preferredSiteURLs) {
+                NSString *key = siteURL.wmf_articleDatabaseKey;
+                NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
+                NSMutableSet *newVisibleContentSources;
+
+                if (oldVisibleContentSources) {
+                    newVisibleContentSources = [oldVisibleContentSources mutableCopy];
+                } else {
+                    newVisibleContentSources = [NSMutableSet set];
+                }
+
+                if (on) {
+                    [newVisibleContentSources addObject:contentGroupKindNumber];
+                } else {
+                    [newVisibleContentSources removeObject:contentGroupKindNumber];
+                }
+
+                [newPreferences setObject:newVisibleContentSources forKey:key];
+            }
+        }
+    } completion:^{
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
+    }];
+}
+
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {

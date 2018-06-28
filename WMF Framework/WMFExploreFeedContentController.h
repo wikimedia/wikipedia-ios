@@ -54,6 +54,14 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
 
+
+/**
+ Toggles non-language specific content group kinds (Because you read, Continue reading and Picture of the day)
+
+ @param on A flag indicating whether non-language specific groups should be visible in the feed.
+ */
+- (void)toggleGlobalContentGroups:(BOOL)on;
+
 /**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.
 
