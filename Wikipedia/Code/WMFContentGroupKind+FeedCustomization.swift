@@ -15,4 +15,8 @@ extension WMFContentGroupKind {
             return false
         }
     }
+
+    var languageCodes: Set<String> {
+        return SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self)
+    }
 }
