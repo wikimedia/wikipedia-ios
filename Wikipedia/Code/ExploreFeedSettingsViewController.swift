@@ -19,12 +19,6 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
 
         let disclosureTextString: () -> String = {
             let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
-            if (languageCodes.count == preferredLanguages.count) {
-                return WMFLocalizedString("explore-feed-preferences-feed-card-visibility-all-languages", value: "On all", comment: "Text for Explore feed card setting indicating that the feed card is active in all preferred languages")
-            } else if languageCodes.count > 0 {
-                return String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-card-visibility-languages-count", value:"On %1$d", comment: "Text for Explore feed card setting indicating the number of languages it's visible in - %1$d is replaced with the number of languages"), languageCodes.count)
-            } else {
-                return WMFLocalizedString("explore-feed-preferences-feed-card-visibility-no-languages", value: "On all", comment: "Text for Explore feed card setting indicating that the feed card is hidden in all preferred languages")
             }
         }
 
