@@ -19,6 +19,10 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visiblity of the Places card")
         case .random:
             return WMFLocalizedString("explore-feed-preferences-show-randomizer-title", value: "Show Randomizer card", comment: "Text for the setting that allows users to toggle the visiblity of the Randomizer card")
+        case .continueReading:
+            return WMFLocalizedString("explore-feed-preferences-show-continue-reading-title", value: "Show Continue reading card", comment: "Text for the setting that allows users to toggle the visiblity of the Continue reading card")
+        case .relatedPages:
+            return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visiblity of the Because you read card")
         default:
             assertionFailure("\(self) is not customizable")
             return ""
