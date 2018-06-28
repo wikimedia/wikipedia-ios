@@ -88,12 +88,12 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         return MWKLanguageLinkController.sharedInstance().preferredLanguages
     }
 
-    lazy var languages: [ExploreFeedSettingsLanguage] = {
+    var languages: [ExploreFeedSettingsLanguage] {
         let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
             ExploreFeedSettingsLanguage(languageLink, controlTag: index, isOn: isLanguageSwitchOn(for: languageLink))
         }
         return languages
-    }()
+    }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
