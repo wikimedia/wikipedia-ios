@@ -42,7 +42,8 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeMain = 0,
     WMFAppTabTypePlaces,
     WMFAppTabTypeSaved,
-    WMFAppTabTypeRecent
+    WMFAppTabTypeRecent,
+    WMFAppTabTypeSearch
 };
 
 /**
@@ -55,7 +56,7 @@ typedef NS_ENUM(NSUInteger, WMFAppTabType) {
  *
  *  @see WMFAppTabType
  */
-static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
+static NSUInteger const WMFAppTabCount = WMFAppTabTypeSearch + 1;
 
 static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 * 60;
 
@@ -68,7 +69,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
-@property (nonatomic, strong) ExploreViewController *exploreViewController;
+@property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
+@property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
@@ -103,7 +105,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong) WMFTheme *theme;
 
-@property (nonatomic, strong) SearchViewController *searchViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
@@ -120,6 +121,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @end
 
 @implementation WMFAppViewController
+@synthesize exploreViewController = _exploreViewController;
+@synthesize searchViewController = _searchViewController;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -234,6 +237,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self configureTabController];
     [self configurePlacesViewController];
     [self configureSavedViewController];
+
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
@@ -258,9 +262,15 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             case WMFAppTabTypeRecent:
                 navigationController.title = [WMFCommonStrings historyTabTitle];
                 break;
+            case WMFAppTabTypeSearch:
+                [navigationController setNavigationBarHidden:YES animated:NO];
+                navigationController.title = [WMFCommonStrings searchTitle];
+                [navigationController setViewControllers:@[self.searchViewController] animated:NO];
+                break;
             case WMFAppTabTypeMain:
-            default:
                 [self configureDefaultNavigationController:navigationController animated:NO];
+                break;
+            default:
                 break;
         }
     }
@@ -858,7 +868,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         }
     }
 
-    self.searchViewController = nil;
     self.settingsViewController = nil;
 
     [self.dataStore.feedContentController stopContentSources];
@@ -904,7 +913,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         return;
     }
     [super didReceiveMemoryWarning];
-    self.searchViewController = nil;
     self.settingsViewController = nil;
     [self.dataStore clearMemoryCache];
 }
@@ -953,7 +961,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self switchToExploreAndShowSearchAnimated:NO];
+        [self switchToSearch:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
@@ -1082,10 +1090,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
-            [self switchToExploreAndShowSearchAnimated:animated];
+            [self showSearchInCurrentNavigationController];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self switchToExploreAndShowSearchAnimated:animated];
+            [self switchToSearch:YES];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             [self.searchViewController search];
             break;
@@ -1232,6 +1240,16 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     return _exploreViewController;
 }
 
+- (SearchViewController *)searchViewController {
+    if (!_searchViewController) {
+        _searchViewController = [[SearchViewController alloc] init];
+        [_searchViewController applyTheme:self.theme];
+        _searchViewController.dataStore = self.dataStore;
+        _searchViewController.isRoot = true;
+    }
+    return _searchViewController;
+}
+
 - (WMFSavedViewController *)savedViewController {
     return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
@@ -1374,12 +1392,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Show Search
 
-- (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
+- (void)switchToSearch:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    if (self.rootTabBarController.selectedIndex != WMFAppTabTypeMain) {
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    if (self.rootTabBarController.selectedIndex != WMFAppTabTypeSearch) {
+        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
     }
-    [self showSearchAnimated:animated];
 }
 
 #pragma mark - App Shortcuts
@@ -1486,7 +1503,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     navigationController.interactivePopGestureRecognizer.delegate = self;
     [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
     if ([viewController conformsToProtocol:@protocol(WMFSearchButtonProviding)] && viewController.navigationItem.rightBarButtonItem == nil) {
-        WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearch)];
+        WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearchInCurrentNavigationController)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
         if ([viewController isKindOfClass:[ExploreViewController class]]) {
             viewController.navigationItem.rightBarButtonItem.customView.alpha = 0;
@@ -1753,8 +1770,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Search
 
-- (void)showSearch {
-    [self showSearchAnimated:YES];
+- (void)showSearchInCurrentNavigationController {
+    [self showSearchInCurrentNavigationControllerAnimated:YES];
 }
 
 - (void)showSettings {
@@ -1767,12 +1784,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showSearchAnimated:(BOOL)animated {
+- (void)showSearchInCurrentNavigationControllerAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
-    SearchViewController *searchVC = [[SearchViewController alloc] initWithDataStore:self.dataStore];
+    SearchViewController *searchVC = [[SearchViewController alloc] init];
     [searchVC applyTheme:self.theme];
-    self.searchViewController = searchVC;
+    searchVC.dataStore = self.dataStore;
     
     [self dismissReadingThemesPopoverIfActive];
 
@@ -1781,7 +1798,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     
-    [vc pushViewController:self.searchViewController animated:true];
+    [vc pushViewController:searchVC animated:true];
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {

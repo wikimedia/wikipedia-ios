@@ -1,33 +1,30 @@
 import UIKit
 
-// WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms")
-// WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}")
-// WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
-
-//- (IBAction)clearRecentSearches:(id)sender {
-//    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
-//
-//    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
-//
-//    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
-//        style:UIAlertActionStyleDestructive
-//        handler:^(UIAlertAction *_Nonnull action) {
-//        [self didCancelSearch];
-//        [self.dataStore.recentSearchList removeAllEntries];
-//        [self.dataStore.recentSearchList save];
-//        [self updateRecentSearches];
-//        [self updateRecentSearchesVisibility:YES];
-//        }]];
-//    [self presentViewController:dialog animated:YES completion:NULL];
-//}
-
 class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
-
-    let dataStore: MWKDataStore
-    @objc required init(dataStore: MWKDataStore) {
-        self.dataStore = dataStore
-        super.init()
-        title = WMFLocalizedString("search-title", value: "Search", comment: "Title for search interface.\n{{Identical|Search}}")
+    @objc var dataStore: MWKDataStore!
+    @objc var isRoot: Bool = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationBar.isBackVisible = false
+        if !isRoot {
+            hidesBottomBarWhenPushed = true
+        }
+        navigationBarHider.isHidingEnabled = false
+        navigationBarHider.isBarHidingEnabled = false
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        updateLanguageBarVisibility()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBar.becomeFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        funnel.logSearchStart()
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
     }
     
     @objc var searchTerm: String? {
@@ -134,31 +131,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        abort()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationBar.isBackVisible = false
-        hidesBottomBarWhenPushed = true
-        navigationBarHider.isHidingEnabled = false
-        navigationBarHider.isBarHidingEnabled = false
-        navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        updateLanguageBarVisibility()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        searchBar.becomeFirstResponder()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        funnel.logSearchStart()
-        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-    }
-    
     private func updateLanguageBarVisibility() {
         if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
@@ -256,6 +228,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
             navigationController.popViewController(animated: true)
         } else {
+            searchBar.endEditing(true)
             didCancelSearch()
         }
     }
@@ -264,8 +237,33 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         searchBar.apply(theme: theme)
         searchLanguageBarViewController.apply(theme: theme)
         resultsViewController.apply(theme: theme)
     }
 }
+
+// Keep
+// WMFLocalizedStringWithDefaultValue(@"search-recent-title", nil, nil, @"Recently searched", @"Title for list of recent search terms")
+// WMFLocalizedStringWithDefaultValue(@"menu-trash-accessibility-label", nil, nil, @"Delete", @"Accessible label for trash button\n{{Identical|Delete}}")
+// WMFLocalizedStringWithDefaultValue(@"search-did-you-mean", nil, nil, @"Did you mean %1$@?", @"Button text for searching for an alternate spelling of the search term. Parameters:\n* %1$@ - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'")
+
+//- (IBAction)clearRecentSearches:(id)sender {
+//    UIAlertController *dialog = [UIAlertController alertControllerWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-heading", nil, nil, @"Delete all recent searches?", @"Heading text of delete all confirmation dialog") message:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-confirmation-sub-heading", nil, nil, @"This action cannot be undone!", @"Sub-heading text of delete all confirmation dialog") preferredStyle:UIAlertControllerStyleAlert];
+//
+//    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-cancel", nil, nil, @"Cancel", @"Button text for cancelling delete all action\n{{Identical|Cancel}}") style:UIAlertActionStyleCancel handler:NULL]];
+//
+//    [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"search-recent-clear-delete-all", nil, nil, @"Delete All", @"Button text for confirming delete all action\n{{Identical|Delete all}}")
+//        style:UIAlertActionStyleDestructive
+//        handler:^(UIAlertAction *_Nonnull action) {
+//        [self didCancelSearch];
+//        [self.dataStore.recentSearchList removeAllEntries];
+//        [self.dataStore.recentSearchList save];
+//        [self updateRecentSearches];
+//        [self updateRecentSearchesVisibility:YES];
+//        }]];
+//    [self presentViewController:dialog animated:YES completion:NULL];
+//}
