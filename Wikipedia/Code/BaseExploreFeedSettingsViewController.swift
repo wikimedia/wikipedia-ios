@@ -75,9 +75,11 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedSectionFooterHeight = 44
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidChange(_:)), name: NSNotification.Name.WMFExplorePreferencesDidChange, object: nil)
     }
@@ -92,6 +94,11 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         }
         return languages
     }()
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableView.reloadData()
+    }
 
     var feedContentController: WMFExploreFeedContentController? {
         return dataStore?.feedContentController
@@ -190,6 +197,13 @@ extension BaseExploreFeedSettingsViewController: UITableViewDelegate {
             footer.apply(theme: theme)
         }
         return footer
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+            return 0
+        }
+        return UITableViewAutomaticDimension
     }
 }
 
