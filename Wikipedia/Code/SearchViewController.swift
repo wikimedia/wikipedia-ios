@@ -44,17 +44,25 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     }
     
     @objc func search() {
-
+        search(for: searchTerm, suggested: false)
     }
     
-    private func search(for searchTerm: String, suggested: Bool) {
+    private func search(for searchTerm: String?, suggested: Bool) {
         guard let siteURL = siteURL else {
             assert(false)
             return
         }
         
-        guard searchTerm.wmf_hasNonWhitespaceText else {
+        guard
+            let searchTerm = searchTerm,
+            searchTerm.wmf_hasNonWhitespaceText
+        else {
+            didCancelSearch()
                 return
+        }
+        
+        guard (searchTerm as NSString).character(at: 0) != NSAttachmentCharacter else {
+            return
         }
         
         let start = Date()
@@ -91,6 +99,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
                     self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
                     return
                 }
+                self.resultsViewController.wmf_hideEmptyView()
                 self.resultsViewController.resultsInfo = results
                 self.resultsViewController.searchSiteURL = siteURL
                 self.resultsViewController.results = resultsArray
@@ -239,18 +248,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard
-            let query = searchBar.text,
-            query.wmf_hasNonWhitespaceText else {
-                didCancelSearch()
-                return
-        }
-    
-        guard (query as NSString).character(at: 0) != NSAttachmentCharacter else {
-            return
-        }
-     
-       search(for: query, suggested: false)
+        search(for: searchBar.text, suggested: false)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
