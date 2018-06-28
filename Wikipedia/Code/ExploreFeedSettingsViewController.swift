@@ -62,6 +62,8 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
             iconColor = .wmf_purple
             iconBackgroundColor = .wmf_lightPurple
         case .location:
+            fallthrough
+        case .locationPlaceholder:
             title = CommonStrings.placesTabTitle
             feedCardDescription = WMFLocalizedString("explore-feed-preferences-places-description", value: "Wikipedia articles near your location", comment: "Description of Places section of Explore feed")
             iconName = "nearby-mini"
@@ -134,7 +136,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
         let topRead = FeedCard(contentGroupKind: .topRead, displayType: displayType)
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
-        let places = FeedCard(contentGroupKind: .location, displayType: displayType)
+        let places = FeedCard(contentGroupKind: WMFLocationManager.isAuthorized() ? .location : .locationPlaceholder, displayType: displayType)
         let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
 
         let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
@@ -153,10 +155,13 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension ExploreFeedSettingsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard displayType == .multipleLanguages else {
+            return
+        }
         let item = getItem(at: indexPath)
         switch item.type {
         case .feedCard(let contentGroupKind):
-            let feedCardSettingsViewController = FeedCardSettingsViewController(nibName: "BaseExploreFeedSettingsViewController", bundle: nil)
+            let feedCardSettingsViewController = FeedCardSettingsViewController()
             feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: contentGroupKind, theme: theme)
             navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         default:
