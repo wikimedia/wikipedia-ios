@@ -338,6 +338,15 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return customizableContentGroupKindNumbers;
 }
 
++ (NSSet<NSNumber *> *)globalContentGroupKindNumbers {
+    static NSSet *globalContentGroupKindNumbers;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        globalContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
+    });
+    return globalContentGroupKindNumbers;
+}
+
 - (NSArray *)preferredSiteURLs {
     return [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
 }
