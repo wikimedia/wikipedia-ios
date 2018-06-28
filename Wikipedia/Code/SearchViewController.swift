@@ -6,8 +6,9 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isBackVisible = false
-        if !isRoot {
+        if isRoot {
+            navigationBar.isBackVisible = false
+        } else {
             hidesBottomBarWhenPushed = true
         }
         navigationBarHider.isHidingEnabled = false
@@ -172,7 +173,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.showsCancelButton = true
+        searchBar.showsCancelButton = isRoot
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
