@@ -74,6 +74,12 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 + (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
 
 /**
+ Returns a set of integers that represent non-language specific content group kinds.
+ */
++ (nonnull NSSet<NSNumber *> *)globalContentGroupKindNumbers;
+
+
+/**
  Indicates whether non-language specific group kinds are visible in the feed.
  */
 @property (nonatomic, readonly) BOOL areGlobalContentGroupKindsInFeed;
