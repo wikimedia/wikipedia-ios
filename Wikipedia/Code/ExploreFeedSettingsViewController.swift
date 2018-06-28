@@ -175,8 +175,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let master = ExploreFeedSettingsMaster(title: WMFLocalizedString("explore-feed-preferences-turn-off-feed", value: "Turn off Explore tab", comment: "Text for the setting that allows users to turn off Explore tab"), isOn: UserDefaults.wmf_userDefaults().defaultTabType != .explore)
         let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [master])
 
-        let sections = displayType == .singleLanguage ? [customization, main] : [customization, languages, main]
-        return sections
+        if displayType == .singleLanguage {
+            return [customization, main]
+        } else {
+            return [customization, languages, main]
+        }
     }
 }
 
