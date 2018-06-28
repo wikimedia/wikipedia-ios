@@ -22,7 +22,6 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         case .news:
             title = CommonStrings.inTheNewsTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-in-the-news-description", value: "Articles about current events", comment: "Description of In the news section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "in-the-news-mini"
             iconColor = .wmf_lightGray
             iconBackgroundColor = .wmf_lighterGray
@@ -87,7 +86,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         if contentGroupKind.isGlobal {
             multipleLanguagesDescription = "Not language specific"
         } else {
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
+            multipleLanguagesDescription = contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
         }
 
         if displayType == .singleLanguage {
