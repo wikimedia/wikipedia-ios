@@ -19,6 +19,15 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
 
         let disclosureTextString: () -> String = {
             let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+            switch languageCodes.count {
+            case 1... where contentGroupKind.isGlobal:
+                return CommonStrings.onTitle
+            case preferredLanguages.count:
+                return CommonStrings.onAllTitle
+            case 1...:
+                return CommonStrings.onTitle(languageCodes.count)
+            default:
+                return CommonStrings.offTitle
             }
         }
 
