@@ -70,7 +70,7 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
             iconBackgroundColor = .wmf_lightGreen
         case .random:
             title = CommonStrings.randomizerTitle
-            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random artilces to read", comment: "Description of Randomizer section of Explore feed")
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random articles to read", comment: "Description of Randomizer section of Explore feed")
             iconName = "random-mini"
             iconColor = .wmf_red
             iconBackgroundColor = .wmf_lightRed
