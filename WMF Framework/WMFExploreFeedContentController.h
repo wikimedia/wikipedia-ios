@@ -60,7 +60,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
  @param on A flag indicating whether non-language specific groups should be visible in the feed.
  */
-- (void)toggleGlobalContentGroups:(BOOL)on;
+- (void)toggleGlobalContentGroupKinds:(BOOL)on;
 
 /**
  Returns a set of language codes representing languages in which a given content group kind is visible in the feed.

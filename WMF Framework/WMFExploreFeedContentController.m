@@ -459,6 +459,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     }];
 }
 
+- (void)toggleGlobalContentGroupKinds:(BOOL)on {
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {

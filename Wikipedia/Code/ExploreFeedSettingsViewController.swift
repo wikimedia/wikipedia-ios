@@ -218,7 +218,7 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -2 else { // global cards
-            feedContentController.toggleGlobalContentGroups(sender.isOn)
+            feedContentController.toggleGlobalContentGroupKinds(sender.isOn)
             return
         }
         if displayType == .singleLanguage {
