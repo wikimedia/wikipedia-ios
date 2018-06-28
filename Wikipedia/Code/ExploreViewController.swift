@@ -23,6 +23,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
        return ColumnarCollectionViewControllerLayoutCache()
     }()
     
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
@@ -340,16 +342,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        layoutCache.reset()
-        super.traitCollectionDidChange(previousTraitCollection)
-        registerForPreviewingIfAvailable()
-    }
-    
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         layoutCache.reset()
         super.contentSizeCategoryDidChange(notification)
-        collectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
