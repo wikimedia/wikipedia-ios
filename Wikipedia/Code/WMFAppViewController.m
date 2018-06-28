@@ -16,7 +16,6 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers
-#import "WMFSearchViewController.h"
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
@@ -104,7 +103,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong) WMFTheme *theme;
 
-@property (nonatomic, strong) WMFSearchViewController *searchViewController;
+@property (nonatomic, strong) SearchViewController *searchViewController;
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
@@ -1088,7 +1087,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         case WMFUserActivityTypeSearchResults:
             [self switchToExploreAndShowSearchAnimated:animated];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
-            [self.searchViewController performSearchWithCurrentSearchTerm];
+            [self.searchViewController search];
             break;
         case WMFUserActivityTypeArticle: {
             NSURL *URL = [activity wmf_articleURL];
@@ -1376,9 +1375,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Show Search
 
 - (void)switchToExploreAndShowSearchAnimated:(BOOL)animated {
-    if (self.presentedViewController && self.presentedViewController == self.searchViewController) {
-        return;
-    }
     [self dismissPresentedViewControllers];
     if (self.rootTabBarController.selectedIndex != WMFAppTabTypeMain) {
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
@@ -1774,15 +1770,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showSearchAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
-    if (!self.searchViewController) {
-        WMFSearchViewController *searchVC =
-            [WMFSearchViewController searchViewControllerWithDataStore:self.dataStore];
-        [searchVC applyTheme:self.theme];
-        self.searchViewController = searchVC;
-    }
+    SearchViewController *searchVC = [[SearchViewController alloc] initWithDataStore:self.dataStore];
+    [searchVC applyTheme:self.theme];
+    self.searchViewController = searchVC;
+    
     [self dismissReadingThemesPopoverIfActive];
 
-    [self presentViewController:self.searchViewController animated:animated completion:nil];
+    id vc = [self.rootTabBarController selectedViewController];
+    if (![vc isKindOfClass:[UINavigationController class]]) {
+        return;
+    }
+    
+    [vc pushViewController:self.searchViewController animated:true];
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {

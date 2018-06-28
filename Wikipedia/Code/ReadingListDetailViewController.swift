@@ -112,7 +112,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func setNavigationBarHidingEnabled(_ enabled: Bool) {
-        navigationBarHider.isExtendedViewHidingEnabled = enabled
+        navigationBar .isExtendedViewHidingEnabled = enabled
         navigationBarHider.isBarHidingEnabled = enabled
     }
     

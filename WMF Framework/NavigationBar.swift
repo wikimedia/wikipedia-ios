@@ -10,8 +10,8 @@ public class NavigationBar: SetupView {
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
-    var isUnderBarViewHidingEnabled: Bool = true
-    var isExtendedViewHidingEnabled: Bool = true
+    public var isUnderBarViewHidingEnabled: Bool = false
+    public var isExtendedViewHidingEnabled: Bool = false
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -262,6 +262,12 @@ public class NavigationBar: SetupView {
             self.extendedView.alpha = 1.0 - extendedViewPercentHidden
         }
         
+        if isExtendedViewHidingEnabled {
+            self.shadow.alpha = extendedViewPercentHidden
+        } else {
+            self.shadow.alpha = 1.0
+        }
+        
         self.progressView.transform = totalTransform
         self.shadow.transform = totalTransform
     }
@@ -352,7 +358,7 @@ extension NavigationBar: Themeable {
         
         extendedView.backgroundColor = theme.colors.paperBackground
         
-        shadow.backgroundColor = theme.colors.paperBackground
+        shadow.backgroundColor = theme.colors.chromeShadow
         
         progressView.progressViewStyle = .bar
         progressView.trackTintColor = .clear

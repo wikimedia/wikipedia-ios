@@ -12,7 +12,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
-        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
+        navigationBar.addExtendedNavigationBarView(searchView)
+        navigationBar.isExtendedViewHidingEnabled = true
         isRefreshControlEnabled = true
     }
     
@@ -135,11 +136,22 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK - Search
-    let searchBarPadding = UIEdgeInsets(top: 8, left: 4, bottom: 8, right: 4)
+    lazy var searchView: UIStackView = {
+        let searchContainerView = UIStackView()
+        searchContainerView.axis = .vertical
+        searchContainerView.addArrangedSubview(searchBarContainerView)
+        return searchContainerView
+    }()
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
-        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: searchBarPadding, priority: .required)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchContainerView.addSubview(searchBar)
+        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
+        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
+        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
+        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
+        searchContainerView.addConstraints([leading, trailing, top, bottom])
         return searchContainerView
     }()
     
@@ -152,12 +164,36 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return searchBar
     }()
     
+    var searchLanguageBarViewController: SearchLanguagesBarViewController?
+        
+    func setupSearchLanguageBarViewController() {
+        guard searchLanguageBarViewController == nil else {
+            return
+        }
+        let newSearchLanguageBarViewController = SearchLanguagesBarViewController()
+        newSearchLanguageBarViewController.apply(theme: theme)
+        addChildViewController(newSearchLanguageBarViewController)
+        searchView.addArrangedSubview(newSearchLanguageBarViewController.view)
+        newSearchLanguageBarViewController.didMove(toParentViewController: self)
+        searchLanguageBarViewController = newSearchLanguageBarViewController
+    }
+    
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let searchActivity = NSUserActivity.wmf_searchView()
-        NotificationCenter.default.post(name: .WMFNavigateToActivity, object: searchActivity)
-        return false
+        searchBar.setShowsCancelButton(true, animated: true)
+        if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
+            setupSearchLanguageBarViewController()
+            searchLanguageBarViewController?.view.isHidden = false
+        }
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.endEditing(true)
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchLanguageBarViewController?.view.isHidden = true
     }
     
     // MARK - State

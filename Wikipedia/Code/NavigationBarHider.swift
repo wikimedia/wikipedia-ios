@@ -38,18 +38,6 @@ public class NavigationBarHider: NSObject {
     public var isHidingEnabled: Bool = true
     public var isBarHidingEnabled: Bool = true
     
-    public var isUnderBarViewHidingEnabled: Bool = true {
-        didSet {
-            navigationBar?.isUnderBarViewHidingEnabled = isUnderBarViewHidingEnabled
-        }
-    }
-    
-    public var isExtendedViewHidingEnabled: Bool = true {
-        didSet {
-            navigationBar?.isExtendedViewHidingEnabled = isExtendedViewHidingEnabled
-        }
-    }
-    
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar, isHidingEnabled else {
             return
@@ -84,8 +72,8 @@ public class NavigationBarHider: NSObject {
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
-        let shouldHideUnderBarView = isUnderBarViewHidingEnabled && underBarViewHeight > 0
-        let shouldHideExtendedView = isExtendedViewHidingEnabled && extendedViewHeight > 0
+        let shouldHideUnderBarView = navigationBar.isUnderBarViewHidingEnabled && underBarViewHeight > 0
+        let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0
 
         if shouldHideUnderBarView {
             underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage

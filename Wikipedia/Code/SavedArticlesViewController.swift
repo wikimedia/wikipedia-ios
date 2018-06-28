@@ -56,7 +56,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
         super.viewWillHaveFirstAppearance(animated)
         navigationBarHider.isBarHidingEnabled = false
-        navigationBarHider.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
