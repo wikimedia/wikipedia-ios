@@ -1,6 +1,6 @@
 import UIKit
 
-private struct FeedCard: ExploreFeedSettingsSwitchItem {
+private class FeedCard: ExploreFeedSettingsSwitchItem {
     let contentGroupKind: WMFContentGroupKind
     let title: String
     let subtitle: String?
