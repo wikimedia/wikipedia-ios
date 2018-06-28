@@ -115,6 +115,27 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
             return CommonStrings.offTitle
         }
     }
+
+    func updateIsOn(for displayType: DisplayType) {
+        guard displayType == .singleLanguage else {
+            return
+        }
+        isOn = contentGroupKind.isInFeed
+    }
+
+    func updateDisclosureText(for displayType: DisplayType) {
+        guard displayType == .multipleLanguages else {
+            return
+        }
+        disclosureText = disclosureTextForContentGroupKind(contentGroupKind)
+    }
+
+    func updateSubtitle(for displayType: DisplayType) {
+        guard displayType == .multipleLanguages else {
+            return
+        }
+        self.subtitle = contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
+    }
 }
 
 private enum DisplayType {
