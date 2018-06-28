@@ -482,14 +482,13 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             return;
         }
 
-        [[WMFAuthenticationManager sharedInstance]
-            attemptLogin:^{
-                [self.dataStore.readingListsController backgroundUpdate:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
-                    });
-                }];
-            }
+        [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
+            [self.dataStore.readingListsController backgroundUpdate:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
+                });
+            }];
+        }
             failure:^(NSError *error) {
                 if ([error.domain isEqualToString:NSURLErrorDomain]) {
                     return;
@@ -692,11 +691,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
         completion();
     } else {
-        [self.dataStore
-            removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-                DDLogError(@"Error during article migration: %@", error);
-                completion();
-            }
+        [self.dataStore removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
+            DDLogError(@"Error during article migration: %@", error);
+            completion();
+        }
             success:^{
                 [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
                 completion();
@@ -768,13 +766,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
-    [[WMFAuthenticationManager sharedInstance]
-        attemptLogin:^{
-            [self checkRemoteAppConfigIfNecessary];
-            [self.dataStore.readingListsController start];
-            [self.savedArticlesFetcher start];
-            self.resumeComplete = YES;
-        }
+    [[WMFAuthenticationManager sharedInstance] attemptLogin:^{
+        [self checkRemoteAppConfigIfNecessary];
+        [self.dataStore.readingListsController start];
+        [self.savedArticlesFetcher start];
+        self.resumeComplete = YES;
+    }
         failure:^(NSError *error) {
             if ([error.domain isEqualToString:NSURLErrorDomain]) {
                 return;
@@ -1671,7 +1668,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
@@ -1790,35 +1787,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showSearchInCurrentNavigationControllerAnimated:(BOOL)animated {
     NSParameterAssert(self.dataStore);
 
+    SearchViewController *searchVC = [[SearchViewController alloc] init];
+    [searchVC applyTheme:self.theme];
+    searchVC.dataStore = self.dataStore;
+    
     [self dismissReadingThemesPopoverIfActive];
 
     id vc = [self.rootTabBarController selectedViewController];
     if (![vc isKindOfClass:[UINavigationController class]]) {
         return;
     }
-
-    UINavigationController *nc = (UINavigationController *)vc;
-    NSArray *vcs = nc.viewControllers;
-    NSMutableArray *mutableVCs = [vcs mutableCopy];
-    SearchViewController *searchVC = nil;
-    NSInteger index = 0;
-    for (id vc in nc.viewControllers) {
-        if (![vc isKindOfClass:[SearchViewController class]]) {
-            index++;
-            continue;
-        }
-        searchVC = vc;
-        [mutableVCs removeObjectAtIndex:index];
-    }
-
-    if (searchVC) {
-        [nc setViewControllers:mutableVCs animated:NO];
-    } else {
-        searchVC = [[SearchViewController alloc] init];
-        [searchVC applyTheme:self.theme];
-        searchVC.dataStore = self.dataStore;
-    }
-
+    
     [vc pushViewController:searchVC animated:true];
 }
 
