@@ -3,9 +3,9 @@ import UIKit
 private class FeedCard: ExploreFeedSettingsSwitchItem {
     let contentGroupKind: WMFContentGroupKind
     let title: String
-    let subtitle: String?
+    var subtitle: String?
     let disclosureType: WMFSettingsMenuItemDisclosureType
-    let disclosureText: String?
+    var disclosureText: String? = nil
     let iconName: String?
     let iconColor: UIColor?
     let iconBackgroundColor: UIColor?
