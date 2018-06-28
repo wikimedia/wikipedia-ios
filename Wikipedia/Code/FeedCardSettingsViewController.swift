@@ -117,6 +117,10 @@ extension FeedCardSettingsViewController {
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
             return
         }
+        guard controlTag != -2 else { // global cards
+            feedContentController.toggleGlobalContentGroups(sender.isOn)
+            return
+        }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
             assertionFailure("No language for a given control tag")
             return
