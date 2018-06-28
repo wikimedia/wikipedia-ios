@@ -57,56 +57,6 @@ import UIKit
     }
 }
 
-let fontSizeTable: [FontFamily:[UIFontTextStyle:[UIContentSizeCategory:CGFloat]]] = {
-    return [
-        .georgia:[
-            UIFontTextStyle.title1: [
-                .accessibilityExtraExtraExtraLarge: 28,
-                .accessibilityExtraExtraLarge: 28,
-                .accessibilityExtraLarge: 28,
-                .accessibilityLarge: 28,
-                .accessibilityMedium: 28,
-                .extraExtraExtraLarge: 26,
-                .extraExtraLarge: 24,
-                .extraLarge: 22,
-                .large: 21,
-                .medium: 20,
-                .small: 19,
-                .extraSmall: 18
-            ],
-            UIFontTextStyle.title2: [
-                .accessibilityExtraExtraExtraLarge: 24,
-                .accessibilityExtraExtraLarge: 24,
-                .accessibilityExtraLarge: 24,
-                .accessibilityLarge: 24,
-                .accessibilityMedium: 24,
-                .extraExtraExtraLarge: 22,
-                .extraExtraLarge: 20,
-                .extraLarge: 19,
-                .large: 18,
-                .medium: 17,
-                .small: 16,
-                .extraSmall: 15
-            ],
-            UIFontTextStyle.title3: [
-                .accessibilityExtraExtraExtraLarge: 23,
-                .accessibilityExtraExtraLarge: 23,
-                .accessibilityExtraLarge: 23,
-                .accessibilityLarge: 23,
-                .accessibilityMedium: 23,
-                .extraExtraExtraLarge: 21,
-                .extraExtraLarge: 19,
-                .extraLarge: 18,
-                .large: 17,
-                .medium: 16,
-                .small: 15,
-                .extraSmall: 14
-            ]
-        ],
-    ]
-}()
-
-
 public extension UITraitCollection {
     var wmf_preferredContentSizeCategory: UIContentSizeCategory {
          return preferredContentSizeCategory
@@ -129,12 +79,8 @@ public extension UIFont {
         guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
-        
-        let preferredContentSizeCategory = traitCollection.wmf_preferredContentSizeCategory
-        
-        let familyTable: [UIFontTextStyle:[UIContentSizeCategory:CGFloat]]? = fontSizeTable[fontFamily]
-        let styleTable: [UIContentSizeCategory:CGFloat]? = familyTable?[style]
-        let size: CGFloat = styleTable?[preferredContentSizeCategory] ?? UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
+                
+        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
 
         let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
         if let font = fontCache[cacheKey] {
