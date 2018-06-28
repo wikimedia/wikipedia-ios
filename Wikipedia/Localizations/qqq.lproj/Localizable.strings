@@ -58,10 +58,10 @@
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement\n{{Identical|No thanks}}";
-"app-store-keywords" = "Short list of keywords describing the app - for the app store";
-"app-store-release-notes" = "Short summary of what is new in this version of the app - for the app store";
+"app-store-keywords" = "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.";
+"app-store-release-notes" = "Short summary of what is new in this version of the app for the app store";
 "app-store-short-description" = "Short description of the app for the app store";
-"app-store-subtitle" = "Subtitle describing the app - for the app store";
+"app-store-subtitle" = "Subtitle describing the app for the app store";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
 "appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
