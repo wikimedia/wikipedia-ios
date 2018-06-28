@@ -402,52 +402,30 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
-    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
-        for (NSURL *siteURL in siteURLs) {
-            NSString *key = siteURL.wmf_articleDatabaseKey;
-            NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
-            NSMutableSet *newVisibleContentSources;
-
-            if (oldVisibleContentSources) {
-                newVisibleContentSources = [oldVisibleContentSources mutableCopy];
-            } else {
-                newVisibleContentSources = [NSMutableSet set];
-            }
-
-            if (isOn) {
-                [newVisibleContentSources addObject:@(contentGroupKind)];
-            } else {
-                [newVisibleContentSources removeObject:@(contentGroupKind)];
-            }
-
-            [newPreferences setObject:newVisibleContentSources forKey:key];
-        }
-    } completion:^{
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    [self toggleContentGroupKinds:[NSSet setWithObject:@(contentGroupKind)] forSiteURLs:siteURLs isOn:isOn];
 }
 
-- (void)toggleGlobalContentGroups:(BOOL)on {
+- (void)toggleContentGroupKinds:(NSSet <NSNumber *> *)contentGroupKindNumbers forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
-        for (NSNumber *contentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
-            for (NSURL *siteURL in self.preferredSiteURLs) {
+        for (NSURL *siteURL in siteURLs) {
+            for (NSNumber *contentGroupKindNumber in contentGroupKindNumbers) {
                 NSString *key = siteURL.wmf_articleDatabaseKey;
-                NSSet *oldVisibleContentSources = [newPreferences objectForKey:key];
-                NSMutableSet *newVisibleContentSources;
+                NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
+                NSMutableSet *newVisibleContentGroupKindNumbers;
 
-                if (oldVisibleContentSources) {
-                    newVisibleContentSources = [oldVisibleContentSources mutableCopy];
+                if (oldVisibleContentGroupKindNumbers) {
+                    newVisibleContentGroupKindNumbers = [oldVisibleContentGroupKindNumbers mutableCopy];
                 } else {
-                    newVisibleContentSources = [NSMutableSet set];
+                    newVisibleContentGroupKindNumbers = [NSMutableSet set];
                 }
 
-                if (on) {
-                    [newVisibleContentSources addObject:contentGroupKindNumber];
+                if (isOn) {
+                    [newVisibleContentGroupKindNumbers addObject:contentGroupKindNumber];
                 } else {
-                    [newVisibleContentSources removeObject:contentGroupKindNumber];
+                    [newVisibleContentGroupKindNumbers removeObject:contentGroupKindNumber];
                 }
 
-                [newPreferences setObject:newVisibleContentSources forKey:key];
+                [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
             }
         }
     } completion:^{
@@ -456,6 +434,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
+    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:[NSSet setWithArray:self.siteURLs] isOn:on];
+}
+
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
