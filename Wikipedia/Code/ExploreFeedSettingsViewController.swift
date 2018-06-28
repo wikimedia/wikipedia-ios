@@ -45,58 +45,50 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
         case .onThisDay:
             title = CommonStrings.onThisDayTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-on-this-day-description", value: "Events in history on this day", comment: "Description of On this day section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "on-this-day-mini"
             iconColor = .wmf_blue
             iconBackgroundColor = .wmf_lightBlue
         case .featuredArticle:
             title = "Featured article"
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "featured-mini"
             iconColor = .wmf_yellow
             iconBackgroundColor = .wmf_lightYellow
         case .topRead:
             title = CommonStrings.topReadTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-top-read-description", value: "Daily most read articles", comment: "Description of Top read section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "trending-mini"
             iconColor = .wmf_blue
             iconBackgroundColor = .wmf_lightBlue
-        case .pictureOfTheDay:
-            title = CommonStrings.pictureOfTheDayTitle
-            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-picture-of-the-day-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
-            iconName = "potd-mini"
-            iconColor = .wmf_purple
-            iconBackgroundColor = .wmf_lightPurple
         case .location:
             fallthrough
         case .locationPlaceholder:
             title = CommonStrings.placesTabTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-places-description", value: "Wikipedia articles near your location", comment: "Description of Places section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "nearby-mini"
             iconColor = .wmf_green
             iconBackgroundColor = .wmf_lightGreen
         case .random:
             title = CommonStrings.randomizerTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-randomizer-description", value: "Generate random artilces to read", comment: "Description of Randomizer section of Explore feed")
-            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
             iconName = "random-mini"
             iconColor = .wmf_red
             iconBackgroundColor = .wmf_lightRed
+        case .pictureOfTheDay:
+            title = CommonStrings.pictureOfTheDayTitle
+            singleLanguageDescription = "Quick link back to reading an open article"
+            iconName = "potd-mini"
+            iconColor = .wmf_purple
+            iconBackgroundColor = .wmf_lightPurple
         case .continueReading:
             title = "Continue reading"
             singleLanguageDescription = "Quick link back to reading an open article"
-            multipleLanguagesDescription = "Not language specific"
             iconName = "today-mini"
             iconColor = .wmf_lightGray
             iconBackgroundColor = .wmf_lighterGray
         case .relatedPages:
             title = "Because you read"
             singleLanguageDescription = "Suggestions based on reading history"
-            multipleLanguagesDescription = "Not language specific"
             iconName = "recent-mini"
             iconColor = .wmf_lightGray
             iconBackgroundColor = .wmf_lighterGray
@@ -106,6 +98,12 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
             iconName = nil
             iconColor = nil
             iconBackgroundColor = nil
+        }
+
+        if contentGroupKind.isGlobal {
+            multipleLanguagesDescription = "Not language specific"
+        } else {
+            multipleLanguagesDescription = languageCodes.joined(separator: ", ").uppercased()
         }
 
         if displayType == .singleLanguage {
