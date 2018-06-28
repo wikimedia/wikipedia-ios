@@ -125,6 +125,7 @@
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
+"explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Hiding a card type will stop this card type from appearing in the Explore feed.";
 "explore-feed-preferences-featured-article-description" = "Daily featured article on Wikipedia";
@@ -138,7 +139,9 @@
 "explore-feed-preferences-languages-footer-text" = "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.";
 "explore-feed-preferences-on-this-day-description" = "Events in history on this day";
 "explore-feed-preferences-places-description" = "Wikipedia articles near your location";
+"explore-feed-preferences-potd-description" = "Daily featured image from Commons";
 "explore-feed-preferences-randomizer-description" = "Generate random articles to read";
+"explore-feed-preferences-related-pages-description" = "Suggestions based on reading history";
 "explore-feed-preferences-show-continue-reading-title" = "Show Continue reading card";
 "explore-feed-preferences-show-featured-article-footer-text" = "Turning off the Featured article card will turn the card off in all available languages.";
 "explore-feed-preferences-show-featured-article-title" = "Show Featured article card";

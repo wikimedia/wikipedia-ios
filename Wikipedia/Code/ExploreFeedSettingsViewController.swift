@@ -76,19 +76,19 @@ private struct FeedCard: ExploreFeedSettingsSwitchItem {
             iconBackgroundColor = .wmf_lightRed
         case .pictureOfTheDay:
             title = CommonStrings.pictureOfTheDayTitle
-            singleLanguageDescription = "Quick link back to reading an open article"
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-potd-description", value: "Daily featured image from Commons", comment: "Description of Picture of the day section of Explore feed")
             iconName = "potd-mini"
             iconColor = .wmf_purple
             iconBackgroundColor = .wmf_lightPurple
         case .continueReading:
             title = "Continue reading"
-            singleLanguageDescription = "Quick link back to reading an open article"
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")
             iconName = "today-mini"
             iconColor = .wmf_lightGray
             iconBackgroundColor = .wmf_lighterGray
         case .relatedPages:
-            title = "Because you read"
-            singleLanguageDescription = "Suggestions based on reading history"
+            title = CommonStrings.relatedPagesTitle
+            singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-related-pages-description", value: "Suggestions based on reading history", comment: "Description of Related pages section of Explore feed")
             iconName = "recent-mini"
             iconColor = .wmf_lightGray
             iconBackgroundColor = .wmf_lighterGray
