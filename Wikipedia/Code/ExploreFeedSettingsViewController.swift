@@ -16,19 +16,6 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
 
         let languageCodes = SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: contentGroupKind)
 
-        let disclosureTextString: () -> String = {
-            let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
-            switch languageCodes.count {
-            case 1... where contentGroupKind.isGlobal:
-                return CommonStrings.onTitle
-            case preferredLanguages.count:
-                return CommonStrings.onAllTitle
-            case 1...:
-                return CommonStrings.onTitle(languageCodes.count)
-            default:
-                return CommonStrings.offTitle
-            }
-        }
         self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
@@ -116,6 +103,18 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
             subtitle = multipleLanguagesDescription
             disclosureType = .viewControllerWithDisclosureText
             disclosureText = disclosureTextString()
+    private func disclosureTextForContentGroupKind(_ contentGroupKind: WMFContentGroupKind) -> String {
+        let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+        let languageCodes = contentGroupKind.languageCodes
+        switch languageCodes.count {
+        case 1... where contentGroupKind.isGlobal:
+            return CommonStrings.onTitle
+        case preferredLanguages.count:
+            return CommonStrings.onAllTitle
+        case 1...:
+            return CommonStrings.onTitle(languageCodes.count)
+        default:
+            return CommonStrings.offTitle
         }
     }
 }
