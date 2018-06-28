@@ -13,6 +13,7 @@
 // Author: Sayma Jahan
 // Author: Tauhid16
 // Author: আজিজ
+// Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
 
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
@@ -209,6 +210,7 @@
 "in-the-news-title" = "সংবাদে";
 "info-box-close-text" = "বন্ধ";
 "info-box-title" = "দ্রুত তথ্য";
+"languages-settings-title" = "ভাষাসমূহ";
 "languages-title" = "ভাষা পরিবর্তন করুন";
 "languages-wikipedia" = "উইকিপিডিয়ার ভাষা";
 "license-footer-name" = "সিসি বাই-এসএ ৩.০";

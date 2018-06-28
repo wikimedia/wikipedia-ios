@@ -4,6 +4,7 @@
 // Author: Festina90
 // Author: Hex
 // Author: JurgenNL
+// Author: KlaasZ4usV
 // Author: Macofe
 // Author: Mainframe98
 // Author: Mar(c)
@@ -255,6 +256,7 @@
 "menu-cancel-accessibility-label" = "Annuleren";
 "menu-trash-accessibility-label" = "Verwijderen";
 "more-languages-tooltip-title" = "Talen toevoegen";
+"move-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
@@ -325,19 +327,35 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-list-add-hint-title" = "“$1” toevoegen aan een leeslijst?";
+"reading-list-add-saved-button-title" = "Ja, voeg deze toe aan mijn leeslijsten";
+"reading-list-create-new-list-button-title" = "Leeslijst aanmaken";
+"reading-list-create-new-list-description" = "Beschrijving";
+"reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
+"reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
+"reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
+"reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
 "reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
+"reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
+"reading-list-keep-button-title" = "Ja, bewaar de artikelen op dit apparaat";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
+"reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
+"reading-list-new-list-name-placeholder" = "leeslijst titel";
+"reading-lists-article-added-confirmation" = "Artikel toegevoegd aan “$1”";
 "reading-lists-article-not-synced" = "Niet gesynchroniseerd";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelmaximum overschreden, kan artikel niet synchroniseren";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Lijstmaximum overschreden, kan artikel niet synchroniseren";
 "reading-lists-article-queued-to-be-downloaded" = "Artikel in te downloaden wachtrij";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele artikelen niet gesynchroniseerd, maximum overschreden";
+"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst '$1' is hernoemd naar '$2'";
+"reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
+"reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
@@ -437,8 +455,9 @@
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
-// Fuzzy
-"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
+"welcome-send-data-helps-title" = "Help de app beter te maken";
+"welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
+"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Inhoud geladen.";
@@ -453,8 +472,7 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het vrijgeven van uw bijdragen onder de licentie $2 en $3.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
 "zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";
