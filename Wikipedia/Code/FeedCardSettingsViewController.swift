@@ -13,6 +13,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visiblity of the On this day card")
         case .pictureOfTheDay:
             return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visiblity of the Picture of the day card")
+        case .locationPlaceholder:
+            fallthrough
         case .location:
             return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visiblity of the Places card")
         case .random:
@@ -35,6 +37,8 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-footer-text", value: "Turning off the On this day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the On this day card")
         case .pictureOfTheDay:
             return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-footer-text", value: "Turning off the Picture of the day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Picture of the day card")
+        case .locationPlaceholder:
+            fallthrough
         case .location:
             return WMFLocalizedString("explore-feed-preferences-show-places-footer-text", value: "Turning off the Places card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Places card")
         case .random:
