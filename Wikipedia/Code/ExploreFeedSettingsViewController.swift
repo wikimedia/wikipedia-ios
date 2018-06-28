@@ -154,6 +154,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     override var sections: [ExploreFeedSettingsSection] {
+    private lazy var feedCards: [FeedCard] = {
         let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
         let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)
         let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
@@ -163,6 +164,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
         let relatedPages = FeedCard(contentGroupKind: .relatedPages, displayType: displayType)
+        return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
+    }()
 
         let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
 
