@@ -23,6 +23,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
+@property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
 
 @end
 
@@ -358,13 +359,17 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return true;
 }
 
+- (NSSet <NSURL *> *)preferredSiteURLs {
+    return [NSSet setWithArray:[MWKLanguageLinkController sharedInstance].preferredSiteURLs];
+}
+
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     if (keyValue) {
         return (NSMutableDictionary *)keyValue.value;
     }
-    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.siteURLs.count];
-    for (NSURL *siteURL in self.siteURLs) {
+    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
+    for (NSURL *siteURL in self.preferredSiteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
@@ -375,8 +380,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
-    NSSet *siteURLs = [NSSet setWithArray:self.siteURLs];
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:siteURLs isOn:isOn];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:self.preferredSiteURLs isOn:isOn];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL {
@@ -434,7 +438,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
-    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:[NSSet setWithArray:self.siteURLs] isOn:on];
+    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:self.preferredSiteURLs isOn:on];
 }
 
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
