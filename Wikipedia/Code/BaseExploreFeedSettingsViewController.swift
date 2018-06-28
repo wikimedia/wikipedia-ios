@@ -32,7 +32,7 @@ struct ExploreFeedSettingsSection {
 enum ExploreFeedSettingsItemType {
     case feedCard(WMFContentGroupKind)
     case language(MWKLanguageLink)
-    case masterSwitch
+    case genericSwitch
 }
 
 struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
@@ -55,7 +55,7 @@ struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
 
 struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType = .masterSwitch
+    let type: ExploreFeedSettingsItemType = .genericSwitch
     let controlTag: Int = -1
     let isOn: Bool
 
