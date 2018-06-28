@@ -347,6 +347,17 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return globalContentGroupKindNumbers;
 }
 
+- (BOOL)areGlobalContentGroupKindsInFeed {
+    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+        WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
+        NSSet *languageCodes = [self languageCodesForContentGroupKind:globalContentGroupKind];
+        if (languageCodes.count == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 - (NSArray *)preferredSiteURLs {
     return [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
 }

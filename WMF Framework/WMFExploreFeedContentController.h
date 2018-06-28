@@ -73,6 +73,11 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 + (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
 
+/**
+ Indicates whether non-language specific group kinds are visible in the feed.
+ */
+@property (nonatomic, readonly) BOOL areGlobalContentGroupKindsInFeed;
+
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
 #endif
