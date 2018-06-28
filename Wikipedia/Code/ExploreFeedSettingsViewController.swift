@@ -147,12 +147,22 @@ private enum DisplayType {
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
-    private var didToggleMasterSwitch = false
+    public var showCloseButton = false {
+        didSet {
+            if showCloseButton {
+                navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(closeButtonPressed))
+            } else {
+                navigationItem.leftBarButtonItem = nil
+            }
+        }
+    }
 
     private lazy var displayType: DisplayType = {
         assert(preferredLanguages.count > 0)
         return preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }()
+
+    private var didToggleMasterSwitch = false
 
     override var shouldReload: Bool {
         return displayType == .multipleLanguages && !didToggleMasterSwitch
@@ -174,6 +184,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
             feedCard.updateSubtitle(for: displayType)
         }
         tableView.reloadRows(at: indexPathsForCellsThatNeedReloading, with: .none)
+    }
+
+    @objc private func closeButtonPressed() {
+        dismiss(animated: true)
     }
 
     override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
