@@ -167,6 +167,14 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return item is FeedCard
     }
 
+    override func reload() {
+        for feedCard in feedCards {
+            feedCard.updateDisclosureText(for: displayType)
+            feedCard.updateSubtitle(for: displayType)
+        }
+        tableView.reloadRows(at: indexPathsForCellsThatNeedReloading, with: .none)
+    }
+
     override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
         return languageLink.isInFeed
     }

@@ -131,6 +131,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         return sections[index]
     }
 
+    open func reload() {
+        self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .none)
+    }
+
 }
 
 // MARK: - UITableViewDataSource
@@ -205,7 +209,7 @@ extension BaseExploreFeedSettingsViewController {
             guard self.shouldReload else {
                 return
             }
-            self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .none)
+            self.reload()
         }
     }
 }
