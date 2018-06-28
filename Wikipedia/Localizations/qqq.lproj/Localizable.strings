@@ -134,6 +134,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
+"explore-feed-preferences-global-cards-subtitle" = "Subtitle desribing non-language specific feed cards";
 "explore-feed-preferences-global-cards-title" = "Title for the setting that allows users to toggle non-language specific feed cards";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-languages-footer-text" = "Text for explaining the effects of hiding all feed cards";

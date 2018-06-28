@@ -125,7 +125,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
 
     private func multipleLanguagesSubtitle(for contentGroupKind: WMFContentGroupKind) -> String {
         if contentGroupKind.isGlobal {
-            return "Not language specific"
+            return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle desribing non-language specific feed cards")
         } else {
             return contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
         }

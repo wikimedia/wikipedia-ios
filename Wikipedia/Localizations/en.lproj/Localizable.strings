@@ -134,6 +134,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
+"explore-feed-preferences-global-cards-subtitle" = "Not language specific";
 "explore-feed-preferences-global-cards-title" = "Global cards";
 "explore-feed-preferences-in-the-news-description" = "Articles about current events";
 "explore-feed-preferences-languages-footer-text" = "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.";
