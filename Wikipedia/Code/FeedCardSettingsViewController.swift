@@ -119,7 +119,7 @@ extension FeedCardSettingsViewController {
             return
         }
         guard controlTag != -2 else { // global cards
-            feedContentController.toggleGlobalContentGroups(sender.isOn)
+            feedContentController.toggleGlobalContentGroupKinds(sender.isOn)
             return
         }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {
