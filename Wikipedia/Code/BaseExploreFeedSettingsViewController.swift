@@ -37,6 +37,7 @@ enum ExploreFeedSettingsItemType {
 
 struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     let title: String
+    let subtitle: String?
     let type: ExploreFeedSettingsItemType
     let controlTag: Int
     let isOn: Bool
@@ -45,6 +46,7 @@ struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     init(_ languageLink: MWKLanguageLink, controlTag: Int, isOn: Bool) {
         type = ExploreFeedSettingsItemType.language(languageLink)
         title = languageLink.localizedName
+        subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
         self.isOn = isOn
         siteURL = languageLink.siteURL()
