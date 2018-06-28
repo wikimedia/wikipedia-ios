@@ -79,6 +79,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         saveButton.rightPadding = 16
         saveButton.leftPadding = 12
         saveButton.saveButtonState = .longSave
+        saveButton.titleLabel?.numberOfLines = 0
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
         super.setup()
