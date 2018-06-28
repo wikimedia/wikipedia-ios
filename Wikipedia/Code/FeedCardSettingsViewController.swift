@@ -39,8 +39,12 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-top-read-footer-text", value: "Turning off the Top read card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Top read card")
         case .onThisDay:
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-footer-text", value: "Turning off the On this day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the On this day card")
+        case .continueReading:
+            fallthrough // TODO: Update copy
+        case .relatedPages:
+            fallthrough // TODO: Update copy
         case .pictureOfTheDay:
-            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-footer-text", value: "Turning off the Picture of the day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Picture of the day card")
+            return "Turning off this card will turn it off. 🤷🏻‍♀️" // TODO: Update copy
         case .locationPlaceholder:
             fallthrough
         case .location:
