@@ -40,11 +40,11 @@ private extension WMFContentGroupKind {
         case .onThisDay:
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-footer-text", value: "Turning off the On this day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the On this day card")
         case .continueReading:
-            fallthrough // TODO: Update copy
+            fallthrough
         case .relatedPages:
-            fallthrough // TODO: Update copy
+            fallthrough
         case .pictureOfTheDay:
-            return "Turning off this card will turn it off. 🤷🏻‍♀️" // TODO: Update copy
+            return WMFLocalizedString("explore-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Explore feed.", comment: "Text describing the effects of turning off a global card")
         case .locationPlaceholder:
             fallthrough
         case .location:
@@ -90,10 +90,12 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
     override var sections: [ExploreFeedSettingsSection] {
         let master = ExploreFeedSettingsMaster(title: masterSwitchTitle, isOn: contentGroupKind.isInFeed)
         let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
-        let languageItems: [ExploreFeedSettingsItem] = contentGroupKind.isGlobal ? [ExploreFeedSettingsGlobalCards()] : self.languages
-        let languagesFooterTitle = contentGroupKind.isGlobal ? "🐕🐕🐕🐕" : String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText)
-        let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: languagesFooterTitle, items: languageItems)
-        return [main, languages]
+        let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: self.languages)
+        if contentGroupKind.isGlobal {
+            return [main]
+        } else {
+            return [main, languages]
+        }
     }
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
@@ -117,10 +119,6 @@ extension FeedCardSettingsViewController {
         }
         guard controlTag != -1 else { // master switch
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
-            return
-        }
-        guard controlTag != -2 else { // global cards
-            feedContentController.toggleGlobalContentGroupKinds(sender.isOn)
             return
         }
         guard let language = languages.first(where: { $0.controlTag == sender.tag }) else {

@@ -133,6 +133,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "On all";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
+"explore-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Explore feed.";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
 "explore-feed-preferences-global-cards-title" = "Global cards";
@@ -169,8 +170,6 @@
 "explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Top on $1";
 "explore-nearby-heading" = "Places near";
-"explore-nearby-placeholder-cancel" = "Cancel";
-"explore-nearby-placeholder-dismiss" = "Dismiss";
 "explore-nearby-placeholder-heading" = "Places";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
@@ -227,9 +226,6 @@
 "home-button-popover-description" = "Tap on the 'W' to return to the Explore feed";
 "home-button-popover-title" = "Tap to go home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
-"home-hide-all-featured-article-cards" = "Hide all Featured article cards";
-"home-hide-suggestion-cancel" = "Cancel";
-"home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-location-footer" = "More nearby $1";
