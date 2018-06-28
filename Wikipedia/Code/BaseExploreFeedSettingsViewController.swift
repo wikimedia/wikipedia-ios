@@ -53,6 +53,15 @@ struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     }
 }
 
+struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
+    let type: ExploreFeedSettingsItemType = .genericSwitch
+    let disclosureType: WMFSettingsMenuItemDisclosureType = .switch
+    let title: String = "Global cards"
+    let subtitle: String? = "Non-language specific cards"
+    let controlTag: Int = -2
+    let isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
+}
+
 struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
     let title: String
     let type: ExploreFeedSettingsItemType = .genericSwitch
