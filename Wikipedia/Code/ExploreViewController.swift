@@ -524,6 +524,37 @@ extension ExploreViewController: ReadingListsAlertControllerDelegate {
     }
 }
 
+private extension WMFContentGroupKind {
+    var hideCardsActionTitle: String {
+        switch self {
+        case .featuredArticle:
+            return WMFLocalizedString("explore-feed-preferences-hide-featured-article-action-title", value: "Hide all Featured article cards", comment: "Title for action that allows users to hide all Featured article cards")
+        case .topRead:
+            return WMFLocalizedString("explore-feed-preferences-hide-top-read-action-title", value: "Hide all Top read cards", comment: "Title for action that allows users to hide all Top read cards")
+        case .news:
+            return WMFLocalizedString("explore-feed-preferences-hide-news-action-title", value: "Hide all Top read cards", comment: "Title for action that allows users to hide all In the news cards")
+        case .onThisDay:
+            return WMFLocalizedString("explore-feed-preferences-hide-on-this-day-action-title", value: "Hide all On this day cards", comment: "Title for action that allows users to hide all On this day cards")
+        case .location:
+            fallthrough
+        case .locationPlaceholder:
+            return WMFLocalizedString("explore-feed-preferences-hide-places-action-title", value: "Hide all Places cards", comment: "Title for action that allows users to hide all Places cards")
+        case .random:
+            return WMFLocalizedString("explore-feed-preferences-hide-randomizer-action-title", value: "Hide all Randomizer cards", comment: "Title for action that allows users to hide all Randomizer cards")
+        case .pictureOfTheDay:
+            return WMFLocalizedString("explore-feed-preferences-hide-picture-of-the-day-action-title", value: "Hide all Picture of the day cards", comment: "Title for action that allows users to hide all Picture of the day cards")
+        case .continueReading:
+            return WMFLocalizedString("explore-feed-preferences-hide-continue-reading-action-title", value: "Hide all Continue reading cards", comment: "Title for action that allows users to hide all Continue reading cards")
+        case .relatedPages:
+            return WMFLocalizedString("explore-feed-preferences-hide-because-you-read-action-title", value: "Hide all Because you read cards", comment: "Title for action that allows users to hide all Because you read cards")
+        default:
+            assertionFailure("\(self) is not customizable")
+            return ""
+            
+        }
+    }
+}
+
 extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell) {
         guard let vc = cell.cardContent as? ExploreCardViewController,
@@ -541,18 +572,18 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return nil
         }
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let customizeExploreFeed = UIAlertAction(title: "Customize Explore feed", style: .default) { (_) in
+        let customizeExploreFeed = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen"), style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.apply(theme: self.theme)
             let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
             self.present(themeableNavigationController, animated: true)
         }
-        let hideThisCard = UIAlertAction(title: "Hide this card", style: .default) { (_) in
+        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
             self.dataStore.viewContext.remove(group)
             group.updateVisibility()
         }
-        let hideAllCards = UIAlertAction(title: "Hide all cards of this kind", style: .default) { (_) in
+        let hideAllCards = UIAlertAction(title: group.contentGroupKind.hideCardsActionTitle, style: .default) { (_) in
             self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)

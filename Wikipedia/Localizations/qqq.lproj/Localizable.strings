@@ -127,6 +127,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
 "explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Explore feed";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Title for action that allows users to go to the Explore feed settings screen";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Text for explaining the effects of hiding feed cards";
 "explore-feed-preferences-featured-article-description" = "Description of Featured article section of Explore feed";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Text for Explore feed card setting indicating that the feed card is hidden in all preferred languages";
@@ -137,6 +138,16 @@
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle desribing non-language specific feed cards";
 "explore-feed-preferences-global-cards-title" = "Title for the setting that allows users to toggle non-language specific feed cards";
+"explore-feed-preferences-hide-because-you-read-action-title" = "Title for action that allows users to hide all Because you read cards";
+"explore-feed-preferences-hide-card-action-title" = "Title for action that allows users to hide a feed card";
+"explore-feed-preferences-hide-continue-reading-action-title" = "Title for action that allows users to hide all Continue reading cards";
+"explore-feed-preferences-hide-featured-article-action-title" = "Title for action that allows users to hide all Featured article cards";
+"explore-feed-preferences-hide-news-action-title" = "Title for action that allows users to hide all In the news cards";
+"explore-feed-preferences-hide-on-this-day-action-title" = "Title for action that allows users to hide all On this day cards";
+"explore-feed-preferences-hide-picture-of-the-day-action-title" = "Title for action that allows users to hide all Picture of the day cards";
+"explore-feed-preferences-hide-places-action-title" = "Title for action that allows users to hide all Places cards";
+"explore-feed-preferences-hide-randomizer-action-title" = "Title for action that allows users to hide all Randomizer cards";
+"explore-feed-preferences-hide-top-read-action-title" = "Title for action that allows users to hide all Top read cards";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-languages-footer-text" = "Text for explaining the effects of hiding all feed cards";
 "explore-feed-preferences-on-this-day-description" = "Description of On this day section of Explore feed";
