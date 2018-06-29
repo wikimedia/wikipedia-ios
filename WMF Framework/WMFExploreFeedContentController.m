@@ -446,9 +446,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
                 }
 
                 if (isOn) {
-                    [newVisibleContentGroupKindNumbers addObject:contentGroupKindNumber];
+                    [newVisibleContentGroupKindNumbers addObject:@(contentGroupKind)];
                 } else {
-                    [newVisibleContentGroupKindNumbers removeObject:contentGroupKindNumber];
+                    [newVisibleContentGroupKindNumbers removeObject:@(contentGroupKind)];
                 }
 
                 [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
