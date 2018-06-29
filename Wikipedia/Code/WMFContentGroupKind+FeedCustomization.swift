@@ -1,6 +1,10 @@
 extension WMFContentGroupKind {
     var isInFeed: Bool {
-        return !SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self).isEmpty
+        guard isGlobal else {
+            return !feedContentController.languageCodes(for: self).isEmpty
+        }
+        return feedContentController.isGlobalContentGroupKind(inFeed: self)
+    }
     }
 
     var isGlobal: Bool {
