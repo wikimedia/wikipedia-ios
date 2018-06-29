@@ -8,7 +8,6 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         super.updateFonts(with: traitCollection)
         let titleFont = UIFont.wmf_font(.title3, compatibleWithTraitCollection: traitCollection)
         titleLabel.font = titleFont
-        bottomTitleLabel.font = titleFont
         
         let subTitleFont = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         subTitleLabel.font = subTitleFont
@@ -61,7 +60,6 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.link
         titleLabel.textColor = theme.colors.link
-        bottomTitleLabel.textColor = theme.colors.link
         subTitleLabel.textColor = theme.colors.secondaryText
         collectionView.backgroundColor = .clear
     }

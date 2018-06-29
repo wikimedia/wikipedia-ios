@@ -26,7 +26,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()
     public let descriptionLabel = UILabel()
-    public let bottomTitleLabel = UILabel()
 
     internal var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -39,7 +38,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             subTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
-            bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
         }
     }
     
@@ -49,13 +47,11 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         titleLabel.isOpaque = true
         subTitleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
-        bottomTitleLabel.isOpaque = true
         imageView.isOpaque = true
         
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         addSubview(descriptionLabel)
-        addSubview(bottomTitleLabel)
     
         addSubview(imageView)
         addSubview(collectionView)
@@ -71,7 +67,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         titleLabel.numberOfLines = 1
-        bottomTitleLabel.numberOfLines = 1
         subTitleLabel.numberOfLines = 1
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
@@ -147,13 +142,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
 
         origin.y += height
-
-        if bottomTitleLabel.wmf_hasAnyText {
-            origin.y += spacing
-            origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
-        }else{
-            origin.y += layoutMargins.bottom
-        }
+        origin.y += layoutMargins.bottom
         
         return CGSize(width: size.width, height: origin.y)
     }
@@ -177,7 +166,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         titleLabel.backgroundColor = labelBackgroundColor
         subTitleLabel.backgroundColor = labelBackgroundColor
         descriptionLabel.backgroundColor = labelBackgroundColor
-        bottomTitleLabel.backgroundColor = labelBackgroundColor
     }
 }
 
