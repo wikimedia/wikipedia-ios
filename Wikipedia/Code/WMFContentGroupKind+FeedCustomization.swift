@@ -12,6 +12,10 @@ extension WMFContentGroupKind {
     }
 
     var languageCodes: Set<String> {
-        return SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self)
+        return feedContentController.languageCodes(for: self)
+    }
+
+    private var feedContentController: WMFExploreFeedContentController {
+        return SessionSingleton.sharedInstance().dataStore.feedContentController
     }
 }
