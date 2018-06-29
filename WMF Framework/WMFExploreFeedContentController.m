@@ -360,12 +360,11 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (BOOL)areGlobalContentGroupKindsInFeed {
-    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
-        WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
-        NSSet *languageCodes = [self languageCodesForContentGroupKind:globalContentGroupKind];
-        if (languageCodes.count == 0) {
+    for (NSNumber *globalCardPreferenceNumber in [self.globalCardPreferences allValues]) {
+        if (![globalCardPreferenceNumber boolValue]) {
             return false;
         }
+        continue;
     }
     return true;
 }
