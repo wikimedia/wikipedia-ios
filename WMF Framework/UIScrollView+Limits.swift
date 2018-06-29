@@ -17,7 +17,7 @@ extension UIScrollView {
         return CGPoint(x: contentOffset.x, y: wmf_bottomOffsetY)
     }
 
-    fileprivate var wmf_isAtTop: Bool {
+    public var wmf_isAtTop: Bool {
         return contentOffset.y <= wmf_topOffsetY
     }
 

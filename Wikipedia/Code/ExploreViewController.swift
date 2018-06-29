@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, WMFSearchButtonProviding {
     
     // MARK - UIViewController
     
@@ -17,6 +17,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
+    }
+    
+    public var wantsCustomSearchTransition: Bool {
+        return collectionView.wmf_isAtTop
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
