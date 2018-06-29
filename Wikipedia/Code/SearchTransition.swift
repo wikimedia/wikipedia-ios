@@ -6,6 +6,7 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let isEnteringSearch: Bool
     
     required init(searchViewController: SearchViewController, exploreViewController: ExploreViewController, isEnteringSearch: Bool) {
+        searchViewController.shouldAnimateSearchBar = true
         self.searchViewController = searchViewController
         self.exploreViewController = exploreViewController
         self.isEnteringSearch = isEnteringSearch

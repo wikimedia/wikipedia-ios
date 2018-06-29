@@ -2,7 +2,8 @@ import UIKit
 
 class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
     @objc var dataStore: MWKDataStore!
-        
+    var shouldAnimateSearchBar: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.isBackVisible = false
@@ -15,14 +16,19 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: { self.updateScrollViewInsets() })
+        searchBar.setShowsCancelButton(true, animated: animated && shouldAnimateSearchBar)
         searchBar.becomeFirstResponder()
-        searchBar.setShowsCancelButton(true, animated: animated)
+        shouldAnimateSearchBar = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        searchBar.setShowsCancelButton(false, animated: animated)
+        if shouldAnimateSearchBar {
+            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
+            searchBar.setShowsCancelButton(false, animated: animated)
+        }
+        shouldAnimateSearchBar = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -237,7 +243,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true, additionalAnimations: { self.updateScrollViewInsets() })
             navigationController.popViewController(animated: true)
         } else {
             searchBar.endEditing(true)
