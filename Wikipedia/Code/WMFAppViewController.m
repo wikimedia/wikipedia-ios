@@ -1248,7 +1248,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
         _searchViewController = [[SearchViewController alloc] init];
         [_searchViewController applyTheme:self.theme];
         _searchViewController.dataStore = self.dataStore;
-        _searchViewController.isRoot = true;
     }
     return _searchViewController;
 }
@@ -1815,6 +1814,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
         searchVC = [[SearchViewController alloc] init];
+        searchVC.hidesBottomBarWhenPushed = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }

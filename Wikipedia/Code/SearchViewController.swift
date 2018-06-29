@@ -2,15 +2,10 @@ import UIKit
 
 class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
     @objc var dataStore: MWKDataStore!
-    @objc var isRoot: Bool = false
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        if isRoot {
-            navigationBar.isBackVisible = false
-        } else {
-            hidesBottomBarWhenPushed = true
-        }
+        navigationBar.isBackVisible = false
         title = CommonStrings.searchTitle
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         updateLanguageBarVisibility()
@@ -174,7 +169,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.showsCancelButton = isRoot
+        searchBar.showsCancelButton = true
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
@@ -228,6 +223,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true, additionalAnimations: nil)
             navigationController.popViewController(animated: true)
         } else {
             searchBar.endEditing(true)
