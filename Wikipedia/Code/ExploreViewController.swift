@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, WMFSearchButtonProviding {
     
     // MARK - UIViewController
     
@@ -13,7 +13,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         navigationItem.titleView = titleView
         navigationBar.addExtendedNavigationBarView(searchBarContainerView)
+        navigationBar.isExtendedViewHidingEnabled = true
         isRefreshControlEnabled = true
+        
+        title = CommonStrings.exploreTabTitle
+    }
+    
+    public var wantsCustomSearchTransition: Bool {
+        return collectionView.wmf_isAtTop
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -21,6 +28,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
        return ColumnarCollectionViewControllerLayoutCache()
     }()
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -138,19 +147,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
-        let searchHeightConstraint = searchContainerView.heightAnchor.constraint(equalToConstant: 44)
-        searchContainerView.addConstraint(searchHeightConstraint)
-        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0), priority: .required)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchContainerView.addSubview(searchBar)
+        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
+        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
+        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
+        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
+        searchContainerView.addConstraints([leading, trailing, top, bottom])
         return searchContainerView
     }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
+    
+
     
     // MARK - UISearchBarDelegate
     
@@ -304,16 +320,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        layoutCache.reset()
-        super.traitCollectionDidChange(previousTraitCollection)
-        registerForPreviewingIfAvailable()
-    }
-    
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         layoutCache.reset()
         super.contentSizeCategoryDidChange(notification)
-        collectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -412,13 +421,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        searchBar.wmf_enumerateSubviewTextFields { (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
-        }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0) 
+        searchBar.apply(theme: theme)
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {

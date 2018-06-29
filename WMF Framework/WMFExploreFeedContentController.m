@@ -16,6 +16,7 @@ static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
+NSString *const WMFExploreFeedPreferencesGlobalCardsKey = @"WMFExploreFeedPreferencesGlobalCardsKey";
 NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
 
 @interface WMFExploreFeedContentController ()
@@ -323,7 +324,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 - (NSSet<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
     NSMutableSet *languageCodes = [NSMutableSet new];
     [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSSet<NSNumber *> *value, BOOL * _Nonnull stop) {
-        if (![value isKindOfClass:[NSNumber class]] && [value containsObject:@(contentGroupKind)]) {
+        if (![value isKindOfClass:[NSDictionary class]] && [value containsObject:@(contentGroupKind)]) {
             [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
         }
     }];
@@ -334,7 +335,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     static NSSet *customizableContentGroupKindNumbers;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindPictureOfTheDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom), @(WMFContentGroupKindContinueReading), @(WMFContentGroupKindRelatedPages)]];
+        customizableContentGroupKindNumbers = [NSSet setWithArray:@[@(WMFContentGroupKindFeaturedArticle), @(WMFContentGroupKindNews), @(WMFContentGroupKindTopRead), @(WMFContentGroupKindOnThisDay), @(WMFContentGroupKindLocation), @(WMFContentGroupKindLocationPlaceholder), @(WMFContentGroupKindRandom)]];
     });
     return customizableContentGroupKindNumbers;
 }
@@ -348,15 +349,29 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return globalContentGroupKindNumbers;
 }
 
+- (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind {
+    NSAssert([self isGlobal:contentGroupKind], @"Content group kind is not global");
+    NSNumber *globalCardPreferenceNumber = [self.globalCardPreferences objectForKey:@(contentGroupKind)];
+    return [globalCardPreferenceNumber boolValue];
+}
+
+- (BOOL)isGlobal:(WMFContentGroupKind)contentGroupKind {
+    return [[WMFExploreFeedContentController globalContentGroupKindNumbers] containsObject:@(contentGroupKind)];
+}
+
+- (NSDictionary<NSNumber*, NSNumber*> *)globalCardPreferences {
+    NSDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
+    return globalCardPreferences;
+}
+
 - (BOOL)areGlobalContentGroupKindsInFeed {
-    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
-        WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
-        NSSet *languageCodes = [self languageCodesForContentGroupKind:globalContentGroupKind];
-        if (languageCodes.count == 0) {
-            return false;
+    for (NSNumber *globalCardPreferenceNumber in [self.globalCardPreferences allValues]) {
+        if ([globalCardPreferenceNumber boolValue]) {
+            return true;
         }
+        continue;
     }
-    return true;
+    return false;
 }
 
 - (NSSet <NSURL *> *)preferredSiteURLs {
@@ -372,11 +387,20 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     for (NSURL *siteURL in self.preferredSiteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
+    [newPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
     assert(preferences);
     return preferences;
+}
+
+- (NSDictionary<NSNumber*, NSNumber*> *)defaultGlobalCardsPreferences {
+    NSMutableDictionary<NSNumber*, NSNumber*> *defaultGlobalCardsPreferences = [NSMutableDictionary new];
+    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+        [defaultGlobalCardsPreferences setObject:[NSNumber numberWithBool:YES] forKey:globalContentGroupKindNumber];
+    }
+    return defaultGlobalCardsPreferences;
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
@@ -406,13 +430,14 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
-    [self toggleContentGroupKinds:[NSSet setWithObject:@(contentGroupKind)] forSiteURLs:siteURLs isOn:isOn];
-}
-
-- (void)toggleContentGroupKinds:(NSSet <NSNumber *> *)contentGroupKindNumbers forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
-        for (NSURL *siteURL in siteURLs) {
-            for (NSNumber *contentGroupKindNumber in contentGroupKindNumbers) {
+        if ([self isGlobal:contentGroupKind]) {
+            NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
+            NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
+            [newGlobalCardPreferences setObject:[NSNumber numberWithBool:isOn] forKey:@(contentGroupKind)];
+            [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+        } else {
+            for (NSURL *siteURL in siteURLs) {
                 NSString *key = siteURL.wmf_articleDatabaseKey;
                 NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
                 NSMutableSet *newVisibleContentGroupKindNumbers;
@@ -424,9 +449,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
                 }
 
                 if (isOn) {
-                    [newVisibleContentGroupKindNumbers addObject:contentGroupKindNumber];
+                    [newVisibleContentGroupKindNumbers addObject:@(contentGroupKind)];
                 } else {
-                    [newVisibleContentGroupKindNumbers removeObject:contentGroupKindNumber];
+                    [newVisibleContentGroupKindNumbers removeObject:@(contentGroupKind)];
                 }
 
                 [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
@@ -438,7 +463,16 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
-    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:self.preferredSiteURLs isOn:on];
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
+        NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
+        NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
+        for (id key in newGlobalCardPreferences.allKeys) {
+            [newGlobalCardPreferences setObject:[NSNumber numberWithBool:on] forKey:key];
+        }
+        [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+    } completion:^{
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
+    }];
 }
 
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
@@ -483,17 +517,21 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-        NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
-        NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
-        if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
-            continue;
-        }
-        if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-            contentGroup.isVisible = YES;
+        if ([self isGlobal:contentGroup.contentGroupKind]) {
+            BOOL isGlobalCardVisible = [[self.globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
+            contentGroup.isVisible = isGlobalCardVisible;
         } else {
-            contentGroup.isVisible = NO;
+            NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
+            if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
+                continue;
+            }
+            if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
+                contentGroup.isVisible = YES;
+            } else {
+                contentGroup.isVisible = NO;
+            }
         }
-
     }
 }
 

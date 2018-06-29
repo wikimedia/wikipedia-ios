@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchLanguagesBarViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="gradientView" destination="jb0-vp-xHE" id="vBt-Ic-u1T"/>
+                <outlet property="otherLanguagesButton" destination="uA2-xO-xXY" id="5OR-hD-yyX"/>
+                <outlet property="otherLanguagesButtonBackgroundView" destination="M74-Jn-h71" id="GW1-7W-oZo"/>
+                <outlet property="scrollView" destination="Yuq-ja-3NK" id="o84-B3-Ohl"/>
+                <outlet property="view" destination="tPw-FY-7pj" id="L4j-ZS-Mbg"/>
+                <outletCollection property="languageButtons" destination="8cF-ct-zPs" collectionClass="NSMutableArray" id="6yz-yZ-9UZ"/>
+                <outletCollection property="languageButtons" destination="DMv-In-KvF" collectionClass="NSMutableArray" id="2bG-qv-n5w"/>
+                <outletCollection property="languageButtons" destination="uxs-Rv-XxK" collectionClass="NSMutableArray" id="sTN-es-7Fa"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" id="tPw-FY-7pj">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQt-NK-neD">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="1Xh-Hy-U4t"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="Yuq-ja-3NK">
+                    <rect key="frame" x="0.0" y="6" width="302" height="32"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N0g-ms-ld2">
+                            <rect key="frame" x="16" y="0.0" width="223" height="32"/>
+                            <subviews>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-ct-zPs" userLabel="Language One Button" customClass="WMFUnderlineButton">
+                                    <rect key="frame" x="0.0" y="0.0" width="69" height="32"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="setCurrentlySelectedLanguageToButtonLanguageWithSender:" destination="-1" eventType="touchUpInside" id="dHX-4X-Zau"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-In-KvF" userLabel="Language Two Button" customClass="WMFUnderlineButton">
+                                    <rect key="frame" x="77" y="0.0" width="69" height="32"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="setCurrentlySelectedLanguageToButtonLanguageWithSender:" destination="-1" eventType="touchUpInside" id="cX3-O2-d7T"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxs-Rv-XxK" userLabel="Language Three Button" customClass="WMFUnderlineButton">
+                                    <rect key="frame" x="154" y="0.0" width="69" height="32"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="setCurrentlySelectedLanguageToButtonLanguageWithSender:" destination="-1" eventType="touchUpInside" id="0tB-kj-MDx"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailingMargin" secondItem="N0g-ms-ld2" secondAttribute="trailing" id="1T6-zc-Ed3"/>
+                        <constraint firstAttribute="bottom" secondItem="N0g-ms-ld2" secondAttribute="bottom" id="3tH-Pi-8sT"/>
+                        <constraint firstAttribute="height" secondItem="N0g-ms-ld2" secondAttribute="height" id="Dcm-Y5-2SS"/>
+                        <constraint firstItem="N0g-ms-ld2" firstAttribute="top" secondItem="Yuq-ja-3NK" secondAttribute="top" id="KE1-1H-agi"/>
+                        <constraint firstItem="N0g-ms-ld2" firstAttribute="leading" secondItem="Yuq-ja-3NK" secondAttribute="leadingMargin" constant="8" id="bkD-1W-L4o"/>
+                    </constraints>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jb0-vp-xHE" customClass="WMFGradientView">
+                    <rect key="frame" x="285" y="0.0" width="25" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="cQV-FM-Z0w"/>
+                    </constraints>
+                </view>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M74-Jn-h71">
+                    <rect key="frame" x="310" y="0.0" width="65" height="44"/>
+                </view>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uA2-xO-xXY" customClass="WMFTitleInsetRespectingButton">
+                    <rect key="frame" x="310" y="6" width="49" height="32"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="openLanguagePicker" destination="-1" eventType="touchUpInside" id="W9R-8x-fFH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Yuq-ja-3NK" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="07m-Gf-lMh"/>
+                <constraint firstItem="uA2-xO-xXY" firstAttribute="centerY" secondItem="tPw-FY-7pj" secondAttribute="centerY" id="4RB-9j-lcn"/>
+                <constraint firstItem="M74-Jn-h71" firstAttribute="leading" secondItem="jb0-vp-xHE" secondAttribute="trailing" id="62I-UV-161"/>
+                <constraint firstAttribute="trailing" secondItem="LQt-NK-neD" secondAttribute="trailing" id="6rQ-6w-KOQ"/>
+                <constraint firstAttribute="bottom" secondItem="LQt-NK-neD" secondAttribute="bottom" id="8B7-LQ-Hdr"/>
+                <constraint firstItem="jb0-vp-xHE" firstAttribute="bottom" secondItem="hUX-g2-rde" secondAttribute="bottom" id="AyO-Wu-UMI"/>
+                <constraint firstItem="LQt-NK-neD" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" id="BV5-mE-fCP"/>
+                <constraint firstItem="LQt-NK-neD" firstAttribute="width" secondItem="tPw-FY-7pj" secondAttribute="width" id="E5c-np-RRB"/>
+                <constraint firstItem="hUX-g2-rde" firstAttribute="bottom" secondItem="Yuq-ja-3NK" secondAttribute="bottom" constant="6" id="QuJ-Mr-xIX"/>
+                <constraint firstItem="jb0-vp-xHE" firstAttribute="trailingMargin" secondItem="Yuq-ja-3NK" secondAttribute="trailing" id="Sg6-Rs-bLF"/>
+                <constraint firstAttribute="bottom" secondItem="M74-Jn-h71" secondAttribute="bottom" id="TMM-HO-3n5"/>
+                <constraint firstItem="jb0-vp-xHE" firstAttribute="top" secondItem="LQt-NK-neD" secondAttribute="top" id="X1R-CS-J9q"/>
+                <constraint firstAttribute="trailing" secondItem="M74-Jn-h71" secondAttribute="trailing" id="YGh-nU-r0V"/>
+                <constraint firstAttribute="trailingMargin" secondItem="uA2-xO-xXY" secondAttribute="trailing" id="bkc-hs-NfC"/>
+                <constraint firstItem="M74-Jn-h71" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" id="t0m-Au-c3T"/>
+                <constraint firstItem="LQt-NK-neD" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="zav-78-dOg"/>
+                <constraint firstItem="Yuq-ja-3NK" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" constant="6" id="ze1-R7-NFN"/>
+                <constraint firstItem="uA2-xO-xXY" firstAttribute="leading" secondItem="Yuq-ja-3NK" secondAttribute="trailing" constant="8" id="zoa-2r-HAD"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="hUX-g2-rde"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <real key="value" value="0.0"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+        </view>
+    </objects>
+</document>

@@ -36,21 +36,21 @@ styles with only the things which need tweaking.
 
 /* baseline table */
 .pagelib_theme_dark .content table,
-.pagelib_theme_dark .content td,
+.pagelib_theme_dark .content td:not(.pagelib_theme_div_do_not_apply_baseline),
 .pagelib_theme_dark .content tr,
 .pagelib_theme_dark .content th {
   background: #27292d !important;
   color: #f8f9fa !important;
 }
 .pagelib_theme_sepia .content table,
-.pagelib_theme_sepia .content td,
+.pagelib_theme_sepia .content td:not(.pagelib_theme_div_do_not_apply_baseline),
 .pagelib_theme_sepia .content tr,
 .pagelib_theme_sepia .content th {
   background: #f0e6d6 !important;
   color: #222 !important;
 }
 .pagelib_theme_black .content table,
-.pagelib_theme_black .content td,
+.pagelib_theme_black .content td:not(.pagelib_theme_div_do_not_apply_baseline),
 .pagelib_theme_black .content tr,
 .pagelib_theme_black .content th {
   background: #222 !important;
@@ -84,13 +84,13 @@ styles with only the things which need tweaking.
 }
 
 /* baseline border color */
-.pagelib_theme_dark .content * {
+.pagelib_theme_dark .content :not(.pagelib_theme_div_do_not_apply_baseline) {
   border-color: #43464a !important;
 }
-.pagelib_theme_sepia .content * {
+.pagelib_theme_sepia .content :not(.pagelib_theme_div_do_not_apply_baseline) {
   border-color: #cbc8c1 !important;
 }
-.pagelib_theme_black .content * {
+.pagelib_theme_black .content :not(.pagelib_theme_div_do_not_apply_baseline) {
   border-color: #43464a !important;
 }
 
@@ -187,6 +187,11 @@ styles with only the things which need tweaking.
 .pagelib_theme_black .content code.mw-highlight,
 .pagelib_theme_black .content div.mw-highlight {
   background: #000;
+}
+
+.pagelib_theme_dark table.BarChartTemplate span.nowrap,
+.pagelib_theme_black table.BarChartTemplate span.nowrap {
+  color: #222 !important;
 }
 
 /* 'mw-highlight' colors for dark background */

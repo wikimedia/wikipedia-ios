@@ -53,12 +53,6 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         super.viewWillAppear(animated)
     }
     
-    override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isBarHidingEnabled = false
-        navigationBarHider.isUnderBarViewHidingEnabled = false
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
@@ -384,7 +378,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBarHider.isHidingEnabled = false
+        navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -393,7 +387,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBarHider.isHidingEnabled = true
+        navigationBar.isInteractiveHidingEnabled = true
     }
 }
 

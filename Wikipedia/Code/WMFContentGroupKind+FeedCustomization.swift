@@ -1,6 +1,13 @@
 extension WMFContentGroupKind {
     var isInFeed: Bool {
-        return !SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self).isEmpty
+        guard isGlobal else {
+            return !feedContentController.languageCodes(for: self).isEmpty
+        }
+        return feedContentController.isGlobalContentGroupKind(inFeed: self)
+    }
+
+    var isCustomizable: Bool {
+        return WMFExploreFeedContentController.customizableContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
     var isCustomizable: Bool {
@@ -9,19 +16,14 @@ extension WMFContentGroupKind {
     }
 
     var isGlobal: Bool {
-        switch self {
-        case .relatedPages:
-            fallthrough
-        case .continueReading:
-            fallthrough
-        case .pictureOfTheDay:
-            return true
-        default:
-            return false
-        }
+        return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
     var languageCodes: Set<String> {
-        return SessionSingleton.sharedInstance().dataStore.feedContentController.languageCodes(for: self)
+        return feedContentController.languageCodes(for: self)
+    }
+
+    private var feedContentController: WMFExploreFeedContentController {
+        return SessionSingleton.sharedInstance().dataStore.feedContentController
     }
 }

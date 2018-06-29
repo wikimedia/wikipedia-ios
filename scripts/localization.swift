@@ -107,7 +107,7 @@ extension String {
         let formatValueType = tokens["1"] ?? "d"
         keyDictionary["NSStringFormatSpecTypeKey"] = "NSStringPluralRuleType"
         keyDictionary["NSStringFormatValueTypeKey"] = formatValueType
-
+        
         guard let countPrefixRegex = countPrefixRegex else {
             abort()
         }
@@ -266,12 +266,12 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
     try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
 
-func writeLocalizedDescriptionForAppStore(localizedDescription: String, locale: String, path: String) throws {
+// See "Localized Metadata" section here: https://docs.fastlane.tools/actions/deliver/
+func writeFastlaneAppStoreLocalizedMetadataFile(fileName: String, contents: String, locale: String, path: String) throws {
     let pathForFastlaneMetadataForLocale = "\(path)/fastlane/metadata/\(locale)"
     try FileManager.default.createDirectory(atPath: pathForFastlaneMetadataForLocale, withIntermediateDirectories: true, attributes: nil)
-    
-    let descriptionFileURL = URL(fileURLWithPath:"\(pathForFastlaneMetadataForLocale)/description.txt",  isDirectory: false)
-    try localizedDescription.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
+    let descriptionFileURL = URL(fileURLWithPath:"\(pathForFastlaneMetadataForLocale)/\(fileName)",  isDirectory: false)
+    try contents.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
 }
 
 func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
@@ -291,8 +291,8 @@ func exportLocalizationsFromSourceCode(_ path: String) {
     let twnQQQPath = "\(path)/Wikipedia/Localizations/qqq.lproj/Localizable.strings"
     let twnENPath = "\(path)/Wikipedia/Localizations/en.lproj/Localizable.strings"
     guard let iOSEN = NSDictionary(contentsOfFile: iOSENPath) else {
-	       print("Unable to read \(iOSENPath)")
-	       abort()
+        print("Unable to read \(iOSENPath)")
+        abort()
     }
     
     let twnQQQ = NSMutableDictionary()
@@ -400,20 +400,43 @@ func importLocalizationsFromTWN(_ path: String) {
             if locale != "en" { // only write the english plurals, skip the main file
                 if strings.count > 0 {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
-
+                    
                     // If we have a localized app store description, write a fastlane "description.txt" to a folder for its locale.
                     if let localizedDescription = strings["app-store-short-description"] as? String {
-                        try writeLocalizedDescriptionForAppStore(localizedDescription: localizedDescription, locale: locale, path: path)
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "description.txt", contents: localizedDescription, locale: locale, path: path)
                     }
+                    
+                    // If we have a localized app store subtitle, write a fastlane "subtitle.txt" to a folder for its locale.
+                    if let localizedSubtitle = strings["app-store-subtitle"] as? String {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "subtitle.txt", contents: localizedSubtitle, locale: locale, path: path)
+                    }
+
+                    // If we have localized app store release notes, write a fastlane "release_notes.txt" to a folder for its locale.
+                    if let localizedReleaseNotes = strings["app-store-release-notes"] as? String {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "release_notes.txt", contents: localizedReleaseNotes, locale: locale, path: path)
+                    }
+                    
+                    // If we have localized app store keywords, write a fastlane "keywords.txt" to a folder for its locale.
+                    if let localizedKeywords = strings["app-store-keywords"] as? String {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "keywords.txt", contents: localizedKeywords, locale: locale, path: path)
+                    }
+                    
                 } else {
                     do {
                         try fm.removeItem(atPath: stringsFilePath)
                     } catch { }
                 }
+                
+                // If we have a localized app name for "Wikipedia", write a fastlane "name.txt" to a folder for its locale.
+                let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
+                if let infoPlist = NSDictionary(contentsOfFile: infoPlistPath), let localizedAppName = infoPlist["CFBundleDisplayName"] as? String, localizedAppName.count > 0, localizedAppName != "Wikipedia" {
+                    try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: localizedAppName, locale: locale, path: path)
+                }
+
             } else {
                 englishPluralDictionary = stringsDict
             }
-
+            
             let stringsDictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
             
             if stringsDict.count > 0 {
@@ -423,7 +446,7 @@ func importLocalizationsFromTWN(_ path: String) {
             }
             
         }
-
+        
         for stringsDictFilePath in pathsForEnglishPlurals {
             englishPluralDictionary?.write(toFile: stringsDictFilePath, atomically: true)
         }
@@ -454,7 +477,7 @@ func importLocalizationsFromTWN(_ path: String) {
 //  }
 //  for filename in contents {
 //      do {
-// 			let path = codePath + "/" + filename
+//             let path = codePath + "/" + filename
 //          let string = try String(contentsOfFile: path)
 //          //let string = try String(contentsOf: #fileLiteral(resourceName: "WMFContentGroup+WMFFeedContentDisplaying.m"))
 //          let mutableString = NSMutableString(string: string)
@@ -472,6 +495,6 @@ func importLocalizationsFromTWN(_ path: String) {
 //              mutableString.replaceCharacters(in: replacementRange, with: replacement)
 //              offset += (replacement as NSString).length - replacementRange.length
 //          }
-// 			try mutableString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8.rawValue)
+//             try mutableString.write(toFile: path, atomically: true, encoding: String.Encoding.utf8.rawValue)
 //      } catch { }
 // }

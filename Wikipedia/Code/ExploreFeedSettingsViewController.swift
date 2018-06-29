@@ -95,16 +95,21 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
     }
 
     private func multipleLanguagesDisclosureText(for contentGroupKind: WMFContentGroupKind) -> String {
-        let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
-        let languageCodes = contentGroupKind.languageCodes
-        switch languageCodes.count {
-        case 1... where contentGroupKind.isGlobal:
+        guard contentGroupKind.isGlobal else {
+            let preferredLanguages = MWKLanguageLinkController.sharedInstance().preferredLanguages
+            let languageCodes = contentGroupKind.languageCodes
+            switch languageCodes.count {
+            case preferredLanguages.count:
+                return CommonStrings.onAllTitle
+            case 1...:
+                return CommonStrings.onTitle(languageCodes.count)
+            default:
+                return CommonStrings.offTitle
+            }
+        }
+        if contentGroupKind.isInFeed {
             return CommonStrings.onTitle
-        case preferredLanguages.count:
-            return CommonStrings.onAllTitle
-        case 1...:
-            return CommonStrings.onTitle(languageCodes.count)
-        default:
+        } else {
             return CommonStrings.offTitle
         }
     }
@@ -125,7 +130,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
 
     private func multipleLanguagesSubtitle(for contentGroupKind: WMFContentGroupKind) -> String {
         if contentGroupKind.isGlobal {
-            return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle desribing non-language specific feed cards")
+            return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle describing non-language specific feed cards")
         } else {
             return contentGroupKind.languageCodes.joined(separator: ", ").uppercased()
         }
@@ -175,7 +180,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return item is FeedCard
+        return item is FeedCard || item is ExploreFeedSettingsGlobalCards
     }
 
     override func reload() {
@@ -264,15 +269,18 @@ extension ExploreFeedSettingsViewController {
             return
         }
         if displayType == .singleLanguage {
-            let customizable = WMFExploreFeedContentController.customizableContentGroupKindNumbers()
-            guard let contentGroupKindNumber = customizable.first(where: { $0.intValue == controlTag }), let contentGroupKind = WMFContentGroupKind(rawValue: contentGroupKindNumber.int32Value) else {
-                assertionFailure("No content group kind card for a given control tag")
+            guard let contentGroupKind = WMFContentGroupKind(rawValue: Int32(controlTag)) else {
+                assertionFailure("No content group kind for given control tag")
+                return
+            }
+            guard contentGroupKind.isCustomizable || contentGroupKind.isGlobal else {
+                assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
             }
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
         } else {
             guard let language = languages.first(where: { $0.controlTag == controlTag }) else {
-                assertionFailure("No language for a given control tag")
+                assertionFailure("No language for given control tag")
                 return
             }
             feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)

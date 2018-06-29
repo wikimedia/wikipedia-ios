@@ -50,6 +50,9 @@ public extension UIColor {
     fileprivate static let kraft = UIColor(0xCBC8C1)
     fileprivate static let osage = UIColor(0xFF9500)
     
+    fileprivate static let darkSearchFieldBackground = UIColor(0x8E8E93, alpha: 0.12)
+    fileprivate static let lightSearchFieldBackground = UIColor(0xFFFFFF, alpha: 0.15)
+
     fileprivate static let masi60PercentAlpha = UIColor(0x646059, alpha:0.6)
     fileprivate static let black50PercentAlpha = UIColor(0x000000, alpha:0.5)
     fileprivate static let black75PercentAlpha = UIColor(0x000000, alpha:0.75)
@@ -103,15 +106,15 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .base70, shadow: .base80, chromeShadow: .defaultShadow, cardShadow: .base10, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .base70, shadow: .base80, chromeShadow: .defaultShadow, cardShadow: .base10, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardShadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base20, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardShadow: .kraft, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
     
-    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .clear, hintBackground: .pitchBlack, overlayText: .base20, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardShadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha)
+    fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .clear, hintBackground: .pitchBlack, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardShadow: .base10, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha)
 
-    fileprivate static let black = Colors(baseBackground: .pitchBlack, midBackground: .base10, paperBackground: .black, chromeBackground: .base10, popoverBackground: .base10, subCellBackground: .base10, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .white20PercentAlpha, hintBackground: .thermosphere, overlayText: .base20, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardShadow: .base30, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha)
+    fileprivate static let black = Colors(baseBackground: .pitchBlack, midBackground: .base10, paperBackground: .black, chromeBackground: .base10, popoverBackground: .base10, subCellBackground: .base10, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .white20PercentAlpha, hintBackground: .thermosphere, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardShadow: .base30, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha)
     
-    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .clear, overlayText: .base20, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base10, tertiaryText: .base20, disabledText: .base30, disabledLink: .lightBlue, chromeText: .base20, link: .accent10, accent: .green50, border: UIColor(white: 0, alpha: 0.15) , shadow: .base80, chromeShadow: .base80, cardShadow: .black, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
+    fileprivate static let widget = Colors(baseBackground: .clear, midBackground: .clear, paperBackground: .clear, chromeBackground: .clear,  popoverBackground: .clear, subCellBackground: .clear, overlayBackground: UIColor(white: 1.0, alpha: 0.4), batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .clear, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base10, tertiaryText: .base20, disabledText: .base30, disabledLink: .lightBlue, chromeText: .base20, link: .accent10, accent: .green50, border: UIColor(white: 0, alpha: 0.15) , shadow: .base80, chromeShadow: .base80, cardShadow: .black, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .yellow50, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear)
     
     @objc public let baseBackground: UIColor
     @objc public let midBackground: UIColor
@@ -150,6 +153,7 @@ public class Colors: NSObject {
     @objc public let icon: UIColor?
     @objc public let iconBackground: UIColor?
     
+    @objc public let searchFieldBackground: UIColor
     @objc public let keyboardBarSearchFieldBackground: UIColor
     
     @objc public let linkToAccent: Gradient
@@ -158,7 +162,7 @@ public class Colors: NSObject {
     @objc public let blurEffectBackground: UIColor
 
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardShadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffectStyle, blurEffectBackground: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardShadow: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffectStyle, blurEffectBackground: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -173,7 +177,8 @@ public class Colors: NSObject {
         self.referenceHighlightBackground = referenceHighlightBackground
 
         self.overlayText = overlayText
-
+        
+        self.searchFieldBackground = searchFieldBackground
         self.keyboardBarSearchFieldBackground = keyboardBarSearchFieldBackground
         
         self.primaryText = primaryText
@@ -232,7 +237,28 @@ public class Theme: NSObject {
     }
 
     @objc public lazy var navigationBarBackgroundImage: UIImage = {
-        return UIImage.wmf_image(from: colors.chromeBackground)
+        return UIImage.wmf_image(from: colors.paperBackground)
+    }()
+    
+    static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
+        let minDimension = 2 * cornerRadius + 1
+        let rect = CGRect(x: 0, y: 0, width: width ?? minDimension, height: height ?? minDimension)
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        context.setFillColor(color.cgColor)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+        path.fill()
+        let capInsets = UIEdgeInsetsMake(cornerRadius, cornerRadius, cornerRadius, cornerRadius)
+        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: capInsets)
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    @objc public lazy var searchFieldBackgroundImage: UIImage? = {
+        return Theme.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
     }()
 
     @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
@@ -241,41 +267,32 @@ public class Theme: NSObject {
 
     @objc public let imageOpacity: CGFloat
     
-    @objc public let searchBarBackgroundImage: UIImage?
-    
     @objc public let name: String
     @objc public let displayName: String
-
-    fileprivate static let lightSearchBarBackground = UIImage(named: "corner_light", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
-
-    fileprivate static let sepiaSearchBarBackground = UIImage(named: "corner_sepia", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
-
-    fileprivate static let darkSearchBarBackground = UIImage(named: "corner_dark", in: Bundle.wmf, compatibleWith:nil)?.resizableImage(withCapInsets: UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7), resizingMode: .tile)
 
     @objc public let multiSelectIndicatorImage: UIImage?
     fileprivate static let lightMultiSelectIndicator = UIImage(named: "selected", in: Bundle.main, compatibleWith:nil)
     fileprivate static let darkMultiSelectIndicator = UIImage(named: "selected-dark", in: Bundle.main, compatibleWith:nil)
     
-    @objc public static let light = Theme(colors: .light, imageOpacity: 1, searchBarBackgroundImage: Theme.lightSearchBarBackground, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
+    @objc public static let light = Theme(colors: .light, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
     
-    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, searchBarBackgroundImage: Theme.sepiaSearchBarBackground, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
+    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
     
-    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
     
-    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
 
-    @objc public static let black = Theme(colors: .black, imageOpacity: 1, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
+    @objc public static let black = Theme(colors: .black, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
 
-    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, searchBarBackgroundImage: Theme.darkSearchBarBackground, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
+    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
 
-    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, searchBarBackgroundImage: nil, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
+    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
     
-    init(colors: Colors, imageOpacity: CGFloat, searchBarBackgroundImage: UIImage?, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
+    init(colors: Colors, imageOpacity: CGFloat, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
         self.colors = colors
         self.imageOpacity = imageOpacity
         self.name = name
         self.displayName = displayName
-        self.searchBarBackgroundImage = searchBarBackgroundImage
         self.multiSelectIndicatorImage = multiSelectIndicatorImage
         self.isDark = isDark
     }

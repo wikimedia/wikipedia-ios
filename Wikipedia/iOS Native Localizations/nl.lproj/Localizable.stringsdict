@@ -34,6 +34,22 @@
 			<string>artikelen verwijderd</string>
 		</dict>
 	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d artikel naar de leeslijst verplaatsen</string>
+			<key>other</key>
+			<string>%1$d artikelen naar de leeslijst verplaatsen</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +112,38 @@
 			<string>Artikel kan niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
 			<key>other</key>
 			<string>Artikelen kunnen niet meer bij deze lijst. Maximum aantal leeslijsten %2$d per leeslijst voor %3$@ bereikt.</string>
+		</dict>
+	</dict>
+	<key>reading-lists-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d leeslijst</string>
+			<key>other</key>
+			<string>%1$d leeslijsten</string>
+		</dict>
+	</dict>
+	<key>reading-lists-delete-reading-list-alert-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Deze lijst verwijderen?</string>
+			<key>other</key>
+			<string>Deze lijsten verwijderen?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

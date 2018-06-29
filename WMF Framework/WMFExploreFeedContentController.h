@@ -91,6 +91,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 @property (nonatomic, readonly) BOOL areGlobalContentGroupKindsInFeed;
 
+- (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
+
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
 #endif

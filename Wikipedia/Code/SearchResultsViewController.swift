@@ -1,10 +1,9 @@
 import UIKit
 import WMF
 
-@objc(WMFSearchResultsViewController)
 class SearchResultsViewController: ArticleCollectionViewController {
-    @objc var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
-    @objc var results: [MWKSearchResult] = [] {
+    var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
+    var results: [MWKSearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
             reload()
@@ -20,9 +19,8 @@ class SearchResultsViewController: ArticleCollectionViewController {
         collectionView.reloadData()
     }
     
-    @objc var searchSiteURL: URL? = nil
+    var searchSiteURL: URL? = nil
     
-    @objc(isDisplayingResultsForSearchTerm:fromSiteURL:)
     func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
