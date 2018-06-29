@@ -12,8 +12,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBarHider.isHidingEnabled = false
-        navigationBarHider.isBarHidingEnabled = false
         reload()
     }
     

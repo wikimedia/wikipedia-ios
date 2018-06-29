@@ -3,7 +3,6 @@ import WMF
 
 class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
-    var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -13,7 +12,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.init(coder: aDecoder)
     }
     
-    var navigationBar: NavigationBar = NavigationBar()
+    lazy var navigationBar: NavigationBar = {
+        return NavigationBar()
+    }()
+    
+    lazy var navigationBarHider: NavigationBarHider = {
+        return NavigationBarHider()
+    }()
+
     var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true

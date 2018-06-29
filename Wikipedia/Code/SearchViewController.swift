@@ -12,14 +12,14 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
             hidesBottomBarWhenPushed = true
         }
         title = CommonStrings.searchTitle
-        navigationBarHider.isHidingEnabled = false
-        navigationBarHider.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         updateLanguageBarVisibility()
+        navigationBar.isInteractiveHidingEnabled  = false
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: nil)
         searchBar.becomeFirstResponder()
     }
     

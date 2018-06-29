@@ -156,7 +156,10 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
-
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = true
+        
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         currentView = .savedArticles

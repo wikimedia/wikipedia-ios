@@ -10,6 +10,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
+    public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
+    
+    public var isBarHidingEnabled: Bool = true
     public var isUnderBarViewHidingEnabled: Bool = false
     public var isExtendedViewHidingEnabled: Bool = false
     
@@ -168,7 +171,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _navigationBarPercentHidden
         }
         set {
-            _navigationBarPercentHidden = newValue
             setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
@@ -179,7 +181,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _underBarViewPercentHidden
         }
         set {
-            _underBarViewPercentHidden = newValue
             setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
@@ -190,7 +191,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _extendedViewPercentHidden
         }
         set {
-            _extendedViewPercentHidden = newValue
             setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
@@ -199,9 +199,15 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         layoutIfNeeded()
-        _navigationBarPercentHidden = navigationBarPercentHidden
-        _underBarViewPercentHidden = underBarViewPercentHidden
-        _extendedViewPercentHidden = extendedViewPercentHidden
+        if isBarHidingEnabled {
+            _navigationBarPercentHidden = navigationBarPercentHidden
+        }
+        if isUnderBarViewHidingEnabled {
+            _underBarViewPercentHidden = underBarViewPercentHidden
+        }
+        if isExtendedViewHidingEnabled {
+            _extendedViewPercentHidden = extendedViewPercentHidden
+        }
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
@@ -257,15 +263,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
         self.backgroundView.transform = totalTransform
 
-        if isUnderBarViewHidingEnabled {
-            self.underBarView.transform = totalTransform
-            self.underBarView.alpha = 1.0 - underBarViewPercentHidden
-        }
+        let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+        self.underBarView.transform = underBarTransform
+        self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        if isExtendedViewHidingEnabled {
-            self.extendedView.alpha = 1.0 - extendedViewPercentHidden
-        }
+        self.extendedView.alpha = 1.0 - extendedViewPercentHidden
         
         if isExtendedViewHidingEnabled && isUnderBarViewHidingEnabled {
             self.shadow.alpha = underBarViewPercentHidden
