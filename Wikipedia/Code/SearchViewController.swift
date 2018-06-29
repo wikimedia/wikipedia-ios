@@ -18,8 +18,19 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         super.viewWillAppear(animated)
         navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: { self.updateScrollViewInsets() })
         searchBar.setShowsCancelButton(true, animated: animated && shouldAnimateSearchBar)
-        searchBar.becomeFirstResponder()
+        if animated {
+            searchBar.becomeFirstResponder()
+        }
         shouldAnimateSearchBar = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        funnel.logSearchStart()
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
+        if !animated {
+            searchBar.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -29,12 +40,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
             searchBar.setShowsCancelButton(false, animated: animated)
         }
         shouldAnimateSearchBar = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        funnel.logSearchStart()
-        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
     }
     
     var nonSearchAlpha: CGFloat = 1 {
