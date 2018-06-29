@@ -512,17 +512,21 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-        NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
-        NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
-        if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
-            continue;
-        }
-        if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-            contentGroup.isVisible = YES;
+        if ([self isGlobal:contentGroup.contentGroupKind]) {
+            BOOL isGlobalCardVisible = [[self.globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
+            contentGroup.isVisible = isGlobalCardVisible;
         } else {
-            contentGroup.isVisible = NO;
+            NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
+            if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
+                continue;
+            }
+            if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
+                contentGroup.isVisible = YES;
+            } else {
+                contentGroup.isVisible = NO;
+            }
         }
-
     }
 }
 
