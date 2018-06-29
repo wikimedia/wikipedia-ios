@@ -29,8 +29,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     fileprivate func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if isBackVisible {
-            items.append(UINavigationItem())
+            if let nc = delegate?.navigationController, nc.viewControllers.count > 1 {
+               items.append(nc.viewControllers[nc.viewControllers.count - 2].navigationItem)
+            } else {
+                items.append(UINavigationItem())
+            }
         }
+
         if let item = delegate?.navigationItem {
             items.append(item)
         }

@@ -15,6 +15,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.addExtendedNavigationBarView(searchBarContainerView)
         navigationBar.isExtendedViewHidingEnabled = true
         isRefreshControlEnabled = true
+        
+        title = CommonStrings.exploreTabTitle
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!

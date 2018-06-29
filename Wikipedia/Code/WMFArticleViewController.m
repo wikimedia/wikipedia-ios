@@ -1119,6 +1119,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.title = self.article.displaytitle;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();

@@ -11,6 +11,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         } else {
             hidesBottomBarWhenPushed = true
         }
+        title = CommonStrings.searchTitle
         navigationBarHider.isHidingEnabled = false
         navigationBarHider.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
