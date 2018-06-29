@@ -36,6 +36,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if shouldAnimateSearchBar {
+            searchBar.text = nil
             navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
             searchBar.setShowsCancelButton(false, animated: animated)
         }
