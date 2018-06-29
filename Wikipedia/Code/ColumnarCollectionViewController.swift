@@ -12,6 +12,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         cv.dataSource = self
         cv.isPrefetchingEnabled = true
         cv.prefetchDataSource = self
+        cv.preservesSuperviewLayoutMargins = true
         scrollView = cv
         return cv
     }()
@@ -31,7 +32,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         extendedLayoutIncludesOpaqueBars = true
     }
 
-    @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
+    @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
 

@@ -34,24 +34,9 @@ public class NavigationBarHider: NSObject {
     fileprivate var isScrollingToTop: Bool = false
     var initialScrollY: CGFloat = 0
     var initialNavigationBarPercentHidden: CGFloat = 0
-
-    public var isHidingEnabled: Bool = true
-    public var isBarHidingEnabled: Bool = true
-    
-    public var isUnderBarViewHidingEnabled: Bool = true {
-        didSet {
-            navigationBar?.isUnderBarViewHidingEnabled = isUnderBarViewHidingEnabled
-        }
-    }
-    
-    public var isExtendedViewHidingEnabled: Bool = true {
-        didSet {
-            navigationBar?.isExtendedViewHidingEnabled = isExtendedViewHidingEnabled
-        }
-    }
     
     @objc public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, isHidingEnabled else {
+        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }
         isUserScrolling = true
@@ -60,7 +45,7 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, isHidingEnabled else {
+        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }
 
@@ -84,8 +69,8 @@ public class NavigationBarHider: NSObject {
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
-        let shouldHideUnderBarView = isUnderBarViewHidingEnabled && underBarViewHeight > 0
-        let shouldHideExtendedView = isExtendedViewHidingEnabled && extendedViewHeight > 0
+        let shouldHideUnderBarView = navigationBar.isUnderBarViewHidingEnabled && underBarViewHeight > 0
+        let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0
 
         if shouldHideUnderBarView {
             underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
@@ -97,7 +82,7 @@ public class NavigationBarHider: NSObject {
             extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
         }
         
-        if !isBarHidingEnabled {
+        if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage
@@ -116,7 +101,7 @@ public class NavigationBarHider: NSObject {
     }
     
     @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let navigationBar = navigationBar, isHidingEnabled else {
+        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }
         
@@ -151,7 +136,7 @@ public class NavigationBarHider: NSObject {
         
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
         
-        if !isBarHidingEnabled {
+        if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if velocity.y > 0 {
             navigationBarPercentHidden = 1
@@ -177,7 +162,7 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewWillScrollToTop(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, isHidingEnabled else {
+        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }
         initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
