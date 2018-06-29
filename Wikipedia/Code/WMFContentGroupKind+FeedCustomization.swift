@@ -10,11 +10,6 @@ extension WMFContentGroupKind {
         return WMFExploreFeedContentController.customizableContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
-    var isCustomizable: Bool {
-        let contentGroupKindNumber = NSNumber(value: self.rawValue)
-        return WMFExploreFeedContentController.customizableContentGroupKindNumbers().contains(contentGroupKindNumber)
-    }
-
     var isGlobal: Bool {
         return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
