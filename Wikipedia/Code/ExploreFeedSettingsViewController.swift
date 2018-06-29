@@ -170,7 +170,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return item is FeedCard
+        return item is FeedCard || item is ExploreFeedSettingsGlobalCards
     }
 
     override func reload() {
