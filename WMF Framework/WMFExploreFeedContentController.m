@@ -427,13 +427,14 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
-    [self toggleContentGroupKinds:[NSSet setWithObject:@(contentGroupKind)] forSiteURLs:siteURLs isOn:isOn];
-}
-
-- (void)toggleContentGroupKinds:(NSSet <NSNumber *> *)contentGroupKindNumbers forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
-        for (NSURL *siteURL in siteURLs) {
-            for (NSNumber *contentGroupKindNumber in contentGroupKindNumbers) {
+        if ([self isGlobal:contentGroupKind]) {
+            NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+            NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
+            [newGlobalCardPreferences setObject:[NSNumber numberWithBool:isOn] forKey:@(contentGroupKind)];
+            [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+        } else {
+            for (NSURL *siteURL in siteURLs) {
                 NSString *key = siteURL.wmf_articleDatabaseKey;
                 NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
                 NSMutableSet *newVisibleContentGroupKindNumbers;
