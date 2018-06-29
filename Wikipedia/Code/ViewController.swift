@@ -59,6 +59,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+            navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false
         }
