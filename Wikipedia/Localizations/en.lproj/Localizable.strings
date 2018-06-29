@@ -58,7 +58,10 @@
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
+"app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
+"app-store-release-notes" = "Saved articles can now be organized into reading lists and synced across devices.";
 "app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
+"app-store-subtitle" = "The free encyclopedia";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
 "appearance-settings-expand-tables" = "Expand tables";
 "appearance-settings-expand-tables-footer" = "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.";
