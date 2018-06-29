@@ -96,9 +96,6 @@ extension SearchBarExtendedViewController: Themeable {
         view.backgroundColor = theme.colors.paperBackground
         button.titleLabel?.textColor = theme.colors.link
         separatorView.backgroundColor = theme.colors.border
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
+        searchBar.apply(theme: theme)
     }
 }

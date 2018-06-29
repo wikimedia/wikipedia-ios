@@ -150,6 +150,7 @@
 "explore-continue-reading-heading" = "계속 읽기";
 "explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
+"explore-feed-preferences-additional-languages-footer-text" = "'내 언어' 설정 문서에서 추가 언어를 추가할 수 있습니다.";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
@@ -238,6 +239,7 @@
 "in-the-news-title" = "새로 들어온 소식";
 "info-box-close-text" = "닫기";
 "info-box-title" = "빠른 사실";
+"languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
 "license-footer-name" = "CC BY-SA 3.0";

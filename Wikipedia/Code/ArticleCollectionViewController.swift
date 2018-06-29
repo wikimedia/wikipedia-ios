@@ -85,9 +85,9 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return articleURL(at: indexPath) != nil
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil
+        super.contentSizeCategoryDidChange(notification)
     }
     
     // MARK: - EventLoggingEventValuesProviding

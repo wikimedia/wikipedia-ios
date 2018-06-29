@@ -1,40 +1,28 @@
 import Foundation
 
-@objc protocol WMFSearchLanguagesBarViewControllerDelegate: class {
-    func searchLanguagesBarViewController(_ controller: WMFSearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
+@objc protocol SearchLanguagesBarViewControllerDelegate: class {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
-class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
-    @objc weak var delegate: WMFSearchLanguagesBarViewControllerDelegate?
+class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
+    required init() {
+        super.init(nibName: "SearchLanguagesBarViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc weak var delegate: SearchLanguagesBarViewControllerDelegate?
     
     @IBOutlet fileprivate var languageButtons: [UIButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
-    @IBOutlet fileprivate var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
-    @IBOutlet weak var bottomSeparatorView: UIView!
-
-    @IBOutlet var topAndBottomConstraints: [NSLayoutConstraint]!
     
     @objc var theme: Theme = Theme.standard
     
-    fileprivate var hidden: Bool = false {
-        didSet {
-            if hidden {
-                heightConstraint!.constant = 0
-                NSLayoutConstraint.deactivate(topAndBottomConstraints)
-                view.layoutIfNeeded()
-                view.isHidden = true
-            } else {
-                heightConstraint!.constant = 44
-                NSLayoutConstraint.activate(topAndBottomConstraints)
-                view.layoutIfNeeded()
-                view.isHidden = false
-            }
-        }
-    }
-
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
             if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
@@ -56,12 +44,12 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             updateLanguageBarLanguageButtons()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items.\n{{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
-
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFAppLanguageDidChange, object: nil, queue: nil) { notification in
             guard let langController = notification.object, let appLanguage = (langController as AnyObject).appLanguage else {
                 assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
@@ -69,7 +57,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             }
             self.currentlySelectedSearchLanguage = appLanguage
         }
-
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil, queue: nil) { _ in
             if let selectedLang = self.currentlySelectedSearchLanguage {
                 // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
@@ -97,7 +85,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: gradientView.frame.size.width)
         scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: gradientView.frame.size.width)
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -105,8 +93,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageBarLanguageButtons()
-        hidden = !UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
-
+        
         var selectedButtonCount = 0
         for button in languageButtons{
             if button.isSelected {
@@ -129,7 +116,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
         return Array(MWKLanguageLinkController.sharedInstance().preferredLanguages.prefix(3))
     }
-
+    
     fileprivate func updateLanguageBarLanguageButtons(){
         for (index, language) in languageBarLanguages().enumerated() {
             if index >= languageButtons.count {
@@ -156,7 +143,7 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
     }
     
     fileprivate func showMoreLanguagesTooltipIfNecessary() {
-        guard !hidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
+        guard !view.isHidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
             return
         }
         self.perform(#selector(showMoreLanguagesTooltip), with: nil, afterDelay: 1.0)
@@ -209,7 +196,6 @@ class WMFSearchLanguagesBarViewController: UIViewController, WMFPreferredLanguag
             languageButton.tintColor = theme.colors.link
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
-        bottomSeparatorView.backgroundColor = theme.colors.border
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
     }
 }
