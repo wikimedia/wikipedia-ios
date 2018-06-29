@@ -349,6 +349,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     return globalContentGroupKindNumbers;
 }
 
+- (BOOL)isGlobal:(WMFContentGroupKind)contentGroupKind {
+    return [[WMFExploreFeedContentController globalContentGroupKindNumbers] containsObject:@(contentGroupKind)];
+}
 - (BOOL)areGlobalContentGroupKindsInFeed {
     for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
         WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
