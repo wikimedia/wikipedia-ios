@@ -352,6 +352,13 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 - (BOOL)isGlobal:(WMFContentGroupKind)contentGroupKind {
     return [[WMFExploreFeedContentController globalContentGroupKindNumbers] containsObject:@(contentGroupKind)];
 }
+
+- (NSDictionary<NSNumber*, NSNumber*> *)globalCardPreferences {
+    NSDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+    assert(globalCardPreferences);
+    return globalCardPreferences;
+}
+
 - (BOOL)areGlobalContentGroupKindsInFeed {
     for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
         WMFContentGroupKind globalContentGroupKind = (WMFContentGroupKind)globalContentGroupKindNumber.intValue;
