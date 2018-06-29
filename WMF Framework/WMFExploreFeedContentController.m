@@ -460,7 +460,14 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
-    [self toggleContentGroupKinds:[WMFExploreFeedContentController globalContentGroupKindNumbers] forSiteURLs:self.preferredSiteURLs isOn:on];
+    [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
+        NSMutableDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+        for (id key in globalCardPreferences.allKeys) {
+            [globalCardPreferences setObject:[NSNumber numberWithBool:on] forKey:key];
+        }
+    } completion:^{
+        [self updateFeedSourcesUserInitiated:YES completion:nil];
+    }];
 }
 
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
