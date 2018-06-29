@@ -1824,7 +1824,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
         searchVC = [[SearchViewController alloc] init];
-        searchVC.hidesBottomBarWhenPushed = YES;
+        //searchVC.hidesBottomBarWhenPushed = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }

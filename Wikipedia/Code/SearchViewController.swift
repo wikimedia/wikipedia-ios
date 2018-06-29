@@ -7,6 +7,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         super.viewDidLoad()
         navigationBar.isBackVisible = false
         title = CommonStrings.searchTitle
+        navigationItem.titleView = UIView()
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
@@ -16,12 +17,26 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         super.viewWillAppear(animated)
         navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
         searchBar.becomeFirstResponder()
+        searchBar.setShowsCancelButton(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchBar.setShowsCancelButton(false, animated: animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         funnel.logSearchStart()
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
+    }
+    
+    var nonSearchAlpha: CGFloat = 1 {
+        didSet {
+            resultsViewController.view.alpha = nonSearchAlpha
+            collectionView.alpha = nonSearchAlpha
+            navigationBar.backgroundAlpha = nonSearchAlpha
+        }
     }
     
     @objc var searchTerm: String? {
@@ -169,7 +184,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.showsCancelButton = true
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
@@ -241,6 +255,9 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         searchBar.apply(theme: theme)
         searchLanguageBarViewController.apply(theme: theme)
         resultsViewController.apply(theme: theme)
+        resultsViewController.collectionView.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = .clear
+        collectionView.backgroundColor = theme.colors.paperBackground
     }
 }
 

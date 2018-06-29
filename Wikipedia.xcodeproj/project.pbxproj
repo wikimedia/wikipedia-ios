@@ -341,6 +341,16 @@
 		83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
 		83023C1420E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
 		83023C1520E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
+		83023C1920E6583800EC7592 /* ImageScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1820E6583800EC7592 /* ImageScaleTransition.swift */; };
+		83023C1A20E6583800EC7592 /* ImageScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1820E6583800EC7592 /* ImageScaleTransition.swift */; };
+		83023C1B20E6583800EC7592 /* ImageScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1820E6583800EC7592 /* ImageScaleTransition.swift */; };
+		83023C1C20E6583800EC7592 /* ImageScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1820E6583800EC7592 /* ImageScaleTransition.swift */; };
+		83023C1D20E6583800EC7592 /* ImageScaleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1820E6583800EC7592 /* ImageScaleTransition.swift */; };
+		83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1E20E6584F00EC7592 /* SearchTransition.swift */; };
+		83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1E20E6584F00EC7592 /* SearchTransition.swift */; };
+		83023C2120E6584F00EC7592 /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1E20E6584F00EC7592 /* SearchTransition.swift */; };
+		83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1E20E6584F00EC7592 /* SearchTransition.swift */; };
+		83023C2320E6584F00EC7592 /* SearchTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1E20E6584F00EC7592 /* SearchTransition.swift */; };
 		8304D7C01F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C11F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C21F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
@@ -3297,6 +3307,8 @@
 		83023C0420E51DDF00EC7592 /* SearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
 		83023C0520E51DDF00EC7592 /* SearchLanguagesBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchLanguagesBarViewController.xib; sourceTree = "<group>"; };
 		83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionsController.swift; sourceTree = "<group>"; };
+		83023C1820E6583800EC7592 /* ImageScaleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScaleTransition.swift; sourceTree = "<group>"; };
+		83023C1E20E6584F00EC7592 /* SearchTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransition.swift; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
 		830D71C21F703C980080078B /* ArticleURLListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleURLListViewController.swift; sourceTree = "<group>"; };
@@ -5964,6 +5976,16 @@
 			name = "Storage and syncing";
 			sourceTree = "<group>";
 		};
+		83023C1720E6581A00EC7592 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */,
+				83023C1820E6583800EC7592 /* ImageScaleTransition.swift */,
+				83023C1E20E6584F00EC7592 /* SearchTransition.swift */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7383,6 +7405,7 @@
 		D818D37F1ED725240076110D /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				83023C1720E6581A00EC7592 /* Transitions */,
 				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B1668A1FD97FE000097D8B /* WMFViewController.h */,
 				D8B1668B1FD97FE000097D8B /* WMFViewController.m */,
@@ -7425,7 +7448,6 @@
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
-				83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -9912,6 +9934,7 @@
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
+				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
 				83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
@@ -10020,6 +10043,7 @@
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				B00DDEDD1DB591C400615FA2 /* WMFWelcomeContainerViewController.swift in Sources */,
+				83023C1920E6583800EC7592 /* ImageScaleTransition.swift in Sources */,
 				83FBE96F1F6172ED0026C7EB /* ShareAFactActivityTextItemProvider.swift in Sources */,
 				D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				B0C6BE481E428C940033BD6E /* WMFAccountCreator.swift in Sources */,
@@ -10339,6 +10363,7 @@
 				B0C7A0821F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D80ED30A1EE57F4800CE8C50 /* WMFCollectionViewPageLayout.m in Sources */,
+				83023C2320E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D80ED30B1EE57F4800CE8C50 /* WeakScriptMessageDelegate.swift in Sources */,
 				D80ED30F1EE57F4800CE8C50 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				83023C0A20E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
@@ -10365,6 +10390,7 @@
 				D80ED3261EE57F4800CE8C50 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
 				D80ED3281EE57F4800CE8C50 /* UIViewController+WMFChildViewController.swift in Sources */,
 				D80ED32B1EE57F4800CE8C50 /* UIView+WMFFrameUtils.m in Sources */,
+				83023C1D20E6583800EC7592 /* ImageScaleTransition.swift in Sources */,
 				D80ED32C1EE57F4800CE8C50 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D80ED32D1EE57F4800CE8C50 /* WMFTableOfContentsCell.swift in Sources */,
 				D80ED32F1EE57F4800CE8C50 /* WMFSettingsMenuItem.m in Sources */,
@@ -10884,6 +10910,7 @@
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A701E815A9C00D8E281 /* WMFAppModalProgressViewController.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
+				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
@@ -10992,6 +11019,7 @@
 				B04C809D1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				D8A42AE51E815A9C00D8E281 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D8A42AE61E815A9C00D8E281 /* WMFAccountCreator.swift in Sources */,
+				83023C1C20E6583800EC7592 /* ImageScaleTransition.swift in Sources */,
 				D8A42AE71E815A9C00D8E281 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				D8A42AE81E815A9C00D8E281 /* WMFCollectionViewPageLayout.m in Sources */,
 				D8A42AE91E815A9C00D8E281 /* WeakScriptMessageDelegate.swift in Sources */,
@@ -11311,6 +11339,7 @@
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0C7A0831F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D8CE25741E698E2400DAE2E0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
+				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				D8BDA8BE1E71B8C90031F4BF /* WMFDeleteBackwardReportingTextField.swift in Sources */,
 				83023C0720E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
@@ -11337,6 +11366,7 @@
 				D8CE25861E698E2400DAE2E0 /* WMFArticleViewController.m in Sources */,
 				BA4524251F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				D8CE25891E698E2400DAE2E0 /* UIImageView+WMFFaceDetectionBasedOnUIApplicationSharedApplication.m in Sources */,
+				83023C1A20E6583800EC7592 /* ImageScaleTransition.swift in Sources */,
 				D8CE258E1E698E2400DAE2E0 /* UIView+WMFFrameUtils.m in Sources */,
 				D8CE258F1E698E2400DAE2E0 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8CE25901E698E2400DAE2E0 /* WMFTableOfContentsCell.swift in Sources */,
@@ -11529,6 +11559,7 @@
 				D8EC3DF41E9BDA35006712EB /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
+				83023C2120E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
 				83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
@@ -11637,6 +11668,7 @@
 				D8EC3E6C1E9BDA35006712EB /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				D8EC3E6D1E9BDA35006712EB /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
 				D8EC3E6E1E9BDA35006712EB /* WMFDeleteBackwardReportingTextField.swift in Sources */,
+				83023C1B20E6583800EC7592 /* ImageScaleTransition.swift in Sources */,
 				830D71C51F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				D8EC3E6F1E9BDA35006712EB /* WMFFindInPageKeyboardBar.m in Sources */,
 				D8EC3E701E9BDA35006712EB /* MWKLanguageLinkFetcher.m in Sources */,

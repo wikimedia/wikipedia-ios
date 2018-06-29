@@ -352,6 +352,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return point.y <= visibleHeight
     }
+    
+    public var backgroundAlpha: CGFloat = 1 {
+        didSet {
+            statusBarUnderlay.alpha = backgroundAlpha
+            backgroundView.alpha = backgroundAlpha
+            bar.alpha = backgroundAlpha
+            shadow.alpha = backgroundAlpha
+            progressView.alpha = backgroundAlpha
+        }
+    }
 }
 
 extension NavigationBar: Themeable {
@@ -368,7 +378,8 @@ extension NavigationBar: Themeable {
         bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
         bar.tintColor = theme.colors.primaryText
         
-        extendedView.backgroundColor = theme.colors.paperBackground
+        extendedView.backgroundColor = .clear
+        underBarView.backgroundColor = .clear
         
         shadow.backgroundColor = theme.colors.chromeShadow
         
