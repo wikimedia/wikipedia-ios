@@ -141,16 +141,8 @@
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
 "explore-feed-preferences-global-cards-title" = "Global cards";
-"explore-feed-preferences-hide-because-you-read-action-title" = "Hide all Because you read cards";
 "explore-feed-preferences-hide-card-action-title" = "Hide this card";
-"explore-feed-preferences-hide-continue-reading-action-title" = "Hide all Continue reading cards";
-"explore-feed-preferences-hide-featured-article-action-title" = "Hide all Featured article cards";
-"explore-feed-preferences-hide-news-action-title" = "Hide all Top read cards";
-"explore-feed-preferences-hide-on-this-day-action-title" = "Hide all On this day cards";
-"explore-feed-preferences-hide-picture-of-the-day-action-title" = "Hide all Picture of the day cards";
-"explore-feed-preferences-hide-places-action-title" = "Hide all Places cards";
-"explore-feed-preferences-hide-randomizer-action-title" = "Hide all Randomizer cards";
-"explore-feed-preferences-hide-top-read-action-title" = "Hide all Top read cards";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Hide all %@ cards";
 "explore-feed-preferences-in-the-news-description" = "Articles about current events";
 "explore-feed-preferences-languages-footer-text" = "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.";
 "explore-feed-preferences-on-this-day-description" = "Events in history on this day";
