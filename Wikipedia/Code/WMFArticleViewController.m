@@ -736,7 +736,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
-    
+
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
@@ -1119,7 +1119,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.title = self.article.displaytitle;
+        self.navigationItem.title = self.article.displaytitle.wmf_stringByRemovingHTML;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
