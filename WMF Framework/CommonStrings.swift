@@ -128,6 +128,9 @@ public class CommonStrings: NSObject {
         return String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-card-visibility-languages-count", value:"On %1$d", comment: "Text for Explore feed card setting indicating the number of languages it's visible in - %1$d is replaced with the number of languages"), count)
     }
     
-    // REMINDER: do not delete the "appStoreShortDescription" below. We're not using it anywhere within the app itself but we need it to remain so it gets upstreamed into TWN. (We are manually copying the translations of this string into respective language app stores. We may automate this copying at some point in the future.)
+    // REMINDER: do not delete the app store strings below. We're not using them anywhere within the app itself but we need them to remain so they get upstreamed into TWN. ("localizations.swift copies the non-EN translations of these strings into respective Fastlane "Localized Metadata" files. See: https://docs.fastlane.tools/actions/deliver/)
+    @objc public static let appStoreSubtitle = WMFLocalizedString("app-store-subtitle", value: "The free encyclopedia", comment: "Subtitle describing the app for the app store")
     @objc public static let appStoreShortDescription = WMFLocalizedString("app-store-short-description", value: "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.", comment: "Short description of the app for the app store")
+    @objc public static let appStoreReleaseNotes = WMFLocalizedString("app-store-release-notes", value: "Saved articles can now be organized into reading lists and synced across devices.", comment: "Short summary of what is new in this version of the app for the app store")
+    @objc public static let appStoreKeywords = WMFLocalizedString("app-store-keywords", value: "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn", comment: "Short list of keywords describing the app for the app store. It is required that these are individual words, not phrases, and are comma separated.")
 }
