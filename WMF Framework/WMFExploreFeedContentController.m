@@ -367,12 +367,12 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 
 - (BOOL)areGlobalContentGroupKindsInFeed {
     for (NSNumber *globalCardPreferenceNumber in [self.globalCardPreferences allValues]) {
-        if (![globalCardPreferenceNumber boolValue]) {
-            return false;
+        if ([globalCardPreferenceNumber boolValue]) {
+            return true;
         }
         continue;
     }
-    return true;
+    return false;
 }
 
 - (NSSet <NSURL *> *)preferredSiteURLs {
