@@ -184,6 +184,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         resultsViewController.results = []
         resultsViewController.wmf_hideEmptyView()
         searchBar.text = nil
+        fakeProgressController.stop()
     }
     
     lazy var searchBarContainerView: UIView = {
