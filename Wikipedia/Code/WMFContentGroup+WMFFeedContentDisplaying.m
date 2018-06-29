@@ -101,11 +101,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)headerTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
-            return WMFLocalizedStringWithDefaultValue(@"explore-continue-reading-heading", nil, nil, @"Continue reading", @"Text for 'Continue Reading' header");
+            return [WMFCommonStrings continueReadingTitle];
         case WMFContentGroupKindMainPage:
             return WMFLocalizedStringWithDefaultValue(@"explore-main-page-heading", nil, nil, @"Today on Wikipedia", @"Text for 'Today on Wikipedia' header");
         case WMFContentGroupKindRelatedPages:
-            return WMFLocalizedStringWithDefaultValue(@"explore-because-you-read", nil, nil, @"Because you read", @"Text for 'Because you read' header");
+            return [WMFCommonStrings relatedPagesTitle];
         case WMFContentGroupKindLocation:
             return WMFLocalizedStringWithDefaultValue(@"explore-nearby-heading", nil, nil, @"Places near", @"Text for 'Nearby places' header. The next line of the header is the name of the nearest article.");
         case WMFContentGroupKindLocationPlaceholder:

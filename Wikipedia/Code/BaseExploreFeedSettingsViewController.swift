@@ -3,7 +3,6 @@ protocol ExploreFeedSettingsItem {
     var subtitle: String? { get }
     var disclosureType: WMFSettingsMenuItemDisclosureType { get }
     var disclosureText: String? { get }
-    var type: ExploreFeedSettingsItemType { get }
     var iconName: String? { get }
     var iconColor: UIColor? { get }
     var iconBackgroundColor: UIColor? { get }
@@ -29,31 +28,32 @@ struct ExploreFeedSettingsSection {
     let items: [ExploreFeedSettingsItem]
 }
 
-enum ExploreFeedSettingsItemType {
-    case feedCard(WMFContentGroupKind)
-    case language(MWKLanguageLink)
-    case masterSwitch
-}
-
 struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType
+    let subtitle: String?
     let controlTag: Int
     let isOn: Bool
     let siteURL: URL
 
     init(_ languageLink: MWKLanguageLink, controlTag: Int, isOn: Bool) {
-        type = ExploreFeedSettingsItemType.language(languageLink)
         title = languageLink.localizedName
+        subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
         self.isOn = isOn
         siteURL = languageLink.siteURL()
     }
 }
 
+struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
+    let disclosureType: WMFSettingsMenuItemDisclosureType = .switch
+    let title: String = WMFLocalizedString("explore-feed-preferences-global-cards-title", value: "Global cards", comment: "Title for the setting that allows users to toggle non-language specific feed cards")
+    let subtitle: String? = WMFLocalizedString("explore-feed-preferences-global-cards-description", value: "Non-language specific cards", comment: "Description of global feed cards")
+    let controlTag: Int = -2
+    let isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
+}
+
 struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
     let title: String
-    let type: ExploreFeedSettingsItemType = .masterSwitch
     let controlTag: Int = -1
     let isOn: Bool
 
@@ -75,9 +75,11 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedSectionFooterHeight = 44
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidChange(_:)), name: NSNotification.Name.WMFExplorePreferencesDidChange, object: nil)
     }
@@ -92,6 +94,11 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         }
         return languages
     }()
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        tableView.reloadData()
+    }
 
     var feedContentController: WMFExploreFeedContentController? {
         return dataStore?.feedContentController
@@ -129,6 +136,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     func getSection(at index: Int) -> ExploreFeedSettingsSection {
         assert(sections.indices.contains(index), "Section at index \(index) doesn't exist")
         return sections[index]
+    }
+
+    open func reload() {
+        self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .none)
     }
 
 }
@@ -187,6 +198,13 @@ extension BaseExploreFeedSettingsViewController: UITableViewDelegate {
         }
         return footer
     }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+            return 0
+        }
+        return UITableViewAutomaticDimension
+    }
 }
 
 // MARK: - WMFSettingsTableViewCellDelegate
@@ -205,7 +223,7 @@ extension BaseExploreFeedSettingsViewController {
             guard self.shouldReload else {
                 return
             }
-            self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .automatic)
+            self.reload()
         }
     }
 }

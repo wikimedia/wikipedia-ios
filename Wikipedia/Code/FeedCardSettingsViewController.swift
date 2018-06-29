@@ -4,19 +4,25 @@ private extension WMFContentGroupKind {
     var masterSwitchTitle: String {
         switch self {
         case .news:
-            return WMFLocalizedString("explore-feed-preferences-show-news-title", value: "Show In the news card", comment: "Text for the setting that allows users to toggle the visiblity of the In the news card")
+            return WMFLocalizedString("explore-feed-preferences-show-news-title", value: "Show In the news card", comment: "Text for the setting that allows users to toggle the visibility of the In the news card")
         case .featuredArticle:
-            return WMFLocalizedString("explore-feed-preferences-show-featured-article-title", value: "Show Featured article card", comment: "Text for the setting that allows users to toggle the visiblity of the Featured article card")
+            return WMFLocalizedString("explore-feed-preferences-show-featured-article-title", value: "Show Featured article card", comment: "Text for the setting that allows users to toggle the visibility of the Featured article card")
         case .topRead:
-            return WMFLocalizedString("explore-feed-preferences-show-top-read-title", value: "Show Top read card", comment: "Text for the setting that allows users to toggle the visiblity of the Top read card")
+            return WMFLocalizedString("explore-feed-preferences-show-top-read-title", value: "Show Top read card", comment: "Text for the setting that allows users to toggle the visibility of the Top read card")
         case .onThisDay:
-            return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visiblity of the On this day card")
+            return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visibility of the On this day card")
         case .pictureOfTheDay:
-            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visiblity of the Picture of the day card")
+            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visibility of the Picture of the day card")
+        case .locationPlaceholder:
+            fallthrough
         case .location:
-            return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visiblity of the Places card")
+            return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visibility of the Places card")
         case .random:
-            return WMFLocalizedString("explore-feed-preferences-show-randomizer-title", value: "Show Randomizer card", comment: "Text for the setting that allows users to toggle the visiblity of the Randomizer card")
+            return WMFLocalizedString("explore-feed-preferences-show-randomizer-title", value: "Show Randomizer card", comment: "Text for the setting that allows users to toggle the visibility of the Randomizer card")
+        case .continueReading:
+            return WMFLocalizedString("explore-feed-preferences-show-continue-reading-title", value: "Show Continue reading card", comment: "Text for the setting that allows users to toggle the visibility of the Continue reading card")
+        case .relatedPages:
+            return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visibility of the Because you read card")
         default:
             assertionFailure("\(self) is not customizable")
             return ""
@@ -33,8 +39,14 @@ private extension WMFContentGroupKind {
             return WMFLocalizedString("explore-feed-preferences-show-top-read-footer-text", value: "Turning off the Top read card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Top read card")
         case .onThisDay:
             return WMFLocalizedString("explore-feed-preferences-show-on-this-day-footer-text", value: "Turning off the On this day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the On this day card")
+        case .continueReading:
+            fallthrough
+        case .relatedPages:
+            fallthrough
         case .pictureOfTheDay:
-            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-footer-text", value: "Turning off the Picture of the day card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Picture of the day card")
+            return WMFLocalizedString("explore-feed-preferences-global-card-footer-text", value: "This card is not language specific, turning off this card will remove it from your Explore feed.", comment: "Text describing the effects of turning off a global card")
+        case .locationPlaceholder:
+            fallthrough
         case .location:
             return WMFLocalizedString("explore-feed-preferences-show-places-footer-text", value: "Turning off the Places card will turn the card off in all available languages.", comment: "Text describing the effects of turning off the Places card")
         case .random:
@@ -79,7 +91,11 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         let master = ExploreFeedSettingsMaster(title: masterSwitchTitle, isOn: contentGroupKind.isInFeed)
         let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
         let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: self.languages)
-        return [main, languages]
+        if contentGroupKind.isGlobal {
+            return [main]
+        } else {
+            return [main, languages]
+        }
     }
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
