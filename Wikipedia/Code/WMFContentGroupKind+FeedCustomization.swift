@@ -5,6 +5,9 @@ extension WMFContentGroupKind {
         }
         return feedContentController.isGlobalContentGroupKind(inFeed: self)
     }
+
+    var isCustomizable: Bool {
+        return WMFExploreFeedContentController.customizableContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
     var isGlobal: Bool {
