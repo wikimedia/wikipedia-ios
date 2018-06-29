@@ -8,16 +8,7 @@ extension WMFContentGroupKind {
     }
 
     var isGlobal: Bool {
-        switch self {
-        case .relatedPages:
-            fallthrough
-        case .continueReading:
-            fallthrough
-        case .pictureOfTheDay:
-            return true
-        default:
-            return false
-        }
+        return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
     var languageCodes: Set<String> {
