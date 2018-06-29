@@ -1,5 +1,6 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
+// Author: Amaia
 // Author: An13sa
 // Author: Asierog
 // Author: Envlh
@@ -345,6 +346,7 @@
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
 "reading-list-keep-subtitle" = "Zure Wikipedia kontuan sinkronizatutako artikuluak daude. Saioa itxi eta gero, gailuan mantendu nahiko zenituzke?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Sinkronizazioa itzaltzeak artikulu hauek ezabatuko ditu zure kontutik. Zure gailutik ezabatzen badituzu, ezingo dituzu berreskuratu gerora sinkronizazioa berriro piztuz.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Ez, kendu artikuluak nire gailutik eta nire Wikipedia kontutik";
 "reading-list-keep-title" = "Gordetako artikuluak gailuan mantendu nahi dituzu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sailkatu artikuluak";
@@ -358,12 +360,15 @@
 "reading-list-login-or-create-account-title" = "Hasi saioa gordetako artikuluak sinkronizatzeko";
 "reading-list-login-subtitle" = "Hasi saioa edo sortu kontu bat zure gordetako artikuluak eta irakurketa-zerrendak gailu guztietan sinkronizatzeko eta zure erabiltzailearen hobespenetan gorde ahal izateko.";
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
+"reading-list-name-user-created-annotation" = "_[erabiltzailea sortua]";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
+"reading-list-sync-disabled-panel-message" = "Irakurketa zerrendaren sinkronizazioa desgaitua izan da zure Wikipedia kontutik beste gailu batean. Sinkronizazioa atzera bueltatu dezakezu, zure ezarpenak eguneratuz.";
 "reading-list-sync-disabled-panel-title" = "Sinkronizazioa desgaituta";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta Wikipedia aplikazioetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
+"reading-list-sync-enabled-panel-message" = "Irakurketa zerrendaren sinkronizazioa gaituta dago kontu honetan. Sinkronizazioa geldiarazteko, sinkronizazioa desgaitu dezakezu kontu honetan, zure ezarpenak eguneratuz.";
 "reading-list-sync-enabled-panel-title" = "Sinkronizatzea gaitu da kontu honetan";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
@@ -453,7 +458,6 @@
 "settings-storage-and-syncing-full-sync" = "Zure irakurketa zerrendak atzeko planoan sinkronizatuko dira";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzea eskatu";
 "settings-storage-and-syncing-server-sync-title" = "Eguneratu sinkronizatutako irakurketa zerrendak";
-// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Erakutsi gordetako irakurketa-zerrenda (ad. lehentesia) zure irakurketa-zerrenden ikuspegian zerrenda bereizi batean. Zerrenda Android gailuetan agertuko da.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gordetako irakurketa-zerrenda erakutsi";
 "settings-storage-and-syncing-title" = "Artikuluen biltegia eta sinkronizatzea";

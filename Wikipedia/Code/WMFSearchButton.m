@@ -1,5 +1,4 @@
 #import "WMFSearchButton.h"
-#import "WMFSearchViewController.h"
 @import WMF.SessionSingleton;
 #import "Wikipedia-Swift.h"
 

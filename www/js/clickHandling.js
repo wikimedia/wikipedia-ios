@@ -1,4 +1,4 @@
-const refs = require('./refs')
+const referenceCollection = require('wikimedia-page-library').ReferenceCollection
 const utilities = require('./utilities')
 const tableCollapser = require('wikimedia-page-library').CollapseTable
 
@@ -29,7 +29,7 @@ class ClickedItem {
    * @return {!ItemType} Type of the item
    */
   type() {
-    if (refs.isCitation(this.href)) {
+    if (referenceCollection.isCitation(this.href)) {
       return ItemType.reference
     } else if (this.target.tagName === 'IMG' && this.target.getAttribute( 'data-image-gallery' ) === 'true') {
       return ItemType.image
@@ -111,11 +111,30 @@ const sendMessageForImagePlaceholderWithTarget = innerPlaceholderSpan => {
 }
 
 /**
+ * Use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in
+ * native land to convert to CGRect.
+ * @param  {!ReferenceItem} referenceItem
+ * @return {void}
+ */
+const reformatReferenceItemRectToBridgeToCGRect = referenceItem => {
+  referenceItem.rect = {
+    X: referenceItem.rect.left,
+    Y: referenceItem.rect.top,
+    Width: referenceItem.rect.width,
+    Height: referenceItem.rect.height
+  }
+}
+
+/**
  * Sends message for a reference click.
  * @param  {!Element} target an anchor element
  * @return {void}
  */
-const sendMessageForReferenceWithTarget = target => refs.sendNearbyReferences( target )
+const sendMessageForReferenceWithTarget = target => {
+  const nearbyReferences = referenceCollection.collectNearbyReferences( document, target )
+  nearbyReferences.referencesGroup.forEach(reformatReferenceItemRectToBridgeToCGRect)
+  window.webkit.messageHandlers.referenceClicked.postMessage(nearbyReferences)
+}
 
 /**
  * Handler for the click event.

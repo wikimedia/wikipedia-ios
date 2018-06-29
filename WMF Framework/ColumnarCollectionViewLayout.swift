@@ -122,7 +122,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
 
-        let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.scrollIndicatorInsets)
+        let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.layoutMargins)
         metrics = delegateMetrics
         let newInfo = ColumnarCollectionViewLayoutInfo()
         newInfo.layout(with: delegateMetrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
@@ -141,7 +141,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        guard context.boundsDidChange || context.invalidateEverything || context.invalidateDataSourceCounts else {
+        guard context.preferredLayoutAttributes == nil else { // indicates an incremental change
             return
         }
         

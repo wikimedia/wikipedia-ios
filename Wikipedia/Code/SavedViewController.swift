@@ -156,7 +156,10 @@ class SavedViewController: ViewController {
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
-
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = true
+        
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         currentView = .savedArticles
@@ -230,10 +233,7 @@ class SavedViewController: ViewController {
         
         underBarView.backgroundColor = theme.colors.chromeBackground
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
+        searchBar.apply(theme: theme)
         separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
