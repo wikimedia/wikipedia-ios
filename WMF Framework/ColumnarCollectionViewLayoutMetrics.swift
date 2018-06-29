@@ -1,5 +1,6 @@
 public struct ColumnarCollectionViewLayoutMetrics {
-    public static let defaultItemLayoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+    public static let defaultItemLayoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15) // individual cells on each explore card
+    public static let defaultExploreItemLayoutMargins = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15) // explore card cells
     let boundsSize: CGSize
     let layoutMargins: UIEdgeInsets
     let countOfColumns: Int
@@ -13,20 +14,24 @@ public struct ColumnarCollectionViewLayoutMetrics {
     public static func exploreViewMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         let useTwoColumns = boundsSize.width >= 600 || (boundsSize.width > boundsSize.height && readableWidth >= 500)
         let countOfColumns = useTwoColumns ? 2 : 1
-        let interColumnSpacing: CGFloat = useTwoColumns ? 10 : 0
+        let interColumnSpacing: CGFloat = useTwoColumns ? 20 : 0
         let interItemSpacing: CGFloat = 20
         let interSectionSpacing: CGFloat = useTwoColumns ? 20 : 0
         
         let layoutMarginsForMetrics: UIEdgeInsets
+        let itemLayoutMargins: UIEdgeInsets
+        let defaultItemMargins = ColumnarCollectionViewLayoutMetrics.defaultExploreItemLayoutMargins
         if useTwoColumns {
-            let marginWidth = max(max(layoutMargins.left, layoutMargins.right), round(0.5 * (boundsSize.width - (readableWidth * CGFloat(countOfColumns)))))
-            layoutMarginsForMetrics = UIEdgeInsetsMake(20, marginWidth, 20, marginWidth)
+            let itemMarginWidth = max(defaultItemMargins.left, defaultItemMargins.right)
+            let marginWidth = max(max(max(layoutMargins.left, layoutMargins.right), round(0.5 * (boundsSize.width - (readableWidth * CGFloat(countOfColumns))))), itemMarginWidth)
+            layoutMarginsForMetrics = UIEdgeInsetsMake(20, marginWidth - itemMarginWidth, 20, marginWidth - itemMarginWidth)
+            itemLayoutMargins = UIEdgeInsets(top: defaultItemMargins.top, left: itemMarginWidth, bottom: defaultItemMargins.bottom, right: itemMarginWidth)
         } else {
             let marginWidth = max(layoutMargins.left, layoutMargins.right)
-            layoutMarginsForMetrics = UIEdgeInsetsMake(0, marginWidth, 0, marginWidth)
+            itemLayoutMargins = UIEdgeInsetsMake(defaultItemMargins.bottom, marginWidth, defaultItemMargins.top, marginWidth)
+            layoutMarginsForMetrics = .zero
         }
         
-        let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: layoutMarginsForMetrics, countOfColumns: countOfColumns, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: interColumnSpacing, interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
     }
     

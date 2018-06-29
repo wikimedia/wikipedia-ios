@@ -1,5 +1,5 @@
 @objc(WMFNavigationBar)
-public class NavigationBar: SetupView {
+public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     public let bar: UINavigationBar = UINavigationBar()
     public let underBarView: UIView = UIView() // this is always visible below the navigation bar
@@ -10,8 +10,11 @@ public class NavigationBar: SetupView {
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
-    var isUnderBarViewHidingEnabled: Bool = true
-    var isExtendedViewHidingEnabled: Bool = true
+    public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
+    
+    public var isBarHidingEnabled: Bool = true
+    public var isUnderBarViewHidingEnabled: Bool = false
+    public var isExtendedViewHidingEnabled: Bool = false
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -26,11 +29,16 @@ public class NavigationBar: SetupView {
         }
     }
     
-    fileprivate func updateNavigationItems() {
+    @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
         if isBackVisible {
-            items.append(UINavigationItem())
+            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
+                items.append(nc.viewControllers[index - 1].navigationItem)
+            } else {
+                items.append(UINavigationItem())
+            }
         }
+
         if let item = delegate?.navigationItem {
             items.append(item)
         }
@@ -163,8 +171,7 @@ public class NavigationBar: SetupView {
             return _navigationBarPercentHidden
         }
         set {
-            _navigationBarPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -174,8 +181,7 @@ public class NavigationBar: SetupView {
             return _underBarViewPercentHidden
         }
         set {
-            _underBarViewPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -185,8 +191,7 @@ public class NavigationBar: SetupView {
             return _extendedViewPercentHidden
         }
         set {
-            _extendedViewPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
         }
     }
     
@@ -194,14 +199,20 @@ public class NavigationBar: SetupView {
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
         layoutIfNeeded()
-        _navigationBarPercentHidden = navigationBarPercentHidden
-        _underBarViewPercentHidden = underBarViewPercentHidden
-        _extendedViewPercentHidden = extendedViewPercentHidden
+        if isBarHidingEnabled {
+            _navigationBarPercentHidden = navigationBarPercentHidden
+        }
+        if isUnderBarViewHidingEnabled {
+            _underBarViewPercentHidden = underBarViewPercentHidden
+        }
+        if isExtendedViewHidingEnabled {
+            _extendedViewPercentHidden = extendedViewPercentHidden
+        }
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
-                self.layoutIfNeeded()
+                self.layoutSubviews()
                 additionalAnimations?()
             }
             if animated {
@@ -233,7 +244,7 @@ public class NavigationBar: SetupView {
         let extendedViewHeight = extendedView.frame.height
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
-        
+
         let barTransformHeight = barHeight * navigationBarPercentHidden
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
@@ -252,14 +263,21 @@ public class NavigationBar: SetupView {
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
         self.backgroundView.transform = totalTransform
 
-        if isUnderBarViewHidingEnabled {
-            self.underBarView.transform = totalTransform
-            self.underBarView.alpha = 1.0 - underBarViewPercentHidden
-        }
+        let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+        self.underBarView.transform = underBarTransform
+        self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        if isExtendedViewHidingEnabled {
-            self.extendedView.alpha = 1.0 - extendedViewPercentHidden
+        self.extendedView.alpha = 1.0 - extendedViewPercentHidden
+        
+        if isExtendedViewHidingEnabled && isUnderBarViewHidingEnabled {
+            self.shadow.alpha = underBarViewPercentHidden
+        } else if isExtendedViewHidingEnabled {
+            self.shadow.alpha = extendedViewPercentHidden
+        } else if isUnderBarViewHidingEnabled {
+            self.shadow.alpha = underBarViewPercentHidden
+        } else {
+            self.shadow.alpha = 1.0
         }
         
         self.progressView.transform = totalTransform
@@ -275,7 +293,7 @@ public class NavigationBar: SetupView {
         setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, animated: animated)
     }
     
-    @objc public func setProgressViewHidden(_ hidden: Bool, animated: Bool) {
+    @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
             self.progressView.alpha = hidden ? 0 : 1
         }
@@ -334,23 +352,34 @@ public class NavigationBar: SetupView {
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return point.y <= visibleHeight
     }
+    
+    public var backgroundAlpha: CGFloat = 1 {
+        didSet {
+            statusBarUnderlay.alpha = backgroundAlpha
+            backgroundView.alpha = backgroundAlpha
+            bar.alpha = backgroundAlpha
+            shadow.alpha = backgroundAlpha
+            progressView.alpha = backgroundAlpha
+        }
+    }
 }
 
 extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
-        backgroundView.backgroundColor = theme.colors.chromeBackground
+        statusBarUnderlay.backgroundColor = theme.colors.paperBackground
+        backgroundView.backgroundColor = theme.colors.paperBackground
         
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
-        bar.barTintColor = theme.colors.chromeBackground
+        bar.barTintColor = theme.colors.paperBackground
         bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-        bar.tintColor = theme.colors.chromeText
+        bar.tintColor = theme.colors.primaryText
         
-        extendedView.backgroundColor = theme.colors.chromeBackground
+        extendedView.backgroundColor = .clear
+        underBarView.backgroundColor = .clear
         
         shadow.backgroundColor = theme.colors.chromeShadow
         

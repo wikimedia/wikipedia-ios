@@ -3,7 +3,6 @@ import WMF
 
 class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
-    var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -13,7 +12,16 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.init(coder: aDecoder)
     }
     
-    var navigationBar: NavigationBar = NavigationBar()
+    // keep objc until WMFAppViewController is rewritten in Swift
+    // it checks at run time for VCs that respond to navigationBar
+    @objc lazy var navigationBar: NavigationBar = {
+        return NavigationBar()
+    }()
+    
+    lazy var navigationBarHider: NavigationBarHider = {
+        return NavigationBarHider()
+    }()
+
     var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
@@ -53,6 +61,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+            navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false
         }
@@ -123,6 +132,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         var frame = CGRect.zero
         if showsNavigationBar {
             frame = navigationBar.frame
+            if !navigationBar.isInteractiveHidingEnabled {
+              frame.size.height = navigationBar.visibleHeight
+            }
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }

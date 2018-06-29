@@ -163,7 +163,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapContainerView.addSubview(mapView)
 
-        fakeProgressController = FakeProgressController(progressView: progressView)
+        fakeProgressController = FakeProgressController(progress: self, delegate: self)
         
         extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
 
@@ -2743,27 +2743,11 @@ extension PlacesViewController: Themeable {
         extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         navigationBar.apply(theme: theme)
         
+        titleViewSearchBar.apply(theme: theme)
         titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
-        titleViewSearchBar.barTintColor = theme.colors.chromeBackground
-        titleViewSearchBar.isTranslucent = false
-        titleViewSearchBar.wmf_enumerateSubviewTextFields { (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
-        }
-        titleViewSearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        titleViewSearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
+        listAndSearchOverlaySearchBar.apply(theme: theme)
         listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySearchBar.barTintColor = theme.colors.chromeBackground
-        listAndSearchOverlaySearchBar.isTranslucent = false
-        listAndSearchOverlaySearchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
-        }
-        listAndSearchOverlaySearchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        listAndSearchOverlaySearchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0)
         
         filterDropDownContainerView.wmf_addBottomShadow(with: theme)
         extendedNavBarView.wmf_addBottomShadow(with: theme)
@@ -2790,4 +2774,27 @@ extension PlacesViewController: Themeable {
         updateSearchFilterTitle()
         listViewController.apply(theme: theme)
     }
+}
+
+extension PlacesViewController: FakeProgressReceiving, FakeProgressDelegate {
+    var progress: Float {
+        return progressView.progress
+    }
+    
+    func setProgress(_ progress: Float, animated: Bool) {
+        progressView.setProgress(progress, animated: animated)
+    }
+    
+    func setProgressHidden(_ hidden: Bool, animated: Bool) {
+        let changes = {
+            self.progressView.alpha = hidden ? 0 : 1
+        }
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: changes)
+        } else {
+            changes()
+        }
+    }
+    
+    
 }
