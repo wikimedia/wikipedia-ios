@@ -212,7 +212,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
-                self.layoutIfNeeded()
+                self.layoutSubviews()
                 additionalAnimations?()
             }
             if animated {
@@ -244,7 +244,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let extendedViewHeight = extendedView.frame.height
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
-        
+
         let barTransformHeight = barHeight * navigationBarPercentHidden
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden

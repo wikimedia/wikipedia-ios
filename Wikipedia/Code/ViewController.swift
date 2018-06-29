@@ -129,6 +129,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         var frame = CGRect.zero
         if showsNavigationBar {
             frame = navigationBar.frame
+            if !navigationBar.isInteractiveHidingEnabled {
+              frame.size.height = navigationBar.visibleHeight
+            }
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }

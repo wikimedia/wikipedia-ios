@@ -14,7 +14,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: nil)
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
         searchBar.becomeFirstResponder()
     }
     
@@ -223,7 +223,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true, additionalAnimations: nil)
+            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true, additionalAnimations: { self.updateScrollViewInsets() })
             navigationController.popViewController(animated: true)
         } else {
             searchBar.endEditing(true)
