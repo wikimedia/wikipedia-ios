@@ -361,7 +361,9 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 
 - (NSDictionary<NSNumber*, NSNumber*> *)globalCardPreferences {
     NSDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
-    assert(globalCardPreferences);
+    if (!globalCardPreferences) {
+        return [self defaultGlobalCardsPreferences];
+    }
     return globalCardPreferences;
 }
 
@@ -388,16 +390,20 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     for (NSURL *siteURL in self.preferredSiteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
-    NSMutableDictionary<NSNumber*, NSNumber*> *globalCards = [NSMutableDictionary new];
-    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
-        [globalCards setObject:[NSNumber numberWithBool:YES] forKey:globalContentGroupKindNumber];
-    }
-    [newPreferences setObject:globalCards forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+    [newPreferences setObject:defaultGlobalCardsPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
     assert(preferences);
     return preferences;
+}
+
+- (NSDictionary<NSNumber*, NSNumber*> *)defaultGlobalCardsPreferences {
+    NSMutableDictionary<NSNumber*, NSNumber*> *defaultGlobalCardsPreferences = [NSMutableDictionary new];
+    for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+        [defaultGlobalCardsPreferences setObject:[NSNumber numberWithBool:YES] forKey:globalContentGroupKindNumber];
+    }
+    return defaultGlobalCardsPreferences;
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn {
