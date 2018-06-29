@@ -336,6 +336,11 @@
 		83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83023C0520E51DDF00EC7592 /* SearchLanguagesBarViewController.xib */; };
 		83023C0E20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83023C0520E51DDF00EC7592 /* SearchLanguagesBarViewController.xib */; };
 		83023C0F20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83023C0520E51DDF00EC7592 /* SearchLanguagesBarViewController.xib */; };
+		83023C1120E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
+		83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
+		83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
+		83023C1420E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
+		83023C1520E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */; };
 		8304D7C01F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C11F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
 		8304D7C21F60131900A0CDD6 /* WMFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8304D7BF1F60131900A0CDD6 /* WMFWebView.m */; };
@@ -3291,6 +3296,7 @@
 		830177FB1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+WMFUtilities.swift"; sourceTree = "<group>"; };
 		83023C0420E51DDF00EC7592 /* SearchLanguagesBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLanguagesBarViewController.swift; sourceTree = "<group>"; };
 		83023C0520E51DDF00EC7592 /* SearchLanguagesBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchLanguagesBarViewController.xib; sourceTree = "<group>"; };
+		83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTransitionsController.swift; sourceTree = "<group>"; };
 		8304D7BE1F60131900A0CDD6 /* WMFWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFWebView.h; sourceTree = "<group>"; };
 		8304D7BF1F60131900A0CDD6 /* WMFWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFWebView.m; sourceTree = "<group>"; };
 		830D71C21F703C980080078B /* ArticleURLListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleURLListViewController.swift; sourceTree = "<group>"; };
@@ -7419,6 +7425,7 @@
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
+				83023C1020E6561900EC7592 /* ViewControllerTransitionsController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -10071,6 +10078,7 @@
 				D84F2BF21D2FE7ED00963D42 /* WMFArticleNavigationController.m in Sources */,
 				BAFCE8431F1D7FD30077D5E9 /* AppearanceSettingsViewController.swift in Sources */,
 				0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */,
+				83023C1120E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				D82972831E3950100061550A /* ArticlePlace.swift in Sources */,
 				B01CFC611E71069000B3546A /* String?+WMFExtras.swift in Sources */,
@@ -10324,6 +10332,7 @@
 				7A2FE56020517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				D84DAA151EEEF527008E4B18 /* HexColors.m in Sources */,
 				D80ED3061EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
+				83023C1520E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51A20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D80ED3071EE57F4800CE8C50 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D80ED3081EE57F4800CE8C50 /* WMFAccountCreator.swift in Sources */,
@@ -11041,6 +11050,7 @@
 				D8A42B271E815A9C00D8E281 /* ArticlePlace.swift in Sources */,
 				831774B11F6C69DD00F62525 /* CollectionViewHeader.swift in Sources */,
 				D87B13A81F276B1000B27227 /* ShareActivityController.swift in Sources */,
+				83023C1420E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8A42B281E815A9C00D8E281 /* String?+WMFExtras.swift in Sources */,
 				D82117FF1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8A42B2A1E815A9C00D8E281 /* WMFSearchResults.m in Sources */,
@@ -11294,6 +11304,7 @@
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */,
 				D8CE256E1E698E2400DAE2E0 /* WMFCollectionViewPageLayout.m in Sources */,
@@ -11684,6 +11695,7 @@
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
+				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EAF1E9BDA35006712EB /* PaddedLabel.m in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
 				D8EC3EB21E9BDA35006712EB /* WMFSearchResults+ResponseSerializer.m in Sources */,

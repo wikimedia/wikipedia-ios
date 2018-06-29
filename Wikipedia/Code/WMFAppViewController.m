@@ -67,6 +67,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
+@property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
@@ -234,6 +235,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     [self applyTheme:self.theme];
 
+    self.transitionsController = [WMFViewControllerTransitionsController new];
     [self configureTabController];
     [self configurePlacesViewController];
     [self configureSavedViewController];
@@ -1519,6 +1521,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
     [self updateDefaultTabIfNeeded];
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+    return [self.transitionsController navigationController:navigationController interactionControllerForAnimationController:animationController];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    return [self.transitionsController navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
