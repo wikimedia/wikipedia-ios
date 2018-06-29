@@ -255,15 +255,18 @@ extension ExploreFeedSettingsViewController {
             return
         }
         if displayType == .singleLanguage {
-            let customizable = WMFExploreFeedContentController.customizableContentGroupKindNumbers()
-            guard let contentGroupKindNumber = customizable.first(where: { $0.intValue == controlTag }), let contentGroupKind = WMFContentGroupKind(rawValue: contentGroupKindNumber.int32Value) else {
-                assertionFailure("No content group kind card for a given control tag")
+            guard let contentGroupKind = WMFContentGroupKind(rawValue: Int32(controlTag)) else {
+                assertionFailure("No content group kind for given control tag")
+                return
+            }
+            guard contentGroupKind.isCustomizable || contentGroupKind.isGlobal else {
+                assertionFailure("Content group kind \(contentGroupKind) is not customizable nor global")
                 return
             }
             feedContentController.toggleContentGroup(of: contentGroupKind, isOn: sender.isOn)
         } else {
             guard let language = languages.first(where: { $0.controlTag == controlTag }) else {
-                assertionFailure("No language for a given control tag")
+                assertionFailure("No language for given control tag")
                 return
             }
             feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
