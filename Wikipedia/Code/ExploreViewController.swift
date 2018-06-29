@@ -411,7 +411,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
         cell.footerButton.setTitle(group.moreTitle, for: .normal)
-        cell.customizationButton.isHidden = !group.contentGroupKind.isCustomizable
+        cell.customizationButton.isHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.apply(theme: theme)
         cell.delegate = self
     }
@@ -540,7 +540,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
-        guard group.contentGroupKind.isCustomizable else {
+        guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
