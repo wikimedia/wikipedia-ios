@@ -360,10 +360,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 }
 
 - (NSDictionary<NSNumber*, NSNumber*> *)globalCardPreferences {
-    NSDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
-    if (!globalCardPreferences) {
-        return [self defaultGlobalCardsPreferences];
-    }
+    NSDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [self.exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
     return globalCardPreferences;
 }
 
@@ -390,7 +387,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     for (NSURL *siteURL in self.preferredSiteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
     }
-    [newPreferences setObject:defaultGlobalCardsPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+    [newPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
@@ -435,7 +432,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
         if ([self isGlobal:contentGroupKind]) {
-            NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+            NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
             NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
             [newGlobalCardPreferences setObject:[NSNumber numberWithBool:isOn] forKey:@(contentGroupKind)];
             [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
@@ -467,7 +464,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
     [self updateExploreFeedPreferences:^(NSMutableDictionary *newPreferences) {
-        NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+        NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
         NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
         for (id key in newGlobalCardPreferences.allKeys) {
             [newGlobalCardPreferences setObject:[NSNumber numberWithBool:on] forKey:key];
