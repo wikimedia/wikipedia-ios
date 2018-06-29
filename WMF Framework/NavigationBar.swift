@@ -171,7 +171,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _navigationBarPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -181,7 +181,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _underBarViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -191,7 +191,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _extendedViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
         }
     }
     

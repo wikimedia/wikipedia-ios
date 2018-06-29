@@ -12,7 +12,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.init(coder: aDecoder)
     }
     
-    lazy var navigationBar: NavigationBar = {
+    // keep objc until WMFAppViewController is rewritten in Swift
+    // it checks at run time for VCs that respond to navigationBar
+    @objc lazy var navigationBar: NavigationBar = {
         return NavigationBar()
     }()
     
