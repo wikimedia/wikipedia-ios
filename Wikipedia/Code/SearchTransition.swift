@@ -2,10 +2,12 @@ import Foundation
 
 class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let searchViewController: SearchViewController
+    let exploreViewController: ExploreViewController
     let isEnteringSearch: Bool
     
-    required init(searchViewController: SearchViewController, isEnteringSearch: Bool) {
+    required init(searchViewController: SearchViewController, exploreViewController: ExploreViewController, isEnteringSearch: Bool) {
         self.searchViewController = searchViewController
+        self.exploreViewController = exploreViewController
         self.isEnteringSearch = isEnteringSearch
     }
     
@@ -23,14 +25,13 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
         let toFinalFrame = transitionContext.finalFrame(for: toViewController)
         toViewController.view.frame = toFinalFrame
-        let explore: ExploreViewController? = fromViewController as? ExploreViewController ?? toViewController as? ExploreViewController
         if isEnteringSearch {
             searchViewController.nonSearchAlpha = 0
-            explore?.searchBar.alpha = 0
+            exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
         } else {
             searchViewController.nonSearchAlpha = 1
-            explore?.searchBar.alpha = 0
+            exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
         }
         let duration = self.transitionDuration(using: transitionContext)
@@ -43,7 +44,7 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             }
         }) { (finished) in
             self.searchViewController.nonSearchAlpha = 1
-            explore?.searchBar.alpha = 1
+            self.exploreViewController.searchBar.alpha = 1
             transitionContext.completeTransition(true)
         }
     }
