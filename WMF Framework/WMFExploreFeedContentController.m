@@ -324,7 +324,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 - (NSSet<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
     NSMutableSet *languageCodes = [NSMutableSet new];
     [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSSet<NSNumber *> *value, BOOL * _Nonnull stop) {
-        if (![value isKindOfClass:[NSNumber class]] && [value containsObject:@(contentGroupKind)]) {
+        if (![value isKindOfClass:[NSDictionary class]] && [value containsObject:@(contentGroupKind)]) {
             [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
         }
     }];
