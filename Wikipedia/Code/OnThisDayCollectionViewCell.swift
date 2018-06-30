@@ -51,7 +51,7 @@ public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
     
     override public func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        timelineView.topDotsY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
+        timelineView.dotsY = titleLabel.convert(titleLabel.bounds, to: timelineView).midY
     }
     
     override public func apply(theme: Theme) {
