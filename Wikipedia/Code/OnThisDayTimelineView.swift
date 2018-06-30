@@ -15,6 +15,7 @@ public class OnThisDayTimelineView: UIView {
     }
 
     public var shouldAnimateDots: Bool = false
+    public var minimizeUnanimatedDots: Bool = false
     
     public var pauseDotsAnimation: Bool = true {
         didSet {
@@ -25,27 +26,18 @@ public class OnThisDayTimelineView: UIView {
     private let dotRadius:CGFloat = 9.0
     private let dotMinRadiusNormal:CGFloat = 0.4
     
+    // TODO: the bottom dot was removed, so we can probably rename items in this file to not include the word 'top'.
     public var topDotsY: CGFloat = 0 {
         didSet {
             guard shouldAnimateDots == false else {
                 return
             }
-            updateTopDotsRadii(to: 1.0, at: CGPoint(x: bounds.midX, y: topDotsY))
-        }
-    }
-
-    public var bottomDotY: CGFloat = 0 {
-        didSet {
-            guard shouldAnimateDots == false else {
-                return
-            }
-            bottomDotShapeLayer.updateDotRadius(dotRadius * dotMinRadiusNormal, center: CGPoint(x: bounds.midX, y: bottomDotY))
+            updateTopDotsRadii(to: minimizeUnanimatedDots ? 0.0 : 1.0, at: CGPoint(x: bounds.midX, y: topDotsY))
         }
     }
     
     override public func tintColorDidChange() {
         super.tintColorDidChange()
-        bottomDotShapeLayer.strokeColor = tintColor.cgColor
         topOuterDotShapeLayer.strokeColor = tintColor.cgColor
         topInnerDotShapeLayer.fillColor = tintColor.cgColor
         topInnerDotShapeLayer.strokeColor = tintColor.cgColor
@@ -54,19 +46,9 @@ public class OnThisDayTimelineView: UIView {
     
     override public var backgroundColor: UIColor? {
         didSet {
-            bottomDotShapeLayer.fillColor = backgroundColor?.cgColor
             topOuterDotShapeLayer.fillColor = backgroundColor?.cgColor
         }
     }
-
-    private lazy var bottomDotShapeLayer: CAShapeLayer = {
-        let shape = CAShapeLayer()
-        shape.fillColor = UIColor.white.cgColor
-        shape.strokeColor = UIColor.blue.cgColor
-        shape.lineWidth = 1.0
-        self.layer.addSublayer(shape)
-        return shape
-    }()
 
     private lazy var topOuterDotShapeLayer: CAShapeLayer = {
         let shape = CAShapeLayer()
