@@ -14,4 +14,15 @@
         self.willTurnOnContentGroupOrLanguage = willTurnOnContentGroupOrLanguage
     }
 
+    @objc public func coordinateUpdate(from viewController: UIViewController) {
+        guard !willTurnOnContentGroupOrLanguage else {
+            feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+            return
+        }
+        guard UserDefaults.wmf_userDefaults().defaultTabType == .explore else {
+            feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+            return
+        }
+        feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true) // TODO: add conditions
+    }
 }
