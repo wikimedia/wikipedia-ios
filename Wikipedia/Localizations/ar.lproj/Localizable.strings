@@ -74,6 +74,7 @@
 "add-articles-to-reading-list" = "أضف $1 إلى قائمة القراءة";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "announcements-dismiss" = "تجاهل";
+"app-store-subtitle" = "الموسوعة الحرة";
 "appearance-settings-expand-tables" = "تمديد الجداول";
 "appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
 "article-about-title" = "حول المقال";
@@ -121,6 +122,8 @@
 "explore-because-you-read" = "لأنك قرأت";
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-featured-article-heading" = "مقالة مختارة";
+"explore-feed-preferences-featured-article-description" = "مقالة اليوم المختارة على ويكيبيديا";
+"explore-feed-preferences-global-cards-title" = "بطاقات عالمية";
 "explore-main-page-description" = "صفحة رئيسية من مشاريع ويكيميديا";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
 "explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
@@ -203,6 +206,7 @@
 "in-the-news-title" = "في الأخبار";
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
+"languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
 "license-footer-name" = "CC BY-SA 3.0";

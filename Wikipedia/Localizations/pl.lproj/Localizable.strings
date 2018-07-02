@@ -5,6 +5,7 @@
 // Author: Anwar2
 // Author: Bsitzmann
 // Author: Chrumps
+// Author: DeRudySoulStorm
 // Author: Debeet
 // Author: Devwebtel
 // Author: InternerowyGołąb
@@ -114,10 +115,12 @@
 "explore-featured-article-heading" = "Wyróżniony artykuł";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
+"explore-most-read-more-list-title-for-date" = "Najlepsze na $1";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-placeholder-cancel" = "Anuluj";
 "explore-nearby-placeholder-dismiss" = "Odrzuć";
 "explore-nearby-placeholder-heading" = "Miejsca";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";
@@ -150,6 +153,7 @@
 "forgot-password-button-title" = "Zresetuj";
 "forgot-password-instructions" = "Wypełnij jedno z poniższych pól, aby uzyskać e-mail z instrukcją, jak zresetować hasło";
 "forgot-password-title" = "Zresetuj hasło";
+"forgot-password-username-or-email-title" = "Lub";
 "gfdl" = "GFDL";
 "history-clear-all" = "Wyczyść";
 "history-clear-cancel" = "Anuluj";
@@ -166,6 +170,7 @@
 "home-button-popover-description" = "Naciśnij \"W: by wrócić do feedu Explore";
 "home-button-popover-title" = "Dotknij by wrócić do strony domowej";
 "home-hide-suggestion-cancel" = "Anuluj";
+"home-title" = "Odkryj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
@@ -322,13 +327,16 @@
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
 "welcome-intro-free-encyclopedia-title" = "Wolna encyklopedia";
 "welcome-languages-add-button" = "Dodaj kolejny język";
+"welcome-languages-search-title" = "Wyszukuj w prawie 300 językach";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";
+"welcome-volunteer-send-usage-reports" = "Wyślij raporty używania";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
 "wikitext-download-success" = "Zawartość załadowana.";
 "wikitext-downloading" = "Wczytywanie treści...";
 "wikitext-preview-changes" = "Uzyskiwanie podglądu wprowadzonych zmian...";
 "wikitext-preview-changes-none" = "Nie wprowadzono żadnych zmian, które można było by zobaczyć.";
+"wikitext-preview-link-preview-description" = "Ten link prowadzi do '$1'";
 "wikitext-preview-link-preview-title" = "Podgląd linku";
 "wikitext-upload-captcha-error" = "Błąd weryfikacji CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Potrzebna weryfikacja CAPTCHA.";
