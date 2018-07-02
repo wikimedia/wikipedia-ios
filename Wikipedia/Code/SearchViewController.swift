@@ -14,15 +14,14 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
         view.bringSubview(toFront: resultsViewController.view)
+        setSearchResultsVisible(shouldBecomeFirstResponder, animated: false)
     }
     
     var canSearchBarEndEditing: Bool = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        canSearchBarEndEditing = false
         navigationBar.isBarHidingEnabled = true
         navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: {
-            self.canSearchBarEndEditing = true
             self.updateScrollViewInsets()
         })
         navigationBar.isBarHidingEnabled = false
@@ -273,6 +272,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         setSearchResultsVisible(false, animated: true)
+        canSearchBarEndEditing = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -283,6 +283,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
             navigationController.popViewController(animated: true)
         } else {
+            canSearchBarEndEditing = true
             searchBar.endEditing(true)
             didCancelSearch()
         }
@@ -300,6 +301,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
             return
         }
         searchBar.apply(theme: theme)
+        searchBarContainerView.backgroundColor = theme.colors.paperBackground
         searchLanguageBarViewController.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = .clear
