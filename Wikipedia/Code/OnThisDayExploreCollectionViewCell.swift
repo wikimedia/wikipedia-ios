@@ -22,7 +22,6 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
 
     override open func setup() {
         super.setup()
-        clipsToBounds = true
         timelineView.addSubview(topGradientView)
         timelineView.addSubview(bottomGradientView)
         topGradientView.startPoint = CGPoint(x: 0.5, y: 0)
