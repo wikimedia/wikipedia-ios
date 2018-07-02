@@ -173,8 +173,9 @@
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
 "explore-most-read-generic-heading" = "Top read";
-"explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Top on $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
+"explore-most-read-sub-heading-on-wikipedia" = "On Wikipedia";
 "explore-nearby-heading" = "Places near";
 "explore-nearby-placeholder-heading" = "Places";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";

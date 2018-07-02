@@ -173,8 +173,9 @@
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
 "explore-most-read-generic-heading" = "Text for 'Most read articles' explore section header used when no language is present";
-"explore-most-read-heading" = "Text for 'Most read articles' explore section header. $1 is substituted for the localized language name (e.g. 'English' or 'Espanol').";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
+"explore-most-read-sub-heading-on-wikipedia" = "Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.";
 "explore-nearby-heading" = "Text for 'Nearby places' header. The next line of the header is the name of the nearest article.";
 "explore-nearby-placeholder-heading" = "Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";

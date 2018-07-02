@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [WMFCommonStrings featuredArticleTitle];
         case WMFContentGroupKindTopRead:
-            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-heading", nil, nil, @"Top read on %1$@ Wikipedia", @"Text for 'Most read articles' explore section header. %1$@ is substituted for the localized language name (e.g. 'English' or 'Espanol').") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present")];
+            return WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present");
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
@@ -174,12 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
         case WMFContentGroupKindTopRead: {
-            NSString *dateString = [self localContentDateDisplayString];
-            if (!dateString) {
-                dateString = @"";
-            }
-
-            return dateString;
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-sub-heading-on-language-wikipedia", nil, nil, @"On %1$@ Wikipedia", @"Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-sub-heading-on-wikipedia", nil, nil, @"On Wikipedia", @"Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.")];
         }
         case WMFContentGroupKindNews:
         case WMFContentGroupKindOnThisDay:
