@@ -18,6 +18,7 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 NSString *const WMFExploreFeedPreferencesGlobalCardsKey = @"WMFExploreFeedPreferencesGlobalCardsKey";
 NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
+NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferencesDidSaveNotification";
 
 @interface WMFExploreFeedContentController ()
 
@@ -35,7 +36,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.dataStore.viewContext];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.dataStore.viewContext];
     }
     return self;
 }
@@ -294,12 +295,12 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
 
 #pragma mark - Preferences
 
-- (void)viewContextDidChange:(NSNotification *)note {
+- (void)viewContextDidSave:(NSNotification *)note {
     NSDictionary *userInfo = note.userInfo;
     NSArray<NSString *> *keys = @[NSInsertedObjectsKey, NSUpdatedObjectsKey, NSDeletedObjectsKey, NSRefreshedObjectsKey, NSInvalidatedObjectsKey];
     for (NSString *key in keys) {
-        NSSet<NSManagedObject *> *changedObjects = userInfo[key];
-        for (NSManagedObject *object in changedObjects) {
+        NSSet<NSManagedObject *> *savedObjects = userInfo[key];
+        for (NSManagedObject *object in savedObjects) {
             if (![object isKindOfClass:[WMFKeyValue class]]) {
                 continue;
             }
@@ -312,7 +313,7 @@ NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePrefere
                 return;
             }
             self.exploreFeedPreferences = newExploreFeedPreferences;
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFExplorePreferencesDidChangeNotification object:self.exploreFeedPreferences];
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFExplorePreferencesDidSaveNotification object:self.exploreFeedPreferences];
         }
     }
 }

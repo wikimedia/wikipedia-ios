@@ -6,6 +6,7 @@
 
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *_Nonnull const WMFExplorePreferencesDidChangeNotification;
+extern NSString *_Nonnull const WMFExplorePreferencesDidSaveNotification;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
