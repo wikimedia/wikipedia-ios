@@ -507,10 +507,9 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                 assert(oldPreferences);
                 NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
                 update(newPreferences);
-                [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
-                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
-                [self save:moc];
+                [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFExplorePreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
                     if (completion) {
                         completion();
                     }
