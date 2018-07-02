@@ -13,12 +13,18 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
+        view.bringSubview(toFront: resultsViewController.view)
     }
-
+    
+    var canSearchBarEndEditing: Bool = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        canSearchBarEndEditing = false
         navigationBar.isBarHidingEnabled = true
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: { self.updateScrollViewInsets() })
+        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: {
+            self.canSearchBarEndEditing = true
+            self.updateScrollViewInsets()
+        })
         navigationBar.isBarHidingEnabled = false
         searchBar.setShowsCancelButton(true, animated: animated && shouldAnimateSearchBar)
         if animated && shouldBecomeFirstResponder {
@@ -50,8 +56,8 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
-            resultsViewController.view.alpha = nonSearchAlpha
             collectionView.alpha = nonSearchAlpha
+            resultsViewController.view.alpha = nonSearchAlpha
             navigationBar.backgroundAlpha = nonSearchAlpha
         }
     }
@@ -102,7 +108,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async {
                 commonCompletion()
-                self.areResultsVisible = true
                 self.fakeProgressController.stop()
                 guard searchTerm == self.searchBar.text else {
                     return
@@ -116,7 +121,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         let sucess = { (results: WMFSearchResults, type: WMFSearchType) in
             DispatchQueue.main.async {
                 commonCompletion()
-                self.areResultsVisible = true
                 self.fakeProgressController.finish()
                 guard
                     let resultsArray = results.results,
@@ -223,14 +227,20 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         return searchLanguageBarViewController
     }()
     
-    var areResultsVisible: Bool {
-        get {
-            return resultsViewController.view.isHidden
+    func setSearchResultsVisible(_ visible: Bool, animated: Bool) {
+        let completion = { (finished: Bool) in
+            self.resultsViewController.view.isHidden = !visible
         }
-        set {
-            resultsViewController.view.isHidden = !newValue
-            collectionView.isHidden = newValue
+        guard animated else {
+            completion(true)
+            return
         }
+        self.resultsViewController.view.alpha = visible ? 0 : 1
+        self.resultsViewController.view.isHidden = false
+        let animations = {
+            self.resultsViewController.view.alpha = visible ? 1 : 0
+        }
+        UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
     
     lazy var resultsViewController: SearchResultsViewController = {
@@ -251,6 +261,18 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return true
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        setSearchResultsVisible(true, animated: true)
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        return canSearchBarEndEditing
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        setSearchResultsVisible(false, animated: true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -280,7 +302,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         searchBar.apply(theme: theme)
         searchLanguageBarViewController.apply(theme: theme)
         resultsViewController.apply(theme: theme)
-        resultsViewController.collectionView.backgroundColor = theme.colors.paperBackground
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
     }
