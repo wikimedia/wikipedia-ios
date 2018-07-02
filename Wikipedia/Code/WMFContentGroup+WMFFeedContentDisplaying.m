@@ -506,7 +506,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)localDateDisplayString {
-    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
+    return [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
 }
 
 @end
