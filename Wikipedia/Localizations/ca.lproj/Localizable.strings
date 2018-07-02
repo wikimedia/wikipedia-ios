@@ -78,7 +78,9 @@
 "add-articles-to-reading-list" = "Afegeix {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
+"app-store-release-notes" = "Els articles desats ara poden organitzar-se en llistes de lectura i sincronitzar-se entre dispositius.";
 "app-store-short-description" = "Baixeu l'aplicació de la Viquipèdia per explorar llocs propers, sincronitzar articles per llegir-los fora de línia i personalitzar l'experiència de lectura.";
+"app-store-subtitle" = "L'enciclopèdia lliure";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
 "appearance-settings-expand-tables" = "Expandeix les taules";
 "appearance-settings-expand-tables-footer" = "Estableix que totes les taules en tots els articles es despleguin per defecte, incloent les infotaules, referències, notes i enllaços externs.";
@@ -143,6 +145,19 @@
 "explore-continue-reading-heading" = "Continua llegint";
 "explore-enable-location-title" = "Explora articles prop de la vostra ubicació actual";
 "explore-featured-article-heading" = "Article destacat";
+"explore-feed-preferences-additional-languages-footer-text" = "Es poden afegir més llengües des de la pàgina de configuració 'Les meves llengües'.";
+"explore-feed-preferences-continue-reading-description" = "Enllaç de retorn ràpid per llegir un article obert";
+"explore-feed-preferences-customize-explore-feed" = "Personalitza el canal d'exploració";
+"explore-feed-preferences-featured-article-description" = "Article destacat del dia a la Viquipèdia";
+"explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
+"explore-feed-preferences-global-cards-title" = "Targetes globals";
+"explore-feed-preferences-in-the-news-description" = "Articles d'esdeveniments actuals";
+"explore-feed-preferences-on-this-day-description" = "Esdeveniments del dia d'avui al llarg de la història";
+"explore-feed-preferences-places-description" = "Articles de la Viquipèdia prop de la vostra ubicació";
+"explore-feed-preferences-randomizer-description" = "Genera articles a l'atzar per llegir";
+"explore-feed-preferences-top-read-description" = "Articles més llegits del dia";
+"explore-feed-preferences-turn-off-feed" = "Desactiva la pestanya d'exploració";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar la pestanya d'exploració la reemplaçarà per una pestanya de configuració.";
 "explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
@@ -230,6 +245,7 @@
 "in-the-news-title" = "Actualitat";
 "info-box-close-text" = "Tanca";
 "info-box-title" = "Dades ràpides";
+"languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -433,6 +449,7 @@
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Permet a Wikimedia desar els articles desats i les llistes de lectures a les vostres preferències d'usuari quan inicieu una sessió i sincronitzeu.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronitza tots els articles desats i llistes";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Voleu esborrar tots els articles desats?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Esborra";
