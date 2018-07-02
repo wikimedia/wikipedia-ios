@@ -1821,10 +1821,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     if (searchVC) {
+        [searchVC clear]; // clear search VC before bringing it forward
         [nc setViewControllers:mutableVCs animated:NO];
     } else {
         searchVC = [[SearchViewController alloc] init];
-        //searchVC.hidesBottomBarWhenPushed = YES;
+        searchVC.shouldBecomeFirstResponder = YES;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }
