@@ -1,7 +1,17 @@
 import UIKit
 
 class ExploreHeaderCollectionReusableView: SizeThatFitsReusableView {
-    let titleLabel = UILabel()
+    private let titleLabel = UILabel()
+    
+    var title:String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
     
     override func setup() {
         super.setup()
