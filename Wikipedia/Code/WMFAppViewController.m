@@ -197,7 +197,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
-                                                 name:WMFExplorePreferencesDidChangeNotification
+                                                 name:WMFExploreFeedPreferencesDidChangeNotification
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];

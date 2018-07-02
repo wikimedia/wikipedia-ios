@@ -29,10 +29,12 @@
         }
         let alertController = UIAlertController(title: "Turn off Explore feed tab?", message: "Turning off all feed cards will result in turning off the Explore feed tab.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Turn off Explore feed", style: .destructive, handler: { (_) in
-            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
             UserDefaults.wmf_userDefaults().defaultTabType = .settings
+            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
         }))
-        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (_) in
+            self.feedContentController.rejectNewExploreFeedPreferences()
+        }))
         if let presenter = viewController.presentedViewController {
             assert(presenter is UINavigationController) // TODO: remove assertion, find a fallback
             presenter.present(alertController, animated: true)

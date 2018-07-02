@@ -175,7 +175,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     private var didToggleMasterSwitch = false
 
     override var shouldReload: Bool {
-        return displayType == .multipleLanguages && !didToggleMasterSwitch
+        return !didToggleMasterSwitch
     }
 
     override func viewDidLoad() {
@@ -186,14 +186,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
         return item is FeedCard || item is ExploreFeedSettingsGlobalCards
-    }
-
-    override func reload() {
-        for feedCard in feedCards {
-            feedCard.updateDisclosureText(for: displayType)
-            feedCard.updateSubtitle(for: displayType)
-        }
-        tableView.reloadRows(at: indexPathsForCellsThatNeedReloading, with: .none)
     }
 
     @objc private func closeButtonPressed() {
@@ -235,6 +227,21 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
             return [customization, languages, main]
         }
     }
+
+    override open func reload() {
+        for feedCard in feedCards {
+            feedCard.updateIsOn(for: displayType)
+            feedCard.updateDisclosureText(for: displayType)
+            feedCard.updateSubtitle(for: displayType)
+        }
+        let cellsToReload = indexPathsForCellsThatNeedReloading.compactMap { tableView.cellForRow(at: $0) as? WMFSettingsTableViewCell }
+        for (cell, feedCard) in zip(cellsToReload, feedCards) {
+            cell.disclosureSwitch.setOn(feedCard.isOn, animated: true)
+            cell.disclosureText = feedCard.disclosureText
+            cell.subtitle = feedCard.subtitle
+        }
+    }
+
 }
 
 // MARK: - UITableViewDelegate

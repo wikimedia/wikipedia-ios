@@ -81,7 +81,8 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: theme)
-        NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExplorePreferencesDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newExploreFeedPreferencesWereRejected(_:)), name: NSNotification.Name.WMFNewExploreFeedPreferencesWereRejected, object: nil)
     }
 
     var preferredLanguages: [MWKLanguageLink] {
@@ -133,8 +134,24 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         return sections[index]
     }
 
+    // MARK: - Notifications
+
     open func reload() {
-        self.tableView.reloadRows(at: self.indexPathsForCellsThatNeedReloading, with: .none)
+        guard shouldReload else {
+            return
+        }
+    }
+
+    @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.reload()
+        }
+    }
+
+    @objc open func newExploreFeedPreferencesWereRejected(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.reload()
+        }
     }
 
 }
@@ -207,19 +224,6 @@ extension BaseExploreFeedSettingsViewController: UITableViewDelegate {
 extension BaseExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
     open func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         assertionFailure("Subclassers should override")
-    }
-}
-
-// MARK: - Notifications
-
-extension BaseExploreFeedSettingsViewController {
-    @objc private func exploreFeedPreferencesDidSave(_ notification: Notification) {
-        DispatchQueue.main.async {
-            guard self.shouldReload else {
-                return
-            }
-            self.reload()
-        }
     }
 }
 

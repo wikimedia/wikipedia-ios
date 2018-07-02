@@ -17,8 +17,9 @@ static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operat
 
 NSString *const WMFExploreFeedPreferencesKey = @"WMFExploreFeedPreferencesKey";
 NSString *const WMFExploreFeedPreferencesGlobalCardsKey = @"WMFExploreFeedPreferencesGlobalCardsKey";
-NSString *const WMFExplorePreferencesDidChangeNotification = @"WMFExplorePreferencesDidChangeNotification";
-NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferencesDidSaveNotification";
+NSString *const WMFExploreFeedPreferencesDidChangeNotification = @"WMFExploreFeedPreferencesDidChangeNotification";
+NSString *const WMFExploreFeedPreferencesDidSaveNotification = @"WMFExploreFeedPreferencesDidSaveNotification";
+NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewExploreFeedPreferencesWereRejectedNotification";
 
 @interface WMFExploreFeedContentController ()
 
@@ -315,7 +316,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                 return;
             }
             self.exploreFeedPreferences = newExploreFeedPreferences;
-            [NSNotificationCenter.defaultCenter postNotificationName:WMFExplorePreferencesDidSaveNotification object:self.exploreFeedPreferences];
+            [NSNotificationCenter.defaultCenter postNotificationName:WMFExploreFeedPreferencesDidSaveNotification object:self.exploreFeedPreferences];
         }
     }
 }
@@ -515,6 +516,13 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
     }];
     [self.operationQueue addOperation:op];
 }
+
+- (void)rejectNewExploreFeedPreferences {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNewExploreFeedPreferencesWereRejectedNotification object:nil];
+    });
+}
+
 - (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
@@ -527,7 +535,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                 update(newPreferences);
                 [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFExplorePreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedPreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
                     if (completion) {
                         completion();
                     }
