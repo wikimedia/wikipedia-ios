@@ -195,6 +195,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                            options:NSKeyValueObservingOptionNew
                                            context:NULL];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(exploreFeedPreferencesDidChange:)
+                                                 name:WMFExplorePreferencesDidChangeNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -457,6 +462,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                                 sticky:YES
                                  dismissPreviousAlerts:YES
                                            tapCallBack:nil];
+}
+
+- (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
+    ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator = (ExploreFeedPreferencesUpdateCoordinator *)note.object;
+    [exploreFeedPreferencesUpdateCoordinator coordinateUpdateFrom:self];
 }
 
 #pragma mark - Explore feed preferences
