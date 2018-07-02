@@ -1,0 +1,1 @@
+Sparade artiklar kan nu organiseras i läslistor och synkroniseras över enheter.

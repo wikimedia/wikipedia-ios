@@ -157,6 +157,8 @@
 "explore-continue-reading-heading" = "続けて読む";
 "explore-enable-location-title" = "現在地周辺の記事を閲覧する";
 "explore-featured-article-heading" = "秀逸な記事";
+"explore-feed-preferences-featured-article-description" = "ウィキペディアの今日の秀逸な記事";
+"explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
 "explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";

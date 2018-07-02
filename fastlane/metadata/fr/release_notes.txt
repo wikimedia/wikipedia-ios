@@ -1,0 +1,1 @@
+Les articles sauvegardés peuvent maintenant être organisés en listes de lecture et synchronisés entre les appareils.
