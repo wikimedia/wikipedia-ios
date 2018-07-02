@@ -152,6 +152,11 @@ private enum DisplayType {
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.layoutIfNeeded() // hax to recalculate the height of footers
+    }
+
     public var showCloseButton = false {
         didSet {
             if showCloseButton {
