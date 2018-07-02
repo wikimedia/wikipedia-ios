@@ -94,6 +94,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
 
+- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed;
+
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;
 #endif
