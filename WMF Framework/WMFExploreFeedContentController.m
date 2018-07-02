@@ -457,7 +457,25 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                     [newVisibleContentGroupKindNumbers removeObject:@(contentGroupKind)];
                 }
 
-                [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
+                if (contentGroupKind == WMFContentGroupKindLocation) {
+                    if (isOn) {
+                        [newVisibleContentGroupKindNumbers addObject:@(WMFContentGroupKindLocationPlaceholder)];
+                    } else {
+                        [newVisibleContentGroupKindNumbers removeObject:@(WMFContentGroupKindLocationPlaceholder)];
+                    }
+                } else if (contentGroupKind == WMFContentGroupKindLocationPlaceholder) {
+                    if (isOn) {
+                        [newVisibleContentGroupKindNumbers addObject:@(WMFContentGroupKindLocation)];
+                    } else {
+                        [newVisibleContentGroupKindNumbers removeObject:@(WMFContentGroupKindLocation)];
+                    }
+                }
+
+                if (newVisibleContentGroupKindNumbers.count == 0) {
+                    [newPreferences removeObjectForKey:key];
+                } else {
+                    [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
+                }
             }
         }
     } willTurnOnContentGroupOrLanguage:isOn completion:^{
