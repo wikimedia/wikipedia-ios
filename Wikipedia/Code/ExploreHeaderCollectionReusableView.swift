@@ -3,7 +3,7 @@ import UIKit
 class ExploreHeaderCollectionReusableView: SizeThatFitsReusableView {
     private let titleLabel = UILabel()
     
-    var title:String? {
+    var title: String? {
         get {
             return titleLabel.text
         }
