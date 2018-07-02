@@ -66,6 +66,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
     self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:dataStore.viewContext];
+    self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
 }
 
 #pragma mark - Content Sources
