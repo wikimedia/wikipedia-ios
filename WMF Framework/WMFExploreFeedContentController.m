@@ -26,6 +26,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
 @property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
+@property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
 
 @end
 
