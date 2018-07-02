@@ -265,6 +265,10 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
             didCancelSearch()
         }
     }
+    
+    @objc func makeSearchBarBecomeFirstResponder() {
+        searchBar.becomeFirstResponder()
+    }
 
     // MARK - Theme
     
