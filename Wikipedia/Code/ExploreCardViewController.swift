@@ -240,9 +240,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if imageInfo.imageDescription.count > 0 {
-            cell.captionLabel.text = imageInfo.imageDescription.wmf_stringByRemovingHTML()
+            cell.caption = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
-            cell.captionLabel.text = imageInfo.canonicalPageTitle
+            cell.caption = imageInfo.canonicalPageTitle
         }
         cell.apply(theme: theme)
     }
