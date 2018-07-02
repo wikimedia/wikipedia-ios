@@ -223,11 +223,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     private func configureOnThisDayCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0, events.indices.contains(indexPath.row) else {
+        let index = indexPath.row
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0, events.indices.contains(index) else {
             return
         }
-        let event = events[indexPath.row]
-        cell.configure(with: event, isFirst: events.first == event, isLast: events.last == event, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        let event = events[index]
+        cell.configure(with: event, isFirst: events.indices.first == index, isLast: events.indices.last == index, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
     
