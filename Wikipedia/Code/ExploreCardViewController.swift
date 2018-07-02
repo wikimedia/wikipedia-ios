@@ -222,12 +222,13 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         cell.selectionDelegate = self
     }
     
-    private func configureOnThisDayCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
-        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0 else {
+    private func configureOnThisDayCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        let index = indexPath.row
+        guard let cell = cell as? OnThisDayExploreCollectionViewCell, let events = contentGroup?.contentPreview as? [WMFFeedOnThisDayEvent], events.count > 0, events.indices.contains(index) else {
             return
         }
-        let previousEvent: WMFFeedOnThisDayEvent? = events.count > 1 ? events[1] : events[0]
-        cell.configure(with: events[0], previousEvent: previousEvent, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
+        let event = events[index]
+        cell.configure(with: event, isFirst: events.indices.first == index, isLast: events.indices.last == index, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
     
@@ -302,7 +303,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         case .story:
             configureNewsCell(cell, layoutOnly: layoutOnly)
         case .event:
-             configureOnThisDayCell(cell, layoutOnly: layoutOnly)
+            configureOnThisDayCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         case .theme, .notification, .announcement, .readingList:
             configureAnnouncementCell(cell, displayType: displayType, layoutOnly: layoutOnly)
         }
@@ -380,8 +381,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
-        if displayType == .story || displayType == .event {
-            key = contentGroup?.key
+        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
+            key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
             key = article(at: indexPath)?.key
         }
