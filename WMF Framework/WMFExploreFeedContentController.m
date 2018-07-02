@@ -424,7 +424,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                 [newPreferences removeObjectForKey:key];
             }
         }
-    } completion:^{
+    } willTurnOnContentGroupOrLanguage:isOn completion:^{
         if (!updateFeed) {
             return;
         }
@@ -460,7 +460,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
                 [newPreferences setObject:newVisibleContentGroupKindNumbers forKey:key];
             }
         }
-    } completion:^{
+    } willTurnOnContentGroupOrLanguage:isOn completion:^{
         [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
 }
@@ -473,12 +473,11 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
             [newGlobalCardPreferences setObject:[NSNumber numberWithBool:on] forKey:key];
         }
         [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
-    } completion:^{
+    } willTurnOnContentGroupOrLanguage:on completion:^{
         [self updateFeedSourcesUserInitiated:YES completion:nil];
     }];
 }
 
-- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update completion:(nullable dispatch_block_t)completion {
 - (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed {
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -498,6 +497,7 @@ NSString *const WMFExplorePreferencesDidSaveNotification = @"WMFExplorePreferenc
     }];
     [self.operationQueue addOperation:op];
 }
+- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
