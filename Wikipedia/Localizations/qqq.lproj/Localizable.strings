@@ -127,6 +127,8 @@
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
+"explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
 "explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Explore feed";
