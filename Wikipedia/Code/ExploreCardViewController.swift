@@ -381,8 +381,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
-        if displayType == .story || displayType == .event {
-            key = contentGroup?.key
+        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
+            key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
             key = article(at: indexPath)?.key
         }
