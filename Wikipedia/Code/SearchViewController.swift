@@ -3,7 +3,8 @@ import UIKit
 class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
     @objc var dataStore: MWKDataStore!
     var shouldAnimateSearchBar: Bool = false
-    
+    @objc var shouldBecomeFirstResponder: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.isBackVisible = false
@@ -16,9 +17,11 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationBar.isBarHidingEnabled = true
         navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: { self.updateScrollViewInsets() })
+        navigationBar.isBarHidingEnabled = false
         searchBar.setShowsCancelButton(true, animated: animated && shouldAnimateSearchBar)
-        if animated {
+        if animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
         shouldAnimateSearchBar = false
@@ -28,7 +31,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         super.viewDidAppear(animated)
         funnel.logSearchStart()
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
-        if !animated {
+        if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
     }
@@ -37,7 +40,9 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         super.viewWillDisappear(animated)
         if shouldAnimateSearchBar {
             searchBar.text = nil
+            navigationBar.isBarHidingEnabled = true
             navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
+            navigationBar.isBarHidingEnabled = false
             searchBar.setShowsCancelButton(false, animated: animated)
         }
         shouldAnimateSearchBar = false
@@ -180,6 +185,11 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         resultsViewController.results = []
         resultsViewController.wmf_hideEmptyView()
         searchBar.text = nil
+        fakeProgressController.stop()
+    }
+    
+    @objc func clear() {
+        didCancelSearch()
     }
     
     lazy var searchBarContainerView: UIView = {
