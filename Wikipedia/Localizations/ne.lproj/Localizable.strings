@@ -31,10 +31,16 @@
 "about-wikipedia" = "विकिपिडिया";
 "abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
+"account-creation-create-account" = "खाता खोल्नुहोस्";
 "account-creation-log-in" = "लग इन।";
 "account-creation-logging-in" = "प्रवेश गर्दै...";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
+"account-creation-title" = "नयाँ खाता खोल्नुहोस्";
+"action-add-to" = "यहाँ थप्नुहोस्…";
+"action-add-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-cancel" = "रद्द गर्नुहोस्";
+"action-move-to" = "मा सार्ने…";
+"action-move-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-read" = "पढ्नुहोस्";
 "action-remove" = "हटाउनुहोस्";
 "action-save" = "संग्रह गर्नुहोस्";
@@ -82,6 +88,10 @@
 "explore-because-you-read" = "तपाईंले यो लेख पढ्नुभएको हुनाले";
 "explore-continue-reading-heading" = "पढ्ने कार्य जारी राख्नुहोस्";
 "explore-featured-article-heading" = "विशेष लेख";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "बन्द";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "सबैमा खुला";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "खुला";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
 "explore-main-page-heading" = "विकिपिडियामा आज";
 "explore-most-read-footer-for-date" = "$1मा धेरै पढिएका लेखहरू";
 "explore-most-read-generic-heading" = "धेरै पढिएको";
@@ -150,6 +160,7 @@
 "in-the-news-title" = "समाचारमा";
 "info-box-close-text" = "बन्द गर्नुहोस्";
 "info-box-title" = "छरितो तथ्यहरू";
+"languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -284,6 +295,7 @@
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
 "wikitext-download-success" = "सामग्री लोड गरियो ।";
+"wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";

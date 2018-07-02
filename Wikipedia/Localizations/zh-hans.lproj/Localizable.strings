@@ -1,6 +1,7 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
 // Author: Davidzdh
+// Author: Endermoon
 // Author: Hudafu
 // Author: JuneAugsut
 // Author: Kuailong
@@ -77,7 +78,10 @@
 "add-articles-to-reading-list" = "添加{{PLURAL:$1|$1个条目}}至阅读列表";
 "alert-no-internet" = "当前无网络连接";
 "announcements-dismiss" = "关闭";
+"app-store-keywords" = "维基百科、参考资料、wiki、百科全书、信息、知识、研究、详细信息、探索、学习";
+"app-store-release-notes" = "现在保存的条目可以组织到阅读列表中，并可以跨设备同步。";
 "app-store-short-description" = "下载维基百科应用以探索您附近的地点，同步条目以离线阅读并自定义您的阅读体验。";
+"app-store-subtitle" = "自由的百科全书";
 "appearance-settings-adjust-text-sizing" = "调整条目文本大小";
 "appearance-settings-expand-tables" = "展开表格";
 "appearance-settings-expand-tables-footer" = "将所有条目内的表格设置为默认开启，包括快速预览、参考资料、注释和外部链接。";
@@ -143,6 +147,44 @@
 "explore-continue-reading-heading" = "继续阅读";
 "explore-enable-location-title" = "浏览您当前位置附近的条目";
 "explore-featured-article-heading" = "典范条目";
+"explore-feed-preferences-additional-languages-footer-text" = "额外语言可添加到“我的语言”设置页面中。";
+"explore-feed-preferences-continue-reading-description" = "快速链接以返回阅读打开的条目";
+"explore-feed-preferences-customize-explore-feed" = "自定义探索订阅源";
+"explore-feed-preferences-customize-explore-feed-footer-text" = "隐藏卡片类型将从探索订阅源中停止显示这种卡片类型。";
+"explore-feed-preferences-featured-article-description" = "维基百科上的每日典范条目";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "关";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "在所有";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "开";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "在$1";
+"explore-feed-preferences-global-card-footer-text" = "此卡片并非语言特定，关闭此卡片将从您的探索订阅源中移除它。";
+"explore-feed-preferences-global-cards-description" = "非语言特定卡片";
+"explore-feed-preferences-global-cards-subtitle" = "非语言特定";
+"explore-feed-preferences-global-cards-title" = "全域卡片";
+"explore-feed-preferences-in-the-news-description" = "有关当前活动的条目";
+"explore-feed-preferences-languages-footer-text" = "从您所有语言中隐藏所有探索订阅源卡片将关闭探索标签。";
+"explore-feed-preferences-on-this-day-description" = "这一天历史上的活动";
+"explore-feed-preferences-places-description" = "在您位置附近的维基百科条目";
+"explore-feed-preferences-potd-description" = "来自共享资源的每日特色图片";
+"explore-feed-preferences-randomizer-description" = "生成随机条目以阅读";
+"explore-feed-preferences-related-pages-description" = "基于阅读历史的建议";
+"explore-feed-preferences-show-continue-reading-title" = "显示继续阅读卡片";
+"explore-feed-preferences-show-featured-article-footer-text" = "关闭典范条目卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-featured-article-title" = "显示典范条目卡片";
+"explore-feed-preferences-show-news-footer-text" = "关闭新闻卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-news-title" = "显示新闻卡片";
+"explore-feed-preferences-show-on-this-day-footer-text" = "关闭历史上的今天卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-on-this-day-title" = "显示历史上的今天卡片";
+"explore-feed-preferences-show-picture-of-the-day-title" = "显示每日图片卡片";
+"explore-feed-preferences-show-places-footer-text" = "关闭地点卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-places-title" = "显示地点卡片";
+"explore-feed-preferences-show-randomizer-footer-text" = "关闭随机卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-randomizer-title" = "显示随机卡片";
+"explore-feed-preferences-show-related-pages-title" = "显示因为您阅读了卡片";
+"explore-feed-preferences-show-top-read-footer-text" = "关闭最多阅读卡片将在所有可用语言中关闭。";
+"explore-feed-preferences-show-top-read-title" = "显示最多阅读卡片";
+"explore-feed-preferences-top-read-description" = "每日最多阅读条目";
+"explore-feed-preferences-turn-off-feed" = "关闭探索标签";
+"explore-feed-preferences-turn-off-feed-disclosure" = "关闭探索标签将替换探索标签为设置标签。";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
 "explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
@@ -231,6 +273,7 @@
 "in-the-news-title" = "新闻动态";
 "info-box-close-text" = "关闭";
 "info-box-title" = "快速预览";
+"languages-settings-title" = "语言";
 "languages-title" = "更改语言";
 "languages-wikipedia" = "维基百科语言";
 "license-footer-name" = "CC BY-SA 3.0";
