@@ -390,6 +390,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
         header.titleLabel.text = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
+        header.setNeedsLayout()
         header.apply(theme: theme)
     }
     
