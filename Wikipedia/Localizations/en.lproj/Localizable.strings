@@ -130,6 +130,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Customize Explore feed";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Hiding a card type will stop this card type from appearing in the Explore feed.";
 "explore-feed-preferences-featured-article-description" = "Daily featured article on Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Off";
@@ -140,6 +141,8 @@
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
 "explore-feed-preferences-global-cards-title" = "Global cards";
+"explore-feed-preferences-hide-card-action-title" = "Hide this card";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Hide all %@ cards";
 "explore-feed-preferences-in-the-news-description" = "Articles about current events";
 "explore-feed-preferences-languages-footer-text" = "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.";
 "explore-feed-preferences-on-this-day-description" = "Events in history on this day";
@@ -165,6 +168,7 @@
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-feed" = "Turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
+"explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
@@ -172,8 +176,6 @@
 "explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Top on $1";
 "explore-nearby-heading" = "Places near";
-"explore-nearby-placeholder-cancel" = "Cancel";
-"explore-nearby-placeholder-dismiss" = "Dismiss";
 "explore-nearby-placeholder-heading" = "Places";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
@@ -230,8 +232,6 @@
 "home-button-popover-description" = "Tap on the 'W' to return to the Explore feed";
 "home-button-popover-title" = "Tap to go home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
-"home-hide-suggestion-cancel" = "Cancel";
-"home-hide-suggestion-prompt" = "Hide this suggestion";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-location-footer" = "More nearby $1";

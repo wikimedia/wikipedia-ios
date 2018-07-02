@@ -99,11 +99,11 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
     }
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return item is ExploreFeedSettingsMaster
+        return true
     }
 
     override var shouldReload: Bool {
-        return isMasterSwitchOn != contentGroupKind.isInFeed
+        return true
     }
 
 }

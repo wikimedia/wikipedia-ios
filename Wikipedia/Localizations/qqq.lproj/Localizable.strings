@@ -130,6 +130,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
 "explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Explore feed";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Title for action that allows users to go to the Explore feed settings screen";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Text for explaining the effects of hiding feed cards";
 "explore-feed-preferences-featured-article-description" = "Description of Featured article section of Explore feed";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Text for Explore feed card setting indicating that the feed card is hidden in all preferred languages";
@@ -140,6 +141,8 @@
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle describing non-language specific feed cards";
 "explore-feed-preferences-global-cards-title" = "Title for the setting that allows users to toggle non-language specific feed cards";
+"explore-feed-preferences-hide-card-action-title" = "Title for action that allows users to hide a feed card";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type";
 "explore-feed-preferences-in-the-news-description" = "Description of In the news section of Explore feed";
 "explore-feed-preferences-languages-footer-text" = "Text for explaining the effects of hiding all feed cards";
 "explore-feed-preferences-on-this-day-description" = "Description of On this day section of Explore feed";
@@ -165,6 +168,7 @@
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
 "explore-feed-preferences-turn-off-feed" = "Text for the setting that allows users to turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Text for explaining the effects of turning off the Explore tab";
+"explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
@@ -172,8 +176,6 @@
 "explore-most-read-heading" = "Text for 'Most read articles' explore section header. $1 is substituted for the localized language name (e.g. 'English' or 'Espanol').";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "explore-nearby-heading" = "Text for 'Nearby places' header. The next line of the header is the name of the nearest article.";
-"explore-nearby-placeholder-cancel" = "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}";
-"explore-nearby-placeholder-dismiss" = "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}";
 "explore-nearby-placeholder-heading" = "Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Subtext beneath the 'Places' header when the specific language wikipedia is unknown.";
@@ -230,8 +232,6 @@
 "home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-popover-title" = "Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
-"home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}";
-"home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
 "home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
