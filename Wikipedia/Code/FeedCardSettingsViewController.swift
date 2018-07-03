@@ -41,13 +41,6 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         displayType = .detail(contentGroupKind)
     }
 
-    private var isMasterSwitchOn: Bool {
-        guard let settingsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WMFSettingsTableViewCell else {
-            return false
-        }
-         return settingsCell.disclosureSwitch.isOn
-    }
-
     private lazy var master: ExploreFeedSettingsMaster = {
         return ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))
     }()
