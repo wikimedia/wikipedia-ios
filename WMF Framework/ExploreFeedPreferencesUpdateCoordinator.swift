@@ -28,7 +28,7 @@
             return
         }
         guard let globalCardPreferences = newExploreFeedPreferences.first?.value as? Dictionary<NSNumber, NSNumber> else {
-            assertionFailure() // TODO: fallback
+            assertionFailure("Expected value of type Dictionary<NSNumber, NSNumber>")
             return
         }
         let willTurnOffGlobalCards = globalCardPreferences.values.filter { $0.boolValue == true }.isEmpty
