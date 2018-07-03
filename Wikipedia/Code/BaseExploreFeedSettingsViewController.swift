@@ -13,13 +13,23 @@ protocol ExploreFeedSettingsItem {
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType)
 }
 
-extension ExploreFeedSettingsSwitchItem {
+extension ExploreFeedSettingsItem {
     var subtitle: String? { return nil }
     var disclosureType: WMFSettingsMenuItemDisclosureType { return .switch }
     var disclosureText: String? { return nil }
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
+    func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType) {
+
+    }
+    func updateDisclosureText(for displayType: ExploreFeedSettingsDisplayType) {
+
+    }
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
+        
+    }
+}
 }
 
 struct ExploreFeedSettingsSection {
