@@ -207,18 +207,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    override open func reload() {
-        for feedCard in feedCards {
-            feedCard.updateIsOn(for: displayType)
-            feedCard.updateDisclosureText(for: displayType)
-            feedCard.updateSubtitle(for: displayType)
-        }
-        let cellsToReload = indexPathsForCellsThatNeedReloading.compactMap { tableView.cellForRow(at: $0) as? WMFSettingsTableViewCell }
-        for (cell, feedCard) in zip(cellsToReload, feedCards) {
-            cell.disclosureSwitch.setOn(feedCard.isOn, animated: true)
-            cell.disclosureText = feedCard.disclosureText
-            cell.subtitle = feedCard.subtitle
-        }
     }
 
 }
