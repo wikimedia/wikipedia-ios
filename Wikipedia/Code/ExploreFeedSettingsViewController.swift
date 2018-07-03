@@ -144,11 +144,6 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
     }
 }
 
-private enum DisplayType {
-    case singleLanguage
-    case multipleLanguages
-}
-
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
@@ -167,10 +162,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    private lazy var displayType: DisplayType = {
-        assert(preferredLanguages.count > 0)
-        return preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
-    }()
 
     private var didToggleMasterSwitch = false
 
@@ -186,6 +177,8 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
         return item is FeedCard || item is ExploreFeedSettingsGlobalCards
+        assert(preferredLanguages.count > 0)
+        displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
 
     @objc private func closeButtonPressed() {

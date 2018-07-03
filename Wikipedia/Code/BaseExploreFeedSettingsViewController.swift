@@ -143,6 +143,12 @@ struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
     }
 }
 
+enum ExploreFeedSettingsDisplayType: Equatable {
+    case singleLanguage
+    case multipleLanguages
+    case detail(WMFContentGroupKind)
+}
+
 class BaseExploreFeedSettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @objc var dataStore: MWKDataStore?
@@ -152,6 +158,8 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     override var nibName: String? {
         return "BaseExploreFeedSettingsViewController"
     }
+
+    open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
 
     override func viewDidLoad() {
         super.viewDidLoad()
