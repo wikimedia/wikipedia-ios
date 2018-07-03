@@ -388,8 +388,11 @@ NS_ASSUME_NONNULL_BEGIN
         }
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
-        case WMFContentGroupKindOnThisDay:
-            return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles.");
+        case WMFContentGroupKindOnThisDay: {
+            id events = self.fullContent.object;
+            NSUInteger eventsCount = events && [events respondsToSelector:@selector(count)] ? [events count] : 0;
+            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-footer-with-event-count", nil, nil, @"%1$@ more historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), @(eventsCount)];
+        }
         case WMFContentGroupKindUnknown:
         default:
             break;
