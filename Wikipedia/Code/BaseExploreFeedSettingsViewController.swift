@@ -192,15 +192,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    open func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        assertionFailure("Subclassers should override")
-        return false
-    }
-
-    open var shouldReload: Bool {
-        return true
-    }
-
     open var sections: [ExploreFeedSettingsSection] {
         assertionFailure("Subclassers should override")
         return []
@@ -220,8 +211,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     // MARK: - Notifications
 
     open func reload() {
-        guard shouldReload else {
-            return
         }
     }
 
@@ -256,7 +245,6 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-        if needsReloading(item) {
             indexPathsForCellsThatNeedReloading.append(indexPath)
         }
         configureCell(cell, item: item)

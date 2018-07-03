@@ -66,14 +66,6 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return true
-    }
-
-    override var shouldReload: Bool {
-        return true
-    }
-
 }
 
 // MARK: - WMFSettingsTableViewCellDelegate

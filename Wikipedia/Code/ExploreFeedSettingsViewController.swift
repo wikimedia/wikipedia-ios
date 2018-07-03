@@ -165,18 +165,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     private var didToggleMasterSwitch = false
 
-    override var shouldReload: Bool {
-        return !didToggleMasterSwitch
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
     }
-
-    override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return item is FeedCard || item is ExploreFeedSettingsGlobalCards
         assert(preferredLanguages.count > 0)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
