@@ -41,24 +41,31 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         displayType = .detail(contentGroupKind)
     }
 
-    private lazy var master: ExploreFeedSettingsMaster = {
+    // MARK: Items
+
+    private lazy var masterSwitch: ExploreFeedSettingsMaster = {
         return ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))
     }()
+
+    // MARK: Sections
 
     private lazy var togglingFeedCardFooterText: String = {
         return contentGroupKind.togglingFeedCardFooterText
     }()
 
-    private lazy var main: ExploreFeedSettingsSection = {
-        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
+    private lazy var mainSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [masterSwitch])
+    }()
+
+    private lazy var languagesSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: languages)
     }()
 
     override var sections: [ExploreFeedSettingsSection] {
-        let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: self.languages)
         if contentGroupKind.isGlobal {
-            return [main]
+            return [mainSection]
         } else {
-            return [main, languages]
+            return [mainSection, languagesSection]
         }
     }
 
