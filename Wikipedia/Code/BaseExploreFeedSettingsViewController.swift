@@ -212,6 +212,13 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     // MARK: - Notifications
 
     open func reload() {
+        for (cell, item) in cellsToItemsThatNeedReloading {
+            item.updateDisclosureText(for: displayType)
+            item.updateSubtitle(for: displayType)
+            item.updateIsOn(for: displayType)
+            cell.disclosureText = item.disclosureText
+            cell.subtitle = item.subtitle
+            cell.disclosureSwitch.setOn(item.isOn, animated: true)
         }
     }
 
