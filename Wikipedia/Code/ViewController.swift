@@ -124,6 +124,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         self.updateScrollViewInsets()
     }
     
+    var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
+    
     public final func updateScrollViewInsets() {
         guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
@@ -132,7 +134,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         var frame = CGRect.zero
         if showsNavigationBar {
             frame = navigationBar.frame
-            if !navigationBar.isInteractiveHidingEnabled {
+            if useNavigationBarVisibleHeightForScrollViewInsets {
               frame.size.height = navigationBar.visibleHeight
             }
         } else if let navigationController = navigationController {

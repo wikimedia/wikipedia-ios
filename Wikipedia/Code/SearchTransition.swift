@@ -6,7 +6,6 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let isEnteringSearch: Bool
     
     required init(searchViewController: SearchViewController, exploreViewController: ExploreViewController, isEnteringSearch: Bool) {
-        searchViewController.shouldAnimateSearchBar = true
         self.searchViewController = searchViewController
         self.exploreViewController = exploreViewController
         self.isEnteringSearch = isEnteringSearch
@@ -23,9 +22,11 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             else {
                 return
         }
+        
         let containerView = transitionContext.containerView
         let toFinalFrame = transitionContext.finalFrame(for: toViewController)
         toViewController.view.frame = toFinalFrame
+        
         if isEnteringSearch {
             searchViewController.nonSearchAlpha = 0
             exploreViewController.searchBar.alpha = 0
@@ -35,6 +36,7 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
         }
+
         let duration = self.transitionDuration(using: transitionContext)
 
         UIView.animate(withDuration: duration, animations: {

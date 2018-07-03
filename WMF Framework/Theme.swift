@@ -240,6 +240,10 @@ public class Theme: NSObject {
         return UIImage.wmf_image(from: colors.paperBackground)
     }()
     
+    @objc public lazy var navigationBarShadowImage: UIImage = {
+        return #imageLiteral(resourceName: "transparent-pixel")
+    }()
+    
     static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
         let minDimension = 2 * cornerRadius + 1
         let rect = CGRect(x: 0, y: 0, width: width ?? minDimension, height: height ?? minDimension)

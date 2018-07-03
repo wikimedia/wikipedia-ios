@@ -977,6 +977,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         [self switchToSearch:NO];
+        [self.searchViewController makeSearchBarBecomeFirstResponder];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
@@ -1836,6 +1837,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else {
         searchVC = [[SearchViewController alloc] init];
         searchVC.shouldBecomeFirstResponder = YES;
+        searchVC.areRecentSearchesEnabled = NO;
         [searchVC applyTheme:self.theme];
         searchVC.dataStore = self.dataStore;
     }
