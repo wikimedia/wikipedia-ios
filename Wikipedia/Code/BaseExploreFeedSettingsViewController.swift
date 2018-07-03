@@ -98,19 +98,32 @@ struct ExploreFeedSettingsSection {
     let items: [ExploreFeedSettingsItem]
 }
 
-struct ExploreFeedSettingsLanguage: ExploreFeedSettingsSwitchItem {
+class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
     let title: String
     let subtitle: String?
     let controlTag: Int
-    let isOn: Bool
+    var isOn: Bool = false
     let siteURL: URL
+    let languageLink: MWKLanguageLink
 
-    init(_ languageLink: MWKLanguageLink, controlTag: Int, isOn: Bool) {
+    init(_ languageLink: MWKLanguageLink, controlTag: Int, displayType: ExploreFeedSettingsDisplayType) {
+        self.languageLink = languageLink
         title = languageLink.localizedName
         subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
-        self.isOn = isOn
         siteURL = languageLink.siteURL()
+        updateIsOn(for: displayType)
+    }
+
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
+        switch (displayType) {
+        case .singleLanguage:
+            return
+        case .multipleLanguages:
+            isOn = languageLink.isInFeed
+        case .detail(let contentGroupKind):
+            isOn = languageLink.isInFeed(for: contentGroupKind)
+        }
     }
 }
 
