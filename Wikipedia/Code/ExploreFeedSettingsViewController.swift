@@ -1,6 +1,6 @@
 import UIKit
 
-private class FeedCard: ExploreFeedSettingsSwitchItem {
+private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind
     let title: String
     var subtitle: String?
@@ -12,7 +12,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
     var controlTag: Int = 0
     var isOn: Bool = true
 
-    init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
+    init(contentGroupKind: WMFContentGroupKind, displayType: ExploreFeedSettingsDisplayType) {
         self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
@@ -114,14 +114,14 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         }
     }
 
-    func updateIsOn(for displayType: DisplayType) {
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .singleLanguage else {
             return
         }
         isOn = contentGroupKind.isInFeed
     }
 
-    func updateDisclosureText(for displayType: DisplayType) {
+    func updateDisclosureText(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .multipleLanguages else {
             return
         }
@@ -136,7 +136,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         }
     }
 
-    func updateSubtitle(for displayType: DisplayType) {
+    func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .multipleLanguages else {
             return
         }
