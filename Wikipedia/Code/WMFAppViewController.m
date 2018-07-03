@@ -1544,11 +1544,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     [self updateDefaultTabIfNeeded];
 
-    NSInteger index = 0;
-    NSInteger count = navigationController.viewControllers.count;
+    NSArray *viewControllers = navigationController.viewControllers;
+    NSInteger count = viewControllers.count;
     NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
-    for (id vc in navigationController.viewControllers) {
-        if (index < count - 2 && [vc isKindOfClass:[SearchViewController class]]) {
+    NSInteger index = 1;
+    NSInteger limit = count - 2;
+    while (index < limit) {
+        if ([viewControllers[index] isKindOfClass:[SearchViewController class]]) {
             [indiciesToRemove addIndex:index];
         }
         index++;
@@ -1718,7 +1720,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
