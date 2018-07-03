@@ -342,18 +342,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             return
         }
         collectionView.reloadData()
-        updateHeaderVisibility()
-        updateTrashButtonEnabledState()
     }
-    
-    func updateHeaderVisibility() {
-        
-    }
-    
-    func updateTrashButtonEnabledState() {
-        
-    }
-    
+
     func deselectAll(animated: Bool) {
         guard let selected = collectionView.indexPathsForSelectedItems else {
             return
