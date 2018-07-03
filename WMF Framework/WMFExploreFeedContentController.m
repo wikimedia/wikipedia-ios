@@ -463,12 +463,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                     } else {
                         [newVisibleContentGroupKindNumbers removeObject:@(WMFContentGroupKindLocationPlaceholder)];
                     }
-                } else if (contentGroupKind == WMFContentGroupKindLocationPlaceholder) {
-                    if (isOn) {
-                        [newVisibleContentGroupKindNumbers addObject:@(WMFContentGroupKindLocation)];
-                    } else {
-                        [newVisibleContentGroupKindNumbers removeObject:@(WMFContentGroupKindLocation)];
-                    }
                 }
 
                 if (newVisibleContentGroupKindNumbers.count == 0) {
