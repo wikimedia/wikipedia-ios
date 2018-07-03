@@ -188,6 +188,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
     }()
 
+    private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
+        return ExploreFeedSettingsGlobalCards()
+    }()
+
     override var sections: [ExploreFeedSettingsSection] {
         let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
 
