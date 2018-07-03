@@ -2,6 +2,7 @@ import UIKit
 
 class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate {
     var shouldAnimateSearchBar: Bool = true
+    @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
 
     override func viewDidLoad() {
@@ -344,6 +345,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     func reloadRecentSearches() {
+        guard areRecentSearchesEnabled else {
+            return
+        }
         collectionView.reloadData()
         updateHeaderVisibility()
         updateTrashButtonEnabledState()
@@ -392,7 +396,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recentSearches?.entries.count ?? 0
+        return areRecentSearchesEnabled ? recentSearches?.entries.count ?? 0 : 0
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
