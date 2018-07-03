@@ -1,14 +1,14 @@
 import UIKit
 
-@objc(WMFArticleURLListViewController)
 class ArticleURLListViewController: ArticleCollectionViewController {
     let articleURLs: [URL]
     private let contentGroup: WMFContentGroup?
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.contentGroup = contentGroup
         super.init()
+        self.theme = theme
         self.dataStore = dataStore
     }
     
@@ -26,16 +26,7 @@ class ArticleURLListViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         collectionView.reloadData()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func articleWasUpdated(_ notification: Notification) {
-        updateVisibleCellActions()
     }
     
     override var eventLoggingCategory: EventLoggingCategory {

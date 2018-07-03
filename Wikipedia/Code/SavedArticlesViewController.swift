@@ -1,9 +1,7 @@
-
-@objc(WMFSavedArticlesViewController)
 class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     
     private let reuseIdentifier = "SavedArticlesCollectionViewCell"
-    private var cellLayoutEstimate: WMFLayoutEstimate?
+    private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     typealias T = WMFArticle
     let dataStore: MWKDataStore
@@ -35,7 +33,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         setupEditController()
         isRefreshControlEnabled = true
         emptyViewType = .noSavedPages
@@ -55,15 +53,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         super.viewWillAppear(animated)
     }
     
-    override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isBarHidingEnabled = false
-        navigationBarHider.isUnderBarViewHidingEnabled = false
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
         if !isEmpty {
             self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
@@ -159,34 +150,35 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         return [addToListItem, unsaveItem]
     }()
     
-    // MARK: - Hiding extended view
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -204,31 +196,6 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
     }
 }
 
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-
-extension SavedArticlesViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
-            return estimate
-        }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        cellLayoutEstimate = estimate
-        return estimate
-    }
-    
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
-    }
-}
 
 // MARK: - UICollectionViewDataSource
 
@@ -269,15 +236,17 @@ extension SavedArticlesViewController {
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.delegate = self
-        cell.layoutMargins = layout.readableMargins
+        cell.layoutMargins = layout.itemLayoutMargins
         
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 
@@ -357,11 +326,7 @@ extension SavedArticlesViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView: UIView? = UIDevice.current.userInterfaceIdiom == .pad ? collectionView(collectionView, cellForItemAt: indexPath) : nil
         switch action.type {
         case .delete:
             if let article = article(at: indexPath) {
@@ -369,7 +334,7 @@ extension SavedArticlesViewController: ActionDelegate {
             }
             return true
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, sourceView: sourceView)
         default:
             assertionFailure("Unsupported action type")
             return false
@@ -413,7 +378,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBarHider.isHidingEnabled = false
+        navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -422,7 +387,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBarHider.isHidingEnabled = true
+        navigationBar.isInteractiveHidingEnabled = true
     }
 }
 
@@ -476,5 +441,15 @@ extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewN
     
     var analyticsContext: String {
         return analyticsName
+    }
+}
+
+extension SavedArticlesViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return EventLoggingCategory.saved
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }

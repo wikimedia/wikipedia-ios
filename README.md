@@ -1,7 +1,7 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
 
-[![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt)
+[![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/develop/LICENSE.txt)
 
 * License: MIT License
 * Source repo: https://github.com/wikimedia/wikipedia-ios

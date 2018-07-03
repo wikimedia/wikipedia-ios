@@ -7,4 +7,6 @@
  */
 @property (nonatomic, assign) double angleRadians;
 
+@property (nonatomic, copy) UIColor *lineColor;
+
 @end

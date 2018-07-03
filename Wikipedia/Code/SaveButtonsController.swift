@@ -1,12 +1,12 @@
 import UIKit
 
-@objc public protocol WMFSaveButtonsControllerDelegate: NSObjectProtocol {
+public protocol SaveButtonsControllerDelegate: class {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle)
     func willUnsaveArticle(_ article: WMFArticle)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
 
-@objc(WMFSaveButtonsController) class SaveButtonsController: NSObject, SaveButtonDelegate {
+class SaveButtonsController: NSObject, SaveButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
@@ -15,7 +15,7 @@ import UIKit
     var activeSender: SaveButton?
     var activeKey: String?
     
-    @objc required init(dataStore: MWKDataStore) {
+    required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(articleUpdated(notification:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
@@ -25,7 +25,6 @@ import UIKit
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc(willDisplaySaveButton:forArticle:)
     public func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
@@ -41,7 +40,6 @@ import UIKit
         visibleArticleKeys[tag] = key
     }
     
-    @objc(didEndDisplayingSaveButton:forArticle:)
     public func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
         guard let key = article.key else {
             return
@@ -57,8 +55,6 @@ import UIKit
             visibleSaveButtons[tag] = saveButtons
         }
     }
-    
-
     
     func saveButtonDidReceiveLongPress(_ saveButton: SaveButton) {
         _ = saveButtonDidReceiveAddToReadingListAction(saveButton)
@@ -85,7 +81,7 @@ import UIKit
         notifyDelegateArticleSavedStateChanged()
     }
     
-    @objc public weak var delegate: WMFSaveButtonsControllerDelegate?
+    public weak var delegate: SaveButtonsControllerDelegate?
     
     @objc func saveButtonPressed(sender: SaveButton) {
         guard let key = visibleArticleKeys[sender.tag] else {
@@ -103,18 +99,16 @@ import UIKit
         updateSavedState()
     }
     
-    @objc func updateSavedState() {
-        guard let key = activeKey, let sender = activeSender else {
+    func updateSavedState() {
+        guard let key = activeKey else {
             return
         }
 
         let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key)
         
         if isSaved {
-            PiwikTracker.sharedInstance()?.wmf_logActionSave(inContext: sender, contentType: sender)
             savedPagesFunnel.logSaveNew(withArticleURL: updatedArticle?.url)
         } else {
-            PiwikTracker.sharedInstance()?.wmf_logActionUnsave(inContext: sender, contentType: sender)
             savedPagesFunnel.logDelete(withArticleURL: updatedArticle?.url)
         }
         notifyDelegateArticleSavedStateChanged()

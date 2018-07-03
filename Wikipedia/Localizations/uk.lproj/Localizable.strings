@@ -108,6 +108,19 @@
 "explore-another-random" = "Інша випадкова стаття";
 "explore-continue-reading-heading" = "Продовжити читання";
 "explore-featured-article-heading" = "Вибрана стаття";
+"explore-feed-preferences-continue-reading-description" = "Швидке посилання назад до читання відкритої статті";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "викл";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Для всіх";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл";
+"explore-feed-preferences-global-card-footer-text" = "Ця картка не є специфічною до мови, її вимкнення вилучить її з Вашої стрічки Огляд.";
+"explore-feed-preferences-global-cards-description" = "Не специфічні до мови картки";
+"explore-feed-preferences-global-cards-subtitle" = "Не специфічна до мови";
+"explore-feed-preferences-global-cards-title" = "Глобальні картки";
+"explore-feed-preferences-potd-description" = "Щоденне вибране зображення Вікісховища";
+"explore-feed-preferences-randomizer-description" = "Згенерувати випадкові статті до читання";
+"explore-feed-preferences-related-pages-description" = "Підказки засновані на історії читання";
+"explore-feed-preferences-show-continue-reading-title" = "Показувати картку Продовження читання";
+"explore-feed-preferences-show-related-pages-title" = "Показувати картку Тому що ви читаєте";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
 "explore-most-read-footer-for-date" = "Всі найбільш читані статті на $1";
 "explore-most-read-generic-heading" = "Найбільш читане";
@@ -188,8 +201,7 @@
 "in-the-news-notification-share-action-title" = "Поділитися...";
 "in-the-news-title" = "У новинах";
 "info-box-close-text" = "Закрити";
-// Fuzzy
-"info-box-title" = "Швидкі факти";
+"info-box-title" = "Табличка основної інформації";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -254,18 +266,14 @@
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";
 "places-enable-location-title" = "Перегляньте статті поблизу Вашого місця перебування, увімкнувши доступ до Вашого розташування";
 "places-filter-saved-articles" = "Збережені статті";
-// Fuzzy
-"places-filter-saved-articles-count" = "$1 місць знайдено";
-// Fuzzy
-"places-filter-top-articles" = "Топ-статті";
-// Fuzzy
-"places-filter-top-articles-count" = "$1 статей";
+"places-filter-saved-articles-count" = "Знайдено $1 {{PLURAL:$1|місце|місць}}";
+"places-filter-top-articles" = "Найбільш читають";
+"places-filter-top-articles-count" = "$1 {{PLURAL:$1|стаття|статей}}";
 "places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";
 "places-search-recently-searched-header" = "Недавні пошукові запити";
 "places-search-saved-articles" = "Всі збережені статті";
 "places-search-suggested-searches-header" = "Пропозиції пошуку";
-// Fuzzy
-"places-search-this-area" = "Пошук у цій ділянці";
+"places-search-this-area" = "Оновити у цій ділянці";
 "places-search-top-articles" = "Всі найбільш читані статті";
 "places-unknown-distance" = "невідома відстань";
 "potd-description-prefix" = "Зображення дня за $1";
@@ -287,7 +295,6 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
-// Fuzzy
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
 "settings-clear-cache-cancel" = "Скасувати";

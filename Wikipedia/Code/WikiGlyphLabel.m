@@ -1,6 +1,5 @@
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "UIFont+WMFStyle.h"
 
 @interface WikiGlyphLabel ()
 
@@ -41,7 +40,7 @@
 
     NSDictionary *attributes =
         @{
-            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:size],
+            NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:size],
             NSForegroundColorAttributeName: color,
             NSBaselineOffsetAttributeName: @(baselineOffset)
         };

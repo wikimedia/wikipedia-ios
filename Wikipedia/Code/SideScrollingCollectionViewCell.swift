@@ -8,29 +8,24 @@ internal struct CellArticle {
     let imageURL: URL?
 }
 
-@objc(WMFSideScrollingCollectionViewCellDelegate)
-public protocol SideScrollingCollectionViewCellDelegate {
+public protocol SideScrollingCollectionViewCellDelegate: class {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
 }
 
 
-@objc(WMFSubCellProtocol)
 public protocol SubCellProtocol {
-    @objc(deselectSelectedSubItemsAnimated:)
     func deselectSelectedSubItems(animated: Bool)
 }
 
-@objc(WMFSideScrollingCollectionViewCell)
 public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol {
     static let articleCellIdentifier = "ArticleRightAlignedImageCollectionViewCell"
     var theme: Theme = Theme.standard
     
-    @objc public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
+    public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     public let imageView = UIImageView()
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()
     public let descriptionLabel = UILabel()
-    public let bottomTitleLabel = UILabel()
 
     internal var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -43,7 +38,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             subTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
             descriptionLabel.semanticContentAttribute = semanticContentAttributeOverride
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
-            bottomTitleLabel.semanticContentAttribute = semanticContentAttributeOverride
         }
     }
     
@@ -53,13 +47,11 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         titleLabel.isOpaque = true
         subTitleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
-        bottomTitleLabel.isOpaque = true
         imageView.isOpaque = true
         
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         addSubview(descriptionLabel)
-        addSubview(bottomTitleLabel)
     
         addSubview(imageView)
         addSubview(collectionView)
@@ -75,7 +67,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         titleLabel.numberOfLines = 1
-        bottomTitleLabel.numberOfLines = 1
         subTitleLabel.numberOfLines = 1
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
@@ -90,7 +81,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     
     override open func reset() {
         super.reset()
-        layoutMargins = UIEdgeInsets(top: 0, left: 13, bottom: 15, right: 13)
         imageView.wmf_reset()
     }
     
@@ -105,9 +95,9 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     public let spacing: CGFloat = 13
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
+        let layoutMargins = calculatedLayoutMargins
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
-    
         if !isImageViewHidden {
             if (apply) {
                 imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
@@ -117,19 +107,19 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
 
         if titleLabel.wmf_hasAnyText {
             origin.y += spacing
-            origin.y += titleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: round(0.4 * spacing), apply: apply)
         }
         
         if subTitleLabel.wmf_hasAnyText {
             origin.y += 0
-            origin.y += subTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+            origin.y += subTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         }
         
         origin.y += spacing
-        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
+        origin.y += descriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
         
         let collectionViewSpacing: CGFloat = 10
-        var height = prototypeCell.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
+        var height = prototypeCell.wmf_preferredHeight(at: origin, maximumWidth: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: 2*collectionViewSpacing, apply: false)
 
         if articles.count == 0 {
             height = 0
@@ -152,13 +142,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
 
         origin.y += height
-
-        if bottomTitleLabel.wmf_hasAnyText {
-            origin.y += spacing
-            origin.y += bottomTitleLabel.wmf_preferredHeight(at: origin, fitting: widthToFit, alignedBy: semanticContentAttributeOverride, spacing: spacing, apply: apply)
-        }else{
-            origin.y += layoutMargins.bottom
-        }
+        origin.y += layoutMargins.bottom
         
         return CGSize(width: size.width, height: origin.y)
     }
@@ -182,7 +166,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         titleLabel.backgroundColor = labelBackgroundColor
         subTitleLabel.backgroundColor = labelBackgroundColor
         descriptionLabel.backgroundColor = labelBackgroundColor
-        bottomTitleLabel.backgroundColor = labelBackgroundColor
     }
 }
 
@@ -259,7 +242,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
 }
 
 extension SideScrollingCollectionViewCell {
-    @objc(subItemIndexAtPoint:)
     public func subItemIndex(at point: CGPoint) -> Int { // NSNotFound for not found
         let collectionViewFrame = collectionView.frame
         guard collectionViewFrame.contains(point) else {
@@ -273,7 +255,6 @@ extension SideScrollingCollectionViewCell {
         return indexPath.item
     }
     
-    @objc(viewForSubItemAtIndex:)
     public func viewForSubItem(at index: Int) -> UIView? {
         guard index != NSNotFound, index >= 0, index < collectionView.numberOfItems(inSection: 0) else {
             return nil

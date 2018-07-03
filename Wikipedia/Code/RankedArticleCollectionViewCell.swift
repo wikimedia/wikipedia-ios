@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFRankedArticleCollectionViewCell)
 public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
 
     var rankView = CircledRankView(frame: .zero)
@@ -10,22 +9,23 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         super.setup()
     }
     
+    let minimumRankDimension: CGFloat = 22
+
     override open func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         rankView.labelBackgroundColor = labelBackgroundColor
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let headerIconDimension: CGFloat = 40
-        let rankViewLeftMargin = ArticleCollectionViewCell.defaultMargins.left
-        layoutMargins = UIEdgeInsets(top: layoutMargins.top, left: 2 * ArticleCollectionViewCell.defaultMargins.left + headerIconDimension, bottom: layoutMargins.bottom, right: layoutMargins.right)
+        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: minimumRankDimension + self.layoutMargins.left, bottom: 0, right: 0)
         let superSize = super.sizeThatFits(size, apply: apply)
-        
-        let isRTL = articleSemanticContentAttribute == .forceRightToLeft
-        let rankViewWidthPlusPadding =  (2 * rankViewLeftMargin) + headerIconDimension
-        let x = isRTL ? size.width - rankViewWidthPlusPadding : 0
-        let rankViewFrame = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumViewSize: CGSize(width: rankViewWidthPlusPadding, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: rankViewWidthPlusPadding, height: superSize.height - layoutMargins.top - layoutMargins.bottom), horizontalAlignment: .center, verticalAlignment: .center, apply: apply)
-        return CGSize(width: superSize.width, height: max(superSize.height, rankViewFrame.size.height + layoutMargins.top + layoutMargins.bottom))
+        let isLTR = articleSemanticContentAttribute != .forceRightToLeft
+        let layoutMargins = calculatedLayoutMargins
+        let x = isLTR ? layoutMargins.left - layoutMarginsAdditions.left : size.width - layoutMargins.left + layoutMarginsAdditions.left - minimumRankDimension
+        let maximumHeight = superSize.height - layoutMargins.top  - layoutMargins.bottom
+        let maximumWidth = minimumRankDimension
+        let _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: minimumRankDimension, height: minimumRankDimension), horizontalAlignment: isLTR ? .right : .right, verticalAlignment: .center, apply: apply)
+        return superSize
     }
 
 }

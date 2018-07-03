@@ -88,9 +88,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListsAlertControllerDelegate,
+                                        ReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter,
-                                        EventLoggingEventValuesProviding>
+                                        EventLoggingEventValuesProviding,
+                                        WMFSearchButtonProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -613,7 +614,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
-    [[PiwikTracker sharedInstance] wmf_logActionSwitchLanguageInContext:self contentType:self];
     [self dismissViewControllerAnimated:YES
                              completion:^{
                                  [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
@@ -638,11 +638,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Progress
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:NO animated:animated];
+    [self.navigationBar setProgressHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:YES animated:animated];
+    [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
@@ -736,7 +736,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
-    
+
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
@@ -1119,6 +1119,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.title = self.article.displaytitle.wmf_stringByRemovingHTML;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
@@ -1328,11 +1329,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isSaved = [self.savedPages toggleSavedPageForURL:self.articleURL];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNewWithArticleURL:self.articleURL];
-        [[PiwikTracker sharedInstance] wmf_logActionSaveInContext:self contentType:self];
         [[ReadingListsFunnel shared] logArticleSaveInCurrentArticle:self.articleURL];
     } else {
         [self.savedPagesFunnel logDeleteWithArticleURL:self.articleURL];
-        [[PiwikTracker sharedInstance] wmf_logActionUnsaveInContext:self contentType:self];
         [[ReadingListsFunnel shared] logArticleUnsaveInCurrentArticle:self.articleURL];
     }
     [self.readingListHintController didSave:isSaved articleURL:self.articleURL theme:self.theme];
@@ -1615,7 +1614,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore theme:self.theme];
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     articleListVC.navigationItem.leftBarButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(dismissPresentedViewController)];
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
@@ -1724,7 +1723,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     NSURL *updatedLinkURL = updatedLinkURLComponents.URL ?: elementInfo.linkURL;
     UIViewController *peekVC = [self peekViewControllerForURL:updatedLinkURL];
     if (peekVC) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         [self.webViewController hideFindInPageWithCompletion:nil];
 
         if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
@@ -1754,7 +1752,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (nullable UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                        viewControllerForLocation:(CGPoint)location {
     if (previewingContext == self.leadImagePreviewingContext) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:self];
         WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article selectedImage:nil theme:self.theme overlayViewTopBarHidden:YES];
         fullscreenGallery.imagePreviewingActionsDelegate = self;
         return fullscreenGallery;
@@ -1770,8 +1767,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Peeking registration
 
 - (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        if (self.peekingAllowed && [[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        if (self.peekingAllowed) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
         } else {
@@ -1779,10 +1776,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }
         [self unregisterForPreviewing];
         self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+    } else {
+        [self unregisterForPreviewing];
     }
-        unavailable:^{
-            [self unregisterForPreviewing];
-        }];
 }
 
 - (void)unregisterForPreviewing {
@@ -1969,9 +1965,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Article Navigation
 
 - (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
-    if (contentType) {
-        [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
-    }
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 

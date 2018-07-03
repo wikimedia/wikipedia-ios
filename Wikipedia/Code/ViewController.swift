@@ -1,9 +1,8 @@
 import UIKit
 import WMF
 
-class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
+class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
-    var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -13,7 +12,16 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         super.init(coder: aDecoder)
     }
     
-    var navigationBar: NavigationBar = NavigationBar()
+    // keep objc until WMFAppViewController is rewritten in Swift
+    // it checks at run time for VCs that respond to navigationBar
+    @objc lazy var navigationBar: NavigationBar = {
+        return NavigationBar()
+    }()
+    
+    lazy var navigationBarHider: NavigationBarHider = {
+        return NavigationBarHider()
+    }()
+
     var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
@@ -53,6 +61,7 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+            navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false
         }
@@ -123,6 +132,9 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
         var frame = CGRect.zero
         if showsNavigationBar {
             frame = navigationBar.frame
+            if !navigationBar.isInteractiveHidingEnabled {
+              frame.size.height = navigationBar.visibleHeight
+            }
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
@@ -164,12 +176,12 @@ class ViewController: UIViewController, Themeable, NavigationBarHiderDelegate {
     
     // MARK: - Scrolling
     
-    func scrollToTop() {
+    @objc func scrollToTop() {
         guard let scrollView = scrollView else {
             return
         }
         navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0 - scrollView.contentInset.top), animated: true)
+        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: 0 - scrollView.contentInset.top), animated: true)
     }
     
     // MARK: - WMFNavigationBarHiderDelegate
@@ -195,5 +207,46 @@ extension ViewController: WMFEmptyViewContainer {
         } else {
             view.addSubview(emptyView)
         }
+    }
+}
+
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScroll(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
+    #if UI_TEST
+    // Needed because XCUIApplication's `pressforDuration:thenDragTo:` method causes inertial scrolling if the
+    // distance scrolled exceeds a certain amount. When we use `pressforDuration:thenDragTo:` to scroll an
+    // element to the top of the screen this can be problematic because the extra inertia can cause the element
+    // to be scrolled beyond the top of the screen.
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        scrollView.setContentOffset(scrollView.contentOffset, animated: false)
+    }
+    #endif
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
+    }
+
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        navigationBarHider.scrollViewWillScrollToTop(scrollView)
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
 }

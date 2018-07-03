@@ -34,6 +34,22 @@
 			<string>Szócikk törölve</string>
 		</dict>
 	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>egy szócikk hozzáadása az olvasólistához</string>
+			<key>other</key>
+			<string>%1$d szócikk hozzáadása az olvasólistához</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -48,6 +64,22 @@
 			<string>%1$d történelmi esemény</string>
 			<key>other</key>
 			<string>%1$d történelmi esemény</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>A szócikket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket a %3$@ olvasólistában.</string>
+			<key>other</key>
+			<string>A szócikkeket nem lehet hozzáadni ehhez a listához. Elérted a maximális %2$d szócikket a %3$@ olvasólistában.</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>

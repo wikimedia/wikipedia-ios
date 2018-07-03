@@ -1,21 +1,26 @@
 import UIKit
+import WMF
 
-@objc(WMFColumnarCollectionViewController)
-class ColumnarCollectionViewController: ViewController {
-    lazy var layout: WMFColumnarCollectionViewLayout = {
-        return WMFColumnarCollectionViewLayout()
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching {
+    lazy var layout: ColumnarCollectionViewLayout = {
+        return ColumnarCollectionViewLayout()
     }()
     
     @objc lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
+        cv.isPrefetchingEnabled = true
+        cv.prefetchDataSource = self
+        cv.preservesSuperviewLayoutMargins = true
         scrollView = cv
         return cv
     }()
 
-    fileprivate var placeholders: [String:UICollectionReusableView] = [:]
-
+    lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
+        return ColumnarCollectionViewLayoutManager(view: view, collectionView: collectionView)
+    }()
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -27,7 +32,7 @@ class ColumnarCollectionViewController: ViewController {
         extendedLayoutIncludesOpaqueBars = true
     }
 
-    @objc func contentSizeCategoryDidChange(_ notification: Notification?) {
+    @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
 
@@ -43,7 +48,6 @@ class ColumnarCollectionViewController: ViewController {
         } else {
             updateEmptyState()
         }
-        registerForPreviewingIfAvailable()
         if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
             for selectedIndexPath in selectedIndexPaths {
                 collectionView.deselectItem(at: selectedIndexPath, animated: animated)
@@ -58,114 +62,20 @@ class ColumnarCollectionViewController: ViewController {
     }
     
     open func viewWillHaveFirstAppearance(_ animated: Bool) {
-
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        unregisterForPreviewing()
-    }
-    
-    // MARK - Cell & View Registration
-   
-    final public func placeholder(forCellWithReuseIdentifier identifier: String) -> UICollectionViewCell? {
-        return placeholders[identifier] as? UICollectionViewCell
-    }
-    
-    final public func placeholder(forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) -> UICollectionReusableView? {
-        return placeholders["\(elementKind)-\(identifier)"]
-    }
-    
-    @objc(registerCellClass:forCellWithReuseIdentifier:addPlaceholder:)
-    final func register(_ cellClass: Swift.AnyClass?, forCellWithReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
-        guard addPlaceholder else {
-            return
-        }
-        guard let cellClass = cellClass as? UICollectionViewCell.Type else {
-            return
-        }
-        let cell = cellClass.init(frame: view.bounds)
-        cell.isHidden = true
-        view.insertSubview(cell, at: 0) // so that the trait collections are updated
-        placeholders[identifier] = cell
-    }
-    
-    @objc(registerNib:forCellWithReuseIdentifier:)
-    final func register(_ nib: UINib?, forCellWithReuseIdentifier identifier: String) {
-        collectionView.register(nib, forCellWithReuseIdentifier: identifier)
-        guard let cell = nib?.instantiate(withOwner: nil, options: nil).first as? UICollectionViewCell else {
-            return
-        }
-        cell.isHidden = true
-        view.insertSubview(cell, at: 0) // so that the trait collections are updated
-        placeholders[identifier] = cell
-    }
-    
-    @objc(registerViewClass:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
-    final func register(_ viewClass: Swift.AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView.register(viewClass, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
-        guard addPlaceholder else {
-            return
-        }
-        guard let viewClass = viewClass as? UICollectionReusableView.Type else {
-            return
-        }
-        let reusableView = viewClass.init(frame: view.bounds)
-        reusableView.isHidden = true
-        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
-        placeholders["\(elementKind)-\(identifier)"] = reusableView
-    }
-    
-    @objc(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:addPlaceholder:)
-    final func register(_ nib: UINib?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String, addPlaceholder: Bool) {
-        collectionView.register(nib, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
-        guard addPlaceholder else {
-            return
-        }
-        guard let reusableView = nib?.instantiate(withOwner: nil, options: nil).first as? UICollectionReusableView else {
-            return
-        }
-        reusableView.isHidden = true
-        view.insertSubview(reusableView, at: 0) // so that the trait collections are updated
-        placeholders["\(elementKind)-\(identifier)"] = reusableView
-    }
-    
-    // MARK - 3D Touch
-    
-    var previewingContext: UIViewControllerPreviewing?
-    
-    func unregisterForPreviewing() {
-        guard let context = previewingContext else {
-            return
-        }
-        unregisterForPreviewing(withContext: context)
-    }
-    
-    func registerForPreviewingIfAvailable() {
-        wmf_ifForceTouchAvailable({
-            self.unregisterForPreviewing()
-            self.previewingContext = self.registerForPreviewing(with: self, sourceView: collectionView)
-        }, unavailable: {
-            self.unregisterForPreviewing()
-        })
+        // subclassers can override
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.registerForPreviewingIfAvailable()
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             contentSizeCategoryDidChange(nil)
         }
     }
     
-    // MARK: - Scroll
+    // MARK: - UIScrollViewDelegate
     
-    override func scrollToTop() {
-        collectionView.setContentOffset(CGPoint(x: collectionView.contentOffset.x, y: 0 - collectionView.contentInset.top), animated: true)
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
         guard let hintPresenter = self as? ReadingListHintPresenter else {
             return
         }
@@ -263,6 +173,50 @@ class ColumnarCollectionViewController: ViewController {
         collectionView.reloadData()
         wmf_applyTheme(toEmptyView: theme)
     }
+    
+    
+    // MARK - UICollectionViewDataSourcePrefetching
+    
+    private lazy var imageURLsCurrentlyBeingPrefetched: Set<URL> = {
+        return []
+    }()
+    
+    open func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        return nil
+    }
+
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            guard let imageURLs = imageURLsForItemAt(indexPath) else {
+                continue
+            }
+            let imageURLsToPrefetch = imageURLs.subtracting(imageURLsCurrentlyBeingPrefetched)
+            let imageController = ImageController.shared
+            imageURLsCurrentlyBeingPrefetched.formUnion(imageURLsToPrefetch)
+            for imageURL in imageURLsToPrefetch {
+                imageController.prefetch(withURL: imageURL) {
+                    self.imageURLsCurrentlyBeingPrefetched.remove(imageURL)
+                }
+            }
+        }
+    }
+    
+    // MARK - ColumnarCollectionViewLayoutDelegate
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+    }
+    
+    func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
@@ -281,38 +235,6 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
 
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
 
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension ColumnarCollectionViewController: UIViewControllerPreviewingDelegate {
-    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        return nil
-    }
-    
-    open func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-    }
-}
-
-extension ColumnarCollectionViewController: WMFColumnarCollectionViewLayoutDelegate {
-    open func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
-        return index % 2 == 0
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 0)
-    }
-    
-    func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
-    }
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate

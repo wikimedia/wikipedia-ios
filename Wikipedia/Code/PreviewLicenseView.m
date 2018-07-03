@@ -2,7 +2,6 @@
 #import "PaddedLabel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WikiGlyph_Chars.h"
-#import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 
 @interface PreviewLicenseView ()
@@ -114,7 +113,7 @@
 - (NSAttributedString *)getCCIconAttributedString {
     return [[NSAttributedString alloc] initWithString:WIKIGLYPH_CC
                                            attributes:@{
-                                               NSFontAttributeName: [UIFont wmf_glyphFontOfSize:42.0],
+                                               NSFontAttributeName: [UIFont fontWithName:@"WikiFont-Glyphs" size:42.0],
                                                NSForegroundColorAttributeName: self.theme.colors.link,
                                                NSBaselineOffsetAttributeName: @1.5
                                            }];

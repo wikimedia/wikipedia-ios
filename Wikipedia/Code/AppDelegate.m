@@ -1,7 +1,6 @@
 #import "AppDelegate.h"
 @import UserNotifications;
 @import WMF.NSUserActivity_WMFExtensions;
-@import WMF.PiwikTracker_WMFExtensions;
 @import WMF.NSFileManager_WMFGroup;
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
@@ -83,7 +82,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf_userDefaults] wmf_migrateFontSizeMultiplier];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-    [PiwikTracker wmf_start];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];

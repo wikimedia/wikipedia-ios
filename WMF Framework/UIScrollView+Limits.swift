@@ -17,7 +17,7 @@ extension UIScrollView {
         return CGPoint(x: contentOffset.x, y: wmf_bottomOffsetY)
     }
 
-    fileprivate var wmf_isAtTop: Bool {
+    public var wmf_isAtTop: Bool {
         return contentOffset.y <= wmf_topOffsetY
     }
 
@@ -44,8 +44,8 @@ extension UIScrollView {
             contentOffset = wmf_bottomOffset
         }
 
-        if wmf_isAtTop {
-            navigationBar?.setPercentHidden(0, animated: false)
+        if wmf_isAtTop, let nb = navigationBar, nb.isInteractiveHidingEnabled {
+            nb.setPercentHidden(0, animated: false)
         }
 
         return true

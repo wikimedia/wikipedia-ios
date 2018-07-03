@@ -1,11 +1,21 @@
 import UIKit
 
-@objc(WMFFakeProgressController)
+public protocol FakeProgressReceiving {
+    var progress: Float { get }
+    func setProgress(_ progress: Float, animated: Bool)
+}
+
+public protocol FakeProgressDelegate: class {
+    func setProgressHidden(_ hidden: Bool, animated: Bool)
+}
+
 public class FakeProgressController: NSObject {
-    let progressView: UIProgressView
+    private let progress: FakeProgressReceiving
+    weak var delegate: FakeProgressDelegate?
     
-    @objc public init(progressView: UIProgressView) {
-        self.progressView = progressView
+    public init(progress: FakeProgressReceiving, delegate: FakeProgressDelegate?) {
+        self.progress = progress
+        self.delegate = delegate
     }
     
     deinit {
@@ -14,36 +24,36 @@ public class FakeProgressController: NSObject {
     
     // MARK: - Progress
     
-    @objc fileprivate func incrementProgress() {
-        guard !isProgressHidden && progressView.progress <= 0.69 else {
+    @objc private func incrementProgress() {
+        guard !isProgressHidden && progress.progress <= 0.69 else {
             return
         }
         
         let rand = 0.15 + Float(arc4random_uniform(15))/100
-        progressView.setProgress(progressView.progress + rand, animated: true)
+        progress.setProgress(progress.progress + rand, animated: true)
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
-    @objc fileprivate func hideProgress() {
-        UIView.animate(withDuration: 0.3, animations: { self.progressView.alpha = 0 } )
+    @objc private func hideProgress() {
+        self.delegate?.setProgressHidden(true, animated: true)
     }
     
-    @objc fileprivate func showProgress() {
-        progressView.alpha = 1
+    @objc private func showProgress() {
+        self.delegate?.setProgressHidden(false, animated: false)
     }
     
-    @objc public func start() {
-        progressView.setProgress(0, animated: false)
+    public func start() {
+        progress.setProgress(0, animated: false)
         isProgressHidden = false
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
-    @objc public func stop() {
+    public func stop() {
         isProgressHidden = true
     }
     
-    @objc public func finish() {
-        progressView.setProgress(1.0, animated: true)
+    public func finish() {
+        progress.setProgress(1.0, animated: true)
         isProgressHidden = true
     }
     

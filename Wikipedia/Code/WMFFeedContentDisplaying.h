@@ -19,7 +19,8 @@ typedef NS_ENUM(NSUInteger, WMFFeedDisplayType) {
     WMFFeedDisplayTypeNotification,
     WMFFeedDisplayTypeCompactList,
     WMFFeedDisplayTypeTheme,
-    WMFFeedDisplayTypeReadingList
+    WMFFeedDisplayTypeReadingList,
+    WMFFeedDisplayTypePageWithLocationPlaceholder
 };
 
 typedef NS_ENUM(NSUInteger, WMFFeedDetailType) {
@@ -75,21 +76,21 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *
  *  @return An image
  */
-- (nullable UIImage *)headerIcon;
+@property (nonatomic, readonly, nullable) UIImage *headerIcon;
 
 /**
  *  Color used for icon tint
  *
  *  @return A color
  */
-- (nullable UIColor *)headerIconTintColor;
+@property (nonatomic, readonly, nullable) UIColor *headerIconTintColor;
 
 /**
  *  Background color of section's header icon container view
  *
  *  @return A color
  */
-- (nullable UIColor *)headerIconBackgroundColor;
+@property (nonatomic, readonly, nullable) UIColor *headerIconBackgroundColor;
 
 /**
  *  The text to be displayed on the first line of the header.
@@ -97,7 +98,7 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *
  *  @return The header title string
  */
-- (nullable NSString *)headerTitle;
+@property (nonatomic, readonly, nullable) NSString *headerTitle;
 
 /**
  *  The text to be displayed on the second line of the header.
@@ -105,34 +106,34 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *
  *  @return The header sub-title string
  */
-- (nullable NSString *)headerSubTitle;
+@property (nonatomic, readonly, nullable) NSString *headerSubTitle;
 
 /*
  * The URL of the content that the header represents
  * Usually an article
  */
-- (nullable NSURL *)headerContentURL;
+@property (nonatomic, readonly, nullable) NSURL *headerContentURL;
 
 /*
  * The action that shoud be performed when a user taps on the header.
  */
-- (WMFFeedHeaderActionType)headerActionType;
+@property (nonatomic, readonly) WMFFeedHeaderActionType headerActionType;
 
 /*
  * Options for the blacklist menu
  */
-- (WMFFeedBlacklistOption)blackListOptions;
+@property (nonatomic, readonly) WMFFeedBlacklistOption blackListOptions;
 
 /**
  *  How to display the content of the section.
  */
 - (WMFFeedDisplayType)displayTypeForItemAtIndex:(NSInteger)index;
 
-- (NSUInteger)maxNumberOfCells;
+@property (nonatomic, readonly) NSUInteger maxNumberOfCells;
 
-- (BOOL)prefersWiderColumn;
+@property (nonatomic, readonly) BOOL prefersWiderColumn;
 
-- (WMFFeedDetailType)detailType;
+@property (nonatomic, readonly) WMFFeedDetailType detailType;
 
 /**
  *  Specify the text for an optional footer which allows the user to see a list of more content.
@@ -141,22 +142,22 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
  *
  *  @return The "More" footer text that prompts a user to get more items from a section.
  */
-- (nullable NSString *)footerText;
+@property (nonatomic, readonly, nullable) NSString *footerText;
 
 /**
  *  How to display content when tapping the more footer
  */
-- (WMFFeedMoreType)moreType;
+@property (nonatomic, readonly) WMFFeedMoreType moreType;
 
 /*
  *  Title for the view displayed when tapping more
  */
-- (nullable NSString *)moreTitle;
+@property (nonatomic, readonly, nullable) NSString *moreTitle;
 
 /*
  *  Specifies if group's visibility should be updated.
  */
-- (BOOL)requiresVisibilityUpdate;
+@property (nonatomic, readonly) BOOL requiresVisibilityUpdate;
 
 @end
 

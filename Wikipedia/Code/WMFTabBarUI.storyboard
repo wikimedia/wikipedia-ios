@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ebr-hF-Cp5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,6 +23,7 @@
                         <segue destination="GSJ-3y-kNz" kind="relationship" relationship="viewControllers" id="7a9-Wr-BwZ"/>
                         <segue destination="bzO-gj-jpB" kind="relationship" relationship="viewControllers" id="xti-KQ-b7L"/>
                         <segue destination="ROQ-sG-rcF" kind="relationship" relationship="viewControllers" id="tmz-sA-ulb"/>
+                        <segue destination="esE-6g-4JG" kind="relationship" relationship="viewControllers" id="i1o-9s-TFu"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEs-xw-QRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,7 +126,7 @@
         <!--Explore View Controller-->
         <scene sceneID="QWP-L4-TCq">
             <objects>
-                <viewController id="LJo-n3-DFe" customClass="WMFExploreViewController" sceneMemberID="viewController">
+                <viewController id="LJo-n3-DFe" customClass="ExploreViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6UG-Sa-Op7"/>
                         <viewControllerLayoutGuide type="bottom" id="VSn-Ag-kQN"/>
@@ -141,8 +142,25 @@
             </objects>
             <point key="canvasLocation" x="866" y="2904"/>
         </scene>
+        <!--Search-->
+        <scene sceneID="gV7-KK-Uby">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="esE-6g-4JG" customClass="ArticleNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="tDq-Gw-6Za"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TdY-99-vmM">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ulg-0y-eZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3441" y="2114"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="search" width="21" height="21"/>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-nearby" width="20" height="24"/>
         <image name="tabbar-recent" width="24" height="23"/>

@@ -26,7 +26,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     self = [super init];
     if (self) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFFeedDayResponse class] fromKeypath:nil];
+        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFFeedDayResponse class] fromKeypath:nil emptyValueForJSONKeypathAllowed:NO];
 
         self.operationManager = manager;
         [self set304sEnabled:NO];

@@ -60,7 +60,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         
         title = CommonStrings.readingPreferences
         tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
-        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier())
+        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
 
         tableView.delegate = self
@@ -128,7 +128,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier(), for: indexPath) as? WMFSettingsTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
         
@@ -202,7 +202,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     func userDidSelect(theme: Theme) {
         let userInfo = ["theme": theme]
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
-        PiwikTracker.sharedInstance()?.wmf_logActionSwitchTheme(inContext: self, contentType: AnalyticsContent(self.theme.displayName))
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -265,11 +264,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         let selector = #selector(applyImageDimmingChange)
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
-        if (sender.isOn) {
-            PiwikTracker.sharedInstance()?.wmf_logActionEnableImageDimming(inContext: self, contentType: self)
-        } else {
-            PiwikTracker.sharedInstance()?.wmf_logActionDisableImageDimming(inContext: self, contentType: self)
-        }
     }
     
     @objc func applyAutomaticTableOpenChange(isOn: NSNumber) {

@@ -54,6 +54,7 @@
 "edit-summary-choice-other" = "ٻئے";
 "empty-no-search-results-message" = "کوئی نتیجہ نی لبھا";
 "explore-continue-reading-heading" = "پڑھݨ جاری رکھو";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
 "explore-nearby-placeholder-cancel" = "منسوخ";
 "explore-nearby-placeholder-dismiss" = "مکاؤ";
 "explore-nearby-placeholder-heading" = "جاہیں";
@@ -96,6 +97,7 @@
 "in-the-news-notification-share-action-title" = "شیئر";
 "in-the-news-title" = "خبراں وچ";
 "info-box-close-text" = "بند کرو";
+"languages-settings-title" = "زباناں";
 "languages-title" = "زبان وٹاؤ";
 "license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "login-join-wikipedia" = "وکی پیڈیا جائن کرو۔";

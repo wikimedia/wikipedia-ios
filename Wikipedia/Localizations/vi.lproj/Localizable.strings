@@ -69,7 +69,7 @@
 "action-share" = "Chia sẻ";
 "action-sort" = "Sắp xếp";
 "action-unsave" = "Bỏ lưu";
-"action-unsaved-accessibility-notification" = "Bài viết đã bị xoá khỏi thiết bị.";
+"action-unsaved-accessibility-notification" = "Bài viết đã bị xóa khỏi thiết bị.";
 "action-update" = "Cập nhật";
 "add-articles-to-reading-list" = "Thêm $1 bài viết vào danh sách đọc";
 "alert-no-internet" = "Không có kết nối Internet";
@@ -335,12 +335,16 @@
 "reading-list-deleted-accessibility-notification" = "Đã xóa danh sách đọc";
 "reading-list-do-not-keep-button-title" = "Không, xóa các bài khỏi thiết bị";
 "reading-list-entry-limit-exceeded-title" = "Bạn đã vượt quá giới hạn $1 bài viết mỗi tài khoản.";
+"reading-list-exists-with-same-name" = "Tên danh sách đọc đã được sử dụng";
 "reading-list-generic-error" = "Có lỗi bất ngờ đã xảy đến khi cập nhật danh sách đọc của bạn.";
 "reading-list-keep-button-title" = "Có, giữ các bài viết trong danh sách";
+"reading-list-keep-title" = "Giữ các bài viết đã lưu trên thiết bị?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sắp xếp bài viết";
-"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Số bài viết tối đa chưa được phân loại mà bạn có thể lưu là 5000. Xin hãy xếp các bài viết vào các danh sách đọc để tiếp tục quá trình đồng bộ hoá các bài viết chưa được phân loại.";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Số bài viết tối đa chưa được phân loại mà bạn có thể lưu là 5.000. Xin hãy xếp các bài viết vào các danh sách đọc để tiếp tục quá trình đồng bộ hóa các bài viết chưa được phân loại.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Đã đạt giới hạn về bài viết chưa phân loại";
-"reading-list-list-limit-exceeded-message" = "Danh sách đọc này cũng như toàn bộ các bài viết trong danh sách sẽ không được đồng bộ hoá, xin hãy giảm số danh sách xuống còn $1 để tiếp tục quá trình đồng bộ hoá.";
+"reading-list-list-limit-exceeded-message" = "Danh sách đọc này cũng như toàn bộ các bài viết trong danh sách sẽ không được đồng bộ hóa, xin hãy giảm số danh sách xuống còn $1 để tiếp tục quá trình đồng bộ hóa.";
+"reading-list-list-limit-exceeded-title" = "Bạn đã vượt quá giới hạn $1 danh sách đọc mỗi tài khoản.";
+"reading-list-list-limit-reached" = "Bạn đã tới giới hạn $1 danh sách đọc mỗi tài khoản";
 "reading-list-login-button-title" = "Đăng nhập để đồng bộ các bài đã lưu của bạn";
 "reading-list-login-or-create-account-button-title" = "Đăng nhập hoặc mở tài khoản";
 "reading-list-login-or-create-account-title" = "Đăng nhập để đồng bộ bài đã lưu";
@@ -350,8 +354,9 @@
 "reading-list-new-list-name-placeholder" = "tên danh sách đọc";
 "reading-list-sync-disabled-panel-title" = "Đồng bộ hóa bị tắt";
 "reading-list-sync-enable-button-title" = "Bật đồng bộ hóa";
+"reading-list-sync-enable-title" = "Bật đồng bộ hóa danh sách đọc?";
 "reading-lists-article-added-confirmation" = "Đã thêm bài vào “$1”";
-"reading-lists-article-not-synced" = "Chưa đồng bộ hoá";
+"reading-lists-article-not-synced" = "Chưa đồng bộ hóa";
 "reading-lists-conflicting-reading-list-name-updated" = "Đã đổi tên danh sách “$1” của bạn thành “$2”";
 "reading-lists-count" = "$1 danh sách đọc";
 "reading-lists-default-list-description" = "Danh sách mặc định cho các bài bạn lưu";
@@ -395,7 +400,7 @@
 "settings-clear-cache-are-you-sure-message" = "Xóa dữ liệu đệm sẽ giải phóng khoảng $1 dung lượng. Việc này sẽ không xóa trang bạn đã lưu.";
 "settings-clear-cache-are-you-sure-title" = "Xóa dữ liệu đệm?";
 "settings-clear-cache-cancel" = "Hủy bỏ";
-"settings-clear-cache-ok" = "Xóa bộ đệm";
+"settings-clear-cache-ok" = "Xóa bộ nhớ đệm";
 "settings-help-and-feedback" = "Trợ giúp và phản hồi";
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-my-languages" = "Ngôn ngữ của tôi";

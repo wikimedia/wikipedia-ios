@@ -5,7 +5,7 @@ fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
 
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    var headerLayoutEstimate: WMFLayoutEstimate?
+    var headerLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -20,7 +20,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         emptyViewType = .noHistory
         
         title = CommonStrings.historyTabTitle
-        register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
@@ -35,7 +35,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        PiwikTracker.sharedInstance()?.wmf_logView(self)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
     }
     
@@ -70,7 +69,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
         headerView.text = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.readableMargins
+        headerView.layoutMargins = layout.itemLayoutMargins
         return headerView
     }
 
@@ -91,17 +90,14 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override var eventLoggingCategory: EventLoggingCategory {
         return .history
     }
-
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension HistoryViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         if let estimate = headerLayoutEstimate {
             return estimate
         }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
-        guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
         let title = titleForHeaderInSection(section)
@@ -112,4 +108,10 @@ extension HistoryViewController {
         headerLayoutEstimate = estimate
         return estimate
     }
+}
+
+// MARK: WMFSearchButtonProviding
+
+extension HistoryViewController: WMFSearchButtonProviding {
+
 }

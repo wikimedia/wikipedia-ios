@@ -34,7 +34,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     }
     
     fileprivate func updateView(with article: WMFArticle) {
-        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, count: 1, theme: theme, layoutOnly: false)
+        expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.isSaveButtonHidden = true
         expandedArticleView.extractLabel?.numberOfLines = 5
         expandedArticleView.frame = view.bounds
