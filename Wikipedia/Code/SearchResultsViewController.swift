@@ -12,6 +12,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
     }
     

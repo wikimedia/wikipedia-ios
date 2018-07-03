@@ -9,7 +9,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewDidLoad()
         navigationBar.isBackVisible = false
         title = CommonStrings.searchTitle
-        navigationItem.titleView = UIView()
+        if !areRecentSearchesEnabled {
+            navigationItem.titleView = UIView()
+        }
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
@@ -223,7 +225,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false, additionalAnimations: {
                 group.leave()
-                self.updateScrollViewInsets()
                 self.resultsViewController.updateScrollViewInsets()
             })
             self.navigationBar.isBarHidingEnabled = false
