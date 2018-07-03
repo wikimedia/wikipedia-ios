@@ -14,6 +14,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addExtendedNavigationBarView(searchBarContainerView)
         navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.isBackVisible = false
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle

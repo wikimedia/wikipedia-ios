@@ -42,6 +42,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             }
         }
         
+        if let item = delegate?.navigationItem {
+            items.append(item)
+        }
+        
         if isUsingTitleBarInsteadOfNavigationBar {
             var titleBarItems: [UIBarButtonItem] = []
             if let titleView = items.last?.titleView {
@@ -61,9 +65,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             }
             titleBar.setItems(titleBarItems, animated: false)
         } else {
-            if let item = delegate?.navigationItem {
-                items.append(item)
-            }
             bar.setItems(items, animated: false)
         }
         
