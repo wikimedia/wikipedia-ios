@@ -68,10 +68,6 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         self.theme = theme
     }
 
-    override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
-        return languageLink.isInFeed(for: contentGroupKind)
-    }
-
     private var isMasterSwitchOn: Bool {
         guard let settingsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WMFSettingsTableViewCell else {
             return false

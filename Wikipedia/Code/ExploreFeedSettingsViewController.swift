@@ -185,10 +185,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         dismiss(animated: true)
     }
 
-    override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
-        return languageLink.isInFeed
-    }
-
     private lazy var feedCards: [FeedCard] = {
         let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
         let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)

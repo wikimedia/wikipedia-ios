@@ -177,12 +177,12 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         return MWKLanguageLinkController.sharedInstance().preferredLanguages
     }
 
-    var languages: [ExploreFeedSettingsLanguage] {
+    lazy var languages: [ExploreFeedSettingsLanguage] = {
         let languages = preferredLanguages.enumerated().compactMap { (index, languageLink) in
-            ExploreFeedSettingsLanguage(languageLink, controlTag: index, isOn: isLanguageSwitchOn(for: languageLink))
+            ExploreFeedSettingsLanguage(languageLink, controlTag: index, displayType: self.displayType)
         }
         return languages
-    }
+    }()
 
     var feedContentController: WMFExploreFeedContentController? {
         return dataStore?.feedContentController
@@ -199,11 +199,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     open var shouldReload: Bool {
         return true
-    }
-
-    open func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
-        assertionFailure("Subclassers should override")
-        return false
     }
 
     open var sections: [ExploreFeedSettingsSection] {
