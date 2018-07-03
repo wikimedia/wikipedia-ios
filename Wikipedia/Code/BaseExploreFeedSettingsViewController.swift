@@ -153,7 +153,8 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @objc var dataStore: MWKDataStore?
     var theme = Theme.standard
-    var indexPathsForCellsThatNeedReloading: [IndexPath] = []
+
+    private var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
     override var nibName: String? {
         return "BaseExploreFeedSettingsViewController"
@@ -245,9 +246,8 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-            indexPathsForCellsThatNeedReloading.append(indexPath)
-        }
         configureCell(cell, item: item)
+        cellsToItemsThatNeedReloading[cell] = item
         return cell
     }
 
