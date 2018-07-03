@@ -7,6 +7,8 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             let exploreVC = fromVC as? ExploreViewController ?? toVC as? ExploreViewController,
             exploreVC.wantsCustomSearchTransition
         else {
+            let searchVC = toVC as? SearchViewController ?? fromVC as? SearchViewController
+            searchVC?.shouldAnimateSearchBar = false // disable search bar animation on standard push
             return nil
         }
         if let searchVC = toVC as? SearchViewController {

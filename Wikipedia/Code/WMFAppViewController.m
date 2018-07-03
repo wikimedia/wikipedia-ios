@@ -967,6 +967,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         [self switchToSearch:NO];
+        [self.searchViewController makeSearchBarBecomeFirstResponder];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
