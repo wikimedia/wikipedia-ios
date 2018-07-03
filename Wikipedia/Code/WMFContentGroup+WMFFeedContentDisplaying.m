@@ -387,7 +387,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
         }
         case WMFContentGroupKindNews:
-            return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More in the news", @"Footer for presenting user option to see longer list of news stories.");
+            return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
         case WMFContentGroupKindOnThisDay:
             return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles.");
         case WMFContentGroupKindUnknown:
