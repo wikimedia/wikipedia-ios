@@ -70,8 +70,8 @@
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:[WMFCommonStrings exploreFeedTitle]
-                                                 iconName:nil             // TODO
-                                                iconColor:[UIColor wmf_colorWithHex:0x5AC4FA]
+                                                 iconName:@"settings-explore"
+                                                iconColor:[UIColor wmf_colorWithHex:0x5ac8fa]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
                                            disclosureText:[NSUserDefaults wmf_userDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
                                                isSwitchOn:NO];

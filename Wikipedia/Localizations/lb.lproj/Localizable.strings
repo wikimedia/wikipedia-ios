@@ -62,6 +62,7 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
 "announcements-dismiss" = "Verwerfen";
+"app-store-subtitle" = "Déi fräi Enzyklopedie";
 "article-about-title" = "Iwwer dësen Artikel";
 "article-delete" = "Läschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel|Artikele}} geläscht";
@@ -116,6 +117,8 @@
 "explore-continue-reading-heading" = "Virufuere mat Liesen";
 "explore-enable-location-title" = "Entdeckt Artikelen an der aktueller Noperschaft.";
 "explore-featured-article-heading" = "Recommandéierten Artikel";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "Op $1";
+"explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
 "explore-most-read-footer-for-date" = "Déi am dackste geliesen Artikelen de(n) $1";
@@ -199,6 +202,7 @@
 "in-the-news-title" = "An den Neiegkeeten";
 "info-box-close-text" = "Zoumaachen";
 "info-box-title" = "Séier Fakten";
+"languages-settings-title" = "Sproochen";
 "languages-title" = "Sprooch änneren";
 "languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";

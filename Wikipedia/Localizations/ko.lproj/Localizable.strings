@@ -151,6 +151,7 @@
 "explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
 "explore-feed-preferences-additional-languages-footer-text" = "'내 언어' 설정 문서에서 추가 언어를 추가할 수 있습니다.";
+"explore-feed-preferences-places-description" = "주변 지역의 위키백과 문서";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
 "explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
