@@ -1,6 +1,6 @@
 import UIKit
 
-private class FeedCard: ExploreFeedSettingsSwitchItem {
+private class FeedCard: ExploreFeedSettingsItem {
     let contentGroupKind: WMFContentGroupKind
     let title: String
     var subtitle: String?
@@ -12,7 +12,7 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
     var controlTag: Int = 0
     var isOn: Bool = true
 
-    init(contentGroupKind: WMFContentGroupKind, displayType: DisplayType) {
+    init(contentGroupKind: WMFContentGroupKind, displayType: ExploreFeedSettingsDisplayType) {
         self.contentGroupKind = contentGroupKind
 
         var singleLanguageDescription: String?
@@ -114,14 +114,14 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         }
     }
 
-    func updateIsOn(for displayType: DisplayType) {
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .singleLanguage else {
             return
         }
         isOn = contentGroupKind.isInFeed
     }
 
-    func updateDisclosureText(for displayType: DisplayType) {
+    func updateDisclosureText(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .multipleLanguages else {
             return
         }
@@ -136,17 +136,12 @@ private class FeedCard: ExploreFeedSettingsSwitchItem {
         }
     }
 
-    func updateSubtitle(for displayType: DisplayType) {
+    func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .multipleLanguages else {
             return
         }
         subtitle = multipleLanguagesSubtitle(for: contentGroupKind)
     }
-}
-
-private enum DisplayType {
-    case singleLanguage
-    case multipleLanguages
 }
 
 @objc(WMFExploreFeedSettingsViewController)
@@ -167,49 +162,26 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    private lazy var displayType: DisplayType = {
-        assert(preferredLanguages.count > 0)
-        return preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
-    }()
-
-    private var didToggleMasterSwitch = false
-
-    override var shouldReload: Bool {
-        return displayType == .multipleLanguages && !didToggleMasterSwitch
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
-    }
-
-    override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return item is FeedCard || item is ExploreFeedSettingsGlobalCards
-    }
-
-    override func reload() {
-        for feedCard in feedCards {
-            feedCard.updateDisclosureText(for: displayType)
-            feedCard.updateSubtitle(for: displayType)
-        }
-        tableView.reloadRows(at: indexPathsForCellsThatNeedReloading, with: .none)
+        assert(preferredLanguages.count > 0)
+        displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
 
     @objc private func closeButtonPressed() {
         dismiss(animated: true)
     }
 
-    override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
-        return languageLink.isInFeed
-    }
+    // MARK: Items
 
     private lazy var feedCards: [FeedCard] = {
         let inTheNews = FeedCard(contentGroupKind: .news, displayType: displayType)
         let onThisDay = FeedCard(contentGroupKind: .onThisDay, displayType: displayType)
         let featuredArticle = FeedCard(contentGroupKind: .featuredArticle, displayType: displayType)
         let topRead = FeedCard(contentGroupKind: .topRead, displayType: displayType)
-        let places = FeedCard(contentGroupKind: WMFLocationManager.isAuthorized() ? .location : .locationPlaceholder, displayType: displayType)
+        let places = FeedCard(contentGroupKind: .location, displayType: displayType)
         let randomizer = FeedCard(contentGroupKind: .random, displayType: displayType)
         let pictureOfTheDay = FeedCard(contentGroupKind: .pictureOfTheDay, displayType: displayType)
         let continueReading = FeedCard(contentGroupKind: .continueReading, displayType: displayType)
@@ -217,24 +189,41 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return [inTheNews, onThisDay, featuredArticle, topRead, places, randomizer, pictureOfTheDay, continueReading, relatedPages]
     }()
 
-    override var sections: [ExploreFeedSettingsSection] {
-        let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
+    private lazy var globalCards: ExploreFeedSettingsGlobalCards = {
+        return ExploreFeedSettingsGlobalCards()
+    }()
 
-        let customization = ExploreFeedSettingsSection(headerTitle: WMFLocalizedString("explore-feed-preferences-customize-explore-feed", value: "Customize the Explore feed", comment: "Title of the Settings section that allows users to customize the Explore feed"), footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-customize-explore-feed-footer-text", value: "Hiding a card type will stop this card type from appearing in the Explore feed.", comment: "Text for explaining the effects of hiding feed cards"), togglingFeedCardsFooterText), items: feedCards)
+    // MARK: Sections
 
-        var languageItems: [ExploreFeedSettingsItem] = self.languages
-        languageItems.append(ExploreFeedSettingsGlobalCards())
-        let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: togglingFeedCardsFooterText, items: languageItems)
+    let togglingFeedCardsFooterText = WMFLocalizedString("explore-feed-preferences-languages-footer-text", value: "Hiding all Explore feed cards in all of your languages will turn off the Explore tab.", comment: "Text for explaining the effects of hiding all feed cards")
 
-        let master = ExploreFeedSettingsMaster(title: WMFLocalizedString("explore-feed-preferences-turn-off-feed", value: "Turn off Explore tab", comment: "Text for the setting that allows users to turn off Explore tab"), isOn: UserDefaults.wmf_userDefaults().defaultTabType != .explore)
-        let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [master])
+    private lazy var customizationSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: WMFLocalizedString("explore-feed-preferences-customize-explore-feed", value: "Customize the Explore feed", comment: "Title of the Settings section that allows users to customize the Explore feed"), footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-customize-explore-feed-footer-text", value: "Hiding a card type will stop this card type from appearing in the Explore feed.", comment: "Text for explaining the effects of hiding feed cards"), togglingFeedCardsFooterText), items: feedCards)
+    }()
 
-        if displayType == .singleLanguage {
-            return [customization, main]
-        } else {
-            return [customization, languages, main]
+    private lazy var mainSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [ExploreFeedSettingsMaster(for: .entireFeed)])
+    }()
+
+    private lazy var languagesSection: ExploreFeedSettingsSection? = {
+        guard displayType == .multipleLanguages else {
+            return nil
         }
+        var items: [ExploreFeedSettingsItem] = languages
+        items.append(globalCards)
+        return ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: togglingFeedCardsFooterText, items: items)
+    }()
+
+    override var sections: [ExploreFeedSettingsSection] {
+        guard displayType == .multipleLanguages else {
+            return [customizationSection, mainSection]
+        }
+        guard let languagesSection = languagesSection else {
+            return [customizationSection, mainSection]
+        }
+        return [customizationSection, languagesSection, mainSection]
     }
+
 }
 
 // MARK: - UITableViewDelegate
@@ -265,7 +254,6 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            didToggleMasterSwitch = true
             UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .settings : .explore
             return
         }
