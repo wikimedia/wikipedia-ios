@@ -425,12 +425,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 [newPreferences removeObjectForKey:key];
             }
         }
-    } willTurnOnContentGroupOrLanguage:isOn completion:^{
-        if (!updateFeed) {
-            return;
-        }
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    } willTurnOnContentGroupOrLanguage:isOn];
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn {
@@ -479,9 +474,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 }
             }
         }
-    } willTurnOnContentGroupOrLanguage:isOn completion:^{
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    } willTurnOnContentGroupOrLanguage:isOn];
 }
 
 - (void)toggleGlobalContentGroupKinds:(BOOL)on {
@@ -492,9 +485,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [newGlobalCardPreferences setObject:[NSNumber numberWithBool:on] forKey:key];
         }
         [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
-    } willTurnOnContentGroupOrLanguage:on completion:^{
-        [self updateFeedSourcesUserInitiated:YES completion:nil];
-    }];
+    } willTurnOnContentGroupOrLanguage:on];
 }
 
 - (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed {
@@ -523,7 +514,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     });
 }
 
-- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage completion:(nullable dispatch_block_t)completion {
+- (void)updateExploreFeedPreferences:(void(^)(NSMutableDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage {
     WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
