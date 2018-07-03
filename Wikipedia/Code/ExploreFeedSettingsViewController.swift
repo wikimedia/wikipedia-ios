@@ -162,9 +162,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-
-    private var didToggleMasterSwitch = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
@@ -254,7 +251,6 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            didToggleMasterSwitch = true
             UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .settings : .explore
             return
         }
