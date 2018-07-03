@@ -2,7 +2,7 @@ import UIKit
 
 class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
     @objc var dataStore: MWKDataStore!
-    var shouldAnimateSearchBar: Bool = false
+    var shouldAnimateSearchBar: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
 
     override func viewDidLoad() {
@@ -14,22 +14,16 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
         view.bringSubview(toFront: resultsViewController.view)
-        setSearchResultsVisible(shouldBecomeFirstResponder, animated: false)
+        resultsViewController.view.isHidden = true
     }
     
-    var canSearchBarEndEditing: Bool = false
+    var isAnimatingSearchBarState: Bool = false
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationBar.isBarHidingEnabled = true
-        navigationBar.setNavigationBarPercentHidden(1, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated && shouldAnimateSearchBar, additionalAnimations: {
-            self.updateScrollViewInsets()
-        })
-        navigationBar.isBarHidingEnabled = false
-        searchBar.setShowsCancelButton(true, animated: animated && shouldAnimateSearchBar)
         if animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
-        shouldAnimateSearchBar = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,18 +33,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if shouldAnimateSearchBar {
-            searchBar.text = nil
-            navigationBar.isBarHidingEnabled = true
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: animated, additionalAnimations: { self.updateScrollViewInsets() })
-            navigationBar.isBarHidingEnabled = false
-            searchBar.setShowsCancelButton(false, animated: animated)
-        }
-        shouldAnimateSearchBar = false
     }
     
     var nonSearchAlpha: CGFloat = 1 {
@@ -226,20 +208,38 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         return searchLanguageBarViewController
     }()
     
-    func setSearchResultsVisible(_ visible: Bool, animated: Bool) {
+    func setSearchVisible(_ visible: Bool, animated: Bool) {
+        let group = WMFTaskGroup()
+        group.enter()
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
+            group.leave()
+        }
+        group.enter()
+        group.enter()
+        let animations = {
+            self.navigationBar.isBarHidingEnabled = true
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false, additionalAnimations: {
+                group.leave()
+                self.updateScrollViewInsets()
+            })
+            self.navigationBar.isBarHidingEnabled = false
+            self.resultsViewController.view.alpha = visible ? 1 : 0
+            self.searchBar.setShowsCancelButton(visible, animated: animated)
+            group.leave()
         }
         guard animated else {
+            animations()
             completion(true)
             return
         }
+        isAnimatingSearchBarState = true
         self.resultsViewController.view.alpha = visible ? 0 : 1
         self.resultsViewController.view.isHidden = false
-        let animations = {
-            self.resultsViewController.view.alpha = visible ? 1 : 0
-        }
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
+        group.waitInBackgroundAndNotify(on: DispatchQueue.main) {
+            self.isAnimatingSearchBarState = false
+        }
     }
     
     lazy var resultsViewController: SearchResultsViewController = {
@@ -259,20 +259,25 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        guard !isAnimatingSearchBarState else {
+            return false
+        }
+        setSearchVisible(true, animated: shouldAnimateSearchBar)
         return true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        setSearchResultsVisible(true, animated: true)
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        return canSearchBarEndEditing
+        guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
+            return false
+        }
+        setSearchVisible(false, animated: shouldAnimateSearchBar)
+        return true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        setSearchResultsVisible(false, animated: true)
-        canSearchBarEndEditing = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -283,7 +288,6 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
             navigationController.popViewController(animated: true)
         } else {
-            canSearchBarEndEditing = true
             searchBar.endEditing(true)
             didCancelSearch()
         }
@@ -306,6 +310,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         resultsViewController.apply(theme: theme)
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
+        updateLanguageBarVisibility()
     }
 }
 
