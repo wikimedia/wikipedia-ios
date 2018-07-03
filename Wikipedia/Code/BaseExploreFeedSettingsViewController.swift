@@ -127,13 +127,12 @@ class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
     }
 }
 
-struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
+class ExploreFeedSettingsGlobalCards: ExploreFeedSettingsItem {
     let disclosureType: WMFSettingsMenuItemDisclosureType = .switch
     let title: String = WMFLocalizedString("explore-feed-preferences-global-cards-title", value: "Global cards", comment: "Title for the setting that allows users to toggle non-language specific feed cards")
     let subtitle: String? = WMFLocalizedString("explore-feed-preferences-global-cards-description", value: "Non-language specific cards", comment: "Description of global feed cards")
     let controlTag: Int = -2
-    let isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
-}
+    var isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
 
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
         guard displayType == .singleLanguage || displayType == .multipleLanguages else {
