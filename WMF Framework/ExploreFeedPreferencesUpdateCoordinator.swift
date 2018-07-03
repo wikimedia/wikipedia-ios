@@ -27,6 +27,15 @@
             feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
             return
         }
+        guard let globalCardPreferences = newExploreFeedPreferences.first?.value as? Dictionary<NSNumber, NSNumber> else {
+            assertionFailure() // TODO: fallback
+            return
+        }
+        let willTurnOffGlobalCards = globalCardPreferences.values.filter { $0.boolValue == true }.isEmpty
+        guard willTurnOffGlobalCards else {
+            feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+            return
+        }
         let alertController = UIAlertController(title: "Turn off Explore feed tab?", message: "Turning off all feed cards will result in turning off the Explore feed tab.", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Turn off Explore feed", style: .destructive, handler: { (_) in
             UserDefaults.wmf_userDefaults().defaultTabType = .settings
