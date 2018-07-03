@@ -361,10 +361,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let group = fetchedResultsController.object(at: indexPath)
-        guard group.contentGroupKind != .announcement else {
-            return false
-        }
-        return true
+        return group.isSelectable
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

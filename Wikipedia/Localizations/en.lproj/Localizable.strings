@@ -168,6 +168,8 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Turning off the Top read card will turn the card off in all available languages.";
 "explore-feed-preferences-show-top-read-title" = "Show Top read card";
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Turn off Explore feed?";
 "explore-feed-preferences-turn-off-feed" = "Turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
 "explore-hide-card-prompt" = "Hide this card";
