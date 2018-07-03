@@ -183,19 +183,15 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let item = getItem(at: indexPath)
-        if let switchItem = item as? ExploreFeedSettingsSwitchItem {
-            configureSwitch(cell, switchItem: switchItem)
-        } else {
-            cell.configure(item.disclosureType, disclosureText: item.disclosureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, theme: theme)
-        }
         if needsReloading(item) {
             indexPathsForCellsThatNeedReloading.append(indexPath)
         }
+        configureCell(cell, item: item)
         return cell
     }
 
-    private func configureSwitch(_ cell: WMFSettingsTableViewCell, switchItem: ExploreFeedSettingsSwitchItem) {
-        cell.configure(switchItem.disclosureType, disclosureText: switchItem.disclosureText, title: switchItem.title, subtitle: switchItem.subtitle, iconName: switchItem.iconName, isSwitchOn: switchItem.isOn, iconColor: switchItem.iconColor, iconBackgroundColor: switchItem.iconBackgroundColor, controlTag: switchItem.controlTag, theme: theme)
+    private func configureCell(_ cell: WMFSettingsTableViewCell, item: ExploreFeedSettingsItem) {
+        cell.configure(item.disclosureType, disclosureText: item.disclosureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, isSwitchOn: item.isOn, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, controlTag: item.controlTag, theme: theme)
         cell.delegate = self
     }
 }
