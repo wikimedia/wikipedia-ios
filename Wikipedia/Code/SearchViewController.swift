@@ -213,24 +213,16 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }()
     
     func setSearchVisible(_ visible: Bool, animated: Bool) {
-        let group = WMFTaskGroup()
-        group.enter()
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
-            group.leave()
+            self.isAnimatingSearchBarState = false
         }
-        group.enter()
-        group.enter()
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false, additionalAnimations: {
-                group.leave()
-                self.resultsViewController.updateScrollViewInsets()
-            })
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
             self.navigationBar.isBarHidingEnabled = false
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
-            group.leave()
         }
         guard animated else {
             animations()
@@ -241,9 +233,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         self.resultsViewController.view.alpha = visible ? 0 : 1
         self.resultsViewController.view.isHidden = false
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
-        group.waitInBackgroundAndNotify(on: DispatchQueue.main) {
-            self.isAnimatingSearchBarState = false
-        }
     }
     
     lazy var resultsViewController: SearchResultsViewController = {
@@ -311,6 +300,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+            if shouldAnimateSearchBar {
+                searchBar.text = nil
+            }
             navigationController.popViewController(animated: true)
         } else {
             searchBar.endEditing(true)
