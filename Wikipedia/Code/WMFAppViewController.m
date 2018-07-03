@@ -195,6 +195,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                            options:NSKeyValueObservingOptionNew
                                            context:NULL];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(exploreFeedPreferencesDidChange:)
+                                                 name:WMFExploreFeedPreferencesDidChangeNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -293,6 +298,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             [navigationController setNavigationBarHidden:NO animated:animated];
             self.settingsViewController.showCloseButton = NO;
             navigationController.viewControllers = @[self.settingsViewController];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
+            [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
     }
 }
 
@@ -459,6 +466,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                                            tapCallBack:nil];
 }
 
+- (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
+    ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator = (ExploreFeedPreferencesUpdateCoordinator *)note.object;
+    [exploreFeedPreferencesUpdateCoordinator coordinateUpdateFrom:self];
+}
+
 #pragma mark - Explore feed preferences
 
 - (void)settingsViewControllerDidDisappear {
@@ -469,6 +481,10 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (!self.shouldUpdateDefaultTab) {
         return;
     }
+    [self updateDefaultTab];
+}
+
+- (void)updateDefaultTab {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
         self.shouldUpdateDefaultTab = NO;
@@ -1220,7 +1236,12 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
     } else if ([object isKindOfClass:[NSUserDefaults class]]) {
-        self.shouldUpdateDefaultTab = YES;
+        WMFAppDefaultTabType defaultTabType = [NSUserDefaults wmf_userDefaults].defaultTabType;
+        if (defaultTabType != WMFAppDefaultTabTypeExplore && !self.presentedViewController) {
+            [self updateDefaultTab];
+        } else {
+            self.shouldUpdateDefaultTab = YES;
+        }
     }
 }
 
@@ -1681,7 +1702,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];

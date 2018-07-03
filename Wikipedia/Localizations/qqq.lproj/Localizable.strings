@@ -168,6 +168,8 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Text describing the effects of turning off the Top read card";
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Title for alert that allows user to decide whether they want to turn off Explore feed";
 "explore-feed-preferences-turn-off-feed" = "Text for the setting that allows users to turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Text for explaining the effects of turning off the Explore tab";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
