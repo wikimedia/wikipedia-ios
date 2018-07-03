@@ -49,8 +49,11 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         return contentGroupKind.togglingFeedCardFooterText
     }()
 
+    private lazy var main: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
+    }()
+
     override var sections: [ExploreFeedSettingsSection] {
-        let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
         let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: self.languages)
         if contentGroupKind.isGlobal {
             return [main]
