@@ -356,7 +356,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)footerText {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindRelatedPages:
-            return self.moreLikeTitle;
+            return WMFLocalizedStringWithDefaultValue(@"explore-because-you-read-footer", nil, nil, @"Additional related articles", @"Footer for presenting user option to see longer list of articles related to a previously read article.");
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
                 return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, nil, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");

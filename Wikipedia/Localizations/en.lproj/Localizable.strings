@@ -124,6 +124,7 @@
 "error-unknown" = "An unknown error occurred";
 "explore-another-random" = "Another random article";
 "explore-because-you-read" = "Because you read";
+"explore-because-you-read-footer" = "Additional related articles";
 "explore-continue-reading-heading" = "Continue reading";
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";

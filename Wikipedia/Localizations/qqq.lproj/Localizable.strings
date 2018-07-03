@@ -124,6 +124,7 @@
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
+"explore-because-you-read-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article.";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
