@@ -410,7 +410,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cardVC.contentGroup = group
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
-        cell.footerButton.setTitle(group.moreTitle, for: .normal)
+        cell.footerButton.setTitle(group.footerText, for: .normal)
         cell.customizationButton.isHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.apply(theme: theme)
         cell.delegate = self
