@@ -38,6 +38,7 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         self.dataStore = dataStore
         self.contentGroupKind = contentGroupKind
         self.theme = theme
+        displayType = .detail(contentGroupKind)
     }
 
     private var isMasterSwitchOn: Bool {
