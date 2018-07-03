@@ -127,6 +127,8 @@
 "explore-continue-reading-heading" = "Continue reading";
 "explore-enable-location-title" = "Explore articles near your current location";
 "explore-featured-article-heading" = "Featured article";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
+"explore-featured-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
@@ -173,14 +175,16 @@
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-most-read-footer-for-date" = "All top read articles on $1";
 "explore-most-read-generic-heading" = "Top read";
-"explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Top on $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
+"explore-most-read-sub-heading-on-wikipedia" = "On Wikipedia";
 "explore-nearby-heading" = "Places near";
 "explore-nearby-placeholder-heading" = "Places";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Your location";
 "explore-potd-heading" = "Picture of the day";
+"explore-potd-sub-heading" = "From Wikimedia Commons";
 "explore-random-article-heading" = "Random article";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
@@ -250,6 +254,8 @@
 "in-the-news-notification-read-now-action-title" = "Read Now";
 "in-the-news-notification-save-for-later-action-title" = "Save for later";
 "in-the-news-notification-share-action-title" = "Share...";
+"in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
+"in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";
 "info-box-close-text" = "Close";
 "info-box-title" = "Quick Facts";

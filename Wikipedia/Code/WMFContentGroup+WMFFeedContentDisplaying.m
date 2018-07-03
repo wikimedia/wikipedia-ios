@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindFeaturedArticle:
             return [WMFCommonStrings featuredArticleTitle];
         case WMFContentGroupKindTopRead:
-            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-heading", nil, nil, @"Top read on %1$@ Wikipedia", @"Text for 'Most read articles' explore section header. %1$@ is substituted for the localized language name (e.g. 'English' or 'Espanol').") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present")];
+            return WMFLocalizedStringWithDefaultValue(@"explore-most-read-generic-heading", nil, nil, @"Top read", @"Text for 'Most read articles' explore section header used when no language is present");
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
@@ -168,20 +168,16 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindLocationPlaceholder:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-language-wikipedia", nil, nil, @"On %1$@ Wikipedia", @"Subtext beneath the 'Places' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-placeholder-sub-heading-on-wikipedia", nil, nil, @"On Wikipedia", @"Subtext beneath the 'Places' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindPictureOfTheDay:
-            return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+            return WMFLocalizedStringWithDefaultValue(@"explore-potd-sub-heading", nil, nil, @"From Wikimedia Commons", @"Subtext beneath the 'Picture of the day' header.");
         case WMFContentGroupKindRandom:
             return WMFLocalizedStringWithDefaultValue(@"onboarding-wikipedia", self.siteURL.wmf_language, nil, @"Wikipedia", @"Wikipedia logo text\n{{Identical|Wikipedia}}");
         case WMFContentGroupKindFeaturedArticle:
-            return [[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-featured-article-sub-heading-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'Featured article' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-featured-article-sub-heading-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindTopRead: {
-            NSString *dateString = [self localContentDateDisplayString];
-            if (!dateString) {
-                dateString = @"";
-            }
-
-            return dateString;
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-sub-heading-on-language-wikipedia", nil, nil, @"On %1$@ Wikipedia", @"Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'On English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-most-read-sub-heading-on-wikipedia", nil, nil, @"On Wikipedia", @"Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.")];
         }
         case WMFContentGroupKindNews:
+            return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'In the news' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindOnThisDay:
             return [self localDateDisplayString];
         default:
@@ -511,7 +507,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)localDateDisplayString {
-    return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
+    return [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
 }
 
 @end
