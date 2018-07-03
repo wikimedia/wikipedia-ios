@@ -332,7 +332,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     // Recent
 
-    
     var recentSearches: MWKRecentSearchList? {
         return self.dataStore.recentSearchList
     }
@@ -370,12 +369,19 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func delete(at indexPath: IndexPath) {
-        guard let entry = recentSearches?.entries[indexPath.item] else {
+        guard
+            let entries = recentSearches?.entries,
+            entries.indices.contains(indexPath.item) else {
             return
         }
+        let entry = entries[indexPath.item]
         recentSearches?.removeEntry(entry)
         recentSearches?.save()
-        collectionView.reloadData()
+        collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: [indexPath])
+        }) { (finished) in
+            self.collectionView.reloadData()
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
