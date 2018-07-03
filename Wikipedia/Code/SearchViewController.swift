@@ -1,7 +1,6 @@
 import UIKit
 
-class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegate {
-    @objc var dataStore: MWKDataStore!
+class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate {
     var shouldAnimateSearchBar: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
 
@@ -21,6 +20,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
@@ -33,6 +33,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
+        shouldAnimateSearchBar = true
     }
     
     var nonSearchAlpha: CGFloat = 1 {
@@ -222,6 +223,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false, additionalAnimations: {
                 group.leave()
                 self.updateScrollViewInsets()
+                self.resultsViewController.updateScrollViewInsets()
             })
             self.navigationBar.isBarHidingEnabled = false
             self.resultsViewController.view.alpha = visible ? 1 : 0
@@ -246,6 +248,7 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         let resultsViewController = SearchResultsViewController()
         resultsViewController.dataStore = dataStore
         resultsViewController.apply(theme: theme)
+        resultsViewController.delegate = self
         addChildViewController(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
         resultsViewController.didMove(toParentViewController: self)
@@ -255,6 +258,22 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
     lazy var fakeProgressController: FakeProgressController = {
         return FakeProgressController(progress: navigationBar, delegate: navigationBar)
     }()
+    
+    // MARK - Recent Search Saving
+    
+    
+    func saveLastSearch() {
+        guard
+            let term = resultsViewController.resultsInfo?.searchTerm,
+            let url = resultsViewController.searchSiteURL,
+            let entry = MWKRecentSearchEntry(url: url, searchTerm: term)
+        else {
+            return
+        }
+        dataStore.recentSearchList.addEntry(entry)
+        dataStore.recentSearchList.save()
+        reloadRecentSearches()
+    }
 
     // MARK - UISearchBarDelegate
     
@@ -284,6 +303,10 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         search(for: searchBar.text, suggested: false)
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        saveLastSearch()
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
             navigationController.popViewController(animated: true)
@@ -311,6 +334,94 @@ class SearchViewController: ColumnarCollectionViewController, UISearchBarDelegat
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
         updateLanguageBarVisibility()
+    }
+    
+    // Recent
+
+    
+    var recentSearches: MWKRecentSearchList? {
+        return self.dataStore.recentSearchList
+    }
+    
+    func reloadRecentSearches() {
+        collectionView.reloadData()
+        updateHeaderVisibility()
+        updateTrashButtonEnabledState()
+    }
+    
+    func updateHeaderVisibility() {
+        
+    }
+    
+    func updateTrashButtonEnabledState() {
+        
+    }
+    
+    func deselectAll(animated: Bool) {
+        guard let selected = collectionView.indexPathsForSelectedItems else {
+            return
+        }
+        for indexPath in selected {
+            collectionView.deselectItem(at: indexPath, animated: animated)
+        }
+    }
+    
+    override func articleURL(at indexPath: IndexPath) -> URL? {
+        return nil
+    }
+    
+    override func article(at indexPath: IndexPath) -> WMFArticle? {
+        return nil
+    }
+    
+    override func canDelete(at indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func willPerformAction(_ action: Action) -> Bool {
+        return self.editController.didPerformAction(action)
+    }
+    
+    override func delete(at indexPath: IndexPath) {
+        guard let entry = recentSearches?.entries[indexPath.item] else {
+            return
+        }
+        recentSearches?.removeEntry(entry)
+        recentSearches?.save()
+        collectionView.reloadData()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recentSearches?.entries.count ?? 0
+    }
+    
+    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        guard let entry = recentSearches?.entries[indexPath.item] else {
+            return
+        }
+        cell.articleSemanticContentAttribute = .unspecified
+        cell.configureForCompactList(at: indexPath.item)
+        cell.titleLabel.text = entry.searchTerm
+        cell.isImageViewHidden = true
+        cell.apply(theme: theme)
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
+            return
+        }
+        searchBar.text = recentSearch.searchTerm
+        searchBar.becomeFirstResponder()
+        search()
+    }
+}
+
+extension SearchViewController: ArticleCollectionViewControllerDelegate {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
+        saveLastSearch()
+        funnel.logSearchResultTap()
     }
 }
 

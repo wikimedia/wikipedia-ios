@@ -59,6 +59,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return result.displayTitle == mapping.redirectToTitle
         }).first
     }
+    
     func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
         let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: searchSiteURL?.wmf_language)
         let mapping = redirectMappingForSearchResult(result)
