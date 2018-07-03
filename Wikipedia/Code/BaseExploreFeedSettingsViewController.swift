@@ -30,6 +30,66 @@ extension ExploreFeedSettingsItem {
         
     }
 }
+
+enum ExploreFeedSettingsMasterType {
+    case entireFeed
+    case singleFeedCard(WMFContentGroupKind)
+}
+
+private extension WMFContentGroupKind {
+    var masterSwitchTitle: String {
+        switch self {
+        case .news:
+            return WMFLocalizedString("explore-feed-preferences-show-news-title", value: "Show In the news card", comment: "Text for the setting that allows users to toggle the visibility of the In the news card")
+        case .featuredArticle:
+            return WMFLocalizedString("explore-feed-preferences-show-featured-article-title", value: "Show Featured article card", comment: "Text for the setting that allows users to toggle the visibility of the Featured article card")
+        case .topRead:
+            return WMFLocalizedString("explore-feed-preferences-show-top-read-title", value: "Show Top read card", comment: "Text for the setting that allows users to toggle the visibility of the Top read card")
+        case .onThisDay:
+            return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visibility of the On this day card")
+        case .pictureOfTheDay:
+            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visibility of the Picture of the day card")
+        case .locationPlaceholder:
+            fallthrough
+        case .location:
+            return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visibility of the Places card")
+        case .random:
+            return WMFLocalizedString("explore-feed-preferences-show-randomizer-title", value: "Show Randomizer card", comment: "Text for the setting that allows users to toggle the visibility of the Randomizer card")
+        case .continueReading:
+            return WMFLocalizedString("explore-feed-preferences-show-continue-reading-title", value: "Show Continue reading card", comment: "Text for the setting that allows users to toggle the visibility of the Continue reading card")
+        case .relatedPages:
+            return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visibility of the Because you read card")
+        default:
+            assertionFailure("\(self) is not customizable")
+            return ""
+        }
+    }
+}
+
+class ExploreFeedSettingsMaster: ExploreFeedSettingsItem {
+    let title: String
+    let controlTag: Int = -1
+    var isOn: Bool = false
+    let type: ExploreFeedSettingsMasterType
+
+    init(for type: ExploreFeedSettingsMasterType) {
+        self.type = type
+        if case let .singleFeedCard(contentGroupKind) = type {
+            title = contentGroupKind.masterSwitchTitle
+            isOn = contentGroupKind.isInFeed
+        } else {
+            title = WMFLocalizedString("explore-feed-preferences-turn-off-feed", value: "Turn off Explore tab", comment: "Text for the setting that allows users to turn off Explore tab")
+            isOn = UserDefaults.wmf_userDefaults().defaultTabType != .explore
+        }
+    }
+
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
+        if case let .singleFeedCard(contentGroupKind) = type {
+            isOn = contentGroupKind.isInFeed
+        } else {
+            isOn = UserDefaults.wmf_userDefaults().defaultTabType != .explore
+        }
+    }
 }
 
 struct ExploreFeedSettingsSection {
@@ -62,14 +122,11 @@ struct ExploreFeedSettingsGlobalCards: ExploreFeedSettingsSwitchItem {
     let isOn: Bool = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
 }
 
-struct ExploreFeedSettingsMaster: ExploreFeedSettingsSwitchItem {
-    let title: String
-    let controlTag: Int = -1
-    let isOn: Bool
-
-    init(title: String, isOn: Bool) {
-        self.title = title
-        self.isOn = isOn
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
+        guard displayType == .singleLanguage || displayType == .multipleLanguages else {
+            return
+        }
+        isOn = SessionSingleton.sharedInstance().dataStore.feedContentController.areGlobalContentGroupKindsInFeed
     }
 }
 
