@@ -45,8 +45,9 @@
             self.feedContentController.rejectNewExploreFeedPreferences()
         }))
         if let presenter = viewController.presentedViewController {
-            assert(presenter is UINavigationController) // TODO: remove assertion, find a fallback
-            presenter.present(alertController, animated: true)
+            if presenter is UINavigationController {
+                presenter.present(alertController, animated: true)
+            }
         } else {
             viewController.present(alertController, animated: true)
         }
