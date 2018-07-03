@@ -237,7 +237,7 @@ public class Theme: NSObject {
     }
 
     @objc public lazy var navigationBarBackgroundImage: UIImage = {
-        return UIImage.wmf_image(from: colors.paperBackground)
+        return #imageLiteral(resourceName: "transparent-pixel")
     }()
     
     @objc public lazy var navigationBarShadowImage: UIImage = {
