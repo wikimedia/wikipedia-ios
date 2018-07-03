@@ -6,11 +6,11 @@ protocol ExploreFeedSettingsItem {
     var iconName: String? { get }
     var iconColor: UIColor? { get }
     var iconBackgroundColor: UIColor? { get }
-}
-
-protocol ExploreFeedSettingsSwitchItem: ExploreFeedSettingsItem {
     var controlTag: Int { get }
     var isOn: Bool { get }
+    func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType)
+    func updateDisclosureText(for displayType: ExploreFeedSettingsDisplayType)
+    func updateIsOn(for displayType: ExploreFeedSettingsDisplayType)
 }
 
 extension ExploreFeedSettingsSwitchItem {
