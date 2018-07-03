@@ -175,7 +175,7 @@
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
-"explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
+"explore-most-read-footer" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped.";
 "explore-most-read-generic-heading" = "Text for 'Most read articles' explore section header used when no language is present";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
