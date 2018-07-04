@@ -240,7 +240,7 @@
 "home-button-popover-title" = "Tap to go home";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
 "home-more-like-footer" = "More like $1";
-"home-nearby-footer" = "More from nearby your location";
+"home-nearby-footer" = "More places near your location";
 "home-nearby-location-footer" = "More nearby $1";
 "home-news-footer" = "More current events";
 "home-reading-list-prompt" = "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.";
