@@ -22,7 +22,7 @@ class NewsViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
@@ -37,7 +37,16 @@ class NewsViewController: ColumnarCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier) as? NewsCollectionViewCell else {
+            return estimate
+        }
+        let story = stories[indexPath.section]
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
+        placeholderCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
     }
 }
 
