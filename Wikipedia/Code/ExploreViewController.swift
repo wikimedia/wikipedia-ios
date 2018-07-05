@@ -12,8 +12,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
-        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
-        navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.isBackVisible = false
         isRefreshControlEnabled = true
         
