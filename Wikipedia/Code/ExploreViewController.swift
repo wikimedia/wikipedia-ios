@@ -47,7 +47,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
         super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
-        shortTitleButton.alpha = extendedViewPercentHidden
         longTitleButton.alpha = 1.0 - extendedViewPercentHidden
         navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
     }
@@ -71,21 +70,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return longTitleButton
     }()
     
-    lazy var shortTitleButton: UIButton = {
-        let shortTitleButton = UIButton(type: .custom)
-        shortTitleButton.adjustsImageWhenHighlighted = true
-        shortTitleButton.setImage(UIImage(named: "W"), for: .normal)
-        shortTitleButton.alpha = 0
-        shortTitleButton.sizeToFit()
-        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        return shortTitleButton
-    }()
-    
     lazy var titleView: UIView = {
         let titleView = UIView(frame: longTitleButton.bounds)
         titleView.addSubview(longTitleButton)
-        titleView.addSubview(shortTitleButton)
-        shortTitleButton.center = titleView.center
         return titleView
     }()
 
