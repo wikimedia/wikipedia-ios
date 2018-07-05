@@ -9,7 +9,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
         navigationBar.addExtendedNavigationBarView(searchBarContainerView)
@@ -350,7 +350,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard kind == UICollectionElementKindSectionHeader else {
             abort()
         }
-        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath) as? CollectionViewHeader else {
             abort()
         }
         configureHeader(header, for: indexPath.section)
@@ -361,10 +361,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let group = fetchedResultsController.object(at: indexPath)
-        guard group.contentGroupKind != .announcement else {
-            return false
-        }
-        return true
+        return group.isSelectable
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -384,7 +381,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
+    func configureHeader(_ header: CollectionViewHeader, for sectionIndex: Int) {
         guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
             return
         }
@@ -456,7 +453,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
         }
         configureHeader(header, for: section)

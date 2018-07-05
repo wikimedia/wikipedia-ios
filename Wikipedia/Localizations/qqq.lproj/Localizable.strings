@@ -168,6 +168,8 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Text describing the effects of turning off the Top read card";
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Title for alert that allows user to decide whether they want to turn off Explore feed";
 "explore-feed-preferences-turn-off-feed" = "Text for the setting that allows users to turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Text for explaining the effects of turning off the Explore tab";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
@@ -186,6 +188,8 @@
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-potd-sub-heading" = "Subtext beneath the 'Picture of the day' header.";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
+"explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
@@ -305,7 +309,6 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles.";
 "on-this-day-title" = "Title for the 'On this day' feed section";
-"onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";

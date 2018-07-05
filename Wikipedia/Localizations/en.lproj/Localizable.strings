@@ -168,6 +168,8 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Turning off the Top read card will turn the card off in all available languages.";
 "explore-feed-preferences-show-top-read-title" = "Show Top read card";
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Turn off Explore feed?";
 "explore-feed-preferences-turn-off-feed" = "Turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
 "explore-hide-card-prompt" = "Hide this card";
@@ -186,6 +188,8 @@
 "explore-potd-heading" = "Picture of the day";
 "explore-potd-sub-heading" = "From Wikimedia Commons";
 "explore-random-article-heading" = "Random article";
+"explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
+"explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
@@ -305,7 +309,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "More historical events on this day";
 "on-this-day-title" = "On this day";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancel";
 "page-edit-history" = "Full edit history";
 "page-history-title" = "Article history";
