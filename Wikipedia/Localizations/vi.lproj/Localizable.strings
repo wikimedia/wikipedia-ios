@@ -142,11 +142,8 @@
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
 "explore-most-read-footer-for-date" = "Danh sách bài được đọc nhiều nhất $1";
 "explore-most-read-generic-heading" = "Bài đọc nhiều nhất";
-"explore-most-read-heading" = "Được đọc nhiều nhất trên Wikipedia $1";
 "explore-most-read-more-list-title-for-date" = "Hạng nhất vào $1";
 "explore-nearby-heading" = "Địa điểm gần";
-"explore-nearby-placeholder-cancel" = "Hủy bỏ";
-"explore-nearby-placeholder-dismiss" = "Bỏ qua";
 "explore-nearby-placeholder-heading" = "Địa điểm";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Tại Wikipedia tiếng $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Tại Wikipedia";
@@ -203,8 +200,6 @@
 "home-button-popover-description" = "Chạm vào chữ “W” để quay lại nguồn cấp Thám hiểm";
 "home-button-popover-title" = "Chạm để quay lại đầu";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
-"home-hide-suggestion-cancel" = "Hủy bỏ";
-"home-hide-suggestion-prompt" = "Ẩn gợi ý này";
 "home-more-like-footer" = "Thêm bài tương tự $1";
 "home-nearby-footer" = "Thêm bài gần vị trí của bạn";
 "home-nearby-location-footer" = "Thêm mục gần $1";

@@ -76,8 +76,6 @@
 "explore-most-read-generic-heading" = "Los mai legits";
 "explore-most-read-more-list-title-for-date" = "Los mai legits al $1";
 "explore-nearby-heading" = "Endreits a proximitat";
-"explore-nearby-placeholder-cancel" = "Anullar";
-"explore-nearby-placeholder-dismiss" = "Regetar";
 "explore-nearby-placeholder-heading" = "Endreits";
 "explore-nearby-sub-heading-your-location" = "Vòstre emplaçament";
 "explore-potd-heading" = "Imatge del jorn";
@@ -107,8 +105,6 @@
 "home-button-explore-accessibility-label" = "Wikipèdia, tornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
-"home-hide-suggestion-cancel" = "Anullar";
-"home-hide-suggestion-prompt" = "Escondre aquesta suggestion";
 "home-more-like-footer" = "Mai coma $1";
 "home-nearby-footer" = "Mai pròche d'ont sètz";
 "home-nearby-location-footer" = "Mai pròche de $1";

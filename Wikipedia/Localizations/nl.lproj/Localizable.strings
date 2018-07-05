@@ -82,6 +82,7 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
+"app-store-subtitle" = "De vrije encyclopedie";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
 "appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
@@ -141,15 +142,17 @@
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-enable-location-title" = "Zoek artikels nabij uw courante locatie";
 "explore-featured-article-heading" = "Uitgelichte pagina";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Uit Wikipedia in het $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Uit";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alles aan";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
 "explore-most-read-generic-heading" = "Meest gelezen";
-"explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
 "explore-most-read-more-list-title-for-date" = "Meest gelezen op $1";
 "explore-nearby-heading" = "Plaatsen in de buurt";
-"explore-nearby-placeholder-cancel" = "Annuleren";
-"explore-nearby-placeholder-dismiss" = "Sluiten";
 "explore-nearby-placeholder-heading" = "Plaatsen";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia in het $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
@@ -207,8 +210,6 @@
 "home-button-popover-description" = "Druk op de 'W' om terug te keren naar de ontdekkings-feed";
 "home-button-popover-title" = "Druk in om terug naar de hoofdpagina te gaan";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
-"home-hide-suggestion-cancel" = "Annuleren";
-"home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
@@ -225,6 +226,7 @@
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
 "in-the-news-notification-share-action-title" = "Delen...";
+"in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
@@ -340,6 +342,7 @@
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
 "reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
 "reading-list-keep-button-title" = "Ja, bewaar de artikelen op dit apparaat";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikelen sorteren";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";

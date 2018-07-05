@@ -142,11 +142,8 @@
 "explore-main-page-heading" = "Hoxe en Wikipedia";
 "explore-most-read-footer-for-date" = "Todos os artigos máis lidos en $1";
 "explore-most-read-generic-heading" = "Máis lidos";
-"explore-most-read-heading" = "Os máis lidos en Wikipedia en $1";
 "explore-most-read-more-list-title-for-date" = "Máis lidos en $1";
 "explore-nearby-heading" = "Lugares próximos";
-"explore-nearby-placeholder-cancel" = "Cancelar";
-"explore-nearby-placeholder-dismiss" = "Descartar";
 "explore-nearby-placeholder-heading" = "Lugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
@@ -203,8 +200,6 @@
 "home-button-popover-description" = "Prema na 'W' para volver ó fío de Explore";
 "home-button-popover-title" = "Prema para ir á páxina principal";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Gardado";
-"home-hide-suggestion-cancel" = "Cancelar";
-"home-hide-suggestion-prompt" = "Ocultar esta suxestión";
 "home-more-like-footer" = "Máis coma $1";
 "home-nearby-footer" = "Máis próximos á súa localización";
 "home-nearby-location-footer" = "Máis preto de $1";

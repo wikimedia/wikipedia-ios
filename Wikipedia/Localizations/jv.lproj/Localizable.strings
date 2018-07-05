@@ -116,11 +116,8 @@
 "explore-main-page-heading" = "Dina iki ing Wikipédia";
 "explore-most-read-footer-for-date" = "Kabèh artikel sing akèh diwaca ing $1";
 "explore-most-read-generic-heading" = "Maca ndhuwur";
-"explore-most-read-heading" = "Maca ndhuwur ing Wikipedia Basa $1";
 "explore-most-read-more-list-title-for-date" = "Ndhuwur ing $1";
 "explore-nearby-heading" = "Tempat terdekat";
-"explore-nearby-placeholder-cancel" = "Wurung";
-"explore-nearby-placeholder-dismiss" = "Tutup";
 "explore-nearby-placeholder-heading" = "Panggonan";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Ing Wikipédia $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Ing Wikipédia";
@@ -177,8 +174,6 @@
 "home-button-popover-description" = "Tunyuk 'W' saperlu balik menyang pakan Dlajah";
 "home-button-popover-title" = "Tunyuk kanggo mulih";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
-"home-hide-suggestion-cancel" = "Wurung";
-"home-hide-suggestion-prompt" = "Dhelikaké saran iki";
 "home-more-like-footer" = "Liyane kaya $1";
 "home-nearby-footer" = "Liyane saka toko lokasi";
 "home-nearby-location-footer" = "Liyané ing cedhak $1";

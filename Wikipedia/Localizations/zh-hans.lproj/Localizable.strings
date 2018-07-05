@@ -189,11 +189,8 @@
 "explore-main-page-heading" = "维基百科今日";
 "explore-most-read-footer-for-date" = "在$1所有最多阅读的条目";
 "explore-most-read-generic-heading" = "最多阅读";
-"explore-most-read-heading" = "$1维基百科上的最多阅读";
 "explore-most-read-more-list-title-for-date" = "在$1最多";
 "explore-nearby-heading" = "地点接近";
-"explore-nearby-placeholder-cancel" = "取消";
-"explore-nearby-placeholder-dismiss" = "关闭";
 "explore-nearby-placeholder-heading" = "地方";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1维基百科";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "在维基百科";
@@ -250,8 +247,6 @@
 "home-button-popover-description" = "点按“W”返回探索订阅源";
 "home-button-popover-title" = "点按返回首页";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
-"home-hide-suggestion-cancel" = "取消";
-"home-hide-suggestion-prompt" = "隐藏该建议";
 "home-more-like-footer" = "更像$1";
 "home-nearby-footer" = "更多您所在位置附近的事物";
 "home-nearby-location-footer" = "更多在$1附近";

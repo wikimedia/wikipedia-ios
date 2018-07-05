@@ -75,11 +75,8 @@
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
 "explore-most-read-footer-for-date" = "$1 ရှိ ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ အားလုံး";
 "explore-most-read-generic-heading" = "ဖတ်ရှုမှု အများဆုံး";
-"explore-most-read-heading" = "$1 ဝီကီပီးဒီးယားရှိ ဖတ်ရှုမှုအများဆုံး";
 "explore-most-read-more-list-title-for-date" = "$1 ရှိ ထိပ်ဆုံး";
 "explore-nearby-heading" = "အနီးအနား နေရာများ";
-"explore-nearby-placeholder-cancel" = "မလုပ်တော့ပါ";
-"explore-nearby-placeholder-dismiss" = "ဖြုတ်ရန်";
 "explore-nearby-placeholder-heading" = "နေရာများ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ဝီကီပီးဒီးယားပေါ်တွင်";
@@ -120,7 +117,6 @@
 "hockeyapp-alert-privacy" = "$1 ပုဂ္ဂိုလ်ရေးလုံခြုံမှု";
 "hockeyapp-alert-send-report" = "အစီရင်ခံချက် ပို့ရန်";
 "hockeyapp-alert-title" = "စိတ်မကောင်းပါ။ နောက်ဆုံးအကြိမ်က app သည် crash ဖြစ်ခဲ့သည်။";
-"home-hide-suggestion-cancel" = "မလုပ်တော့ပါ";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
 "home-title" = "ရှာဖွေစူးစမ်းပါ";
 "icon-shortcut-continue-reading-title" = "ဆက်လက် ဖတ်ရှုရန်";

@@ -113,11 +113,8 @@
 "explore-main-page-heading" = "Hiziv e Wikipedia";
 "explore-most-read-footer-for-date" = "An holl bennadoù lennet ar muiañ d'an $1";
 "explore-most-read-generic-heading" = "Ar re a vez lennet ar muiañ";
-"explore-most-read-heading" = "Lennadurioù gwellañ e Wikipedia e $1";
 "explore-most-read-more-list-title-for-date" = "Ar re a vez lennet ar muiañ d'an $1";
 "explore-nearby-heading" = "Lec'hioù tost";
-"explore-nearby-placeholder-cancel" = "Nullañ";
-"explore-nearby-placeholder-dismiss" = "Disteurel";
 "explore-nearby-placeholder-heading" = "Lec'hioù";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "E Wikipédia e $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "E Wikipedia";
@@ -173,8 +170,6 @@
 "home-button-explore-accessibility-label" = "Wikipedia, distreiñ da Ergerzhiñ";
 "home-button-history-accessibility-label" = "Wikipedia, distreiñ da Istor";
 "home-button-saved-accessibility-label" = "Wikipedia, distreiñ da Enrollañ";
-"home-hide-suggestion-cancel" = "Nullañ";
-"home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";
 "home-more-like-footer" = "Muioc'h evel $1";
 "home-nearby-footer" = "Tostoc'h d'al lec'h m'emaoc'h";
 "home-nearby-location-footer" = "Tostoc'h da $1";

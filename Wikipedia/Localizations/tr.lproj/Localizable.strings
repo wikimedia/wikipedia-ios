@@ -157,11 +157,8 @@
 "explore-main-page-heading" = "Vikipedi'de Bugün";
 "explore-most-read-footer-for-date" = "$1 tarihinde çok okunan bütün maddeler";
 "explore-most-read-generic-heading" = "En çok okunanlar";
-"explore-most-read-heading" = "$1 Vikipedi'de en çok okunan maddeler";
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
 "explore-nearby-heading" = "Yakındaki yerler";
-"explore-nearby-placeholder-cancel" = "İptal";
-"explore-nearby-placeholder-dismiss" = "Reddet";
 "explore-nearby-placeholder-heading" = "Yerler";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedi'de";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedi'de";
@@ -218,8 +215,6 @@
 "home-button-popover-description" = "Keşfet bölümüne dönmek için 'W'ye dokunun";
 "home-button-popover-title" = "Anasayfaya gitmek için dokunun";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
-"home-hide-suggestion-cancel" = "İptal";
-"home-hide-suggestion-prompt" = "Bu öneriyi gizle";
 "home-more-like-footer" = "$1 benzeri daha fazla madde";
 "home-nearby-footer" = "Konumunuza yakındakilerden daha fazla madde";
 "home-nearby-location-footer" = "$1 yakınından daha fazla";

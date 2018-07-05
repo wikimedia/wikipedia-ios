@@ -142,11 +142,8 @@
 "explore-main-page-heading" = "Gaur Wikipedian";
 "explore-most-read-footer-for-date" = "Artikulu top guztiak $1(e)n";
 "explore-most-read-generic-heading" = "Irakurrienak";
-"explore-most-read-heading" = "Gehien irakurritakoak $1 Wikipedian";
 "explore-most-read-more-list-title-for-date" = "$1(e)n ospetsuenak";
 "explore-nearby-heading" = "Inguruko tokiak";
-"explore-nearby-placeholder-cancel" = "Ezeztatu";
-"explore-nearby-placeholder-dismiss" = "Utzi";
 "explore-nearby-placeholder-heading" = "Lekuak";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipedian";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipedian";
@@ -203,8 +200,6 @@
 "home-button-popover-description" = "Sakatu 'W' Esploratzera bueltatzeko";
 "home-button-popover-title" = "Klikatu hasierara bueltatzeko";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
-"home-hide-suggestion-cancel" = "Utzi";
-"home-hide-suggestion-prompt" = "Iradokizuna ezkutatu";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
 "home-nearby-footer" = "Zure kokapenetik gertuko gehiago";
 "home-nearby-location-footer" = "Zure kokapenetik gertuko gehiago $1";

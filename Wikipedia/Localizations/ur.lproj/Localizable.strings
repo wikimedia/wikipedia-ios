@@ -87,7 +87,6 @@
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
 "explore-most-read-footer-for-date" = "$1 پر سب سے زیادہ پڑھے جانے والے مضامین";
 "explore-most-read-generic-heading" = "سب سے زیادہ پڑھا گیا";
-"explore-most-read-heading" = "$1 ویکیپیڈیا پر سب سے زیادہ پڑھا گیا";
 "explore-most-read-more-list-title-for-date" = "$1 پر اوپر";
 "explore-nearby-heading" = "قریبی مقامات";
 "explore-potd-heading" = "آج کی تصویر";
@@ -106,8 +105,6 @@
 "hockeyapp-alert-question-with-response-field" = "کیا آپ $1 کو خامی کی اطلاع بھیجنا چاہیں گے تاکہ ویکیمیڈیا اس خامی کا جائزہ لے سکے؟\n\nجب اطلاقیہ تعطل کا شکار ہوا اس وقت کیا ہوا تھا؟ اسے ذیل میں درج کریں:";
 "hockeyapp-alert-send-report" = "رپورٹ بھیجیں";
 "hockeyapp-alert-title" = "معذرت، اطلاقیہ پچھلی مرتبہ تعطل کا شکار ہوگیا تھا۔";
-"home-hide-suggestion-cancel" = "منسوخ";
-"home-hide-suggestion-prompt" = "اس سجھاؤ کو چھپائیں";
 "home-more-like-footer" = "$1 سے کافی مشابہ";
 "home-nearby-footer" = "تفصیل سے پاس کی مقامی اطلاعات";
 "home-nearby-location-footer" = "زیادہ پاس $1 سے";

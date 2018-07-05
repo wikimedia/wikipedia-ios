@@ -82,7 +82,6 @@
 "explore-main-page-heading" = "Astăzi la Wikipedia";
 "explore-most-read-footer-for-date" = "Cele mai citite articole (toate) pe $1";
 "explore-most-read-generic-heading" = "Cele mai citite";
-"explore-most-read-heading" = "Cele mai citite la Wikipedia în $1";
 "explore-most-read-more-list-title-for-date" = "Cele mai citite articole pe $1";
 "explore-nearby-heading" = "Locuri din apropiere";
 "explore-potd-heading" = "Imaginea zilei";
@@ -101,8 +100,6 @@
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-send-report" = "Trimite raportul";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
-"home-hide-suggestion-cancel" = "Revocare";
-"home-hide-suggestion-prompt" = "Ascunde această sugestie";
 "home-more-like-footer" = "Mai multe precum $1";
 "home-nearby-footer" = "Mai multe articole din apropierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";

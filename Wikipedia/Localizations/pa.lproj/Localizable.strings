@@ -99,11 +99,8 @@
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
 "explore-most-read-footer-for-date" = "$1 ਉੱਤੇ ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
 "explore-most-read-generic-heading" = "ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
-"explore-most-read-heading" = "$1 ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "explore-nearby-heading" = "ਥਾਵਾਂ ਨੇੜੇ";
-"explore-nearby-placeholder-cancel" = "ਰੱਦ ਕਰੋ";
-"explore-nearby-placeholder-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
 "explore-nearby-placeholder-heading" = "ਥਾਂਵਾਂ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੇ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੇ";
@@ -128,8 +125,6 @@
 "hockeyapp-alert-privacy" = "$1 ਦੀ ਨਿੱਜਤਾ";
 "hockeyapp-alert-send-report" = "ਰਿਪੋਰਟ ਭੇਜੋ";
 "hockeyapp-alert-title" = "ਮੁਅਾਫ਼ ਕਰਨਾ, ਬੀਤੇ ਸਮੇਂ ਅੈਪ ਟੁੱਟ ਗੲੀ";
-"home-hide-suggestion-cancel" = "ਰੱਦ ਕਰੋ";
-"home-hide-suggestion-prompt" = "ਇਸ ਸੁਝਾਅ ਨੂੰ ਲੁਕਾਓ";
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
 "home-nearby-footer" = "ਮੇਰੇ ਸਥਾਨ ਦੇ ਨੇੜੇ ਤੋਂ ਹੋਰ";
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
