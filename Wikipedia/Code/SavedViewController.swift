@@ -263,6 +263,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         } else {
             leftButtonType = currentView == .savedArticles ? .none : .add
         }
+        navigationBar.updateNavigationItems()
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
