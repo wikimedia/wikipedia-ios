@@ -362,10 +362,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let group = fetchedResultsController.object(at: indexPath)
-        guard group.contentGroupKind != .announcement else {
-            return false
-        }
-        return true
+        return group.isSelectable
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -411,7 +408,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cardVC.contentGroup = group
         cell.titleLabel.text = group.headerTitle
         cell.subtitleLabel.text = group.headerSubTitle
-        cell.footerButton.setTitle(group.moreTitle, for: .normal)
+        cell.footerButton.setTitle(group.footerText, for: .normal)
         cell.customizationButton.isHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.apply(theme: theme)
         cell.delegate = self

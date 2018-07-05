@@ -124,6 +124,7 @@
 "error-unknown" = "Message displayed when an unknown error occurred";
 "explore-another-random" = "Displayed on buttons that indicate they would load 'Another random article'";
 "explore-because-you-read" = "Text for 'Because you read' header";
+"explore-because-you-read-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article.";
 "explore-continue-reading-heading" = "Text for 'Continue Reading' header";
 "explore-enable-location-title" = "Explains that you can explore articles near your current location. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
 "explore-featured-article-heading" = "Text for 'Featured article' header";
@@ -168,12 +169,14 @@
 "explore-feed-preferences-show-top-read-footer-text" = "Text describing the effects of turning off the Top read card";
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Title for alert that allows user to decide whether they want to turn off Explore feed";
 "explore-feed-preferences-turn-off-feed" = "Text for the setting that allows users to turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Text for explaining the effects of turning off the Explore tab";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
-"explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
+"explore-most-read-footer" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped.";
 "explore-most-read-generic-heading" = "Text for 'Most read articles' explore section header used when no language is present";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Most read articles' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
@@ -186,6 +189,8 @@
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-potd-sub-heading" = "Subtext beneath the 'Picture of the day' header.";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
+"explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
@@ -303,9 +308,8 @@
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.\n{{Identical|$1k}}";
 "on-this-day-detail-header-date-range" = "Text for 'On this day' detail view events 'year range' label - $1 is replaced with string version of the oldest event year - i.e. '300 BC', $2 is replaced with string version of the most recent event year - i.e. '2006',";
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
-"on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles.";
+"on-this-day-footer-with-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-title" = "Title for the 'On this day' feed section";
-"onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";

@@ -363,12 +363,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     // MARK - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        switch contentGroup?.contentGroupKind ?? .unknown {
-        case .announcement:
-            return false
-        default:
-            return true
-        }
+        return contentGroup?.isSelectable ?? false
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

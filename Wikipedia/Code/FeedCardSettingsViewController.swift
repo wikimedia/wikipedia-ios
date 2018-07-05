@@ -1,34 +1,6 @@
 import UIKit
 
 private extension WMFContentGroupKind {
-    var masterSwitchTitle: String {
-        switch self {
-        case .news:
-            return WMFLocalizedString("explore-feed-preferences-show-news-title", value: "Show In the news card", comment: "Text for the setting that allows users to toggle the visibility of the In the news card")
-        case .featuredArticle:
-            return WMFLocalizedString("explore-feed-preferences-show-featured-article-title", value: "Show Featured article card", comment: "Text for the setting that allows users to toggle the visibility of the Featured article card")
-        case .topRead:
-            return WMFLocalizedString("explore-feed-preferences-show-top-read-title", value: "Show Top read card", comment: "Text for the setting that allows users to toggle the visibility of the Top read card")
-        case .onThisDay:
-            return WMFLocalizedString("explore-feed-preferences-show-on-this-day-title", value: "Show On this day card", comment: "Text for the setting that allows users to toggle the visibility of the On this day card")
-        case .pictureOfTheDay:
-            return WMFLocalizedString("explore-feed-preferences-show-picture-of-the-day-title", value: "Show Picture of the day card", comment: "Text for the setting that allows users to toggle the visibility of the Picture of the day card")
-        case .locationPlaceholder:
-            fallthrough
-        case .location:
-            return WMFLocalizedString("explore-feed-preferences-show-places-title", value: "Show Places card", comment: "Text for the setting that allows users to toggle the visibility of the Places card")
-        case .random:
-            return WMFLocalizedString("explore-feed-preferences-show-randomizer-title", value: "Show Randomizer card", comment: "Text for the setting that allows users to toggle the visibility of the Randomizer card")
-        case .continueReading:
-            return WMFLocalizedString("explore-feed-preferences-show-continue-reading-title", value: "Show Continue reading card", comment: "Text for the setting that allows users to toggle the visibility of the Continue reading card")
-        case .relatedPages:
-            return WMFLocalizedString("explore-feed-preferences-show-related-pages-title", value: "Show Because you read card", comment: "Text for the setting that allows users to toggle the visibility of the Because you read card")
-        default:
-            assertionFailure("\(self) is not customizable")
-            return ""
-        }
-    }
-
     var togglingFeedCardFooterText: String {
         switch self {
         case .news:
@@ -66,44 +38,35 @@ class FeedCardSettingsViewController: BaseExploreFeedSettingsViewController {
         self.dataStore = dataStore
         self.contentGroupKind = contentGroupKind
         self.theme = theme
+        displayType = .detail(contentGroupKind)
     }
 
-    override func isLanguageSwitchOn(for languageLink: MWKLanguageLink) -> Bool {
-        return languageLink.isInFeed(for: contentGroupKind)
-    }
+    // MARK: Items
 
-    private var isMasterSwitchOn: Bool {
-        guard let settingsCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WMFSettingsTableViewCell else {
-            return false
-        }
-         return settingsCell.disclosureSwitch.isOn
-    }
-
-    private lazy var masterSwitchTitle: String = {
-        return contentGroupKind.masterSwitchTitle
+    private lazy var masterSwitch: ExploreFeedSettingsMaster = {
+        return ExploreFeedSettingsMaster(for: .singleFeedCard(contentGroupKind))
     }()
+
+    // MARK: Sections
 
     private lazy var togglingFeedCardFooterText: String = {
         return contentGroupKind.togglingFeedCardFooterText
     }()
 
+    private lazy var mainSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [masterSwitch])
+    }()
+
+    private lazy var languagesSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: languages)
+    }()
+
     override var sections: [ExploreFeedSettingsSection] {
-        let master = ExploreFeedSettingsMaster(title: masterSwitchTitle, isOn: contentGroupKind.isInFeed)
-        let main = ExploreFeedSettingsSection(headerTitle: nil, footerTitle: togglingFeedCardFooterText, items: [master])
-        let languages = ExploreFeedSettingsSection(headerTitle: CommonStrings.languagesTitle, footerTitle: String.localizedStringWithFormat("%@ %@", WMFLocalizedString("explore-feed-preferences-additional-languages-footer-text", value: "Additional languages can be added in the ‘My languages’ settings page.", comment: "Text explaining how to add additional languages"), togglingFeedCardFooterText), items: self.languages)
         if contentGroupKind.isGlobal {
-            return [main]
+            return [mainSection]
         } else {
-            return [main, languages]
+            return [mainSection, languagesSection]
         }
-    }
-
-    override func needsReloading(_ item: ExploreFeedSettingsItem) -> Bool {
-        return true
-    }
-
-    override var shouldReload: Bool {
-        return true
     }
 
 }
