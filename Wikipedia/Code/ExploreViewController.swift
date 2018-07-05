@@ -30,8 +30,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
        return ColumnarCollectionViewControllerLayoutCache()
     }()
     
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
