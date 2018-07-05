@@ -356,17 +356,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)footerText {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindRelatedPages:
-            return self.moreLikeTitle;
+            return WMFLocalizedStringWithDefaultValue(@"explore-because-you-read-footer", nil, nil, @"Additional related articles", @"Footer for presenting user option to see longer list of articles related to a previously read article.");
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, nil, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
+                return [WMFCommonStrings nearbyFooterTitle];
             } else {
                 return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
             }
         }
         case WMFContentGroupKindLocationPlaceholder: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"home-nearby-footer", nil, nil, @"More from nearby your location", @"Footer for presenting user option to see longer list of nearby articles.");
+                return [WMFCommonStrings nearbyFooterTitle];
             } else {
                 return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
             }
@@ -377,19 +377,15 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"explore-another-random", nil, nil, @"Another random article", @"Displayed on buttons that indicate they would load 'Another random article'");
         case WMFContentGroupKindFeaturedArticle:
             break;
-        case WMFContentGroupKindTopRead: {
-            NSString *dateString = [self localContentDateShortDisplayString];
-            if (!dateString) {
-                dateString = @"";
-            }
-
-            return
-                [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer-for-date", nil, nil, @"All top read articles on %1$@", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. %1$@ will be substituted with the date"), dateString];
-        }
+        case WMFContentGroupKindTopRead:
+            return WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer", nil, nil, @"All top read articles", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped.");
         case WMFContentGroupKindNews:
-            return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More in the news", @"Footer for presenting user option to see longer list of news stories.");
-        case WMFContentGroupKindOnThisDay:
-            return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles.");
+            return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
+        case WMFContentGroupKindOnThisDay: {
+            id events = self.fullContent.object;
+            NSUInteger eventsCount = events && [events respondsToSelector:@selector(count)] ? [events count] : 0;
+            return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-footer-with-event-count", nil, nil, @"%1$@ more historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), @(eventsCount)];
+        }
         case WMFContentGroupKindUnknown:
         default:
             break;
