@@ -15,6 +15,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.isBackVisible = false
+        navigationBar.shouldTransformUnderBarViewWithBar = true
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
@@ -140,6 +141,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
         let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
         searchContainerView.addConstraints([leading, trailing, top, bottom])
+        searchContainerView.backgroundColor = theme.colors.paperBackground
         return searchContainerView
     }()
     
