@@ -115,7 +115,7 @@ extension NewsViewController {
         let headerDateFormatter = DateFormatter()
         headerDateFormatter.locale = Locale.autoupdatingCurrent
         headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        headerDateFormatter.setLocalizedDateFormatFromTemplate("dMMMM") // Year is invalid on news content dates, we can only show month and day
+        headerDateFormatter.setLocalizedDateFormatFromTemplate("EEEEMMMMd") // Year is invalid on news content dates, we can only show month and day
         return headerDateFormatter
     }()
     
