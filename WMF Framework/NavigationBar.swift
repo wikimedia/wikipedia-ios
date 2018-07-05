@@ -16,6 +16,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var isBarHidingEnabled: Bool = true
     public var isUnderBarViewHidingEnabled: Bool = false
     public var isExtendedViewHidingEnabled: Bool = false
+    public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -294,10 +295,14 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let underBarViewHeight = underBarView.frame.height
         let barHeight = isUsingTitleBarInsteadOfNavigationBar ? titleBar.frame.height : bar.frame.height
         let extendedViewHeight = extendedView.frame.height
-        
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
 
-        let barTransformHeight = barHeight * navigationBarPercentHidden
+        if shouldTransformUnderBarViewWithBar {
+            visibleHeight = statusBarUnderlay.frame.size.height + (barHeight + underBarViewHeight) * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden)
+        } else {
+            visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
+        }
+
+        let barTransformHeight = shouldTransformUnderBarViewWithBar ? (barHeight + underBarViewHeight) * navigationBarPercentHidden : barHeight * navigationBarPercentHidden
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
         
@@ -306,6 +311,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.bar.transform = barTransform
         self.titleBar.transform = barTransform
+        if shouldTransformUnderBarViewWithBar {
+            self.underBarView.transform = barTransform
+        }
         
         for subview in self.bar.subviews {
             for subview in subview.subviews {
@@ -318,9 +326,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
         self.backgroundView.transform = totalTransform
 
-        let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
-        self.underBarView.transform = underBarTransform
-        self.underBarView.alpha = 1.0 - underBarViewPercentHidden
+        if !shouldTransformUnderBarViewWithBar {
+            let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+            self.underBarView.transform = underBarTransform
+            self.underBarView.alpha = 1.0 - underBarViewPercentHidden
+        }
         
         self.extendedView.transform = totalTransform
         self.extendedView.alpha = 1.0 - extendedViewPercentHidden
