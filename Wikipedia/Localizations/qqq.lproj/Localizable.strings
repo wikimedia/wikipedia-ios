@@ -189,6 +189,8 @@
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-potd-sub-heading" = "Subtext beneath the 'Picture of the day' header.";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
+"explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
@@ -308,7 +310,6 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer-with-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-title" = "Title for the 'On this day' feed section";
-"onboarding-wikipedia" = "Wikipedia logo text\n{{Identical|Wikipedia}}";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
