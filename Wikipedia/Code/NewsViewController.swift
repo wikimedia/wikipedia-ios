@@ -48,6 +48,15 @@ class NewsViewController: ColumnarCollectionViewController {
         estimate.precalculated = true
         return estimate
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
+    }
 }
 
 // MARK: - UICollectionViewDataSource
