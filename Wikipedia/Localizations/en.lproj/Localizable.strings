@@ -188,6 +188,8 @@
 "explore-potd-heading" = "Picture of the day";
 "explore-potd-sub-heading" = "From Wikimedia Commons";
 "explore-random-article-heading" = "Random article";
+"explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
+"explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Turn on notifications";
 "feed-news-notification-text" = "Enable notifications to be notified by Wikipedia when articles are trending in the news.";
@@ -307,7 +309,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "More historical events on this day";
 "on-this-day-title" = "On this day";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancel";
 "page-edit-history" = "Full edit history";
 "page-history-title" = "Article history";
