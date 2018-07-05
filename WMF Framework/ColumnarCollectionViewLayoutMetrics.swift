@@ -41,7 +41,7 @@ public struct ColumnarCollectionViewLayoutMetrics {
         var itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         itemLayoutMargins.left = max(marginWidth, itemLayoutMargins.left)
         itemLayoutMargins.right = max(marginWidth, itemLayoutMargins.right)
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: 0, interColumnSpacing: 0,  interItemSpacing: 0, shouldMatchColumnHeights: false)
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: 0,  interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
     }
     
     public static func exploreCardMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
