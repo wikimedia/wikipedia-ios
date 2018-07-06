@@ -54,15 +54,15 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     
     fileprivate final func updateDeleteButton() {
         guard isDeleteAllVisible else {
-            navigationItem.leftBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
             return
         }
         
-        if navigationItem.leftBarButtonItem == nil {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        if navigationItem.rightBarButtonItem == nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
         }
 
-        navigationItem.leftBarButtonItem?.isEnabled = !isEmpty
+        navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
     
     @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {
