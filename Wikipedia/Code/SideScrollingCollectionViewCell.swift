@@ -204,13 +204,13 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         apply(theme: theme)
         backgroundColor = .clear
         setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
-        backgroundView?.layer.cornerRadius = 5
+        backgroundView?.layer.cornerRadius = 3
         backgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 5
+        selectedBackgroundView?.layer.cornerRadius = 3
         selectedBackgroundView?.layer.masksToBounds = true
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.8
-        layer.shadowRadius = 2
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 3
         layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
         titleLabel.backgroundColor = backgroundView?.backgroundColor
@@ -219,7 +219,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         descriptionTextStyle = .footnote
         imageViewDimension = 40
         isSaveButtonHidden = true
-        layoutMargins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
+        layoutMargins = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
         
         titleHTML = cellArticle.titleHTML ?? cellArticle.title
