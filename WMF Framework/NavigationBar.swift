@@ -69,7 +69,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                     if let title = item.title {
                         rightBarButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
                     } else if let editButton = item as? EditBarButton, let systemItem = editButton.systemItem {
-                        rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: editButton.target, action: editButton.action)
+                        let editBarButton = EditBarButton(barButtonSystemItem: systemItem, target: editButton.target, action: editButton.action)
+                        editBarButton.systemItem = systemItem
+                        rightBarButtonItem = editBarButton
                     }
                 }
                 rightBarButtonItem.tintColor = item.tintColor
