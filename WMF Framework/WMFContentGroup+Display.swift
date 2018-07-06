@@ -114,4 +114,13 @@ extension WMFContentGroup {
         
         return content[index]
     }
+    
+    public var isSelectable: Bool {
+        switch contentGroupKind {
+        case .announcement, .notification, .theme, .readingList:
+            return false
+        default:
+            return true
+        }
+    }
 }

@@ -52,6 +52,8 @@
 
 + (instancetype)wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter;
 
++ (instancetype)wmf_utcMonthNameDayOfMonthNumberDateFormatter;
+
 + (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter;
 
 + (instancetype)wmf_shortDayNameShortMonthNameDayOfMonthNumberDateFormatter;

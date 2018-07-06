@@ -3,7 +3,17 @@ import UIKit
 class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
     let gradientView: WMFGradientView = WMFGradientView()
-    let captionLabel: UILabel = UILabel()
+    private let captionLabel: UILabel = UILabel()
+    
+    var caption: String? {
+        get {
+            return captionLabel.text
+        }
+        set {
+            captionLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
     
     override func setup() {
         super.setup()

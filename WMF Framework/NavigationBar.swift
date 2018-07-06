@@ -258,7 +258,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 subview.transform = barScaleTransform
             }
         }
-        self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden
+        self.bar.alpha = min(backgroundAlpha, 1.0 - 2.0 * navigationBarPercentHidden)
         
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
         self.backgroundView.transform = totalTransform
@@ -271,13 +271,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.extendedView.alpha = 1.0 - extendedViewPercentHidden
         
         if isExtendedViewHidingEnabled && isUnderBarViewHidingEnabled {
-            self.shadow.alpha = underBarViewPercentHidden
+            self.shadow.alpha = min(backgroundAlpha, underBarViewPercentHidden)
         } else if isExtendedViewHidingEnabled {
-            self.shadow.alpha = extendedViewPercentHidden
+            self.shadow.alpha = min(backgroundAlpha, extendedViewPercentHidden)
         } else if isUnderBarViewHidingEnabled {
-            self.shadow.alpha = underBarViewPercentHidden
+            self.shadow.alpha = min(backgroundAlpha, underBarViewPercentHidden)
         } else {
-            self.shadow.alpha = 1.0
+            self.shadow.alpha = min(backgroundAlpha, 1.0)
         }
         
         self.progressView.transform = totalTransform
@@ -375,7 +375,7 @@ extension NavigationBar: Themeable {
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
         bar.barTintColor = theme.colors.paperBackground
-        bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
+        bar.shadowImage = theme.navigationBarShadowImage
         bar.tintColor = theme.colors.primaryText
         
         extendedView.backgroundColor = .clear
