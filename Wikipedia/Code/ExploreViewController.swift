@@ -141,7 +141,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
         let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
         searchContainerView.addConstraints([leading, trailing, top, bottom])
-        searchContainerView.backgroundColor = theme.colors.paperBackground
         return searchContainerView
     }()
     
@@ -407,6 +406,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         searchBar.apply(theme: theme)
+        searchBarContainerView.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
