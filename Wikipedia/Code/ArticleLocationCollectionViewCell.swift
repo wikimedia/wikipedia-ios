@@ -13,7 +13,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
         isImageViewHidden = false
-        imageViewDimension = 72
+        imageViewDimension = 78
         imageView.layer.cornerRadius = round(0.5*imageViewDimension)
         imageView.layer.masksToBounds = true
         addSubview(distanceLabelBackground)
@@ -36,9 +36,9 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        let borderWidth = 1.0 / (traitCollection.displayScale > 0 ? traitCollection.displayScale : 1)
-        distanceLabelBackground.layer.borderWidth = borderWidth
-        imageView.layer.borderWidth = borderWidth
+        let displayScale = max(1, traitCollection.displayScale)
+        distanceLabelBackground.layer.borderWidth = 1.0 / displayScale
+        imageView.layer.borderWidth = 7.0 / displayScale
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
