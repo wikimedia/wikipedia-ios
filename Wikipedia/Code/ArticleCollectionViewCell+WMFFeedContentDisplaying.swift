@@ -61,6 +61,10 @@ public extension ArticleCollectionViewCell {
             break
         case .compactList, .relatedPages:
             configureForCompactList(at: index)
+            if displayType == .relatedPages, let cell = self as? ArticleRightAlignedImageCollectionViewCell {
+                cell.topSeparator.isHidden = true
+                cell.bottomSeparator.isHidden = true
+            }
             fallthrough
         case .page:
             fallthrough
