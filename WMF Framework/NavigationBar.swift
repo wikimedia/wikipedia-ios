@@ -479,7 +479,8 @@ extension NavigationBar: Themeable {
         titleBar.isTranslucent = false
         titleBar.tintColor = theme.colors.primaryText
         titleBar.setShadowImage(theme.navigationBarShadowImage, forToolbarPosition: .any)
-        
+        titleBar.barTintColor = theme.colors.paperBackground
+
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
