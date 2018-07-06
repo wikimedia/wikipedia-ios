@@ -128,6 +128,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         if (apply) {
             flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
+            flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
             if semanticContentAttributeOverride == .forceRightToLeft {
