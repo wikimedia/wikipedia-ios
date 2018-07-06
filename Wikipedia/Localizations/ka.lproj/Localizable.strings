@@ -86,8 +86,6 @@
 "explore-most-read-generic-heading" = "ყველაზე კითხვადი";
 "explore-most-read-more-list-title-for-date" = "საუკეთესო $1-ზე";
 "explore-nearby-heading" = "ადგილები სიახლოვეში";
-"explore-nearby-placeholder-cancel" = "გაუქმება";
-"explore-nearby-placeholder-dismiss" = "უარყოფა";
 "explore-nearby-placeholder-heading" = "ადგილები";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ვიკიპედიაში";
 "explore-nearby-sub-heading-your-location" = "თქვენი მდებარეობა";
@@ -124,8 +122,6 @@
 "hockeyapp-alert-question-with-response-field" = "გსურთ $1-სთვის პრობლემის ანგარიშის გაგზავნა, რათა ვიკიმედიამ შეძლოს მისი განხილვა? გთხოვთ აღწერეთ თუ რა მოხდა, როდესაც პრობლემა შეიქმნა:";
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
 "hockeyapp-alert-title" = "უკაცრავად, უკანასკნელად აპლიკაციამ არ უმუშავა";
-"home-hide-suggestion-cancel" = "გაუქმება";
-"home-hide-suggestion-prompt" = "შეთავაზებების დამალვა";
 "home-more-like-footer" = "$1-ის მსგავსად";
 "home-nearby-footer" = "თქვენი მდებარეობის გადატანა";
 "home-title" = "გამოიკვლიე";

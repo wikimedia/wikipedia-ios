@@ -148,7 +148,12 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Es poden afegir més llengües des de la pàgina de configuració 'Les meves llengües'.";
 "explore-feed-preferences-continue-reading-description" = "Enllaç de retorn ràpid per llegir un article obert";
 "explore-feed-preferences-customize-explore-feed" = "Personalitza el canal d'exploració";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Personalitza el canal d'exploració";
 "explore-feed-preferences-featured-article-description" = "Article destacat del dia a la Viquipèdia";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Desactivat";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tots activitats";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activat";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
 "explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
 "explore-feed-preferences-global-cards-title" = "Targetes globals";
 "explore-feed-preferences-in-the-news-description" = "Articles d'esdeveniments actuals";
@@ -162,11 +167,8 @@
 "explore-main-page-heading" = "Avui a la Viquipèdia";
 "explore-most-read-footer-for-date" = "Tots els articles més llegits el $1";
 "explore-most-read-generic-heading" = "El més llegit";
-"explore-most-read-heading" = "Els més llegits a la Viquipèdia en $1";
 "explore-most-read-more-list-title-for-date" = "Primers el $1";
 "explore-nearby-heading" = "Llocs propers";
-"explore-nearby-placeholder-cancel" = "Cancel·la";
-"explore-nearby-placeholder-dismiss" = "Descarta";
 "explore-nearby-placeholder-heading" = "Llocs";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "A la Viquipèdia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "A la Viquipèdia";
@@ -223,8 +225,6 @@
 "home-button-popover-description" = "Feu un toc a la 'W' per tornar al canal Explora";
 "home-button-popover-title" = "Toca per a anar l'inici";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
-"home-hide-suggestion-cancel" = "Cancel·la";
-"home-hide-suggestion-prompt" = "Amaga el suggeriment";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més propers a la vostra ubicació";
 "home-nearby-location-footer" = "Més propers a $1";

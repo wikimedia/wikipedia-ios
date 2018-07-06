@@ -127,11 +127,8 @@
 "explore-main-page-heading" = "ថ្ងៃនេះនៅលើវិគីភីឌា";
 "explore-most-read-footer-for-date" = "អត្ថបទដែលអានច្រើនជាងគេនៅ $1";
 "explore-most-read-generic-heading" = "អត្ថបទអានច្រើនជាងគេ";
-"explore-most-read-heading" = "អត្ថបទអានច្រើនជាងគេនៅលើវិគីភីឌា$1";
 "explore-most-read-more-list-title-for-date" = "អត្ថបទអានច្រើនជាងគេនៅ $1";
 "explore-nearby-heading" = "ទីតាំងក្បែរ";
-"explore-nearby-placeholder-cancel" = "បោះបង់";
-"explore-nearby-placeholder-dismiss" = "លាក់";
 "explore-nearby-placeholder-heading" = "ទី​តាំង";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "នៅលើវិគីភីឌា$1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "នៅលើវិគីភីឌា";
@@ -188,8 +185,6 @@
 "home-button-popover-description" = "ចុចលើ 'W' ដើម្បីត្រឡប់ទៅហ្វីដរុករក";
 "home-button-popover-title" = "ចុចដើម្បីទៅទំព័រដើម";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
-"home-hide-suggestion-cancel" = "បោះបង់";
-"home-hide-suggestion-prompt" = "លាក់សំណើ";
 "home-more-like-footer" = "អត្ថបទស្រដៀង $1";
 "home-nearby-footer" = "អត្ថបទនៅក្បែរកន្លែងអ្នក";
 "home-nearby-location-footer" = "អត្ថបទនៅក្បែរ$1";

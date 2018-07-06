@@ -87,7 +87,6 @@
 "explore-featured-article-heading" = "Һайланған мәҡәлә";
 "explore-main-page-heading" = "Бөгөн Википедияла";
 "explore-most-read-footer-for-date" = "$1-ҙә иң күп уҡылған барлыҡ мәҡәләләр";
-"explore-most-read-heading" = "$1 Википедияһында иң уҡымлыһы";
 "explore-most-read-more-list-title-for-date" = "$1-ҙә иң күп уҡылғаны";
 "explore-nearby-heading" = "Яҡындағы урындар";
 "explore-potd-heading" = "Көн Һүрәтләнеше";
@@ -106,8 +105,6 @@
 "hockeyapp-alert-question-with-response-field" = "Викимедиа фонды һеҙҙең \"түбән төшөү\" осрағын өйрәнә алһын өсөн отчет ебәрергә теләйһегеҙме? Быға нимә сәбәп булыуын һүрәтләгеҙ:";
 "hockeyapp-alert-send-report" = "Отчет ебәрергә";
 "hockeyapp-alert-title" = "Үкенескә ҡаршы, үткән юлы ҡушымта \"төшкән\"";
-"home-hide-suggestion-cancel" = "Кире алырға";
-"home-hide-suggestion-prompt" = "Был тәҡдимде йәшереү";
 "home-more-like-footer" = "Тағы ла оҡшаш $1";
 "home-nearby-footer" = "Һеҙгә яҡын булған нәмәләр тураһында тағы бер тапҡыр";
 "home-nearby-location-footer" = "Тағы $1 - ҙән яҡыныраҡ";

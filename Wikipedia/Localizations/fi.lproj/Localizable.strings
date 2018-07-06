@@ -145,11 +145,8 @@
 "explore-main-page-heading" = "Tänään Wikipediassa";
 "explore-most-read-footer-for-date" = "Kaikki luetuimmat artikkelit $1";
 "explore-most-read-generic-heading" = "Luetuimmat";
-"explore-most-read-heading" = "Luetuimmat artikkelit Wikipedian kieliversiossa $1";
 "explore-most-read-more-list-title-for-date" = "Parhaimmistoa $1";
 "explore-nearby-heading" = "Lähistön paikat";
-"explore-nearby-placeholder-cancel" = "Peruuta";
-"explore-nearby-placeholder-dismiss" = "Hylkää";
 "explore-nearby-placeholder-heading" = "Paikat";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipediassa";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipediassa";
@@ -206,8 +203,6 @@
 "home-button-popover-description" = "Napauta 'W' kuvaketta palataksesi Tutki-syötteeseen";
 "home-button-popover-title" = "Napauta mennäksesi takaisin";
 "home-button-saved-accessibility-label" = "Wikipedia, palaa Tallennettu-sivulle";
-"home-hide-suggestion-cancel" = "Peruuta";
-"home-hide-suggestion-prompt" = "Piilota tämä ehdotus";
 "home-more-like-footer" = "Vastaavia artikkeleita kuin $1";
 "home-nearby-footer" = "Lisää paikallisia artikkeleita";
 "home-nearby-location-footer" = "Lähistöllä: $1";

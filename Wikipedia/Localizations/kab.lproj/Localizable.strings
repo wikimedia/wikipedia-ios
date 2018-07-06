@@ -118,11 +118,8 @@
 "explore-main-page-heading" = "Ass-a di Wikipedia";
 "explore-most-read-footer-for-date" = "Akk imagraden yettwaqran aṭas di $1";
 "explore-most-read-generic-heading" = "Ttwaɣran aṭas";
-"explore-most-read-heading" = "Ttwaɣran aṭas di Wikipedia di $1";
 "explore-most-read-more-list-title-for-date" = "Ttwaɣran aṭas arama d $1";
 "explore-nearby-heading" = "Imeḍqan iqerben";
-"explore-nearby-placeholder-cancel" = "Sefsex";
-"explore-nearby-placeholder-dismiss" = "Zgel";
 "explore-nearby-placeholder-heading" = "Idigen";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia di $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -179,8 +176,6 @@
 "home-button-popover-description" = "Senned ɣef 'W' akken ad tuɣaleḍ ar tnelli Snirem";
 "home-button-popover-title" = "Senned akken ad tedduḍ ar ugdil agejdan";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
-"home-hide-suggestion-cancel" = "Sefsex";
-"home-hide-suggestion-prompt" = "Ffer asumer-agi";
 "home-more-like-footer" = "Ugar am $1";
 "home-nearby-footer" = "Yeqreb ugar ar wanida telliḍ";
 "home-nearby-location-footer" = "Yeqreb ugar ar $1";

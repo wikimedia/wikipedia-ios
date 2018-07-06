@@ -137,11 +137,8 @@
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-most-read-footer-for-date" = "Tolos artículos más lleíos el $1";
 "explore-most-read-generic-heading" = "Más lleíos";
-"explore-most-read-heading" = "Los más lleíos na Wikipedia en $1";
 "explore-most-read-more-list-title-for-date" = "Los más lleíos el $1";
 "explore-nearby-heading" = "Llugares cercanos a";
-"explore-nearby-placeholder-cancel" = "Encaboxar";
-"explore-nearby-placeholder-dismiss" = "Descartar";
 "explore-nearby-placeholder-heading" = "Llugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
@@ -198,8 +195,6 @@
 "home-button-popover-description" = "Toca na 'W' pa volver a la canal Esplorar";
 "home-button-popover-title" = "Toca pa dir a la páxina principal";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
-"home-hide-suggestion-cancel" = "Encaboxar";
-"home-hide-suggestion-prompt" = "Tapecer esta suxerencia";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más de cerca del to allugamientu";
 "home-nearby-location-footer" = "Más cercanos a $1";
