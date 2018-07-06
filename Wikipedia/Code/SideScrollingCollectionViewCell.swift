@@ -92,7 +92,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     }
     
     public let imageViewHeight: CGFloat = 170
-    public let spacing: CGFloat = 13
+    public let spacing: CGFloat = 6
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let layoutMargins = calculatedLayoutMargins
