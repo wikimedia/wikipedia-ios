@@ -63,7 +63,18 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             
             if let item = items.last?.rightBarButtonItem {
                 titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-                titleBarItems.append(item)
+                // begin HAX
+                var rightBarButtonItem = item
+                if #available(iOS 11.0, *) {
+                    if let title = item.title {
+                        rightBarButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
+                    } else if let editButton = item as? EditBarButton, let systemItem = editButton.systemItem {
+                        rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: editButton.target, action: editButton.action)
+                    }
+                }
+                rightBarButtonItem.tintColor = item.tintColor
+                titleBarItems.append(rightBarButtonItem)
+                // end HAX
             }
             titleBar.setItems(titleBarItems, animated: false)
         } else {
@@ -108,6 +119,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(extendedView)
         addSubview(underBarView)
         addSubview(bar)
+        titleBar.delegate = self
         addSubview(titleBar)
         addSubview(progressView)
         addSubview(statusBarUnderlay)
@@ -503,5 +515,11 @@ extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         delegate?.navigationController?.popViewController(animated: true)
         return false
+    }
+}
+
+extension NavigationBar: UIToolbarDelegate {
+    public func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return UIBarPosition.top
     }
 }
