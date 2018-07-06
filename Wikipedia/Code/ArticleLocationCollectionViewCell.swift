@@ -13,7 +13,6 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
         isImageViewHidden = false
-        imageViewDimension = 78
         imageView.layer.cornerRadius = round(0.5*imageViewDimension)
         imageView.layer.masksToBounds = true
         addSubview(distanceLabelBackground)
@@ -27,6 +26,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
+        imageViewDimension = 78
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
