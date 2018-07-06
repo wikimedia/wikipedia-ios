@@ -44,10 +44,6 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
-        case .relatedPages:
-            isSaveButtonHidden = false
-            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
-            extractLabel?.text = nil
         case .mainPage:
             isSaveButtonHidden = true
             titleTextStyle = .georgiaTitle1
@@ -63,7 +59,7 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
             break
-        case .compactList:
+        case .compactList, .relatedPages:
             configureForCompactList(at: index)
             fallthrough
         case .page:
