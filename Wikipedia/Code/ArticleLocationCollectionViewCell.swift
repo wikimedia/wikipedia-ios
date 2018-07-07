@@ -26,7 +26,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.reset()
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
-        imageViewDimension = 78
+        imageViewDimension = 72
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -38,7 +38,6 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         let displayScale = max(1, traitCollection.displayScale)
         distanceLabelBackground.layer.borderWidth = 1.0 / displayScale
-        imageView.layer.borderWidth = 7.0 / displayScale
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -119,7 +118,6 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         imageView.backgroundColor = theme.colors.midBackground
-        imageView.layer.borderColor = theme.colors.border.cgColor
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.cgColor
         compassView.lineColor = theme.colors.accent
