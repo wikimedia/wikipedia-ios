@@ -63,15 +63,15 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             
             if let item = items.last?.rightBarButtonItem {
                 titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-                // begin HAX
+                // begin HAX: rightBarButtonItem will not be shown on iOS 11
                 var rightBarButtonItem = item
                 if #available(iOS 11.0, *) {
                     if let title = item.title {
                         rightBarButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
-                    } else if let editButton = item as? EditBarButton, let systemItem = editButton.systemItem {
-                        let editBarButton = EditBarButton(barButtonSystemItem: systemItem, target: editButton.target, action: editButton.action)
-                        editBarButton.systemItem = systemItem
-                        rightBarButtonItem = editBarButton
+                    } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
+                        rightBarButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
+                    } else if item.image == nil {
+                        assertionFailure("rightBarButtonItem must have title OR be of type SystemBarButton OR have image")
                     }
                 }
                 rightBarButtonItem.tintColor = item.tintColor
