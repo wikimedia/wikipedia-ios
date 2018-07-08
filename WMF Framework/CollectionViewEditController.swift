@@ -8,8 +8,13 @@ enum CollectionViewCellState {
     case idle, open
 }
 
-class EditBarButton: UIBarButtonItem {
+// wrapper around UIBarButtonItem that lets us access systemItem after button creation
+class SystemBarButton: UIBarButtonItem {
     var systemItem: UIBarButtonSystemItem?
+    public convenience init(with barButtonSystemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
+        self.init(barButtonSystemItem: barButtonSystemItem, target: target, action: action)
+        self.systemItem = barButtonSystemItem
+    }
 }
 
 public protocol CollectionViewEditControllerNavigationDelegate: class {
@@ -467,17 +472,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             rightBarButtonSystemItem = .edit
         }
         
-        var rightButton: EditBarButton?
-        var leftButton: EditBarButton?
+        var rightButton: SystemBarButton?
+        var leftButton: SystemBarButton?
         
         if let barButtonSystemItem = rightBarButtonSystemItem {
-            rightButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            rightButton?.systemItem = barButtonSystemItem
+            rightButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
-            leftButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            leftButton?.systemItem = barButtonSystemItem
+            leftButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         leftButton?.tag = editingState.tag
@@ -558,7 +561,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var shouldShowEditButtonsForEmptyState: Bool = false
     
-    @objc private func barButtonPressed(_ sender: EditBarButton) {
+    @objc private func barButtonPressed(_ sender: SystemBarButton) {
         guard let navigationDelegate = navigationDelegate else {
             assertionFailure("Unable to set new editing state - navigationDelegate is nil")
             return
