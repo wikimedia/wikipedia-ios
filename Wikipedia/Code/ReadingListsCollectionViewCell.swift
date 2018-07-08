@@ -164,7 +164,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
             }
         } else {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             if !isAlertIconHidden || !isAlertLabelHidden {
                 origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2
