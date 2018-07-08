@@ -82,7 +82,6 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                leftButtonType = .none
                 isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
@@ -91,7 +90,6 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
-                leftButtonType = .add
                 scrollView = readingListsViewController?.collectionView
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
@@ -101,25 +99,6 @@ class SavedViewController: ViewController {
     
     private var isSavedArticlesEmpty: Bool {
         return savedArticlesViewController.editController.isCollectionViewEmpty
-    }
-    
-    private enum LeftButtonType {
-        case add
-        case none
-    }
-    
-    private var leftButtonType: LeftButtonType = .none {
-        didSet {
-            guard oldValue != leftButtonType else {
-                return
-            }
-            switch leftButtonType {
-            case .add:
-                navigationItem.leftBarButtonItems = [addReadingListBarButtonItem]
-            default:
-                navigationItem.leftBarButtonItems = []
-            }
-        }
     }
 
     private var isSearchBarHidden: Bool = false {
@@ -251,20 +230,18 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
+        defer {
+            navigationBar.updateNavigationItems()
+        }
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        if isEditing {
-            if searchBar.isFirstResponder {
-                searchBar.resignFirstResponder()
-            }
-            leftButtonType = .none
-        } else {
-            leftButtonType = currentView == .savedArticles ? .none : .add
+        guard isEditing, searchBar.isFirstResponder else {
+            return
         }
-        navigationBar.updateNavigationItems()
+        searchBar.resignFirstResponder()
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
