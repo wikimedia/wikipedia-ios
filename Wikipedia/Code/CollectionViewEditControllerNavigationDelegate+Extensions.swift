@@ -20,21 +20,21 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
                 batchEditToolbarViewController.view.alpha = 0
             }
         }
-        
-        batchEditToolbarViewController.apply(theme: currentTheme)
-        UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState, .curveLinear], animations: {
+
+        UIView.transition(with: batchEditToolbarViewController.view, duration: 0.7, options: .transitionCrossDissolve, animations: {
             if let tabBar = tabBar {
                 tabBar.alpha = isHidden ? 1 : 0
             } else {
                 batchEditToolbarViewController.view.alpha = isHidden ? 0 : 1
             }
-        }, completion: nil)
-        
-        if isHidden {
-            batchEditToolbarViewController.view.removeFromSuperview()
-            batchEditToolbarViewController.willMove(toParentViewController: nil)
-            batchEditToolbarViewController.removeFromParentViewController()
+        }) { _ in
+            if isHidden {
+                batchEditToolbarViewController.view.removeFromSuperview()
+                batchEditToolbarViewController.willMove(toParentViewController: nil)
+                batchEditToolbarViewController.removeFromParentViewController()
+            }
         }
+        batchEditToolbarViewController.apply(theme: currentTheme)
     }
     
     func emptyStateDidChange(_ empty: Bool) {
