@@ -57,6 +57,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 let titleLabel = UILabel()
                 titleLabel.text = items.last?.title
                 titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+                titleLabel.sizeToFit()
                 let titleItem = UIBarButtonItem(customView: titleLabel)
                 titleBarItems.append(titleItem)
             }
@@ -73,8 +74,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                     } else if item.image == nil {
                         assertionFailure("rightBarButtonItem must have title OR be of type SystemBarButton OR have image")
                     }
+                    rightBarButtonItem.tintColor = item.tintColor
                 }
-                rightBarButtonItem.tintColor = item.tintColor
                 titleBarItems.append(rightBarButtonItem)
                 // end HAX
             }
