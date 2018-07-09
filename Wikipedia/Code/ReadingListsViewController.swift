@@ -10,7 +10,6 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
-    var headerLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     typealias T = ReadingList
     let dataStore: MWKDataStore
@@ -108,15 +107,10 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
-
         emptyViewType = .noReadingLists
-        
         setupEditController()
-        
         // Remove peek & pop for now
         unregisterForPreviewing()
-
         isRefreshControlEnabled = true
     }
     
@@ -139,11 +133,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         editController.close()
         collectionViewUpdater = nil
         fetchedResultsController = nil
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        headerLayoutEstimate = nil
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -233,42 +222,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
-
-    // MARK: Header
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let headerView = view as? CollectionViewHeader else {
-            return view
-        }
-        headerView.buttonTitle = CommonStrings.createNewListTitle
-        headerView.style = .readingLists
-        headerView.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
-        headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.itemLayoutMargins
-        return headerView
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        if let estimate = headerLayoutEstimate {
-            return estimate
-        }
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
-            return estimate
-        }
-        placeholder.prepareForReuse()
-        placeholder.style = .readingLists
-        placeholder.buttonTitle = CommonStrings.createNewListTitle
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
-        estimate.precalculated = true
-        headerLayoutEstimate = estimate
-        return estimate
-    }
-
     
     // MARK: - Empty state
     
