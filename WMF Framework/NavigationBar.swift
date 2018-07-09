@@ -52,9 +52,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             if let titleView = items.last?.titleView {
                 let titleItem = UIBarButtonItem(customView: titleView)
                 titleBarItems.append(titleItem)
-            } else {
+            } else if let title = items.last?.title {
                 let titleLabel = UILabel()
-                titleLabel.text = items.last?.title
+                titleLabel.text = title
                 titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
                 titleLabel.sizeToFit()
                 let titleItem = UIBarButtonItem(customView: titleLabel)
