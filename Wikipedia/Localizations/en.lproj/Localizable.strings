@@ -6,6 +6,9 @@
 "about-libraries-complete-list" = "Complete list";
 "about-libraries-license" = "License";
 "about-libraries-licenses-title" = "We love open source software $1";
+"about-places-maps-license" = "Places maps license";
+"about-places-maps-license-details" = "Places uses maps provided by Apple Maps. $1.";
+"about-places-maps-license-details-link-text" = "Please see here for license details";
 "about-product-of" = "Made by the $1 with the help of volunteers like you";
 "about-repositories" = "Repositories";
 "about-repositories-app-source-license" = "Source code available under the $1.";
