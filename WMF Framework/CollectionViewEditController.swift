@@ -9,7 +9,7 @@ enum CollectionViewCellState {
 }
 
 // wrapper around UIBarButtonItem that lets us access systemItem after button creation
-class SystemBarButton: UIBarButtonItem {
+public class SystemBarButton: UIBarButtonItem {
     var systemItem: UIBarButtonSystemItem?
     public convenience init(with barButtonSystemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
         self.init(barButtonSystemItem: barButtonSystemItem, target: target, action: action)

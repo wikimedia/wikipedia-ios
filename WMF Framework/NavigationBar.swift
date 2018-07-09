@@ -66,34 +66,50 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             if let item = items.last?.leftBarButtonItem {
                 let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
                 titleBarItems.append(flexibleSpaceItem)
-                titleBarItems.append(item)
                 flexibleSpace = flexibleSpaceItem
+                // begin HAX: barButtonItem will not be shown on iOS 11
+                var leftBarButtonItem: UIBarButtonItem? = item
+                if #available(iOS 11.0, *) {
+                    leftBarButtonItem = barButtonItem(from: item)
+                }
+                // end HAX
+                if let leftBarButtonItem = leftBarButtonItem {
+                    titleBarItems.append(leftBarButtonItem)
+                }
             }
             
             if let item = items.last?.rightBarButtonItem {
                 if flexibleSpace == nil {
                     titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
                 }
-                // begin HAX: rightBarButtonItem will not be shown on iOS 11
-                var rightBarButtonItem = item
+                // begin HAX: barButtonItem will not be shown on iOS 11
+                var rightBarButtonItem: UIBarButtonItem? = item
                 if #available(iOS 11.0, *) {
-                    if let title = item.title {
-                        rightBarButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
-                    } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
-                        rightBarButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
-                    } else if item.image == nil {
-                        assertionFailure("rightBarButtonItem must have title OR be of type SystemBarButton OR have image")
-                    }
-                    rightBarButtonItem.tintColor = item.tintColor
+                    rightBarButtonItem = barButtonItem(from: item)
                 }
-                titleBarItems.append(rightBarButtonItem)
+                if let rightBarButtonItem = rightBarButtonItem {
+                    titleBarItems.append(rightBarButtonItem)
+                }
                 // end HAX
             }
             titleBar.setItems(titleBarItems, animated: false)
         } else {
             bar.setItems(items, animated: false)
         }
-        
+    }
+
+    private func barButtonItem(from item: UIBarButtonItem) -> UIBarButtonItem? {
+        var barButtonItem: UIBarButtonItem?
+        if let title = item.title {
+            barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
+        } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
+            barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
+        } else if item.image == nil {
+            assertionFailure("barButtonItem must have title OR be of type SystemBarButton OR have image")
+            barButtonItem = nil
+        }
+        barButtonItem?.tintColor = item.tintColor
+        return barButtonItem
     }
     
     fileprivate var underBarViewHeightConstraint: NSLayoutConstraint!
