@@ -24,14 +24,17 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
+        titleLabel.isOpaque = true
         contentView.addSubview(titleLabel)
         subtitleLabel.numberOfLines = 0
+        subtitleLabel.isOpaque = true
         contentView.addSubview(subtitleLabel)
         customizationButton.setTitle("⋮", for: UIControlState.normal)
         customizationButton.contentEdgeInsets = .zero
         customizationButton.imageEdgeInsets = .zero
         customizationButton.titleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
+        customizationButton.isOpaque = true
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
@@ -42,6 +45,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
+        footerButton.isOpaque = true
         let image = #imageLiteral(resourceName: "places-more").imageFlippedForRightToLeftLayoutDirection()
         footerButton.setImage(image, for: .normal)
         footerButton.isUserInteractionEnabled = false
@@ -166,6 +170,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         didSet {
             cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         }
+    }
+    
+    public override func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        titleLabel.backgroundColor = labelBackgroundColor
+        subtitleLabel.backgroundColor = labelBackgroundColor
+        footerButton.backgroundColor = labelBackgroundColor
+        customizationButton.backgroundColor = labelBackgroundColor
     }
     
     public func apply(theme: Theme) {
