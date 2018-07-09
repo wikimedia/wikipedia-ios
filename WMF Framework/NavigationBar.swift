@@ -18,6 +18,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var isExtendedViewHidingEnabled: Bool = false
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
 
+    private var theme = Theme.standard
+
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
         didSet {
@@ -49,6 +51,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         if isUsingTitleBarInsteadOfNavigationBar, let navigationItem = items.last {
             configureTitleBar(with: navigationItem)
+            apply(theme: theme)
         } else {
             bar.setItems(items, animated: false)
         }
@@ -471,6 +474,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
 
 extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
+        self.theme = theme
+
         backgroundColor = .clear
         
         statusBarUnderlay.backgroundColor = theme.colors.paperBackground
