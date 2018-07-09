@@ -398,11 +398,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
 
-    public override func layoutWidth(for size: CGSize) -> CGFloat {
-        let layoutWidth = super.layoutWidth(for: size) - layoutMarginsInteractiveAdditions.left - layoutMarginsInteractiveAdditions.right
-        return layoutWidth
-    }
-
     public var swipeTranslationWhenOpen: CGFloat {
         let maxWidth = actionsView.maximumWidth
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
