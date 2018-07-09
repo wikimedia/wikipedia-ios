@@ -414,10 +414,6 @@ extension ReadingListDetailViewController: ShareableArticlesProvider {}
 // MARK: - NavigationDelegate
 
 extension ReadingListDetailViewController: CollectionViewEditControllerNavigationDelegate {
-    func emptyStateDidChange(_ empty: Bool) {
-        
-    }
-    
     var currentTheme: Theme {
         return self.theme
     }
