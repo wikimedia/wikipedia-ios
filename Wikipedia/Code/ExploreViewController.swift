@@ -405,10 +405,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
-        cell.titleLabel.text = group.headerTitle
-        cell.subtitleLabel.text = group.headerSubTitle
-        cell.footerButton.setTitle(group.footerText, for: .normal)
-        cell.customizationButton.isHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
+        cell.title = group.headerTitle
+        cell.subtitle = group.headerSubTitle
+        cell.footerTitle = group.footerText
+        cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.apply(theme: theme)
         cell.delegate = self
     }

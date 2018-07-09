@@ -10,10 +10,10 @@ public protocol ExploreCardCollectionViewCellDelegate: class {
 }
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
-    public let titleLabel = UILabel()
-    public let subtitleLabel = UILabel()
-    public let customizationButton = UIButton()
-    public let footerButton = AlignedImageButton()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let customizationButton = UIButton()
+    private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
@@ -68,6 +68,47 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
     
+    public var footerTitle: String? {
+        get {
+            return footerButton.title(for: .normal)
+        }
+        set {
+            footerButton.setTitle(newValue, for: .normal)
+            footerButton.isHidden = newValue == nil
+            setNeedsLayout()
+        }
+    }
+    
+    public var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    public var subtitle: String? {
+        get {
+            return subtitleLabel.text
+        }
+        set {
+            subtitleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    public var isCustomizationButtonHidden: Bool {
+        get {
+            return customizationButton.isHidden
+        }
+        set {
+            customizationButton.isHidden = newValue
+            setNeedsLayout()
+        }
+    }
+    
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
@@ -106,11 +147,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         }
     
-        if footerButton.title(for: .normal) != nil {
-            footerButton.isHidden = false
+        if !footerButton.isHidden {
             origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
-        } else {
-            footerButton.isHidden = true
         }
 
         return CGSize(width: size.width, height: ceil(origin.y))
