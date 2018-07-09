@@ -215,7 +215,7 @@ open class CollectionViewCell: UICollectionViewCell {
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
     public var layoutMarginsInteractiveAdditions: UIEdgeInsets = .zero
     public func layoutWidth(for size: CGSize) -> CGFloat { // layoutWidth doesn't take into account interactive additions
-        return size.width - layoutMargins.left - layoutMargins.right - layoutMarginsAdditions.right - layoutMarginsAdditions.left - layoutMarginsInteractiveAdditions.left - layoutMarginsInteractiveAdditions.right
+        return size.width - layoutMargins.left - layoutMargins.right - layoutMarginsAdditions.right - layoutMarginsAdditions.left
     }
     public var calculatedLayoutMargins: UIEdgeInsets {
         let margins = self.layoutMargins

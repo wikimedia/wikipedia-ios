@@ -44,6 +44,10 @@ public extension ArticleCollectionViewCell {
             isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
+        case .relatedPages:
+            isSaveButtonHidden = false
+            descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
+            extractLabel?.text = nil
         case .mainPage:
             isSaveButtonHidden = true
             titleTextStyle = .georgiaTitle1
@@ -59,12 +63,8 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
             break
-        case .compactList, .relatedPages:
+        case .compactList:
             configureForCompactList(at: index)
-            if displayType == .relatedPages, let cell = self as? ArticleRightAlignedImageCollectionViewCell {
-                cell.topSeparator.isHidden = true
-                cell.bottomSeparator.isHidden = true
-            }
             fallthrough
         case .page:
             fallthrough

@@ -76,7 +76,7 @@ extension WMFContentGroup {
         }
         let countOfFeedContent = preview.count
         switch contentGroupKind {
-        case .news, .location:
+        case .news:
             return 1
         case .onThisDay:
             return min(countOfFeedContent, 2)

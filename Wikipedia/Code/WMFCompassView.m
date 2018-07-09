@@ -50,7 +50,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     CGContextSetStrokeColorWithColor(ctx, tickColor);
 
     // Draw compass lines.
-    CGFloat compassLineLength = (radius - (WMFCompassPadding)) * 0.06f;
+    CGFloat compassLineLength = (radius - (WMFCompassPadding)) * 0.07f;
     CGFloat compassLineRadius = (radius - (WMFCompassPadding)) * 1.15f;
     [self drawCompassLinesInContext:ctx
                              center:CGPointMake(radius, radius)
