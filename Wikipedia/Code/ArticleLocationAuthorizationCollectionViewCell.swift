@@ -49,7 +49,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationCollectionV
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         authorizeTitleLabel.textColor = theme.colors.primaryText
-        authorizeButton.borderColor = theme.colors.link
+        authorizeButton.backgroundColor = theme.colors.midBackground
         authorizeButton.setTitleColor(theme.colors.link, for: .normal)
         authorizeDescriptionLabel.textColor = theme.colors.secondaryText
     }
