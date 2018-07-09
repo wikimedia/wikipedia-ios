@@ -21,6 +21,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardShadowOpacity = Float(0.25)
     private let cardShadowOffset =  CGSize(width: 0, height: 5)
     
+    static let overflowImage = UIImage(named: "overflow")
+    
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
@@ -29,7 +31,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         subtitleLabel.numberOfLines = 0
         subtitleLabel.isOpaque = true
         contentView.addSubview(subtitleLabel)
-        customizationButton.setTitle("⋮", for: UIControlState.normal)
+        customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
         customizationButton.contentEdgeInsets = .zero
         customizationButton.imageEdgeInsets = .zero
         customizationButton.titleEdgeInsets = .zero
