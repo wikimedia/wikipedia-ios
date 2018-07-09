@@ -40,6 +40,33 @@ class SavedViewController: ViewController {
     fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
 
     public weak var savedDelegate: SavedViewControllerDelegate?
+
+    private enum ExtendedNavBarViewType {
+        case none
+        case search
+        case createNewReadingList
+    }
+
+    private var extendedNavBarViewType: ExtendedNavBarViewType = .none {
+        didSet {
+            navigationBar.removeExtendedNavigationBarView()
+            switch extendedNavBarViewType {
+            case .search:
+                navigationBar.addExtendedNavigationBarView(searchView)
+            case .createNewReadingList:
+                createNewReadingListButtonView.apply(theme: theme)
+                navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
+            default:
+                break
+            }
+        }
+    }
+
+    private lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
+        let createNewReadingListButtonView = CreateNewReadingListButtonView()
+        createNewReadingListButtonView.button.addTarget(readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController), for: .touchUpInside)
+        return createNewReadingListButtonView
+    }()
     
     // MARK: - Initalization and setup
     
@@ -82,40 +109,27 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                updateLeftBarButtonItem(nil)
-                isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
+                extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 scrollView = readingListsViewController?.collectionView
-                updateLeftBarButtonItem(addReadingListBarButtonItem)
-                isSearchBarHidden = true
+                extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
+                extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
             }
         }
     }
     
-    private var isSavedArticlesEmpty: Bool {
-        return savedArticlesViewController.editController.isCollectionViewEmpty
-    }
-
-    private var isSearchBarHidden: Bool = false {
-        didSet {
-            if isSearchBarHidden {
-                navigationBar.removeExtendedNavigationBarView()
-            } else {
-                navigationBar.addExtendedNavigationBarView(searchView)
-            }
+    private var isCurrentViewEmpty: Bool {
+        guard let activeEditableCollection = activeEditableCollection else {
+            return true
         }
-    }
-
-    private func updateLeftBarButtonItem(_ item: UIBarButtonItem?) {
-        navigationItem.leftBarButtonItem = item
-        navigationBar.updateNavigationItems()
+        return activeEditableCollection.editController.isCollectionViewEmpty
     }
     
     private func addChild(_ vc: UIViewController?) {
@@ -211,6 +225,7 @@ class SavedViewController: ViewController {
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
+        createNewReadingListButtonView.apply(theme: theme)
         
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
@@ -244,7 +259,6 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        navigationItem.leftBarButtonItem = currentView == .savedArticles ? nil : addReadingListBarButtonItem
         guard isEditing else {
             return
         }
@@ -267,10 +281,11 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        guard currentView != .readingLists else {
+        guard empty else {
+            extendedNavBarViewType = currentView == .savedArticles ? .search : .createNewReadingList
             return
         }
-        isSearchBarHidden = empty
+        extendedNavBarViewType = .none
     }
 }
 
