@@ -44,6 +44,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
         cardBackgroundView.layer.masksToBounds = false
+        cardBackgroundView.isOpaque = true
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
