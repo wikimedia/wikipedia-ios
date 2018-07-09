@@ -123,8 +123,6 @@
 "explore-most-read-generic-heading" = "Najčítanejšie články";
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "explore-nearby-heading" = "Miesta v okolí";
-"explore-nearby-placeholder-cancel" = "Zrušiť";
-"explore-nearby-placeholder-dismiss" = "Zrušiť";
 "explore-nearby-placeholder-heading" = "Miesta";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédii";
 "explore-nearby-sub-heading-your-location" = "Vaša poloha";
@@ -174,8 +172,6 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "hockeyapp-alert-send-report" = "Odoslať správu";
 "hockeyapp-alert-title" = "Ospravedlňujeme sa za nedávne zlyhanie aplikácie";
-"home-hide-suggestion-cancel" = "Zrušiť";
-"home-hide-suggestion-prompt" = "Skryť túto radu";
 "home-more-like-footer" = "Viac článkov ako $1";
 "icon-shortcut-continue-reading-title" = "Pokračovať v čítaní";
 "icon-shortcut-nearby-title" = "Články v okolí";

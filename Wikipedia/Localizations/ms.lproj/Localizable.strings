@@ -138,11 +138,8 @@
 "explore-main-page-heading" = "Hari ini di Wikipedia";
 "explore-most-read-footer-for-date" = "Semua rencana bacaan teratas pada $1";
 "explore-most-read-generic-heading" = "Bacaan teratas";
-"explore-most-read-heading" = "Bacaan teratas di Wikipedia Bahasa $1";
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-nearby-heading" = "Tempat berdekatan";
-"explore-nearby-placeholder-cancel" = "Batalkan";
-"explore-nearby-placeholder-dismiss" = "Singkir";
 "explore-nearby-placeholder-heading" = "Tempat";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -199,8 +196,6 @@
 "home-button-popover-description" = "Ketik pada 'W' untuk kembali ke suapan Jelajah";
 "home-button-popover-title" = "Ketik untuk ke laman utama";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
-"home-hide-suggestion-cancel" = "Batalkan";
-"home-hide-suggestion-prompt" = "Sembunyikan cadangan ini";
 "home-more-like-footer" = "Lainnya yang seperti $1";
 "home-nearby-footer" = "Lebih dari kawasan berhampiran lokasi anda";
 "home-nearby-location-footer" = "Lainnya berhampiran $1";

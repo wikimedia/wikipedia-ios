@@ -54,9 +54,9 @@
 "edit-summary-choice-other" = "ٻئے";
 "empty-no-search-results-message" = "کوئی نتیجہ نی لبھا";
 "explore-continue-reading-heading" = "پڑھݨ جاری رکھو";
+"explore-featured-article-sub-heading-from-wikipedia" = "وکیپیڈیا کنوں";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
-"explore-nearby-placeholder-cancel" = "منسوخ";
-"explore-nearby-placeholder-dismiss" = "مکاؤ";
 "explore-nearby-placeholder-heading" = "جاہیں";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
 "field-alert-token-invalid" = "غلط کوڈ";
@@ -89,7 +89,6 @@
 "hockeyapp-alert-do-not-send" = "نہ بھیجو";
 "hockeyapp-alert-privacy" = "$1 رازداری";
 "hockeyapp-alert-send-report" = "رپورٹ بھیجو";
-"home-hide-suggestion-cancel" = "منسوخ";
 "home-more-like-footer" = "$1 وانگوں ٻئے";
 "home-title" = "پھرولو";
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";

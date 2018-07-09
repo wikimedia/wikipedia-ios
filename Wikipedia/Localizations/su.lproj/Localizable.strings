@@ -118,11 +118,8 @@
 "explore-main-page-heading" = "Poé ieu na Wikipédia";
 "explore-most-read-footer-for-date" = "Sakumna artikel bacaan pangluhurna di $1";
 "explore-most-read-generic-heading" = "Bacaan pangluhurna";
-"explore-most-read-heading" = "Bacaan pangluhurna na Wikipédia Basa $1";
 "explore-most-read-more-list-title-for-date" = "Pangluhurna dina $1";
 "explore-nearby-heading" = "Tempat pangdeukeutna";
-"explore-nearby-placeholder-cancel" = "Bolay";
-"explore-nearby-placeholder-dismiss" = "Tutup";
 "explore-nearby-placeholder-heading" = "Tempat";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipedia $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
@@ -179,8 +176,6 @@
 "home-button-popover-description" = "Toél kana 'W' pikeun balik ka eupan Paluruh";
 "home-button-popover-title" = "Toél pikeun balik ka tepas";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
-"home-hide-suggestion-cancel" = "Bolay";
-"home-hide-suggestion-prompt" = "Sumputkeun ieu saran";
 "home-more-like-footer" = "Lianna nu siga $1";
 "home-nearby-footer" = "Lianna ti lokasi sabudeureun anjeun";
 "home-nearby-location-footer" = "Lianna ti sabudeureun $1";

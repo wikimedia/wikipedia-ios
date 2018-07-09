@@ -11,6 +11,11 @@ class NewsCollectionViewHeader: UICollectionReusableView, Themeable {
     
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
-        label.textColor = theme.colors.secondaryText
+        label.textColor = theme.colors.primaryText
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        label.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 }

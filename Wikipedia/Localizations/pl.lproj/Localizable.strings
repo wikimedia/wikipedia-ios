@@ -75,6 +75,7 @@
 "action-update" = "Aktualizuj";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Odrzuć";
+"app-store-subtitle" = "Wolna encyklopedia";
 "article-about-title" = "O tym artykule";
 "article-delete" = "Usuń";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artykuł usunięty|artykuły usunięte}}";
@@ -113,12 +114,21 @@
 "explore-another-random" = "Inny losowy artykuł";
 "explore-continue-reading-heading" = "Czytaj dalej";
 "explore-featured-article-heading" = "Wyróżniony artykuł";
+"explore-feed-preferences-continue-reading-description" = "Szybki link do przeczytania otwartego artykułu";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Dostosuj kanał Eksploruj";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Brak";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Włączony";
+"explore-feed-preferences-global-card-footer-text" = "Ta karta nie jest specyficzna dla języka, wyłączenie tej karty spowoduje jej usunięcie z kanału Eksploruj.";
+"explore-feed-preferences-global-cards-description" = "Karty niezwiązane z językiem";
+"explore-feed-preferences-global-cards-title" = "Globalne karty";
+"explore-feed-preferences-hide-card-action-title" = "Ukryj tę kartę";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
+"explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
+"explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title-for-date" = "Najlepsze na $1";
 "explore-nearby-heading" = "Miejsca w pobliżu";
-"explore-nearby-placeholder-cancel" = "Anuluj";
-"explore-nearby-placeholder-dismiss" = "Odrzuć";
 "explore-nearby-placeholder-heading" = "Miejsca";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "W Wikipedii";
@@ -169,7 +179,6 @@
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
 "home-button-popover-description" = "Naciśnij \"W: by wrócić do feedu Explore";
 "home-button-popover-title" = "Dotknij by wrócić do strony domowej";
-"home-hide-suggestion-cancel" = "Anuluj";
 "home-title" = "Odkryj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
@@ -180,6 +189,7 @@
 "info-box-close-text" = "Zamknij";
 // Fuzzy
 "info-box-title" = "Szybkie fakty";
+"languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
 "languages-wikipedia" = "Języki Wikipedii";
 "license-footer-name" = "CC BY-SA 3.0";

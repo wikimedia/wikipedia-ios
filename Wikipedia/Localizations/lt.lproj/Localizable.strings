@@ -84,11 +84,8 @@
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
 "explore-most-read-footer-for-date" = "Visi $1 skaitomiausi straipsniai";
 "explore-most-read-generic-heading" = "Populiariausi skaitiniai";
-"explore-most-read-heading" = "Skaitomiausi $1 Vikipedijoje";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-nearby-heading" = "Artimos vietovės";
-"explore-nearby-placeholder-cancel" = "Atšaukti";
-"explore-nearby-placeholder-dismiss" = "Paslėpti";
 "explore-nearby-placeholder-heading" = "Vietos";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedijoje";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedijoje";
@@ -132,8 +129,6 @@
 "hockeyapp-alert-title" = "Atsiprašome, programėlė praeitą kartą užlūžo";
 "home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
-"home-hide-suggestion-cancel" = "Atšaukti";
-"home-hide-suggestion-prompt" = "Paslėpti šį pasiūlymą";
 "home-more-like-footer" = "Daugiau kaip $1";
 "home-nearby-footer" = "Daugiau iš šalia jūsų vietovės";
 "home-nearby-location-footer" = "Daugiau netoliese $1";

@@ -155,11 +155,8 @@
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
 "explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
 "explore-most-read-generic-heading" = "بیشترین خوانده شده";
-"explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "explore-nearby-heading" = "مکان‌های نزدیک";
-"explore-nearby-placeholder-cancel" = "لغو";
-"explore-nearby-placeholder-dismiss" = "پنهان‌سازی";
 "explore-nearby-placeholder-heading" = "مکان‌ها";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "در ویکی‌پدیای $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "در ویکی‌پدیا";
@@ -216,8 +213,6 @@
 "home-button-popover-description" = "بر روی «W» برای کاوش خوراک‌ها بزنید";
 "home-button-popover-title" = "برای رفتن به خانه بر روی صفحه بزنید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
-"home-hide-suggestion-cancel" = "لغو";
-"home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
 "home-nearby-location-footer" = "موارد نزدیک بیشتر به $1";

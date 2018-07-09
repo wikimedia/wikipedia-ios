@@ -95,7 +95,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumSubheadline
-        spacing = 5
+        spacing = 3
         imageViewDimension = 70
         statusViewDimension = 6
         alertIconDimension = 12

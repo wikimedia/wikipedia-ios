@@ -127,15 +127,14 @@
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "explore-enable-location-title" = "আপনার বর্তমান অবস্থানের কাছাকাছি নিবন্ধসমূহ অন্বেষণ করুন";
 "explore-featured-article-heading" = "নির্বাচিত নিবন্ধ";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "বন্ধ";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "চালু";
 "explore-main-page-description" = "উইকিমিডিয়া প্রকল্পের প্রধান পাতা";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
 "explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
-"explore-most-read-heading" = "$1 উইকিপিডিয়ায় সর্বাধিক পঠিত";
 "explore-most-read-more-list-title-for-date" = "$1 শীর্ষ পঠিত";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
-"explore-nearby-placeholder-cancel" = "বাতিল";
-"explore-nearby-placeholder-dismiss" = "খারিজ";
 "explore-nearby-placeholder-heading" = "স্থান";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
@@ -190,8 +189,6 @@
 "home-button-history-accessibility-label" = "উইকিপিডিয়া, ইতিহাসে ফেরত যান";
 "home-button-popover-title" = "প্রধান পাতায় যেতে টোকা দিন";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
-"home-hide-suggestion-cancel" = "বাতিল";
-"home-hide-suggestion-prompt" = "এই পরামর্শ লুকান";
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি অবস্থান থেকে আরও";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
