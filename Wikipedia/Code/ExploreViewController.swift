@@ -22,7 +22,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     public var wantsCustomSearchTransition: Bool {
-        return collectionView.wmf_isAtTop
+        return true
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
