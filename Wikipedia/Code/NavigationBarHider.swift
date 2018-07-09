@@ -58,12 +58,10 @@ public class NavigationBarHider: NSObject {
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentExtendedViewPercentHidden = navigationBar.extendedViewPercentHidden
-        let currentTitleLabelPercentScaled = navigationBar.titleLabelPercentScaled
-        
+
         var navigationBarPercentHidden = currentNavigationBarPercentHidden
         var underBarViewPercentHidden = currentUnderBarViewPercentHidden
         var extendedViewPercentHidden = currentExtendedViewPercentHidden
-        var titleLabelPercentScaled = currentTitleLabelPercentScaled
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         
@@ -92,13 +90,6 @@ public class NavigationBarHider: NSObject {
             navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage)
         } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
             navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
-        }
-
-        if navigationBar.isTitleLabelScalingEnabled {
-            titleLabelPercentScaled = (scrollY*0.5/barHeight).wmf_normalizedPercentage
-            if currentTitleLabelPercentScaled != titleLabelPercentScaled {
-                navigationBar.setTitleLabelPercentScaled(titleLabelPercentScaled, animated: animated)
-            }
         }
 
         guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden else {

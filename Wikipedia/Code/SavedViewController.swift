@@ -138,7 +138,6 @@ class SavedViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = false
         navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isTitleLabelScalingEnabled = true
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 

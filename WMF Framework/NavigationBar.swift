@@ -17,8 +17,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var isUnderBarViewHidingEnabled: Bool = false
     public var isExtendedViewHidingEnabled: Bool = false
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
-    public var isTitleLabelScalingEnabled: Bool = false
-    
+
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
         didSet {
@@ -249,31 +248,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
         }
     }
-
-    fileprivate var _titleLabelPercentScaled: CGFloat = 0
-    @objc public var titleLabelPercentScaled: CGFloat {
-        get {
-            return _titleLabelPercentScaled
-        }
-        set {
-            setTitleLabelPercentScaled(_titleLabelPercentScaled, animated: false)
-        }
-    }
-
-    @objc public func setTitleLabelPercentScaled(_ titleLabelPercentScaled: CGFloat, animated: Bool) {
-        layoutIfNeeded()
-        if isTitleLabelScalingEnabled {
-            _titleLabelPercentScaled = titleLabelPercentScaled
-        }
-        setNeedsLayout()
-        if animated {
-            UIView.animate(withDuration: 0.2) {
-                self.layoutSubviews()
-            }
-        } else {
-            layoutSubviews()
-        }
-    }
     
     @objc public var visibleHeight: CGFloat = 0
     
@@ -360,19 +334,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             for subview in subview.subviews {
                 subview.transform = barScaleTransform
             }
-        }
-        if isTitleLabelScalingEnabled, let titleView = titleBar.items?.first?.customView {
-            let maxScale: CGFloat = 1.0
-            let minScale: CGFloat = 0.7
-            let scale = 1.0 - titleLabelPercentScaled * titleLabelPercentScaled
-            if scale > maxScale {
-                titleView.transform = CGAffineTransform(scaleX: maxScale, y: maxScale)
-            } else if scale < minScale {
-                titleView.transform = CGAffineTransform(scaleX: minScale, y: minScale)
-            } else {
-                titleView.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
-
         }
         self.bar.alpha = min(backgroundAlpha, 1.0 - 2.0 * navigationBarPercentHidden)
         self.titleBar.alpha = self.bar.alpha
