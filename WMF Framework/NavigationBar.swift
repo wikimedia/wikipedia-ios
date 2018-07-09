@@ -54,11 +54,18 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
 
+    private var cachedTitleViewItem: UIBarButtonItem?
+
     private func configureTitleBar(with navigationItem: UINavigationItem) {
         var titleBarItems: [UIBarButtonItem] = []
         if let titleView = navigationItem.titleView {
-            let titleItem = UIBarButtonItem(customView: titleView)
-            titleBarItems.append(titleItem)
+            if let cachedTitleViewItem = cachedTitleViewItem {
+                titleBarItems.append(cachedTitleViewItem)
+            } else {
+                let titleItem = UIBarButtonItem(customView: titleView)
+                titleBarItems.append(titleItem)
+                cachedTitleViewItem = titleItem
+            }
         } else if let title = navigationItem.title {
             let titleLabel = UILabel()
             titleLabel.text = title
