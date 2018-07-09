@@ -196,17 +196,11 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.isBatchEditing = false
-            cell.swipeTranslation = 0
             cell.isBatchEditable = false
         } else {
             cell.isBatchEditable = true
-            if editController.isBatchEditing {
-                cell.isBatchEditing = editController.isBatchEditing
-            } else {
-                cell.isBatchEditing = false
-                let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
-                cell.swipeTranslation = translation
-            }
+            cell.isBatchEditing = editController.isBatchEditing
+            editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
             cell.configure(readingList: readingList, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
     }
