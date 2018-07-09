@@ -12,7 +12,7 @@ public protocol ExploreCardCollectionViewCellDelegate: class {
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
-    private let customizationButton = UIButton()
+    public let customizationButton = UIButton()
     private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()

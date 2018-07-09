@@ -540,6 +540,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard let sheet = menuActionSheetForGroup(group) else {
             return
         }
+        sheet.popoverPresentationController?.sourceView = cell.customizationButton
+        sheet.popoverPresentationController?.sourceRect = cell.customizationButton.bounds
         present(sheet, animated: true)
     }
 
