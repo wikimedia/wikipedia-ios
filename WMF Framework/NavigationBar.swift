@@ -47,57 +47,52 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             items.append(item)
         }
         
-        if isUsingTitleBarInsteadOfNavigationBar {
-            var titleBarItems: [UIBarButtonItem] = []
-            if let titleView = items.last?.titleView {
-                let titleItem = UIBarButtonItem(customView: titleView)
-                titleBarItems.append(titleItem)
-            } else if let title = items.last?.title {
-                let titleLabel = UILabel()
-                titleLabel.text = title
-                titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
-                titleLabel.sizeToFit()
-                let titleItem = UIBarButtonItem(customView: titleLabel)
-                titleBarItems.append(titleItem)
-            }
-
-            var flexibleSpace: UIBarButtonItem?
-
-            if let item = items.last?.leftBarButtonItem {
-                let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-                titleBarItems.append(flexibleSpaceItem)
-                flexibleSpace = flexibleSpaceItem
-                // begin HAX: barButtonItem will not be shown on iOS 11
-                var leftBarButtonItem: UIBarButtonItem? = item
-                if #available(iOS 11.0, *) {
-                    leftBarButtonItem = barButtonItem(from: item)
-                }
-                // end HAX
-                if let leftBarButtonItem = leftBarButtonItem {
-                    titleBarItems.append(leftBarButtonItem)
-                }
-            }
-            
-            if let item = items.last?.rightBarButtonItem {
-                if flexibleSpace == nil {
-                    titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-                }
-                // begin HAX: barButtonItem will not be shown on iOS 11
-                var rightBarButtonItem: UIBarButtonItem? = item
-                if #available(iOS 11.0, *) {
-                    rightBarButtonItem = barButtonItem(from: item)
-                }
-                if let rightBarButtonItem = rightBarButtonItem {
-                    titleBarItems.append(rightBarButtonItem)
-                }
-                // end HAX
-            }
-            titleBar.setItems(titleBarItems, animated: false)
+        if isUsingTitleBarInsteadOfNavigationBar, let navigationItem = items.last {
+            configureTitleBar(with: navigationItem)
         } else {
             bar.setItems(items, animated: false)
         }
     }
 
+    private func configureTitleBar(with navigationItem: UINavigationItem) {
+        var titleBarItems: [UIBarButtonItem] = []
+        if let titleView = navigationItem.titleView {
+            let titleItem = UIBarButtonItem(customView: titleView)
+            titleBarItems.append(titleItem)
+        } else if let title = navigationItem.title {
+            let titleLabel = UILabel()
+            titleLabel.text = title
+            titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+            titleLabel.sizeToFit()
+            let titleItem = UIBarButtonItem(customView: titleLabel)
+            titleBarItems.append(titleItem)
+        }
+
+        titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+
+        if let item = navigationItem.leftBarButtonItem {
+            var leftBarButtonItem: UIBarButtonItem? = item
+            if #available(iOS 11.0, *) {
+                leftBarButtonItem = barButtonItem(from: item)
+            }
+            if let leftBarButtonItem = leftBarButtonItem {
+                titleBarItems.append(leftBarButtonItem)
+            }
+        }
+
+        if let item = navigationItem.rightBarButtonItem {
+            var rightBarButtonItem: UIBarButtonItem? = item
+            if #available(iOS 11.0, *) {
+                rightBarButtonItem = barButtonItem(from: item)
+            }
+            if let rightBarButtonItem = rightBarButtonItem {
+                titleBarItems.append(rightBarButtonItem)
+            }
+        }
+        titleBar.setItems(titleBarItems, animated: false)
+    }
+
+    // HAX: barButtonItem that we're getting from the navigationItem will not be shown on iOS 11 so we need to recreate it
     private func barButtonItem(from item: UIBarButtonItem) -> UIBarButtonItem? {
         var barButtonItem: UIBarButtonItem?
         if let title = item.title {
