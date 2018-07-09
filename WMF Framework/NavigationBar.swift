@@ -104,9 +104,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
-        } else if item.image == nil {
+        } else if item.image != nil {
+            barButtonItem = item
+        } else {
             assertionFailure("barButtonItem must have title OR be of type SystemBarButton OR have image")
-            barButtonItem = nil
         }
         barButtonItem?.tintColor = item.tintColor
         return barButtonItem
