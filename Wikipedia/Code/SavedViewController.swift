@@ -82,6 +82,7 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
+                updateLeftBarButtonItem(nil)
                 isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
@@ -91,6 +92,7 @@ class SavedViewController: ViewController {
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 scrollView = readingListsViewController?.collectionView
+                updateLeftBarButtonItem(addReadingListBarButtonItem)
                 isSearchBarHidden = true
                 activeEditableCollection = readingListsViewController
             }
@@ -109,6 +111,11 @@ class SavedViewController: ViewController {
                 navigationBar.addExtendedNavigationBarView(extendedNavBarView)
             }
         }
+    }
+
+    private func updateLeftBarButtonItem(_ item: UIBarButtonItem?) {
+        navigationItem.leftBarButtonItem = item
+        navigationBar.updateNavigationItems()
     }
     
     private func addChild(_ vc: UIViewController?) {
@@ -237,10 +244,13 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        guard isEditing, searchBar.isFirstResponder else {
+        navigationItem.leftBarButtonItem = currentView == .savedArticles ? nil : addReadingListBarButtonItem
+        guard isEditing else {
             return
         }
-        searchBar.resignFirstResponder()
+        if searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
+        }
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {

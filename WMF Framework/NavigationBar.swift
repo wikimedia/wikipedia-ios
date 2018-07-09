@@ -60,9 +60,20 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 let titleItem = UIBarButtonItem(customView: titleLabel)
                 titleBarItems.append(titleItem)
             }
+
+            var flexibleSpace: UIBarButtonItem?
+
+            if let item = items.last?.leftBarButtonItem {
+                let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                titleBarItems.append(flexibleSpaceItem)
+                titleBarItems.append(item)
+                flexibleSpace = flexibleSpaceItem
+            }
             
             if let item = items.last?.rightBarButtonItem {
-                titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+                if flexibleSpace == nil {
+                    titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+                }
                 // begin HAX: rightBarButtonItem will not be shown on iOS 11
                 var rightBarButtonItem = item
                 if #available(iOS 11.0, *) {
