@@ -33,8 +33,8 @@
 
 - (void)setIconName:(NSString *)iconName {
     _iconName = iconName;
+    self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     if (_iconName) {
-        self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         self.titleIcon.hidden = NO;
         self.titleLabelLeadingWidth.constant = self.titleLabelLeadingWidthForVisibleImage;
     } else {
