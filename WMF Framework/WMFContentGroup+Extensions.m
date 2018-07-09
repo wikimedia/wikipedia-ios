@@ -213,11 +213,14 @@
     self.siteURLString = siteURL.absoluteString;
 }
 
-- (void)setFullContentObject:(id<NSCoding>)fullContentObject {
+- (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSAssert(moc != nil, @"nil moc");
     if (!moc) {
         return;
+    }
+    if ([fullContentObject isKindOfClass:[NSArray class]] || [fullContentObject isKindOfClass:[NSSet class]]) {
+        self.countOfFullContent = @([(id)fullContentObject count]);
     }
     WMFContent *fullContent = self.fullContent;
     if (!fullContentObject) {
