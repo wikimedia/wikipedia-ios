@@ -21,7 +21,7 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
             }
         }
 
-        UIView.transition(with: batchEditToolbarViewController.view, duration: 0.7, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: batchEditToolbarViewController.view, duration: 0.7, options: [.allowAnimatedContent, .transitionCrossDissolve], animations: {
             if let tabBar = tabBar {
                 tabBar.alpha = isHidden ? 1 : 0
             } else {
