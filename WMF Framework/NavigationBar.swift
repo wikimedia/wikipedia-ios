@@ -71,40 +71,35 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
 
         if let item = navigationItem.leftBarButtonItem {
-            var leftBarButtonItem: UIBarButtonItem? = item
+            var leftBarButtonItem  = item
             if #available(iOS 11.0, *) {
                 leftBarButtonItem = barButtonItem(from: item)
             }
-            if let leftBarButtonItem = leftBarButtonItem {
-                titleBarItems.append(leftBarButtonItem)
-            }
+            titleBarItems.append(leftBarButtonItem)
         }
 
         if let item = navigationItem.rightBarButtonItem {
-            var rightBarButtonItem: UIBarButtonItem? = item
+            var rightBarButtonItem = item
             if #available(iOS 11.0, *) {
                 rightBarButtonItem = barButtonItem(from: item)
             }
-            if let rightBarButtonItem = rightBarButtonItem {
-                titleBarItems.append(rightBarButtonItem)
-            }
+            titleBarItems.append(rightBarButtonItem)
         }
         titleBar.setItems(titleBarItems, animated: false)
     }
 
     // HAX: barButtonItem that we're getting from the navigationItem will not be shown on iOS 11 so we need to recreate it
-    private func barButtonItem(from item: UIBarButtonItem) -> UIBarButtonItem? {
-        var barButtonItem: UIBarButtonItem?
+    private func barButtonItem(from item: UIBarButtonItem) -> UIBarButtonItem {
+        let barButtonItem: UIBarButtonItem
         if let title = item.title {
             barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
-        } else if item.image != nil {
-            barButtonItem = item
         } else {
-            assertionFailure("barButtonItem must have title OR be of type SystemBarButton OR have image")
+            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
+            barButtonItem = item
         }
-        barButtonItem?.tintColor = item.tintColor
+        barButtonItem.tintColor = item.tintColor
         return barButtonItem
     }
     
