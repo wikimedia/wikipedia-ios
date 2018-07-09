@@ -23,7 +23,7 @@ class SavedViewController: ViewController {
     }()
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet var extendedNavBarView: UIView!
+    @IBOutlet var searchView: UIView!
     @IBOutlet var underBarView: UIView!
     @IBOutlet var allArticlesButton: UIButton!
     @IBOutlet var readingListsButton: UIButton!
@@ -108,7 +108,7 @@ class SavedViewController: ViewController {
             if isSearchBarHidden {
                 navigationBar.removeExtendedNavigationBarView()
             } else {
-                navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+                navigationBar.addExtendedNavigationBarView(searchView)
             }
         }
     }
@@ -139,7 +139,7 @@ class SavedViewController: ViewController {
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
-        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addExtendedNavigationBarView(searchView)
         navigationBar.addUnderNavigationBarView(underBarView)
         navigationBar.isBackVisible = false
         navigationBar.isBarHidingEnabled = false
@@ -218,7 +218,7 @@ class SavedViewController: ViewController {
         }
         
         underBarView.backgroundColor = theme.colors.paperBackground
-        extendedNavBarView.backgroundColor = theme.colors.paperBackground
+        searchView.backgroundColor = theme.colors.paperBackground
         searchBar.apply(theme: theme)
         separatorView.backgroundColor = theme.colors.border
 
