@@ -131,11 +131,8 @@
 "explore-main-page-heading" = "I dag på Wikipedia";
 "explore-most-read-footer-for-date" = "Alle mest leste artikler på $1";
 "explore-most-read-generic-heading" = "Mest lest";
-"explore-most-read-heading" = "Mest lest på Wikipedia på $1";
 "explore-most-read-more-list-title-for-date" = "Mest lest på $1";
 "explore-nearby-heading" = "Steder i nærheten";
-"explore-nearby-placeholder-cancel" = "Avbryt";
-"explore-nearby-placeholder-dismiss" = "Lukk";
 "explore-nearby-placeholder-heading" = "Steder";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På Wikipedia på $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
@@ -192,8 +189,6 @@
 "home-button-popover-description" = "Trykk på «W» for å gå tilbake til utforskings-nyhetskilden";
 "home-button-popover-title" = "Trykk for å gå hjem";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
-"home-hide-suggestion-cancel" = "Avbryt";
-"home-hide-suggestion-prompt" = "Skjul dette forslaget";
 "home-more-like-footer" = "Mer som ligner $1";
 "home-nearby-footer" = "Mer i nærheten av din plassering";
 "home-nearby-location-footer" = "Mer i nærheten av $1";

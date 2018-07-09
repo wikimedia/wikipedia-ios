@@ -118,11 +118,8 @@
 "explore-main-page-heading" = "Данас на Википедији";
 "explore-most-read-footer-for-date" = "Сви најчитанији чланци за $1";
 "explore-most-read-generic-heading" = "Најчитаније";
-"explore-most-read-heading" = "Најчитаније на $1 Википедији";
 "explore-most-read-more-list-title-for-date" = "Најчитанији за $1";
 "explore-nearby-heading" = "Места у близини";
-"explore-nearby-placeholder-cancel" = "Откажи";
-"explore-nearby-placeholder-dismiss" = "Одбаци";
 "explore-nearby-placeholder-heading" = "Места";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На $1 Википедији";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедији";
@@ -176,8 +173,6 @@
 "home-button-explore-accessibility-label" = "Назад на истраживач";
 "home-button-history-accessibility-label" = "Назад на историју";
 "home-button-saved-accessibility-label" = "Назад на сачуване";
-"home-hide-suggestion-cancel" = "Откажи";
-"home-hide-suggestion-prompt" = "Сакриј овај предлог";
 "home-more-like-footer" = "Још чланака као $1";
 "home-nearby-footer" = "Још из ваше близине";
 "home-nearby-location-footer" = "Још у близини $1";

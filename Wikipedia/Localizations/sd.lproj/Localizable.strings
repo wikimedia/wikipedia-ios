@@ -130,11 +130,8 @@
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "explore-most-read-footer-for-date" = "$1 تي گھڻو پڙھيل مضمون";
 "explore-most-read-generic-heading" = "گھڻو پڙھيل";
-"explore-most-read-heading" = "$1 وڪيپيڊيا تي گھڻو پڙھيل";
 "explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";
 "explore-nearby-heading" = "ويجھيون جڳھون";
-"explore-nearby-placeholder-cancel" = "رد ڪيو";
-"explore-nearby-placeholder-dismiss" = "برخواست";
 "explore-nearby-placeholder-heading" = "ماڳ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 وڪيپيڊيا تي";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
@@ -191,8 +188,6 @@
 "home-button-popover-description" = "کوج فيڊ ڏانھن ورڻ لاءِ 'W' تي ٽيپ ڪريو";
 "home-button-popover-title" = "گھر ڏانھن وڃڻ لاءِ ٽيپ ڪريو";
 "home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
-"home-hide-suggestion-cancel" = "رد";
-"home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";
 "home-more-like-footer" = "وڌيڪ $1 وانگر";
 "home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
 "home-nearby-location-footer" = "وڌيڪ ويجھا $1";

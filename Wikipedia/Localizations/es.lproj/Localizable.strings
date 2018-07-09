@@ -155,11 +155,8 @@
 "explore-main-page-heading" = "Hoy en Wikipedia";
 "explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
 "explore-most-read-generic-heading" = "Más leídos";
-"explore-most-read-heading" = "Los más leídos en Wikipedia en $1";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "explore-nearby-heading" = "Lugares cercanos a";
-"explore-nearby-placeholder-cancel" = "Cancelar";
-"explore-nearby-placeholder-dismiss" = "Descartar";
 "explore-nearby-placeholder-heading" = "Lugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
@@ -216,8 +213,6 @@
 "home-button-popover-description" = "Toca la «W» para volver al canal de exploración";
 "home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
-"home-hide-suggestion-cancel" = "Cancelar";
-"home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-more-like-footer" = "Más como $1";
 "home-nearby-footer" = "Más de cercanos a tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";

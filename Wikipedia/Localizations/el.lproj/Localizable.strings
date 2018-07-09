@@ -157,11 +157,8 @@
 "explore-main-page-heading" = "Σήμερα στη Βικιπαίδεια";
 "explore-most-read-footer-for-date" = "Όλα τα πιο διαβασμένα λήμματα στο $1";
 "explore-most-read-generic-heading" = "Κορυφαίο διαβασμένο";
-"explore-most-read-heading" = "Με τις περισσότερες αναγνώσεις στην $1 Βικιπαίδεια";
 "explore-most-read-more-list-title-for-date" = "Κορυφαίο στο $1";
 "explore-nearby-heading" = "Μέρη κοντά";
-"explore-nearby-placeholder-cancel" = "Ακύρωση";
-"explore-nearby-placeholder-dismiss" = "Απόρριψη";
 "explore-nearby-placeholder-heading" = "Μέρη";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Στην $1 Βικιπαίδεια";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Στη Βικιπαίδεια";
@@ -213,8 +210,6 @@
 "home-button-history-accessibility-label" = "Βικιπαίδεια, επιστροφή στο Ιστορικό";
 "home-button-popover-title" = "Πιέστε για να πάτε στην αρχική";
 "home-button-saved-accessibility-label" = "Βικιπαίδεια, επιστροφή στα αποθηκευμένα";
-"home-hide-suggestion-cancel" = "Ακύρωση";
-"home-hide-suggestion-prompt" = "Απόκρυψη αυτής της πρότασης";
 "home-more-like-footer" = "Περισσότερα σαν το $1";
 "home-nearby-footer" = "Περισσότερα από κοντινά στην τοποθεσία σας";
 "home-nearby-location-footer" = "Περισσότερα κοντινά $1";

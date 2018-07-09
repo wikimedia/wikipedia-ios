@@ -126,11 +126,8 @@
 "explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
 "explore-most-read-footer-for-date" = "Манна $1 элбэхтэ ааҕыллар ыстатыйалар барыта";
 "explore-most-read-generic-heading" = "Элбэхтэ ааҕыллар";
-"explore-most-read-heading" = "$1 Бикипиэдьийэҕэ элбэхтэ ааҕыллар";
 "explore-most-read-more-list-title-for-date" = "Манна $1 элбэхтэ ааҕыллар";
 "explore-nearby-heading" = "Чугастааҕы сирдэр";
-"explore-nearby-placeholder-cancel" = "Бигэргэтимэ";
-"explore-nearby-placeholder-dismiss" = "Сап";
 "explore-nearby-placeholder-heading" = "Миэстэ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Бикипиэдьийэ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Бикипиэдьийэ";
@@ -184,8 +181,6 @@
 "home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
 "home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
-"home-hide-suggestion-cancel" = "Бигэргэтимэ";
-"home-hide-suggestion-prompt" = "Бу этиини кистээ";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
 "home-nearby-footer" = "Эйигиттэн чугас эбии туох баарый";
 "home-nearby-location-footer" = "Мантан чугас, эбии $1";
