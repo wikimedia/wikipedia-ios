@@ -16,7 +16,7 @@ extension AddArticlesToReadingListDelegate where Self: EditableCollection {
 }
 
 @objc(WMFAddArticlesToReadingListViewController)
-class AddArticlesToReadingListViewController: UIViewController {
+class AddArticlesToReadingListViewController: ViewController {
     
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
@@ -26,14 +26,12 @@ class AddArticlesToReadingListViewController: UIViewController {
     
     @objc var eventLogAction: (() -> Void)?
 
-    private var theme: Theme
-    
     @objc public init(with dataStore: MWKDataStore, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, theme: Theme) {
         self.dataStore = dataStore
         self.articles = articles
-        self.theme = theme
         self.moveFromReadingList = moveFromReadingList
-        super.init(nibName: "AddArticlesToReadingListViewController", bundle: nil)
+        super.init()
+        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,27 +81,5 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
             self.dismiss(animated: true, completion: nil)
         }
         eventLogAction?()
-    }
-}
-
-extension AddArticlesToReadingListViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-
-        navigationBar?.barTintColor = theme.colors.chromeBackground
-        navigationBar?.tintColor = theme.colors.chromeText
-        navigationBar?.titleTextAttributes = theme.navigationBarTitleTextAttributes
-        view.tintColor = theme.colors.link
-        navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
-        view.backgroundColor = theme.colors.chromeBackground
-        readingListsViewController?.apply(theme: theme)
-        addButton?.tintColor = theme.colors.link
-    }
-    
-    @objc override public var preferredStatusBarStyle: UIStatusBarStyle {
-        return theme.preferredStatusBarStyle
     }
 }
