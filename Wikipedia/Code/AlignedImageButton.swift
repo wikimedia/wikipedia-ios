@@ -39,7 +39,8 @@ public class AlignedImageButton: UIButton {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        guard effectiveUserInterfaceLayoutDirection != layoutDirection else {
+        let newLayoutDirection: UIUserInterfaceLayoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
+        guard newLayoutDirection != layoutDirection else {
             return
         }
         updateSemanticContentAttribute()
@@ -48,7 +49,7 @@ public class AlignedImageButton: UIButton {
     
     var layoutDirection: UIUserInterfaceLayoutDirection = .leftToRight
     fileprivate func updateSemanticContentAttribute() {
-        layoutDirection = effectiveUserInterfaceLayoutDirection
+        layoutDirection = traitCollection.layoutDirection == .rightToLeft ? .rightToLeft : .leftToRight
         if imageIsRightAligned {
             if layoutDirection == .leftToRight {
                 semanticContentAttribute = .forceRightToLeft
