@@ -53,7 +53,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -91,7 +91,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
         saveButtonTextStyle  = .mediumFootnote

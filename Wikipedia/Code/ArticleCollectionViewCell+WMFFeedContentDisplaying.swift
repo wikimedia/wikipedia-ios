@@ -46,7 +46,7 @@ public extension ArticleCollectionViewCell {
             extractLabel?.text = nil
         case .mainPage:
             isSaveButtonHidden = true
-            titleTextStyle = .georgiaTitle1
+            titleTextStyle = .georgiaTitle3
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
             descriptionLabel.text = article.capitalizedWikidataDescription ?? WMFLocalizedString("explore-main-page-description", value: "Main page of Wikimedia projects", comment: "Main page description that shows when the main page lacks a Wikidata description.")
