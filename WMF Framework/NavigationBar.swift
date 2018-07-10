@@ -376,7 +376,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        self.extendedView.alpha = 1.0 - extendedViewPercentHidden
+        self.extendedView.alpha = min(backgroundAlpha, 1.0 - extendedViewPercentHidden)
         
         self.progressView.transform = totalTransform
         self.shadow.transform = totalTransform
@@ -457,6 +457,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             backgroundView.alpha = backgroundAlpha
             bar.alpha = backgroundAlpha
             titleBar.alpha = backgroundAlpha
+            extendedView.alpha = backgroundAlpha
             shadow.alpha = backgroundAlpha
             progressView.alpha = backgroundAlpha
         }
