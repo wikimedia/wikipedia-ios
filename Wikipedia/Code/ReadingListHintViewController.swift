@@ -95,7 +95,9 @@ class ReadingListHintViewController: UIViewController {
         }
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
         addArticlesToReadingListViewController.delegate = self
-        present(addArticlesToReadingListViewController, animated: true, completion: nil)
+        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
     
     private var readingList: ReadingList?
@@ -115,7 +117,7 @@ class ReadingListHintViewController: UIViewController {
     }
     
     @objc private func dismissReadingListDetailViewController() {
-        themeableNavigationController?.dismiss(animated: true, completion: nil) // can this be dismissed in a different way?
+        themeableNavigationController?.dismiss(animated: true) // can this be dismissed in a different way?
     }
     
     @objc func themeChanged(notification: Notification) {
