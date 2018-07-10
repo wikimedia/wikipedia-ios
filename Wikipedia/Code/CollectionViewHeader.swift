@@ -76,7 +76,15 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let additionalMargins = style != .explore ? UIEdgeInsets(top: 30, left: 0, bottom: 5, right: 0) : .zero
+        let additionalMargins: UIEdgeInsets
+        switch style {
+        case .history:
+            additionalMargins = UIEdgeInsets(top: 30, left: 0, bottom: 5, right: 0)
+        case .recentSearches:
+            additionalMargins = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
+        default:
+            additionalMargins = .zero
+        }
         let baseMargins = self.layoutMargins
         let layoutMargins = UIEdgeInsets(top: baseMargins.top + additionalMargins.top, left: baseMargins.left + additionalMargins.left, bottom: baseMargins.bottom + additionalMargins.bottom, right: baseMargins.right + additionalMargins.right)
         let size = super.sizeThatFits(size, apply: apply)

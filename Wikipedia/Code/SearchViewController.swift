@@ -402,6 +402,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         cell.areSeparatorsAlignedWithLabels = true
         cell.topSeparator.isHidden = indexPath.item == 0
         cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
+        cell.titleLabel.textColor = theme.colors.secondaryText
     }
     
     func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
