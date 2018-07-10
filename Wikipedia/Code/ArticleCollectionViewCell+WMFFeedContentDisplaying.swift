@@ -31,7 +31,7 @@ public extension ArticleCollectionViewCell {
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .continueReading:
-            imageViewDimension = 150
+            imageViewDimension = 130
             extractLabel?.text = nil
             isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
@@ -39,7 +39,7 @@ public extension ArticleCollectionViewCell {
         case .relatedPagesSourceArticle:
             setBackgroundColors(theme.colors.midBackground, selected: theme.colors.baseBackground)
             updateSelectedOrHighlighted()
-            imageViewDimension = 150
+            imageViewDimension = 130
             extractLabel?.text = nil
             isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
