@@ -16,6 +16,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.displayType = .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
+        navigationBar.isShadowHidingEnabled = true
+
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
@@ -40,14 +42,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopMonitoringReachability()
-    }
-    
-    // MARK - ViewController
-    
-    override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
-        super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
-        longTitleButton.alpha = 1.0 - extendedViewPercentHidden
-        navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
     }
     
     // MARK - NavBar

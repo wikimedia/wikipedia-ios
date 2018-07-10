@@ -45,19 +45,35 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
+        guard let navigationBar = navigationBar else {
             return
         }
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         let barHeight = navigationBar.bar.frame.size.height
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
-        
-        if navigationBar.shouldTransformUnderBarViewWithBar {
-            navigationBar.shadowAlpha = (scrollY/(barHeight + underBarViewHeight)).wmf_normalizedPercentage
+        let extendedViewHeight = navigationBar.extendedView.frame.size.height
+
+        if navigationBar.isShadowHidingEnabled {
+            var totalHideableHeight: CGFloat = 0
+            if navigationBar.isBarHidingEnabled {
+                totalHideableHeight += barHeight
+            }
+            if navigationBar.isUnderBarViewHidingEnabled {
+                totalHideableHeight += underBarViewHeight
+            }
+            if navigationBar.isExtendedViewHidingEnabled {
+                totalHideableHeight += extendedViewHeight
+            }
+            
+            if totalHideableHeight > 0 {
+                navigationBar.shadowAlpha = (scrollY/totalHideableHeight).wmf_normalizedPercentage
+            } else {
+                navigationBar.shadowAlpha = (scrollY/max(barHeight, 32)).wmf_normalizedPercentage
+            }
         }
-        
-        guard isUserScrolling || isScrollingToTop else {
+
+        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop else {
             return
         }
         
@@ -71,7 +87,6 @@ public class NavigationBarHider: NSObject {
         var underBarViewPercentHidden = currentUnderBarViewPercentHidden
         var extendedViewPercentHidden = currentExtendedViewPercentHidden
 
-        let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
         let shouldHideUnderBarView = navigationBar.isUnderBarViewHidingEnabled && underBarViewHeight > 0
         let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0

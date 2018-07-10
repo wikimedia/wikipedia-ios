@@ -3,6 +3,7 @@ import UIKit
 open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell {
     public var bottomSeparator = UIView()
     public var topSeparator = UIView()
+    public var areSeparatorsAlignedWithLabels: Bool = false
 
     public var singlePixelDimension: CGFloat = 0.5
     
@@ -71,11 +72,11 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         let height = ceil(max(origin.y, minHeight))
         
         if (apply && !bottomSeparator.isHidden) {
-            bottomSeparator.frame = CGRect(x: 0, y: bounds.maxY - singlePixelDimension, width: size.width, height: singlePixelDimension)
+            bottomSeparator.frame = CGRect(x: areSeparatorsAlignedWithLabels ? origin.x : 0, y: bounds.maxY - singlePixelDimension, width: areSeparatorsAlignedWithLabels ? widthMinusMargins : size.width, height: singlePixelDimension)
         }
         
         if (apply && !topSeparator.isHidden) {
-            topSeparator.frame = CGRect(x: 0, y: 0, width: size.width, height: singlePixelDimension)
+            topSeparator.frame = CGRect(x: areSeparatorsAlignedWithLabels ? origin.x : 0, y: 0, width: areSeparatorsAlignedWithLabels ? widthMinusMargins : size.width, height: singlePixelDimension)
         }
         
         if (apply && !isImageViewHidden) {
