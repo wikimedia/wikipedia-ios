@@ -85,7 +85,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
                 let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
                 view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
             }
+            
             navigationBar.navigationBarPercentHidden = 0
+            if navigationBar.shouldTransformUnderBarViewWithBar {
+                navigationBar.underBarViewPercentHidden = 0
+            }
             updateNavigationBarStatusBarHeight()
         } else {
             if navigationBar.superview != nil {
