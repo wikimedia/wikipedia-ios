@@ -16,6 +16,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.isUnderBarViewHidingEnabled = true
         navigationBar.displayType = .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
+        navigationBar.isShadowHidingEnabled = true
+
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle

@@ -45,7 +45,7 @@ public class NavigationBarHider: NSObject {
     }
 
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
+        guard let navigationBar = navigationBar else {
             return
         }
 
@@ -54,24 +54,26 @@ public class NavigationBarHider: NSObject {
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
-        var totalHideableHeight: CGFloat = 0
-        if navigationBar.isBarHidingEnabled {
-            totalHideableHeight += barHeight
-        }
-        if navigationBar.isUnderBarViewHidingEnabled {
-            totalHideableHeight += underBarViewHeight
-        }
-        if navigationBar.isExtendedViewHidingEnabled {
-            totalHideableHeight += extendedViewHeight
-        }
-        
-        if totalHideableHeight > 0 {
-            navigationBar.shadowAlpha = (scrollY/totalHideableHeight).wmf_normalizedPercentage
-        } else {
-            navigationBar.shadowAlpha = (scrollY/max(barHeight, 32)).wmf_normalizedPercentage
+        if navigationBar.isShadowHidingEnabled {
+            var totalHideableHeight: CGFloat = 0
+            if navigationBar.isBarHidingEnabled {
+                totalHideableHeight += barHeight
+            }
+            if navigationBar.isUnderBarViewHidingEnabled {
+                totalHideableHeight += underBarViewHeight
+            }
+            if navigationBar.isExtendedViewHidingEnabled {
+                totalHideableHeight += extendedViewHeight
+            }
+            
+            if totalHideableHeight > 0 {
+                navigationBar.shadowAlpha = (scrollY/totalHideableHeight).wmf_normalizedPercentage
+            } else {
+                navigationBar.shadowAlpha = (scrollY/max(barHeight, 32)).wmf_normalizedPercentage
+            }
         }
 
-        guard isUserScrolling || isScrollingToTop else {
+        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop else {
             return
         }
         

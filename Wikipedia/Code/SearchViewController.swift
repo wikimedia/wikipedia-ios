@@ -18,6 +18,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
+        navigationBar.isShadowHidingEnabled = true
     }
     
     var isAnimatingSearchBarState: Bool = false

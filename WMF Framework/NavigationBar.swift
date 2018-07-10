@@ -16,6 +16,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
+    public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
     
     public var isBarHidingEnabled: Bool = true
