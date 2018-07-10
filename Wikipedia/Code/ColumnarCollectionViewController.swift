@@ -168,7 +168,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             return
         }
         view.backgroundColor = theme.colors.baseBackground
-        collectionView.backgroundColor = theme.colors.baseBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
         collectionView.indicatorStyle = theme.scrollIndicatorStyle
         collectionView.reloadData()
         wmf_applyTheme(toEmptyView: theme)

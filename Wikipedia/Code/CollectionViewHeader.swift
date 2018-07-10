@@ -27,12 +27,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
             return titleLabel.text
         }
         set {
-            switch style {
-            case .history:
-                titleLabel.text = newValue?.uppercased()
-            default:
-                titleLabel.text = newValue
-            }
+            titleLabel.text = newValue
             setNeedsLayout()
         }
     }
@@ -65,11 +60,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         let buttonTextStyle: DynamicTextStyle = .subheadline
         switch style {
         case .explore:
-            titleTextStyle = .heavyTitle1
-        case .history:
-            titleTextStyle = .subheadline
-        case .recentSearches:
-            titleTextStyle = .heavyHeadline
+            titleTextStyle = .boldTitle2
+        default:
+            titleTextStyle = .semiboldHeadline
         }
         titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
         button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
@@ -79,7 +72,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         let additionalMargins: UIEdgeInsets
         switch style {
         case .history:
-            additionalMargins = UIEdgeInsets(top: 30, left: 0, bottom: 5, right: 0)
+            additionalMargins = UIEdgeInsets(top: 30, left: 0, bottom: 10, right: 0)
         case .recentSearches:
             additionalMargins = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
         default:
@@ -106,11 +99,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
 
 extension CollectionViewHeader: Themeable {
     func apply(theme: Theme) {
-        let titleTextColor: UIColor = style == .history ? theme.colors.secondaryText : theme.colors.primaryText
-        let backgroundColor: UIColor = style == .history ? theme.colors.baseBackground : theme.colors.paperBackground
-        titleLabel.textColor = titleTextColor
-        titleLabel.backgroundColor = backgroundColor
-        self.backgroundColor = backgroundColor
+        titleLabel.textColor = theme.colors.primaryText
+        titleLabel.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
         tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)
     }
