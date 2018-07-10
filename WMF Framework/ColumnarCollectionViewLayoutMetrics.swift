@@ -15,7 +15,7 @@ public struct ColumnarCollectionViewLayoutMetrics {
         let useTwoColumns = boundsSize.width >= 600 || (boundsSize.width > boundsSize.height && readableWidth >= 500)
         let countOfColumns = useTwoColumns ? 2 : 1
         let interColumnSpacing: CGFloat = useTwoColumns ? 20 : 0
-        let interItemSpacing: CGFloat = 20
+        let interItemSpacing: CGFloat = 32
         let interSectionSpacing: CGFloat = useTwoColumns ? 20 : 0
         
         let layoutMarginsForMetrics: UIEdgeInsets
