@@ -16,6 +16,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
+    public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
     
     public var isBarHidingEnabled: Bool = true
@@ -76,7 +77,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         } else if let title = navigationItem.title {
             let titleLabel = UILabel()
             titleLabel.text = title
-            titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+            titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
             titleLabel.sizeToFit()
             let titleItem = UIBarButtonItem(customView: titleLabel)
             titleBarItems.append(titleItem)
@@ -287,7 +288,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return shadow.alpha
         }
         set {
-            shadow.alpha =  min(backgroundAlpha, newValue)
+            shadow.alpha = newValue
         }
     }
     
@@ -459,7 +460,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             bar.alpha = backgroundAlpha
             titleBar.alpha = backgroundAlpha
             extendedView.alpha = backgroundAlpha
-            shadow.alpha = backgroundAlpha
             progressView.alpha = backgroundAlpha
         }
     }
