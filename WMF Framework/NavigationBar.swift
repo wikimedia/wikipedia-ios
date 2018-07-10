@@ -114,6 +114,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
             barButtonItem = item
         }
+        barButtonItem.isEnabled = item.isEnabled
         return barButtonItem
     }
     
