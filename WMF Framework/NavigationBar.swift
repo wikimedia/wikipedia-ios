@@ -287,7 +287,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return shadow.alpha
         }
         set {
-            shadow.alpha =  min(backgroundAlpha, newValue)
+            shadow.alpha = newValue
         }
     }
     
@@ -459,7 +459,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             bar.alpha = backgroundAlpha
             titleBar.alpha = backgroundAlpha
             extendedView.alpha = backgroundAlpha
-            shadow.alpha = backgroundAlpha
             progressView.alpha = backgroundAlpha
         }
     }
