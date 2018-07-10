@@ -57,6 +57,9 @@ class AddArticlesToReadingListViewController: ViewController {
         guard let readingListsViewController = readingListsViewController else {
             return
         }
+        readingListsViewController.apply(theme: theme)
+        readingListsViewController.createNewReadingListButtonView.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        navigationBar.addExtendedNavigationBarView(readingListsViewController.createNewReadingListButtonView)
         addChildViewController(readingListsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
