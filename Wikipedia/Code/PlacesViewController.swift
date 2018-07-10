@@ -120,7 +120,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addUnderNavigationBarView(extendedNavBarView)
         navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
         
