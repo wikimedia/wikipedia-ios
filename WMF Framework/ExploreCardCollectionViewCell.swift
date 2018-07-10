@@ -10,10 +10,10 @@ public protocol ExploreCardCollectionViewCellDelegate: class {
 }
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
-    public let titleLabel = UILabel()
-    public let subtitleLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
     public let customizationButton = UIButton()
-    public let footerButton = AlignedImageButton()
+    private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
@@ -21,17 +21,22 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardShadowOpacity = Float(0.25)
     private let cardShadowOffset =  CGSize(width: 0, height: 5)
     
+    static let overflowImage = UIImage(named: "overflow")
+    
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
+        titleLabel.isOpaque = true
         contentView.addSubview(titleLabel)
         subtitleLabel.numberOfLines = 0
+        subtitleLabel.isOpaque = true
         contentView.addSubview(subtitleLabel)
-        customizationButton.setTitle("⋮", for: UIControlState.normal)
+        customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
         customizationButton.contentEdgeInsets = .zero
         customizationButton.imageEdgeInsets = .zero
         customizationButton.titleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
+        customizationButton.isOpaque = true
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
@@ -39,9 +44,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
         cardBackgroundView.layer.masksToBounds = false
+        cardBackgroundView.isOpaque = true
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
+        footerButton.isOpaque = true
         let image = #imageLiteral(resourceName: "places-more").imageFlippedForRightToLeftLayoutDirection()
         footerButton.setImage(image, for: .normal)
         footerButton.isUserInteractionEnabled = false
@@ -65,6 +72,47 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             }
             view.layer.cornerRadius = cardCornerRadius
             contentView.addSubview(view)
+        }
+    }
+    
+    public var footerTitle: String? {
+        get {
+            return footerButton.title(for: .normal)
+        }
+        set {
+            footerButton.setTitle(newValue, for: .normal)
+            footerButton.isHidden = newValue == nil
+            setNeedsLayout()
+        }
+    }
+    
+    public var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    public var subtitle: String? {
+        get {
+            return subtitleLabel.text
+        }
+        set {
+            subtitleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    public var isCustomizationButtonHidden: Bool {
+        get {
+            return customizationButton.isHidden
+        }
+        set {
+            customizationButton.isHidden = newValue
+            setNeedsLayout()
         }
     }
     
@@ -106,11 +154,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         }
     
-        if footerButton.title(for: .normal) != nil {
-            footerButton.isHidden = false
+        if !footerButton.isHidden {
             origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
-        } else {
-            footerButton.isHidden = true
         }
 
         return CGSize(width: size.width, height: ceil(origin.y))
@@ -128,6 +173,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         didSet {
             cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
         }
+    }
+    
+    public override func updateBackgroundColorOfLabels() {
+        super.updateBackgroundColorOfLabels()
+        titleLabel.backgroundColor = labelBackgroundColor
+        subtitleLabel.backgroundColor = labelBackgroundColor
+        footerButton.backgroundColor = labelBackgroundColor
+        customizationButton.backgroundColor = labelBackgroundColor
     }
     
     public func apply(theme: Theme) {

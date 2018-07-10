@@ -24,5 +24,6 @@
 @dynamic contentPreview;
 @dynamic featuredContentIdentifier;
 @dynamic contentDate;
+@dynamic countOfFullContent;
 
 @end
