@@ -77,7 +77,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         } else if let title = navigationItem.title {
             let titleLabel = UILabel()
             titleLabel.text = title
-            titleLabel.font = UIFont.wmf_font(.heavyTitle1, compatibleWithTraitCollection: traitCollection)
+            titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
             titleLabel.sizeToFit()
             let titleItem = UIBarButtonItem(customView: titleLabel)
             titleBarItems.append(titleItem)

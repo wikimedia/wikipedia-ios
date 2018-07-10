@@ -81,12 +81,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         super.collectionViewUpdater(updater, didUpdate: collectionView)
         updateVisibleHeaders()
     }
-    
-    override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        super.configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        cell.topSeparator.isHidden = true
-        cell.bottomSeparator.isHidden = true
-    }
 
     func updateVisibleHeaders() {
         for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionElementKindSectionHeader) {

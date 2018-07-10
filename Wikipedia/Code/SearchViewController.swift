@@ -400,7 +400,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         cell.isImageViewHidden = true
         cell.apply(theme: theme)
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-        cell.areSeparatorsAlignedWithLabels = true
         cell.topSeparator.isHidden = indexPath.item == 0
         cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         cell.titleLabel.textColor = theme.colors.secondaryText
