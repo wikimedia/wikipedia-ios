@@ -292,6 +292,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
+
+    // MARK: Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        createNewReadingListButtonView.apply(theme: theme)
+    }
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
