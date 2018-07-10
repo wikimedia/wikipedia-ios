@@ -58,9 +58,7 @@ class AddArticlesToReadingListViewController: ViewController {
             return
         }
         addChildViewController(readingListsViewController)
-        readingListsViewController.view.frame = containerView.bounds
-        readingListsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.addSubview(readingListsViewController.view)
+        view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
         readingListsViewController.delegate = self
         apply(theme: theme)
