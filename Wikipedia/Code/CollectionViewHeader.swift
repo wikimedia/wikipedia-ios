@@ -5,7 +5,6 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         case explore
         case history
         case recentSearches
-        case readingLists
     }
     
     
@@ -16,7 +15,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     }
 
     private let titleLabel: UILabel = UILabel()
-    private let button: UIButton = UIButton(type: .system)
+    private let button: UIButton = UIButton()
     
     var title: String? {
         get {
@@ -42,19 +41,6 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         }
     }
 
-    public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
-        button.addTarget(target, action: action, for: controlEvents)
-    }
-
-    var horizontalAlignment: HorizontalAlignment {
-        switch style {
-        case .readingLists:
-            return .center
-        default:
-            return effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
-        }
-    }
-
     override func setup() {
         super.setup()
         addSubview(titleLabel)
@@ -63,28 +49,18 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        let titleTextStyle: DynamicTextStyle?
-        let buttonTextStyle: DynamicTextStyle?
+        let titleTextStyle: DynamicTextStyle
+        let buttonTextStyle: DynamicTextStyle = .subheadline
         switch style {
         case .explore:
             titleTextStyle = .heavyTitle1
-            buttonTextStyle = nil
         case .history:
             titleTextStyle = .subheadline
-            buttonTextStyle = nil
         case .recentSearches:
             titleTextStyle = .heavyHeadline
-            buttonTextStyle = nil
-        case .readingLists:
-            buttonTextStyle = .body
-            titleTextStyle = nil
         }
-        if let titleTextStyle = titleTextStyle {
-            titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
-        }
-        if let buttonTextStyle = buttonTextStyle {
-            button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
-        }
+        titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -95,8 +71,8 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         let size = super.sizeThatFits(size, apply: apply)
         let widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
-        let mainView = button.isHidden ? titleLabel : button
-        let frame = mainView.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), horizontalAlignment: horizontalAlignment, apply: apply)
+        let horizontalAlignment: HorizontalAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
+        let frame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), horizontalAlignment: horizontalAlignment, apply: apply)
         origin.y += frame.layoutHeight(with: layoutMargins.bottom)
         return CGSize(width: size.width, height: origin.y)
     }
@@ -109,7 +85,6 @@ extension CollectionViewHeader: Themeable {
         let backgroundColor: UIColor = style == .history ? theme.colors.baseBackground : theme.colors.paperBackground
         titleLabel.textColor = titleTextColor
         titleLabel.backgroundColor = backgroundColor
-        button.tintColor = theme.colors.link
         self.backgroundColor = backgroundColor
     }
 }
