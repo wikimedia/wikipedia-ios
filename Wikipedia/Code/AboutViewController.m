@@ -16,6 +16,7 @@ static NSString *const kWMFURLsWikimediaKey = @"wmf";
 static NSString *const kWMFURLsSpecialistGuildKey = @"tsg";
 static NSString *const kWMFURLsMITKey = @"mit";
 static NSString *const kWMFURLsShareAlikeKey = @"sharealike";
+static NSString *const kWMFURLsAppleMapsKey = @"applemaps";
 
 static NSString *const kWMFRepositoriesKey = @"repositories";
 
@@ -228,6 +229,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
     setDivHTML(@"repositories_subtitle", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-repositories-app-source-license", nil, nil, @"Source code available under the %1$@.", @"Text explaining the app source licensing. %1$@ is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsMITKey] title:WMFLocalizedStringWithDefaultValue(@"about-repositories-app-source-license-mit", nil, nil, @"MIT License", @"Name of the \"MIT\" license")]]);
 
     setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:WMFLocalizedStringWithDefaultValue(@"about-send-feedback", nil, nil, @"Send app feedback", @"Link text for sending app feedback")]);
+
+    setDivHTML(@"places_maps_license_title", WMFLocalizedStringWithDefaultValue(@"about-places-maps-license", nil, nil, @"Places maps license", @"Header text for maps license section"));
+    setDivHTML(@"places_maps_license_body", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-places-maps-license-details", nil, nil, @"Places uses maps provided by Apple Maps. %1$@.", @"Text explaining license of maps content. %1$@ is the message {{msg-wikimedia|about-places-maps-license-details-link-text}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsAppleMapsKey] title:WMFLocalizedStringWithDefaultValue(@"about-places-maps-license-details-link-text", nil, nil, @"Please see here for license details", @"Text used for link to maps license")]]);
+
     setDivHTML(@"license_title", WMFLocalizedStringWithDefaultValue(@"about-content-license", nil, nil, @"Content license", @"Header text for content license section"));
 
     setDivHTML(@"license_body", [NSString stringWithFormat:WMFLocalizedStringWithDefaultValue(@"about-content-license-details", nil, nil, @"Unless otherwise specified, content is available under a %1$@.", @"Text explaining license of app content. %1$@ is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}."), [[self class] linkHTMLForURLString:self.urls[kWMFURLsShareAlikeKey] title:WMFLocalizedStringWithDefaultValue(@"about-content-license-details-share-alike-license", nil, nil, @"Creative Commons Attribution-ShareAlike License", @"Name of the \"Creative Commons Attribution-ShareAlike\" license")]]);
