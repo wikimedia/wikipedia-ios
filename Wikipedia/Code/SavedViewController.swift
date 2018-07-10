@@ -155,7 +155,7 @@ class SavedViewController: ViewController {
     override func viewDidLoad() {
         navigationBar.addExtendedNavigationBarView(searchView)
         navigationBar.addUnderNavigationBarView(underBarView)
-        navigationBar.isBackVisible = false
+        navigationBar.displayType = .largeTitle
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = false
         navigationBar.isExtendedViewHidingEnabled = true

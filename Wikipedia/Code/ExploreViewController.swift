@@ -14,7 +14,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.isBackVisible = false
+        navigationBar.displayType = .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         isRefreshControlEnabled = true
         

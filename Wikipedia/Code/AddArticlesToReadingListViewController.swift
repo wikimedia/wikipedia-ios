@@ -21,6 +21,7 @@ class AddArticlesToReadingListViewController: ViewController {
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
+
     private var readingListsViewController: ReadingListsViewController?
     public weak var delegate: AddArticlesToReadingListDelegate?
     
@@ -52,7 +53,9 @@ class AddArticlesToReadingListViewController: ViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonPressed))
         let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
         navigationItem.title = String.localizedStringWithFormat(title, articles.count)
+        navigationBar.displayType = .modal
         navigationBar.isBarHidingEnabled = false
+
         readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         guard let readingListsViewController = readingListsViewController else {
             return

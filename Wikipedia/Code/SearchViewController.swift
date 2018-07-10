@@ -7,7 +7,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isBackVisible = false
+        navigationBar.displayType = .largeTitle
         title = CommonStrings.searchTitle
         if !areRecentSearchesEnabled {
             navigationItem.titleView = UIView()
