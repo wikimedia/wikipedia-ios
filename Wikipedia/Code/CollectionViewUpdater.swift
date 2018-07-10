@@ -59,6 +59,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
+        var objectsInSectionDelta = 0
         for sectionChange in sectionChanges {
             didOnlyChangeItems = false
             switch sectionChange.type {
@@ -66,6 +67,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 sectionDelta -= 1
             case .insert:
                 sectionDelta += 1
+                objectsInSectionDelta += sectionCounts[sectionChange.sectionIndex]
                 if sectionChange.sectionIndex == 0 {
                     didInsertFirstSection = true
                 }
@@ -107,7 +109,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         }
         columnarLayout.animateItems = true
         columnarLayout.slideInNewContentFromTheTop = true
-        UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(sectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+        UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(objectsInSectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
             self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
         }, completion: nil)
     }
