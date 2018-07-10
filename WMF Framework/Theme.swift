@@ -237,11 +237,11 @@ public class Theme: NSObject {
     }
 
     @objc public lazy var navigationBarBackgroundImage: UIImage = {
-        return #imageLiteral(resourceName: "transparent-pixel")
+        return UIImage.wmf_image(from: colors.paperBackground)
     }()
     
     @objc public lazy var navigationBarShadowImage: UIImage = {
-        return #imageLiteral(resourceName: "transparent-pixel")
+        return navigationBarBackgroundImage
     }()
     
     static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
