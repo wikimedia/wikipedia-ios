@@ -520,7 +520,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  CGFloat newOffsetY = matchScrollOffsetY + contentInsetTop - 0.5 * self.delegate.navigationBar.visibleHeight - 0.5 * keyboardBarOriginY + 0.5 * CGRectGetHeight(rect);
                                                  if (newOffsetY <= 0 - contentInsetTop) {
                                                      newOffsetY = 0 - contentInsetTop;
-                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 shadowAlpha:1 animated:YES];
                                                  }
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
@@ -768,7 +768,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
-    [self.delegate.navigationBar setPercentHidden:0 animated:animated];
+    [self.delegate.navigationBar setPercentHidden:0 shadowAlpha:1 animated:animated];
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
@@ -949,7 +949,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
             if (newOffsetY <= 0 - contentInsetTop) {
                 newOffsetY = 0 - contentInsetTop;
-                [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 shadowAlpha:1 animated:YES];
             }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);

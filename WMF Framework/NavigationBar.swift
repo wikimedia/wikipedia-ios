@@ -282,7 +282,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public var visibleHeight: CGFloat = 0
     
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
+    public var shadowAlpha: CGFloat {
+        get {
+            return shadow.alpha
+        }
+        set {
+            shadow.alpha =  min(backgroundAlpha, newValue)
+        }
+    }
+    
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)?) {
         layoutIfNeeded()
         if isBarHidingEnabled {
             _navigationBarPercentHidden = navigationBarPercentHidden
@@ -297,6 +306,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
+                if shadowAlpha >= 0  {
+                    self.shadowAlpha = shadowAlpha
+                }
                 self.layoutSubviews()
                 additionalAnimations?()
             }
@@ -367,27 +379,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.extendedView.transform = totalTransform
         self.extendedView.alpha = 1.0 - extendedViewPercentHidden
         
-        if isExtendedViewHidingEnabled && isUnderBarViewHidingEnabled {
-            self.shadow.alpha = min(backgroundAlpha, underBarViewPercentHidden)
-        } else if isExtendedViewHidingEnabled {
-            self.shadow.alpha = min(backgroundAlpha, extendedViewPercentHidden)
-        } else if isUnderBarViewHidingEnabled {
-            self.shadow.alpha = min(backgroundAlpha, underBarViewPercentHidden)
-        } else {
-            self.shadow.alpha = min(backgroundAlpha, 1.0)
-        }
-        
         self.progressView.transform = totalTransform
         self.shadow.transform = totalTransform
     }
 
 
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
-        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations: nil)
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
+        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, shadowAlpha: shadowAlpha, animated: animated, additionalAnimations: nil)
     }
     
-    @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
-        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, animated: animated)
+    @objc public func setPercentHidden(_ percentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
+        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, shadowAlpha: shadowAlpha, animated: animated)
     }
     
     @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
