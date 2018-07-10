@@ -53,16 +53,16 @@ public class NavigationBarHider: NSObject {
         let barHeight = navigationBar.bar.frame.size.height
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
         
+        if navigationBar.shouldTransformUnderBarViewWithBar {
+            navigationBar.shadowAlpha = (scrollY/(barHeight + underBarViewHeight)).wmf_normalizedPercentage
+        }
+        
         guard isUserScrolling || isScrollingToTop else {
-            if navigationBar.shouldTransformUnderBarViewWithBar {
-                navigationBar.shadowAlpha = (scrollY/(barHeight + underBarViewHeight)).wmf_normalizedPercentage
-            }
             return
         }
         
         let animated = false
         
-        var shadowAlpha: CGFloat = 1
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentExtendedViewPercentHidden = navigationBar.extendedViewPercentHidden
@@ -77,7 +77,19 @@ public class NavigationBarHider: NSObject {
         let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0
 
         if shouldHideUnderBarView {
-            underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
+            if navigationBar.shouldTransformUnderBarViewWithBar {
+                if !navigationBar.isBarHidingEnabled {
+                    underBarViewPercentHidden = 0
+                } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
+                    underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
+                } else if scrollY <= extendedViewHeight + barHeight + underBarViewHeight {
+                    underBarViewPercentHidden = min(initialNavigationBarPercentHidden, (scrollY/underBarViewHeight).wmf_normalizedPercentage)
+                } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
+                    underBarViewPercentHidden = ((scrollY - initialScrollY)/underBarViewHeight).wmf_normalizedPercentage
+                }
+            } else {
+                underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
+            }
         }
         
         if shouldHideUnderBarView && shouldHideExtendedView {
@@ -94,21 +106,16 @@ public class NavigationBarHider: NSObject {
             navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage)
         } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar {
-                navigationBarPercentHidden = ((scrollY - initialScrollY)/(barHeight + underBarViewHeight)).wmf_normalizedPercentage
-                underBarViewPercentHidden = navigationBarPercentHidden
+                navigationBarPercentHidden = ((scrollY - initialScrollY - underBarViewHeight)/barHeight).wmf_normalizedPercentage
             } else {
                 navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
             }
-        }
-        
-        if navigationBar.shouldTransformUnderBarViewWithBar {
-            shadowAlpha = (underBarViewPercentHidden + navigationBarPercentHidden)/2
         }
 
         guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden else {
             return
         }
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, shadowAlpha: shadowAlpha, animated: animated, additionalAnimations:{
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }
@@ -150,12 +157,12 @@ public class NavigationBarHider: NSObject {
 
         let animated = true
 
-        var extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
-        var underBarViewPercentHidden = navigationBar.underBarViewPercentHidden
+        let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
+        let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
-
+        var underBarViewPercentHidden: CGFloat = currentUnderBarViewPercentHidden
 
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
@@ -171,10 +178,9 @@ public class NavigationBarHider: NSObject {
 
         if navigationBar.shouldTransformUnderBarViewWithBar {
             underBarViewPercentHidden = navigationBarPercentHidden
-            extendedViewPercentHidden = navigationBarPercentHidden
         }
 
-        guard navigationBarPercentHidden != currentNavigationBarPercentHidden else {
+        guard navigationBarPercentHidden != currentNavigationBarPercentHidden || underBarViewPercentHidden != currentUnderBarViewPercentHidden else {
             return
         }
 
