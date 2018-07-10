@@ -406,7 +406,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         searchBar.apply(theme: theme)
-        searchBarContainerView.backgroundColor = theme.colors.paperBackground
+        searchBarContainerView.backgroundColor = theme.colors.chromeBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {

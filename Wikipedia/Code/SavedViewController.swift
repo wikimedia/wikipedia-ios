@@ -229,8 +229,8 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        underBarView.backgroundColor = theme.colors.paperBackground
-        searchView.backgroundColor = theme.colors.paperBackground
+        underBarView.backgroundColor = theme.colors.chromeBackground
+        searchView.backgroundColor = theme.colors.chromeBackground
         searchBar.apply(theme: theme)
         separatorView.backgroundColor = theme.colors.border
 

@@ -477,14 +477,14 @@ extension NavigationBar: Themeable {
 
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.paperBackground
-        backgroundView.backgroundColor = theme.colors.paperBackground
+        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
+        backgroundView.backgroundColor = theme.colors.chromeBackground
         
         titleBar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         titleBar.isTranslucent = false
         titleBar.tintColor = theme.colors.primaryText
         titleBar.setShadowImage(theme.navigationBarShadowImage, forToolbarPosition: .any)
-        titleBar.barTintColor = theme.colors.paperBackground
+        titleBar.barTintColor = theme.colors.chromeBackground
         if let items = titleBar.items {
             for item in items {
                 guard let label = item.customView as? UILabel else {
@@ -497,7 +497,7 @@ extension NavigationBar: Themeable {
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
-        bar.barTintColor = theme.colors.paperBackground
+        bar.barTintColor = theme.colors.chromeBackground
         bar.shadowImage = theme.navigationBarShadowImage
         bar.tintColor = theme.colors.primaryText
         
