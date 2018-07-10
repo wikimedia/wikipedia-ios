@@ -113,7 +113,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
             barButtonItem = item
         }
-        barButtonItem.tintColor = item.tintColor
         return barButtonItem
     }
     
@@ -479,10 +478,11 @@ extension NavigationBar: Themeable {
         titleBar.barTintColor = theme.colors.chromeBackground
         if let items = titleBar.items {
             for item in items {
-                guard let label = item.customView as? UILabel else {
-                    continue
+                if let label = item.customView as? UILabel {
+                    label.textColor = theme.colors.primaryText
+                } else if item.image == nil {
+                    item.tintColor = theme.colors.link
                 }
-                label.textColor = theme.colors.primaryText
             }
         }
 

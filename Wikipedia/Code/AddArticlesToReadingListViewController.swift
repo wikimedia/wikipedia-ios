@@ -55,6 +55,7 @@ class AddArticlesToReadingListViewController: ViewController {
         navigationItem.title = String.localizedStringWithFormat(title, articles.count)
         navigationBar.displayType = .modal
         navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
 
         readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         guard let readingListsViewController = readingListsViewController else {
@@ -62,7 +63,7 @@ class AddArticlesToReadingListViewController: ViewController {
         }
         readingListsViewController.apply(theme: theme)
         readingListsViewController.createNewReadingListButtonView.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
-        navigationBar.addExtendedNavigationBarView(readingListsViewController.createNewReadingListButtonView)
+        navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
         addChildViewController(readingListsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)

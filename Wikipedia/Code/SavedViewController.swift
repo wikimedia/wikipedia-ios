@@ -53,11 +53,9 @@ class SavedViewController: ViewController {
             switch extendedNavBarViewType {
             case .search:
                 navigationBar.addExtendedNavigationBarView(searchView)
-                navigationBar.isExtendedViewHidingEnabled = true
             case .createNewReadingList:
                 if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
                     navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
-                    navigationBar.isExtendedViewHidingEnabled = false
                     createNewReadingListButtonView.apply(theme: theme)
                 }
             default:

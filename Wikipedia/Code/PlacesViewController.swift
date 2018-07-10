@@ -120,8 +120,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.displayType = .largeTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterButtonPressed))
         navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
         
         filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
@@ -463,6 +464,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         let initialRegion = coordinates.wmf_boundingRegion(with: 50)
         return coordinates.wmf_boundingRegion(with: 0.25 * initialRegion.width)
+    }
+
+    // MARK: - Filtering
+
+    @objc private func filterButtonPressed() {
+
     }
     
     // MARK: - Searching
