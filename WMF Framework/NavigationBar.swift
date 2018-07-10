@@ -153,7 +153,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(extendedView)
         addSubview(underBarView)
         addSubview(bar)
-        titleBar.delegate = self
         addSubview(titleBar)
         addSubview(progressView)
         addSubview(statusBarUnderlay)
@@ -516,11 +515,5 @@ extension NavigationBar: UINavigationBarDelegate {
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         delegate?.navigationController?.popViewController(animated: true)
         return false
-    }
-}
-
-extension NavigationBar: UIToolbarDelegate {
-    public func position(for bar: UIBarPositioning) -> UIBarPosition {
-        return UIBarPosition.top
     }
 }
