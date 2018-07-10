@@ -38,12 +38,12 @@ class AddArticlesToReadingListViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func closeButtonPressed() {
+    @objc private func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
         delegate?.addArticlesToReadingList(self, willBeDismissed: true)
     }
     
-    @IBAction func addButtonPressed() {
+    @objc private func addButtonPressed() {
         readingListsViewController?.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
     }
     
