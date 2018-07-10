@@ -223,8 +223,7 @@ class SavedViewController: ViewController {
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
-        createNewReadingListButtonView.apply(theme: theme)
-        
+
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
             button.tintColor = theme.colors.link
