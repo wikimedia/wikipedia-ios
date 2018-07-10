@@ -501,8 +501,10 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     }
     
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
-        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
-        present(addToArticlesReadingListViewController, animated: true)
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 

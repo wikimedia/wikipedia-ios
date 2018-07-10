@@ -331,16 +331,21 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .remove:
             delete(entries)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
+            present(addArticlesToReadingListViewController, animated: true)
             return true
         default:
             assert(false, "Unhandled action type")
