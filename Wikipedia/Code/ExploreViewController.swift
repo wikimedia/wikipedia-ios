@@ -44,14 +44,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         stopMonitoringReachability()
     }
     
-    // MARK - ViewController
-    
-    override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
-        super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
-        longTitleButton.alpha = 1.0 - extendedViewPercentHidden
-        navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
-    }
-    
     // MARK - NavBar
     
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
