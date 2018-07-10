@@ -61,12 +61,6 @@ class SavedViewController: ViewController {
             }
         }
     }
-
-    private lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
-        let createNewReadingListButtonView = CreateNewReadingListButtonView()
-        createNewReadingListButtonView.button.addTarget(readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController), for: .touchUpInside)
-        return createNewReadingListButtonView
-    }()
     
     // MARK: - Initalization and setup
     
