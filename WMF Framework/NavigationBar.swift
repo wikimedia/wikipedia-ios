@@ -471,8 +471,8 @@ extension NavigationBar: Themeable {
 
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
-        backgroundView.backgroundColor = theme.colors.chromeBackground
+        statusBarUnderlay.backgroundColor = theme.colors.paperBackground
+        backgroundView.backgroundColor = theme.colors.paperBackground
         
         titleBar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         titleBar.isTranslucent = false
