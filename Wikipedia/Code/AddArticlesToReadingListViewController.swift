@@ -21,13 +21,7 @@ class AddArticlesToReadingListViewController: UIViewController {
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
-    
-    @IBOutlet weak var navigationBar: UINavigationBar?
-    @IBOutlet weak var addButton: UIBarButtonItem?
-    @IBOutlet weak var closeButton: UIBarButtonItem?
-    
     private var readingListsViewController: ReadingListsViewController?
-    @IBOutlet weak var containerView: UIView!
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     @objc var eventLogAction: (() -> Void)?
