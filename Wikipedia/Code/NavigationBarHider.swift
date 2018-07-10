@@ -72,7 +72,9 @@ public class NavigationBarHider: NSObject {
         let shouldHideUnderBarView = navigationBar.isUnderBarViewHidingEnabled && underBarViewHeight > 0
         let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0
 
-        if shouldHideUnderBarView {
+        if navigationBar.shouldTransformUnderBarViewWithBar && navigationBar.isBarHidingEnabled {
+            underBarViewPercentHidden = (scrollY/(barHeight + underBarViewHeight)).wmf_normalizedPercentage
+        } else if shouldHideUnderBarView {
             underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
         }
         
@@ -81,9 +83,11 @@ public class NavigationBarHider: NSObject {
         } else if shouldHideExtendedView {
             extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
         }
-        
+
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
+        } else if navigationBar.shouldTransformUnderBarViewWithBar {
+            navigationBarPercentHidden = underBarViewPercentHidden
         } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
             navigationBarPercentHidden = ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage
         } else if scrollY <= extendedViewHeight + barHeight + underBarViewHeight {
@@ -112,12 +116,20 @@ public class NavigationBarHider: NSObject {
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
         if targetOffsetY < extendedViewHeight + barHeight + underBarViewHeight {
-            if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight) { // both visible
-                targetContentOffset.pointee = CGPoint(x: 0, y: top)
-            } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * barHeight  { // only nav bar visible
-                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
-            } else if targetOffsetY < extendedViewHeight + barHeight {
-                targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+            if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
+                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight + barHeight) {
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top)
+                } else {
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                }
+            } else {
+                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight) { // both visible
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top)
+                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * barHeight  { // only nav bar visible
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
+                } else if targetOffsetY < extendedViewHeight + barHeight {
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                }
             }
             return
         }
@@ -130,12 +142,13 @@ public class NavigationBarHider: NSObject {
 
         let animated = true
 
-        let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
-        let underBarViewPercentHidden = navigationBar.underBarViewPercentHidden
+        var extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
+        var underBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
-        
+
+
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if velocity.y > 0 {
@@ -147,7 +160,12 @@ public class NavigationBarHider: NSObject {
         } else {
             navigationBarPercentHidden = 1
         }
-        
+
+        if navigationBar.shouldTransformUnderBarViewWithBar {
+            underBarViewPercentHidden = navigationBarPercentHidden
+            extendedViewPercentHidden = navigationBarPercentHidden
+        }
+
         guard navigationBarPercentHidden != currentNavigationBarPercentHidden else {
             return
         }
