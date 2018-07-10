@@ -345,7 +345,6 @@ extension ReadingListDetailViewController: ActionDelegate {
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
             present(navigationController, animated: true)
-            present(addArticlesToReadingListViewController, animated: true)
             return true
         default:
             assert(false, "Unhandled action type")
