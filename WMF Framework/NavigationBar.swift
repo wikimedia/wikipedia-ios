@@ -1,3 +1,8 @@
+public enum NavigationBarDisplayType {
+    case backVisible
+    case largeTitle
+    case modal
+}
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
@@ -26,20 +31,19 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             updateNavigationItems()
         }
     }
-    
-    public var isBackVisible: Bool = true {
+
+    public var displayType: NavigationBarDisplayType = .backVisible {
         didSet {
-            isUsingTitleBarInsteadOfNavigationBar = !isBackVisible
+            updateTitleBarConstraints()
             updateNavigationItems()
         }
     }
-    
+
     @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
-        if isBackVisible {
+        if displayType == .backVisible {
             if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
                 items.append(nc.viewControllers[index - 1].navigationItem)
-                
             } else {
                 items.append(UINavigationItem())
             }
@@ -49,12 +53,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             items.append(item)
         }
         
-        if isUsingTitleBarInsteadOfNavigationBar, let navigationItem = items.last {
+        if displayType == .largeTitle, let navigationItem = items.last {
             configureTitleBar(with: navigationItem)
-            apply(theme: theme)
         } else {
             bar.setItems(items, animated: false)
         }
+        apply(theme: theme)
     }
 
     private var cachedTitleViewItem: UIBarButtonItem?
@@ -315,13 +319,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    var isUsingTitleBarInsteadOfNavigationBar: Bool = false {
-        didSet {
-            updateTitleBarConstraints()
-        }
-    }
-    
     private func updateTitleBarConstraints() {
+        let isUsingTitleBarInsteadOfNavigationBar = displayType == .largeTitle
         underBarViewTopTitleBarBottomConstraint.isActive = isUsingTitleBarInsteadOfNavigationBar
         underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
         bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
@@ -336,7 +335,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let underBarViewPercentHidden = _underBarViewPercentHidden
         
         let underBarViewHeight = underBarView.frame.height
-        let barHeight = isUsingTitleBarInsteadOfNavigationBar ? titleBar.frame.height : bar.frame.height
+        let barHeight = displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
         let extendedViewHeight = extendedView.frame.height
 
         if shouldTransformUnderBarViewWithBar {
