@@ -71,9 +71,9 @@ public class CommonStrings: NSObject {
     @objc public static let deleteActionTitle = WMFLocalizedStringWithDefaultValue("article-delete", nil, nil, "Delete", "Title of the action that deletes the selected articles article.")
     
     @objc public static let removeActionTitle = WMFLocalizedStringWithDefaultValue("action-remove", nil, nil, "Remove", "Title of the action that removes the selection from the current context.")
-    
+
+    @objc public static let createNewListTitle = WMFLocalizedString("reading-list-create-new-list-title", value: "Create a new list", comment: "Title for the view in charge of creating a new reading list.")
     @objc public static let moveToReadingListActionTitle = WMFLocalizedString("action-move-to-reading-list", value: "Move to reading list", comment: "Title of the action that moves the selected articles to another reading list")
-    
     @objc public static let addToReadingListActionTitle = WMFLocalizedString("action-add-to-reading-list", value: "Add to reading list", comment: "Title of the action that adds a selected articles to a reading list")
     
     @objc public static let moveToActionTitle = WMFLocalizedString("action-move-to", value: "Move to…", comment: "Title of the action that moves the selection elsewhere.")

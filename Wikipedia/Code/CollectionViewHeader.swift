@@ -40,7 +40,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
             button.setTitle(newValue, for: .normal)
         }
     }
-    
+
     override func setup() {
         super.setup()
         addSubview(titleLabel)

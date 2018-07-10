@@ -16,7 +16,9 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.displayType = .largeTitle
+
         emptyViewType = .noHistory
         
         title = CommonStrings.historyTabTitle

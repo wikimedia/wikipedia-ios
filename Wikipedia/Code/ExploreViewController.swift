@@ -12,15 +12,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
-        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
-        navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.displayType = .largeTitle
+        navigationBar.shouldTransformUnderBarViewWithBar = true
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
     }
     
     public var wantsCustomSearchTransition: Bool {
-        return collectionView.wmf_isAtTop
+        return true
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -28,8 +30,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
        return ColumnarCollectionViewControllerLayoutCache()
     }()
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -46,7 +46,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
         super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
-        shortTitleButton.alpha = extendedViewPercentHidden
         longTitleButton.alpha = 1.0 - extendedViewPercentHidden
         navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
     }
@@ -70,21 +69,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return longTitleButton
     }()
     
-    lazy var shortTitleButton: UIButton = {
-        let shortTitleButton = UIButton(type: .custom)
-        shortTitleButton.adjustsImageWhenHighlighted = true
-        shortTitleButton.setImage(UIImage(named: "W"), for: .normal)
-        shortTitleButton.alpha = 0
-        shortTitleButton.sizeToFit()
-        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        return shortTitleButton
-    }()
-    
     lazy var titleView: UIView = {
         let titleView = UIView(frame: longTitleButton.bounds)
         titleView.addSubview(longTitleButton)
-        titleView.addSubview(shortTitleButton)
-        shortTitleButton.center = titleView.center
         return titleView
     }()
 
@@ -419,6 +406,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         searchBar.apply(theme: theme)
+        searchBarContainerView.backgroundColor = theme.colors.chromeBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
@@ -520,8 +508,10 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     }
     
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
-        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
-        present(addToArticlesReadingListViewController, animated: true)
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 

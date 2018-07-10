@@ -47,10 +47,10 @@
                         <outlet property="actionButton" destination="269-0y-zMz" id="afs-tZ-Hwi"/>
                         <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
-                        <outlet property="extendedNavBarView" destination="eby-nN-6Yg" id="VN4-EM-xv8"/>
                         <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
                         <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
+                        <outlet property="searchView" destination="eby-nN-6Yg" id="ImI-Ka-saE"/>
                         <outlet property="separatorView" destination="YHx-oI-zV4" id="I7m-6y-sIv"/>
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
                         <outletCollection property="toggleButtons" destination="Euv-Dh-yK7" collectionClass="NSMutableArray" id="D5f-8f-XtH"/>
@@ -108,7 +108,7 @@
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="anm-PF-eyE"/>
                 </view>
-                <view contentMode="scaleToFill" id="eby-nN-6Yg" userLabel="Extended Nav Bar View">
+                <view contentMode="scaleToFill" id="eby-nN-6Yg" userLabel="Search View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>

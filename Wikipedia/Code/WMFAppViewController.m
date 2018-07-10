@@ -307,7 +307,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-    self.exploreViewController.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
 }
 
 - (void)configurePlacesViewController {
@@ -1720,7 +1720,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
