@@ -94,7 +94,7 @@ class ColumnarCollectionViewLayoutSection {
     
     func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
         let column = columnForNextItem
-        if metrics.interItemSpacing > 0 && items.count >= columns.count {
+        if metrics.interItemSpacing > 0 {
             column.addSpace(metrics.interItemSpacing)
         }
         column.addItem(attributes)
