@@ -143,6 +143,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed))
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
@@ -361,6 +362,22 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 selectVisibleKeyToSelectIfNecessary()
             }
         }
+    }
+
+    // MARKL - Filtering
+
+    @objc private func filterButtonPressed() {
+        let alertController = UIAlertController(title: WMFLocalizedString("places-filter-articles-action-sheet-title", value: "Filter articles", comment: "Title for action sheet that allows users to filter Places articles"), message: nil, preferredStyle: .actionSheet)
+        let topReadArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-top-read-articles", value: "Top read articles", comment: "Title for action that allows users to filter top read articles"), style: .default) { (_) in
+            //
+        }
+        let savedArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles"), style: .default) { (_) in
+            //
+        }
+        alertController.addAction(topReadArticlesAction)
+        alertController.addAction(savedArticlesAction)
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        present(alertController, animated: true)
     }
     
     // MARK: - Keyboard
