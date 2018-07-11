@@ -76,9 +76,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="LJo-n3-DFe" kind="relationship" relationship="rootViewController" id="tV2-Xo-hpI"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,7 +94,7 @@
         <!--History View Controller-->
         <scene sceneID="qtm-Om-dtd">
             <objects>
-                <viewController id="w0S-8T-SRU" customClass="WMFHistoryViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="w0S-8T-SRU" customClass="WMFHistoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HIz-bn-JmJ"/>
                         <viewControllerLayoutGuide type="bottom" id="q1r-A1-8SG"/>
@@ -122,25 +119,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMb-0n-S8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1689" y="2656"/>
-        </scene>
-        <!--Explore View Controller-->
-        <scene sceneID="QWP-L4-TCq">
-            <objects>
-                <viewController id="LJo-n3-DFe" customClass="ExploreViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6UG-Sa-Op7"/>
-                        <viewControllerLayoutGuide type="bottom" id="VSn-Ag-kQN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="327-WV-rsQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Wi1-Nr-WVK"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rLC-zY-Hja" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="866" y="2904"/>
         </scene>
         <!--Search-->
         <scene sceneID="gV7-KK-Uby">
