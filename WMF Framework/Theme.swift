@@ -241,7 +241,7 @@ public class Theme: NSObject {
     }()
     
     @objc public lazy var navigationBarShadowImage: UIImage = {
-        return navigationBarBackgroundImage
+        return #imageLiteral(resourceName: "transparent-pixel")
     }()
     
     static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
