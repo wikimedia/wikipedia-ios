@@ -29,7 +29,6 @@ class SavedViewController: ViewController {
     @IBOutlet var readingListsButton: UIButton!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
 
@@ -155,6 +154,7 @@ class SavedViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = false
         navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = true
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
@@ -230,7 +230,6 @@ class SavedViewController: ViewController {
         underBarView.backgroundColor = theme.colors.chromeBackground
         searchView.backgroundColor = theme.colors.chromeBackground
         searchBar.apply(theme: theme)
-        separatorView.backgroundColor = theme.colors.border
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
