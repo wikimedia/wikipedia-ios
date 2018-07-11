@@ -343,7 +343,6 @@
 "places-filter-button-title" = "Title for button that allows users to filter places";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
-"places-filter-saved-articles-count" = "Describes how many saved articles are found in the saved articles filter - $1 is replaced with the number of articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
 "places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
 "places-filter-top-read-articles" = "Title for action that allows users to filter top read articles";

@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
     @IBOutlet weak var navigationBar: NavigationBar!
@@ -64,7 +64,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate let listTrackerContext: AnalyticsContext = "Places_list"
     fileprivate let searchTrackerContext: AnalyticsContext = "Places_search"
     fileprivate let imageController = ImageController.shared
-    fileprivate var searchFilterListController: PlaceSearchFilterListController!
 
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {
@@ -222,16 +221,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         apply(theme: theme)
         self.view.layoutIfNeeded()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier ?? "" {
-        case "filterListController":
-            searchFilterListController = segue.destination as! PlaceSearchFilterListController
-            searchFilterListController.delegate = self
-        default:
-            break
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -1112,6 +1101,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
     }
+
+    struct OldString {
+        static let noSavedPlaces = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
+        static let savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
+    }
     
     var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
         didSet {
@@ -1910,7 +1904,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .top:
             currentSearchScopeName = WMFLocalizedString("places-search-top-articles-that-match-scope", value: "Nearby", comment: "Title used in search description when searching an area for Top articles")
         case .saved:
-            currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
+            currentSearchScopeName = OldString.savedArticlesFilterLocalizedTitle
         }
 
         var currentSearchStringSuggestions = [PlaceSearch]()
@@ -2233,29 +2227,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
     }
-    
-    // MARK: - PlaceSearchFilterListDelegate
-    
-    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
-        switch (countForFilterType) {
-        case .top:
-            return displayCountForTopPlaces
-        case .saved:
-            do {
-                let moc = dataStore.viewContext
-                return try moc.count(for: placeSearchService.fetchRequestForSavedArticlesWithLocation)
-            } catch let error {
-                DDLogError("Error fetching saved article count: \(error)")
-                return 0
-                
-            }
-        }
-    }
-    
-    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController,
-                                          didSelectFilterType filterType: PlaceFilterType) {
-        currentSearchFilter = filterType
-    }
 }
 
 extension PlacesViewController {
@@ -2510,7 +2481,6 @@ extension PlacesViewController: Themeable {
         searchBar.apply(theme: theme)
         searchBar.backgroundColor = theme.colors.chromeBackground
         
-        searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
