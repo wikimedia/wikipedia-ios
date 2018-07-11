@@ -294,7 +294,6 @@
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-zero-faq" = "Button text for showing the Wikipedia Zero Frequently Asked Questions (FAQ) document";
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
-"menu-trash-accessibility-label" = "Accessible label for trash button\n{{Identical|Delete}}";
 "more-languages-tooltip-description" = "Description for tooltip explaining the 'More' button may be tapped to add more languages.";
 "more-languages-tooltip-title" = "Title for tooltip explaining the 'More' button may be tapped to add more languages.";
 "move-articles-to-reading-list" = "Title for the view in charge of moving articles to a reading list - $1 is replaced with the number of articles to move";
@@ -463,6 +462,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Message of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaces with the appropriate plural for the number of articles being unsaved.";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Title of the alert action that unsaves a selected article and removes it from all associated reading lists. $1 will be replaced with the appropriate plural for the number of articles to be unsaved.";
 "search-button-accessibility-label" = "Accessibility label for a button that opens a search box to search Wikipedia.";
+"search-clear-title" = "Text of the button shown to clear recent search terms";
 "search-did-you-mean" = "Button text for searching for an alternate spelling of the search term. Parameters:\n* $1 - alternate spelling of the search term the user entered - ie if user types 'thunk' the API can suggest the alternate term 'think'";
 "search-field-placeholder-text" = "Search field placeholder text";
 "search-reading-list-placeholder-text" = "Placeholder text for the search bar in reading list detail view.";

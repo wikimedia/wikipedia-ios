@@ -62,7 +62,7 @@
 "alert-no-internet" = "There's no internet connection";
 "announcements-dismiss" = "Dismiss";
 "app-store-keywords" = "Wikipedia, reference, wiki, encyclopedia, info, knowledge, research, information, explore, learn";
-"app-store-release-notes" = "Saved articles can now be organized into reading lists and synced across devices.";
+"app-store-release-notes" = "Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.";
 "app-store-short-description" = "Download the Wikipedia app to explore places near you, sync articles to read offline and customize your reading experience.";
 "app-store-subtitle" = "The free encyclopedia";
 "appearance-settings-adjust-text-sizing" = "Adjust article text sizing";
@@ -294,7 +294,6 @@
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Cancel";
-"menu-trash-accessibility-label" = "Delete";
 "more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
 "more-languages-tooltip-title" = "Add languages";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
@@ -463,6 +462,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Unsaving {{PLURAL:$1|this article will remove it|these articles will remove them}} from all associated reading lists";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Unsave {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Search Wikipedia";
+"search-clear-title" = "Clear";
 "search-did-you-mean" = "Did you mean $1?";
 "search-field-placeholder-text" = "Search Wikipedia";
 "search-reading-list-placeholder-text" = "Search reading list";
