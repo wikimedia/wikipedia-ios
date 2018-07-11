@@ -18,7 +18,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.collectionView = collectionView
         super.init()
         self.fetchedResultsController.delegate = self
-        self.collectionView.reloadData()
     }
     
     deinit {
