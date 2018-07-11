@@ -123,7 +123,7 @@
         <!--Search-->
         <scene sceneID="gV7-KK-Uby">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="esE-6g-4JG" customClass="ArticleNavigationController" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="esE-6g-4JG" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="tDq-Gw-6Za"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
