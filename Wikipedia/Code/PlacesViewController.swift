@@ -124,6 +124,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = false
         return searchBar
     }()
 
