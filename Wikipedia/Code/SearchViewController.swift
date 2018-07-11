@@ -59,7 +59,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     var siteURL: URL? {
-        return searchLanguageBarViewController.currentlySelectedSearchLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        return searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
     @objc func search() {
@@ -151,13 +151,29 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
     
+    private func setupLanguageBarViewController() -> SearchLanguagesBarViewController {
+        if let vc = self.searchLanguageBarViewController {
+            return vc
+        }
+        let searchLanguageBarViewController = SearchLanguagesBarViewController()
+        searchLanguageBarViewController.apply(theme: theme)
+        self.searchLanguageBarViewController = searchLanguageBarViewController
+        return searchLanguageBarViewController
+    }
+    
     private func updateLanguageBarVisibility() {
         if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
+            let searchLanguageBarViewController = setupLanguageBarViewController()
+            addChildViewController(searchLanguageBarViewController)
+            searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
+            searchLanguageBarViewController.didMove(toParentViewController: self)
             searchLanguageBarViewController.view.isHidden = false
         } else {
+            searchLanguageBarViewController?.willMove(toParentViewController: nil)
             navigationBar.removeExtendedNavigationBarView()
-            searchLanguageBarViewController.view.isHidden = true
+            searchLanguageBarViewController?.removeFromParentViewController()
+            searchLanguageBarViewController = nil
         }
     }
 
@@ -204,15 +220,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return searchBar
     }()
     
-    lazy var searchLanguageBarViewController: SearchLanguagesBarViewController = {
-        let searchLanguageBarViewController = SearchLanguagesBarViewController()
-        searchLanguageBarViewController.apply(theme: theme)
-        addChildViewController(searchLanguageBarViewController)
-        searchLanguageBarViewController.view.isHidden = true
-        view.addSubview(searchLanguageBarViewController.view)
-        searchLanguageBarViewController.didMove(toParentViewController: self)
-        return searchLanguageBarViewController
-    }()
+    var searchLanguageBarViewController: SearchLanguagesBarViewController?
     
     func setSearchVisible(_ visible: Bool, animated: Bool) {
         let completion = { (finished: Bool) in
@@ -325,7 +333,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         searchBar.apply(theme: theme)
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
-        searchLanguageBarViewController.apply(theme: theme)
+        searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
