@@ -369,10 +369,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @objc private func filterButtonPressed() {
         let alertController = UIAlertController(title: WMFLocalizedString("places-filter-articles-action-sheet-title", value: "Filter articles", comment: "Title for action sheet that allows users to filter Places articles"), message: nil, preferredStyle: .actionSheet)
         let topReadArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-top-read-articles", value: "Top read articles", comment: "Title for action that allows users to filter top read articles"), style: .default) { (_) in
-            //
+            self.currentSearchFilter = .top
         }
         let savedArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles"), style: .default) { (_) in
-            //
+            self.currentSearchFilter = .saved
         }
         alertController.addAction(topReadArticlesAction)
         alertController.addAction(savedArticlesAction)
