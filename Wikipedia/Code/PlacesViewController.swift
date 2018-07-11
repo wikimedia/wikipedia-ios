@@ -2499,7 +2499,7 @@ extension PlacesViewController: Themeable {
         
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.tintColor = theme.colors.secondaryText
+        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
         
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
         
