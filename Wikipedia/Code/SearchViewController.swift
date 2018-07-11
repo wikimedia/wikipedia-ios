@@ -13,7 +13,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationItem.titleView = UIView()
         }
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        updateLanguageBarVisibility()
         navigationBar.isInteractiveHidingEnabled  = false
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
@@ -24,6 +23,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var isAnimatingSearchBarState: Bool = false
  
     override func viewWillAppear(_ animated: Bool) {
+        updateLanguageBarVisibility()
         super.viewWillAppear(animated)
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
@@ -162,14 +162,15 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     private func updateLanguageBarVisibility() {
-        if UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar() { // check this before accessing the view
+        let showLanguageBar = UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
+        if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChildViewController(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
             searchLanguageBarViewController.didMove(toParentViewController: self)
             searchLanguageBarViewController.view.isHidden = false
-        } else {
+        } else if !showLanguageBar && searchLanguageBarViewController != nil {
             searchLanguageBarViewController?.willMove(toParentViewController: nil)
             navigationBar.removeExtendedNavigationBarView()
             searchLanguageBarViewController?.removeFromParentViewController()
@@ -337,7 +338,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.apply(theme: theme)
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
-        updateLanguageBarVisibility()
     }
     
     // Recent
