@@ -44,9 +44,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             scrollView?.contentInsetAdjustmentBehavior = .never
         }
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
-            if let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
-                self?.keyboardFrame = self?.view.convert(endFrame, from: self?.view.window)
+            if let window = self?.view.window, let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+                let windowFrame = window.convert(endFrame, from: nil)
+                self?.keyboardFrame = window.convert(windowFrame, to: self?.view)
             }
+            self?.updateScrollViewInsets()
+        })
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardDidHide, object: nil, queue: nil, using: { [weak self] notification in
+            self?.keyboardFrame = nil
             self?.updateScrollViewInsets()
         })
     }
@@ -155,8 +160,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         
         var bottom = safeInsets.bottom
         if let keyboardFrame = keyboardFrame {
-            let keyboardHeight = view.bounds.height - keyboardFrame.minY
-            bottom = max(bottom, keyboardHeight)
+            let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
+            let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
+            bottom = max(bottom, keyboardIntersection.height)
         }
         
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
