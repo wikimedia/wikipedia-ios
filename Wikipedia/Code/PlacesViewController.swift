@@ -1044,6 +1044,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
+                mapListToggle.isHidden = true
             case .list:
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
