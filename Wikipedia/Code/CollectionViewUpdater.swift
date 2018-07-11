@@ -19,7 +19,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         super.init()
         self.fetchedResultsController.delegate = self
         self.collectionView.reloadData()
-        self.updateSectionCounts()
     }
     
     deinit {
@@ -27,6 +26,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.updateSectionCounts()
         sectionChanges = []
         objectChanges = []
     }
