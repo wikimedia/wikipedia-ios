@@ -12,7 +12,7 @@
         <!--Rotation Respecting Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">
             <objects>
-                <tabBarController id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="l4Z-Yh-AWy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -126,7 +126,9 @@
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="esE-6g-4JG" customClass="ArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="tDq-Gw-6Za"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TdY-99-vmM">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="TdY-99-vmM">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
