@@ -18,8 +18,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.collectionView = collectionView
         super.init()
         self.fetchedResultsController.delegate = self
-        self.collectionView.reloadData()
-        self.updateSectionCounts()
     }
     
     deinit {
@@ -27,6 +25,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        previousSectionCounts = fetchSectionCounts()
         sectionChanges = []
         objectChanges = []
     }
@@ -46,16 +45,15 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         sectionChanges.append(sectionChange)
     }
     
+    private var previousSectionCounts: [Int] = []
     private var sectionCounts: [Int] = []
-    private func updateSectionCounts() {
+    private func fetchSectionCounts() -> [Int] {
         let sections = fetchedResultsController.sections ?? []
-        sectionCounts = sections.map { $0.numberOfObjects }
+        return sections.map { $0.numberOfObjects }
     }
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        let previousSectionCounts = self.sectionCounts
-        updateSectionCounts()
-        let sectionCounts = self.sectionCounts
+       sectionCounts = fetchSectionCounts()
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
@@ -84,12 +82,12 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         }
         
         guard isSlidingNewContentInFromTheTopEnabled else {
-            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            performBatchUpdates()
             return
         }
 
         guard let columnarLayout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout else {
-            performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            performBatchUpdates()
             return
         }
         
@@ -98,44 +96,44 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 columnarLayout.animateItems = true
                 columnarLayout.slideInNewContentFromTheTop = false
                 UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+                    self.performBatchUpdates()
                 }, completion: nil)
             } else {
                 columnarLayout.animateItems = false
                 columnarLayout.slideInNewContentFromTheTop = false
-                performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+                performBatchUpdates()
             }
             return
         }
         columnarLayout.animateItems = true
         columnarLayout.slideInNewContentFromTheTop = true
         UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(objectsInSectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-            self.performBatchUpdates(sectionCounts: sectionCounts, previousSectionCounts: previousSectionCounts)
+            self.performBatchUpdates()
         }, completion: nil)
     }
     
-    func performBatchUpdates(sectionCounts: [Int], previousSectionCounts: [Int]) {
+    func performBatchUpdates() {
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
-            DDLogDebug("=== WMFBU BATCH UPDATE START ===")
-            let insertedSections = NSMutableIndexSet()
-            let deletedSections = NSMutableIndexSet()
-            let updatedSections = NSMutableIndexSet()
+            DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
+            var insertedSections = Set<Int>()
+            var deletedSections = Set<Int>()
+            var updatedSections = Set<Int>()
             
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
                     DDLogDebug("WMFBU section delete: \(sectionChange.sectionIndex)")
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
-                    deletedSections.add(sectionChange.sectionIndex)
+                    deletedSections.insert(sectionChange.sectionIndex)
                 case .insert:
                     DDLogDebug("WMFBU section insert: \(sectionChange.sectionIndex)")
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
-                    insertedSections.add(sectionChange.sectionIndex)
+                    insertedSections.insert(sectionChange.sectionIndex)
                 default:
                     DDLogDebug("WMFBU section update: \(sectionChange.sectionIndex)")
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
-                    updatedSections.add(sectionChange.sectionIndex)
+                    updatedSections.insert(sectionChange.sectionIndex)
                 }
             }
             for objectChange in objectChanges {
