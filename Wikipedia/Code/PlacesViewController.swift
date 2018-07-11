@@ -2024,7 +2024,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
-    @IBAction func closeSearch(_ sender: Any) {
+    private func closeSearch() {
         searchBar.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
@@ -2034,9 +2034,9 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
         viewMode = .search
         deselectAllAnnotations()
-        searchBar.setShowsCancelButton(true, animated: true)
         
         // Only update suggestion on *begin* editing if there is no text
         // Otherwise, it just clears perfectly good results
@@ -2052,7 +2052,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+        searchBar.showsCancelButton = false
+        closeSearch()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -2464,7 +2465,7 @@ extension PlacesViewController {
     override func accessibilityPerformEscape() -> Bool {
         switch viewMode {
         case .search:
-            closeSearch(self)
+            closeSearch()
             return true
         default:
             if selectedArticlePopover != nil {
