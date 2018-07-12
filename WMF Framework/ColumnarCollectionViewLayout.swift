@@ -187,7 +187,6 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     var appearingIndexPaths: Set<IndexPath> = []
     var disappearingIndexPaths: Set<IndexPath> = []
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
-        super.prepare(forCollectionViewUpdates: updateItems)
         defer {
             super.prepare(forCollectionViewUpdates: updateItems)
         }
