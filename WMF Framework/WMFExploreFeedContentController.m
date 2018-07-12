@@ -319,6 +319,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             if (self.exploreFeedPreferences == newExploreFeedPreferences) {
                 return;
             }
+            if (!newExploreFeedPreferences) { // don't notify on reset
+                return;
+            }
             self.exploreFeedPreferences = newExploreFeedPreferences;
             [NSNotificationCenter.defaultCenter postNotificationName:WMFExploreFeedPreferencesDidSaveNotification object:self.exploreFeedPreferences];
         }
