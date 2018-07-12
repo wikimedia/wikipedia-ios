@@ -145,6 +145,9 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
+        guard context.invalidateEverything || context.invalidateDataSourceCounts else {
+            return
+        }
         isLayoutValid = false
     }
     
