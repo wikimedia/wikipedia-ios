@@ -188,6 +188,9 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     var disappearingIndexPaths: Set<IndexPath> = []
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
+        defer {
+            super.prepare(forCollectionViewUpdates: updateItems)
+        }
         guard animateItems,
             let info = info else {
             appearingIndexPaths.removeAll(keepingCapacity: true)
