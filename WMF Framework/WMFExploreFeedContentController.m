@@ -562,7 +562,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 continue;
             }
             if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-                contentGroup.isVisible = YES;
+                contentGroup.isVisible = !contentGroup.wasDismissed;
             } else {
                 contentGroup.isVisible = NO;
             }
