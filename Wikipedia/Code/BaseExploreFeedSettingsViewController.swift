@@ -78,8 +78,8 @@ class ExploreFeedSettingsMaster: ExploreFeedSettingsItem {
             title = contentGroupKind.masterSwitchTitle
             isOn = contentGroupKind.isInFeed
         } else {
-            title = WMFLocalizedString("explore-feed-preferences-turn-off-feed", value: "Turn off Explore tab", comment: "Text for the setting that allows users to turn off Explore tab")
-            isOn = UserDefaults.wmf_userDefaults().defaultTabType != .explore
+            title = WMFLocalizedString("explore-feed-preferences-explore-tab", value: "Explore tab", comment: "Text for the setting that allows users to toggle whether the Explore tab is enabled or not")
+            isOn = UserDefaults.wmf_userDefaults().defaultTabType == .explore
         }
     }
 
@@ -87,7 +87,7 @@ class ExploreFeedSettingsMaster: ExploreFeedSettingsItem {
         if case let .singleFeedCard(contentGroupKind) = type {
             isOn = contentGroupKind.isInFeed
         } else {
-            isOn = UserDefaults.wmf_userDefaults().defaultTabType != .explore
+            isOn = UserDefaults.wmf_userDefaults().defaultTabType == .explore
         }
     }
 }
