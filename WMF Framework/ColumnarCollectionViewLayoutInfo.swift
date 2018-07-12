@@ -14,7 +14,7 @@ public class ColumnarCollectionViewLayoutInfo {
         guard let dataSource = collectionView.dataSource else {
             return
         }
-        guard let countOfSections = dataSource.numberOfSections?(in: collectionView) else {
+        guard let countOfSections = dataSource.numberOfSections?(in: collectionView), countOfSections > 0 else {
             return
         }
         sections.reserveCapacity(countOfSections)
@@ -67,7 +67,7 @@ public class ColumnarCollectionViewLayoutInfo {
         
         let indexPath = originalAttributes.indexPath
         let sectionIndex = indexPath.section
-        guard sectionIndex < sections.count else {
+        guard sections.indices.contains(sectionIndex) else {
             assert(false)
             return
         }
@@ -105,29 +105,29 @@ public class ColumnarCollectionViewLayoutInfo {
     }
     
     func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section < sections.count else {
+        guard sections.indices.contains(indexPath.section) else {
             return nil
         }
         let section = sections[indexPath.section]
-        guard indexPath.item < section.items.count else {
+        guard section.items.indices.contains(indexPath.item) else {
             return nil
         }
         return section.items[indexPath.item]
     }
     
     public func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section < sections.count else {
+        guard sections.indices.contains(indexPath.section) else {
             return nil
         }
         let section = sections[indexPath.section]
         switch elementKind {
         case UICollectionElementKindSectionHeader:
-            guard indexPath.item < section.headers.count else {
+            guard section.headers.indices.contains(indexPath.item) else {
                 return nil
             }
             return section.headers[indexPath.item]
         case UICollectionElementKindSectionFooter:
-            guard indexPath.item < section.footers.count else {
+            guard section.footers.indices.contains(indexPath.item) else {
                 return nil
             }
             return section.footers[indexPath.item]
