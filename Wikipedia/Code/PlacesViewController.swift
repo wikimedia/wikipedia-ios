@@ -1037,14 +1037,18 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 return
             }
             if oldValue == .search && viewMode != .search {
-                UIView.performWithoutAnimation {
-                    mapListToggle.isHidden = false
-                    searchBar.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    self.mapListToggle.alpha = 1
+                    self.mapListToggle.isHidden = false
+                    self.searchBarStackView.layoutIfNeeded()
+                    self.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
-                UIView.performWithoutAnimation {
-                    mapListToggle.isHidden = true
-                    searchBar.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    self.mapListToggle.isHidden = true
+                    self.mapListToggle.alpha = 0
+                    self.searchBarStackView.layoutIfNeeded()
+                    self.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
             switch traitBasedViewMode {
@@ -2060,7 +2064,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - UISearchBarDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
         viewMode = .search
         deselectAllAnnotations()
         
@@ -2078,7 +2081,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
         closeSearch()
     }
     
