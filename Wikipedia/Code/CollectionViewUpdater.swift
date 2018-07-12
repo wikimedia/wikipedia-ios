@@ -162,19 +162,16 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         collectionView.insertItems(at: [toIndexPath])
                     }
                 case .move:
-                    DDLogDebug("WMFBU object move (fallthrough)")
-                    fallthrough
+                    DDLogDebug("WMFBU object move")
+                    if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath {
+                        collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
+                    } else {
+                        assert(false, "unhandled move")
+                        DDLogError("Unhandled move: \(objectChange)")
+                    }
+                    break
                 default:
-                    if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath, toIndexPath != fromIndexPath {
-                        DDLogDebug("WMFBU object move: \(fromIndexPath) \(toIndexPath)")
-                        if deletedSections.contains(fromIndexPath.section) {
-                            DDLogDebug("WMFBU inserting: \(toIndexPath)")
-                            collectionView.insertItems(at: [toIndexPath])
-                        } else {
-                            DDLogDebug("WMFBU moving: \(fromIndexPath) \(toIndexPath)")
-                            collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
-                        }
-                    } else if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
+                    if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
                         DDLogDebug("WMFBU object update: \(updatedIndexPath)")
                         if insertedSections.contains(updatedIndexPath.section) {
                             DDLogDebug("WMFBU inserting: \(updatedIndexPath)")
@@ -184,6 +181,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                             collectionView.reloadItems(at: [updatedIndexPath])
                         }
                     } else {
+                        assert(false, "unhandled update")
                         DDLogDebug("WMFBU unhandled update: \(objectChange)")
                     }
                 }
