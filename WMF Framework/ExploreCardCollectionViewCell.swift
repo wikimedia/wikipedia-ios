@@ -23,6 +23,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     static let overflowImage = UIImage(named: "overflow")
     
+    public var singlePixelDimension: CGFloat = 0.5
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+    }
+    
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
@@ -38,6 +44,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         customizationButton.titleLabel?.textAlignment = .center
         customizationButton.isOpaque = true
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
+        cardBackgroundView.layer.borderWidth = singlePixelDimension
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
         cardBackgroundView.layer.shadowRadius = cardShadowRadius
@@ -149,7 +156,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
             if apply {
                 view?.frame = cardContentViewFrame
-                cardBackgroundView.frame = cardContentViewFrame
+                cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         }
@@ -185,6 +192,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     public func apply(theme: Theme) {
         contentView.tintColor = theme.colors.link
+        cardBackgroundView.layer.borderColor = theme.colors.cardBorder.cgColor
         setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
