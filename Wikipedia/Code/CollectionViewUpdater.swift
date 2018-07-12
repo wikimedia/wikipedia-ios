@@ -155,11 +155,17 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                             DDLogDebug("WMFBU object delete: \(fromIndexPath)")
                             collectionView.deleteItems(at: [fromIndexPath])
                         }
+                    } else {
+                        assert(false, "unhandled delete")
+                        DDLogError("Unhandled delete: \(objectChange)")
                     }
                 case .insert:
                     if let toIndexPath = objectChange.toIndexPath {
                         DDLogDebug("WMFBU object insert: \(toIndexPath)")
                         collectionView.insertItems(at: [toIndexPath])
+                    } else {
+                        assert(false, "unhandled insert")
+                        DDLogError("Unhandled insert: \(objectChange)")
                     }
                 case .move:
                     DDLogDebug("WMFBU object move")
