@@ -18,22 +18,6 @@
 			<string>%1$d ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ</string>
 		</dict>
 	</dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>រកឃើញ%1$d ១កន្លែង</string>
-			<key>other</key>
-			<string>រកឃើញ%1$d កន្លែង</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
