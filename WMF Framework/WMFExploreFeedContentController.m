@@ -386,11 +386,37 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return [NSSet setWithArray:[MWKLanguageLinkController sharedInstance].preferredSiteURLs];
 }
 
+- (void)resetExploreFeedPreferences {
+    WMFAssertMainThread(@"resetExploreFeedPreferencesInManagedObjectContext: must be called on the main thread");
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+            [moc performBlock:^{
+                [moc wmf_setValue:nil forKey:WMFExploreFeedPreferencesKey];
+                [self save:moc];
+                [NSUserDefaults wmf_userDefaults].defaultTabType = WMFAppDefaultTabTypeExplore;
+                [self createDefaultExploreFeedPreferencesInManagedObjectContext:moc];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [op finish];
+                });
+            }];
+        });
+    }];
+    [self.operationQueue addOperation:op];
+}
+
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
-    if (keyValue) {
+    if (keyValue && keyValue.value) {
         return (NSMutableDictionary *)keyValue.value;
     }
+    [self createDefaultExploreFeedPreferencesInManagedObjectContext:moc];
+    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+    assert(preferences);
+    return preferences;
+}
+
+- (void)createDefaultExploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {
         [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
@@ -398,9 +424,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [newPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
-    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
-    assert(preferences);
-    return preferences;
 }
 
 - (NSDictionary<NSNumber*, NSNumber*> *)defaultGlobalCardsPreferences {
