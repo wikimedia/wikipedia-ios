@@ -50,12 +50,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         super.viewDidLoad()
         collectionView.isScrollEnabled = false
         layoutManager.register(AnnouncementCollectionViewCell.self, forCellWithReuseIdentifier: AnnouncementCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(RankedArticleCollectionViewCell.self, forCellWithReuseIdentifier: RankedArticleCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ArticleFullWidthImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleFullWidthImageCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleRightAlignedImageExploreCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageExploreCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(RankedArticleExploreCollectionViewCell.self, forCellWithReuseIdentifier: RankedArticleExploreCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleFullWidthImageExploreCollectionViewCell.self, forCellWithReuseIdentifier: ArticleFullWidthImageExploreCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(NewsExploreCollectionViewCell.self, forCellWithReuseIdentifier: NewsExploreCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(OnThisDayExploreCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayExploreCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleLocationExploreCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationExploreCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleLocationAuthorizationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationAuthorizationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
@@ -143,9 +143,9 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     private func resuseIdentifierFor(_ displayType: WMFFeedDisplayType) -> String {
         switch displayType {
         case .ranked:
-            return RankedArticleCollectionViewCell.identifier
+            return RankedArticleExploreCollectionViewCell.identifier
         case .story:
-            return NewsCollectionViewCell.identifier
+            return NewsExploreCollectionViewCell.identifier
         case .event:
             return OnThisDayExploreCollectionViewCell.identifier
         case .continueReading:
@@ -155,15 +155,15 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         case .random:
             fallthrough
         case .pageWithPreview:
-            return ArticleFullWidthImageCollectionViewCell.identifier
+            return ArticleFullWidthImageExploreCollectionViewCell.identifier
         case .photo:
             return ImageCollectionViewCell.identifier
         case .pageWithLocation:
-            return ArticleLocationCollectionViewCell.identifier
+            return ArticleLocationExploreCollectionViewCell.identifier
         case .pageWithLocationPlaceholder:
             return ArticleLocationAuthorizationCollectionViewCell.identifier
         case .page, .relatedPages, .mainPage, .compactList:
-            return ArticleRightAlignedImageCollectionViewCell.identifier
+            return ArticleRightAlignedImageExploreCollectionViewCell.identifier
         case .announcement, .notification, .theme, .readingList:
             return AnnouncementCollectionViewCell.identifier
         }
@@ -192,7 +192,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     private func configureLocationCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
-        guard let cell = cell as? ArticleLocationCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
+        guard let cell = cell as? ArticleLocationExploreCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
@@ -217,7 +217,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     private func configureNewsCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
-        guard let cell = cell as? NewsCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
+        guard let cell = cell as? NewsExploreCollectionViewCell, let story = contentGroup?.contentPreview as? WMFFeedNewsStory else {
             return
         }
         cell.configure(with: story, dataStore: dataStore, showArticles: false, theme: theme, layoutOnly: layoutOnly)
@@ -325,7 +325,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
         }
-        if cell is ArticleLocationCollectionViewCell {
+        if cell is ArticleLocationExploreCollectionViewCell {
             visibleLocationCellCount += 1
             if WMFLocationManager.isAuthorized() {
                 locationManager.startMonitoringLocation()
@@ -337,7 +337,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
-        if cell is ArticleLocationCollectionViewCell {
+        if cell is ArticleLocationExploreCollectionViewCell {
             visibleLocationCellCount -= 1
             if visibleLocationCellCount == 0 {
                 locationManager.stopMonitoringLocation()
@@ -617,7 +617,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
         let userLocation = locationManager.location
         let heading = locationManager.heading
         for cell in collectionView.visibleCells {
-            guard let cell = cell as? ArticleLocationCollectionViewCell else {
+            guard let cell = cell as? ArticleLocationExploreCollectionViewCell else {
                 return
             }
             cell.update(userLocation: userLocation, heading: heading)
@@ -644,8 +644,8 @@ extension ExploreCardViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        collectionView.backgroundColor = theme.colors.paperBackground
-        view.backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.midBackground
+        view.backgroundColor = theme.colors.midBackground
     }
 }
 

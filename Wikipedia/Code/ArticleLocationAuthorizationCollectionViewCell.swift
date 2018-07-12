@@ -4,7 +4,7 @@ protocol ArticleLocationAuthorizationCollectionViewCellDelegate: class {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell)
 }
 
-class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationCollectionViewCell {
+class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreCollectionViewCell {
     let authorizeTitleLabel: UILabel = UILabel()
     let authorizeButton: UIButton = UIButton()
     let authorizeDescriptionLabel: UILabel = UILabel()
