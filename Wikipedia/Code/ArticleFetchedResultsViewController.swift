@@ -98,12 +98,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching articles for \(self): \(error)")
-        }
-        collectionView.reloadData()
+        collectionViewUpdater.performFetch()
         super.viewWillHaveFirstAppearance(animated)
     }
     

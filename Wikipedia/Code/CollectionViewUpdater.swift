@@ -24,6 +24,15 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.fetchedResultsController.delegate = nil
     }
     
+    public func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            DDLogError("Error fetching \(String(describing: fetchedResultsController.fetchRequest.predicate)) for \(String(describing: self.delegate)): \(error)")
+        }
+        collectionView.reloadData()
+    }
+    
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         previousSectionCounts = fetchSectionCounts()
         sectionChanges = []
