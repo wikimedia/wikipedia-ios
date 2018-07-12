@@ -269,7 +269,7 @@ extension ExploreFeedSettingsViewController {
             let feedCardSettingsViewController = FeedCardSettingsViewController()
             feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
             navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
-        } else if item.disclosureType == .titleButton {
+        } else if item is ResetExploreFeedPreferencesButton {
             feedContentController?.resetExploreFeedPreferences()
         }
         self.tableView.deselectRow(at: indexPath, animated: true)
