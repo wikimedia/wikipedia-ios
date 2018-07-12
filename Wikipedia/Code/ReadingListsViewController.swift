@@ -117,12 +117,16 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             self.endRefreshing()
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
+ 
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
+        super.viewWillHaveFirstAppearance(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
