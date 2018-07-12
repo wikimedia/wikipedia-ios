@@ -1899,7 +1899,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             searchSuggestionController.siteURL = siteURL
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
-            if (recentSearches.count == 0) {
+            let searchText = searchBar.text ?? ""
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
@@ -1998,7 +1999,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @objc func updateSearchCompletionsFromSearchBarText() {
-        updateSearchCompletionsFromSearchBarTextForTopArticles()
+        switch currentSearchFilter {
+        case .saved:
+            updateSearchSuggestions(withCompletions: [], isSearchDone: true)
+            self.isWaitingForSearchSuggestionUpdate = false
+        default:
+            updateSearchCompletionsFromSearchBarTextForTopArticles()
+        }
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
