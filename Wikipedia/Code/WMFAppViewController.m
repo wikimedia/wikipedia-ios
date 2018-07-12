@@ -293,11 +293,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             [self configureExploreViewController];
             break;
         case WMFAppDefaultTabTypeSettings:
+            navigationController.viewControllers = @[self.settingsViewController];
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
-            [navigationController setNavigationBarHidden:NO animated:animated];
             self.settingsViewController.showCloseButton = NO;
-            navigationController.viewControllers = @[self.settingsViewController];
+            [navigationController setNavigationBarHidden:NO animated:animated];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
             [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
     }
