@@ -52,7 +52,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
         authorizeButton.backgroundColor = theme.colors.cardButtonBackground
         authorizeButton.setTitleColor(theme.colors.link, for: .normal)
         authorizeDescriptionLabel.textColor = theme.colors.secondaryText
-        backgroundView?.backgroundColor = theme.colors.midBackground
+        backgroundView?.backgroundColor = theme.colors.cardBackground
     }
     
     @objc public func authorizeButtonPressed(_ sender: Any?) {

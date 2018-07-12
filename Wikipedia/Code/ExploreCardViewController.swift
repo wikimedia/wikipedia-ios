@@ -644,8 +644,8 @@ extension ExploreCardViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        collectionView.backgroundColor = theme.colors.midBackground
-        view.backgroundColor = theme.colors.midBackground
+        collectionView.backgroundColor = theme.colors.cardBackground
+        view.backgroundColor = theme.colors.cardBackground
     }
 }
 

@@ -104,6 +104,6 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
 public class ArticleFullWidthImageExploreCollectionViewCell: ArticleFullWidthImageCollectionViewCell {
     override open func apply(theme: Theme) {
         super.apply(theme: theme)
-        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
     }
 }
