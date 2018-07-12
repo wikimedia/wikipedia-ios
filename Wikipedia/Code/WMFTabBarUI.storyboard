@@ -12,7 +12,7 @@
         <!--Rotation Respecting Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">
             <objects>
-                <tabBarController id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="l4Z-Yh-AWy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -33,7 +33,7 @@
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="bzO-gj-jpB" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="bzO-gj-jpB" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -51,7 +51,7 @@
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="ROQ-sG-rcF" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ROQ-sG-rcF" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" selectedImage="tabbar-recent" id="ZNo-7p-3PU"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -69,7 +69,7 @@
         <!--Explore-->
         <scene sceneID="my8-ht-Vqg">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="EJe-8j-1e6" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="EJe-8j-1e6" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" selectedImage="tabbar-explore" id="fCG-Qf-VzW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
@@ -123,7 +123,7 @@
         <!--Search-->
         <scene sceneID="gV7-KK-Uby">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="esE-6g-4JG" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="esE-6g-4JG" customClass="WMFArticleNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="tDq-Gw-6Za"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
