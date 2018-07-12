@@ -165,15 +165,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
-            do {
-                try fetchedResultsController.performFetch()
-            } catch let error {
-                DDLogError("Error fetching explore feed: \(error)")
-            }
-            collectionView.reloadData()
             collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
             collectionViewUpdater.delegate = self
             collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
+            collectionViewUpdater.performFetch()
         }
     }
     

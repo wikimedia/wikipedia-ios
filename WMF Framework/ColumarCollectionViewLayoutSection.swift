@@ -153,20 +153,28 @@ class ColumnarCollectionViewLayoutSection {
         case UICollectionElementCategory.cell:
             var invalidatedItemIndexPaths: [IndexPath] = []
             let deltaY = updateAttributes(at: index, in: items, with: attributes)
-            guard items.indices.contains(index), let column = columnForItem(at: index) else {
+            guard
+                let columnIndex = columnIndexByItemIndex[index]
+            else {
                 return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
             }
+            
+            let column = columns[columnIndex]
+            
             column.frame.size.height += deltaY
             if column.frame.height > frame.height {
                 frame.size.height = column.frame.height
             }
             
-            for (affectedIndex, affectedItem) in items[index..<items.count].enumerated() {
-                guard column === columnForItem(at: affectedIndex) else {
-                    continue
+            let nextIndex = index + 1
+            if items.indices.contains(nextIndex) {
+                for affectedIndex in nextIndex..<items.count {
+                    guard columnIndexByItemIndex[affectedIndex] == columnIndex else {
+                        continue
+                    }
+                    items[affectedIndex].frame.origin.y += deltaY
+                    invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
                 }
-                affectedItem.frame.origin.y += deltaY
-                invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
             }
 
             updateShortestColumnIndex()

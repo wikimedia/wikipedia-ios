@@ -24,8 +24,18 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         self.fetchedResultsController.delegate = nil
     }
     
+    public func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            assert(false)
+            DDLogError("Error fetching \(String(describing: fetchedResultsController.fetchRequest.predicate)) for \(String(describing: self.delegate)): \(error)")
+        }
+        sectionCounts = fetchSectionCounts()
+        collectionView.reloadData()
+    }
+    
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        previousSectionCounts = fetchSectionCounts()
         sectionChanges = []
         objectChanges = []
     }
@@ -53,7 +63,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-       sectionCounts = fetchSectionCounts()
+        previousSectionCounts = sectionCounts
+        sectionCounts = fetchSectionCounts()
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
@@ -116,9 +127,9 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
-            var insertedSections = Set<Int>()
-            var deletedSections = Set<Int>()
-            var updatedSections = Set<Int>()
+            var insertedSections = IndexSet()
+            var deletedSections = IndexSet()
+            var updatedSections = IndexSet()
             
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
