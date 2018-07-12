@@ -126,9 +126,9 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
-            var insertedSections = Set<Int>()
-            var deletedSections = Set<Int>()
-            var updatedSections = Set<Int>()
+            var insertedSections = IndexSet()
+            var deletedSections = IndexSet()
+            var updatedSections = IndexSet()
             
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
