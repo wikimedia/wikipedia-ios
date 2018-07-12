@@ -172,14 +172,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                     break
                 default:
                     if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
-                        DDLogDebug("WMFBU object update: \(updatedIndexPath)")
-                        if insertedSections.contains(updatedIndexPath.section) {
-                            DDLogDebug("WMFBU inserting: \(updatedIndexPath)")
-                            collectionView.insertItems(at: [updatedIndexPath])
-                        } else {
-                            DDLogDebug("WMFBU reloading: \(updatedIndexPath)")
-                            collectionView.reloadItems(at: [updatedIndexPath])
-                        }
+                        collectionView.reloadItems(at: [updatedIndexPath])
                     } else {
                         assert(false, "unhandled update")
                         DDLogDebug("WMFBU unhandled update: \(objectChange)")
