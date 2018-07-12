@@ -141,7 +141,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        guard context.preferredLayoutAttributes == nil else { // indicates an incremental change
+        guard context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange else {
             return
         }
         

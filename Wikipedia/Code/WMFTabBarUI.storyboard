@@ -94,7 +94,7 @@
         <!--History View Controller-->
         <scene sceneID="qtm-Om-dtd">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="w0S-8T-SRU" customClass="WMFHistoryViewController" sceneMemberID="viewController">
+                <viewController id="w0S-8T-SRU" customClass="WMFHistoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HIz-bn-JmJ"/>
                         <viewControllerLayoutGuide type="bottom" id="q1r-A1-8SG"/>
@@ -135,7 +135,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ulg-0y-eZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3441" y="2114"/>
+            <point key="canvasLocation" x="3044" y="2113"/>
         </scene>
     </scenes>
     <resources>

@@ -24,12 +24,7 @@ extension UpdatableCollection {
     }
     
     func fetch() {
-        do {
-            try fetchedResultsController?.performFetch()
-        } catch let error {
-            DDLogError("Error performing fetch: \(error)")
-        }
-        collectionView.reloadData()
+        collectionViewUpdater?.performFetch()
     }
 }
 

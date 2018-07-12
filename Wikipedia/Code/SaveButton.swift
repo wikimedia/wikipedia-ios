@@ -39,12 +39,14 @@ import UIKit
             case .shortSaved:
                 saveTitle = CommonStrings.shortSavedTitle
                 saveImage = SaveButton.savedImage
+                horizontalSpacing = 8
                 accessibilityLabel = CommonStrings.accessibilitySavedTitle
             case .shortSave:
                 fallthrough
             default:
                 saveTitle = CommonStrings.shortSaveTitle
                 saveImage = SaveButton.saveImage
+                horizontalSpacing = 8
                 accessibilityLabel = CommonStrings.saveTitle
             }
             let addToReadingListAction = UIAccessibilityCustomAction(name: CommonStrings.addToReadingListActionTitle, target: self, selector: #selector(addToReadingList(_:)))
