@@ -123,3 +123,10 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         compassView.lineColor = theme.colors.accent
     }
 }
+
+class ArticleLocationExploreCollectionViewCell: ArticleLocationCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+    }
+}

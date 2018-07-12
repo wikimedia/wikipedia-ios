@@ -92,3 +92,9 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
     }
 }
 
+open class ArticleRightAlignedImageExploreCollectionViewCell: ArticleRightAlignedImageCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+    }
+}

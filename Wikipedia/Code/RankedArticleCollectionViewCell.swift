@@ -29,3 +29,10 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
     }
 
 }
+
+public class RankedArticleExploreCollectionViewCell: RankedArticleCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+    }
+}

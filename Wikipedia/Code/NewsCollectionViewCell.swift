@@ -35,3 +35,10 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         }
     }
 }
+
+public class NewsExploreCollectionViewCell: NewsCollectionViewCell {
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+    }
+}

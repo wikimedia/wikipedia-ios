@@ -99,8 +99,11 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
-    
 }
 
-
-
+public class ArticleFullWidthImageExploreCollectionViewCell: ArticleFullWidthImageCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
+    }
+}
