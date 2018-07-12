@@ -270,7 +270,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                 navigationController.title = [WMFCommonStrings historyTabTitle];
                 break;
             case WMFAppTabTypeSearch:
-                [navigationController setNavigationBarHidden:YES animated:NO];
                 navigationController.title = [WMFCommonStrings searchTitle];
                 [navigationController setViewControllers:@[self.searchViewController] animated:NO];
                 break;
@@ -293,11 +292,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             [self configureExploreViewController];
             break;
         case WMFAppDefaultTabTypeSettings:
+            navigationController.viewControllers = @[self.settingsViewController];
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
-            [navigationController setNavigationBarHidden:NO animated:animated];
             self.settingsViewController.showCloseButton = NO;
-            navigationController.viewControllers = @[self.settingsViewController];
+            [navigationController setNavigationBarHidden:NO animated:animated];
             [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
             [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
     }
@@ -307,7 +306,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-    self.exploreViewController.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
 }
 
 - (void)configurePlacesViewController {
@@ -1544,11 +1543,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
     [self updateDefaultTabIfNeeded];
 
-    NSInteger index = 0;
-    NSInteger count = navigationController.viewControllers.count;
+    NSArray *viewControllers = navigationController.viewControllers;
+    NSInteger count = viewControllers.count;
     NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
-    for (id vc in navigationController.viewControllers) {
-        if (index < count - 2 && [vc isKindOfClass:[SearchViewController class]]) {
+    NSInteger index = 1;
+    NSInteger limit = count - 2;
+    while (index < limit) {
+        if ([viewControllers[index] isKindOfClass:[SearchViewController class]]) {
             [indiciesToRemove addIndex:index];
         }
         index++;

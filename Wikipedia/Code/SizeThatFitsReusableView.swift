@@ -105,11 +105,6 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     // MARK - Dynamic Type
     // Only applies new fonts if the content size category changes
     
-    open override func setNeedsLayout() {
-        maybeUpdateFonts(with: traitCollection)
-        super.setNeedsLayout()
-    }
-    
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         maybeUpdateFonts(with: traitCollection)

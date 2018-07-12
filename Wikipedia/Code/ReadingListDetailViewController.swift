@@ -78,6 +78,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBar.title = readingList.name
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
         addExtendedView()
         
         setupFetchedResultsController()
@@ -113,7 +115,6 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     private func setNavigationBarHidingEnabled(_ enabled: Bool) {
         navigationBar.isExtendedViewHidingEnabled = enabled
-        navigationBar.isBarHidingEnabled = enabled
     }
     
     override func refresh() {
@@ -331,16 +332,20 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .remove:
             delete(entries)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         default:
             assert(false, "Unhandled action type")

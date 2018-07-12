@@ -91,8 +91,8 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
     }
     
-    public let imageViewHeight: CGFloat = 170
-    public let spacing: CGFloat = 13
+    public let imageViewHeight: CGFloat = 130
+    public let spacing: CGFloat = 6
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let layoutMargins = calculatedLayoutMargins
@@ -128,6 +128,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         if (apply) {
             flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
+            flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
             collectionView.frame = CGRect(x: 0, y: origin.y, width: size.width, height: height)
             if semanticContentAttributeOverride == .forceRightToLeft {
@@ -204,13 +205,13 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         apply(theme: theme)
         backgroundColor = .clear
         setBackgroundColors(theme.colors.subCellBackground, selected: theme.colors.midBackground)
-        backgroundView?.layer.cornerRadius = 5
+        backgroundView?.layer.cornerRadius = 3
         backgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 5
+        selectedBackgroundView?.layer.cornerRadius = 3
         selectedBackgroundView?.layer.masksToBounds = true
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.8
-        layer.shadowRadius = 2
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 3
         layer.shadowColor = theme.colors.shadow.cgColor
         layer.masksToBounds = false
         titleLabel.backgroundColor = backgroundView?.backgroundColor
@@ -219,7 +220,7 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         descriptionTextStyle = .footnote
         imageViewDimension = 40
         isSaveButtonHidden = true
-        layoutMargins = UIEdgeInsets(top: 13, left: 13, bottom: 13, right: 13)
+        layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
         
         titleHTML = cellArticle.titleHTML ?? cellArticle.title

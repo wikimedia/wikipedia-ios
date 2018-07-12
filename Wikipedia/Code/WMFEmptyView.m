@@ -89,7 +89,7 @@
     view.imageView.image = [UIImage imageNamed:@"saved-blank"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-title", nil, nil, @"No pages saved to this list", @"Title of a blank screen shown when a user has no saved pages in a reading list");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-saved-pages-in-reading-list-message", nil, nil, @"Save pages to this list to see them appear here", @"Message of a blank screen shown when a user has no saved pages in a reading list");
-    
+
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
     return view;
@@ -160,7 +160,7 @@
     self.titleLabel.textColor = theme.colors.primaryText;
     self.messageLabel.textColor = theme.colors.secondaryText;
     self.actionLabel.textColor = theme.colors.secondaryText;
-    self.backgroundColor = theme.colors.baseBackground;
+    self.backgroundColor = theme.colors.paperBackground;
     [self setNeedsLayout];
 }
 

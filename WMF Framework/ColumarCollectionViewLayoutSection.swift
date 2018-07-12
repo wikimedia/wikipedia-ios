@@ -94,7 +94,7 @@ class ColumnarCollectionViewLayoutSection {
     
     func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
         let column = columnForNextItem
-        if metrics.interItemSpacing > 0 && items.count >= columns.count {
+        if metrics.interItemSpacing > 0 {
             column.addSpace(metrics.interItemSpacing)
         }
         column.addItem(attributes)
@@ -125,7 +125,7 @@ class ColumnarCollectionViewLayoutSection {
     }
     
     func updateAttributes(at index: Int, in array: [ColumnarCollectionViewLayoutAttributes], with attributes: ColumnarCollectionViewLayoutAttributes) -> CGFloat {
-        guard index < array.count else {
+        guard array.indices.contains(index) else {
             return 0
         }
         let oldAttributes = array[index]
@@ -135,7 +135,7 @@ class ColumnarCollectionViewLayoutSection {
     
     
     func translateAttributesBy(_ deltaY: CGFloat, at index: Int, in array: [ColumnarCollectionViewLayoutAttributes]) -> [IndexPath] {
-        guard !deltaY.isEqual(to: 0), index < array.count else {
+        guard !deltaY.isEqual(to: 0), array.indices.contains(index) else {
             return []
         }
         var invalidatedIndexPaths: [IndexPath] = []
@@ -153,19 +153,30 @@ class ColumnarCollectionViewLayoutSection {
         case UICollectionElementCategory.cell:
             var invalidatedItemIndexPaths: [IndexPath] = []
             let deltaY = updateAttributes(at: index, in: items, with: attributes)
-            guard let column = columnForItem(at: index) else {
+            guard
+                let columnIndex = columnIndexByItemIndex[index]
+            else {
                 return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
             }
+            
+            let column = columns[columnIndex]
+            
             column.frame.size.height += deltaY
             if column.frame.height > frame.height {
                 frame.size.height = column.frame.height
             }
-            var affectedIndex = index + columns.count // next item in the column
-            while affectedIndex < items.count {
-                items[affectedIndex].frame.origin.y += deltaY
-                invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
-                affectedIndex += columns.count
+            
+            let nextIndex = index + 1
+            if items.indices.contains(nextIndex) {
+                for affectedIndex in nextIndex..<items.count {
+                    guard columnIndexByItemIndex[affectedIndex] == columnIndex else {
+                        continue
+                    }
+                    items[affectedIndex].frame.origin.y += deltaY
+                    invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
+                }
             }
+
             updateShortestColumnIndex()
             let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
             return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)

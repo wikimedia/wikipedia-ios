@@ -137,11 +137,8 @@
 "explore-main-page-heading" = "Í dag á Wikipedia";
 "explore-most-read-footer-for-date" = "Allar mest lesnu greinar þann $1";
 "explore-most-read-generic-heading" = "Mest lesið";
-"explore-most-read-heading" = "Mest lesið á $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Mest lesið á $1";
 "explore-nearby-heading" = "Staðir í nágrenninu";
-"explore-nearby-placeholder-cancel" = "Hætta við";
-"explore-nearby-placeholder-dismiss" = "Vísa frá";
 "explore-nearby-placeholder-heading" = "Staðir";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Á $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Á Wikipedia";
@@ -198,8 +195,6 @@
 "home-button-popover-description" = "Ýttu á 'W' til að fara aftur á 'Uppgötva'-streymið";
 "home-button-popover-title" = "Banka til að fara á upphafssíðuna";
 "home-button-saved-accessibility-label" = "Wikipedia, fara aftur á 'Vistað'";
-"home-hide-suggestion-cancel" = "Hætta við";
-"home-hide-suggestion-prompt" = "Fela þessa tillögu";
 "home-more-like-footer" = "Fleira í líkingu við $1";
 "home-nearby-footer" = "Fleira frá stöðum í nágrenninu";
 "home-nearby-location-footer" = "Fleira frá nágrenni $1";

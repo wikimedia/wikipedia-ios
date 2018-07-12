@@ -125,11 +125,8 @@
 "explore-main-page-heading" = "ئەمڕۆ لە ویکیپیدیا";
 "explore-most-read-footer-for-date" = "ھەموو وتارە زۆرترین خوێندراوەکان لە $1";
 "explore-most-read-generic-heading" = "زۆرترین خوێندراوە";
-"explore-most-read-heading" = "زۆرترین خوێندنەوەکان لە $1 ویکیپیدیا";
 "explore-most-read-more-list-title-for-date" = "بەناوبانگترین لە $1";
 "explore-nearby-heading" = "شوێنە نزیکەکان";
-"explore-nearby-placeholder-cancel" = "ھەڵوەشاندنەوە";
-"explore-nearby-placeholder-dismiss" = "لێگەڕان";
 "explore-nearby-placeholder-heading" = "شوێنەکان";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "لە $1 ویکیپیدیا";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "لە ویکیپیدیا";
@@ -186,8 +183,6 @@
 "home-button-popover-description" = "کرتە بکە لەسەر «W» بۆ گەڕانەوە بۆ بەشی «گەڕان»";
 "home-button-popover-title" = "کرتە بکە بۆ گەڕانەوە بۆ پەڕەی سەرەکی";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
-"home-hide-suggestion-cancel" = "ھەڵوەشاندنەوە";
-"home-hide-suggestion-prompt" = "ئەم پێشنیارە بشارەوە";
 "home-more-like-footer" = "زیاتر وەک $1";
 "home-nearby-footer" = "زیاتر لە نزیک شوێنەکەتەوە";
 "home-nearby-location-footer" = "زیاتر لە نزیک $1";

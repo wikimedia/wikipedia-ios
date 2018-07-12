@@ -124,11 +124,8 @@
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
 "explore-most-read-footer-for-date" = "Всі найбільш читані статті на $1";
 "explore-most-read-generic-heading" = "Найбільш читане";
-"explore-most-read-heading" = "Найбільш читані статті в проекті $1 Вікіпедія";
 "explore-most-read-more-list-title-for-date" = "Найбільш читане на $1";
 "explore-nearby-heading" = "Місця поблизу";
-"explore-nearby-placeholder-cancel" = "Скасувати";
-"explore-nearby-placeholder-dismiss" = "Відхилити";
 "explore-nearby-placeholder-heading" = "Місця";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "У Вікіпедії мовою «$1»";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "У Вікіпедії";
@@ -182,8 +179,6 @@
 "home-button-explore-accessibility-label" = "Вікіпедія, повернутися до розділу Досліджуйте";
 "home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
-"home-hide-suggestion-cancel" = "Скасувати";
-"home-hide-suggestion-prompt" = "Приховати цю пропозицію";
 "home-more-like-footer" = "Більше схоже на $1";
 "home-nearby-footer" = "Більше про те, що неподалік від вас";
 "home-nearby-location-footer" = "Більше поблизу $1";

@@ -124,15 +124,14 @@
 "explore-featured-article-heading" = "مقالة مختارة";
 "explore-feed-preferences-featured-article-description" = "مقالة اليوم المختارة على ويكيبيديا";
 "explore-feed-preferences-global-cards-title" = "بطاقات عالمية";
+"explore-feed-preferences-hide-card-action-title" = "أخف هذه البطاقة";
+"explore-feed-preferences-show-news-title" = "أظهر بطاقة في الأخبار";
 "explore-main-page-description" = "صفحة رئيسية من مشاريع ويكيميديا";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
 "explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
 "explore-most-read-generic-heading" = "الأعلى قراءة";
-"explore-most-read-heading" = "الأعلى قراءة في ويكيبيديا $1";
 "explore-most-read-more-list-title-for-date" = "الأكثر قراءة في $1";
 "explore-nearby-heading" = "أماكن قريبة";
-"explore-nearby-placeholder-cancel" = "ألغ";
-"explore-nearby-placeholder-dismiss" = "أغلق";
 "explore-nearby-placeholder-heading" = "أماكن";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "على ويكيبيديا $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "على ويكيبيديا";
@@ -186,8 +185,6 @@
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
 "home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
-"home-hide-suggestion-cancel" = "إلغاء";
-"home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "home-more-like-footer" = "المزيد مثل $1";
 "home-nearby-footer" = "المزيد من جوار موقعك";
 "home-nearby-location-footer" = "المزيد بالقرب من $1";

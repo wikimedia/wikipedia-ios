@@ -150,6 +150,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "Ytterligare språk kan läggas till i inställningen \"Mina språk\".";
 "explore-feed-preferences-continue-reading-description" = "Snabblänk tillbaka för att läsa en öppen artikel";
 "explore-feed-preferences-customize-explore-feed" = "Anpassa utforksarflödet";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Anpassa utforskarflödet";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "När en korttyp döljs kommer denna korttyp sluta dyka upp i utforskarflödet.";
 "explore-feed-preferences-featured-article-description" = "Dagens utmärkta artikel på Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Av";
@@ -160,6 +161,8 @@
 "explore-feed-preferences-global-cards-description" = "Icke-språkspecifika kort";
 "explore-feed-preferences-global-cards-subtitle" = "Icke-språkspecifika";
 "explore-feed-preferences-global-cards-title" = "Globala kort";
+"explore-feed-preferences-hide-card-action-title" = "Dölj detta kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dölj alla kort av typen %@";
 "explore-feed-preferences-in-the-news-description" = "Artiklar om nuvarande händelser";
 "explore-feed-preferences-languages-footer-text" = "När alla kort i utforskarflödet på alla dina språk döljs kommer utforskarfliken inaktiveras.";
 "explore-feed-preferences-on-this-day-description" = "Händelser i historien på denna dag";
@@ -185,15 +188,13 @@
 "explore-feed-preferences-top-read-description" = "Dagens mest lästa artiklar";
 "explore-feed-preferences-turn-off-feed" = "Inaktivera fliken Utforska";
 "explore-feed-preferences-turn-off-feed-disclosure" = "När fliken Utforska inaktiveras kommer den ersättas med en inställningsflik.";
+"explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
 "explore-most-read-footer-for-date" = "Alla mest lästa artiklar på $1";
 "explore-most-read-generic-heading" = "Mest lästa";
-"explore-most-read-heading" = "Mest lästa på $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Populärt den $1";
 "explore-nearby-heading" = "Platser i närheten";
-"explore-nearby-placeholder-cancel" = "Avbryt";
-"explore-nearby-placeholder-dismiss" = "Stäng";
 "explore-nearby-placeholder-heading" = "Platser";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
@@ -250,8 +251,6 @@
 "home-button-popover-description" = "Tryck på \"W\" för att gå tillbaka till Utforskningsflödet";
 "home-button-popover-title" = "Tryck för att gå tillbaka";
 "home-button-saved-accessibility-label" = "Wikipedia, tillbaka till Sparade";
-"home-hide-suggestion-cancel" = "Avbryt";
-"home-hide-suggestion-prompt" = "Dölj detta förslag";
 "home-more-like-footer" = "Mer som liknar $1";
 "home-nearby-footer" = "Mer från i närheten av din plats";
 "home-nearby-location-footer" = "Mer i närheten av $1";

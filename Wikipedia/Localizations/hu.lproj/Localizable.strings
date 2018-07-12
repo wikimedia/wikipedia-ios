@@ -140,11 +140,8 @@
 "explore-main-page-heading" = "Ma a Wikipédián";
 "explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
 "explore-most-read-generic-heading" = "Legolvasottabb";
-"explore-most-read-heading" = "A legolvasottabb szócikkek a(z) $1 Wikipédián";
 "explore-most-read-more-list-title-for-date" = "Legolvasottabb ekkor: $1";
 "explore-nearby-heading" = "Helyek a közelben";
-"explore-nearby-placeholder-cancel" = "Mégse";
-"explore-nearby-placeholder-dismiss" = "Elrejt";
 "explore-nearby-placeholder-heading" = "Helyek";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "a(z) $1 Wikipédián";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "a Wikipédián";
@@ -199,8 +196,6 @@
 "home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
 "home-button-history-accessibility-label" = "Wikipédia, visszatérés az Előzményekhez";
 "home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
-"home-hide-suggestion-cancel" = "Mégse";
-"home-hide-suggestion-prompt" = "Javaslat elrejtése";
 "home-more-like-footer" = "Több ehhez hasonló: $1";
 "home-nearby-footer" = "Több a közeledből";
 "home-nearby-location-footer" = "Több $1 közeléből";

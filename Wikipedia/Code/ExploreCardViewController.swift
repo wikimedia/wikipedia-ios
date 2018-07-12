@@ -58,6 +58,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         layoutManager.register(ArticleLocationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleLocationAuthorizationCollectionViewCell.self, forCellWithReuseIdentifier: ArticleLocationAuthorizationCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
+        collectionView.isOpaque = true
+        view.isOpaque = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -642,7 +644,8 @@ extension ExploreCardViewController: Themeable {
         guard viewIfLoaded != nil else {
             return
         }
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = theme.colors.paperBackground
+        view.backgroundColor = theme.colors.paperBackground
     }
 }
 

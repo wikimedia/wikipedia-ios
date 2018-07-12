@@ -120,8 +120,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.isBackVisible = false
-        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addUnderNavigationBarView(extendedNavBarView)
+        navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
         
         filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
@@ -1764,8 +1764,10 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .share:
             let addToReadingListActivity = AddToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: self.dataStore, articles: [article], theme: self.theme)
+                let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
+                navigationController.isNavigationBarHidden = true
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSaveInPlaces(url) }
-                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+                self.present(navigationController, animated: true, completion: nil)
             }
             let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])
             shareActivityController.popoverPresentationController?.sourceView = view

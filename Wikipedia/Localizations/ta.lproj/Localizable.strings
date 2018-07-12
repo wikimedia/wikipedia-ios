@@ -105,10 +105,7 @@
 "explore-main-page-description" = "விக்கிமீடியா திட்டங்களின் முதன்மை பக்கங்கள்";
 "explore-main-page-heading" = "இன்று விக்கிப்பீடியாவில்";
 "explore-most-read-generic-heading" = "அதிகமாக படிக்கப்பட்டது";
-"explore-most-read-heading" = "$1 விக்கிப்பீடியாவில் அதிகம் படிக்கப்பட்டது";
 "explore-nearby-heading" = "அருகில் இடங்கள்";
-"explore-nearby-placeholder-cancel" = "ரத்து செய்";
-"explore-nearby-placeholder-dismiss" = "அகற்று";
 "explore-nearby-placeholder-heading" = "இடங்கள்";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 விக்கிபீடியா";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "விக்கிப்பீடியாவில்";
@@ -156,8 +153,6 @@
 "home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
 "home-button-popover-title" = "மனைக்கு செல்ல தட்டவும்";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
-"home-hide-suggestion-cancel" = "ரத்து செய்";
-"home-hide-suggestion-prompt" = "இந்த பரிந்துரையை மறைக்கவும்";
 "home-more-like-footer" = "$1 போல மேலும்";
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் மேலும்";
 "home-nearby-location-footer" = "$1 க்கு அருகாமையில் மேலும்";

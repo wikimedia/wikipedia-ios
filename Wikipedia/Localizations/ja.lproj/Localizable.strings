@@ -163,11 +163,8 @@
 "explore-main-page-heading" = "今日についての記事";
 "explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
 "explore-most-read-generic-heading" = "よく読まれている記事";
-"explore-most-read-heading" = "$1版ウィキペディアでよく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
-"explore-nearby-placeholder-cancel" = "キャンセル";
-"explore-nearby-placeholder-dismiss" = "断る";
 "explore-nearby-placeholder-heading" = "場所";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアで";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
@@ -224,8 +221,6 @@
 "home-button-popover-description" = "Wをタップして検索をフィードに戻る";
 "home-button-popover-title" = "タップしてホームに戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
-"home-hide-suggestion-cancel" = "キャンセル";
-"home-hide-suggestion-prompt" = "提案を隠す";
 "home-more-like-footer" = "$1 なども読まれています";
 "home-nearby-footer" = "付近の記事";
 "home-nearby-location-footer" = "$1 付近についてもっと詳しく";

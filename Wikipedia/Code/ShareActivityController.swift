@@ -51,17 +51,21 @@ extension ShareableArticlesProvider where Self: UIViewController & AnalyticsCont
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             if let category = eventLoggingCategory, let label = eventLoggingLabel {
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
             }
-            self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            self.present(navigationController, animated: true, completion: nil)
         }
         customActivities.append(addToReadingListActivity)
         
         if let readingListDetailVC = self as? ReadingListDetailViewController {
             let moveToReadingListActivity = MoveToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: readingListDetailVC.readingList, theme: theme)
-                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+                let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+                navigationController.isNavigationBarHidden = true
+                self.present(navigationController, animated: true, completion: nil)
             }
             customActivities.append(moveToReadingListActivity)
         }

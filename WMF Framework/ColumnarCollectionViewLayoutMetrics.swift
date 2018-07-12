@@ -15,7 +15,7 @@ public struct ColumnarCollectionViewLayoutMetrics {
         let useTwoColumns = boundsSize.width >= 600 || (boundsSize.width > boundsSize.height && readableWidth >= 500)
         let countOfColumns = useTwoColumns ? 2 : 1
         let interColumnSpacing: CGFloat = useTwoColumns ? 20 : 0
-        let interItemSpacing: CGFloat = 20
+        let interItemSpacing: CGFloat = 32
         let interSectionSpacing: CGFloat = useTwoColumns ? 20 : 0
         
         let layoutMarginsForMetrics: UIEdgeInsets
@@ -41,7 +41,7 @@ public struct ColumnarCollectionViewLayoutMetrics {
         var itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         itemLayoutMargins.left = max(marginWidth, itemLayoutMargins.left)
         itemLayoutMargins.right = max(marginWidth, itemLayoutMargins.right)
-        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: 0, interColumnSpacing: 0,  interItemSpacing: 0, shouldMatchColumnHeights: false)
+        return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: .zero, countOfColumns: 1, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: 0,  interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
     }
     
     public static func exploreCardMetrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {

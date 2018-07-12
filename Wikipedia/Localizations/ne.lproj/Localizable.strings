@@ -97,8 +97,6 @@
 "explore-most-read-generic-heading" = "धेरै पढिएको";
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
-"explore-nearby-placeholder-cancel" = "रद्द गर्नुहोस्";
-"explore-nearby-placeholder-dismiss" = "खारेज गर्नुहोस्";
 "explore-nearby-placeholder-heading" = "स्थानहरू";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियामा";
 "explore-nearby-sub-heading-your-location" = "तपाईँको स्थान";
@@ -142,7 +140,6 @@
 "hockeyapp-alert-do-not-send" = "नपठाउने";
 "hockeyapp-alert-send-report" = "प्रतिवेदन पठाउनुहोस्";
 "hockeyapp-alert-title" = "माफ गर्नुहोस्, अनुप्रयोग पछिल्लो पटक क्र्यास भयो";
-"home-hide-suggestion-cancel" = "रद्द गर्नुहोस्";
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-location-footer" = "नजिकै थप $1";
 "home-news-footer" = "समचारमा थप";
