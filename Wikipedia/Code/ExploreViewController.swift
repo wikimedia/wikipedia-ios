@@ -456,6 +456,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let contentGroup = fetchedResultsController.object(at: indexPath)
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
+    
+    #if DEBUG
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else {
+            return
+        }
+        dataStore.feedContentController.debugChaos()
+    }
+    #endif
 }
 
 
