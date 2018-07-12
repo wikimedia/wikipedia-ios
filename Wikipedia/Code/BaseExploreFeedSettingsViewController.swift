@@ -153,7 +153,7 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     @objc var dataStore: MWKDataStore?
     var theme = Theme.standard
 
-    private var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
+    var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
     override var nibName: String? {
         return "BaseExploreFeedSettingsViewController"
@@ -173,6 +173,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(newExploreFeedPreferencesWereRejected(_:)), name: NSNotification.Name.WMFNewExploreFeedPreferencesWereRejected, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     var preferredLanguages: [MWKLanguageLink] {
         return MWKLanguageLinkController.sharedInstance().preferredLanguages
     }
@@ -186,10 +190,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     var feedContentController: WMFExploreFeedContentController? {
         return dataStore?.feedContentController
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     open var sections: [ExploreFeedSettingsSection] {
