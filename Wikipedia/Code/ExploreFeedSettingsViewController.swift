@@ -144,6 +144,13 @@ private class FeedCard: ExploreFeedSettingsItem {
     }
 }
 
+struct ResetExploreFeedPreferencesButton: ExploreFeedSettingsItem {
+    let controlTag: Int = -2
+    let isOn: Bool = false
+    let title: String = "Reset Explore feed preferences"
+    let disclosureType: WMFSettingsMenuItemDisclosureType = .titleButton
+}
+
 @objc(WMFExploreFeedSettingsViewController)
 class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
@@ -168,6 +175,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
         assert(preferredLanguages.count > 0)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
+        UserDefaults.wmf_userDefaults().addObserver(self, forKeyPath: "WMFDefaultTabTypeKey", options: .new, context: nil)
+    }
+
+    deinit {
+        UserDefaults.wmf_userDefaults().removeObserver(self, forKeyPath: "WMFDefaultTabTypeKey")
     }
 
     @objc private func closeButtonPressed() {
@@ -205,6 +217,11 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: WMFLocalizedString("explore-feed-preferences-turn-off-feed-disclosure", value: "Turning off the Explore tab will replace the Explore tab with a Settings tab.", comment: "Text for explaining the effects of turning off the Explore tab"), items: [ExploreFeedSettingsMaster(for: .entireFeed)])
     }()
 
+    private lazy var resetSection: ExploreFeedSettingsSection = {
+        return ExploreFeedSettingsSection(headerTitle: nil, footerTitle: "", items: [ResetExploreFeedPreferencesButton()])
+
+    }()
+
     private lazy var languagesSection: ExploreFeedSettingsSection? = {
         guard displayType == .multipleLanguages else {
             return nil
@@ -216,12 +233,29 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     override var sections: [ExploreFeedSettingsSection] {
         guard displayType == .multipleLanguages else {
-            return [customizationSection, mainSection]
+            return [customizationSection, mainSection, resetSection]
         }
         guard let languagesSection = languagesSection else {
-            return [customizationSection, mainSection]
+            return [customizationSection, mainSection, resetSection]
         }
-        return [customizationSection, languagesSection, mainSection]
+        return [customizationSection, languagesSection, mainSection, resetSection]
+    }
+
+    // MARK: Master switch update
+
+    // MARK: - KVO
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard object is UserDefaults else {
+            return
+        }
+        for (cell, item) in cellsToItemsThatNeedReloading {
+            guard item is ResetExploreFeedPreferencesButton else {
+                continue
+            }
+            item.updateIsOn(for: displayType)
+            cell.disclosureSwitch.setOn(item.isOn, animated: true)
+        }
     }
 
 }
@@ -230,16 +264,14 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
 extension ExploreFeedSettingsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard displayType == .multipleLanguages else {
-            return
-        }
         let item = getItem(at: indexPath)
-        guard let feedCard = item as? FeedCard else {
-            return
+        if displayType == .multipleLanguages, let feedCard = item as? FeedCard {
+            let feedCardSettingsViewController = FeedCardSettingsViewController()
+            feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
+            navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
+        } else if item is ResetExploreFeedPreferencesButton {
+            feedContentController?.resetExploreFeedPreferences()
         }
-        let feedCardSettingsViewController = FeedCardSettingsViewController()
-        feedCardSettingsViewController.configure(with: item.title, dataStore: dataStore, contentGroupKind: feedCard.contentGroupKind, theme: theme)
-        navigationController?.pushViewController(feedCardSettingsViewController, animated: true)
         self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
