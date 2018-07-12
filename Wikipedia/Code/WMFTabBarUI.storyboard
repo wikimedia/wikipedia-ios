@@ -12,7 +12,7 @@
         <!--Rotation Respecting Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="ebr-hF-Cp5" customClass="WMFRotationRespectingTabBarController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="l4Z-Yh-AWy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
