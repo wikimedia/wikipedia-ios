@@ -390,7 +390,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (void)resetExploreFeedPreferences {
-    WMFAssertMainThread(@"resetExploreFeedPreferencesInManagedObjectContext: must be called on the main thread");
+    WMFAssertMainThread(@"resetExploreFeedPreferences: must be called on the main thread");
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
