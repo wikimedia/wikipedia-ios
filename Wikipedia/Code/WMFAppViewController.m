@@ -270,7 +270,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                 navigationController.title = [WMFCommonStrings historyTabTitle];
                 break;
             case WMFAppTabTypeSearch:
-                [navigationController setNavigationBarHidden:YES animated:NO];
                 navigationController.title = [WMFCommonStrings searchTitle];
                 [navigationController setViewControllers:@[self.searchViewController] animated:NO];
                 break;
