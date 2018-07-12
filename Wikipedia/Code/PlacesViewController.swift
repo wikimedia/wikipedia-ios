@@ -1133,7 +1133,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
 
             switch viewMode {
             case .search:
-                updateSearchSuggestions(withCompletions: [], isSearchDone: false)
+                updateSearchCompletionsFromSearchBarText()
             default:
                 if let currentSearch = self.currentSearch {
                     self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult, siteURL: currentSearch.siteURL)
