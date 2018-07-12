@@ -138,6 +138,7 @@
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Customize Explore feed";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Hiding a card type will stop this card type from appearing in the Explore feed.";
+"explore-feed-preferences-explore-tab" = "Explore tab";
 "explore-feed-preferences-featured-article-description" = "Daily featured article on Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Off";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "On all";
@@ -174,7 +175,6 @@
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Turn off Explore feed?";
-"explore-feed-preferences-turn-off-feed" = "Turn off Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";

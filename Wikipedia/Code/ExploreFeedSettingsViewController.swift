@@ -254,7 +254,7 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .settings : .explore
+            UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .explore : .settings
             return
         }
         guard controlTag != -2 else { // global cards
