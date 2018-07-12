@@ -45,12 +45,12 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         }
     }
     
-    override func viewWillHaveFirstAppearance(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
         fetch()
-        super.viewWillHaveFirstAppearance(animated)
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
