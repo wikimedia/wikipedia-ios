@@ -53,8 +53,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        fetch()
     }
     
     func setupCollectionViewUpdater() {
@@ -124,6 +122,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
+        fetch()
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
