@@ -188,15 +188,15 @@ extension AnnouncementCollectionViewCell: UITextViewDelegate {
 extension AnnouncementCollectionViewCell: Themeable {
     @objc(applyTheme:)
     public func apply(theme: Theme) {
-        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
         messageLabel.textColor = theme.colors.primaryText
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
         actionButton.layer.borderColor = theme.colors.link.cgColor
-        actionButton.layer.borderWidth = 1
         actionButton.layer.cornerRadius = 5
+        actionButton.backgroundColor = theme.colors.cardButtonBackground
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.textColor = theme.colors.secondaryText
         captionTextView.backgroundColor = theme.colors.paperBackground

@@ -32,9 +32,10 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
 
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
-        let opaque = theme.colors.paperBackground
+        let opaque = theme.colors.midBackground
         let clear = opaque.withAlphaComponent(0)
         topGradientView.setStart(opaque, end: clear)
         bottomGradientView.setStart(clear, end: opaque)
+        setBackgroundColors(theme.colors.midBackground, selected: theme.colors.midBackground)
     }
 }
