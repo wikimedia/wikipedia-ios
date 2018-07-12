@@ -31,10 +31,10 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             DDLogError("Error fetching \(String(describing: fetchedResultsController.fetchRequest.predicate)) for \(String(describing: self.delegate)): \(error)")
         }
         collectionView.reloadData()
+        sectionCounts = fetchSectionCounts()
     }
     
     @objc func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        previousSectionCounts = fetchSectionCounts()
         sectionChanges = []
         objectChanges = []
     }
@@ -62,7 +62,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     }
     
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-       sectionCounts = fetchSectionCounts()
+        previousSectionCounts = sectionCounts
+        sectionCounts = fetchSectionCounts()
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
