@@ -1998,13 +1998,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @objc func updateSearchCompletionsFromSearchBarText() {
-        switch (currentSearchFilter) {
-        case .top:
-            updateSearchCompletionsFromSearchBarTextForTopArticles()
-        case .saved:
-            // TODO: add suggestions here?
-            self.isWaitingForSearchSuggestionUpdate = false
-        }
+        updateSearchCompletionsFromSearchBarTextForTopArticles()
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
