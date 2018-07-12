@@ -165,15 +165,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
-            do {
-                try fetchedResultsController.performFetch()
-            } catch let error {
-                DDLogError("Error fetching explore feed: \(error)")
-            }
-            collectionView.reloadData()
             collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
             collectionViewUpdater.delegate = self
             collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
+            collectionViewUpdater.performFetch()
         }
     }
     
@@ -542,8 +537,13 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
-            self.dataStore.viewContext.remove(group)
+            group.markDismissed()
             group.updateVisibility()
+            do {
+                try self.dataStore.save()
+            } catch let error {
+                DDLogError("Error saving after cell dismissal: \(error)")
+            }
         }
         guard let title = group.headerTitle else {
             assertionFailure("Expected header title for group \(group.contentGroupKind)")
