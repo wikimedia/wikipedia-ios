@@ -63,6 +63,9 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
 
+static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
+static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
+
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFSettingsViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
@@ -193,7 +196,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[NSUserDefaults wmf_userDefaults] addObserver:self
                                         forKeyPath:@"WMFDefaultTabTypeKey"
                                            options:NSKeyValueObservingOptionNew
-                                           context:NULL];
+                                           context:&kvo_NSUserDefaults_defaultTabType];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
@@ -1226,21 +1229,23 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
-        [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
+    if (context == &kvo_SavedArticlesFetcher_progress) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
-    } else if ([object isKindOfClass:[NSUserDefaults class]]) {
+    } else if (context == &kvo_NSUserDefaults_defaultTabType) {
         WMFAppDefaultTabType defaultTabType = [NSUserDefaults wmf_userDefaults].defaultTabType;
         if (defaultTabType != WMFAppDefaultTabTypeExplore && !self.presentedViewController) {
             [self updateDefaultTab];
         } else {
             self.shouldUpdateDefaultTab = YES;
         }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -1719,7 +1724,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
