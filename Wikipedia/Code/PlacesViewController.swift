@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate, TouchOutsideOverlayDelegate, PlaceSearchFilterListDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
     @IBOutlet weak var navigationBar: NavigationBar!
@@ -16,35 +16,16 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
-    @IBOutlet var extendedNavBarView: UIView!
-    @IBOutlet weak var extendedNavBarViewHeightContraint: NSLayoutConstraint!
+
     @IBOutlet weak var progressView: UIProgressView!
     var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
-    @IBOutlet weak var titleViewSearchBar: UISearchBar!
-    @IBOutlet weak var mapListToggle: UISegmentedControl!
-    @IBOutlet var filterSelectorView: PlaceSearchFilterSelectorView!
-    @IBOutlet weak var filterDropDownContainerView: UIView!
-    @IBOutlet weak var filterDropDownTableView: UITableView!
-    @IBOutlet weak var filterDropDownHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var filterDropDownWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var closeSearchButton: UIButton!
-    @IBOutlet weak var searchBarToMapListToggleTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBarToCloseTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
-    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchContainerView: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchBar: UISearchBar!
     @IBOutlet weak var listAndSearchOverlaySliderSeparator: UIView!
-    @IBOutlet weak var listAndSearchOverlaySearchSeparator: UIView!
 
     @IBOutlet weak var listAndSearchOverlayBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlayHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlayFilterSelectorContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySearchHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonHideConstraint: NSLayoutConstraint!
-    @IBOutlet weak var listAndSearchOverlaySearchCancelButtonShowConstraint: NSLayoutConstraint!
     @IBOutlet weak var listAndSearchOverlaySliderView: UIView!
     @IBOutlet weak var listContainerView: UIView!
     var listViewController: ArticleLocationCollectionViewController!
@@ -62,14 +43,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate let popoverFadeDuration = 0.25
     fileprivate let searchHistoryCountLimit = 15
     fileprivate var searchSuggestionController: PlaceSearchSuggestionController!
-    fileprivate var searchBar: UISearchBar? {
-        didSet {
-            oldValue?.delegate = nil
-            searchBar?.text = oldValue?.text
-            searchBar?.delegate = self
-        }
-    }
-    
+
     fileprivate var siteURL: URL {
         return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     }
@@ -90,9 +64,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate let listTrackerContext: AnalyticsContext = "Places_list"
     fileprivate let searchTrackerContext: AnalyticsContext = "Places_search"
     fileprivate let imageController = ImageController.shared
-    fileprivate var searchFilterListController: PlaceSearchFilterListController!
-    fileprivate var extendedNavBarHeightOrig: CGFloat?
-    fileprivate var touchOutsideOverlayView: TouchOutsideOverlayView!
+
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {
         get {
@@ -117,15 +89,64 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
     }
+
+    // MARK - Search
+
+    lazy var searchBarContainerView: UIView = {
+        let searchBarContainerView = UIView()
+        searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
+        searchBarContainerView.addSubview(searchBarStackView)
+        let leading = searchBarContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBarStackView.leadingAnchor)
+        let trailing = searchBarContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBarStackView.trailingAnchor)
+        let top = searchBarContainerView.topAnchor.constraint(equalTo: searchBarStackView.topAnchor)
+        let bottom = searchBarContainerView.bottomAnchor.constraint(equalTo: searchBarStackView.bottomAnchor)
+        searchBarContainerView.addConstraints([leading, trailing, top, bottom])
+        return searchBarContainerView
+    }()
+
+    lazy var searchBarStackView: UIStackView = {
+        let searchBarStackView = UIStackView()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        mapListToggle.translatesAutoresizingMaskIntoConstraints = false
+        searchBarStackView.axis = .horizontal
+        searchBarStackView.alignment = .center
+        searchBarStackView.distribution = .fill
+        searchBarStackView.spacing = 10
+        searchBarStackView.addArrangedSubview(searchBar)
+        searchBarStackView.addArrangedSubview(mapListToggle)
+        return searchBarStackView
+    }()
+
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
+        searchBar.delegate = self
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
+        searchBar.showsCancelButton = false
+        return searchBar
+    }()
+
+    lazy var mapListToggle: UISegmentedControl = {
+        let mapListToggle = UISegmentedControl()
+        let map = #imageLiteral(resourceName: "places-map")
+        let list = #imageLiteral(resourceName: "places-list")
+        map.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-map", value:"Show as map", comment:"Accessibility label for the show as map toggle item")
+        list.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-list", value:"Show as list", comment:"Accessibility label for the show as list toggle item")
+        mapListToggle.insertSegment(with: map, at: 0, animated: false)
+        mapListToggle.insertSegment(with: list, at: 1, animated: false)
+        mapListToggle.selectedSegmentIndex = 0
+        mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
+        return mapListToggle
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.addUnderNavigationBarView(extendedNavBarView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
-        
-        filterSelectorView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, theme: theme)
         addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
@@ -164,11 +185,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         mapContainerView.addSubview(mapView)
 
         fakeProgressController = FakeProgressController(progress: self, delegate: self)
-        
-        extendedNavBarHeightOrig = extendedNavBarViewHeightContraint.constant
-
-        touchOutsideOverlayView = TouchOutsideOverlayView(frame: self.view.bounds)
-        touchOutsideOverlayView.delegate = self
 
         // Setup location manager
         locationManager.delegate = self
@@ -184,20 +200,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         didYouMeanButton.isHidden = true
         didYouMeanButton.titleLabel?.adjustsFontSizeToFitWidth = true
         didYouMeanButton.titleLabel?.textAlignment = .center
-        
-        // Setup map/list toggle
-        let map = #imageLiteral(resourceName: "places-map")
-        let list = #imageLiteral(resourceName: "places-list")
-        map.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-map", value:"Show as map", comment:"Accessibility label for the show as map toggle item")
-        list.accessibilityLabel = WMFLocalizedString("places-accessibility-show-as-list", value:"Show as list", comment:"Accessibility label for the show as list toggle item")
-        mapListToggle.setImage(map, forSegmentAt: 0)
-        mapListToggle.setImage(list, forSegmentAt: 1)
-        mapListToggle.selectedSegmentIndex = 0
-        mapListToggle.addTarget(self, action: #selector(updateViewModeFromSegmentedControl), for: .valueChanged)
-        
-        // Setup close search button
-        closeSearchButton.accessibilityLabel = WMFLocalizedString("places-accessibility-close-search", value:"Close search", comment:"Accessibility label for the button to close search")
-        
+
         // Setup recenter button
         recenterOnUserLocationButton.accessibilityLabel = WMFLocalizedString("places-accessibility-recenter-map-on-user-location", value:"Recenter on your location", comment:"Accessibility label for the recenter map on the user's location button")
         recenterOnUserLocationButton.imageEdgeInsets = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 1)
@@ -208,16 +211,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
-
-        // Setup search bars
-        let searchPlaceholder = WMFLocalizedString("places-search-default-text", value:"Search Places", comment:"Placeholder text that displays where is there no current place search\n{{Identical|Search}}")
-        titleViewSearchBar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        titleViewSearchBar.returnKeyType = .search
-        titleViewSearchBar.searchBarStyle = .minimal
-        titleViewSearchBar.placeholder = searchPlaceholder
-        listAndSearchOverlaySearchBar.returnKeyType = titleViewSearchBar.returnKeyType
-        listAndSearchOverlaySearchBar.searchBarStyle = titleViewSearchBar.searchBarStyle
-        listAndSearchOverlaySearchBar.placeholder = searchPlaceholder
         
         if UIAccessibilityIsVoiceOverRunning() {
             viewMode = .list
@@ -228,16 +221,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         apply(theme: theme)
         self.view.layoutIfNeeded()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier ?? "" {
-        case "filterListController":
-            searchFilterListController = segue.destination as! PlaceSearchFilterListController
-            searchFilterListController.delegate = self
-        default:
-            break
-        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -369,6 +352,35 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
     }
+
+    // MARKL - Filtering
+
+    // hax
+    private func setCheckmark(for alertAction: UIAlertAction, in alertController: UIAlertController) {
+        let key = "checked"
+        for action in alertController.actions {
+            action.setValue(false, forKey: key)
+        }
+        alertAction.setValue(true, forKey: key)
+    }
+
+    @objc private func filterButtonPressed(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: WMFLocalizedString("places-filter-articles-action-sheet-title", value: "Filter articles", comment: "Title for action sheet that allows users to filter Places articles"), message: nil, preferredStyle: .actionSheet)
+        let topReadArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-top-read-articles", value: "Top read articles", comment: "Title for action that allows users to filter top read articles"), style: .default) { _ in
+            self.currentSearchFilter = .top
+        }
+
+        let savedArticlesAction = UIAlertAction(title: WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles"), style: .default) { _ in
+            self.currentSearchFilter = .saved
+        }
+        alertController.addAction(topReadArticlesAction)
+        alertController.addAction(savedArticlesAction)
+        let checkedAction = currentSearchFilter == .top ? topReadArticlesAction : savedArticlesAction
+        self.setCheckmark(for: checkedAction, in: alertController)
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel))
+        alertController.popoverPresentationController?.barButtonItem = sender
+        present(alertController, animated: true)
+    }
     
     // MARK: - Keyboard
     
@@ -473,7 +485,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 return
             }
             
-            updateSearchFilterTitle()
             updateSearchBarText(forSearch: search)
 
             performSearch(search)
@@ -903,50 +914,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     fileprivate var overlaySliderPanGestureRecognizer: UIPanGestureRecognizer?
     
-    func addSearchBarToNavigationBar(animated: Bool) {
-        guard viewIfLoaded != nil else {
-            return
-        }
-        //   Borrowed from https://developer.apple.com/library/content/samplecode/NavBar/Introduction/Intro.html
-        extendedNavBarView.isHidden = false
-
-        let searchBarHeight: CGFloat = 32
-        let searchBarLeadingPadding: CGFloat = 7.5
-        let searchBarTrailingPadding: CGFloat = 2.5
-        
-        searchBar = titleViewSearchBar
-        
-        filterSelectorView.frame = CGRect(x: searchBarLeadingPadding, y: 0, width: view.bounds.size.width - searchBarLeadingPadding - searchBarTrailingPadding, height: searchBarHeight)
-
-        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: searchBarHeight))
-        titleView.addSubview(filterSelectorView)
-        titleView.wmf_addConstraintsToEdgesOfView(filterSelectorView, withInsets: UIEdgeInsets(top: 0, left: searchBarLeadingPadding, bottom: 0, right: searchBarTrailingPadding), priority: .defaultHigh)
-        navigationItem.titleView = titleView
-        
-        if let panGR = overlaySliderPanGestureRecognizer {
-            view.removeGestureRecognizer(panGR)
-        }
-    }
-    
-    func removeSearchBarFromNavigationBar(animated: Bool) {
-        extendedNavBarView.isHidden = true
-        
-        listAndSearchOverlayFilterSelectorContainerView.wmf_addSubviewWithConstraintsToEdges(filterSelectorView)
-        
-        searchBar = listAndSearchOverlaySearchBar
-        
-        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        panGR.delegate = self
-        view.addGestureRecognizer(panGR)
-        overlaySliderPanGestureRecognizer = panGR
-    }
-    
     var initialOverlayHeightForPan: CGFloat?
     
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
         get {
-            return listAndSearchOverlayFilterSelectorContainerHeightConstraint.constant + listAndSearchOverlaySearchHeightConstraint.constant + listAndSearchOverlaySliderHeightConstraint.constant
+            return 100 + listAndSearchOverlaySliderHeightConstraint.constant
         }
     }
     var overlayMaxHeight: CGFloat {
@@ -1045,49 +1018,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     }
     
-    var isSearchBarInNavigationBar: Bool? {
-        didSet{
-            guard let newValue = isSearchBarInNavigationBar, oldValue != newValue else {
-                return
-            }
-            if newValue {
-                addSearchBarToNavigationBar(animated: false)
-            } else {
-                removeSearchBarFromNavigationBar(animated: false)
-            }
-        }
-    }
-
-    
     fileprivate func updateTraitBasedViewMode() {
         //forces an update
         let oldViewMode = self.viewMode
         self.viewMode = .none
         self.viewMode = oldViewMode
-    }
-    
-    var isOverlaySearchButtonHidden = true {
-        didSet {
-            let isHidden = isOverlaySearchButtonHidden
-            let animations = {
-                if (isHidden) { // always disable the old constraint before enabling the new one to avoid autolayout errors
-                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = false
-                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = true
-                } else {
-                    self.listAndSearchOverlaySearchCancelButtonHideConstraint.isActive = false
-                    self.listAndSearchOverlaySearchCancelButtonShowConstraint.isActive = true
-                }
-            }
-            if (isHidden)  {
-                animations()
-            } else {
-                listAndSearchOverlayContainerView.layoutIfNeeded()
-                UIView.animate(withDuration: 0.3) {
-                    animations()
-                    self.listAndSearchOverlayContainerView.layoutIfNeeded()
-                }
-            }
-        }
     }
     
     var isViewModeOverlay: Bool {
@@ -1102,25 +1037,22 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 return
             }
             if oldValue == .search && viewMode != .search {
-                UIView.performWithoutAnimation {
-                    searchBarToCloseTrailingConstraint.isActive = false
-                    closeSearchButton.isHidden = true
-                    searchBarToMapListToggleTrailingConstraint.isActive = true
-                    mapListToggle.isHidden = false
-                    searchBar?.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    self.mapListToggle.alpha = 1
+                    self.mapListToggle.isHidden = false
+                    self.searchBarStackView.layoutIfNeeded()
+                    self.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
-                UIView.performWithoutAnimation {
-                    searchBarToMapListToggleTrailingConstraint.isActive = false
-                    mapListToggle.isHidden = true
-                    searchBarToCloseTrailingConstraint.isActive = true
-                    closeSearchButton.isHidden = false
-                    searchBar?.layoutIfNeeded()
+                UIView.animate(withDuration: 0.3) {
+                    self.mapListToggle.isHidden = true
+                    self.mapListToggle.alpha = 0
+                    self.searchBarStackView.layoutIfNeeded()
+                    self.searchBar.setShowsCancelButton(true, animated: true)
                 }
             }
             switch traitBasedViewMode {
             case .listOverlay:
-                isSearchBarInNavigationBar = false
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
@@ -1128,10 +1060,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
-                isOverlaySearchButtonHidden = true
-                filterSelectorView.button.isEnabled = true
+                mapListToggle.isHidden = true
             case .list:
-                isSearchBarInNavigationBar = true
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
@@ -1141,34 +1071,26 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
-                filterSelectorView.button.isEnabled = true
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
                 }
-                isOverlaySearchButtonHidden = false
-                isSearchBarInNavigationBar = false
                 mapView.isHidden = false
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
-                filterSelectorView.button.isEnabled = false
             case .search:
-                isSearchBarInNavigationBar = true
                 mapView.isHidden = true
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
-                filterSelectorView.button.isEnabled = false
             case .map:
                 fallthrough
             default:
-                isSearchBarInNavigationBar = true
                 mapView.isHidden = false
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
-                filterSelectorView.button.isEnabled = true
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             if (mapView.isHidden) {
@@ -1177,7 +1099,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
-            updateSearchFilterTitle()
         }
     }
 
@@ -1198,18 +1119,21 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
     }
+
+    struct OldString {
+        static let noSavedPlaces = WMFLocalizedString("places-filter-no-saved-places", value:"You have no saved places", comment:"Explains that you don't have any saved places")
+        static let savedArticlesFilterLocalizedTitle = WMFLocalizedString("places-filter-saved-articles", value:"Saved articles", comment:"Title of places search filter that searches saved articles")
+    }
     
     var currentSearchFilter: PlaceFilterType = .top { // TODO: remember last setting?
         didSet {
             guard oldValue != currentSearchFilter else {
                 return
             }
-            
-            updateSearchFilterTitle()
-            
+
             switch viewMode {
             case .search:
-                updateSearchSuggestions(withCompletions: [], isSearchDone: false)
+                updateSearchCompletionsFromSearchBarText()
             default:
                 if let currentSearch = self.currentSearch {
                     self.currentSearch = PlaceSearch(filter: currentSearchFilter, type: currentSearch.type, origin: .system, sortStyle: currentSearch.sortStyle, string: currentSearch.string, region: nil, localizedDescription: currentSearch.localizedDescription, searchResult: currentSearch.searchResult, siteURL: currentSearch.siteURL)
@@ -1686,7 +1610,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
        
         addChildViewController(articleVC)
-        view.insertSubview(articleVC.view, belowSubview: extendedNavBarView)
+        view.insertSubview(articleVC.view, belowSubview: navigationBar)
         articleVC.didMove(toParentViewController: self)
         
         let size = articleVC.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
@@ -1715,9 +1639,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             if let popover = self.selectedArticlePopover,
                 let annotationView = self.selectedArticleAnnotationView {
                 self.adjustLayout(ofPopover: popover, withSize: popover.preferredContentSize, viewSize: size, forAnnotationView: annotationView)
-            }
-            if self.isSearchFilterDropDownShowing {
-                self.isSearchFilterDropDownShowing = false
             }
             self.updateTraitBasedViewMode()
         }, completion: nil)
@@ -1818,8 +1739,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         }
     
         let viewCenter = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
-        let navBarHeight = extendedNavBarView.frame.height
-    
+
         let popoverDistanceFromAnnotationCenterY = 0.5 * annotationSize.height + spacing
         let totalHeight = popoverDistanceFromAnnotationCenterY + popoverSize.height + spacing
         let top = totalHeight - annotationCenter.y
@@ -1829,7 +1749,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let totalWidth = popoverDistanceFromAnnotationCenterX + popoverSize.width + spacing
         let left = totalWidth - annotationCenter.x
         let right = annotationCenter.x + totalWidth - viewSize.width
-        
+
+        let navBarHeight = navigationBar.visibleHeight
         var x = annotationCenter.x > viewCenter.x ? viewSize.width - popoverSize.width - spacing : spacing
         var y = annotationCenter.y > viewCenter.y ? viewSize.height - popoverSize.height - spacing : spacing + navBarHeight
 
@@ -1896,157 +1817,29 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     
     // MARK: - Search Filter Dropdown
     
-    var isSearchFilterDropDownShowing: Bool = false {
-        didSet {
-            guard oldValue != isSearchFilterDropDownShowing else {
-                return
-            }
-            
-            if isSearchFilterDropDownShowing {
-                showSearchFilterDropdown(completion: { (done) in })
-            } else {
-                hideSearchFilterDropdown(completion: { (done) in })
-            }
-            
-            updateSearchFilterTitle()
-        }
-    }
-    
     fileprivate func showSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        
-        guard let isSearchBarInNavigationBar = self.isSearchBarInNavigationBar else {
-            // TODO: error
-            return
-        }
-        
-        let width = view.bounds.width
-        let origHeight = searchFilterListController.preferredHeight(for: width)
-        
-        
-        let frame: CGRect
-        if (isSearchBarInNavigationBar) {
-            let frameInExtendedNavBarViewCoordinateSpace = CGRect(x: 0,  y: 0, width: width, height: 0)
-            frame = view.convert(frameInExtendedNavBarViewCoordinateSpace, from: extendedNavBarView)
-        } else {
-            frame = self.view.convert(CGRect(x: 0,
-                                             y: listAndSearchOverlayFilterSelectorContainerView.frame.maxY,
-                                             width: listAndSearchOverlayFilterSelectorContainerView.bounds.width,
-                                             height: 0),
-                                      from: listAndSearchOverlayContainerView)
-        }
-        
 
-        filterDropDownContainerView.frame = frame
-        searchFilterListController.currentFilterType = currentSearchFilter
-        
-        touchOutsideOverlayView.resetInsideRects()
-        touchOutsideOverlayView.addInsideRect(fromView: filterSelectorView)
-        touchOutsideOverlayView.frame = view.bounds
-        touchOutsideOverlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(touchOutsideOverlayView)
-
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-            
-            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                            y: self.filterDropDownContainerView.frame.origin.y,
-                                                            width: self.filterDropDownContainerView.frame.size.width,
-                                                            height: origHeight)
-
-            
-        }, completion: { (done) in
-            self.touchOutsideOverlayView.addInsideRect(fromView: self.filterDropDownContainerView)
-            completion(done)
-        })
     }
     
     fileprivate func hideSearchFilterDropdown(completion: @escaping ((Bool) -> Void)) {
-        self.touchOutsideOverlayView.removeFromSuperview()
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-            
-            self.filterDropDownContainerView.frame = CGRect(x: self.filterDropDownContainerView.frame.origin.x,
-                                                            y: self.filterDropDownContainerView.frame.origin.y,
-                                                            width: self.filterDropDownContainerView.frame.width,
-                                                            height: 0)
-        }, completion: { (done) in
-            completion(done)
-        })
+
     }
 
-    
-    fileprivate func updateSearchFilterTitle() {
-        
-        let title: String
-        let image: UIImage
-        let accessibilityLabel: String
-        if (isSearchFilterDropDownShowing) {
-            filterDropDownContainerView.accessibilityViewIsModal = true
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, filterDropDownContainerView)
-            accessibilityLabel = WMFLocalizedString("places-dismiss-filter-list-accessibility-label", value:"Dismiss search filters", comment:"Accessibility title for the button that dismisses search filters")
-            title = WMFLocalizedString("places-filter-list-title", value:"Search filters", comment:"Title shown above list of search filters that can be selected")
-            image = #imageLiteral(resourceName: "chevron-up-large")
-        } else {
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, searchBar)
-            accessibilityLabel = WMFLocalizedString("places-show-filter-list-accessibility-label", value:"Show search filters", comment:"Accessibility title for the button that shows search filters")
-
-            switch currentSearchFilter {
-            case .top:
-                title = PlaceSearchFilterListController.topArticlesFilterLocalizedTitle
-            case .saved:
-                title = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
-            }
-            image = #imageLiteral(resourceName: "chevron-down-large")
-        }
-        
-        let attributedTitle: NSMutableAttributedString
-        if (viewMode != .search) {
-            
-            attributedTitle = NSMutableAttributedString(string: title + "  ")  // load-bearing spaces
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = image
-            
-            let font = filterSelectorView.button.titleLabel?.font ?? UIFont.systemFont(ofSize: 17)
-            imageAttachment.setImageHeight(9, font: font)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            attributedTitle.append(imageString)
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = .center
-            attributedTitle.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedTitle.length))
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: theme.colors.link, range: NSMakeRange(0, attributedTitle.length))
-
-        } else {
-            attributedTitle = NSMutableAttributedString(string: title)
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor, value: theme.colors.primaryText, range: NSMakeRange(0, attributedTitle.length))
-        }
-        
-        UIView.performWithoutAnimation {
-            self.filterSelectorView.button.accessibilityLabel = accessibilityLabel
-            self.filterSelectorView.button.setAttributedTitle(attributedTitle, for: .normal)
-            self.filterSelectorView.button.layoutIfNeeded()
-        }
-    }
-    
-    
     fileprivate func updateSearchBarText(forSearch search: PlaceSearch) {
         if (isDefaultSearch(search)) {
-            searchBar?.text = nil
+            searchBar.text = nil
         } else {
-            searchBar?.text = search.string ?? search.localizedDescription
+            searchBar.text = search.string ?? search.localizedDescription
         }
         
     }
     
     fileprivate func updateSearchBarText() {
         guard let search = currentSearch else {
-            searchBar?.text = nil
+            searchBar.text = nil
             return
         }
         updateSearchBarText(forSearch: search)
-    }
-
-    
-    @IBAction func toggleSearchFilterDropDown(_ sender: Any) {
-        self.isSearchFilterDropDownShowing = !isSearchFilterDropDownShowing
     }
     
     func setupEmptySearchOverlayView() {
@@ -2057,7 +1850,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - Search Suggestions & Completions
     
     var currentSearchString: String {
-        guard let currentSearchString = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) else {
+        guard let currentSearchString = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) else {
             return ""
         }
         return currentSearchString
@@ -2106,7 +1899,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             searchSuggestionController.siteURL = siteURL
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
-            if (recentSearches.count == 0) {
+            let searchText = searchBar.text ?? ""
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
@@ -2129,7 +1923,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         case .top:
             currentSearchScopeName = WMFLocalizedString("places-search-top-articles-that-match-scope", value: "Nearby", comment: "Title used in search description when searching an area for Top articles")
         case .saved:
-            currentSearchScopeName = PlaceSearchFilterListController.savedArticlesFilterLocalizedTitle
+            currentSearchScopeName = OldString.savedArticlesFilterLocalizedTitle
         }
 
         var currentSearchStringSuggestions = [PlaceSearch]()
@@ -2205,31 +1999,31 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     @objc func updateSearchCompletionsFromSearchBarText() {
-        switch (currentSearchFilter) {
-        case .top:
-            updateSearchCompletionsFromSearchBarTextForTopArticles()
+        switch currentSearchFilter {
         case .saved:
-            // TODO: add suggestions here?
+            updateSearchSuggestions(withCompletions: [], isSearchDone: true)
             self.isWaitingForSearchSuggestionUpdate = false
+        default:
+            updateSearchCompletionsFromSearchBarTextForTopArticles()
         }
     }
     
     func updateSearchCompletionsFromSearchBarTextForTopArticles()
     {
-        guard let text = searchBar?.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
+        guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
             return
         }
         let siteURL = self.siteURL
         searchFetcher.fetchArticles(forSearchTerm: text, siteURL: siteURL, resultLimit: 24, failure: { (error) in
-            guard text == self.searchBar?.text else {
+            guard text == self.searchBar.text else {
                 return
             }
             self.updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false
         }) { (searchResult) in
-            guard text == self.searchBar?.text else {
+            guard text == self.searchBar.text else {
                 return
             }
             
@@ -2246,7 +2040,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             let center = self.mapView.userLocation.coordinate
             let region = CLCircularRegion(center: center, radius: 40075000, identifier: "world")
             self.locationSearchFetcher.fetchArticles(withSiteURL: self.siteURL, in: region, matchingSearchTerm: text, sortStyle: .links, resultLimit: 24, completion: { (locationSearchResults) in
-                guard text == self.searchBar?.text else {
+                guard text == self.searchBar.text else {
                     return
                 }
                 var combinedResults: [MWKSearchResult] = searchResult.results ?? []
@@ -2254,15 +2048,15 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 combinedResults.append(contentsOf: newResults)
                 let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
             }) { (error) in
-                guard text == self.searchBar?.text else {
+                guard text == self.searchBar.text else {
                     return
                 }
             }
         }
     }
     
-    @IBAction func closeSearch(_ sender: Any) {
-        searchBar?.endEditing(true)
+    private func closeSearch() {
+        searchBar.endEditing(true)
         currentSearch = nil
         performDefaultSearchIfNecessary(withRegion: nil)
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, view)
@@ -2288,7 +2082,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+        closeSearch()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -2326,7 +2120,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     // MARK: - PlaceSearchSuggestionControllerDelegate
     
     func placeSearchSuggestionController(_ controller: PlaceSearchSuggestionController, didSelectSearch search: PlaceSearch) {
-        searchBar?.endEditing(true)
+        searchBar.endEditing(true)
         currentSearch = search
     }
     
@@ -2449,39 +2243,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let location = touch.location(in: view)
         let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
-    }
-    
-    // MARK: - TouchOutsideOverlayDelegate
-    
-    func touchOutside(_ overlayView: TouchOutsideOverlayView) {
-        guard isSearchFilterDropDownShowing else {
-            return
-        }
-        toggleSearchFilterDropDown(overlayView)
-    }
-    
-    // MARK: - PlaceSearchFilterListDelegate
-    
-    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController, countForFilterType: PlaceFilterType) -> Int {
-        switch (countForFilterType) {
-        case .top:
-            return displayCountForTopPlaces
-        case .saved:
-            do {
-                let moc = dataStore.viewContext
-                return try moc.count(for: placeSearchService.fetchRequestForSavedArticlesWithLocation)
-            } catch let error {
-                DDLogError("Error fetching saved article count: \(error)")
-                return 0
-                
-            }
-        }
-    }
-    
-    func placeSearchFilterListController(_ placeSearchFilterListController: PlaceSearchFilterListController,
-                                          didSelectFilterType filterType: PlaceFilterType) {
-        currentSearchFilter = filterType
-        isSearchFilterDropDownShowing = false
     }
 }
 
@@ -2681,13 +2442,6 @@ extension PlacesViewController: MKMapViewDelegate {
 
 // MARK: -
 
-class PlaceSearchFilterSelectorView: UIView {
-    
-    @IBOutlet weak var button: UIButton!
-}
-
-// MARK: -
-
 class PlaceSearchEmptySearchOverlayView: UIView {
     
     @IBOutlet weak var mainLabel: UILabel!
@@ -2717,13 +2471,10 @@ extension PlacesViewController {
     override func accessibilityPerformEscape() -> Bool {
         switch viewMode {
         case .search:
-            closeSearch(self)
+            closeSearch()
             return true
         default:
-            if isSearchFilterDropDownShowing {
-                toggleSearchFilterDropDown(self)
-                return true
-            } else if selectedArticlePopover != nil {
+            if selectedArticlePopover != nil {
                 deselectAllAnnotations()
                 return true
             } else {
@@ -2742,27 +2493,17 @@ extension PlacesViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.baseBackground
-        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
         navigationBar.apply(theme: theme)
         
-        titleViewSearchBar.apply(theme: theme)
-        titleViewSearchBar.backgroundColor = theme.colors.chromeBackground
+        searchBar.apply(theme: theme)
+        searchBar.backgroundColor = theme.colors.chromeBackground
         
-        listAndSearchOverlaySearchBar.apply(theme: theme)
-        listAndSearchOverlaySearchBar.backgroundColor = theme.colors.chromeBackground
-        
-        filterDropDownContainerView.wmf_addBottomShadow(with: theme)
-        extendedNavBarView.wmf_addBottomShadow(with: theme)
-        searchFilterListController.apply(theme: theme)
         searchSuggestionController.apply(theme: theme)
         
         listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySearchContainerView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlayFilterSelectorContainerView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.tintColor = theme.colors.secondaryText
+        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
         
-        listAndSearchOverlaySearchSeparator.backgroundColor = theme.colors.midBackground
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
         
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
@@ -2773,7 +2514,6 @@ extension PlacesViewController: Themeable {
         selectedArticlePopover?.apply(theme: theme)
         redoSearchButton.backgroundColor = theme.colors.link
         didYouMeanButton.backgroundColor = theme.colors.link
-        updateSearchFilterTitle()
         listViewController.apply(theme: theme)
     }
 }

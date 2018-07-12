@@ -36,24 +36,6 @@
 			<string>%1$d wydarzeń historycznych</string>
 		</dict>
 	</dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>few</key>
-			<string>Znaleziono %1$d miejsca</string>
-			<key>one</key>
-			<string>Znaleziono %1$d miejsce</string>
-			<key>other</key>
-			<string>Znaleziono %1$d miejsc</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
