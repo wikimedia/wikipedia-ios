@@ -90,10 +90,15 @@
 
 + (MTLValueTransformer *)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *extract, BOOL *success, NSError *__autoreleasing *error) {
-        // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
-        // weights relative quality of the random titles it retrieves.
-        if ([extract isEqualToString:@"..."]) {
-            extract = nil;
+        // Remove trailing ellipsis added by the API
+        if ([extract hasSuffix:@"..."]) {
+            if (extract.length == 3) {
+                // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
+                // weights relative quality of the random titles it retrieves.
+                extract = nil;
+            } else {
+                extract = [extract substringWithRange:NSMakeRange(0, extract.length - 3)];
+            }
         }
 
         return [extract wmf_summaryFromText];
@@ -120,7 +125,7 @@
         return displayTitle;
     }
     NSString *title = value[@"title"];
-    if ([title isKindOfClass:[NSString class]]) {  // nil & type check just to be safe
+    if ([title isKindOfClass:[NSString class]]) { // nil & type check just to be safe
         return title;
     }
     return @"";
@@ -128,16 +133,16 @@
 
 + (NSValueTransformer *)displayTitleJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
-                return [[self displayTitleFromValue:value] wmf_stringByRemovingHTML];
-            }];
+        transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+            return [[self displayTitleFromValue:value] wmf_stringByRemovingHTML];
+        }];
 }
 
 + (NSValueTransformer *)displayTitleHTMLJSONTransformer {
     return [MTLValueTransformer
-            transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
-                return [self displayTitleFromValue:value];
-            }];
+        transformerUsingForwardBlock:^(NSDictionary *value, BOOL *success, NSError **error) {
+            return [self displayTitleFromValue:value];
+        }];
 }
 
 + (MTLValueTransformer *)isListJSONTransformer {
@@ -176,24 +181,24 @@
     static NSDictionary *geoTypeLookup;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        geoTypeLookup = @{ @"country": @(WMFGeoTypeCountry),
-                           @"satellite": @(WMFGeoTypeSatellite),
-                           @"adm1st": @(WMFGeoTypeAdm1st),
-                           @"adm2nd": @(WMFGeoTypeAdm2nd),
-                           @"adm3rd": @(WMFGeoTypeAdm3rd),
-                           @"city": @(WMFGeoTypeCity),
-                           @"airport": @(WMFGeoTypeAirport),
-                           @"mountain": @(WMFGeoTypeMountain),
-                           @"isle": @(WMFGeoTypeIsle),
-                           @"waterbody": @(WMFGeoTypeWaterBody),
-                           @"forest": @(WMFGeoTypeForest),
-                           @"river": @(WMFGeoTypeRiver),
-                           @"glacier": @(WMFGeoTypeGlacier),
-                           @"event": @(WMFGeoTypeEvent),
-                           @"edu": @(WMFGeoTypeEdu),
-                           @"pass": @(WMFGeoTypePass),
-                           @"railwaystation": @(WMFGeoTypeRailwayStation),
-                           @"landmark": @(WMFGeoTypeLandmark) };
+        geoTypeLookup = @{@"country": @(WMFGeoTypeCountry),
+                          @"satellite": @(WMFGeoTypeSatellite),
+                          @"adm1st": @(WMFGeoTypeAdm1st),
+                          @"adm2nd": @(WMFGeoTypeAdm2nd),
+                          @"adm3rd": @(WMFGeoTypeAdm3rd),
+                          @"city": @(WMFGeoTypeCity),
+                          @"airport": @(WMFGeoTypeAirport),
+                          @"mountain": @(WMFGeoTypeMountain),
+                          @"isle": @(WMFGeoTypeIsle),
+                          @"waterbody": @(WMFGeoTypeWaterBody),
+                          @"forest": @(WMFGeoTypeForest),
+                          @"river": @(WMFGeoTypeRiver),
+                          @"glacier": @(WMFGeoTypeGlacier),
+                          @"event": @(WMFGeoTypeEvent),
+                          @"edu": @(WMFGeoTypeEdu),
+                          @"pass": @(WMFGeoTypePass),
+                          @"railwaystation": @(WMFGeoTypeRailwayStation),
+                          @"landmark": @(WMFGeoTypeLandmark)};
     });
 
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSArray *value,
@@ -248,21 +253,21 @@
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{ WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitleHTML): @[@"pageprops.displaytitle", @"title"],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"description",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"description"],
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"description",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
-              WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns" };
+    return @{WMF_SAFE_KEYPATH(MWKSearchResult.new, title): @"title",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @[@"pageprops.displaytitle", @"title"],
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitleHTML): @[@"pageprops.displaytitle", @"title"],
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, revID): @"revisions",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"description",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"description"],
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"description",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, location): @"coordinates",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, geoDimension): @"coordinates",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, geoType): @"coordinates",
+             WMF_SAFE_KEYPATH(MWKSearchResult.new, titleNamespace): @"ns"};
 }
 
 - (nullable NSURL *)articleURLForSiteURL:(nullable NSURL *)siteURL {
