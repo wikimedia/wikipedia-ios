@@ -59,7 +59,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: section == 0 ? 160 : 0)
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: section == 0 ? 150 : 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
