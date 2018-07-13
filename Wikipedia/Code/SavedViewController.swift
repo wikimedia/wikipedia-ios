@@ -115,7 +115,7 @@ class SavedViewController: ViewController {
                 scrollView = readingListsViewController?.collectionView
                 extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
-                extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
+                extendedNavBarViewType = .createNewReadingList
             }
         }
     }
@@ -280,7 +280,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             extendedNavBarViewType = currentView == .savedArticles ? .search : .createNewReadingList
             return
         }
-        extendedNavBarViewType = .none
+        extendedNavBarViewType = currentView == .savedArticles ? .none : .createNewReadingList
     }
 }
 
