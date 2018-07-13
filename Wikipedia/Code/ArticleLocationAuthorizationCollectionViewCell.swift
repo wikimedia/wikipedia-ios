@@ -40,9 +40,10 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
         var origin = CGPoint(x: layoutMargins.left, y: size.height + spacing - layoutMargins.bottom)
         let widthForLabels = size.width - layoutMargins.left - layoutMargins.right
         let authorizeSpacing = 3 * spacing
-        origin.y += authorizeTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .left, spacing: authorizeSpacing, apply: apply)
+        let horizontalAlignment: HorizontalAlignment = isDeviceRTL ? .right : .left
+        origin.y += authorizeTitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: horizontalAlignment, spacing: authorizeSpacing, apply: apply)
         origin.y += authorizeButton.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, minimumWidth: widthForLabels, horizontalAlignment: .center, spacing: authorizeSpacing, apply: apply)
-        origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: .left, spacing: authorizeSpacing, apply: apply)
+        origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: horizontalAlignment, spacing: authorizeSpacing, apply: apply)
         return CGSize(width: size.width, height: origin.y + layoutMargins.bottom)
     }
     
