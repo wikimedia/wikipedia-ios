@@ -12,7 +12,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
     
     override func setup() {
         super.setup()
-        authorizeTitleLabel.textAlignment = .center
+        authorizeTitleLabel.textAlignment = .natural
         authorizeTitleLabel.numberOfLines = 0
         addSubview(authorizeTitleLabel)
         
@@ -23,7 +23,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
         authorizeButton.addTarget(self, action: #selector(authorizeButtonPressed(_:)), for: .touchUpInside)
         addSubview(authorizeButton)
         
-        authorizeDescriptionLabel.textAlignment = .center
+        authorizeDescriptionLabel.textAlignment = .natural
         authorizeDescriptionLabel.numberOfLines = 0
         addSubview(authorizeDescriptionLabel)
     }
