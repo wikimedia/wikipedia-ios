@@ -78,27 +78,30 @@ public class ColumnarCollectionViewLayoutInfo {
         let result = section.invalidate(originalAttributes, with: preferredAttributes)
         let newHeight = section.frame.height
         let deltaY = newHeight - oldHeight
-        guard !deltaY.isEqual(to: 0) else {
-            return
-        }
         var invalidatedHeaderIndexPaths: [IndexPath] = result.invalidatedHeaderIndexPaths
         var invalidatedItemIndexPaths: [IndexPath] = result.invalidatedItemIndexPaths
         var invalidatedFooterIndexPaths: [IndexPath] = result.invalidatedFooterIndexPaths
-        let nextSectionIndex = sectionIndex + 1
-        if nextSectionIndex < sections.count {
-            for section in sections[nextSectionIndex..<sections.count] {
-                let result = section.translate(deltaY: deltaY)
-                invalidatedHeaderIndexPaths.append(contentsOf: result.invalidatedHeaderIndexPaths)
-                invalidatedItemIndexPaths.append(contentsOf: result.invalidatedItemIndexPaths)
-                invalidatedFooterIndexPaths.append(contentsOf: result.invalidatedFooterIndexPaths)
+        if !deltaY.isEqual(to: 0) {
+            contentSize.height += deltaY
+            let nextSectionIndex = sectionIndex + 1
+            if nextSectionIndex < sections.count {
+                for section in sections[nextSectionIndex..<sections.count] {
+                    let result = section.translate(deltaY: deltaY)
+                    invalidatedHeaderIndexPaths.append(contentsOf: result.invalidatedHeaderIndexPaths)
+                    invalidatedItemIndexPaths.append(contentsOf: result.invalidatedItemIndexPaths)
+                    invalidatedFooterIndexPaths.append(contentsOf: result.invalidatedFooterIndexPaths)
+                }
             }
         }
+        
         if invalidatedHeaderIndexPaths.count > 0 {
             context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionHeader, at: invalidatedHeaderIndexPaths)
         }
+        
         if invalidatedItemIndexPaths.count > 0 {
             context.invalidateItems(at: invalidatedItemIndexPaths)
         }
+        
         if invalidatedFooterIndexPaths.count > 0 {
             context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionFooter, at: invalidatedFooterIndexPaths)
         }
