@@ -10,7 +10,7 @@ public enum TableOfContentsItemType {
         get {
             switch (self) {
             case .primary:
-                return .georgiaTitle1
+                return .georgiaTitle3
             case .secondary:
                 return .subheadline
             }
