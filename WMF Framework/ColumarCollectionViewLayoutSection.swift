@@ -129,8 +129,13 @@ class ColumnarCollectionViewLayoutSection {
             return 0
         }
         let oldAttributes = array[index]
-        oldAttributes.frame = attributes.frame
-        return attributes.frame.height - oldAttributes.frame.height
+        let newFrame = CGRect(origin: oldAttributes.frame.origin, size: attributes.frame.size)
+        let deltaY = newFrame.height - oldAttributes.frame.height
+        guard !deltaY.isEqual(to: 0) else {
+            return 0
+        }
+        oldAttributes.frame = newFrame
+        return deltaY
     }
     
     
@@ -151,7 +156,7 @@ class ColumnarCollectionViewLayoutSection {
         let index = originalAttributes.indexPath.item
         switch originalAttributes.representedElementCategory {
         case UICollectionElementCategory.cell:
-            var invalidatedItemIndexPaths: [IndexPath] = []
+            var invalidatedItemIndexPaths: [IndexPath] = [originalAttributes.indexPath]
             let deltaY = updateAttributes(at: index, in: items, with: attributes)
             guard
                 let columnIndex = columnIndexByItemIndex[index]
@@ -187,14 +192,16 @@ class ColumnarCollectionViewLayoutSection {
             case UICollectionElementKindSectionHeader:
                 let deltaY = updateAttributes(at: index, in: headers, with: attributes)
                 frame.size.height += deltaY
-                let invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: items)
+                var invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: headers)
+                invalidatedHeaderIndexPaths.append(originalAttributes.indexPath)
                 let invalidatedItemIndexPaths = translateAttributesBy(deltaY, at: 0, in: items)
                 let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
                 return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: invalidatedHeaderIndexPaths, invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
             case UICollectionElementKindSectionFooter:
                 let deltaY = updateAttributes(at: index, in: footers, with: attributes)
                 frame.size.height += deltaY
-                let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: footers)
+                var invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: footers)
+                invalidatedFooterIndexPaths.append(originalAttributes.indexPath)
                 return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
             default:
                 return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
