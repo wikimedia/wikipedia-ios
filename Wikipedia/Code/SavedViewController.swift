@@ -154,7 +154,8 @@ class SavedViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = false
         navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isShadowHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
+        navigationBar.isShadowBelowUnderBarView = true
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
