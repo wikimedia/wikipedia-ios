@@ -115,7 +115,7 @@ class SavedViewController: ViewController {
                 scrollView = readingListsViewController?.collectionView
                 extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
-                extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
+                extendedNavBarViewType = .createNewReadingList
             }
         }
     }
@@ -154,7 +154,8 @@ class SavedViewController: ViewController {
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = false
         navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isShadowHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
+        navigationBar.isShadowBelowUnderBarView = true
         
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
@@ -279,7 +280,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
             extendedNavBarViewType = currentView == .savedArticles ? .search : .createNewReadingList
             return
         }
-        extendedNavBarViewType = .none
+        extendedNavBarViewType = currentView == .savedArticles ? .none : .createNewReadingList
     }
 }
 
