@@ -19,7 +19,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(10)
     private let cardShadowOpacity = Float(0.13)
-    private let cardShadowOffset =  CGSize(width: 0, height: 5)
+    private let cardShadowOffset =  CGSize(width: 0, height: 2)
     
     static let overflowImage = UIImage(named: "overflow")
     
