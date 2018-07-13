@@ -241,7 +241,7 @@ extension SavedArticlesViewController {
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
+
         cell.isBatchEditable = true
         cell.delegate = self
         cell.layoutMargins = layout.itemLayoutMargins
