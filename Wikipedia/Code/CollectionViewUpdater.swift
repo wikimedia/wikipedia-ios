@@ -2,6 +2,8 @@ import Foundation
 
 protocol CollectionViewUpdaterDelegate: NSObjectProtocol {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView)
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView)
+
 }
 
 class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate {
@@ -127,34 +129,12 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
-            var insertedSections = IndexSet()
-            var deletedSections = IndexSet()
-            var updatedSections = IndexSet()
-            
-            for sectionChange in sectionChanges {
-                switch sectionChange.type {
-                case .delete:
-                    DDLogDebug("WMFBU section delete: \(sectionChange.sectionIndex)")
-                    collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
-                    deletedSections.insert(sectionChange.sectionIndex)
-                case .insert:
-                    DDLogDebug("WMFBU section insert: \(sectionChange.sectionIndex)")
-                    collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
-                    insertedSections.insert(sectionChange.sectionIndex)
-                default:
-                    DDLogDebug("WMFBU section update: \(sectionChange.sectionIndex)")
-                    collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
-                    updatedSections.insert(sectionChange.sectionIndex)
-                }
-            }
             for objectChange in objectChanges {
                 switch objectChange.type {
                 case .delete:
                     if let fromIndexPath = objectChange.fromIndexPath {
-                        if !deletedSections.contains(fromIndexPath.section) {
-                            DDLogDebug("WMFBU object delete: \(fromIndexPath)")
-                            collectionView.deleteItems(at: [fromIndexPath])
-                        }
+                        DDLogDebug("WMFBU object delete: \(fromIndexPath)")
+                        collectionView.deleteItems(at: [fromIndexPath])
                     } else {
                         assert(false, "unhandled delete")
                         DDLogError("Unhandled delete: \(objectChange)")
@@ -168,25 +148,41 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         DDLogError("Unhandled insert: \(objectChange)")
                     }
                 case .move:
-                    DDLogDebug("WMFBU object move")
                     if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath {
-                        collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
+                        DDLogDebug("WMFBU object move delete: \(fromIndexPath)")
+                        collectionView.deleteItems(at: [fromIndexPath])
+                        DDLogDebug("WMFBU object move insert: \(toIndexPath)")
+                        collectionView.insertItems(at: [toIndexPath])
                     } else {
                         assert(false, "unhandled move")
                         DDLogError("Unhandled move: \(objectChange)")
                     }
                     break
-                default:
+                case .update:
                     if let updatedIndexPath = objectChange.toIndexPath ?? objectChange.fromIndexPath {
-                        collectionView.reloadItems(at: [updatedIndexPath])
+                        delegate?.collectionViewUpdater(self, updateItemAtIndexPath: updatedIndexPath, in: collectionView)
                     } else {
                         assert(false, "unhandled update")
                         DDLogDebug("WMFBU unhandled update: \(objectChange)")
                     }
                 }
             }
+            
+            for sectionChange in sectionChanges {
+                switch sectionChange.type {
+                case .delete:
+                    DDLogDebug("WMFBU section delete: \(sectionChange.sectionIndex)")
+                    collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
+                case .insert:
+                    DDLogDebug("WMFBU section insert: \(sectionChange.sectionIndex)")
+                    collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
+                default:
+                    DDLogDebug("WMFBU section update: \(sectionChange.sectionIndex)")
+                    collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
+                }
+            }
             DDLogDebug("=== WMFBU BATCH UPDATE END ===")
-        }) { (done) in
+        }) { (finished) in
             self.delegate?.collectionViewUpdater(self, didUpdate: collectionView)
         }
     }

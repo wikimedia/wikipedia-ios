@@ -456,11 +456,24 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let contentGroup = fetchedResultsController.object(at: indexPath)
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
+    
+    #if DEBUG
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else {
+            return
+        }
+        dataStore.feedContentController.debugChaos()
+    }
+    #endif
 }
 
 
 extension ExploreViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
         
     }
 }
