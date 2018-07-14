@@ -228,8 +228,8 @@ class SavedViewController: ViewController {
             button.tintColor = theme.colors.link
         }
         
-        underBarView.backgroundColor = theme.colors.chromeBackground
-        searchView.backgroundColor = theme.colors.chromeBackground
+        underBarView.backgroundColor = theme.colors.paperBackground
+        searchView.backgroundColor = theme.colors.paperBackground
         searchBar.apply(theme: theme)
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
