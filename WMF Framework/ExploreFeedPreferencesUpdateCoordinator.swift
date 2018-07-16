@@ -36,9 +36,9 @@
             feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
             return
         }
-        let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-title", value: "Turn off Explore feed?", comment: "Title for alert that allows user to decide whether they want to turn off Explore feed"), message: "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab", preferredStyle: .alert)
+        let alertController = UIAlertController(title: CommonStrings.turnOffExploreFeedTitle, message: "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab", preferredStyle: .alert)
 
-        alertController.addAction(UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-action-title", value: "Turn off Explore feed", comment: "Title for action alert that allows user to turn off Explore feed"), style: .destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: CommonStrings.turnOffExploreFeedActionTitle, style: .destructive, handler: { (_) in
             UserDefaults.wmf_userDefaults().defaultTabType = .settings
             self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
         }))
