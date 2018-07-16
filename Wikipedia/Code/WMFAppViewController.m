@@ -1547,24 +1547,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
     [self updateDefaultTabIfNeeded];
-
-    NSArray *viewControllers = navigationController.viewControllers;
-    NSInteger count = viewControllers.count;
-    NSMutableIndexSet *indiciesToRemove = [NSMutableIndexSet indexSet];
-    NSInteger index = 1;
-    NSInteger limit = count - 2;
-    while (index < limit) {
-        if ([viewControllers[index] isKindOfClass:[SearchViewController class]]) {
-            [indiciesToRemove addIndex:index];
-        }
-        index++;
-    }
-
-    if (indiciesToRemove.count > 0) {
-        NSMutableArray *mutableViewControllers = [navigationController.viewControllers mutableCopy];
-        [mutableViewControllers removeObjectsAtIndexes:indiciesToRemove];
-        [navigationController setViewControllers:mutableViewControllers animated:NO];
-    }
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
@@ -1854,14 +1836,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSArray *vcs = nc.viewControllers;
     NSMutableArray *mutableVCs = [vcs mutableCopy];
     SearchViewController *searchVC = nil;
-    NSInteger index = 0;
-    for (id vc in nc.viewControllers) {
-        if (![vc isKindOfClass:[SearchViewController class]]) {
-            index++;
-            continue;
+    NSInteger index = 1;
+    NSInteger limit = vcs.count;
+    while (index < limit) {
+        UIViewController *vc = vcs[index];
+        if ([vc isKindOfClass:[SearchViewController class]]) {
+            searchVC = (SearchViewController *)vc;
+            [mutableVCs removeObjectAtIndex:index];
+            break;
         }
-        searchVC = vc;
-        [mutableVCs removeObjectAtIndex:index];
+        index++;
     }
 
     if (searchVC) {
