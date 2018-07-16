@@ -127,8 +127,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     fileprivate var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
     fileprivate var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
-    fileprivate var shadowBottomViewBottomConstraint: NSLayoutConstraint!
-    fileprivate var extendedViewBottomViewBottomConstraint: NSLayoutConstraint!
 
     fileprivate var shadowHeightConstraint: NSLayoutConstraint!
     fileprivate var extendedViewHeightConstraint: NSLayoutConstraint!
@@ -215,8 +213,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         
-        updateTitleBarConstraints()
-        
         let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
         let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
         
@@ -224,15 +220,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         extendedView.addConstraint(extendedViewHeightConstraint)
         
         let extendedViewTopConstraint = underBarView.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
-        if let safeArea = safeArea {
-            let extendedViewLeadingConstraint = safeArea.leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
-            let extendedViewTrailingConstraint = safeArea.trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
-            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
-        } else {
-            let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
-            let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
-            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
-        }
+        let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
+        let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
+        let extendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: bottomAnchor)
         
         let backgroundViewTopConstraint = topAnchor.constraint(equalTo: backgroundView.topAnchor)
         let backgroundViewLeadingConstraint = leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
@@ -243,20 +233,19 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
         let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
         
-        
         let shadowLeadingConstraint = leadingAnchor.constraint(equalTo: shadow.leadingAnchor)
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
         
         shadowTopExtendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         shadowTopUnderBarViewBottomConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
-        shadowBottomViewBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
-        extendedViewBottomViewBottomConstraint = bottomAnchor.constraint(equalTo: extendedView.bottomAnchor)
         
-        updateShadowConstraints()
 
-        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomViewBottomConstraint])
+        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
         addConstraints(updatedConstraints)
         
+        updateTitleBarConstraints()
+        updateShadowConstraints()
+
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
     }
     
@@ -360,8 +349,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     private func updateShadowConstraints() {
         shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
         shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
-        shadowBottomViewBottomConstraint.isActive = !isShadowBelowUnderBarView
-        extendedViewBottomViewBottomConstraint.isActive = isShadowBelowUnderBarView
         setNeedsUpdateConstraints()
     }
     
