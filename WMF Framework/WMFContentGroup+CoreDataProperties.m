@@ -25,5 +25,6 @@
 @dynamic featuredContentIdentifier;
 @dynamic contentDate;
 @dynamic countOfFullContent;
+@dynamic undoType;
 
 @end

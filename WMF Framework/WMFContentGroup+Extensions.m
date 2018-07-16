@@ -185,6 +185,10 @@
     return (WMFContentType)self.contentTypeInteger;
 }
 
+- (WMFContentGroupUndoType)undoType {
+    return (WMFContentGroupUndoType)self.undoType;
+}
+
 - (void)setContentType:(WMFContentType)contentType {
     self.contentTypeInteger = contentType;
 }

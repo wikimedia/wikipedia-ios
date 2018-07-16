@@ -36,6 +36,12 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
     WMFContentGroupKindReadingList = 15
 };
 
+typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
+    WMFContentGroupUndoTypeNone,
+    WMFContentGroupUndoTypeAll,
+    WMFContentGroupUndoTypeSingle
+};
+
 @interface WMFContentGroup (Extensions)
 
 + (nullable NSString *)databaseKeyForURL:(nullable NSURL *)URL;
