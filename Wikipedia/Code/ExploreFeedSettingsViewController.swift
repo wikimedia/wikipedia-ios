@@ -224,6 +224,31 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return [customizationSection, languagesSection, mainSection]
     }
 
+    // MARK: Turning off Explore feed
+
+    private func reloadMasterSwitch() {
+        for (cell, item) in cellsToItemsThatNeedReloading {
+            guard let master = item as? ExploreFeedSettingsMaster, master.type == .entireFeed else {
+                continue
+            }
+            master.updateIsOn(for: displayType)
+            cell.disclosureSwitch.setOn(master.isOn, animated: true)
+        }
+    }
+
+    private lazy var turnOffExploreAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: CommonStrings.turnOffExploreFeedTitle, message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-alert-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that lets users decide whether the want to turn off the Explore tab"), preferredStyle: .alert)
+        let turnOffExplore = UIAlertAction(title: CommonStrings.turnOffExploreFeedActionTitle, style: .destructive) { _ in
+            UserDefaults.wmf_userDefaults().defaultTabType = .settings
+        }
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+            self.reloadMasterSwitch()
+        }
+        alertController.addAction(turnOffExplore)
+        alertController.addAction(cancel)
+        return alertController
+    }()
+
 }
 
 // MARK: - UITableViewDelegate
@@ -247,6 +272,7 @@ extension ExploreFeedSettingsViewController {
 // MARK: - WMFSettingsTableViewCellDelegate
 
 extension ExploreFeedSettingsViewController {
+
     override func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         let controlTag = sender.tag
         guard let feedContentController = feedContentController else {
@@ -254,7 +280,11 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            UserDefaults.wmf_userDefaults().defaultTabType = sender.isOn ? .explore : .settings
+            if sender.isOn {
+                UserDefaults.wmf_userDefaults().defaultTabType = .explore
+            } else {
+                present(turnOffExploreAlertController, animated: true)
+            }
             return
         }
         guard controlTag != -2 else { // global cards
