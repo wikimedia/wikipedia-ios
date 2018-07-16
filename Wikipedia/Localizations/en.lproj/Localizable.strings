@@ -175,6 +175,7 @@
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Turn off Explore feed?";
+"explore-feed-preferences-turn-off-explore-tab-alert-message" = "The Explore tab can be turned back on in Explore feed settings";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
