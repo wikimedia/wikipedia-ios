@@ -153,7 +153,7 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     @objc var dataStore: MWKDataStore?
     var theme = Theme.standard
 
-    private var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
+    var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
     override var nibName: String? {
         return "BaseExploreFeedSettingsViewController"
