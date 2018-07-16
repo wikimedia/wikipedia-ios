@@ -27,7 +27,7 @@ public class CreateNewReadingListButtonView: UIView {
 
 extension CreateNewReadingListButtonView: Themeable {
     public func apply(theme: Theme) {
-        backgroundColor = theme.colors.chromeBackground
+        backgroundColor = theme.colors.paperBackground
         button.tintColor = theme.colors.link
         separator.backgroundColor = theme.colors.border
     }
