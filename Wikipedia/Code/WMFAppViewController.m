@@ -117,8 +117,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
 
-@property (nonatomic) BOOL shouldUpdateDefaultTab;
-
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
 
@@ -480,7 +478,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self dismissPresentedViewControllers];
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
         [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
-        self.shouldUpdateDefaultTab = NO;
     });
 }
 
