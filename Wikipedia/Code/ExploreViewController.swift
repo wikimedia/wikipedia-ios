@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, WMFSearchButtonProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding {
     
     // MARK - UIViewController
     
@@ -465,18 +465,34 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.debugChaos()
     }
     #endif
-}
-
-
-extension ExploreViewController: CollectionViewUpdaterDelegate {
+    
+    // MARK - CollectionViewUpdaterDelegate
+    
+    var needsReloadVisibleCells = false
+    
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         
+        guard needsReloadVisibleCells else {
+            return
+        }
+        
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
+                continue
+            }
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
+        
+        needsReloadVisibleCells = false
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
+        collectionView.collectionViewLayout.invalidateLayout()
+        needsReloadVisibleCells = true
     }
 }
+
+
 
 // MARK - Analytics
 extension ExploreViewController {
