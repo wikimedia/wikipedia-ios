@@ -31,7 +31,7 @@ extension ExploreFeedSettingsItem {
     }
 }
 
-enum ExploreFeedSettingsMasterType {
+enum ExploreFeedSettingsMasterType: Equatable {
     case entireFeed
     case singleFeedCard(WMFContentGroupKind)
 }
