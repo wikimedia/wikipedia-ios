@@ -300,7 +300,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.showCloseButton = NO;
             [navigationController setNavigationBarHidden:NO animated:animated];
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
             [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
     }
 }
@@ -475,16 +474,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Explore feed preferences
 
-
-- (void)updateDefaultTabIfNeeded {
-    if (!self.shouldUpdateDefaultTab) {
-        return;
-    }
-    [self updateDefaultTab];
-}
-
 - (void)updateDefaultTab {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissPresentedViewControllers];
+        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
         [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
         self.shouldUpdateDefaultTab = NO;
     });
@@ -1235,12 +1228,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (context == &kvo_SavedArticlesFetcher_progress) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
     } else if (context == &kvo_NSUserDefaults_defaultTabType) {
-        WMFAppDefaultTabType defaultTabType = [NSUserDefaults wmf_userDefaults].defaultTabType;
-        if (defaultTabType != WMFAppDefaultTabTypeExplore && !self.presentedViewController) {
-            [self updateDefaultTab];
-        } else {
-            self.shouldUpdateDefaultTab = YES;
-        }
+        [self updateDefaultTab];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -1543,7 +1531,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
-    [self updateDefaultTabIfNeeded];
 
     NSArray *viewControllers = navigationController.viewControllers;
     NSInteger count = viewControllers.count;
@@ -1721,7 +1708,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
@@ -1878,7 +1865,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (nonnull WMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
-        [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
+            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
     }
