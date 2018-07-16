@@ -157,6 +157,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         let searchLanguageBarViewController = SearchLanguagesBarViewController()
         searchLanguageBarViewController.apply(theme: theme)
+        searchLanguageBarViewController.delegate = self
         self.searchLanguageBarViewController = searchLanguageBarViewController
         return searchLanguageBarViewController
     }
@@ -474,6 +475,12 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
         saveLastSearch()
         funnel.logSearchResultTap()
+    }
+}
+
+extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+        search()
     }
 }
 
