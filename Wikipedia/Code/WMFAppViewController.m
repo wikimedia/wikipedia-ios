@@ -1733,7 +1733,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (NSArray<UINavigationController *> *)allNavigationControllers {
     // Navigation controllers
-    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeMain], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
+    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeMain], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], [self navigationControllerForTab:WMFAppTabTypeSearch], nil];
     if (self.settingsNavigationController) {
         [navigationControllers addObject:self.settingsNavigationController];
     }
@@ -1854,14 +1854,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSArray *vcs = nc.viewControllers;
     NSMutableArray *mutableVCs = [vcs mutableCopy];
     SearchViewController *searchVC = nil;
-    NSInteger index = 0;
-    for (id vc in nc.viewControllers) {
-        if (![vc isKindOfClass:[SearchViewController class]]) {
-            index++;
-            continue;
+    NSInteger index = 1;
+    NSInteger limit = vcs.count;
+    while (index < limit) {
+        UIViewController *vc = vcs[index];
+        if ([vc isKindOfClass:[SearchViewController class]]) {
+            searchVC = (SearchViewController *)vc;
+            [mutableVCs removeObjectAtIndex:index];
+            break;
         }
-        searchVC = vc;
-        [mutableVCs removeObjectAtIndex:index];
+        index++;
     }
 
     if (searchVC) {
