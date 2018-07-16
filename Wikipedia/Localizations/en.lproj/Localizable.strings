@@ -468,6 +468,7 @@
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "search-recent-clear-delete-all" = "Delete All";
+"search-recent-empty" = "No recent searches yet";
 "search-recent-title" = "Recently searched";
 "search-result-redirected-from" = "Redirected from: $1";
 "search-title" = "Search";
