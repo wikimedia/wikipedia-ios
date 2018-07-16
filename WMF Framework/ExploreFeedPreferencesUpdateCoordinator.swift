@@ -28,7 +28,7 @@
                 feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
                 return
             }
-            // TODO
+            present(turnOnExploreAlertController, from: viewController)
         } else {
             guard UserDefaults.wmf_userDefaults().defaultTabType == .explore else {
                 feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
@@ -42,17 +42,33 @@
                 feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
                 return
             }
-            let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-title", value: "Turn off Explore feed?", comment: "Title for alert that allows user to decide whether they want to turn off Explore feed"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-message", value: "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab", comment: "Message for alert that allows user to decide whether they want to turn off Explore feed"), preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-action-title", value: "Turn off Explore feed", comment: "Title for action alert that allows user to turn off Explore feed"), style: .destructive, handler: { (_) in
-                UserDefaults.wmf_userDefaults().defaultTabType = .settings
-                self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
-            }))
-            alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (_) in
-                self.feedContentController.rejectNewExploreFeedPreferences()
-            }))
-            present(alertController, from: viewController)
+            present(turnOffExploreAlertController, from: viewController)
         }
     }
+
+    private lazy var turnOffExploreAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-title", value: "Turn off Explore feed?", comment: "Title for alert that allows user to decide whether they want to turn off Explore feed"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-message", value: "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab", comment: "Message for alert that allows user to decide whether they want to turn off Explore feed"), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-action-title", value: "Turn off Explore feed", comment: "Title for action alert that allows user to turn off Explore feed"), style: .destructive, handler: { _ in
+            UserDefaults.wmf_userDefaults().defaultTabType = .settings
+            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
+        }))
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            self.feedContentController.rejectNewExploreFeedPreferences()
+        }))
+        return alertController
+    }()
+
+    private lazy var turnOnExploreAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-feed-alert-message", value: "By choosing to show Explore feed cards you are turning on the Explore tab", comment: "Message for alert that allows user to decide whether they want to turn on Explore feed"), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
+            UserDefaults.wmf_userDefaults().defaultTabType = .explore
+            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
+        }))
+        alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
+            self.feedContentController.rejectNewExploreFeedPreferences()
+        }))
+        return alertController
+    }()
 
     private func present(_ alertController: UIAlertController, from presenter: UIViewController) {
         if let presenter = presenter.presentedViewController {
