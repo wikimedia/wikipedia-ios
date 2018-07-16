@@ -86,7 +86,8 @@
 "explore-continue-reading-heading" = "Уҡыуҙы дауам итергә";
 "explore-featured-article-heading" = "Һайланған мәҡәлә";
 "explore-main-page-heading" = "Бөгөн Википедияла";
-"explore-most-read-footer-for-date" = "$1-ҙә иң күп уҡылған барлыҡ мәҡәләләр";
+// Fuzzy
+"explore-most-read-footer" = "Иң күп уҡылған барлыҡ мәҡәләләр";
 "explore-most-read-more-list-title-for-date" = "$1-ҙә иң күп уҡылғаны";
 "explore-nearby-heading" = "Яҡындағы урындар";
 "explore-potd-heading" = "Көн Һүрәтләнеше";
@@ -106,6 +107,7 @@
 "hockeyapp-alert-send-report" = "Отчет ебәрергә";
 "hockeyapp-alert-title" = "Үкенескә ҡаршы, үткән юлы ҡушымта \"төшкән\"";
 "home-more-like-footer" = "Тағы ла оҡшаш $1";
+// Fuzzy
 "home-nearby-footer" = "Һеҙгә яҡын булған нәмәләр тураһында тағы бер тапҡыр";
 "home-nearby-location-footer" = "Тағы $1 - ҙән яҡыныраҡ";
 "home-title" = "Тикшерегеҙ";
@@ -140,14 +142,12 @@
 "main-menu-title" = "Тағы ла";
 "main-menu-zero-faq" = "Zero Википедияһы буйынса йыш бирелгән һорауҙар";
 "menu-cancel-accessibility-label" = "Баш тартыу";
-"menu-trash-accessibility-label" = "Юйырға";
 "navbar-title-mode-edit-wikitext-preview" = "Алдан байҡау";
 "nearby-distance-label-feet" = "$1 фут.";
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "no-email-account-alert" = "Үҙегеҙҙең ҡоролмала электрон почтаның иҫәп яҙмаһын көйләгеҙ һәм тағы бер тапҡыр эшләп ҡарағыҙ.";
-"onboarding-wikipedia" = "Википедия";
 "open-link-cancel" = "Кире алырға";
 "page-edit-history" = "Мөхәррирләүҙең тулы тарихы";
 "page-history-title" = "Бит тарихы";

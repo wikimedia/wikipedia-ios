@@ -122,7 +122,8 @@
 "explore-feed-preferences-show-continue-reading-title" = "Показувати картку Продовження читання";
 "explore-feed-preferences-show-related-pages-title" = "Показувати картку Тому що ви читаєте";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
-"explore-most-read-footer-for-date" = "Всі найбільш читані статті на $1";
+// Fuzzy
+"explore-most-read-footer" = "Всі найбільш читані статті";
 "explore-most-read-generic-heading" = "Найбільш читане";
 "explore-most-read-more-list-title-for-date" = "Найбільш читане на $1";
 "explore-nearby-heading" = "Місця поблизу";
@@ -180,6 +181,7 @@
 "home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
 "home-more-like-footer" = "Більше схоже на $1";
+// Fuzzy
 "home-nearby-footer" = "Більше про те, що неподалік від вас";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-themes-action-title" = "Керування налаштуваннями";
@@ -223,7 +225,6 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "menu-cancel-accessibility-label" = "Скасувати";
-"menu-trash-accessibility-label" = "Вилучити";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
@@ -236,7 +237,6 @@
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
 "on-this-day-footer" = "Більше історичних подій цього дня";
-"onboarding-wikipedia" = "Вікіпедія";
 "open-link-cancel" = "Скасувати";
 "page-edit-history" = "Повна історія редагування";
 "page-history-title" = "Історія статті";
@@ -250,7 +250,6 @@
 "page-protected-sysop" = "Сторінка є повністю захищена.";
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-similar-titles" = "Подібні сторінки";
-"places-accessibility-close-search" = "Закрити пошук";
 "places-accessibility-group" = "$1 статей";
 "places-accessibility-recenter-map-on-user-location" = "Відцентрувати на Вашому місці розташування";
 "places-accessibility-show-as-list" = "Показати як список";
@@ -261,7 +260,6 @@
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";
 "places-enable-location-title" = "Перегляньте статті поблизу Вашого місця перебування, увімкнувши доступ до Вашого розташування";
 "places-filter-saved-articles" = "Збережені статті";
-"places-filter-saved-articles-count" = "Знайдено $1 {{PLURAL:$1|місце|місць}}";
 "places-filter-top-articles" = "Найбільш читають";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|стаття|статей}}";
 "places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";

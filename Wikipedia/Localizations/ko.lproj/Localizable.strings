@@ -32,6 +32,7 @@
 "about-libraries-complete-list" = "완성 목록";
 "about-libraries-license" = "라이선스";
 "about-libraries-licenses-title" = "저희는 오픈 소스 소프트웨어 $1을(를) 좋아합니다";
+"about-places-maps-license-details-link-text" = "자세한 라이선스에 대해서는 여기를 확인해 주십시오";
 "about-product-of" = "여러분과 같은 기여자들의 도움으로 $1이 개발하였습니다";
 "about-repositories" = "저장소";
 "about-repositories-app-source-license" = "소스 코드는 $1 하에 이용이 가능합니다.";
@@ -85,6 +86,7 @@
 "alert-no-internet" = "인터넷 연결이 없습니다";
 "announcements-dismiss" = "숨기기";
 "app-store-keywords" = "위키백과, 참고문헌, 위키, 백과사전, 정보, 지식, 연구, 정보, 탐색, 학습";
+// Fuzzy
 "app-store-release-notes" = "저장된 문서는 이제 읽기 목록으로 정렬한 다음 장치 간에 동기화할 수 있습니다.";
 "app-store-short-description" = "주변 장소를 찾아보고, 오프라인에서 읽기 위해 문서를 동기화하고, 읽기 경험을 자신에 맞게 변경하려면 위키백과 앱을 다운로드하세요.";
 "app-store-subtitle" = "우리 모두의 백과사전";
@@ -94,7 +96,7 @@
 "appearance-settings-image-dimming-footer" = "어두운 테마에서 그림의 투명도를 줄입니다";
 "appearance-settings-reading-themes" = "읽기 테마";
 "appearance-settings-set-automatic-table-opening" = "테이블 설정";
-"appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 위의 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
+"appearance-settings-text-sizing-example-text" = "문서의 텍스트 크기를 변경하려면 슬라이더를 드래그하십시오. 시스템 텍스트 크기를 사용하여 앱의 다른 텍스트 영역의 크기를 바꿀 수 있습니다.";
 "appearance-settings-theme-options" = "테마 옵션";
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
@@ -150,6 +152,7 @@
 "error-unknown" = "알 수 없는 오류가 발생했습니다";
 "explore-another-random" = "다른 임의 문서";
 "explore-because-you-read" = "당신이 읽었기 때문입니다";
+"explore-because-you-read-footer" = "추가 관련 문서";
 "explore-continue-reading-heading" = "계속 읽기";
 "explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
@@ -162,10 +165,13 @@
 "explore-feed-preferences-hide-card-action-title" = "이 카드 숨기기";
 "explore-feed-preferences-hide-feed-cards-action-title" = "모든 %@ 카드 숨기기";
 "explore-feed-preferences-places-description" = "주변 지역의 위키백과 문서";
+"explore-feed-preferences-show-places-title" = "장소 카드 표시";
+"explore-feed-preferences-top-read-description" = "하루 중 가장 많이 읽은 글";
 "explore-hide-card-prompt" = "이 카드 숨기기";
 "explore-main-page-description" = "위키미디어 프로젝트의 대문";
 "explore-main-page-heading" = "오늘의 위키백과";
-"explore-most-read-footer-for-date" = "$1의 가장 많이 읽은 문서 전체";
+// Fuzzy
+"explore-most-read-footer" = "가장 많이 읽은 문서 전체";
 "explore-most-read-generic-heading" = "가장 많이 읽은 글";
 "explore-most-read-more-list-title-for-date" = "$1의 상위 문서";
 "explore-most-read-sub-heading-on-language-wikipedia" = "$1 위키백과에서";
@@ -178,6 +184,8 @@
 "explore-potd-heading" = "오늘의 그림";
 "explore-potd-sub-heading" = "위키미디어 공용에서";
 "explore-random-article-heading" = "임의 문서";
+"explore-random-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
+"explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의 문서 보기";
 "feed-news-notification-button-text" = "알림 켜기";
 "feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
@@ -229,8 +237,9 @@
 "home-button-popover-title" = "대문으로 이동하려면 탭하세요";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
 "home-more-like-footer" = "$1 등도 읽히고 있습니다";
-"home-nearby-footer" = "사용자 위치의 주변 정보";
+"home-nearby-footer" = "사용자 위치의 더 많은 주변 장소";
 "home-nearby-location-footer" = "$1의 주변 정보";
+// Fuzzy
 "home-news-footer" = "뉴스에서 더 보기";
 "home-reading-list-prompt" = "당신이 저장한 문서는 읽기 목록으로 구성되어 기기 간에 동기화됩니다. 읽기 목록이 사용자 설정에 저장되려면 로그인해야 합니다.";
 "home-themes-action-title" = "환경 설정 관리하기";
@@ -278,7 +287,6 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "menu-cancel-accessibility-label" = "취소";
-"menu-trash-accessibility-label" = "삭제";
 "more-languages-tooltip-description" = "약 300개의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "move-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록으로 이동";
@@ -297,7 +305,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1개의 역사적 사건}}";
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "on-this-day-title" = "오늘의 역사";
-"onboarding-wikipedia" = "위키백과";
 "open-link-cancel" = "취소";
 "page-edit-history" = "전체 편집 내역";
 "page-history-title" = "문서 역사";
@@ -314,24 +321,23 @@
 "page-talk-page" = "토론 문서 보기";
 "pictured" = "사진";
 "places-accessibility-clear-saved-searches" = "저장한 검색 지우기";
-"places-accessibility-close-search" = "검색 닫기";
 "places-accessibility-group" = "$1개의 문서";
 "places-accessibility-recenter-map-on-user-location" = "당신의 위치로 다시 고정";
 "places-accessibility-show-as-list" = "목록으로 보기";
 "places-accessibility-show-as-map" = "지도로 보기";
 "places-accessibility-show-more" = "더 많은 글 보기";
-"places-dismiss-filter-list-accessibility-label" = "검색 필터 숨기기";
 "places-empty-search-description" = "도시, 국가, 대륙, 자연지표, 역사적 사건, 건물 등을 탐험합니다.";
 "places-empty-search-title" = "지리적 위치로 위키백과 문서 검색";
 "places-enable-location-action-button-title" = "위치 활성화";
 "places-enable-location-description" = "당신의 위치에 대한 접근은 앱 또는 해당 기능들 중 하나가 화면에 보일 때에만 사용 가능합니다.";
 "places-enable-location-title" = "위치 접근을 활성화하여 당신의 위치에서 가까운 문서를 찾아보세요";
-"places-filter-list-title" = "검색 필터";
+"places-filter-articles-action-sheet-title" = "문서 필터링";
+"places-filter-button-title" = "필터";
 "places-filter-no-saved-places" = "저장한 장소가 없습니다";
 "places-filter-saved-articles" = "저장된 문서";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1곳을}} 찾았음";
 "places-filter-top-articles" = "가장 많이 읽은 글";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1개의 문서}}";
+"places-filter-top-read-articles" = "가장 많이 읽은 문서";
 "places-no-saved-articles-have-location" = "저장한 문서 중 어느 것도 위치 정보가 없습니다";
 "places-search-articles-that-match" = "\"$2\"에 일치하는 $1";
 "places-search-default-text" = "장소 검색";
@@ -343,7 +349,6 @@
 "places-search-top-articles" = "모든 최상위 문서";
 "places-search-top-articles-that-match-scope" = "근처";
 "places-search-your-current-location" = "당신의 현재 위치";
-"places-show-filter-list-accessibility-label" = "검색 필터 표시";
 "places-title" = "장소";
 "places-unknown-distance" = "알 수 없는 거리";
 "potd-description-prefix" = "$1의 그림";
@@ -447,6 +452,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|이 문서의}} 저장을 취소하면 관련된 모든 읽기 목록의 선택 항목을 제거합니다";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|문서}}의 저장을 취소하시겠습니까?";
 "search-button-accessibility-label" = "위키백과 검색";
+"search-clear-title" = "지우기";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
 "search-field-placeholder-text" = "위키백과 검색";
 "search-reading-list-placeholder-text" = "읽기 목록 검색";

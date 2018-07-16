@@ -75,6 +75,7 @@
 "appearance-settings-image-dimming-footer" = "Kurangkan kelegapan imej pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar di atas untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
 "article-about-title" = "Mengenai rencana ini";
@@ -136,7 +137,8 @@
 "explore-featured-article-heading" = "Rencana pilihan";
 "explore-main-page-description" = "Halaman utama projek-projek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
-"explore-most-read-footer-for-date" = "Semua rencana bacaan teratas pada $1";
+// Fuzzy
+"explore-most-read-footer" = "Semua rencana bacaan teratas";
 "explore-most-read-generic-heading" = "Bacaan teratas";
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-nearby-heading" = "Tempat berdekatan";
@@ -197,8 +199,10 @@
 "home-button-popover-title" = "Ketik untuk ke laman utama";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
 "home-more-like-footer" = "Lainnya yang seperti $1";
+// Fuzzy
 "home-nearby-footer" = "Lebih dari kawasan berhampiran lokasi anda";
 "home-nearby-location-footer" = "Lainnya berhampiran $1";
+// Fuzzy
 "home-news-footer" = "Berita terkini lainnya";
 "home-reading-list-prompt" = "Rencana yang disimpan anda kini boleh diaturkan dalam senarai bacaan dan disegerakkan merentas peranti. Log masuk untuk membolehkan senarai bacaan anda disimpan ke pilihan pengguna anda.";
 "home-themes-action-title" = "Urus keutamaan";
@@ -243,7 +247,6 @@
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
-"menu-trash-accessibility-label" = "Padamkan";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
@@ -262,7 +265,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa sejarah|$1 peristiwa sejarah}}";
 "on-this-day-footer" = "Lebih banyak peristiwa bersejarah pada hari ini";
 "on-this-day-title" = "Pada hari ini";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Batal";
 "page-edit-history" = "Semua sejarah penyuntingan";
 "page-history-title" = "Sejarah rencana";
@@ -279,22 +281,18 @@
 "page-talk-page" = "Lihat laman perbincangan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Padamkan carian tersimpan";
-"places-accessibility-close-search" = "Tutup carian";
 "places-accessibility-group" = "$1 rencana";
 "places-accessibility-recenter-map-on-user-location" = "Pusatkan ulang lokasi anda";
 "places-accessibility-show-as-list" = "Tunjukkan sebagai senarai";
 "places-accessibility-show-as-map" = "Tunjukkan sebagai peta";
 "places-accessibility-show-more" = "Menunjukkan lebih banyak rencana";
-"places-dismiss-filter-list-accessibility-label" = "Abaikan penapis carian";
 "places-empty-search-description" = "Meneroka bandar, negara, benua, mercu tanda semula jadi, peristiwa-peristiwa sejarah, bangunan dan banyak lagi.";
 "places-empty-search-title" = "Cari rencana Wikipedia dengan lokasi geografi";
 "places-enable-location-action-button-title" = "Dayakan lokasi";
 "places-enable-location-description" = "Akses kepada lokasi anda tersedia hanya apabila aplikasi atau ciri-ciri yang boleh dilihat pada skrin anda.";
 "places-enable-location-title" = "Meneroka rencana berhampiran lokasi anda dengan membolehkan Akses Lokasi";
-"places-filter-list-title" = "Penapis carian";
 "places-filter-no-saved-places" = "Anda tidak mempunyai tempat yang disimpan";
 "places-filter-saved-articles" = "Rencana tersimpan";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 tempat|$1 tempat}} dijumpai";
 "places-filter-top-articles" = "Bacaan teratas";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 rencana|$1 rencana}}";
 "places-no-saved-articles-have-location" = "Tiada artikel tersimpan anda mempunyai maklumat terperinci";
@@ -308,7 +306,6 @@
 "places-search-top-articles" = "Semua rencana teratas";
 "places-search-top-articles-that-match-scope" = "Berdekatan";
 "places-search-your-current-location" = "Lokasi semasa anda";
-"places-show-filter-list-accessibility-label" = "Tunjukkan penapis carian";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar pilihan pada $1";

@@ -11,6 +11,7 @@
 // Author: Prevodim
 // Author: Rancher
 // Author: Srdjan m
+// Author: Zoranzoki21
 // Author: Милан Јелисавчић
 // Author: Сербијана
 
@@ -24,7 +25,7 @@
 "about-libraries-licenses-title" = "Обожавамо софтвер отвореног кода $1";
 "about-product-of" = "Апликацију је направила $1 уз помоћ добровољаца попут вас";
 "about-repositories" = "Ризнице";
-"about-repositories-app-source-license" = "Изворни кôд је доступан под $1.";
+"about-repositories-app-source-license" = "Изворни код је доступан под $1.";
 "about-repositories-app-source-license-mit" = "лиценцом MIT";
 "about-send-feedback" = "Пошаљи повратну информацију";
 "about-testers" = "Тестери";
@@ -116,7 +117,8 @@
 "explore-featured-article-heading" = "Изабрани чланак";
 "explore-main-page-description" = "Главна страница Викимедијиних пројеката";
 "explore-main-page-heading" = "Данас на Википедији";
-"explore-most-read-footer-for-date" = "Сви најчитанији чланци за $1";
+// Fuzzy
+"explore-most-read-footer" = "Сви најчитанији чланци";
 "explore-most-read-generic-heading" = "Најчитаније";
 "explore-most-read-more-list-title-for-date" = "Најчитанији за $1";
 "explore-nearby-heading" = "Места у близини";
@@ -174,8 +176,9 @@
 "home-button-history-accessibility-label" = "Назад на историју";
 "home-button-saved-accessibility-label" = "Назад на сачуване";
 "home-more-like-footer" = "Још чланака као $1";
-"home-nearby-footer" = "Још из ваше близине";
+"home-nearby-footer" = "Више места близу ваше локације";
 "home-nearby-location-footer" = "Још у близини $1";
+// Fuzzy
 "home-news-footer" = "Више вести";
 "home-themes-action-title" = "Подешавања";
 "home-title" = "Истражи";
@@ -217,7 +220,6 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "ЧПП о режиму Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Откажи";
-"menu-trash-accessibility-label" = "Избриши";
 "more-languages-tooltip-title" = "Додај језике";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
 "nearby-distance-label-feet" = "$1 стопа";
@@ -231,7 +233,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-title" = "На данашњи дан";
-"onboarding-wikipedia" = "Википедија";
 "open-link-cancel" = "Откажи";
 "page-edit-history" = "Целокупна историја измена";
 "page-history-title" = "Историја чланка";
@@ -248,7 +249,6 @@
 "page-talk-page" = "Погледај страницу за разговор";
 "pictured" = "на слици";
 "places-accessibility-clear-saved-searches" = "Очисти скорашње претраге";
-"places-accessibility-close-search" = "Блиска претрага";
 "places-accessibility-group" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-accessibility-recenter-map-on-user-location" = "Рисентер на вашој локацији";
 "places-accessibility-show-as-list" = "Прикажи списак";
@@ -259,10 +259,8 @@
 "places-enable-location-action-button-title" = "Омогући лоцирање";
 "places-enable-location-description" = "Приступ вашој локацији је омогућен само када је апликација или нека од њених функција видљива на вашем екрану.";
 "places-enable-location-title" = "Истражите чланке близу ваше локације омогућавањем Приступа локацији";
-"places-filter-list-title" = "Филтери за претрагу";
 "places-filter-no-saved-places" = "Немате спремљених места";
 "places-filter-saved-articles" = "Сачувани чланци";
-"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|место пронађено|места пронађена|места пронађено}}";
 "places-filter-top-articles" = "Најчитаније";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|чланак|чланка|чланака}}";
 "places-no-saved-articles-have-location" = "Ниједан од ваших сачуваних чланака нема информације о локацији";
@@ -276,7 +274,6 @@
 "places-search-top-articles" = "Сви најчитанији чланци";
 "places-search-top-articles-that-match-scope" = "У близини";
 "places-search-your-current-location" = "Ваша тренутна локација";
-"places-show-filter-list-accessibility-label" = "Прикажи филтере за претрагу";
 "places-title" = "Места";
 "places-unknown-distance" = "непозната удаљеност";
 "potd-description-prefix" = "Слика дана за $1";

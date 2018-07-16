@@ -93,7 +93,8 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "खुला";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
 "explore-main-page-heading" = "विकिपिडियामा आज";
-"explore-most-read-footer-for-date" = "$1मा धेरै पढिएका लेखहरू";
+// Fuzzy
+"explore-most-read-footer" = "सबै धेरै पढिएका लेखहरू";
 "explore-most-read-generic-heading" = "धेरै पढिएको";
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
@@ -142,6 +143,7 @@
 "hockeyapp-alert-title" = "माफ गर्नुहोस्, अनुप्रयोग पछिल्लो पटक क्र्यास भयो";
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-location-footer" = "नजिकै थप $1";
+// Fuzzy
 "home-news-footer" = "समचारमा थप";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
@@ -179,7 +181,6 @@
 "main-menu-title" = "थप";
 "main-menu-zero-faq" = "विकिपिडिया शून्य प्रायः सोधिने प्रश्नहरू";
 "menu-cancel-accessibility-label" = "रद्द गर्नुहोस्";
-"menu-trash-accessibility-label" = "हटाउने";
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
@@ -197,7 +198,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
-"onboarding-wikipedia" = "विकिपिडिया";
 "open-link-cancel" = "रद्द गर्नुहोस्";
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-title" = "लेखको इतिहास";
@@ -214,18 +214,14 @@
 "page-talk-page" = "वार्तालाप पृष्ठ हेर्नुहोस्";
 "pictured" = "तस्विरमा";
 "places-accessibility-clear-saved-searches" = "सङ्ग्रह गरिएका खोजहरू हटाउनुहोस्";
-"places-accessibility-close-search" = "खोज बन्द गर्नुहोस्";
 "places-accessibility-group" = "$1 लेखहरू";
 "places-accessibility-recenter-map-on-user-location" = "तपाईँको स्थानमा पुनःकेन्द्रीकरण गर्नुहोस्";
 "places-accessibility-show-as-list" = "सूचीको रूपमा देखाउनुहोस्";
 "places-accessibility-show-as-map" = "नसक्साको रूपमा देखाउनुहोस्";
 "places-accessibility-show-more" = "थप लेखहरू देखाउनुहोस्";
-"places-dismiss-filter-list-accessibility-label" = "खोज फिल्टरहरू हटाउनुहोस्";
 "places-enable-location-action-button-title" = "स्थान सक्षम पार्नुहोस्";
-"places-filter-list-title" = "खोज फिल्टरहरू";
 "places-filter-no-saved-places" = "कुनै पनि सङ्ग्रह गरिएका स्थानहरू छैनन्";
 "places-filter-saved-articles" = "सङ्ग्रह गरिएका लेखहरू";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 स्थान|$1 स्थानहरू}} भेटियो";
 "places-filter-top-articles" = "धेरै पढिएको";
 "places-search-default-text" = "स्थानहरू खोज्नुहोस्";
 "places-search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
