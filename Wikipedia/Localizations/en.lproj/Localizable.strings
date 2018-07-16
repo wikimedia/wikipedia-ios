@@ -175,7 +175,13 @@
 "explore-feed-preferences-top-read-description" = "Daily most read articles";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Turn off Explore feed?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Turn off Explore";
+"explore-feed-preferences-turn-off-explore-tab-message" = "The Explore tab can be turned back on in Explore feed settings";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Turn off the Explore tab?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Turning off the Explore tab will replace the Explore tab with a Settings tab.";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
+"explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";

@@ -224,7 +224,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         return [customizationSection, languagesSection, mainSection]
     }
 
-    // MARK: Turning off Explore feed
+    // MARK: Toggling Explore feed
 
     private func reloadMasterSwitch() {
         for (cell, item) in cellsToItemsThatNeedReloading {
@@ -236,18 +236,31 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         }
     }
 
-    private func presentToggleExploreAlertController(_ isOn: Bool) {
-        let alertController = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
-        let turnOffExplore = UIAlertAction(title: "Do it", style: .destructive) { _ in
-            UserDefaults.wmf_userDefaults().defaultTabType = isOn ? .explore : .settings
-        }
-        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel) { _ in
+    private lazy var turnOnExploreAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-title", value: "Turn on the Explore tab?", comment: "Title for alert that allows users to turn on the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
+        let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-action-title", value: "Turn on Explore", comment: "Title for action that allows users to turn on the Explore tab"), style: .default, handler: { _ in
+            UserDefaults.wmf_userDefaults().defaultTabType = .explore
+        })
+        alertController.addAction(turnOnExplore)
+        alertController.addAction(cancelAction)
+        return alertController
+    }()
+
+    private lazy var turnOffExploreAlertController: UIAlertController = {
+        let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
+        let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .default, handler: { _ in
+            UserDefaults.wmf_userDefaults().defaultTabType = .settings
+        })
+        alertController.addAction(turnOnExplore)
+        alertController.addAction(cancelAction)
+        return alertController
+    }()
+
+    private lazy var cancelAction: UIAlertAction = {
+        return UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
             self.reloadMasterSwitch()
-        }
-        alertController.addAction(turnOffExplore)
-        alertController.addAction(cancel)
-        present(alertController, animated: true)
-    }
+        })
+    }()
 
 }
 
@@ -280,7 +293,11 @@ extension ExploreFeedSettingsViewController {
             return
         }
         guard controlTag != -1 else { // master switch
-            presentToggleExploreAlertController(sender.isOn)
+            if sender.isOn {
+                present(turnOnExploreAlertController, animated: true)
+            } else {
+                present(turnOffExploreAlertController, animated: true)
+            }
             return
         }
         guard controlTag != -2 else { // global cards
