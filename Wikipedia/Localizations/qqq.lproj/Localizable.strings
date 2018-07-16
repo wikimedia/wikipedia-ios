@@ -175,7 +175,6 @@
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Title for alert that allows user to decide whether they want to turn off Explore feed";
-"explore-feed-preferences-turn-off-explore-tab-alert-message" = "Message for alert that lets users decide whether the want to turn off the Explore tab";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Text for explaining the effects of turning off the Explore tab";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
