@@ -32,6 +32,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 headerAttributes.layoutMargins = metrics.itemLayoutMargins
                 headerAttributes.precalculated = headerHeightEstimate.precalculated
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
+                headerAttributes.zIndex = 10
                 section.addHeader(headerAttributes)
             }
             for itemIndex in 0..<countOfItems {
@@ -41,6 +42,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 let itemAttributes = ColumnarCollectionViewLayoutAttributes(forCellWith: indexPath)
                 itemAttributes.precalculated = itemSizeEstimate.precalculated
                 itemAttributes.layoutMargins = metrics.itemLayoutMargins
+                itemAttributes.zIndex = 0
                 itemAttributes.frame = CGRect(origin: section.originForNextItem, size: CGSize(width: itemWidth, height: itemSizeEstimate.height))
                 section.addItem(itemAttributes)
             }
@@ -51,6 +53,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
                 footerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: width, height: footerHeightEstimate.height))
+                footerAttributes.zIndex = -10
                 section.addFooter(footerAttributes)
             }
             y += section.frame.size.height + metrics.interSectionSpacing
