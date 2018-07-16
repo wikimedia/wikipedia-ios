@@ -141,7 +141,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        guard context.preferredLayoutAttributes == nil else { // indicates an incremental change
+        guard context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange else {
             return
         }
         
@@ -235,7 +235,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             guard animateItems, appearingIndexPaths.contains(indexPath) else {
                 return
             }
-            attributes.zIndex = -1000
+            attributes.zIndex = -1
             attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
             attributes.alpha = 0
             return
@@ -271,7 +271,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         guard animateItems, disappearingIndexPaths.contains(itemIndexPath) else {
             return attributes
         }
-        attributes.zIndex = -1000
+        attributes.zIndex = -1
         attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
         attributes.alpha = 0
         return attributes

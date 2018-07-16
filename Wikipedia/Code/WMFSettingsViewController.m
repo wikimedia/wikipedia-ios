@@ -130,14 +130,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)configureBackButton {
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-    self.navigationItem.leftBarButtonItems = @[xButton];
+    self.navigationItem.rightBarButtonItem = xButton;
 }
 
 - (void)setShowCloseButton:(BOOL)showCloseButton {
     if (showCloseButton) {
         [self configureBackButton];
     } else {
-        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil;
     }
 }
 

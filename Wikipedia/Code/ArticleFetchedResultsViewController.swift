@@ -54,15 +54,16 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     
     fileprivate final func updateDeleteButton() {
         guard isDeleteAllVisible else {
-            navigationItem.leftBarButtonItem = nil
+            navigationItem.rightBarButtonItem = nil
             return
         }
         
-        if navigationItem.leftBarButtonItem == nil {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
+        if navigationItem.rightBarButtonItem == nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: deleteAllButtonText, style: .plain, target: self, action: #selector(deleteButtonPressed(_:)))
         }
 
-        navigationItem.leftBarButtonItem?.isEnabled = !isEmpty
+        navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
+        navigationBar.updateNavigationItems()
     }
     
     @objc fileprivate final func deleteButtonPressed(_ sender: UIBarButtonItem) {
@@ -86,6 +87,10 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         updateEmptyState()
     }
     
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
+    
     override func isEmptyDidChange() {
         super.isEmptyDidChange()
         updateDeleteButton()
@@ -97,12 +102,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch let error {
-            DDLogError("Error fetching articles for \(self): \(error)")
-        }
-        collectionView.reloadData()
+        collectionViewUpdater.performFetch()
         super.viewWillHaveFirstAppearance(animated)
     }
     

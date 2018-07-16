@@ -10,8 +10,7 @@ protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
 
 @objc(WMFReadingListsViewController)
 class ReadingListsViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection {
-    private let reuseIdentifier = "ReadingListsViewControllerCell"
-    
+
     typealias T = ReadingList
     let dataStore: MWKDataStore
     let readingListsController: ReadingListsController
@@ -54,8 +53,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         sortDescriptors.append(NSSortDescriptor(key: "canonicalName", ascending: true, selector: #selector(NSString.localizedCaseInsensitiveCompare)))
         request.sortDescriptors = sortDescriptors
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        fetch()
     }
     
     func setupCollectionViewUpdater() {
@@ -107,15 +104,11 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-        
+        layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
         emptyViewType = .noReadingLists
-        
         setupEditController()
-        
         // Remove peek & pop for now
         unregisterForPreviewing()
-
         isRefreshControlEnabled = true
     }
     
@@ -129,6 +122,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
+        fetch()
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
@@ -162,6 +156,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         createReadingListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
+
+    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
+        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
+        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
+        createNewReadingListButtonView?.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+        createNewReadingListButtonView?.apply(theme: theme)
+        return createNewReadingListButtonView!
+    }()
     
     @objc func presentCreateReadingListViewController() {
         createReadingList(with: [])
@@ -196,17 +198,11 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         if readingList.isDefault {
             cell.configure(with: CommonStrings.readingListsDefaultListTitle, description: CommonStrings.readingListsDefaultListDescription, isDefault: true, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
             cell.isBatchEditing = false
-            cell.swipeTranslation = 0
             cell.isBatchEditable = false
         } else {
             cell.isBatchEditable = true
-            if editController.isBatchEditing {
-                cell.isBatchEditing = editController.isBatchEditing
-            } else {
-                cell.isBatchEditing = false
-                let translation = editController.swipeTranslationForItem(at: indexPath) ?? 0
-                cell.swipeTranslation = translation
-            }
+            cell.isBatchEditing = editController.isBatchEditing
+            editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
             cell.configure(readingList: readingList, index: indexPath.item, shouldShowSeparators: true, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
         }
     }
@@ -215,7 +211,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ReadingListsCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier) as? ReadingListsCollectionViewCell else {
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
@@ -295,6 +291,13 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
+
+    // MARK: Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        createNewReadingListButtonView.apply(theme: theme)
+    }
 }
 
 // MARK: - CreateReadingListViewControllerDelegate
@@ -344,7 +347,7 @@ extension ReadingListsViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReadingListsCollectionViewCell.identifier, for: indexPath)
         guard let readingListCell = cell as? ReadingListsCollectionViewCell else {
             return cell
         }
@@ -365,6 +368,10 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
         updateEmptyState()
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         collectionView.setNeedsLayout()
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+
     }
 
 }

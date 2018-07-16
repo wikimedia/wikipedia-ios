@@ -92,15 +92,18 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
 
         if !isSaveButtonHidden {
             origin.y += spacing
-            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: isDeviceRTL ? .right : .left, apply: apply)
             origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
         }
         
         origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
-    
 }
 
-
-
+public class ArticleFullWidthImageExploreCollectionViewCell: ArticleFullWidthImageCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
+    }
+}

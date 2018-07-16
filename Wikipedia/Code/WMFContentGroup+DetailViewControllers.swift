@@ -54,7 +54,9 @@ extension WMFContentGroup {
             guard let siteURL = siteURL else {
                 return nil
             }
-            return WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
+            let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
+            (firstRandom as Themeable).apply(theme: theme)
+            return firstRandom
         default:
             return nil
         }

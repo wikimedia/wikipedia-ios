@@ -317,7 +317,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         
         if shouldShowSeparators {
-            topSeparator.isHidden = true
+            topSeparator.isHidden = index != 0
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
