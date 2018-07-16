@@ -50,13 +50,17 @@
             alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { (_) in
                 self.feedContentController.rejectNewExploreFeedPreferences()
             }))
-            if let presenter = viewController.presentedViewController {
-                if presenter is UINavigationController {
-                    presenter.present(alertController, animated: true)
-                }
-            } else {
-                viewController.present(alertController, animated: true)
+            present(alertController, from: viewController)
+        }
+    }
+
+    private func present(_ alertController: UIAlertController, from presenter: UIViewController) {
+        if let presenter = presenter.presentedViewController {
+            if presenter is UINavigationController {
+                presenter.present(alertController, animated: true)
             }
+        } else {
+            presenter.present(alertController, animated: true)
         }
     }
 
