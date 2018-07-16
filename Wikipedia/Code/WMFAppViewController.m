@@ -474,9 +474,16 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)updateDefaultTab {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.settingsNavigationController popToRootViewControllerAnimated:NO];
-        [self dismissPresentedViewControllers];
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
-        [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
+        dispatch_block_t update = ^{
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
+            [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
+            [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
+        };
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:YES completion:update];
+        } else {
+            update();
+        }
     });
 }
 
