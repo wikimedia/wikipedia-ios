@@ -298,7 +298,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.showCloseButton = NO;
             [navigationController setNavigationBarHidden:NO animated:animated];
-            [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
     }
 }
 
