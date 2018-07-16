@@ -174,6 +174,7 @@
 "explore-feed-preferences-show-top-read-title" = "Text for the setting that allows users to toggle the visibility of the Top read card";
 "explore-feed-preferences-top-read-description" = "Description of Top read section of Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Title for action alert that allows user to turn off Explore feed";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Message for alert that allows user to decide whether they want to turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Title for alert that allows user to decide whether they want to turn off Explore feed";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Title for action that allows users to turn off the Explore tab";
 "explore-feed-preferences-turn-off-explore-tab-message" = "Message for alert that allows users to turn off the Explore tab";
