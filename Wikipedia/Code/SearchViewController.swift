@@ -157,6 +157,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         let searchLanguageBarViewController = SearchLanguagesBarViewController()
         searchLanguageBarViewController.apply(theme: theme)
+        searchLanguageBarViewController.delegate = self
         self.searchLanguageBarViewController = searchLanguageBarViewController
         return searchLanguageBarViewController
     }
@@ -371,7 +372,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func canDelete(at indexPath: IndexPath) -> Bool {
-        return true
+        return indexPath.row < countOfRecentSearches // ensures user can't delete the empty state row
     }
     
     override func willPerformAction(_ action: Action) -> Bool {
@@ -387,6 +388,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let entry = entries[indexPath.item]
         recentSearches?.removeEntry(entry)
         recentSearches?.save()
+        guard countOfRecentSearches > 0 else {
+            collectionView.reloadData() // reload instead of deleting the row to get to empty state
+            return
+        }
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
         }) { (finished) in
@@ -394,30 +399,41 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
     
+    var countOfRecentSearches: Int {
+        return recentSearches?.entries.count ?? 0
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return areRecentSearchesEnabled ? recentSearches?.entries.count ?? 0 : 0
+        guard areRecentSearchesEnabled else {
+            return 0
+        }
+        return max(countOfRecentSearches, 1) // 1 for empty state
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let entry = recentSearches?.entries[indexPath.item] else {
-            return
-        }
         cell.articleSemanticContentAttribute = .unspecified
         cell.configureForCompactList(at: indexPath.item)
-        cell.titleLabel.text = entry.searchTerm
         cell.isImageViewHidden = true
         cell.apply(theme: theme)
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         cell.topSeparator.isHidden = indexPath.item == 0
         cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         cell.titleLabel.textColor = theme.colors.secondaryText
+        guard
+            indexPath.row < countOfRecentSearches,
+            let entry = recentSearches?.entries[indexPath.item]
+        else {
+            cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
+            return
+        }
+        cell.titleLabel.text = entry.searchTerm
     }
     
     func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.style = .recentSearches
         header.apply(theme: theme)
         header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
-        header.buttonTitle = WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms")
+        header.buttonTitle = countOfRecentSearches > 0 ? WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms") : nil
         header.delegate = self
     }
     
@@ -474,6 +490,12 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
         saveLastSearch()
         funnel.logSearchResultTap()
+    }
+}
+
+extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+        search()
     }
 }
 
