@@ -77,6 +77,10 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             didOnlyChangeItems = false
             switch sectionChange.type {
             case .delete:
+                guard sectionChange.sectionIndex < previousSectionCounts.count else {
+                    forceReload = true
+                    break
+                }
                 sectionDelta -= 1
             case .insert:
                 sectionDelta += 1
@@ -92,11 +96,19 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         for objectChange in objectChanges {
             switch objectChange.type {
             case .delete:
-                /// the minus one here is to workaround a bug deleting the last item in a section
-                guard let fromIndexPath = objectChange.fromIndexPath, fromIndexPath.section < previousSectionCounts.count, fromIndexPath.item < previousSectionCounts[fromIndexPath.section] - 1 else {
+                guard let fromIndexPath = objectChange.fromIndexPath,
+                    fromIndexPath.section < previousSectionCounts.count,
+                    fromIndexPath.item < previousSectionCounts[fromIndexPath.section] else {
                     forceReload = true
                     break
                 }
+                
+                // there seems to be a very specific bug about deleting the item at index path 0,2 when there are 3 items in the section ¯\_(ツ)_/¯
+                if fromIndexPath.section == 0 && fromIndexPath.item == 2 && previousSectionCounts[0] == 3 {
+                    forceReload = true
+                    break
+                }
+
             default:
                 break
             }
