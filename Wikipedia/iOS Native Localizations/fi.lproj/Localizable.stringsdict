@@ -66,22 +66,6 @@
 			<string>%1$d historiallista tapahtumaa</string>
 		</dict>
 	</dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d paikka löytyi</string>
-			<key>other</key>
-			<string>%1$d paikkaa löytyi</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +80,22 @@
 			<string>%1$d artikkeli</string>
 			<key>other</key>
 			<string>%1$d artikkelia</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Artikkelia ei voitu lisätä listaan. Olet kohdannut %2$d artikkelin rajan listassa "%3$@"</string>
+			<key>other</key>
+			<string>Artikkeleita ei voitu lisätä listaan. Olet kohdannut %2$d artikkelin rajan listassa "%3$@"</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
