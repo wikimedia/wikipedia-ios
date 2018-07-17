@@ -114,7 +114,8 @@
 "explore-featured-article-heading" = "Artikel pinilih";
 "explore-main-page-description" = "Kaca tepas proyèk-proyèké Wikimedia";
 "explore-main-page-heading" = "Dina iki ing Wikipédia";
-"explore-most-read-footer-for-date" = "Kabèh artikel sing akèh diwaca ing $1";
+// Fuzzy
+"explore-most-read-footer" = "Artikel maca ndhuwur kabeh";
 "explore-most-read-generic-heading" = "Maca ndhuwur";
 "explore-most-read-more-list-title-for-date" = "Ndhuwur ing $1";
 "explore-nearby-heading" = "Tempat terdekat";
@@ -175,8 +176,10 @@
 "home-button-popover-title" = "Tunyuk kanggo mulih";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
 "home-more-like-footer" = "Liyane kaya $1";
+// Fuzzy
 "home-nearby-footer" = "Liyane saka toko lokasi";
 "home-nearby-location-footer" = "Liyané ing cedhak $1";
+// Fuzzy
 "home-news-footer" = "Liyané sing dadi pawarta";
 "home-themes-action-title" = "Kemunah pilalan";
 "home-themes-prompt" = "Setèl pilihan wacané panjenengan kalebu ukurané tèks lan cakriké saka wilah piranti artikel utawa ing setèlan panganggoné panjenengan saperlu luwih nyaman anggoné panjenengan maca.";
@@ -220,7 +223,6 @@
 "main-menu-title" = "Liyané";
 "main-menu-zero-faq" = "Pitakon Kerep Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Wurung";
-"menu-trash-accessibility-label" = "Busak";
 "navbar-title-mode-edit-wikitext-preview" = "Pratuduh";
 "nearby-distance-label-feet" = "$1 jangkah";
 "nearby-distance-label-km" = "$1 km";
@@ -236,7 +238,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 prastawa historis}}";
 "on-this-day-footer" = "Prastawa historis liyané ing dina iki";
 "on-this-day-title" = "Ing dina iki";
-"onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Wurung";
 "page-edit-history" = "Sajarah besutan wutuh";
 "page-history-title" = "Sajarah artikel";
@@ -253,22 +254,18 @@
 "page-talk-page" = "Deleng kaca parembugan";
 "pictured" = "digambar";
 "places-accessibility-clear-saved-searches" = "Busak golèkan simpenan";
-"places-accessibility-close-search" = "Tutup gegolèkan";
 "places-accessibility-group" = "$1 artikel";
 "places-accessibility-recenter-map-on-user-location" = "Dadèkaké pernahku saiki punjer";
 "places-accessibility-show-as-list" = "Tuduhaké minangka pratélan";
 "places-accessibility-show-as-map" = "Tuduhaké minangka petha";
 "places-accessibility-show-more" = "Tuduhaké artikel liyané";
-"places-dismiss-filter-list-accessibility-label" = "Tutup saringan gegolèkan";
 "places-empty-search-description" = "Dlajahi kutha, nagara, buwana, tetengeran alam, prastawa historis, yasan, lan liyané.";
 "places-empty-search-title" = "Golèk artikel Wikipédia mawa pernah géografis";
 "places-enable-location-action-button-title" = "Urubaké pernah";
 "places-enable-location-description" = "Akses menyang lokasi mung kasedhiya nalika aplikasi utawa salah siji saka sawijining fitur katon ing layar.";
 "places-enable-location-title" = "Dlajahi artikel sacedhaké pernahé panjengan kanthi ngurubaké Aksès Pernah";
-"places-filter-list-title" = "Saringan gegolèkan";
 "places-filter-no-saved-places" = "Panjenengan ora duwé papan simpenan";
 "places-filter-saved-articles" = "Artikel simpenan";
-"places-filter-saved-articles-count" = "tinemu {{PLURAL:$1|papan cacah $1}}";
 "places-filter-top-articles" = "Wacan kondhang";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Artikel simpenané panjenengan ora ana sing ngemu katerangan pernah";
@@ -282,7 +279,6 @@
 "places-search-top-articles" = "Kabèh artikel kondhang";
 "places-search-top-articles-that-match-scope" = "Cedhak kéné";
 "places-search-your-current-location" = "Pernahé panjenengan saiki";
-"places-show-filter-list-accessibility-label" = "Tuduhaké saringan gegolèkan";
 "places-title" = "Panggonan";
 "places-unknown-distance" = "dohé ora kaweruhan";
 "potd-description-prefix" = "Gambar saka dina kanggo $1";

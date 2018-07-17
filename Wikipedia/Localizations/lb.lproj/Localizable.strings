@@ -129,7 +129,8 @@
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
-"explore-most-read-footer-for-date" = "Déi am dackste geliesen Artikelen de(n) $1";
+// Fuzzy
+"explore-most-read-footer" = "Déi am dackste geliesen Artikelen";
 "explore-most-read-generic-heading" = "Am dackste gelies";
 "explore-most-read-more-list-title-for-date" = "Déi beléifst de(n) $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
@@ -142,6 +143,8 @@
 "explore-potd-heading" = "Bild vum Dag";
 "explore-potd-sub-heading" = "Vu Wikimedia Commons";
 "explore-random-article-heading" = "Zoufällegen Artikel";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
+"explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
 "feed-news-notification-button-text" = "Notifikatiounen aschalten";
 "feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
@@ -190,8 +193,10 @@
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-more-like-footer" = "Méi wéi $1";
+// Fuzzy
 "home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
+// Fuzzy
 "home-news-footer" = "Méi an den Neiegkeeten";
 "home-themes-action-title" = "Astellunge geréieren";
 "home-title" = "Entdecken";
@@ -237,7 +242,6 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Ofbriechen";
-"menu-trash-accessibility-label" = "Läschen";
 "more-languages-tooltip-description" = "Op Wikipedia a bal 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
@@ -254,7 +258,6 @@
 "on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
 "on-this-day-title" = "Op dësem Dag";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Ofbriechen";
 "page-edit-history" = "All Versioune vun der Säit";
 "page-history-title" = "Versioune vum Artikel";
@@ -271,20 +274,18 @@
 "page-talk-page" = "Diskussiounssäit weisen";
 "pictured" = "als Bild";
 "places-accessibility-clear-saved-searches" = "Gespäichert Ufroe, fir ze sichen, läschen";
-"places-accessibility-close-search" = "Sichen zoumaachen";
 "places-accessibility-group" = "$1 Artikelen";
 "places-accessibility-recenter-map-on-user-location" = "Op Är Plaz nei zentréieren";
 "places-accessibility-show-as-list" = "Als Lëscht weisen";
 "places-accessibility-show-as-map" = "Als Kaart weisen";
 "places-accessibility-show-more" = "Méi Artikele weisen";
-"places-dismiss-filter-list-accessibility-label" = "Filtere fir d'Sichen ausschalten";
 "places-empty-search-title" = "No Wikipedia-Artikele mat geographesche Plaze sichen";
 "places-enable-location-action-button-title" = "Lokalisatioun aktivéieren";
 "places-enable-location-title" = "Entdeckt Artikelen aus Ärem Ëmfeld duerch d'Aschalte vun der Lokalisatioun";
-"places-filter-list-title" = "Filtere fir d'Sichen";
+"places-filter-articles-action-sheet-title" = "Artikele filteren";
+"places-filter-button-title" = "Filteren";
 "places-filter-no-saved-places" = "Dir hutt keng gespäichert Plazen";
 "places-filter-saved-articles" = "Gespäichert Artikelen";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|Eng Plaz|$1 Plaze}} fonnt";
 "places-filter-top-articles" = "Am dackste gelies";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
@@ -297,7 +298,6 @@
 "places-search-top-articles" = "all déi beléift Artikelen";
 "places-search-top-articles-that-match-scope" = "Nobäi";
 "places-search-your-current-location" = "Är aktuell Plaz";
-"places-show-filter-list-accessibility-label" = "Sichfiltere weisen";
 "places-title" = "Plazen";
 "places-unknown-distance" = "onbekannt Distanz";
 "potd-description-prefix" = "Bild vum Dag vum $1";
@@ -357,6 +357,7 @@
 "saved-title" = "Gespäichert";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Artikel|Artikele}} läschen?";
 "search-button-accessibility-label" = "Op Wikipedia sichen";
+"search-clear-title" = "Eidel maachen";
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
 "search-reading-list-placeholder-text" = "Lieslëscht duerchsichen";

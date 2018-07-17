@@ -124,7 +124,8 @@
 "explore-featured-article-heading" = "Бастыҥ ыстатыйалар";
 "explore-main-page-description" = "Бикимиэдьийэ бырайыагын сүрүн сирэйэ";
 "explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";
-"explore-most-read-footer-for-date" = "Манна $1 элбэхтэ ааҕыллар ыстатыйалар барыта";
+// Fuzzy
+"explore-most-read-footer" = "Элбэхтэ ааҕыллар ыстатыйалар барыта";
 "explore-most-read-generic-heading" = "Элбэхтэ ааҕыллар";
 "explore-most-read-more-list-title-for-date" = "Манна $1 элбэхтэ ааҕыллар";
 "explore-nearby-heading" = "Чугастааҕы сирдэр";
@@ -182,8 +183,10 @@
 "home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
 "home-more-like-footer" = "Эбии манна $1 майгынныыр";
+// Fuzzy
 "home-nearby-footer" = "Эйигиттэн чугас эбии туох баарый";
 "home-nearby-location-footer" = "Мантан чугас, эбии $1";
+// Fuzzy
 "home-news-footer" = "Сиһилии сонуннарга";
 "home-title" = "Чинчий!";
 "icon-shortcut-continue-reading-title" = "Салгыы ааҕыы";
@@ -223,7 +226,6 @@
 "main-menu-title" = "Эбии";
 "main-menu-zero-faq" = "Wikipedia Zero туһунан ыйытыылар";
 "menu-cancel-accessibility-label" = "Бигэргэтимэ";
-"menu-trash-accessibility-label" = "Сотуу";
 "navbar-title-mode-edit-wikitext-preview" = "Эрдэ көрүү";
 "nearby-distance-label-feet" = "$1 фуут.";
 "nearby-distance-label-km" = "$1 км";
@@ -235,7 +237,6 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
-"onboarding-wikipedia" = "Бикипиэдьийэ";
 "open-link-cancel" = "Салҕаама";
 "page-edit-history" = "Уларытыы толору устуоруйата";
 "page-history-title" = "Сирэй устуоруйата";
@@ -251,17 +252,13 @@
 "page-similar-titles" = "Майгынныыр сирэйдэр";
 "pictured" = "ойууланна";
 "places-accessibility-clear-saved-searches" = "Тиһиликтэн бүтэһик көрдөөһүннэри соттор";
-"places-accessibility-close-search" = "Көрдөөһүнү сабан кээс";
 "places-accessibility-group" = "$1 ыстатыйа";
 "places-accessibility-recenter-map-on-user-location" = "Баар сирбин каарта ортотугар көрдөр";
 "places-accessibility-show-as-list" = "Испииһэк курдук көрдөр";
 "places-accessibility-show-as-map" = "Каарта курдук көрдөр";
 "places-accessibility-show-more" = "Ыстатыйата эбии көрдөр";
-"places-dismiss-filter-list-accessibility-label" = "Көрдүүр сиидэттэн аккаастанабын";
-"places-filter-list-title" = "Көрдөөһүн сиидэлэрэ.";
 "places-filter-no-saved-places" = "Харайдаммыт миэстэн суох.";
 "places-filter-saved-articles" = "Тиэмэннэн талыллыбыт";
-"places-filter-saved-articles-count" = "Найдено $1 {{PLURAL:$1|место|мест|места}}$1 булла";
 "places-filter-top-articles" = "Элбэхтэ ааҕыллар";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|ыстатыйа|ыстатыйаны|ыстатыйалар}}";
 "places-no-saved-articles-have-location" = "Булбут ыстатыйаҕар биирдэстэригэр ханан баарын туһунан биллэрии суох";
@@ -274,7 +271,6 @@
 "places-search-top-articles" = "Элбэхтэ ааҕыллар ыстатыйалар барыта";
 "places-search-top-articles-that-match-scope" = "Чугастааҕы";
 "places-search-your-current-location" = "Эн билиҥҥи ханан баар сирин.";
-"places-show-filter-list-accessibility-label" = "Көрдөбүл сиидэтин көрдөр.";
 "places-title" = "Миэстэ";
 "places-unknown-distance" = "Сир ырааҕа биллибэт.";
 "potd-description-prefix" = "Күннээҕи ойуу $1";
