@@ -2496,7 +2496,7 @@ extension PlacesViewController: Themeable {
         navigationBar.apply(theme: theme)
         
         searchBar.apply(theme: theme)
-        searchBar.backgroundColor = theme.colors.chromeBackground
+        searchBar.backgroundColor = theme.colors.paperBackground
         
         searchSuggestionController.apply(theme: theme)
         
