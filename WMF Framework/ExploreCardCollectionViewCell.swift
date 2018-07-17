@@ -7,12 +7,15 @@ public protocol CardContent {
 
 public protocol ExploreCardCollectionViewCellDelegate: class {
     func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell)
+    func exploreCardCollectionViewCellWantsToUndoCustomization(_ cell: ExploreCardCollectionViewCell)
 }
     
 public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     public let customizationButton = UIButton()
+    private let undoButton = UIButton()
+    private let undoLabel = UILabel()
     private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()
@@ -62,6 +65,16 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
+        undoLabel.numberOfLines = 0
+        undoLabel.text = "Hidden"
+        undoLabel.isOpaque = true
+        contentView.addSubview(undoLabel)
+        undoButton.isOpaque = true
+        undoButton.setTitle("Undo", for: .normal)
+        undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
+        undoButton.isUserInteractionEnabled = true
+        undoButton.titleLabel?.textAlignment = .right
+        contentView.addSubview(undoButton)
     }
     
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
@@ -69,6 +82,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         super.reset()
         layoutMargins = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
         footerButton.isHidden = true
+        undoButton.isHidden = true
+        undoLabel.isHidden = true
     }
     
     public var cardContent: (CardContent & Themeable)? = nil {
@@ -122,6 +137,29 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             setNeedsLayout()
         }
     }
+
+    public var isCollapsed: Bool = false {
+        didSet {
+            guard oldValue != isCollapsed else {
+                return
+            }
+            if isCollapsed {
+                undoLabel.isHidden = false
+                customizationButton.isHidden = true
+                undoButton.isHidden = false
+                cardContent?.view.isHidden = true
+                titleLabel.isHidden = true
+                subtitleLabel.isHidden = true
+            } else {
+                cardContent?.view.isHidden = false
+                undoLabel.isHidden = true
+                undoButton.isHidden = true
+                titleLabel.isHidden = title == nil
+                subtitleLabel.isHidden = subtitle == nil
+            }
+            setNeedsLayout()
+        }
+    }
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
@@ -146,11 +184,24 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         if isRTL {
             labelOrigin.x += customizationButtonDeltaWidthMinusMargins
         }
-        origin.y += titleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
-        labelOrigin.y = origin.y
-        origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
+
+        if !titleLabel.isHidden {
+            origin.y += titleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
+            labelOrigin.y = origin.y
+        }
+        if !subtitleLabel.isHidden {
+            origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
+        }
+
+        if !undoLabel.isHidden {
+            _ = undoLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
+        }
+
+        if !undoButton.isHidden {
+            origin.y += undoButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+        }
         
-        if let cardContent = cardContent {
+        if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
             let height = cardContent.contentHeight(forWidth: widthMinusMargins)
             let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
@@ -159,6 +210,10 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
+        } else {
+            if apply {
+                cardBackgroundView.frame = .zero
+            }
         }
     
         if !footerButton.isHidden {
@@ -173,6 +228,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         footerButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        undoLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        undoButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -187,6 +244,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         titleLabel.backgroundColor = labelBackgroundColor
         subtitleLabel.backgroundColor = labelBackgroundColor
         footerButton.backgroundColor = labelBackgroundColor
+        undoLabel.backgroundColor = labelBackgroundColor
+        undoButton.backgroundColor = labelBackgroundColor
         customizationButton.backgroundColor = labelBackgroundColor
     }
     
@@ -198,6 +257,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         subtitleLabel.textColor = theme.colors.secondaryText
         customizationButton.setTitleColor(theme.colors.link, for: .normal)
         footerButton.setTitleColor(theme.colors.link, for: .normal)
+        undoLabel.textColor = theme.colors.primaryText
+        undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = theme.colors.paperBackground
         cardShadowColor = theme.colors.cardShadow
@@ -206,5 +267,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     @objc func customizationButtonPressed() {
         delegate?.exploreCardCollectionViewCellWantsCustomization(self)
+    }
+
+    @objc func undoButtonPressed() {
+        delegate?.exploreCardCollectionViewCellWantsToUndoCustomization(self)
     }
 }
