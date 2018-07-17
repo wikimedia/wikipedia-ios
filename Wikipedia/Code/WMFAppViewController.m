@@ -209,6 +209,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.theme.preferredStatusBarStyle;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return nil;
+}
+
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
