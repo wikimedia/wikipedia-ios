@@ -112,29 +112,38 @@
 "empty-no-search-results-message" = "Nie znaleziono";
 "error-unknown" = "Wystąpił nieznany błąd";
 "explore-another-random" = "Inny losowy artykuł";
+"explore-because-you-read-footer" = "Dodatkowe artykuły powiązane";
 "explore-continue-reading-heading" = "Czytaj dalej";
 "explore-featured-article-heading" = "Wyróżniony artykuł";
+"explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-feed-preferences-continue-reading-description" = "Szybki link do przeczytania otwartego artykułu";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Dostosuj kanał Eksploruj";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Brak";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Włączony";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "W $1";
 "explore-feed-preferences-global-card-footer-text" = "Ta karta nie jest specyficzna dla języka, wyłączenie tej karty spowoduje jej usunięcie z kanału Eksploruj.";
 "explore-feed-preferences-global-cards-description" = "Karty niezwiązane z językiem";
 "explore-feed-preferences-global-cards-title" = "Globalne karty";
 "explore-feed-preferences-hide-card-action-title" = "Ukryj tę kartę";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
+"explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
+// Fuzzy
+"explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title-for-date" = "Najlepsze na $1";
+"explore-most-read-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-placeholder-heading" = "Miejsca";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";
+"explore-potd-sub-heading" = "Z Wikimedia Commons";
 "explore-random-article-heading" = "Losowy artykuł";
+"explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
@@ -179,6 +188,7 @@
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
 "home-button-popover-description" = "Naciśnij \"W: by wrócić do feedu Explore";
 "home-button-popover-title" = "Dotknij by wrócić do strony domowej";
+"home-news-footer" = "Więcej aktualnych wydarzeń";
 "home-title" = "Odkryj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
 "icon-shortcut-random-title" = "Losowy artykuł";
@@ -186,6 +196,7 @@
 "image-gallery-unknown-owner" = "Autor nieznany.";
 "in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
 "in-the-news-notification-share-action-title" = "Udostępnij...";
+"in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "info-box-close-text" = "Zamknij";
 // Fuzzy
 "info-box-title" = "Szybkie fakty";
@@ -215,7 +226,6 @@
 "main-menu-title" = "Więcej";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Anuluj";
-"menu-trash-accessibility-label" = "Usuń";
 "more-languages-tooltip-title" = "Dodaj języki";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
 "nearby-distance-label-feet" = "$1 stopy";
@@ -232,7 +242,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
 "on-this-day-title" = "W tym dniu...";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Anuluj";
 "page-edit-history" = "Pełna historia edycji";
 "page-history-title" = "Historia artykułu";
@@ -247,15 +256,14 @@
 "page-similar-titles" = "Podobne strony";
 "page-talk-page" = "Zobacz stronę dyskusji";
 "pictured" = "z obrazkiem";
-"places-accessibility-close-search" = "Zamknij wyszukiwanie";
 "places-accessibility-group" = "$1 artykułów";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
-"places-filter-list-title" = "Filtry wyszukiwania";
+"places-filter-button-title" = "Filtr";
 "places-filter-saved-articles" = "Zapisane artykuły";
-"places-filter-saved-articles-count" = "Znaleziono $1 {{PLURAL:$1|miejsce|miejsca|miejsc}}";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artykuł|artykuły|artykułów}}";
+"places-filter-top-read-articles" = "Najczęściej czytane artykuły";
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 // Fuzzy
 "places-search-default-text" = "Szukaj";
@@ -292,6 +300,7 @@
 "saved-search-default-text" = "Szukaj";
 "saved-title" = "Zapisane";
 "search-button-accessibility-label" = "Szukaj w Wikipedii";
+"search-clear-title" = "Wyczyść";
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-recent-clear-cancel" = "Anuluj";

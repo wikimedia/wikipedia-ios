@@ -57,8 +57,10 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "وکیپیڈیا کنوں";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
+"explore-most-read-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
 "explore-nearby-placeholder-heading" = "جاہیں";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
+"explore-random-article-sub-heading-from-wikipedia" = "وکیپیڈیا کنوں";
 "field-alert-token-invalid" = "غلط کوڈ";
 "field-alert-username-unavailable" = "ورتݨ آلا ناں موجود کائنی";
 "field-captcha-placeholder" = "کیپچا عبارت";
@@ -108,7 +110,6 @@
 "main-menu-privacy-policy" = "پرائیویسی پالیسی";
 "main-menu-title" = "ٻئے";
 "menu-cancel-accessibility-label" = "منسوخ";
-"menu-trash-accessibility-label" = "مٹاؤ";
 "navbar-title-mode-edit-wikitext-preview" = "پہلا ݙکھالا";
 "nearby-distance-label-feet" = "$1 فٹ";
 "nearby-distance-label-km" = "$1 کلو میٹر";
@@ -120,9 +121,9 @@
 "number-thousands" = "$1 ہزار";
 "on-this-day-detail-header-date-range" = " $1 توں - $2";
 "on-this-day-title" = "ایں ݙینہ کوں";
-"onboarding-wikipedia" = "وکیپیڈیا";
 "open-link-cancel" = "منسوخ";
 "places-accessibility-group" = "$1 مضمون";
+"places-filter-button-title" = "نتارا";
 "places-search-saved-articles" = "سارے محفوظ مضمون";
 "places-search-top-articles-that-match-scope" = "نیڑے";
 "places-title" = "جاہیں";
@@ -136,6 +137,7 @@
 "saved-all-articles-title" = "سارے مضمون";
 "saved-search-default-text" = "ڳولو";
 "saved-title" = "محفوظ";
+"search-clear-title" = "صاف";
 "search-did-you-mean" = "بھلا تہاݙا مطلب ہائی $1؟";
 "search-field-placeholder-text" = "وکیپیڈیا وچ ڳولو";
 "search-recent-clear-cancel" = "منسوخ";

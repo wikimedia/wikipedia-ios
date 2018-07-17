@@ -73,6 +73,8 @@
 "explore-continue-reading-heading" = "Contunhar de legir";
 "explore-featured-article-heading" = "Article de qualitat";
 "explore-main-page-heading" = "Uèi sus Wikipèdia";
+// Fuzzy
+"explore-most-read-footer" = "Totes los articles los mai legits";
 "explore-most-read-generic-heading" = "Los mai legits";
 "explore-most-read-more-list-title-for-date" = "Los mai legits al $1";
 "explore-nearby-heading" = "Endreits a proximitat";
@@ -106,6 +108,7 @@
 "home-button-history-accessibility-label" = "Wikipèdia, tornar a Istoric";
 "home-button-saved-accessibility-label" = "Wikipèdia, tornar a Enregistrats";
 "home-more-like-footer" = "Mai coma $1";
+// Fuzzy
 "home-nearby-footer" = "Mai pròche d'ont sètz";
 "home-nearby-location-footer" = "Mai pròche de $1";
 "home-title" = "Explorar";
@@ -142,7 +145,6 @@
 "main-menu-title" = "Mai";
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "menu-cancel-accessibility-label" = "Anullar";
-"menu-trash-accessibility-label" = "Suprimir";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 article|$1 articles}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "nearby-distance-label-feet" = "$1 pès";
@@ -155,7 +157,6 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 eveniments istorics}}";
 "on-this-day-title" = "Aqueste jorn";
-"onboarding-wikipedia" = "Wikipèdia";
 "open-link-cancel" = "Anullar";
 "page-edit-history" = "Istoric complet de las modificacions";
 "page-history-title" = "Istoric de l’article";

@@ -154,8 +154,10 @@
 "home-button-popover-title" = "மனைக்கு செல்ல தட்டவும்";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
 "home-more-like-footer" = "$1 போல மேலும்";
+// Fuzzy
 "home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் மேலும்";
 "home-nearby-location-footer" = "$1 க்கு அருகாமையில் மேலும்";
+// Fuzzy
 "home-news-footer" = "செய்திகளில் மேலும்";
 "home-themes-action-title" = "விருப்பத்தேர்வுகளை நிர்வகி";
 "home-title" = "சுற்றிப்பார்";
@@ -196,7 +198,6 @@
 "main-menu-title" = "மேலும்";
 "main-menu-zero-faq" = "விக்கிப்பீடியா சுழி அடிக்கடிக் கேட்கப்படும் கேள்விகள்";
 "menu-cancel-accessibility-label" = "கைவிடுக";
-"menu-trash-accessibility-label" = "நீக்கவும்";
 "more-languages-tooltip-title" = "மொழிகளைச் சேர்க்கவும்";
 "navbar-title-mode-edit-wikitext-preview" = "முன்தோற்றம்";
 "nearby-distance-label-feet" = "$1 அடி";
@@ -211,7 +212,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 வரலாற்று நிகழ்வு|$1 வரலாற்று நிகழ்வுகள்}}";
 "on-this-day-footer" = "மேலும் இந்த நாளின் வரலாற்று நிகழ்வுகள்";
 "on-this-day-title" = "இந்த நாளில்";
-"onboarding-wikipedia" = "விக்கிப்பீடியா";
 "open-link-cancel" = "ரத்து செய்";
 "page-edit-history" = "முழு தொகுப்பு வரலாறு";
 "page-history-title" = "கட்டுரை வரலாறு";
@@ -228,18 +228,14 @@
 "page-talk-page" = "பேச்சுப் பக்கத்தைக் காண்க";
 "pictured" = "படம்";
 "places-accessibility-clear-saved-searches" = "சேமிக்கப்பட்ட தேடல்களை அழிக்கவும்";
-"places-accessibility-close-search" = "தேடலை மூடுக";
 "places-accessibility-group" = "$1 கட்டுரைகள்";
 "places-accessibility-recenter-map-on-user-location" = "உங்கள் இடத்தை மறுமையமாக்கவும்";
 "places-accessibility-show-as-list" = "பட்டியலாக காட்டுக";
 "places-accessibility-show-as-map" = "நிலப்படமாக காட்டவும்";
 "places-accessibility-show-more" = "மேலும் கட்டுரைகளை காட்டவும்";
-"places-dismiss-filter-list-accessibility-label" = "தேடல் வடிப்பான்களை நீக்குக";
 "places-enable-location-action-button-title" = "இருப்பிடத்தை செயல்படுத்து";
-"places-filter-list-title" = "தேடல் வடிபான்கள்";
 "places-filter-no-saved-places" = "சேமிக்கப்பட்ட இடங்கள் ஏதும் உங்களிடம் இல்லை";
 "places-filter-saved-articles" = "சேமிக்கப்பட்ட கட்டுரைகள்";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 இடம்|$1 இடங்கள்}} காணப்பட்டது";
 "places-filter-top-articles" = "அதிகமாக படிக்கப்பட்டது";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 கட்டுரை|$1 கட்டுரைகள்}}";
 "places-search-default-text" = "இடங்களை தேடுக";
@@ -251,7 +247,6 @@
 "places-search-top-articles" = "அணைத்து முன்னணி கட்டுரைகள்";
 "places-search-top-articles-that-match-scope" = "அருகில்";
 "places-search-your-current-location" = "தங்களது தற்போதைய இருப்பிடம்";
-"places-show-filter-list-accessibility-label" = "தேடல் வடிப்பான்களை காட்டவும்";
 "places-title" = "இடங்கள்";
 "places-unknown-distance" = "தெரியாத தொலைவு";
 "preference-title-eventlogging-opt-in" = "பயன்பாடு அறிக்கை அனுப்பு";

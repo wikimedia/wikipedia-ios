@@ -84,7 +84,9 @@
 "alert-no-internet" = "Nemáte připojení k internetu";
 "announcements-dismiss" = "Zavřít";
 "app-store-keywords" = "Wikipedie, reference, wiki, encyklopedie, info, znalosti, výzkum, informování, prozkoumavání, učení";
+// Fuzzy
 "app-store-release-notes" = "Uložené články lze nyní uspořádat do seznamů k přečtení a synchronizovat napříč různými zařízeními.";
+"app-store-short-description" = "Stáhněte si aplikaci Wikipedie pro objevování míst poblíž Vás, ke stažení článků do Vašeho zařízení a přizpůsobení čtení článků.";
 "app-store-subtitle" = "Otevřená encyklopedie";
 "appearance-settings-adjust-text-sizing" = "Upravit velikost textu článku";
 "appearance-settings-expand-tables" = "Rozbalit tabulky";
@@ -188,12 +190,12 @@
 "explore-feed-preferences-top-read-description" = "Nejčastěji prohlížené články za tento den";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Vypnout funkci Prozkoumat zdroj";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Vypnout funkci Prozkoumat zdroj?";
-"explore-feed-preferences-turn-off-feed" = "Vypnout Průzkum";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Vypnutím karty Průzkum nahradíte kartu Průzkum na kartě Nastavení.";
 "explore-hide-card-prompt" = "Skrýt tuto kartu";
 "explore-main-page-description" = "Hlavní strana Wikimedia projektů";
 "explore-main-page-heading" = "Dnes na Wikipedii";
-"explore-most-read-footer-for-date" = "Všechny nejčtenější články na $1";
+// Fuzzy
+"explore-most-read-footer" = "Všechny nejčtenější články";
 "explore-most-read-generic-heading" = "Nejvíc čtené";
 "explore-most-read-more-list-title-for-date" = "Nejlepší na $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
@@ -250,10 +252,14 @@
 "hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na Prozkoumat";
 "home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
+"home-button-popover-description" = "Klepnutím na \"W\" se vrátíte na Prozkoumávání zdroje";
+"home-button-popover-title" = "Klepnutím přejdete domů";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
 "home-more-like-footer" = "Více podobných článku $1";
+// Fuzzy
 "home-nearby-footer" = "Více z vašeho okolí";
 "home-nearby-location-footer" = "Další místa v okolí $1";
+// Fuzzy
 "home-news-footer" = "Více v Aktuálních událostech";
 "home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů k přečtení a synchronizovány skrze zařízení. Přihlašte se, abyste povolili ukládání seznamů k přečtení do vašich uživatelských nastavení";
 "home-themes-action-title" = "Spravujte předvolby";
@@ -300,7 +306,6 @@
 "main-menu-title" = "Více";
 "main-menu-zero-faq" = "FAQ Wikipedie Zero";
 "menu-cancel-accessibility-label" = "Zrušit";
-"menu-trash-accessibility-label" = "Smazat";
 "more-languages-tooltip-description" = "Vyhledávejte a čtěte v téměř 300 jazycích";
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
@@ -319,7 +324,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události}}";
 "on-this-day-footer" = "Historické události tento den";
 "on-this-day-title" = "Dnešek v minulosti";
-"onboarding-wikipedia" = "Wikipedie";
 "open-link-cancel" = "Zrušit";
 "page-edit-history" = "Celá historie editací";
 "page-history-title" = "Historie článku";
@@ -336,19 +340,33 @@
 "page-talk-page" = "Zobrazit diskuzní stránku";
 "pictured" = "obrázek";
 "places-accessibility-clear-saved-searches" = "Vymazat nedávná hledání";
-"places-accessibility-close-search" = "Zavřít vyhledávání";
 "places-accessibility-group" = "$1 článků";
 "places-accessibility-recenter-map-on-user-location" = "Vycentrovat Vaší polohu";
 "places-accessibility-show-as-list" = "Ukázat jako seznam";
 "places-accessibility-show-as-map" = "Ukázat na mapě";
 "places-accessibility-show-more" = "Zobrazit více článků";
+"places-empty-search-description" = "Prozkoumejte města, země, kontinenty, přírodní památky, historické události, budovy a další.";
+"places-empty-search-title" = "Vyhledejte na Wikipedii články s tématem geografických oblastí";
 "places-enable-location-action-button-title" = "Povolit polohu";
+"places-filter-no-saved-places" = "Nemáte uložené žádné místa";
 "places-filter-saved-articles" = "Uložené články";
 "places-filter-top-articles" = "Nejvíce čtené";
+"places-filter-top-articles-count" = "{{PLURAL:$1|$1 článek|$1 články|$1 článků}}";
+"places-no-saved-articles-have-location" = "Žádný z uložených článků neobsahuje informace o poloze";
+"places-search-articles-that-match" = "$1 odpovídá „$2“";
+"places-search-default-text" = "Hledat Místa";
+"places-search-did-you-mean" = "Měli jste na mysli „$1“?";
+"places-search-recently-searched-header" = "Nedávná hledání";
+"places-search-saved-articles" = "Všechny uložené články";
+"places-search-suggested-searches-header" = "Návrhy vyhledávání";
+"places-search-this-area" = "Výsledky vyhledávání v této oblasti";
+"places-search-top-articles" = "Všechny nejčtenější články";
 "places-search-top-articles-that-match-scope" = "Poblíž";
+"places-search-your-current-location" = "Vaše současná poloha";
 "places-title" = "Místa";
 "places-unknown-distance" = "neznámá vzdálenost";
 "potd-description-prefix" = "Obrázek dne pro $1";
+"potd-empty-error-description" = "Nepodařilo se načíst obrázek dne za $1";
 "preference-summary-eventlogging-opt-in" = "Umožnit nadaci Wikimedia sbírat informace o používání aplikace, aby ji mohla zlepšovat";
 "preference-title-eventlogging-opt-in" = "Odesílat zprávy o využití";
 "rank-accessibility-label" = "Číslo $1";
@@ -362,9 +380,11 @@
 "reading-list-api-error-list-limit" = "Tento seznam není synchronizován, protože jste překročili limit počtu synchronizovaných seznamů.";
 "reading-list-create-new-list-button-title" = "Vytvořit seznam k přečtení";
 "reading-list-create-new-list-description" = "Popis";
+"reading-list-create-new-list-reading-list-name" = "Název seznamu k přečtení";
 "reading-list-create-new-list-title" = "Vytvořit nový seznam";
 "reading-list-deleted-accessibility-notification" = "Seznam k přečtení byl odstraněn";
 "reading-list-do-not-keep-button-title" = "Ne, odstranit články ze zařízení";
+"reading-list-entry-limit-exceeded-title" = "Překročili jste maximální limit článků ($1) na účet.";
 "reading-list-exists-with-same-name" = "Toto jméno již má jiný seznam k přečtení";
 "reading-list-generic-error" = "Nastala neočekávaná chyba při aktualizaci Vašich seznamu k přečtení.";
 "reading-list-keep-button-title" = "Ano, zanechat články v zařízení";
@@ -373,6 +393,8 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Zařazené články";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Existuje limit 5000 nezařazených článků. Zařaďte prosím vaše existující články do seznamů, abyste umožnili pokračování synchronizování nezařazených článků.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Překročení limitu pro nezařazené články";
+"reading-list-list-limit-exceeded-message" = "Tento seznam k přečtení a články uložené do něj nebudou synchronizovány, prosím, snižte počet seznamů na $1, abyste obnovili synchronizaci tohoto seznamu.";
+"reading-list-list-limit-exceeded-title" = "Překročili jste maximální limit seznamů k přečtení ($1) na účet.";
 "reading-list-login-button-title" = "Přihlašte se pro synchronizaci vámi uložených článků";
 "reading-list-login-or-create-account-button-title" = "Přihlásit se nebo vytvořit účet";
 "reading-list-login-or-create-account-title" = "Přihlašte se pro synchronizaci uložených článků";
@@ -392,6 +414,7 @@
 "reading-list-unable-to-update" = "Nastala neočekávaná chyba při aktualizaci vašeho seznamu k přečtení. Zkuste prosím později znovu.";
 "reading-list-with-provided-name-not-found" = "Seznam k přečtení s názvem $1 nebyl nalezen. Ujistěte se prosím, že jste vyhledali správné jméno.";
 "reading-lists-article-added-confirmation" = "Článek přidán do „$1“";
+"reading-lists-article-not-synced" = "Není synchronizováno";
 "reading-lists-count" = "{{PLURAL:$1|$1 seznam k přečtení|$1 seznamy k přečtení|$1 seznamů k přečtení}}";
 "reading-lists-default-list-description" = "Výchozí seznam pro vaše uložené články";
 "reading-lists-default-list-title" = "Uloženo";
