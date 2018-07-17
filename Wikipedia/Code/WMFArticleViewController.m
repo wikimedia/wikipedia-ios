@@ -92,7 +92,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
-                                        WMFImageScaleTransitionProviding>
+                                        WMFImageScaleTransitionDestinationProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
