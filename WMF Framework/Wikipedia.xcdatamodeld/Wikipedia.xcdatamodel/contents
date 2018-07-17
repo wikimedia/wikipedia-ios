@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -139,6 +139,7 @@
         <attribute name="contentMidnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="contentPreview" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="countOfFullContent" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="featuredContentIdentifier" optional="YES" attributeType="String" syncable="YES"/>
@@ -181,7 +182,7 @@
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
         <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="465"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
-        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="315"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="330"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>
 </model>

@@ -15,6 +15,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()
+        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {

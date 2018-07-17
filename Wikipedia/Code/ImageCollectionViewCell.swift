@@ -39,7 +39,7 @@ class ImageCollectionViewCell: CollectionViewCell {
         captionLabel.text = nil
     }
     
-    let ratio: CGFloat = 1.1111111
+    let ratio: CGFloat = 1.02
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var size = super.sizeThatFits(size, apply: apply)

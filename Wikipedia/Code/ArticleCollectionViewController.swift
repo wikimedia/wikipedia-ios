@@ -31,6 +31,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             return
         }
         cell.configure(article: article, displayType: .compactList, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.topSeparator.isHidden = indexPath.item == 0
+        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }

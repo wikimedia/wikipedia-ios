@@ -53,7 +53,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -91,10 +91,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
-        saveButtonTextStyle  = .mediumSubheadline
+        saveButtonTextStyle  = .mediumFootnote
         spacing = 3
         imageViewDimension = 70
         statusViewDimension = 6
@@ -396,6 +396,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
             setNeedsLayout()
         }
+    }
+
+    public override func layoutWidth(for size: CGSize) -> CGFloat {
+        let layoutWidth = super.layoutWidth(for: size) - layoutMarginsInteractiveAdditions.left - layoutMarginsInteractiveAdditions.right
+        return layoutWidth
     }
 
     public var swipeTranslationWhenOpen: CGFloat {

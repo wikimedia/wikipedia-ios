@@ -388,8 +388,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
-    if (keyValue) {
-        return (NSMutableDictionary *)keyValue.value;
+    NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
+    if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
+        return exploreFeedPreferences;
     }
     NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {
@@ -457,11 +458,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                     [newVisibleContentGroupKindNumbers removeObject:@(contentGroupKind)];
                 }
 
-                if (contentGroupKind == WMFContentGroupKindLocation) {
+                BOOL isPlaces = contentGroupKind == WMFContentGroupKindLocation || contentGroupKind == WMFContentGroupKindLocationPlaceholder;
+                if (isPlaces) {
+                    WMFContentGroupKind otherPlacesContentGroupKind = contentGroupKind == WMFContentGroupKindLocation ? WMFContentGroupKindLocationPlaceholder : WMFContentGroupKindLocation;
                     if (isOn) {
-                        [newVisibleContentGroupKindNumbers addObject:@(WMFContentGroupKindLocationPlaceholder)];
+                        [newVisibleContentGroupKindNumbers addObject:@(otherPlacesContentGroupKind)];
                     } else {
-                        [newVisibleContentGroupKindNumbers removeObject:@(WMFContentGroupKindLocationPlaceholder)];
+                        [newVisibleContentGroupKindNumbers removeObject:@(otherPlacesContentGroupKind)];
                     }
                 }
 
@@ -560,7 +563,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 continue;
             }
             if ([visibleContentGroupKinds containsObject:contentGroupNumber]) {
-                contentGroup.isVisible = YES;
+                contentGroup.isVisible = !contentGroup.wasDismissed;
             } else {
                 contentGroup.isVisible = NO;
             }

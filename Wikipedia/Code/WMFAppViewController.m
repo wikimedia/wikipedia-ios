@@ -63,7 +63,10 @@ static NSTimeInterval const WMFTimeBeforeShowingExploreScreenOnLaunch = 24 * 60 
 static CFTimeInterval const WMFRemoteAppConfigCheckInterval = 3 * 60 * 60;
 static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRemoteAppConfigCheckAbsoluteTimeKey";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFSettingsViewControllerDelegate>
+static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
+static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
+
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
 @property (nonatomic, strong) IBOutlet UIView *splashView;
 @property (nonatomic, strong) UITabBarController *rootTabBarController;
@@ -113,8 +116,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 @property (nonatomic, strong, readwrite) NSDate *syncStartDate;
 
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
-
-@property (nonatomic) BOOL shouldUpdateDefaultTab;
 
 /// Use @c rootTabBarController instead.
 - (UITabBarController *)tabBarController NS_UNAVAILABLE;
@@ -193,7 +194,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [[NSUserDefaults wmf_userDefaults] addObserver:self
                                         forKeyPath:@"WMFDefaultTabTypeKey"
                                            options:NSKeyValueObservingOptionNew
-                                           context:NULL];
+                                           context:&kvo_NSUserDefaults_defaultTabType];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
@@ -270,7 +271,6 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
                 navigationController.title = [WMFCommonStrings historyTabTitle];
                 break;
             case WMFAppTabTypeSearch:
-                [navigationController setNavigationBarHidden:YES animated:NO];
                 navigationController.title = [WMFCommonStrings searchTitle];
                 [navigationController setViewControllers:@[self.searchViewController] animated:NO];
                 break;
@@ -293,13 +293,11 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
             [self configureExploreViewController];
             break;
         case WMFAppDefaultTabTypeSettings:
+            navigationController.viewControllers = @[self.settingsViewController];
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
-            [navigationController setNavigationBarHidden:NO animated:animated];
             self.settingsViewController.showCloseButton = NO;
-            navigationController.viewControllers = @[self.settingsViewController];
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
-            [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
+            [navigationController setNavigationBarHidden:NO animated:animated];
     }
 }
 
@@ -307,7 +305,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     [self.exploreViewController applyTheme:self.theme];
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-    self.exploreViewController.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
 }
 
 - (void)configurePlacesViewController {
@@ -473,21 +471,19 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 
 #pragma mark - Explore feed preferences
 
-- (void)settingsViewControllerDidDisappear {
-    [self updateDefaultTabIfNeeded];
-}
-
-- (void)updateDefaultTabIfNeeded {
-    if (!self.shouldUpdateDefaultTab) {
-        return;
-    }
-    [self updateDefaultTab];
-}
-
 - (void)updateDefaultTab {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
-        self.shouldUpdateDefaultTab = NO;
+        [self.settingsNavigationController popToRootViewControllerAnimated:NO];
+        dispatch_block_t update = ^{
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
+            [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
+            [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
+        };
+        if (self.presentedViewController) {
+            [self.presentedViewController dismissViewControllerAnimated:YES completion:update];
+        } else {
+            update();
+        }
     });
 }
 
@@ -1227,21 +1223,18 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
     }
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
-        [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [_savedArticlesFetcher addObserver:self forKeyPath:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&kvo_SavedArticlesFetcher_progress];
     }
     return _savedArticlesFetcher;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == _savedArticlesFetcher && [keyPath isEqualToString:WMF_SAFE_KEYPATH(_savedArticlesFetcher, progress)]) {
+    if (context == &kvo_SavedArticlesFetcher_progress) {
         [ProgressContainer shared].articleFetcherProgress = _savedArticlesFetcher.progress;
-    } else if ([object isKindOfClass:[NSUserDefaults class]]) {
-        WMFAppDefaultTabType defaultTabType = [NSUserDefaults wmf_userDefaults].defaultTabType;
-        if (defaultTabType != WMFAppDefaultTabTypeExplore && !self.presentedViewController) {
-            [self updateDefaultTab];
-        } else {
-            self.shouldUpdateDefaultTab = YES;
-        }
+    } else if (context == &kvo_NSUserDefaults_defaultTabType) {
+        [self updateDefaultTab];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -1542,7 +1535,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if ([[navigationController viewControllers] count] == 1) {
         [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
     }
-    [self updateDefaultTabIfNeeded];
 
     NSArray *viewControllers = navigationController.viewControllers;
     NSInteger count = viewControllers.count;
@@ -1720,7 +1712,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
@@ -1729,7 +1721,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (NSArray<UINavigationController *> *)allNavigationControllers {
     // Navigation controllers
-    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeMain], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], nil];
+    NSMutableArray<UINavigationController *> *navigationControllers = [NSMutableArray arrayWithObjects:[self navigationControllerForTab:WMFAppTabTypeMain], [self navigationControllerForTab:WMFAppTabTypePlaces], [self navigationControllerForTab:WMFAppTabTypeSaved], [self navigationControllerForTab:WMFAppTabTypeRecent], [self navigationControllerForTab:WMFAppTabTypeSearch], nil];
     if (self.settingsNavigationController) {
         [navigationControllers addObject:self.settingsNavigationController];
     }
@@ -1850,14 +1842,16 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSArray *vcs = nc.viewControllers;
     NSMutableArray *mutableVCs = [vcs mutableCopy];
     SearchViewController *searchVC = nil;
-    NSInteger index = 0;
-    for (id vc in nc.viewControllers) {
-        if (![vc isKindOfClass:[SearchViewController class]]) {
-            index++;
-            continue;
+    NSInteger index = 1;
+    NSInteger limit = vcs.count;
+    while (index < limit) {
+        UIViewController *vc = vcs[index];
+        if ([vc isKindOfClass:[SearchViewController class]]) {
+            searchVC = (SearchViewController *)vc;
+            [mutableVCs removeObjectAtIndex:index];
+            break;
         }
-        searchVC = vc;
-        [mutableVCs removeObjectAtIndex:index];
+        index++;
     }
 
     if (searchVC) {
@@ -1878,7 +1872,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
-        settingsVC.delegate = self;
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
     }

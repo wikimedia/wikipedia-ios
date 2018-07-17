@@ -48,8 +48,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewWillAppear(_ animated: Bool) {
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
-        fetch()
         setupCollectionViewUpdater()
+        fetch()
         super.viewWillAppear(animated)
     }
     
@@ -194,6 +194,10 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
         updateEmptyState()
         collectionView.setNeedsLayout()
     }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
 }
 
 
@@ -237,7 +241,7 @@ extension SavedArticlesViewController {
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
+
         cell.isBatchEditable = true
         cell.delegate = self
         cell.layoutMargins = layout.itemLayoutMargins
@@ -281,8 +285,10 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .unsave:
             let alertController = ReadingListsAlertController()

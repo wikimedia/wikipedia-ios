@@ -100,6 +100,14 @@ class SearchResultsViewController: ArticleCollectionViewController {
         } 
         cell.apply(theme: theme)
     }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        collectionView.backgroundColor = theme.colors.midBackground
+    }
 
 }
 

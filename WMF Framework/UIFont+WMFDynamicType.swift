@@ -11,14 +11,17 @@ import UIKit
     public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
     
     public static let headline = DynamicTextStyle(.system, .headline)
+    public static let semiboldHeadline = DynamicTextStyle(.system, .headline, .semibold)
     public static let heavyHeadline = DynamicTextStyle(.system, .headline, .heavy)
 
     public static let footnote = DynamicTextStyle(.system, .footnote)
+    public static let mediumFootnote = DynamicTextStyle(.system, .footnote, .medium)
     @objc public static let semiboldFootnote = DynamicTextStyle(.system, .footnote, .semibold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
-    public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
+    public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)
+    
     public static let title3 = DynamicTextStyle(.system, .title3)
     
     public static let body = DynamicTextStyle(.system, .body)
@@ -29,7 +32,6 @@ import UIKit
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
     public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [.traitItalic])
 
-    @objc public static let georgiaTitle1 = DynamicTextStyle(.georgia, .title1)
     public static let georgiaTitle3 = DynamicTextStyle(.georgia, .title3)
 
     let family: FontFamily

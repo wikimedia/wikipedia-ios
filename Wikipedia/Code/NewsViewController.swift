@@ -12,6 +12,7 @@ class NewsViewController: ColumnarCollectionViewController {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
+        self.theme = theme
         title = CommonStrings.inTheNewsTitle
         navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target:nil, action:nil)
     }
