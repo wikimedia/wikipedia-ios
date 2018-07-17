@@ -71,6 +71,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         var didOnlyChangeItems = true
         var sectionDelta = 0
         var objectsInSectionDelta = 0
+        var forceReload = false
+        
         for sectionChange in sectionChanges {
             didOnlyChangeItems = false
             switch sectionChange.type {
@@ -87,8 +89,21 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             }
         }
         
+        for objectChange in objectChanges {
+            switch objectChange.type {
+            case .delete:
+                /// the minus one here is to workaround a bug deleting the last item in a section
+                guard let fromIndexPath = objectChange.fromIndexPath, fromIndexPath.section < previousSectionCounts.count, fromIndexPath.item < previousSectionCounts[fromIndexPath.section] - 1 else {
+                    forceReload = true
+                    break
+                }
+            default:
+                break
+            }
+        }
+        
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
-        guard sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for larger changes
+        guard !forceReload, sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
             collectionView.reloadData()
             self.delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return
