@@ -36,19 +36,13 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     }
     
     private func imageScaleAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if ([fromVC conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)]) {
-//            fromImageView = [(id)fromVC imageScaleTransitionView];
-//        }
-//        if ([toVC conformsToProtocol:@protocol(WMFImageScaleTransitionProviding)]) {
-//            [toVC loadViewIfNeeded];
-//            toImageView = [(id)toVC imageScaleTransitionView];
-//        }
-//        if (fromImageView || toImageView) {
-//            return [[WMFImageScaleTransitionController alloc] initWithFromImageView:fromImageView toImageView:toImageView];
-//        } else {
-//            return nil;
-//        }
-        return nil
+        guard
+            let to = toVC as? ImageScaleTransitionProviding,
+            let from = fromVC as? ImageScaleTransitionProviding else {
+                
+                return nil
+        }
+        return ImageScaleTransitionController(from: from, to: to)
     }
     
     @objc func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

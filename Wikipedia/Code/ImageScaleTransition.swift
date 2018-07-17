@@ -5,15 +5,13 @@ protocol ImageScaleTransitionProviding {
     var imageScaleTransitionView: UIImageView? { get }
 }
 
-@objc(WMFImageScaleTransitionController)
 class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
-    let fromImageView: UIImageView?
-    let toImageView: UIImageView?
+    let from: ImageScaleTransitionProviding
+    let to: ImageScaleTransitionProviding
     
-    @objc(initWithFromImageView:toImageView:)
-    init(fromImageView: UIImageView?, toImageView: UIImageView?) {
-        self.fromImageView = fromImageView
-        self.toImageView = toImageView
+    init(from: ImageScaleTransitionProviding, to: ImageScaleTransitionProviding) {
+        self.from = from
+        self.to = to
         super.init()
     }
     
@@ -33,7 +31,10 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         toViewController.view.frame = toFinalFrame
         containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
 
-        guard let fromImageView = fromImageView, let toImageView = toImageView else {
+        guard
+            let fromImageView = self.from.imageScaleTransitionView,
+            let toImageView = self.to.imageScaleTransitionView
+        else {
             transitionContext.completeTransition(true)
             return
         }
@@ -69,25 +70,5 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
             fromViewController.view.alpha = 1
             fromViewController.view.transform = CGAffineTransform.identity
         }
-    }
-}
-
-
-@objc(WMFImageScaleTransitionDelegate)
-class ImageScaleTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    @objc static let shared = ImageScaleTransitionDelegate()
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let to = presented as? ImageScaleTransitionProviding,
-            let from = presenting as? ImageScaleTransitionProviding else {
-                
-            return nil
-        }
-        return ImageScaleTransitionController(fromImageView: from.imageScaleTransitionView, toImageView: to.imageScaleTransitionView)
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
     }
 }
