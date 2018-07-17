@@ -149,7 +149,8 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
-"explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
+// Fuzzy
+"explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-generic-heading" = "Meest gelezen";
 "explore-most-read-more-list-title-for-date" = "Meest gelezen op $1";
 "explore-nearby-heading" = "Plaatsen in de buurt";
@@ -211,8 +212,10 @@
 "home-button-popover-title" = "Druk in om terug naar de hoofdpagina te gaan";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
+// Fuzzy
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
+// Fuzzy
 "home-news-footer" = "Meer in het nieuws";
 "home-themes-action-title" = "Voorkeuren beheren";
 "home-title" = "Verkennen";
@@ -256,7 +259,6 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annuleren";
-"menu-trash-accessibility-label" = "Verwijderen";
 "more-languages-tooltip-title" = "Talen toevoegen";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
@@ -274,7 +276,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
 "on-this-day-title" = "Op deze dag";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annuleren";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-title" = "Paginageschiedenis";
@@ -291,22 +292,18 @@
 "page-talk-page" = "Overlegpagina bekijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
-"places-accessibility-close-search" = "Zoeken sluiten";
 "places-accessibility-group" = "$1 pagina's";
 "places-accessibility-recenter-map-on-user-location" = "Recenter op uw locatie";
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
-"places-dismiss-filter-list-accessibility-label" = "Zet uw zoekfilters uit";
 "places-empty-search-description" = "Verken steden, landen, continenten, natuurlijk landmarkeringen, historicus gebeurtenissen, gebouwen en meer.";
 "places-empty-search-title" = "Zoek naar Wikipedia-artikelen met geografische locaties";
 "places-enable-location-action-button-title" = "locatie inschakelen";
 "places-enable-location-description" = "Toegang tot uw locatie is alleen beschikbaar als de app of een van de functies op uw scherm zichtbaar is.";
 "places-enable-location-title" = "Verken artikels in de buurt van uw locatie door Locatie Toegang te activeren";
-"places-filter-list-title" = "Zoekfilters";
 "places-filter-no-saved-places" = "U hebt geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 plaats|$1 plaatsen}} gevonden";
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
 "places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
@@ -320,7 +317,6 @@
 "places-search-top-articles" = "Alle meest gelezen pagina's";
 "places-search-top-articles-that-match-scope" = "In de buurt";
 "places-search-your-current-location" = "Uw huidige locatie";
-"places-show-filter-list-accessibility-label" = "Zoekfilters weergeven";
 "places-title" = "Plaatsen";
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";

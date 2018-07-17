@@ -81,7 +81,8 @@
 "explore-continue-reading-heading" = "वाचन सुरू ठेवा";
 "explore-featured-article-heading" = "विशेष लेख";
 "explore-main-page-heading" = "विकिपीडियावर आज";
-"explore-most-read-footer-for-date" = "$1 वरील सर्वात जास्त वाचलेले लेख";
+// Fuzzy
+"explore-most-read-footer" = "सर्वात जास्त वाचलेले लेख";
 "explore-most-read-generic-heading" = "जास्तीत जास्त वाचलेले";
 "explore-most-read-more-list-title-for-date" = "$1 वरील उत्कृष्ट";
 "explore-nearby-heading" = "जवळपासची स्थाने";
@@ -101,6 +102,7 @@
 "hockeyapp-alert-title" = "माफ करा, मागील वेळी अॲप क्रॲश झाले होते";
 "home-button-popover-title" = "मुख्य पानावर जाण्यासाठी येथे दाबा";
 "home-more-like-footer" = "अधिक $1 सारखे";
+// Fuzzy
 "home-nearby-footer" = "आपल्या जवळपासच्या ठिकाणांबाबत अधिक";
 "home-nearby-location-footer" = "अधिक जवळचे $1";
 "home-title" = "शोध करा";
@@ -137,7 +139,6 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडीया झीरो एफएक्यू";
 "menu-cancel-accessibility-label" = "रद्द करा";
-"menu-trash-accessibility-label" = "वगळा";
 "navbar-title-mode-edit-wikitext-preview" = "झलक";
 "nearby-distance-label-feet" = "$1 फूट";
 "nearby-distance-label-km" = "$1 कि.मी.";
@@ -147,7 +148,6 @@
 "number-billions" = "$1कोटी";
 "number-millions" = "$1लक्ष";
 "number-thousands" = "$1हजार";
-"onboarding-wikipedia" = "विकिपीडिया";
 "open-link-cancel" = "रद्द करा";
 "page-edit-history" = "संपूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";

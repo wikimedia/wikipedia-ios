@@ -388,8 +388,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
-    if (keyValue) {
-        return (NSMutableDictionary *)keyValue.value;
+    NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
+    if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
+        return exploreFeedPreferences;
     }
     NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
     for (NSURL *siteURL in self.preferredSiteURLs) {

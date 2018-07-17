@@ -4,6 +4,7 @@
 
 @class MWKDataStore;
 
+extern NSString *_Nonnull const WMFExploreFeedPreferencesGlobalCardsKey;
 extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
 extern NSString *_Nonnull const WMFExploreFeedPreferencesDidChangeNotification;
 extern NSString *_Nonnull const WMFExploreFeedPreferencesDidSaveNotification;

@@ -82,7 +82,8 @@
 "explore-continue-reading-heading" = "განაგრძეთ კითხვა";
 "explore-featured-article-heading" = "რჩეული სტატია";
 "explore-main-page-heading" = "დღეს ვიკიპედიაზე";
-"explore-most-read-footer-for-date" = "ყველა ყველაზე კითხვადი სტატია $1-ზე";
+// Fuzzy
+"explore-most-read-footer" = "ყველა ყველაზე კითხვადი სტატია";
 "explore-most-read-generic-heading" = "ყველაზე კითხვადი";
 "explore-most-read-more-list-title-for-date" = "საუკეთესო $1-ზე";
 "explore-nearby-heading" = "ადგილები სიახლოვეში";
@@ -123,6 +124,7 @@
 "hockeyapp-alert-send-report" = "რეპორტის გაგზავნა";
 "hockeyapp-alert-title" = "უკაცრავად, უკანასკნელად აპლიკაციამ არ უმუშავა";
 "home-more-like-footer" = "$1-ის მსგავსად";
+// Fuzzy
 "home-nearby-footer" = "თქვენი მდებარეობის გადატანა";
 "home-title" = "გამოიკვლიე";
 "icon-shortcut-continue-reading-title" = "განაგრძეთ კითხვა";
@@ -159,7 +161,6 @@
 "main-menu-title" = "მეტი";
 "main-menu-zero-faq" = "ვიკიპედია ზეროს ხშირი შეკითხვები";
 "menu-cancel-accessibility-label" = "გაუქმება";
-"menu-trash-accessibility-label" = "წაშლა";
 "navbar-title-mode-edit-wikitext-preview" = "წინასწარ გადახედვა";
 "nearby-distance-label-feet" = "$1 ფუტი";
 "nearby-distance-label-km" = "$1 კმ";
@@ -169,7 +170,6 @@
 "number-billions" = "$1 მლრდ.";
 "number-millions" = "$1 მლნ.";
 "number-thousands" = "$1 ათ.";
-"onboarding-wikipedia" = "ვიკიპედია";
 "open-link-cancel" = "გაუქმება";
 "page-edit-history" = "მთლიანი რედაქტირების ისტორია";
 "page-history-title" = "სტატიის ისტორია";
