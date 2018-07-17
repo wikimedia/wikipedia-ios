@@ -37,9 +37,9 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 };
 
 typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
-    WMFContentGroupUndoTypeNone,
-    WMFContentGroupUndoTypeAll,
-    WMFContentGroupUndoTypeSingle
+    WMFContentGroupUndoTypeNone = 0,
+    WMFContentGroupUndoTypeAll = 1,
+    WMFContentGroupUndoTypeSingle = 2
 };
 
 @interface WMFContentGroup (Extensions)
@@ -49,6 +49,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 @property (nonatomic, assign) WMFContentType contentType;
 
 @property (nonatomic, assign) WMFContentGroupKind contentGroupKind;
+
+@property (nonatomic, assign) WMFContentGroupUndoType undoType;
 
 @property (nonatomic, strong, nullable) NSURL *URL;
 @property (nonatomic, strong, nullable) NSURL *articleURL;

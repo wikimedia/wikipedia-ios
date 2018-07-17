@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *countOfFullContent;
 @property (nullable, nonatomic, retain) WMFContent *fullContent;
 
-@property (nonatomic)  int16_t undoType;
+@property (nonatomic)  int16_t undoTypeInteger;
 
 @end
 
