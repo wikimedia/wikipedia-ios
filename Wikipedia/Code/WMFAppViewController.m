@@ -257,8 +257,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
     [self configureTabController];
-    [self configurePlacesViewController];
-    [self configureSavedViewController];
 
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
@@ -320,15 +318,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
     self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
-}
-
-- (void)configurePlacesViewController {
-    self.placesViewController.dataStore = self.dataStore;
-}
-
-- (void)configureSavedViewController {
-    self.savedViewController.dataStore = self.dataStore;
-    [self.savedViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
