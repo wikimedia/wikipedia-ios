@@ -84,7 +84,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
     self.appNeedsResume = YES;
-    WMFAppViewController *vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
+    WMFAppViewController *vc = [[WMFAppViewController alloc] init];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
