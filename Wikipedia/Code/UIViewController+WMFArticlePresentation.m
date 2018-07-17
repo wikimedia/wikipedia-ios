@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
-    if (self.parentViewController != nil) {
+    if (self.parentViewController != nil && self.parentViewController.navigationController) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
