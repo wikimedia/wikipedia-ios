@@ -31,7 +31,7 @@ extension ExploreFeedSettingsItem {
     }
 }
 
-enum ExploreFeedSettingsMasterType {
+enum ExploreFeedSettingsMasterType: Equatable {
     case entireFeed
     case singleFeedCard(WMFContentGroupKind)
 }
@@ -153,7 +153,7 @@ class BaseExploreFeedSettingsViewController: UIViewController {
     @objc var dataStore: MWKDataStore?
     var theme = Theme.standard
 
-    private var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
+    var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
     override var nibName: String? {
         return "BaseExploreFeedSettingsViewController"
