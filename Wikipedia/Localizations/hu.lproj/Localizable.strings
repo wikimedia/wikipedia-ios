@@ -138,13 +138,11 @@
 "explore-featured-article-heading" = "Kiemelt szócikk";
 "explore-main-page-description" = "A Wikimédia projektek főoldala";
 "explore-main-page-heading" = "Ma a Wikipédián";
-"explore-most-read-footer-for-date" = "Az összes legolvasottabb szócikk ezen a napon: $1";
+// Fuzzy
+"explore-most-read-footer" = "Az összes legolvasottabb szócikk";
 "explore-most-read-generic-heading" = "Legolvasottabb";
-"explore-most-read-heading" = "A legolvasottabb szócikkek a(z) $1 Wikipédián";
 "explore-most-read-more-list-title-for-date" = "Legolvasottabb ekkor: $1";
 "explore-nearby-heading" = "Helyek a közelben";
-"explore-nearby-placeholder-cancel" = "Mégse";
-"explore-nearby-placeholder-dismiss" = "Elrejt";
 "explore-nearby-placeholder-heading" = "Helyek";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "a(z) $1 Wikipédián";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "a Wikipédián";
@@ -199,11 +197,11 @@
 "home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
 "home-button-history-accessibility-label" = "Wikipédia, visszatérés az Előzményekhez";
 "home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
-"home-hide-suggestion-cancel" = "Mégse";
-"home-hide-suggestion-prompt" = "Javaslat elrejtése";
 "home-more-like-footer" = "Több ehhez hasonló: $1";
+// Fuzzy
 "home-nearby-footer" = "Több a közeledből";
 "home-nearby-location-footer" = "Több $1 közeléből";
+// Fuzzy
 "home-news-footer" = "További hírek";
 "home-reading-list-prompt" = "A mentett szócikkeidet mostantól olvasólistákba tudod szervezni, amelyek a különböző eszközeid között szinkronizálásra kerülnek. Jelentkezz be, hogy az olvasólistáidat a felhasználói beállításaid közé tudd menteni.";
 "home-themes-action-title" = "Beállítások kezelése";
@@ -247,7 +245,6 @@
 "main-menu-title" = "Több";
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "menu-cancel-accessibility-label" = "Mégse";
-"menu-trash-accessibility-label" = "Törlés";
 "more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
 "more-languages-tooltip-title" = "Nyelvek hozzáadása";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
@@ -266,7 +263,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
 "on-this-day-footer" = "Több történelmi események ezen a napon";
 "on-this-day-title" = "Ezen a napon";
-"onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Mégse";
 "page-edit-history" = "Teljes laptörténet";
 "page-history-title" = "Cikktörténet";
@@ -283,22 +279,18 @@
 "page-talk-page" = "Vitalap megtekintése";
 "pictured" = "képpel";
 "places-accessibility-clear-saved-searches" = "Mentett keresések törlése";
-"places-accessibility-close-search" = "Keresés bezárása";
 "places-accessibility-group" = "$1 szócikk";
 "places-accessibility-recenter-map-on-user-location" = "Saját helyzet középre helyezése";
 "places-accessibility-show-as-list" = "Megjelenítés listaként";
 "places-accessibility-show-as-map" = "Megjelenítés térképen";
 "places-accessibility-show-more" = "Több cikk mutatása";
-"places-dismiss-filter-list-accessibility-label" = "Keresési szűrők kikapcsolása";
 "places-empty-search-description" = "Fedezz fel városokat, országokat, földrészeket, természeti képződményeket, történelmi eseményeket, épületeket és még sok minden mást.";
 "places-empty-search-title" = "Földrajzi hellyel rendelkező Wikipédia-szócikkek keresése";
 "places-enable-location-action-button-title" = "Helymeghatározás engedélyezése";
 "places-enable-location-description" = "A helyzeted csak akkor érhető el, amikor az alkalmazás vagy egy funkciója látható a képernyőn.";
 "places-enable-location-title" = "A közeledben lévő témájú szócikkek felfedezése a helymeghatározás engedélyezésével";
-"places-filter-list-title" = "Keresési szűrők";
 "places-filter-no-saved-places" = "Nincsenek mentett helyeid";
 "places-filter-saved-articles" = "Mentett szócikkek";
-"places-filter-saved-articles-count" = "$1 hely található";
 "places-filter-top-articles" = "Legolvasottabb";
 "places-filter-top-articles-count" = "$1 szócikk";
 "places-no-saved-articles-have-location" = "Egyetlen mentett szócikked sem tartalmaz helyinformációkat.";
@@ -312,7 +304,6 @@
 "places-search-top-articles" = "Az összes legolvasottabb szócikk";
 "places-search-top-articles-that-match-scope" = "Közelben";
 "places-search-your-current-location" = "Földrajzi helyzeted";
-"places-show-filter-list-accessibility-label" = "Keresési szűrők mutatása";
 "places-title" = "Helyek";
 "places-unknown-distance" = "ismeretlen távolság";
 "potd-description-prefix" = "A $1 nap képe";

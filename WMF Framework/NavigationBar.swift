@@ -1,6 +1,12 @@
+public enum NavigationBarDisplayType {
+    case backVisible
+    case largeTitle
+    case modal
+}
 @objc(WMFNavigationBar)
-public class NavigationBar: SetupView {
+public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
+    private let titleBar: UIToolbar = UIToolbar()
     public let bar: UINavigationBar = UINavigationBar()
     public let underBarView: UIView = UIView() // this is always visible below the navigation bar
     public let extendedView: UIView = UIView()
@@ -10,8 +16,20 @@ public class NavigationBar: SetupView {
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
-    var isUnderBarViewHidingEnabled: Bool = true
-    var isExtendedViewHidingEnabled: Bool = true
+    public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
+    public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
+    public var isShadowBelowUnderBarView: Bool = false {
+        didSet {
+            updateShadowConstraints()
+        }
+    }
+    
+    public var isBarHidingEnabled: Bool = true
+    public var isUnderBarViewHidingEnabled: Bool = false
+    public var isExtendedViewHidingEnabled: Bool = false
+    public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
+    
+    private var theme = Theme.standard
     
     /// back button presses will be forwarded to this nav controller
     @objc public weak var delegate: UIViewController? {
@@ -20,28 +38,99 @@ public class NavigationBar: SetupView {
         }
     }
     
-    public var isBackVisible: Bool = true {
+    public var displayType: NavigationBarDisplayType = .backVisible {
         didSet {
+            updateTitleBarConstraints()
             updateNavigationItems()
         }
     }
     
-    fileprivate func updateNavigationItems() {
+    @objc public func updateNavigationItems() {
         var items: [UINavigationItem] = []
-        if isBackVisible {
-            items.append(UINavigationItem())
+        if displayType == .backVisible {
+            if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
+                items.append(nc.viewControllers[index - 1].navigationItem)
+            } else {
+                items.append(UINavigationItem())
+            }
         }
+        
         if let item = delegate?.navigationItem {
             items.append(item)
         }
-        bar.setItems(items, animated: false)
+        
+        if displayType == .largeTitle, let navigationItem = items.last {
+            configureTitleBar(with: navigationItem)
+        } else {
+            bar.setItems(items, animated: false)
+        }
+        apply(theme: theme)
+    }
+    
+    private var cachedTitleViewItem: UIBarButtonItem?
+    
+    private func configureTitleBar(with navigationItem: UINavigationItem) {
+        var titleBarItems: [UIBarButtonItem] = []
+        if let titleView = navigationItem.titleView {
+            if let cachedTitleViewItem = cachedTitleViewItem {
+                titleBarItems.append(cachedTitleViewItem)
+            } else {
+                let titleItem = UIBarButtonItem(customView: titleView)
+                titleBarItems.append(titleItem)
+                cachedTitleViewItem = titleItem
+            }
+        } else if let title = navigationItem.title {
+            let titleLabel = UILabel()
+            titleLabel.text = title
+            titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+            titleLabel.sizeToFit()
+            let titleItem = UIBarButtonItem(customView: titleLabel)
+            titleBarItems.append(titleItem)
+        }
+        
+        titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        
+        if let item = navigationItem.leftBarButtonItem {
+            var leftBarButtonItem  = item
+            if #available(iOS 11.0, *) {
+                leftBarButtonItem = barButtonItem(from: item)
+            }
+            titleBarItems.append(leftBarButtonItem)
+        }
+        
+        if let item = navigationItem.rightBarButtonItem {
+            var rightBarButtonItem = item
+            if #available(iOS 11.0, *) {
+                rightBarButtonItem = barButtonItem(from: item)
+            }
+            titleBarItems.append(rightBarButtonItem)
+        }
+        titleBar.setItems(titleBarItems, animated: false)
+    }
+    
+    // HAX: barButtonItem that we're getting from the navigationItem will not be shown on iOS 11 so we need to recreate it
+    private func barButtonItem(from item: UIBarButtonItem) -> UIBarButtonItem {
+        let barButtonItem: UIBarButtonItem
+        if let title = item.title {
+            barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
+        } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
+            barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
+        } else {
+            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
+            barButtonItem = item
+        }
+        barButtonItem.isEnabled = item.isEnabled
+        return barButtonItem
     }
     
     fileprivate var underBarViewHeightConstraint: NSLayoutConstraint!
     
+    fileprivate var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
+    fileprivate var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
+
     fileprivate var shadowHeightConstraint: NSLayoutConstraint!
     fileprivate var extendedViewHeightConstraint: NSLayoutConstraint!
-
+    
     /// Remove this when dropping iOS 10
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
     /// Remove this when dropping iOS 10
@@ -53,6 +142,9 @@ public class NavigationBar: SetupView {
         }
     }
     
+    var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
+    var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
+    
     override open func setup() {
         super.setup()
         translatesAutoresizingMaskIntoConstraints = false
@@ -63,17 +155,20 @@ public class NavigationBar: SetupView {
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
         shadow.translatesAutoresizingMaskIntoConstraints = false
+        titleBar.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(backgroundView)
-        addSubview(shadow)
         addSubview(extendedView)
         addSubview(underBarView)
         addSubview(bar)
+        addSubview(titleBar)
         addSubview(progressView)
         addSubview(statusBarUnderlay)
+        addSubview(shadow)
+
         
         accessibilityElements = [extendedView, underBarView, bar]
-
+        
         bar.delegate = self
         
         shadowHeightConstraint = shadow.heightAnchor.constraint(equalToConstant: 0.5)
@@ -81,7 +176,7 @@ public class NavigationBar: SetupView {
         shadow.addConstraint(shadowHeightConstraint)
         
         var updatedConstraints: [NSLayoutConstraint] = []
-
+        
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
         updatedConstraints.append(statusBarUnderlayTopConstraint)
         
@@ -89,7 +184,7 @@ public class NavigationBar: SetupView {
         if #available(iOS 11.0, *) {
             safeArea = safeAreaLayoutGuide
         }
-
+        
         if let safeArea = safeArea {
             let statusBarUnderlayBottomConstraint = safeArea.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
             updatedConstraints.append(statusBarUnderlayBottomConstraint)
@@ -103,7 +198,11 @@ public class NavigationBar: SetupView {
         updatedConstraints.append(statusBarUnderlayLeadingConstraint)
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
         updatedConstraints.append(statusBarUnderlayTrailingConstraint)
-
+        
+        let titleBarTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: titleBar.topAnchor)
+        let titleBarLeadingConstraint = leadingAnchor.constraint(equalTo: titleBar.leadingAnchor)
+        let titleBarTrailingConstraint = trailingAnchor.constraint(equalTo: titleBar.trailingAnchor)
+        
         let barTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: bar.topAnchor)
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
         let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
@@ -111,7 +210,9 @@ public class NavigationBar: SetupView {
         underBarViewHeightConstraint = underBarView.heightAnchor.constraint(equalToConstant: 0)
         underBarView.addConstraint(underBarViewHeightConstraint)
         
-        let underBarViewTopConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+        
         let underBarViewLeadingConstraint = leadingAnchor.constraint(equalTo: underBarView.leadingAnchor)
         let underBarViewTrailingConstraint = trailingAnchor.constraint(equalTo: underBarView.trailingAnchor)
         
@@ -119,15 +220,9 @@ public class NavigationBar: SetupView {
         extendedView.addConstraint(extendedViewHeightConstraint)
         
         let extendedViewTopConstraint = underBarView.bottomAnchor.constraint(equalTo: extendedView.topAnchor)
-        if let safeArea = safeArea {
-            let extendedViewLeadingConstraint = safeArea.leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
-            let extendedViewTrailingConstraint = safeArea.trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
-            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
-        } else {
-            let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
-            let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
-            updatedConstraints.append(contentsOf: [extendedViewLeadingConstraint, extendedViewTrailingConstraint])
-        }
+        let extendedViewLeadingConstraint = leadingAnchor.constraint(equalTo: extendedView.leadingAnchor)
+        let extendedViewTrailingConstraint = trailingAnchor.constraint(equalTo: extendedView.trailingAnchor)
+        let extendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: bottomAnchor)
         
         let backgroundViewTopConstraint = topAnchor.constraint(equalTo: backgroundView.topAnchor)
         let backgroundViewLeadingConstraint = leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor)
@@ -138,14 +233,19 @@ public class NavigationBar: SetupView {
         let progressViewLeadingConstraint = leadingAnchor.constraint(equalTo: progressView.leadingAnchor)
         let progressViewTrailingConstraint = trailingAnchor.constraint(equalTo: progressView.trailingAnchor)
         
-        let shadowTopConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
         let shadowLeadingConstraint = leadingAnchor.constraint(equalTo: shadow.leadingAnchor)
         let shadowTrailingConstraint = trailingAnchor.constraint(equalTo: shadow.trailingAnchor)
-        let shadowBottomConstraint = bottomAnchor.constraint(equalTo: shadow.bottomAnchor)
         
-        updatedConstraints.append(contentsOf: [barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopConstraint, shadowLeadingConstraint, shadowTrailingConstraint, shadowBottomConstraint])
+        shadowTopExtendedViewBottomConstraint = extendedView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
+        shadowTopUnderBarViewBottomConstraint = underBarView.bottomAnchor.constraint(equalTo: shadow.topAnchor)
+        
+
+        updatedConstraints.append(contentsOf: [titleBarTopConstraint, titleBarLeadingConstraint, titleBarTrailingConstraint, underBarViewTopTitleBarBottomConstraint, barTopConstraint, barLeadingConstraint, barTrailingConstraint, underBarViewTopBarBottomConstraint, underBarViewLeadingConstraint, underBarViewTrailingConstraint, extendedViewTopConstraint, extendedViewLeadingConstraint, extendedViewTrailingConstraint, extendedViewBottomConstraint, backgroundViewTopConstraint, backgroundViewLeadingConstraint, backgroundViewTrailingConstraint, backgroundViewBottomConstraint, progressViewBottomConstraint, progressViewLeadingConstraint, progressViewTrailingConstraint, shadowTopUnderBarViewBottomConstraint, shadowTopExtendedViewBottomConstraint, shadowLeadingConstraint, shadowTrailingConstraint])
         addConstraints(updatedConstraints)
         
+        updateTitleBarConstraints()
+        updateShadowConstraints()
+
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
     }
     
@@ -163,8 +263,7 @@ public class NavigationBar: SetupView {
             return _navigationBarPercentHidden
         }
         set {
-            _navigationBarPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -174,8 +273,7 @@ public class NavigationBar: SetupView {
             return _underBarViewPercentHidden
         }
         set {
-            _underBarViewPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
         }
     }
     
@@ -185,23 +283,40 @@ public class NavigationBar: SetupView {
             return _extendedViewPercentHidden
         }
         set {
-            _extendedViewPercentHidden = newValue
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
         }
     }
     
     @objc public var visibleHeight: CGFloat = 0
     
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool, additionalAnimations: (() -> Void)?) {
+    public var shadowAlpha: CGFloat {
+        get {
+            return shadow.alpha
+        }
+        set {
+            shadow.alpha = newValue
+        }
+    }
+    
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)?) {
         layoutIfNeeded()
-        _navigationBarPercentHidden = navigationBarPercentHidden
-        _underBarViewPercentHidden = underBarViewPercentHidden
-        _extendedViewPercentHidden = extendedViewPercentHidden
+        if isBarHidingEnabled {
+            _navigationBarPercentHidden = navigationBarPercentHidden
+        }
+        if isUnderBarViewHidingEnabled {
+            _underBarViewPercentHidden = underBarViewPercentHidden
+        }
+        if isExtendedViewHidingEnabled {
+            _extendedViewPercentHidden = extendedViewPercentHidden
+        }
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
-                self.layoutIfNeeded()
+                if shadowAlpha >= 0  {
+                    self.shadowAlpha = shadowAlpha
+                }
+                self.layoutSubviews()
                 additionalAnimations?()
             }
             if animated {
@@ -222,6 +337,21 @@ public class NavigationBar: SetupView {
         }
     }
     
+    private func updateTitleBarConstraints() {
+        let isUsingTitleBarInsteadOfNavigationBar = displayType == .largeTitle
+        underBarViewTopTitleBarBottomConstraint.isActive = isUsingTitleBarInsteadOfNavigationBar
+        underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
+        bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
+        titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
+        setNeedsUpdateConstraints()
+    }
+    
+    private func updateShadowConstraints() {
+        shadowTopUnderBarViewBottomConstraint.isActive = isShadowBelowUnderBarView
+        shadowTopExtendedViewBottomConstraint.isActive = !isShadowBelowUnderBarView
+        setNeedsUpdateConstraints()
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         let navigationBarPercentHidden = _navigationBarPercentHidden
@@ -229,7 +359,7 @@ public class NavigationBar: SetupView {
         let underBarViewPercentHidden = _underBarViewPercentHidden
         
         let underBarViewHeight = underBarView.frame.height
-        let barHeight = bar.frame.height
+        let barHeight = displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
         let extendedViewHeight = extendedView.frame.height
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
@@ -242,40 +372,40 @@ public class NavigationBar: SetupView {
         let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
         
         self.bar.transform = barTransform
+        self.titleBar.transform = barTransform
+        
         for subview in self.bar.subviews {
             for subview in subview.subviews {
                 subview.transform = barScaleTransform
             }
         }
-        self.bar.alpha = 1.0 - 2.0 * navigationBarPercentHidden
+        self.bar.alpha = min(backgroundAlpha, (1.0 - 2.0 * navigationBarPercentHidden).wmf_normalizedPercentage)
+        self.titleBar.alpha = self.bar.alpha
         
         let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
         self.backgroundView.transform = totalTransform
-
-        if isUnderBarViewHidingEnabled {
-            self.underBarView.transform = totalTransform
-            self.underBarView.alpha = 1.0 - underBarViewPercentHidden
-        }
+        
+        let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
+        self.underBarView.transform = underBarTransform
+        self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        if isExtendedViewHidingEnabled {
-            self.extendedView.alpha = 1.0 - extendedViewPercentHidden
-        }
+        self.extendedView.alpha = min(backgroundAlpha, 1.0 - extendedViewPercentHidden)
         
         self.progressView.transform = totalTransform
-        self.shadow.transform = totalTransform
-    }
-
-
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
-        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations: nil)
+        self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
     }
     
-    @objc public func setPercentHidden(_ percentHidden: CGFloat, animated: Bool) {
-        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, animated: animated)
+    
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
+        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, shadowAlpha: shadowAlpha, animated: animated, additionalAnimations: nil)
     }
     
-    @objc public func setProgressViewHidden(_ hidden: Bool, animated: Bool) {
+    @objc public func setPercentHidden(_ percentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
+        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, shadowAlpha: shadowAlpha, animated: animated)
+    }
+    
+    @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
             self.progressView.alpha = hidden ? 0 : 1
         }
@@ -306,7 +436,7 @@ public class NavigationBar: SetupView {
         extendedViewHeightConstraint.isActive = false
         extendedView.wmf_addSubviewWithConstraintsToEdges(view)
     }
-
+    
     @objc public func removeExtendedNavigationBarView() {
         guard let subview = extendedView.subviews.first else {
             return
@@ -322,7 +452,7 @@ public class NavigationBar: SetupView {
         underBarViewHeightConstraint.isActive = false
         underBarView.wmf_addSubviewWithConstraintsToEdges(view)
     }
-
+    
     @objc public func removeUnderNavigationBarView() {
         guard let subview = extendedView.subviews.first else {
             return
@@ -334,23 +464,52 @@ public class NavigationBar: SetupView {
     @objc public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return point.y <= visibleHeight
     }
+    
+    public var backgroundAlpha: CGFloat = 1 {
+        didSet {
+            statusBarUnderlay.alpha = backgroundAlpha
+            backgroundView.alpha = backgroundAlpha
+            bar.alpha = backgroundAlpha
+            titleBar.alpha = backgroundAlpha
+            extendedView.alpha = backgroundAlpha
+            progressView.alpha = backgroundAlpha
+        }
+    }
 }
 
 extension NavigationBar: Themeable {
     public func apply(theme: Theme) {
+        self.theme = theme
+        
         backgroundColor = .clear
         
-        statusBarUnderlay.backgroundColor = theme.colors.chromeBackground
-        backgroundView.backgroundColor = theme.colors.chromeBackground
+        statusBarUnderlay.backgroundColor = theme.colors.paperBackground
+        backgroundView.backgroundColor = theme.colors.paperBackground
+        
+        titleBar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
+        titleBar.isTranslucent = false
+        titleBar.tintColor = theme.colors.primaryText
+        titleBar.setShadowImage(theme.navigationBarShadowImage, forToolbarPosition: .any)
+        titleBar.barTintColor = theme.colors.chromeBackground
+        if let items = titleBar.items {
+            for item in items {
+                if let label = item.customView as? UILabel {
+                    label.textColor = theme.colors.primaryText
+                } else if item.image == nil {
+                    item.tintColor = theme.colors.link
+                }
+            }
+        }
         
         bar.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
         bar.titleTextAttributes = theme.navigationBarTitleTextAttributes
         bar.isTranslucent = false
         bar.barTintColor = theme.colors.chromeBackground
-        bar.shadowImage = #imageLiteral(resourceName: "transparent-pixel")
-        bar.tintColor = theme.colors.chromeText
+        bar.shadowImage = theme.navigationBarShadowImage
+        bar.tintColor = theme.colors.primaryText
         
-        extendedView.backgroundColor = theme.colors.chromeBackground
+        extendedView.backgroundColor = .clear
+        underBarView.backgroundColor = .clear
         
         shadow.backgroundColor = theme.colors.chromeShadow
         

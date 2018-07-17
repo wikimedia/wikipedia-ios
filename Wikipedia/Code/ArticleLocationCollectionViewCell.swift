@@ -13,18 +13,20 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
         insertSubview(compassView, belowSubview: imageView)
         isImageViewHidden = false
-        imageViewDimension = 72
         imageView.layer.cornerRadius = round(0.5*imageViewDimension)
         imageView.layer.masksToBounds = true
         addSubview(distanceLabelBackground)
         addSubview(distanceLabel)
         distanceLabelBackground.layer.cornerRadius = 2.0
+        titleLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = 2
     }
     
     override func reset() {
         super.reset()
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
+        imageViewDimension = 72
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -34,7 +36,8 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        distanceLabelBackground.layer.borderWidth = 1.0 / (traitCollection.displayScale > 0 ? traitCollection.displayScale : 1)
+        let displayScale = max(1, traitCollection.displayScale)
+        distanceLabelBackground.layer.borderWidth = 1.0 / displayScale
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -96,11 +99,13 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     public func configureForUnknownDistance() {
         distanceLabel.text = WMFLocalizedString("places-unknown-distance", value: "unknown distance", comment: "Indicates that a place is an unknown distance away").lowercased()
+        setNeedsLayout()
     }
     
     var distance: CLLocationDistance = 0 {
         didSet {
             distanceLabel.text = NSString.wmf_localizedString(forDistance: distance)
+            setNeedsLayout()
         }
     }
     
@@ -112,7 +117,16 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        imageView.backgroundColor = theme.colors.midBackground
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.cgColor
+        compassView.lineColor = theme.colors.accent
+    }
+}
+
+class ArticleLocationExploreCollectionViewCell: ArticleLocationCollectionViewCell {
+    override open func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
     }
 }

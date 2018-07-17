@@ -86,6 +86,7 @@
 "appearance-settings-image-dimming-footer" = "Turunkan kegelapan gambar pada tema gelap";
 "appearance-settings-reading-themes" = "Tema bacaan";
 "appearance-settings-set-automatic-table-opening" = "Pengaturan Tabel";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Seret penggeser di atas untuk mengubah ukuran teks artikel. Manfaatkan ukuran teks sistem Anda untuk mengubah ukuran area teks lain di aplikasi.";
 "appearance-settings-theme-options" = "Opsi tema";
 "article-about-title" = "Mengenai artikel ini";
@@ -147,13 +148,11 @@
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-main-page-description" = "Halaman utama proyek Wikimedia";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
-"explore-most-read-footer-for-date" = "Semua artikel bacaan teratas pada $1";
+// Fuzzy
+"explore-most-read-footer" = "Semua artikel bacaan teratas";
 "explore-most-read-generic-heading" = "Bacaan teratas";
-"explore-most-read-heading" = "Bacaan teratas di Wikipedia Bahasa $1";
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-nearby-heading" = "Tempat terdekat";
-"explore-nearby-placeholder-cancel" = "Batal";
-"explore-nearby-placeholder-dismiss" = "Tutup";
 "explore-nearby-placeholder-heading" = "Tempat";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -210,11 +209,11 @@
 "home-button-popover-description" = "Ketuk 'W' untuk kembali ke umpan Jelajah";
 "home-button-popover-title" = "Ketuk untuk pergi ke halaman utama";
 "home-button-saved-accessibility-label" = "Wikipedia, kembali ke Tersimpan";
-"home-hide-suggestion-cancel" = "Batal";
-"home-hide-suggestion-prompt" = "Sembunyikan saran ini";
 "home-more-like-footer" = "Lainnya yang seperti $1";
+// Fuzzy
 "home-nearby-footer" = "Lainnya dari lokasi sekitar Anda";
 "home-nearby-location-footer" = "Lainnya di sekitar $1";
+// Fuzzy
 "home-news-footer" = "Peristiwa terkini lainnya";
 "home-reading-list-prompt" = "Artikel tersimpan Anda sekarang dapat diatur ke dalam daftar bacaan dan disinkronkan di seluruh perangkat. Masuk log untuk membolehkan daftar bacaan Anda disimpan ke preferensi pengguna Anda.";
 "home-themes-action-title" = "Kelola preferensi";
@@ -259,7 +258,6 @@
 "main-menu-title" = "Lainnya";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
-"menu-trash-accessibility-label" = "Hapus";
 "more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
@@ -278,7 +276,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-title" = "Pada hari ini";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Batal";
 "page-edit-history" = "Semua riwayat suntingan";
 "page-history-title" = "Versi terdahulu artikel";
@@ -295,22 +292,18 @@
 "page-talk-page" = "Lihat halaman pembicaraan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Hapus penelusuran tersimpan";
-"places-accessibility-close-search" = "Tutup pencarian";
 "places-accessibility-group" = "$1 artikel";
 "places-accessibility-recenter-map-on-user-location" = "Pusatkan ulang di lokasi Anda";
 "places-accessibility-show-as-list" = "Tampilkan sebagai daftar";
 "places-accessibility-show-as-map" = "Tampilkan sebagai peta";
 "places-accessibility-show-more" = "Tampilkan artikel lainnya";
-"places-dismiss-filter-list-accessibility-label" = "Tutup filter pencarian";
 "places-empty-search-description" = "Jelajahi kota, negara, benua, tengara alam, peristiwa sejarah, bangunan dan lainnya.";
 "places-empty-search-title" = "Cari artikel Wikipedia dengan lokasi geografis";
 "places-enable-location-action-button-title" = "Aktifkan lokasi";
 "places-enable-location-description" = "Akses ke lokasi Anda hanya tersedia bila aplikasi atau salah satu dari fitur-fiturnya yang terlihat di layar Anda.";
 "places-enable-location-title" = "Jelajahi artikel di sekitar lokasi Anda dengan mengaktifkan Akses Lokasi";
-"places-filter-list-title" = "Filter pencarian";
 "places-filter-no-saved-places" = "Anda tidak memiliki tempat yang tersimpan";
 "places-filter-saved-articles" = "Artikel tersimpan";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 tempat|$1 tempat}} ditemukan";
 "places-filter-top-articles" = "Bacaan teratas";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Tidak satu pun dari artikel tersimpan Anda memiliki informasi lokasi";
@@ -324,7 +317,6 @@
 "places-search-top-articles" = "Semua artikel teratas";
 "places-search-top-articles-that-match-scope" = "Sekitar";
 "places-search-your-current-location" = "Lokasi Anda saat ini";
-"places-show-filter-list-accessibility-label" = "Tampilkan filter pencarian";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar hari ini pada $1";

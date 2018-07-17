@@ -52,7 +52,7 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         let scale = CGAffineTransform(scaleX: scaleX, y: scaleY)
         let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
         let transform = scale.concatenating(delta)
-    
+        
         toViewController.view.transform = transform.inverted()
         
         let duration = self.transitionDuration(using: transitionContext)
@@ -69,9 +69,6 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
             fromViewController.view.alpha = 1
             fromViewController.view.transform = CGAffineTransform.identity
         }
-
-        
-        
     }
 }
 
@@ -84,6 +81,7 @@ class ImageScaleTransitionDelegate: NSObject, UIViewControllerTransitioningDeleg
         guard
             let to = presented as? ImageScaleTransitionProviding,
             let from = presenting as? ImageScaleTransitionProviding else {
+                
             return nil
         }
         return ImageScaleTransitionController(fromImageView: from.imageScaleTransitionView, toImageView: to.imageScaleTransitionView)

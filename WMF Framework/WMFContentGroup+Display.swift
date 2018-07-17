@@ -1,7 +1,7 @@
 extension WMFFeedDisplayType {
     public func imageWidthCompatibleWithTraitCollection(_ traitCollection: UITraitCollection) -> Int {
         switch self {
-        case .pageWithPreview, .relatedPagesSourceArticle:
+        case .pageWithPreview, .relatedPagesSourceArticle, .random:
             return traitCollection.wmf_leadImageWidth
         default:
             return traitCollection.wmf_nearbyThumbnailWidth
@@ -16,7 +16,7 @@ extension WMFContentGroup {
             guard let imageInfo = contentPreview as? WMFFeedImage else {
                 return nil
             }
-            let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_articleImageWidth)) ?? imageInfo.imageThumbURL
+            let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_leadImageWidth)) ?? imageInfo.imageThumbURL
             return [imageURL]
         case .announcement:
             guard let announcement = contentPreview as? WMFAnnouncement else {
@@ -76,12 +76,12 @@ extension WMFContentGroup {
         }
         let countOfFeedContent = preview.count
         switch contentGroupKind {
-        case .news:
+        case .news, .location:
             return 1
         case .onThisDay:
-            return 1
+            return min(countOfFeedContent, 2)
         case .relatedPages:
-            return min(countOfFeedContent, Int(maxNumberOfCells) + 1)
+            return min(countOfFeedContent, Int(maxNumberOfCells)) + 1
         default:
             return min(countOfFeedContent, Int(maxNumberOfCells))
         }
@@ -113,5 +113,14 @@ extension WMFContentGroup {
         }
         
         return content[index]
+    }
+    
+    public var isSelectable: Bool {
+        switch contentGroupKind {
+        case .announcement, .notification, .theme, .readingList:
+            return false
+        default:
+            return true
+        }
     }
 }

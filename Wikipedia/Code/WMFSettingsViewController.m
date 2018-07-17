@@ -121,7 +121,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)configureBackButton {
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-    self.navigationItem.leftBarButtonItems = @[xButton];
+    self.navigationItem.rightBarButtonItem = xButton;
+}
+
+- (void)setShowCloseButton:(BOOL)showCloseButton {
+    if (showCloseButton) {
+        [self configureBackButton];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (void)closeButtonPressed {
@@ -210,6 +218,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
+            break;
+        case WMFSettingsMenuItemType_ExploreFeed:
+            [self showExploreFeedSettings];
             break;
         case WMFSettingsMenuItemType_Notifications:
             [self showNotifications];
@@ -379,6 +390,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self loadSections];
 }
 
+#pragma mark - Feed
+
+- (void)showExploreFeedSettings {
+    WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
+    feedSettingsVC.dataStore = self.dataStore;
+    [feedSettingsVC applyTheme:self.theme];
+    [self.navigationController pushViewController:feedSettingsVC animated:YES];
+}
+
 #pragma mark - Notifications
 
 - (void)showNotifications {
@@ -489,6 +509,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
         [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
     }

@@ -56,8 +56,6 @@
 "empty-no-search-results-message" = "ಒವ್ವೆ ವಿಚಾರೊಲ್ ತಿಕೀಜಿ";
 "explore-main-page-heading" = "ವಿಕಿಪೀಡಿಯಾಡ್ ಇನಿ";
 "explore-most-read-generic-heading" = "ಮಸ್ತ್ ಓದುನವೂ";
-"explore-nearby-placeholder-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
-"explore-nearby-placeholder-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "explore-nearby-placeholder-heading" = "ಜಾಗೆಲು";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯ ಡ್";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಡ್";
@@ -88,7 +86,6 @@
 "history-clear-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "history-clear-delete-all" = "ಅಂದ್, ಮಾನ್ತೆನ್ಲ ವಜಾ ಮಾನ್ಪಿ";
 "history-title" = "ಇತಿಹಾಸೊ";
-"home-hide-suggestion-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
 "icon-shortcut-continue-reading-title" = "ಓದುನೆನ್ ಮುಂದುವರಿಸಲೇ";
 "icon-shortcut-random-title" = "ಒಟ್ಟಾರೆ ಲೇಖನೊಲು";
@@ -115,7 +112,6 @@
 "main-menu-title" = "ನನಾತ್";
 "main-menu-zero-faq" = "ವಿಕಿಪೀಡಿಯ ಜಿರೋತಾ FAQ";
 "menu-cancel-accessibility-label" = "ವಜಾ ಮಲ್ಪುಲೆ";
-"menu-trash-accessibility-label" = "ಮಾಜಾಲೆ";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
@@ -127,7 +123,6 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "ನೆತ್ತ್ $1 - $2";
 "on-this-day-title" = "ಇ ದಿನೋ";
-"onboarding-wikipedia" = "ವಿಕಿಪೀಡಿಯ";
 "open-link-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "page-history-title" = "ಲೇಕನೋತಾ ಇತಿಹಾಸೊ";
 "page-issues" = "ಪುಟೊತ್ತಾ ಸಮಸ್ಯೆ";

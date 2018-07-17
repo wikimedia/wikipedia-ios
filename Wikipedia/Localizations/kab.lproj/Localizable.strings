@@ -59,6 +59,7 @@
 "appearance-settings-adjust-text-sizing" = "Seggem teɣzi n uḍris n umagrad";
 "appearance-settings-image-dimming-footer" = "Senɣes tebrek n tugniwin n usentel ubrik";
 "appearance-settings-reading-themes" = "Isental n tɣuri";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "timnaḍin deg usnas.";
 "appearance-settings-theme-options" = "Iɣewwaṛen n isental";
 "article-about-title" = "Ɣef umagrad-agi";
@@ -116,13 +117,9 @@
 "explore-featured-article-heading" = "Amagrad ifazen";
 "explore-main-page-description" = "Asebter agejdan n isenfaṛen Wikimedia";
 "explore-main-page-heading" = "Ass-a di Wikipedia";
-"explore-most-read-footer-for-date" = "Akk imagraden yettwaqran aṭas di $1";
 "explore-most-read-generic-heading" = "Ttwaɣran aṭas";
-"explore-most-read-heading" = "Ttwaɣran aṭas di Wikipedia di $1";
 "explore-most-read-more-list-title-for-date" = "Ttwaɣran aṭas arama d $1";
 "explore-nearby-heading" = "Imeḍqan iqerben";
-"explore-nearby-placeholder-cancel" = "Sefsex";
-"explore-nearby-placeholder-dismiss" = "Zgel";
 "explore-nearby-placeholder-heading" = "Idigen";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia di $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
@@ -179,11 +176,11 @@
 "home-button-popover-description" = "Senned ɣef 'W' akken ad tuɣaleḍ ar tnelli Snirem";
 "home-button-popover-title" = "Senned akken ad tedduḍ ar ugdil agejdan";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
-"home-hide-suggestion-cancel" = "Sefsex";
-"home-hide-suggestion-prompt" = "Ffer asumer-agi";
 "home-more-like-footer" = "Ugar am $1";
+// Fuzzy
 "home-nearby-footer" = "Yeqreb ugar ar wanida telliḍ";
 "home-nearby-location-footer" = "Yeqreb ugar ar $1";
+// Fuzzy
 "home-news-footer" = "Ugar deg isallen";
 "home-themes-action-title" = "Sekles ismenyifen";
 "home-themes-prompt" = "Seggem ismenyifen-ik n tɣuri (ula d teɣzi n uḍris d usentel) seg ufeggag n ifecka n umagrad neɣ deg ismenyifen-ik n useqdac i tɣuri ifazen.";
@@ -227,7 +224,6 @@
 "main-menu-title" = "Ugar";
 "main-menu-zero-faq" = "Isteqsiyen FAQ Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Sefsex";
-"menu-trash-accessibility-label" = "Kkes";
 "navbar-title-mode-edit-wikitext-preview" = "Taskany";
 "nearby-distance-label-feet" = "$1 n uḍaṛ";
 "nearby-distance-label-km" = "$1 km";
@@ -243,7 +239,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 n tedyant tamazrayt|$1 n tidyanin timazrayin}}";
 "on-this-day-footer" = "Ugar n tidyanin timazrayin ass-a";
 "on-this-day-title" = "Ass-a";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Sefsex";
 "page-edit-history" = "Amazray ummid n usnifel";
 "page-history-title" = "amazray n umagrad";
@@ -260,22 +255,18 @@
 "page-talk-page" = "Wali asebter n usqerdec";
 "pictured" = "s tugna";
 "places-accessibility-clear-saved-searches" = "Sfeḍ inadiyen yettwaskelsen";
-"places-accessibility-close-search" = "Mdel anadi";
 "places-accessibility-group" = "$1 n imagraden";
 "places-accessibility-recenter-map-on-user-location" = "Slemmes ar wadig-ik";
 "places-accessibility-show-as-list" = "Sken am tebdart";
 "places-accessibility-show-as-map" = "Sken am tkarḍa";
 "places-accessibility-show-more" = "Sken ugar n imagraden";
-"places-dismiss-filter-list-accessibility-label" = "Kkes imzizdigen n unadi";
 "places-empty-search-description" = "Snirem timdinin, timura, imenẓawen, imedruzen igamanen, tidyanin timazrayin, izadaɣen, d wayen nniḍen.";
 "places-empty-search-title" = "Nadi imagraden Wikipedia s yidigen irakalen";
 "places-enable-location-action-button-title" = "Rmed asideg";
 "places-enable-location-description" = "Kcem kan ar usideg-ik yellan ticki asnas neɣ yiqet si timahilin-is tettban-d ɣef ugdil-ik.";
 "places-enable-location-title" = "Snirem imagraden iqeṛben ar wadig s urmed n unekcum ar usideg";
-"places-filter-list-title" = "Imzizdigen n unadi";
 "places-filter-no-saved-places" = "Ur ɣur-k ara idigen yettwaskelsen";
 "places-filter-saved-articles" = "Imagraden yettwaskelsen";
-"places-filter-saved-articles-count" = "$1 {{PLURAL:$1|n wadig yattwafen|n yidigen yettwafen}}";
 "places-filter-top-articles" = "Ttwaɣran aṭas";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|amagrad|imagraden}}";
 "places-no-saved-articles-have-location" = "Ula d yiwen seg imagraden-ik yettwaskelsen ur yesɛi talɣut n usideg";
@@ -289,7 +280,6 @@
 "places-search-top-articles" = "Akk imagraden ifazen";
 "places-search-top-articles-that-match-scope" = "S lqeṛban";
 "places-search-your-current-location" = "Asideg-ik arakal amiran";
-"places-show-filter-list-accessibility-label" = "Sken imzizdigen n unadi";
 "places-title" = "Idigen";
 "places-unknown-distance" = "ameccaq arussin";
 "potd-description-prefix" = "Tugna n wass i $1";

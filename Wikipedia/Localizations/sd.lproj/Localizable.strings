@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: Mehtab ahmed
 // Author: Nemo bis
+// Author: Tweety
 
 "about-content-license" = "مواد جو لائسنس";
 "about-content-license-details" = "مواد $1 جي تحت موجود آھي، نہ تہ ٻي صورت ۾ وضاحت ڪيل آھي.";
@@ -125,22 +126,22 @@
 "explore-because-you-read" = "ڇو تہ توھان پڙھيو";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
 "explore-enable-location-title" = "پنھنجي ھاڻوڪي مڪانيت جي ويجھو مضمون کوجيو";
-"explore-featured-article-heading" = "نمايان مضمون";
+"explore-featured-article-heading" = "چونڊ مضمون";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
-"explore-most-read-footer-for-date" = "$1 تي گھڻو پڙھيل مضمون";
+// Fuzzy
+"explore-most-read-footer" = "سڀ گھڻو پڙھيل مضمون";
 "explore-most-read-generic-heading" = "گھڻو پڙھيل";
-"explore-most-read-heading" = "$1 وڪيپيڊيا تي گھڻو پڙھيل";
 "explore-most-read-more-list-title-for-date" = "$1 تي مٿيان";
 "explore-nearby-heading" = "ويجھيون جڳھون";
-"explore-nearby-placeholder-cancel" = "رد ڪيو";
-"explore-nearby-placeholder-dismiss" = "برخواست";
 "explore-nearby-placeholder-heading" = "ماڳ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 وڪيپيڊيا تي";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
 "explore-nearby-sub-heading-your-location" = "توھان جي مڪانيت";
 "explore-potd-heading" = "اڄ جي تصوير";
 "explore-random-article-heading" = "بلا ترتيب مضمون";
+"explore-random-article-sub-heading-from-language-wikipedia" = "وڪيپيڊيا $1 تان";
+"explore-random-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
 "explore-randomizer" = "بلاترتيبڪار";
 "feed-news-notification-button-text" = "اطلاع آن ڪريو";
 "feed-news-notification-text" = "خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع قابلِڪار ڪريو.";
@@ -191,12 +192,10 @@
 "home-button-popover-description" = "کوج فيڊ ڏانھن ورڻ لاءِ 'W' تي ٽيپ ڪريو";
 "home-button-popover-title" = "گھر ڏانھن وڃڻ لاءِ ٽيپ ڪريو";
 "home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
-"home-hide-suggestion-cancel" = "رد";
-"home-hide-suggestion-prompt" = "ھيءَ تجويز لڪايو";
 "home-more-like-footer" = "وڌيڪ $1 وانگر";
-"home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
+"home-nearby-footer" = "اوهان جي ويجهي وڌيڪ جڳهون";
 "home-nearby-location-footer" = "وڌيڪ ويجھا $1";
-"home-news-footer" = "خبرن ۾ وڌيڪ";
+"home-news-footer" = "وڌيڪ هاڻوڪا واقعا";
 "home-themes-action-title" = "ترجيحون سنڀاليو";
 "home-title" = "تلاش ڪريو";
 "home-title-accessibility-label" = "وڪيپيڊيا، کوجڻ لاءِ اسڪرول ڪريو";
@@ -237,7 +236,6 @@
 "main-menu-title" = "وڌيڪ";
 "main-menu-zero-faq" = "وڪيپيڊيا زيرو FAQ";
 "menu-cancel-accessibility-label" = "رد";
-"menu-trash-accessibility-label" = "ڊاھيو";
 "more-languages-tooltip-description" = "وڪيپيڊيا کي لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
 "more-languages-tooltip-title" = "ٻوليون وجھو";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ڏانھن چوريو";
@@ -255,8 +253,8 @@
 "on-this-day-detail-header-date-range" = "$1 - $2 کان";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاريخي واقعو|$1 تاريخي واقعا}}";
 "on-this-day-footer" = "ھن ڏينھن تي وڌيڪ تاريخي واقعا";
+"on-this-day-footer-with-event-count" = "$1 هن ڏينهن تي وڌيڪ تاريخي واقعا";
 "on-this-day-title" = "ھن ڏينھن تي";
-"onboarding-wikipedia" = "وڪيپيڊيا";
 "open-link-cancel" = "رد";
 "page-edit-history" = "پوري ترميمي سوانح";
 "page-history-title" = "مضون جي سوانح";
@@ -273,21 +271,17 @@
 "page-talk-page" = "بحث صفحو ڏسو";
 "pictured" = "تصوير لڳل";
 "places-accessibility-clear-saved-searches" = "سانڍيل ڳولائون ختم ڪريو";
-"places-accessibility-close-search" = "ڳولا بند ڪريو";
 "places-accessibility-group" = "$1 مضمونَ";
 "places-accessibility-recenter-map-on-user-location" = "پپنھنجي مڪانيت کي ٻيھر مڪرڪريو";
 "places-accessibility-show-as-list" = "فھرست وانگر ڏيکاريو";
 "places-accessibility-show-as-map" = "نقشي وانگر ڏيکاريو";
 "places-accessibility-show-more" = "وڌيڪ مضمونَ ڏيکاريو";
-"places-dismiss-filter-list-accessibility-label" = "ڳولا ڇاڻيون ختم ڪريو";
 "places-empty-search-description" = "شھر، ملڪ، کنڊ، قدرتي ماڳ، تاريخي واقعا، اڏاوتون ۽ گھڻو ڪجھ کوجيو.";
 "places-empty-search-title" = "وڪيپيڊيا مضمون ڳوليو جن ۾ جاگرافيائي مڪانيت آھي";
 "places-enable-location-action-button-title" = "مڪانيت کي قابل بڻايو";
 "places-enable-location-title" = "مڪانيت رسائي کي قابلِڪار بڻائي پنھنجي ويجھو مضمون کوجيو";
-"places-filter-list-title" = "ڳولا ڇاڻيون";
 "places-filter-no-saved-places" = "توھان وٽ ڪي بہ سانڍيل جڳھون نہ آھن";
 "places-filter-saved-articles" = "سانڍيل مضمون";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 جڳھ|$1 جڳھون}} لڌيون";
 "places-filter-top-articles" = "گھڻو پڙھيل";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مضمونُ|$1 مضمونَ}}";
 "places-no-saved-articles-have-location" = "توھان جي سانڍيل صفحن مان ڪنھن بہ مڪانيت جي معلومات ناھي";
@@ -301,7 +295,6 @@
 "places-search-top-articles" = "سڀ مٿاھان مضمون";
 "places-search-top-articles-that-match-scope" = "ويجھا";
 "places-search-your-current-location" = "توھان جي ھاڻوڪي مڪانيت";
-"places-show-filter-list-accessibility-label" = "ڳولا جون ڇاڻيون ڏيکاريو";
 "places-title" = "جڳھون";
 "places-unknown-distance" = "اَڻڄاتل مفاضلو";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
@@ -382,7 +375,7 @@
 "settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
 "settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
 "settings-primary-language" = "شروعاتي";
-"settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور نمايان مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
+"settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور چونڊ مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "سڀني سانڍيل مضمونن کي مِٽايو؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مِٽايو";
 "settings-storage-and-syncing-erase-saved-articles-title" = "سانڍيل مضمون مِٽايو";

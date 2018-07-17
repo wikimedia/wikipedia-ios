@@ -74,6 +74,7 @@
 "appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Arrastra el control d'arriba pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
 "article-about-title" = "Tocante a esti artículu";
@@ -135,13 +136,11 @@
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
-"explore-most-read-footer-for-date" = "Tolos artículos más lleíos el $1";
+// Fuzzy
+"explore-most-read-footer" = "Tolos artículos más lleíos";
 "explore-most-read-generic-heading" = "Más lleíos";
-"explore-most-read-heading" = "Los más lleíos na Wikipedia en $1";
 "explore-most-read-more-list-title-for-date" = "Los más lleíos el $1";
 "explore-nearby-heading" = "Llugares cercanos a";
-"explore-nearby-placeholder-cancel" = "Encaboxar";
-"explore-nearby-placeholder-dismiss" = "Descartar";
 "explore-nearby-placeholder-heading" = "Llugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
@@ -198,11 +197,11 @@
 "home-button-popover-description" = "Toca na 'W' pa volver a la canal Esplorar";
 "home-button-popover-title" = "Toca pa dir a la páxina principal";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
-"home-hide-suggestion-cancel" = "Encaboxar";
-"home-hide-suggestion-prompt" = "Tapecer esta suxerencia";
 "home-more-like-footer" = "Más como $1";
+// Fuzzy
 "home-nearby-footer" = "Más de cerca del to allugamientu";
 "home-nearby-location-footer" = "Más cercanos a $1";
+// Fuzzy
 "home-news-footer" = "Más nes noticies";
 "home-reading-list-prompt" = "Los artículos guardaos agora pueden organizase'n llistes de llectura y sincronizase ente preseos. Anicia sesión pa permitir que les llistes de llectura se guarden nes preferencies d'usuariu.";
 "home-themes-action-title" = "Alministrar les preferencies";
@@ -247,7 +246,6 @@
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Encaboxar";
-"menu-trash-accessibility-label" = "Desaniciar";
 "more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
 "more-languages-tooltip-title" = "Amestar llingües";
 "move-articles-to-reading-list" = "Treslladar {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
@@ -266,7 +264,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimientu históricu|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más socesos históricos d'esti día";
 "on-this-day-title" = "Tal día como güei";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Encaboxar";
 "page-edit-history" = "Historial d'edición completu";
 "page-history-title" = "Historial del artículu";
@@ -283,22 +280,18 @@
 "page-talk-page" = "Ver la páxina d'alderique";
 "pictured" = "con semeya";
 "places-accessibility-clear-saved-searches" = "Llimpiar les guetes guardaes";
-"places-accessibility-close-search" = "Zarrar la gueta";
 "places-accessibility-group" = "$1 artículos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar nel to allugamientu";
 "places-accessibility-show-as-list" = "Ver como llista";
 "places-accessibility-show-as-map" = "Ver como mapa";
 "places-accessibility-show-more" = "Ver más artículos";
-"places-dismiss-filter-list-accessibility-label" = "Quitar los filtros de gueta";
 "places-empty-search-description" = "Esplorar ciudaes, paises, continentes, monumentos naturales, socesos históricos, edificios y más.";
 "places-empty-search-title" = "Buscar artículos de Wikipedia con allugamientos xeográficos";
 "places-enable-location-action-button-title" = "Activar l'allugamientu";
 "places-enable-location-description" = "L'accesu al to allugamientu sólo ta disponible cuando la aplicación o una de les sos carauterístiques se ve na pantalla.";
 "places-enable-location-title" = "Esplora artículos cerca del to allugamientu activando Accesu al allugamientu";
-"places-filter-list-title" = "Filtros de gueta";
 "places-filter-no-saved-places" = "Nun tienes llugares guardaos";
 "places-filter-saved-articles" = "Artículos guardaos";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 llugar alcontráu|$1 llugares alcontraos}}";
 "places-filter-top-articles" = "Más lleíos";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|artículu|artículos}}";
 "places-no-saved-articles-have-location" = "Dengún artículu de los guardaos tien información d'allugamientu";
@@ -312,7 +305,6 @@
 "places-search-top-articles" = "Tolos artículos principales";
 "places-search-top-articles-that-match-scope" = "Cercanu";
 "places-search-your-current-location" = "El to allugamientu actual";
-"places-show-filter-list-accessibility-label" = "Amosar los filtros de gueta";
 "places-title" = "Llugares";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Imaxe del día pal $1";

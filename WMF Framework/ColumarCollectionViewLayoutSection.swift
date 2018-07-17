@@ -29,6 +29,8 @@ class ColumnarCollectionViewLayoutSection {
     var items: [ColumnarCollectionViewLayoutAttributes] = []
     var footers: [ColumnarCollectionViewLayoutAttributes] = []
     private let columns: [ColumnarCollectionViewLayoutColumn]
+    private var columnIndexByItemIndex: [Int: Int] = [:]
+    private var shortestColumnIndex: Int = 0
     
     init(sectionIndex: Int, frame: CGRect, metrics: ColumnarCollectionViewLayoutMetrics, countOfItems: Int) {
         let countOfColumns = metrics.countOfColumns
@@ -48,12 +50,18 @@ class ColumnarCollectionViewLayoutSection {
         items.reserveCapacity(countOfItems)
     }
     
-    private func columnForItem(at index: Int) -> ColumnarCollectionViewLayoutColumn {
-        return columns[index % columns.count]
+    private func columnForItem(at itemIndex: Int) -> ColumnarCollectionViewLayoutColumn? {
+        guard let columnIndex = columnIndexByItemIndex[itemIndex] else {
+            return nil
+        }
+        return columns[columnIndex]
     }
     
     private var columnForNextItem: ColumnarCollectionViewLayoutColumn {
-        return columnForItem(at: items.count)
+        let itemIndex = items.count
+        let columnIndex = shortestColumnIndex
+        columnIndexByItemIndex[itemIndex] = columnIndex
+        return columns[columnIndex]
     }
     
     var widthForNextItem: CGFloat {
@@ -86,13 +94,28 @@ class ColumnarCollectionViewLayoutSection {
     
     func addItem(_ attributes: ColumnarCollectionViewLayoutAttributes) {
         let column = columnForNextItem
-        if metrics.interItemSpacing > 0 && items.count >= columns.count {
+        if metrics.interItemSpacing > 0 {
             column.addSpace(metrics.interItemSpacing)
         }
         column.addItem(attributes)
         items.append(attributes)
         if column.frame.height > frame.height {
             frame.size.height = column.frame.height
+        }
+        updateShortestColumnIndex()
+    }
+    
+    func updateShortestColumnIndex() {
+        guard columns.count > 1 else {
+            return
+        }
+        var minHeight: CGFloat = CGFloat.greatestFiniteMagnitude
+        for (index, column) in columns.enumerated() {
+            guard column.frame.height < minHeight else {
+                continue
+            }
+            minHeight = column.frame.height
+            shortestColumnIndex = index
         }
     }
     
@@ -102,17 +125,22 @@ class ColumnarCollectionViewLayoutSection {
     }
     
     func updateAttributes(at index: Int, in array: [ColumnarCollectionViewLayoutAttributes], with attributes: ColumnarCollectionViewLayoutAttributes) -> CGFloat {
-        guard index < array.count else {
+        guard array.indices.contains(index) else {
             return 0
         }
         let oldAttributes = array[index]
-        oldAttributes.frame = attributes.frame
-        return attributes.frame.height - oldAttributes.frame.height
+        let newFrame = CGRect(origin: oldAttributes.frame.origin, size: attributes.frame.size)
+        let deltaY = newFrame.height - oldAttributes.frame.height
+        guard !deltaY.isEqual(to: 0) else {
+            return 0
+        }
+        oldAttributes.frame = newFrame
+        return deltaY
     }
     
     
     func translateAttributesBy(_ deltaY: CGFloat, at index: Int, in array: [ColumnarCollectionViewLayoutAttributes]) -> [IndexPath] {
-        guard !deltaY.isEqual(to: 0), index < array.count else {
+        guard !deltaY.isEqual(to: 0), array.indices.contains(index) else {
             return []
         }
         var invalidatedIndexPaths: [IndexPath] = []
@@ -128,39 +156,55 @@ class ColumnarCollectionViewLayoutSection {
         let index = originalAttributes.indexPath.item
         switch originalAttributes.representedElementCategory {
         case UICollectionElementCategory.cell:
-            var invalidatedItemIndexPaths: [IndexPath] = []
+            var invalidatedItemIndexPaths: [IndexPath] = [originalAttributes.indexPath]
             let deltaY = updateAttributes(at: index, in: items, with: attributes)
-            let column = columnForItem(at: index)
+            guard
+                let columnIndex = columnIndexByItemIndex[index]
+            else {
+                return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
+            }
+            
+            let column = columns[columnIndex]
+            
             column.frame.size.height += deltaY
             if column.frame.height > frame.height {
                 frame.size.height = column.frame.height
             }
-            var affectedIndex = index + columns.count // next item in the column
-            while affectedIndex < items.count {
-                items[affectedIndex].frame.origin.y += deltaY
-                invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
-                affectedIndex += columns.count
+            
+            let nextIndex = index + 1
+            if items.indices.contains(nextIndex) {
+                for affectedIndex in nextIndex..<items.count {
+                    guard columnIndexByItemIndex[affectedIndex] == columnIndex else {
+                        continue
+                    }
+                    items[affectedIndex].frame.origin.y += deltaY
+                    invalidatedItemIndexPaths.append(IndexPath(item: affectedIndex, section: sectionIndex))
+                }
             }
+
+            updateShortestColumnIndex()
             let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
             return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
         case UICollectionElementCategory.decorationView:
-            return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
+            return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
         case UICollectionElementCategory.supplementaryView:
             switch originalAttributes.representedElementKind {
             case UICollectionElementKindSectionHeader:
                 let deltaY = updateAttributes(at: index, in: headers, with: attributes)
                 frame.size.height += deltaY
-                let invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: items)
+                var invalidatedHeaderIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: headers)
+                invalidatedHeaderIndexPaths.append(originalAttributes.indexPath)
                 let invalidatedItemIndexPaths = translateAttributesBy(deltaY, at: 0, in: items)
                 let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: 0, in: footers)
                 return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: invalidatedHeaderIndexPaths, invalidatedItemIndexPaths: invalidatedItemIndexPaths, invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
             case UICollectionElementKindSectionFooter:
                 let deltaY = updateAttributes(at: index, in: footers, with: attributes)
                 frame.size.height += deltaY
-                let invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: footers)
+                var invalidatedFooterIndexPaths = translateAttributesBy(deltaY, at: index + 1, in: footers)
+                invalidatedFooterIndexPaths.append(originalAttributes.indexPath)
                 return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: invalidatedFooterIndexPaths)
             default:
-                return ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
+                return ColumnarCollectionViewLayoutSectionInvalidationResults.empty
             }
         }
         

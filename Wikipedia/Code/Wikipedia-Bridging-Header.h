@@ -57,6 +57,7 @@
 #import "WMFCompassView.h"
 
 // Diagnostics
+#import "WMFSearchFunnel.h"
 #import "ToCInteractionFunnel.h"
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"

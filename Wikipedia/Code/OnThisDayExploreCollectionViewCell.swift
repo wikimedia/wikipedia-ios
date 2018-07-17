@@ -1,25 +1,29 @@
 import UIKit
 
 public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
-    fileprivate var topGradientView: WMFGradientView = WMFGradientView()
-    fileprivate var bottomGradientView: WMFGradientView = WMFGradientView()
-    
+    private var topGradientView: WMFGradientView = WMFGradientView()
+    private var bottomGradientView: WMFGradientView = WMFGradientView()
+    var isFirst: Bool = false
+    var isLast: Bool = false
+
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         if (apply) {
             let topGradientHeight: CGFloat = 17
-            let bottomGradientHeight: CGFloat = 53
-            let topGradientSize = CGSize(width: size.width, height: topGradientHeight)
-            let bottomGradientSize = CGSize(width: size.width, height: bottomGradientHeight)
+            let bottomGradientHeight: CGFloat = 43
+            let topGradientSize = CGSize(width: timelineView.frame.size.width, height: topGradientHeight)
+            let bottomGradientSize = CGSize(width: timelineView.frame.size.width, height: bottomGradientHeight)
             topGradientView.frame = CGRect(origin: .zero, size: topGradientSize)
             bottomGradientView.frame = CGRect(origin: CGPoint(x: 0, y: size.height - bottomGradientHeight), size: bottomGradientSize)
+            topGradientView.isHidden = !isFirst
+            bottomGradientView.isHidden = !isLast
         }
         return super.sizeThatFits(size, apply: apply)
     }
 
     override open func setup() {
         super.setup()
-        addSubview(topGradientView)
-        addSubview(bottomGradientView)
+        timelineView.addSubview(topGradientView)
+        timelineView.addSubview(bottomGradientView)
         topGradientView.startPoint = CGPoint(x: 0.5, y: 0)
         topGradientView.endPoint = CGPoint(x: 0.5, y: 1)
         bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
@@ -28,9 +32,10 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
 
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
-        let opaque = theme.colors.paperBackground
+        let opaque = theme.colors.cardBackground
         let clear = opaque.withAlphaComponent(0)
         topGradientView.setStart(opaque, end: clear)
         bottomGradientView.setStart(clear, end: opaque)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
     }
 }

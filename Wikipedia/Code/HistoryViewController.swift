@@ -16,7 +16,10 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isShadowHidingEnabled = true
+        navigationBar.displayType = .largeTitle
+
         emptyViewType = .noHistory
         
         title = CommonStrings.historyTabTitle
@@ -67,7 +70,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         guard let headerView = view as? CollectionViewHeader else {
             return view
         }
-        headerView.text = titleForHeaderInSection(indexPath.section)
+        headerView.style = .history
+        headerView.title = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
         headerView.layoutMargins = layout.itemLayoutMargins
         return headerView
@@ -83,7 +87,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
                 continue
             }
-            headerView.text = titleForHeaderInSection(indexPath.section)
+            headerView.title = titleForHeaderInSection(indexPath.section)
         }
     }
     
@@ -102,7 +106,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         }
         let title = titleForHeaderInSection(section)
         placeholder.prepareForReuse()
-        placeholder.text = title
+        placeholder.style = .history
+        placeholder.title = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
         headerLayoutEstimate = estimate
@@ -110,3 +115,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
 }
 
+// MARK: WMFSearchButtonProviding
+
+extension HistoryViewController: WMFSearchButtonProviding {
+
+}

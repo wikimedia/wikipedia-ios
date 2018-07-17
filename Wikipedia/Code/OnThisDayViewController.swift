@@ -17,7 +17,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         self.isDateVisibleInTitle = false
         super.init()
         self.theme = theme
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target:nil, action:nil)
     }
     
     var isDateVisibleInTitle: Bool {
@@ -33,7 +33,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
             })
             
             guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
-                title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
+                title = CommonStrings.onThisDayTitle
                 return
             }
             title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
@@ -99,7 +99,7 @@ extension OnThisDayViewController {
         let event = events[indexPath.section]
         onThisDayCell.layoutMargins = layout.itemLayoutMargins
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
-        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
+        onThisDayCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
 
         return onThisDayCell
     }

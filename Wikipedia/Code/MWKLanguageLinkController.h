@@ -35,6 +35,16 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 @property (readonly, copy, nonatomic) NSArray<NSURL *> *preferredSiteURLs;
 
 /**
+ * Returns the most recently modifed (appended, removed or reordered) preferred language.
+ */
+@property (nonatomic) MWKLanguageLink *mostRecentlyModifiedPreferredLanguage;
+
+/**
+ * Returns the user's previous preferred languages.
+ */
+@property (nonatomic) NSArray<MWKLanguageLink *> *previousPreferredLanguages;
+
+/**
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;

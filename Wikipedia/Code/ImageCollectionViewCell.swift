@@ -3,7 +3,17 @@ import UIKit
 class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
     let gradientView: WMFGradientView = WMFGradientView()
-    let captionLabel: UILabel = UILabel()
+    private let captionLabel: UILabel = UILabel()
+    
+    var caption: String? {
+        get {
+            return captionLabel.text
+        }
+        set {
+            captionLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
     
     override func setup() {
         super.setup()
@@ -29,12 +39,14 @@ class ImageCollectionViewCell: CollectionViewCell {
         captionLabel.text = nil
     }
     
+    let ratio: CGFloat = 1.02
+    
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var size = super.sizeThatFits(size, apply: apply)
         if size.width != UIViewNoIntrinsicMetric {
-            size.height = size.width
+            size.height = round(ratio * size.width)
         }else if size.height != UIViewNoIntrinsicMetric {
-            size.width = size.height
+            size.width = round(size.height / ratio)
         }
         if apply {
             let boundsInsetByMargins = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), layoutMargins)

@@ -1,5 +1,6 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
+// Author: Amaia
 // Author: An13sa
 // Author: Asierog
 // Author: Envlh
@@ -71,13 +72,18 @@
 "add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "alert-no-internet" = "Ez dago internet konexiorik";
 "announcements-dismiss" = "Utzi";
+"app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
+// Fuzzy
+"app-store-release-notes" = "Gordetako artikuluak jada irakurketa zerrendetan antola daitezke eta gailuetatik zehar sinkroniza daitezke ere.";
 "app-store-short-description" = "Jaitsi Wikipedia app zugandik gertu dauden lekuak exploratzeko, sinkronizatu artikuluak offline irakurtzeko eta zure irakurtze-esperientziari probetxua ateratzeko.";
+"app-store-subtitle" = "Entziklopedia askea";
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
 "appearance-settings-expand-tables-footer" = "Ezarri artikulu guztietako taula guztiak lehenespenez irekitzeko, Quick facts, References, Notes eta Kanpoko estekak barne.";
 "appearance-settings-image-dimming-footer" = "Gai ilunetako argazkien opakotasuna gutxiagotu";
 "appearance-settings-reading-themes" = "Irakurketa gaiak";
 "appearance-settings-set-automatic-table-opening" = "Taula Ezarpenak";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Arrastatu goiko kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
 "article-about-title" = "Artikulu honi buruz";
@@ -134,18 +140,41 @@
 "error-unknown" = "Identifikatu gabeko errorea gertatu da.";
 "explore-another-random" = "Ausazko beste artikulu bat";
 "explore-because-you-read" = "Zuk irakurtzen duzulako";
+"explore-because-you-read-footer" = "Erlazionatutako artikulu gehiago";
 "explore-continue-reading-heading" = "Irakurtzen jarraitu";
 "explore-enable-location-title" = "Zure kokapenetik gertuko artikuluak arakatu";
 "explore-featured-article-heading" = "Nabarmendutako artikulua";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Wikipediatik";
+"explore-featured-article-sub-heading-from-wikipedia" = "Wikipediatik";
+"explore-feed-preferences-additional-languages-footer-text" = "Hizkuntza gehigarriak gehitu daitezke \"Nire hizkuntzak\" ezarpenen orrian.";
+"explore-feed-preferences-continue-reading-description" = "Esteka lasterra irekitako artikuluaren irakurketara itzultzeko";
+"explore-feed-preferences-customize-explore-feed" = "Arakatzeko iturriak pertsonalizatu";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Arakatzeko iturriak pertsonalizatu";
+"explore-feed-preferences-customize-explore-feed-footer-text" = "Txartela mota bat ezkutatzeak Arakatze iturrian ez agertzea eragingo du.";
+"explore-feed-preferences-featured-article-description" = "Eguneko Wikipediako artikulu aipagarria";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Itzalita";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Denak piztuta";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Piztuta";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "$1(e)an";
+"explore-feed-preferences-global-card-footer-text" = "Txartela hau ez dago hizkuntza batean zehaztuta, txarlela amatatzeak Arakatze jariotik ezabatzea eragingo du.";
+"explore-feed-preferences-global-cards-description" = "Hizkuntza zehaztasun gabeko txartelak";
+"explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
+"explore-feed-preferences-global-cards-title" = "Txartel globalak";
+"explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
+"explore-feed-preferences-hide-feed-cards-action-title" = "%@ txartel guztiak ezkutatu";
+"explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
+"explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
+"explore-feed-preferences-places-description" = "Wikipedia artikuluak zure kokapenetik hurbil";
+"explore-feed-preferences-potd-description" = "Wikimedia Commonsetik hartutako eguneko irudi aipagarria";
+"explore-feed-preferences-randomizer-description" = "Irakurtzeko ausazko artikuluak sortu";
+"explore-feed-preferences-related-pages-description" = "Irakurketa historian oinarritutako iradokizunak";
+"explore-feed-preferences-show-continue-reading-title" = "Jarraitu irakurtzen txartela erakutsi";
+"explore-feed-preferences-show-featured-article-footer-text" = "Artikulu nabarmenduaren txartela itzaltzeak txartela itzaltzea eragingo du erabilgarri dauden hizkuntza guztietan";
 "explore-main-page-description" = "Wikimedia proiektuen orrialde nagusia";
 "explore-main-page-heading" = "Gaur Wikipedian";
-"explore-most-read-footer-for-date" = "Artikulu top guztiak $1(e)n";
 "explore-most-read-generic-heading" = "Irakurrienak";
-"explore-most-read-heading" = "Gehien irakurritakoak $1 Wikipedian";
 "explore-most-read-more-list-title-for-date" = "$1(e)n ospetsuenak";
 "explore-nearby-heading" = "Inguruko tokiak";
-"explore-nearby-placeholder-cancel" = "Ezeztatu";
-"explore-nearby-placeholder-dismiss" = "Utzi";
 "explore-nearby-placeholder-heading" = "Lekuak";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipedian";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipedian";
@@ -202,11 +231,11 @@
 "home-button-popover-description" = "Sakatu 'W' Esploratzera bueltatzeko";
 "home-button-popover-title" = "Klikatu hasierara bueltatzeko";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
-"home-hide-suggestion-cancel" = "Utzi";
-"home-hide-suggestion-prompt" = "Iradokizuna ezkutatu";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
+// Fuzzy
 "home-nearby-footer" = "Zure kokapenetik gertuko gehiago";
 "home-nearby-location-footer" = "Zure kokapenetik gertuko gehiago $1";
+// Fuzzy
 "home-news-footer" = "Berrietako gehiago";
 "home-reading-list-prompt" = "Gordetako artikuluak irakurketa-zerrendatan antola eta sinkroniza daitezke gailuetan zehar. Hasi saioa zure irakurketa-zerrendak zure erabiltzaile prefentzietan gordetzeko baimena eman ahal izateko.";
 "home-themes-action-title" = "Lehentasunak aukeratu";
@@ -225,6 +254,7 @@
 "in-the-news-title" = "Albisteak";
 "info-box-close-text" = "Itxi";
 "info-box-title" = "Datu azkarrak";
+"languages-settings-title" = "Hizkuntzak";
 "languages-title" = "Hizkuntza aldatu";
 "languages-wikipedia" = "Wikipedia hizkuntzak";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -251,7 +281,6 @@
 "main-menu-title" = "Gehiago";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Utzi";
-"menu-trash-accessibility-label" = "Ezabatu";
 "more-languages-tooltip-description" = "Bilatu Wikipedia ia 300 hizkuntzatan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
 "move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
@@ -270,7 +299,6 @@
 "on-this-day-detail-header-title" = "{{PLURALA:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
 "on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
 "on-this-day-title" = "Gaurkoan";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Utzi";
 "page-edit-history" = "Aldaketa guztien historia";
 "page-history-title" = "Artikuluaren historia";
@@ -287,22 +315,18 @@
 "page-talk-page" = "Elkarrizketa orrialdea ikusi";
 "pictured" = "Irudikatuta";
 "places-accessibility-clear-saved-searches" = "Garbitu gordetako bilaketak";
-"places-accessibility-close-search" = "Itxi bilaketa";
 "places-accessibility-group" = "$1 artikulu";
 "places-accessibility-recenter-map-on-user-location" = "Zure kokapena berrezarri";
 "places-accessibility-show-as-list" = "Erakutsi zerrenda gisa";
 "places-accessibility-show-as-map" = "Erakutsi mapa gisa";
 "places-accessibility-show-more" = "Artikulu gehiago erakutsi";
-"places-dismiss-filter-list-accessibility-label" = "Bilaketa filtroak ezeztatu";
 "places-empty-search-description" = "Arakatu hiriak, herrialdeak, kontinenteak, paisai naturalak, gertaera historikoak, eraikinak...";
 "places-empty-search-title" = "Kokapen geogrefikoa duten Wikipedia artikuluak bilatu";
 "places-enable-location-action-button-title" = "Kokapena piztu";
 "places-enable-location-description" = "Zure kokapenerako sarbidea erabilgarri egongo da bakarrik aplikazioan edo ezarpenen batean pantailan ikusgarri baldin badago.";
 "places-enable-location-title" = "Zure kokapenetik gertu dauden artikuluak arakatu Kokapen Sarbidea gaituz";
-"places-filter-list-title" = "Iragazkiak bilatu";
 "places-filter-no-saved-places" = "Ez duzu gordetako kokapenik";
 "places-filter-saved-articles" = "Gordetako artikuluak";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|leku $1|$1 leku}} topatu dira";
 "places-filter-top-articles" = "Irakurrienak";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
 "places-no-saved-articles-have-location" = "Zure gordetako artikuluetatik batek ere ez du kokapenari buruzko informazioa";
@@ -316,7 +340,6 @@
 "places-search-top-articles" = "Top artikulu guztiak";
 "places-search-top-articles-that-match-scope" = "Gertukoak";
 "places-search-your-current-location" = "Zure oraingo kokapena";
-"places-show-filter-list-accessibility-label" = "Bilaketa iragazkiak erakutsi";
 "places-title" = "Lekuak";
 "places-unknown-distance" = "distantzia ezezaguna";
 "potd-description-prefix" = "Gaurko argazkia $1(e)ngatik";
@@ -345,6 +368,7 @@
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
 "reading-list-keep-button-title" = "Bai, mantendu itzazu artikuluak gailuan";
 "reading-list-keep-subtitle" = "Zure Wikipedia kontuan sinkronizatutako artikuluak daude. Saioa itxi eta gero, gailuan mantendu nahiko zenituzke?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Sinkronizazioa itzaltzeak artikulu hauek ezabatuko ditu zure kontutik. Zure gailutik ezabatzen badituzu, ezingo dituzu berreskuratu gerora sinkronizazioa berriro piztuz.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Ez, kendu artikuluak nire gailutik eta nire Wikipedia kontutik";
 "reading-list-keep-title" = "Gordetako artikuluak gailuan mantendu nahi dituzu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sailkatu artikuluak";
@@ -358,12 +382,15 @@
 "reading-list-login-or-create-account-title" = "Hasi saioa gordetako artikuluak sinkronizatzeko";
 "reading-list-login-subtitle" = "Hasi saioa edo sortu kontu bat zure gordetako artikuluak eta irakurketa-zerrendak gailu guztietan sinkronizatzeko eta zure erabiltzailearen hobespenetan gorde ahal izateko.";
 "reading-list-login-title" = "Gordetako artikuluak sinkronizatu?";
+"reading-list-name-user-created-annotation" = "_[erabiltzailea sortua]";
 "reading-list-new-list-description-placeholder" = "Aukerako deskribapen laburra";
 "reading-list-new-list-name-placeholder" = "Irakurketa zerrendaren izenburua";
+"reading-list-sync-disabled-panel-message" = "Irakurketa zerrendaren sinkronizazioa desgaitua izan da zure Wikipedia kontutik beste gailu batean. Sinkronizazioa atzera bueltatu dezakezu, zure ezarpenak eguneratuz.";
 "reading-list-sync-disabled-panel-title" = "Sinkronizazioa desgaituta";
 "reading-list-sync-enable-button-title" = "Sinkronizazioa ahalbidetu";
 "reading-list-sync-enable-subtitle" = "Gordetako artikuluak eta irakurketa-zerrendak zure Wikipedia kontura gehitu daitezke eta Wikipedia aplikazioetan zehar sinkroniza daitezke.";
 "reading-list-sync-enable-title" = "Irakurketa zerrendaren sinkronizazioa piztu?";
+"reading-list-sync-enabled-panel-message" = "Irakurketa zerrendaren sinkronizazioa gaituta dago kontu honetan. Sinkronizazioa geldiarazteko, sinkronizazioa desgaitu dezakezu kontu honetan, zure ezarpenak eguneratuz.";
 "reading-list-sync-enabled-panel-title" = "Sinkronizatzea gaitu da kontu honetan";
 "reading-list-unable-to-add-entry" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sarrera bat gehitu den bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-unable-to-create" = "Espero gabeko errorea gertatu da zure irakurketa zerrendara sortzen ari zen bitartean. Mesedez, saia ezazu geroago.";
@@ -453,7 +480,6 @@
 "settings-storage-and-syncing-full-sync" = "Zure irakurketa zerrendak atzeko planoan sinkronizatuko dira";
 "settings-storage-and-syncing-server-sync-footer-text" = "Zure sinkronizatutako artikulu eta irakurketa-zerrenden eguneratzea eskatu";
 "settings-storage-and-syncing-server-sync-title" = "Eguneratu sinkronizatutako irakurketa zerrendak";
-// Fuzzy
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Erakutsi gordetako irakurketa-zerrenda (ad. lehentesia) zure irakurketa-zerrenden ikuspegian zerrenda bereizi batean. Zerrenda Android gailuetan agertuko da.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Gordetako irakurketa-zerrenda erakutsi";
 "settings-storage-and-syncing-title" = "Artikuluen biltegia eta sinkronizatzea";

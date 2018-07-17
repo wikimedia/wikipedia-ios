@@ -10,6 +10,7 @@
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
+// Author: Orf3us
 // Author: Pmt
 // Author: SuperPotato
 // Author: Tsaetre
@@ -71,6 +72,7 @@
 "appearance-settings-image-dimming-footer" = "Senk gjennomsiktigheten til bilder i den mørke drakten";
 "appearance-settings-reading-themes" = "Lesedrakter";
 "appearance-settings-set-automatic-table-opening" = "Tabellinnstillinger";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Dra glidebryteren ovenfor for å endre tekststørrelsen i artikler. Bruker systemets tekststørrelse for å endre størrelsen på andre tekstfelter i appen.";
 "appearance-settings-theme-options" = "Draktvalg";
 "article-about-title" = "Om artikkelen";
@@ -127,21 +129,22 @@
 "explore-continue-reading-heading" = "Fortsett å lese";
 "explore-enable-location-title" = "Utforsk artikler om ting i nærheten av deg";
 "explore-featured-article-heading" = "Fremhevede artikler";
+"explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-main-page-description" = "Hovedside for Wikimedia-prosjekter";
 "explore-main-page-heading" = "I dag på Wikipedia";
-"explore-most-read-footer-for-date" = "Alle mest leste artikler på $1";
+// Fuzzy
+"explore-most-read-footer" = "Alle mest leste artikler";
 "explore-most-read-generic-heading" = "Mest lest";
-"explore-most-read-heading" = "Mest lest på Wikipedia på $1";
 "explore-most-read-more-list-title-for-date" = "Mest lest på $1";
 "explore-nearby-heading" = "Steder i nærheten";
-"explore-nearby-placeholder-cancel" = "Avbryt";
-"explore-nearby-placeholder-dismiss" = "Lukk";
 "explore-nearby-placeholder-heading" = "Steder";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På Wikipedia på $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Din posisjon";
 "explore-potd-heading" = "Dagens bilde";
 "explore-random-article-heading" = "Tilfeldig artikkel";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
+"explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfeldighetsgenerator";
 "feed-news-notification-button-text" = "Slå på notifikasjoner";
 "feed-news-notification-text" = "Slå på varsler for å ble varslet av Wikipedia når artikler er populære i nyhetene.";
@@ -192,11 +195,10 @@
 "home-button-popover-description" = "Trykk på «W» for å gå tilbake til utforskings-nyhetskilden";
 "home-button-popover-title" = "Trykk for å gå hjem";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
-"home-hide-suggestion-cancel" = "Avbryt";
-"home-hide-suggestion-prompt" = "Skjul dette forslaget";
 "home-more-like-footer" = "Mer som ligner $1";
-"home-nearby-footer" = "Mer i nærheten av din plassering";
+"home-nearby-footer" = "Flere steder i nærheten av din plassering";
 "home-nearby-location-footer" = "Mer i nærheten av $1";
+// Fuzzy
 "home-news-footer" = "Mer fra nyhetene";
 "home-themes-action-title" = "Håndter innstillingene";
 "home-themes-prompt" = "Tilpass lesepreferansene dine inkludert tekststørrelsen og drakten fra artikkelverktøylinjen eller i brukerinnstillingene dine for en behageligere leseopplevelse.";
@@ -211,6 +213,7 @@
 "in-the-news-notification-read-now-action-title" = "Les nå";
 "in-the-news-notification-save-for-later-action-title" = "Lagre til senere";
 "in-the-news-notification-share-action-title" = "Del...";
+"in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "I nyhetene";
 "info-box-close-text" = "Lukk";
 "info-box-title" = "Kjappe fakta";
@@ -240,7 +243,6 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "menu-cancel-accessibility-label" = "Avbryt";
-"menu-trash-accessibility-label" = "Slett";
 "more-languages-tooltip-description" = "Søk i Wikipedia på nesten 300 språk";
 "more-languages-tooltip-title" = "Legg til språk";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
@@ -257,8 +259,8 @@
 "on-this-day-detail-header-date-range" = "from $1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hendelse|$1 historiske hendelser}}";
 "on-this-day-footer" = "Flere historiske hendelser på denne dagen";
+"on-this-day-footer-with-event-count" = "$1 Flere historiske hendelser på denne dag";
 "on-this-day-title" = "På denne dag";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Avbryt";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
 "page-history-title" = "Artikkelhistorikk";
@@ -275,22 +277,18 @@
 "page-talk-page" = "Vis diskusjonsside";
 "pictured" = "bildet";
 "places-accessibility-clear-saved-searches" = "Tøm lagrede søk";
-"places-accessibility-close-search" = "Lukk søk";
 "places-accessibility-group" = "$1 artikler";
 "places-accessibility-recenter-map-on-user-location" = "Sentrer på din plassering";
 "places-accessibility-show-as-list" = "Vis som liste";
 "places-accessibility-show-as-map" = "Vis på kart";
 "places-accessibility-show-more" = "Vis flere artikler";
-"places-dismiss-filter-list-accessibility-label" = "Lukk søkefiltre";
 "places-empty-search-description" = "Utforsk byer, land, kontinenter, landemerker, historiske hendelser, bygninger og mer.";
 "places-empty-search-title" = "Søk etter Wikipedia-artikler med geografiske steder";
 "places-enable-location-action-button-title" = "Skru på plassering";
 "places-enable-location-description" = "Tilgang til posisjonen din er bare tilgjengelig når appen eller en av funksjonene dens er synlige på skjermen.";
 "places-enable-location-title" = "Les om ting i nærheten av din posisjon ved å gi tilgang til stedstjenester";
-"places-filter-list-title" = "Søkefiltre";
 "places-filter-no-saved-places" = "Du har ingen lagrede steder";
 "places-filter-saved-articles" = "Lagrede artikler";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 sted|$1 steder}} ble funnet";
 "places-filter-top-articles" = "Mest lest";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkel|$1 artikler}}";
 "places-no-saved-articles-have-location" = "Ingen av dine lagrede artikler har stedsinformasjon";
@@ -304,7 +302,6 @@
 "places-search-top-articles" = "Alle populære artikler";
 "places-search-top-articles-that-match-scope" = "I nærheten";
 "places-search-your-current-location" = "Din nåværende plassering";
-"places-show-filter-list-accessibility-label" = "Vis søkefiltre";
 "places-title" = "Steder";
 "places-unknown-distance" = "ukjent avstand";
 "potd-description-prefix" = "Dagens bilde $1";

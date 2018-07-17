@@ -90,7 +90,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFArticlePreviewingActionsDelegate,
                                         ReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter,
-                                        EventLoggingEventValuesProviding, WMFImageScaleTransitionProviding>
+                                        EventLoggingEventValuesProviding,
+                                        WMFSearchButtonProviding,
+                                        WMFImageScaleTransitionProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -638,11 +640,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Progress
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:NO animated:animated];
+    [self.navigationBar setProgressHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:YES animated:animated];
+    [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
@@ -736,7 +738,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
-    
+
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
@@ -1121,6 +1123,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.title = self.article.displaytitle.wmf_stringByRemovingHTML;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();

@@ -78,6 +78,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBar.title = readingList.name
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
         addExtendedView()
         
         setupFetchedResultsController()
@@ -112,8 +114,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func setNavigationBarHidingEnabled(_ enabled: Bool) {
-        navigationBarHider.isExtendedViewHidingEnabled = enabled
-        navigationBarHider.isBarHidingEnabled = enabled
+        navigationBar.isExtendedViewHidingEnabled = enabled
     }
     
     override func refresh() {
@@ -331,16 +332,20 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .remove:
             delete(entries)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         default:
             assert(false, "Unhandled action type")
@@ -377,11 +382,6 @@ extension ReadingListDetailViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView = collectionView.cellForItem(at: indexPath)
-        defer {
-            if let cell = sourceView as? ArticleCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -489,6 +489,10 @@ extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
         collectionView.setNeedsLayout()
     }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -533,11 +537,13 @@ extension ReadingListDetailViewController {
         cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
-        
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 

@@ -109,8 +109,6 @@
 "hockeyapp-alert-question-with-response-field" = "Wil u 'n breekverslag aan $1 stuur sodat Wikimedia die breek kan hersien? Beskryf asseblief wat gebeur het tydens die breek:";
 "hockeyapp-alert-send-report" = "Stuur verslag";
 "hockeyapp-alert-title" = "Jammer, toep het laaskeer gebreek";
-"home-hide-suggestion-cancel" = "Kanselleer";
-"home-hide-suggestion-prompt" = "Versteek hierdie voorstel";
 "home-more-like-footer" = "Nog soos $1";
 "home-title" = "Verken";
 // Fuzzy
@@ -143,7 +141,6 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Gewilde vrae oor Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Kanselleer";
-"menu-trash-accessibility-label" = "Skrap";
 "navbar-title-mode-edit-wikitext-preview" = "Voorskou";
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
@@ -153,7 +150,6 @@
 "number-billions" = "$1 mjd.";
 "number-millions" = "$1 m.";
 "number-thousands" = "$1 k.";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Kanselleer";
 "page-history-title" = "Artikelgeskiedenis";
 "page-issues" = "Bladprobleme";
@@ -171,7 +167,6 @@
 "places-accessibility-show-as-map" = "Toon as vouer";
 "places-accessibility-show-more" = "Toon nog artikels";
 "places-empty-search-description" = "Verken stede, lande, vastelande, natuurlike landmerke, geskiedkundige gebeure, geboue en meer.";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 plek|$1 plekke}} gevind";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikels}}";
 "potd-description-prefix" = "Prent van die dag vir $1";
 "preference-summary-eventlogging-opt-in" = "Laat Wikimedia toe om inligting in te samel oor hoe u die toep gebruik om sodoende die toep te verbeter";

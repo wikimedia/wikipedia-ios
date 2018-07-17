@@ -1,19 +1,29 @@
 import UIKit
 import WMF
 
-
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, ImageScaleTransitionProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding {
     
     // MARK - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ExploreHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
-        navigationBar.addExtendedNavigationBarView(searchBarContainerView)
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.displayType = .largeTitle
+        navigationBar.shouldTransformUnderBarViewWithBar = true
+        navigationBar.isShadowHidingEnabled = true
+
         isRefreshControlEnabled = true
+        
+        title = CommonStrings.exploreTabTitle
+    }
+    
+    public var wantsCustomSearchTransition: Bool {
+        return true
     }
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
@@ -31,15 +41,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopMonitoringReachability()
-    }
-    
-    // MARK - ViewController
-    
-    override func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
-        super.navigationBarHider(hider, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
-        shortTitleButton.alpha = extendedViewPercentHidden
-        longTitleButton.alpha = 1.0 - extendedViewPercentHidden
-        navigationItem.rightBarButtonItem?.customView?.alpha = extendedViewPercentHidden
     }
     
     // MARK - NavBar
@@ -61,21 +62,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return longTitleButton
     }()
     
-    lazy var shortTitleButton: UIButton = {
-        let shortTitleButton = UIButton(type: .custom)
-        shortTitleButton.adjustsImageWhenHighlighted = true
-        shortTitleButton.setImage(UIImage(named: "W"), for: .normal)
-        shortTitleButton.alpha = 0
-        shortTitleButton.sizeToFit()
-        shortTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
-        return shortTitleButton
-    }()
-    
     lazy var titleView: UIView = {
         let titleView = UIView(frame: longTitleButton.bounds)
         titleView.addSubview(longTitleButton)
-        titleView.addSubview(shortTitleButton)
-        shortTitleButton.center = titleView.center
         return titleView
     }()
 
@@ -138,19 +127,26 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
-        let searchHeightConstraint = searchContainerView.heightAnchor.constraint(equalToConstant: 44)
-        searchContainerView.addConstraint(searchHeightConstraint)
-        searchContainerView.wmf_addSubview(searchBar, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 3, right: 0), priority: .required)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchContainerView.addSubview(searchBar)
+        let leading = searchContainerView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor)
+        let trailing = searchContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor)
+        let top = searchContainerView.topAnchor.constraint(equalTo: searchBar.topAnchor)
+        let bottom = searchContainerView.bottomAnchor.constraint(equalTo: searchBar.bottomAnchor)
+        searchContainerView.addConstraints([leading, trailing, top, bottom])
         return searchContainerView
     }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
+        searchBar.returnKeyType = .search
+        searchBar.searchBarStyle = .minimal
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
+    
+
     
     // MARK - UISearchBarDelegate
     
@@ -168,15 +164,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
-            do {
-                try fetchedResultsController.performFetch()
-            } catch let error {
-                DDLogError("Error fetching explore feed: \(error)")
-            }
-            collectionView.reloadData()
             collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
             collectionViewUpdater.delegate = self
             collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
+            collectionViewUpdater.performFetch()
         }
     }
     
@@ -304,16 +295,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        layoutCache.reset()
-        super.traitCollectionDidChange(previousTraitCollection)
-        registerForPreviewingIfAvailable()
-    }
-    
     override func contentSizeCategoryDidChange(_ notification: Notification?) {
         layoutCache.reset()
         super.contentSizeCategoryDidChange(notification)
-        collectionView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -338,8 +322,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return maybeCell
         }
         cell.apply(theme: theme)
-        let width = self.layout.layoutAttributesForItem(at: indexPath)?.bounds.size.width ?? 1
-        configure(cell: cell, forItemAt: indexPath, width: width, layoutOnly: false)
+        configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         return cell
     }
     
@@ -347,7 +330,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard kind == UICollectionElementKindSectionHeader else {
             abort()
         }
-        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier, for: indexPath) as? ExploreHeaderCollectionReusableView else {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath) as? CollectionViewHeader else {
             abort()
         }
         configureHeader(header, for: indexPath.section)
@@ -358,10 +341,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let group = fetchedResultsController.object(at: indexPath)
-        guard group.contentGroupKind != .announcement else {
-            return false
-        }
-        return true
+        return group.isSelectable
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -384,12 +364,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    func configureHeader(_ header: ExploreHeaderCollectionReusableView, for sectionIndex: Int) {
+    func configureHeader(_ header: CollectionViewHeader, for sectionIndex: Int) {
         guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
             return
         }
         let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
-        header.titleLabel.text = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
+        header.title = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
         header.apply(theme: theme)
     }
     
@@ -404,19 +384,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return cardVC
     }
 
-    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, width: CGFloat, layoutOnly: Bool) {
+    func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
-        cell.titleLabel.text = group.headerTitle
-        cell.subtitleLabel.text = group.headerSubTitle
-        cell.footerButton.setTitle(group.moreTitle, for: .normal)
-        switch group.contentGroupKind {
-        case .relatedPages, .locationPlaceholder:
-            cell.customizationButton.isHidden = false
-        default:
-            cell.customizationButton.isHidden = true
-        }
+        cell.title = group.headerTitle
+        cell.subtitle = group.headerSubTitle
+        cell.footerTitle = group.footerText
+        cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.apply(theme: theme)
         cell.delegate = self
     }
@@ -426,13 +401,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
-        searchBar.setSearchFieldBackgroundImage(theme.searchBarBackgroundImage, for: .normal)
-        searchBar.wmf_enumerateSubviewTextFields { (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-            textField.font = UIFont.systemFont(ofSize: 14)
-        }
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 7, vertical: 0) 
+        searchBar.apply(theme: theme)
+        searchBarContainerView.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = .clear
         view.backgroundColor = theme.colors.paperBackground
         for cell in collectionView.visibleCells {
@@ -451,13 +421,20 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        let identifier = ExploreCardCollectionViewCell.identifier
+        let group = fetchedResultsController.object(at: indexPath)
+        let userInfo = "evc-cell-\(group.key ?? "")"
+        if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
+        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
         }
-        configure(cell: placeholderCell, forItemAt: indexPath, width: columnWidth, layoutOnly: true)
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
@@ -467,7 +444,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
-        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ExploreHeaderCollectionReusableView.identifier) as? ExploreHeaderCollectionReusableView else {
+        guard let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
         }
         configureHeader(header, for: section)
@@ -507,14 +484,43 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let contentGroup = fetchedResultsController.object(at: indexPath)
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
-}
-
-
-extension ExploreViewController: CollectionViewUpdaterDelegate {
+    
+    #if DEBUG
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else {
+            return
+        }
+        dataStore.feedContentController.debugChaos()
+    }
+    #endif
+    
+    // MARK - CollectionViewUpdaterDelegate
+    
+    var needsReloadVisibleCells = false
+    
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         
+        guard needsReloadVisibleCells else {
+            return
+        }
+        
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
+                continue
+            }
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
+        
+        needsReloadVisibleCells = false
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        collectionView.collectionViewLayout.invalidateLayout()
+        needsReloadVisibleCells = true
     }
 }
+
+
 
 // MARK - Analytics
 extension ExploreViewController {
@@ -548,8 +554,10 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     }
     
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
-        let addToArticlesReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
-        present(addToArticlesReadingListViewController, animated: true)
+        let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
+        navigationController.isNavigationBarHidden = true
+        present(navigationController, animated: true)
     }
 }
 
@@ -568,34 +576,46 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard let sheet = menuActionSheetForGroup(group) else {
             return
         }
+        sheet.popoverPresentationController?.sourceView = cell.customizationButton
+        sheet.popoverPresentationController?.sourceRect = cell.customizationButton.bounds
         present(sheet, animated: true)
     }
-    
+
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
-        switch group.contentGroupKind {
-        case .relatedPages:
-            guard let url = group.headerContentURL else {
-                return nil
-            }
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-prompt", value: "Hide this suggestion", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed"), style: .destructive, handler: { (action) in
-                self.dataStore.setIsExcludedFromFeed(true, withArticleURL: url)
-                self.dataStore.viewContext.remove(group)
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("home-hide-suggestion-cancel", value: "Cancel", comment: "Title of the button for cancelling the hiding of an explore feed suggestion\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        case .locationPlaceholder:
-            let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-dismiss", value: "Dismiss", comment: "Action button that will dismiss the nearby placeholder\n{{Identical|Dismiss}}"), style: .destructive, handler: { (action) in
-                UserDefaults.wmf_userDefaults().wmf_setPlacesDidPromptForLocationAuthorization(true)
-                group.wasDismissed = true
-                group.updateVisibility()
-            }))
-            sheet.addAction(UIAlertAction(title: WMFLocalizedString("explore-nearby-placeholder-cancel", value: "Cancel", comment: "Action button that will cancel dismissal of the nearby placeholder\n{{Identical|Cancel}}"), style: .cancel, handler: nil))
-            return sheet
-        default:
+        guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let customizeExploreFeed = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen"), style: .default) { (_) in
+            let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
+            exploreFeedSettingsViewController.showCloseButton = true
+            exploreFeedSettingsViewController.apply(theme: self.theme)
+            let themeableNavigationController = WMFThemeableNavigationController(rootViewController: exploreFeedSettingsViewController, theme: self.theme)
+            self.present(themeableNavigationController, animated: true)
+        }
+        let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
+            group.markDismissed()
+            group.updateVisibility()
+            do {
+                try self.dataStore.save()
+            } catch let error {
+                DDLogError("Error saving after cell dismissal: \(error)")
+            }
+        }
+        guard let title = group.headerTitle else {
+            assertionFailure("Expected header title for group \(group.contentGroupKind)")
+            return nil
+        }
+        let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all %@ cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
+            self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
+        }
+        let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        sheet.addAction(hideThisCard)
+        sheet.addAction(hideAllCards)
+        sheet.addAction(customizeExploreFeed)
+        sheet.addAction(cancel)
+
+        return sheet
     }
     
     

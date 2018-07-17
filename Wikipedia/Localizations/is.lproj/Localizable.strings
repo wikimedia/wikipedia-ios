@@ -74,6 +74,7 @@
 "appearance-settings-image-dimming-footer" = "Minnka ógegnsæi mynda í dökku þema";
 "appearance-settings-reading-themes" = "Lestrarþemu";
 "appearance-settings-set-automatic-table-opening" = "Töflustillingar";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Dragðu til sleðann hér fyrir ofan til að breyta stærð textans í greininni. Notaðu stærðarbreytingar í stillingum kerfisins til að breyta stærð texta í öðrum hlutum forritsins.";
 "appearance-settings-theme-options" = "Valkostir þema";
 "article-about-title" = "Um þessa grein";
@@ -135,13 +136,11 @@
 "explore-featured-article-heading" = "Forsíðugrein";
 "explore-main-page-description" = "Aðalsíða Wikimedia-verkefna";
 "explore-main-page-heading" = "Í dag á Wikipedia";
-"explore-most-read-footer-for-date" = "Allar mest lesnu greinar þann $1";
+// Fuzzy
+"explore-most-read-footer" = "Allar mest lesnu greinar";
 "explore-most-read-generic-heading" = "Mest lesið";
-"explore-most-read-heading" = "Mest lesið á $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Mest lesið á $1";
 "explore-nearby-heading" = "Staðir í nágrenninu";
-"explore-nearby-placeholder-cancel" = "Hætta við";
-"explore-nearby-placeholder-dismiss" = "Vísa frá";
 "explore-nearby-placeholder-heading" = "Staðir";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Á $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Á Wikipedia";
@@ -198,11 +197,11 @@
 "home-button-popover-description" = "Ýttu á 'W' til að fara aftur á 'Uppgötva'-streymið";
 "home-button-popover-title" = "Banka til að fara á upphafssíðuna";
 "home-button-saved-accessibility-label" = "Wikipedia, fara aftur á 'Vistað'";
-"home-hide-suggestion-cancel" = "Hætta við";
-"home-hide-suggestion-prompt" = "Fela þessa tillögu";
 "home-more-like-footer" = "Fleira í líkingu við $1";
+// Fuzzy
 "home-nearby-footer" = "Fleira frá stöðum í nágrenninu";
 "home-nearby-location-footer" = "Fleira frá nágrenni $1";
+// Fuzzy
 "home-news-footer" = "Fleira í fréttum";
 "home-reading-list-prompt" = "Vistuðu greinarnar þínar er núna hægt að skipuleggja í leslista og samstilla þá síðan á milli tækja. Skráðu þig inn svo hægt sé að vista leslistana í notandastillingarnar þínar.";
 "home-themes-action-title" = "Sýsla með kjörstillingar";
@@ -247,7 +246,6 @@
 "main-menu-title" = "Fleira";
 "main-menu-zero-faq" = "Algengar spurningar um Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Hætta við";
-"menu-trash-accessibility-label" = "Eyða";
 "more-languages-tooltip-description" = "Leita í Wikipedia á nærri 300 tungumálum";
 "more-languages-tooltip-title" = "Bæta við tungumálum";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
@@ -266,7 +264,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 sögulegur atburður|$1 sögulegir atburðir}}";
 "on-this-day-footer" = "Fleiri sögulegir atburðir á þessum degi";
 "on-this-day-title" = "Á þessum degi";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Hætta við";
 "page-edit-history" = "Öll breytingaskráin";
 "page-history-title" = "Breytingaskrá greinar";
@@ -283,22 +280,18 @@
 "page-talk-page" = "Skoða spjallsíðu";
 "pictured" = "fjallað um";
 "places-accessibility-clear-saved-searches" = "Hreinsa vistaðar leitir";
-"places-accessibility-close-search" = "Loka leit";
 "places-accessibility-group" = "$1 greinar";
 "places-accessibility-recenter-map-on-user-location" = "Endurmiðja á staðsetninguna þína";
 "places-accessibility-show-as-list" = "Birta sem lista";
 "places-accessibility-show-as-map" = "Birta sem kort";
 "places-accessibility-show-more" = "Birta fleiri greinar";
-"places-dismiss-filter-list-accessibility-label" = "Fela leitarsíur";
 "places-empty-search-description" = "Kannaðu borgir, lönd, heimsálfur, náttúruvætti, sögulega atburði, byggingar og fleira.";
 "places-empty-search-title" = "Leita að greinum á Wikipedia sem hafa upplýsingar um staðsetningu";
 "places-enable-location-action-button-title" = "Virkja staðsetningu";
 "places-enable-location-description" = "Aðgangur að staðsetningunni þinni er einungis í boði þegar forritið eða einhver hluti þess er sýnilegur á skjánum.";
 "places-enable-location-title" = "Skoðaðu greinar í nágrenni við núverandi staðsetningu þína með því að leyfa aðgang að hnattstaðsetningu";
-"places-filter-list-title" = "Leitarsíur";
 "places-filter-no-saved-places" = "Þú ert ekki með neina vistaða staði";
 "places-filter-saved-articles" = "Vistaðar greinar";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 staður|$1 staðir}} fundust";
 "places-filter-top-articles" = "Mest lesið";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 grein|$1 greinar}}";
 "places-no-saved-articles-have-location" = "Engar vistuðu greinanna þinna eru með staðsetningarupplýsingar";
@@ -312,7 +305,6 @@
 "places-search-top-articles" = "Allar mest lesnu greinar";
 "places-search-top-articles-that-match-scope" = "Í nágrenninu";
 "places-search-your-current-location" = "Núverandi staðsetning þín";
-"places-show-filter-list-accessibility-label" = "Birta leitarsíur";
 "places-title" = "Staðir";
 "places-unknown-distance" = "óþekkt vegalengd";
 "potd-description-prefix" = "Mynd dagsins þann $1";

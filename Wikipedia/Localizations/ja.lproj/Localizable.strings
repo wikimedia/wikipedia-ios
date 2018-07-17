@@ -98,6 +98,7 @@
 "appearance-settings-image-dimming-footer" = "ダークモード/黒モードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "閲覧時のテーマ";
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "下のスライダーをドラッグして記事のテキストサイズを変更します。アプリ内の他のテキスト領域のサイズを変更するには、システムのテキストサイズをご利用ください。";
 "appearance-settings-theme-options" = "テーマオプション";
 "article-about-title" = "この記事について";
@@ -157,15 +158,15 @@
 "explore-continue-reading-heading" = "続けて読む";
 "explore-enable-location-title" = "現在地周辺の記事を閲覧する";
 "explore-featured-article-heading" = "秀逸な記事";
+"explore-feed-preferences-featured-article-description" = "ウィキペディアの今日の秀逸な記事";
+"explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
 "explore-main-page-heading" = "今日についての記事";
-"explore-most-read-footer-for-date" = "$1 によく読まれている記事すべて";
+// Fuzzy
+"explore-most-read-footer" = "よく読まれている記事すべて";
 "explore-most-read-generic-heading" = "よく読まれている記事";
-"explore-most-read-heading" = "$1版ウィキペディアでよく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
-"explore-nearby-placeholder-cancel" = "キャンセル";
-"explore-nearby-placeholder-dismiss" = "断る";
 "explore-nearby-placeholder-heading" = "場所";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアで";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
@@ -222,11 +223,11 @@
 "home-button-popover-description" = "Wをタップして検索をフィードに戻る";
 "home-button-popover-title" = "タップしてホームに戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
-"home-hide-suggestion-cancel" = "キャンセル";
-"home-hide-suggestion-prompt" = "提案を隠す";
 "home-more-like-footer" = "$1 なども読まれています";
+// Fuzzy
 "home-nearby-footer" = "付近の記事";
 "home-nearby-location-footer" = "$1 付近についてもっと詳しく";
+// Fuzzy
 "home-news-footer" = "もっとニュース";
 "home-reading-list-prompt" = "保存した記事は、あとで読むリストとしてまとめて、デバイス間で同期することができるようになりました。ログインして、ユーザー設定にあとで読むリストを同期してみましょう。";
 "home-themes-action-title" = "設定の管理";
@@ -271,7 +272,6 @@
 "main-menu-title" = "その他";
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "menu-cancel-accessibility-label" = "キャンセル";
-"menu-trash-accessibility-label" = "削除";
 "more-languages-tooltip-description" = "約300言語でウィキペディアを検索";
 "more-languages-tooltip-title" = "言語を追加";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1記事|$1記事}}をあとで読むリストに移動";
@@ -290,7 +290,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 歴史的イベント|$1 歴史的イベント}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
 "on-this-day-title" = "この日";
-"onboarding-wikipedia" = "ウィキペディア";
 "open-link-cancel" = "キャンセル";
 "page-edit-history" = "すべての編集履歴";
 "page-history-title" = "記事の履歴";
@@ -307,22 +306,18 @@
 "page-talk-page" = "トークページを見る";
 "pictured" = "描かれた";
 "places-accessibility-clear-saved-searches" = "保存した検索結果を消去する";
-"places-accessibility-close-search" = "検索を閉じる";
 "places-accessibility-group" = "$1記事";
 "places-accessibility-recenter-map-on-user-location" = "あなたの現在地に中心を戻す";
 "places-accessibility-show-as-list" = "リストとして表示";
 "places-accessibility-show-as-map" = "マップとして表示";
 "places-accessibility-show-more" = "さらに記事を見る";
-"places-dismiss-filter-list-accessibility-label" = "検索フィルターを隠す";
 "places-empty-search-description" = "街、国、大陸、自然のランドマーク、歴史上の出来事、建物、その他いろんなものを探しましょう";
 "places-empty-search-title" = "ウィキペディアの記事を場所で検索";
 "places-enable-location-action-button-title" = "位置情報を有効にする";
 "places-enable-location-description" = "位置情報にアクセスできるのは、アプリまたはアプリの機能の一部が画面上に表示されている間に限られます。";
 "places-enable-location-title" = "位置情報アクセスを有効にして近くの記事を探しましょう";
-"places-filter-list-title" = "フィルター";
 "places-filter-no-saved-places" = "保存した場所がありません";
 "places-filter-saved-articles" = "保存済みの記事";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1件}}";
 "places-filter-top-articles" = "よく読まれている記事";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
 "places-no-saved-articles-have-location" = "保存した記事のいずれも位置情報を持っていません";
@@ -336,7 +331,6 @@
 "places-search-top-articles" = "すべてのトップ記事";
 "places-search-top-articles-that-match-scope" = "近く";
 "places-search-your-current-location" = "あなたの現在地";
-"places-show-filter-list-accessibility-label" = "検索フィルターを表示";
 "places-title" = "場所";
 "places-unknown-distance" = "不明な距離";
 "potd-description-prefix" = "$1日の写真";

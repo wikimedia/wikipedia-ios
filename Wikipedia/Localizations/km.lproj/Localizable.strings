@@ -68,6 +68,7 @@
 "appearance-settings-image-dimming-footer" = "បន្ថយភាពស្រអាប់របស់រូបភាពនៅលើរចនាបថងងឹត";
 "appearance-settings-reading-themes" = "រចនាបថអំណាន";
 "appearance-settings-set-automatic-table-opening" = "ការកំណត់តារាង";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "អូសលើរបារខាងលើដើម្បីប្ដូរទំហំអក្សរអត្ថបទ។ ប្រើមុខងារកែប្រែទំហំអក្សរក្នុងប្រព័ន្ធឧបករណ៍របស់អ្នក ដើម្បីប្ដូរទំហំអក្សរក្នុងផ្នែកផ្សេងទៀតក្នុងកម្មវិធីនេះ។";
 "appearance-settings-theme-options" = "ជម្រើសសម្រាប់រចនាបថ";
 "article-about-title" = "អំពីអត្ថបទនេះ";
@@ -125,13 +126,9 @@
 "explore-featured-article-heading" = "អត្ថបទលេចធ្លោ";
 "explore-main-page-description" = "ទំព័រដើមរបស់គម្រោងវិគីមេឌា";
 "explore-main-page-heading" = "ថ្ងៃនេះនៅលើវិគីភីឌា";
-"explore-most-read-footer-for-date" = "អត្ថបទដែលអានច្រើនជាងគេនៅ $1";
 "explore-most-read-generic-heading" = "អត្ថបទអានច្រើនជាងគេ";
-"explore-most-read-heading" = "អត្ថបទអានច្រើនជាងគេនៅលើវិគីភីឌា$1";
 "explore-most-read-more-list-title-for-date" = "អត្ថបទអានច្រើនជាងគេនៅ $1";
 "explore-nearby-heading" = "ទីតាំងក្បែរ";
-"explore-nearby-placeholder-cancel" = "បោះបង់";
-"explore-nearby-placeholder-dismiss" = "លាក់";
 "explore-nearby-placeholder-heading" = "ទី​តាំង";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "នៅលើវិគីភីឌា$1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "នៅលើវិគីភីឌា";
@@ -188,11 +185,11 @@
 "home-button-popover-description" = "ចុចលើ 'W' ដើម្បីត្រឡប់ទៅហ្វីដរុករក";
 "home-button-popover-title" = "ចុចដើម្បីទៅទំព័រដើម";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
-"home-hide-suggestion-cancel" = "បោះបង់";
-"home-hide-suggestion-prompt" = "លាក់សំណើ";
 "home-more-like-footer" = "អត្ថបទស្រដៀង $1";
+// Fuzzy
 "home-nearby-footer" = "អត្ថបទនៅក្បែរកន្លែងអ្នក";
 "home-nearby-location-footer" = "អត្ថបទនៅក្បែរ$1";
+// Fuzzy
 "home-news-footer" = "អត្ថបទក្នុងសារព័ត៌មាន";
 "home-themes-action-title" = "កំណត់ចំណង់ចំណូលចិត្ត";
 "home-title" = "រុករក";
@@ -233,7 +230,6 @@
 "main-menu-title" = "បន្ថែមទៀត";
 "main-menu-zero-faq" = "សំនួរញឹកញាប់សម្រាប់វិគីភីឌាសូន្យ";
 "menu-cancel-accessibility-label" = "បោះបង់";
-"menu-trash-accessibility-label" = "លុបចោល";
 "more-languages-tooltip-description" = "ស្វែងរកក្នុងវិគីភីឌាជាភាសាជាង៣០០ភាសា";
 "more-languages-tooltip-title" = "បន្ថែមភាសា";
 "navbar-title-mode-edit-wikitext-preview" = "មើលជាមុន";
@@ -251,7 +247,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ|$1 ព្រឹត្តិការណ៍ប្រវត្តិសាស្ត្រ}}";
 "on-this-day-footer" = "ព្រឹត្រិការណ៍ប្រវត្តិសាស្ត្រនៅថ្ងៃនេះបន្ថែមទៀត";
 "on-this-day-title" = "នៅថ្ងៃនេះ";
-"onboarding-wikipedia" = "វិគីភីឌា";
 "open-link-cancel" = "បោះបង់";
 "page-edit-history" = "ប្រវត្តិការកែប្រែទាំងអស់";
 "page-history-title" = "ប្រវត្តិអត្ថបទ";
@@ -268,7 +263,6 @@
 "page-talk-page" = "មើលទំព័រពិភាក្សា";
 "pictured" = "រូបគូរ";
 "places-accessibility-clear-saved-searches" = "សម្អាតពាក្យស្វែងរកដែលបានរក្សាទុក";
-"places-accessibility-close-search" = "បិទការស្វែងរក";
 "places-accessibility-group" = "$1 អត្ថបទ";
 "places-accessibility-recenter-map-on-user-location" = "ត្រឡប់ទៅទីតាំងរបស់អ្នក";
 "places-accessibility-show-as-list" = "បង្ហាញជាបញ្ជី";
@@ -279,7 +273,6 @@
 "places-enable-location-action-button-title" = "ប្រើទីតាំង";
 "places-filter-no-saved-places" = "អ្នកគ្មានទីតាំងដែលបានរក្សាទុកទេ";
 "places-filter-saved-articles" = "អត្ថបទដែលបានរក្សាទុក";
-"places-filter-saved-articles-count" = "រកឃើញ{{PLURAL:$1|$1 ១កន្លែង|$1 កន្លែង}}";
 "places-filter-top-articles" = "អត្ថបទអានច្រើនជាងគេ";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ១អត្ថបទ|$1 អត្ថបទ}}";
 "places-no-saved-articles-have-location" = "គ្មានអត្ថបទដែលបានរក្សាទុករបស់អ្នកណាមួយ ដែលមានព័ត៌មានទីតាំងទេ";
@@ -293,7 +286,6 @@
 "places-search-top-articles" = "អត្ថបទលើគេទាំងអស់";
 "places-search-top-articles-that-match-scope" = "ជិតខាង";
 "places-search-your-current-location" = "ទីតាំងបច្ចុប្បន្នរបស់អ្នក";
-"places-show-filter-list-accessibility-label" = "បង្ហាញតម្រងស្វែងរក";
 "places-title" = "ទី​តាំង";
 "places-unknown-distance" = "ចម្ងាយមិនច្បាស់លាស់";
 "potd-description-prefix" = "រូបភាពថ្ងៃនេះសម្រាប់ $1";

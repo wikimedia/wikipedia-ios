@@ -97,13 +97,11 @@
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
-"explore-most-read-footer-for-date" = "$1 ਉੱਤੇ ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
+// Fuzzy
+"explore-most-read-footer" = "ਸਾਰੇ ਚੋਟੀ ਦੇ ਲੇਖ";
 "explore-most-read-generic-heading" = "ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
-"explore-most-read-heading" = "$1 ਵਿਕੀਪੀਡੀਆ ਉੱਤੇ ਚੋਟੀ ਦੇ ਪੜ੍ਹੇ ਜਾਣ ਵਾਲੇ";
 "explore-most-read-more-list-title-for-date" = "$1 ਉੱਤੇ ਚੋਟੀ ਦੇ";
 "explore-nearby-heading" = "ਥਾਵਾਂ ਨੇੜੇ";
-"explore-nearby-placeholder-cancel" = "ਰੱਦ ਕਰੋ";
-"explore-nearby-placeholder-dismiss" = "ਖ਼ਾਰਜ ਕਰੋ";
 "explore-nearby-placeholder-heading" = "ਥਾਂਵਾਂ";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ਵਿਕੀਪੀਡੀਆ ਤੇ";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਤੇ";
@@ -128,9 +126,8 @@
 "hockeyapp-alert-privacy" = "$1 ਦੀ ਨਿੱਜਤਾ";
 "hockeyapp-alert-send-report" = "ਰਿਪੋਰਟ ਭੇਜੋ";
 "hockeyapp-alert-title" = "ਮੁਅਾਫ਼ ਕਰਨਾ, ਬੀਤੇ ਸਮੇਂ ਅੈਪ ਟੁੱਟ ਗੲੀ";
-"home-hide-suggestion-cancel" = "ਰੱਦ ਕਰੋ";
-"home-hide-suggestion-prompt" = "ਇਸ ਸੁਝਾਅ ਨੂੰ ਲੁਕਾਓ";
 "home-more-like-footer" = "$1 ਵਾੰਗੂ ਹੋਰ";
+// Fuzzy
 "home-nearby-footer" = "ਮੇਰੇ ਸਥਾਨ ਦੇ ਨੇੜੇ ਤੋਂ ਹੋਰ";
 "home-nearby-location-footer" = "$1 ਦੇ ਨੇੜੇ ਹੋਰ";
 "home-title" = "ਵਿਚਰੋ";
@@ -170,7 +167,6 @@
 "main-menu-title" = "ਹੋਰ";
 "main-menu-zero-faq" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬਾਬਤ ਆਮ ਸੁਆਲ";
 "menu-cancel-accessibility-label" = "ਰੱਦ ਕਰੋ";
-"menu-trash-accessibility-label" = "ਮਿਟਾਉ";
 "navbar-title-mode-edit-wikitext-preview" = "ਝਾਤ";
 "nearby-distance-label-feet" = "$1 ਫੁੱਟ";
 "nearby-distance-label-km" = "$1 ਕਿ.ਮੀ.";
@@ -180,7 +176,6 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"onboarding-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
 "open-link-cancel" = "ਰੱਦ ਕਰੋ";
 "page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
 "page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";

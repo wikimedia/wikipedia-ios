@@ -82,13 +82,11 @@
 "explore-continue-reading-heading" = "Skaityti toliau";
 "explore-featured-article-heading" = "Rinktinis straipsnis";
 "explore-main-page-heading" = "Šiandien Vikipedijoje";
-"explore-most-read-footer-for-date" = "Visi $1 skaitomiausi straipsniai";
+// Fuzzy
+"explore-most-read-footer" = "Visi skaitomiausi straipsniai";
 "explore-most-read-generic-heading" = "Populiariausi skaitiniai";
-"explore-most-read-heading" = "Skaitomiausi $1 Vikipedijoje";
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-nearby-heading" = "Artimos vietovės";
-"explore-nearby-placeholder-cancel" = "Atšaukti";
-"explore-nearby-placeholder-dismiss" = "Paslėpti";
 "explore-nearby-placeholder-heading" = "Vietos";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedijoje";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedijoje";
@@ -132,9 +130,8 @@
 "hockeyapp-alert-title" = "Atsiprašome, programėlė praeitą kartą užlūžo";
 "home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
-"home-hide-suggestion-cancel" = "Atšaukti";
-"home-hide-suggestion-prompt" = "Paslėpti šį pasiūlymą";
 "home-more-like-footer" = "Daugiau kaip $1";
+// Fuzzy
 "home-nearby-footer" = "Daugiau iš šalia jūsų vietovės";
 "home-nearby-location-footer" = "Daugiau netoliese $1";
 "home-title" = "Naršyti";
@@ -171,7 +168,6 @@
 "main-menu-title" = "Daugiau";
 "main-menu-zero-faq" = "Vikipedija Zero DUK";
 "menu-cancel-accessibility-label" = "Atšaukti";
-"menu-trash-accessibility-label" = "Naikinti";
 "navbar-title-mode-edit-wikitext-preview" = "Peržiūra";
 "nearby-distance-label-feet" = "$1 pėdų";
 "nearby-distance-label-km" = "$1 km";
@@ -184,7 +180,6 @@
 "on-this-day-detail-header-date-range" = "nuo $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorinis įvykis|$1 istoriniai įvykiai|$1 istorinių įvykių}}";
 "on-this-day-title" = "Šią dieną";
-"onboarding-wikipedia" = "Vikipedija";
 "open-link-cancel" = "Atšaukti";
 "page-edit-history" = "Pilna keitimų istorija";
 "page-history-title" = "Straipsnio istorija";
@@ -197,7 +192,6 @@
 "page-read-in-other-languages" = "Prieinama $1 kitų kalbų";
 "page-similar-titles" = "Panašūs puslapiai";
 "page-talk-page" = "Žiūrėti aptarimo puslapį";
-"places-accessibility-close-search" = "Uždaryti paiešką";
 "places-accessibility-group" = "$1 straipsniai";
 "places-accessibility-show-as-list" = "Rodyti kaip sąrašą";
 "places-accessibility-show-as-map" = "Rodyti kaip žemėlapį";

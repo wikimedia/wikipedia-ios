@@ -48,15 +48,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewWillAppear(_ animated: Bool) {
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
-        fetch()
         setupCollectionViewUpdater()
+        fetch()
         super.viewWillAppear(animated)
-    }
-    
-    override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isBarHidingEnabled = false
-        navigationBarHider.isUnderBarViewHidingEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -200,6 +194,10 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
         updateEmptyState()
         collectionView.setNeedsLayout()
     }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
 }
 
 
@@ -243,13 +241,16 @@ extension SavedArticlesViewController {
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
-        cell.actions = availableActions(at: indexPath)
+
         cell.isBatchEditable = true
         cell.delegate = self
         cell.layoutMargins = layout.itemLayoutMargins
         
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 
@@ -284,8 +285,10 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .unsave:
             let alertController = ReadingListsAlertController()
@@ -330,11 +333,6 @@ extension SavedArticlesViewController: ActionDelegate {
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
         let sourceView: UIView? = UIDevice.current.userInterfaceIdiom == .pad ? collectionView(collectionView, cellForItemAt: indexPath) : nil
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
         switch action.type {
         case .delete:
             if let article = article(at: indexPath) {
@@ -386,7 +384,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBarHider.isHidingEnabled = false
+        navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -395,7 +393,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBarHider.isHidingEnabled = true
+        navigationBar.isInteractiveHidingEnabled = true
     }
 }
 

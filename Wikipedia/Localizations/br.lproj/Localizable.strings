@@ -111,13 +111,11 @@
 "explore-featured-article-heading" = "Pennad a-zoare";
 "explore-main-page-description" = "Pajenn bennañ ar raktresoù Wikimedia";
 "explore-main-page-heading" = "Hiziv e Wikipedia";
-"explore-most-read-footer-for-date" = "An holl bennadoù lennet ar muiañ d'an $1";
+// Fuzzy
+"explore-most-read-footer" = "An holl bennadoù lennet ar muiañ";
 "explore-most-read-generic-heading" = "Ar re a vez lennet ar muiañ";
-"explore-most-read-heading" = "Lennadurioù gwellañ e Wikipedia e $1";
 "explore-most-read-more-list-title-for-date" = "Ar re a vez lennet ar muiañ d'an $1";
 "explore-nearby-heading" = "Lec'hioù tost";
-"explore-nearby-placeholder-cancel" = "Nullañ";
-"explore-nearby-placeholder-dismiss" = "Disteurel";
 "explore-nearby-placeholder-heading" = "Lec'hioù";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "E Wikipédia e $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "E Wikipedia";
@@ -173,9 +171,8 @@
 "home-button-explore-accessibility-label" = "Wikipedia, distreiñ da Ergerzhiñ";
 "home-button-history-accessibility-label" = "Wikipedia, distreiñ da Istor";
 "home-button-saved-accessibility-label" = "Wikipedia, distreiñ da Enrollañ";
-"home-hide-suggestion-cancel" = "Nullañ";
-"home-hide-suggestion-prompt" = "Kuzhat ar c'hinnig-mañ";
 "home-more-like-footer" = "Muioc'h evel $1";
+// Fuzzy
 "home-nearby-footer" = "Tostoc'h d'al lec'h m'emaoc'h";
 "home-nearby-location-footer" = "Tostoc'h da $1";
 "home-title" = "Ergerzhet";
@@ -217,7 +214,6 @@
 "main-menu-title" = "Muioc'h";
 "main-menu-zero-faq" = "FAG Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Nullañ";
-"menu-trash-accessibility-label" = "Lemel";
 "navbar-title-mode-edit-wikitext-preview" = "Rakwelet";
 "nearby-distance-label-feet" = "$1 troad";
 "nearby-distance-label-km" = "$1 km";
@@ -230,7 +226,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-title" = "D'an deiz-mañ...";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Nullañ";
 "page-edit-history" = "Istor klok ar c'hemmoù";
 "page-history-title" = "Istor ar pennad";
@@ -245,7 +240,6 @@
 "page-read-in-other-languages" = "A c'haller kaout e $1 yezh all";
 "page-similar-titles" = "Pajennoù damheñvel";
 "places-accessibility-clear-saved-searches" = "Riñsañ an enklaskoù enrollet";
-"places-accessibility-close-search" = "Serriñ an enklask";
 "places-accessibility-group" = "$1 pennadoù";
 "places-accessibility-recenter-map-on-user-location" = "Adkreizañ en ho lec'hiadur";
 "places-accessibility-show-as-list" = "Diskouez evel ur roll";
@@ -256,10 +250,8 @@
 "places-enable-location-action-button-title" = "Gweredekaat al lec'hiadur";
 "places-enable-location-description" = "Monet d'ho lec'hiadur a c'haller kaout nemet pa vez gwelet an arload pe unan eus e arc'hweladurioù.";
 "places-enable-location-title" = "Furchal ar pennadoù tost d'ho lec'hiadur en ur weredekaat Monet d'al lec'hiadur";
-"places-filter-list-title" = "Siloù enklask";
 "places-filter-no-saved-places" = "N'ho peus lec'h savetaet ebet";
 "places-filter-saved-articles" = "Pennadoù enrollet";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 lec'h|$1 lec'h}} kavet";
 "places-filter-top-articles" = "Ar re lennetañ";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 pennad|$1 pennad}}";
 "places-no-saved-articles-have-location" = "Hini ebet eus ho pennadoù enrollet zo ennañ titouroù lec'hiañ";

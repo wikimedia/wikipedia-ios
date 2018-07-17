@@ -2,6 +2,8 @@ struct ColumnarCollectionViewLayoutSectionInvalidationResults {
     let invalidatedHeaderIndexPaths: [IndexPath]
     let invalidatedItemIndexPaths: [IndexPath]
     let invalidatedFooterIndexPaths: [IndexPath]
+    
+    static let empty: ColumnarCollectionViewLayoutSectionInvalidationResults = ColumnarCollectionViewLayoutSectionInvalidationResults(invalidatedHeaderIndexPaths: [], invalidatedItemIndexPaths: [], invalidatedFooterIndexPaths: [])
 }
 
 public class ColumnarCollectionViewLayoutInfo {
@@ -12,7 +14,7 @@ public class ColumnarCollectionViewLayoutInfo {
         guard let dataSource = collectionView.dataSource else {
             return
         }
-        guard let countOfSections = dataSource.numberOfSections?(in: collectionView) else {
+        guard let countOfSections = dataSource.numberOfSections?(in: collectionView), countOfSections > 0 else {
             return
         }
         sections.reserveCapacity(countOfSections)
@@ -30,6 +32,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 headerAttributes.layoutMargins = metrics.itemLayoutMargins
                 headerAttributes.precalculated = headerHeightEstimate.precalculated
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
+                headerAttributes.zIndex = 10
                 section.addHeader(headerAttributes)
             }
             for itemIndex in 0..<countOfItems {
@@ -39,6 +42,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 let itemAttributes = ColumnarCollectionViewLayoutAttributes(forCellWith: indexPath)
                 itemAttributes.precalculated = itemSizeEstimate.precalculated
                 itemAttributes.layoutMargins = metrics.itemLayoutMargins
+                itemAttributes.zIndex = 0
                 itemAttributes.frame = CGRect(origin: section.originForNextItem, size: CGSize(width: itemWidth, height: itemSizeEstimate.height))
                 section.addItem(itemAttributes)
             }
@@ -49,6 +53,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
                 footerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: width, height: footerHeightEstimate.height))
+                footerAttributes.zIndex = -10
                 section.addFooter(footerAttributes)
             }
             y += section.frame.size.height + metrics.interSectionSpacing
@@ -65,7 +70,7 @@ public class ColumnarCollectionViewLayoutInfo {
         
         let indexPath = originalAttributes.indexPath
         let sectionIndex = indexPath.section
-        guard sectionIndex < sections.count else {
+        guard sections.indices.contains(sectionIndex) else {
             assert(false)
             return
         }
@@ -76,56 +81,59 @@ public class ColumnarCollectionViewLayoutInfo {
         let result = section.invalidate(originalAttributes, with: preferredAttributes)
         let newHeight = section.frame.height
         let deltaY = newHeight - oldHeight
-        guard !deltaY.isEqual(to: 0) else {
-            return
-        }
         var invalidatedHeaderIndexPaths: [IndexPath] = result.invalidatedHeaderIndexPaths
         var invalidatedItemIndexPaths: [IndexPath] = result.invalidatedItemIndexPaths
         var invalidatedFooterIndexPaths: [IndexPath] = result.invalidatedFooterIndexPaths
-        let nextSectionIndex = sectionIndex + 1
-        if nextSectionIndex < sections.count {
-            for section in sections[nextSectionIndex..<sections.count] {
-                let result = section.translate(deltaY: deltaY)
-                invalidatedHeaderIndexPaths.append(contentsOf: result.invalidatedHeaderIndexPaths)
-                invalidatedItemIndexPaths.append(contentsOf: result.invalidatedItemIndexPaths)
-                invalidatedFooterIndexPaths.append(contentsOf: result.invalidatedFooterIndexPaths)
+        if !deltaY.isEqual(to: 0) {
+            contentSize.height += deltaY
+            let nextSectionIndex = sectionIndex + 1
+            if nextSectionIndex < sections.count {
+                for section in sections[nextSectionIndex..<sections.count] {
+                    let result = section.translate(deltaY: deltaY)
+                    invalidatedHeaderIndexPaths.append(contentsOf: result.invalidatedHeaderIndexPaths)
+                    invalidatedItemIndexPaths.append(contentsOf: result.invalidatedItemIndexPaths)
+                    invalidatedFooterIndexPaths.append(contentsOf: result.invalidatedFooterIndexPaths)
+                }
             }
         }
+        
         if invalidatedHeaderIndexPaths.count > 0 {
             context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionHeader, at: invalidatedHeaderIndexPaths)
         }
+        
         if invalidatedItemIndexPaths.count > 0 {
             context.invalidateItems(at: invalidatedItemIndexPaths)
         }
+        
         if invalidatedFooterIndexPaths.count > 0 {
             context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionFooter, at: invalidatedFooterIndexPaths)
         }
     }
     
     func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section < sections.count else {
+        guard sections.indices.contains(indexPath.section) else {
             return nil
         }
         let section = sections[indexPath.section]
-        guard indexPath.item < section.items.count else {
+        guard section.items.indices.contains(indexPath.item) else {
             return nil
         }
         return section.items[indexPath.item]
     }
     
     public func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard indexPath.section < sections.count else {
+        guard sections.indices.contains(indexPath.section) else {
             return nil
         }
         let section = sections[indexPath.section]
         switch elementKind {
         case UICollectionElementKindSectionHeader:
-            guard indexPath.item < section.headers.count else {
+            guard section.headers.indices.contains(indexPath.item) else {
                 return nil
             }
             return section.headers[indexPath.item]
         case UICollectionElementKindSectionFooter:
-            guard indexPath.item < section.footers.count else {
+            guard section.footers.indices.contains(indexPath.item) else {
                 return nil
             }
             return section.footers[indexPath.item]

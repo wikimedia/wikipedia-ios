@@ -1,9 +1,10 @@
 import UIKit
 
 extension OnThisDayExploreCollectionViewCell {
-    @objc(configureWithOnThisDayEvent:previousEvent:dataStore:theme:layoutOnly:)
-    public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent,  previousEvent: WMFFeedOnThisDayEvent?, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool) {
-        bottomTitleLabel.text = previousEvent?.yearString
-        super.configure(with: onThisDayEvent, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly, shouldAnimateDots: false)
+    public func configure(with onThisDayEvent: WMFFeedOnThisDayEvent, isFirst: Bool, isLast: Bool, dataStore: MWKDataStore, theme: Theme, layoutOnly: Bool) {
+        self.isFirst = isFirst
+        self.isLast = isLast
+        timelineView.minimizeUnanimatedDots = !isFirst
+        super.configure(with: onThisDayEvent, dataStore: dataStore, showArticles: false, theme: theme, layoutOnly: layoutOnly, shouldAnimateDots: false)
     }
 }

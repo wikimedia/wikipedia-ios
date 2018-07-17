@@ -33,6 +33,7 @@
 "about-libraries-complete-list" = "Lista completa";
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses-title" = "Nos encanta el software de código abierto $1";
+"about-places-maps-license-details-link-text" = "Por favor vea aquí para los detalles de la licencia";
 "about-product-of" = "Hecha por la $1 con la ayuda de voluntarios como tú";
 "about-repositories" = "Repositorios";
 "about-repositories-app-source-license" = "Código fuente disponible bajo la $1.";
@@ -92,6 +93,7 @@
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "article-about-title" = "Acerca de este artículo";
@@ -153,13 +155,11 @@
 "explore-featured-article-heading" = "Artículo destacado";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
-"explore-most-read-footer-for-date" = "Todos los artículos más leídos el $1";
+// Fuzzy
+"explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
-"explore-most-read-heading" = "Los más leídos en Wikipedia en $1";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "explore-nearby-heading" = "Lugares cercanos a";
-"explore-nearby-placeholder-cancel" = "Cancelar";
-"explore-nearby-placeholder-dismiss" = "Descartar";
 "explore-nearby-placeholder-heading" = "Lugares";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
@@ -216,11 +216,11 @@
 "home-button-popover-description" = "Toca la «W» para volver al canal de exploración";
 "home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
-"home-hide-suggestion-cancel" = "Cancelar";
-"home-hide-suggestion-prompt" = "Ocultar esta sugerencia";
 "home-more-like-footer" = "Más como $1";
+// Fuzzy
 "home-nearby-footer" = "Más de cercanos a tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
+// Fuzzy
 "home-news-footer" = "Más en las noticias";
 "home-themes-action-title" = "Gestionar las preferencias";
 "home-themes-prompt" = "Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario para una experiencia de lectura más cómoda.";
@@ -264,7 +264,6 @@
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
-"menu-trash-accessibility-label" = "Borrar";
 "more-languages-tooltip-description" = "Buscar en las casi 300 lenguas de Wikipedia";
 "more-languages-tooltip-title" = "Añadir idiomas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
@@ -283,7 +282,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
 "on-this-day-title" = "Un día como hoy";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Cancelar";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial de página";
@@ -300,22 +298,18 @@
 "page-talk-page" = "Ver página de discusión";
 "pictured" = "retratado";
 "places-accessibility-clear-saved-searches" = "Borrar búsquedas guardadas";
-"places-accessibility-close-search" = "Cerrar búsqueda";
 "places-accessibility-group" = "$1 artículos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar en tu ubicación";
 "places-accessibility-show-as-list" = "Mostrar como lista";
 "places-accessibility-show-as-map" = "Mostrar como mapa";
 "places-accessibility-show-more" = "Mostrar más artículos";
-"places-dismiss-filter-list-accessibility-label" = "Descartar filtros de búsqueda";
 "places-empty-search-description" = "Explora ciudades, países, continentes, monumentos naturales, eventos históricos, edificios y más.";
 "places-empty-search-title" = "Buscar artículos de Wikipedia con ubicaciones geográficas";
 "places-enable-location-action-button-title" = "Activar la ubicación";
 "places-enable-location-description" = "El acceso a tu ubicación sólo está disponible cuando la aplicación o una de sus características es visible en tu pantalla.";
 "places-enable-location-title" = "Explora artículos cerca de tu ubicación habilitando el acceso a la ubicación";
-"places-filter-list-title" = "Filtros de búsqueda";
 "places-filter-no-saved-places" = "No tienes lugares guardados";
 "places-filter-saved-articles" = "Artículos guardados";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 lugar encontrado|$1 lugares encontrados}}";
 "places-filter-top-articles" = "Más leídos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artículo|$1 artículos}}";
 "places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
@@ -329,7 +323,6 @@
 "places-search-top-articles" = "Todos los artículos principales";
 "places-search-top-articles-that-match-scope" = "Cercanos";
 "places-search-your-current-location" = "Tu ubicación actual";
-"places-show-filter-list-accessibility-label" = "Mostrar filtros de búsqueda";
 "places-title" = "Lugares";
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Foto del día del $1";

@@ -122,7 +122,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
 
-        let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.scrollIndicatorInsets)
+        let delegateMetrics = delegate.metrics(with: size, readableWidth: readableWidth, layoutMargins: collectionView.layoutMargins)
         metrics = delegateMetrics
         let newInfo = ColumnarCollectionViewLayoutInfo()
         newInfo.layout(with: delegateMetrics, delegate: delegate, collectionView: collectionView, invalidationContext: nil)
@@ -141,7 +141,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        guard context.boundsDidChange || context.invalidateEverything || context.invalidateDataSourceCounts else {
+        guard context.invalidateEverything || context.invalidateDataSourceCounts || context.boundsDidChange else {
             return
         }
         
@@ -235,7 +235,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             guard animateItems, appearingIndexPaths.contains(indexPath) else {
                 return
             }
-            attributes.zIndex = -1000
+            attributes.zIndex = -1
             attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
             attributes.alpha = 0
             return
@@ -271,7 +271,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         guard animateItems, disappearingIndexPaths.contains(itemIndexPath) else {
             return attributes
         }
-        attributes.zIndex = -1000
+        attributes.zIndex = -1
         attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
         attributes.alpha = 0
         return attributes

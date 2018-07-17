@@ -78,6 +78,7 @@
 "appearance-settings-image-dimming-footer" = "Sænk gennemsigtighed for billeder på det mørke tema";
 "appearance-settings-reading-themes" = "Læsetemaer";
 "appearance-settings-set-automatic-table-opening" = "Tabelindstillinger";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Træk skyderen oven over for at ændre størrelsen på artikelteksten. Udnyt din tekststørrelse fra systemet til at ændre størrelse på andre tekstområder i programmet.";
 "appearance-settings-theme-options" = "Temaindstillinger";
 "article-about-title" = "Om denne artikel";
@@ -137,13 +138,11 @@
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
 "explore-main-page-heading" = "I dag på Wikipedia";
-"explore-most-read-footer-for-date" = "Alle mest læste artikler på $1";
+// Fuzzy
+"explore-most-read-footer" = "Alle mest læste artikler";
 "explore-most-read-generic-heading" = "Mest læst";
-"explore-most-read-heading" = "Mest læste på $1 Wikipedia";
 "explore-most-read-more-list-title-for-date" = "Mest læst d. $1";
 "explore-nearby-heading" = "Steder i nærheden";
-"explore-nearby-placeholder-cancel" = "Annullér";
-"explore-nearby-placeholder-dismiss" = "Luk";
 "explore-nearby-placeholder-heading" = "Steder";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
@@ -200,11 +199,11 @@
 "home-button-popover-description" = "Tryk på »W« for at returnere til Udforsk-nyhedskilden";
 "home-button-popover-title" = "Tryk for at gå hjem";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
-"home-hide-suggestion-cancel" = "Annuller";
-"home-hide-suggestion-prompt" = "Skjul dette forslag";
 "home-more-like-footer" = "Mere som $1";
+// Fuzzy
 "home-nearby-footer" = "Mere fra i nærheden af din placering";
 "home-nearby-location-footer" = "Mere nær $1";
+// Fuzzy
 "home-news-footer" = "Mere i nyhederne";
 "home-reading-list-prompt" = "Dine gemte artikler kan nu organiseres i læselister og synkroniseret på tværs af enheder. Log ind for at acceptere at dine læselister gemmes i dine brugerpræferencer.";
 "home-themes-action-title" = "Håndter præferencer";
@@ -249,7 +248,6 @@
 "main-menu-title" = "Mere";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Afbryd";
-"menu-trash-accessibility-label" = "Slet";
 "more-languages-tooltip-description" = "Søg på næsten 300 sprog";
 "more-languages-tooltip-title" = "Tilføj sprog";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvisning";
@@ -267,7 +265,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hændelse|$1 historiske hændelser}}";
 "on-this-day-footer" = "Flere historiske hændelser på denne dag";
 "on-this-day-title" = "På denne dag";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annullér";
 "page-edit-history" = "Fuld redigeringshistorik";
 "page-history-title" = "Artikelhistorik";
@@ -284,22 +281,18 @@
 "page-talk-page" = "Vis diskussionsside";
 "pictured" = "billedet";
 "places-accessibility-clear-saved-searches" = "Ryd gemte søgninger";
-"places-accessibility-close-search" = "Luk søgning";
 "places-accessibility-group" = "$1 artikler";
 "places-accessibility-recenter-map-on-user-location" = "Centrér på din placering";
 "places-accessibility-show-as-list" = "Vis som liste";
 "places-accessibility-show-as-map" = "Vis som kort";
 "places-accessibility-show-more" = "Vis flere artikler";
-"places-dismiss-filter-list-accessibility-label" = "Luk søgefiltre";
 "places-empty-search-description" = "Udforsk byer, lande, kontinenter, naturlige landemærker, historiske begivenheder, bygninger og mere.";
 "places-empty-search-title" = "Søg efter Wikipedia-artikler med geografiske placeringer";
 "places-enable-location-action-button-title" = "Aktivér placering";
 "places-enable-location-description" = "Adgang til din placering er kun tilgængelig, når appen eller en af dens funktioner er synlige på din skærm.";
 "places-enable-location-title" = "Udforsk artikler i nærheden af din placering ved at aktivere placeringsadgang";
-"places-filter-list-title" = "Søgefiltrer";
 "places-filter-no-saved-places" = "Du har ingen gemte steder";
 "places-filter-saved-articles" = "Gemte artikler";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 sted|$1 steder}} fundet";
 "places-filter-top-articles" = "Mest læst";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikler}}";
 "places-no-saved-articles-have-location" = "Ingen af dine gemte artikler har stedinformation";
@@ -313,7 +306,6 @@
 "places-search-top-articles" = "Alle populære artikler";
 "places-search-top-articles-that-match-scope" = "I nærheden";
 "places-search-your-current-location" = "Din aktuelle placering";
-"places-show-filter-list-accessibility-label" = "Vis søgefiltre";
 "places-title" = "Steder";
 "places-unknown-distance" = "ukendt afstand";
 "potd-description-prefix" = "Dagens billede for $1";

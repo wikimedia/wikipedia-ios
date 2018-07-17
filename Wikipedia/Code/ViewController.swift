@@ -3,7 +3,6 @@ import WMF
 
 class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
     var theme: Theme = Theme.standard
-    var navigationBarHider: NavigationBarHider = NavigationBarHider()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -13,7 +12,16 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.init(coder: aDecoder)
     }
     
-    var navigationBar: NavigationBar = NavigationBar()
+    // keep objc until WMFAppViewController is rewritten in Swift
+    // it checks at run time for VCs that respond to navigationBar
+    @objc lazy var navigationBar: NavigationBar = {
+        return NavigationBar()
+    }()
+    
+    lazy var navigationBarHider: NavigationBarHider = {
+        return NavigationBarHider()
+    }()
+
     var keyboardFrame: CGRect?
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
@@ -36,9 +44,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             scrollView?.contentInsetAdjustmentBehavior = .never
         }
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
-            if let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
-                self?.keyboardFrame = self?.view.convert(endFrame, from: self?.view.window)
+            if let window = self?.view.window, let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+                let windowFrame = window.convert(endFrame, from: nil)
+                self?.keyboardFrame = window.convert(windowFrame, to: self?.view)
             }
+            self?.updateScrollViewInsets()
+        })
+        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardDidHide, object: nil, queue: nil, using: { [weak self] notification in
+            self?.keyboardFrame = nil
             self?.updateScrollViewInsets()
         })
     }
@@ -53,6 +66,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+            navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false
         }
@@ -76,7 +90,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
                 let navTrailingConstraint = view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor)
                 view.addConstraints([navTopConstraint, navLeadingConstraint, navTrailingConstraint])
             }
+            
             navigationBar.navigationBarPercentHidden = 0
+            if navigationBar.shouldTransformUnderBarViewWithBar {
+                navigationBar.underBarViewPercentHidden = 0
+            }
             updateNavigationBarStatusBarHeight()
         } else {
             if navigationBar.superview != nil {
@@ -115,6 +133,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         self.updateScrollViewInsets()
     }
     
+    var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
+    
     public final func updateScrollViewInsets() {
         guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
             return
@@ -123,6 +143,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         var frame = CGRect.zero
         if showsNavigationBar {
             frame = navigationBar.frame
+            if useNavigationBarVisibleHeightForScrollViewInsets {
+              frame.size.height = navigationBar.visibleHeight
+            }
         } else if let navigationController = navigationController {
             frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
         }
@@ -137,8 +160,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         
         var bottom = safeInsets.bottom
         if let keyboardFrame = keyboardFrame {
-            let keyboardHeight = view.bounds.height - keyboardFrame.minY
-            bottom = max(bottom, keyboardHeight)
+            let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
+            let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
+            bottom = max(bottom, keyboardIntersection.height)
         }
         
         let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
