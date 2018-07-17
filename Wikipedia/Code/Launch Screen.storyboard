@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,8 +42,8 @@
                                 <exclude reference="Lxi-AY-Mcn"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="LoA-U6-c1U"/>
                                 <exclude reference="AFa-g5-4es"/>
+                                <exclude reference="LoA-U6-c1U"/>
                                 <exclude reference="Z3f-uh-Bvx"/>
                                 <exclude reference="tIM-gE-sXh"/>
                             </mask>
@@ -53,8 +53,8 @@
                                 <include reference="Lxi-AY-Mcn"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="LoA-U6-c1U"/>
                                 <include reference="AFa-g5-4es"/>
+                                <include reference="LoA-U6-c1U"/>
                                 <include reference="Z3f-uh-Bvx"/>
                                 <include reference="tIM-gE-sXh"/>
                             </mask>
@@ -67,7 +67,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashscreen-background" width="414" height="736"/>
+        <image name="splashscreen-background" width="415" height="736"/>
         <image name="wikipedia-wordmark" width="240" height="59"/>
     </resources>
 </document>

@@ -3,9 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFAppViewController : UIViewController <UNUserNotificationCenterDelegate>
-
-+ (instancetype)initialAppViewControllerFromDefaultStoryBoard;
+@interface WMFAppViewController : UITabBarController <UNUserNotificationCenterDelegate>
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp;
 

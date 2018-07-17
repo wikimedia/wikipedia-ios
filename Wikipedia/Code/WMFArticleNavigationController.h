@@ -1,6 +1,6 @@
-#import "WMFRotationRespectingNavigationController.h"
+#import "WMFThemeableNavigationController.h"
 
-@interface WMFArticleNavigationController : WMFRotationRespectingNavigationController
+@interface WMFArticleNavigationController : WMFThemeableNavigationController
 
 @property (nonatomic, readonly, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
 - (void)setSecondToolbarHidden:(BOOL)secondToolbarHidden animated:(BOOL)animated;
