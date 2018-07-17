@@ -44,6 +44,17 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         }
         toViewController.view.layoutIfNeeded()
         
+        guard let fromSnapshot = fromViewController.view.snapshotView(afterScreenUpdates: true),
+            let toSnapshot = toViewController.view.snapshotView(afterScreenUpdates: true) else {
+            transitionContext.completeTransition(true)
+            return
+        }
+        toSnapshot.frame = toViewController.view.frame
+        fromSnapshot.frame = fromViewController.view.frame
+
+        containerView.addSubview(toSnapshot)
+        containerView.addSubview(fromSnapshot)
+        
         let fromFrame = containerView.convert(fromImageView.frame, from: fromImageView.superview)
         let toFrame = containerView.convert(toImageView.frame, from: toImageView.superview)
         let deltaX = toFrame.midX - fromFrame.midX
@@ -54,21 +65,21 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
         let transform = scale.concatenating(delta)
         
-        toViewController.view.transform = transform.inverted()
-        
+        toSnapshot.transform = transform.inverted()
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .allowUserInteraction, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                fromViewController.view.transform = transform
-                toViewController.view.transform = CGAffineTransform.identity
+                fromSnapshot.transform = transform
+                toSnapshot.transform = CGAffineTransform.identity
             })
             UIView.addKeyframe(withRelativeStartTime: 0.33, relativeDuration: 0.67, animations: {
-                fromViewController.view.alpha = 0
+                fromSnapshot.alpha = 0
             })
         }) { (finished) in
+            toSnapshot.removeFromSuperview()
+            fromSnapshot.removeFromSuperview()
+            
             transitionContext.completeTransition(true)
-            fromViewController.view.alpha = 1
-            fromViewController.view.transform = CGAffineTransform.identity
         }
     }
 }
