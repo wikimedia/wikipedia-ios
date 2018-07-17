@@ -39,9 +39,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         showOfflineEmptyViewIfNeeded()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = true
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopMonitoringReachability()
+        collectionViewUpdater.isGranularUpdatingEnabled = false
     }
     
     // MARK - NavBar
