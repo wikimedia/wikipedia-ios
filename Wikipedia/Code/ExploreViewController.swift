@@ -3,6 +3,8 @@ import WMF
 
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding {
+
+    private var wantsDeleteInsertOnNexItemtUpdate: Bool = false
     
     // MARK - UIViewController
     
@@ -386,6 +388,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.subtitle = group.headerSubTitle
         cell.footerTitle = group.footerText
         cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
+        cell.isCollapsed = group.undoType != .none
         cell.apply(theme: theme)
         cell.delegate = self
     }
@@ -497,7 +500,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let userInfo = cacheUserInfoForItem(at: indexPath)
         layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
-        needsReloadVisibleCells = true
+        if wantsDeleteInsertOnNexItemtUpdate {
+            collectionView.deleteItems(at: [indexPath])
+            collectionView.insertItems(at: [indexPath])
+        } else {
+            needsReloadVisibleCells = true
+        }
     }
 }
 
@@ -554,7 +562,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
             return
         }
-        guard let sheet = menuActionSheetForGroup(group) else {
+        guard let sheet = menuActionSheetForGroup(group, in: cell) else {
             return
         }
         sheet.popoverPresentationController?.sourceView = cell.customizationButton
@@ -562,7 +570,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         present(sheet, animated: true)
     }
 
-    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
+    private func menuActionSheetForGroup(_ group: WMFContentGroup, in cell: ExploreCardCollectionViewCell) -> UIAlertController? {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
@@ -575,8 +583,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
-            group.markDismissed()
-            group.updateVisibility()
+            group.undoType = .single
+            self.wantsDeleteInsertOnNexItemtUpdate = true
             do {
                 try self.dataStore.save()
             } catch let error {
@@ -588,7 +596,8 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return nil
         }
         let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all %@ cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
-            self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
+            group.undoType = .all
+            self.wantsDeleteInsertOnNexItemtUpdate = true
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)
@@ -598,7 +607,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 
         return sheet
     }
-    
+
+    func exploreCardCollectionViewCellWantsToUndoCustomization(_ cell: ExploreCardCollectionViewCell) {
+        guard let vc = cell.cardContent as? ExploreCardViewController,
+            let group = vc.contentGroup else {
+                return
+        }
+        group.undoType = .none
+    }
     
 }
 
