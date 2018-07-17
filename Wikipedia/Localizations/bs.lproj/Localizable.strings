@@ -107,7 +107,6 @@
 "explore-featured-article-heading" = "Odabrani članak";
 "explore-main-page-description" = "Početna stranica Wikimedijinih projekata";
 "explore-main-page-heading" = "Danas na Wikipediji";
-"explore-most-read-footer-for-date" = "Svi najčitaniji članci za $1";
 "explore-most-read-generic-heading" = "Najčitanije";
 "explore-most-read-more-list-title-for-date" = "Najčitanije za $1";
 "explore-nearby-heading" = "Mjesta u blizini";
@@ -169,8 +168,10 @@
 "home-button-popover-title" = "Dodirnite da se vratite na početak";
 "home-button-saved-accessibility-label" = "Wikipedia, nazad na ekran Sačuvano";
 "home-more-like-footer" = "Još članaka kao $1";
+// Fuzzy
 "home-nearby-footer" = "Još iz Vaše blizine";
 "home-nearby-location-footer" = "Još u blizini $1";
+// Fuzzy
 "home-news-footer" = "Više vijesti";
 "home-title" = "Istraži";
 "home-title-accessibility-label" = "Wikipedia, pomjerite se na vrh ekrana Istraži";
@@ -211,7 +212,6 @@
 "main-menu-title" = "Više";
 "main-menu-zero-faq" = "ČPP o Wikipediji Zero";
 "menu-cancel-accessibility-label" = "Otkaži";
-"menu-trash-accessibility-label" = "Obriši";
 "navbar-title-mode-edit-wikitext-preview" = "Pregled";
 "nearby-distance-label-feet" = "$1 stopa";
 "nearby-distance-label-km" = "$1 km";
@@ -227,7 +227,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historijski događaj|$1 historijska događaja|$1 historijskih događaja}}";
 "on-this-day-footer" = "Više historijskih događaja na današnji dan";
 "on-this-day-title" = "Na današnji dan";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Odustani";
 "page-edit-history" = "Cjelokupna historija izmjena";
 "page-history-title" = "Historija članka";
@@ -243,22 +242,18 @@
 "page-similar-titles" = "Slične stranice";
 "pictured" = "na slici";
 "places-accessibility-clear-saved-searches" = "Očisti sačuvane pretrage";
-"places-accessibility-close-search" = "Zatvori pretragu";
 "places-accessibility-group" = "$1 članaka";
 "places-accessibility-recenter-map-on-user-location" = "Ponovo centriraj na mojoj lokaciji";
 "places-accessibility-show-as-list" = "Prikaži kao spisak";
 "places-accessibility-show-as-map" = "Prikaži kao kartu";
 "places-accessibility-show-more" = "Prikaži više članaka";
-"places-dismiss-filter-list-accessibility-label" = "Sakrij filtere za pretragu";
 "places-empty-search-description" = "Istražite gradove, države, kontinente, prirodne znamenitosti, historijske događaje, građevine i drugo.";
 "places-empty-search-title" = "Pretražite Wikipedijine članke s geografskim lokacijama";
 "places-enable-location-action-button-title" = "Uključi lociranje";
 "places-enable-location-description" = "Pristup Vašoj lokaciji dostupan je samo kad je aplikacija ili neka od njenih funkcija vidljiva na ekranu.";
 "places-enable-location-title" = "Istražite članke blizu Vaše lokacije tako što ćete omogućiti pristup lokaciji";
-"places-filter-list-title" = "Filteri za pretragu";
 "places-filter-no-saved-places" = "Nemate sačuvanih mjesta";
 "places-filter-saved-articles" = "Sačuvani članci";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|Pronađeno je $1 mjesto|Pronađena su $1 mjesta|Pronađeno je $1 mjesta}}";
 "places-filter-top-articles" = "Najčitanije";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 članak|$1 članka|$1 članaka}}";
 "places-no-saved-articles-have-location" = "Nijedan od Vaših sačuvanih članaka nema informacije o lokaciji";
@@ -272,7 +267,6 @@
 "places-search-top-articles" = "Svi najčitaniji članci";
 "places-search-top-articles-that-match-scope" = "U blizini";
 "places-search-your-current-location" = "Vaša trenutna lokacija";
-"places-show-filter-list-accessibility-label" = "Prikaži filtere za pretragu";
 "places-title" = "Mjesta";
 "places-unknown-distance" = "nepoznata udaljenost";
 "potd-description-prefix" = "Slika dana za $1";

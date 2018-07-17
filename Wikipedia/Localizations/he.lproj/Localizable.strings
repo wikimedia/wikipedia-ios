@@ -22,6 +22,9 @@
 "about-libraries-complete-list" = "רשימה מלאה";
 "about-libraries-license" = "רישיון";
 "about-libraries-licenses-title" = "אנחנו אוהבים תכנת קוד פתוח $1";
+"about-places-maps-license" = "רישיון המפות של המקומות";
+"about-places-maps-license-details" = "מקומות המשתמשים במפות שסופקו על־ידי יישומון המפות של Apple.‏ $1.";
+"about-places-maps-license-details-link-text" = "פרטי הרישיון מופיעים כאן";
 "about-product-of" = "נוצר על־ידי $1 בעזרת מתנדבים כמוך";
 "about-repositories" = "מאגרים";
 "about-repositories-app-source-license" = "קוד המקור זמין לפי תנאי $1.";
@@ -75,7 +78,7 @@
 "alert-no-internet" = "אין חיבור אינטרנט";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
-"app-store-release-notes" = "עכשיו אפשר לארגן את הערכים השמורים ברשימות קריאה ולסנכרן אותם בין מכשירים.";
+"app-store-release-notes" = "הזנת ה\"לחקור\" ניתנת להתאמה אישית וקל יותר לקרוא אותה. שיפורי מיקום, ביצועים ותיקוני באגים.";
 "app-store-short-description" = "הורידו את האפליקציה של ויקיפדיה כדי לגלות מקומות בסביבתכם, לסנכרן ערכים לקריאה ללא חיבור לרשת ולהתאים אישית את חוויית הקריאה שלכם.";
 "app-store-subtitle" = "האנציקלופדיה החופשית";
 "appearance-settings-adjust-text-sizing" = "כוונון גודל טקסט הערך";
@@ -84,7 +87,7 @@
 "appearance-settings-image-dimming-footer" = "הפחתת העמימות של התמונות בערכת הנושא החשוכה";
 "appearance-settings-reading-themes" = "ערכות נושא לקריאה";
 "appearance-settings-set-automatic-table-opening" = "הגדרות טבלה";
-"appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק לעיל כדי לשנות את גודל טקסט הערך. השתמשו בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
+"appearance-settings-text-sizing-example-text" = "יש לגרור את המחלק כדי לשנות את גודל טקסט הערך. ניתן להשתמש בגודל הטקסט של המערכת כדי לקבוע את גודל הטקסט באזורים אחרים של היישום.";
 "appearance-settings-theme-options" = "אפשרויות ערכת נושא";
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
@@ -140,6 +143,7 @@
 "error-unknown" = "אירעה שגיאה בלתי־ידועה";
 "explore-another-random" = "ערך אקראי נוסף";
 "explore-because-you-read" = "כי קראת";
+"explore-because-you-read-footer" = "ערכים קשורים נוספים";
 "explore-continue-reading-heading" = "המשך קריאה";
 "explore-enable-location-title" = "לגלות ערכים ליד המיקום הנוכחי שלך";
 "explore-featured-article-heading" = "ערך מומלץ";
@@ -186,12 +190,11 @@
 "explore-feed-preferences-top-read-description" = "הערכים הנקראים ביותר ביום";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "כיבוי ההזנה \"לחקור\"";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "לכבות את ההזנה \"לחקור\"?";
-"explore-feed-preferences-turn-off-feed" = "כיבוי הלשונית \"לחקור\"";
 "explore-feed-preferences-turn-off-feed-disclosure" = "כיבוי הלשונית \"לחקור\" יגרום להחלפתו בלשונית הגדרות.";
 "explore-hide-card-prompt" = "הסתרת כרטיס זה";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
-"explore-most-read-footer-for-date" = "כל הערכים שנקראו הכי הרבה ב־$1";
+"explore-most-read-footer" = "כל הערכים שנקראו הכי הרבה";
 "explore-most-read-generic-heading" = "הערכים הנקראים ביותר";
 "explore-most-read-more-list-title-for-date" = "מוביל ב־$1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "בוויקיפדיה בשפה $1";
@@ -204,6 +207,8 @@
 "explore-potd-heading" = "תמונת היום";
 "explore-potd-sub-heading" = "מתוך ויקישיתוף";
 "explore-random-article-heading" = "ערך אקראי";
+"explore-random-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה בשפה $1";
+"explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
@@ -255,9 +260,9 @@
 "home-button-popover-title" = "ללחוץ כאן כדי לחזור לבית";
 "home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
 "home-more-like-footer" = "עוד כמו $1";
-"home-nearby-footer" = "עוד דברים בסביבה";
+"home-nearby-footer" = "מקומות נוספים ליד המיקום שלך";
 "home-nearby-location-footer" = "עוד בסביבת $1";
-"home-news-footer" = "עוד בחדשות";
+"home-news-footer" = "אירועים אקטואליים נוספים";
 "home-reading-list-prompt" = "עכשיו אפשר לארגן את הערכים ששמרת ברשימות קריאה ולסנכרן אותם בין מכשירים. יש להיכנס לחשבון כדי לשמור את רשימות הקריאה בהעדפות המשתמש שלך.";
 "home-themes-action-title" = "ניהול העדפות";
 "home-themes-prompt" = "קִבעו את העדפות הקריאה שלכם, כולל גודל האותיות וערכת הנושא, בסרגל הכלים או בהעדפות המשתמש שלכם, לחוויית קריאה נוחה יותר.";
@@ -304,7 +309,6 @@
 "main-menu-title" = "עוד";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "menu-cancel-accessibility-label" = "ביטול";
-"menu-trash-accessibility-label" = "מחיקה";
 "more-languages-tooltip-description" = "חיפוש בוויקיפדיה בכמעט 300 שפות";
 "more-languages-tooltip-title" = "הוספת שפות";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
@@ -322,8 +326,8 @@
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
+"on-this-day-footer-with-event-count" = "$1 אירועים היסטוריים נוספים ביום הזה";
 "on-this-day-title" = "ביום הזה";
-"onboarding-wikipedia" = "ויקיפדיה";
 "open-link-cancel" = "ביטול";
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-title" = "היסטוריית הערך";
@@ -340,22 +344,18 @@
 "page-talk-page" = "הצגת דף השיחה";
 "pictured" = "בתמונה";
 "places-accessibility-clear-saved-searches" = "ניקוי חיפושים שמורים";
-"places-accessibility-close-search" = "סגירת חיפוש";
 "places-accessibility-group" = "$1 ערכים";
 "places-accessibility-recenter-map-on-user-location" = "לאחרונה במיקומך";
 "places-accessibility-show-as-list" = "להציג כרשימה";
 "places-accessibility-show-as-map" = "להציג כמפה";
 "places-accessibility-show-more" = "הצגת ערכים נוספים";
-"places-dismiss-filter-list-accessibility-label" = "ביטול מסנני חיפוש";
 "places-empty-search-description" = "לגלות ערים, מדינות, יבשות, אתרי טבע, אירועים היסטוריים, בניינים, ועוד.";
 "places-empty-search-title" = "חיפוש ערכי ויקיפדיה עם מקומות גאוגרפיים";
 "places-enable-location-action-button-title" = "להפעיל מיקום";
 "places-enable-location-description" = "גישה למיקומך אפשרית רק כשהאפליקציה או אחת התכונות שלה נראות על המסך.";
 "places-enable-location-title" = "לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
-"places-filter-list-title" = "מסנני חיפוש";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|נמצא מקום אחד|נמצאו $1 מקומות}}";
 "places-filter-top-articles" = "ערכים מובילים";
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
@@ -369,7 +369,6 @@
 "places-search-top-articles" = "כל הערכים המובילים";
 "places-search-top-articles-that-match-scope" = "בסביבה";
 "places-search-your-current-location" = "המיקום הנוכחי שלך";
-"places-show-filter-list-accessibility-label" = "הצגת מסנני חיפוש";
 "places-title" = "מקומות";
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";
@@ -473,6 +472,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "ביטול השמירה של {{PLURAL:$1|הערך הזה תגרום להסרתו|הערכים האלה תגרום להסרתם}} מכל רשימות הקריאה המשויכות {{PLURAL:$1|אליו|אליהם}}";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "לבטל את השמירה של {{PLURAL:$1|הערך|הערכים}}?";
 "search-button-accessibility-label" = "חיפוש בוויקיפדיה";
+"search-clear-title" = "ניקוי";
 "search-did-you-mean" = "האם התכוונת לחפש $1?";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
 "search-reading-list-placeholder-text" = "חיפוש ברשימת קריאה";

@@ -73,7 +73,8 @@
 "explore-featured-article-heading" = "အထူးဆောင်းပါး";
 "explore-main-page-description" = "ဝီကီမီဒီယာပရောဂျက်များ၏ ပင်မစာမျက်နှာ";
 "explore-main-page-heading" = "ယနေ့အတွက် ဝီကီပီးဒီးယား";
-"explore-most-read-footer-for-date" = "$1 ရှိ ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ အားလုံး";
+// Fuzzy
+"explore-most-read-footer" = "ဖတ်ရှုမှု အများဆုံး ဆောင်းပါးများ အားလုံး";
 "explore-most-read-generic-heading" = "ဖတ်ရှုမှု အများဆုံး";
 "explore-most-read-more-list-title-for-date" = "$1 ရှိ ထိပ်ဆုံး";
 "explore-nearby-heading" = "အနီးအနား နေရာများ";
@@ -151,7 +152,6 @@
 "main-menu-title" = "ပို၍";
 "main-menu-zero-faq" = "ဝီကီပီးဒီးယားသုည FAQ";
 "menu-cancel-accessibility-label" = "မလုပ်တော့ပါ";
-"menu-trash-accessibility-label" = "ဖျက်​ပါ​";
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
 "nearby-distance-label-feet" = "$1 ပေ";
@@ -164,7 +164,6 @@
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
-"onboarding-wikipedia" = "ဝီကီပီးဒီးယား";
 "open-link-cancel" = "မလုပ်တော့ပါ";
 "page-edit-history" = "တည်းဖြတ်မှုမှတ်တမ်း အပြည့်အစုံ";
 "page-history-title" = "ဆောင်းပါး ရာဇဝင်";

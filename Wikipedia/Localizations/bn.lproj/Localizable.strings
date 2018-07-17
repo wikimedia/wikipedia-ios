@@ -71,6 +71,7 @@
 "add-articles-to-reading-list" = "পড়ার তালিকায় $1 যোগ করুন";
 "alert-no-internet" = "ইন্টারনেট সংযোগ নেই";
 "announcements-dismiss" = "খারিজ";
+"app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
 "appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
 "appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
@@ -127,20 +128,28 @@
 "explore-continue-reading-heading" = "পড়া অব্যাহত রাখুন";
 "explore-enable-location-title" = "আপনার বর্তমান অবস্থানের কাছাকাছি নিবন্ধসমূহ অন্বেষণ করুন";
 "explore-featured-article-heading" = "নির্বাচিত নিবন্ধ";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
+"explore-featured-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "বন্ধ";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "চালু";
 "explore-main-page-description" = "উইকিমিডিয়া প্রকল্পের প্রধান পাতা";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
-"explore-most-read-footer-for-date" = "$1 তারিখে সকল সর্বাধিক পঠিত নিবন্ধসমূহ";
+// Fuzzy
+"explore-most-read-footer" = "সর্বাধিক পঠিত নিবন্ধগুলি";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
 "explore-most-read-more-list-title-for-date" = "$1 শীর্ষ পঠিত";
+"explore-most-read-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
+"explore-most-read-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-placeholder-heading" = "স্থান";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-sub-heading-your-location" = "আপনার অবস্থান";
 "explore-potd-heading" = "আজকের নির্বাচিত ছবি";
+"explore-potd-sub-heading" = "উইকিমিডিয়া কমন্স থেকে";
 "explore-random-article-heading" = "অজানা যে-কোনো নিবন্ধ";
+"explore-random-article-sub-heading-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
+"explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
 "feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
@@ -190,8 +199,9 @@
 "home-button-popover-title" = "প্রধান পাতায় যেতে টোকা দিন";
 "home-button-saved-accessibility-label" = "উইকিপিডিয়া, সংরক্ষণে ফেরত যান";
 "home-more-like-footer" = "$1 এর মতো আরও";
-"home-nearby-footer" = "আপনার কাছাকাটি অবস্থান থেকে আরও";
+"home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
+// Fuzzy
 "home-news-footer" = "সংবাদে আরো";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
@@ -204,6 +214,8 @@
 "in-the-news-notification-read-now-action-title" = "এখন পড়ুন";
 "in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "in-the-news-notification-share-action-title" = "বণ্টন...";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
+"in-the-news-sub-title-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "in-the-news-title" = "সংবাদে";
 "info-box-close-text" = "বন্ধ";
 "info-box-title" = "দ্রুত তথ্য";
@@ -234,7 +246,6 @@
 "main-menu-title" = "আরও";
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
 "menu-cancel-accessibility-label" = "বাতিল";
-"menu-trash-accessibility-label" = "অপসারণ";
 "more-languages-tooltip-description" = "প্রায় ৩০০টি ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
@@ -250,7 +261,6 @@
 "number-thousands" = "$1 হাজার";
 "on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
 "on-this-day-title" = "আজকের এই দিনে";
-"onboarding-wikipedia" = "উইকিপিডিয়া";
 "open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
 "page-history-title" = "নিবন্ধের ইতিহাস";
@@ -266,19 +276,16 @@
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
 "page-talk-page" = "আলাপ পাতা দেখুন";
 "places-accessibility-clear-saved-searches" = "সংরক্ষিত অনুসন্ধানগুলি সাফ করুন";
-"places-accessibility-close-search" = "অনুসন্ধান বন্ধ করুন";
 "places-accessibility-group" = "$1টি নিবন্ধ";
 "places-accessibility-recenter-map-on-user-location" = "আপনার অবস্থান পুন:চিহ্নিত করুন";
 "places-accessibility-show-as-list" = "তালিকা হিসাবে দেখাও";
 "places-accessibility-show-as-map" = "মানচিত্র হিসাবে দেখাও";
 "places-accessibility-show-more" = "আরও নিবন্ধ দেখান";
-"places-dismiss-filter-list-accessibility-label" = "অনুসন্ধান ছাঁকনি খারিজ করুন";
 "places-empty-search-description" = "শহর, দেশ, মহাদেশ, বিশেষ প্রাকৃতিক স্থান, ঐতিহাসিক ঘটনা, ভবন ও আরও অনেক কিছু অন্বেষণ করুন।";
 "places-empty-search-title" = "উইকিপিডিয়ার ভৌগোলিক অবস্থান যুক্ত পৃষ্ঠাসমূহের জন্য অনুসন্ধান করুন";
 "places-enable-location-action-button-title" = "অবস্থান সক্রিয় করুন";
-"places-filter-list-title" = "সন্ধানের ছাঁকনি";
+"places-filter-button-title" = "ছাঁকনি";
 "places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1টি স্থান}} পাওয়া গেছে";
 "places-filter-top-articles" = "শীর্ষ পঠিত";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1টি নিবন্ধ}}";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
@@ -291,7 +298,6 @@
 "places-search-top-articles" = "সব শীর্ষ নিবন্ধ";
 "places-search-top-articles-that-match-scope" = "কাছাকাছি";
 "places-search-your-current-location" = "আপনার বর্তমান অবস্থান";
-"places-show-filter-list-accessibility-label" = "সন্ধানের ছাঁকনি দেখান";
 "places-title" = "স্থান";
 "places-unknown-distance" = "অজানা দূরত্ব";
 "potd-description-prefix" = "$1 তারিখে আজকের নির্বাচিত ছবি";
@@ -317,6 +323,7 @@
 "saved-search-default-text" = "অনুসন্ধান";
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
+"search-clear-title" = "পরিষ্কার করুন";
 "search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
 "search-recent-clear-cancel" = "বাতিল";

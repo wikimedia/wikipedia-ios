@@ -79,6 +79,7 @@
 "appearance-settings-image-dimming-footer" = "Giảm độ mờ hình ảnh trên giao diện tối";
 "appearance-settings-reading-themes" = "Giao diện đọc";
 "appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Kéo con trượt bên trên để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
 "article-about-title" = "Thông tin về bài viết";
@@ -140,7 +141,8 @@
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
-"explore-most-read-footer-for-date" = "Danh sách bài được đọc nhiều nhất $1";
+// Fuzzy
+"explore-most-read-footer" = "Danh sách bài được đọc nhiều nhất";
 "explore-most-read-generic-heading" = "Bài đọc nhiều nhất";
 "explore-most-read-more-list-title-for-date" = "Hạng nhất vào $1";
 "explore-nearby-heading" = "Địa điểm gần";
@@ -201,8 +203,10 @@
 "home-button-popover-title" = "Chạm để quay lại đầu";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
 "home-more-like-footer" = "Thêm bài tương tự $1";
+// Fuzzy
 "home-nearby-footer" = "Thêm bài gần vị trí của bạn";
 "home-nearby-location-footer" = "Thêm mục gần $1";
+// Fuzzy
 "home-news-footer" = "Thêm tin tức";
 "home-themes-action-title" = "Thiết lập";
 "home-themes-prompt" = "Điều chỉnh tùy chọn Đọc bài, thí dụ kích thước văn bản và giao diện, dùng thanh công cụ bài viết hoặc trong Cài đặt để đọc bài một cách thoải mái hơn.";
@@ -246,7 +250,6 @@
 "main-menu-title" = "Khác";
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
-"menu-trash-accessibility-label" = "Xóa";
 "more-languages-tooltip-description" = "Tìm kiếm Wikipedia trong gần 300 ngôn ngữ";
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
@@ -265,7 +268,6 @@
 "on-this-day-detail-header-title" = "$1 sự kiện trong lịch sử";
 "on-this-day-footer" = "Thêm sự kiện xảy ra ngày nay năm xưa";
 "on-this-day-title" = "Ngày này năm xưa";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Hủy bỏ";
 "page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "page-history-title" = "Lịch sử trang";
@@ -282,22 +284,18 @@
 "page-talk-page" = "Xem trang thảo luận";
 "pictured" = "hình";
 "places-accessibility-clear-saved-searches" = "Xóa các tìm kiếm đã lưu";
-"places-accessibility-close-search" = "Đóng tìm kiếm";
 "places-accessibility-group" = "$1 bài";
 "places-accessibility-recenter-map-on-user-location" = "Tập trung lại vào vị trí của bạn";
 "places-accessibility-show-as-list" = "Xem danh sách";
 "places-accessibility-show-as-map" = "Xem trên bản đồ";
 "places-accessibility-show-more" = "Xem thêm bài";
-"places-dismiss-filter-list-accessibility-label" = "Tắt các bộ lọc tìm kiếm";
 "places-empty-search-description" = "Thám hiểm các thành phố, quốc gia, lục địa, địa mạo, sự kiện lịch sử, tòa nhà, và nhiều thứ khác.";
 "places-empty-search-title" = "Tìm kiếm các bài Wikipedia có địa điểm";
 "places-enable-location-action-button-title" = "Kích hoạt vị trí";
 "places-enable-location-description" = "Ứng dụng chỉ có truy cập vị trí của bạn khi nào ứng dụng hoặc một trong những tính năng của nó xuất hiện trên màn hình.";
 "places-enable-location-title" = "Kích hoạt dịch vụ định vị để thám hiểm các bài gần vị trí của bạn";
-"places-filter-list-title" = "Bộ lọc tìm kiếm";
 "places-filter-no-saved-places" = "Bạn chưa lưu địa điểm nào";
 "places-filter-saved-articles" = "Bài viết đa lưu";
-"places-filter-saved-articles-count" = "Đã tìm thấy $1 địa điểm";
 "places-filter-top-articles" = "Bài đọc nhiều nhất";
 "places-filter-top-articles-count" = "$1 bài";
 "places-no-saved-articles-have-location" = "Chưa lưu bài nào có thông tin địa điểm";
@@ -311,7 +309,6 @@
 "places-search-top-articles" = "Tất cả các bài đọc nhiều nhất";
 "places-search-top-articles-that-match-scope" = "Lân cận";
 "places-search-your-current-location" = "Vị trí hiện tại của bạn";
-"places-show-filter-list-accessibility-label" = "Hiển thị bộ lọc tìm kiếm";
 "places-title" = "Địa điểm";
 "places-unknown-distance" = "tầm xa không rõ";
 "potd-description-prefix" = "Hình trong ngày cho $1";
