@@ -233,7 +233,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
+
     WMFArticleNavigationController *exploreNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self exploreViewController]];
     exploreNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     WMFArticleNavigationController *placesNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self placesViewController]];
@@ -244,9 +244,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     historyNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
     WMFArticleNavigationController *searchNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self searchViewController]];
     searchNavC.tabBarItem.image = [UIImage imageNamed:@"search"];
-    
+
     NSArray<WMFArticleNavigationController *> *navigationControllers = @[exploreNavC, placesNavC, savedNavC, historyNavC, searchNavC];
     for (WMFArticleNavigationController *navC in navigationControllers) {
+        navC.extendedLayoutIncludesOpaqueBars = YES;
+        navC.automaticallyAdjustsScrollViewInsets = NO;
         [navC setNavigationBarHidden:YES animated:NO];
     }
     [self setViewControllers:navigationControllers animated:NO];
@@ -1284,7 +1286,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         _savedViewController.dataStore = self.dataStore;
     }
     return _savedViewController;
-    
 }
 
 - (WMFHistoryViewController *)recentArticlesViewController {
@@ -1730,7 +1731,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
