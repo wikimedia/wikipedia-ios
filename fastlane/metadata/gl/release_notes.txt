@@ -1,0 +1,1 @@
+Os artigos gardados agora poden organizarse en listas de lectura e sincronizarse entre dispositivos.
