@@ -36,13 +36,14 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     }
     
     private func imageScaleAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let source = toVC as? ImageScaleTransitionSourceProviding ?? fromVC as? ImageScaleTransitionSourceProviding,
-            let destination = fromVC as? ImageScaleTransitionDestinationProviding ?? toVC as? ImageScaleTransitionDestinationProviding else {
-
-                return nil
-        }
-        return ImageScaleTransitionController(source: source, destination: destination)
+        return nil
+//        guard
+//            let source = toVC as? ImageScaleTransitionSourceProviding ?? fromVC as? ImageScaleTransitionSourceProviding,
+//            let destination = fromVC as? ImageScaleTransitionDestinationProviding ?? toVC as? ImageScaleTransitionDestinationProviding else {
+//
+//                return nil
+//        }
+//        return ImageScaleTransitionController(source: source, destination: destination)
     }
     
     @objc func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
