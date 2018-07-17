@@ -15,6 +15,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     var objectChanges: [WMFObjectChange] = []
     weak var delegate: CollectionViewUpdaterDelegate?
     
+    var isGranularUpdatingEnabled: Bool = true // when set to false, individual updates won't be pushed to the collection view, only reloadData()
+    
     required init(fetchedResultsController: NSFetchedResultsController<T>, collectionView: UICollectionView) {
         self.fetchedResultsController = fetchedResultsController
         self.collectionView = collectionView
@@ -67,6 +69,13 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         previousSectionCounts = sectionCounts
         sectionCounts = fetchSectionCounts()
+        
+        guard isGranularUpdatingEnabled else {
+            collectionView.reloadData()
+            delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            return
+        }
+        
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
@@ -117,7 +126,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
         guard !forceReload, sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
             collectionView.reloadData()
-            self.delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return
         }
         
