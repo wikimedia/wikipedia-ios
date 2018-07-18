@@ -212,9 +212,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     open func reload() {
         for (cell, item) in cellsToItemsThatNeedReloading {
-            guard shouldReload(item) else {
-                return
-            }
             item.updateDisclosureText(for: displayType)
             item.updateSubtitle(for: displayType)
             item.updateIsOn(for: displayType)
@@ -222,10 +219,6 @@ class BaseExploreFeedSettingsViewController: UIViewController {
             cell.subtitle = item.subtitle
             cell.disclosureSwitch.setOn(item.isOn, animated: true)
         }
-    }
-
-    open func shouldReload(_ item: ExploreFeedSettingsItem) -> Bool {
-        return true
     }
 
     @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
