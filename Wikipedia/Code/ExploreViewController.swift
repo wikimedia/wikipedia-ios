@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionSourceProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionSourceProviding, DetailTransitionSourceProviding {
     
     // MARK - UIViewController
     
@@ -305,7 +305,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - WMFImageScaleTransitionProviding
     
     var imageScaleTransitionView: UIImageView?
-    
+    var detailTransitionSourceRect: CGRect?
     
     // MARK - UICollectionViewDataSource
     
@@ -342,8 +342,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
-            imageScaleTransitionView = cell.imageView
+        if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
+            detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
         }
         let group = fetchedResultsController.object(at: indexPath)
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {

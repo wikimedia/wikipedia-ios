@@ -8,6 +8,10 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             return searchController
         }
         
+        if let detailController = detailAnimationController(for: operation, from: fromVC, to: toVC) {
+            return detailController
+        }
+        
         if let imageController = imageScaleAnimationController(for: operation, from: fromVC, to: toVC) {
             return imageController
         }
@@ -44,6 +48,24 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
 //                return nil
 //        }
 //        return ImageScaleTransitionController(source: source, destination: destination)
+    }
+    
+    private func detailAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard
+            let fromVC = fromVC as? ViewController,
+            let toVC = toVC as? ViewController
+        else {
+            return nil
+        }
+    
+        guard
+            let detail = toVC.navigationMode == .detail ? toVC : fromVC.navigationMode == .detail ? fromVC : nil,
+            let source = fromVC as? (DetailTransitionSourceProviding & UIViewController) ?? toVC as? (DetailTransitionSourceProviding & UIViewController)
+        else {
+            return nil
+        }
+        
+        return DetailTransition(detailViewController: detail, detailSourceViewController: source)
     }
     
     @objc func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
