@@ -30,6 +30,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
 @property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
 @property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
+@property (nonatomic, nullable) NSNumber *cachedCountOfVisibleContentGroupKinds;
 
 @end
 
@@ -540,6 +541,27 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self.operationQueue addOperation:op];
 }
 
+- (NSInteger)countOfVisibleContentGroupKinds {
+    if (self.cachedCountOfVisibleContentGroupKinds) {
+        return self.cachedCountOfVisibleContentGroupKinds.integerValue;
+    }
+    NSInteger count = 0;
+    for (NSNumber *isGlobalCardVisible in [self.globalCardPreferences allValues]) {
+        if (!isGlobalCardVisible.boolValue) {
+            continue;
+        }
+        count++;
+    }
+    for (id value in self.exploreFeedPreferences.allValues) {
+        if ([value isKindOfClass:[NSSet class]]) {
+            NSSet<NSNumber *> *contentGroupKindNumbers = (NSSet<NSNumber *> *)value;
+            count += contentGroupKindNumbers.count;
+            break;
+        }
+    }
+    self.cachedCountOfVisibleContentGroupKinds = [NSNumber numberWithInteger:count];
+    return count;
+}
 - (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;

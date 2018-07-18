@@ -17,6 +17,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 @property (nonatomic, getter=isBusy) BOOL busy;
 @property (nonatomic, weak, nullable) MWKDataStore *dataStore;
 @property (nonatomic, copy, nullable) NSArray<NSURL *> *siteURLs;
+@property (nonatomic, readonly) NSInteger countOfVisibleContentGroupKinds;
 
 - (void)startContentSources;
 - (void)stopContentSources;
