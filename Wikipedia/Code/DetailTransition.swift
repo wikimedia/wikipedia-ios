@@ -69,19 +69,27 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         } else {
             transform = scaleUp
         }
+        
+        let totalHeight = containerView.bounds.size.height
+        let tabBar = self.detailViewController.tabBarController?.tabBar
+        let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
+        let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
+        
         if isEnteringDetail {
             toSnapshot.transform = transform.inverted()
         } else {
             toSnapshot.alpha = 0
             toSnapshot.transform = transform
+            tabBar?.transform = tabBarHiddenTransform
+            tabBar?.isHidden = false
         }
         
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
             if isEnteringDetail {
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
-                    self.detailViewController.tabBarController?.tabBar.alpha = 0
-                })
+                tabBar?.transform = tabBarHiddenTransform
+            } else {
+                tabBar?.transform = .identity
             }
             toSnapshot.transform = .identity
             if isEnteringDetail {
@@ -96,7 +104,10 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toSnapshot.removeFromSuperview()
             fromSnapshot.removeFromSuperview()
             transitionContext.completeTransition(true)
-            self.detailViewController.tabBarController?.tabBar.alpha = 1
+            if isEnteringDetail {
+                tabBar?.isHidden = true
+            }
+            tabBar?.transform = .identity
         }
     }
     

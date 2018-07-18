@@ -37,10 +37,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             case .detail:
                 showsNavigationBar = false
                 ownsNavigationBar = false
-                hidesBottomBarWhenPushed = true
                 addCloseButton()
             default:
-                hidesBottomBarWhenPushed = false
                 removeCloseButton()
                 break
             }
