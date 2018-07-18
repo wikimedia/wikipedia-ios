@@ -392,16 +392,20 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
         return exploreFeedPreferences;
     }
-    NSMutableDictionary *newPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count];
-    for (NSURL *siteURL in self.preferredSiteURLs) {
-        [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
-    }
-    [newPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
-    [moc wmf_setValue:newPreferences forKey:WMFExploreFeedPreferencesKey];
+    [moc wmf_setValue:[self defaultExploreFeedPreferences] forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
     NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
     assert(preferences);
     return preferences;
+}
+
+- (NSDictionary *)defaultExploreFeedPreferences {
+    NSMutableDictionary *defaultExploreFeedPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count + 1];
+    for (NSURL *siteURL in self.preferredSiteURLs) {
+        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_articleDatabaseKey];
+    }
+    [defaultExploreFeedPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+    return defaultExploreFeedPreferences;
 }
 
 - (NSDictionary<NSNumber*, NSNumber*> *)defaultGlobalCardsPreferences {
