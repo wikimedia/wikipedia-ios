@@ -212,6 +212,9 @@ class BaseExploreFeedSettingsViewController: UIViewController {
 
     open func reload() {
         for (cell, item) in cellsToItemsThatNeedReloading {
+            guard shouldReload(item) else {
+                return
+            }
             item.updateDisclosureText(for: displayType)
             item.updateSubtitle(for: displayType)
             item.updateIsOn(for: displayType)
