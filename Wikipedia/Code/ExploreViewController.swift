@@ -570,6 +570,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         present(sheet, animated: true)
     }
 
+    private func save() {
+        do {
+            try self.dataStore.save()
+        } catch let error {
+            DDLogError("Error saving after cell customization update: \(error)")
+        }
+    }
+
     private func menuActionSheetForGroup(_ group: WMFContentGroup, in cell: ExploreCardCollectionViewCell) -> UIAlertController? {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
@@ -585,11 +593,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
             group.undoType = .single
             self.wantsDeleteInsertOnNexItemtUpdate = true
-            do {
-                try self.dataStore.save()
-            } catch let error {
-                DDLogError("Error saving after cell dismissal: \(error)")
-            }
+            self.save()
         }
         guard let title = group.headerTitle else {
             assertionFailure("Expected header title for group \(group.contentGroupKind)")
