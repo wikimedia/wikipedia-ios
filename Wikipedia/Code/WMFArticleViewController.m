@@ -743,7 +743,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     self.imageScaleTransitionView = self.headerImageView;
-    
+
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -880,7 +880,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (imageView) {
         self.headerImageView.image = imageView.image;
         self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
-        [self.webViewController showHeader];
+        if (self.headerImageView.image) {
+            [self.webViewController showHeader];
+        }
         [self.view layoutIfNeeded];
     }
 }
