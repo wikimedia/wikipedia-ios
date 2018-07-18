@@ -51,21 +51,12 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     }
     
     private func detailAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let fromVC = fromVC as? ViewController,
-            let toVC = toVC as? ViewController
-        else {
-            return nil
-        }
-    
-        guard
-            let detail = toVC.navigationMode == .detail ? toVC : fromVC.navigationMode == .detail ? fromVC : nil,
-            let source = fromVC as? (DetailTransitionSourceProviding & UIViewController) ?? toVC as? (DetailTransitionSourceProviding & UIViewController)
+        guard let source = fromVC as? (DetailTransitionSourceProviding & ViewController) ?? toVC as? (DetailTransitionSourceProviding & ViewController)
         else {
             return nil
         }
         
-        return DetailTransition(detailViewController: detail, detailSourceViewController: source)
+        return DetailTransition(detailSourceViewController: source)
     }
     
     @objc func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

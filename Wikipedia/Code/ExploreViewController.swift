@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionSourceProviding, DetailTransitionSourceProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
     
     // MARK - UIViewController
     
@@ -24,6 +24,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var wantsCustomSearchTransition: Bool {
         return true
     }
+    
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
@@ -302,9 +303,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.contentSizeCategoryDidChange(notification)
     }
     
-    // MARK - WMFImageScaleTransitionProviding
+    // MARK - ImageScaleTransitionProviding
     
     var imageScaleTransitionView: UIImageView?
+    
+    func prepareForIncomingImageScaleTransition(with imageView: UIImageView?) {
+        
+    }
+    
+    // MARK - DetailTransitionSourceProviding
+    
     var detailTransitionSourceRect: CGRect?
     
     // MARK - UICollectionViewDataSource
@@ -344,6 +352,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
             detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
+            if
+                let vc = cell.cardContent as? ExploreCardViewController,
+                vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
+            {
+                imageScaleTransitionView = cell.imageView
+            }
         }
         let group = fetchedResultsController.object(at: indexPath)
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
@@ -470,6 +485,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         
         if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
             imageScaleTransitionView = cell.imageView
+            detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
         }
     
         switch contentGroup.detailType {

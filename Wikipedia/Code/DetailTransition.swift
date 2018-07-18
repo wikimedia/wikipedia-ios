@@ -4,13 +4,18 @@ protocol DetailTransitionSourceProviding {
     var detailTransitionSourceRect: CGRect? { get }
 }
 
+@objc(WMFImageScaleTransitionProviding)
+protocol ImageScaleTransitionProviding {
+    var imageScaleTransitionView: UIImageView? { get }
+    @objc(prepareForIncomingImageScaleTransitionWithImageView:)
+    func prepareForIncomingImageScaleTransition(with imageView: UIImageView?)
+}
+
 class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let detailViewController: ViewController
-    let detailSourceViewController: DetailTransitionSourceProviding & UIViewController
+    let detailSourceViewController: DetailTransitionSourceProviding & ViewController
     
-    required init(detailViewController: ViewController, detailSourceViewController: DetailTransitionSourceProviding & UIViewController) {
-        self.detailViewController = detailViewController
+    required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController) {
         self.detailSourceViewController = detailSourceViewController
     }
     
@@ -26,13 +31,31 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
                 transitionContext.completeTransition(false)
                 return
         }
-        
-        let isEnteringDetail: Bool = toViewController === detailViewController
+    
+
+        let isEnteringDetail: Bool = fromViewController === detailSourceViewController
         let containerView = transitionContext.containerView
 
         let toFrame = transitionContext.finalFrame(for: toViewController)
         toViewController.view.frame = toFrame
         containerView.addSubview(toViewController.view)
+
+        let fromImageView: UIImageView?
+        let toImageView: UIImageView?
+        let isImageScaleTransitioning: Bool
+        
+        if let fromISTP = fromViewController as? ImageScaleTransitionProviding, let toISTP = toViewController as? ImageScaleTransitionProviding {
+            fromImageView = fromISTP.imageScaleTransitionView
+            toImageView = toISTP.imageScaleTransitionView
+            isImageScaleTransitioning = fromImageView != nil && toImageView != nil
+            if isImageScaleTransitioning {
+                toISTP.prepareForIncomingImageScaleTransition(with: fromImageView)
+            }
+        } else {
+            fromImageView = nil
+            toImageView = nil
+            isImageScaleTransitioning = false
+        }
         
         let fromFrame = transitionContext.initialFrame(for: fromViewController)
         
@@ -45,7 +68,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         let backgroundView = UIView()
-        backgroundView.backgroundColor = detailViewController.theme.colors.paperBackground
+        backgroundView.backgroundColor = detailSourceViewController.theme.colors.paperBackground
         backgroundView.frame = CGRect(origin: .zero, size: containerView.bounds.size)
         containerView.addSubview(backgroundView)
         
@@ -54,7 +77,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         containerView.addSubview(fromSnapshot)
         
-        if (isEnteringDetail) {
+        if isEnteringDetail {
             containerView.insertSubview(toSnapshot, belowSubview: fromSnapshot)
         } else {
             containerView.addSubview(toSnapshot)
@@ -62,16 +85,32 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         let transform: CGAffineTransform
         
-        let scaleUp = CGAffineTransform(scaleX: 1.25, y: 1.25)
-        if let rect = detailSourceViewController.detailTransitionSourceRect {
+        if isImageScaleTransitioning, let detailImageView = isEnteringDetail ? toImageView : fromImageView, let sourceImageView = isEnteringDetail ? fromImageView : toImageView {
+            let sourceFrame = containerView.convert(sourceImageView.frame, from: sourceImageView.superview)
+            let detailFrame = containerView.convert(detailImageView.frame, from: detailImageView.superview)
+            let deltaX = detailFrame.midX - sourceFrame.midX
+            let deltaY = detailFrame.midY - sourceFrame.midY
+            let scaleX = detailFrame.size.width / sourceFrame.size.width
+            let scaleY = detailFrame.size.height / sourceFrame.size.height
+            if abs(scaleX - scaleY) < 0.1 || max(scaleX, scaleY) > 1.5 || min(scaleX, scaleY) < 0.5 {
+                let scale = CGAffineTransform(scaleX: 1.25, y: 1.25)
+                let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
+                transform = scale.concatenating(delta)
+            } else {
+                let scale = CGAffineTransform(scaleX: scaleX, y: scaleY)
+                let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
+                transform = scale.concatenating(delta)
+            }
+        } else if let rect = detailSourceViewController.detailTransitionSourceRect {
+            let scaleUp = CGAffineTransform(scaleX: 1.25, y: 1.25)
             let translation = CGAffineTransform(translationX: detailSourceViewController.view.bounds.midX - rect.midX, y:  detailSourceViewController.view.bounds.midY - rect.midY)
             transform = scaleUp.concatenating(translation)
         } else {
-            transform = scaleUp
+            transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
         }
         
         let totalHeight = containerView.bounds.size.height
-        let tabBar = self.detailViewController.tabBarController?.tabBar
+        let tabBar = self.detailSourceViewController.tabBarController?.tabBar
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
         
@@ -80,15 +119,17 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         } else {
             toSnapshot.alpha = 0
             toSnapshot.transform = transform
-            tabBar?.transform = tabBarHiddenTransform
-            tabBar?.isHidden = false
+            if !fromViewController.hidesBottomBarWhenPushed {
+                tabBar?.transform = tabBarHiddenTransform
+                tabBar?.isHidden = false
+            }
         }
         
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
-            if isEnteringDetail {
+            if isEnteringDetail && !toViewController.hidesBottomBarWhenPushed {
                 tabBar?.transform = tabBarHiddenTransform
-            } else {
+            } else if !isEnteringDetail && !fromViewController.hidesBottomBarWhenPushed {
                 tabBar?.transform = .identity
             }
             toSnapshot.transform = .identity
