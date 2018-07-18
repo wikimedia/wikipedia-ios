@@ -104,7 +104,7 @@ extension OnThisDayViewController {
         return onThisDayCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard
             indexPath.section == 0,
             kind == UICollectionElementKindSectionHeader,

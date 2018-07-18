@@ -65,15 +65,18 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         button.addTarget(self, action: #selector(close), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
-        let topAnchor = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
-        let trailingAnchor = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
-        view.addConstraints([topAnchor, trailingAnchor])
+        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
+        button.addConstraints([height, width])
+        let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        view.addConstraints([top, trailing])
         closeButton = button
         applyThemeToCloseButton()
     }
     
     private func applyThemeToCloseButton() {
-        closeButton?.tintColor = theme.colors.secondaryText
+        closeButton?.tintColor = theme.colors.tertiaryText
     }
     
     private func removeCloseButton() {

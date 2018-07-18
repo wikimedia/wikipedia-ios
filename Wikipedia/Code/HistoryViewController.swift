@@ -1,11 +1,8 @@
 import UIKit
 import WMF
 
-fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
-
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    var headerLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -23,7 +20,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         emptyViewType = .noHistory
         
         title = CommonStrings.historyTabTitle
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
@@ -57,7 +53,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headerLayoutEstimate = nil
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
@@ -72,11 +67,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionElementKindSectionHeader else {
             return UICollectionReusableView()
         }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
         guard let headerView = view as? CollectionViewHeader else {
             return view
         }
@@ -107,11 +102,14 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        if let estimate = headerLayoutEstimate {
+        let userInfo = "universal"
+        let reuseIdentifier = CollectionViewHeader.identifier
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
+        if let height = layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
+            estimate.height = height
             return estimate
         }
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
         let title = titleForHeaderInSection(section)
@@ -120,7 +118,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         placeholder.title = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
-        headerLayoutEstimate = estimate
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
 }

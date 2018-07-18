@@ -9,7 +9,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
@@ -29,9 +28,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
-    lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
-       return ColumnarCollectionViewControllerLayoutCache()
-    }()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -323,7 +319,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionElementKindSectionHeader else {
             abort()
         }
