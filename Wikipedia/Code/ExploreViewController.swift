@@ -625,7 +625,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
                 return
         }
-        group.undoType = .none
+        defer {
+            group.undoType = .none
+            save()
+            wantsDeleteInsertOnNexItemtUpdate = true
+        }
+        if group.undoType == .contentGroupKind {
+            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true)
+        }
     }
     
 }
