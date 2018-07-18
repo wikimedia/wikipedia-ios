@@ -38,8 +38,8 @@ typedef NS_ENUM(int32_t, WMFContentGroupKind) {
 
 typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
     WMFContentGroupUndoTypeNone = 0,
-    WMFContentGroupUndoTypeAll = 1,
-    WMFContentGroupUndoTypeSingle = 2
+    WMFContentGroupUndoTypeContentGroupKind = 1,
+    WMFContentGroupUndoTypeContentGroup = 2
 };
 
 @interface WMFContentGroup (Extensions)
