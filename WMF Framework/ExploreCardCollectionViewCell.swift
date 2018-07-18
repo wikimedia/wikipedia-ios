@@ -138,7 +138,22 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
 
-    public var isCollapsed: Bool = false {
+    public var undoType: WMFContentGroupUndoType = .none {
+        didSet {
+            switch undoType {
+            case .none:
+                isCollapsed = false
+            case .contentGroup:
+                undoTitle = "Card hidden"
+                isCollapsed = true
+            case .contentGroupKind:
+                undoTitle = "All cards of type T hidden"
+                isCollapsed = true
+            }
+        }
+    }
+
+    private var isCollapsed: Bool = false {
         didSet {
             guard oldValue != isCollapsed else {
                 return
