@@ -234,7 +234,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         } else {
             if apply {
-                cardBackgroundView.frame = .zero
+                if isCollapsed {
+                    cardBackgroundView.frame = contentView.frame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
+                }
             }
         }
     
@@ -274,7 +276,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public func apply(theme: Theme) {
         contentView.tintColor = theme.colors.link
         cardBackgroundView.layer.borderColor = theme.colors.cardBorder.cgColor
-        setBackgroundColors(theme.colors.paperBackground, selected: theme.colors.midBackground)
+        let backgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.paperBackground
+        let selectedBackgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.midBackground
+        setBackgroundColors(backgroundColor, selected: selectedBackgroundColor)
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
         customizationButton.setTitleColor(theme.colors.link, for: .normal)
@@ -282,7 +286,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoLabel.textColor = theme.colors.primaryText
         undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
-        cardBackgroundView.backgroundColor = theme.colors.paperBackground
+        cardBackgroundView.backgroundColor = backgroundColor
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
     }
