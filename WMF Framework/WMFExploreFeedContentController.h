@@ -49,6 +49,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
 
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
+
 /**
  Toggles a content group of given kind on or off for a given siteURL.
 
