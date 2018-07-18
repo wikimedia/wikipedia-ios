@@ -92,7 +92,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             let deltaY = detailFrame.midY - sourceFrame.midY
             let scaleX = detailFrame.size.width / sourceFrame.size.width
             let scaleY = detailFrame.size.height / sourceFrame.size.height
-            if abs(scaleX - scaleY) < 0.1 || max(scaleX, scaleY) > 1.5 || min(scaleX, scaleY) < 0.5 {
+            if abs(scaleX - scaleY) > 0.1 || max(scaleX, scaleY) > 1.5 || min(scaleX, scaleY) < 0.5 {
                 let scale = CGAffineTransform(scaleX: 1.25, y: 1.25)
                 let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
                 transform = scale.concatenating(delta)
