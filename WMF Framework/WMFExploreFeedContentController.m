@@ -489,13 +489,15 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     } willTurnOnContentGroupOrLanguage:on];
 }
 
-- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed {
+- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
             [moc performBlock:^{
                 [moc wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
-                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                if (apply) {
+                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                }
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (updateFeed) {

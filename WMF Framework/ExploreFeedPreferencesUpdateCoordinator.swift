@@ -3,43 +3,47 @@
     private var oldExploreFeedPreferences = Dictionary<String, Any>()
     private var newExploreFeedPreferences = Dictionary<String, Any>()
     private var willTurnOnContentGroupOrLanguage = false
+    private var apply = false
+    private var updateFeed = false
 
     @objc public init(feedContentController: WMFExploreFeedContentController) {
         self.feedContentController = feedContentController
     }
 
-    @objc public func configure(oldExploreFeedPreferences: Dictionary<String, Any>, newExploreFeedPreferences: Dictionary<String, Any>, willTurnOnContentGroupOrLanguage: Bool) {
+    @objc public func configure(oldExploreFeedPreferences: Dictionary<String, Any>, newExploreFeedPreferences: Dictionary<String, Any>, willTurnOnContentGroupOrLanguage: Bool, apply: Bool, updateFeed: Bool) {
         self.oldExploreFeedPreferences = oldExploreFeedPreferences
         self.newExploreFeedPreferences = newExploreFeedPreferences
         self.willTurnOnContentGroupOrLanguage = willTurnOnContentGroupOrLanguage
+        self.apply = apply
+        self.updateFeed = updateFeed
     }
 
     @objc public func coordinateUpdate(from viewController: UIViewController) {
         if willTurnOnContentGroupOrLanguage {
             guard UserDefaults.wmf_userDefaults().defaultTabType == .settings else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             guard areAllLanguagesTurnedOff(in: oldExploreFeedPreferences) else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             guard areGlobalCardsTurnedOff(in: oldExploreFeedPreferences) else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             present(turnOnExploreAlertController, from: viewController)
         } else {
             guard UserDefaults.wmf_userDefaults().defaultTabType == .explore else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             guard areAllLanguagesTurnedOff(in: newExploreFeedPreferences) else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             guard areGlobalCardsTurnedOff(in: newExploreFeedPreferences) else {
-                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, updateFeed: true)
+                feedContentController.saveNewExploreFeedPreferences(newExploreFeedPreferences, apply: apply, updateFeed: updateFeed)
                 return
             }
             present(turnOffExploreAlertController, from: viewController)
@@ -50,7 +54,7 @@
         let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-title", value: "Turn off Explore feed?", comment: "Title for alert that allows user to decide whether they want to turn off Explore feed"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-message", value: "Hiding all Explore feed cards will turn off the Explore tab and replace it with a Settings tab", comment: "Message for alert that allows user to decide whether they want to turn off Explore feed"), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-feed-alert-action-title", value: "Turn off Explore feed", comment: "Title for action alert that allows user to turn off Explore feed"), style: .destructive, handler: { _ in
             UserDefaults.wmf_userDefaults().defaultTabType = .settings
-            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
+            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, apply: true, updateFeed: true)
         }))
         alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
             self.feedContentController.rejectNewExploreFeedPreferences()
@@ -62,7 +66,7 @@
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-feed-alert-message", value: "By choosing to show Explore feed cards you are turning on the Explore tab", comment: "Message for alert that allows user to decide whether they want to turn on Explore feed"), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
             UserDefaults.wmf_userDefaults().defaultTabType = .explore
-            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, updateFeed: true)
+            self.feedContentController.saveNewExploreFeedPreferences(self.newExploreFeedPreferences, apply: true, updateFeed: true)
         }))
         alertController.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in
             self.feedContentController.rejectNewExploreFeedPreferences()
