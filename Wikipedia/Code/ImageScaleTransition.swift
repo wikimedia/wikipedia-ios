@@ -1,19 +1,21 @@
 import UIKit
 
-@objc(WMFImageScaleTransitionProviding)
-protocol ImageScaleTransitionProviding {
+protocol ImageScaleTransitionSourceProviding {
     var imageScaleTransitionView: UIImageView? { get }
 }
 
-@objc(WMFImageScaleTransitionController)
+@objc(WMFImageScaleTransitionDestinationProviding)
+protocol ImageScaleTransitionDestinationProviding {
+    var imageScaleTransitionView: UIImageView? { get }
+}
+
 class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransitioning {
-    let fromImageView: UIImageView?
-    let toImageView: UIImageView?
+    let source: ImageScaleTransitionSourceProviding
+    let destination: ImageScaleTransitionDestinationProviding
     
-    @objc(initWithFromImageView:toImageView:)
-    init(fromImageView: UIImageView?, toImageView: UIImageView?) {
-        self.fromImageView = fromImageView
-        self.toImageView = toImageView
+    init(source: ImageScaleTransitionSourceProviding, destination: ImageScaleTransitionDestinationProviding) {
+        self.source = source
+        self.destination = destination
         super.init()
     }
     
@@ -25,15 +27,25 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         guard
             let toViewController = transitionContext.viewController(forKey: .to),
             let fromViewController = transitionContext.viewController(forKey: .from)
-            else {
+        else {
                 return
         }
         let containerView = transitionContext.containerView
         let toFinalFrame = transitionContext.finalFrame(for: toViewController)
         toViewController.view.frame = toFinalFrame
-        containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
         
-        guard let fromImageView = fromImageView, let toImageView = toImageView else {
+        let isTransitioningToDestination = toViewController === destination
+        
+        if isTransitioningToDestination {
+            containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
+        } else {
+            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+        }
+
+        guard
+            let fromImageView = self.source.imageScaleTransitionView,
+            let toImageView = self.destination.imageScaleTransitionView
+        else {
             transitionContext.completeTransition(true)
             return
         }
@@ -42,6 +54,17 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
             toImageView.image = fromImageView.image
         }
         toViewController.view.layoutIfNeeded()
+        
+        guard let fromSnapshot = fromViewController.view.snapshotView(afterScreenUpdates: true),
+            let toSnapshot = toViewController.view.snapshotView(afterScreenUpdates: true) else {
+            transitionContext.completeTransition(true)
+            return
+        }
+        toSnapshot.frame = toViewController.view.frame
+        fromSnapshot.frame = fromViewController.view.frame
+
+        containerView.addSubview(toSnapshot)
+        containerView.addSubview(fromSnapshot)
         
         let fromFrame = containerView.convert(fromImageView.frame, from: fromImageView.superview)
         let toFrame = containerView.convert(toImageView.frame, from: toImageView.superview)
@@ -53,43 +76,21 @@ class ImageScaleTransitionController: NSObject, UIViewControllerAnimatedTransiti
         let delta = CGAffineTransform(translationX: deltaX, y: deltaY)
         let transform = scale.concatenating(delta)
         
-        toViewController.view.transform = transform.inverted()
-        
+        toSnapshot.transform = transform.inverted()
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .allowUserInteraction, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1, animations: {
-                fromViewController.view.transform = transform
-                toViewController.view.transform = CGAffineTransform.identity
+                fromSnapshot.transform = transform
+                toSnapshot.transform = CGAffineTransform.identity
             })
             UIView.addKeyframe(withRelativeStartTime: 0.33, relativeDuration: 0.67, animations: {
-                fromViewController.view.alpha = 0
+                toSnapshot.alpha = isTransitioningToDestination ? 1 : 0
             })
         }) { (finished) in
+            toSnapshot.removeFromSuperview()
+            fromSnapshot.removeFromSuperview()
+            
             transitionContext.completeTransition(true)
-            fromViewController.view.alpha = 1
-            fromViewController.view.transform = CGAffineTransform.identity
         }
-        
-        
-        
-    }
-}
-
-
-@objc(WMFImageScaleTransitionDelegate)
-class ImageScaleTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    @objc static let shared = ImageScaleTransitionDelegate()
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let to = presented as? ImageScaleTransitionProviding,
-            let from = presenting as? ImageScaleTransitionProviding else {
-                return nil
-        }
-        return ImageScaleTransitionController(fromImageView: from.imageScaleTransitionView, toImageView: to.imageScaleTransitionView)
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
     }
 }

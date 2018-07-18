@@ -308,15 +308,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
-
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState
-                         animations:^{
-                             self.headerView.alpha = 1.f;
-                         }
-                         completion:^(BOOL done){
-                         }];
     }
 }
 
@@ -858,7 +849,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return;
     }
 
-    self.headerView.alpha = 0.f;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
