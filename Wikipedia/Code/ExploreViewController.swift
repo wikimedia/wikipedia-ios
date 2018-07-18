@@ -488,6 +488,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
         }
     
+        if let otdvc = vc as? OnThisDayViewController {
+            otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?.first as? WMFFeedOnThisDayEvent
+        }
+        
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
