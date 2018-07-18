@@ -25,9 +25,9 @@
         
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
-        let isFeedDisabledNumber = NSNumber(value: userDefaults.defaultTabType != .explore)
+        let isFeedDisabled = userDefaults.defaultTabType != .explore
         
-        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabledNumber]
+        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled]
         
         guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
             return event
