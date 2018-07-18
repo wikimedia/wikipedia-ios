@@ -424,6 +424,22 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn];
 }
 
+- (void)toggleAllContentGroupKinds:(BOOL)on {
+    [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
+        if (on) {
+            return self.defaultExploreFeedPreferences;
+        } else {
+            NSMutableDictionary<NSString *, id> *allTurnedOff = [NSMutableDictionary new];
+            NSMutableDictionary<NSNumber*, NSNumber*> *globalCardPreferences = [NSMutableDictionary new];
+            for (NSNumber *globalContentGroupKindNumber in [WMFExploreFeedContentController globalContentGroupKindNumbers]) {
+                [globalCardPreferences setObject:[NSNumber numberWithBool:NO] forKey:globalContentGroupKindNumber];
+            }
+            [allTurnedOff setObject:globalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
+            return allTurnedOff;
+        }
+    } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO];
+}
+
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSString *key = siteURL.wmf_articleDatabaseKey;
