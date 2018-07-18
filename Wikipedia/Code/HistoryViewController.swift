@@ -36,9 +36,19 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return "Recent"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = false
     }
     
     override func deleteAll() {

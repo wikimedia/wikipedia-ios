@@ -26,6 +26,30 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     open var showsNavigationBar: Bool = false
     var ownsNavigationBar: Bool = true
     
+    public enum NavigationMode {
+        case bar
+        case detail
+    }
+    
+    var navigationMode: NavigationMode = .bar {
+        didSet {
+            switch navigationMode {
+            case .detail:
+                showsNavigationBar = false
+                ownsNavigationBar = false
+                hidesBottomBarWhenPushed = true
+            default:
+                hidesBottomBarWhenPushed = false
+                break
+            }
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return navigationMode == .detail
+    }
+    
     open var scrollView: UIScrollView? {
         didSet {
             updateScrollViewInsets()
@@ -38,6 +62,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         apply(theme: theme)
         automaticallyAdjustsScrollViewInsets = false
         if #available(iOS 11.0, *) {
@@ -58,6 +83,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        guard navigationMode == .bar else {
+            return
+        }
         
         if let parentVC = parent as? ViewController {
             showsNavigationBar = true
@@ -140,17 +169,20 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             return
         }
         
-        var frame = CGRect.zero
+        var top: CGFloat
         if showsNavigationBar {
-            frame = navigationBar.frame
             if useNavigationBarVisibleHeightForScrollViewInsets {
-              frame.size.height = navigationBar.visibleHeight
+                top = navigationBar.visibleHeight
+            } else {
+                top = navigationBar.frame.maxY
             }
         } else if let navigationController = navigationController {
-            frame = navigationController.view.convert(navigationController.navigationBar.frame, to: view)
+            let navBarMaxY = navigationController.view.convert(navigationController.navigationBar.frame, to: view).maxY
+            top = max(navBarMaxY, view.layoutMargins.top)
+        } else {
+            top = view.layoutMargins.top
         }
         
-        var top = frame.maxY
         var safeInsets = UIEdgeInsets.zero
         if #available(iOS 11.0, *) {
             safeInsets = view.safeAreaInsets

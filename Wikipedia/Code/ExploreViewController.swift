@@ -38,9 +38,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         showOfflineEmptyViewIfNeeded()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = true
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopMonitoringReachability()
+        collectionViewUpdater.isGranularUpdatingEnabled = false
     }
     
     // MARK - NavBar
@@ -299,11 +305,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutCache.reset()
         super.contentSizeCategoryDidChange(notification)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        layoutCache.reset()
-    }
     
     // MARK - WMFImageScaleTransitionProviding
     
@@ -420,10 +421,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    private func cacheUserInfoForItem(at indexPath: IndexPath) -> String {
+        let group = fetchedResultsController.object(at: indexPath)
+        return "evc-cell-\(group.key ?? "")"
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let identifier = ExploreCardCollectionViewCell.identifier
-        let group = fetchedResultsController.object(at: indexPath)
-        let userInfo = "evc-cell-\(group.key ?? "")"
+        let userInfo = cacheUserInfoForItem(at: indexPath)
         if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
         }
@@ -515,6 +521,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        let identifier = ExploreCardCollectionViewCell.identifier
+        let userInfo = cacheUserInfoForItem(at: indexPath)
+        layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
         needsReloadVisibleCells = true
     }

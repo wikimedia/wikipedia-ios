@@ -129,22 +129,6 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     }
 }
 
-- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
-    if ([self.navigationDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
-        return [self.navigationDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
-    } else {
-        return self.supportedInterfaceOrientations;
-    }
-}
-
-- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
-    if ([self.navigationDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
-        return [self.navigationDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
-    } else {
-        return self.preferredInterfaceOrientationForPresentation;
-    }
-}
-
 - (nullable id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                                   interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     if ([self.navigationDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
