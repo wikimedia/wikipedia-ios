@@ -323,6 +323,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 return;
             }
             self.exploreFeedPreferences = newExploreFeedPreferences;
+            self.cachedCountOfVisibleContentGroupKinds = nil;
             [NSNotificationCenter.defaultCenter postNotificationName:WMFExploreFeedPreferencesDidSaveNotification object:self.exploreFeedPreferences];
         }
     }
