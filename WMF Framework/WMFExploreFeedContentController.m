@@ -580,6 +580,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroupKind) {
+            continue;
+        }
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             BOOL isGlobalCardVisible = [[self.globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
             contentGroup.isVisible = isGlobalCardVisible;
