@@ -66,7 +66,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
         undoLabel.numberOfLines = 0
-        undoLabel.text = "Hidden"
         undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
@@ -94,6 +93,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             }
             view.layer.cornerRadius = cardCornerRadius
             contentView.addSubview(view)
+        }
+    }
+
+    private var undoTitle: String? {
+        didSet {
+            undoLabel.text = undoTitle
         }
     }
     
