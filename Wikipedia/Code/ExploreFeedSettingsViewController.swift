@@ -226,6 +226,27 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
 
     // MARK: Toggling Explore feed
 
+    private var shoudUpdateDefaultTabTypeAfterCellsReload: Bool = false
+    private var newDefaultTabType: WMFAppDefaultTabType = .explore
+
+    override func shouldReload(_ item: ExploreFeedSettingsItem) -> Bool {
+        guard shoudUpdateDefaultTabTypeAfterCellsReload else {
+            return true
+        }
+        return !(item is ExploreFeedSettingsMaster)
+    }
+
+    override func reload() {
+        super.reload()
+        guard self.shoudUpdateDefaultTabTypeAfterCellsReload else {
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            UserDefaults.wmf_userDefaults().defaultTabType = self.newDefaultTabType
+        }
+        shoudUpdateDefaultTabTypeAfterCellsReload = false
+    }
+
     private func reloadMasterSwitch() {
         for (cell, item) in cellsToItemsThatNeedReloading {
             guard let master = item as? ExploreFeedSettingsMaster, master.type == .entireFeed else {
@@ -239,8 +260,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     private lazy var turnOnExploreAlertController: UIAlertController = {
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(true)
-            UserDefaults.wmf_userDefaults().defaultTabType = .explore
+            self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
+                self.shoudUpdateDefaultTabTypeAfterCellsReload = true
+                self.newDefaultTabType = .explore
+            }
         })
         alertController.addAction(turnOnExplore)
         alertController.addAction(cancelAction)
@@ -250,8 +273,10 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     private lazy var turnOffExploreAlertController: UIAlertController = {
         let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
-            self.dataStore?.feedContentController.toggleAllContentGroupKinds(false)
-            UserDefaults.wmf_userDefaults().defaultTabType = .settings
+            self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
+                self.shoudUpdateDefaultTabTypeAfterCellsReload = true
+                self.newDefaultTabType = .settings
+            }
         })
         alertController.addAction(turnOnExplore)
         alertController.addAction(cancelAction)

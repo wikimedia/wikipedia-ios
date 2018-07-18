@@ -221,6 +221,10 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         }
     }
 
+    open func shouldReload(_ item: ExploreFeedSettingsItem) -> Bool {
+        return true
+    }
+
     @objc open func exploreFeedPreferencesDidSave(_ notification: Notification) {
         DispatchQueue.main.async {
             self.reload()
