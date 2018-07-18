@@ -186,7 +186,8 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
+                                                [self updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:moc];
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
