@@ -110,27 +110,35 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         let totalHeight = containerView.bounds.size.height
-        let tabBar = self.detailSourceViewController.tabBarController?.tabBar
+        let tabBar = isImageScaleTransitioning ? nil : self.detailSourceViewController.tabBarController?.tabBar // isImageScaleTransitioning ? is hack to disable for article transition
+        let tabBarSnapshot = tabBar?.snapshotView(afterScreenUpdates: false)
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
+        if let tb = tabBar, let tbs = tabBarSnapshot {
+            tabBar?.isHidden = true
+            tbs.frame = CGRect(x: 0, y: containerView.frame.height - tb.frame.height, width: tb.frame.width, height: tb.frame.height) // hack, it's already positioned off screen here
+            if !isEnteringDetail {
+               tbs.transform = tabBarHiddenTransform
+            }
+            containerView.addSubview(tbs)
+        }
+      
         
         if isEnteringDetail {
             toSnapshot.transform = transform.inverted()
         } else {
             toSnapshot.alpha = 0
             toSnapshot.transform = transform
-            if !fromViewController.hidesBottomBarWhenPushed {
-                tabBar?.transform = tabBarHiddenTransform
-                tabBar?.isHidden = false
-            }
         }
         
         let duration = self.transitionDuration(using: transitionContext)
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: [], animations: {
-            if isEnteringDetail && !toViewController.hidesBottomBarWhenPushed {
-                tabBar?.transform = tabBarHiddenTransform
-            } else if !isEnteringDetail && !fromViewController.hidesBottomBarWhenPushed {
-                tabBar?.transform = .identity
+            if let tbs = tabBarSnapshot {
+                if isEnteringDetail {
+                    tbs.transform = tabBarHiddenTransform
+                } else {
+                    tbs.transform = .identity
+                }
             }
             toSnapshot.transform = .identity
             if isEnteringDetail {
@@ -145,8 +153,9 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toSnapshot.removeFromSuperview()
             fromSnapshot.removeFromSuperview()
             transitionContext.completeTransition(true)
-            if isEnteringDetail {
-                tabBar?.isHidden = true
+            if let tbs = tabBarSnapshot {
+                tabBar?.isHidden = false
+                tbs.removeFromSuperview()
             }
             tabBar?.transform = .identity
         }
