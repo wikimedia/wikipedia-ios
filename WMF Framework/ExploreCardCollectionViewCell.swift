@@ -170,12 +170,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardContent?.view.isHidden = true
                 titleLabel.isHidden = true
                 subtitleLabel.isHidden = true
+                footerButton.isHidden = true
             } else {
                 cardContent?.view.isHidden = false
                 undoLabel.isHidden = true
                 undoButton.isHidden = true
                 titleLabel.isHidden = title == nil
                 subtitleLabel.isHidden = subtitle == nil
+                footerButton.isHidden = footerTitle == nil
             }
             setNeedsLayout()
         }
