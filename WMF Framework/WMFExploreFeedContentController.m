@@ -187,6 +187,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
                                                 if (date) {
+                                                    [self updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:moc];
                                                     [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 } else {
                                                     [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
@@ -575,6 +576,26 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     self.cachedCountOfVisibleContentGroupKinds = [NSNumber numberWithInteger:count];
     return count;
 }
+
+- (NSSet<WMFContentGroup*> *)updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+    NSError *error = nil;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"undoTypeInteger != 0"];
+    NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        DDLogError(@"Error fetching WMFContentGroup: %@", error);
+    }
+    for (WMFContentGroup *contentGroup in contentGroups) {
+        if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
+            [contentGroup markDismissed];
+            contentGroup.isVisible = NO;
+        }
+        contentGroup.undoType = WMFContentGroupUndoTypeNone;
+        [self save:moc];
+    }
+    return [NSSet setWithArray:contentGroups];
+}
+
 - (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;
@@ -614,7 +635,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
-    [self applyExploreFeedPreferencesToObjects:[moc updatedObjects] inManagedObjectContext:moc];
+    NSSet<WMFContentGroup *> *updatedContentGroups = [self updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:moc];
+    NSSet<NSManagedObject *> *updatedObjects = [updatedContentGroups setByAddingObjectsFromSet:[moc updatedObjects]];
+    [self applyExploreFeedPreferencesToObjects:updatedObjects inManagedObjectContext:moc];
 }
 
 - (void)save:(NSManagedObjectContext *)moc {
