@@ -357,7 +357,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
                 let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
             {
-                imageScaleTransitionView = cell.imageView
+                imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             }
         }
         let group = fetchedResultsController.object(at: indexPath)
@@ -484,7 +484,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
-            imageScaleTransitionView = cell.imageView
+            imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
             detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
         }
     
