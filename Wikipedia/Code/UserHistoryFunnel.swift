@@ -26,9 +26,10 @@
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        
-        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled]
-        
+        let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
+
+        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled]
+
         guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
             return event
         }
