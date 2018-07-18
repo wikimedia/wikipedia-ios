@@ -8,7 +8,6 @@ protocol ExploreFeedSettingsItem {
     var iconBackgroundColor: UIColor? { get }
     var controlTag: Int { get }
     var isOn: Bool { get }
-    var isEnabled: Bool { get }
     func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType)
     func updateDisclosureText(for displayType: ExploreFeedSettingsDisplayType)
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType)
@@ -21,7 +20,6 @@ extension ExploreFeedSettingsItem {
     var iconName: String? { return nil }
     var iconColor: UIColor? { return nil }
     var iconBackgroundColor: UIColor? { return nil }
-    var isEnabled: Bool { return UserDefaults.wmf_userDefaults().defaultTabType == .explore }
     func updateSubtitle(for displayType: ExploreFeedSettingsDisplayType) {
 
     }
@@ -73,7 +71,6 @@ class ExploreFeedSettingsMaster: ExploreFeedSettingsItem {
     let controlTag: Int = -1
     var isOn: Bool = false
     let type: ExploreFeedSettingsMasterType
-    let isEnabled: Bool = true
 
     init(for type: ExploreFeedSettingsMasterType) {
         self.type = type
@@ -262,8 +259,6 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
 
     private func configureCell(_ cell: WMFSettingsTableViewCell, item: ExploreFeedSettingsItem) {
         cell.configure(item.disclosureType, disclosureText: item.disclosureText, title: item.title, subtitle: item.subtitle, iconName: item.iconName, isSwitchOn: item.isOn, iconColor: item.iconColor, iconBackgroundColor: item.iconBackgroundColor, controlTag: item.controlTag, theme: theme)
-        cell.disclosureSwitch.isEnabled = item.isEnabled
-        cell.isUserInteractionEnabled = item.isEnabled
         cell.delegate = self
     }
 }
