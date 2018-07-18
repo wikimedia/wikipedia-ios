@@ -47,7 +47,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         if let fromISTP = fromViewController as? ImageScaleTransitionProviding, let toISTP = toViewController as? ImageScaleTransitionProviding {
             fromImageView = fromISTP.imageScaleTransitionView
             toImageView = toISTP.imageScaleTransitionView
-            isImageScaleTransitioning = fromImageView != nil && toImageView != nil
+            isImageScaleTransitioning = fromImageView != nil && toImageView != nil && fromImageView?.image != nil
             if isImageScaleTransitioning {
                 toISTP.prepareForIncomingImageScaleTransition(with: fromImageView)
             }

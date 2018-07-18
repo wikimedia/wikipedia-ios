@@ -358,6 +358,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
             {
                 imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
+            } else {
+                imageScaleTransitionView = nil
             }
         }
         let group = fetchedResultsController.object(at: indexPath)
@@ -483,9 +485,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
-            imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
+        if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) {
             detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
+            if let articleCell = cell as? ArticleCollectionViewCell, !articleCell.imageView.isHidden {
+                imageScaleTransitionView = articleCell.imageView
+            } else {
+                imageScaleTransitionView = nil
+            }
         }
     
         if let otdvc = vc as? OnThisDayViewController {
