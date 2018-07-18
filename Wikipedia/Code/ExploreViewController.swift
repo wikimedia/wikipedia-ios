@@ -489,7 +489,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     
         if let otdvc = vc as? OnThisDayViewController {
-            otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?.first as? WMFFeedOnThisDayEvent
+            otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
         }
         
         switch contentGroup.detailType {
