@@ -30,6 +30,7 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
+#import "Wikipedia-Swift.h"
 
 /**
  *  Enums for each tab in the main tab bar.

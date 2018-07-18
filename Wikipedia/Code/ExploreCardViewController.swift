@@ -4,6 +4,7 @@ protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var readingListHintController: ReadingListHintController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
+    func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
 class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
@@ -93,7 +94,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     
     // MARK - Data
     private var visibleLocationCellCount: Int = 0
-    
+
     public var contentGroup: WMFContentGroup? {
         willSet {
             for indexPath in collectionView.indexPathsForVisibleItems {
@@ -346,22 +347,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
-    // MARK - Detail views
-    
-    private func presentDetailViewControllerForItemAtIndexPath(_ indexPath: IndexPath, animated: Bool) {
-        guard let detailType = contentGroup?.detailType, let vc = contentGroup?.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
-            return
-        }
-        
-        switch detailType {
-        case .gallery:
-            present(vc, animated: animated)
-        default:
-            wmf_push(vc, animated: animated)
-        }
-        
-    }
-    
     // MARK - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -369,7 +354,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presentDetailViewControllerForItemAtIndexPath(indexPath, animated: true)
+        delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: indexPath)
     }
     
     // MARK - ColumnarCollectionViewLayoutDelegate

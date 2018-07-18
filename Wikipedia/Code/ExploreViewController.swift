@@ -1,8 +1,7 @@
 import UIKit
 import WMF
 
-
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionSourceProviding {
     
     // MARK - UIViewController
     
@@ -303,6 +302,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.contentSizeCategoryDidChange(notification)
     }
     
+    // MARK - WMFImageScaleTransitionProviding
+    
+    var imageScaleTransitionView: UIImageView?
+    
+    
     // MARK - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -338,6 +342,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
+            imageScaleTransitionView = cell.imageView
+        }
         let group = fetchedResultsController.object(at: indexPath)
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, animated: true)
@@ -450,6 +457,27 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK - ExploreCardViewControllerDelegate
+    
+    func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
+        guard
+            let contentGroup = exploreCardViewController.contentGroup,
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
+            return
+        }
+        
+        if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell, !cell.isImageViewHidden {
+            imageScaleTransitionView = cell.imageView
+        }
+    
+        switch contentGroup.detailType {
+        case .gallery:
+            present(vc, animated: true)
+        default:
+            wmf_push(vc, animated: true)
+        }
     }
     
     // MARK - Prefetching
