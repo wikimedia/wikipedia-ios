@@ -115,7 +115,8 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
         if let tb = tabBar, let tbs = tabBarSnapshot {
-            tabBar?.isHidden = true
+            tabBar?.alpha = 0
+            tbs.alpha = 1
             tbs.frame = CGRect(x: 0, y: containerView.frame.height - tb.frame.height, width: tb.frame.width, height: tb.frame.height) // hack, it's already positioned off screen here
             if !isEnteringDetail {
                tbs.transform = tabBarHiddenTransform
@@ -154,7 +155,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             fromSnapshot.removeFromSuperview()
             transitionContext.completeTransition(true)
             if let tbs = tabBarSnapshot {
-                tabBar?.isHidden = false
+                tabBar?.alpha = 1
                 tbs.removeFromSuperview()
             }
             tabBar?.transform = .identity

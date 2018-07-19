@@ -18,15 +18,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
-    public var isShadowBelowUnderBarView: Bool = false {
+    @objc public var isShadowBelowUnderBarView: Bool = false {
         didSet {
             updateShadowConstraints()
         }
     }
     
-    public var isBarHidingEnabled: Bool = true
-    public var isUnderBarViewHidingEnabled: Bool = false
-    public var isExtendedViewHidingEnabled: Bool = false
+    @objc public var isBarHidingEnabled: Bool = true
+    @objc public var isUnderBarViewHidingEnabled: Bool = false
+    @objc public var isExtendedViewHidingEnabled: Bool = false
+    @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
     
     private var theme = Theme.standard
@@ -352,6 +353,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         setNeedsUpdateConstraints()
     }
     
+    @objc var barHeight: CGFloat {
+        return displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         let navigationBarPercentHidden = _navigationBarPercentHidden
@@ -359,7 +364,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let underBarViewPercentHidden = _underBarViewPercentHidden
         
         let underBarViewHeight = underBarView.frame.height
-        let barHeight = displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
+        let barHeight = self.barHeight
         let extendedViewHeight = extendedView.frame.height
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
@@ -390,9 +395,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        self.extendedView.alpha = min(backgroundAlpha, 1.0 - extendedViewPercentHidden)
+        self.extendedView.alpha = isExtendedViewFadingEnabled ? min(backgroundAlpha, 1.0 - extendedViewPercentHidden) : backgroundAlpha
         
-        self.progressView.transform = totalTransform
+        self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
     }
     

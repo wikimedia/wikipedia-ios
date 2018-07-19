@@ -36,6 +36,8 @@
 
 #import "Wikipedia-Swift.h"
 
+const CGFloat WMFArticleViewControllerHeaderImageHeight = 210;
+
 @import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -122,7 +124,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 // Views
 @property (nonatomic, strong) UIImageView *headerImageView;
-@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong, readonly) UIView *headerView;
+@property (nonatomic, strong, readonly) UIView *headerBorderView;
+@property (nonatomic, strong) NSLayoutConstraint *headerImageLeadingConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *headerImageTrailingConstraint;
+
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
@@ -159,6 +165,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @implementation WMFArticleViewController
+@synthesize headerView = _headerView;
+@synthesize headerBorderView = _headerBorderView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -221,12 +229,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.headerImageView.backgroundColor = UIColor.clearColor;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
+            [self hideHeaderView];
         } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage
                                                detectFaces:YES
                                                    failure:WMFIgnoreErrorHandler
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
+                                                       [self showHeaderView];
                                                    }];
             NSURL *articleURL = self.articleURL;
             if (articleURL && self.isAddingArticleToHistoryListEnabled) {
@@ -276,23 +286,44 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _shareFunnel;
 }
 
+
+- (UIView *)headerBorderView {
+    if (!_headerBorderView) {
+        // HAX: Only read the scale at setup
+        _headerBorderView = [[UIView alloc] init];
+        _headerBorderView.backgroundColor = self.theme.colors.border;
+    }
+    return _headerBorderView;
+}
+
 - (UIView *)headerView {
     if (!_headerView) {
-        // HAX: Only read the scale at setup
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGFloat borderHeight = scale > 1 ? 0.5 : 1;
-        CGFloat height = 10;
-
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
-        _headerView.clipsToBounds = YES;
-
-        UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
-        headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
-        headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-
-        self.headerImageView.frame = CGRectMake(0, 0, 1, height - borderHeight);
+        
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, WMFArticleViewControllerHeaderImageHeight + borderHeight)];
+        
+        self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
         [_headerView addSubview:self.headerImageView];
-        [_headerView addSubview:headerBorderView];
+        self.headerBorderView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_headerView addSubview:self.headerBorderView];
+        
+        NSLayoutConstraint *headerBorderHeightConstraint = [self.headerBorderView.heightAnchor constraintEqualToConstant:borderHeight];
+        [self.headerBorderView addConstraint:headerBorderHeightConstraint];
+        
+        NSLayoutConstraint *headerImageHeightConstraint = [self.headerImageView.heightAnchor constraintEqualToConstant:WMFArticleViewControllerHeaderImageHeight];
+        [self.headerImageView addConstraint:headerImageHeightConstraint];
+        
+        NSLayoutConstraint *headerImageTopConstraint = [self.headerImageView.topAnchor constraintEqualToAnchor:_headerView.topAnchor];
+        self.headerImageLeadingConstraint = [self.headerImageView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
+        self.headerImageTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
+        NSLayoutConstraint *headerImageBottomConstraint = [self.headerImageView.bottomAnchor constraintEqualToAnchor:self.headerBorderView.topAnchor];
+
+        NSLayoutConstraint *headerBorderLeadingConstraint = [self.headerBorderView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
+        NSLayoutConstraint *headerBorderTrailingConstraint = [self.headerBorderView.trailingAnchor constraintEqualToAnchor:_headerView.trailingAnchor];
+        NSLayoutConstraint *headerBorderBottomConstraint = [self.headerBorderView.bottomAnchor constraintEqualToAnchor:_headerView.bottomAnchor];
+        
+        [_headerView addConstraints:@[headerImageTopConstraint, self.headerImageLeadingConstraint, self.headerImageTrailingConstraint, headerImageBottomConstraint, headerBorderLeadingConstraint, headerBorderTrailingConstraint, headerBorderBottomConstraint]];
     }
     return _headerView;
 }
@@ -300,9 +331,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
         _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
-        _headerImageView.userInteractionEnabled = YES;
-        _headerImageView.clipsToBounds = YES;
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerImageView.clipsToBounds = YES;
         if (@available(iOS 11.0, *)) {
             _headerImageView.accessibilityIgnoresInvertColors = YES;
         }
@@ -323,7 +353,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_webViewController) {
         _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate = self;
-        _webViewController.headerView = self.headerView;
     }
     return _webViewController;
 }
@@ -743,6 +772,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     self.imageScaleTransitionView = self.headerImageView;
+    
+    self.navigationBar.isExtendedViewHidingEnabled = YES;
+    self.navigationBar.isShadowBelowUnderBarView = YES;
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
@@ -862,17 +894,24 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)layoutHeaderImageViewForSize:(CGSize)size {
-    CGRect headerViewBounds = self.headerView.bounds;
-
-    self.headerView.bounds = headerViewBounds;
     CGSize imageSize = self.headerImageView.image.size;
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
     CGFloat marginWidth = 0;
-    if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = self.webViewController.marginWidth + 16;
+    if (isImageNarrow && (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden || self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible)) {
+        marginWidth = self.webViewController.marginWidth;
     }
-    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, WebViewControllerHeaderImageHeight);
+    self.headerImageTrailingConstraint.constant = marginWidth;
+    self.headerImageLeadingConstraint.constant = marginWidth;
 }
+
+- (void)showHeaderView {
+    [self.navigationBar addExtendedNavigationBarView:self.headerView];
+}
+
+- (void)hideHeaderView {
+    [self.navigationBar removeExtendedNavigationBarView];
+}
+
 
 #pragma mark - WMFImageScaleTransitionProviding
 
@@ -881,7 +920,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.headerImageView.image = imageView.image;
         self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
         if (self.headerImageView.image) {
-            [self.webViewController showHeader];
+            [self showHeaderView];
         }
         [self.view layoutIfNeeded];
     }
@@ -1558,6 +1597,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
+    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
+        CGFloat maxOffset = (0 - (self.navigationBar.statusBarHeight + self.navigationBar.barHeight));
+        BOOL isTOCScrollOffsetInvalid = self.tableOfContentsViewController.tableView.contentOffset.y < maxOffset;
+        if (scrollView.contentOffset.y < maxOffset && isTOCScrollOffsetInvalid) {
+            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
+        } else if (isTOCScrollOffsetInvalid) {
+            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, maxOffset - 1)];
+        }
+    }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -1792,7 +1840,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.webView.allowsLinkPreview = NO;
         }
         [self unregisterForPreviewing];
-        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.headerView];
     } else {
         [self unregisterForPreviewing];
     }
@@ -2050,6 +2098,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     [[self wmf_emptyView] applyTheme:self.theme];
     self.headerView.backgroundColor = theme.colors.midBackground;
+    self.headerBorderView.backgroundColor = theme.colors.border;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
         self.headerImageView.backgroundColor = UIColor.clearColor;
