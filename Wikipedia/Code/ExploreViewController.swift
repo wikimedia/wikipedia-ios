@@ -607,8 +607,9 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                     return
                 }
                 group.undoType = .contentGroupKind
-                self.save()
                 self.wantsDeleteInsertOnNexItemtUpdate = true
+                self.needsReloadVisibleCells = true
+                self.save()
             })
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
@@ -625,14 +626,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
                 return
         }
-        defer {
-            group.undoType = .none
-            save()
-            wantsDeleteInsertOnNexItemtUpdate = true
-        }
         if group.undoType == .contentGroupKind {
-            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true)
+            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
+                self.needsReloadVisibleCells = true
+            }
         }
+        group.undoType = .none
+        wantsDeleteInsertOnNexItemtUpdate = true
+        save()
     }
     
 }
