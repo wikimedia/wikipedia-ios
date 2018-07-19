@@ -23,6 +23,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
+
+        NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     public var wantsCustomSearchTransition: Bool {
@@ -391,6 +397,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.undoType = group.undoType
         cell.apply(theme: theme)
         cell.delegate = self
+        if group.undoType == .contentGroupKind {
+            indexPathsForCollapsedCellsThatCanReappear.insert(indexPath)
+        }
     }
     
     override func apply(theme: Theme) {
@@ -478,6 +487,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - CollectionViewUpdaterDelegate
     
     var needsReloadVisibleCells = false
+    var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         
@@ -575,6 +585,18 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             try self.dataStore.save()
         } catch let error {
             DDLogError("Error saving after cell customization update: \(error)")
+        }
+    }
+
+    @objc func exploreFeedPreferencesDidSave(_ note: Notification) {
+        let identifier = ExploreCardCollectionViewCell.identifier
+        DispatchQueue.main.async {
+            for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
+                let userInfo = self.cacheUserInfoForItem(at: indexPath)
+                self.layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
+            self.indexPathsForCollapsedCellsThatCanReappear = []
         }
     }
 
