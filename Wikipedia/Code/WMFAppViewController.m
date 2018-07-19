@@ -881,11 +881,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
     for (UINavigationController *navC in allNavControllers) {
         UIViewController *vc = [navC visibleViewController];
-        if ([vc respondsToSelector:@selector(navigationBar)]) {
-            id navigationBar = [(id)vc navigationBar];
-            if ([navigationBar isKindOfClass:[WMFNavigationBar class]]) {
-                [(WMFNavigationBar *)navigationBar setNavigationBarPercentHidden:0];
-            }
+        if ([vc respondsToSelector:@selector(ensureWikipediaSearchIsShowing)]) {
+            [(id)vc ensureWikipediaSearchIsShowing];
         }
     }
 

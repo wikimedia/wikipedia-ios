@@ -703,6 +703,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return 0.1 + (0.7 * progress);
 }
 
+#pragma mark - Show search
+
+- (void)ensureWikipediaSearchIsShowing {
+    if (self.navigationBar.navigationBarPercentHidden > 0) {
+        [self.navigationBar setNavigationBarPercentHidden:0];
+    }
+}
+
 #pragma mark - Significantly Viewed Timer
 
 - (void)startSignificantlyViewedTimer {

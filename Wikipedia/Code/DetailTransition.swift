@@ -155,9 +155,10 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             fromSnapshot.removeFromSuperview()
             transitionContext.completeTransition(true)
             if let tbs = tabBarSnapshot {
-                tabBar?.alpha = 1
                 tbs.removeFromSuperview()
             }
+            tabBar?.alpha = 1
+            tabBar?.isHidden = false
             tabBar?.transform = .identity
         }
     }
