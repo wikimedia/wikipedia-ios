@@ -33,6 +33,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
         showOfflineEmptyViewIfNeeded()
+        imageScaleTransitionView = nil
+        detailTransitionSourceRect = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
