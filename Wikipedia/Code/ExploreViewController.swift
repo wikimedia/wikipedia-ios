@@ -1,8 +1,7 @@
 import UIKit
 import WMF
 
-
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
 
     private var wantsDeleteInsertOnNexItemtUpdate: Bool = false
     
@@ -11,7 +10,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
@@ -52,16 +50,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return true
     }
     
+    
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
-    lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
-       return ColumnarCollectionViewControllerLayoutCache()
-    }()
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         startMonitoringReachabilityIfNeeded()
         showOfflineEmptyViewIfNeeded()
+        imageScaleTransitionView = nil
+        detailTransitionSourceRect = nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,8 +177,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return searchBar
     }()
     
+    @objc func ensureWikipediaSearchIsShowing() {
+        if self.navigationBar.underBarViewPercentHidden > 0 {
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true)
+        }
+    }
 
-    
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -333,6 +335,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.contentSizeCategoryDidChange(notification)
     }
     
+    // MARK - ImageScaleTransitionProviding
+    
+    var imageScaleTransitionView: UIImageView?
+    
+    func prepareForIncomingImageScaleTransition(with imageView: UIImageView?) {
+        
+    }
+    
+    // MARK - DetailTransitionSourceProviding
+    
+    var detailTransitionSourceRect: CGRect?
+    
     // MARK - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -349,7 +363,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionElementKindSectionHeader else {
             abort()
         }
@@ -368,6 +382,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
+            detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
+            if
+                let vc = cell.cardContent as? ExploreCardViewController,
+                vc.collectionView.numberOfSections > 0, vc.collectionView.numberOfItems(inSection: 0) > 0,
+                let cell = vc.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ArticleCollectionViewCell
+            {
+                imageScaleTransitionView = cell.imageView.isHidden ? nil : cell.imageView
+            } else {
+                imageScaleTransitionView = nil
+            }
+        }
         let group = fetchedResultsController.object(at: indexPath)
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, animated: true)
@@ -484,6 +510,36 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK - ExploreCardViewControllerDelegate
+    
+    func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
+        guard
+            let contentGroup = exploreCardViewController.contentGroup,
+            let vc = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
+            return
+        }
+        
+        if let cell = exploreCardViewController.collectionView.cellForItem(at: indexPath) {
+            detailTransitionSourceRect = view.convert(cell.frame, from: exploreCardViewController.collectionView)
+            if let articleCell = cell as? ArticleCollectionViewCell, !articleCell.imageView.isHidden {
+                imageScaleTransitionView = articleCell.imageView
+            } else {
+                imageScaleTransitionView = nil
+            }
+        }
+    
+        if let otdvc = vc as? OnThisDayViewController {
+            otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
+        }
+        
+        switch contentGroup.detailType {
+        case .gallery:
+            present(vc, animated: true)
+        default:
+            wmf_push(vc, animated: true)
+        }
     }
     
     // MARK - Prefetching
@@ -679,15 +735,15 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 return
         }
         if group.undoType == .contentGroupKind {
-            if let indexPath = fetchedResultsController.indexPath(forObject: group) {
-                indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
-            }
             dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
                 self.needsReloadVisibleCells = true
             }
         }
         group.undoType = .none
         wantsDeleteInsertOnNexItemtUpdate = true
+        if let indexPath = fetchedResultsController.indexPath(forObject: group) {
+            indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
+        }
         save()
     }
     

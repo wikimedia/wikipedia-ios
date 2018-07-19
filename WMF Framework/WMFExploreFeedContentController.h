@@ -60,6 +60,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
 
+- (void)toggleAllContentGroupKinds:(BOOL)on completion:(nullable dispatch_block_t)completion;
 
 /**
  Toggles non-language specific content group kinds (Because you read, Continue reading and Picture of the day)

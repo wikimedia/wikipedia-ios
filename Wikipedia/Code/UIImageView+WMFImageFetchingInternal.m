@@ -106,6 +106,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
         return;
     }
 
+    WMFImage *memoryCachedImage = [self.wmf_imageController memoryCachedImageWithURL:imageURL];
+    if (memoryCachedImage) {
+        self.wmf_imageURLToCancel = nil;
+        self.wmf_imageTokenToCancel = nil;
+        [self wmf_setImage:memoryCachedImage.staticImage animatedImage:memoryCachedImage.animatedImage detectFaces:detectFaces onGPU:onGPU animated:NO failure:failure success:success];
+        return;
+    }
+
     @weakify(self);
     self.wmf_imageURLToCancel = imageURL;
     self.wmf_imageTokenToCancel = [self.wmf_imageController fetchImageWithURL:imageURL

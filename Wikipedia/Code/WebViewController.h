@@ -8,8 +8,6 @@ typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 @protocol WMFWebViewControllerDelegate;
 
-extern const CGFloat WebViewControllerHeaderImageHeight;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
@@ -57,10 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showFindInPage;
 - (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion;
-
-#pragma mark - Header & Footers
-
-@property (nonatomic, strong, nullable) UIView *headerView;
 
 @end
 

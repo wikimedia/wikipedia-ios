@@ -88,6 +88,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         title = CommonStrings.placesTabTitle
+        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = UIRectEdge.all
     }
 
     // MARK - Search
@@ -181,8 +183,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             mapView.isRotateEnabled = false
             mapView.isPitchEnabled = false
         #endif
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapContainerView.addSubview(mapView)
+        
+        mapContainerView.wmf_addSubviewWithConstraintsToEdges(mapView)
 
         fakeProgressController = FakeProgressController(progress: self, delegate: self)
 
@@ -2496,7 +2498,7 @@ extension PlacesViewController: Themeable {
         navigationBar.apply(theme: theme)
         
         searchBar.apply(theme: theme)
-        searchBar.backgroundColor = theme.colors.chromeBackground
+        searchBar.backgroundColor = theme.colors.paperBackground
         
         searchSuggestionController.apply(theme: theme)
         
