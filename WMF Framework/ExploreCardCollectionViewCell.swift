@@ -69,6 +69,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
+        undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         undoButton.setTitle("Undo", for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
         undoButton.isUserInteractionEnabled = true
@@ -160,9 +161,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
     private var isCollapsed: Bool = false {
         didSet {
-            guard oldValue != isCollapsed else {
-                return
-            }
             if isCollapsed {
                 undoLabel.isHidden = false
                 customizationButton.isHidden = true
@@ -214,14 +212,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         }
-
-        if !undoLabel.isHidden {
-            _ = undoLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
-        }
-
-        if !undoButton.isHidden {
-            origin.y += undoButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
-        }
         
         if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
@@ -235,9 +225,19 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         } else {
             if apply {
                 if isCollapsed {
-                    cardBackgroundView.frame = contentView.frame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
+                    let frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: contentView.frame.height)
+                    cardBackgroundView.frame = frame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
                 }
             }
+        }
+
+        if !undoLabel.isHidden {
+            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: labelOrigin.y)
+            _ = undoLabel.wmf_preferredHeight(at: undoLabelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
+        }
+
+        if !undoButton.isHidden {
+            origin.y += undoButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
     
         if !footerButton.isHidden {
@@ -275,6 +275,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     public func apply(theme: Theme) {
         contentView.tintColor = theme.colors.link
+        contentView.backgroundColor = theme.colors.paperBackground
         cardBackgroundView.layer.borderColor = theme.colors.cardBorder.cgColor
         let backgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.paperBackground
         let selectedBackgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.midBackground
