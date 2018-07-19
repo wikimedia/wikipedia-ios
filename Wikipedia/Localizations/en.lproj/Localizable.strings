@@ -197,6 +197,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "From $1 Wikipedia";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "From Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Your location";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Your location from $1 Wikipedia";
 "explore-potd-heading" = "Picture of the day";
 "explore-potd-sub-heading" = "From Wikimedia Commons";
 "explore-random-article-heading" = "Random article";

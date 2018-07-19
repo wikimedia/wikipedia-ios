@@ -158,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         case WMFContentGroupKindLocation: {
             if (self.isForToday) {
-                return WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.");
+                return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location-from-language-wikipedia", nil, nil, @"Your location from %1$@ Wikipedia", @"Subtext beneath the 'Places near' header when showing articles near the user's current location. %1$@ will be replaced with the language - for example, 'Your location from English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"explore-nearby-sub-heading-your-location", nil, nil, @"Your location", @"Subtext beneath the 'Places near' header when showing articles near the user's current location.")];
             } else if (self.placemark) {
                 return [NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality];
             } else {

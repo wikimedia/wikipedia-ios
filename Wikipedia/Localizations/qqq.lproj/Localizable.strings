@@ -197,6 +197,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Subtext beneath the 'Places' header when the specific language wikipedia is unknown.";
 "explore-nearby-sub-heading-your-location" = "Subtext beneath the 'Places near' header when showing articles near the user's current location.";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Subtext beneath the 'Places near' header when showing articles near the user's current location. $1 will be replaced with the language - for example, 'Your location from English Wikipedia'";
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-potd-sub-heading" = "Subtext beneath the 'Picture of the day' header.";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
