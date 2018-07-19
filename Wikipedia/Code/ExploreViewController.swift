@@ -606,10 +606,22 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
     }
 
+    private func isValidIndexPath(_ indexPath: IndexPath) -> Bool {
+        guard let sections = self.fetchedResultsController.sections,
+            indexPath.section < sections.count,
+            indexPath.item < sections[indexPath.section].numberOfObjects else {
+                return false
+        }
+        return true
+    }
+
     @objc func exploreFeedPreferencesDidSave(_ note: Notification) {
         let identifier = ExploreCardCollectionViewCell.identifier
         DispatchQueue.main.async {
             for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
+                guard self.isValidIndexPath(indexPath) else {
+                    continue
+                }
                 let userInfo = self.cacheUserInfoForItem(at: indexPath)
                 self.layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
                 self.collectionView.collectionViewLayout.invalidateLayout()
