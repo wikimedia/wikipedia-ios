@@ -39,9 +39,11 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
                 ownsNavigationBar = false
                 hidesBottomBarWhenPushed = true
                 addCloseButton()
+                addScrollToTopButton()
             default:
                 hidesBottomBarWhenPushed = false
                 removeCloseButton()
+                removeScrollToTopButton()
                 break
             }
             setNeedsStatusBarAppearanceUpdate()
@@ -85,6 +87,24 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }
         closeButton?.removeFromSuperview()
         closeButton = nil
+    }
+    
+    private var scrollToTopButton: UIButton?
+    
+    private func addScrollToTopButton() {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
+        view.addSubview(button)
+        let top = button.topAnchor.constraint(equalTo: view.topAnchor)
+        let bottom = button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        view.addConstraints([top, bottom, leading, trailing])
+    }
+    
+    private func removeScrollToTopButton() {
+        scrollToTopButton?.removeFromSuperview()
     }
     
     override var prefersStatusBarHidden: Bool {
