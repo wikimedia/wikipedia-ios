@@ -9,6 +9,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     
     public enum Style {
         case explore
+        case detail
         case history
         case recentSearches
     }
@@ -20,7 +21,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     }
 
     private let titleLabel: UILabel = UILabel()
+    private let subtitleLabel: UILabel = UILabel()
     private let button: UIButton = UIButton()
+    private let spacing: CGFloat = 5
     
     var title: String? {
         get {
@@ -28,6 +31,17 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         }
         set {
             titleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    var subtitle: String? {
+        get {
+            return subtitleLabel.text
+        }
+        set {
+            subtitleLabel.text = newValue
+            subtitleLabel.isHidden = subtitleLabel.text == nil
             setNeedsLayout()
         }
     }
@@ -44,8 +58,9 @@ class CollectionViewHeader: SizeThatFitsReusableView {
 
     override func setup() {
         super.setup()
-        addSubview(titleLabel)
         addSubview(button)
+        addSubview(subtitleLabel)
+        addSubview(titleLabel)
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
         button.isHidden = true
     }
@@ -57,14 +72,18 @@ class CollectionViewHeader: SizeThatFitsReusableView {
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         let titleTextStyle: DynamicTextStyle
+        let subtitleTextStyle: DynamicTextStyle = .subheadline
         let buttonTextStyle: DynamicTextStyle = .subheadline
         switch style {
+        case .detail:
+            titleTextStyle = .boldTitle1
         case .explore:
             titleTextStyle = .boldTitle2
         default:
             titleTextStyle = .semiboldHeadline
         }
         titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+        subtitleLabel.font = UIFont.wmf_font(subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
         button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -75,6 +94,8 @@ class CollectionViewHeader: SizeThatFitsReusableView {
             additionalMargins = UIEdgeInsets(top: 30, left: 0, bottom: 10, right: 0)
         case .recentSearches:
             additionalMargins = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
+        case .detail:
+            additionalMargins = UIEdgeInsets(top: 0, left: 0, bottom: 45, right: 0)
         default:
             additionalMargins = .zero
         }
@@ -90,8 +111,12 @@ class CollectionViewHeader: SizeThatFitsReusableView {
             let buttonFrame = button.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
             widthMinusMargins -= (buttonFrame.width + layoutMargins.right)
         }
-        let frame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), horizontalAlignment: labelHorizontalAlignment, apply: apply)
-        origin.y += frame.layoutHeight(with: layoutMargins.bottom)
+        origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth:widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+        if subtitleLabel.text != nil {
+            origin.y += spacing
+            origin.y += subtitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+        }
+        origin.y += layoutMargins.bottom
         return CGSize(width: size.width, height: origin.y)
     }
     
@@ -101,6 +126,8 @@ extension CollectionViewHeader: Themeable {
     func apply(theme: Theme) {
         titleLabel.textColor = theme.colors.primaryText
         titleLabel.backgroundColor = theme.colors.paperBackground
+        subtitleLabel.textColor = theme.colors.secondaryText
+        subtitleLabel.backgroundColor = theme.colors.paperBackground
         backgroundColor = theme.colors.paperBackground
         tintColor = theme.colors.link
         button.setTitleColor(theme.colors.link, for: .normal)

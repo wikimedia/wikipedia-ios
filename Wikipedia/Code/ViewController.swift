@@ -38,12 +38,53 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
                 showsNavigationBar = false
                 ownsNavigationBar = false
                 hidesBottomBarWhenPushed = true
+                addCloseButton()
             default:
                 hidesBottomBarWhenPushed = false
+                removeCloseButton()
                 break
             }
             setNeedsStatusBarAppearanceUpdate()
         }
+    }
+    
+    // MARK - Close Button
+    
+    @objc private func close() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private var closeButton: UIButton?
+   
+    private func addCloseButton() {
+        guard closeButton == nil else {
+            return
+        }
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
+        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
+        button.addConstraints([height, width])
+        let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        view.addConstraints([top, trailing])
+        closeButton = button
+        applyThemeToCloseButton()
+    }
+    
+    private func applyThemeToCloseButton() {
+        closeButton?.tintColor = theme.colors.tertiaryText
+    }
+    
+    private func removeCloseButton() {
+        guard closeButton != nil else {
+            return
+        }
+        closeButton?.removeFromSuperview()
+        closeButton = nil
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -240,6 +281,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             return
         }
         navigationBar.apply(theme: theme)
+        applyThemeToCloseButton()
     }
 }
 

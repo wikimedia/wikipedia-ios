@@ -92,7 +92,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
-                                        WMFImageScaleTransitionDestinationProviding>
+                                        WMFImageScaleTransitionProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -743,7 +743,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     self.imageScaleTransitionView = self.headerImageView;
-    
+
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -872,6 +872,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         marginWidth = self.webViewController.marginWidth + 16;
     }
     self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, WebViewControllerHeaderImageHeight);
+}
+
+#pragma mark - WMFImageScaleTransitionProviding
+
+- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+    if (imageView) {
+        self.headerImageView.image = imageView.image;
+        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
+        if (self.headerImageView.image) {
+            [self.webViewController showHeader];
+        }
+        [self.view layoutIfNeeded];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
