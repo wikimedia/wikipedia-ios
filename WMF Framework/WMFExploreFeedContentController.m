@@ -186,8 +186,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                [self updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:moc];
-                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc updateTemporarilyHiddenContentGroups:YES];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -500,7 +499,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [moc performBlock:^{
                 [moc wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
                 if (apply) {
-                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc updateTemporarilyHiddenContentGroups:NO];
                 }
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -592,18 +591,17 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return [NSSet setWithArray:contentGroups];
 }
 
-- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
+- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc updateTemporarilyHiddenContentGroups:(BOOL)updateTemporarilyHiddenContentGroups {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;
     NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
     if (error) {
         DDLogError(@"Error fetching WMFContentGroup: %@", error);
     }
-    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
+    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc updateTemporarilyHiddenContentGroups:updateTemporarilyHiddenContentGroups];
 }
 
-- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSDictionary *preferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc updateTemporarilyHiddenContentGroups:(BOOL)updateTemporarilyHiddenContentGroups {
     for (NSManagedObject *object in objects) {
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
