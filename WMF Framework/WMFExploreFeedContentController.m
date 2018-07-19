@@ -636,12 +636,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
 }
 
-- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSSet<WMFContentGroup *> *updatedContentGroups = [self updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:moc];
-    NSSet<NSManagedObject *> *updatedObjects = [updatedContentGroups setByAddingObjectsFromSet:[moc updatedObjects]];
-    [self applyExploreFeedPreferencesToObjects:updatedObjects inManagedObjectContext:moc];
-}
-
 - (void)save:(NSManagedObjectContext *)moc {
     NSError *error = nil;
     if (moc.hasChanges && ![moc save:&error]) {
