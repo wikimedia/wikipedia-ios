@@ -153,7 +153,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 undoTitle = "Card hidden"
                 isCollapsed = true
             case .contentGroupKind:
-                undoTitle = "All cards of type T hidden"
+                undoTitle = "All \(title!) cards hidden" // todo
                 isCollapsed = true
             }
         }
@@ -225,19 +225,23 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         } else {
             if apply {
                 if isCollapsed {
-                    let frame = CGRect(x: layoutMargins.left, y: 0, width: widthMinusMargins, height: contentView.frame.height)
-                    cardBackgroundView.frame = frame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
+                    let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: labelOrigin.y, width: widthMinusMargins, height: contentView.frame.height)
+                    cardBackgroundView.frame = cardBackgroundViewFrame
                 }
             }
         }
 
         if !undoLabel.isHidden {
-            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: labelOrigin.y)
-            _ = undoLabel.wmf_preferredHeight(at: undoLabelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 4, apply: apply)
+            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
+            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, apply: false)
+            let halfHeight = round(0.5 * undoLabelFrame.height)
+            undoLabelFrame.origin.y -= halfHeight
+            undoLabel.frame = undoLabelFrame
         }
 
         if !undoButton.isHidden {
-            origin.y += undoButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            let undoButtonOrigin = CGPoint(x: origin.x, y: undoLabel.frame.origin.y)
+            origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
     
         if !footerButton.isHidden {
