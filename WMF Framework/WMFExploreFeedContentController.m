@@ -616,11 +616,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         } else if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
+        NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
         if ([self isGlobal:contentGroup.contentGroupKind]) {
-            BOOL isGlobalCardVisible = [[self.globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
+            NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
+            BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
             contentGroup.isVisible = isGlobalCardVisible;
         } else {
-            NSSet<NSNumber *> *visibleContentGroupKinds = [preferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
+            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
             if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
                 continue;
