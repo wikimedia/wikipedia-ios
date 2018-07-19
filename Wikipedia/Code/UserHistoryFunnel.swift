@@ -17,7 +17,7 @@
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 18126357)
+        super.init(schema: "MobileWikiAppiOSUserHistory", version: 18222579)
     }
     
     private func event() -> Dictionary<String, Any> {
