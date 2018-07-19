@@ -66,6 +66,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
         button.addTarget(self, action: #selector(close), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
         view.addSubview(button)
         let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
         let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
@@ -101,6 +102,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         view.addConstraints([top, bottom, leading, trailing])
+        button.accessibilityTraits = UIAccessibilityTraitNone
         scrollToTopButton = button
     }
     
