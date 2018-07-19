@@ -186,7 +186,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                                                if (date) {
+                                                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+                                                } else {
+                                                    [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
+                                                }
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -596,6 +600,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
     self.cachedCountOfVisibleContentGroupKinds = [NSNumber numberWithInteger:count];
     return count;
+}
+
+- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
+    [self applyExploreFeedPreferencesToObjects:[moc updatedObjects] inManagedObjectContext:moc];
 }
 
 - (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
