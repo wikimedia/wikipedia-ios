@@ -667,15 +667,15 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 return
         }
         if group.undoType == .contentGroupKind {
+            if let indexPath = fetchedResultsController.indexPath(forObject: group) {
+                indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
+            }
             dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
                 self.needsReloadVisibleCells = true
             }
         }
         group.undoType = .none
         wantsDeleteInsertOnNexItemtUpdate = true
-        if let indexPath = fetchedResultsController.indexPath(forObject: group) {
-            indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
-        }
         save()
     }
     
