@@ -186,7 +186,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc updateTemporarilyHiddenContentGroups:YES];
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -499,7 +499,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [moc performBlock:^{
                 [moc wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
                 if (apply) {
-                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc updateTemporarilyHiddenContentGroups:NO];
+                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                 }
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -591,29 +591,24 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return [NSSet setWithArray:contentGroups];
 }
 
-- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc updateTemporarilyHiddenContentGroups:(BOOL)updateTemporarilyHiddenContentGroups {
+- (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;
     NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
     if (error) {
         DDLogError(@"Error fetching WMFContentGroup: %@", error);
     }
-    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc updateTemporarilyHiddenContentGroups:updateTemporarilyHiddenContentGroups];
+    [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
 }
 
-- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc updateTemporarilyHiddenContentGroups:(BOOL)updateTemporarilyHiddenContentGroups {
+- (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
     for (NSManagedObject *object in objects) {
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-        if (updateTemporarilyHiddenContentGroups) {
-            if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
-                [contentGroup markDismissed];
-                contentGroup.isVisible = NO;
-            }
-            contentGroup.undoType = WMFContentGroupUndoTypeNone;
-        } else if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
+        // Skip collapsed cards, let them be visible
+        if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
         NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
