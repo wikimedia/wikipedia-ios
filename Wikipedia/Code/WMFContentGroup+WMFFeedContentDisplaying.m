@@ -182,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
             if (language) {
                 return
-                    [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-sub-title-for-date-from-language-wikipedia", nil, nil, @"%1$@ from %2$@ Wikipedia", @"Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. %1$@ will be substituted with the date. %2$@ will be replaced with the language - for example, 'June 8th on English Wikipedia'"), [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate], language];
+                    [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-sub-title-for-date-from-language-wikipedia", nil, nil, @"%1$@ from %2$@ Wikipedia", @"Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. %1$@ will be substituted with the date. %2$@ will be replaced with the language - for example, 'June 8th from English Wikipedia'"), [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate], language];
             } else {
                 return [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
             }
