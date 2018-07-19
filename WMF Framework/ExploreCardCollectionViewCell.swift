@@ -252,7 +252,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         footerButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        undoLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        undoLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         undoButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         customizationButton.titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
     }
