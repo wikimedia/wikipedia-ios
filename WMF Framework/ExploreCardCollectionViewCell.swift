@@ -150,10 +150,13 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             case .none:
                 isCollapsed = false
             case .contentGroup:
-                undoTitle = "Card hidden"
+                undoTitle = WMFLocalizedString("explore-feed-preferences-card-hidden-title", value: "Card hidden", comment: "Title for button that appears in place of feed card hidden by user via the overflow button")
                 isCollapsed = true
             case .contentGroupKind:
-                undoTitle = "All \(title!) cards hidden" // todo
+                guard let title = title else {
+                    return
+                }
+                undoTitle = String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-feed-cards-hidden-title", value: "All %@ cards hidden", comment: "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type"), title)
                 isCollapsed = true
             }
         }
