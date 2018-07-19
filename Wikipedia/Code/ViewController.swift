@@ -93,6 +93,9 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     private var scrollToTopButton: UIButton?
     
     private func addScrollToTopButton() {
+        guard scrollToTopButton == nil else {
+            return
+        }
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
@@ -108,6 +111,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     private func removeScrollToTopButton() {
         scrollToTopButton?.removeFromSuperview()
+        scrollToTopButton = nil
     }
     
     override var prefersStatusBarHidden: Bool {
