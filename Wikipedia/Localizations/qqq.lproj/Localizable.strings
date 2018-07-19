@@ -320,6 +320,7 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-footer-with-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th on English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
