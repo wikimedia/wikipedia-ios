@@ -646,7 +646,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
             return
         }
-        guard let sheet = menuActionSheetForGroup(group, in: cell) else {
+        guard let sheet = menuActionSheetForGroup(group) else {
             return
         }
         sheet.popoverPresentationController?.sourceView = cell.customizationButton
@@ -686,7 +686,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
     }
 
-    private func menuActionSheetForGroup(_ group: WMFContentGroup, in cell: ExploreCardCollectionViewCell) -> UIAlertController? {
+    private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }

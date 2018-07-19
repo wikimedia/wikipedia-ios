@@ -225,18 +225,16 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
-        } else {
+        } else if isCollapsed {
             if apply {
-                if isCollapsed {
-                    let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: labelOrigin.y, width: widthMinusMargins, height: contentView.frame.height)
-                    cardBackgroundView.frame = cardBackgroundViewFrame
-                }
+                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: labelOrigin.y, width: widthMinusMargins, height: contentView.frame.height)
+                cardBackgroundView.frame = cardBackgroundViewFrame
             }
         }
 
         if !undoLabel.isHidden {
             let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, apply: false)
+            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, apply: false)
             let halfHeight = round(0.5 * undoLabelFrame.height)
             undoLabelFrame.origin.y -= halfHeight
             undoLabel.frame = undoLabelFrame

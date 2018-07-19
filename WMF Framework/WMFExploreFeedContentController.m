@@ -389,7 +389,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
-    if (exploreFeedPreferences && self.globalCardPreferences) {
+    if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
         return exploreFeedPreferences;
     }
     [moc wmf_setValue:[self defaultExploreFeedPreferences] forKey:WMFExploreFeedPreferencesKey];
@@ -463,7 +463,8 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if ([self isGlobal:contentGroupKind]) {
-            NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [self.globalCardPreferences mutableCopy];
+            NSDictionary<NSNumber*, NSNumber*> *oldGlobalCardPreferences = [newPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey] ?: [self defaultGlobalCardsPreferences];
+            NSMutableDictionary<NSNumber*, NSNumber*> *newGlobalCardPreferences = [oldGlobalCardPreferences mutableCopy];
             [newGlobalCardPreferences setObject:[NSNumber numberWithBool:isOn] forKey:@(contentGroupKind)];
             [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         } else {
@@ -595,25 +596,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
     self.cachedCountOfVisibleContentGroupKinds = [NSNumber numberWithInteger:count];
     return count;
-}
-
-- (NSSet<WMFContentGroup*> *)updateVisibilityOfTemporarilyHiddenContentGroupsInFeedInManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    NSError *error = nil;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"undoTypeInteger != 0"];
-    NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-        DDLogError(@"Error fetching WMFContentGroup: %@", error);
-    }
-    for (WMFContentGroup *contentGroup in contentGroups) {
-        if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
-            [contentGroup markDismissed];
-            contentGroup.isVisible = NO;
-        }
-        contentGroup.undoType = WMFContentGroupUndoTypeNone;
-        [self save:moc];
-    }
-    return [NSSet setWithArray:contentGroups];
 }
 
 - (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
