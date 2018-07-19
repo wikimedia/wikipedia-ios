@@ -45,6 +45,17 @@
         if let readingListCount = try? dataStore.viewContext.allReadingListsCount() {
             event["measure_readinglist_listcount"] = readingListCount
         }
+
+        var feedEnabledList = [String: Any]()
+        [WMFContentGroupKind.featuredArticle, WMFContentGroupKind.topRead, WMFContentGroupKind.onThisDay, WMFContentGroupKind.news, WMFContentGroupKind.relatedPages, WMFContentGroupKind.continueReading, WMFContentGroupKind.location, WMFContentGroupKind.random, WMFContentGroupKind.pictureOfTheDay].forEach({contentGroupKind in
+            let loggingCode = contentGroupKind.loggingCode
+            if contentGroupKind.isGlobal {
+                feedEnabledList[loggingCode] = contentGroupKind.isInFeed
+            } else {
+                feedEnabledList[loggingCode] = contentGroupKind.loggingLanguageInfo
+            }
+        })
+        event["feed_enabled_list"] = feedEnabledList
         
         return wholeEvent(with: event)
     }
