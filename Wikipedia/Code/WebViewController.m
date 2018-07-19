@@ -734,6 +734,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self.headerView addConstraint:self.headerHeightConstraint];
 }
 
+- (void)showHeader {
+    self.headerHeightConstraint.constant = WebViewControllerHeaderImageHeight;
+}
+
 - (void)showLicenseButtonPressed {
     [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
 }

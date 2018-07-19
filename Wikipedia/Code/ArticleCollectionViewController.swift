@@ -1,7 +1,5 @@
 import UIKit
 
-fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
-
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
@@ -15,6 +13,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         }
     }
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
+
     var editController: CollectionViewEditController!
     var readingListHintController: ReadingListHintController?
     
@@ -22,7 +21,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
         setupEditController()
     }
     
@@ -110,7 +109,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             return estimate
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier) as? ArticleRightAlignedImageCollectionViewCell else {
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
@@ -152,7 +151,7 @@ extension ArticleCollectionViewController {
     
     // Override configure(cell: instead to ensure height calculations are accurate
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, for: indexPath)
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
         }
