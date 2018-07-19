@@ -101,6 +101,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         view.addConstraints([top, bottom, leading, trailing])
+        scrollToTopButton = button
     }
     
     private func removeScrollToTopButton() {
