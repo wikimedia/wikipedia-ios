@@ -151,8 +151,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return searchBar
     }()
     
+    @objc func ensureWikipediaSearchIsShowing() {
+        if self.navigationBar.underBarViewPercentHidden > 0 {
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true)
+        }
+    }
 
-    
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
