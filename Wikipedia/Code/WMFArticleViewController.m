@@ -37,6 +37,7 @@
 #import "Wikipedia-Swift.h"
 
 const CGFloat WMFArticleViewControllerHeaderImageHeight = 210;
+const CGFloat WMFArticleViewControllerInlineToCContentWidthPercentage = 0.70;
 
 @import SafariServices;
 
@@ -895,13 +896,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = 0.71;
+            self.webViewController.contentWidthPercentage = WMFArticleViewControllerInlineToCContentWidthPercentage;
             break;
         case WMFTableOfContentsDisplayStateInlineVisible:
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 0.91;
+            self.webViewController.contentWidthPercentage = 0.90;
             break;
     }
 
@@ -915,7 +916,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden || self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible)) {
-        marginWidth = self.webViewController.marginWidth;
+        marginWidth = MAX(round(0.5 * (1 - WMFArticleViewControllerInlineToCContentWidthPercentage) * size.width), self.webViewController.marginWidth);
     }
     self.headerImageTrailingConstraint.constant = marginWidth;
     self.headerImageLeadingConstraint.constant = marginWidth;
