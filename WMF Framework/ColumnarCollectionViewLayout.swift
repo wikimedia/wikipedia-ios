@@ -6,7 +6,12 @@ public protocol ColumnarCollectionViewLayoutDelegate {
 }
 
 public class ColumnarCollectionViewLayout: UICollectionViewLayout {
-    var info: ColumnarCollectionViewLayoutInfo?
+    var info: ColumnarCollectionViewLayoutInfo? {
+        didSet {
+            oldInfo = oldValue
+        }
+    }
+    var oldInfo: ColumnarCollectionViewLayoutInfo?
     var metrics: ColumnarCollectionViewLayoutMetrics?
     var isLayoutValid: Bool = false
     let defaultColumnWidth: CGFloat = 315
@@ -275,6 +280,25 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         attributes.transform = CGAffineTransform.init(scaleX: 0.75, y: 0.75)
         attributes.alpha = 0
         return attributes
+    }
+
+    // MARK: Scroll View
+
+    public var currentSection: Int?
+
+    public override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        var superTarget = super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
+        if let currentSection = currentSection,
+            let oldInfo = oldInfo,
+            let info = info,
+            oldInfo.sections.indices.contains(currentSection),
+            info.sections.indices.contains(currentSection) {
+            let oldY = oldInfo.sections[currentSection].frame.origin.y
+            let newY = info.sections[currentSection].frame.origin.y
+            let deltaY = newY - oldY
+            superTarget.y += deltaY
+        }
+        return superTarget
     }
 }
 

@@ -37,6 +37,7 @@
 #import "Wikipedia-Swift.h"
 
 const CGFloat WMFArticleViewControllerHeaderImageHeight = 210;
+const CGFloat WMFArticleViewControllerInlineToCContentWidthPercentage = 0.70;
 
 @import SafariServices;
 
@@ -335,6 +336,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if (@available(iOS 11.0, *)) {
             _headerImageView.accessibilityIgnoresInvertColors = YES;
         }
+        _headerImageView.userInteractionEnabled = YES; // required for tap gesture to work, NO by default on image views
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
@@ -387,8 +389,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
     BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
     if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        scrollView.contentInset = self.scrollView.contentInset;
-        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+        UIEdgeInsets scrollViewContentInset = self.scrollView.contentInset;
+        scrollViewContentInset.top = self.navigationBar.visibleHeight;
+        UIEdgeInsets scrollViewScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+        scrollViewScrollIndicatorInsets.top = self.navigationBar.visibleHeight;
+        BOOL didSet = [scrollView wmf_setContentInsetPreservingTopAndBottomOffset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets withNavigationBar:nil];
+        if (didSet) {
+            NSIndexPath *indexPath = [[self.tableOfContentsViewController.tableView indexPathsForSelectedRows] firstObject];
+            if (indexPath && ![[self.tableOfContentsViewController.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableOfContentsViewController.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+        }
+
     } else {
         CGFloat top = self.navigationController.topLayoutGuide.length;
         if (@available(iOS 11.0, *)) {
@@ -885,13 +897,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = 0.71;
+            self.webViewController.contentWidthPercentage = WMFArticleViewControllerInlineToCContentWidthPercentage;
             break;
         case WMFTableOfContentsDisplayStateInlineVisible:
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 0.91;
+            self.webViewController.contentWidthPercentage = 0.90;
             break;
     }
 
@@ -905,7 +917,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && (self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden || self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineVisible)) {
-        marginWidth = self.webViewController.marginWidth;
+        marginWidth = MAX(round(0.5 * (1 - WMFArticleViewControllerInlineToCContentWidthPercentage) * size.width), self.webViewController.marginWidth);
     }
     self.headerImageTrailingConstraint.constant = marginWidth;
     self.headerImageLeadingConstraint.constant = marginWidth;
@@ -1603,16 +1615,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
-    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        CGFloat maxOffset = (0 - (self.navigationBar.statusBarHeight + self.navigationBar.barHeight));
-        BOOL isTOCScrollOffsetInvalid = self.tableOfContentsViewController.tableView.contentOffset.y < maxOffset;
-        if (scrollView.contentOffset.y < maxOffset && isTOCScrollOffsetInvalid) {
-            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
-        } else if (isTOCScrollOffsetInvalid) {
-            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, maxOffset - 1)];
-        }
-    }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
+    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
+        [self updateTableOfContentsInsets];
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
