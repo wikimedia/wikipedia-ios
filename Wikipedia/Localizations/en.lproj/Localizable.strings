@@ -194,9 +194,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "On Wikipedia";
 "explore-nearby-heading" = "Places near";
 "explore-nearby-placeholder-heading" = "Places";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "On $1 Wikipedia";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "On Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "From $1 Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "From Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Your location";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Your location from $1 Wikipedia";
 "explore-potd-heading" = "Picture of the day";
 "explore-potd-sub-heading" = "From Wikimedia Commons";
 "explore-random-article-heading" = "Random article";
@@ -320,6 +321,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "More historical events on this day";
 "on-this-day-footer-with-event-count" = "$1 more historical events on this day";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 from $2 Wikipedia";
 "on-this-day-title" = "On this day";
 "open-link-cancel" = "Cancel";
 "page-edit-history" = "Full edit history";
