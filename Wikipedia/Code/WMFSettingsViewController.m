@@ -83,7 +83,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
-    
+
     if (@available(iOS 11.0, *)) {
     } else {
         // Before iOS 11
@@ -216,6 +216,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
+            break;
+        case WMFSettingsMenuItemType_Search:
+            [self showSearch];
             break;
         case WMFSettingsMenuItemType_ExploreFeed:
             [self showExploreFeedSettings];
@@ -386,6 +389,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 
     [self loadSections];
+}
+
+#pragma mark - Search
+
+- (void)showSearch {
 }
 
 #pragma mark - Feed
