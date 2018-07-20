@@ -336,6 +336,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         if (@available(iOS 11.0, *)) {
             _headerImageView.accessibilityIgnoresInvertColors = YES;
         }
+        _headerImageView.userInteractionEnabled = YES; // required for tap gesture to work, NO by default on image views
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
