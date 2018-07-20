@@ -54,18 +54,18 @@ public class NavigationBarHider: NSObject {
         let underBarViewHeight = navigationBar.underBarView.frame.size.height
         let extendedViewHeight = navigationBar.extendedView.frame.size.height
 
+        var totalHideableHeight: CGFloat = 0
+        if navigationBar.isBarHidingEnabled {
+            totalHideableHeight += barHeight
+        }
+        if navigationBar.isUnderBarViewHidingEnabled {
+            totalHideableHeight += underBarViewHeight
+        }
+        if navigationBar.isExtendedViewHidingEnabled {
+            totalHideableHeight += extendedViewHeight
+        }
+        
         if navigationBar.isShadowHidingEnabled {
-            var totalHideableHeight: CGFloat = 0
-            if navigationBar.isBarHidingEnabled {
-                totalHideableHeight += barHeight
-            }
-            if navigationBar.isUnderBarViewHidingEnabled {
-                totalHideableHeight += underBarViewHeight
-            }
-            if navigationBar.isExtendedViewHidingEnabled {
-                totalHideableHeight += extendedViewHeight
-            }
-            
             if totalHideableHeight > 0 {
                 navigationBar.shadowAlpha = (scrollY/totalHideableHeight).wmf_normalizedPercentage
             } else {
@@ -73,7 +73,7 @@ public class NavigationBarHider: NSObject {
             }
         }
 
-        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop else {
+        guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop || scrollY < totalHideableHeight else {
             return
         }
         
