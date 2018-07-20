@@ -3,7 +3,7 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
 
-    private var wantsDeleteInsertOnNexItemtUpdate: Bool = false
+    private var wantsDeleteInsertOnNextItemUpdate: Bool = false
     
     // MARK - UIViewController
     
@@ -585,7 +585,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let userInfo = cacheUserInfoForItem(at: indexPath)
         layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
-        if wantsDeleteInsertOnNexItemtUpdate {
+        if wantsDeleteInsertOnNextItemUpdate {
             layout.currentSection = indexPath.section
             collectionView.deleteItems(at: [indexPath])
             collectionView.insertItems(at: [indexPath])
@@ -702,7 +702,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
             group.undoType = .contentGroup
-            self.wantsDeleteInsertOnNexItemtUpdate = true
+            self.wantsDeleteInsertOnNextItemUpdate = true
             self.save()
         }
         guard let title = group.headerTitle else {
@@ -717,7 +717,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                     return
                 }
                 group.undoType = .contentGroupKind
-                self.wantsDeleteInsertOnNexItemtUpdate = true
+                self.wantsDeleteInsertOnNextItemUpdate = true
                 self.needsReloadVisibleCells = true
                 self.save()
             })
@@ -742,7 +742,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             }
         }
         group.undoType = .none
-        wantsDeleteInsertOnNexItemtUpdate = true
+        wantsDeleteInsertOnNextItemUpdate = true
         if let indexPath = fetchedResultsController.indexPath(forObject: group) {
             indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
         }
