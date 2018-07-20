@@ -577,6 +577,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         needsReloadVisibleCells = false
+        layout.currentSection = nil
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
@@ -585,6 +586,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
         if wantsDeleteInsertOnNexItemtUpdate {
+            layout.currentSection = indexPath.section
             collectionView.deleteItems(at: [indexPath])
             collectionView.insertItems(at: [indexPath])
         } else {
