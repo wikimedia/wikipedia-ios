@@ -307,6 +307,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         saveLastSearch()
+        searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
