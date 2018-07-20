@@ -286,7 +286,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _shareFunnel;
 }
 
-
 - (UIView *)headerBorderView {
     if (!_headerBorderView) {
         // HAX: Only read the scale at setup
@@ -300,20 +299,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_headerView) {
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGFloat borderHeight = scale > 1 ? 0.5 : 1;
-        
+
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, WMFArticleViewControllerHeaderImageHeight + borderHeight)];
-        
+
         self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
         [_headerView addSubview:self.headerImageView];
         self.headerBorderView.translatesAutoresizingMaskIntoConstraints = NO;
         [_headerView addSubview:self.headerBorderView];
-        
+
         NSLayoutConstraint *headerBorderHeightConstraint = [self.headerBorderView.heightAnchor constraintEqualToConstant:borderHeight];
         [self.headerBorderView addConstraint:headerBorderHeightConstraint];
-        
+
         NSLayoutConstraint *headerImageHeightConstraint = [self.headerImageView.heightAnchor constraintEqualToConstant:WMFArticleViewControllerHeaderImageHeight];
         [self.headerImageView addConstraint:headerImageHeightConstraint];
-        
+
         NSLayoutConstraint *headerImageTopConstraint = [self.headerImageView.topAnchor constraintEqualToAnchor:_headerView.topAnchor];
         self.headerImageLeadingConstraint = [self.headerImageView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
         self.headerImageTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
@@ -322,7 +321,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         NSLayoutConstraint *headerBorderLeadingConstraint = [self.headerBorderView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
         NSLayoutConstraint *headerBorderTrailingConstraint = [self.headerBorderView.trailingAnchor constraintEqualToAnchor:_headerView.trailingAnchor];
         NSLayoutConstraint *headerBorderBottomConstraint = [self.headerBorderView.bottomAnchor constraintEqualToAnchor:_headerView.bottomAnchor];
-        
+
         [_headerView addConstraints:@[headerImageTopConstraint, self.headerImageLeadingConstraint, self.headerImageTrailingConstraint, headerImageBottomConstraint, headerBorderLeadingConstraint, headerBorderTrailingConstraint, headerBorderBottomConstraint]];
     }
     return _headerView;
@@ -388,8 +387,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
     BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
     if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        scrollView.contentInset = self.scrollView.contentInset;
-        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+        UIEdgeInsets scrollViewContentInset = self.scrollView.contentInset;
+        scrollViewContentInset.top = self.navigationBar.visibleHeight;
+        UIEdgeInsets scrollViewScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
+        scrollViewScrollIndicatorInsets.top = self.navigationBar.visibleHeight;
+        BOOL didSet = [scrollView wmf_setContentInsetPreservingTopAndBottomOffset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets withNavigationBar:nil];
+        if (didSet) {
+            NSIndexPath *indexPath = [[self.tableOfContentsViewController.tableView indexPathsForSelectedRows] firstObject];
+            if (indexPath && ![[self.tableOfContentsViewController.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
+                [self.tableOfContentsViewController.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:true];
+            }
+        }
+
     } else {
         CGFloat top = self.navigationController.topLayoutGuide.length;
         if (@available(iOS 11.0, *)) {
@@ -780,7 +789,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
     self.imageScaleTransitionView = self.headerImageView;
-    
+
     self.navigationBar.isExtendedViewHidingEnabled = YES;
     self.navigationBar.isShadowBelowUnderBarView = YES;
 
@@ -919,7 +928,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)hideHeaderView {
     [self.navigationBar removeExtendedNavigationBarView];
 }
-
 
 #pragma mark - WMFImageScaleTransitionProviding
 
@@ -1605,16 +1613,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
-    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        CGFloat maxOffset = (0 - (self.navigationBar.statusBarHeight + self.navigationBar.barHeight));
-        BOOL isTOCScrollOffsetInvalid = self.tableOfContentsViewController.tableView.contentOffset.y < maxOffset;
-        if (scrollView.contentOffset.y < maxOffset && isTOCScrollOffsetInvalid) {
-            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, scrollView.contentOffset.y)];
-        } else if (isTOCScrollOffsetInvalid) {
-            [self.tableOfContentsViewController.tableView setContentOffset:CGPointMake(0, maxOffset - 1)];
-        }
-    }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
+    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
+        [self updateTableOfContentsInsets];
+    }
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
