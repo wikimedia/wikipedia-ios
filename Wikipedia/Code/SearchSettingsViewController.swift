@@ -32,7 +32,7 @@ public final class SearchSettingsViewController: UIViewController {
 
     private lazy var sections: [Section] = {
         let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar(), controlTag: 1)
-        let openAppOnSearchTab = Item(title: "Open app on Search tab", isOn: true, controlTag: 2)
+        let openAppOnSearchTab = Item(title: "Open app on Search tab", isOn: UserDefaults.wmf_userDefaults().openAppOnSearchTab, controlTag: 2)
         let items = [showLanguagesOnSearch, openAppOnSearchTab]
         let sections = [Section(items: items, footerTitle: "Set the app to open to the Search tab instead of the Explore tab")]
         return sections
@@ -89,7 +89,7 @@ extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
         case 1:
             UserDefaults.wmf_userDefaults().wmf_setShowSearchLanguageBar(sender.isOn)
         case 2:
-            print("TODO")
+            UserDefaults.wmf_userDefaults().openAppOnSearchTab = sender.isOn
         default:
             break
         }
