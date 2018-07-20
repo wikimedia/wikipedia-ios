@@ -38,12 +38,80 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
                 showsNavigationBar = false
                 ownsNavigationBar = false
                 hidesBottomBarWhenPushed = true
+                addCloseButton()
+                addScrollToTopButton()
             default:
                 hidesBottomBarWhenPushed = false
+                removeCloseButton()
+                removeScrollToTopButton()
                 break
             }
             setNeedsStatusBarAppearanceUpdate()
         }
+    }
+    
+    // MARK - Close Button
+    
+    @objc private func close() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private var closeButton: UIButton?
+   
+    private func addCloseButton() {
+        guard closeButton == nil else {
+            return
+        }
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "close-inverse"), for: .normal)
+        button.addTarget(self, action: #selector(close), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        view.addSubview(button)
+        let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+        let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
+        button.addConstraints([height, width])
+        let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        view.addConstraints([top, trailing])
+        closeButton = button
+        applyThemeToCloseButton()
+    }
+    
+    private func applyThemeToCloseButton() {
+        closeButton?.tintColor = theme.colors.tertiaryText
+    }
+    
+    private func removeCloseButton() {
+        guard closeButton != nil else {
+            return
+        }
+        closeButton?.removeFromSuperview()
+        closeButton = nil
+    }
+    
+    private var scrollToTopButton: UIButton?
+    
+    private func addScrollToTopButton() {
+        guard scrollToTopButton == nil else {
+            return
+        }
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(scrollToTop), for: .touchUpInside)
+        view.addSubview(button)
+        let top = button.topAnchor.constraint(equalTo: view.topAnchor)
+        let bottom = button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
+        let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        view.addConstraints([top, bottom, leading, trailing])
+        button.accessibilityTraits = UIAccessibilityTraitNone
+        scrollToTopButton = button
+    }
+    
+    private func removeScrollToTopButton() {
+        scrollToTopButton?.removeFromSuperview()
+        scrollToTopButton = nil
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -240,6 +308,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             return
         }
         navigationBar.apply(theme: theme)
+        applyThemeToCloseButton()
     }
 }
 

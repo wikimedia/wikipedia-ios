@@ -9,6 +9,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
+    var initialEvent: WMFFeedOnThisDayEvent?
     
     required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
         self.events = events
@@ -54,6 +55,23 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
         layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
         readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
+    }
+    
+    func scrollToInitialEvent() {
+        guard let event = initialEvent, let index = events.index(of: event), events.indices.contains(index) else {
+            return
+        }
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: index), at: index < 1 ? .top : .centeredVertically, animated: false)
+    }
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        scrollToInitialEvent()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        initialEvent = nil
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -104,7 +122,7 @@ extension OnThisDayViewController {
         return onThisDayCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard
             indexPath.section == 0,
             kind == UICollectionElementKindSectionHeader,

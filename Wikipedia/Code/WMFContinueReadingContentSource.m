@@ -34,7 +34,7 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
+    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL] ?: self.userDataStore.historyList.mostRecentEntry.URL;
 
     NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
 

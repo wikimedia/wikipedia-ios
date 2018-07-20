@@ -88,6 +88,7 @@
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
+"back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
@@ -134,6 +135,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
+"explore-feed-preferences-card-hidden-title" = "Title for button that appears in place of feed card hidden by user via the overflow button";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
 "explore-feed-preferences-customize-explore-feed" = "Title of the Settings section that allows users to customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Title for action that allows users to go to the Explore feed settings screen";
@@ -144,6 +146,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Text for Explore feed card setting indicating that the feed card is active in all preferred languages";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
+"explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - %@ is replaced with feed card type";
 "explore-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
 "explore-feed-preferences-global-cards-description" = "Description of global feed cards";
 "explore-feed-preferences-global-cards-subtitle" = "Subtitle describing non-language specific feed cards";
@@ -194,9 +197,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Subtext beneath the 'Most read articles' header when the specific language wikipedia is unknown.";
 "explore-nearby-heading" = "Text for 'Nearby places' header. The next line of the header is the name of the nearest article.";
 "explore-nearby-placeholder-heading" = "Nearby placeholder heading. The user hasn't granted location access so we show a generic section about Places on Wikipedia\n{{Identical|Place}}";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'On English Wikipedia'";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Subtext beneath the 'Places' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Subtext beneath the 'Places' header when the specific language wikipedia is unknown.";
 "explore-nearby-sub-heading-your-location" = "Subtext beneath the 'Places near' header when showing articles near the user's current location.";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Subtext beneath the 'Places near' header when showing articles near the user's current location. $1 will be replaced with the language - for example, 'Your location from English Wikipedia'";
 "explore-potd-heading" = "Text for 'Picture of the day' header";
 "explore-potd-sub-heading" = "Subtext beneath the 'Picture of the day' header.";
 "explore-random-article-heading" = "Text for 'Random article' header\n{{Identical|Random article}}";
@@ -249,8 +253,6 @@
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
-"home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
-"home-button-popover-title" = "Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
@@ -320,8 +322,10 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-footer-with-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
+"original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";

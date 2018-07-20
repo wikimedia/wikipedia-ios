@@ -197,6 +197,14 @@
     self.contentGroupKindInteger = contentGroupKind;
 }
 
+- (WMFContentGroupUndoType)undoType {
+    return (WMFContentGroupUndoType)self.undoTypeInteger;
+}
+
+- (void)setUndoType:(WMFContentGroupUndoType)undoType {
+    self.undoTypeInteger = undoType;
+}
+
 - (nullable NSURL *)articleURL {
     return [NSURL URLWithString:self.articleURLString];
 }
