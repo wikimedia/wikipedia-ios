@@ -8,6 +8,7 @@ private struct Section {
 private struct Item {
     let title: String
     let isOn: Bool
+    let controlTag: Int
 }
 
 @objc(WMFSearchSettingsViewController)
@@ -30,8 +31,8 @@ public final class SearchSettingsViewController: UIViewController {
     }
 
     private lazy var sections: [Section] = {
-        let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: true)
-        let openAppOnSearchTab = Item(title: "Open app on Search tab", isOn: true)
+        let showLanguagesOnSearch = Item(title: WMFLocalizedString("settings-language-bar", value: "Show languages on search", comment: "Title in Settings for toggling the display the language bar in the search view"), isOn: UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar(), controlTag: 1)
+        let openAppOnSearchTab = Item(title: "Open app on Search tab", isOn: true, controlTag: 2)
         let items = [showLanguagesOnSearch, openAppOnSearchTab]
         let sections = [Section(items: items, footerTitle: "Set the app to open to the Search tab instead of the Explore tab")]
         return sections
@@ -65,9 +66,12 @@ extension SearchSettingsViewController: UITableViewDataSource {
         }
         let item = getItem(at: indexPath)
         cell.disclosureType = .switch
+        cell.tag = item.controlTag
+        cell.disclosureSwitch.isOn = item.isOn
         cell.iconName = nil
         cell.title = item.title
         cell.apply(theme)
+        cell.delegate = self
         return cell
     }
 }
@@ -75,6 +79,20 @@ extension SearchSettingsViewController: UITableViewDataSource {
 extension SearchSettingsViewController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return getSection(at: section).footerTitle
+    }
+}
+
+extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
+    public func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
+        let controlTag = settingsTableViewCell.tag
+        switch controlTag {
+        case 1:
+            UserDefaults.wmf_userDefaults().wmf_setShowSearchLanguageBar(sender.isOn)
+        case 2:
+            print("TODO")
+        default:
+            break
+        }
     }
 }
 
