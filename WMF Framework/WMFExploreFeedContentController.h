@@ -17,6 +17,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 @property (nonatomic, getter=isBusy) BOOL busy;
 @property (nonatomic, weak, nullable) MWKDataStore *dataStore;
 @property (nonatomic, copy, nullable) NSArray<NSURL *> *siteURLs;
+@property (nonatomic, readonly) NSInteger countOfVisibleContentGroupKinds;
 
 - (void)startContentSources;
 - (void)stopContentSources;
@@ -47,6 +48,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
+
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
 
 /**
  Toggles a content group of given kind on or off for a given siteURL.
@@ -97,7 +100,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
 
-- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed;
+- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
 - (void)rejectNewExploreFeedPreferences;
 
 #if WMF_TWEAKS_ENABLED

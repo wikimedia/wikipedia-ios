@@ -2,6 +2,8 @@ import UIKit
 import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
+
+    private var wantsDeleteInsertOnNextItemUpdate: Bool = false
     
     // MARK - UIViewController
     
@@ -19,6 +21,29 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isRefreshControlEnabled = true
         
         title = CommonStrings.exploreTabTitle
+
+        NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func dismissCollapsedCards() {
+        guard let contentGroups = fetchedResultsController.fetchedObjects else {
+            return
+        }
+        for contentGroup in contentGroups {
+            guard contentGroup.undoType != .none else {
+                continue
+            }
+            if contentGroup.undoType == .contentGroup {
+                contentGroup.markDismissed()
+            }
+            contentGroup.isVisible = false
+            contentGroup.undoType = .none
+        }
+        save()
     }
     
     public var wantsCustomSearchTransition: Bool {
@@ -44,6 +69,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        dismissCollapsedCards()
         stopMonitoringReachability()
         collectionViewUpdater.isGranularUpdatingEnabled = false
     }
@@ -412,8 +438,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cell.subtitle = group.headerSubTitle
         cell.footerTitle = group.footerText
         cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
+        cell.undoType = group.undoType
         cell.apply(theme: theme)
         cell.delegate = self
+        if group.undoType == .contentGroupKind {
+            indexPathsForCollapsedCellsThatCanReappear.insert(indexPath)
+        }
     }
     
     override func apply(theme: Theme) {
@@ -531,6 +561,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - CollectionViewUpdaterDelegate
     
     var needsReloadVisibleCells = false
+    var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         
@@ -546,6 +577,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         needsReloadVisibleCells = false
+        layout.currentSection = nil
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
@@ -553,7 +585,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let userInfo = cacheUserInfoForItem(at: indexPath)
         layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
-        needsReloadVisibleCells = true
+        if wantsDeleteInsertOnNextItemUpdate {
+            layout.currentSection = indexPath.section
+            collectionView.deleteItems(at: [indexPath])
+            collectionView.insertItems(at: [indexPath])
+        } else {
+            needsReloadVisibleCells = true
+        }
     }
 }
 
@@ -618,6 +656,38 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         present(sheet, animated: true)
     }
 
+    private func save() {
+        do {
+            try self.dataStore.save()
+        } catch let error {
+            DDLogError("Error saving after cell customization update: \(error)")
+        }
+    }
+
+    private func isValidIndexPath(_ indexPath: IndexPath) -> Bool {
+        guard let sections = self.fetchedResultsController.sections,
+            indexPath.section < sections.count,
+            indexPath.item < sections[indexPath.section].numberOfObjects else {
+                return false
+        }
+        return true
+    }
+
+    @objc func exploreFeedPreferencesDidSave(_ note: Notification) {
+        let identifier = ExploreCardCollectionViewCell.identifier
+        DispatchQueue.main.async {
+            for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
+                guard self.isValidIndexPath(indexPath) else {
+                    continue
+                }
+                let userInfo = self.cacheUserInfoForItem(at: indexPath)
+                self.layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
+                self.collectionView.collectionViewLayout.invalidateLayout()
+            }
+            self.indexPathsForCollapsedCellsThatCanReappear = []
+        }
+    }
+
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
@@ -631,20 +701,26 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
-            group.markDismissed()
-            group.updateVisibility()
-            do {
-                try self.dataStore.save()
-            } catch let error {
-                DDLogError("Error saving after cell dismissal: \(error)")
-            }
+            group.undoType = .contentGroup
+            self.wantsDeleteInsertOnNextItemUpdate = true
+            self.save()
         }
         guard let title = group.headerTitle else {
             assertionFailure("Expected header title for group \(group.contentGroupKind)")
             return nil
         }
         let hideAllCards = UIAlertAction(title: String.localizedStringWithFormat(WMFLocalizedString("explore-feed-preferences-hide-feed-cards-action-title", value: "Hide all %@ cards", comment: "Title for action that allows users to hide all feed cards of given type - %@ is replaced with feed card type"), title), style: .default) { (_) in
-            self.dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false)
+            let feedContentController = self.dataStore.feedContentController
+            feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: false, waitForCallbackFromCoordinator: true, apply: true, updateFeed: false, completion: {
+                // If there's only one group left it means that we're about to show an alert about turning off the Explore tab. In those cases, we don't want to provide the option to undo.
+                guard feedContentController.countOfVisibleContentGroupKinds > 1 else {
+                    return
+                }
+                group.undoType = .contentGroupKind
+                self.wantsDeleteInsertOnNextItemUpdate = true
+                self.needsReloadVisibleCells = true
+                self.save()
+            })
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)
@@ -654,7 +730,24 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 
         return sheet
     }
-    
+
+    func exploreCardCollectionViewCellWantsToUndoCustomization(_ cell: ExploreCardCollectionViewCell) {
+        guard let vc = cell.cardContent as? ExploreCardViewController,
+            let group = vc.contentGroup else {
+                return
+        }
+        if group.undoType == .contentGroupKind {
+            dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
+                self.needsReloadVisibleCells = true
+            }
+        }
+        group.undoType = .none
+        wantsDeleteInsertOnNextItemUpdate = true
+        if let indexPath = fetchedResultsController.indexPath(forObject: group) {
+            indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
+        }
+        save()
+    }
     
 }
 
