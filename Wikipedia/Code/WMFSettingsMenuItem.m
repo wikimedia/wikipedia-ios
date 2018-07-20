@@ -56,15 +56,15 @@
                                            disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {
+        case WMFSettingsMenuItemType_Search: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-language-bar", nil, nil, @"Show languages on search", @"Title in Settings for toggling the display the language bar in the search view")
+                                                    title:[WMFCommonStrings searchTitle]
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_green]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
-                                               isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return
