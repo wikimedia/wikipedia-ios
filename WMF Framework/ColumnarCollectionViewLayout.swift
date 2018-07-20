@@ -288,7 +288,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
 
     public override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         var superTarget = super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
-        if let currentSection = currentSection, let oldInfo = oldInfo, let info = info {
+        if let currentSection = currentSection, let oldInfo = oldInfo, let info = info, oldInfo.sections.indices.contains(currentSection), info.sections.indices.contains(currentSection) {
             let oldY = oldInfo.sections[currentSection].frame.origin.y
             let newY = info.sections[currentSection].frame.origin.y
             let deltaY = newY - oldY
