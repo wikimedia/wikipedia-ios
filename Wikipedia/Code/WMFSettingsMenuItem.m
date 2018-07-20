@@ -62,9 +62,9 @@
                                                     title:WMFLocalizedStringWithDefaultValue(@"settings-search", nil, nil, @"Search", @"Title for Search preferences in Settings - in this context, 'Search' is a noun, not a verb")
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_green]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
-                                               isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_ExploreFeed: {
             return

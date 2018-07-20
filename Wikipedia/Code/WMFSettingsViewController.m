@@ -201,8 +201,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
-        case WMFSettingsMenuItemType_Search:
-            [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
             break;
     }
