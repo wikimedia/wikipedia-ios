@@ -249,7 +249,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             return bool(forKey: "WMFOpenAppOnSearchTab")
         }
         set {
-            set(openAppOnSearchTab, forKey: "WMFOpenAppOnSearchTab")
+            set(newValue, forKey: "WMFOpenAppOnSearchTab")
             synchronize()
         }
     }
