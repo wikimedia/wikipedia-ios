@@ -28,18 +28,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
-    private func dismissCollapsedCards() {
-        guard let contentGroups = fetchedResultsController.fetchedObjects else {
-            return
-        }
-        dataStore.feedContentController.dismissCollapsedContentGroups(contentGroups)
-    }
-    
     public var wantsCustomSearchTransition: Bool {
         return true
     }
-    
     
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
     private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
@@ -59,7 +50,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        dismissCollapsedCards()
+        dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         collectionViewUpdater.isGranularUpdatingEnabled = false
     }

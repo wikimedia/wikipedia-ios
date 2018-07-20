@@ -580,24 +580,30 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self.operationQueue addOperation:op];
 }
 
-- (void)dismissCollapsedContentGroups:(NSArray<WMFContentGroup *> *)contentGroups {
+- (void)dismissCollapsedContentGroups {
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSManagedObjectContext *moc = self.dataStore.feedImportContext;
-            for (WMFContentGroup *contentGroup in contentGroups) {
-                if (contentGroup.undoType == WMFContentGroupUndoTypeNone) {
-                    continue;
+            [moc performBlock:^{
+                NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"undoTypeInteger != 0"];
+                NSError *error = nil;
+                NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
+                if (error) {
+                    DDLogError(@"Error fetching WMFContentGroup: %@", error);
                 }
-                if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
-                    [contentGroup markDismissed];
+                for (WMFContentGroup *contentGroup in contentGroups) {
+                    if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
+                        [contentGroup markDismissed];
+                    }
+                    contentGroup.isVisible = NO;
+                    contentGroup.undoType = WMFContentGroupUndoTypeNone;
                 }
-                contentGroup.isVisible = NO;
-                contentGroup.undoType = WMFContentGroupUndoTypeNone;
-            }
-            [self save:moc];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [op finish];
-            });
+                [self save:moc];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [op finish];
+                });
+            }];
         });
     }];
     [self.operationQueue addOperation:op];
