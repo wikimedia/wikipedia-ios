@@ -33,17 +33,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let contentGroups = fetchedResultsController.fetchedObjects else {
             return
         }
-        for contentGroup in contentGroups {
-            guard contentGroup.undoType != .none else {
-                continue
-            }
-            if contentGroup.undoType == .contentGroup {
-                contentGroup.markDismissed()
-            }
-            contentGroup.isVisible = false
-            contentGroup.undoType = .none
-        }
-        save()
+        dataStore.feedContentController.dismissCollapsedContentGroups(contentGroups)
     }
     
     public var wantsCustomSearchTransition: Bool {

@@ -580,6 +580,29 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self.operationQueue addOperation:op];
 }
 
+- (void)dismissCollapsedContentGroups:(NSArray<WMFContentGroup *> *)contentGroups {
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+            for (WMFContentGroup *contentGroup in contentGroups) {
+                if (contentGroup.undoType == WMFContentGroupUndoTypeNone) {
+                    continue;
+                }
+                if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
+                    [contentGroup markDismissed];
+                }
+                contentGroup.isVisible = NO;
+                contentGroup.undoType = WMFContentGroupUndoTypeNone;
+            }
+            [self save:moc];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [op finish];
+            });
+        });
+    }];
+    [self.operationQueue addOperation:op];
+}
+
 - (NSInteger)countOfVisibleContentGroupKinds {
     if (self.cachedCountOfVisibleContentGroupKinds) {
         return self.cachedCountOfVisibleContentGroupKinds.integerValue;
