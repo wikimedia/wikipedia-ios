@@ -307,6 +307,11 @@
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
+		7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
+		7AF8B7432102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
+		7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
+		7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
+		7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AFA21BB20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
 		7AFA21BC20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
 		7AFA21BD20110D7900E957E7 /* ReadingListHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */; };
@@ -3250,6 +3255,7 @@
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
+		7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
 		7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListHintViewController.xib; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
@@ -5893,6 +5899,14 @@
 			name = Authentication;
 			sourceTree = "<group>";
 		};
+		7A9C215921022E91000505EF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		7AA7011220DB352000F3F0BC /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -6616,6 +6630,7 @@
 				0EE2438B1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.h */,
 				0EE2438C1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m */,
 				0EE2438E1DC988AA00066CBD /* WMFTableHeaderFooterLabelView.xib */,
+				7A9C215921022E91000505EF /* Search */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -9922,6 +9937,7 @@
 				B027447D1E6253E200E7B248 /* WMFScrollViewController.swift in Sources */,
 				B0B423681EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */,
+				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
 				B0F9299F1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
@@ -10321,6 +10337,7 @@
 				8350FC5020DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D80ED3411EE57F4800CE8C50 /* PreviewWebViewContainer.m in Sources */,
 				D80ED3431EE57F4800CE8C50 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
+				7AF8B7462102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D80ED3441EE57F4800CE8C50 /* WMFArticleNavigationController.m in Sources */,
 				D80ED3451EE57F4800CE8C50 /* AppDelegate.m in Sources */,
 				BA6972581F2BA2D600E35F78 /* SettingsTableViewSection.swift in Sources */,
@@ -10887,6 +10904,7 @@
 				D8A42AB91E815A9C00D8E281 /* MWKImageInfoFetcher.m in Sources */,
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				837227C320AF6AC800BDACD7 /* EditSummaryViewController.swift in Sources */,
+				7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				D8A42ABB1E815A9C00D8E281 /* NSNumber+MWKTitleNamespace.m in Sources */,
 				D8A42AC01E815A9C00D8E281 /* PageHistorySection.swift in Sources */,
@@ -11286,6 +11304,7 @@
 				8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				D8CE25A61E698E2400DAE2E0 /* MWKLicense+ToGlyph.m in Sources */,
+				7AF8B7432102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8CE25A71E698E2400DAE2E0 /* PreviewWebViewContainer.m in Sources */,
 				D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */,
 				D8CE25A91E698E2400DAE2E0 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -11522,6 +11541,7 @@
 				83E52BC11F682E3E0045E776 /* LicenseView.swift in Sources */,
 				7AFEB3F71FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7ADEAB051FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
+				7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
 				D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
