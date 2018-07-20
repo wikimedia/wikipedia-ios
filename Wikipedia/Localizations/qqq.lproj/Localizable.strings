@@ -501,6 +501,8 @@
 "settings-notifications-trending" = "Title for the setting for trending notifications";
 "settings-primary-language" = "Label shown next to primary language\n{{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
+"settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
+"settings-search-open-app-on-search" = "Title for setting that allows users to open app on Search tab";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Footer text of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";

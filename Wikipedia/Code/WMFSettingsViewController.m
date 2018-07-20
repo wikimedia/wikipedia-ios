@@ -83,7 +83,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
-    
+
     if (@available(iOS 11.0, *)) {
     } else {
         // Before iOS 11
@@ -201,8 +201,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
             [SessionSingleton sharedInstance].zeroConfigurationManager.warnWhenLeaving = isOn;
             break;
-        case WMFSettingsMenuItemType_SearchLanguageBarVisibility:
-            [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:isOn];
         default:
             break;
     }
@@ -218,6 +216,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
+            break;
+        case WMFSettingsMenuItemType_Search:
+            [self showSearch];
             break;
         case WMFSettingsMenuItemType_ExploreFeed:
             [self showExploreFeedSettings];
@@ -390,6 +391,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self loadSections];
 }
 
+#pragma mark - Search
+
+- (void)showSearch {
+    WMFSearchSettingsViewController *searchSettingsViewController = [[WMFSearchSettingsViewController alloc] init];
+    [searchSettingsViewController applyTheme:self.theme];
+    [self.navigationController pushViewController:searchSettingsViewController animated:YES];
+}
+
 #pragma mark - Feed
 
 - (void)showExploreFeedSettings {
@@ -507,7 +516,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (WMFSettingsTableViewSection *)section_2 {
     NSArray *commonItems = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguage],
-                             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_SearchLanguageBarVisibility]];
+                             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
