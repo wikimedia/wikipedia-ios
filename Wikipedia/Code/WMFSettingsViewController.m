@@ -394,6 +394,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Search
 
 - (void)showSearch {
+    WMFSearchSettingsViewController *searchSettingsViewController = [[WMFSearchSettingsViewController alloc] init];
+    [searchSettingsViewController applyTheme:self.theme];
+    [self.navigationController pushViewController:searchSettingsViewController animated:YES];
 }
 
 #pragma mark - Feed
