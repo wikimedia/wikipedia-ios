@@ -501,6 +501,8 @@
 "settings-notifications-trending" = "Trending current events";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
+"settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
+"settings-search-open-app-on-search" = "Open app on Search tab";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login and sync.";
 "settings-storage-and-syncing-enable-sync-title" = "Sync saved articles and lists";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.";

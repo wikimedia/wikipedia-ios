@@ -243,6 +243,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             return false
         }
     }
+
+    @objc public var openAppOnSearchTab: Bool {
+        get {
+            return bool(forKey: "WMFOpenAppOnSearchTab")
+        }
+        set {
+            set(newValue, forKey: "WMFOpenAppOnSearchTab")
+            synchronize()
+        }
+    }
     
     @objc public func wmf_currentSearchLanguageDomain() -> URL? {
         if let url = self.url(forKey: WMFSearchURLKey) {
@@ -476,6 +486,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         set {
             set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
             synchronize()
+            openAppOnSearchTab = newValue == .settings
         }
     }
 }
