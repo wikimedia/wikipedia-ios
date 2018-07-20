@@ -5895,6 +5895,14 @@
 			name = Authentication;
 			sourceTree = "<group>";
 		};
+		7A9C215921022E91000505EF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		7AA7011220DB352000F3F0BC /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -6619,7 +6627,7 @@
 				0EE2438B1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.h */,
 				0EE2438C1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m */,
 				0EE2438E1DC988AA00066CBD /* WMFTableHeaderFooterLabelView.xib */,
-				7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */,
+				7A9C215921022E91000505EF /* Search */,
 			);
 			name = Settings;
 			sourceTree = "<group>";

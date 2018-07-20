@@ -59,7 +59,7 @@
         case WMFSettingsMenuItemType_Search: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-search", nil, nil, @"Search", @"Title for Search preferences in Settings - in this context, 'Search' is a noun, not a verb")
+                                                    title:[WMFCommonStrings searchTitle]
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
@@ -246,8 +246,6 @@
         self.disclosureText = disclosureText;
         self.isSwitchOn = isSwitchOn;
     }
-    // preserve this string, move to settings later
-    WMFLocalizedStringWithDefaultValue(@"settings-language-bar", nil, nil, @"Show languages on search", @"Title in Settings for toggling the display the language bar in the search view");
     return self;
 }
 
