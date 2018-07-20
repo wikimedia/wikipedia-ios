@@ -33,6 +33,8 @@ EventLoggingLabel const EventLoggingLabelLogin = @"login";
 EventLoggingLabel const EventLoggingLabelSyncArticle = @"sync_article";
 EventLoggingLabel const EventLoggingLabelLocation = @"location";
 EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
+EventLoggingLabel const EventLoggingLabelContinueReading = @"continue_reading";
+EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day";
 
 @implementation EventLoggingFunnel
 
