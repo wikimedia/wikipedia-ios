@@ -19,7 +19,7 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard indexPath.isValid(in: fetchedResultsController) else {
+        guard fetchedResultsController.isValidIndexPath(indexPath) else {
                 return nil
         }
         return fetchedResultsController.object(at: indexPath)

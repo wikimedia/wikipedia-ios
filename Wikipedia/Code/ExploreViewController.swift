@@ -668,7 +668,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let identifier = ExploreCardCollectionViewCell.identifier
         DispatchQueue.main.async {
             for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
-                guard indexPath.isValid(in: self.fetchedResultsController) else {
+                guard self.fetchedResultsController.isValidIndexPath(indexPath) else {
                     continue
                 }
                 let userInfo = self.cacheUserInfoForItem(at: indexPath)
