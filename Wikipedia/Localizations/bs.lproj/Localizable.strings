@@ -111,7 +111,9 @@
 "explore-most-read-more-list-title-for-date" = "Najčitanije za $1";
 "explore-nearby-heading" = "Mjesta u blizini";
 "explore-nearby-placeholder-heading" = "Mjesta";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipediji ($1)";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipediji";
 "explore-nearby-sub-heading-your-location" = "Vaša lokacija";
 "explore-potd-heading" = "Slika dana";

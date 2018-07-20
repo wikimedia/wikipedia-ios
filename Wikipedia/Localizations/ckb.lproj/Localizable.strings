@@ -130,7 +130,9 @@
 "explore-most-read-more-list-title-for-date" = "بەناوبانگترین لە $1";
 "explore-nearby-heading" = "شوێنە نزیکەکان";
 "explore-nearby-placeholder-heading" = "شوێنەکان";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "لە $1 ویکیپیدیا";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "لە ویکیپیدیا";
 "explore-nearby-sub-heading-your-location" = "شوێنی تۆ";
 "explore-potd-heading" = "وێنەی ئەمڕۆ";

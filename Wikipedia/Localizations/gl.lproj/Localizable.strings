@@ -174,7 +174,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipedia";
 "explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-placeholder-heading" = "Lugares";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En Wikipedia en $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
 "explore-nearby-sub-heading-your-location" = "A súa localización";
 "explore-potd-heading" = "Imaxe do día";

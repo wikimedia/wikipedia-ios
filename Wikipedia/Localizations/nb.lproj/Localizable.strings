@@ -138,7 +138,9 @@
 "explore-most-read-more-list-title-for-date" = "Mest lest på $1";
 "explore-nearby-heading" = "Steder i nærheten";
 "explore-nearby-placeholder-heading" = "Steder";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På Wikipedia på $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Din posisjon";
 "explore-potd-heading" = "Dagens bilde";

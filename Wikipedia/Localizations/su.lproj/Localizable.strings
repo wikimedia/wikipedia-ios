@@ -123,7 +123,9 @@
 "explore-most-read-more-list-title-for-date" = "Pangluhurna dina $1";
 "explore-nearby-heading" = "Tempat pangdeukeutna";
 "explore-nearby-placeholder-heading" = "Tempat";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipedia $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Lokasi anjeun";
 "explore-potd-heading" = "Gambar poé ieu";

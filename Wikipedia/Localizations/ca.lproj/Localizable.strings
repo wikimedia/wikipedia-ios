@@ -187,7 +187,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "A la Viquipèdia";
 "explore-nearby-heading" = "Llocs propers";
 "explore-nearby-placeholder-heading" = "Llocs";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "A la Viquipèdia en $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "A la Viquipèdia";
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
 "explore-potd-heading" = "Foto del dia";

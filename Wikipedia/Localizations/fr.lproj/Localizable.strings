@@ -200,8 +200,16 @@
 "explore-feed-preferences-show-top-read-title" = "Afficher la carte Le plus lu";
 "explore-feed-preferences-top-read-description" = "Articles quotidiens les plus lus";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Arrêter le flux d'exploration";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "En masquant toutes les cartes des flux d'Exploration, vous désactivez l'onglet Explore qui est remplacé par l'onglet Paramètres.";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Arrêter le flux d'exploration ?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Désactiver Explore";
+"explore-feed-preferences-turn-off-explore-tab-message" = "L'onglet Explore peut être réactivé dans les paramètres du flux d'exploration";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Désactiver l'onglet Explore ?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Désactiver l’onglet d’exploration le remplacera par un onglet de paramétrage.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "En choisissant d'afficher les cartes de flux d'exploration, vous activez l'onglet Explore";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activer Explore";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Ceci remplacera l'onglet Paramètres par l'onglet Explore; vous pouvez accéder aux paramètres en haut de l'onglet Explore, en cliquant sur l'icône du volant.";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Activer l'onglet Explore ?";
 "explore-hide-card-prompt" = "Masquer cette carte";
 "explore-main-page-description" = "Page principale des projets Wikimedia";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
@@ -212,7 +220,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Sur Wikipédia";
 "explore-nearby-heading" = "Endroits proches";
 "explore-nearby-placeholder-heading" = "Endroits";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Sur Wikipédia en $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Sur Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Votre emplacement";
 "explore-potd-heading" = "Image du jour";
@@ -494,6 +504,7 @@
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-delete-all" = "Supprimer tout";
+"search-recent-empty" = "Aucune recherche récente";
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";

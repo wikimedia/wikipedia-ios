@@ -192,8 +192,16 @@
 "explore-feed-preferences-show-top-read-title" = "Mostrar o cartão 'Os mais lidos'";
 "explore-feed-preferences-top-read-description" = "Artigos mais lidos do dia";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desativar o feed Explorar";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todos os cartões do feed Explorar irá desativar o separador Explorar e substituí-lo por um separador Definições";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desativar o feed Explorar?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desativar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-message" = "O separador Explorar pode voltar a ser ativado nas definições do feed Explorar";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Desativar o separador Explorar?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Desativar o separador Explorar irá substituir o separador Explorar por um separador Definições.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ao escolher mostrar cartões do feed Explorar está a ativar o separador Explorar";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -204,7 +212,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-placeholder-heading" = "Lugares";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipédia em $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-sub-heading-your-location" = "A sua localização";
 "explore-potd-heading" = "Imagem do dia";
@@ -486,6 +496,7 @@
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "search-recent-clear-delete-all" = "Apagar tudo";
+"search-recent-empty" = "Ainda não existem pesquisas recentes";
 "search-recent-title" = "Pesquisado recentemente";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";

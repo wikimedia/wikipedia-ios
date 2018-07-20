@@ -165,7 +165,9 @@
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
 "explore-nearby-heading" = "Yakındaki yerler";
 "explore-nearby-placeholder-heading" = "Yerler";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedi'de";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedi'de";
 "explore-nearby-sub-heading-your-location" = "Konumunuz";
 "explore-potd-heading" = "Günün resmi";

@@ -201,7 +201,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "בוויקיפדיה";
 "explore-nearby-heading" = "מקומות בסביבה";
 "explore-nearby-placeholder-heading" = "מקומות";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "בוויקיפדיה ה$1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "בוויקיפדיה";
 "explore-nearby-sub-heading-your-location" = "המיקום שלך";
 "explore-potd-heading" = "תמונת היום";

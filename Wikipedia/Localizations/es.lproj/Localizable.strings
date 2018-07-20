@@ -153,19 +153,32 @@
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+"explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
+"explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
+"explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
 // Fuzzy
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
+"explore-most-read-sub-heading-on-wikipedia" = "En Wikipedia";
 "explore-nearby-heading" = "Lugares cercanos a";
 "explore-nearby-placeholder-heading" = "Lugares";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Tu ubicación";
 "explore-potd-heading" = "Imagen del día";
+"explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Artículo aleatorio";
+"explore-random-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "feed-news-notification-button-text" = "Activar las notificaciones";
 "feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
@@ -235,9 +248,12 @@
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-notification-share-action-title" = "Compartir...";
+"in-the-news-sub-title-from-language-wikipedia" = "De la Wikipedia en $1";
+"in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
 "info-box-close-text" = "Cerrar";
 "info-box-title" = "Datos rápidos";
+"languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "license-footer-name" = "CC-BY-SA 3.0";

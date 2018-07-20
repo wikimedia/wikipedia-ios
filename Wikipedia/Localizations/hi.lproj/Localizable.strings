@@ -138,7 +138,9 @@
 "explore-most-read-more-list-title-for-date" = "$1 के प्रमुख लेख";
 "explore-nearby-heading" = "पास के स्थान";
 "explore-nearby-placeholder-heading" = "स्थान";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपीडिया पर";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपीडिया पर";
 "explore-nearby-sub-heading-your-location" = "आपकी स्थिति";
 "explore-potd-heading" = "आज का चित्र";

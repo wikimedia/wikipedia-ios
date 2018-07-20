@@ -137,7 +137,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-heading" = "Plazen nobäi";
 "explore-nearby-placeholder-heading" = "Plazen";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Är Plaz";
 "explore-potd-heading" = "Bild vum Dag";
@@ -193,11 +195,9 @@
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-more-like-footer" = "Méi wéi $1";
-// Fuzzy
 "home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
-// Fuzzy
-"home-news-footer" = "Méi an den Neiegkeeten";
+"home-news-footer" = "Méi aktuell Evenementer";
 "home-themes-action-title" = "Astellunge geréieren";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, no uewe scrolle fir z'Entdecken";
@@ -257,6 +257,7 @@
 "number-thousands" = "$1 D";
 "on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
+"on-this-day-footer-with-event-count" = "$1 weider historesch Evenementer op dësem Dag";
 "on-this-day-title" = "Op dësem Dag";
 "open-link-cancel" = "Ofbriechen";
 "page-edit-history" = "All Versioune vun der Säit";

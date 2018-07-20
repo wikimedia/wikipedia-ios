@@ -34,6 +34,7 @@
 "about-libraries" = "Użyte biblioteki";
 "about-libraries-complete-list" = "Pełna lista";
 "about-libraries-license" = "Licencja";
+"about-places-maps-license-details-link-text" = "Zobacz szczegóły licencji";
 "about-product-of" = "Stworzone przez $1 z pomocą wolontariuszy takich jak Ty";
 "about-repositories" = "Repozytoria";
 "about-repositories-app-source-license" = "Kod źródłowy dostępny na licencji $1.";
@@ -137,7 +138,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-placeholder-heading" = "Miejsca";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";

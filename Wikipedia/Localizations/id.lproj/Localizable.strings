@@ -154,7 +154,9 @@
 "explore-most-read-more-list-title-for-date" = "Teratas pada $1";
 "explore-nearby-heading" = "Tempat terdekat";
 "explore-nearby-placeholder-heading" = "Tempat";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Lokasi Anda";
 "explore-potd-heading" = "Gambar pilihan";

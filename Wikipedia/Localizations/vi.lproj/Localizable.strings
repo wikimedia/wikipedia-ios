@@ -147,7 +147,9 @@
 "explore-most-read-more-list-title-for-date" = "Hạng nhất vào $1";
 "explore-nearby-heading" = "Địa điểm gần";
 "explore-nearby-placeholder-heading" = "Địa điểm";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Tại Wikipedia tiếng $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Tại Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Vị trí của bạn";
 "explore-potd-heading" = "Hình ảnh trong ngày";

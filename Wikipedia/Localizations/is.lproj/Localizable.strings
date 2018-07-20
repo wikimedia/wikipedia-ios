@@ -142,7 +142,9 @@
 "explore-most-read-more-list-title-for-date" = "Mest lesið á $1";
 "explore-nearby-heading" = "Staðir í nágrenninu";
 "explore-nearby-placeholder-heading" = "Staðir";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Á $1 Wikipedia";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Á Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Staðsetning þín";
 "explore-potd-heading" = "Mynd dagsins";

@@ -99,6 +99,7 @@
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
 "explore-nearby-placeholder-heading" = "स्थानहरू";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियामा";
 "explore-nearby-sub-heading-your-location" = "तपाईँको स्थान";
 "explore-potd-heading" = "आजको तस्बिर";

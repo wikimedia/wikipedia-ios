@@ -202,7 +202,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipedii";
 "explore-nearby-heading" = "Místa v blízkosti";
 "explore-nearby-placeholder-heading" = "Místa";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Vaše poloha";
 "explore-potd-heading" = "Obrázek dne";

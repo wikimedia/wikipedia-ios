@@ -130,7 +130,9 @@
 "explore-most-read-more-list-title-for-date" = "អត្ថបទអានច្រើនជាងគេនៅ $1";
 "explore-nearby-heading" = "ទីតាំងក្បែរ";
 "explore-nearby-placeholder-heading" = "ទី​តាំង";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "នៅលើវិគីភីឌា$1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "នៅលើវិគីភីឌា";
 "explore-nearby-sub-heading-your-location" = "ទីតាំងរបស់អ្នក";
 "explore-potd-heading" = "រូបភាពថ្ងៃនេះ";

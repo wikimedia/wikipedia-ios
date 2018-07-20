@@ -160,7 +160,9 @@
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "explore-nearby-heading" = "مکان‌های نزدیک";
 "explore-nearby-placeholder-heading" = "مکان‌ها";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "در ویکی‌پدیای $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "در ویکی‌پدیا";
 "explore-nearby-sub-heading-your-location" = "مکان شما";
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";

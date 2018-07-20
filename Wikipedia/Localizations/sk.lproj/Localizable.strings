@@ -125,6 +125,7 @@
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "explore-nearby-heading" = "Miesta v okolí";
 "explore-nearby-placeholder-heading" = "Miesta";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédii";
 "explore-nearby-sub-heading-your-location" = "Vaša poloha";
 "explore-potd-heading" = "Obrázok dňa";

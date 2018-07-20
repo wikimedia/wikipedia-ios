@@ -211,8 +211,16 @@
 "explore-feed-preferences-show-top-read-title" = "Показать карточку «Самые читаемые»";
 "explore-feed-preferences-top-read-description" = "Самые просматриваемые статьи за этот день";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Отключить вкладку ленты";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Скрытие карточек всех типов приведёт к скрытию всей вкладки \"Лента\" и замене её вкладкой \"Настройки\".";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Отключить вкладку ленты?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Если выключить вкладку ленты, то вместо неё будет показана вкладка настроек.";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Отключить Ленту";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Вернуть вкладку \"Лента\" можно в разделе настроек";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Отключить Ленту?";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Если выключить вкладку \"Лента\", то вместо неё будет показана вкладка \"Настройки\".";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Вкладка \"Лента\" будет включена, если будут включены к показу любые её карточки";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить Ленту";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка \"Настройки\" будет заменена вкладкой \"Лента\". Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Включить Ленту?";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -223,7 +231,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "На Википедии";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-placeholder-heading" = "Места";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На $1 Википедии";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедии";
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
 "explore-potd-heading" = "Изображение дня";
@@ -505,6 +515,7 @@
 "search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";
 "search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-delete-all" = "Удалить всё";
+"search-recent-empty" = "В истории поиска пока ничего нет";
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";

@@ -182,8 +182,16 @@
 "explore-feed-preferences-show-top-read-title" = "Прикажи ја картричката „Најчитани“";
 "explore-feed-preferences-top-read-description" = "Најпосетени статии за денес";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Исклучи го тековникот „Истражи“";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Скривањето ги сите доводни картички „Истражи“ ќе го исклучи ова јазиче и ќе го замени со јазичето „Нагодувања“.";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Да го исклучам тековникот „Истражи“";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Исклучи го „Истражи“";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Јазичето „Истражи“ може повторно да се вклучи во неговите нагодувања";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Да го исклучам јазичето „Истражи“?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Исклучувајќи го јазичето „Истражиу“ ќе го замените со јазичето „Нагодувања“.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Избирајќи да се прикаже доводот „Истражи“, воедно ќе го вклучите неговото јазиче";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -194,7 +202,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "На Википедија";
 "explore-nearby-heading" = "Околни места";
 "explore-nearby-placeholder-heading" = "Места";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На Википедија на $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедија";
 "explore-nearby-sub-heading-your-location" = "Ваша местоположба";
 "explore-potd-heading" = "Слика на денот";
@@ -476,6 +486,7 @@
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-delete-all" = "Избриши ги сите";
+"search-recent-empty" = "Засега нема скорешни пребарувања";
 "search-recent-title" = "Неодамна пребарано";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "search-title" = "Пребарување";

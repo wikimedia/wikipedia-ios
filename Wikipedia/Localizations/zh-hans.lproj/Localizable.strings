@@ -206,7 +206,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-heading" = "地点接近";
 "explore-nearby-placeholder-heading" = "地方";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1维基百科";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
 "explore-potd-heading" = "每日图片";

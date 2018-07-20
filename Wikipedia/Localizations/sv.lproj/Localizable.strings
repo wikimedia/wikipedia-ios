@@ -206,7 +206,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-heading" = "Platser i närheten";
 "explore-nearby-placeholder-heading" = "Platser";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Din position";
 "explore-potd-heading" = "Dagens bild";

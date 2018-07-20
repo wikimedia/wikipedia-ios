@@ -206,7 +206,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Wikipediassa";
 "explore-nearby-heading" = "Lähistön paikat";
 "explore-nearby-placeholder-heading" = "Paikat";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipediassa";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipediassa";
 "explore-nearby-sub-heading-your-location" = "Sijaintisi";
 "explore-potd-heading" = "Päivän kuva";

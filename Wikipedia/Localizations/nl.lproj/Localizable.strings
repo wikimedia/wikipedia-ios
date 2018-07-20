@@ -30,6 +30,7 @@
 "about-libraries-complete-list" = "Volledige lijst";
 "about-libraries-license" = "Licentie";
 "about-libraries-licenses-title" = "Wij houden van opensourcesoftware $1";
+"about-places-maps-license-details" = "Plaatsen gebruikt kaarten aangeboden door Apple Maps. $1.";
 "about-product-of" = "Gemaakt door de $1 met behulp van vrijwilligers zoals u";
 "about-repositories" = "Repositories";
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
@@ -149,17 +150,19 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-generic-heading" = "Meest gelezen";
 "explore-most-read-more-list-title-for-date" = "Meest gelezen op $1";
 "explore-nearby-heading" = "Plaatsen in de buurt";
 "explore-nearby-placeholder-heading" = "Plaatsen";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia in het $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-random-article-heading" = "Willekeurige pagina";
+"explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
 // Fuzzy
@@ -233,6 +236,7 @@
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
+"languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -306,6 +310,7 @@
 "places-filter-saved-articles" = "Opgeslagen pagina's";
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
+"places-filter-top-read-articles" = "Meest gelezen pagina's";
 "places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
 "places-search-articles-that-match" = "$1 die overeenkomen met \"$2\"";
 "places-search-default-text" = "Plaatsen zoeken";
@@ -441,6 +446,7 @@
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-on-this-day-title" = "Op deze dag";
+"welcome-exploration-places-title" = "Plaatsen-tabblad";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";

@@ -185,8 +185,16 @@
 "explore-feed-preferences-show-top-read-title" = "Karte „Am meisten gelesen“ anzeigen";
 "explore-feed-preferences-top-read-description" = "Tägliche am meisten gelesene Artikel";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Entdecken-Feed ausschalten";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Das Ausblenden aller Entdecken-Feed-Karten schaltet den Entdecken-Reiter aus und ersetzt ihn durch einen Einstellungs-Reiter";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Entdecken-Feed ausschalten?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Entdecken ausschalten";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Der Entdecken-Reiter kann erneut in den Einstellungen zum Entdecken-Feed angeschaltet werden";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Den Entdecken-Reiter ausschalten?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Das Ausschalten des Entdecken-Reiters wird den Entdecken-Reiter durch einen Einstellungen-Reiter ersetzen.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Durch die Auswahl zur Anzeige der Entdecken-Feed-Karten schaltest du den Entdecken-Reiter an";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Entdecken anschalten";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Dies ersetzt den Einstellungen-Reiter durch den Entdecken-Reiter. Du kannst auf die Einstellungen vom Entdecken-Reiter zugreifen, indem du oben auf das Zahnradsymbol tippst.";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Den Entdecken-Reiter anschalten?";
 "explore-hide-card-prompt" = "Diese Karte ausblenden";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -197,9 +205,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Auf Wikipedia";
 "explore-nearby-heading" = "Orte in der Nähe von";
 "explore-nearby-placeholder-heading" = "Orte";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Auf der $1 Wikipedia";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Auf Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Von der Wikipedia auf $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Von Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Dein Standort";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Dein Standort von der Wikipedia auf $1";
 "explore-potd-heading" = "Bild des Tages";
 "explore-potd-sub-heading" = "Von Wikimedia Commons";
 "explore-random-article-heading" = "Zufälliger Artikel";
@@ -323,6 +332,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
 "on-this-day-footer-with-event-count" = "$1 weitere historische Ereignisse an diesem Tag";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "open-link-cancel" = "Abbrechen";
 "page-edit-history" = "Vollständige Versionsgeschichte";
@@ -479,6 +489,7 @@
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
 "search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "search-recent-clear-delete-all" = "Alle löschen";
+"search-recent-empty" = "Noch keine letzten Suchanfragen";
 "search-recent-title" = "Zuletzt gesucht";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "search-title" = "Suchen";

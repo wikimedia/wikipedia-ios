@@ -142,7 +142,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-placeholder-heading" = "স্থান";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-sub-heading-your-location" = "আপনার অবস্থান";
 "explore-potd-heading" = "আজকের নির্বাচিত ছবি";

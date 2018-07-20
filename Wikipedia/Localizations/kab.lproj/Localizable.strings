@@ -121,7 +121,9 @@
 "explore-most-read-more-list-title-for-date" = "Ttwaɣran aṭas arama d $1";
 "explore-nearby-heading" = "Imeḍqan iqerben";
 "explore-nearby-placeholder-heading" = "Idigen";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Di Wikipedia di $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Di Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Adig-ik";
 "explore-potd-heading" = "Tugna n wass";

@@ -196,8 +196,16 @@
 "explore-feed-preferences-show-top-read-title" = "顯示最多閱讀卡片";
 "explore-feed-preferences-top-read-description" = "每日被最多次閱讀的條目";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "關閉探索摘要";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "隱藏所有探索摘要卡片將會關閉探索分頁，並以設定分頁取代之";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "關閉探索摘要？";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "關閉探索";
+"explore-feed-preferences-turn-off-explore-tab-message" = "探索分頁會在探索摘要設定裡忽略";
+"explore-feed-preferences-turn-off-explore-tab-title" = "關閉探索分頁？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "關閉探索分頁會改以設定分頁來取代之。";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "透過挑選來顯示您開啟探索分頁的探索摘要卡片";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "開啟探索";
+"explore-feed-preferences-turn-on-explore-tab-message" = "這會以探索分頁來取代設定分頁，您可以從探索分頁的頂端使用輕觸齒輪圖示方式來取用設定";
+"explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -208,7 +216,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在維基百科";
 "explore-nearby-heading" = "位置接近";
 "explore-nearby-placeholder-heading" = "地點";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1維基百科";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "在維基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
 "explore-potd-heading" = "每日圖片";
@@ -490,6 +500,7 @@
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
 "search-recent-clear-delete-all" = "刪除所有";
+"search-recent-empty" = "尚未有近期搜尋";
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自: $1";
 "search-title" = "搜尋";

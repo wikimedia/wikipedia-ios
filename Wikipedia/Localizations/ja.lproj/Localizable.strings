@@ -168,7 +168,9 @@
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
 "explore-nearby-placeholder-heading" = "場所";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアで";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-potd-heading" = "今日の一枚";

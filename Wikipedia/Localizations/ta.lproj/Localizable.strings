@@ -107,7 +107,9 @@
 "explore-most-read-generic-heading" = "அதிகமாக படிக்கப்பட்டது";
 "explore-nearby-heading" = "அருகில் இடங்கள்";
 "explore-nearby-placeholder-heading" = "இடங்கள்";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 விக்கிபீடியா";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "விக்கிப்பீடியாவில்";
 "explore-nearby-sub-heading-your-location" = "உங்களது இருப்பிடம்";
 "explore-potd-heading" = "இன்றைய சிறப்புப்படம்";
