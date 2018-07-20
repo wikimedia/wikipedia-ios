@@ -721,7 +721,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
-    [self.delegate.navigationBar setPercentHidden:0 shadowAlpha:1 animated:animated];
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
