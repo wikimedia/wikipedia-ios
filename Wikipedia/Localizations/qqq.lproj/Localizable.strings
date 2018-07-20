@@ -88,6 +88,7 @@
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
+"back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-ok" = "Button text for ok button used in various places\n{{Identical|OK}}";
@@ -250,8 +251,6 @@
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
-"home-button-popover-description" = "Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
-"home-button-popover-title" = "Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
@@ -324,6 +323,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
+"original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
 "page-edit-history" = "Label for button used to show an article's complete edit history";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
