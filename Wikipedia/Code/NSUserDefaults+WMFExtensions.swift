@@ -486,6 +486,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         set {
             set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
             synchronize()
+            openAppOnSearchTab = newValue == .settings
         }
     }
 }
