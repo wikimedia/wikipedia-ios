@@ -535,7 +535,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (updateFeed) {
-                        [self updateFeedSourcesUserInitiated:updateFeed completion:nil];
+                        [self updateFeedSourcesUserInitiated:NO completion:nil];
                     }
                     [op finish];
                 });
