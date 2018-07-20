@@ -135,12 +135,10 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
-        guard let fetchedResultsController = fetchedResultsController, let sections = fetchedResultsController.sections,
-            indexPath.section < sections.count,
-            indexPath.item < sections[indexPath.section].numberOfObjects else {
+        guard indexPath.isValid(in: fetchedResultsController) else {
                 return nil
         }
-        return fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController?.object(at: indexPath)
     }
     
     // MARK: - Reading list creation

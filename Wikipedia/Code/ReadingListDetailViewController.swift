@@ -154,13 +154,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sections = fetchedResultsController.sections,
-            indexPath.section < sections.count,
-            indexPath.item < sections[indexPath.section].numberOfObjects else {
+        guard indexPath.isValid(in: fetchedResultsController) else {
                 return nil
         }
-        return fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController?.object(at: indexPath)
     }
     
     private func articleURL(at indexPath: IndexPath) -> URL? {

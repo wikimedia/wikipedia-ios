@@ -115,13 +115,10 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     private func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sections = fetchedResultsController.sections,
-            indexPath.section < sections.count,
-            indexPath.item < sections[indexPath.section].numberOfObjects else {
+        guard indexPath.isValid(in: fetchedResultsController) else {
                 return nil
         }
-        return fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController?.object(at: indexPath)
     }
     
     private func readingListsForArticle(at indexPath: IndexPath) -> [ReadingList] {
