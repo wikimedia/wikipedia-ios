@@ -602,10 +602,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return count;
 }
 
-- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
-    [self applyExploreFeedPreferencesToObjects:[moc updatedObjects] inManagedObjectContext:moc];
-}
-
 - (void)applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     NSError *error = nil;
@@ -644,6 +640,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             }
         }
     }
+}
+
+- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSSet *updatedOrInsertedObjects = [[moc updatedObjects] setByAddingObjectsFromSet:[moc insertedObjects]];
+    [self applyExploreFeedPreferencesToObjects:updatedOrInsertedObjects inManagedObjectContext:moc];
 }
 
 - (void)save:(NSManagedObjectContext *)moc {
