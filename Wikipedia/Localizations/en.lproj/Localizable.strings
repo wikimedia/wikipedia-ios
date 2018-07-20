@@ -134,6 +134,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
+"explore-feed-preferences-card-hidden-title" = "Card hidden";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
 "explore-feed-preferences-customize-explore-feed" = "Customize the Explore feed";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Customize Explore feed";
@@ -144,6 +145,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "On all";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "On";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "On $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "All %@ cards hidden";
 "explore-feed-preferences-global-card-footer-text" = "This card is not language specific, turning off this card will remove it from your Explore feed.";
 "explore-feed-preferences-global-cards-description" = "Non-language specific cards";
 "explore-feed-preferences-global-cards-subtitle" = "Not language specific";
