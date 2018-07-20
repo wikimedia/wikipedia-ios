@@ -1,4 +1,4 @@
-extension WMFContentGroupKind {
+public extension WMFContentGroupKind {
     var isInFeed: Bool {
         guard isGlobal else {
             return !feedContentController.languageCodes(for: self).isEmpty
