@@ -27,8 +27,9 @@
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
         let isFeedDisabled = userDefaults.defaultTabType != .explore
         let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
+        let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
 
-        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled]
+        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
 
         guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
             return event
