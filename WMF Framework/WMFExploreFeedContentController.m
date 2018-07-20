@@ -535,7 +535,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 [self save:moc];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (updateFeed) {
-                        [self updateFeedSourcesUserInitiated:updateFeed completion:nil];
+                        [self updateFeedSourcesUserInitiated:NO completion:nil];
                     }
                     [op finish];
                 });
@@ -572,6 +572,35 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                     if (completion) {
                         completion();
                     }
+                    [op finish];
+                });
+            }];
+        });
+    }];
+    [self.operationQueue addOperation:op];
+}
+
+- (void)dismissCollapsedContentGroups {
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+            [moc performBlock:^{
+                NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
+                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"undoTypeInteger != 0"];
+                NSError *error = nil;
+                NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
+                if (error) {
+                    DDLogError(@"Error fetching WMFContentGroup: %@", error);
+                }
+                for (WMFContentGroup *contentGroup in contentGroups) {
+                    if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
+                        [contentGroup markDismissed];
+                    }
+                    contentGroup.isVisible = NO;
+                    contentGroup.undoType = WMFContentGroupUndoTypeNone;
+                }
+                [self save:moc];
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [op finish];
                 });
             }];
