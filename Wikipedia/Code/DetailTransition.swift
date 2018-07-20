@@ -110,7 +110,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         let totalHeight = containerView.bounds.size.height
-        let tabBar = isImageScaleTransitioning ? nil : self.detailSourceViewController.tabBarController?.tabBar // isImageScaleTransitioning ? is hack to disable for article transition
+        let tabBar = self.detailSourceViewController.tabBarController?.tabBar
         let tabBarSnapshot = tabBar?.snapshotView(afterScreenUpdates: false)
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
