@@ -589,6 +589,7 @@
 		B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */; };
 		B0421AA6206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */; };
 		B043233A21016CC500A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043233921016CC400A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */; };
+		B043233C21016DD800A9A6B6 /* WMFContentGroupKind+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043233B21016DD800A9A6B6 /* WMFContentGroupKind+EventLogging.swift */; };
 		B04393F21D21C04500FD2BD9 /* WMFImageTagParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */; };
 		B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */; };
 		B04C809A1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */; };
@@ -3363,6 +3364,7 @@
 		B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBarItemProgressBadgeManager.swift; sourceTree = "<group>"; };
 		B043233921016CC400A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+FeedCustomization.swift"; sourceTree = "<group>"; };
+		B043233B21016DD800A9A6B6 /* WMFContentGroupKind+EventLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+EventLogging.swift"; sourceTree = "<group>"; };
 		B04393F11D21C04500FD2BD9 /* WMFImageTagParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageTagParserTests.m; sourceTree = "<group>"; };
 		B04C444A1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Array<UITextField>+WMFAllFieldsFilled.swift"; path = "Wikipedia/Code/Array<UITextField>+WMFAllFieldsFilled.swift"; sourceTree = SOURCE_ROOT; };
 		B04C80991EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WKWebView+WMFWebViewControllerJavascript.swift"; path = "Wikipedia/Code/WKWebView+WMFWebViewControllerJavascript.swift"; sourceTree = SOURCE_ROOT; };
@@ -7563,6 +7565,7 @@
 				7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */,
 				8380754420DE627D000D222C /* WMFContentGroup+Display.swift */,
 				B043233921016CC400A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */,
+				B043233B21016DD800A9A6B6 /* WMFContentGroupKind+EventLogging.swift */,
 				83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */,
 				83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */,
 				83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */,
@@ -10612,6 +10615,7 @@
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D8CAD1E3203EEFDD006467E2 /* CSRFTokenOperation.swift in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
+				B043233C21016DD800A9A6B6 /* WMFContentGroupKind+EventLogging.swift in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
