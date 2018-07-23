@@ -220,6 +220,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         } else {
             viewMode = .map
         }
+
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        panGR.delegate = self
+        view.addGestureRecognizer(panGR)
+        overlaySliderPanGestureRecognizer = panGR
         
         apply(theme: theme)
         self.view.layoutIfNeeded()
