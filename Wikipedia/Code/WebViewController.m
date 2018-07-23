@@ -200,7 +200,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        [self hideFindInPageWithCompletion:^{
-
                                            NSString *href = messageDict[@"href"];
 
                                            if (href.length == 0) {
@@ -217,7 +216,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
                                                url = [url wmf_urlByPrependingSchemeIfSchemeless];
-                                               [(self).delegate webViewController:(self)didTapOnLinkForArticleURL:url];
+                                               [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
@@ -423,11 +422,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                               "var contentDiv = document.getElementById('content');"
                               "contentDiv.style.marginLeft='%ipx';"
                               "contentDiv.style.marginRight='%ipx';"
-                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);";
+                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
+                              "var body = document.getElementsByTagName('body')[0];"
+                              "body.style.paddingTop='%ipx';";
 
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
+        int paddingTop = (int)MAX(0, _headerHeight);
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding, paddingTop];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
 }
@@ -805,11 +807,19 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (void)setHeaderHeight:(CGFloat)headerHeight {
+    if (headerHeight == _headerHeight) {
+        return;
+    }
+    _headerHeight = headerHeight;
+    [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
+}
+
 - (void)displayArticle {
     if (!self.article) {
         return;
     }
-    
+
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
     WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
@@ -833,7 +843,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
-
                                        NSAssert([notification.object isMemberOfClass:[NSURL class]], @"WMFReferenceLinkTappedNotification did not contain NSURL");
                                        NSURL *URL = notification.object;
                                        NSAssert(URL != nil, @"WMFReferenceLinkTappedNotification NSURL was unexpectedly nil");
