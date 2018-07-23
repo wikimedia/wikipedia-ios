@@ -234,14 +234,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
         if !undoLabel.isHidden {
             let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins - 8, horizontalAlignment: labelHorizontalAlignment, apply: false)
+            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, apply: false)
             let halfHeight = round(0.5 * undoLabelFrame.height)
             undoLabelFrame.origin.y -= halfHeight
             undoLabel.frame = undoLabelFrame
         }
 
         if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: origin.x, y: undoLabel.frame.origin.y)
+            let undoButtonOrigin = CGPoint(x: origin.x - singlePixelDimension, y: undoLabel.frame.origin.y)
             origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
     
