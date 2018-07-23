@@ -310,6 +310,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if isExtendedViewHidingEnabled {
             _extendedViewPercentHidden = extendedViewPercentHidden
         }
+        
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
@@ -395,7 +396,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        self.extendedView.alpha = isExtendedViewFadingEnabled ? min(backgroundAlpha, 1.0 - extendedViewPercentHidden) : backgroundAlpha
+        
+        if isExtendedViewFadingEnabled {
+            self.extendedView.alpha = min(backgroundAlpha, 1.0 - extendedViewPercentHidden)
+        } else {
+            self.extendedView.alpha = CGFloat(1).isLessThanOrEqualTo(extendedViewPercentHidden) ? 0 : backgroundAlpha
+        }
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform

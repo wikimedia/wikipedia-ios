@@ -794,6 +794,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.navigationBar.isExtendedViewHidingEnabled = YES;
     self.navigationBar.isShadowBelowUnderBarView = YES;
+    self.navigationBar.isExtendedViewFadingEnabled = NO;
 
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
