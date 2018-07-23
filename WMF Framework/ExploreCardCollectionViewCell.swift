@@ -65,12 +65,13 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
-        undoLabel.numberOfLines = 0
+        undoLabel.numberOfLines = 1
         undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
+        undoButton.titleLabel?.numberOfLines = 1
         undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-        undoButton.setTitle("Undo", for: .normal)
+        undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
         undoButton.isUserInteractionEnabled = true
         undoButton.titleLabel?.textAlignment = .right
@@ -234,7 +235,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
         if !undoLabel.isHidden {
             let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, apply: false)
+            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, apply: false)
             let halfHeight = round(0.5 * undoLabelFrame.height)
             undoLabelFrame.origin.y -= halfHeight
             undoLabel.frame = undoLabelFrame
@@ -280,12 +281,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     public func apply(theme: Theme) {
         contentView.tintColor = theme.colors.link
-        contentView.backgroundColor = theme.colors.paperBackground
         let backgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.paperBackground
         let selectedBackgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.midBackground
         let cardBackgroundViewBorderColor = isCollapsed ? backgroundColor.cgColor : theme.colors.cardBorder.cgColor
         cardBackgroundView.layer.borderColor = cardBackgroundViewBorderColor
-        setBackgroundColors(backgroundColor, selected: selectedBackgroundColor)
+        setBackgroundColors(.clear, selected: selectedBackgroundColor)
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
         customizationButton.setTitleColor(theme.colors.link, for: .normal)
