@@ -113,6 +113,7 @@
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
 "back" = "뒤로";
 "back-button-accessibility-label" = "뒤로 가기";
+"back-button-popover-title" = "뒤로 돌아가려면 탭하세요";
 "button-done" = "완료";
 "button-next" = "다음";
 "button-ok" = "확인";
@@ -233,8 +234,6 @@
 "hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
 "home-button-explore-accessibility-label" = "위키백과, 탐색으로 돌아가기";
 "home-button-history-accessibility-label" = "위키백과, \"역사\"로 돌아가기";
-"home-button-popover-description" = "찾아보기 피드로 돌아가려면 'W'에 탭하세요";
-"home-button-popover-title" = "대문으로 이동하려면 탭하세요";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
 "home-more-like-footer" = "$1 등도 읽히고 있습니다";
 "home-nearby-footer" = "사용자 위치의 더 많은 주변 장소";
@@ -306,6 +305,7 @@
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "on-this-day-title" = "오늘의 역사";
 "open-link-cancel" = "취소";
+"original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
 "page-edit-history" = "전체 편집 내역";
 "page-history-title" = "문서 역사";
 "page-issues" = "문서 이슈";
@@ -460,6 +460,7 @@
 "search-recent-clear-confirmation-heading" = "최근의 검색 항목을 모두 삭제하겠습니까?";
 "search-recent-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "search-recent-clear-delete-all" = "모두 삭제";
+"search-recent-empty" = "아직 최근 검색이 없음";
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
@@ -480,6 +481,7 @@
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
 "settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-search-open-app-on-search" = "검색 탭에서 앱 열기";
 "settings-storage-and-syncing-enable-sync-footer-text" = "로그인하고 동기화할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다.";
 "settings-storage-and-syncing-enable-sync-title" = "저장된 문서와 목록 동기화";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "저장된 문서를 지우면 동기화를 켤 경우 이 장치뿐 아니라 사용자 계정에서도 문서가 제거됩니다. 이 동작은 취소할 수 없습니다.";

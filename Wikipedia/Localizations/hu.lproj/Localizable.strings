@@ -144,7 +144,9 @@
 "explore-most-read-more-list-title-for-date" = "Legolvasottabb ekkor: $1";
 "explore-nearby-heading" = "Helyek a közelben";
 "explore-nearby-placeholder-heading" = "Helyek";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "a(z) $1 Wikipédián";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "a Wikipédián";
 "explore-nearby-sub-heading-your-location" = "Helyed";
 "explore-potd-heading" = "A nap képe";

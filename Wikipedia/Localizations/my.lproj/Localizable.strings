@@ -79,7 +79,9 @@
 "explore-most-read-more-list-title-for-date" = "$1 ရှိ ထိပ်ဆုံး";
 "explore-nearby-heading" = "အနီးအနား နေရာများ";
 "explore-nearby-placeholder-heading" = "နေရာများ";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ဝီကီပီးဒီးယား";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ဝီကီပီးဒီးယားပေါ်တွင်";
 "explore-nearby-sub-heading-your-location" = "သင့်တည်နေရာ";
 "explore-potd-heading" = "ယနေ့အတွက် ဓာတ်ပုံ";

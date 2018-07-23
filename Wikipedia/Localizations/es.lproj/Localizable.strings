@@ -1,5 +1,7 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: Agusbou2015
+// Author: Astroemi
 // Author: Dgstranz
 // Author: Elisardojm
 // Author: Fitoschido
@@ -153,19 +155,32 @@
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
+"explore-feed-preferences-card-hidden-title" = "Tarjeta escondida";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+"explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
+"explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Apagar Explora";
+"explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
 // Fuzzy
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
+"explore-most-read-sub-heading-on-wikipedia" = "En Wikipedia";
 "explore-nearby-heading" = "Lugares cercanos a";
 "explore-nearby-placeholder-heading" = "Lugares";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De la Wikipedia en $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "De Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Tu ubicación";
 "explore-potd-heading" = "Imagen del día";
+"explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Artículo aleatorio";
+"explore-random-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "feed-news-notification-button-text" = "Activar las notificaciones";
 "feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
@@ -213,8 +228,6 @@
 "hockeyapp-alert-title" = "La aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
-"home-button-popover-description" = "Toca la «W» para volver al canal de exploración";
-"home-button-popover-title" = "Pulsa para volver al inicio";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-more-like-footer" = "Más como $1";
 // Fuzzy
@@ -235,9 +248,12 @@
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-notification-share-action-title" = "Compartir...";
+"in-the-news-sub-title-from-language-wikipedia" = "De la Wikipedia en $1";
+"in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
 "info-box-close-text" = "Cerrar";
 "info-box-title" = "Datos rápidos";
+"languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "license-footer-name" = "CC-BY-SA 3.0";
@@ -399,6 +415,7 @@
 "search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
 "search-recent-clear-delete-all" = "Borrar todas";
+"search-recent-empty" = "No hay búsquedas recientes todavía";
 "search-recent-title" = "Búsquedas recientes";
 "search-result-redirected-from" = "Redirigido desde: $1";
 "search-title" = "Buscar";
@@ -419,6 +436,7 @@
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
 "settings-support" = "Apoya a Wikipedia";

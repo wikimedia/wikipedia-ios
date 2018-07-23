@@ -176,7 +176,9 @@
 "explore-most-read-more-list-title-for-date" = "$1(e)n ospetsuenak";
 "explore-nearby-heading" = "Inguruko tokiak";
 "explore-nearby-placeholder-heading" = "Lekuak";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipedian";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipedian";
 "explore-nearby-sub-heading-your-location" = "Zure kokapena";
 "explore-potd-heading" = "Eguneko irudia";
@@ -228,8 +230,6 @@
 "hockeyapp-alert-title" = "Barkatu, aplikazioa eten egin da";
 "home-button-explore-accessibility-label" = "Wikipedia, Arakatzailera itzuli";
 "home-button-history-accessibility-label" = "Wikipedia, Historiara itzuli";
-"home-button-popover-description" = "Sakatu 'W' Esploratzera bueltatzeko";
-"home-button-popover-title" = "Klikatu hasierara bueltatzeko";
 "home-button-saved-accessibility-label" = "Wikipedia, Biltegira itzuli";
 "home-more-like-footer" = "$1 bezalako artikulu gehiago";
 // Fuzzy
