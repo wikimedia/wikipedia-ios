@@ -187,6 +187,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
+"explore-feed-preferences-undo-customization" = "Undo";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";

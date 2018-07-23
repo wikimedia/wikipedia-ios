@@ -187,6 +187,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Title for action that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Message for alert that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Title for alert that allows users to turn on the Explore tab";
+"explore-feed-preferences-undo-customization" = "Title for button that reverts recent feed customization changes";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
