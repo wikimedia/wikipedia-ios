@@ -1,4 +1,4 @@
-public extension WMFContentGroupKind {
+extension WMFContentGroupKind {
     var isInFeed: Bool {
         guard isGlobal else {
             return !feedContentController.languageCodes(for: self).isEmpty
@@ -17,7 +17,7 @@ public extension WMFContentGroupKind {
     var languageCodes: Set<String> {
         return feedContentController.languageCodes(for: self)
     }
-    
+
     private var feedContentController: WMFExploreFeedContentController {
         return SessionSingleton.sharedInstance().dataStore.feedContentController
     }
