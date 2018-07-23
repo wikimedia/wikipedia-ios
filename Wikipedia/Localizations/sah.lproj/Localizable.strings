@@ -130,7 +130,9 @@
 "explore-most-read-more-list-title-for-date" = "Манна $1 элбэхтэ ааҕыллар";
 "explore-nearby-heading" = "Чугастааҕы сирдэр";
 "explore-nearby-placeholder-heading" = "Миэстэ";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Бикипиэдьийэ";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Бикипиэдьийэ";
 "explore-nearby-sub-heading-your-location" = "Баар сириҥ";
 "explore-potd-heading" = "Күннээҕи ойуу";

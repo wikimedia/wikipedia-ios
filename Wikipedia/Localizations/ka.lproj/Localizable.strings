@@ -88,6 +88,7 @@
 "explore-most-read-more-list-title-for-date" = "საუკეთესო $1-ზე";
 "explore-nearby-heading" = "ადგილები სიახლოვეში";
 "explore-nearby-placeholder-heading" = "ადგილები";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ვიკიპედიაში";
 "explore-nearby-sub-heading-your-location" = "თქვენი მდებარეობა";
 "explore-potd-heading" = "დღის სურათი";

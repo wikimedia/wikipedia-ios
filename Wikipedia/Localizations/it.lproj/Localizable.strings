@@ -153,7 +153,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Su Wikipedia";
 "explore-nearby-heading" = "Luoghi vicino";
 "explore-nearby-placeholder-heading" = "Luoghi";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Su Wikipedia in $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Su Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Propria posizione";
 "explore-potd-heading" = "Immagine del giorno";

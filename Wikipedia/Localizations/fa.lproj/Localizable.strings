@@ -160,7 +160,9 @@
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "explore-nearby-heading" = "مکان‌های نزدیک";
 "explore-nearby-placeholder-heading" = "مکان‌ها";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "در ویکی‌پدیای $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "در ویکی‌پدیا";
 "explore-nearby-sub-heading-your-location" = "مکان شما";
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
@@ -212,8 +214,6 @@
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به کاوش";
 "home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
-"home-button-popover-description" = "بر روی «W» برای کاوش خوراک‌ها بزنید";
-"home-button-popover-title" = "برای رفتن به خانه بر روی صفحه بزنید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 // Fuzzy

@@ -128,7 +128,9 @@
 "explore-most-read-more-list-title-for-date" = "Найбільш читане на $1";
 "explore-nearby-heading" = "Місця поблизу";
 "explore-nearby-placeholder-heading" = "Місця";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "У Вікіпедії мовою «$1»";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "У Вікіпедії";
 "explore-nearby-sub-heading-your-location" = "Ваше місце розташування";
 "explore-potd-heading" = "Зображення дня";

@@ -206,7 +206,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-heading" = "地点接近";
 "explore-nearby-placeholder-heading" = "地方";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1维基百科";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
 "explore-potd-heading" = "每日图片";
@@ -261,8 +263,6 @@
 "hockeyapp-alert-title" = "抱歉，应用程序上次发生了崩溃";
 "home-button-explore-accessibility-label" = "维基百科，返回到探索";
 "home-button-history-accessibility-label" = "维基百科，返回到历史";
-"home-button-popover-description" = "点按“W”返回探索订阅源";
-"home-button-popover-title" = "点按返回首页";
 "home-button-saved-accessibility-label" = "维基百科，返回到已保存";
 "home-more-like-footer" = "更像$1";
 "home-nearby-footer" = "更多您所在位置附近的地点";

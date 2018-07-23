@@ -61,8 +61,7 @@
 "appearance-settings-theme-options" = "Opsi cakrik";
 "article-about-title" = "Ngenani artikel iki";
 "article-delete" = "Busak";
-// Fuzzy
-"article-deleted-accessibility-notification" = "Artikel wis dibusak";
+"article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artikel}} kabusak";
 "article-languages-filter-placeholder" = "Golèk basa";
 "article-languages-label" = "Pilih basa";
 "article-languages-others" = "Basa liyané";
@@ -112,15 +111,33 @@
 "explore-continue-reading-heading" = "Bacutaké maca";
 "explore-enable-location-title" = "Dlajahi artikel-artikel ing caketé pernahé panjenengan saiki";
 "explore-featured-article-heading" = "Artikel pinilih";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Mati";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Murub kabèh";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Murub";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "Murub $1";
+"explore-feed-preferences-global-card-footer-text" = "Kertu iki ora mirunggan marang basa tinamtu, matèni kertu iki bakal mbusak kertuné saka pakan Dlajahé panjenengan.";
+"explore-feed-preferences-global-cards-description" = "Kertu ora mirunggan basa tinamtu";
+"explore-feed-preferences-global-cards-subtitle" = "Ora mirunggan marang basa tinamtu";
+"explore-feed-preferences-global-cards-title" = "Kertu sajagat";
+"explore-feed-preferences-hide-card-action-title" = "Dhelikaké kertu iki";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Dhelikaké kabèh kertu %@";
+"explore-feed-preferences-in-the-news-description" = "Artikel bab kadadéan dinané iki";
+"explore-feed-preferences-languages-footer-text" = "Ndhelikaké kabèh kertu pakan Dlajah ing kabèh basa bakal matèni tab Dlajah.";
+"explore-feed-preferences-on-this-day-description" = "Kadadéan duk nguni ing tanggal iki";
+"explore-feed-preferences-places-description" = "Artikel Wikipédia ing cedhak panjenengan";
+"explore-feed-preferences-potd-description" = "Gambar pinilih padinan saka Commons";
+"explore-feed-preferences-randomizer-description" = "Asilaké sembarang artikel saperlu kawaca";
+"explore-feed-preferences-related-pages-description" = "Saran kang dhedhasar sajarah wacan";
 "explore-main-page-description" = "Kaca tepas proyèk-proyèké Wikimedia";
 "explore-main-page-heading" = "Dina iki ing Wikipédia";
-// Fuzzy
-"explore-most-read-footer" = "Artikel maca ndhuwur kabeh";
+"explore-most-read-footer" = "Kabèh artikel kang kerep dhéwé kawaca";
 "explore-most-read-generic-heading" = "Maca ndhuwur";
 "explore-most-read-more-list-title-for-date" = "Ndhuwur ing $1";
 "explore-nearby-heading" = "Tempat terdekat";
 "explore-nearby-placeholder-heading" = "Panggonan";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Ing Wikipédia $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Ing Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Pernahé panjenengan";
 "explore-potd-heading" = "Gambar dina iki";
@@ -172,15 +189,11 @@
 "hockeyapp-alert-title" = "Nyuwun pangapura, aplikasiné kena masalah dhèk pungkasan";
 "home-button-explore-accessibility-label" = "Wikipédia, bali ing Dlajah";
 "home-button-history-accessibility-label" = "Wikipédia, bali nyang Sajarah";
-"home-button-popover-description" = "Tunyuk 'W' saperlu balik menyang pakan Dlajah";
-"home-button-popover-title" = "Tunyuk kanggo mulih";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
 "home-more-like-footer" = "Liyane kaya $1";
-// Fuzzy
-"home-nearby-footer" = "Liyane saka toko lokasi";
+"home-nearby-footer" = "Panggonan liyané ing pernahé panjenengan";
 "home-nearby-location-footer" = "Liyané ing cedhak $1";
-// Fuzzy
-"home-news-footer" = "Liyané sing dadi pawarta";
+"home-news-footer" = "Acara dinané iki kang liyané";
 "home-themes-action-title" = "Kemunah pilalan";
 "home-themes-prompt" = "Setèl pilihan wacané panjenengan kalebu ukurané tèks lan cakriké saka wilah piranti artikel utawa ing setèlan panganggoné panjenengan saperlu luwih nyaman anggoné panjenengan maca.";
 "home-title" = "Dlajah";

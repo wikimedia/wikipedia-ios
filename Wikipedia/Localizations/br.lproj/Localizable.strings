@@ -117,7 +117,9 @@
 "explore-most-read-more-list-title-for-date" = "Ar re a vez lennet ar muiañ d'an $1";
 "explore-nearby-heading" = "Lec'hioù tost";
 "explore-nearby-placeholder-heading" = "Lec'hioù";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "E Wikipédia e $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "E Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Ho lec'hiadur";
 "explore-potd-heading" = "Skeudenn an deiz";
