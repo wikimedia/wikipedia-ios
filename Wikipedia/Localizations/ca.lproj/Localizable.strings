@@ -108,6 +108,7 @@
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back" = "Enrere";
 "back-button-accessibility-label" = "Enrere";
+"back-button-popover-title" = "Feu un toc per anar enrere";
 "button-done" = "Fet";
 "button-next" = "Següent";
 "button-ok" = "D’acord";
@@ -153,6 +154,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la Viquipèdia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
 "explore-feed-preferences-additional-languages-footer-text" = "Es poden afegir més llengües des de la pàgina de configuració 'Les meves llengües'.";
+"explore-feed-preferences-card-hidden-title" = "Targeta amagada";
 "explore-feed-preferences-continue-reading-description" = "Enllaç de retorn ràpid per llegir un article obert";
 "explore-feed-preferences-customize-explore-feed" = "Personalitza el canal d'exploració";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalitza el canal d'exploració";
@@ -162,6 +164,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tots activitats";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activat";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Totes les targetes %@ són amagades";
 "explore-feed-preferences-global-cards-description" = "Targetes no específiques de la llengua";
 "explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
 "explore-feed-preferences-global-cards-title" = "Targetes globals";
@@ -187,11 +190,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "A la Viquipèdia";
 "explore-nearby-heading" = "Llocs propers";
 "explore-nearby-placeholder-heading" = "Llocs";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "A la Viquipèdia en $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "A la Viquipèdia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De la Viquipèdia en $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "De la Viquipèdia";
 "explore-nearby-sub-heading-your-location" = "La vostra ubicació";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "La vostra ubicació de la Viquipèdia en $1";
 "explore-potd-heading" = "Foto del dia";
 "explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Article a l’atzar";
@@ -244,8 +246,6 @@
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
-"home-button-popover-description" = "Feu un toc a la 'W' per tornar al canal Explora";
-"home-button-popover-title" = "Toca per a anar l'inici";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més llocs prop de la vostra ubicació";
@@ -314,6 +314,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics aquest dia";
 "on-this-day-footer-with-event-count" = "$1 més esdeveniments històrics aquest dia";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Aquest dia";
 "open-link-cancel" = "Cancel·la";
 "page-edit-history" = "Historial complet";
@@ -400,6 +401,7 @@
 "reading-list-sync-enable-button-title" = "Habilita la sincronització";
 "reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
 "reading-list-sync-enabled-panel-title" = "La sincronització és habilitada en aquest compte";
+"reading-list-with-provided-name-not-found" = "No s'ha trobat una llista de lectura amb el nom «$1». Assegureu-vos que teniu el nom correcte.";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
 "reading-lists-article-not-synced" = "No sincronitzat";
 "reading-lists-article-not-synced-article-limit-exceeded" = "S'ha excedit el límit d'articles. No es pot sincronitzar l'article";
@@ -451,6 +453,7 @@
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
+"search-recent-empty" = "Encara no hi ha cerques recents";
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
@@ -471,8 +474,11 @@
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-search-footer-text" = "Defineix l'aplicació per obrir la pestanya de cerca en comptes de la pestanya d'exploració";
+"settings-search-open-app-on-search" = "Obre l'aplicació en la pestanya de cerca";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permet a Wikimedia desar els articles desats i les llistes de lectures a les vostres preferències d'usuari quan inicieu una sessió i sincronitzeu.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronitza tots els articles desats i llistes";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Esborrar els articles desats els suprimirà del vostre compte d'usuari si teniu activada la sincronització també en aquest dispositiu. No podeu desfer aquesta acció.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Voleu esborrar tots els articles desats?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Esborra";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Esborra els articles desats";

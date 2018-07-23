@@ -110,6 +110,7 @@
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back" = "返回";
 "back-button-accessibility-label" = "返回";
+"back-button-popover-title" = "返回的分頁";
 "button-done" = "已完成";
 "button-next" = "下一步";
 "button-ok" = "確定";
@@ -156,6 +157,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-feed-preferences-additional-languages-footer-text" = "額外的語言可添加在「我的語言」設定頁面。";
+"explore-feed-preferences-card-hidden-title" = "卡片已隱藏";
 "explore-feed-preferences-continue-reading-description" = "返回到閱讀已開啟條目的快速連結";
 "explore-feed-preferences-customize-explore-feed" = "自訂探索摘要";
 "explore-feed-preferences-customize-explore-feed-action-title" = "自訂探索摘要";
@@ -166,6 +168,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "開啟所有";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "開啟";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "在 $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "所有%@卡片已隱藏";
 "explore-feed-preferences-global-card-footer-text" = "此卡片沒有指定語言，關閉此卡片會一同從您的探索摘要上移除。";
 "explore-feed-preferences-global-cards-description" = "沒有指定語言的卡片";
 "explore-feed-preferences-global-cards-subtitle" = "沒有指定語言";
@@ -216,11 +219,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在維基百科";
 "explore-nearby-heading" = "位置接近";
 "explore-nearby-placeholder-heading" = "地點";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1維基百科";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "在維基百科";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "來自$1維基百科";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "來自維基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "您的位置來自於$1維基百科";
 "explore-potd-heading" = "每日圖片";
 "explore-potd-sub-heading" = "來自維基共享資源";
 "explore-random-article-heading" = "隨機條目";
@@ -273,8 +275,6 @@
 "hockeyapp-alert-title" = "抱歉，應用程式上次執行時發生了錯誤";
 "home-button-explore-accessibility-label" = "維基百科，返回探索";
 "home-button-history-accessibility-label" = "維基百科，返回歷史清單";
-"home-button-popover-description" = "點選「W」返回至探索摘要";
-"home-button-popover-title" = "輕觸來返回首頁";
 "home-button-saved-accessibility-label" = "維基百科，返回已儲存條目";
 "home-more-like-footer" = "更像 $1";
 "home-nearby-footer" = "更多靠近您所在位置的地點";
@@ -344,8 +344,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
 "on-this-day-footer-with-event-count" = "更多 $1 個歷史上的今天事件";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "open-link-cancel" = "取消";
+"original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
 "page-edit-history" = "完整編輯歷史";
 "page-history-title" = "條目歷史";
 "page-issues" = "頁面問題";
@@ -521,6 +523,8 @@
 "settings-notifications-trending" = "目前最新事件趨勢";
 "settings-primary-language" = "首選";
 "settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
+"settings-search-footer-text" = "設定應用程式成開啟搜尋分頁來取代探索分頁";
+"settings-search-open-app-on-search" = "在搜尋分頁開啓應用程式";
 "settings-storage-and-syncing-enable-sync-footer-text" = "當您登入並同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
 "settings-storage-and-syncing-enable-sync-title" = "同步已儲存條目與清單";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "若您在此裝置上啟用了同步，您的已儲存條目在抹除時，也會從您的使用者帳號裡移除。另外此操作是無法還原的。";

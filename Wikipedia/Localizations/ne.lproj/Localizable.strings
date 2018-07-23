@@ -59,6 +59,7 @@
 "article-share" = "आदान-प्रदान गर्नुहोस्";
 "back" = "पछाडि";
 "back-button-accessibility-label" = "पछाडि";
+"back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
 "button-done" = "भयो";
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
@@ -88,10 +89,12 @@
 "explore-because-you-read" = "तपाईंले यो लेख पढ्नुभएको हुनाले";
 "explore-continue-reading-heading" = "पढ्ने कार्य जारी राख्नुहोस्";
 "explore-featured-article-heading" = "विशेष लेख";
+"explore-feed-preferences-card-hidden-title" = "लुकाइएको कार्ड";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "बन्द";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "सबैमा खुला";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "खुला";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "सबै %@ लुकाइएका कार्डहरू";
 "explore-main-page-heading" = "विकिपिडियामा आज";
 // Fuzzy
 "explore-most-read-footer" = "सबै धेरै पढिएका लेखहरू";
@@ -99,9 +102,10 @@
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
 "explore-nearby-placeholder-heading" = "स्थानहरू";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियामा";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपिडिया बाट";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियाबाट";
 "explore-nearby-sub-heading-your-location" = "तपाईँको स्थान";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 विकिपिडियाबाट तपाईँको अवस्थिति";
 "explore-potd-heading" = "आजको तस्बिर";
 "explore-random-article-heading" = "कुनै लेख";
 "explore-randomizer" = "क्रमरहित ढङ्गले चुनिएको लेख";
@@ -256,6 +260,7 @@
 "settings-my-languages" = "मेरा भाषाहरू";
 "settings-notifications" = "सूचनाहरू";
 "settings-primary-language" = "प्राथमिक";
+"settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "मेट्नुहोस्";
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "सेटिङ्हरू";

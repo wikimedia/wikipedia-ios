@@ -96,6 +96,7 @@
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "back" = "Назад";
 "back-button-accessibility-label" = "Назад";
+"back-button-popover-title" = "Допрете за да се вратите";
 "button-done" = "Готово";
 "button-next" = "Следно";
 "button-ok" = "ОК";
@@ -142,6 +143,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Од Википедија на $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-feed-preferences-additional-languages-footer-text" = "Можете да додадете уште јазици во „Мои јазици“.";
+"explore-feed-preferences-card-hidden-title" = "Картичката е скриена.";
 "explore-feed-preferences-continue-reading-description" = "Брза врска назад кон читањето на отворена статија";
 "explore-feed-preferences-customize-explore-feed" = "Прилагоди го тековникот „Истражи“";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Прилагоди го тековникот „Истражи“";
@@ -152,6 +154,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "На сите";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "На $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Сите картички %@ се скриени";
 "explore-feed-preferences-global-card-footer-text" = "Оваа картичка нема посветен јазик. Исклучувајќи ја, ќе ја отстраните од тековникот „Истражи“.";
 "explore-feed-preferences-global-cards-description" = "Нејазични картички";
 "explore-feed-preferences-global-cards-subtitle" = "Нејазични";
@@ -202,11 +205,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "На Википедија";
 "explore-nearby-heading" = "Околни места";
 "explore-nearby-placeholder-heading" = "Места";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "На Википедија на $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "На Википедија";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Од Википедија на $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Од Википедија";
 "explore-nearby-sub-heading-your-location" = "Ваша местоположба";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Вашата местоположба од Википедија на $1";
 "explore-potd-heading" = "Слика на денот";
 "explore-potd-sub-heading" = "Од Ризницата";
 "explore-random-article-heading" = "Случајна статија";
@@ -259,8 +261,6 @@
 "hockeyapp-alert-title" = "За жал, прилогот се урна минатиот пат";
 "home-button-explore-accessibility-label" = "Википедија, назад на Истражете";
 "home-button-history-accessibility-label" = "Википедија, назад на Историја";
-"home-button-popover-description" = "Допрете го „W“ за да се вратите на тековникот „Истражи“";
-"home-button-popover-title" = "Допрете за да се вратите на почетната";
 "home-button-saved-accessibility-label" = "Википедија, назад на Зачувано";
 "home-more-like-footer" = "Уште статии како $1";
 "home-nearby-footer" = "Уште места во близина";
@@ -330,8 +330,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-footer-with-event-count" = "Уште $1 историски настани на денешен ден";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "open-link-cancel" = "Откажи";
+"original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
 "page-edit-history" = "Цела историја на уредувања";
 "page-history-title" = "Историја на статијата";
 "page-issues" = "Проблеми со страницата";
@@ -507,6 +509,8 @@
 "settings-notifications-trending" = "Тековни настани";
 "settings-primary-language" = "Главен";
 "settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
+"settings-search-footer-text" = "Прилогот нека се отвора во јазичето „Пребарај“ наместо во јазичето „Истражи“";
+"settings-search-open-app-on-search" = "Отворај го прилогот во јазичето Пребарај";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволи Викимедија да зачувува статии и списоци за читање во вашите кориснички нагодувања при најава и усогласување.";
 "settings-storage-and-syncing-enable-sync-title" = "Усогласувај зачувани статии и списоци";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Бришењето на зачуваните статии ќе ги отстрани од вашата корисничка сметка ако го имате вклучено усогласувањето и од овој уред. Дејството е неповратно.";

@@ -59,8 +59,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 تے";
 "explore-most-read-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
 "explore-nearby-placeholder-heading" = "جاہیں";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "وکیپیڈیا تے";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "وکیپیڈیا کنوں";
 "explore-random-article-sub-heading-from-wikipedia" = "وکیپیڈیا کنوں";
 "field-alert-token-invalid" = "غلط کوڈ";
 "field-alert-username-unavailable" = "ورتݨ آلا ناں موجود کائنی";

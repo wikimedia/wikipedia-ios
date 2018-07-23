@@ -114,6 +114,7 @@
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "back" = "Retour";
 "back-button-accessibility-label" = "Retour";
+"back-button-popover-title" = "Cliquez pour revenir en arrière";
 "button-done" = "Terminé";
 "button-next" = "Suivant";
 "button-ok" = "OK";
@@ -160,6 +161,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-feed-preferences-additional-languages-footer-text" = "Des langues supplémentaires peuvent être ajoutées dans la page des paramètres 'Mes langues'.";
+"explore-feed-preferences-card-hidden-title" = "Carte masquée";
 "explore-feed-preferences-continue-reading-description" = "Lien de retour rapide pour lire un article ouvert";
 "explore-feed-preferences-customize-explore-feed" = "Personnaliser le fil d’exploration";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personnaliser le fil d’exploration";
@@ -170,6 +172,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Tous activés";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activé";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Sur $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Toutes les cartes %@ sont masquées";
 "explore-feed-preferences-global-card-footer-text" = "Cette carte est indépendante de la langue, en la désactivant, vous la supprimerez du flux d'exploration.";
 "explore-feed-preferences-global-cards-description" = "Cartes indépendantes de la langue";
 "explore-feed-preferences-global-cards-subtitle" = "Indépendant de la langue";
@@ -220,11 +223,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Sur Wikipédia";
 "explore-nearby-heading" = "Endroits proches";
 "explore-nearby-placeholder-heading" = "Endroits";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Sur Wikipédia en $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Sur Wikipédia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De Wikipédia en $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "De Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Votre emplacement";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Votre localisation par Wikipedia en $1";
 "explore-potd-heading" = "Image du jour";
 "explore-potd-sub-heading" = "De Wikimédia Communs";
 "explore-random-article-heading" = "Article au hasard";
@@ -277,8 +279,6 @@
 "hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
 "home-button-explore-accessibility-label" = "Wikipédia, revenir à Explorer";
 "home-button-history-accessibility-label" = "Wikipédia, revenir à Historique";
-"home-button-popover-description" = "Taper sur 'W' pour retourner au fil de Explore";
-"home-button-popover-title" = "Taper pour aller à l’accueil";
 "home-button-saved-accessibility-label" = "Wikipédia, revenir à Enregistrés";
 "home-more-like-footer" = "Davantage comme $1";
 "home-nearby-footer" = "Davantage de lieux dans le voisinage";
@@ -348,8 +348,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
 "on-this-day-footer-with-event-count" = "$1 événements historiques supplémentaires de ce jour";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipedia en $2";
 "on-this-day-title" = "Ce jour";
 "open-link-cancel" = "Annuler";
+"original-tab-button-popover-description" = "Cliquez sur le 'W' pour revenir à l'onglet avec lequel vous avez commencé";
 "page-edit-history" = "Historique complet des modifications";
 "page-history-title" = "Historique de l’article";
 "page-issues" = "Problèmes de page";
@@ -525,6 +527,8 @@
 "settings-notifications-trending" = "Tendance des événements actuels";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
+"settings-search-footer-text" = "Configurer l'application pour s'ouvrir dans l'onglet Recherche putôt que Explorer";
+"settings-search-open-app-on-search" = "Ouvrir l'application dans l'onglet Recherche";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez et synchronisez.";
 "settings-storage-and-syncing-enable-sync-title" = "Synchroniser les articles enregistrés et les listes";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "L’effacement de vos articles enregistrés les supprimera de votre compte utilisateur si vous avez la synchronisation activée, tout comme de cet appareil. Vous ne pourrez pas annuler cette action.";

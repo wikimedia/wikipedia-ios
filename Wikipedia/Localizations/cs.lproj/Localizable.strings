@@ -254,8 +254,6 @@
 "hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na Prozkoumat";
 "home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
-"home-button-popover-description" = "Klepnutím na \"W\" se vrátíte na Prozkoumávání zdroje";
-"home-button-popover-title" = "Klepnutím přejdete domů";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
 "home-more-like-footer" = "Více podobných článku $1";
 // Fuzzy

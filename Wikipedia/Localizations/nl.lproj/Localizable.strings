@@ -211,11 +211,8 @@
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
 "home-button-history-accessibility-label" = "Wikipedia, terug naar geschiedenis";
-"home-button-popover-description" = "Druk op de 'W' om terug te keren naar de ontdekkings-feed";
-"home-button-popover-title" = "Druk in om terug naar de hoofdpagina te gaan";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
-// Fuzzy
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 // Fuzzy
