@@ -815,7 +815,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
     [proxy cacheSectionDataForArticle:self.article];
 
-    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(0, marginWidth, 0, marginWidth) theme:self.theme];
+    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(self.headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     NSString *shareMenuItemTitle = nil;
     if (@available(iOS 11, *)) {

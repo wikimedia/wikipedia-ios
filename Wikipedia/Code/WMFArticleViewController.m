@@ -382,6 +382,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)scrollViewInsetsDidChange {
     [super scrollViewInsetsDidChange];
+    self.webViewController.headerHeight = self.scrollView.scrollIndicatorInsets.top;
     [self updateTableOfContentsInsets];
 }
 
@@ -776,6 +777,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
+    self.ignoresTopContentInset = YES;
+
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
