@@ -92,7 +92,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         return false
     }
 
-    private init(urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager, permanentStorageURL: URL? = nil) {
+    public init(urlSesssionConfiguration: URLSessionConfiguration, reachabilityManager: AFNetworkReachabilityManager, permanentStorageURL: URL? = nil) {
         
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
