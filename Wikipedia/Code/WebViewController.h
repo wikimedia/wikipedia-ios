@@ -22,6 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGFloat contentWidthPercentage;
 @property (nonatomic, readonly) CGFloat marginWidth;
 
+// Header height is necessary because setting the content inset on WKWebView's scrollView causes user interaction in the inset area to be disabled
+// https://bugs.webkit.org/show_bug.cgi?id=134230
+@property (nonatomic, readwrite) CGFloat headerHeight;
+
 @property (nonatomic, readonly) WMFTheme *theme;
 
 #if DEBUG || TEST
