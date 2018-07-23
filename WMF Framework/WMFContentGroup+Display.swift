@@ -116,6 +116,9 @@ extension WMFContentGroup {
     }
     
     public var isSelectable: Bool {
+        guard undoType == .none else {
+            return false
+        }
         switch contentGroupKind {
         case .announcement, .notification, .theme, .readingList:
             return false
