@@ -154,6 +154,7 @@
 "explore-feed-preferences-customize-explore-feed" = "התאמה אישית של ההזנה \"לחקור\"";
 "explore-feed-preferences-customize-explore-feed-action-title" = "התאמה אישית של ההזנה \"לחקור\"";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "הסתרת סוג של כרטיס תגרום לכך שהוא לא יוצג בהזנה \"לחקור\".";
+"explore-feed-preferences-explore-tab" = "הלשונית \"לחקור\"";
 "explore-feed-preferences-featured-article-description" = "ערך מומלץ יומי בוויקיפדיה";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "כבוי";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "בכל";
@@ -189,8 +190,16 @@
 "explore-feed-preferences-show-top-read-title" = "הצגת כרטיס הערכים הנקראים ביותר";
 "explore-feed-preferences-top-read-description" = "הערכים הנקראים ביותר ביום";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "כיבוי ההזנה \"לחקור\"";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "הסתרת כל הכרטיסים בהזנה \"לחקור\" תגרום לכיבוי הלשונית \"לחקור\" ולהחלפתה בלשונית ההגדרות";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "לכבות את ההזנה \"לחקור\"?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "כיבוי הלשונית \"לחקור\"";
+"explore-feed-preferences-turn-off-explore-tab-message" = "ניתן להפעיל מחדש את הלשונית \"לחקור\" בהגדרות של ההזנה";
+"explore-feed-preferences-turn-off-explore-tab-title" = "לכבות את הלשונית \"לחקור\"?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "כיבוי הלשונית \"לחקור\" יגרום להחלפתו בלשונית הגדרות.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "הצגת כרטיסים של ההזנה \"לחקור\" תגרום להפעלת הלשונית \"לחקור\"";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "הפעלת הלשונית \"לחקור\"";
+"explore-feed-preferences-turn-on-explore-tab-message" = "זה יגרום להחלפת לשונית ההגדרות בלשונית \"לחקור\". ניתן יהיה לגשת להגדרות מהחלק העליון של הלשונית \"לחקור\", באמצעות לחיצה על כפתור גלגל השיניים.";
+"explore-feed-preferences-turn-on-explore-tab-title" = "להפעיל את הלשונית \"לחקור\"?";
 "explore-hide-card-prompt" = "הסתרת כרטיס זה";
 "explore-main-page-description" = "הדף הראשי של מיזמי ויקימדיה";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -201,7 +210,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "בוויקיפדיה";
 "explore-nearby-heading" = "מקומות בסביבה";
 "explore-nearby-placeholder-heading" = "מקומות";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "בוויקיפדיה ה$1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "בוויקיפדיה";
 "explore-nearby-sub-heading-your-location" = "המיקום שלך";
 "explore-potd-heading" = "תמונת היום";
@@ -256,8 +267,6 @@
 "hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
 "home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לגלות\"";
 "home-button-history-accessibility-label" = "ויקיפדיה, חזרה ל\"היסטוריה\"";
-"home-button-popover-description" = "יש ללחוץ על ה־W כדי לחזור להזנת \"לגלות\"";
-"home-button-popover-title" = "ללחוץ כאן כדי לחזור לבית";
 "home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
 "home-more-like-footer" = "עוד כמו $1";
 "home-nearby-footer" = "מקומות נוספים ליד המיקום שלך";
@@ -354,10 +363,13 @@
 "places-enable-location-action-button-title" = "להפעיל מיקום";
 "places-enable-location-description" = "גישה למיקומך אפשרית רק כשהאפליקציה או אחת התכונות שלה נראות על המסך.";
 "places-enable-location-title" = "לגלות ערכים בסביבתך באמצעות הפעלת גישה למיקום";
+"places-filter-articles-action-sheet-title" = "סינון הערכים";
+"places-filter-button-title" = "סינון";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
 "places-filter-top-articles" = "ערכים מובילים";
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
+"places-filter-top-read-articles" = "הערכים הנקראים ביותר";
 "places-no-saved-articles-have-location" = "אין מידע על מיקום אף באחד מהערכים מהערכים השמורים שלך";
 "places-search-articles-that-match" = "$1 שמתאימים ל\"$2\"";
 "places-search-default-text" = "חיפוש מקומות";
@@ -480,6 +492,7 @@
 "search-recent-clear-confirmation-heading" = "למחוק את כל החיפושים האחרונים?";
 "search-recent-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "search-recent-clear-delete-all" = "למחוק הכול";
+"search-recent-empty" = "עדיין אין חיפושים אחרונים";
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";

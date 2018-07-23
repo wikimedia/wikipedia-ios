@@ -142,10 +142,13 @@
 "explore-most-read-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-nearby-heading" = "أماكن قريبة";
 "explore-nearby-placeholder-heading" = "أماكن";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "على ويكيبيديا $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-nearby-sub-heading-your-location" = "موقعك";
 "explore-potd-heading" = "صورة اليوم";
+"explore-potd-sub-heading" = "من ويكيميديا كومنز";
 "explore-random-article-heading" = "مقالة عشوائية";
 "explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";

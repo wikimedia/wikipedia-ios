@@ -359,6 +359,7 @@
 "places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-top-read-articles" = "Top read articles";
+"places-location-enabled" = "Location enabled";
 "places-no-saved-articles-have-location" = "None of your saved articles have location information";
 "places-search-articles-that-match" = "$1 matching “$2”";
 "places-search-default-text" = "Search Places";

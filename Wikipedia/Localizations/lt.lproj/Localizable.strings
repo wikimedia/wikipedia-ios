@@ -88,7 +88,9 @@
 "explore-most-read-more-list-title-for-date" = "Viršuje $1";
 "explore-nearby-heading" = "Artimos vietovės";
 "explore-nearby-placeholder-heading" = "Vietos";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedijoje";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedijoje";
 "explore-nearby-sub-heading-your-location" = "Jūsų vieta";
 "explore-potd-heading" = "Dienos nuotrauka";

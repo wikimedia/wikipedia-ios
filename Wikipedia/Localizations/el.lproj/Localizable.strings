@@ -169,7 +169,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Στη Βικιπαίδεια";
 "explore-nearby-heading" = "Μέρη κοντά";
 "explore-nearby-placeholder-heading" = "Μέρη";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Στην $1 Βικιπαίδεια";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Στη Βικιπαίδεια";
 "explore-nearby-sub-heading-your-location" = "Η τοποθεσία σας";
 "explore-potd-heading" = "Η εικόνα της ημέρας";
@@ -220,7 +222,6 @@
 "hockeyapp-alert-send-report" = "Στείλτε αναφορά";
 "home-button-explore-accessibility-label" = "Βικιπαίδεια, επιστροφή στην εξερεύνηση";
 "home-button-history-accessibility-label" = "Βικιπαίδεια, επιστροφή στο Ιστορικό";
-"home-button-popover-title" = "Πιέστε για να πάτε στην αρχική";
 "home-button-saved-accessibility-label" = "Βικιπαίδεια, επιστροφή στα αποθηκευμένα";
 "home-more-like-footer" = "Περισσότερα σαν το $1";
 "home-nearby-footer" = "Περισσότερα μέρη κοντά στην τοποθεσία σας";

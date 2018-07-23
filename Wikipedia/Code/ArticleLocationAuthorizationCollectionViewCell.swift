@@ -46,12 +46,22 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
         origin.y += authorizeDescriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthForLabels, horizontalAlignment: horizontalAlignment, spacing: authorizeSpacing, apply: apply)
         return CGSize(width: size.width, height: origin.y + layoutMargins.bottom)
     }
+
+    public func updateForLocationEnabled() {
+        guard WMFLocationManager.isAuthorized() else {
+            return
+        }
+        authorizeButton.setTitle(WMFLocalizedString("places-location-enabled", value: "Location enabled", comment: "Title for button informing user that they successfully enabled location services"), for: .normal)
+        authorizeButton.removeTarget(self, action: #selector(authorizeButtonPressed(_:)), for: .touchUpInside)
+        authorizeButton.isEnabled = false
+    }
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         authorizeTitleLabel.textColor = theme.colors.primaryText
         authorizeButton.backgroundColor = theme.colors.cardButtonBackground
         authorizeButton.setTitleColor(theme.colors.link, for: .normal)
+        authorizeButton.setTitleColor(theme.colors.secondaryText, for: .disabled)
         authorizeDescriptionLabel.textColor = theme.colors.secondaryText
         backgroundView?.backgroundColor = theme.colors.cardBackground
     }

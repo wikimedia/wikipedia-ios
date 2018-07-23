@@ -32,7 +32,7 @@ public class ColumnarCollectionViewLayoutInfo {
                 headerAttributes.layoutMargins = metrics.itemLayoutMargins
                 headerAttributes.precalculated = headerHeightEstimate.precalculated
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
-                headerAttributes.zIndex = 10
+                headerAttributes.zIndex = -10
                 section.addHeader(headerAttributes)
             }
             for itemIndex in 0..<countOfItems {
