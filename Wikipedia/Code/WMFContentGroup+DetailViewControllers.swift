@@ -27,38 +27,46 @@ extension WMFContentGroup {
     
     @objc(detailViewControllerWithDataStore:theme:)
     public func detailViewControllerWithDataStore(_ dataStore: MWKDataStore, theme: Theme) -> UIViewController? {
+        var vc: UIViewController? = nil
         switch moreType {
         case .pageList:
             guard let articleURLs = contentURLs else {
-                return nil
+                break
             }
-            let vc = ArticleURLListViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme)
-            vc.title = moreTitle
-            return vc
+            vc = ArticleURLListViewController(articleURLs: articleURLs, dataStore: dataStore, contentGroup: self, theme: theme)
+            vc?.title = moreTitle
         case .pageListWithLocation:
             guard let articleURLs = contentURLs else {
-                return nil
+                break
             }
-            return ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, theme: theme)
+            vc = ArticleLocationCollectionViewController(articleURLs: articleURLs, dataStore: dataStore, theme: theme)
         case .news:
             guard let stories = fullContent?.object as? [WMFFeedNewsStory] else {
-                return nil
+                break
             }
-            return NewsViewController(stories: stories, dataStore: dataStore, theme: theme)
+            vc = NewsViewController(stories: stories, dataStore: dataStore, theme: theme)
         case .onThisDay:
             guard let date = midnightUTCDate, let events = fullContent?.object as? [WMFFeedOnThisDayEvent] else {
-                return nil
+                break
             }
-            return OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, theme: theme)
+            vc = OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, theme: theme)
         case .pageWithRandomButton:
             guard let siteURL = siteURL else {
-                return nil
+                break
             }
             let firstRandom = WMFFirstRandomViewController(siteURL: siteURL, dataStore: dataStore, theme: theme)
             (firstRandom as Themeable).apply(theme: theme)
-            return firstRandom
+            vc = firstRandom
         default:
-            return nil
+            break
         }
+        if let customVC = vc as? ViewController {
+            customVC.navigationMode = .detail
+        }
+        if let customVC = vc as? ColumnarCollectionViewController {
+            customVC.headerTitle = headerTitle
+            customVC.headerSubtitle = headerSubTitle
+        }
+        return vc
     }
 }

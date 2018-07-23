@@ -17,6 +17,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 @property (nonatomic, getter=isBusy) BOOL busy;
 @property (nonatomic, weak, nullable) MWKDataStore *dataStore;
 @property (nonatomic, copy, nullable) NSArray<NSURL *> *siteURLs;
+@property (nonatomic, readonly) NSInteger countOfVisibleContentGroupKinds;
 
 - (void)startContentSources;
 - (void)stopContentSources;
@@ -48,6 +49,8 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn;
 
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
+
 /**
  Toggles a content group of given kind on or off for a given siteURL.
 
@@ -57,6 +60,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  */
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL;
 
+- (void)toggleAllContentGroupKinds:(BOOL)on completion:(nullable dispatch_block_t)completion;
 
 /**
  Toggles non-language specific content group kinds (Because you read, Continue reading and Picture of the day)
@@ -96,8 +100,10 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
 
-- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences updateFeed:(BOOL)updateFeed;
+- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
 - (void)rejectNewExploreFeedPreferences;
+
+- (void)dismissCollapsedContentGroups;
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification;

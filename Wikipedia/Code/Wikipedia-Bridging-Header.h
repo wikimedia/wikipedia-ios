@@ -1,4 +1,3 @@
-#import "WMFTabBarController.h"
 #import "RMessage.h"
 #import "RMessageView.h"
 

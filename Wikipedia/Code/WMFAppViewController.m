@@ -30,6 +30,7 @@
 
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
+#import "Wikipedia-Swift.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -68,14 +69,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
 
-@property (nonatomic, strong) IBOutlet UIView *splashView;
-@property (nonatomic, strong) UITabBarController *rootTabBarController;
+@property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
 @property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
+@property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
 @property (nonatomic, strong) SavedArticlesFetcher *savedArticlesFetcher;
@@ -117,14 +118,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
 
-/// Use @c rootTabBarController instead.
-- (UITabBarController *)tabBarController NS_UNAVAILABLE;
-
 @end
 
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
+@synthesize savedViewController = _savedViewController;
+@synthesize recentArticlesViewController = _recentArticlesViewController;
+@synthesize placesViewController = _placesViewController;
+@synthesize splashView = _splashView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -208,6 +210,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return self.theme.preferredStatusBarStyle;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return nil;
+}
+
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
@@ -217,7 +223,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (BOOL)uiIsLoaded {
-    return _rootTabBarController != nil;
+    return self.viewControllers.count > 0;
 }
 
 - (NSURL *)siteURL {
@@ -230,21 +236,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if ([self uiIsLoaded]) {
         return;
     }
-    UITabBarController *tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
-    [self addChildViewController:tabBar];
-    [self.view insertSubview:tabBar.view atIndex:0];
-    [self.view wmf_addConstraintsToEdgesOfView:tabBar.view withInsets:UIEdgeInsetsZero priority:UILayoutPriorityRequired];
 
-    [tabBar didMoveToParentViewController:self];
-    tabBar.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    self.rootTabBarController = tabBar;
+    self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+
+    WMFArticleNavigationController *exploreNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self exploreViewController]];
+    exploreNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
+    WMFArticleNavigationController *placesNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self placesViewController]];
+    placesNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-nearby"];
+    WMFArticleNavigationController *savedNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self savedViewController]];
+    savedNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-save"];
+    WMFArticleNavigationController *historyNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self recentArticlesViewController]];
+    historyNavC.tabBarItem.image = [UIImage imageNamed:@"tabbar-recent"];
+    WMFArticleNavigationController *searchNavC = [[WMFArticleNavigationController alloc] initWithRootViewController:[self searchViewController]];
+    searchNavC.tabBarItem.image = [UIImage imageNamed:@"search"];
+
+    NSArray<WMFArticleNavigationController *> *navigationControllers = @[exploreNavC, placesNavC, savedNavC, historyNavC, searchNavC];
+    for (WMFArticleNavigationController *navC in navigationControllers) {
+        navC.extendedLayoutIncludesOpaqueBars = YES;
+        navC.automaticallyAdjustsScrollViewInsets = NO;
+        [navC setNavigationBarHidden:YES animated:NO];
+    }
+    [self setViewControllers:navigationControllers animated:NO];
 
     [self applyTheme:self.theme];
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
     [self configureTabController];
-    [self configurePlacesViewController];
-    [self configureSavedViewController];
 
     self.recentArticlesViewController.dataStore = self.dataStore;
     [self.searchViewController applyTheme:self.theme];
@@ -252,10 +269,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     UITabBarItem *savedTabBarItem = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
+
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf_userDefaults].openAppOnSearchTab;
+    if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
+        [self setSelectedIndex:WMFAppTabTypeSearch];
+    } else if (self.selectedIndex != WMFAppTabTypeMain) {
+        [self setSelectedIndex:WMFAppTabTypeMain];
+    }
 }
 
 - (void)configureTabController {
-    self.rootTabBarController.delegate = self;
+    self.delegate = self;
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController *navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self;
@@ -306,15 +330,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
     self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
-}
-
-- (void)configurePlacesViewController {
-    self.placesViewController.dataStore = self.dataStore;
-}
-
-- (void)configureSavedViewController {
-    self.savedViewController.dataStore = self.dataStore;
-    [self.savedViewController applyTheme:self.theme];
 }
 
 #pragma mark - Notifications
@@ -475,7 +490,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.settingsNavigationController popToRootViewControllerAnimated:NO];
         dispatch_block_t update = ^{
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
+            [self setSelectedIndex:WMFAppTabTypeSearch];
             [[self navigationControllerForTab:WMFAppTabTypeSearch] popToRootViewControllerAnimated:NO];
             [self configureDefaultNavigationController:[self navigationControllerForTab:WMFAppTabTypeMain] animated:NO];
         };
@@ -573,10 +588,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
 }
 #pragma mark - Launch
-
-+ (WMFAppViewController *)initialAppViewControllerFromDefaultStoryBoard {
-    return [[UIStoryboard storyboardWithName:NSStringFromClass([WMFAppViewController class]) bundle:nil] instantiateInitialViewController];
-}
 
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
@@ -877,11 +888,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<UINavigationController *> *allNavControllers = [self allNavigationControllers];
     for (UINavigationController *navC in allNavControllers) {
         UIViewController *vc = [navC visibleViewController];
-        if ([vc respondsToSelector:@selector(navigationBar)]) {
-            id navigationBar = [(id)vc navigationBar];
-            if ([navigationBar isKindOfClass:[WMFNavigationBar class]]) {
-                [(WMFNavigationBar *)navigationBar setNavigationBarPercentHidden:0];
-            }
+        if ([vc respondsToSelector:@selector(ensureWikipediaSearchIsShowing)]) {
+            [(id)vc ensureWikipediaSearchIsShowing];
         }
     }
 
@@ -1058,11 +1066,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     WMFUserActivityType type = [activity wmf_type];
     switch (type) {
         case WMFUserActivityTypeExplore:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+            [self setSelectedIndex:WMFAppTabTypeMain];
             [[self navigationControllerForTab:WMFAppTabTypeMain] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypePlaces: {
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
+            [self setSelectedIndex:WMFAppTabTypePlaces];
             [[self navigationControllerForTab:WMFAppTabTypePlaces] popToRootViewControllerAnimated:animated];
             NSURL *articleURL = activity.wmf_articleURL;
             if (articleURL) {
@@ -1072,7 +1080,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             }
         } break;
         case WMFUserActivityTypeContent: {
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+            [self setSelectedIndex:WMFAppTabTypeMain];
             UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeMain];
             [navController popToRootViewControllerAnimated:animated];
             NSURL *url = [activity wmf_contentURL];
@@ -1100,11 +1108,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
         } break;
         case WMFUserActivityTypeSavedPages:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
+            [self setSelectedIndex:WMFAppTabTypeSaved];
             [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeHistory:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
+            [self setSelectedIndex:WMFAppTabTypeRecent];
             [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:animated];
             break;
         case WMFUserActivityTypeSearch:
@@ -1126,12 +1134,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             return YES;
         } break;
         case WMFUserActivityTypeSettings:
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+            [self setSelectedIndex:WMFAppTabTypeMain];
             [[self navigationControllerForTab:WMFAppTabTypeMain] popToRootViewControllerAnimated:NO];
             [self showSettingsAnimated:animated];
             break;
         case WMFUserActivityTypeAppearanceSettings: {
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+            [self setSelectedIndex:WMFAppTabTypeMain];
             [[self navigationControllerForTab:WMFAppTabTypeMain] popToRootViewControllerAnimated:NO];
             WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
             [appearanceSettingsVC applyTheme:self.theme];
@@ -1156,7 +1164,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)selectDefaultTabAndDismissPresentedViewControllers {
     [self dismissPresentedViewControllers];
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    [self setSelectedIndex:WMFAppTabTypeMain];
 }
 
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
@@ -1199,7 +1207,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (WMFArticleViewController *)visibleArticleViewController {
-    UINavigationController *navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    UINavigationController *navVC = [self navigationControllerForTab:self.selectedIndex];
     UIViewController *topVC = navVC.topViewController;
     if ([topVC isKindOfClass:[WMFArticleViewController class]]) {
         return (WMFArticleViewController *)topVC;
@@ -1208,7 +1216,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (UINavigationController *)navigationControllerForTab:(WMFAppTabType)tab {
-    return (UINavigationController *)[self.rootTabBarController viewControllers][tab];
+    return (UINavigationController *)[self viewControllers][tab];
 }
 
 - (UIViewController<WMFAnalyticsViewNameProviding> *)rootViewControllerForTab:(WMFAppTabType)tab {
@@ -1270,41 +1278,30 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (WMFSavedViewController *)savedViewController {
-    return (WMFSavedViewController *)[self rootViewControllerForTab:WMFAppTabTypeSaved];
+    if (!_savedViewController) {
+        _savedViewController = [[UIStoryboard storyboardWithName:@"Saved" bundle:nil] instantiateInitialViewController];
+        [_savedViewController applyTheme:self.theme];
+        _savedViewController.dataStore = self.dataStore;
+    }
+    return _savedViewController;
 }
 
 - (WMFHistoryViewController *)recentArticlesViewController {
-    return (WMFHistoryViewController *)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+    if (!_recentArticlesViewController) {
+        _recentArticlesViewController = [[WMFHistoryViewController alloc] init];
+        [_recentArticlesViewController applyTheme:self.theme];
+        _recentArticlesViewController.dataStore = self.dataStore;
+    }
+    return _recentArticlesViewController;
 }
 
 - (WMFPlacesViewController *)placesViewController {
-    return (WMFPlacesViewController *)[self rootViewControllerForTab:WMFAppTabTypePlaces];
-}
-
-#pragma mark - UIViewController
-
-- (BOOL)shouldAutorotate {
-    if (self.rootTabBarController) {
-        return [self.rootTabBarController shouldAutorotate];
-    } else {
-        return YES;
+    if (!_placesViewController) {
+        _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
+        [_placesViewController applyTheme:self.theme];
+        _placesViewController.dataStore = self.dataStore;
     }
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if (self.rootTabBarController) {
-        return [self.rootTabBarController supportedInterfaceOrientations];
-    } else {
-        return UIInterfaceOrientationMaskAll;
-    }
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if (self.rootTabBarController) {
-        return [self.rootTabBarController preferredInterfaceOrientationForPresentation];
-    } else {
-        return UIInterfaceOrientationPortrait;
-    }
+    return _placesViewController;
 }
 
 #pragma mark - Onboarding
@@ -1347,6 +1344,26 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Splash
 
+- (UIImageView *)splashView {
+    if (!_splashView) {
+        _splashView = [[UIImageView alloc] init];
+        _splashView.contentMode = UIViewContentModeCenter;
+        if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+            [_splashView setImage:[UIImage imageNamed:@"splashscreen-background"]];
+        }
+        _splashView.backgroundColor = [UIColor whiteColor];
+        [self.view wmf_addSubviewWithConstraintsToEdges:_splashView];
+        UIImage *wordmark = [UIImage imageNamed:@"wikipedia-wordmark"];
+        UIImageView *wordmarkView = [[UIImageView alloc] initWithImage:wordmark];
+        wordmarkView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_splashView addSubview:wordmarkView];
+        NSLayoutConstraint *centerXConstraint = [_splashView.centerXAnchor constraintEqualToAnchor:wordmarkView.centerXAnchor];
+        NSLayoutConstraint *centerYConstraint = [_splashView.centerYAnchor constraintEqualToAnchor:wordmarkView.centerYAnchor constant:12];
+        [_splashView addConstraints:@[centerXConstraint, centerYConstraint]];
+    }
+    return _splashView;
+}
+
 - (void)showSplashView {
     self.splashView.hidden = NO;
     self.splashView.alpha = 1.0;
@@ -1370,7 +1387,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Explore VC
 
 - (void)showExplore {
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    [self setSelectedIndex:WMFAppTabTypeMain];
     [[self navigationControllerForTab:WMFAppTabTypeMain] popToRootViewControllerAnimated:NO];
 }
 
@@ -1393,7 +1410,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 
     if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeShowingExploreScreenOnLaunch) {
-        if (![self mainViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeMain) {
+        if (![self mainViewControllerIsDisplayingContent] && [self selectedIndex] == WMFAppTabTypeMain) {
             return YES;
         }
     }
@@ -1413,8 +1430,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)switchToSearch:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    if (self.rootTabBarController.selectedIndex != WMFAppTabTypeSearch) {
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSearch];
+    if (self.selectedIndex != WMFAppTabTypeSearch) {
+        [self setSelectedIndex:WMFAppTabTypeSearch];
     }
 }
 
@@ -1437,7 +1454,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 - (void)showRandomArticleAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    [self setSelectedIndex:WMFAppTabTypeMain];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeMain];
 
     WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
@@ -1448,7 +1465,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)showNearbyAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
 
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypePlaces];
+    [self setSelectedIndex:WMFAppTabTypePlaces];
     UINavigationController *placesNavigationController = [self navigationControllerForTab:WMFAppTabTypePlaces];
 
     [placesNavigationController popToRootViewControllerAnimated:NO];
@@ -1505,11 +1522,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-title-accessibility-label", nil, nil, @"Wikipedia, scroll to top of Explore", @"Accessibility heading for the Explore page, indicating that tapping it will scroll to the top of the explore page. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
     } else if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         WMFArticleViewController *vc = (WMFArticleViewController *)viewController;
-        if (self.rootTabBarController.selectedIndex == WMFAppTabTypeMain) {
+        if (self.selectedIndex == WMFAppTabTypeMain) {
             vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-explore-accessibility-label", nil, nil, @"Wikipedia, return to Explore", @"Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.");
-        } else if (self.rootTabBarController.selectedIndex == WMFAppTabTypeSaved) {
+        } else if (self.selectedIndex == WMFAppTabTypeSaved) {
             vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-saved-accessibility-label", nil, nil, @"Wikipedia, return to Saved", @"Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.");
-        } else if (self.rootTabBarController.selectedIndex == WMFAppTabTypeRecent) {
+        } else if (self.selectedIndex == WMFAppTabTypeRecent) {
             vc.titleButton.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"home-button-history-accessibility-label", nil, nil, @"Wikipedia, return to History", @"Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.");
         }
     }
@@ -1683,7 +1700,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    [self setSelectedIndex:WMFAppTabTypeMain];
     UINavigationController *navController = [self navigationControllerForTab:WMFAppTabTypeMain];
     [navController popToRootViewControllerAnimated:NO];
     [navController pushViewController:vc animated:NO];
@@ -1712,7 +1729,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }
     }
 
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:theme.colors.primaryText];
+    [[UITextField appearanceWhenContainedInInstancesOfClasses:@ [[UISearchBar class]]] setTextColor:theme.colors.primaryText];
 
     if ([foundNavigationControllers count] > 0) {
         [self applyTheme:theme toNavigationControllers:[foundNavigationControllers allObjects]];
@@ -1746,7 +1763,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     // Tab bars
 
-    NSArray<UITabBar *> *tabBars = @[self.rootTabBarController.tabBar, [UITabBar appearance]];
+    NSArray<UITabBar *> *tabBars = @[self.tabBar, [UITabBar appearance]];
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
         tabBar.barTintColor = theme.colors.chromeBackground;
@@ -1833,7 +1850,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissReadingThemesPopoverIfActive];
 
-    id vc = [self.rootTabBarController selectedViewController];
+    id vc = [self selectedViewController];
     if (![vc isKindOfClass:[UINavigationController class]]) {
         return;
     }
@@ -1932,7 +1949,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeMain];
+    [self setSelectedIndex:WMFAppTabTypeMain];
     UINavigationController *exploreNavController = [self navigationControllerForTab:WMFAppTabTypeMain];
 
     [self dismissPresentedViewControllers];

@@ -15,6 +15,8 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     var objectChanges: [WMFObjectChange] = []
     weak var delegate: CollectionViewUpdaterDelegate?
     
+    var isGranularUpdatingEnabled: Bool = true // when set to false, individual updates won't be pushed to the collection view, only reloadData()
+    
     required init(fetchedResultsController: NSFetchedResultsController<T>, collectionView: UICollectionView) {
         self.fetchedResultsController = fetchedResultsController
         self.collectionView = collectionView
@@ -67,14 +69,27 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     @objc func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         previousSectionCounts = sectionCounts
         sectionCounts = fetchSectionCounts()
+        
+        guard isGranularUpdatingEnabled else {
+            collectionView.reloadData()
+            delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            return
+        }
+        
         var didInsertFirstSection = false
         var didOnlyChangeItems = true
         var sectionDelta = 0
         var objectsInSectionDelta = 0
+        var forceReload = false
+        
         for sectionChange in sectionChanges {
             didOnlyChangeItems = false
             switch sectionChange.type {
             case .delete:
+                guard sectionChange.sectionIndex < previousSectionCounts.count else {
+                    forceReload = true
+                    break
+                }
                 sectionDelta -= 1
             case .insert:
                 sectionDelta += 1
@@ -87,10 +102,31 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             }
         }
         
+        for objectChange in objectChanges {
+            switch objectChange.type {
+            case .delete:
+                guard let fromIndexPath = objectChange.fromIndexPath,
+                    fromIndexPath.section < previousSectionCounts.count,
+                    fromIndexPath.item < previousSectionCounts[fromIndexPath.section] else {
+                    forceReload = true
+                    break
+                }
+                
+                // there seems to be a very specific bug about deleting the item at index path 0,2 when there are 3 items in the section ¯\_(ツ)_/¯
+                if fromIndexPath.section == 0 && fromIndexPath.item == 2 && previousSectionCounts[0] == 3 {
+                    forceReload = true
+                    break
+                }
+
+            default:
+                break
+            }
+        }
+        
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
-        guard sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for larger changes
+        guard !forceReload, sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
             collectionView.reloadData()
-            self.delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return
         }
         

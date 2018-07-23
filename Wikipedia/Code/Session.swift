@@ -212,7 +212,6 @@ import Foundation
         
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
         let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", path, encodedTitle])
-        
         guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
             return nil
         }

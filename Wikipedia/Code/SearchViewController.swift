@@ -16,7 +16,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.isInteractiveHidingEnabled  = false
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
         navigationBar.isShadowHidingEnabled = true
     }
     
@@ -308,6 +307,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         saveLastSearch()
+        searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -429,7 +429,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         cell.titleLabel.text = entry.searchTerm
     }
     
-    func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
         header.style = .recentSearches
         header.apply(theme: theme)
         header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
@@ -437,7 +437,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         header.delegate = self
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionElementKindSectionHeader else {
             return UICollectionReusableView()
         }
