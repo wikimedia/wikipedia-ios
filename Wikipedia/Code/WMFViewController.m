@@ -116,6 +116,14 @@
 - (void)scrollViewInsetsDidChange {
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.navigationBar layoutIfNeeded];
+        [self updateScrollViewInsets];
+    } completion:NULL];
+}
+
 - (void)updateScrollViewInsets {
     if (self.automaticallyAdjustsScrollViewInsets) {
         return;
