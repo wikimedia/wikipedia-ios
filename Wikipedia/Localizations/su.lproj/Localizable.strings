@@ -123,7 +123,9 @@
 "explore-most-read-more-list-title-for-date" = "Pangluhurna dina $1";
 "explore-nearby-heading" = "Tempat pangdeukeutna";
 "explore-nearby-placeholder-heading" = "Tempat";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipedia $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Lokasi anjeun";
 "explore-potd-heading" = "Gambar poé ieu";
@@ -175,8 +177,6 @@
 "hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
 "home-button-history-accessibility-label" = "Wikipédia, balik deui kana Jujutan";
-"home-button-popover-description" = "Toél kana 'W' pikeun balik ka eupan Paluruh";
-"home-button-popover-title" = "Toél pikeun balik ka tepas";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
 "home-more-like-footer" = "Lianna nu siga $1";
 // Fuzzy

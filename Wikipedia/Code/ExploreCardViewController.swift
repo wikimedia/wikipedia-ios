@@ -619,7 +619,12 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
     
     func locationManager(_ controller: WMFLocationManager, didChangeEnabledState enabled: Bool) {
         UserDefaults.wmf_userDefaults().wmf_setLocationAuthorized(enabled)
-        dataStore.feedContentController.updateNearbyForce(false, completion: nil)
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? ArticleLocationAuthorizationCollectionViewCell else {
+                return
+            }
+            cell.updateForLocationEnabled()
+        }
     }
 }
 

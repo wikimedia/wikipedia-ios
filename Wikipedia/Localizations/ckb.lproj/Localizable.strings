@@ -130,7 +130,9 @@
 "explore-most-read-more-list-title-for-date" = "بەناوبانگترین لە $1";
 "explore-nearby-heading" = "شوێنە نزیکەکان";
 "explore-nearby-placeholder-heading" = "شوێنەکان";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "لە $1 ویکیپیدیا";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "لە ویکیپیدیا";
 "explore-nearby-sub-heading-your-location" = "شوێنی تۆ";
 "explore-potd-heading" = "وێنەی ئەمڕۆ";
@@ -182,8 +184,6 @@
 "hockeyapp-alert-title" = "ببوورە، ئاپ لە جاری پێشوو تێکچوو";
 "home-button-explore-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ گەڕان";
 "home-button-history-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ مێژوو";
-"home-button-popover-description" = "کرتە بکە لەسەر «W» بۆ گەڕانەوە بۆ بەشی «گەڕان»";
-"home-button-popover-title" = "کرتە بکە بۆ گەڕانەوە بۆ پەڕەی سەرەکی";
 "home-button-saved-accessibility-label" = "ویکیپیدیا، گەڕانەوە بۆ خەزێنەکراوەکان";
 "home-more-like-footer" = "زیاتر وەک $1";
 // Fuzzy

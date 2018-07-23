@@ -119,9 +119,11 @@
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
+"explore-feed-preferences-card-hidden-title" = "Kaart verstoppt";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Op $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "All %@ Kaarte si verstoppt";
 "explore-feed-preferences-global-cards-subtitle" = "Net sproochspezifesch";
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Dës Kaart verstoppen";
@@ -137,8 +139,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-heading" = "Plazen nobäi";
 "explore-nearby-placeholder-heading" = "Plazen";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia op $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Vu Wikipedia op $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vu Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Är Plaz";
 "explore-potd-heading" = "Bild vum Dag";
 "explore-potd-sub-heading" = "Vu Wikimedia Commons";
@@ -193,11 +195,9 @@
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
 "home-more-like-footer" = "Méi wéi $1";
-// Fuzzy
 "home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
 "home-nearby-location-footer" = "Méi nobäi vun $1";
-// Fuzzy
-"home-news-footer" = "Méi an den Neiegkeeten";
+"home-news-footer" = "Méi aktuell Evenementer";
 "home-themes-action-title" = "Astellunge geréieren";
 "home-title" = "Entdecken";
 "home-title-accessibility-label" = "Wikipedia, no uewe scrolle fir z'Entdecken";
@@ -257,6 +257,8 @@
 "number-thousands" = "$1 D";
 "on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
+"on-this-day-footer-with-event-count" = "$1 weider historesch Evenementer op dësem Dag";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
 "open-link-cancel" = "Ofbriechen";
 "page-edit-history" = "All Versioune vun der Säit";

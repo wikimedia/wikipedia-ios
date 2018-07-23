@@ -130,7 +130,9 @@
 "explore-most-read-more-list-title-for-date" = "អត្ថបទអានច្រើនជាងគេនៅ $1";
 "explore-nearby-heading" = "ទីតាំងក្បែរ";
 "explore-nearby-placeholder-heading" = "ទី​តាំង";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "នៅលើវិគីភីឌា$1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "នៅលើវិគីភីឌា";
 "explore-nearby-sub-heading-your-location" = "ទីតាំងរបស់អ្នក";
 "explore-potd-heading" = "រូបភាពថ្ងៃនេះ";
@@ -182,8 +184,6 @@
 "hockeyapp-alert-title" = "សូមអភ័យទោសដែលកម្មវីធីបានគាំងពេលមុន";
 "home-button-explore-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ រុករក";
 "home-button-history-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ ប្រវត្តិ";
-"home-button-popover-description" = "ចុចលើ 'W' ដើម្បីត្រឡប់ទៅហ្វីដរុករក";
-"home-button-popover-title" = "ចុចដើម្បីទៅទំព័រដើម";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
 "home-more-like-footer" = "អត្ថបទស្រដៀង $1";
 // Fuzzy

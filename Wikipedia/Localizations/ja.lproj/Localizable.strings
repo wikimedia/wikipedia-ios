@@ -168,7 +168,9 @@
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-nearby-heading" = "近くのスポット";
 "explore-nearby-placeholder-heading" = "場所";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアで";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-potd-heading" = "今日の一枚";
@@ -220,8 +222,6 @@
 "hockeyapp-alert-title" = "申し訳ありません、前回アプリがクラッシュしました";
 "home-button-explore-accessibility-label" = "ウィキペディア、探してみように戻る";
 "home-button-history-accessibility-label" = "ウィキペディア、履歴に戻る";
-"home-button-popover-description" = "Wをタップして検索をフィードに戻る";
-"home-button-popover-title" = "タップしてホームに戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
 "home-more-like-footer" = "$1 なども読まれています";
 // Fuzzy

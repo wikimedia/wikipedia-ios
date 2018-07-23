@@ -106,6 +106,7 @@
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "back" = "Voltar";
 "back-button-accessibility-label" = "Retroceder";
+"back-button-popover-title" = "Tocar para voltar atrás";
 "button-done" = "Concluído";
 "button-next" = "Seguinte";
 "button-ok" = "OK";
@@ -152,6 +153,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-feed-preferences-additional-languages-footer-text" = "Podem ser adicionada línguas na página de definições 'Línguas'.";
+"explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
 "explore-feed-preferences-customize-explore-feed" = "Personalizar o feed Explorar";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizar o feed Explorar";
@@ -162,6 +164,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Em todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Ligado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Em $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Todos os cartões %@ ocultados";
 "explore-feed-preferences-global-card-footer-text" = "Este cartão não depende da língua, desligá-lo remove-o do seu feed Explorar.";
 "explore-feed-preferences-global-cards-description" = "Cartões independentes da língua";
 "explore-feed-preferences-global-cards-subtitle" = "Independentes da língua";
@@ -192,8 +195,16 @@
 "explore-feed-preferences-show-top-read-title" = "Mostrar o cartão 'Os mais lidos'";
 "explore-feed-preferences-top-read-description" = "Artigos mais lidos do dia";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desativar o feed Explorar";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar todos os cartões do feed Explorar irá desativar o separador Explorar e substituí-lo por um separador Definições";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desativar o feed Explorar?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desativar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-message" = "O separador Explorar pode voltar a ser ativado nas definições do feed Explorar";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Desativar o separador Explorar?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Desativar o separador Explorar irá substituir o separador Explorar por um separador Definições.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ao escolher mostrar cartões do feed Explorar está a ativar o separador Explorar";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -204,9 +215,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-heading" = "Lugares próximos";
 "explore-nearby-placeholder-heading" = "Lugares";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipédia em $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Da Wikipédia em $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Da Wikipédia";
 "explore-nearby-sub-heading-your-location" = "A sua localização";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "A sua localização da Wikipédia em $1";
 "explore-potd-heading" = "Imagem do dia";
 "explore-potd-sub-heading" = "Da Wikimedia Commons";
 "explore-random-article-heading" = "Artigo aleatório";
@@ -259,8 +271,6 @@
 "hockeyapp-alert-title" = "Desculpe, a aplicação encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipédia, voltar a Explorar";
 "home-button-history-accessibility-label" = "Wikipédia, voltar ao Histórico";
-"home-button-popover-description" = "Toque no 'W' para voltar ao feed Explorar";
-"home-button-popover-title" = "Toque para a página principal";
 "home-button-saved-accessibility-label" = "Wikipédia, voltar aos Guardados";
 "home-more-like-footer" = "Mais, como $1";
 "home-nearby-footer" = "Mais locais nas suas redondezas";
@@ -330,8 +340,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}}";
 "on-this-day-footer" = "Mais acontecimentos históricos neste dia";
 "on-this-day-footer-with-event-count" = "Mais $1 acontecimentos históricos neste dia";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "open-link-cancel" = "Cancelar";
+"original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
 "page-edit-history" = "Histórico completo";
 "page-history-title" = "Histórico do artigo";
 "page-issues" = "Problemas da página";
@@ -486,6 +498,7 @@
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "search-recent-clear-delete-all" = "Apagar tudo";
+"search-recent-empty" = "Ainda não existem pesquisas recentes";
 "search-recent-title" = "Pesquisado recentemente";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
@@ -506,6 +519,8 @@
 "settings-notifications-trending" = "Atualidades em tendência";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação. Alterá-la irá alterar também o conteúdo diário (como o \"Artigo em destaque\") apresentado em Explorar.";
+"settings-search-footer-text" = "Configurar a aplicação para abrir no separador Pesquisar em vez do separador Explorar";
+"settings-search-open-app-on-search" = "Abrir aplicação no separador Pesquisar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e listas guardados";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ao apagar os seus artigos guardados irá removê-los da sua conta de utilizador se ativou a sincronização neste dispositivo. Esta operação não pode ser desfeita.";

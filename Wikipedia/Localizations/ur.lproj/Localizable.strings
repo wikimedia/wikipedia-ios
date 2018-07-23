@@ -7,6 +7,7 @@
 // Author: Muhammad Shuaib
 // Author: Nemo bis
 // Author: Obaid Raza
+// Author: Saqib
 // Author: Sohaib
 // Author: Zainab Meher
 // Author: امین اکبر
@@ -20,6 +21,7 @@
 "about-libraries-license" = "اجازت نامہ";
 "about-libraries-licenses-title" = "ہم کھلے ذرائع کے سافٹ ویئر $1 کو پسند کرتے ہیں";
 "about-places-maps-license" = "مقامات کے نقشوں کا اجازت نامہ";
+"about-places-maps-license-details-link-text" = "لائسنس کی معلومات کے لئے یہاں دیکھیں";
 "about-product-of" = "اس اطلاقیے کو آپ جیسے رضاکاروں کی مدد سے $1 نے تیار کیا ہے";
 "about-repositories" = "ذخائر";
 "about-repositories-app-source-license" = "ماخذ کا کوڈ $1 کے تحت دستیاب ہے۔";
@@ -53,8 +55,10 @@
 "account-creation-passwords-mismatched" = "کلمہ شناخت نہیں ملتے۔";
 "account-creation-saving" = "محفوظ ہورہا ہے...";
 "account-creation-title" = "نیا کھاتہ بنائیں";
+"action-add-to" = "جمح کریں۔۔۔۔";
 "action-add-to-reading-list" = "فہرست مطالعہ میں شامل کریں";
 "action-cancel" = "منسوخ";
+"action-move-to" = "موو کریں۔۔۔";
 "action-move-to-reading-list" = "فہرست مطالعہ میں منتقل کریں";
 "action-read" = "مطالعہ";
 "action-remove" = "حذف";
@@ -128,6 +132,9 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "explore-featured-article-sub-heading-from-wikipedia" = "ویکیپیڈیا سے";
 "explore-feed-preferences-featured-article-description" = "ویکیپیڈیا پر آج کا منتخب مضمون";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "سب آن کریں";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
 "explore-most-read-footer" = "سب سے زیادہ پڑھے جانے والے مضامین";
@@ -137,7 +144,9 @@
 "explore-most-read-sub-heading-on-wikipedia" = "ویکیپیڈیا سے";
 "explore-nearby-heading" = "قریبی مقامات";
 "explore-nearby-placeholder-heading" = "مقامات";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ویکیپیڈیا سے";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ویکیپیڈیا سے";
 "explore-nearby-sub-heading-your-location" = "آپ کا مقام";
 "explore-potd-heading" = "آج کی تصویر";
