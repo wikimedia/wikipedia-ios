@@ -242,7 +242,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
 
         if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: origin.x - singlePixelDimension, y: undoLabel.frame.origin.y)
+            let undoButtonOrigin = CGPoint(x: origin.x, y: undoLabel.frame.origin.y)
             origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
     
