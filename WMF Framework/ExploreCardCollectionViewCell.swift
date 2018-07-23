@@ -280,12 +280,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     
     public func apply(theme: Theme) {
         contentView.tintColor = theme.colors.link
-        contentView.backgroundColor = theme.colors.paperBackground
         let backgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.paperBackground
         let selectedBackgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.midBackground
         let cardBackgroundViewBorderColor = isCollapsed ? backgroundColor.cgColor : theme.colors.cardBorder.cgColor
         cardBackgroundView.layer.borderColor = cardBackgroundViewBorderColor
-        setBackgroundColors(backgroundColor, selected: selectedBackgroundColor)
+        setBackgroundColors(.clear, selected: selectedBackgroundColor)
         titleLabel.textColor = theme.colors.primaryText
         subtitleLabel.textColor = theme.colors.secondaryText
         customizationButton.setTitleColor(theme.colors.link, for: .normal)
