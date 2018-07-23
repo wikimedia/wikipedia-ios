@@ -65,10 +65,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
-        undoLabel.numberOfLines = 0
+        undoLabel.numberOfLines = 1
         undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
+        undoButton.titleLabel?.numberOfLines = 1
         undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
