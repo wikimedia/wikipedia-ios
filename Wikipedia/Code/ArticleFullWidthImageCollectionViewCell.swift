@@ -66,7 +66,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             origin.y += imageViewDimension
         }
         
-        origin.y += layoutMargins.top
+        origin.y += layoutMargins.top + spacing
         
         origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, spacing: spacing, apply: apply)
         origin.y += descriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, spacing: spacing, apply: apply)
