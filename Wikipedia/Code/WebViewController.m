@@ -35,6 +35,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) NSArray *findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
+
+@property (nonatomic, getter=isIgnoringWebViewScroll) BOOL ignoringWebViewScroll;
+
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 @property (weak, nonatomic) IBOutlet UIView *statusBarUnderlayView;
 
@@ -305,6 +308,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
+        self.ignoringWebViewScroll = NO;
     }
 }
 
@@ -618,6 +622,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.ignoringWebViewScroll = YES;
 
     self.lastClickedReferencesGroup = @[];
 
@@ -1022,7 +1028,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
+    if (!self.isIgnoringWebViewScroll && [self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
     [self minimizeFindInPage];
