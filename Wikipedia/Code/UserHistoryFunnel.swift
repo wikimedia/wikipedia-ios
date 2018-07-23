@@ -1,5 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
+private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
+
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     private let targetCountries: [String] = [
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
@@ -47,18 +49,32 @@
             event["measure_readinglist_listcount"] = readingListCount
         }
 
-        var feedEnabledList = [String: Any]()
-        [WMFContentGroupKind.featuredArticle, WMFContentGroupKind.topRead, WMFContentGroupKind.onThisDay, WMFContentGroupKind.news, WMFContentGroupKind.relatedPages, WMFContentGroupKind.continueReading, WMFContentGroupKind.location, WMFContentGroupKind.random, WMFContentGroupKind.pictureOfTheDay].forEach({contentGroupKind in
-            let loggingCode = contentGroupKind.loggingCode
-            if contentGroupKind.isGlobal {
-                feedEnabledList[loggingCode] = contentGroupKind.isInFeed
-            } else {
-                feedEnabledList[loggingCode] = contentGroupKind.loggingLanguageInfo
-            }
-        })
-        event["feed_enabled_list"] = feedEnabledList
+        event["feed_enabled_list"] = feedEnabledListPayload()
         
         return wholeEvent(with: event)
+    }
+    
+    private func feedEnabledListPayload() -> [String: Any] {
+        let contentGroupKindAndLoggingCodeFromNumber:(NSNumber) -> ContentGroupKindAndLoggingCode? = { kindNumber in
+            // The MobileWikiAppiOSUserHistory schema only specifies that we log certain card types for `feed_enabled_list`.
+            // If `userHistorySchemaCode` returns nil for a given WMFContentGroupKind we don't add an entry to `feed_enabled_list`.
+            guard let kind = WMFContentGroupKind(rawValue: kindNumber.int32Value), let loggingCode = kind.userHistorySchemaCode else {
+                return nil
+            }
+            return (kind: kind, loggingCode: loggingCode)
+        }
+        
+        var feedEnabledList = [String: Any]()
+        
+        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+            feedEnabledList[$0.loggingCode] = $0.kind.isInFeed
+        }
+        
+        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+            feedEnabledList[$0.loggingCode] = $0.kind.userHistorySchemaLanguageInfo
+        }
+
+        return feedEnabledList
     }
     
     override func logged(_ eventData: [AnyHashable: Any]) {
