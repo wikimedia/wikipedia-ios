@@ -149,26 +149,14 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     override open func setup() {
         super.setup()
         translatesAutoresizingMaskIntoConstraints = false
-        
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.isUserInteractionEnabled = false
-
         statusBarUnderlay.translatesAutoresizingMaskIntoConstraints = false
-        statusBarUnderlay.isUserInteractionEnabled = false
-        
         bar.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleBar.translatesAutoresizingMaskIntoConstraints = false
-
         underBarView.translatesAutoresizingMaskIntoConstraints = false
-        
         extendedView.translatesAutoresizingMaskIntoConstraints = false
-        
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.isUserInteractionEnabled = false
-        
         shadow.translatesAutoresizingMaskIntoConstraints = false
-        shadow.isUserInteractionEnabled = false
+        titleBar.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(backgroundView)
         addSubview(extendedView)
@@ -179,6 +167,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(statusBarUnderlay)
         addSubview(shadow)
 
+        
         accessibilityElements = [extendedView, underBarView, bar]
         
         bar.delegate = self
@@ -261,13 +250,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
     }
     
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard point.y <= visibleHeight else {
-            return nil
-        }
-        return super.hitTest(point, with: event)
-    }
-    
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         guard traitCollection.displayScale > 0 else {
@@ -331,13 +313,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
-        let limit: CGFloat = 1.0
-        
-        extendedView.isUserInteractionEnabled = _extendedViewPercentHidden.isLess(than: limit)
-        underBarView.isUserInteractionEnabled = _underBarViewPercentHidden.isLess(than: limit)
-        bar.isUserInteractionEnabled = _navigationBarPercentHidden.isLess(than: limit)
-        titleBar.isUserInteractionEnabled = bar.isUserInteractionEnabled
-
         let applyChanges = {
             let changes = {
                 if shadowAlpha >= 0  {
