@@ -234,7 +234,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
         if !undoLabel.isHidden {
             let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, apply: false)
+            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins - 8, horizontalAlignment: labelHorizontalAlignment, apply: false)
             let halfHeight = round(0.5 * undoLabelFrame.height)
             undoLabelFrame.origin.y -= halfHeight
             undoLabel.frame = undoLabelFrame
