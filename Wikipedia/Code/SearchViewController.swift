@@ -97,7 +97,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let start = Date()
         
         AFNetworkActivityIndicatorManager.shared().incrementActivityCount()
-        fakeProgressController.start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+            self.fakeProgressController.start()
+        }
         
         let commonCompletion = {
             AFNetworkActivityIndicatorManager.shared().decrementActivityCount()
