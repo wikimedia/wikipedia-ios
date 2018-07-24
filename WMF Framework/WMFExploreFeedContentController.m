@@ -596,7 +596,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                     if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
                         [contentGroup markDismissed];
                     }
-                    [contentGroup markDismissed];
                     contentGroup.isVisible = NO;
                     contentGroup.undoType = WMFContentGroupUndoTypeNone;
                 }
@@ -648,7 +647,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-        // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
@@ -656,7 +654,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
-            contentGroup.isVisible = isGlobalCardVisible;
+            contentGroup.isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
             NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
