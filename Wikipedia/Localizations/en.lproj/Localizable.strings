@@ -44,6 +44,7 @@
 "account-creation-title" = "Create a new account";
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
+"action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
