@@ -13,7 +13,7 @@ public class FakeProgressController: NSObject {
     private let progress: FakeProgressReceiving
     weak var delegate: FakeProgressDelegate?
     public var minVisibleDuration: TimeInterval = 0.7
-    public var delay: TimeInterval = 1
+    public var delay: TimeInterval = 0
     
     public init(progress: FakeProgressReceiving, delegate: FakeProgressDelegate?) {
         self.progress = progress
