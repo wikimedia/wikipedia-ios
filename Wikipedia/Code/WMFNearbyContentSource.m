@@ -196,6 +196,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         if (self.completion) {
             self.completion();
         }
+        self.completion = nil;
         return;
     }
     [self getGroupForLocation:location
