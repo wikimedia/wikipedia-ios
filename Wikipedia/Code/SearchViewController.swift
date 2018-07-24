@@ -179,6 +179,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             addChildViewController(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
+            searchLanguageBarViewController.view.alpha = isSearchVisible ? 1 : 0
             searchLanguageBarViewController.didMove(toParentViewController: self)
             searchLanguageBarViewController.view.isHidden = false
         } else if !showLanguageBar && searchLanguageBarViewController != nil {
@@ -233,8 +234,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }()
     
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    var isSearchVisible: Bool = false
     
     func setSearchVisible(_ visible: Bool, animated: Bool) {
+        isSearchVisible = visible
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
             self.isAnimatingSearchBarState = false
@@ -245,6 +248,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isBarHidingEnabled = false
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
+            self.searchLanguageBarViewController?.view.alpha = visible ? 1 : 0
         }
         guard animated else {
             animations()

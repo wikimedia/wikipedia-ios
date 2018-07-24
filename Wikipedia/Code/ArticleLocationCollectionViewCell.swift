@@ -46,8 +46,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
 
         let layoutMargins: UIEdgeInsets = calculatedLayoutMargins
         
-        let minHeight: CGFloat = compassViewDimension + layoutMargins.top + layoutMargins.bottom
-        //let minHeightMinusMargins: CGFloat = minHeight - layoutMargins.top - layoutMargins.bottom
+        let minHeight: CGFloat = compassViewDimension
         
         let widthForLabels: CGFloat = size.width - layoutMargins.left - layoutMargins.right - compassViewDimension - spacing
 
