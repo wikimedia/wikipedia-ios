@@ -201,7 +201,6 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             if WMFLocationManager.isAuthorized() {
                 authCell.updateForLocationEnabled()
             } else {
-                authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
                 authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
                 authCell.authorizationDelegate = self
             }
