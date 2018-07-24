@@ -220,7 +220,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateNearby: must be called on the main thread");
 
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
     WMFTaskGroup *group = [WMFTaskGroup new];
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
