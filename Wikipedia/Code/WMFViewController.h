@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) UIScrollView *scrollView; // Override to provide the scroll view for inset adjustment
 
+@property (nonatomic) UIEdgeInsets additionalScrollIndicatorInsets;
+
 - (void)scrollViewInsetsDidChange;
 
 - (void)scrollToTop;
