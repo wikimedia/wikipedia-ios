@@ -35,14 +35,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     var theme: Theme = Theme.standard
-
-    var readingListHintController: ReadingListHintController?
     
-    var dataStore: MWKDataStore! {
-        didSet {
-            readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
-        }
-    }
+    var dataStore: MWKDataStore!
     
     // MARK - View Lifecycle
     
@@ -551,7 +545,7 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
