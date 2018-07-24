@@ -2,6 +2,7 @@ import UIKit
 
 protocol DetailTransitionSourceProviding {
     var detailTransitionSourceRect: CGRect? { get }
+    var theme: Theme { get }
 }
 
 @objc(WMFImageScaleTransitionProviding)
@@ -15,6 +16,10 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     let detailSourceViewController: DetailTransitionSourceProviding & ViewController
     
+    var theme: Theme {
+        return detailSourceViewController.theme
+    }
+    
     required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController) {
         self.detailSourceViewController = detailSourceViewController
     }
@@ -23,7 +28,6 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         return 0.3
     }
     
-    static var tabBarSnapshot: UIView?
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
@@ -113,13 +117,26 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         let totalHeight = containerView.bounds.size.height
         let tabBar = self.detailSourceViewController.tabBarController?.tabBar
-        let tabBarSnapshot: UIView?
-        if isEnteringDetail {
-            tabBarSnapshot = tabBar?.snapshotView(afterScreenUpdates: false)
-            DetailTransition.tabBarSnapshot = tabBarSnapshot
+        let tabBarSnapshot: UITabBar?
+        if let tb = tabBar {
+            tabBarSnapshot = UITabBar(frame: tb.frame)
+            var selectedItem: UITabBarItem? = nil
+            let copiedItems: [UITabBarItem]? = tb.items?.compactMap { (item: UITabBarItem) -> UITabBarItem in
+                let copiedItem = UITabBarItem(title: item.title, image: item.image, selectedImage: item.selectedImage)
+                copiedItem.badgeValue = item.badgeValue
+                copiedItem.apply(theme: theme)
+                if item === tb.selectedItem {
+                    selectedItem = copiedItem
+                }
+                return copiedItem
+            }
+            tabBarSnapshot?.items = copiedItems
+            tabBarSnapshot?.apply(theme: theme)
+            tabBarSnapshot?.selectedItem = selectedItem
         } else {
-            tabBarSnapshot = DetailTransition.tabBarSnapshot ?? tabBar?.snapshotView(afterScreenUpdates: false)
+            tabBarSnapshot = nil
         }
+
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
         if let tb = tabBar, let tbs = tabBarSnapshot {

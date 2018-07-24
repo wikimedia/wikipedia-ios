@@ -1766,33 +1766,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSArray<UITabBar *> *tabBars = @[self.tabBar, [UITabBar appearance]];
     NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
     for (UITabBar *tabBar in tabBars) {
-        tabBar.barTintColor = theme.colors.chromeBackground;
-        if ([tabBar respondsToSelector:@selector(setUnselectedItemTintColor:)]) {
-            [tabBar setUnselectedItemTintColor:theme.colors.unselected];
-        }
-        tabBar.translucent = NO;
+        [tabBar applyTheme:theme];
         if (tabBar.items.count > 0) {
             [tabBarItems addObjectsFromArray:tabBar.items];
         }
     }
 
     // Tab bar items
-
-    NSMutableParagraphStyle *badgeParagraphStyle = [[NSMutableParagraphStyle alloc] init];
-    badgeParagraphStyle.firstLineHeadIndent = 0.4;
-    NSDictionary *badgeAttributes = @{
-        NSForegroundColorAttributeName: theme.colors.chromeBackground,
-        NSParagraphStyleAttributeName: badgeParagraphStyle
-    };
-
-    UIFont *tabBarItemFont = [UIFont systemFontOfSize:12];
-    NSDictionary *tabBarTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.secondaryText, NSFontAttributeName: tabBarItemFont};
-    NSDictionary *tabBarSelectedTitleTextAttributes = @{NSForegroundColorAttributeName: theme.colors.link, NSFontAttributeName: tabBarItemFont};
     for (UITabBarItem *item in tabBarItems) {
-        [item setBadgeTextAttributes:badgeAttributes forState:UIControlStateNormal];
-        [item setBadgeColor:theme.colors.accent];
-        [item setTitleTextAttributes:tabBarTitleTextAttributes forState:UIControlStateNormal];
-        [item setTitleTextAttributes:tabBarSelectedTitleTextAttributes forState:UIControlStateSelected];
+        [item applyTheme:theme];
     }
 
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];

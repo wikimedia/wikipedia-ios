@@ -261,6 +261,28 @@ public class Theme: NSObject {
         return #imageLiteral(resourceName: "transparent-pixel")
     }()
     
+    static let tabBarItemBadgeParagraphStyle: NSParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.firstLineHeadIndent = 0.4
+        return paragraphStyle
+    }()
+    
+    static let tabBarItemFont: UIFont = {
+        return UIFont.systemFont(ofSize: 12)
+    }()
+    
+    public lazy var tabBarItemBadgeTextAttributes: [String: Any] = {
+        return [NSAttributedStringKey.foregroundColor.rawValue: colors.chromeBackground, NSAttributedStringKey.paragraphStyle.rawValue: Theme.tabBarItemBadgeParagraphStyle]
+    }()
+    
+    public lazy var tabBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
+        return [.foregroundColor: colors.secondaryText, .font: Theme.tabBarItemFont]
+    }()
+    
+    public lazy var tabBarSelectedTitleTextAttributes: [NSAttributedStringKey: Any] = {
+        return [.foregroundColor: colors.link, .font: Theme.tabBarItemFont]
+    }()
+        
     static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
         let minDimension = 2 * cornerRadius + 1
         let rect = CGRect(x: 0, y: 0, width: width ?? minDimension, height: height ?? minDimension)
