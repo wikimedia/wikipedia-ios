@@ -270,7 +270,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     UITabBarItem *savedTabBarItem = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf_userDefaults].openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf_userDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
     } else if (self.selectedIndex != WMFAppTabTypeMain) {

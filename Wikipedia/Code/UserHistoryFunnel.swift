@@ -1,5 +1,7 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
 
+private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
+
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     private let targetCountries: [String] = [
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
@@ -17,7 +19,7 @@
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 17990229)
+        super.init(schema: "MobileWikiAppiOSUserHistory", version: 18222579)
     }
     
     private func event() -> Dictionary<String, Any> {
@@ -25,9 +27,12 @@
         
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
-        
-        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme]
-        
+        let isFeedDisabled = userDefaults.defaultTabType != .explore
+        let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
+        let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
+
+        var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
+
         guard let dataStore = SessionSingleton.sharedInstance().dataStore else {
             return event
         }
@@ -43,8 +48,33 @@
         if let readingListCount = try? dataStore.viewContext.allReadingListsCount() {
             event["measure_readinglist_listcount"] = readingListCount
         }
+
+        event["feed_enabled_list"] = feedEnabledListPayload()
         
         return wholeEvent(with: event)
+    }
+    
+    private func feedEnabledListPayload() -> [String: Any] {
+        let contentGroupKindAndLoggingCodeFromNumber:(NSNumber) -> ContentGroupKindAndLoggingCode? = { kindNumber in
+            // The MobileWikiAppiOSUserHistory schema only specifies that we log certain card types for `feed_enabled_list`.
+            // If `userHistorySchemaCode` returns nil for a given WMFContentGroupKind we don't add an entry to `feed_enabled_list`.
+            guard let kind = WMFContentGroupKind(rawValue: kindNumber.int32Value), let loggingCode = kind.userHistorySchemaCode else {
+                return nil
+            }
+            return (kind: kind, loggingCode: loggingCode)
+        }
+        
+        var feedEnabledList = [String: Any]()
+        
+        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+            feedEnabledList[$0.loggingCode] = $0.kind.isInFeed
+        }
+        
+        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+            feedEnabledList[$0.loggingCode] = $0.kind.userHistorySchemaLanguageInfo
+        }
+
+        return feedEnabledList
     }
     
     override func logged(_ eventData: [AnyHashable: Any]) {
@@ -87,5 +117,50 @@
         }
         log(event())
         // DDLogDebug("Attempted to log starting User History snapshot")
+    }
+}
+
+private extension WMFContentGroupKind {
+    var offLanguageCodes: Set<String> {
+        let preferredLangCodes = MWKLanguageLinkController.sharedInstance().preferredLanguages.map{$0.languageCode}
+        return Set(preferredLangCodes).subtracting(languageCodes)
+    }
+    
+    // codes define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
+    var userHistorySchemaCode: String? {
+        switch self {
+        case .featuredArticle:
+            return "fa"
+        case .topRead:
+            return "tr"
+        case .onThisDay:
+            return "od"
+        case .news:
+            return "ns"
+        case .relatedPages:
+            return "rp"
+        case .continueReading:
+            return "cr"
+        case .location:
+            return "pl"
+        case .random:
+            return "rd"
+        case .pictureOfTheDay:
+            return "pd"
+        default:
+            return nil
+        }
+    }
+    
+    // "on" / "off" define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
+    var userHistorySchemaLanguageInfo: [String: [String]] {
+        var info = [String: [String]]()
+        if languageCodes.count > 0 {
+            info["on"] = Array(languageCodes)
+        }
+        if offLanguageCodes.count > 0 {
+            info["off"] = Array(offLanguageCodes)
+        }
+        return info
     }
 }
