@@ -647,6 +647,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             continue;
         }
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
