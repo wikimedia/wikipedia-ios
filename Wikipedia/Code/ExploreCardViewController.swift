@@ -540,19 +540,23 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
 
 extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        
+        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
     }
     
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.open(placesURL)
     }
 }
 
