@@ -37,7 +37,6 @@ public class FakeProgressController: NSObject {
     }
     
     fileprivate var isProgressHidden: Bool = true
-    fileprivate var showProgressStart: Date = Date()
     
     @objc private func hideProgress() {
         isProgressHidden = true
@@ -47,7 +46,6 @@ public class FakeProgressController: NSObject {
     
     @objc private func showProgress() {
         isProgressHidden = false
-        showProgressStart = Date()
         self.delegate?.setProgressHidden(false, animated: false)
     }
     
@@ -67,12 +65,7 @@ public class FakeProgressController: NSObject {
     public func stop() {
         assert(Thread.isMainThread)
         cancelPreviousShowsAndHides()
-        let interval = Date().timeIntervalSince(showProgressStart)
-        if interval > minVisibleDuration {
-            hideProgress()
-        } else {
-            perform(#selector(hideProgress), with: nil, afterDelay: interval - minVisibleDuration)
-        }
+        perform(#selector(hideProgress), with: nil, afterDelay: minVisibleDuration)
     }
     
     public func finish() {
