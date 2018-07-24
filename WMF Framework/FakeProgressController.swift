@@ -12,6 +12,8 @@ public protocol FakeProgressDelegate: class {
 public class FakeProgressController: NSObject {
     private let progress: FakeProgressReceiving
     weak var delegate: FakeProgressDelegate?
+    public var minVisibleDuration: TimeInterval = 0.7
+    public var delay: TimeInterval = 1
     
     public init(progress: FakeProgressReceiving, delegate: FakeProgressDelegate?) {
         self.progress = progress
@@ -62,10 +64,10 @@ public class FakeProgressController: NSObject {
             if isProgressHidden {
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(incrementProgress), object: nil)
-                perform(#selector(hideProgress), with: nil, afterDelay: 0.7)
+                perform(#selector(hideProgress), with: nil, afterDelay: minVisibleDuration)
             } else {
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
-                showProgress()
+                perform(#selector(showProgress), with: self, afterDelay: delay)
             }
         }
     }
