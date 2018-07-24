@@ -67,6 +67,7 @@ public class FakeProgressController: NSObject {
                 perform(#selector(hideProgress), with: nil, afterDelay: minVisibleDuration)
             } else {
                 NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
+                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
                 perform(#selector(showProgress), with: self, afterDelay: delay)
             }
         }
