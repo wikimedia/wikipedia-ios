@@ -228,7 +228,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         } else if isCollapsed {
             if apply {
-                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: labelOrigin.y, width: widthMinusMargins, height: contentView.frame.height)
+                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: contentView.frame.origin.y, width: widthMinusMargins, height: contentView.frame.height)
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
         }
