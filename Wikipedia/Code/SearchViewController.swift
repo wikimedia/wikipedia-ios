@@ -15,7 +15,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
         navigationBar.isShadowHidingEnabled = true
-        fakeProgressController.delay = 1
     }
 
     override func viewWillAppear(_ animated: Bool) {

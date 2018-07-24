@@ -13,7 +13,7 @@ public class FakeProgressController: NSObject {
     private let progress: FakeProgressReceiving
     weak var delegate: FakeProgressDelegate?
     public var minVisibleDuration: TimeInterval = 0.7
-    public var delay: TimeInterval = 0
+    public var delay: TimeInterval = 1.0
     
     public init(progress: FakeProgressReceiving, delegate: FakeProgressDelegate?) {
         self.progress = progress
@@ -36,40 +36,48 @@ public class FakeProgressController: NSObject {
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
+    fileprivate var isProgressHidden: Bool = true
+    fileprivate var showProgressStart: Date = Date()
+    
     @objc private func hideProgress() {
+        isProgressHidden = true
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(incrementProgress), object: nil)
         self.delegate?.setProgressHidden(true, animated: true)
     }
     
     @objc private func showProgress() {
+        isProgressHidden = false
+        showProgressStart = Date()
         self.delegate?.setProgressHidden(false, animated: false)
     }
     
+    private func cancelPreviousShowsAndHides() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
+    }
+    
     public func start() {
+        assert(Thread.isMainThread)
+        cancelPreviousShowsAndHides()
+        perform(#selector(showProgress), with: nil, afterDelay: delay)
         progress.setProgress(0, animated: false)
-        isProgressHidden = false
         perform(#selector(incrementProgress), with: nil, afterDelay: 0.3)
     }
     
     public func stop() {
-        isProgressHidden = true
+        assert(Thread.isMainThread)
+        cancelPreviousShowsAndHides()
+        let interval = Date().timeIntervalSince(showProgressStart)
+        if interval > minVisibleDuration {
+            hideProgress()
+        } else {
+            perform(#selector(hideProgress), with: nil, afterDelay: interval - minVisibleDuration)
+        }
     }
     
     public func finish() {
         progress.setProgress(1.0, animated: true)
-        isProgressHidden = true
+        stop()
     }
     
-    fileprivate var isProgressHidden: Bool = false {
-        didSet{
-            if isProgressHidden {
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(incrementProgress), object: nil)
-                perform(#selector(hideProgress), with: nil, afterDelay: minVisibleDuration)
-            } else {
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(hideProgress), object: nil)
-                NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(showProgress), object: nil)
-                perform(#selector(showProgress), with: self, afterDelay: delay)
-            }
-        }
-    }
 }

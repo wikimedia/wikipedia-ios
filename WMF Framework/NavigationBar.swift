@@ -155,6 +155,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarView.translatesAutoresizingMaskIntoConstraints = false
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.alpha = 0
         shadow.translatesAutoresizingMaskIntoConstraints = false
         titleBar.translatesAutoresizingMaskIntoConstraints = false
         
