@@ -46,7 +46,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
 
         let layoutMargins: UIEdgeInsets = calculatedLayoutMargins
         
-        let minHeight: CGFloat = compassViewDimension
+        let minHeight: CGFloat = compassViewDimension + layoutMargins.top + layoutMargins.bottom
         //let minHeightMinusMargins: CGFloat = minHeight - layoutMargins.top - layoutMargins.bottom
         
         let widthForLabels: CGFloat = size.width - layoutMargins.left - layoutMargins.right - compassViewDimension - spacing
@@ -54,16 +54,6 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         let x: CGFloat = isLTR ? layoutMargins.left + compassViewDimension + spacing : layoutMargins.left
        
         var origin = CGPoint(x: x, y: layoutMargins.top)
-
-        if (apply && !isImageViewHidden) {
-            let compassViewX = isLTR ? layoutMargins.left : size.width - layoutMargins.right - compassViewDimension
-            compassView.frame = CGRect(x: compassViewX, y: 0, width: compassViewDimension, height: compassViewDimension)
-
-            let imageViewDelta = floor(0.5 * (compassViewDimension - imageViewDimension))
-            let imageViewX =  isLTR ? layoutMargins.left + imageViewDelta : size.width - layoutMargins.right - compassViewDimension + imageViewDelta
-            imageView.frame = CGRect(x: imageViewX, y: 16, width: imageViewDimension, height: imageViewDimension)
-            origin.y += (2 * spacing)
-        }
         
         let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += titleLabelFrame.layoutHeight(with: spacing)
@@ -92,6 +82,17 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
+        
+        if (apply && !isImageViewHidden) {
+            let compassViewY = floor(0.5 * (height - compassViewDimension))
+            let compassViewX = isLTR ? layoutMargins.left : size.width - layoutMargins.right - compassViewDimension
+            compassView.frame = CGRect(x: compassViewX, y: compassViewY, width: compassViewDimension, height: compassViewDimension)
+            
+            let imageViewY = floor(0.5 * (height - imageViewDimension))
+            let imageViewDelta = floor(0.5 * (compassViewDimension - imageViewDimension))
+            let imageViewX =  isLTR ? layoutMargins.left + imageViewDelta : size.width - layoutMargins.right - compassViewDimension + imageViewDelta
+            imageView.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+        }
         
         return CGSize(width: size.width, height: height)
     }
