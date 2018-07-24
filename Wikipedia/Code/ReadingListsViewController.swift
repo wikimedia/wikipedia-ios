@@ -164,7 +164,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }()
     
     @objc func presentCreateReadingListViewController() {
-        createReadingList(with: [])
+        createReadingList(with: articles)
     }
     
     @objc func dismissCreateReadingListViewController() {
