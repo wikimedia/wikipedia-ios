@@ -21,15 +21,16 @@ public struct ColumnarCollectionViewLayoutMetrics {
         let layoutMarginsForMetrics: UIEdgeInsets
         let itemLayoutMargins: UIEdgeInsets
         let defaultItemMargins = ColumnarCollectionViewLayoutMetrics.defaultExploreItemLayoutMargins
+        let topAndBottomMargin: CGFloat = 30 // space between top of navigation bar and first section
         if useTwoColumns {
             let itemMarginWidth = max(defaultItemMargins.left, defaultItemMargins.right)
             let marginWidth = max(max(max(layoutMargins.left, layoutMargins.right), round(0.5 * (boundsSize.width - (readableWidth * CGFloat(countOfColumns))))), itemMarginWidth)
-            layoutMarginsForMetrics = UIEdgeInsetsMake(20, marginWidth - itemMarginWidth, 20, marginWidth - itemMarginWidth)
+            layoutMarginsForMetrics = UIEdgeInsets(top: topAndBottomMargin, left: marginWidth - itemMarginWidth, bottom: topAndBottomMargin, right: marginWidth - itemMarginWidth)
             itemLayoutMargins = UIEdgeInsets(top: defaultItemMargins.top, left: itemMarginWidth, bottom: defaultItemMargins.bottom, right: itemMarginWidth)
         } else {
             let marginWidth = max(layoutMargins.left, layoutMargins.right)
-            itemLayoutMargins = UIEdgeInsetsMake(defaultItemMargins.bottom, marginWidth, defaultItemMargins.top, marginWidth)
-            layoutMarginsForMetrics = .zero
+            itemLayoutMargins = UIEdgeInsets(top: defaultItemMargins.top, left: marginWidth, bottom: defaultItemMargins.bottom, right: marginWidth)
+            layoutMarginsForMetrics = UIEdgeInsets(top: topAndBottomMargin, left: 0, bottom: topAndBottomMargin, right: 0)
         }
         
         return ColumnarCollectionViewLayoutMetrics(boundsSize: boundsSize, layoutMargins: layoutMarginsForMetrics, countOfColumns: countOfColumns, itemLayoutMargins: itemLayoutMargins, readableWidth: readableWidth, interSectionSpacing: interSectionSpacing, interColumnSpacing: interColumnSpacing, interItemSpacing: interItemSpacing, shouldMatchColumnHeights: false)
