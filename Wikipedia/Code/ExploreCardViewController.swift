@@ -198,10 +198,13 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
-            authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
-            authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
+            if WMFLocationManager.isAuthorized() {
+                authCell.updateForLocationEnabled()
+            } else {
+                authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
+                authCell.authorizationDelegate = self
+            }
             authCell.authorizeDescriptionLabel.text = CommonStrings.localizedEnableLocationDescription
-            authCell.authorizationDelegate = self
         }
         guard !layoutOnly else {
             cell.configureForUnknownDistance()

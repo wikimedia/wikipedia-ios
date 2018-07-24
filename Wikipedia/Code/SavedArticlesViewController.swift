@@ -142,7 +142,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Editing
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [addToListItem, unsaveItem]
     }()

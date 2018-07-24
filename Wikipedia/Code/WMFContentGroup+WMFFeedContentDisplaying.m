@@ -371,13 +371,6 @@ NS_ASSUME_NONNULL_BEGIN
                 return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
             }
         }
-        case WMFContentGroupKindLocationPlaceholder: {
-            if (self.isForToday) {
-                return [WMFCommonStrings nearbyFooterTitle];
-            } else {
-                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"home-nearby-location-footer", nil, nil, @"More nearby %1$@", @"Footer for presenting user option to see longer list of articles nearby a specific location. %1$@ will be replaced with the name of the location"), self.placemark.name];
-            }
-        }
         case WMFContentGroupKindPictureOfTheDay:
             break;
         case WMFContentGroupKindRandom:
