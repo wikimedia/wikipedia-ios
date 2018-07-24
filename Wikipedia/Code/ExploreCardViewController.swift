@@ -632,6 +632,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
             }
             cell.updateForLocationEnabled()
         }
+        dataStore.feedContentController.updateNearbyForce(false, completion: nil)
     }
 }
 
