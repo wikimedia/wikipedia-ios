@@ -67,11 +67,12 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
             descriptionLabel.isHidden = true
         }
         
-        let distanceLabelPadding = UIEdgeInsetsMake(-2, -5, -2, -5)
-        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x - distanceLabelPadding.left, y: origin.y - distanceLabelPadding.top), maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
+        let distanceLabelHorizontalPadding: CGFloat = 2
+        let distanceLabelVerticalPadding: CGFloat = 5
+        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x + distanceLabelHorizontalPadding, y: origin.y + distanceLabelVerticalPadding), maximumWidth: widthForLabels - 2 * distanceLabelHorizontalPadding, alignedBy: articleSemanticContentAttribute, apply: apply)
         origin.y += distanceLabelFrame.layoutHeight(with: spacing)
         if apply {
-            distanceLabelBackground.frame = UIEdgeInsetsInsetRect(distanceLabelFrame, distanceLabelPadding)
+            distanceLabelBackground.frame = UIEdgeInsetsInsetRect(distanceLabelFrame, UIEdgeInsets(top: 0 - distanceLabelVerticalPadding, left: 0 - distanceLabelHorizontalPadding, bottom: 0 - distanceLabelVerticalPadding, right: 0 - distanceLabelHorizontalPadding))
         }
         
         if !isSaveButtonHidden {
