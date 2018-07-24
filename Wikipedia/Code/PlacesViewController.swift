@@ -17,7 +17,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     @IBOutlet weak var redoSearchButton: UIButton!
     @IBOutlet weak var didYouMeanButton: UIButton!
 
-    @IBOutlet weak var progressView: UIProgressView!
     var fakeProgressController: FakeProgressController!
     @IBOutlet weak var recenterOnUserLocationButton: UIButton!
     @IBOutlet weak var listAndSearchOverlayContainerView: RoundedCornerView!
@@ -186,7 +185,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         mapContainerView.wmf_addSubviewWithConstraintsToEdges(mapView)
 
-        fakeProgressController = FakeProgressController(progress: self, delegate: self)
+        fakeProgressController = FakeProgressController(progress: navigationBar, delegate: navigationBar)
 
         // Setup location manager
         locationManager.delegate = self
@@ -2523,27 +2522,4 @@ extension PlacesViewController: Themeable {
         didYouMeanButton.backgroundColor = theme.colors.link
         listViewController.apply(theme: theme)
     }
-}
-
-extension PlacesViewController: FakeProgressReceiving, FakeProgressDelegate {
-    var progress: Float {
-        return progressView.progress
-    }
-    
-    func setProgress(_ progress: Float, animated: Bool) {
-        progressView.setProgress(progress, animated: animated)
-    }
-    
-    func setProgressHidden(_ hidden: Bool, animated: Bool) {
-        let changes = {
-            self.progressView.alpha = hidden ? 0 : 1
-        }
-        if animated {
-            UIView.animate(withDuration: 0.2, animations: changes)
-        } else {
-            changes()
-        }
-    }
-    
-    
 }
