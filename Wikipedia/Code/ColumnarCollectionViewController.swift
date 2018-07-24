@@ -93,6 +93,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         didSet {
             if isRefreshControlEnabled {
                 let refreshControl = UIRefreshControl()
+                refreshControl.layer.zPosition = -100
                 refreshControl.addTarget(self, action: #selector(refreshControlActivated), for: .valueChanged)
                 collectionView.refreshControl = refreshControl
             } else {
