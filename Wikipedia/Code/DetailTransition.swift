@@ -23,6 +23,8 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         return 0.3
     }
     
+    static var tabBarSnapshot: UIView?
+    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
             let toViewController = transitionContext.viewController(forKey: .to),
@@ -111,15 +113,23 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         
         let totalHeight = containerView.bounds.size.height
         let tabBar = self.detailSourceViewController.tabBarController?.tabBar
-        let tabBarSnapshot = tabBar?.snapshotView(afterScreenUpdates: false)
+        let tabBarSnapshot: UIView?
+        if isEnteringDetail {
+            tabBarSnapshot = tabBar?.snapshotView(afterScreenUpdates: false)
+            DetailTransition.tabBarSnapshot = tabBarSnapshot
+        } else {
+            tabBarSnapshot = DetailTransition.tabBarSnapshot ?? tabBar?.snapshotView(afterScreenUpdates: false)
+        }
         let tabBarDeltaY = totalHeight - (tabBar?.frame.minY ?? totalHeight)
         let tabBarHiddenTransform = CGAffineTransform(translationX: 0, y: tabBarDeltaY)
         if let tb = tabBar, let tbs = tabBarSnapshot {
             tabBar?.alpha = 0
             tbs.alpha = 1
             tbs.frame = CGRect(x: 0, y: containerView.frame.height - tb.frame.height, width: tb.frame.width, height: tb.frame.height) // hack, it's already positioned off screen here
-            if !isEnteringDetail {
-               tbs.transform = tabBarHiddenTransform
+            if isEnteringDetail {
+                tbs.transform = .identity
+            } else {
+                tbs.transform = tabBarHiddenTransform
             }
             containerView.addSubview(tbs)
         }
@@ -153,13 +163,12 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             backgroundView.removeFromSuperview()
             toSnapshot.removeFromSuperview()
             fromSnapshot.removeFromSuperview()
-            transitionContext.completeTransition(true)
             if let tbs = tabBarSnapshot {
+                tbs.transform = .identity
                 tbs.removeFromSuperview()
             }
             tabBar?.alpha = 1
-            tabBar?.isHidden = false
-            tabBar?.transform = .identity
+            transitionContext.completeTransition(true)
         }
     }
     
