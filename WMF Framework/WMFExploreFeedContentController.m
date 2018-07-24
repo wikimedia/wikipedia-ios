@@ -596,6 +596,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                     if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
                         [contentGroup markDismissed];
                     }
+                    [contentGroup markDismissed];
                     contentGroup.isVisible = NO;
                     contentGroup.undoType = WMFContentGroupUndoTypeNone;
                 }
