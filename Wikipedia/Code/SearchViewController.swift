@@ -309,7 +309,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
             return false
         }
-        setSearchVisible(false, animated: shouldAnimateSearchBar)
+        if didClickSearchButton {
+            didClickSearchButton = false
+        } else {
+            setSearchVisible(false, animated: shouldAnimateSearchBar)
+        }
         return true
     }
     
@@ -319,10 +323,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search(for: searchBar.text, suggested: false)
     }
-    
+
+    private var didClickSearchButton = false
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         saveLastSearch()
-        searchBar.resignFirstResponder()
+        didClickSearchButton = true
+        searchBar.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
