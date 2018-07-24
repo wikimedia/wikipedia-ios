@@ -220,7 +220,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion {
     WMFAssertMainThread(@"updateNearby: must be called on the main thread");
 
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
     WMFTaskGroup *group = [WMFTaskGroup new];
     WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
         [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -655,7 +655,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
-            contentGroup.isVisible = isGlobalCardVisible;
+            contentGroup.isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
             NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_articleDatabaseKey];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
