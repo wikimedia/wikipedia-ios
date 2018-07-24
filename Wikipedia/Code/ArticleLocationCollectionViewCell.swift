@@ -119,7 +119,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         super.apply(theme: theme)
         imageView.backgroundColor = theme.colors.midBackground
         distanceLabel.textColor = theme.colors.secondaryText
-        distanceLabelBackground.layer.borderColor = theme.colors.secondaryText.cgColor
+        distanceLabelBackground.layer.borderColor = theme.colors.distanceBorder.cgColor
         compassView.lineColor = theme.colors.accent
     }
 }
