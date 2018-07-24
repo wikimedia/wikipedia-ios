@@ -306,6 +306,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.headerViewHeight)];
         _headerView.backgroundColor = self.theme.colors.midBackground;
+        _headerView.hidden = YES;
 
         self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
         [_headerView addSubview:self.headerImageView];
