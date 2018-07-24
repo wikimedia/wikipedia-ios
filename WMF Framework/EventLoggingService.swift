@@ -14,13 +14,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         static let loggedDaysInstalled = "DailyLoggingStatsDaysInstalled"
     }
     
-    public var pruningAge: TimeInterval = 60*60*24*30 // 30 days
-    public var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
-    public var postBatchSize = 10
-    public var postTimeout: TimeInterval = 60*2 // 2 minutes
-    public var postInterval: TimeInterval = 60*10 // 10 minutes
+    private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
+    private var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
+    private var postBatchSize = 10
+    private var postTimeout: TimeInterval = 60*2 // 2 minutes
+    private var postInterval: TimeInterval = 60*10 // 10 minutes
     
-    public var debugDisableImmediateSend = false
+    private var debugDisableImmediateSend = false
     
     private static let scheme = "https" // testing is http
     private static let host = "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
@@ -131,7 +131,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.managedObjectContext.persistentStoreCoordinator = psc
     }
     
-    public convenience init(permanentStorageURL: URL) {
+    private convenience init(permanentStorageURL: URL) {
      
         let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
@@ -258,7 +258,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     @objc
-    public func logEvent(_ event: NSDictionary) {
+    private func logEvent(_ event: NSDictionary) {
         let now = NSDate()
         
         let moc = self.managedObjectContext

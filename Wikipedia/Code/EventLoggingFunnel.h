@@ -41,6 +41,8 @@ extern EventLoggingLabel const EventLoggingLabelLogin;
 extern EventLoggingLabel const EventLoggingLabelSyncArticle;
 extern EventLoggingLabel const EventLoggingLabelLocation;
 extern EventLoggingLabel const EventLoggingLabelMainPage;
+extern EventLoggingLabel const EventLoggingLabelContinueReading;
+extern EventLoggingLabel const EventLoggingLabelPictureOfTheDay;
 
 /**
  * Base class for EventLogging multi-stage funnels.
