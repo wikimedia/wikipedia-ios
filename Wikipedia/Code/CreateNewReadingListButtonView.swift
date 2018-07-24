@@ -16,7 +16,7 @@ public class CreateNewReadingListButtonView: UIView {
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        button.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
     }
 
     public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
