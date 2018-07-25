@@ -184,6 +184,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             setNeedsLayout()
         }
     }
+
+    public var isFirstInSection: Bool = false
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
@@ -228,7 +230,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         } else if isCollapsed {
             if apply {
-                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: contentView.frame.origin.y, width: widthMinusMargins, height: contentView.frame.height)
+                let yPosition = isFirstInSection ? labelOrigin.y : contentView.frame.origin.y
+                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: yPosition, width: widthMinusMargins, height: contentView.frame.height)
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
         }
