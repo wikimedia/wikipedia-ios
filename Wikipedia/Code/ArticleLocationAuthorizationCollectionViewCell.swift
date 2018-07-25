@@ -31,7 +31,7 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        var origin = CGPoint(x: layoutMargins.left, y: size.height + spacing)
+        var origin = CGPoint(x: layoutMargins.left, y: size.height + (spacing * 3))
         let widthForLabels = size.width - layoutMargins.left - layoutMargins.right
         let authorizeSpacing = 3 * spacing
         let horizontalAlignment: HorizontalAlignment = isDeviceRTL ? .right : .left
