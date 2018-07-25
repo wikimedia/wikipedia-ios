@@ -383,7 +383,7 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
         case WMFContentGroupKindOnThisDay: {
             unsigned long long countOfEvents = [self.countOfFullContent unsignedLongLongValue];
-            if (countOfEvents > 0) {
+            if (countOfEvents > 2) {
                 return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-footer-with-event-count", nil, nil, @"%1$@ more historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), @(countOfEvents - 2)]; // 2 events are visible in the feed card
             } else {
                 return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
