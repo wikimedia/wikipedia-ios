@@ -70,7 +70,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
         undoButton.titleLabel?.numberOfLines = 0
-        undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
         undoButton.isUserInteractionEnabled = true
@@ -219,19 +218,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         }
 
-        let undoSpacing: CGFloat = 16
-
-        if !undoLabel.isHidden {
-            let x = isRTL ? labelOrigin.x - 8 : labelOrigin.x + 8
-            let undoLabelOrigin = CGPoint(x: x, y: labelOrigin.y + undoSpacing)
-            origin.y += undoLabel.wmf_preferredHeight(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, spacing: undoSpacing, apply: apply)
-        }
-
-        if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: labelOrigin.x, y: labelOrigin.y + undoSpacing)
-            _ = undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
-        }
-        
         if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
             let height = cardContent.contentHeight(forWidth: widthMinusMargins)
@@ -241,12 +227,30 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
-        } else if isCollapsed {
-            let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: ceil(origin.y))
+        }
+
+        if isCollapsed, !undoLabel.isHidden, !undoButton.isHidden {
+            let undoInsets: (x: CGFloat, y: CGFloat) = (x: 15, y: 16)
+            labelOrigin.x += undoInsets.x
+            labelOrigin.y += undoInsets.y
+
+            let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * 0.25)
+            let undoLabelMinWidth = widthMinusMargins * 0.5
+            let undoLabelX = isRTL ? widthMinusMargins - undoLabelMaxWidth : labelOrigin.x
+            let undoLabelFrameHeight = undoLabel.wmf_preferredHeight(at: CGPoint(x: undoLabelX, y: labelOrigin.y), maximumWidth: undoLabelMaxWidth, minimumWidth: undoLabelMinWidth, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+
+            let undoButtonMaxWidth = widthMinusMargins * 0.25
+            let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
+            let undoButtonFrameHeight = undoButton.wmf_preferredHeight(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumWidth: undoButtonMaxWidth, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
+
+            let undoHeight = max(undoLabelFrameHeight, undoButtonFrameHeight)
+            let cardBackgroundViewHeight = ceil(origin.y) + undoHeight + undoInsets.y
+            let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
-            origin.y += layoutMargins.top + layoutMargins.bottom
+
+            origin.y += cardBackgroundViewFrame.layoutHeight(with: layoutMargins.bottom)
         }
     
         if !footerButton.isHidden {
