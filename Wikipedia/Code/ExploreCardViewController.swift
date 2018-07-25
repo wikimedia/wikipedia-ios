@@ -237,6 +237,17 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         cell.configure(with: event, isFirst: events.indices.first == index, isLast: events.indices.last == index, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
     }
+
+    var footerText: String? {
+        if contentGroup?.contentGroupKind == .onThisDay,
+            collectionView.numberOfSections == 1,
+            let eventsCount = contentGroup?.countOfFullContent?.intValue {
+            let otherEventsCount = eventsCount - collectionView.numberOfItems(inSection: 0)
+            return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+        } else {
+            return contentGroup?.footerText
+        }
+    }
     
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
