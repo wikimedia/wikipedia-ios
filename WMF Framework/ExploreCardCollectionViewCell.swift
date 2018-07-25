@@ -222,7 +222,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         let undoSpacing: CGFloat = 16
 
         if !undoLabel.isHidden {
-            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: labelOrigin.y + undoSpacing)
+            let x = isRTL ? labelOrigin.x - 8 : labelOrigin.x + 8
+            let undoLabelOrigin = CGPoint(x: x, y: labelOrigin.y + undoSpacing)
             origin.y += undoLabel.wmf_preferredHeight(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, spacing: undoSpacing, apply: apply)
         }
 
