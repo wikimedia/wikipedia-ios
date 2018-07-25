@@ -296,7 +296,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             refreshControl.beginRefreshing()
             #endif
             if numberOfSectionsInExploreFeed == 0 {
-                collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top - refreshControl.frame.size.height)
+                scrollToTop()
             }
         }
         self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
