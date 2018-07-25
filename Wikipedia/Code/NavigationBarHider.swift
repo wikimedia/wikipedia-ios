@@ -48,6 +48,16 @@ public class NavigationBarHider: NSObject {
         guard let navigationBar = navigationBar else {
             return
         }
+        
+        guard scrollView.contentSize.height > 0 else {
+            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
+            if navigationBar.isShadowHidingEnabled {
+                navigationBar.shadowAlpha = 0
+            } else {
+                navigationBar.shadowAlpha = 1
+            }
+            return
+        }
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
         let barHeight = navigationBar.bar.frame.size.height
