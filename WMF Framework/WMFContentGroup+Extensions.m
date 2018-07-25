@@ -218,7 +218,7 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
-    self.siteURLString = siteURL.absoluteString;
+    self.siteURLString = siteURL.wmf_articleDatabaseKey;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -605,7 +605,7 @@
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_articleDatabaseKey];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -633,7 +633,7 @@
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     group.contentGroupKind = kind;
-    group.siteURLString = siteURL.absoluteString;
+    group.siteURL = siteURL;
     group.fullContentObject = associatedContent;
     [group updateContentPreviewWithContent:associatedContent];
 
@@ -668,7 +668,7 @@
         group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
         group.contentGroupKind = kind;
         group.fullContentObject = associatedContent;
-        group.siteURLString = siteURL.absoluteString;
+        group.siteURL = siteURL;
         [group updateContentPreviewWithContent:associatedContent];
         if (customizationBlock) {
             customizationBlock(group);
