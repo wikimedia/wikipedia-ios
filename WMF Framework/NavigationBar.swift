@@ -124,13 +124,23 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         return barButtonItem
     }
     
-    fileprivate var underBarViewHeightConstraint: NSLayoutConstraint!
+    private var underBarViewHeightConstraint: NSLayoutConstraint!
     
-    fileprivate var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
-    fileprivate var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
+    private var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
+    private var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
 
-    fileprivate var shadowHeightConstraint: NSLayoutConstraint!
-    fileprivate var extendedViewHeightConstraint: NSLayoutConstraint!
+    private var shadowHeightConstraint: NSLayoutConstraint!
+    private var extendedViewHeightConstraint: NSLayoutConstraint!
+    
+    private var titleBarTopConstraint: NSLayoutConstraint!
+    private var barTopConstraint: NSLayoutConstraint!
+    private var barTopSpacing: CGFloat = 0 {
+        didSet {
+            titleBarTopConstraint.constant = barTopSpacing
+            barTopConstraint.constant = barTopSpacing
+            setNeedsLayout()
+        }
+    }
     
     /// Remove this when dropping iOS 10
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
@@ -201,11 +211,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
         updatedConstraints.append(statusBarUnderlayTrailingConstraint)
         
-        let titleBarTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: titleBar.topAnchor)
+        titleBarTopConstraint = titleBar.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor, constant: barTopSpacing)
         let titleBarLeadingConstraint = leadingAnchor.constraint(equalTo: titleBar.leadingAnchor)
         let titleBarTrailingConstraint = trailingAnchor.constraint(equalTo: titleBar.trailingAnchor)
         
-        let barTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: bar.topAnchor)
+        barTopConstraint = bar.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor, constant: barTopSpacing)
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
         let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
         
@@ -346,6 +356,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
         bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
         titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
+        barTopSpacing = isUsingTitleBarInsteadOfNavigationBar ? 30 : 0
         setNeedsUpdateConstraints()
     }
     
@@ -369,9 +380,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let barHeight = self.barHeight
         let extendedViewHeight = extendedView.frame.height
         
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + barTopSpacing
         
-        let barTransformHeight = barHeight * navigationBarPercentHidden
+        let barTransformHeight = (barHeight + barTopSpacing) * navigationBarPercentHidden
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
         
