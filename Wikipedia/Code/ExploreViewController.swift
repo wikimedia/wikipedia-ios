@@ -418,7 +418,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cardVC.contentGroup = group
         cell.title = group.headerTitle
         cell.subtitle = group.headerSubTitle
-        cell.footerTitle = group.footerText
+        cell.footerTitle = cardVC.footerText
         cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.undoType = group.undoType
         cell.apply(theme: theme)
