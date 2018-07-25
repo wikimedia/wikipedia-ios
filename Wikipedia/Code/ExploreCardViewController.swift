@@ -243,7 +243,11 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             collectionView.numberOfSections == 1,
             let eventsCount = contentGroup?.countOfFullContent?.intValue {
             let otherEventsCount = eventsCount - collectionView.numberOfItems(inSection: 0)
-            return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+            if otherEventsCount > 0 {
+                return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+            } else {
+                return contentGroup?.footerText
+            }
         } else {
             return contentGroup?.footerText
         }
