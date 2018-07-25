@@ -148,7 +148,7 @@ extension AlignedImageButton {
         if adjustedSize.width != UIViewNoIntrinsicMetric {
             adjustedSize.width = adjustedSize.width + leftPadding + rightPadding
         }
-        return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
+        return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: adjustedSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
     }
 }
 
