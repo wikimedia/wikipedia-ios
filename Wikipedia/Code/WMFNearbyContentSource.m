@@ -235,7 +235,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force {
     CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
-    return [moc locationContentGroupWithinMeters:distanceThreshold ofLocation:location];
+    return [moc locationContentGroupWithSiteURL:self.siteURL withinMeters:distanceThreshold ofLocation:location];
 }
 
 #pragma mark - Fetching
