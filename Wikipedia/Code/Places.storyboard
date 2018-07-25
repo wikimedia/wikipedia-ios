@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pK5-Ai-Kzp">
-    <device id="ipad10_5" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,15 +19,15 @@
                         <viewControllerLayoutGuide type="bottom" id="CKz-f0-MZN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pBD-gM-dPf">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EsT-De-Ary">
-                                <rect key="frame" x="0.0" y="68" width="834" height="1044"/>
+                                <rect key="frame" x="0.0" y="68" width="768" height="956"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxh-CO-RQm">
-                                <rect key="frame" x="774" y="84.5" width="40" height="40"/>
+                                <rect key="frame" x="708" y="84.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="JR3-1A-AEQ"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6h-da-ewO">
-                                <rect key="frame" x="591" y="85" width="168" height="40"/>
+                                <rect key="frame" x="525" y="85" width="168" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="Nes-Zp-3AQ"/>
@@ -88,7 +88,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5Dc-Qk-ppi">
-                                <rect key="frame" x="577" y="85" width="182" height="40"/>
+                                <rect key="frame" x="511" y="85" width="182" height="40"/>
                                 <color key="backgroundColor" red="0.2535856366" green="0.48979490999999997" blue="0.83848792309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="235" id="DTV-bA-1bt"/>
@@ -230,11 +230,11 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="68" translatesAutoresizingMaskIntoConstraints="NO" id="Gmr-EL-FI6" customClass="WMFNavigationBar">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="68"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwy-SF-J1D">
-                                <rect key="frame" x="0.0" y="445" width="834" height="0.0"/>
+                                <rect key="frame" x="0.0" y="357" width="768" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </containerView>
@@ -245,6 +245,7 @@
                             <constraint firstItem="CKz-f0-MZN" firstAttribute="top" secondItem="hEe-dF-AFg" secondAttribute="bottom" id="1PC-H2-U7d">
                                 <variation key="heightClass=regular-widthClass=regular" constant="30"/>
                             </constraint>
+                            <constraint firstItem="mxh-CO-RQm" firstAttribute="top" secondItem="Gmr-EL-FI6" secondAttribute="bottom" constant="17" id="20g-Ci-Xvh"/>
                             <constraint firstAttribute="trailing" secondItem="Gmr-EL-FI6" secondAttribute="trailing" id="5EL-Ub-Gst"/>
                             <constraint firstAttribute="trailing" secondItem="EsT-De-Ary" secondAttribute="trailing" id="8Fb-x8-txL"/>
                             <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="Gmr-EL-FI6" secondAttribute="bottom" id="9Xk-cg-EQG"/>
@@ -265,7 +266,6 @@
                             <constraint firstItem="EsT-De-Ary" firstAttribute="top" secondItem="Gmr-EL-FI6" secondAttribute="bottom" id="fDF-Rf-ckw"/>
                             <constraint firstItem="z6h-da-ewO" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="kJv-Kd-ffk"/>
                             <constraint firstItem="5Dc-Qk-ppi" firstAttribute="centerX" secondItem="pBD-gM-dPf" secondAttribute="centerX" priority="999" id="mu2-bC-yEv"/>
-                            <constraint firstItem="hEe-dF-AFg" firstAttribute="top" secondItem="Gmr-EL-FI6" secondAttribute="bottom" constant="17" id="rBP-Qj-2cg"/>
                             <constraint firstItem="mxh-CO-RQm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Dc-Qk-ppi" secondAttribute="trailing" constant="15" id="ua0-k1-E4K"/>
                         </constraints>
                         <variation key="default">
