@@ -65,7 +65,7 @@ extension WMFContentGroup {
         }
         if let customVC = vc as? ColumnarCollectionViewController {
             customVC.headerTitle = headerTitle
-            customVC.headerSubtitle = headerSubTitle
+            customVC.headerSubtitle = moreType != .onThisDay ? headerSubTitle : nil
         }
         return vc
     }
