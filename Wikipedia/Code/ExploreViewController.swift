@@ -19,6 +19,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.isShadowHidingEnabled = true
 
         isRefreshControlEnabled = true
+        collectionView.refreshControl?.layer.zPosition = 0
         
         title = CommonStrings.exploreTabTitle
 
