@@ -416,7 +416,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         let group = fetchedResultsController.object(at: indexPath)
         cardVC.contentGroup = group
-        cell.isFirstInSection = indexPath.item == 0
         cell.title = group.headerTitle
         cell.subtitle = group.headerSubTitle
         cell.footerTitle = cardVC.footerText

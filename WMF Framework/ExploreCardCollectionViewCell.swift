@@ -218,6 +218,18 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         }
+
+        let undoSpacing: CGFloat = 16
+
+        if !undoLabel.isHidden {
+            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: labelOrigin.y + undoSpacing)
+            origin.y += undoLabel.wmf_preferredHeight(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, spacing: undoSpacing, apply: apply)
+        }
+
+        if !undoButton.isHidden {
+            let undoButtonOrigin = CGPoint(x: labelOrigin.x, y: labelOrigin.y + undoSpacing)
+            _ = undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
+        }
         
         if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
@@ -229,24 +241,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             }
             origin.y += cardContentViewFrame.layoutHeight(with: 20)
         } else if isCollapsed {
+            let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: ceil(origin.y))
             if apply {
-                let yPosition = isFirstInSection ? labelOrigin.y : contentView.frame.origin.y
-                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: yPosition, width: widthMinusMargins, height: contentView.frame.height)
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
-        }
-
-        if !undoLabel.isHidden {
-            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 14, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, apply: false)
-            let halfHeight = round(0.5 * undoLabelFrame.height)
-            undoLabelFrame.origin.y -= halfHeight
-            undoLabel.frame = undoLabelFrame
-        }
-
-        if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: origin.x - 8, y: undoLabel.frame.origin.y)
-            origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            origin.y += layoutMargins.bottom
         }
     
         if !footerButton.isHidden {
