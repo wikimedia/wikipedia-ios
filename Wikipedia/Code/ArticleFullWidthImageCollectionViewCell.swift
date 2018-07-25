@@ -92,7 +92,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
 
         if !isSaveButtonHidden {
             origin.y += spacing - 1
-            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: size.width, horizontalAlignment: isDeviceRTL ? .right : .left, apply: apply)
+            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: isDeviceRTL ? .right : .left, apply: apply)
             origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
         } else {
             origin.y += spacing
