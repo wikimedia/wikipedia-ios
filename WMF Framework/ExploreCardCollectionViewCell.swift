@@ -183,8 +183,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             setNeedsLayout()
         }
     }
-
-    public var isFirstInSection: Bool = false
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply) // intentionally shade size
