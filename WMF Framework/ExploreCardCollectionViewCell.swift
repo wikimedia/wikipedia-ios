@@ -245,7 +245,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             if apply {
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
-            origin.y += layoutMargins.bottom
+            origin.y += layoutMargins.top + layoutMargins.bottom
         }
     
         if !footerButton.isHidden {
