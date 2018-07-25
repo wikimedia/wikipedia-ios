@@ -76,7 +76,7 @@ class CollectionViewHeader: SizeThatFitsReusableView {
         let buttonTextStyle: DynamicTextStyle = .subheadline
         switch style {
         case .detail:
-            titleTextStyle = .boldTitle1
+            fallthrough
         case .explore:
             titleTextStyle = .boldTitle2
         default:
