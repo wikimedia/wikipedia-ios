@@ -294,6 +294,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
         createNewReadingListButtonView.apply(theme: theme)
     }
 }
