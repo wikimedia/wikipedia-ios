@@ -700,12 +700,17 @@
     [self removeContentGroups:groups];
 }
 
-- (nullable WMFContentGroup *)locationContentGroupWithinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
+- (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
+    NSString *siteURLString = siteURL.wmf_articleDatabaseKey;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
                                  if (!groupLocation) {
+                                     return;
+                                 }
+                                 NSString *groupSiteURLString = group.siteURL.wmf_articleDatabaseKey;
+                                 if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
                                      return;
                                  }
                                  CLLocationDistance distance = [groupLocation distanceFromLocation:location];
