@@ -15,6 +15,7 @@
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: Tonylianlong
+// Author: Wxyveronica
 // Author: Yfdyh000
 // Author: 王庭茂
 
@@ -64,6 +65,7 @@
 "account-creation-title" = "创建新账户";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
+"action-add-to-reading-list-short" = "添加至列表";
 "action-cancel" = "取消";
 "action-move-to" = "移动至…";
 "action-move-to-reading-list" = "移动至阅读列表";
