@@ -17,6 +17,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var title: String?
     
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
+    public var isTitleShrinkingEnabled: Bool = false
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
     @objc public var isShadowBelowUnderBarView: Bool = false {
         didSet {
@@ -24,6 +25,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
+    @objc public var isTopSpacingHidingEnabled: Bool = true
     @objc public var isBarHidingEnabled: Bool = true
     @objc public var isUnderBarViewHidingEnabled: Bool = false
     @objc public var isExtendedViewHidingEnabled: Bool = false
@@ -41,6 +43,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public var displayType: NavigationBarDisplayType = .backVisible {
         didSet {
+            isTitleShrinkingEnabled = displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
         }
@@ -326,8 +329,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         layoutIfNeeded()
         
-        _topSpacingPercentHidden = topSpacingPercentHidden
-        
+        if isTopSpacingHidingEnabled {
+            _topSpacingPercentHidden = topSpacingPercentHidden
+        }
+
         if isBarHidingEnabled {
             _navigationBarPercentHidden = navigationBarPercentHidden
         }
@@ -407,7 +412,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let barHeight = self.barHeight
         let extendedViewHeight = extendedView.frame.height
         
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + barTopSpacing
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + (barTopSpacing * (1.0 - topSpacingPercentHidden))
         
         let spacingTransformHeight = barTopSpacing * topSpacingPercentHidden
         let barTransformHeight = barHeight * navigationBarPercentHidden + spacingTransformHeight
@@ -420,8 +425,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.bar.transform = barTransform
         self.titleBar.transform = barTransform
         
-        let titleScale: CGFloat = 1.0 - 0.2 * topSpacingPercentHidden
-        self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
+        if isTitleShrinkingEnabled {
+            let titleScale: CGFloat = 1.0 - 0.2 * topSpacingPercentHidden
+            self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
+        }
         
         for subview in self.bar.subviews {
             for subview in subview.subviews {
