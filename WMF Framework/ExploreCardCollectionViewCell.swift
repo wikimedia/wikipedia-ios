@@ -65,12 +65,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
-        undoLabel.numberOfLines = 1
+        undoLabel.numberOfLines = 0
         undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
         undoButton.isOpaque = true
-        undoButton.titleLabel?.numberOfLines = 1
-        undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        undoButton.titleLabel?.numberOfLines = 0
         undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
         undoButton.isUserInteractionEnabled = true
@@ -216,7 +215,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         }
-        
+
         if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
             let height = cardContent.contentHeight(forWidth: widthMinusMargins)
@@ -225,30 +224,42 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 view?.frame = cardContentViewFrame
                 cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
-            origin.y += cardContentViewFrame.layoutHeight(with: 20)
-        } else if isCollapsed {
+            origin.y += cardContentViewFrame.height
+        }
+
+        if isCollapsed, !undoLabel.isHidden, !undoButton.isHidden {
+            let undoOffset: UIOffset = UIOffset(horizontal: 15, vertical: 16)
+            labelOrigin.x += undoOffset.horizontal
+            labelOrigin.y += undoOffset.vertical
+
+            let undoButtonMaxWidthPercentage: CGFloat = 0.25
+
+            let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * undoButtonMaxWidthPercentage)
+            let undoLabelMinWidth = widthMinusMargins * 0.5
+            let undoLabelX = isRTL ? widthMinusMargins - undoLabelMaxWidth : labelOrigin.x
+            let undoLabelFrameHeight = undoLabel.wmf_preferredHeight(at: CGPoint(x: undoLabelX, y: labelOrigin.y), maximumWidth: undoLabelMaxWidth, minimumWidth: undoLabelMinWidth, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+
+            let undoButtonMaxWidth = widthMinusMargins * undoButtonMaxWidthPercentage
+            let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
+            let undoButtonMinSize = CGSize(width: UIViewNoIntrinsicMetric, height: undoLabelFrameHeight)
+            let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIViewNoIntrinsicMetric)
+            let undoButtonFrame = undoButton.wmf_preferredFrame(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumSize: undoButtonMaxSize, minimumSize: undoButtonMinSize, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
+            let undoHeight = max(undoLabelFrameHeight, undoButtonFrame.height)
+            let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
+            let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
-                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: contentView.frame.origin.y, width: widthMinusMargins, height: contentView.frame.height)
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
-        }
 
-        if !undoLabel.isHidden {
-            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 14, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, apply: false)
-            let halfHeight = round(0.5 * undoLabelFrame.height)
-            undoLabelFrame.origin.y -= halfHeight
-            undoLabel.frame = undoLabelFrame
-        }
-
-        if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: origin.x - 8, y: undoLabel.frame.origin.y)
-            origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            origin.y += cardBackgroundViewFrame.height
         }
     
         if !footerButton.isHidden {
+            origin.y += 20
             origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
+
+        origin.y += layoutMargins.bottom
 
         return CGSize(width: size.width, height: ceil(origin.y))
     }

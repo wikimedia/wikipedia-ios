@@ -79,8 +79,7 @@
 "appearance-settings-image-dimming-footer" = "Giảm độ mờ hình ảnh trên giao diện tối";
 "appearance-settings-reading-themes" = "Giao diện đọc";
 "appearance-settings-set-automatic-table-opening" = "Cài đặt Bảng";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Kéo con trượt bên trên để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
+"appearance-settings-text-sizing-example-text" = "Kéo con trượt để điều chỉnh kích thước văn bản trong bài. Cấu hình kích thước văn bản hệ thống để thay đổi kích thước văn bản ở các phần khác của ứng dụng.";
 "appearance-settings-theme-options" = "Tùy chọn giao diện";
 "article-about-title" = "Thông tin về bài viết";
 "article-delete" = "Xóa";
@@ -141,16 +140,13 @@
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-main-page-description" = "trang đầu của dự án Wikimania";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";
-// Fuzzy
-"explore-most-read-footer" = "Danh sách bài được đọc nhiều nhất";
+"explore-most-read-footer" = "Tất cả các bài được đọc nhiều nhất";
 "explore-most-read-generic-heading" = "Bài đọc nhiều nhất";
 "explore-most-read-more-list-title-for-date" = "Hạng nhất vào $1";
 "explore-nearby-heading" = "Địa điểm gần";
 "explore-nearby-placeholder-heading" = "Địa điểm";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Tại Wikipedia tiếng $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Tại Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Từ Wikipedia tiếng $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Từ Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Vị trí của bạn";
 "explore-potd-heading" = "Hình ảnh trong ngày";
 "explore-random-article-heading" = "Bài viết ngẫu nhiên";
@@ -203,11 +199,9 @@
 "home-button-history-accessibility-label" = "Wikipedia, quay về Lịch sử";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
 "home-more-like-footer" = "Thêm bài tương tự $1";
-// Fuzzy
-"home-nearby-footer" = "Thêm bài gần vị trí của bạn";
+"home-nearby-footer" = "Thêm địa điểm gần vị trí của bạn";
 "home-nearby-location-footer" = "Thêm mục gần $1";
-// Fuzzy
-"home-news-footer" = "Thêm tin tức";
+"home-news-footer" = "Thêm thời sự";
 "home-themes-action-title" = "Thiết lập";
 "home-themes-prompt" = "Điều chỉnh tùy chọn Đọc bài, thí dụ kích thước văn bản và giao diện, dùng thanh công cụ bài viết hoặc trong Cài đặt để đọc bài một cách thoải mái hơn.";
 "home-title" = "Thám hiểm";

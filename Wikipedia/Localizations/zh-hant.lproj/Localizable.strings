@@ -66,6 +66,7 @@
 "account-creation-title" = "建立新帳號";
 "action-add-to" = "新增至…";
 "action-add-to-reading-list" = "新增至閱讀清單";
+"action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
@@ -209,6 +210,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "開啟探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "這會以探索分頁來取代設定分頁，您可以從探索分頁的頂端使用輕觸齒輪圖示方式來取用設定";
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
+"explore-feed-preferences-undo-customization" = "還原";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -380,6 +382,7 @@
 "places-filter-top-articles" = "最多閱讀";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
 "places-filter-top-read-articles" = "被最多閱讀的條目";
+"places-location-enabled" = "位置已啟用";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
 "places-search-default-text" = "搜尋地點";

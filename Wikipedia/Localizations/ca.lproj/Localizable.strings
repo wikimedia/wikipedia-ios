@@ -62,6 +62,7 @@
 "account-creation-title" = "Crea un compte nou";
 "action-add-to" = "Afegeix a…";
 "action-add-to-reading-list" = "Afegeix a la llista de lectura";
+"action-add-to-reading-list-short" = "Afegeix a la llista";
 "action-cancel" = "Cancel·la";
 "action-move-to" = "Mou a…";
 "action-move-to-reading-list" = "Mou a la llista de lectura";
@@ -80,8 +81,7 @@
 "alert-no-internet" = "No hi ha connexió a internet";
 "announcements-dismiss" = "Descarta";
 "app-store-keywords" = "Wikipedia, Viquipèdia, referència, wiki, enciclopèdia, informació, coneixement, recerca, exploració, aprenentatge";
-// Fuzzy
-"app-store-release-notes" = "Els articles desats ara poden organitzar-se en llistes de lectura i sincronitzar-se entre dispositius.";
+"app-store-release-notes" = "Canal d'exploració plenament configurable i fàcil de llegir. Localització, millores de rendiment i correccions d'errades.";
 "app-store-short-description" = "Baixeu l'aplicació de la Viquipèdia per explorar llocs propers, sincronitzar articles per llegir-los fora de línia i personalitzar l'experiència de lectura.";
 "app-store-subtitle" = "L'enciclopèdia lliure";
 "appearance-settings-adjust-text-sizing" = "Ajusta la mida del text de l'article";
@@ -90,8 +90,7 @@
 "appearance-settings-image-dimming-footer" = "Redueix l'opacitat de les imatges en el tema fosc";
 "appearance-settings-reading-themes" = "Temes de lectura";
 "appearance-settings-set-automatic-table-opening" = "Preferències de les taules";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per sobre per a canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
+"appearance-settings-text-sizing-example-text" = "Arrossegueu el lliscador per canviar la mida del text de l'article. Feu servir la mida del text del sistema per a canviar la mida d'altres àrees de text de l'aplicació.";
 "appearance-settings-theme-options" = "Opcions del tema";
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
@@ -177,9 +176,19 @@
 "explore-feed-preferences-randomizer-description" = "Genera articles a l'atzar per llegir";
 "explore-feed-preferences-related-pages-description" = "Suggeriments basats en l'historial de lectura";
 "explore-feed-preferences-show-featured-article-title" = "Mostra la targeta d'article destacat";
+"explore-feed-preferences-show-news-title" = "Mostra en la targeta de novetats";
 "explore-feed-preferences-show-places-title" = "Mostra la targeta de llocs";
+"explore-feed-preferences-show-randomizer-title" = "Mostra la targeta aleatòria";
 "explore-feed-preferences-top-read-description" = "Articles més llegits del dia";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desactiva el canal d'exploració";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Voleu activar el canal d'exploració?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactiva l'exploració";
+"explore-feed-preferences-turn-off-explore-tab-message" = "La pestanya d'exploració pot tornar-se a activar en els paràmetres del canal d'exploració";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Voleu desactivar la pestanya d'exploració?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar la pestanya d'exploració la reemplaçarà per una pestanya de configuració.";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activa l'exploració";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Voleu activar la pestanya d'exploració?";
+"explore-feed-preferences-undo-customization" = "Desfés";
 "explore-hide-card-prompt" = "Amaga la targeta";
 "explore-main-page-description" = "Pàgina principal dels projectes Wikimedia";
 "explore-main-page-heading" = "Avui a la Viquipèdia";
@@ -349,6 +358,7 @@
 "places-filter-top-articles" = "Més llegits";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-top-read-articles" = "Articles més llegits";
+"places-location-enabled" = "Ubicació activada";
 "places-no-saved-articles-have-location" = "Cap dels vostres articles desats té informació d'ubicació";
 "places-search-articles-that-match" = "$1 coincideix amb «$2»";
 "places-search-default-text" = "Cerca llocs";
@@ -381,6 +391,7 @@
 "reading-list-do-not-keep-button-title" = "No, elimina els articles del dispositiu";
 "reading-list-entry-limit-exceeded-message" = "Reduïu el nombre d'articles d'aquesta llista a $1 per a reprendre-hi la sincronització d'articles.";
 "reading-list-entry-limit-exceeded-title" = "Heu sobrepassat el límit de $1 articles per compte.";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|L'article|Els articles}} no poden afegir-se a la llista. Heu arribat al límit de $2 articles per llista de lectura de $3";
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
 "reading-list-generic-error" = "S'ha produït un error inesperat mentre s'actualitzaven les llistes de lectura.";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
@@ -444,6 +455,7 @@
 "saved-reading-lists-title" = "Llistes de lectura";
 "saved-search-default-text" = "Cerca";
 "saved-title" = "Desat";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Voleu deixar de desar {{PLURAL:$1|article|articles}}?";
 "search-button-accessibility-label" = "Cerca a la Viquipèdia";
 "search-clear-title" = "Esborra";
 "search-did-you-mean" = "Volíeu dir: $1?";
