@@ -10,8 +10,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !areRecentSearchesEnabled {
             navigationItem.titleView = UIView()
         }
+        navigationBar.isTitleShrinkingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        navigationBar.isInteractiveHidingEnabled  = false
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
         navigationBar.isShadowHidingEnabled = true
@@ -241,8 +241,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
-            self.navigationBar.isBarHidingEnabled = false
+            self.navigationBar.isTopSpacingHidingEnabled = true
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : 0, animated: false)
+            self.navigationBar.isBarHidingEnabled = !visible
+            self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
         }
