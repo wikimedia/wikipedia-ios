@@ -228,9 +228,9 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
 
         if isCollapsed, !undoLabel.isHidden, !undoButton.isHidden {
-            let undoInsets: (x: CGFloat, y: CGFloat) = (x: 15, y: 16)
-            labelOrigin.x += undoInsets.x
-            labelOrigin.y += undoInsets.y
+            let undoOffset: UIOffset = UIOffset(horizontal: 15, vertical: 16)
+            labelOrigin.x += undoOffset.horizontal
+            labelOrigin.y += undoOffset.vertical
 
             let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * 0.25)
             let undoLabelMinWidth = widthMinusMargins * 0.5
@@ -242,7 +242,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let undoButtonFrameHeight = undoButton.wmf_preferredHeight(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumWidth: undoButtonMaxWidth, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
 
             let undoHeight = max(undoLabelFrameHeight, undoButtonFrameHeight)
-            let cardBackgroundViewHeight = ceil(origin.y) + undoHeight + undoInsets.y
+            let cardBackgroundViewHeight = ceil(origin.y) + undoHeight + undoOffset.vertical
             let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
                 cardBackgroundView.frame = cardBackgroundViewFrame
