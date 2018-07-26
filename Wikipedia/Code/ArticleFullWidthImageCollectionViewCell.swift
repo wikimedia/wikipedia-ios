@@ -66,7 +66,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
             origin.y += imageViewDimension
         }
         
-        origin.y += layoutMargins.top
+        origin.y += layoutMargins.top + spacing
         
         origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, spacing: spacing, apply: apply)
         origin.y += descriptionLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, spacing: spacing, apply: apply)
@@ -91,9 +91,11 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         }
 
         if !isSaveButtonHidden {
-            origin.y += spacing
+            origin.y += spacing - 1
             let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: isDeviceRTL ? .right : .left, apply: apply)
-            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
+            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
+        } else {
+            origin.y += spacing
         }
         
         origin.y += layoutMargins.bottom

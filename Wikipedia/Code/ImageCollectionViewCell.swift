@@ -55,10 +55,11 @@ class ImageCollectionViewCell: CollectionViewCell {
                 captionLabel.isHidden = false
                 gradientView.isHidden = false
                 var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, alignedBy: semanticContentAttribute, apply: false)
-                labelFrame.origin = CGPoint(x: labelFrame.origin.x, y: size.height - labelFrame.height - layoutMargins.bottom)
+                let extraBottomPadding: CGFloat = 5.0
+                labelFrame.origin = CGPoint(x: labelFrame.origin.x, y: size.height - labelFrame.height - layoutMargins.bottom - extraBottomPadding)
                 captionLabel.frame = labelFrame
                 let gradientOriginY = labelFrame.minY - layoutMargins.bottom
-                gradientView.frame = CGRect(x: 0, y: gradientOriginY, width: size.width, height: size.height - gradientOriginY)
+                gradientView.frame = CGRect(x: 0, y: gradientOriginY, width: size.width, height: size.height - gradientOriginY + extraBottomPadding)
             } else {
                 captionLabel.isHidden = true
                 gradientView.isHidden = true

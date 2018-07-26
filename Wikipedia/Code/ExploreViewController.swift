@@ -19,6 +19,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.isShadowHidingEnabled = true
 
         isRefreshControlEnabled = true
+        collectionView.refreshControl?.layer.zPosition = 0
         
         title = CommonStrings.exploreTabTitle
 
@@ -295,7 +296,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             refreshControl.beginRefreshing()
             #endif
             if numberOfSectionsInExploreFeed == 0 {
-                collectionView.contentOffset = CGPoint(x: 0, y: 0 - collectionView.contentInset.top - refreshControl.frame.size.height)
+                scrollToTop()
             }
         }
         self.dataStore.feedContentController.updateFeedSources(with: date, userInitiated: userInitiated) {
@@ -417,7 +418,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cardVC.contentGroup = group
         cell.title = group.headerTitle
         cell.subtitle = group.headerSubTitle
-        cell.footerTitle = group.footerText
+        cell.footerTitle = cardVC.footerText
         cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
         cell.undoType = group.undoType
         cell.apply(theme: theme)

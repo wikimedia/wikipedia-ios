@@ -77,7 +77,10 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: section == 0 ? 150 : 0)
+        guard section > 0 else {
+            return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: section == 1 ? 150 : 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -85,7 +88,9 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier) as? OnThisDayCollectionViewCell else {
             return estimate
         }
-        let event = events[indexPath.section]
+        guard let event = event(for: indexPath.section) else {
+            return estimate
+        }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
         placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
@@ -102,11 +107,18 @@ class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
 extension OnThisDayViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return events.count
+        return events.count + 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return section > 0 ? 1 : 0
+    }
+    
+    func event(for section: Int) -> WMFFeedOnThisDayEvent? {
+        guard section > 0 else {
+            return nil
+        }
+        return events[section - 1]
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -114,7 +126,9 @@ extension OnThisDayViewController {
         guard let onThisDayCell = cell as? OnThisDayCollectionViewCell else {
             return cell
         }
-        let event = events[indexPath.section]
+        guard let event = event(for: indexPath.section) else {
+            return cell
+        }
         onThisDayCell.layoutMargins = layout.itemLayoutMargins
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         onThisDayCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
@@ -123,8 +137,11 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard indexPath.section > 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
         guard
-            indexPath.section == 0,
+            indexPath.section == 1,
             kind == UICollectionElementKindSectionHeader,
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader
         else {
@@ -199,8 +216,7 @@ extension OnThisDayViewController {
             return nil
         }
         
-        let event = events[indexPath.section]
-        guard let previews = event.articlePreviews, index < previews.count else {
+        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
             return nil
         }
         

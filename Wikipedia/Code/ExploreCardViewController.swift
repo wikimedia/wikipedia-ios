@@ -198,10 +198,13 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
         if let authCell = cell as? ArticleLocationAuthorizationCollectionViewCell {
-            authCell.authorizeTitleLabel.text = CommonStrings.localizedEnableLocationExploreTitle
-            authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
+            if WMFLocationManager.isAuthorized() {
+                authCell.updateForLocationEnabled()
+            } else {
+                authCell.authorizeButton.setTitle(CommonStrings.localizedEnableLocationButtonTitle, for: .normal)
+                authCell.authorizationDelegate = self
+            }
             authCell.authorizeDescriptionLabel.text = CommonStrings.localizedEnableLocationDescription
-            authCell.authorizationDelegate = self
         }
         guard !layoutOnly else {
             cell.configureForUnknownDistance()
@@ -233,6 +236,21 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         let event = events[index]
         cell.configure(with: event, isFirst: events.indices.first == index, isLast: events.indices.last == index, dataStore: dataStore, theme: theme, layoutOnly: layoutOnly)
         cell.selectionDelegate = self
+    }
+
+    var footerText: String? {
+        if contentGroup?.contentGroupKind == .onThisDay,
+            collectionView.numberOfSections == 1,
+            let eventsCount = contentGroup?.countOfFullContent?.intValue {
+            let otherEventsCount = eventsCount - collectionView.numberOfItems(inSection: 0)
+            if otherEventsCount > 0 {
+                return String.localizedStringWithFormat(WMFLocalizedString("on-this-day-footer-with-event-count", value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), otherEventsCount)
+            } else {
+                return contentGroup?.footerText
+            }
+        } else {
+            return contentGroup?.footerText
+        }
     }
     
     private func configurePhotoCell(_ cell: UICollectionViewCell, layoutOnly: Bool) {
@@ -400,16 +418,24 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         let kind = contentGroup?.contentGroupKind ?? .unknown
         let itemLayoutMargins = ColumnarCollectionViewLayoutMetrics.defaultItemLayoutMargins
         let layoutMargins: UIEdgeInsets
+        
+        // add additional spacing around the section
         switch kind {
-        case .topRead, .location, .locationPlaceholder, .onThisDay:
-            layoutMargins = UIEdgeInsets(top: 25 - itemLayoutMargins.top, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+        case .location:
+            layoutMargins = UIEdgeInsets(top: 18 - itemLayoutMargins.top, left: 0, bottom: 18 - itemLayoutMargins.bottom, right: 0)
+        case .locationPlaceholder:
+            layoutMargins = UIEdgeInsets(top: 22 - itemLayoutMargins.top, left: 0, bottom: 10 - itemLayoutMargins.bottom, right: 0)
+        case .topRead:
+            layoutMargins = UIEdgeInsets(top: 22 - itemLayoutMargins.top, left: 0, bottom: 22 - itemLayoutMargins.bottom, right: 0)
+        case .onThisDay:
+            layoutMargins = UIEdgeInsets(top: 22 - itemLayoutMargins.top, left: 0, bottom: 20 - itemLayoutMargins.bottom, right: 0)
         case .relatedPages:
-            layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0) // add additional spacing around the section
+            layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 25 - itemLayoutMargins.bottom, right: 0)
         default:
             layoutMargins = .zero
         }
+        
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
-
     }
 }
 
@@ -537,19 +563,23 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
 
 extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, animated: true)
     }
     
     func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
-        
+        delegate?.readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        present(shareActivityController, animated: true, completion: nil)
     }
     
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
-        
+        articleController.wmf_removePeekableChildViewControllers()
+        let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
+        UIApplication.shared.open(placesURL)
     }
 }
 
@@ -625,6 +655,7 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
             }
             cell.updateForLocationEnabled()
         }
+        dataStore.feedContentController.updateNearbyForce(false, completion: nil)
     }
 }
 

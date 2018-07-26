@@ -48,7 +48,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
-        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
         dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
         dismissButton.titleLabel?.textAlignment = .center

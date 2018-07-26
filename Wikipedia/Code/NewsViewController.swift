@@ -29,11 +29,14 @@ class NewsViewController: ColumnarCollectionViewController {
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
-        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 22, interItemSpacing: 0)
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 22)
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        guard section > 0 else {
+            return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
+        }
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 57)
     }
     
@@ -42,7 +45,9 @@ class NewsViewController: ColumnarCollectionViewController {
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier) as? NewsCollectionViewCell else {
             return estimate
         }
-        let story = stories[indexPath.section]
+        guard let story = story(for: indexPath.section) else {
+            return estimate
+        }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
         placeholderCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
@@ -64,11 +69,11 @@ class NewsViewController: ColumnarCollectionViewController {
 extension NewsViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return stories.count
+        return stories.count + 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return section == 0 ? 0 : 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -77,12 +82,16 @@ extension NewsViewController {
             return cell
         }
         cell.layoutMargins = layout.itemLayoutMargins
-        let story = stories[indexPath.section]
-        newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
+        if let story = story(for: indexPath.section) {
+            newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
+        }
         return newsCell
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard indexPath.section > 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
         switch kind {
         case UICollectionElementKindSectionHeader:
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NewsViewController.headerReuseIdentifier, for: indexPath)
@@ -120,9 +129,15 @@ extension NewsViewController {
         return headerDateFormatter
     }()
     
+    func story(for section: Int) -> WMFFeedNewsStory? {
+        guard section > 0 else {
+            return nil
+        }
+        return stories[section - 1]
+    }
+    
     func headerTitle(for section: Int) -> String? {
-        let story = stories[section]
-        guard let date = story.midnightUTCMonthAndDay else {
+        guard let story = story(for: section), let date = story.midnightUTCMonthAndDay else {
             return nil
         }
         return NewsViewController.headerDateFormatter.string(from: date)
@@ -150,8 +165,7 @@ extension NewsViewController {
             return nil
         }
         
-        let story = stories[indexPath.section]
-        guard let previews = story.articlePreviews, index < previews.count else {
+        guard let story = story(for: indexPath.section), let previews = story.articlePreviews, index < previews.count else {
             return nil
         }
         

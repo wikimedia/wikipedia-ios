@@ -155,6 +155,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarView.translatesAutoresizingMaskIntoConstraints = false
         extendedView.translatesAutoresizingMaskIntoConstraints = false
         progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.alpha = 0
         shadow.translatesAutoresizingMaskIntoConstraints = false
         titleBar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -310,6 +311,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if isExtendedViewHidingEnabled {
             _extendedViewPercentHidden = extendedViewPercentHidden
         }
+        
         setNeedsLayout()
         //print("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
@@ -395,7 +397,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.underBarView.alpha = 1.0 - underBarViewPercentHidden
         
         self.extendedView.transform = totalTransform
-        self.extendedView.alpha = isExtendedViewFadingEnabled ? min(backgroundAlpha, 1.0 - extendedViewPercentHidden) : backgroundAlpha
+        
+        if isExtendedViewFadingEnabled {
+            self.extendedView.alpha = min(backgroundAlpha, 1.0 - extendedViewPercentHidden)
+        } else {
+            self.extendedView.alpha = CGFloat(1).isLessThanOrEqualTo(extendedViewPercentHidden) ? 0 : backgroundAlpha
+        }
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
@@ -412,7 +419,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
-            self.progressView.alpha = hidden ? 0 : 1
+            self.progressView.alpha = min(hidden ? 0 : 1, self.backgroundAlpha)
         }
         if animated {
             UIView.animate(withDuration: 0.2, animations: changes)
@@ -477,7 +484,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             bar.alpha = backgroundAlpha
             titleBar.alpha = backgroundAlpha
             extendedView.alpha = backgroundAlpha
-            progressView.alpha = backgroundAlpha
+            if backgroundAlpha < progressView.alpha {
+                progressView.alpha = backgroundAlpha
+            }
         }
     }
 }

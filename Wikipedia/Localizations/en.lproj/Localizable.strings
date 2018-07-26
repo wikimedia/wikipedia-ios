@@ -44,6 +44,7 @@
 "account-creation-title" = "Create a new account";
 "action-add-to" = "Add to…";
 "action-add-to-reading-list" = "Add to reading list";
+"action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
 "action-move-to" = "Move to…";
 "action-move-to-reading-list" = "Move to reading list";
@@ -187,6 +188,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Turn on Explore";
 "explore-feed-preferences-turn-on-explore-tab-message" = "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Turn on the Explore tab?";
+"explore-feed-preferences-undo-customization" = "Undo";
 "explore-hide-card-prompt" = "Hide this card";
 "explore-main-page-description" = "Main page of Wikimedia projects";
 "explore-main-page-heading" = "Today on Wikipedia";

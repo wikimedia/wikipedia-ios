@@ -1,7 +1,7 @@
 extension WMFFeedDisplayType {
     public func imageWidthCompatibleWithTraitCollection(_ traitCollection: UITraitCollection) -> Int {
         switch self {
-        case .pageWithPreview, .relatedPagesSourceArticle, .random:
+        case .pageWithPreview, .relatedPagesSourceArticle, .random, .continueReading:
             return traitCollection.wmf_leadImageWidth
         default:
             return traitCollection.wmf_nearbyThumbnailWidth
@@ -116,6 +116,9 @@ extension WMFContentGroup {
     }
     
     public var isSelectable: Bool {
+        guard undoType == .none else {
+            return false
+        }
         switch contentGroupKind {
         case .announcement, .notification, .theme, .readingList:
             return false

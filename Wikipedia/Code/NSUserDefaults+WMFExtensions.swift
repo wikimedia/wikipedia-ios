@@ -244,7 +244,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
 
-    @objc public var openAppOnSearchTab: Bool {
+    @objc public var wmf_openAppOnSearchTab: Bool {
         get {
             return bool(forKey: "WMFOpenAppOnSearchTab")
         }
@@ -486,7 +486,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         set {
             set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
             synchronize()
-            openAppOnSearchTab = newValue == .settings
+            wmf_openAppOnSearchTab = newValue == .settings
         }
     }
 }

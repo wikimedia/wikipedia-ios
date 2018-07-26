@@ -43,7 +43,8 @@
 "account-creation-saving" = "Alert shown when user saves account creation form.\n{{Identical|Saving}}";
 "account-creation-title" = "Title for account creation interface";
 "action-add-to" = "Title of the action that adds the selection to something else.";
-"action-add-to-reading-list" = "Title of the action that adds a selected articles to a reading list";
+"action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
+"action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
 "action-move-to-reading-list" = "Title of the action that moves the selected articles to another reading list";
@@ -187,6 +188,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Title for action that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Message for alert that allows users to turn on the Explore tab";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Title for alert that allows users to turn on the Explore tab";
+"explore-feed-preferences-undo-customization" = "Title for button that reverts recent feed customization changes";
 "explore-hide-card-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
 "explore-main-page-description" = "Main page description that shows when the main page lacks a Wikidata description.";
 "explore-main-page-heading" = "Text for 'Today on Wikipedia' header";

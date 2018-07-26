@@ -164,7 +164,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }()
     
     @objc func presentCreateReadingListViewController() {
-        createReadingList(with: [])
+        createReadingList(with: articles)
     }
     
     @objc func dismissCreateReadingListViewController() {
@@ -294,6 +294,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
         createNewReadingListButtonView.apply(theme: theme)
     }
 }

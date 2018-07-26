@@ -1,10 +1,8 @@
 import UIKit
 
 class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate {
-    var shouldAnimateSearchBar: Bool = true
-    @objc var areRecentSearchesEnabled: Bool = true
-    @objc var shouldBecomeFirstResponder: Bool = false
-
+    // MARK - UIViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.displayType = .largeTitle
@@ -18,9 +16,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.view.isHidden = true
         navigationBar.isShadowHidingEnabled = true
     }
-    
-    var isAnimatingSearchBarState: Bool = false
- 
+
     override func viewWillAppear(_ animated: Bool) {
         updateLanguageBarVisibility()
         super.viewWillAppear(animated)
@@ -39,6 +35,21 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         shouldAnimateSearchBar = true
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    // MARK - State
+    
+    var shouldAnimateSearchBar: Bool = true
+    var isAnimatingSearchBarState: Bool = false
+    @objc var areRecentSearchesEnabled: Bool = true
+    @objc var shouldBecomeFirstResponder: Bool = false
     
     var nonSearchAlpha: CGFloat = 1 {
         didSet {
@@ -294,7 +305,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
             return false
         }
-        setSearchVisible(false, animated: shouldAnimateSearchBar)
+        if didClickSearchButton {
+            didClickSearchButton = false
+        } else {
+            setSearchVisible(false, animated: shouldAnimateSearchBar)
+        }
         return true
     }
     
@@ -304,10 +319,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search(for: searchBar.text, suggested: false)
     }
-    
+
+    private var didClickSearchButton = false
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         saveLastSearch()
-        searchBar.resignFirstResponder()
+        didClickSearchButton = true
+        searchBar.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
