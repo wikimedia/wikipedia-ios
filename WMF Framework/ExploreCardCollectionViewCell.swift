@@ -232,12 +232,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             labelOrigin.x += undoOffset.horizontal
             labelOrigin.y += undoOffset.vertical
 
-            let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * 0.25)
+            let undoButtonMaxWidthPercentage: CGFloat = 0.25
+
+            let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * undoButtonMaxWidthPercentage)
             let undoLabelMinWidth = widthMinusMargins * 0.5
             let undoLabelX = isRTL ? widthMinusMargins - undoLabelMaxWidth : labelOrigin.x
             let undoLabelFrameHeight = undoLabel.wmf_preferredHeight(at: CGPoint(x: undoLabelX, y: labelOrigin.y), maximumWidth: undoLabelMaxWidth, minimumWidth: undoLabelMinWidth, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
 
-            let undoButtonMaxWidth = widthMinusMargins * 0.25
+            let undoButtonMaxWidth = widthMinusMargins * undoButtonMaxWidthPercentage
             let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
             let undoButtonFrameHeight = undoButton.wmf_preferredHeight(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumWidth: undoButtonMaxWidth, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
 
