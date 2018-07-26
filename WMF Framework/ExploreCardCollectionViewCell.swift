@@ -244,7 +244,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let undoButtonFrameHeight = undoButton.wmf_preferredHeight(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumWidth: undoButtonMaxWidth, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
 
             let undoHeight = max(undoLabelFrameHeight, undoButtonFrameHeight)
-            let cardBackgroundViewHeight = ceil(origin.y) + undoHeight + undoOffset.vertical
+            let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
             let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
                 cardBackgroundView.frame = cardBackgroundViewFrame
