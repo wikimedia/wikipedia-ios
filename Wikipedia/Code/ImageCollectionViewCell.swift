@@ -11,6 +11,11 @@ class ImageCollectionViewCell: CollectionViewCell {
         }
         set {
             captionLabel.text = newValue
+            
+            if let caption = captionLabel.text {
+                captionLabel.textAlignment = caption.wmf_isPrimarilyRTL() ? .right : .left
+            }
+
             setNeedsLayout()
         }
     }
