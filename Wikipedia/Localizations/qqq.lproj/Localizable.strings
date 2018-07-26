@@ -87,7 +87,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
-"back" = "Generic 'Back' title for back button\n{{Identical|Back}}";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.\n{{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
