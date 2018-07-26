@@ -161,7 +161,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     @objc func ensureWikipediaSearchIsShowing() {
         if self.navigationBar.underBarViewPercentHidden > 0 {
-            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: true)
+            self.navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 1, animated: true)
         }
     }
 

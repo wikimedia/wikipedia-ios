@@ -241,7 +241,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : 0, animated: false)
             self.navigationBar.isBarHidingEnabled = false
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)

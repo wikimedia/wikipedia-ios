@@ -258,7 +258,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         updateTitleBarConstraints()
         updateShadowConstraints()
 
-        setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
+        setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -269,13 +269,24 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
     }
     
+    
+    fileprivate var _topSpacingPercentHidden: CGFloat = 0
+    @objc public var topSpacingPercentHidden: CGFloat {
+        get {
+            return _topSpacingPercentHidden
+        }
+        set {
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: false)
+        }
+    }
+    
     fileprivate var _navigationBarPercentHidden: CGFloat = 0
     @objc public var navigationBarPercentHidden: CGFloat {
         get {
             return _navigationBarPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -285,7 +296,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _underBarViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -295,7 +306,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _extendedViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -310,14 +321,19 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)?) {
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         layoutIfNeeded()
+        
+        _topSpacingPercentHidden = topSpacingPercentHidden
+        
         if isBarHidingEnabled {
             _navigationBarPercentHidden = navigationBarPercentHidden
         }
+        
         if isUnderBarViewHidingEnabled {
             _underBarViewPercentHidden = underBarViewPercentHidden
         }
+        
         if isExtendedViewHidingEnabled {
             _extendedViewPercentHidden = extendedViewPercentHidden
         }
@@ -383,6 +399,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
         let underBarViewPercentHidden = _underBarViewPercentHidden
+        let topSpacingPercentHidden = _topSpacingPercentHidden
         
         let underBarViewHeight = underBarView.frame.height
         let barHeight = self.barHeight
@@ -390,7 +407,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + barTopSpacing
         
-        let barTransformHeight = (barHeight + barTopSpacing) * navigationBarPercentHidden
+        let spacingTransformHeight = barTopSpacing * topSpacingPercentHidden
+        let barTransformHeight = barHeight * navigationBarPercentHidden + spacingTransformHeight
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
         
@@ -427,14 +445,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
     }
     
-    
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
-        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, shadowAlpha: shadowAlpha, animated: animated, additionalAnimations: nil)
-    }
-    
-    @objc public func setPercentHidden(_ percentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
-        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, shadowAlpha: shadowAlpha, animated: animated)
-    }
     
     @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
