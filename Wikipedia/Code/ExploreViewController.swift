@@ -24,7 +24,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
+
+        exploreFeedPreferencesUpdateOnFirstAppearance?()
     }
+
+    @objc public var exploreFeedPreferencesUpdateOnFirstAppearance: (() -> Void)?
 
     deinit {
         NotificationCenter.default.removeObserver(self)

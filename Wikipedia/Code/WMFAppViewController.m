@@ -414,7 +414,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     MWKLanguageLink *mostRecentlyModifiedPreferredLanguage = languageLinkController.mostRecentlyModifiedPreferredLanguage;
     NSURL *siteURL = mostRecentlyModifiedPreferredLanguage.siteURL;
     BOOL appendedNewPreferredLanguage = [preferredLanguages containsObject:mostRecentlyModifiedPreferredLanguage];
-    [self.dataStore.feedContentController toggleContentForSiteURL:siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
+    if (self.isPresentingOnboarding) {
+        __typeof(self) __weak weakSelf = self;
+        self.exploreViewController.exploreFeedPreferencesUpdateOnFirstAppearance = ^{
+            [weakSelf.dataStore.feedContentController toggleContentForSiteURL:siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
+        };
+    } else {
+        [self.dataStore.feedContentController toggleContentForSiteURL:siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
+    }
 }
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
