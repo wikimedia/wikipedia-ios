@@ -45,7 +45,7 @@ extension UIScrollView {
         }
 
         if wmf_isAtTop, let nb = navigationBar, nb.isInteractiveHidingEnabled {
-            nb.setPercentHidden(0, animated: false)
+            nb.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
         }
 
         return true
