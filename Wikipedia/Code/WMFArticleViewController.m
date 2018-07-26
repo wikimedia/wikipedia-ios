@@ -1218,8 +1218,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
-        if ([navigationTitle length] > 15) {
-            navigationTitle = [WMFCommonStrings backTitle];
+        if ([navigationTitle length] > 20) {
+            navigationTitle = nil;
         }
         self.navigationItem.title = navigationTitle;
         dispatch_block_t completion = self.articleLoadCompletion;
