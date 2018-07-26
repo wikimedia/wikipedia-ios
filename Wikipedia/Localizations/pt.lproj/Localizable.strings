@@ -62,6 +62,7 @@
 "account-creation-title" = "Criar uma conta nova";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
+"action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover para lista de leitura";
@@ -205,6 +206,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
+"explore-feed-preferences-undo-customization" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -275,7 +277,7 @@
 "home-more-like-footer" = "Mais, como $1";
 "home-nearby-footer" = "Mais locais nas suas redondezas";
 "home-nearby-location-footer" = "Mais, perto de $1";
-"home-news-footer" = "Mais eventos atuais";
+"home-news-footer" = "Mais atualidades";
 "home-reading-list-prompt" = "Os seus artigos guardados já podem ser organizados nas listas de leitura e sincronizados nos dispositivos. Entre para permitir que as suas listas de leitura sejam guardadas nas preferências de utilizador.";
 "home-themes-action-title" = "Gerir preferências";
 "home-themes-prompt" = "Ajuste as suas preferências de leitura, incluindo o tamanho do texto e o tema, a partir da barra de ferramentas do artigo ou nas suas configurações de utilizador, para uma leitura mais confortável.";
@@ -376,6 +378,7 @@
 "places-filter-top-articles" = "Mais lidos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-filter-top-read-articles" = "Artigos mais lidos";
+"places-location-enabled" = "Localização ativada";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos guardados tem informação de localização";
 "places-search-articles-that-match" = "$1 que coincidem com \"$2\"";
 "places-search-default-text" = "Procurar lugares";

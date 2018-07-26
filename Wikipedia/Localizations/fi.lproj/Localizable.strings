@@ -64,6 +64,7 @@
 "account-creation-title" = "Luo uusi tunnus";
 "action-add-to" = "Lisää...";
 "action-add-to-reading-list" = "Lisää lukulistaan";
+"action-add-to-reading-list-short" = "Lisää listaan";
 "action-cancel" = "Peruuta";
 "action-move-to" = "Siirrä kohteeseen...";
 "action-move-to-reading-list" = "Siirrä lukulistaan";
