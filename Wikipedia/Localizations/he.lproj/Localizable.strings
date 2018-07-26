@@ -104,6 +104,7 @@
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "back" = "חזרה";
 "back-button-accessibility-label" = "חזרה";
+"back-button-popover-title" = "יש ללחוץ כדי לחזור";
 "button-done" = "בוצע";
 "button-next" = "הבא";
 "button-ok" = "אישור";
@@ -150,6 +151,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה בשפה $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-feed-preferences-additional-languages-footer-text" = "ניתן להוסיף שפות נוספות בדף ההגדרות \"השפות שלי\".";
+"explore-feed-preferences-card-hidden-title" = "הכרטיס מוסתר";
 "explore-feed-preferences-continue-reading-description" = "קישור לחזרה מהירה לקריאת ערך פתוח";
 "explore-feed-preferences-customize-explore-feed" = "התאמה אישית של ההזנה \"לחקור\"";
 "explore-feed-preferences-customize-explore-feed-action-title" = "התאמה אישית של ההזנה \"לחקור\"";
@@ -160,6 +162,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "בכל";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "מופעל";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ב־$1";
+"explore-feed-preferences-feed-cards-hidden-title" = "כל הכרטיסים מסוג %@ מוסתרים";
 "explore-feed-preferences-global-card-footer-text" = "כרטיס זה אינו תלוי בשפה. כיבוי הכרטיס יסיר אותו מהזנת ה\"לחקור\" שלך.";
 "explore-feed-preferences-global-cards-description" = "כרטיסים שאינם תלויים בשפה";
 "explore-feed-preferences-global-cards-subtitle" = "לא תלוי בשפה";
@@ -210,11 +213,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "בוויקיפדיה";
 "explore-nearby-heading" = "מקומות בסביבה";
 "explore-nearby-placeholder-heading" = "מקומות";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "בוויקיפדיה ה$1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "בוויקיפדיה";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "מתוך ויקיפדיה בשפה $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "מתוך ויקיפדיה";
 "explore-nearby-sub-heading-your-location" = "המיקום שלך";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "המיקום שלך מתוך ויקיפדיה בשפה $1";
 "explore-potd-heading" = "תמונת היום";
 "explore-potd-sub-heading" = "מתוך ויקישיתוף";
 "explore-random-article-heading" = "ערך אקראי";
@@ -336,8 +338,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-footer-with-event-count" = "$1 אירועים היסטוריים נוספים ביום הזה";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה בשפה $2";
 "on-this-day-title" = "ביום הזה";
 "open-link-cancel" = "ביטול";
+"original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
 "page-edit-history" = "היסטוריית עריכה מלאה";
 "page-history-title" = "היסטוריית הערך";
 "page-issues" = "בעיות בדף";
@@ -513,6 +517,8 @@
 "settings-notifications-trending" = "נושאים אקטואליים חמים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום. שינוי השפה הזאת ישנה את התוכן היומי (כגון ערך מומלץ) שמוצג ב\"לגלות\".";
+"settings-search-footer-text" = "הגדרת היישום להיפתח בלשונית החיפוש במקום בלשונית \"לחקור\"";
+"settings-search-open-app-on-search" = "פתיחת היישום בלשונית החיפוש";
 "settings-storage-and-syncing-enable-sync-footer-text" = "מתן אפשרות לוויקימדיה לשמור את הערכים השמורים ואת רשימות הקריאה שלך להעדפות המשתמש שלך בעת הכניסה וסנכרון.";
 "settings-storage-and-syncing-enable-sync-title" = "סנכרון ערכים שמורים ורשימות";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "אם אפשרות הסנכרון מופעלת, מחיקת הערכים השמורים שלך תגרום להסרתם הן מחשבון המשתמש שלך והן ממכשיר זה. לא ניתן לבטל את הפעולה הזו.";
