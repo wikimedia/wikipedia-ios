@@ -4,6 +4,12 @@ class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
     let gradientView: WMFGradientView = WMFGradientView()
     private let captionLabel: UILabel = UILabel()
+
+    var captionIsRTL: Bool = false {
+        didSet {
+            captionLabel.textAlignment = captionIsRTL ? .right : .left
+        }
+    }
     
     var caption: String? {
         get {
@@ -11,11 +17,6 @@ class ImageCollectionViewCell: CollectionViewCell {
         }
         set {
             captionLabel.text = newValue
-            
-            if let caption = captionLabel.text {
-                captionLabel.textAlignment = caption.wmf_isPrimarilyRTL() ? .right : .left
-            }
-
             setNeedsLayout()
         }
     }
