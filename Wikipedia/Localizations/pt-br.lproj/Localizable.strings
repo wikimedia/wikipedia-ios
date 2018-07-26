@@ -75,6 +75,7 @@
 "account-creation-title" = "Criar uma nova conta";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
+"action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover à lista de leitura";
@@ -218,6 +219,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir a aba Configurações pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar a aba Explorar?";
+"explore-feed-preferences-undo-customization" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -390,6 +392,7 @@
 "places-filter-top-articles" = "Mais lidos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-filter-top-read-articles" = "Artigos mais lidos";
+"places-location-enabled" = "Localização ativada";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos salvos tem informações de localização";
 "places-search-articles-that-match" = "$1 coincidindo “$2”";
 "places-search-default-text" = "Pesquisar lugares";

@@ -52,6 +52,7 @@
 "account-creation-title" = "Создај нова сметка";
 "action-add-to" = "Додај во...";
 "action-add-to-reading-list" = "Додај во список за читање";
+"action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
 "action-move-to" = "Премести во...";
 "action-move-to-reading-list" = "Премести во списокот за читање";
@@ -195,6 +196,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Вклучи го „Истражи“";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Ова ќе го замени јазичето „Нагодувања“ со јазичето „Истражи“. Можете да дојдете до нагодувањата над јазичето „Истражи“ стискајќи на иконката со запченик";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Да го всклучам јазичето „Истражи“?";
+"explore-feed-preferences-undo-customization" = "Врати";
 "explore-hide-card-prompt" = "Скриј ја картичкава";
 "explore-main-page-description" = "Главна страница на Викимедиини проекти";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -366,6 +368,7 @@
 "places-filter-top-articles" = "Најчитани";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 статија|$1 статии}}";
 "places-filter-top-read-articles" = "Најчитани статии";
+"places-location-enabled" = "Местоположбата е овозможена";
 "places-no-saved-articles-have-location" = "Ниедна од зачуваните статии немаат информации за местоположба";
 "places-search-articles-that-match" = "$1 што одговараат на „$2“";
 "places-search-default-text" = "Пребарај места";

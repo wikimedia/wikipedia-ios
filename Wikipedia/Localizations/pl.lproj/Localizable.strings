@@ -66,6 +66,7 @@
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
+"action-add-to-reading-list-short" = "Dodaj do listy";
 "action-cancel" = "Anuluj";
 "action-read" = "Czytaj";
 "action-remove" = "Usuń";
@@ -129,6 +130,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";
 "explore-feed-preferences-randomizer-description" = "Wylosuj artykuł do przeczytania";
+"explore-feed-preferences-undo-customization" = "Cofnij";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
 // Fuzzy

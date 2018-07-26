@@ -134,6 +134,7 @@
 "explore-featured-article-heading" = "چونڊ مضمون";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "explore-featured-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
+"explore-feed-preferences-featured-article-description" = "وڪيپيڊيا تي اڄ جو چونڊ مضمون";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند ڪريو";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سڀ کوليو";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "کوليو";
@@ -143,7 +144,9 @@
 "explore-feed-preferences-in-the-news-description" = "ھاڻوڪن واقعن بابت مضمون";
 "explore-feed-preferences-show-featured-article-title" = "چونڊ مضمون وارو ڪارڊ ڏيکاريو";
 "explore-feed-preferences-show-on-this-day-title" = "اڄ جو ڏينهن وارو ڪارڊ ڏيکاريو";
-"explore-feed-preferences-show-picture-of-the-day-title" = "اڄ جي تصوير وارو ڪارڊ ڏيکاريو";
+"explore-feed-preferences-show-picture-of-the-day-title" = "چونڊ تصوير وارو ڪارڊ ڏيکاريو";
+"explore-feed-preferences-undo-customization" = "اڻڪريو";
+"explore-hide-card-prompt" = "هي ڪارڊ لڪايو";
 "explore-main-page-description" = "وڪيميڊيا رٿائن جو مک صفحو";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "explore-most-read-footer" = "وڌيڪ پڙھيل مضمون";

@@ -142,10 +142,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-placeholder-heading" = "স্থান";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-nearby-sub-heading-your-location" = "আপনার অবস্থান";
 "explore-potd-heading" = "আজকের নির্বাচিত ছবি";
 "explore-potd-sub-heading" = "উইকিমিডিয়া কমন্স থেকে";
@@ -261,6 +259,7 @@
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
 "on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
 "open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";

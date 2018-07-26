@@ -33,6 +33,7 @@
 "account-creation-missing-fields" = "Vos cal sasir un nom d'utilizaire, un senhal e una confirmacion de vòstre senhal per crear un compte.";
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
+"action-add-to-reading-list-short" = "Ajustar a la lista";
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";

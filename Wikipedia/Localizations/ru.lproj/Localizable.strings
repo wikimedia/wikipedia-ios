@@ -81,6 +81,7 @@
 "account-creation-title" = "Создайте новую учётную запись";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
+"action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
@@ -125,6 +126,7 @@
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back" = "Назад";
 "back-button-accessibility-label" = "Назад";
+"back-button-popover-title" = "Нажмите, чтоб вернуться назад";
 "button-done" = "Готово";
 "button-next" = "Далее";
 "button-ok" = "OK";
@@ -171,6 +173,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
+"explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
 "explore-feed-preferences-customize-explore-feed" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Настроить ленту";
@@ -181,6 +184,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "вкл. все";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "вкл. $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Все %@ карточек скрыты";
 "explore-feed-preferences-global-card-footer-text" = "Эта карточка не является привязанной к языку, поэтому её выключение приведёт к исключению карточки из ленты во всех языках.";
 "explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам.";
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
@@ -221,6 +225,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить Ленту";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка \"Настройки\" будет заменена вкладкой \"Лента\". Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить Ленту?";
+"explore-feed-preferences-undo-customization" = "Отменить";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
@@ -356,8 +361,10 @@
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-footer-with-event-count" = "$1 больше исторических событий, произошедших в этот день";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в $2 Википедии";
 "on-this-day-title" = "В этот день…";
 "open-link-cancel" = "Отмена";
+"original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-edit-history" = "Полная история редактирования";
 "page-history-title" = "История страницы";
 "page-issues" = "Вопросы по странице";
@@ -390,6 +397,7 @@
 "places-filter-top-articles" = "Самые читаемые";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-filter-top-read-articles" = "Самые читаемые статьи";
+"places-location-enabled" = "Определение местоположения включено";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохранённых статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-search-default-text" = "Места поиска";
@@ -533,6 +541,8 @@
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
 "settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка приведёт к смене ежедневного содержимого, показываемого в ленте (например, избранных статей).";
+"settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
+"settings-search-open-app-on-search" = "Открыть приложение на вкладке \"Поиск\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Удаление сохранённых статей приведёт к удалению их из вашей учётной записи пользователя, если у вас включена синхронизация, а также с этого устройства. Вы не сможете отменить это действие.";
