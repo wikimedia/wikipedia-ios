@@ -69,7 +69,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
-    self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:dataStore.viewContext];
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
 }
 
