@@ -322,7 +322,7 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("No language for given control tag")
                 return
             }
-            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: true)
         }
     }
 }
