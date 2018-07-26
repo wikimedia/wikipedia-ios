@@ -69,6 +69,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private var cachedTitleViewItem: UIBarButtonItem?
+    private var titleView: UIView?
     
     private func configureTitleBar(with navigationItem: UINavigationItem) {
         var titleBarItems: [UIBarButtonItem] = []
@@ -85,6 +86,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             titleLabel.text = title
             titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
             titleLabel.sizeToFit()
+            titleView = titleLabel
             let titleItem = UIBarButtonItem(customView: titleLabel)
             titleBarItems.append(titleItem)
         }
@@ -417,6 +419,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.bar.transform = barTransform
         self.titleBar.transform = barTransform
+        
+        let titleScale: CGFloat = 1.0 - 0.2 * topSpacingPercentHidden
+        self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
         
         for subview in self.bar.subviews {
             for subview in subview.subviews {
