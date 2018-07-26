@@ -7,9 +7,9 @@ public enum NavigationBarDisplayType {
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     private let titleBar: UIToolbar = UIToolbar()
-    public let bar: UINavigationBar = UINavigationBar()
-    public let underBarView: UIView = UIView() // this is always visible below the navigation bar
-    public let extendedView: UIView = UIView()
+    private let bar: UINavigationBar = UINavigationBar()
+    private let underBarView: UIView = UIView() // this is always visible below the navigation bar
+    private let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
@@ -17,6 +17,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var title: String?
     
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
+    public var isTitleShrinkingEnabled: Bool = false
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
     @objc public var isShadowBelowUnderBarView: Bool = false {
         didSet {
@@ -24,6 +25,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
+    @objc public var isTopSpacingHidingEnabled: Bool = true
     @objc public var isBarHidingEnabled: Bool = true
     @objc public var isUnderBarViewHidingEnabled: Bool = false
     @objc public var isExtendedViewHidingEnabled: Bool = false
@@ -41,6 +43,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     public var displayType: NavigationBarDisplayType = .backVisible {
         didSet {
+            isTitleShrinkingEnabled = displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
         }
@@ -69,6 +72,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private var cachedTitleViewItem: UIBarButtonItem?
+    private var titleView: UIView?
     
     private func configureTitleBar(with navigationItem: UINavigationItem) {
         var titleBarItems: [UIBarButtonItem] = []
@@ -85,6 +89,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             titleLabel.text = title
             titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
             titleLabel.sizeToFit()
+            titleView = titleLabel
             let titleItem = UIBarButtonItem(customView: titleLabel)
             titleBarItems.append(titleItem)
         }
@@ -124,13 +129,23 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         return barButtonItem
     }
     
-    fileprivate var underBarViewHeightConstraint: NSLayoutConstraint!
+    private var underBarViewHeightConstraint: NSLayoutConstraint!
     
-    fileprivate var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
-    fileprivate var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
+    private var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
+    private var shadowTopExtendedViewBottomConstraint: NSLayoutConstraint!
 
-    fileprivate var shadowHeightConstraint: NSLayoutConstraint!
-    fileprivate var extendedViewHeightConstraint: NSLayoutConstraint!
+    private var shadowHeightConstraint: NSLayoutConstraint!
+    private var extendedViewHeightConstraint: NSLayoutConstraint!
+    
+    private var titleBarTopConstraint: NSLayoutConstraint!
+    private var barTopConstraint: NSLayoutConstraint!
+    var barTopSpacing: CGFloat = 0 {
+        didSet {
+            titleBarTopConstraint.constant = barTopSpacing
+            barTopConstraint.constant = barTopSpacing
+            setNeedsLayout()
+        }
+    }
     
     /// Remove this when dropping iOS 10
     fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
@@ -201,11 +216,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
         updatedConstraints.append(statusBarUnderlayTrailingConstraint)
         
-        let titleBarTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: titleBar.topAnchor)
+        titleBarTopConstraint = titleBar.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor, constant: barTopSpacing)
         let titleBarLeadingConstraint = leadingAnchor.constraint(equalTo: titleBar.leadingAnchor)
         let titleBarTrailingConstraint = trailingAnchor.constraint(equalTo: titleBar.trailingAnchor)
         
-        let barTopConstraint = statusBarUnderlay.bottomAnchor.constraint(equalTo: bar.topAnchor)
+        barTopConstraint = bar.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor, constant: barTopSpacing)
         let barLeadingConstraint = leadingAnchor.constraint(equalTo: bar.leadingAnchor)
         let barTrailingConstraint = trailingAnchor.constraint(equalTo: bar.trailingAnchor)
         
@@ -248,7 +263,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         updateTitleBarConstraints()
         updateShadowConstraints()
 
-        setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
+        setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -259,13 +274,24 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
     }
     
+    
+    fileprivate var _topSpacingPercentHidden: CGFloat = 0
+    @objc public var topSpacingPercentHidden: CGFloat {
+        get {
+            return _topSpacingPercentHidden
+        }
+        set {
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: false)
+        }
+    }
+    
     fileprivate var _navigationBarPercentHidden: CGFloat = 0
     @objc public var navigationBarPercentHidden: CGFloat {
         get {
             return _navigationBarPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(newValue, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -275,7 +301,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _underBarViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: newValue, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -285,7 +311,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _extendedViewPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: newValue, topSpacingPercentHidden: _topSpacingPercentHidden, animated: false)
         }
     }
     
@@ -300,14 +326,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)?) {
+    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         layoutIfNeeded()
+        
+        if isTopSpacingHidingEnabled {
+            _topSpacingPercentHidden = topSpacingPercentHidden
+        }
+
         if isBarHidingEnabled {
             _navigationBarPercentHidden = navigationBarPercentHidden
         }
+        
         if isUnderBarViewHidingEnabled {
             _underBarViewPercentHidden = underBarViewPercentHidden
         }
+        
         if isExtendedViewHidingEnabled {
             _extendedViewPercentHidden = extendedViewPercentHidden
         }
@@ -346,6 +379,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
         bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
         titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
+        barTopSpacing = isUsingTitleBarInsteadOfNavigationBar ? 30 : 0
         setNeedsUpdateConstraints()
     }
     
@@ -355,8 +389,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         setNeedsUpdateConstraints()
     }
     
-    @objc var barHeight: CGFloat {
-        return displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
+    var barHeight: CGFloat {
+        return (displayType == .largeTitle ? titleBar.frame.height : bar.frame.height)
+    }
+    
+    var underBarViewHeight: CGFloat {
+        return underBarView.frame.size.height
+    }
+    
+    var extendedViewHeight: CGFloat {
+        return extendedView.frame.size.height
     }
     
     public override func layoutSubviews() {
@@ -364,14 +406,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
         let underBarViewPercentHidden = _underBarViewPercentHidden
+        let topSpacingPercentHidden = _topSpacingPercentHidden
         
         let underBarViewHeight = underBarView.frame.height
         let barHeight = self.barHeight
         let extendedViewHeight = extendedView.frame.height
         
-        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden)
+        visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + (barTopSpacing * (1.0 - topSpacingPercentHidden))
         
-        let barTransformHeight = barHeight * navigationBarPercentHidden
+        let spacingTransformHeight = barTopSpacing * topSpacingPercentHidden
+        let barTransformHeight = barHeight * navigationBarPercentHidden + spacingTransformHeight
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
         
@@ -380,6 +424,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.bar.transform = barTransform
         self.titleBar.transform = barTransform
+        
+        if isTitleShrinkingEnabled {
+            let titleScale: CGFloat = 1.0 - 0.2 * topSpacingPercentHidden
+            self.titleView?.transform = CGAffineTransform(scaleX: titleScale, y: titleScale)
+        }
         
         for subview in self.bar.subviews {
             for subview in subview.subviews {
@@ -408,14 +457,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
     }
     
-    
-    @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
-        setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, shadowAlpha: shadowAlpha, animated: animated, additionalAnimations: nil)
-    }
-    
-    @objc public func setPercentHidden(_ percentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool) {
-        setNavigationBarPercentHidden(percentHidden, underBarViewPercentHidden: percentHidden, extendedViewPercentHidden: percentHidden, shadowAlpha: shadowAlpha, animated: animated)
-    }
     
     @objc public func setProgressHidden(_ hidden: Bool, animated: Bool) {
         let changes = {
