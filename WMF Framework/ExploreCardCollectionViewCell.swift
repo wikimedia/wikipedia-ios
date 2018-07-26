@@ -224,7 +224,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 view?.frame = cardContentViewFrame
                 cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
-            origin.y += cardContentViewFrame.layoutHeight(with: 20)
+            origin.y += cardContentViewFrame.height
         }
 
         if isCollapsed, !undoLabel.isHidden, !undoButton.isHidden {
@@ -251,10 +251,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
 
-            origin.y += cardBackgroundViewFrame.layoutHeight(with: 15)
+            origin.y += cardBackgroundViewFrame.height
         }
     
         if !footerButton.isHidden {
+            origin.y += 20
             origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
 
