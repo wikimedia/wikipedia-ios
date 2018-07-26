@@ -7,9 +7,9 @@ public enum NavigationBarDisplayType {
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
     private let titleBar: UIToolbar = UIToolbar()
-    public let bar: UINavigationBar = UINavigationBar()
-    public let underBarView: UIView = UIView() // this is always visible below the navigation bar
-    public let extendedView: UIView = UIView()
+    private let bar: UINavigationBar = UINavigationBar()
+    private let underBarView: UIView = UIView() // this is always visible below the navigation bar
+    private let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
@@ -134,7 +134,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     private var titleBarTopConstraint: NSLayoutConstraint!
     private var barTopConstraint: NSLayoutConstraint!
-    private var barTopSpacing: CGFloat = 0 {
+    var barTopSpacing: CGFloat = 0 {
         didSet {
             titleBarTopConstraint.constant = barTopSpacing
             barTopConstraint.constant = barTopSpacing
@@ -366,8 +366,16 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         setNeedsUpdateConstraints()
     }
     
-    @objc var barHeight: CGFloat {
-        return displayType == .largeTitle ? titleBar.frame.height : bar.frame.height
+    var barHeight: CGFloat {
+        return (displayType == .largeTitle ? titleBar.frame.height : bar.frame.height)
+    }
+    
+    var underBarViewHeight: CGFloat {
+        return underBarView.frame.size.height
+    }
+    
+    var extendedViewHeight: CGFloat {
+        return extendedView.frame.size.height
     }
     
     public override func layoutSubviews() {
