@@ -251,12 +251,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
 
-            origin.y += cardBackgroundViewFrame.layoutHeight(with: layoutMargins.bottom)
+            origin.y += cardBackgroundViewFrame.layoutHeight(with: 15)
         }
     
         if !footerButton.isHidden {
             origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
         }
+
+        origin.y += layoutMargins.bottom
 
         return CGSize(width: size.width, height: ceil(origin.y))
     }
