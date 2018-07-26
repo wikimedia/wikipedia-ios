@@ -345,6 +345,7 @@
 "share-menu-item" = "شارك...";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
+"sort-by-title-action" = "العنوان";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
 "status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "table-of-contents-button-label" = "قائمة المحتويات";
@@ -352,6 +353,9 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
 "table-title-other" = "مزيد من المعلومات";
+"theme-black-display-name" = "أسود";
+"theme-dark-display-name" = "غامق";
+"theme-default-display-name" = "الافتراضية";
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
@@ -368,6 +372,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-title" = "الموسوعة الحرة";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
+"welcome-languages-search-title" = "ابحث فيما يقارب 300 لغة";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
 "welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";

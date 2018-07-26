@@ -55,6 +55,7 @@
 "account-creation-title" = "Ein neues Benutzerkonto erstellen";
 "action-add-to" = "Hinzufügen zu …";
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
+"action-add-to-reading-list-short" = "Zu Liste hinzufügen";
 "action-cancel" = "Abbrechen";
 "action-move-to" = "Verschieben nach …";
 "action-move-to-reading-list" = "In Leseliste verschieben";
@@ -198,6 +199,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Entdecken anschalten";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Dies ersetzt den Einstellungen-Reiter durch den Entdecken-Reiter. Du kannst auf die Einstellungen vom Entdecken-Reiter zugreifen, indem du oben auf das Zahnradsymbol tippst.";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Den Entdecken-Reiter anschalten?";
+"explore-feed-preferences-undo-customization" = "Rückgängig";
 "explore-hide-card-prompt" = "Diese Karte ausblenden";
 "explore-main-page-description" = "Hauptseite der Wikimedia-Projekte";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -369,6 +371,7 @@
 "places-filter-top-articles" = "Meistgelesen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Ein|$1}} Artikel";
 "places-filter-top-read-articles" = "Am meisten gelesene Artikel";
+"places-location-enabled" = "Standort aktiviert";
 "places-no-saved-articles-have-location" = "Keiner deiner gespeicherten Artikel besitzt Standortinformationen";
 "places-search-articles-that-match" = "$1, die mit „$2“ übereinstimmen";
 "places-search-default-text" = "Orte suchen";

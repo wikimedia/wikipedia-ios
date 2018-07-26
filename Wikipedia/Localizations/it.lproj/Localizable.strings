@@ -70,6 +70,7 @@
 "account-creation-title" = "Crea una nuova utenza";
 "action-add-to" = "Aggiungi a…";
 "action-add-to-reading-list" = "Aggiungi all'elenco di lettura";
+"action-add-to-reading-list-short" = "Aggiungi all'elenco";
 "action-cancel" = "Annulla";
 "action-move-to" = "Sposta in…";
 "action-move-to-reading-list" = "Sposta nell'elenco di lettura";
@@ -143,6 +144,7 @@
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
+"explore-feed-preferences-undo-customization" = "Annulla";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 // Fuzzy
@@ -153,10 +155,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Su Wikipedia";
 "explore-nearby-heading" = "Luoghi vicino";
 "explore-nearby-placeholder-heading" = "Luoghi";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Su Wikipedia in $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Su Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Da Wikipedia in $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Da Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Propria posizione";
 "explore-potd-heading" = "Immagine del giorno";
 "explore-potd-sub-heading" = "Da Wikimedia Commons";
@@ -270,6 +270,7 @@
 "on-this-day-detail-header-date-range" = "dal $1 al $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|evento storico|eventi storici}}";
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
 "open-link-cancel" = "Annulla";
 "page-edit-history" = "Cronologia delle modifiche completa";
