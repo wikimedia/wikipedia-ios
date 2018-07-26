@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
 + (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
++ (NSSet *)rtlLanguages;
 
 @end
 NS_ASSUME_NONNULL_END
