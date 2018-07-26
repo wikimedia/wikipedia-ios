@@ -241,9 +241,10 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
             let undoButtonMaxWidth = widthMinusMargins * undoButtonMaxWidthPercentage
             let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
-            let undoButtonFrameHeight = undoButton.wmf_preferredHeight(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumWidth: undoButtonMaxWidth, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
-
-            let undoHeight = max(undoLabelFrameHeight, undoButtonFrameHeight)
+            let undoButtonMinSize = CGSize(width: UIViewNoIntrinsicMetric, height: undoLabelFrameHeight)
+            let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIViewNoIntrinsicMetric)
+            let undoButtonFrame = undoButton.wmf_preferredFrame(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumSize: undoButtonMaxSize, minimumSize: undoButtonMinSize, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
+            let undoHeight = max(undoLabelFrameHeight, undoButtonFrame.height)
             let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
             let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
