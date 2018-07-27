@@ -412,7 +412,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         scrollViewContentInset.top = self.navigationBar.visibleHeight;
         UIEdgeInsets scrollViewScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
         scrollViewScrollIndicatorInsets.top = self.navigationBar.visibleHeight;
-        BOOL didSet = [scrollView wmf_setContentInsetPreservingTopAndBottomOffset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets withNavigationBar:nil];
+        BOOL didSet = [scrollView wmf_setContentInset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets preserveContentOffset:YES];
         if (didSet) {
             NSIndexPath *indexPath = [[self.tableOfContentsViewController.tableView indexPathsForSelectedRows] firstObject];
             if (indexPath && ![[self.tableOfContentsViewController.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
