@@ -4,6 +4,12 @@ class ImageCollectionViewCell: CollectionViewCell {
     let imageView: UIImageView = UIImageView()
     let gradientView: WMFGradientView = WMFGradientView()
     private let captionLabel: UILabel = UILabel()
+
+    var captionIsRTL: Bool = false {
+        didSet {
+            captionLabel.textAlignment = captionIsRTL ? .right : .left
+        }
+    }
     
     var caption: String? {
         get {
@@ -54,7 +60,7 @@ class ImageCollectionViewCell: CollectionViewCell {
             if captionLabel.wmf_hasAnyNonWhitespaceText {
                 captionLabel.isHidden = false
                 gradientView.isHidden = false
-                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, alignedBy: semanticContentAttribute, apply: false)
+                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, minimumSize: CGSize(width: boundsInsetByMargins.size.width, height: UIViewNoIntrinsicMetric), alignedBy: semanticContentAttribute, apply: false)
                 let extraBottomPadding: CGFloat = 5.0
                 labelFrame.origin = CGPoint(x: labelFrame.origin.x, y: size.height - labelFrame.height - layoutMargins.bottom - extraBottomPadding)
                 captionLabel.frame = labelFrame

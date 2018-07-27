@@ -261,6 +261,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if imageInfo.imageDescription.count > 0 {
+            cell.captionIsRTL = imageInfo.imageDescriptionIsRTL
             cell.caption = imageInfo.imageDescription.wmf_stringByRemovingHTML()
         } else {
             cell.caption = imageInfo.canonicalPageTitle
