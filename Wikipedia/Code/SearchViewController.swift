@@ -22,6 +22,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillAppear(animated)
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
+            navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
             searchBar.becomeFirstResponder()
         }
     }
@@ -33,7 +34,18 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
         shouldAnimateSearchBar = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -48,6 +60,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     var shouldAnimateSearchBar: Bool = true
     var isAnimatingSearchBarState: Bool = false
+    
     @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
     
@@ -232,9 +245,19 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return searchBar
     }()
     
-    var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    // used to match the transition with explore
+    var navigationBarTopSpacingPercentHidden: CGFloat = 0 {
+        didSet {
+            navigationBar.isTopSpacingHidingEnabled = true
+            navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
+            navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
+        }
+    }
     
+    var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    private var _isSearchVisible: Bool = false
     func setSearchVisible(_ visible: Bool, animated: Bool) {
+        _isSearchVisible = visible
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
             self.isAnimatingSearchBarState = false
@@ -242,7 +265,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : 0, animated: false)
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
             self.navigationBar.isBarHidingEnabled = !visible
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.resultsViewController.view.alpha = visible ? 1 : 0
@@ -289,7 +312,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         dataStore.recentSearchList.save()
         reloadRecentSearches()
     }
-
+    
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {

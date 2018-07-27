@@ -50,11 +50,13 @@ public class NavigationBarHider: NSObject {
         }
         
         guard scrollView.contentSize.height > 0 else {
-            navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
-            if navigationBar.isShadowHidingEnabled {
-                navigationBar.shadowAlpha = 0
-            } else {
-                navigationBar.shadowAlpha = 1
+            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
+                navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
+                if navigationBar.isShadowHidingEnabled {
+                    navigationBar.shadowAlpha = 0
+                } else {
+                    navigationBar.shadowAlpha = 1
+                }
             }
             return
         }
