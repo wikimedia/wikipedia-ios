@@ -1779,8 +1779,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     assert(gestureRecognizer == self.tapGestureRecognizer);
+    if (self.headerView.isHidden) {
+        return NO;
+    }
     CGPoint location = [gestureRecognizer locationInView:self.view];
-    BOOL containsPoint = CGRectContainsPoint(_headerView.frame, location);
+    BOOL containsPoint = CGRectContainsPoint(self.headerView.frame, location);
     return containsPoint;
 }
 
@@ -1903,7 +1906,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             self.webViewController.webView.allowsLinkPreview = NO;
         }
         [self unregisterForPreviewing];
-        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.headerView];
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
     } else {
         [self unregisterForPreviewing];
     }
