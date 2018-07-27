@@ -246,7 +246,19 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }()
     
     // used to match the transition with explore
-    var navigationBarTopSpacingPercentHidden: CGFloat = 0 {
+    
+    func prepareForIncomingTransition(with navigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
+        navigationBarShadowAlpha = navigationBar.shadowAlpha
+    }
+    
+    private var navigationBarShadowAlpha: CGFloat = 0 {
+        didSet {
+            navigationBar.shadowAlpha = navigationBarShadowAlpha
+        }
+    }
+    
+    private var navigationBarTopSpacingPercentHidden: CGFloat = 0 {
         didSet {
             navigationBar.isTopSpacingHidingEnabled = true
             navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
@@ -268,6 +280,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
             self.navigationBar.isBarHidingEnabled = !visible
             self.navigationBar.isTopSpacingHidingEnabled = !visible
+            self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
         }

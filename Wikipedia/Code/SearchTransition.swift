@@ -28,7 +28,7 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
         toViewController.view.frame = toFinalFrame
         
         if isEnteringSearch {
-            searchViewController.navigationBarTopSpacingPercentHidden = exploreViewController.navigationBar.topSpacingPercentHidden
+            searchViewController.prepareForIncomingTransition(with: exploreViewController.navigationBar)
             searchViewController.nonSearchAlpha = 0
             exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
