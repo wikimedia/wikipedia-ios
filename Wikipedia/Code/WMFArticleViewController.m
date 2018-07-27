@@ -95,7 +95,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
-                                        WMFImageScaleTransitionProviding>
+                                        WMFImageScaleTransitionProviding,
+                                        UIGestureRecognizerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -145,6 +146,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
 @property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
+
+// Gestures
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
@@ -304,7 +308,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
         self.headerViewHeight = WMFArticleViewControllerHeaderImageHeight + borderHeight;
 
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.headerViewHeight)];
+        _headerView = [[WMFPassthroughView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.headerViewHeight)];
         _headerView.backgroundColor = self.theme.colors.midBackground;
         _headerView.hidden = YES;
 
@@ -344,15 +348,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
-        _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView = [[WMFPassthroughAnimatedImageView alloc] initWithFrame:CGRectZero];
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         _headerImageView.clipsToBounds = YES;
         if (@available(iOS 11.0, *)) {
             _headerImageView.accessibilityIgnoresInvertColors = YES;
         }
-        _headerImageView.userInteractionEnabled = YES; // required for tap gesture to work, NO by default on image views
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
-        [_headerImageView addGestureRecognizer:tap];
     }
     return _headerImageView;
 }
@@ -817,6 +818,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.navigationBar.isShadowBelowUnderBarView = YES;
     self.navigationBar.isExtendedViewFadingEnabled = NO;
 
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap:)];
+    self.tapGestureRecognizer.delegate = self;
+    [self.view addGestureRecognizer:self.tapGestureRecognizer];
+    
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -1761,12 +1766,27 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Header Tap Gesture
 
-- (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
+- (void)viewDidTap:(UITapGestureRecognizer *)tap {
+    if ([tap state] != UIGestureRecognizerStateRecognized) {
+        return;
+    }
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme overlayViewTopBarHidden:NO];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    assert(gestureRecognizer == self.tapGestureRecognizer);
+    CGPoint location = [gestureRecognizer locationInView:self.view];
+    BOOL containsPoint = CGRectContainsPoint(_headerView.frame, location);
+    return containsPoint;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
+    assert(gestureRecognizer == self.tapGestureRecognizer);
+    return YES;
 }
 
 #pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
