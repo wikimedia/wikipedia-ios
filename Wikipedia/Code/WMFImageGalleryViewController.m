@@ -457,7 +457,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super initWithPhotos:photos initialPhoto:selected delegate:nil theme:theme overlayViewTopBarHidden:overlayViewTopBarHidden];
     if (self) {
-        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:50];
+        self.infoController = [[WMFImageInfoController alloc] initWithDataStore:article.dataStore batchSize:25];
         [self.infoController setUniqueArticleImages:items forArticleURL:article.url];
         [self.photos enumerateObjectsUsingBlock:^(WMFArticlePhoto *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             obj.imageInfo = [self.infoController infoForImage:[obj bestImageObject]];

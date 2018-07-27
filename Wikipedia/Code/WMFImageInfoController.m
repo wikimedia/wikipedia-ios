@@ -32,7 +32,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore
                         batchSize:(NSUInteger)batchSize
                       infoFetcher:(MWKImageInfoFetcher *)fetcher {
-    NSAssert(batchSize <= 50, @"Only up to 50 titles can be retrieved at a time.");
+    NSAssert(batchSize <= 25, @"Only up to 25 titles can be retrieved at a time.");
     NSParameterAssert(dataStore);
     NSParameterAssert(fetcher);
     self = [super init];
