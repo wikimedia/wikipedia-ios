@@ -148,13 +148,16 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        let barHeight = navigationBar.barHeight
-        let underBarViewHeight = navigationBar.underBarViewHeight
-        let extendedViewHeight = navigationBar.extendedViewHeight
+        let topSpacingHideableHeight: CGFloat = navigationBar.topSpacingHideableHeight
+        let barHideableHeight = navigationBar.barHideableHeight
+        let underBarViewHideableHeight = navigationBar.underBarViewHideableHeight
+        let extendedViewHideableHeight = navigationBar.extendedViewHideableHeight
+        
         let totalHideableHeight: CGFloat = navigationBar.hideableHeight
-        let topSpacing: CGFloat = navigationBar.barTopSpacing
+        
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
+        
         if targetOffsetY < totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
                 if targetOffsetY < 0.5 * totalHideableHeight {
@@ -163,14 +166,14 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
-                if targetOffsetY < 0.5 * extendedViewHeight { // show everything if extended view is less than half hidden
+                if targetOffsetY < 0.5 * extendedViewHideableHeight { // show everything if extended view is less than half hidden
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
-                } else if targetOffsetY < extendedViewHeight + 0.5 * underBarViewHeight { // just hide extended view if it's more than half hidden and under bar view is less than half hidden
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight)
-                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * topSpacing { // hide extended & under bar views
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
-                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + topSpacing + 0.5 * barHeight  { // hide top spacing
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight + topSpacing)
+                } else if targetOffsetY < extendedViewHideableHeight + 0.5 * underBarViewHideableHeight { // just hide extended view if it's more than half hidden and under bar view is less than half hidden
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight)
+                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight)
+                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight)
                 } else { // hide everything
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
@@ -178,7 +181,7 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight && targetOffsetY > extendedViewHeight + barHeight + underBarViewHeight { // let it naturally hide
+        if initialScrollY < totalHideableHeight && targetOffsetY > totalHideableHeight { // let it naturally hide
             return
         }
 
