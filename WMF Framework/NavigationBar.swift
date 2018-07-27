@@ -330,7 +330,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         layoutIfNeeded()
-        print("nbx: \(topSpacingPercentHidden) \(navigationBarPercentHidden) \(underBarViewPercentHidden) \(extendedViewPercentHidden)")
+
         if isTopSpacingHidingEnabled {
             _topSpacingPercentHidden = topSpacingPercentHidden
         }
