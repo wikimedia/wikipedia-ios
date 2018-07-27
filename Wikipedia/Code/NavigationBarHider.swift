@@ -178,7 +178,7 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight && targetOffsetY > extendedViewHeight + barHeight + underBarViewHeight { // let it naturally hide
+        if initialScrollY < totalHideableHeight && targetOffsetY > totalHideableHeight { // let it naturally hide
             return
         }
 
