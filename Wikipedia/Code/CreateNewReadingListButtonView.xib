@@ -18,6 +18,9 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYw-mI-ns6" customClass="WMFAlignedImageButton">
                     <rect key="frame" x="164.5" y="8.5" width="46" height="35.5"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="jNZ-fW-exu"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SME-BH-h1o">
