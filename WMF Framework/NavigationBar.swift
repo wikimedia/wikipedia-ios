@@ -403,26 +403,24 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         return extendedView.frame.size.height
     }
     
+    var topSpacingHideableHeight: CGFloat {
+        return isTopSpacingHidingEnabled ? barTopSpacing : 0
+    }
+    
+    var barHideableHeight: CGFloat {
+        return isBarHidingEnabled ? barHeight : 0
+    }
+    
+    var underBarViewHideableHeight: CGFloat {
+        return isUnderBarViewHidingEnabled ? underBarViewHeight : 0
+    }
+    
+    var extendedViewHideableHeight: CGFloat {
+        return isExtendedViewHidingEnabled ? extendedViewHeight : 0
+    }
+    
     var hideableHeight: CGFloat {
-        var totalHideableHeight: CGFloat = 0
-        
-        if isTopSpacingHidingEnabled {
-            totalHideableHeight += barTopSpacing
-        }
-        
-        if isBarHidingEnabled {
-            totalHideableHeight += barHeight
-        }
-        
-        if isUnderBarViewHidingEnabled {
-            totalHideableHeight += underBarViewHeight
-        }
-        
-        if isExtendedViewHidingEnabled {
-            totalHideableHeight += extendedViewHeight
-        }
-        
-        return totalHideableHeight
+        return topSpacingHideableHeight + barHideableHeight + underBarViewHideableHeight + extendedViewHideableHeight
     }
     
     public override func layoutSubviews() {

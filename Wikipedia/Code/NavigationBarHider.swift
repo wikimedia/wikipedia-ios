@@ -148,13 +148,16 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        let barHideableHeight = navigationBar.isBarHidingEnabled ? navigationBar.barHeight : 0
-        let underBarViewHideableHeight = navigationBar.isUnderBarViewHidingEnabled ? navigationBar.underBarViewHeight : 0
-        let extendedViewHideableHeight = navigationBar.isExtendedViewHidingEnabled ? navigationBar.extendedViewHeight : 0
+        let topSpacingHideableHeight: CGFloat = navigationBar.topSpacingHideableHeight
+        let barHideableHeight = navigationBar.barHideableHeight
+        let underBarViewHideableHeight = navigationBar.underBarViewHideableHeight
+        let extendedViewHideableHeight = navigationBar.extendedViewHideableHeight
+        
         let totalHideableHeight: CGFloat = navigationBar.hideableHeight
-        let topSpacingHideableHeight: CGFloat = navigationBar.isBarHidingEnabled ? navigationBar.barTopSpacing : 0
+        
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
+        
         if targetOffsetY < totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
                 if targetOffsetY < 0.5 * totalHideableHeight {
