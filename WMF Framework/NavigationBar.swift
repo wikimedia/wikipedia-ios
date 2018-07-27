@@ -16,6 +16,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public var underBarViewPercentHiddenForShowingTitle: CGFloat?
     public var title: String?
     
+    public var isAdjustingHidingFromContentInsetChangesEnabled: Bool = true
+    
     public var isShadowHidingEnabled: Bool = false // turn on/off shadow alpha adjusment
     public var isTitleShrinkingEnabled: Bool = false
     public var isInteractiveHidingEnabled: Bool = true // turn on/off any interactive adjustment of bar or view visibility
@@ -281,7 +283,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _topSpacingPercentHidden
         }
         set {
-            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: false)
+            setNavigationBarPercentHidden(_navigationBarPercentHidden, underBarViewPercentHidden: _underBarViewPercentHidden, extendedViewPercentHidden: _extendedViewPercentHidden, topSpacingPercentHidden: newValue, animated: false)
         }
     }
     
@@ -328,7 +330,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
         layoutIfNeeded()
-        
+
         if isTopSpacingHidingEnabled {
             _topSpacingPercentHidden = topSpacingPercentHidden
         }
@@ -399,6 +401,26 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     var extendedViewHeight: CGFloat {
         return extendedView.frame.size.height
+    }
+    
+    var topSpacingHideableHeight: CGFloat {
+        return isTopSpacingHidingEnabled ? barTopSpacing : 0
+    }
+    
+    var barHideableHeight: CGFloat {
+        return isBarHidingEnabled ? barHeight : 0
+    }
+    
+    var underBarViewHideableHeight: CGFloat {
+        return isUnderBarViewHidingEnabled ? underBarViewHeight : 0
+    }
+    
+    var extendedViewHideableHeight: CGFloat {
+        return isExtendedViewHidingEnabled ? extendedViewHeight : 0
+    }
+    
+    var hideableHeight: CGFloat {
+        return topSpacingHideableHeight + barHideableHeight + underBarViewHideableHeight + extendedViewHideableHeight
     }
     
     public override func layoutSubviews() {
