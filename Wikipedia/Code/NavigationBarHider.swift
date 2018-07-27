@@ -66,19 +66,7 @@ public class NavigationBarHider: NSObject {
         let underBarViewHeight = navigationBar.underBarViewHeight
         let extendedViewHeight = navigationBar.extendedViewHeight
 
-        var totalHideableHeight: CGFloat = barTopSpacing
-        
-        if navigationBar.isBarHidingEnabled {
-            totalHideableHeight += barHeight
-        }
-        
-        if navigationBar.isUnderBarViewHidingEnabled {
-            totalHideableHeight += underBarViewHeight
-        }
-        
-        if navigationBar.isExtendedViewHidingEnabled {
-            totalHideableHeight += extendedViewHeight
-        }
+        let totalHideableHeight: CGFloat = navigationBar.hideableHeight
         
         if navigationBar.isShadowHidingEnabled {
             if totalHideableHeight > 0 {
@@ -129,7 +117,8 @@ public class NavigationBarHider: NSObject {
         }
 
         let topSpacingPercentHidden = barTopSpacing > 0 ? (adjustedScrollY/barTopSpacing).wmf_normalizedPercentage : 1
-
+        adjustedScrollY -= barTopSpacing
+        
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if initialScrollY < totalHideableHeight {
@@ -160,22 +149,28 @@ public class NavigationBarHider: NSObject {
         let barHeight = navigationBar.barHeight
         let underBarViewHeight = navigationBar.underBarViewHeight
         let extendedViewHeight = navigationBar.extendedViewHeight
+        let totalHideableHeight: CGFloat = navigationBar.hideableHeight
+        let topSpacing: CGFloat = navigationBar.barTopSpacing
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
-        if targetOffsetY < extendedViewHeight + barHeight + underBarViewHeight {
+        if targetOffsetY < totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
-                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight + barHeight) {
+                if targetOffsetY < 0.5 * totalHideableHeight {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
                 } else {
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
-                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight) { // both visible
+                if targetOffsetY < 0.5 * extendedViewHeight { // show everything if extended view is less than half hidden
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
-                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * barHeight  { // only nav bar visible
+                } else if targetOffsetY < extendedViewHeight + 0.5 * underBarViewHeight { // just hide extended view if it's more than half hidden and under bar view is less than half hidden
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight)
+                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * topSpacing { // hide extended & under bar views
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
-                } else if targetOffsetY < extendedViewHeight + barHeight {
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + topSpacing + 0.5 * barHeight  { // hide top spacing
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight + topSpacing)
+                } else { // hide everything
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             }
             return
