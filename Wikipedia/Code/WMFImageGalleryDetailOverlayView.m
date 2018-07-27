@@ -79,7 +79,6 @@
 
 - (void)setImageDescription:(NSString *)imageDescription {
     self.imageDescriptionLabel.text = imageDescription;
-    self.imageDescriptionLabel.textAlignment = [imageDescription wmf_isPrimarilyRTL] ? NSTextAlignmentRight : NSTextAlignmentLeft;
 }
 
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
