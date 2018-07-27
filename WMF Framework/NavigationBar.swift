@@ -404,7 +404,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     var hideableHeight: CGFloat {
-        var totalHideableHeight: CGFloat = barTopSpacing
+        var totalHideableHeight: CGFloat = 0
+        
+        if isTopSpacingHidingEnabled {
+            totalHideableHeight += barTopSpacing
+        }
         
         if isBarHidingEnabled {
             totalHideableHeight += barHeight
