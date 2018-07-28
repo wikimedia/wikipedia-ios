@@ -325,25 +325,20 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)updateCurrentIconIfNeeded
 {
-  UIImage *image = nil;
   switch (self.messageType) {
   case RMessageTypeNormal: {
-    image = _messageIcon;
     self.iconImageView.image = _messageIcon;
     break;
   }
   case RMessageTypeError: {
-    image = _errorIcon;
     self.iconImageView.image = _errorIcon;
     break;
   }
   case RMessageTypeSuccess: {
-    image = _successIcon;
     self.iconImageView.image = _successIcon;
     break;
   }
   case RMessageTypeWarning: {
-    image = _warningIcon;
     self.iconImageView.image = _warningIcon;
     break;
   }
