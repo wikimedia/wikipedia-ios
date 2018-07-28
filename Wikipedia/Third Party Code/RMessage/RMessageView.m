@@ -150,19 +150,17 @@ static NSMutableDictionary *globalDesignDictionary;
  */
 + (BOOL)viewControllerEdgesExtendUnderTopBars:(UIViewController *)viewController
 {
-  BOOL vcAskedToExtendUnderTopBars = NO;
-
   if (viewController.edgesForExtendedLayout == UIRectEdgeTop ||
       viewController.edgesForExtendedLayout == UIRectEdgeAll) {
-    vcAskedToExtendUnderTopBars = YES;
+    /* viewController is asking to extend under top bars */
   } else {
-    vcAskedToExtendUnderTopBars = NO;
+    /* viewController isn't asking to extend under top bars */
     return NO;
   }
 
   /* When a table view controller asks to extend under top bars, if the navigation bar is
    translucent iOS will not extend the edges of the table view controller under the top bars. */
-  if ([viewController isKindOfClass:[UITableViewController class]] && vcAskedToExtendUnderTopBars &&
+  if ([viewController isKindOfClass:[UITableViewController class]] &&
       !viewController.navigationController.navigationBar.translucent) {
     return NO;
   }
