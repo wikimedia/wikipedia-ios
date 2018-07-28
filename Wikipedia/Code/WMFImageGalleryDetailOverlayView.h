@@ -4,6 +4,7 @@
 
 @interface WMFImageGalleryDetailOverlayView : UIView
 @property (nonatomic, copy) NSString *imageDescription;
+@property (nonatomic, assign) BOOL imageDescriptionIsRTL;
 @property (nonatomic, copy) dispatch_block_t ownerTapCallback;
 @property (nonatomic, copy) dispatch_block_t infoTapCallback;
 
