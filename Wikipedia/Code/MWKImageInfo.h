@@ -37,10 +37,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Value which can be used to associate the receiver with a @c MWKImage.
 @property (nullable, nonatomic, readonly, strong) id imageAssociationValue;
+NS_ASSUME_NONNULL_END
 
 /// Factory method for creating an instance from the output of @c exportData.
-+ (instancetype)imageInfoWithExportedData:(nullable NSDictionary *)exportedData;
++ (nullable instancetype)imageInfoWithExportedData:(nullable NSDictionary *)exportedData;
 
+NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCanonicalPageTitle:(nullable NSString *)canonicalPageTitle
                           canonicalFileURL:(nullable NSURL *)canonicalFileURL
                           imageDescription:(nullable NSString *)imageDescription
