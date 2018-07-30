@@ -328,6 +328,14 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
 }
 
+- (NSDictionary *)exploreFeedPreferences {
+    if (_exploreFeedPreferences) {
+        return _exploreFeedPreferences;
+    } else {
+        return [self defaultExploreFeedPreferences];
+    }
+}
+
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
     return [self.exploreFeedPreferences objectForKey:siteURL.wmf_articleDatabaseKey] != nil;
 }
