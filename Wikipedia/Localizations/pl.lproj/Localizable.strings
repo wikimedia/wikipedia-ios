@@ -90,7 +90,6 @@
 "article-share" = "Udostępnij";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
-"back" = "Wstecz";
 "back-button-accessibility-label" = "Wstecz";
 "button-done" = "Gotowe";
 "button-next" = "Następny";
@@ -125,7 +124,7 @@
 "explore-feed-preferences-feed-card-visibility-languages-count" = "W $1";
 "explore-feed-preferences-global-card-footer-text" = "Ta karta nie jest specyficzna dla języka, wyłączenie tej karty spowoduje jej usunięcie z kanału Eksploruj.";
 "explore-feed-preferences-global-cards-description" = "Karty niezwiązane z językiem";
-"explore-feed-preferences-global-cards-title" = "Globalne karty";
+"explore-feed-preferences-global-cards-title" = "Karty globalne";
 "explore-feed-preferences-hide-card-action-title" = "Ukryj tę kartę";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Ukryj wszystkie %@ karty";
 "explore-feed-preferences-in-the-news-description" = "Artykuły o bieżących wydarzeniach";

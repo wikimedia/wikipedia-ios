@@ -91,7 +91,6 @@
 "article-share" = "دوسروں کو بھیجیں";
 "article-unable-to-load-article" = "مضمون کو لوڈ نہیں کیا جا سکا۔";
 "article-unable-to-load-section" = "اس قطعے کو لوڈ نہیں کیا جا سکا۔ مضمون تازہ لوڈ کرکے دیکھیے کہ کیا اس مسئلے کا حل ممکن ہوچکا ہے۔";
-"back" = "واپس جائیں";
 "back-button-accessibility-label" = "واپس";
 "button-done" = "مکمل";
 "button-next" = "اگلا";
@@ -208,7 +207,7 @@
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";
 "info-box-close-text" = "بند کریں";
-"info-box-title" = "فوری حقائق";
+"info-box-title" = "اجمالی معلومات";
 "languages-settings-title" = "زبانیں";
 "languages-title" = "زبان تبدیل کریں";
 "languages-wikipedia" = "ویکیپیڈیا کی زبانیں";

@@ -85,7 +85,6 @@
 "article-read-more-title" = "قراءة المزيد";
 "article-unable-to-load-article" = "غير قادر على تحميل هذه المقالة.";
 "article-unable-to-load-section" = "تعذر تحميل هذه الفقرة. حاول تحديث عرض المقالة كي ترى إن أدى ذلك إلى التغلب على هذه المشكلة.";
-"back" = "رجوع";
 "back-button-accessibility-label" = "ارجع";
 "button-done" = "تم";
 "button-next" = "التالي";
@@ -124,6 +123,7 @@
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-featured-article-heading" = "مقالة مختارة";
 "explore-featured-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
+"explore-feed-preferences-card-hidden-title" = "البطاقة أخفيت";
 "explore-feed-preferences-featured-article-description" = "مقالة اليوم المختارة على ويكيبيديا";
 "explore-feed-preferences-global-cards-title" = "بطاقات عالمية";
 "explore-feed-preferences-hide-card-action-title" = "أخف هذه البطاقة";
@@ -335,6 +335,7 @@
 "settings-notifications-trending" = "الأحداث الجارية";
 "settings-primary-language" = "أساسي";
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
+"settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";

@@ -13,6 +13,7 @@
 // Author: Nemo bis
 // Author: Od1n
 // Author: Orikrin1998
+// Author: Orlodrim
 // Author: Oupsa
 // Author: Selhom
 // Author: Solucer
@@ -45,7 +46,7 @@
 "about-title" = "À propos";
 "about-translators" = "Traducteurs";
 "about-translators-details" = "Cette application a été traduite par des traducteurs bénévoles sur $1";
-"about-wikimedia-foundation" = "Fondation Wikimédia";
+"about-wikimedia-foundation" = "Fondation Wikimedia";
 "about-wikipedia" = "Wikipédia";
 "abuse-filter-disallow-heading" = "Vous ne pouvez pas publier cette modification. Veuillez revenir en arrière et la modifier.";
 "abuse-filter-disallow-notable" = "Wikipédia est une encyclopédie et seul du contenu neutre et de valeur y a sa place.";
@@ -113,7 +114,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
-"back" = "Retour";
 "back-button-accessibility-label" = "Retour";
 "back-button-popover-title" = "Cliquez pour revenir en arrière";
 "button-done" = "Terminé";
