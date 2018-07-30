@@ -145,11 +145,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"mainpage"] = @(self.isMain);
 
     [dict wmf_maybeSetObject:self.acceptLanguageRequestHeader forKey:@"acceptLanguageRequestHeader"];
-    
+
     CLLocationCoordinate2D coordinate = self.coordinate;
     if (CLLocationCoordinate2DIsValid(coordinate)) {
-        [dict wmf_maybeSetObject:@{ @"lat": @(coordinate.latitude),
-                                    @"lon": @(coordinate.longitude) }
+        [dict wmf_maybeSetObject:@{@"lat": @(coordinate.latitude),
+                                   @"lon": @(coordinate.longitude)}
                           forKey:@"coordinates"];
     }
 
@@ -235,7 +235,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         }
     }
     self.coordinate = coordinate;
-    
+
     self.media = dict[@"media"];
     [self importMediaJSON:self.media];
 }
@@ -254,7 +254,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     if ([items count] == 0) {
         return;
     }
-    
+
     NSMutableSet *allImageURLs = [NSMutableSet setWithCapacity:[items count]];
     NSMutableArray *galleryImageURLs = [NSMutableArray arrayWithCapacity:[items count]];
     NSMutableArray *imageURLsForSaving = [NSMutableArray arrayWithCapacity:[items count]];
@@ -265,35 +265,35 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         if (![item isKindOfClass:[NSDictionary class]]) {
             continue;
         }
-        
+
         NSString *type = [item wmf_stringForKey:@"type"];
         if (![type isEqualToString:@"image"]) {
             continue;
         }
-        
+
         NSDictionary *original = [item wmf_dictionaryForKey:@"original"];
         if (!original) {
             continue;
         }
-    
+
         NSString *source = [original wmf_stringForKey:@"source"];
         if (!source) {
             continue;
         }
-        
+
         if ([source hasPrefix:@"http:"]) {
             source = [source stringByReplacingCharactersInRange:NSMakeRange(0, 4) withString:@"https"];
         }
-        
+
         NSURL *imageURL = [NSURL URLWithString:source];
         if (!imageURL) {
             continue;
         }
-        
+
         [allImageURLs addObject:imageURL];
         NSNumber *width = [original wmf_numberForKey:@"width"];
         NSNumber *height = [original wmf_numberForKey:@"height"];
-    
+
         if ((!width && !height) || (width && height && [width unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.width && [height unsignedIntegerValue] > WMFImageTagMinimumSizeForGalleryInclusion.height)) {
             NSNumber *currentWidth = width;
             NSNumber *currentHeight = height;
@@ -330,27 +330,32 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             [imageDictionary setObject:[scaledImageURL absoluteString] forKey:@"sourceURL"];
             MWKImage *galleryImage = [[MWKImage alloc] initWithArticle:self dict:imageDictionary];
             [galleryImages addObject:galleryImage];
-            
+
             NSDictionary *titles = [item wmf_dictionaryForKey:@"titles"];
             NSString *canonicalTitle = [titles wmf_stringForKey:@"canonical"];
-            
+
             NSURL *filePageURL = [item wmf_URLFromStringForKey:@"file_page"];
-            
+
             NSDictionary *licenseDictionary = [item wmf_dictionaryForKey:@"license"];
             NSString *licenseType = [licenseDictionary wmf_stringForKey:@"type"];
             NSString *licenseCode = [licenseDictionary wmf_stringForKey:@"code"];
             NSURL *licenseURL = [licenseDictionary wmf_URLFromStringForKey:@"url"];
-            
+
             NSDictionary *artist = [item wmf_dictionaryForKey:@"artist"];
             NSString *artistText = [artist wmf_stringForKey:@"name"];
             NSString *artistHTML = [artist wmf_stringForKey:@"html"];
             NSString *owner = artistText ?: [artistHTML wmf_stringByRemovingHTML];
 
-            
             NSDictionary *descriptionDictionary = [item wmf_dictionaryForKey:@"description"];
             NSString *imageDescription = nil;
+            BOOL imageDescriptionIsRTL = NO;
             if (descriptionDictionary) {
                 imageDescription = [descriptionDictionary wmf_stringForKey:@"text"] ?: [[descriptionDictionary wmf_stringForKey:@"html"] wmf_stringByRemovingHTML];
+                // FIX: the media endpoint needs to be updated to return image description `lang` in same way the feed endpoint does for its image descriptions.
+                NSString *imageDescriptionLang = [descriptionDictionary wmf_stringForKey:@"lang"];
+                if (imageDescriptionLang) {
+                    imageDescriptionIsRTL = [[MWLanguageInfo rtlLanguages] containsObject:imageDescriptionLang];
+                }
             } else {
                 imageDescription = [[item wmf_stringForKey:@"description"] wmf_stringByRemovingHTML];
             }
@@ -358,7 +363,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             CGSize originalSize = CGSizeMake((CGFloat)[width doubleValue], (CGFloat)[height doubleValue]);
             CGSize currentSize = CGSizeMake((CGFloat)[currentWidth doubleValue], (CGFloat)[currentHeight doubleValue]);
             MWKLicense *license = [[MWKLicense alloc] initWithCode:licenseCode shortDescription:licenseType URL:licenseURL];
-            MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:imageDescription license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
+            MWKImageInfo *galleryImageInfo = [[MWKImageInfo alloc] initWithCanonicalPageTitle:canonicalTitle canonicalFileURL:imageURL imageDescription:imageDescription imageDescriptionIsRTL:imageDescriptionIsRTL license:license filePageURL:filePageURL imageThumbURL:scaledImageURL owner:owner imageSize:originalSize thumbSize:currentSize];
             [galleryImageInfos addObject:galleryImageInfo];
         } else {
             [imageURLsForSaving addObject:imageURL];

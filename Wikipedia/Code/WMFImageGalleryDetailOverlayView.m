@@ -81,6 +81,10 @@
     self.imageDescriptionLabel.text = imageDescription;
 }
 
+- (void)setImageDescriptionIsRTL:(BOOL)isRTL {
+    self.imageDescriptionLabel.textAlignment = isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
+}
+
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
     NSString *code = [license.code lowercaseString];
     if (code) {

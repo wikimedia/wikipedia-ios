@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Short description of the image contents (e.g. "John Smith posing for a picture").
 @property (nullable, nonatomic, readonly, copy) NSString *imageDescription;
 
+@property (nonatomic, assign, readonly) BOOL imageDescriptionIsRTL;
+
 @property (nullable, nonatomic, readonly, strong) MWKLicense *license;
 
 /// URL pointing to the corresponding file page for the receiver.
@@ -44,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCanonicalPageTitle:(nullable NSString *)canonicalPageTitle
                           canonicalFileURL:(nullable NSURL *)canonicalFileURL
                           imageDescription:(nullable NSString *)imageDescription
+                     imageDescriptionIsRTL:(BOOL)imageDescriptionIsRTL
                                    license:(nullable MWKLicense *)license
                                filePageURL:(nullable NSURL *)filePageURL
                              imageThumbURL:(nullable NSURL *)imageThumbURL
