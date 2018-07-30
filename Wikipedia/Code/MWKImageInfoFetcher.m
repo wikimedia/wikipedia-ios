@@ -7,7 +7,6 @@
 @import WMF.EXTScope;
 @import WMF.NSURL_WMFLinkParsing;
 @import WMF.Swift;
-@import WMF.SessionSingleton;
 #import "MWKImageInfoResponseSerializer.h"
 
 @interface MWKImageInfoFetcher ()
@@ -134,22 +133,22 @@
 
     @weakify(self);
 
-    NSURL *url = [SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated ? [NSURL wmf_mobileAPIURLForURL:siteURL] : [NSURL wmf_desktopAPIURLForURL:siteURL];
-    NSURLSessionDataTask *request = [self.manager
-                                     wmf_apiPOSTWithURLString:url.absoluteString parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-                                         @strongify(self);
-                                         [self finishWithError:nil fetchedData:galleryItems];
-                                         if (success) {
-                                             success(galleryItems);
-                                         }
-                                     }
-                                     failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                                         @strongify(self);
-                                         [self finishWithError:error fetchedData:nil];
-                                         if (failure) {
-                                             failure(error);
-                                         }
-                                     }];
+    NSURLSessionDataTask *request =
+    [self.manager
+     wmf_apiZeroSafePOSTWithURL:siteURL parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
+         @strongify(self);
+         [self finishWithError:nil fetchedData:galleryItems];
+         if (success) {
+             success(galleryItems);
+         }
+     }
+     failure:^(NSURLSessionDataTask *operation, NSError *error) {
+         @strongify(self);
+         [self finishWithError:error fetchedData:nil];
+         if (failure) {
+             failure(error);
+         }
+     }];
     
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;

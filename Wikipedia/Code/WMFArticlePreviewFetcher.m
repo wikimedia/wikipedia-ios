@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
     params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
-    [self.operationManager wmf_GETWithURL:siteURL
+    [self.operationManager wmf_zeroSafeGETWithURL:siteURL
         parameters:params
         success:^(NSURLSessionDataTask *operation, NSArray<MWKSearchResult *> *unsortedPreviews) {
             @strongify(self);

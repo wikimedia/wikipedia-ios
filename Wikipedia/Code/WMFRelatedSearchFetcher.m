@@ -4,7 +4,6 @@
 //AFNetworking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 @import Mantle;
 #import <WMF/WMFBaseRequestSerializer.h>
@@ -15,6 +14,8 @@
 
 #import <WMF/NSDictionary+WMFCommonParams.h>
 #import <WMF/WMFLogging.h>
+
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -69,7 +70,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     params.articleURL = URL;
     params.numberOfResults = resultLimit;
 
-    [self.operationManager wmf_GETWithURL:URL
+    [self.operationManager wmf_zeroSafeGETWithURL:URL
         parameters:params
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
