@@ -2,11 +2,12 @@
 @import WMF.WMFNetworkUtilities;
 @import WMF.AFHTTPSessionManager_WMFConfig;
 @import WMF.MWKArticle;
-@import WMF.AFHTTPSessionManager_WMFDesktopRetry;
 @import WMF.AFHTTPSessionManager_WMFCancelAll;
 @import WMF.UIScreen_WMFImageWidth;
 @import WMF.EXTScope;
 @import WMF.NSURL_WMFLinkParsing;
+@import WMF.Swift;
+@import WMF.SessionSingleton;
 #import "MWKImageInfoResponseSerializer.h"
 
 @interface MWKImageInfoFetcher ()
@@ -132,24 +133,24 @@
     }
 
     @weakify(self);
-    NSURLSessionDataTask *request =
-        [self.manager wmf_GETAndRetryWithURL:siteURL
-            parameters:params
-            retry:nil
-            success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-                @strongify(self);
-                [self finishWithError:nil fetchedData:galleryItems];
-                if (success) {
-                    success(galleryItems);
-                }
-            }
-            failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                @strongify(self);
-                [self finishWithError:error fetchedData:nil];
-                if (failure) {
-                    failure(error);
-                }
-            }];
+
+    NSURL *url = [SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated ? [NSURL wmf_mobileAPIURLForURL:siteURL] : [NSURL wmf_desktopAPIURLForURL:siteURL];
+    NSURLSessionDataTask *request = [self.manager
+                                     wmf_apiPOSTWithURLString:url.absoluteString parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
+                                         @strongify(self);
+                                         [self finishWithError:nil fetchedData:galleryItems];
+                                         if (success) {
+                                             success(galleryItems);
+                                         }
+                                     }
+                                     failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                                         @strongify(self);
+                                         [self finishWithError:error fetchedData:nil];
+                                         if (failure) {
+                                             failure(error);
+                                         }
+                                     }];
+    
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;
 }
