@@ -40,6 +40,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
         return [[MWKImageInfo alloc] initWithCanonicalPageTitle:info.canonicalPageTitle
                                                canonicalFileURL:info.canonicalFileURL
                                                imageDescription:potdDescription
+                                          imageDescriptionIsRTL:info.imageDescriptionIsRTL
                                                         license:info.license
                                                     filePageURL:info.filePageURL
                                                   imageThumbURL:info.imageThumbURL

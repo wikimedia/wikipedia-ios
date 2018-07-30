@@ -120,6 +120,7 @@
             @"prop": @"imageinfo",
             @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
             @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+            @"iiextmetadatamultilang": @1,
             @"iiurlwidth": thumbnailWidth } mutableCopy];
 
     if (useGenerator) {

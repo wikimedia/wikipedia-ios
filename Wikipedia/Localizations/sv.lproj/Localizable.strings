@@ -64,6 +64,7 @@
 "account-creation-title" = "Skapa ett nytt konto";
 "action-add-to" = "Lägg till i...";
 "action-add-to-reading-list" = "Lägg till i läslista";
+"action-add-to-reading-list-short" = "Lägg till i lista";
 "action-cancel" = "Avbryt";
 "action-move-to" = "Flytta till...";
 "action-move-to-reading-list" = "Flytta till läslista";
@@ -106,7 +107,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontroller för lästeman";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
-"back" = "Tillbaka";
 "back-button-accessibility-label" = "Tillbaka";
 "back-button-popover-title" = "Tryck för att gå tillbaka";
 "button-done" = "Färdig";
@@ -207,6 +207,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Aktivera utforska";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Detta kommer att ersätta inställningsfliken med utforskarfliken, du kan komma åt inställningarna längst upp i utforskarfliken genom att trycka på kugghjulsikonen";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Aktivera utforskarfliken?";
+"explore-feed-preferences-undo-customization" = "Ångra";
 "explore-hide-card-prompt" = "Dölj detta kort";
 "explore-main-page-description" = "Huvudsidan för Wikimedia-projekt";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -378,6 +379,7 @@
 "places-filter-top-articles" = "Populära läsningar";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artiklar}}";
 "places-filter-top-read-articles" = "Mest lästa artiklar";
+"places-location-enabled" = "Plats aktiverad";
 "places-no-saved-articles-have-location" = "Ingen av dina sparade artiklar har platsinformation";
 "places-search-articles-that-match" = "$1 matchar “$2”";
 "places-search-default-text" = "Sök platser";
