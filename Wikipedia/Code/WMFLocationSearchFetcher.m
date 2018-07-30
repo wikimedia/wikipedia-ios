@@ -1,6 +1,6 @@
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/WMFLocalization.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>

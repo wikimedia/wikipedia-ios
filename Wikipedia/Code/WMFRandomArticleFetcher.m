@@ -1,7 +1,7 @@
 #import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>

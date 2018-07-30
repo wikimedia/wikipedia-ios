@@ -1,6 +1,6 @@
 #import <AFNetworking/AFNetworking.h>
 
-@interface AFHTTPSessionManager (WMFDesktopRetry)
+@interface AFHTTPSessionManager (WMFGet)
 
 /**
  *  Sends a @c GET request to the mobile endpoint (see -[NSURL wmf_mobileAPIURL])

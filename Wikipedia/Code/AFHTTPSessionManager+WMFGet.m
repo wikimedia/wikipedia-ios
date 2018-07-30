@@ -1,9 +1,8 @@
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
-#import <WMF/NSError+WMFExtensions.h>
+#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/SessionSingleton.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 
-@implementation AFHTTPSessionManager (WMFDesktopRetry)
+@implementation AFHTTPSessionManager (WMFGet)
 
 - (NSURLSessionDataTask *)wmf_GETWithURL:(NSURL *)URL
                               parameters:(id)parameters

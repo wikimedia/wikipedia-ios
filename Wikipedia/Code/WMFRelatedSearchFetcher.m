@@ -4,7 +4,7 @@
 //AFNetworking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 @import Mantle;
 #import <WMF/WMFBaseRequestSerializer.h>

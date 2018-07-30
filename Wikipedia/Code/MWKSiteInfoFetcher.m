@@ -1,6 +1,6 @@
 #import <WMF/MWKSiteInfoFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
+#import <WMF/AFHTTPSessionManager+WMFGet.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFNetworkUtilities.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
