@@ -58,25 +58,4 @@
                                     failure:failure];
 }
 
-- (NSURLSessionDataTask *)wmf_POSTWithMobileURLString:(NSString *)mobileURLString
-                                     desktopURLString:(NSString *)desktopURLString
-                                           parameters:(id)parameters
-                                                retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
-                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
-                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
-    return [self POST:mobileURLString
-        parameters:parameters
-        progress:NULL
-        success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-            if (success) {
-                success(operation, responseObject);
-            }
-        }
-        failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-            if (failure) {
-                failure(operation, error);
-            }
-        }];
-}
-
 @end
