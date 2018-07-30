@@ -101,7 +101,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param password The password for the user
      *  @param retypePassword The password used for confirming password changes. Optional.
      *  @param oathToken Two factor password required if user's account has 2FA enabled. Optional.
-     *  @param success  The handler for success - at this point the user is logged in
+     *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
     @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
@@ -124,7 +124,7 @@ public class WMFAuthenticationManager: NSObject {
      *  Logs in a user using saved credentials in the keychain
      *
      *  @param success  The handler for success - at this point the user is logged in
-     *  @param userWasAlreadyLoggedIn     The handler called if a user was found to already be logged in
+     *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
     @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
