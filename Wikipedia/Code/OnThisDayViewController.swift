@@ -18,7 +18,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         self.isDateVisibleInTitle = false
         super.init()
         self.theme = theme
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target:nil, action:nil)
+        title = CommonStrings.onThisDayTitle
     }
     
     var isDateVisibleInTitle: Bool {

@@ -8,6 +8,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, copy) NSString *imageDescription;
 
+@property (nonatomic, assign, readonly) BOOL imageDescriptionIsRTL;
+
 @property (nonatomic, readonly, copy) NSURL *imageThumbURL;
 
 @property (nonatomic, readonly, copy) NSURL *imageURL;

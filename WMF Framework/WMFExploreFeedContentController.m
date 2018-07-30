@@ -69,7 +69,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
-    self.exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:dataStore.viewContext];
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
 }
 
@@ -448,7 +447,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:NO apply:YES updateFeed:YES completion:completion];
 }
 
--(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed {
+-(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSString *key = siteURL.wmf_articleDatabaseKey;
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];

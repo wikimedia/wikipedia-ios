@@ -165,7 +165,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
         assert(preferredLanguages.count > 0)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
@@ -323,7 +322,7 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("No language for given control tag")
                 return
             }
-            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: true)
         }
     }
 }

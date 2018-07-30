@@ -270,7 +270,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        if scrollView.wmf_setContentInsetPreservingTopAndBottomOffset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, withNavigationBar: navigationBar) {
+        if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled) {
             scrollViewInsetsDidChange()
         }
     }

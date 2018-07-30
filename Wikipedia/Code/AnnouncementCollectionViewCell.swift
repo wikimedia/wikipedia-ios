@@ -144,7 +144,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
         let buttonMinimumWidth = min(250, widthMinusMargins)

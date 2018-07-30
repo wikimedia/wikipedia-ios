@@ -1662,6 +1662,11 @@
 		D8533EDC1ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8533ED41ECF581600E44F86 /* NewsCollectionViewHeader.xib */; };
 		D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B018CA1EBCDD9000BE7F21 /* UIView+Shadow.swift */; };
 		D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */; };
+		D858C7B6210B91CD0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
+		D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
+		D858C7B8210B91CE0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
+		D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
+		D858C7BA210B91CE0039E0C9 /* PassthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */; };
 		D85BD2461F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D85BD2471F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */; };
 		D85CEFD61DDE2C000084A4E8 /* WMFArticlePreview.h in Headers */ = {isa = PBXBuildFile; fileRef = D85CEFD41DDE2C000084A4E8 /* WMFArticlePreview.h */; };
@@ -4376,6 +4381,7 @@
 		D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewHeader.swift; sourceTree = "<group>"; };
 		D8533ED41ECF581600E44F86 /* NewsCollectionViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewHeader.xib; sourceTree = "<group>"; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
+		D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
 		D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+WMFKeyValue.h"; sourceTree = "<group>"; };
 		D85BD2451F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+WMFKeyValue.m"; sourceTree = "<group>"; };
 		D85C145A1F388582002186A5 /* kab */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kab; path = kab.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -7462,6 +7468,7 @@
 				83E52BBE1F682E3E0045E776 /* LicenseView.swift */,
 				BA7683C41F30D86A00A487AA /* ProminentSwitch.swift */,
 				7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */,
+				D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */,
 				D82E951A1F101D7D007BD960 /* Extensions */,
 				D83F5C061F0E511C006130FF /* Collection View Cells */,
 				D83F5C0B1F0E51E4006130FF /* Accessory Views */,
@@ -10082,6 +10089,7 @@
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
+				D858C7B6210B91CD0039E0C9 /* PassthroughView.swift in Sources */,
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
@@ -10167,6 +10175,7 @@
 				D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */,
 				D80ED27A1EE57F4800CE8C50 /* PlacesViewController.swift in Sources */,
 				B0CD9DF31F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				D858C7BA210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				B0C7A07C1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D80ED27C1EE57F4800CE8C50 /* WMFAuthButton.swift in Sources */,
 				D80ED27D1EE57F4800CE8C50 /* WMFReferencePanelViewController.swift in Sources */,
@@ -11049,6 +11058,7 @@
 				D8A42B5A1E815A9C00D8E281 /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
+				D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
@@ -11134,6 +11144,7 @@
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
+				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */,
 				B0C7A07D1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
@@ -11688,6 +11699,7 @@
 				D8EC3ED51E9BDA35006712EB /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */,
 				B031032F1F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
+				D858C7B8210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				7A6ED51420ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
