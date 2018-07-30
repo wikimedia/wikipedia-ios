@@ -141,6 +141,8 @@
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
 
+    self.button.titleLabel.font = [UIFont wmf_fontForDynamicTextStyle:[WMFDynamicTextStyle body] compatibleWithTraitCollection:self.traitCollection];
+
     if (![self.imageView superview]) {
         return;
     }
