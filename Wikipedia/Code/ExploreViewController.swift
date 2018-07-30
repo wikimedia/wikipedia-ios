@@ -3,8 +3,6 @@ import WMF
 
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
 
-    private var wantsDeleteInsertOnNextItemUpdate: Bool = false
-    
     // MARK - UIViewController
     
     override func viewDidLoad() {
@@ -29,12 +27,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    public var wantsCustomSearchTransition: Bool {
-        return true
-    }
     
-    private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
-    private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -42,6 +35,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         showOfflineEmptyViewIfNeeded()
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
+    }
+    
+    override func viewWillHaveFirstAppearance(_ animated: Bool) {
+        super.viewWillHaveFirstAppearance(animated)
+        setupFetchedResultsController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,6 +135,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK - Search
+
+    public var wantsCustomSearchTransition: Bool {
+        return true
+    }
     
     lazy var searchBarContainerView: UIView = {
         let searchContainerView = UIView()
@@ -175,17 +177,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // MARK - State
     
-    @objc var dataStore: MWKDataStore! {
-        didSet {
-            let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
-            collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-            collectionViewUpdater.delegate = self
-            collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
-            collectionViewUpdater.performFetch()
-        }
+    @objc var dataStore: MWKDataStore!
+    private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
+    private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
+    
+    private var wantsDeleteInsertOnNextItemUpdate: Bool = false
+
+    private func setupFetchedResultsController() {
+        let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater.delegate = self
+        collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
+        collectionViewUpdater.performFetch()
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
