@@ -101,7 +101,7 @@
     return view;
 }
 
-+ (instancetype)noReadingListsEmptyView {
++ (instancetype)noReadingListsEmptyViewWithTarget:(nullable id)target action:(nonnull SEL)action {
     WMFEmptyView *view = [[self class] emptyView];
     view.imageView.image = [UIImage imageNamed:@"reading-lists-empty-state"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-reading-lists-title", nil, nil, @"Organize saved articles with reading lists", @"Title of a blank screen shown when a user has no reading lists");
@@ -109,7 +109,7 @@
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
-    [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"]];
+    [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"] target:target action:action];
     return view;
 }
 
@@ -125,7 +125,7 @@
     return view;
 }
 
-- (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image {
+- (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image target:(nullable id)target action:(nonnull SEL)action {
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];
     [self.button setHorizontalSpacing:7];
@@ -135,6 +135,7 @@
     self.button.rightPadding = padding;
     self.button.layer.cornerRadius = 5;
     self.button.clipsToBounds = YES;
+    [self.button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
