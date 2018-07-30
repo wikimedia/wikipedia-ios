@@ -129,9 +129,10 @@
     [self.button setTitle:title forState:UIControlStateNormal];
     [self.button setImage:image forState:UIControlStateNormal];
     [self.button setHorizontalSpacing:7];
-    [self.button setVerticalPadding:13];
-    self.button.leftPadding = 13;
-    self.button.rightPadding = 13;
+    CGFloat padding = 13;
+    [self.button setVerticalPadding:padding];
+    self.button.leftPadding = padding;
+    self.button.rightPadding = padding;
     self.button.layer.cornerRadius = 5;
     self.button.clipsToBounds = YES;
 }
