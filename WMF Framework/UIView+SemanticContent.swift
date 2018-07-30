@@ -113,9 +113,6 @@ extension UIView {
 
 extension UIButton {
     public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
-        guard let buttonTitleLabel = titleLabel else {
-            return sizeThatFits(maximumSize)
-        }
         var buttonAdjustedSize = maximumSize
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
@@ -136,7 +133,8 @@ extension UIButton {
             buttonAdjustedSize.height = buttonAdjustedSize.height - heightAdjustment
         }
         
-        let buttonLabelSize = buttonTitleLabel.sizeThatFits(buttonAdjustedSize)
+        let buttonLabelSize = titleLabel?.sizeThatFits(buttonAdjustedSize) ?? .zero
+        
         return CGSize(width: buttonLabelSize.width + widthAdjustment, height: buttonLabelSize.height + heightAdjustment)
     }
 }
