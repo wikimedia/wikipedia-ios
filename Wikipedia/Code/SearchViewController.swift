@@ -122,7 +122,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard searchTerm == self.searchBar.text else {
                     return
                 }
-                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start))
             }
@@ -136,7 +136,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                     let resultsArray = results.results,
                     resultsArray.count > 0
                 else {
-                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
                     return
                 }
                 self.resultsViewController.wmf_hideEmptyView()

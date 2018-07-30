@@ -53,10 +53,7 @@ class SavedViewController: ViewController {
             case .search:
                 navigationBar.addExtendedNavigationBarView(searchView)
             case .createNewReadingList:
-                if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
-                    navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
-                    createNewReadingListButtonView.apply(theme: theme)
-                }
+                fallthrough
             default:
                 break
             }
