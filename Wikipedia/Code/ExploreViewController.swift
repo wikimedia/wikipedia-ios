@@ -44,14 +44,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionViewUpdater.isGranularUpdatingEnabled = true
+        collectionViewUpdater?.isGranularUpdatingEnabled = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
-        collectionViewUpdater.isGranularUpdatingEnabled = false
+        collectionViewUpdater?.isGranularUpdatingEnabled = false
     }
     
     // MARK - NavBar
@@ -111,7 +111,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        let lastGroup = fetchedResultsController.object(at: IndexPath(item: lastItemIndex, section: lastSectionIndex))
+        guard let lastGroup = fetchedResultsController?.object(at: IndexPath(item: lastItemIndex, section: lastSectionIndex)) else {
+            return
+        }
         let now = Date()
         let midnightUTC: Date = (now as NSDate).wmf_midnightUTCDateFromLocal
         guard let lastGroupMidnightUTC = lastGroup.midnightUTCDate else {
@@ -178,8 +180,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - State
     
     @objc var dataStore: MWKDataStore!
-    private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>!
-    private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>!
+    private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>?
+    private var collectionViewUpdater: CollectionViewUpdater<WMFContentGroup>?
     
     private var wantsDeleteInsertOnNextItemUpdate: Bool = false
 
@@ -187,11 +189,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let fetchRequest: NSFetchRequest<WMFContentGroup> = WMFContentGroup.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "isVisible == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "midnightUTCDate", ascending: false), NSSortDescriptor(key: "dailySortPriority", ascending: true), NSSortDescriptor(key: "date", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater.delegate = self
-        collectionViewUpdater.isSlidingNewContentInFromTheTopEnabled = true
-        collectionViewUpdater.performFetch()
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: "midnightUTCDate", cacheName: nil)
+        fetchedResultsController = frc
+        let updater = CollectionViewUpdater(fetchedResultsController: frc, collectionView: collectionView)
+        collectionViewUpdater = updater
+        updater.delegate = self
+        updater.isSlidingNewContentInFromTheTopEnabled = true
+        updater.performFetch()
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
@@ -205,14 +209,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }()
     
     var numberOfSectionsInExploreFeed: Int {
-        guard let sections = fetchedResultsController.sections else {
+        guard let sections = fetchedResultsController?.sections else {
             return 0
         }
         return sections.count
     }
     
     func numberOfItemsInSection(_ section: Int) -> Int {
-        guard let sections = fetchedResultsController.sections, sections.count > section else {
+        guard let sections = fetchedResultsController?.sections, sections.count > section else {
             return 0
         }
         return sections[section].numberOfObjects
@@ -365,7 +369,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let group = fetchedResultsController.object(at: indexPath)
+        guard let group = fetchedResultsController?.object(at: indexPath) else {
+            return false
+        }
         return group.isSelectable
     }
     
@@ -382,7 +388,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 imageScaleTransitionView = nil
             }
         }
-        let group = fetchedResultsController.object(at: indexPath)
+        guard let group = fetchedResultsController?.object(at: indexPath) else {
+            return
+        }
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             wmf_push(vc, animated: true)
             return
@@ -402,7 +410,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
             return
         }
-        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: sectionIndex))
+        guard let group = fetchedResultsController?.object(at: IndexPath(item: 0, section: sectionIndex)) else {
+            return
+        }
         header.title = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
         header.apply(theme: theme)
     }
@@ -420,7 +430,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
-        let group = fetchedResultsController.object(at: indexPath)
+        guard let group = fetchedResultsController?.object(at: indexPath) else {
+            return
+        }
         cardVC.contentGroup = group
         cell.title = group.headerTitle
         cell.subtitle = group.headerSubTitle
@@ -460,7 +472,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
     private func cacheUserInfoForItem(at indexPath: IndexPath) -> String {
-        let group = fetchedResultsController.object(at: indexPath)
+        guard let group = fetchedResultsController?.object(at: indexPath) else {
+            return ""
+        }
         return "evc-cell-\(group.key ?? "")"
     }
     
@@ -482,8 +496,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let group = fetchedResultsController.object(at: IndexPath(item: 0, section: section))
-        guard let date = group.midnightUTCDate, date < Date() else {
+        let group = fetchedResultsController?.object(at: IndexPath(item: 0, section: section))
+        guard let date = group?.midnightUTCDate, date < Date() else {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
@@ -533,7 +547,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - Prefetching
     
     override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
-        let contentGroup = fetchedResultsController.object(at: indexPath)
+        guard let contentGroup = fetchedResultsController?.object(at: indexPath) else {
+            return nil
+        }
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
     
@@ -656,7 +672,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         let identifier = ExploreCardCollectionViewCell.identifier
         DispatchQueue.main.async {
             for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
-                guard self.fetchedResultsController.isValidIndexPath(indexPath) else {
+                guard self.fetchedResultsController?.isValidIndexPath(indexPath) ?? false else {
                     continue
                 }
                 let userInfo = self.cacheUserInfoForItem(at: indexPath)
@@ -722,7 +738,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         group.undoType = .none
         wantsDeleteInsertOnNextItemUpdate = true
-        if let indexPath = fetchedResultsController.indexPath(forObject: group) {
+        if let indexPath = fetchedResultsController?.indexPath(forObject: group) {
             indexPathsForCollapsedCellsThatCanReappear.remove(indexPath)
         }
         save()
