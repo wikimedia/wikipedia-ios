@@ -36,7 +36,7 @@
                                      endingWithRevision:(NSUInteger)revisionId
                                                 failure:(WMFErrorHandler)failure
                                                 success:(WMFSuccessIdHandler)success {
-    return [self.requestManager wmf_GETAndRetryWithURL:articleURL
+    return [self.requestManager wmf_GETWithURL:articleURL
         parameters:@{
             @"format": @"json",
             @"continue": @"",

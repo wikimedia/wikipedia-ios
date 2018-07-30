@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFMWKSearchResultHandler)success {
     NSDictionary *params = [[self class] params];
 
-    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+    [self.operationManager wmf_GETWithURL:siteURL
         parameters:params
         success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

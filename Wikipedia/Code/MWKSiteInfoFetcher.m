@@ -39,7 +39,7 @@
         @"siprop": @"general"
     };
 
-    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+    [self.operationManager wmf_GETWithURL:siteURL
         parameters:params
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
