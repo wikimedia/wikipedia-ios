@@ -385,6 +385,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
 
+    caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
+    
     caption.imageDescription =
         [imageInfo.imageDescription stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];

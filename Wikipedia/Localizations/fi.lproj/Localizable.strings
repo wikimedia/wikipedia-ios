@@ -8,6 +8,7 @@
 // Author: McSalama
 // Author: Nemo bis
 // Author: Nike
+// Author: OneMember
 // Author: Pahkiqaz
 // Author: Pyscowicz
 // Author: SMAUG
@@ -107,7 +108,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
-"back" = "Takaisin";
 "back-button-accessibility-label" = "Takaisin";
 "button-done" = "Valmis";
 "button-next" = "Seuraava";
@@ -197,6 +197,7 @@
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Poista Tutki-syöte käytöstä";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Poistetaanko Tutki-syöte käytöstä?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
+"explore-feed-preferences-undo-customization" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
 "explore-main-page-heading" = "Tänään Wikipediassa";
@@ -207,11 +208,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Wikipediassa";
 "explore-nearby-heading" = "Lähistön paikat";
 "explore-nearby-placeholder-heading" = "Paikat";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipediassa";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipediassa";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Wikipediasta";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Wikipediasta";
 "explore-nearby-sub-heading-your-location" = "Sijaintisi";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Sijaintisi $1 Wikipediasta";
 "explore-potd-heading" = "Päivän kuva";
 "explore-potd-sub-heading" = "Wikimedia Commonsista";
 "explore-random-article-heading" = "Satunnainen artikkeli";
@@ -333,6 +333,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-footer-with-event-count" = "$1 lisää historiallista tapahtumaa tänä päivänä";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediasta";
 "on-this-day-title" = "Tänä päivänä";
 "open-link-cancel" = "Peruuta";
 "page-edit-history" = "Täysi muokkaushistoria";
@@ -367,6 +368,7 @@
 "places-filter-top-articles" = "Luetuimmat";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikkeli|$1 artikkelia}}";
 "places-filter-top-read-articles" = "Luetuimmat artikkelit";
+"places-location-enabled" = "Sijanti käytössä";
 "places-no-saved-articles-have-location" = "Yksikään tallentamistasi artikkeleista ei sisällä sijaintitietoja";
 "places-search-articles-that-match" = "$1 vastaa “$2”";
 "places-search-default-text" = "Hae paikkoja";

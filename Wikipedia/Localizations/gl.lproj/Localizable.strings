@@ -58,6 +58,7 @@
 "account-creation-title" = "Crear unha nova conta";
 "action-add-to" = "Engadir a...";
 "action-add-to-reading-list" = "Engadir á lista de lectura";
+"action-add-to-reading-list-short" = "Engadir á lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover a...";
 "action-move-to-reading-list" = "Mover á lista de lectura";
@@ -102,7 +103,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controis dos temas de lectura";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
-"back" = "Volver";
 "back-button-accessibility-label" = "Volver";
 "button-done" = "Feito";
 "button-next" = "Seguinte";
@@ -164,6 +164,7 @@
 "explore-feed-preferences-places-description" = "Artigos da Wikipedia preto da súa localización";
 "explore-feed-preferences-randomizer-description" = "Xerar artigos aleatorios para ler";
 "explore-feed-preferences-related-pages-description" = "Suxestións baseadas no historial de lectura";
+"explore-feed-preferences-undo-customization" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -326,6 +327,7 @@
 "places-enable-location-description" = "O acceso á súa localización só está dispoñible cando a aplicación ou unha das súas características está visible na súa pantalla.";
 "places-enable-location-title" = "Explore artigos preto da súa localización activando Acceder á localización";
 "places-filter-articles-action-sheet-title" = "Filtrar artigos";
+"places-filter-button-title" = "Filtrar";
 "places-filter-no-saved-places" = "Non tes lugares gardados";
 "places-filter-saved-articles" = "Artigos gardados";
 "places-filter-top-articles" = "Os artigos máis lidos";

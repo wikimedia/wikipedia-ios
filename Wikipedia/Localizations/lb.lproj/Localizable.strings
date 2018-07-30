@@ -47,6 +47,7 @@
 "account-creation-title" = "En neie Benotzerkont uleeën";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
+"action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
 "action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
@@ -75,7 +76,6 @@
 "article-share" = "Deelen";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
-"back" = "Zréck";
 "back-button-accessibility-label" = "Zréck";
 "button-done" = "Fäerdeg";
 "button-next" = "Weider";
@@ -291,6 +291,7 @@
 "places-filter-saved-articles" = "Gespäichert Artikelen";
 "places-filter-top-articles" = "Am dackste gelies";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
+"places-filter-top-read-articles" = "Am dackste geliest Artikelen";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
 "places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
