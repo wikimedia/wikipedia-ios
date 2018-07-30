@@ -150,19 +150,17 @@ static NSMutableDictionary *globalDesignDictionary;
  */
 + (BOOL)viewControllerEdgesExtendUnderTopBars:(UIViewController *)viewController
 {
-  BOOL vcAskedToExtendUnderTopBars = NO;
-
   if (viewController.edgesForExtendedLayout == UIRectEdgeTop ||
       viewController.edgesForExtendedLayout == UIRectEdgeAll) {
-    vcAskedToExtendUnderTopBars = YES;
+    /* viewController is asking to extend under top bars */
   } else {
-    vcAskedToExtendUnderTopBars = NO;
+    /* viewController isn't asking to extend under top bars */
     return NO;
   }
 
   /* When a table view controller asks to extend under top bars, if the navigation bar is
    translucent iOS will not extend the edges of the table view controller under the top bars. */
-  if ([viewController isKindOfClass:[UITableViewController class]] && vcAskedToExtendUnderTopBars &&
+  if ([viewController isKindOfClass:[UITableViewController class]] &&
       !viewController.navigationController.navigationBar.translucent) {
     return NO;
   }
@@ -325,25 +323,20 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)updateCurrentIconIfNeeded
 {
-  UIImage *image = nil;
   switch (self.messageType) {
   case RMessageTypeNormal: {
-    image = _messageIcon;
     self.iconImageView.image = _messageIcon;
     break;
   }
   case RMessageTypeError: {
-    image = _errorIcon;
     self.iconImageView.image = _errorIcon;
     break;
   }
   case RMessageTypeSuccess: {
-    image = _successIcon;
     self.iconImageView.image = _successIcon;
     break;
   }
   case RMessageTypeWarning: {
-    image = _warningIcon;
     self.iconImageView.image = _warningIcon;
     break;
   }
