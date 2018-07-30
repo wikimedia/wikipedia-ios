@@ -38,7 +38,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
             view = [WMFEmptyView noHistoryEmptyView];
             break;
         case WMFEmptyViewTypeNoReadingLists:
-            view = [WMFEmptyView noReadingListsEmptyView];
+            view = [WMFEmptyView noReadingListsEmptyViewWithTarget:self action:action];
             break;
         default:
             return;

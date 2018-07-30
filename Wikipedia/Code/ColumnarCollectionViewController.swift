@@ -151,10 +151,12 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
         return frame
     }
+
+    open var emptyViewAction: Selector?
     
     open func isEmptyDidChange() {
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
+            wmf_showEmptyView(of: emptyViewType, action: emptyViewAction, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
