@@ -70,7 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self.operationManager wmf_GETAndRetryWithURL:siteURL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, NSArray<MWKSearchResult *> *unsortedPreviews) {
             @strongify(self);
             if (!self) {

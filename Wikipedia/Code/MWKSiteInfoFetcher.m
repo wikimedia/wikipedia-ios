@@ -41,7 +41,6 @@
 
     [self.operationManager wmf_GETAndRetryWithURL:siteURL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];

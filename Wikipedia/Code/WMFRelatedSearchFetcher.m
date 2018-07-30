@@ -71,7 +71,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
     [self.operationManager wmf_GETAndRetryWithURL:URL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             if (completion) {

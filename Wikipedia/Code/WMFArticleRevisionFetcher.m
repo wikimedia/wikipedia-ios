@@ -50,9 +50,6 @@
             @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
             //@"pilicense": @"any"
         }
-        retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
-
-        }
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             success([responseObject firstObject]);
         }

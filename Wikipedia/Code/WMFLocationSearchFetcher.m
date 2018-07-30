@@ -123,7 +123,6 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
     [[MWNetworkActivityIndicatorManager sharedManager] push];
     return [self.operationManager wmf_GETAndRetryWithURL:url
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
 
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

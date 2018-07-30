@@ -41,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.operationManager wmf_GETAndRetryWithURL:siteURL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
