@@ -11,6 +11,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *messageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *actionLabel;
 @property (strong, nonatomic) IBOutlet UIView *actionLine;
+@property (strong, nonatomic) IBOutlet WMFAlignedImageButton *button;
 @property (strong, nonatomic) CAShapeLayer *actionLineLayer;
 @property (nonatomic, strong) WMFTheme *theme;
 
@@ -38,6 +39,7 @@
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -47,7 +49,7 @@
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-title", nil, nil, @"No Internet Connection", @"Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available");
     view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-message", nil, nil, @"You can see your recommended articles when you have internet", @"Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored");
     view.actionLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-feed-action-message", nil, nil, @"You can still read saved pages", @"Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline");
-
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -59,6 +61,7 @@
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -70,6 +73,7 @@
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -81,6 +85,7 @@
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -92,6 +97,7 @@
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
 }
 
@@ -103,6 +109,7 @@
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view configureButtonWithTitle:[WMFCommonStrings createNewListTitle] image:[UIImage imageNamed:@"plus"]];
     return view;
 }
 
@@ -114,7 +121,19 @@
 
     [view.actionLabel removeFromSuperview];
     [view.actionLine removeFromSuperview];
+    [view.button removeFromSuperview];
     return view;
+}
+
+- (void)configureButtonWithTitle:(NSString *)title image:(UIImage *)image {
+    [self.button setTitle:title forState:UIControlStateNormal];
+    [self.button setImage:image forState:UIControlStateNormal];
+    [self.button setHorizontalSpacing:7];
+    [self.button setVerticalPadding:13];
+    self.button.leftPadding = 13;
+    self.button.rightPadding = 13;
+    self.button.layer.cornerRadius = 5;
+    self.button.clipsToBounds = YES;
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -160,6 +179,8 @@
     self.titleLabel.textColor = theme.colors.primaryText;
     self.messageLabel.textColor = theme.colors.secondaryText;
     self.actionLabel.textColor = theme.colors.secondaryText;
+    self.button.tintColor = theme.colors.link;
+    self.button.backgroundColor = theme.colors.cardButtonBackground;
     self.backgroundColor = theme.colors.paperBackground;
     [self setNeedsLayout];
 }
