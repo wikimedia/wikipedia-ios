@@ -72,6 +72,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
 }
 
+- (NSDictionary *)exploreFeedPreferences {
+    if (!_exploreFeedPreferences) {
+        _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
+    }
+    return _exploreFeedPreferences;
+}
+
 #pragma mark - Content Sources
 
 - (WMFFeedContentSource *)feedContentSource {
