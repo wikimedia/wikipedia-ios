@@ -11,7 +11,7 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
     return objc_getAssociatedObject(self, WMFEmptyViewKey);
 }
 
-- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type theme:(WMFTheme *)theme frame:(CGRect)frame {
+- (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type action:(nullable SEL)action theme:(WMFTheme *)theme frame:(CGRect)frame {
     [self wmf_hideEmptyView];
 
     WMFEmptyView *view = nil;
