@@ -40,26 +40,16 @@ class SavedViewController: ViewController {
 
     public weak var savedDelegate: SavedViewControllerDelegate?
 
-    private enum ExtendedNavBarViewType {
-        case none
-        case search
-        case createNewReadingList
-    }
-
-    private var extendedNavBarViewType: ExtendedNavBarViewType = .none {
+    private var isSearchBarHidden: Bool = false {
         didSet {
-            navigationBar.removeExtendedNavigationBarView()
-            switch extendedNavBarViewType {
-            case .search:
+            if isSearchBarHidden {
+                navigationBar.removeExtendedNavigationBarView()
+            } else {
                 navigationBar.addExtendedNavigationBarView(searchView)
-            case .createNewReadingList:
-                fallthrough
-            default:
-                break
             }
         }
     }
-    
+
     // MARK: - Initalization and setup
     
     @objc public var dataStore: MWKDataStore? {
@@ -88,9 +78,7 @@ class SavedViewController: ViewController {
         sender.isSelected = true
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
-    
-    private var activeEditableCollection: EditableCollection?
-    
+
     private var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
@@ -102,26 +90,20 @@ class SavedViewController: ViewController {
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
                 scrollView = savedArticlesViewController.collectionView
-                activeEditableCollection = savedArticlesViewController
-                extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
+                isSearchBarHidden = isSavedArticlesEmpty
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
                 scrollView = readingListsViewController?.collectionView
-                extendedNavBarViewType = .createNewReadingList
-                activeEditableCollection = readingListsViewController
-                extendedNavBarViewType = .createNewReadingList
+                isSearchBarHidden = true
             }
         }
     }
-    
-    private var isCurrentViewEmpty: Bool {
-        guard let activeEditableCollection = activeEditableCollection else {
-            return true
-        }
-        return activeEditableCollection.editController.isCollectionViewEmpty
+
+    private var isSavedArticlesEmpty: Bool {
+        return savedArticlesViewController.editController.isCollectionViewEmpty
     }
     
     private func addChild(_ vc: UIViewController?) {
@@ -273,11 +255,10 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        guard empty else {
-            extendedNavBarViewType = currentView == .savedArticles ? .search : .createNewReadingList
+        guard currentView != .readingLists else {
             return
         }
-        extendedNavBarViewType = currentView == .savedArticles ? .none : .createNewReadingList
+        isSearchBarHidden = empty
     }
 }
 
