@@ -8,7 +8,6 @@
 - (NSURLSessionDataTask *)wmf_GETWithMobileURLString:(NSString *)mobileURLString
                                     desktopURLString:(NSString *)desktopURLString
                                           parameters:(id)parameters
-                                               retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
     // If Zero rated try mobile domain first if Zero rated, with desktop fallback.
@@ -47,13 +46,11 @@
 
 - (NSURLSessionDataTask *)wmf_GETAndRetryWithURL:(NSURL *)URL
                                       parameters:(id)parameters
-                                           retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
                                          success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
                                          failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
     return [self wmf_GETWithMobileURLString:[NSURL wmf_mobileAPIURLForURL:URL].absoluteString
                            desktopURLString:[NSURL wmf_desktopAPIURLForURL:URL].absoluteString
                                  parameters:parameters
-                                      retry:retry
                                     success:success
                                     failure:failure];
 }
