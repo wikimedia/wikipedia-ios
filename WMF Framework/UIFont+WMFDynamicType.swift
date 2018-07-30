@@ -82,15 +82,14 @@ public extension UIFont {
         guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
-                
-        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
-
-        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
+        
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
         if let font = fontCache[cacheKey] {
             return font
         }
         
-        
+        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
+
         var font: UIFont
         switch fontFamily {
         case .georgia:
