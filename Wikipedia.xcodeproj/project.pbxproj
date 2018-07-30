@@ -1452,8 +1452,6 @@
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
 		D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */; };
-		D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFGet.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D83FA6B01D74CD4A008CAB00 /* AFHTTPSessionManager+WMFGet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.m */; };
 		D83FA6B11D74CDAF008CAB00 /* AFHTTPSessionManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806761C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.m */; };
 		D83FA6B21D74CDB2008CAB00 /* AFHTTPSessionManager+WMFConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806751C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83FA6B31D74CDB5008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3576,8 +3574,6 @@
 		B0E804401C0CDF850065EBC0 /* WMFPageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageCollectionViewController.m; path = Wikipedia/Code/WMFPageCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E8044D1C0CDFDA0065EBC0 /* WMFURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFURLCache.h; path = Wikipedia/Code/WMFURLCache.h; sourceTree = SOURCE_ROOT; };
 		B0E8044E1C0CDFDA0065EBC0 /* WMFURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFURLCache.m; path = Wikipedia/Code/WMFURLCache.m; sourceTree = SOURCE_ROOT; };
-		B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "AFHTTPSessionManager+WMFGet.h"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFGet.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+WMFGet.m"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFGet.m"; sourceTree = SOURCE_ROOT; };
 		B0E804691C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Code/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		B0E8046A1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BITHockeyManager+WMFExtensions.m"; path = "Wikipedia/Code/BITHockeyManager+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CIContext+WMFImageProcessing.h"; path = "Wikipedia/Code/CIContext+WMFImageProcessing.h"; sourceTree = SOURCE_ROOT; };
@@ -5511,8 +5507,6 @@
 				B0E806761C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.m */,
 				B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */,
 				B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */,
-				B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.h */,
-				B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFGet.m */,
 				B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */,
 				B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */,
 				B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */,
@@ -8157,7 +8151,6 @@
 				D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */,
 				0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */,
 				D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */,
-				D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFGet.h in Headers */,
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
 				0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */,
 				D844D98D1D6CB58E0042D692 /* MWKSectionList.h in Headers */,
@@ -10734,7 +10727,6 @@
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */,
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
-				D83FA6B01D74CD4A008CAB00 /* AFHTTPSessionManager+WMFGet.m in Sources */,
 				D8FA18F61E1BDA3F009675C3 /* UIFont+WMFDynamicType.swift in Sources */,
 				7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */,
