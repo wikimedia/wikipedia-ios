@@ -108,7 +108,7 @@
                                       success:(void (^)(NSArray *))success
                                       failure:(void (^)(NSError *))failure {
     NSParameterAssert([titles count]);
-    NSAssert([titles count] <= 25, @"Only 25 titles can be queried at a time.");
+    NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(siteURL);
 
     NSMutableDictionary *params =
