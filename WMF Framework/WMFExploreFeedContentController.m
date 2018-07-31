@@ -28,9 +28,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
-@property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
+@property (nonatomic, copy, readonly) NSSet<NSURL *> *preferredSiteURLs;
 @property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
 @property (nonatomic, nullable) NSNumber *cachedCountOfVisibleContentGroupKinds;
+@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *sortOrderBySiteURLDatabaseKey;
 
 @end
 
@@ -200,11 +201,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                if (date) {
-                                                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
-                                                } else {
-                                                    [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
-                                                }
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -660,7 +657,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
         }
+        
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
+        
         // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
@@ -685,11 +685,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
 }
 
-- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSSet *updatedOrInsertedObjects = [[moc updatedObjects] setByAddingObjectsFromSet:[moc insertedObjects]];
-    [self applyExploreFeedPreferencesToObjects:updatedOrInsertedObjects inManagedObjectContext:moc];
-}
-
 - (void)save:(NSManagedObjectContext *)moc {
     NSError *error = nil;
     if (moc.hasChanges && ![moc save:&error]) {
@@ -701,6 +696,15 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (void)setSiteURLs:(NSURL *)siteURLs {
     _siteURLs = [siteURLs copy];
+    
+    NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:_siteURLs.count];
+    NSInteger i = 0;
+    for (NSURL *siteURL in _siteURLs) {
+        updatedSortOrder[siteURL.wmf_articleDatabaseKey] = @(i);
+        i++;
+    }
+    self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
+    
     if ([_contentSources count] == 0) {
         return;
     }
