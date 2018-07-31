@@ -182,13 +182,14 @@ extension ArticleCollectionViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
+        let translatedLocation = view.convert(location, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: translatedLocation),
             let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
             let url = articleURL(at: indexPath)
         else {
                 return nil
         }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
         
         let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
