@@ -194,9 +194,7 @@
         default:
             break;
     }
-    
-    NSLog(@"Setting %@ on %@ for %@", @(updatedDailySortPriority), self.key, siteURLDatabaseKey);
-    
+        
     if (self.dailySortPriority == updatedDailySortPriority) {
         return;
     }
