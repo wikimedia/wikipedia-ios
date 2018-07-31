@@ -36,6 +36,8 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 @implementation WMFExploreFeedContentController
 
+@synthesize exploreFeedPreferences = _exploreFeedPreferences;
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -73,11 +75,16 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
     if (!_exploreFeedPreferences) {
-        assert([NSThread isMainThread]);
         _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
     }
     return _exploreFeedPreferences;
+}
+
+- (void)setExploreFeedPreferences:(NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
+    _exploreFeedPreferences = exploreFeedPreferences;
 }
 
 #pragma mark - Content Sources
