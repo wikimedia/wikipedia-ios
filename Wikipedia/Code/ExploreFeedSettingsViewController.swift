@@ -31,7 +31,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .wmf_blue
             iconBackgroundColor = .wmf_lightBlue
         case .featuredArticle:
-            title = "Featured article"
+            title = CommonStrings.featuredArticleTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
             iconName = "featured-mini"
             iconColor = .wmf_yellow
@@ -63,7 +63,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .wmf_purple
             iconBackgroundColor = .wmf_lightPurple
         case .continueReading:
-            title = "Continue reading"
+            title = CommonStrings.continueReadingTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")
             iconName = "today-mini"
             iconColor = .wmf_lightGray

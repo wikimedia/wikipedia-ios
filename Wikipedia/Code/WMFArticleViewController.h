@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasAboutThisArticle;
 
 - (void)fetchArticleIfNeeded;
+
 - (void)shareArticleWhenReady;
 
 @end

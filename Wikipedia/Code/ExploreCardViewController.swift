@@ -3,7 +3,6 @@ import UIKit
 protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var readingListHintController: ReadingListHintController { get }
-    var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
@@ -110,6 +109,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     private func reloadData() {
+        contentHeightByWidth.removeAll()
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
         }
@@ -117,8 +117,16 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         collectionView.reloadData()
     }
     
+    var contentHeightByWidth: [Int: CGFloat] = [:]
+    
     public func contentHeight(forWidth width: CGFloat) -> CGFloat {
-        return layout.layoutHeight(forWidth: width)
+        let widthInt = Int(round(width))
+        if let cachedHeight = contentHeightByWidth[widthInt] {
+            return cachedHeight
+        }
+        let height = layout.layoutHeight(forWidth: width)
+        contentHeightByWidth[widthInt] = height
+        return height
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -381,23 +389,12 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
-        let key: String?
-        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
-            key = "\(contentGroupKey)-\(indexPath.row)"
-        } else {
-            key = article(at: indexPath)?.key
-        }
-        let userInfo = "\(key ?? "")-\(displayType.rawValue)"
-        if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
-            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: height)
-        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
         let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
         estimate.height = height
         estimate.precalculated = true
         return estimate

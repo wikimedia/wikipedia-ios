@@ -25,7 +25,7 @@ import UIKit
     
     public static let title3 = DynamicTextStyle(.system, .title3)
     
-    public static let body = DynamicTextStyle(.system, .body)
+    @objc public static let body = DynamicTextStyle(.system, .body)
     public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
     
     public static let caption1 = DynamicTextStyle(.system, .caption1)
@@ -82,15 +82,14 @@ public extension UIFont {
         guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
-                
-        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
-
-        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
+        
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
         if let font = fontCache[cacheKey] {
             return font
         }
         
-        
+        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
+
         var font: UIFont
         switch fontFamily {
         case .georgia:

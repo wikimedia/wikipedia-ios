@@ -58,25 +58,27 @@
                                     failure:failure];
 }
 
-- (NSURLSessionDataTask *)wmf_POSTWithMobileURLString:(NSString *)mobileURLString
-                                     desktopURLString:(NSString *)desktopURLString
-                                           parameters:(id)parameters
-                                                retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
-                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
-                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
-    return [self POST:mobileURLString
-        parameters:parameters
-        progress:NULL
-        success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
-            if (success) {
-                success(operation, responseObject);
-            }
-        }
-        failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
-            if (failure) {
-                failure(operation, error);
-            }
-        }];
+- (NSURLSessionDataTask *)wmf_POSTWithURL:(NSURL *)URL
+                               parameters:(id)parameters
+                                  success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                  failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure {
+    
+    // If Zero rated use mobile domain, else use desktop domain.
+    NSURL *zeroSafeURL = [SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated ? [NSURL wmf_mobileAPIURLForURL:URL] : [NSURL wmf_desktopAPIURLForURL:URL];
+    
+    return [self POST:zeroSafeURL.absoluteString
+           parameters:parameters
+             progress:NULL
+              success:^(NSURLSessionDataTask *_Nonnull operation, id _Nonnull responseObject) {
+                  if (success) {
+                      success(operation, responseObject);
+                  }
+              }
+              failure:^(NSURLSessionDataTask *_Nonnull operation, NSError *_Nonnull error) {
+                  if (failure) {
+                      failure(operation, error);
+                  }
+              }];
 }
 
 @end
