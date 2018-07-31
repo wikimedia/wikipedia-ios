@@ -6,6 +6,8 @@
 #import "SavedPagesFunnel.h"
 @import WMF;
 
+const CGFloat WebViewControllerHeaderImageHeight = 210;
+
 // TODO: rename the WebViewControllerVariableNames once we rename this class
 NS_ASSUME_NONNULL_BEGIN
 
