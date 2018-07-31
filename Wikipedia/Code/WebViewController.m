@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
+@property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) NSNumber *fontSizeMultiplier;
 
@@ -35,9 +36,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @property (nonatomic, strong) NSArray *findInPageMatches;
 @property (nonatomic) NSInteger findInPageSelectedMatchIndex;
 @property (nonatomic) BOOL disableMinimizeFindInPage;
-
-@property (nonatomic, getter=isIgnoringWebViewScroll) BOOL ignoringWebViewScroll;
-
 @property (nonatomic, readwrite, retain) WMFFindInPageKeyboardBar *inputAccessoryView;
 @property (weak, nonatomic) IBOutlet UIView *statusBarUnderlayView;
 
@@ -203,6 +201,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        [self hideFindInPageWithCompletion:^{
+
                                            NSString *href = messageDict[@"href"];
 
                                            if (href.length == 0) {
@@ -309,7 +308,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
-        self.ignoringWebViewScroll = NO;
+
+        [UIView animateWithDuration:0.3
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.headerView.alpha = 1.f;
+                         }
+                         completion:^(BOOL done){
+                         }];
     }
 }
 
@@ -433,7 +440,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        int paddingTop = (int)MAX(0, _headerHeight);
+        int paddingTop = (int)[self headerHeightForCurrentArticle];
         NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding, paddingTop];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
@@ -624,8 +631,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.ignoringWebViewScroll = YES;
-
     self.lastClickedReferencesGroup = @[];
 
     self.contentWidthPercentage = 1;
@@ -637,6 +642,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (@available(iOS 11.0, *)) {
         self.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
+
+    [self addHeaderView];
 
     [self.containerView wmf_addSubviewWithConstraintsToEdges:self.webView];
     [self.containerView sendSubviewToBack:self.webView];
@@ -721,8 +728,42 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.zeroStatusLabel.backgroundColor = zeroConfiguration.background;
 }
 
+#pragma mark - Header
+
+- (void)addHeaderView {
+    if (!self.headerView) {
+        return;
+    }
+    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.webView.scrollView addSubview:self.headerView];
+
+    NSLayoutConstraint *leadingConstraint = [self.webView.leadingAnchor constraintEqualToAnchor:self.headerView.leadingAnchor];
+    NSLayoutConstraint *trailingConstraint = [self.webView.trailingAnchor constraintEqualToAnchor:self.headerView.trailingAnchor];
+    [self.webView addConstraints:@[leadingConstraint, trailingConstraint]];
+
+    NSLayoutConstraint *topConstraint = [self.webView.scrollView.topAnchor constraintEqualToAnchor:self.headerView.topAnchor];
+    [self.webView.scrollView addConstraint:topConstraint];
+
+    self.headerHeightConstraint = [self.headerView.heightAnchor constraintEqualToConstant:0];
+    [self.headerView addConstraint:self.headerHeightConstraint];
+}
+
 - (void)showLicenseButtonPressed {
     [self wmf_openExternalUrl:WMFLicenses.CCBYSA3URL];
+}
+
+- (void)setHeaderView:(UIView *)headerView {
+    NSAssert(!self.headerView, @"Dynamic/re-configurable header view is not supported.");
+    NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
+    _headerView = headerView;
+}
+
+- (CGFloat)headerHeightForCurrentArticle {
+    if (self.article.isMain || !self.article.imageURL || [self.article.url wmf_isNonStandardURL]) {
+        return 0;
+    } else {
+        return WebViewControllerHeaderImageHeight;
+    }
 }
 
 #pragma mark - Scrolling
@@ -816,25 +857,20 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
-- (void)setHeaderHeight:(CGFloat)headerHeight {
-    if (headerHeight == _headerHeight) {
-        return;
-    }
-    _headerHeight = headerHeight;
-    [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
-}
-
 - (void)displayArticle {
     if (!self.article) {
         return;
     }
 
+    self.headerView.alpha = 0.f;
+    CGFloat headerHeight = [self headerHeightForCurrentArticle];
+    self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
     WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
     [proxy cacheSectionDataForArticle:self.article];
 
-    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(self.headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 
     NSString *shareMenuItemTitle = nil;
     if (@available(iOS 11, *)) {
@@ -852,6 +888,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
+
                                        NSAssert([notification.object isMemberOfClass:[NSURL class]], @"WMFReferenceLinkTappedNotification did not contain NSURL");
                                        NSURL *URL = notification.object;
                                        NSAssert(URL != nil, @"WMFReferenceLinkTappedNotification NSURL was unexpectedly nil");
@@ -1029,7 +1066,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!self.isIgnoringWebViewScroll && [self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
+    if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewDidScroll:)]) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
     [self minimizeFindInPage];
