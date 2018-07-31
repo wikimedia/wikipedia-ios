@@ -122,7 +122,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
     params.searchTerm = searchTerm;
     params.sortStyle = sortStyle;
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-    return [self.operationManager wmf_zeroSafeGETWithURL:url
+    return [self.operationManager wmf_apiZeroSafeGETWithURL:url
         parameters:params
         success:^(NSURLSessionDataTask *operation, id responseObject) {
 

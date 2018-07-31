@@ -12,7 +12,7 @@ open class PageHistoryFetcher: NSObject {
     }()
 
     @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
-        operationManager.wmf_zeroSafeGETWithURL(siteURL,
+        operationManager.wmf_apiZeroSafeGET(with: siteURL,
                                         parameters: requestParams,
                                         success: { (operation, responseObject) in
                                             MWNetworkActivityIndicatorManager.shared().pop()

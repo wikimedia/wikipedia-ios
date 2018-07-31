@@ -70,7 +70,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     params.articleURL = URL;
     params.numberOfResults = resultLimit;
 
-    [self.operationManager wmf_zeroSafeGETWithURL:URL
+    [self.operationManager wmf_apiZeroSafeGETWithURL:URL
         parameters:params
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

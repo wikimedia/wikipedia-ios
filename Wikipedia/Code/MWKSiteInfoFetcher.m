@@ -39,7 +39,7 @@
         @"siprop": @"general"
     };
 
-    [self.operationManager wmf_zeroSafeGETWithURL:siteURL
+    [self.operationManager wmf_apiZeroSafeGETWithURL:siteURL
         parameters:params
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
