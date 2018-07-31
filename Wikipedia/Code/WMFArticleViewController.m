@@ -399,6 +399,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [super scrollViewInsetsDidChange];
     [self updateWebViewHeaderHeight];
     [self updateTableOfContentsInsets];
+    self.pullToRefresh.transform = CGAffineTransformMakeTranslation(0, self.webViewController.webView.scrollView.scrollIndicatorInsets.top);
 }
 
 - (void)updateWebViewHeaderHeight {
