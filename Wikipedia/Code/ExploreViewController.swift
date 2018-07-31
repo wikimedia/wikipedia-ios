@@ -287,7 +287,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         resetRefreshControl()
-        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
+        wmf_showEmptyView(of: .noFeed, action: nil, theme: theme, frame: view.bounds)
     }
     
     var isLoadingNewContent = false
@@ -320,11 +320,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 completion()
             }
         }
-    }
-    
-    override func contentSizeCategoryDidChange(_ notification: Notification?) {
-        layoutCache.reset()
-        super.contentSizeCategoryDidChange(notification)
     }
     
     // MARK - ImageScaleTransitionProviding
@@ -471,19 +466,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
-    private func cacheUserInfoForItem(at indexPath: IndexPath) -> String {
-        guard let group = fetchedResultsController?.object(at: indexPath) else {
-            return ""
-        }
-        return "evc-cell-\(group.key ?? "")"
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = cacheUserInfoForItem(at: indexPath)
-        if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
-            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
-        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
@@ -491,7 +474,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
@@ -585,9 +567,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = cacheUserInfoForItem(at: indexPath)
-        layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
         if wantsDeleteInsertOnNextItemUpdate {
             layout.currentSection = indexPath.section
@@ -669,14 +648,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
 
     @objc func exploreFeedPreferencesDidSave(_ note: Notification) {
-        let identifier = ExploreCardCollectionViewCell.identifier
         DispatchQueue.main.async {
             for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
                 guard self.fetchedResultsController?.isValidIndexPath(indexPath) ?? false else {
                     continue
                 }
-                let userInfo = self.cacheUserInfoForItem(at: indexPath)
-                self.layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
             self.indexPathsForCollapsedCellsThatCanReappear = []
