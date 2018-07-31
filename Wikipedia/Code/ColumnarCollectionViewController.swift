@@ -243,6 +243,20 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+    
+    // MARK - Previewing
+    
+    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
+        let translatedLocation = view.convert(location, to: collectionView)
+        guard
+            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
+            let cell = collectionView.cellForItem(at: indexPath)
+        else {
+                return nil
+        }
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+        return indexPath
+    }
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDataSource {

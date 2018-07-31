@@ -205,14 +205,14 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
 // MARK: - UIViewControllerPreviewingDelegate
 extension OnThisDayViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
             let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
-            return nil
+                return nil
         }
         
-        let pointInCellCoordinates =  collectionView.convert(location, to: cell)
+        let pointInCellCoordinates =  view.convert(location, to: cell)
         let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let view = cell.viewForSubItem(at: index) else {
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
             return nil
         }
         
@@ -220,7 +220,7 @@ extension OnThisDayViewController {
             return nil
         }
         
-        previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
         let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         vc.articlePreviewingActionsDelegate = self
