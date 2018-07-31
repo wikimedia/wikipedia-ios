@@ -68,16 +68,15 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         
         let distanceLabelHorizontalPadding: CGFloat = 5
         let distanceLabelVerticalPadding: CGFloat = 5
-        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x + distanceLabelHorizontalPadding, y: origin.y + distanceLabelVerticalPadding + 3), maximumWidth: widthForLabels - 2 * distanceLabelHorizontalPadding, alignedBy: articleSemanticContentAttribute, apply: apply)
-        origin.y += distanceLabelFrame.layoutHeight(with: spacing)
+        let distanceLabelExtraTopMargin: CGFloat = 3
+        let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x + distanceLabelHorizontalPadding, y: origin.y + distanceLabelVerticalPadding + distanceLabelExtraTopMargin), maximumWidth: widthForLabels - 2 * distanceLabelHorizontalPadding, alignedBy: articleSemanticContentAttribute, apply: apply)
+ 
+        let distanceLabelBackgroundFrame = UIEdgeInsetsInsetRect(distanceLabelFrame, UIEdgeInsets(top: 0 - distanceLabelVerticalPadding, left: 0 - distanceLabelHorizontalPadding, bottom: 0 - distanceLabelVerticalPadding, right: 0 - distanceLabelHorizontalPadding))
+
+        origin.y += distanceLabelBackgroundFrame.height + distanceLabelExtraTopMargin + spacing
+
         if apply {
-            distanceLabelBackground.frame = UIEdgeInsetsInsetRect(distanceLabelFrame, UIEdgeInsets(top: 0 - distanceLabelVerticalPadding, left: 0 - distanceLabelHorizontalPadding, bottom: 0 - distanceLabelVerticalPadding, right: 0 - distanceLabelHorizontalPadding))
-        }
-        
-        if !isSaveButtonHidden {
-            origin.y += spacing
-            let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthForLabels, alignedBy: articleSemanticContentAttribute, apply: apply)
-            origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
+            distanceLabelBackground.frame = distanceLabelBackgroundFrame
         }
         
         origin.y += layoutMargins.bottom

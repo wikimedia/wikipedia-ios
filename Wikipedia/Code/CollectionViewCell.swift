@@ -219,7 +219,10 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     public var calculatedLayoutMargins: UIEdgeInsets {
         let margins = self.layoutMargins
-        return UIEdgeInsets(top: margins.top + layoutMarginsAdditions.top + layoutMarginsInteractiveAdditions.top, left:margins.left + layoutMarginsAdditions.left + layoutMarginsInteractiveAdditions.left, bottom: margins.bottom + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom, right:margins.right + layoutMarginsAdditions.right + layoutMarginsInteractiveAdditions.right)
+        return UIEdgeInsets(top:    margins.top     + layoutMarginsAdditions.top    + layoutMarginsInteractiveAdditions.top,
+                            left:   margins.left    + layoutMarginsAdditions.left   + layoutMarginsInteractiveAdditions.left,
+                            bottom: margins.bottom  + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom,
+                            right:  margins.right   + layoutMarginsAdditions.right  + layoutMarginsInteractiveAdditions.right)
     }
 
 }
