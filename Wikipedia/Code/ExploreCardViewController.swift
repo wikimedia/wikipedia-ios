@@ -584,11 +584,12 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
 extension ExploreCardViewController {
 
     open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location),
+        let convertedLocation = view.convert(location, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: convertedLocation),
             let cell = collectionView.cellForItem(at: indexPath) else {
             return nil
         }
-        previewingContext.sourceRect = cell.frame
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
         guard let viewControllerToCommit = contentGroup?.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
             return nil
         }
