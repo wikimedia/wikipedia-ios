@@ -58,7 +58,7 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (void)updateKey; //Sets key property based on content group kind
 - (void)updateContentType;
-- (void)updateDailySortPriority;
+- (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrder;
 
 + (nullable NSURL *)mainPageURLForSiteURL:(NSURL *)URL;
 + (nullable NSURL *)continueReadingContentGroupURL;
