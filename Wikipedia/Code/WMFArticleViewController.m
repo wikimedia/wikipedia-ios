@@ -827,9 +827,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     UIImageView *transitionView = self.headerImageTransitionView;
     self.headerImageTransitionView = nil;
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.2
         animations:^{
-            transitionView.alpha = 0;
+            self.webViewController.view.alpha = 1;
         }
         completion:^(BOOL finished) {
             [transitionView removeFromSuperview];
@@ -839,6 +839,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
     if (imageView && imageView.image) {
         self.webViewController.headerFadingEnabled = NO;
+        self.webViewController.view.alpha = 0;
 
         self.headerImageTransitionView = [[UIImageView alloc] initWithFrame:self.headerImageView.frame];
         self.headerImageTransitionView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -846,7 +847,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.headerImageTransitionView.layer.contentsRect = imageView.layer.contentsRect;
         self.headerImageTransitionView.contentMode = imageView.contentMode;
         self.headerImageTransitionView.clipsToBounds = YES;
-        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.navigationBar];
+        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.webViewController.view];
 
         NSLayoutConstraint *headerImageTransitionTopConstraint = [self.headerImageTransitionView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
         NSLayoutConstraint *headerImageTransitionLeadingConstraint = [self.headerImageTransitionView.leadingAnchor constraintEqualToAnchor:self.headerImageView.leadingAnchor];
