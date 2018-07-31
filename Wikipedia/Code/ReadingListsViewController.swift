@@ -106,6 +106,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
         emptyViewType = .noReadingLists
+        emptyViewAction = #selector(presentCreateReadingListViewController)
         setupEditController()
         // Remove peek & pop for now
         unregisterForPreviewing()
@@ -154,14 +155,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         createReadingListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
-
-    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
-        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
-        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
-        createNewReadingListButtonView?.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
-        createNewReadingListButtonView?.apply(theme: theme)
-        return createNewReadingListButtonView!
-    }()
     
     @objc func presentCreateReadingListViewController() {
         createReadingList(with: articles)
@@ -295,7 +288,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
-        createNewReadingListButtonView.apply(theme: theme)
     }
 }
 
