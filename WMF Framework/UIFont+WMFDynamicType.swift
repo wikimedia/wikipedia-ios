@@ -83,7 +83,7 @@ public extension UIFont {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
         
-        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(style.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
         if let font = fontCache[cacheKey] {
             return font
         }
