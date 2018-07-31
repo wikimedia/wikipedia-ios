@@ -122,6 +122,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
 // Views
+@property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
@@ -747,7 +748,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
-    
+
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
@@ -820,11 +821,42 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 #pragma mark - WMFImageScaleTransitionProviding
+- (void)removeHeaderImageTransitionView {
+    if (!self.headerImageTransitionView) {
+        return;
+    }
+    UIImageView *transitionView = self.headerImageTransitionView;
+    self.headerImageTransitionView = nil;
+    [UIView animateWithDuration:0.3
+        animations:^{
+            transitionView.alpha = 0;
+        }
+        completion:^(BOOL finished) {
+            [transitionView removeFromSuperview];
+        }];
+}
 
 - (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
-    if (imageView) {
+    if (imageView && imageView.image) {
+        self.webViewController.headerFadingEnabled = NO;
+
+        self.headerImageTransitionView = [[UIImageView alloc] initWithFrame:self.headerImageView.frame];
+        self.headerImageTransitionView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageTransitionView.image = imageView.image;
+        self.headerImageTransitionView.layer.contentsRect = imageView.layer.contentsRect;
+        self.headerImageTransitionView.contentMode = imageView.contentMode;
+        self.headerImageTransitionView.clipsToBounds = YES;
+        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.navigationBar];
+
+        NSLayoutConstraint *headerImageTransitionTopConstraint = [self.headerImageTransitionView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
+        NSLayoutConstraint *headerImageTransitionLeadingConstraint = [self.headerImageTransitionView.leadingAnchor constraintEqualToAnchor:self.headerImageView.leadingAnchor];
+        NSLayoutConstraint *headerImageTransitionTrailingConstraint = [self.headerImageTransitionView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
+        NSLayoutConstraint *headerImageTransitionHeightConstraint = [self.headerImageTransitionView.heightAnchor constraintEqualToConstant:WebViewControllerHeaderImageHeight];
+        [self.view addConstraints:@[headerImageTransitionTopConstraint, headerImageTransitionLeadingConstraint, headerImageTransitionTrailingConstraint, headerImageTransitionHeightConstraint]];
+
         self.headerImageView.image = imageView.image;
         self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
+
         [self.view layoutIfNeeded];
     }
 }
@@ -1240,8 +1272,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                     }];
                 }
             }
+
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
+            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
@@ -1489,6 +1523,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+    [self removeHeaderImageTransitionView];
+
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{

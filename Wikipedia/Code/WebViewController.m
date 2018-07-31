@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.session = [SessionSingleton sharedInstance];
+        self.headerFadingEnabled = YES;
     }
     return self;
 }
@@ -70,6 +71,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self = [super init];
     if (self) {
         self.session = aSession;
+        self.headerFadingEnabled = YES;
     }
     return self;
 }
@@ -309,13 +311,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
+        if (!self.isHeaderFadingEnabled) {
+            return;
+        }
+        
         [UIView animateWithDuration:0.3
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.headerView.alpha = 1.f;
+                             self.headerView.alpha = 1;
                          }
                          completion:^(BOOL done){
+                             
                          }];
     }
 }
@@ -862,7 +869,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return;
     }
 
-    self.headerView.alpha = 0.f;
+    self.headerView.alpha = self.isHeaderFadingEnabled ? 0 : 1;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
