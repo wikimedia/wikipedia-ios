@@ -74,6 +74,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (NSDictionary *)exploreFeedPreferences {
     if (!_exploreFeedPreferences) {
+        assert([NSThread isMainThread]);
         _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
     }
     return _exploreFeedPreferences;
