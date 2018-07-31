@@ -75,19 +75,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
-    private var titleLabel: UILabel? {
-        didSet {
-            updateFonts()
-        }
-    }
-    
-    private func updateFonts() {
-        titleLabel?.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-    }
     
     private func configureTitleBar(with navigationItem: UINavigationItem) {
         var titleBarItems: [UIBarButtonItem] = []
-        titleLabel = nil
         titleView = nil
         if let titleView = navigationItem.titleView {
             if let cachedTitleViewItem = cachedTitleViewItem {
@@ -101,7 +91,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             let navigationTitleLabel = UILabel()
             navigationTitleLabel.text = title
             navigationTitleLabel.sizeToFit()
-            titleLabel = navigationTitleLabel
+            navigationTitleLabel.font = UIFont.wmf_font(.boldTitle1)
             titleView = navigationTitleLabel
             let titleItem = UIBarButtonItem(customView: navigationTitleLabel)
             titleBarItems.append(titleItem)
@@ -285,7 +275,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return
         }
         shadowHeightConstraint.constant = 1.0 / traitCollection.displayScale
-        updateFonts()
     }
     
     

@@ -71,7 +71,7 @@ fileprivate var fontCache: [String: UIFont] = [:]
 public extension UIFont {
 
     @objc(wmf_fontForDynamicTextStyle:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle) -> UIFont {
-        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UIScreen.main.traitCollection)
+        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UITraitCollection(preferredContentSizeCategory: .large))
     }
     
     @objc(wmf_fontForDynamicTextStyle:compatibleWithTraitCollection:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont {
