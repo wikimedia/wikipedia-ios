@@ -387,6 +387,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+            FeedFunnel.shared.logFeedOpenCard(for: group.eventLoggingLabel)
             wmf_push(vc, animated: true)
             return
         }
