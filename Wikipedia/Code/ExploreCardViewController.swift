@@ -109,6 +109,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     }
     
     private func reloadData() {
+        contentHeightByWidth.removeAll()
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
         }
@@ -116,8 +117,16 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         collectionView.reloadData()
     }
     
+    var contentHeightByWidth: [Int: CGFloat] = [:]
+    
     public func contentHeight(forWidth width: CGFloat) -> CGFloat {
-        return layout.layoutHeight(forWidth: width)
+        let widthInt = Int(round(width))
+        if let cachedHeight = contentHeightByWidth[widthInt] {
+            return cachedHeight
+        }
+        let height = layout.layoutHeight(forWidth: width)
+        contentHeightByWidth[widthInt] = height
+        return height
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
