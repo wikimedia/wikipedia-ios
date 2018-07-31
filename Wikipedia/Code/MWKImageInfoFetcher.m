@@ -131,25 +131,24 @@
         params[@"iiextmetadatalanguage"] = metadataLanguage;
     }
 
-    @weakify(self);
+    @weakify(self);    
     NSURLSessionDataTask *request =
-        [self.manager wmf_GETAndRetryWithURL:siteURL
-            parameters:params
-            retry:nil
-            success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-                @strongify(self);
-                [self finishWithError:nil fetchedData:galleryItems];
-                if (success) {
-                    success(galleryItems);
-                }
-            }
-            failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                @strongify(self);
-                [self finishWithError:error fetchedData:nil];
-                if (failure) {
-                    failure(error);
-                }
-            }];
+    [self.manager wmf_POSTWithURL:siteURL
+                       parameters:params
+                          success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
+                              @strongify(self);
+                              [self finishWithError:nil fetchedData:galleryItems];
+                              if (success) {
+                                  success(galleryItems);
+                              }
+                          }
+                          failure:^(NSURLSessionDataTask *operation, NSError *error) {
+                              @strongify(self);
+                              [self finishWithError:error fetchedData:nil];
+                              if (failure) {
+                                  failure(error);
+                              }
+                          }];
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;
 }
