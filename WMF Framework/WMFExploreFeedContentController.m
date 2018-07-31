@@ -36,12 +36,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 @implementation WMFExploreFeedContentController
 
+@synthesize exploreFeedPreferences = _exploreFeedPreferences;
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.dataStore.viewContext];
     }
     return self;
 }
@@ -70,6 +71,20 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.dataStore.viewContext];
+}
+
+- (NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
+    if (!_exploreFeedPreferences) {
+        _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
+    }
+    return _exploreFeedPreferences;
+}
+
+- (void)setExploreFeedPreferences:(NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
+    _exploreFeedPreferences = exploreFeedPreferences;
 }
 
 #pragma mark - Content Sources
