@@ -278,6 +278,12 @@
                 NSInteger startIndex = featuredEventIndex;
                 NSInteger length = startIndex + 1 < contentArray.count ? 2 : 1;
                 NSRange range = NSMakeRange(startIndex, length);
+                // If we have only the last item but there's more than one, move back one so we get 2 total.
+                // Only do so in this specific case so we usually have the `featuredContent` first (it's chosen based on a score weighing its various properties).
+                BOOL shouldBackUpByOne = range.length == 1 && startIndex > 0 && contentArray.count > 1;
+                if (shouldBackUpByOne) {
+                    range = NSMakeRange(startIndex - 1, 2);
+                }
                 self.contentPreview = [contentArray subarrayWithRange:range];
             }
         } break;

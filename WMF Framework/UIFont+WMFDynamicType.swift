@@ -25,7 +25,7 @@ import UIKit
     
     public static let title3 = DynamicTextStyle(.system, .title3)
     
-    public static let body = DynamicTextStyle(.system, .body)
+    @objc public static let body = DynamicTextStyle(.system, .body)
     public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
     
     public static let caption1 = DynamicTextStyle(.system, .caption1)
