@@ -58,7 +58,7 @@
     }
     */
 
-    @objc public func logFeedOpenCard(for label: EventLoggingLabel?) {
+    @objc public func logFeedCardOpened(for label: EventLoggingLabel?) {
         log(event(category: .feedDetail, label: label, action: .openCard))
     }
 }
