@@ -255,8 +255,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     
         if !footerButton.isHidden {
-            origin.y += 20
-            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            origin.y += layoutMargins.bottom
+            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
         }
 
         origin.y += layoutMargins.bottom
