@@ -599,6 +599,7 @@ extension ExploreCardViewController {
             avc.articlePreviewingActionsDelegate = self
             avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
         }
+        FeedFunnel.shared.logFeedCardPreview(for: contentGroup?.eventLoggingLabel)
         return viewControllerToCommit
     }
     
