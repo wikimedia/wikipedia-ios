@@ -61,6 +61,10 @@
     @objc public func logFeedCardOpened(for label: EventLoggingLabel?) {
         log(event(category: .feedDetail, label: label, action: .openCard))
     }
+
+    @objc public func logFeedCardDismissed(for label: EventLoggingLabel?) {
+        log(event(category: .feed, label: label, action: .dismiss))
+    }
 }
 /*
  Q: what constitutes an impression? (on feed is it first time user sees it, or each time it scrolls into view?)

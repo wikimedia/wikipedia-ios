@@ -673,6 +673,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
+            FeedFunnel.shared.logFeedCardDismissed(for: group.eventLoggingLabel)
             group.undoType = .contentGroup
             self.wantsDeleteInsertOnNextItemUpdate = true
             self.save()
@@ -688,6 +689,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 guard feedContentController.countOfVisibleContentGroupKinds > 1 else {
                     return
                 }
+                FeedFunnel.shared.logFeedCardDismissed(for: group.eventLoggingLabel)
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
                 self.needsReloadVisibleCells = true
