@@ -710,6 +710,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
                 return
         }
+        FeedFunnel.shared.logFeedCardRetained(for: group.eventLoggingLabel)
         if group.undoType == .contentGroupKind {
             dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
                 self.needsReloadVisibleCells = true
