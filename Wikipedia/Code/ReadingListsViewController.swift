@@ -6,6 +6,7 @@ enum ReadingListsDisplayType {
 
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)
 }
 
 @objc(WMFReadingListsViewController)
@@ -227,12 +228,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        if isEmpty {
-            collectionView.isHidden = true
-        } else {
-            collectionView.isHidden = false
-        }
+        collectionView.isHidden = isEmpty
         super.isEmptyDidChange()
+        delegate?.readingListsViewControllerDidChangeEmptyState(self, isEmpty: isEmpty)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {

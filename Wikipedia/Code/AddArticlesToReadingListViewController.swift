@@ -85,6 +85,8 @@ class AddArticlesToReadingListViewController: ViewController {
     }
 }
 
+// MARK: ReadingListsViewControllerDelegate
+
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         if let moveFromReadingList = moveFromReadingList {
@@ -99,5 +101,9 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
             self.dismiss(animated: true, completion: nil)
         }
         eventLogAction?()
+    }
+
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
+        isCreateNewReadingListButtonViewHidden = isEmpty
     }
 }
