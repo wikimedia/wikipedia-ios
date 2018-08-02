@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding {
+class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, WMFSearchButtonProviding, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
     // MARK - UIViewController
     
@@ -579,7 +579,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             needsReloadVisibleCells = true
         }
     }
-    
+
+    // MARK: EventLoggingEventValuesProviding
+
+    var eventLoggingCategory: EventLoggingCategory {
+        return .feed
+    }
+
+    var eventLoggingLabel: EventLoggingLabel?
+
+    // MARK: Peek & Pop
+
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard
             let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
@@ -589,6 +599,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         else {
             return nil
         }
+
+        eventLoggingLabel = contentGroup.eventLoggingLabel
         
         let convertedLocation = view.convert(location, to: vc.collectionView)
         if let indexPath = vc.collectionView.indexPathForItem(at: convertedLocation), let cell = vc.collectionView.cellForItem(at: indexPath), let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) {
@@ -610,16 +622,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
+            FeedFunnel.shared.logFeedCardOpened(for: eventLoggingLabel)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, animated: false)
+            wmf_push(avc, eventLoggingLabel: eventLoggingLabel, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, animated: true)
+            wmf_push(viewControllerToCommit, eventLoggingLabel: eventLoggingLabel, animated: true)
         }
     }
 }
-
-
 
 // MARK - Analytics
 extension ExploreViewController {
