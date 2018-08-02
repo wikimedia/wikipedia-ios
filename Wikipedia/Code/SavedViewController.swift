@@ -40,16 +40,6 @@ class SavedViewController: ViewController {
 
     public weak var savedDelegate: SavedViewControllerDelegate?
 
-    private var isSearchBarHidden: Bool = false {
-        didSet {
-            if isSearchBarHidden {
-                navigationBar.removeExtendedNavigationBarView()
-            } else {
-                navigationBar.addExtendedNavigationBarView(searchView)
-            }
-        }
-    }
-
     // MARK: - Initalization and setup
     
     @objc public var dataStore: MWKDataStore? {
