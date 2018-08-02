@@ -69,9 +69,7 @@ class AddArticlesToReadingListViewController: ViewController {
         navigationBar.displayType = .modal
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
-        readingListsViewController.apply(theme: theme)
-        readingListsViewController.createNewReadingListButtonView.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
-        navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
+        isCreateNewReadingListButtonViewHidden = readingListsViewController.isEmpty
         addChildViewController(readingListsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
