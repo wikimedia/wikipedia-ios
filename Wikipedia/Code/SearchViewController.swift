@@ -10,11 +10,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !areRecentSearchesEnabled {
             navigationItem.titleView = UIView()
         }
-        navigationBar.isTitleShrinkingEnabled = false
+        navigationBar.isTitleShrinkingEnabled = true
+        navigationBar.isShadowHidingEnabled = true
+        navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubview(toFront: resultsViewController.view)
         resultsViewController.view.isHidden = true
-        navigationBar.isShadowHidingEnabled = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -247,38 +248,42 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     // used to match the transition with explore
     
-    func prepareForIncomingTransition(with navigationBar: NavigationBar) {
-        navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
-        navigationBarShadowAlpha = navigationBar.shadowAlpha
+    func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
+        navigationBar.isTopSpacingHidingEnabled = true
+        navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
+        navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
+        navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
+        navigationBar.shadowAlpha = navigationBarShadowAlpha
     }
     
-    private var navigationBarShadowAlpha: CGFloat = 0 {
-        didSet {
-            navigationBar.shadowAlpha = navigationBarShadowAlpha
-        }
-    }
-    
-    private var navigationBarTopSpacingPercentHidden: CGFloat = 0 {
-        didSet {
-            navigationBar.isTopSpacingHidingEnabled = true
-            navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
-            navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
-        }
-    }
+    private var navigationBarShadowAlpha: CGFloat = 0
+    private var navigationBarTopSpacingPercentHidden: CGFloat = 0
     
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var _isSearchVisible: Bool = false
     func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
             self.isAnimatingSearchBarState = false
+            self.navigationBar.isTitleShrinkingEnabled = true
+            self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
+        }
+        if visible {
+            navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
+            navigationBarShadowAlpha = navigationBar.shadowAlpha
+        }
+        if searchLanguageBarViewController != nil {
+            navigationBar.shadowAlpha = 0
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
+            self.navigationBar.isTitleShrinkingEnabled = false
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
-            self.navigationBar.isBarHidingEnabled = !visible
+            self.navigationBar.isBarHidingEnabled = false
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
@@ -335,23 +340,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         setSearchVisible(true, animated: shouldAnimateSearchBar)
         return true
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    }
+
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
+        guard !isAnimatingSearchBarState else {
             return false
         }
+        
+        guard shouldAnimateSearchBar else {
+            didClickSearchButton = false
+            return true
+        }
+        
         if didClickSearchButton {
             didClickSearchButton = false
         } else {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
+        
         return true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

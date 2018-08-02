@@ -579,6 +579,44 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             needsReloadVisibleCells = true
         }
     }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell,
+            let vc = cell.cardContent as? ExploreCardViewController,
+            let contentGroup = vc.contentGroup
+        else {
+            return nil
+        }
+        
+        let convertedLocation = view.convert(location, to: vc.collectionView)
+        if let indexPath = vc.collectionView.indexPathForItem(at: convertedLocation), let cell = vc.collectionView.cellForItem(at: indexPath), let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) {
+            previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+            if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+                potd.setOverlayViewTopBarHidden(true)
+            } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+                avc.articlePreviewingActionsDelegate = self
+                avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+            }
+            FeedFunnel.shared.logFeedCardPreviewed(for: contentGroup.eventLoggingLabel)
+            return viewControllerToCommit
+        } else {
+            return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+        }
+    }
+    
+    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+            potd.setOverlayViewTopBarHidden(false)
+            present(potd, animated: false)
+        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+            avc.wmf_removePeekableChildViewControllers()
+            wmf_push(avc, animated: false)
+        } else {
+            wmf_push(viewControllerToCommit, animated: true)
+        }
+    }
 }
 
 
