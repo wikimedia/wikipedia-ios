@@ -152,6 +152,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     
     func articleURL(at indexPath: IndexPath) -> URL? {
         guard let entry = entry(at: indexPath), let key = entry.articleKey else {
+            assertionFailure("Can't get articleURL")
             return nil
         }
         return URL(string: key)
