@@ -345,6 +345,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
         
         guard shouldAnimateSearchBar else {
+            didClickSearchButton = false
             return true
         }
         
@@ -353,6 +354,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         } else {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
+        
         return true
     }
     
