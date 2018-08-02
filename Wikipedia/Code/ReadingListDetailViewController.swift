@@ -4,7 +4,7 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection, ArticleURLProvider {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
@@ -26,6 +26,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
+    var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
@@ -95,10 +96,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
         
         isRefreshControlEnabled = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        
+
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     private func addExtendedView() {
@@ -123,19 +124,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     @objc private func dismissController() {
         dismiss(animated: true)
-    }
-    
-    @objc private func articleWasUpdated(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle, article.changedValues()["isDownloaded"] != nil else {
-            return
-        }
-        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,7 +150,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return fetchedResultsController.object(at: indexPath)
     }
     
-    private func articleURL(at indexPath: IndexPath) -> URL? {
+    func articleURL(at indexPath: IndexPath) -> URL? {
         guard let entry = entry(at: indexPath), let key = entry.articleKey else {
             return nil
         }
