@@ -1,7 +1,7 @@
 import UIKit
 
 public class CreateNewReadingListButtonView: UIView {
-    @IBOutlet private weak var button: AlignedImageButton!
+    @IBOutlet weak var button: AlignedImageButton!
     @IBOutlet private weak var separator: UIView!
 
     public override func awakeFromNib() {
@@ -19,10 +19,6 @@ public class CreateNewReadingListButtonView: UIView {
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         button.titleLabel?.font = UIFont.wmf_font(.semiboldBody, compatibleWithTraitCollection: traitCollection)
-    }
-
-    public func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControlEvents) {
-        button.addTarget(target, action: action, for: controlEvents)
     }
 
 }
