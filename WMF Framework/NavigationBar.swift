@@ -530,7 +530,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func removeUnderNavigationBarView() {
-        guard let subview = extendedView.subviews.first else {
+        guard let subview = underBarView.subviews.first else {
             return
         }
         subview.removeFromSuperview()
