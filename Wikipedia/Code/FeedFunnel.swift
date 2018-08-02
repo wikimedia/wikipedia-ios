@@ -73,6 +73,10 @@
     @objc public func logFeedCardPreviewed(for label: EventLoggingLabel?) {
         log(event(category: .feed, label: label, action: .preview))
     }
+
+    @objc public func logFeedCardReadingStarted(for label: EventLoggingLabel?) {
+        log(event(category: .feed, label: label, action: .readStart))
+    }
 }
 /*
  Q: what constitutes an impression? (on feed is it first time user sees it, or each time it scrolls into view?)
