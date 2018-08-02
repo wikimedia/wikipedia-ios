@@ -43,23 +43,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    private var _displayType: NavigationBarDisplayType = .backVisible
-    public var displayType: NavigationBarDisplayType {
-        get {
-            return _displayType
-        }
-        set {
-            let adjustedNewValue: NavigationBarDisplayType
-            if #available(iOS 11.0, *) {
-                adjustedNewValue = newValue
-            } else {
-                adjustedNewValue = .backVisible
-            }
-            guard adjustedNewValue != _displayType else {
-                return
-            }
-            _displayType = adjustedNewValue
-            isTitleShrinkingEnabled = _displayType == .largeTitle
+    public var displayType: NavigationBarDisplayType = .backVisible {
+        didSet {
+            isTitleShrinkingEnabled = displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
         }
@@ -70,6 +56,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if displayType == .backVisible {
             if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
                 items.append(nc.viewControllers[index - 1].navigationItem)
+            } else {
+                items.append(UINavigationItem())
             }
         }
         
