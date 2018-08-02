@@ -45,8 +45,9 @@ class AddArticlesToReadingListViewController: ViewController {
         delegate?.addArticlesToReadingList(self, willBeDismissed: true)
     }
     
-    @objc private func addButtonPressed() {
-        readingListsViewController?.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
+    @objc private func createNewReadingListButtonPressed() {
+        readingListsViewController.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
+    }
     }
     
     override func viewDidLoad() {
