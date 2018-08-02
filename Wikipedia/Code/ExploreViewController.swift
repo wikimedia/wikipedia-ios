@@ -395,6 +395,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
             if vc is WMFImageGalleryViewController {
                 present(vc, animated: true)
+                FeedFunnel.shared.logFeedCardOpened(for: group.eventLoggingLabel)
             } else {
                 wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
             }
@@ -522,6 +523,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
+            FeedFunnel.shared.logFeedCardOpened(for: contentGroup.eventLoggingLabel)
         default:
             wmf_push(vc, eventLoggingLabel: contentGroup.eventLoggingLabel, animated: true)
         }
