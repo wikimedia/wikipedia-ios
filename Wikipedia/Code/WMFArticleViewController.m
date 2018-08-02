@@ -1179,7 +1179,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
-        if ([navigationTitle length] > 20) {
+        if ([navigationTitle length] > 16) {
             navigationTitle = nil;
         }
         self.navigationItem.title = navigationTitle;
@@ -1410,7 +1410,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+    WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+    [navigationController setNavigationBarHidden:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - WMFReadingListsAlertControllerDelegate

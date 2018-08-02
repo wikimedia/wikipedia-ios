@@ -248,6 +248,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                                 completion:^{
                                     [moc performBlock:^{
+                                        [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                         NSError *saveError = nil;
                                         if ([moc hasChanges] && ![moc save:&saveError]) {
                                             DDLogError(@"Error saving: %@", saveError);
