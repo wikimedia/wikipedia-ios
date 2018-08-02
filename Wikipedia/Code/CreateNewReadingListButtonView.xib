@@ -33,10 +33,11 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="DaE-OV-Xsj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5Bg-lj-Kn8"/>
+                <constraint firstItem="DaE-OV-Xsj" firstAttribute="top" secondItem="0n7-qo-a15" secondAttribute="bottom" constant="8" id="BcR-NQ-68p"/>
                 <constraint firstItem="0n7-qo-a15" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Nog-6W-0yV"/>
                 <constraint firstAttribute="trailing" secondItem="0n7-qo-a15" secondAttribute="trailing" id="OkD-pP-zYx"/>
                 <constraint firstItem="0n7-qo-a15" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="SEa-69-rrJ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DaE-OV-Xsj" secondAttribute="bottom" constant="8" id="SrO-16-VUw"/>
                 <constraint firstItem="DaE-OV-Xsj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="chf-UK-zVB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
