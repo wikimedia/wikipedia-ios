@@ -72,6 +72,28 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)wmf_pushViewController:(UIViewController *)viewController eventLoggingLabel:(nullable EventLoggingLabel)eventLoggingLabel animated:(BOOL)animated {
+    [self logFeedEventIfNeeded:eventLoggingLabel pushedViewController:viewController];
+    [self wmf_pushViewController:viewController animated:animated];
+}
+
+- (void)logFeedEventIfNeeded:(EventLoggingLabel)eventLoggingLabel pushedViewController:(UIViewController *)pushedViewController {
+    if (self.navigationController == nil) {
+        return;
+    }
+    NSArray<UIViewController *> *viewControllers = self.navigationController.viewControllers;
+    BOOL isPushedFromExplore = viewControllers.count == 1 && [[viewControllers firstObject] isKindOfClass:[ExploreViewController class]];
+    if (!isPushedFromExplore) {
+        return;
+    }
+    BOOL isArticle = [pushedViewController isKindOfClass:[WMFArticleViewController class]] || [pushedViewController isKindOfClass:[WMFFirstRandomViewController class]];
+    if (isArticle) {
+        [FeedFunnel.shared logFeedCardReadingStartedFor:eventLoggingLabel];
+    } else {
+        [FeedFunnel.shared logFeedCardOpenedFor:eventLoggingLabel];
+    }
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

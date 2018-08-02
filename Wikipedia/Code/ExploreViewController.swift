@@ -386,9 +386,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard let group = fetchedResultsController?.object(at: indexPath) else {
             return
         }
+
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
-            FeedFunnel.shared.logFeedCardOpened(for: group.eventLoggingLabel)
-            wmf_push(vc, animated: true)
+            wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
             return
         }
         
@@ -396,7 +396,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             if vc is WMFImageGalleryViewController {
                 present(vc, animated: true)
             } else {
-                wmf_push(vc, animated: true)
+                wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
             }
             return
         }
@@ -523,7 +523,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         case .gallery:
             present(vc, animated: true)
         default:
-            wmf_push(vc, animated: true)
+            wmf_push(vc, eventLoggingLabel: contentGroup.eventLoggingLabel, animated: true)
         }
     }
     
