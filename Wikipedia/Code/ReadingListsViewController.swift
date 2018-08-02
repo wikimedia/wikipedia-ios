@@ -177,7 +177,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
         let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
         createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
-        createNewReadingListButtonView?.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+        createNewReadingListButtonView?.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
         createNewReadingListButtonView?.apply(theme: theme)
         return createNewReadingListButtonView!
     }()
