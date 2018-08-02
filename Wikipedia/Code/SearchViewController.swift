@@ -248,12 +248,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     // used to match the transition with explore
     
-    func prepareForIncomingTransition(with navigationBar: NavigationBar) {
-        navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
+    func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
         navigationBar.isTopSpacingHidingEnabled = true
         navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
         navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
-        navigationBarShadowAlpha = navigationBar.shadowAlpha
+        navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
         navigationBar.shadowAlpha = navigationBarShadowAlpha
     }
     
@@ -274,6 +274,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if visible {
             navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
             navigationBarShadowAlpha = navigationBar.shadowAlpha
+        }
+        if searchLanguageBarViewController != nil {
+            navigationBar.shadowAlpha = 0
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
@@ -337,23 +340,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         setSearchVisible(true, animated: shouldAnimateSearchBar)
         return true
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    }
+
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
+        guard !isAnimatingSearchBarState else {
             return false
         }
+        
+        guard shouldAnimateSearchBar else {
+            didClickSearchButton = false
+            return true
+        }
+        
         if didClickSearchButton {
             didClickSearchButton = false
         } else {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
+        
         return true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
