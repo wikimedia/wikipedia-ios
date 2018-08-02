@@ -76,6 +76,13 @@ class AddArticlesToReadingListViewController: ViewController {
         readingListsViewController.delegate = self
         apply(theme: theme)
     }
+
+    // MARK: Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        readingListsViewController.apply(theme: theme)
+    }
 }
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
