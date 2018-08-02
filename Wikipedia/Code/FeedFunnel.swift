@@ -1,6 +1,6 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSFeed
 
-@objc final class FeedFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
+@objc public final class FeedFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     @objc public static let shared = FeedFunnel()
     
     private override init() {
@@ -42,7 +42,7 @@
         return event
     }
     
-    override func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
+    override public func preprocessData(_ eventData: [AnyHashable: Any]) -> [AnyHashable: Any] {
         return wholeEvent(with: eventData)
     }
     
@@ -76,6 +76,10 @@
 
     @objc public func logFeedCardReadingStarted(for label: EventLoggingLabel?) {
         log(event(category: .feed, label: label, action: .readStart))
+    }
+
+    @objc public func logFeedRefreshed() {
+        log(event(category: .feed, label: nil, action: .refresh))
     }
 }
 /*
