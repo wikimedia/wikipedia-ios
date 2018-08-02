@@ -48,6 +48,17 @@ class AddArticlesToReadingListViewController: ViewController {
     @objc private func createNewReadingListButtonPressed() {
         readingListsViewController.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
     }
+
+    private var isCreateNewReadingListButtonViewHidden: Bool = false {
+        didSet {
+            if isCreateNewReadingListButtonViewHidden {
+                navigationBar.removeUnderNavigationBarView()
+                readingListsViewController.createNewReadingListButtonView.button.removeTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
+            } else {
+                readingListsViewController.createNewReadingListButtonView.button.addTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
+                navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
+            }
+        }
     }
     
     override func viewDidLoad() {
