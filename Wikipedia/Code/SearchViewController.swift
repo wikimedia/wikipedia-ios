@@ -337,23 +337,23 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         setSearchVisible(true, animated: shouldAnimateSearchBar)
         return true
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    }
+
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
+        guard !isAnimatingSearchBarState else {
             return false
         }
+        
+        guard shouldAnimateSearchBar else {
+            return true
+        }
+        
         if didClickSearchButton {
             didClickSearchButton = false
         } else {
             setSearchVisible(false, animated: shouldAnimateSearchBar)
         }
         return true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
