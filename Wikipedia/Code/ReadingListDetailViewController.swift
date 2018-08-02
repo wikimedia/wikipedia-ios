@@ -522,7 +522,6 @@ extension ReadingListDetailViewController {
         cell.isBatchEditing = editController.isBatchEditing
         
         guard let entry = entry(at: indexPath), let articleKey = entry.articleKey else {
-            assertionFailure("Coudn't get a reading list entry or an article key to configure the cell")
             return
         }
         
