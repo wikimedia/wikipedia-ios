@@ -22,7 +22,7 @@ class AddArticlesToReadingListViewController: ViewController {
     private let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
 
-    private var readingListsViewController: ReadingListsViewController?
+    private let readingListsViewController: ReadingListsViewController
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     @objc var eventLogAction: (() -> Void)?
@@ -31,6 +31,7 @@ class AddArticlesToReadingListViewController: ViewController {
         self.dataStore = dataStore
         self.articles = articles
         self.moveFromReadingList = moveFromReadingList
+        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
         super.init()
         self.theme = theme
     }
@@ -56,11 +57,6 @@ class AddArticlesToReadingListViewController: ViewController {
         navigationBar.displayType = .modal
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
-
-        readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
-        guard let readingListsViewController = readingListsViewController else {
-            return
-        }
         readingListsViewController.apply(theme: theme)
         readingListsViewController.createNewReadingListButtonView.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
         navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
