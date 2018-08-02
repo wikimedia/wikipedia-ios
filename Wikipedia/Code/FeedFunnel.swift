@@ -70,7 +70,7 @@
         log(event(category: .feed, label: label, action: .retain))
     }
 
-    @objc public func logFeedCardPreview(for label: EventLoggingLabel?) {
+    @objc public func logFeedCardPreviewed(for label: EventLoggingLabel?) {
         log(event(category: .feed, label: label, action: .preview))
     }
 }
