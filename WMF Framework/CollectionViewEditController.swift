@@ -90,17 +90,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(close), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func articleWasUpdated(_ notification: Notification) {
-        for (indexPath, cell) in configuredCellsByIndexPath {
-            cell.actions = availableActions(at: indexPath)
-        }
     }
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {

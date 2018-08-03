@@ -108,13 +108,13 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     lazy var searchBarStackView: UIStackView = {
         let searchBarStackView = UIStackView()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        mapListToggle.translatesAutoresizingMaskIntoConstraints = false
+        mapListToggleContainer.translatesAutoresizingMaskIntoConstraints = false
         searchBarStackView.axis = .horizontal
         searchBarStackView.alignment = .center
         searchBarStackView.distribution = .fill
         searchBarStackView.spacing = 10
         searchBarStackView.addArrangedSubview(searchBar)
-        searchBarStackView.addArrangedSubview(mapListToggle)
+        searchBarStackView.addArrangedSubview(mapListToggleContainer)
         return searchBarStackView
     }()
 
@@ -126,6 +126,12 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchBar.searchBarStyle = .minimal
         searchBar.showsCancelButton = false
         return searchBar
+    }()
+    
+    lazy var mapListToggleContainer: UIView = {
+        let mapListToggleContainer = UIView()
+        mapListToggleContainer.wmf_addSubview(mapListToggle, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)) // hax: alignment
+        return mapListToggleContainer
     }()
 
     lazy var mapListToggle: UISegmentedControl = {
@@ -1044,15 +1050,15 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
             if oldValue == .search && viewMode != .search {
                 UIView.animate(withDuration: 0.3) {
-                    self.mapListToggle.alpha = 1
-                    self.mapListToggle.isHidden = false
+                    self.mapListToggleContainer.alpha = 1
+                    self.mapListToggleContainer.isHidden = false
                     self.searchBarStackView.layoutIfNeeded()
                     self.searchBar.setShowsCancelButton(false, animated: true)
                 }
             } else if oldValue != .search && viewMode == .search {
                 UIView.animate(withDuration: 0.3) {
-                    self.mapListToggle.isHidden = true
-                    self.mapListToggle.alpha = 0
+                    self.mapListToggleContainer.isHidden = true
+                    self.mapListToggleContainer.alpha = 0
                     self.searchBarStackView.layoutIfNeeded()
                     self.searchBar.setShowsCancelButton(true, animated: true)
                 }
@@ -1066,7 +1072,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
-                mapListToggle.isHidden = true
+                mapListToggleContainer.isHidden = true
             case .list:
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()

@@ -6,7 +6,7 @@ protocol ExploreCardViewControllerDelegate {
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
-class ExploreCardViewController: PreviewingViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
+class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -32,6 +32,8 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
+    
+    var updater: ArticleURLProviderEditControllerUpdater?
     
     var theme: Theme = Theme.standard
     
@@ -60,6 +62,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,7 +181,7 @@ class ExploreCardViewController: PreviewingViewController, UICollectionViewDataS
         }
     }
     
-    private func articleURL(at indexPath: IndexPath) -> URL? {
+    func articleURL(at indexPath: IndexPath) -> URL? {
         return contentGroup?.previewArticleURLForItemAtIndex(indexPath.row)
     }
     
@@ -578,40 +581,6 @@ extension ExploreCardViewController: WMFArticlePreviewingActionsDelegate {
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL)
-    }
-}
-
-extension ExploreCardViewController {
-
-    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        let convertedLocation = view.convert(location, to: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: convertedLocation),
-            let cell = collectionView.cellForItem(at: indexPath) else {
-            return nil
-        }
-        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
-        guard let viewControllerToCommit = contentGroup?.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) else {
-            return nil
-        }
-        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
-            potd.setOverlayViewTopBarHidden(true)
-        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
-            avc.articlePreviewingActionsDelegate = self
-            avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
-        }
-        return viewControllerToCommit
-    }
-    
-    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
-            potd.setOverlayViewTopBarHidden(false)
-            present(potd, animated: false)
-        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
-            avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, animated: false)
-        } else {
-            wmf_push(viewControllerToCommit, animated: true)
-        }
     }
 }
 

@@ -6,6 +6,7 @@ enum ReadingListsDisplayType {
 
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)
 }
 
 @objc(WMFReadingListsViewController)
@@ -172,6 +173,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         }
     }
+
+    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
+        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
+        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
+        createNewReadingListButtonView?.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+        createNewReadingListButtonView?.apply(theme: theme)
+        return createNewReadingListButtonView!
+    }()
     
     // MARK: - Cell configuration
     
@@ -219,12 +228,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        if isEmpty {
-            collectionView.isHidden = true
-        } else {
-            collectionView.isHidden = false
-        }
+        collectionView.isHidden = isEmpty
         super.isEmptyDidChange()
+        delegate?.readingListsViewControllerDidChangeEmptyState(self, isEmpty: isEmpty)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -288,6 +294,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         view.backgroundColor = theme.colors.paperBackground
+        createNewReadingListButtonView.apply(theme: theme)
     }
 }
 
