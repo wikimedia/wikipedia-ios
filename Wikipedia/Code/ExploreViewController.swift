@@ -35,6 +35,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         showOfflineEmptyViewIfNeeded()
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
+        logFeedImpression()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -133,6 +134,32 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isLoadingOlderContent = true
         updateFeedSources(with: (nextOldestDate as NSDate).wmf_midnightLocalDateForEquivalentUTC, userInitiated: false) {
             self.isLoadingOlderContent = false
+        }
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndDecelerating(scrollView)
+        logFeedImpression()
+    }
+
+    // MARK: - Event logging
+
+    private func logFeedImpression() {
+        guard let frc = fetchedResultsController else {
+            return
+        }
+        for indexPath in collectionView.indexPathsForVisibleItems where frc.isValidIndexPath(indexPath) {
+            guard let cell = collectionView.cellForItem(at: indexPath) else {
+                continue
+            }
+            let cellY = cell.frame.origin.y
+            let visibleHeight = collectionView.bounds.height - navigationBar.visibleHeight - bottomLayoutGuide.length
+            let isUnobstructed = cellY < visibleHeight
+            guard isUnobstructed else {
+                continue
+            }
+            let group = frc.object(at: indexPath)
+            FeedFunnel.shared.logFeedImpression(for: group.eventLoggingLabel)
         }
     }
     
