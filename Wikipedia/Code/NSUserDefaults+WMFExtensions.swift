@@ -30,11 +30,16 @@ let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedA
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
+let WMFDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
+@objc public enum WMFAppDefaultTabType: Int {
+    case explore
+    case settings
+}
 
 @objc public extension UserDefaults {
     
@@ -236,6 +241,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             return enabled.boolValue
         }else{
             return false
+        }
+    }
+
+    @objc public var wmf_openAppOnSearchTab: Bool {
+        get {
+            return bool(forKey: "WMFOpenAppOnSearchTab")
+        }
+        set {
+            set(newValue, forKey: "WMFOpenAppOnSearchTab")
+            synchronize()
         }
     }
     
@@ -457,8 +472,21 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
         self.synchronize()
     }
-    
-    @objc public func wmf_isFastlaneSnapshotInProgress() -> Bool {
-        return bool(forKey: "FASTLANE_SNAPSHOT")
+
+    @objc public var defaultTabType: WMFAppDefaultTabType {
+        get {
+            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: WMFDefaultTabTypeKey)) else {
+                let explore = WMFAppDefaultTabType.explore
+                set(explore.rawValue, forKey: WMFDefaultTabTypeKey)
+                synchronize()
+                return explore
+            }
+            return defaultTabType
+        }
+        set {
+            set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
+            synchronize()
+            wmf_openAppOnSearchTab = newValue == .settings
+        }
     }
 }

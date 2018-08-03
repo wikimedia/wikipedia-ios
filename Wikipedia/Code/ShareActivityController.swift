@@ -31,46 +31,49 @@ class CustomShareActivity: UIActivity {
 protocol ShareableArticlesProvider: NSObjectProtocol {
 }
 
-extension ShareableArticlesProvider where Self: ColumnarCollectionViewController & AnalyticsContextProviding {
-    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil) -> Bool {
+extension ShareableArticlesProvider where Self: UIViewController & AnalyticsContextProviding & EventLoggingEventValuesProviding {
+    func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil, sourceView: UIView?) -> Bool {
         if let article = article {
-            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
+            return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         } else if let articleURL = articleURL {
             dataStore.viewContext.wmf_updateOrCreateArticleSummariesForArticles(withURLs: [articleURL], completion: { (articles) in
                 guard let first = articles.first else {
                     return
                 }
-                let _ = self.createAndPresentShareActivityController(for: first, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
+                let _ = self.createAndPresentShareActivityController(for: first, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
             })
             return true
         }
         return false
     }
     
-    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory?, eventLoggingLabel: EventLoggingLabel?) -> Bool {
+    fileprivate func createAndPresentShareActivityController(for article: WMFArticle, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory?, eventLoggingLabel: EventLoggingLabel?, sourceView: UIView?) -> Bool {
         var customActivities: [UIActivity] = []
         let addToReadingListActivity = AddToReadingListActivity {
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             if let category = eventLoggingCategory, let label = eventLoggingLabel {
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSave(category: category, label: label, articleURL: article.url) }
             }
-            self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            self.present(navigationController, animated: true, completion: nil)
         }
         customActivities.append(addToReadingListActivity)
         
         if let readingListDetailVC = self as? ReadingListDetailViewController {
             let moveToReadingListActivity = MoveToReadingListActivity {
                 let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: readingListDetailVC.readingList, theme: theme)
-                self.present(addArticlesToReadingListViewController, animated: true, completion: nil)
+                let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+                navigationController.isNavigationBarHidden = true
+                self.present(navigationController, animated: true, completion: nil)
             }
             customActivities.append(moveToReadingListActivity)
         }
         
         let shareActivityController = ShareActivityController(article: article, context: self, customActivities: customActivities)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            let cell = collectionView.cellForItem(at: indexPath)
-            shareActivityController.popoverPresentationController?.sourceView = cell ?? view
-            shareActivityController.popoverPresentationController?.sourceRect = cell?.bounds ?? view.bounds
+            shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
+            shareActivityController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? view.bounds
         }
         shareActivityController.excludedActivityTypes = [.addToReadingList]
         present(shareActivityController, animated: true, completion: nil)

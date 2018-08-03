@@ -40,7 +40,6 @@
 "article-read-more-title" = "Даведацца болей";
 "article-unable-to-load-article" = "Немагчыма загрузіць артыкул.";
 "article-unable-to-load-section" = "Немагчыма загрузіць гэтую сэкцыю. Паспрабуйце перазагрузіць артыкул і паглядзіце, ці дапаможа гэта вырашыць праблему.";
-"back" = "Назад";
 "back-button-accessibility-label" = "Назад";
 "button-done" = "Выканана";
 "button-next" = "Далей";
@@ -81,10 +80,8 @@
 "hockeyapp-alert-question-with-response-field" = "Ці жадаеце вы даслаць справаздачу ў $1, каб фундацыя «Вікімэдыя» магла вывучыць памылку? Калі ласка, апішыце, што адбывалася, калі ўзьнікла памылка:";
 "hockeyapp-alert-send-report" = "Даслаць справаздачу";
 "hockeyapp-alert-title" = "Выбачаемся, праграма спынілася мінулым разам";
-"home-hide-suggestion-cancel" = "Скасаваць";
-"home-hide-suggestion-prompt" = "Схаваць гэтую прапанову";
 "home-more-like-footer" = "Болей падобна на $1";
-"home-nearby-footer" = "Болей пра тое, што знаходзіцца побач з вамі";
+"home-nearby-footer" = "Болей месцаў побач з вамі";
 "home-title" = "Дасьледаваньне";
 "icon-shortcut-continue-reading-title" = "Працягваць чытаньне";
 "icon-shortcut-nearby-title" = "Артыклы пра тое што ёсьць навокал";
@@ -112,13 +109,11 @@
 "main-menu-title" = "Болей";
 "main-menu-zero-faq" = "Частыя пытаньні па Вікіпэдыя Zero";
 "menu-cancel-accessibility-label" = "Скасаваць";
-"menu-trash-accessibility-label" = "Выдаліць";
 "navbar-title-mode-edit-wikitext-preview" = "Папярэдні прагляд";
 "nearby-distance-label-feet" = "$1 фт";
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 міл";
-"onboarding-wikipedia" = "Вікіпэдыя";
 "open-link-cancel" = "Скасаваць";
 "page-edit-history" = "Уся гісторыя рэдагаваньняў";
 "page-history-title" = "Гісторыя артыкула";
@@ -160,8 +155,7 @@
 "wikitext-upload-captcha-error" = "Памылка праверкі CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Неаходная праверка CAPTCHA.";
 "wikitext-upload-result-unknown" = "Не атрымліваецца вызначыць вынік загрузкі вікі-тэксту.";
-// Fuzzy
-"wikitext-upload-save" = "Захаваньне...";
+"wikitext-upload-save" = "Публікацыя…";
 "wikitext-upload-save-anonymously-warning" = "Рэдагаваньні будуць зьвязаны з IP-адрасам Вашага прыстасаваньня. Калі Вы $1, Вы атрымаеце больш высокі ўзровень прыватнасьці.";
 "wikitext-upload-save-sign-in" = "Увайсьці";
 "wikitext-upload-save-terms-name" = "Умовы выкарыстаньня";

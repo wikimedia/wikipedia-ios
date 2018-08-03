@@ -1,14 +1,15 @@
 import UIKit
 
-@objc(WMFArticleURLListViewController)
-class ArticleURLListViewController: ArticleCollectionViewController {
+class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private let contentGroup: WMFContentGroup?
+    private var updater: ArticleURLProviderEditControllerUpdater?
     
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
         self.contentGroup = contentGroup
         super.init()
+        self.theme = theme
         self.dataStore = dataStore
     }
     
@@ -16,26 +17,24 @@ class ArticleURLListViewController: ArticleCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    override func articleURL(at indexPath: IndexPath) -> URL {
+    override func articleURL(at indexPath: IndexPath) -> URL? {
+        guard indexPath.item < articleURLs.count else {
+            return nil
+        }
         return articleURLs[indexPath.item]
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return dataStore.fetchOrCreateArticle(with: articleURL(at: indexPath))
+        guard let articleURL = articleURL(at: indexPath) else {
+            return nil
+        }
+        return dataStore.fetchOrCreateArticle(with: articleURL)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         collectionView.reloadData()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc func articleWasUpdated(_ notification: Notification) {
-        updateVisibleCellActions()
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override var eventLoggingCategory: EventLoggingCategory {

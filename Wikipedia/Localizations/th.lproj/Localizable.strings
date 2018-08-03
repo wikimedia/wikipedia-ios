@@ -63,6 +63,7 @@
 "appearance-settings-image-dimming-footer" = "ลดความทึบแสงของภาพเมื่อใช้ธีมมืด";
 "appearance-settings-reading-themes" = "ธีมการอ่าน";
 "appearance-settings-set-automatic-table-opening" = "การตั้งค่าตาราง";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "ลากตัวเลื่อนข้างบนเพื่อปรับเปลี่ยนขนาดข้อความของบทความ ปรับขนาดข้อความระบบของคุณเพื่อปรับขนาดพื้นที่ข้อความส่วนอื่นภายในแอป";
 "appearance-settings-theme-options" = "ตัวเลือกธีม";
 "article-about-title" = "เกี่ยวกับบทความนี้";
@@ -77,7 +78,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "กำลังอ่านการควบคุมธีม";
 "article-unable-to-load-article" = "ไม่สามารถโหลดบทความได้";
 "article-unable-to-load-section" = "ไม่สามารถโหลดส่วนนี้ได้ ลองรีเฟรชบทความเพื่อดูว่าปัญหาถูกแก้ไขหรือยัง";
-"back" = "ย้อนกลับ";
 "back-button-accessibility-label" = "ย้อนกลับ";
 "button-done" = "เสร็จสิ้น";
 "button-next" = "ถัดไป";
@@ -118,12 +118,9 @@
 "explore-featured-article-heading" = "บทความคัดสรร";
 "explore-main-page-description" = "หน้าหลักของโครงการวิกิมีเดีย";
 "explore-main-page-heading" = "วันนี้บนวิกิพีเดีย";
-"explore-most-read-footer-for-date" = "บทความทั้งหมดที่อ่านมากที่สุดบน $1";
 "explore-most-read-generic-heading" = "อ่านมากที่สุด";
-"explore-most-read-heading" = "อ่านมากที่สุดบนวิกิพีเดีย $1";
 "explore-most-read-more-list-title-for-date" = "ยอดนิยมบน $1";
 "explore-nearby-heading" = "สถานที่ที่ใกล้เคียง";
-"explore-nearby-placeholder-cancel" = "ยกเลิก";
 "explore-nearby-sub-heading-your-location" = "ตำแหน่งของคุณ";
 "explore-potd-heading" = "รูปภาพประจำวันนี้";
 "explore-random-article-heading" = "สุ่มบทความ";

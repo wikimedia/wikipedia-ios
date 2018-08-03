@@ -10,18 +10,18 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
     
     @objc var resultLimit: Int = 10
     
-    @objc(initWithURLs:siteURL:dataStore:)
-    required init(with URLs: [URL], siteURL: URL, dataStore: MWKDataStore) {
+    @objc(initWithURLs:siteURL:dataStore:theme:)
+    required init(with URLs: [URL], siteURL: URL, dataStore: MWKDataStore, theme: Theme) {
         self.siteURL = siteURL
-        super.init(articleURLs: URLs, dataStore: dataStore)
-    }
-    
-    @objc required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?) {
-        fatalError("init(articleURLs:dataStore:) is not allowed")
+        super.init(articleURLs: URLs, dataStore: dataStore, theme: theme)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) is not allowed")
+    }
+    
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
+        fatalError("init(articleURLs:dataStore:contentGroup:theme:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         cell.configureForCompactList(at: indexPath.item)
         let articleURL = self.articleURL(at: indexPath)
         let searchResult = results[indexPath.item]
-        cell.titleLabel.text = articleURL.wmf_title
+        cell.titleLabel.text = articleURL?.wmf_title
         cell.descriptionLabel.text = (searchResult.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
         if layoutOnly {
             cell.isImageViewHidden = searchResult.thumbnailURL != nil
@@ -64,7 +64,6 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
             cell.imageURL = searchResult.thumbnailURL
         }
         cell.apply(theme: theme)
-        cell.actions = availableActions(at: indexPath)
     }
     
     

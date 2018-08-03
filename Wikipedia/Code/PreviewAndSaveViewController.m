@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
+static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView = @"kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView";
+
 @interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, PreviewLicenseViewDelegate, WMFCaptchaViewControllerDelegate>
 
 @property (strong, nonatomic) WMFCaptchaViewController *captchaViewController;
@@ -228,7 +230,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     [self.previewWebViewContainer.webView.scrollView addObserver:self
                                                       forKeyPath:@"contentSize"
                                                          options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
-                                                         context:nil];
+                                                         context:&kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView];
     [self preview];
     [self applyTheme:self.theme];
 }
@@ -243,15 +245,15 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    if (
-        (object == self.previewWebViewContainer.webView.scrollView) &&
-        [keyPath isEqual:@"contentSize"]) {
+    if (context == &kvo_PreviewAndSaveViewController_previewWebViewContainer_webView_scrollView) {
         // Size the web view to the height of the html content it is displaying (gets rid of the web view's scroll bars).
         // Note: the PreviewWebView class has to call "forceScrollViewContentSizeToReflectActualHTMLHeight" in its
         // overridden "layoutSubviews" method for the contentSize to be reported accurately such that it reflects the
         // actual height of the web view content here. Without the web view class calling this method in its
         // layoutSubviews, the contentSize.height wouldn't change if we, say, rotated the device.
         self.previewWebViewHeightConstraint.constant = self.previewWebViewContainer.webView.scrollView.contentSize.height;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
@@ -382,7 +384,7 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
     // any existing value (in case user taps "Other" again)
     summaryVC.summaryText = self.summaryText;
     __weak typeof(self) weakSelf = self;
-    summaryVC.didSaveSummary = ^void(NSString* savedSummary){
+    summaryVC.didSaveSummary = ^void(NSString *savedSummary) {
         weakSelf.summaryText = savedSummary;
     };
     [summaryVC applyTheme:self.theme];
@@ -597,12 +599,10 @@ typedef NS_ENUM(NSInteger, WMFPreviewAndSaveMode) {
                                                                          token:result.token
                                                                    withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
                                                             thenNotifyDelegate:self];
-
                 }
                 failure:^(NSError *error) {
                     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 }];
-
     }];
 }
 

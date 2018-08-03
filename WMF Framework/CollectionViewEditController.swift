@@ -8,8 +8,13 @@ enum CollectionViewCellState {
     case idle, open
 }
 
-class EditBarButton: UIBarButtonItem {
+// wrapper around UIBarButtonItem that lets us access systemItem after button creation
+public class SystemBarButton: UIBarButtonItem {
     var systemItem: UIBarButtonSystemItem?
+    public convenience init(with barButtonSystemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
+        self.init(barButtonSystemItem: barButtonSystemItem, target: target, action: action)
+        self.systemItem = barButtonSystemItem
+    }
 }
 
 public protocol CollectionViewEditControllerNavigationDelegate: class {
@@ -30,7 +35,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let state: SwipeState
     }
     var swipeInfoByIndexPath: [IndexPath: SwipeInfo] = [:]
-    
+    var configuredCellsByIndexPath: [IndexPath: SwipeableCell] = [:]
+
     var activeCell: SwipeableCell? {
         guard let indexPath = activeIndexPath else {
             return nil
@@ -87,7 +93,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     public func swipeTranslationForItem(at indexPath: IndexPath) -> CGFloat? {
@@ -95,14 +101,23 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     public func configureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard !layoutOnly,
-            let cell = cell as? SwipeableCell,
-            let info = swipeInfoByIndexPath[indexPath] else {
+        guard
+            !layoutOnly,
+            let cell = cell as? SwipeableCell else {
+            return
+        }
+        cell.actions = availableActions(at: indexPath)
+        configuredCellsByIndexPath[indexPath] = cell
+        guard let info = swipeInfoByIndexPath[indexPath] else {
             return
         }
         cell.swipeState = info.state
         cell.actionsView.delegate = self
         cell.swipeTranslation = info.translation
+    }
+    
+    public func deconfigureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        configuredCellsByIndexPath.removeValue(forKey: indexPath)
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -141,6 +156,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public func willPerformAction(_ action: Action) -> Bool {
         return delegate?.willPerformAction(action) ?? didPerformAction(action)
+    }
+    
+    public func availableActions(at indexPath: IndexPath) -> [Action] {
+        return delegate?.availableActions(at: indexPath) ?? []
     }
     
     func panGestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
@@ -191,11 +210,12 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
 
         activeIndexPath = indexPath
+        
         guard let cell = activeCell, cell.actions.count > 0 else {
             activeIndexPath = nil
             return shouldBegin
         }
-        
+    
         shouldBegin = true
         return shouldBegin
     }
@@ -445,17 +465,15 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             rightBarButtonSystemItem = .edit
         }
         
-        var rightButton: EditBarButton?
-        var leftButton: EditBarButton?
+        var rightButton: SystemBarButton?
+        var leftButton: SystemBarButton?
         
         if let barButtonSystemItem = rightBarButtonSystemItem {
-            rightButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            rightButton?.systemItem = barButtonSystemItem
+            rightButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         if let barButtonSystemItem = leftBarButtonSystemItem {
-            leftButton = EditBarButton(barButtonSystemItem: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
-            leftButton?.systemItem = barButtonSystemItem
+            leftButton = SystemBarButton(with: barButtonSystemItem, target: self, action: #selector(barButtonPressed(_:)))
         }
         
         leftButton?.tag = editingState.tag
@@ -536,7 +554,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     public var shouldShowEditButtonsForEmptyState: Bool = false
     
-    @objc private func barButtonPressed(_ sender: EditBarButton) {
+    @objc private func barButtonPressed(_ sender: SystemBarButton) {
         guard let navigationDelegate = navigationDelegate else {
             assertionFailure("Unable to set new editing state - navigationDelegate is nil")
             return

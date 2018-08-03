@@ -1,17 +1,11 @@
 import UIKit
 
-@objc(WMFArticleCollectionViewCell)
 open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEditableCell {
-    static let defaultMargins: UIEdgeInsets = UIEdgeInsets(top: 15, left: 13, bottom: 15, right: 13)
-    static let defaultMarginsMultipliers: UIEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    public var layoutMarginsMultipliers: UIEdgeInsets = ArticleCollectionViewCell.defaultMarginsMultipliers
-    public var layoutMarginsAdditions: UIEdgeInsets = .zero
-
-    @objc public let titleLabel = UILabel()
-    @objc public let descriptionLabel = UILabel()
-    @objc public let imageView = UIImageView()
-    @objc public let saveButton = SaveButton()
-    @objc public var extractLabel: UILabel?
+    public let titleLabel = UILabel()
+    public let descriptionLabel = UILabel()
+    public let imageView = UIImageView()
+    public let saveButton = SaveButton()
+    public var extractLabel: UILabel?
     public let actionsView = ActionsView()
     public var alertIcon = UIImageView()
     public var alertLabel = UILabel()
@@ -30,7 +24,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    @objc public var titleHTML: String? {
+    public var titleHTML: String? {
         set {
             _titleHTML = newValue
             updateTitleLabel()
@@ -40,7 +34,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    @objc public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
+    public func setTitleHTML(_ titleHTML: String?, boldedString: String?) {
         _titleHTML = titleHTML
         _titleBoldedString = boldedString
         updateTitleLabel()
@@ -59,7 +53,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     private var kvoButtonTitleContext = 0
     
     open override func setup() {
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
@@ -85,6 +79,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         saveButton.rightPadding = 16
         saveButton.leftPadding = 12
         saveButton.saveButtonState = .longSave
+        saveButton.titleLabel?.numberOfLines = 0
         saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
         super.setup()
@@ -96,17 +91,14 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.reset()
         _titleHTML = nil
         _titleBoldedString = nil
-        layoutMarginsMultipliers = ArticleCollectionViewCell.defaultMarginsMultipliers
-        titleTextStyle = .georgiaTitle1
+        titleTextStyle = .georgiaTitle3
         descriptionTextStyle  = .subheadline
         extractTextStyle  = .subheadline
-        saveButtonTextStyle  = .mediumSubheadline
-        layoutMargins = ArticleCollectionViewCell.defaultMargins
-        spacing = 5
+        saveButtonTextStyle  = .mediumFootnote
+        spacing = 3
         imageViewDimension = 70
         statusViewDimension = 6
         alertIconDimension = 12
-        saveButtonTopSpacing = 5
         imageView.wmf_reset()
         resetSwipeable()
         isBatchEditing = false
@@ -192,16 +184,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return articleSemanticContentAttribute == .forceRightToLeft
     }
     
-    public var layoutMarginsWithAdditionsAndMultipliers: UIEdgeInsets {
-        let margins = self.layoutMargins
-        let multipliers = self.layoutMarginsMultipliers
-        return UIEdgeInsets(top: round(margins.top * multipliers.top) + layoutMarginsAdditions.top, left: round(margins.left * multipliers.left) + layoutMarginsAdditions.left, bottom: round(margins.bottom * multipliers.bottom) + layoutMarginsAdditions.bottom, right: round(margins.right * multipliers.right) + layoutMarginsAdditions.right)
-    }
-    
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
         if apply {
-            let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+            let layoutMargins = calculatedLayoutMargins
             let isBatchEditOnRight = isDeviceRTL
             var batchEditSelectViewWidth: CGFloat = 0
             var batchEditX: CGFloat = 0
@@ -257,16 +243,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     
     public var imageViewDimension: CGFloat! //used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat!
-    public var saveButtonTopSpacing: CGFloat!
     
-    @objc public var isImageViewHidden = false {
+    public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
-    @objc public var isSaveButtonHidden = false {
+    public var isSaveButtonHidden = false {
         didSet {
             saveButton.isHidden = isSaveButtonHidden
             setNeedsLayout()
@@ -373,11 +358,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             assert(!swipeTranslation.isNaN && swipeTranslation.isFinite)
             let isArticleRTL = articleSemanticContentAttribute == .forceRightToLeft
             if isArticleRTL {
-                layoutMarginsAdditions.left = 0 - swipeTranslation
-                layoutMarginsAdditions.right = swipeTranslation
+                layoutMarginsInteractiveAdditions.left = 0 - swipeTranslation
+                layoutMarginsInteractiveAdditions.right = swipeTranslation
             } else {
-                layoutMarginsAdditions.right = 0 - swipeTranslation
-                layoutMarginsAdditions.left = swipeTranslation
+                layoutMarginsInteractiveAdditions.right = 0 - swipeTranslation
+                layoutMarginsInteractiveAdditions.left = swipeTranslation
             }
             setNeedsLayout()
         }
@@ -393,15 +378,15 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
             if isArticleRTL {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsInteractiveAdditions.left = marginAddition
                 } else {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsInteractiveAdditions.right = marginAddition
                 }
             } else {
                 if isDeviceRTL {
-                    layoutMarginsAdditions.right = marginAddition
+                    layoutMarginsInteractiveAdditions.right = marginAddition
                 } else {
-                    layoutMarginsAdditions.left = marginAddition
+                    layoutMarginsInteractiveAdditions.left = marginAddition
                 }
             }
             
@@ -411,6 +396,11 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             }
             setNeedsLayout()
         }
+    }
+
+    public override func layoutWidth(for size: CGSize) -> CGFloat {
+        let layoutWidth = super.layoutWidth(for: size) - layoutMarginsInteractiveAdditions.left - layoutMarginsInteractiveAdditions.right
+        return layoutWidth
     }
 
     public var swipeTranslationWhenOpen: CGFloat {

@@ -1,11 +1,8 @@
 import UIKit
 import WMF
 
-fileprivate let headerReuseIdentifier = "org.wikimedia.history_header"
-
 @objc(WMFHistoryViewController)
 class HistoryViewController: ArticleFetchedResultsViewController {
-    var headerLayoutEstimate: WMFLayoutEstimate?
 
     override func setupFetchedResultsController(with dataStore: MWKDataStore) {
         let articleRequest = WMFArticle.fetchRequest()
@@ -16,11 +13,13 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isShadowHidingEnabled = true
+        navigationBar.displayType = .largeTitle
+
         emptyViewType = .noHistory
         
         title = CommonStrings.historyTabTitle
-        register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier, addPlaceholder: true)
         
         deleteAllButtonText = WMFLocalizedString("history-clear-all", value: "Clear", comment: "Text of the button shown at the top of history which deletes all history\n{{Identical|Clear}}")
         deleteAllConfirmationText =  WMFLocalizedString("history-clear-confirmation-heading", value: "Are you sure you want to delete all your recent items?", comment: "Heading text of delete all confirmation dialog")
@@ -33,9 +32,19 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return "Recent"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_recentView())
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        collectionViewUpdater.isGranularUpdatingEnabled = false
     }
     
     override func deleteAll() {
@@ -44,7 +53,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        headerLayoutEstimate = nil
     }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
@@ -59,17 +67,18 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionElementKindSectionHeader else {
             return UICollectionReusableView()
         }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerReuseIdentifier, for: indexPath)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
         guard let headerView = view as? CollectionViewHeader else {
             return view
         }
-        headerView.text = titleForHeaderInSection(indexPath.section)
+        headerView.style = .history
+        headerView.title = titleForHeaderInSection(indexPath.section)
         headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.readableMargins
+        headerView.layoutMargins = layout.itemLayoutMargins
         return headerView
     }
 
@@ -83,32 +92,33 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
                 continue
             }
-            headerView.text = titleForHeaderInSection(indexPath.section)
+            headerView.title = titleForHeaderInSection(indexPath.section)
         }
     }
     
     override var eventLoggingCategory: EventLoggingCategory {
         return .history
     }
-
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension HistoryViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        if let estimate = headerLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 67)
-        guard let placeholder = placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerReuseIdentifier) as? CollectionViewHeader else {
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        let reuseIdentifier = CollectionViewHeader.identifier
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
         let title = titleForHeaderInSection(section)
         placeholder.prepareForReuse()
-        placeholder.text = title
+        placeholder.style = .history
+        placeholder.title = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
-        headerLayoutEstimate = estimate
         return estimate
     }
+}
+
+// MARK: WMFSearchButtonProviding
+
+extension HistoryViewController: WMFSearchButtonProviding {
+
 }

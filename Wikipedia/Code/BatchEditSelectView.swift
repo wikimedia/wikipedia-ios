@@ -80,7 +80,7 @@ public enum EditingState: Int, EnumCollection {
 }
 
 public enum BatchEditToolbarActionType {
-    case update, addTo, moveTo, unsave, remove, delete
+    case update, addTo, addToList, moveTo, unsave, remove, delete
         
     public func action(with target: Any?) -> BatchEditToolbarAction {
         var title: String = CommonStrings.updateActionTitle
@@ -91,6 +91,9 @@ public enum BatchEditToolbarActionType {
             type = .moveTo
         case .addTo:
             title = CommonStrings.addToActionTitle
+            type = .addTo
+        case .addToList:
+            title = CommonStrings.addToReadingListShortActionTitle
             type = .addTo
         case .unsave:
             title = CommonStrings.shortUnsaveTitle

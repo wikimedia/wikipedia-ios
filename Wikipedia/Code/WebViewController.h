@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView *webView;
 
 @property (nonatomic) CGFloat contentWidthPercentage;
+
+@property (nonatomic, getter=isHeaderFadingEnabled) BOOL headerFadingEnabled;
+
 @property (nonatomic, readonly) CGFloat marginWidth;
 
 @property (nonatomic, readonly) WMFTheme *theme;

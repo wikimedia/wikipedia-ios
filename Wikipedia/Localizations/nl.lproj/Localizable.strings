@@ -4,6 +4,7 @@
 // Author: Festina90
 // Author: Hex
 // Author: JurgenNL
+// Author: KlaasZ4usV
 // Author: Macofe
 // Author: Mainframe98
 // Author: Mar(c)
@@ -29,6 +30,7 @@
 "about-libraries-complete-list" = "Volledige lijst";
 "about-libraries-license" = "Licentie";
 "about-libraries-licenses-title" = "Wij houden van opensourcesoftware $1";
+"about-places-maps-license-details" = "Plaatsen gebruikt kaarten aangeboden door Apple Maps. $1.";
 "about-product-of" = "Gemaakt door de $1 met behulp van vrijwilligers zoals u";
 "about-repositories" = "Repositories";
 "about-repositories-app-source-license" = "Broncode is beschikbaar onder de $1.";
@@ -81,6 +83,7 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 pagina|$1 pagina's}} aan leeslijst toevoegen";
 "alert-no-internet" = "Er is geen internetverbinding";
 "announcements-dismiss" = "Sluiten";
+"app-store-subtitle" = "De vrije encyclopedie";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
 "appearance-settings-expand-tables-footer" = "Alle tabellen in alle artikelen standaard openen, inclusief snelle feiten, referenties, notities en externe links.";
@@ -99,7 +102,6 @@
 "article-share" = "Deel";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
-"back" = "Terug";
 "back-button-accessibility-label" = "Terug";
 "button-done" = "Afgerond";
 "button-next" = "Volgende";
@@ -140,21 +142,26 @@
 "explore-continue-reading-heading" = "Verder lezen";
 "explore-enable-location-title" = "Zoek artikels nabij uw courante locatie";
 "explore-featured-article-heading" = "Uitgelichte pagina";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Uit Wikipedia in het $1";
+"explore-featured-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Uit";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alles aan";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
-"explore-most-read-footer-for-date" = "Alle meest gelezen pagina's op $1";
+"explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-generic-heading" = "Meest gelezen";
-"explore-most-read-heading" = "Meest gelezen op Wikipedia in het $1";
 "explore-most-read-more-list-title-for-date" = "Meest gelezen op $1";
 "explore-nearby-heading" = "Plaatsen in de buurt";
-"explore-nearby-placeholder-cancel" = "Annuleren";
-"explore-nearby-placeholder-dismiss" = "Sluiten";
 "explore-nearby-placeholder-heading" = "Plaatsen";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia in het $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-potd-heading" = "Afbeelding van de dag";
 "explore-random-article-heading" = "Willekeurige pagina";
+"explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
 // Fuzzy
@@ -203,14 +210,11 @@
 "hockeyapp-alert-title" = "De app crashte de laatste keer helaas";
 "home-button-explore-accessibility-label" = "Wikipedia, terug om te verkennen";
 "home-button-history-accessibility-label" = "Wikipedia, terug naar geschiedenis";
-"home-button-popover-description" = "Druk op de 'W' om terug te keren naar de ontdekkings-feed";
-"home-button-popover-title" = "Druk in om terug naar de hoofdpagina te gaan";
 "home-button-saved-accessibility-label" = "Wikipedia, terug naar opgslagen";
-"home-hide-suggestion-cancel" = "Annuleren";
-"home-hide-suggestion-prompt" = "Suggestie verbergen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
+// Fuzzy
 "home-news-footer" = "Meer in het nieuws";
 "home-themes-action-title" = "Voorkeuren beheren";
 "home-title" = "Verkennen";
@@ -224,9 +228,11 @@
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
 "in-the-news-notification-share-action-title" = "Delen...";
+"in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
 "info-box-title" = "Snelle feiten";
+"languages-settings-title" = "Talen";
 "languages-title" = "Taal wijzigen";
 "languages-wikipedia" = "Wikipedia-talen";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -253,8 +259,8 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annuleren";
-"menu-trash-accessibility-label" = "Verwijderen";
 "more-languages-tooltip-title" = "Talen toevoegen";
+"move-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
 "nearby-distance-label-feet" = "$1 voet";
 "nearby-distance-label-km" = "$1 km";
@@ -270,7 +276,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
 "on-this-day-title" = "Op deze dag";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Annuleren";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
 "page-history-title" = "Paginageschiedenis";
@@ -287,24 +292,21 @@
 "page-talk-page" = "Overlegpagina bekijken";
 "pictured" = "afgebeeld";
 "places-accessibility-clear-saved-searches" = "Opgeslagen zoekopdrachten wissen";
-"places-accessibility-close-search" = "Zoeken sluiten";
 "places-accessibility-group" = "$1 pagina's";
 "places-accessibility-recenter-map-on-user-location" = "Recenter op uw locatie";
 "places-accessibility-show-as-list" = "Als lijst weergeven";
 "places-accessibility-show-as-map" = "Als kaart weergeven";
 "places-accessibility-show-more" = "Meer pagina's weergeven";
-"places-dismiss-filter-list-accessibility-label" = "Zet uw zoekfilters uit";
 "places-empty-search-description" = "Verken steden, landen, continenten, natuurlijk landmarkeringen, historicus gebeurtenissen, gebouwen en meer.";
 "places-empty-search-title" = "Zoek naar Wikipedia-artikelen met geografische locaties";
 "places-enable-location-action-button-title" = "locatie inschakelen";
 "places-enable-location-description" = "Toegang tot uw locatie is alleen beschikbaar als de app of een van de functies op uw scherm zichtbaar is.";
 "places-enable-location-title" = "Verken artikels in de buurt van uw locatie door Locatie Toegang te activeren";
-"places-filter-list-title" = "Zoekfilters";
 "places-filter-no-saved-places" = "U hebt geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 plaats|$1 plaatsen}} gevonden";
 "places-filter-top-articles" = "Meest gelezen";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikelen}}";
+"places-filter-top-read-articles" = "Meest gelezen pagina's";
 "places-no-saved-articles-have-location" = "Geen van uw opgeslagen artikelen heeft locatieinformatie";
 "places-search-articles-that-match" = "$1 die overeenkomen met \"$2\"";
 "places-search-default-text" = "Plaatsen zoeken";
@@ -316,7 +318,6 @@
 "places-search-top-articles" = "Alle meest gelezen pagina's";
 "places-search-top-articles-that-match-scope" = "In de buurt";
 "places-search-your-current-location" = "Uw huidige locatie";
-"places-show-filter-list-accessibility-label" = "Zoekfilters weergeven";
 "places-title" = "Plaatsen";
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
@@ -325,19 +326,36 @@
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lezers";
+"reading-list-add-hint-title" = "“$1” toevoegen aan een leeslijst?";
+"reading-list-add-saved-button-title" = "Ja, voeg deze toe aan mijn leeslijsten";
+"reading-list-create-new-list-button-title" = "Leeslijst aanmaken";
+"reading-list-create-new-list-description" = "Beschrijving";
+"reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
+"reading-list-create-new-list-title" = "Nieuwe lijst aanmaken";
+"reading-list-deleted-accessibility-notification" = "Leeslijst verwijdered";
+"reading-list-do-not-keep-button-title" = "Nee, verwijder de artikelen van dit apparaat";
 "reading-list-entry-limit-exceeded-message" = "Verlaag alstublieft uw artikelaantal in deze lijst tot $1 om synchroniseren van alle lijstartikelen te hervatten.";
 "reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
+"reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
+"reading-list-keep-button-title" = "Ja, bewaar de artikelen op dit apparaat";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikelen sorteren";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
+"reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
+"reading-list-new-list-name-placeholder" = "leeslijst titel";
+"reading-lists-article-added-confirmation" = "Artikel toegevoegd aan “$1”";
 "reading-lists-article-not-synced" = "Niet gesynchroniseerd";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelmaximum overschreden, kan artikel niet synchroniseren";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Lijstmaximum overschreden, kan artikel niet synchroniseren";
 "reading-lists-article-queued-to-be-downloaded" = "Artikel in te downloaden wachtrij";
 "reading-lists-articles-not-synced-limit-exceeded" = "Enkele artikelen niet gesynchroniseerd, maximum overschreden";
+"reading-lists-conflicting-reading-list-name-updated" = "Uw lijst '$1' is hernoemd naar '$2'";
+"reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
+"reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
@@ -424,6 +442,7 @@
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-on-this-day-title" = "Op deze dag";
+"welcome-exploration-places-title" = "Plaatsen-tabblad";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
@@ -437,8 +456,9 @@
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";
 "welcome-notifications-tell-me-more-title" = "Meer informatie over meldingen";
-// Fuzzy
-"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De gegevens worden anoniem verzameld.";
+"welcome-send-data-helps-title" = "Help de app beter te maken";
+"welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
+"welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Inhoud geladen.";
@@ -453,8 +473,7 @@
 "wikitext-upload-save" = "Bezig met publiceren...";
 "wikitext-upload-save-anonymously-warning" = "Bewerkingen worden toegeschreven aan het IP-adres van uw apparaat. Door $1 hebt u meer privacy.";
 "wikitext-upload-save-sign-in" = "Aanmelden";
-// Fuzzy
-"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Bij het publiceren van veranderingen, gaat u akkoord met de $1 evenals u akoord gaat met het vrijgeven van uw bijdragen onder licencie van $2 en $3.";
+"wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Door het publiceren van wijzigingen, gaat u akkoord met de $1 en gaat u akoord gaat met het vrijgeven van uw bijdragen onder de licentie $2 en $3.";
 "wikitext-upload-save-terms-name" = "Gebruiksvoorwaarden";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
 "zero-charged-verbiage-extended" = "Het laden van andere pagina's kan kosten met zich meebrengen. Opgeslagen pagina's gebruiken geen dataverkeer en zijn dus gratis.";

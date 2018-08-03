@@ -60,7 +60,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier())
+        collectionView.register(TagCollectionViewCell.self, forCellWithReuseIdentifier: TagCollectionViewCell.identifier)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -126,9 +126,9 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let size = super.sizeThatFits(size, apply: apply)
-        let layoutMargins = layoutMarginsWithAdditionsAndMultipliers
+        let layoutMargins = calculatedLayoutMargins
         
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
@@ -154,21 +154,20 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
         if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, fitting: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
-            let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             
             if !isSaveButtonHidden {
                 origin.y += spacing
-                origin.y += saveButtonTopSpacing
-                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, fitting: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding
+                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
+                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
             }
         } else {
             let horizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumViewSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumLayoutAreaSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
         }
         
@@ -230,7 +229,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 yPosition = yAlignedWithImageBottom
                 availableWidth = widthMinusMargins
             }
-            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), fitting: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), maximumWidth: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
         
         if (apply && !isTagsViewHidden) {
@@ -292,7 +291,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configure(article: WMFArticle, index: Int, count: Int, shouldAdjustMargins: Bool = true, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    func configure(article: WMFArticle, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
 
         titleHTML = article.displayTitleHTML
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
@@ -318,7 +317,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
         
         if shouldShowSeparators {
-            topSeparator.isHidden = true
+            topSeparator.isHidden = index != 0
             bottomSeparator.isHidden = false
         } else {
             bottomSeparator.isHidden = true
@@ -328,10 +327,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 100
-        
-        if (shouldAdjustMargins) {
-            adjustMargins(for: index, count: count)
-        }
+    
         setNeedsLayout()
     }
     
@@ -362,7 +358,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier(), for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath)
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
         }

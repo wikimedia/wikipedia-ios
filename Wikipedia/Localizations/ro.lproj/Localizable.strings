@@ -80,9 +80,9 @@
 "explore-continue-reading-heading" = "Reluare lectură";
 "explore-featured-article-heading" = "Articol de calitate";
 "explore-main-page-heading" = "Astăzi la Wikipedia";
-"explore-most-read-footer-for-date" = "Cele mai citite articole (toate) pe $1";
+// Fuzzy
+"explore-most-read-footer" = "Cele mai citite articole (toate)";
 "explore-most-read-generic-heading" = "Cele mai citite";
-"explore-most-read-heading" = "Cele mai citite la Wikipedia în $1";
 "explore-most-read-more-list-title-for-date" = "Cele mai citite articole pe $1";
 "explore-nearby-heading" = "Locuri din apropiere";
 "explore-potd-heading" = "Imaginea zilei";
@@ -101,9 +101,8 @@
 "hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
 "hockeyapp-alert-send-report" = "Trimite raportul";
 "hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
-"home-hide-suggestion-cancel" = "Revocare";
-"home-hide-suggestion-prompt" = "Ascunde această sugestie";
 "home-more-like-footer" = "Mai multe precum $1";
+// Fuzzy
 "home-nearby-footer" = "Mai multe articole din apropierea dumneavoastră";
 "home-nearby-location-footer" = "Mai multe locuri de lângă $1";
 "home-title" = "Explorare";
@@ -137,14 +136,12 @@
 "main-menu-title" = "Mai mult";
 "main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Revocare";
-"menu-trash-accessibility-label" = "Șterge";
 "navbar-title-mode-edit-wikitext-preview" = "Previzualizare";
 "nearby-distance-label-feet" = "$1 picioare";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 metri";
 "nearby-distance-label-miles" = "$1 mile";
 "no-email-account-alert" = "Vă rugăm să configurați un cont de e-mail pe dispozitivul dumneavoastră și să încercați din nou.";
-"onboarding-wikipedia" = "Wikipedia";
 "open-link-cancel" = "Revocare";
 "page-edit-history" = "Istoric complet al modificărilor";
 "page-history-title" = "Istoric articol";

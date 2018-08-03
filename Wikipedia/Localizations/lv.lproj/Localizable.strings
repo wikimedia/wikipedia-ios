@@ -41,7 +41,6 @@
 "article-languages-yours" = "Tavas valodas";
 "article-read-more-title" = "Lasīt vairāk";
 "article-share" = "Dalīties";
-"back" = "Atpakaļ";
 "back-button-accessibility-label" = "Atpakaļ";
 "button-done" = "Gatavs";
 "button-next" = "Tālāk";
@@ -62,7 +61,6 @@
 "explore-another-random" = "Vēl viens nejaušs raksts";
 "explore-continue-reading-heading" = "Turpini lasīt";
 "explore-main-page-heading" = "Šodien Vikipēdijā";
-"explore-nearby-placeholder-cancel" = "Atcelt";
 "explore-nearby-placeholder-heading" = "Vietas";
 "explore-nearby-sub-heading-your-location" = "Tava atrašanās vieta";
 "explore-potd-heading" = "Dienas attēls";
@@ -92,7 +90,6 @@
 "hockeyapp-alert-always-send" = "Vienmēr sūtīt";
 "hockeyapp-alert-do-not-send" = "Nesūtīt";
 "hockeyapp-alert-send-report" = "Nosūtīt ziņojumu";
-"home-hide-suggestion-cancel" = "Atcelt";
 "icon-shortcut-continue-reading-title" = "Turpināt lasīt";
 "icon-shortcut-random-title" = "Nejauša lapa";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
@@ -119,7 +116,6 @@
 "main-menu-title" = "Vairāk";
 "main-menu-zero-faq" = "Vikipēdija Zero BUJ";
 "menu-cancel-accessibility-label" = "Atcelt";
-"menu-trash-accessibility-label" = "Dzēst";
 "more-languages-tooltip-description" = "Meklē Vikipēdijā gandrīz 300 valodās";
 "more-languages-tooltip-title" = "Pievienot valodas";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";
@@ -127,7 +123,6 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
-"onboarding-wikipedia" = "Vikipēdija";
 "open-link-cancel" = "Atcelt";
 "page-edit-history" = "Pilna labojumu vēsture";
 "page-history-title" = "Raksta vēsture";
@@ -135,7 +130,6 @@
 "page-protected-sysop" = "Šī lapa ir pilnībā aizsargāta.";
 "page-similar-titles" = "Līdzīgas lapas";
 "places-accessibility-group" = "$1 rakstu";
-"places-filter-list-title" = "Meklēšanas filtri";
 "places-filter-saved-articles" = "Saglabātie raksti";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 raksti|$1 raksts|$1 raksti}}";
 // Fuzzy

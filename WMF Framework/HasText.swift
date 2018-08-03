@@ -25,7 +25,7 @@ extension UILabel {
         return text.wmf_hasText
     }
 
-    public var wmf_hasNonWhitespaceText: Bool {
+    @objc public var wmf_hasNonWhitespaceText: Bool {
         guard let text = text else {
             return false
         }

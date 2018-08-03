@@ -26,7 +26,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
-        navigationItem.title = WMFLocalizedString("reading-list-create-new-list-title", value: "Create a new list", comment: "Title for the view in charge of creating a new reading list.")
+        navigationItem.title = CommonStrings.createNewListTitle
         readingListNameLabel.text = WMFLocalizedString("reading-list-create-new-list-reading-list-name", value: "Reading list name", comment: "Title for label above text field for entering new list name.")
         descriptionLabel.text = WMFLocalizedString("reading-list-create-new-list-description", value: "Description", comment: "Title for label above text field for entering new list description.")
         readingListNameTextField.placeholder = WMFLocalizedString("reading-list-new-list-name-placeholder", value: "reading list title", comment: "Placeholder text appearing in text field for entering new list name")

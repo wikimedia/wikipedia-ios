@@ -74,6 +74,7 @@
 "add-articles-to-reading-list" = "أضف $1 إلى قائمة القراءة";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "announcements-dismiss" = "تجاهل";
+"app-store-subtitle" = "الموسوعة الحرة";
 "appearance-settings-expand-tables" = "تمديد الجداول";
 "appearance-settings-set-automatic-table-opening" = "إعدادات الجداول";
 "article-about-title" = "حول المقال";
@@ -84,7 +85,6 @@
 "article-read-more-title" = "قراءة المزيد";
 "article-unable-to-load-article" = "غير قادر على تحميل هذه المقالة.";
 "article-unable-to-load-section" = "تعذر تحميل هذه الفقرة. حاول تحديث عرض المقالة كي ترى إن أدى ذلك إلى التغلب على هذه المشكلة.";
-"back" = "رجوع";
 "back-button-accessibility-label" = "ارجع";
 "button-done" = "تم";
 "button-next" = "التالي";
@@ -119,23 +119,38 @@
 "error-unknown" = "حدث خطأ غير معروف";
 "explore-another-random" = "مقالة عشوائية أخرى";
 "explore-because-you-read" = "لأنك قرأت";
+"explore-because-you-read-footer" = "مقالات متعلقة إضافية";
 "explore-continue-reading-heading" = "واصل القراءة";
 "explore-featured-article-heading" = "مقالة مختارة";
+"explore-featured-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
+"explore-feed-preferences-card-hidden-title" = "البطاقة أخفيت";
+"explore-feed-preferences-featured-article-description" = "مقالة اليوم المختارة على ويكيبيديا";
+"explore-feed-preferences-global-cards-title" = "بطاقات عالمية";
+"explore-feed-preferences-hide-card-action-title" = "أخف هذه البطاقة";
+"explore-feed-preferences-in-the-news-description" = "مقالات عن الأحداث الجارية";
+"explore-feed-preferences-on-this-day-description" = "أحداث تاريخية في هذا اليوم";
+"explore-feed-preferences-show-featured-article-title" = "أظهر بطاقة المقالة المختارة";
+"explore-feed-preferences-show-news-title" = "أظهر بطاقة في الأخبار";
+"explore-feed-preferences-top-read-description" = "المقالات الأكثر قراءة";
+"explore-hide-card-prompt" = "أخف هذه البطاقة";
 "explore-main-page-description" = "صفحة رئيسية من مشاريع ويكيميديا";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
-"explore-most-read-footer-for-date" = "كل المقالات الأكثر قراءة في $1";
+// Fuzzy
+"explore-most-read-footer" = "كل المقالات الأكثر قراءة";
 "explore-most-read-generic-heading" = "الأعلى قراءة";
-"explore-most-read-heading" = "الأعلى قراءة في ويكيبيديا $1";
 "explore-most-read-more-list-title-for-date" = "الأكثر قراءة في $1";
+"explore-most-read-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-nearby-heading" = "أماكن قريبة";
-"explore-nearby-placeholder-cancel" = "ألغ";
-"explore-nearby-placeholder-dismiss" = "أغلق";
 "explore-nearby-placeholder-heading" = "أماكن";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "على ويكيبيديا $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "على ويكيبيديا";
 "explore-nearby-sub-heading-your-location" = "موقعك";
 "explore-potd-heading" = "صورة اليوم";
+"explore-potd-sub-heading" = "من ويكيميديا كومنز";
 "explore-random-article-heading" = "مقالة عشوائية";
+"explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";
 "feed-news-notification-button-text" = "أظهر الإشعارات";
 // Fuzzy
@@ -183,11 +198,11 @@
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
 "home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
-"home-hide-suggestion-cancel" = "إلغاء";
-"home-hide-suggestion-prompt" = "أخف هذا الاقتراح";
 "home-more-like-footer" = "المزيد مثل $1";
+// Fuzzy
 "home-nearby-footer" = "المزيد من جوار موقعك";
 "home-nearby-location-footer" = "المزيد بالقرب من $1";
+// Fuzzy
 "home-news-footer" = "المزيد في الأخبار";
 "home-title" = "استكشف";
 "home-title-accessibility-label" = "ويكيبيديا، اذهب لبداية الاستكشاف";
@@ -200,9 +215,11 @@
 "in-the-news-notification-read-now-action-title" = "اقرأ الآن";
 "in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
 "in-the-news-notification-share-action-title" = "شارك...";
+"in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
 "in-the-news-title" = "في الأخبار";
 "info-box-close-text" = "إغلاق";
 "info-box-title" = "معلومات سريعة";
+"languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -229,7 +246,6 @@
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "menu-cancel-accessibility-label" = "ألغ";
-"menu-trash-accessibility-label" = "حذف";
 "more-languages-tooltip-title" = "أضف لغات";
 "navbar-title-mode-edit-wikitext-preview" = "معاينة";
 "nearby-distance-label-feet" = "$1 قدم";
@@ -242,7 +258,6 @@
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
 "number-thousands" = "$1 ألف";
-"onboarding-wikipedia" = "ويكيبيديا";
 "open-link-cancel" = "إلغاء";
 "page-edit-history" = "تاريخ التعديل الكامل";
 "page-history-title" = "تاريخ المقالة";
@@ -259,19 +274,16 @@
 "page-talk-page" = "اعرض صفحة النقاش";
 "pictured" = "مصوّر";
 "places-accessibility-clear-saved-searches" = "مسح عمليات البحث المحفوظة";
-"places-accessibility-close-search" = "أغلق البحث";
 "places-accessibility-group" = "$1 مقالات";
 "places-accessibility-recenter-map-on-user-location" = "أعد ضبط موقعك للمركز";
 "places-accessibility-show-as-list" = "اعرض كقائمة";
 "places-accessibility-show-as-map" = "اعرض كخريطة";
 "places-accessibility-show-more" = "أظهر المزيد من المقالات";
-"places-dismiss-filter-list-accessibility-label" = "تجاهُل مرشحات البحث";
 "places-empty-search-description" = "استكشف مدن وبلدان وقارات ومعالم طبيعية وأحداث تاريخية ومباني وأكثر من ذلك.";
 "places-empty-search-title" = "ابحث في ويكيبيديا عن مقالات ذات مواقع جغرافية";
 "places-enable-location-action-button-title" = "تفعيل الوصول لموقعك";
 "places-enable-location-description" = "الوصول لموقعك متاح فقط عند ظهور التطبيق أو إحدى خصائصه على شاشتك.";
 "places-enable-location-title" = "استكشف المقالات القريبة منك عن طريق تفعيل الوصول إلى موقعك";
-"places-filter-list-title" = "مرشحات البحث";
 "places-filter-no-saved-places" = "لا توجد لديك أماكن محفوظة";
 "places-filter-saved-articles" = "مقالات محفوظة";
 "places-filter-top-articles" = "الأعلى قراءة";
@@ -286,7 +298,6 @@
 "places-search-top-articles" = "كل المقالات الأكثر قراءة";
 "places-search-top-articles-that-match-scope" = "بالقرب من هنا";
 "places-search-your-current-location" = "موقعك الحالي";
-"places-show-filter-list-accessibility-label" = "إظهار مرشحات البحث";
 "places-title" = "أماكن";
 "places-unknown-distance" = "المسافة غير معروفة";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
@@ -324,6 +335,7 @@
 "settings-notifications-trending" = "الأحداث الجارية";
 "settings-primary-language" = "أساسي";
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
+"settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
@@ -334,6 +346,7 @@
 "share-menu-item" = "شارك...";
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
+"sort-by-title-action" = "العنوان";
 "status-saved-for-later" = "محفوظة لوقت لاحق";
 "status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "table-of-contents-button-label" = "قائمة المحتويات";
@@ -341,6 +354,9 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
 "table-title-other" = "مزيد من المعلومات";
+"theme-black-display-name" = "أسود";
+"theme-dark-display-name" = "غامق";
+"theme-default-display-name" = "الافتراضية";
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
@@ -357,6 +373,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-title" = "الموسوعة الحرة";
 "welcome-languages-add-button" = "إضافة لغة آخرى";
+"welcome-languages-search-title" = "ابحث فيما يقارب 300 لغة";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
 "welcome-send-data-helps-title" = "ساعد في تحسين التطبيق";
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";

@@ -74,7 +74,7 @@
                 self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
             }
         }
-
+        [self.navigationBar updateNavigationItems];
         self.navigationBar.navigationBarPercentHidden = 0;
         [self updateNavigationBarStatusBarHeight];
     } else {
@@ -116,6 +116,14 @@
 - (void)scrollViewInsetsDidChange {
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.navigationBar layoutIfNeeded];
+        [self updateScrollViewInsets];
+    } completion:NULL];
+}
+
 - (void)updateScrollViewInsets {
     if (self.automaticallyAdjustsScrollViewInsets) {
         return;
@@ -124,6 +132,7 @@
     if (!scrollView) {
         return;
     }
+    
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
         frame = self.navigationBar.frame;
@@ -131,6 +140,7 @@
         frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
     }
     CGFloat top = CGRectGetMaxY(frame);
+
     UIEdgeInsets safeInsets = UIEdgeInsetsZero;
     if (@available(iOS 11.0, *)) {
         safeInsets = self.view.safeAreaInsets;
@@ -138,15 +148,16 @@
         safeInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, MIN(44, self.bottomLayoutGuide.length), 0); // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
     }
     CGFloat bottom = safeInsets.bottom;
-    UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
+    UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top + self.additionalScrollIndicatorInsets.top, safeInsets.left + self.additionalScrollIndicatorInsets.left, bottom + self.additionalScrollIndicatorInsets.bottom, safeInsets.right + self.additionalScrollIndicatorInsets.right);
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
-    UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
+    UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
+    
+    if ([self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES]) {
         [self scrollViewInsetsDidChange];
     }
 }

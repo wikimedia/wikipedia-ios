@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>கட்டுரை நீக்கப்பட்டது</string>
+			<key>other</key>
+			<string>கட்டுரைகள் நீக்கப்பட்டன</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -16,22 +32,6 @@
 			<string>%1$d வரலாற்று நிகழ்வு</string>
 			<key>other</key>
 			<string>%1$d வரலாற்று நிகழ்வுகள்</string>
-		</dict>
-	</dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d இடம் காணப்பட்டது</string>
-			<key>other</key>
-			<string>%1$d இடங்கள் காணப்பட்டது</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

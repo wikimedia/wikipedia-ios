@@ -7,6 +7,7 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
+#import <WMF/MWKLanguageLinkController.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -127,58 +128,78 @@
     }
 }
 
-- (void)updateDailySortPriority {
+
+
+- (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrderLookup {
+    
+    NSNumber *siteURLSortOrderNumber = nil;
+    NSString *siteURLDatabaseKey = self.siteURL.wmf_articleDatabaseKey;
+    
+    if (siteURLDatabaseKey) {
+        siteURLSortOrderNumber = siteURLSortOrderLookup[siteURLDatabaseKey];
+    }
+    
+    NSInteger maxSortOrderByKind = 14;
+    int32_t siteURLSortOrder = (int32_t)(maxSortOrderByKind * [siteURLSortOrderNumber integerValue]);
+    int32_t updatedDailySortPriority = 0;
+    
     switch (self.contentGroupKind) {
         case WMFContentGroupKindUnknown:
             break;
         case WMFContentGroupKindAnnouncement:
-            self.dailySortPriority = -1;
+            updatedDailySortPriority = -1;
             break;
         case WMFContentGroupKindContinueReading:
-            self.dailySortPriority = 0;
+            updatedDailySortPriority = 0;
             break;
         case WMFContentGroupKindRelatedPages:
-            self.dailySortPriority = 1;
+            updatedDailySortPriority = 1;
             break;
         case WMFContentGroupKindReadingList:
-            self.dailySortPriority = 2;
+            updatedDailySortPriority = siteURLSortOrder + 2;
             break;
         case WMFContentGroupKindTheme:
-            self.dailySortPriority = 3;
+            updatedDailySortPriority = siteURLSortOrder + 3;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            self.dailySortPriority = 4;
+            updatedDailySortPriority = siteURLSortOrder + 4;
             break;
         case WMFContentGroupKindTopRead:
-            self.dailySortPriority = 5;
+            updatedDailySortPriority = siteURLSortOrder + 5;
             break;
         case WMFContentGroupKindNews:
-            self.dailySortPriority = 6;
+            updatedDailySortPriority = siteURLSortOrder + 6;
             break;
         case WMFContentGroupKindNotification:
-            self.dailySortPriority = 7;
+            updatedDailySortPriority = siteURLSortOrder + 7;
             break;
         case WMFContentGroupKindPictureOfTheDay:
-            self.dailySortPriority = 8;
+            updatedDailySortPriority = 8;
             break;
         case WMFContentGroupKindOnThisDay:
-            self.dailySortPriority = 9;
+            updatedDailySortPriority = siteURLSortOrder + 9;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            self.dailySortPriority = 10;
+            updatedDailySortPriority = siteURLSortOrder + 10;
             break;
         case WMFContentGroupKindLocation:
-            self.dailySortPriority = 11;
+            updatedDailySortPriority = siteURLSortOrder + 11;
             break;
         case WMFContentGroupKindRandom:
-            self.dailySortPriority = 12;
+            updatedDailySortPriority = siteURLSortOrder + 12;
             break;
         case WMFContentGroupKindMainPage:
-            self.dailySortPriority = 13;
+            updatedDailySortPriority = siteURLSortOrder + 13;
             break;
         default:
             break;
     }
+        
+    if (self.dailySortPriority == updatedDailySortPriority) {
+        return;
+    }
+    
+    self.dailySortPriority = updatedDailySortPriority;
 }
 
 - (WMFContentType)contentType {
@@ -197,6 +218,14 @@
     self.contentGroupKindInteger = contentGroupKind;
 }
 
+- (WMFContentGroupUndoType)undoType {
+    return (WMFContentGroupUndoType)self.undoTypeInteger;
+}
+
+- (void)setUndoType:(WMFContentGroupUndoType)undoType {
+    self.undoTypeInteger = undoType;
+}
+
 - (nullable NSURL *)articleURL {
     return [NSURL URLWithString:self.articleURLString];
 }
@@ -210,14 +239,17 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
-    self.siteURLString = siteURL.absoluteString;
+    self.siteURLString = siteURL.wmf_articleDatabaseKey;
 }
 
-- (void)setFullContentObject:(id<NSCoding>)fullContentObject {
+- (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSAssert(moc != nil, @"nil moc");
     if (!moc) {
         return;
+    }
+    if ([fullContentObject isKindOfClass:[NSArray class]] || [fullContentObject isKindOfClass:[NSSet class]]) {
+        self.countOfFullContent = @([(id)fullContentObject count]);
     }
     WMFContent *fullContent = self.fullContent;
     if (!fullContentObject) {
@@ -267,6 +299,12 @@
                 NSInteger startIndex = featuredEventIndex;
                 NSInteger length = startIndex + 1 < contentArray.count ? 2 : 1;
                 NSRange range = NSMakeRange(startIndex, length);
+                // If we have only the last item but there's more than one, move back one so we get 2 total.
+                // Only do so in this specific case so we usually have the `featuredContent` first (it's chosen based on a score weighing its various properties).
+                BOOL shouldBackUpByOne = range.length == 1 && startIndex > 0 && contentArray.count > 1;
+                if (shouldBackUpByOne) {
+                    range = NSMakeRange(startIndex - 1, 2);
+                }
                 self.contentPreview = [contentArray subarrayWithRange:range];
             }
         } break;
@@ -569,7 +607,7 @@
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
     fetchRequest.fetchLimit = 1;
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
@@ -594,7 +632,7 @@
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.absoluteString];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_articleDatabaseKey];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -622,7 +660,7 @@
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     group.contentGroupKind = kind;
-    group.siteURLString = siteURL.absoluteString;
+    group.siteURL = siteURL;
     group.fullContentObject = associatedContent;
     [group updateContentPreviewWithContent:associatedContent];
 
@@ -636,7 +674,6 @@
         [group updateKey];
     }
     [group updateContentType];
-    [group updateDailySortPriority];
 
     return group;
 }
@@ -657,7 +694,7 @@
         group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
         group.contentGroupKind = kind;
         group.fullContentObject = associatedContent;
-        group.siteURLString = siteURL.absoluteString;
+        group.siteURL = siteURL;
         [group updateContentPreviewWithContent:associatedContent];
         if (customizationBlock) {
             customizationBlock(group);
@@ -689,12 +726,17 @@
     [self removeContentGroups:groups];
 }
 
-- (nullable WMFContentGroup *)locationContentGroupWithinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
+- (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
+    NSString *siteURLString = siteURL.wmf_articleDatabaseKey;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
                                  if (!groupLocation) {
+                                     return;
+                                 }
+                                 NSString *groupSiteURLString = group.siteURL.wmf_articleDatabaseKey;
+                                 if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
                                      return;
                                  }
                                  CLLocationDistance distance = [groupLocation distanceFromLocation:location];

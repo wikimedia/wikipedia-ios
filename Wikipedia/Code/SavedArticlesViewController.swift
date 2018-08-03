@@ -1,9 +1,7 @@
-
-@objc(WMFSavedArticlesViewController)
 class SavedArticlesViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
     
     private let reuseIdentifier = "SavedArticlesCollectionViewCell"
-    private var cellLayoutEstimate: WMFLayoutEstimate?
+    private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
     typealias T = WMFArticle
     let dataStore: MWKDataStore
@@ -35,7 +33,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
         setupEditController()
         isRefreshControlEnabled = true
         emptyViewType = .noSavedPages
@@ -50,15 +48,9 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     override func viewWillAppear(_ animated: Bool) {
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
-        fetch()
         setupCollectionViewUpdater()
+        fetch()
         super.viewWillAppear(animated)
-    }
-    
-    override func viewWillHaveFirstAppearance(_ animated: Bool) {
-        super.viewWillHaveFirstAppearance(animated)
-        navigationBarHider.isBarHidingEnabled = false
-        navigationBarHider.isUnderBarViewHidingEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -123,10 +115,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     private func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sections = fetchedResultsController.sections,
-            indexPath.section < sections.count,
-            indexPath.item < sections[indexPath.section].numberOfObjects else {
+        guard let fetchedResultsController = fetchedResultsController, fetchedResultsController.isValidIndexPath(indexPath) else {
                 return nil
         }
         return fetchedResultsController.object(at: indexPath)
@@ -153,39 +142,40 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Editing
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        let addToListItem = BatchEditToolbarActionType.addTo.action(with: self)
+        let addToListItem = BatchEditToolbarActionType.addToList.action(with: self)
         let unsaveItem = BatchEditToolbarActionType.unsave.action(with: self)
         return [addToListItem, unsaveItem]
     }()
     
-    // MARK: - Hiding extended view
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
 }
 
 // MARK: - CollectionViewUpdaterDelegate
@@ -201,33 +191,12 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
         updateEmptyState()
         collectionView.setNeedsLayout()
     }
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-
-extension SavedArticlesViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
-            return estimate
-        }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        cellLayoutEstimate = estimate
-        return estimate
-    }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
     }
 }
+
 
 // MARK: - UICollectionViewDataSource
 
@@ -268,15 +237,17 @@ extension SavedArticlesViewController {
         
         cell.tags = (readingLists: readingListsForArticle(at: indexPath), indexPath: indexPath)
         
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
-        cell.actions = availableActions(at: indexPath)
+        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+
         cell.isBatchEditable = true
         cell.delegate = self
-        cell.layoutMargins = layout.readableMargins
+        cell.layoutMargins = layout.itemLayoutMargins
         
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 
@@ -311,8 +282,10 @@ extension SavedArticlesViewController: ActionDelegate {
             return false
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .unsave:
             let alertController = ReadingListsAlertController()
@@ -356,11 +329,7 @@ extension SavedArticlesViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView: UIView? = UIDevice.current.userInterfaceIdiom == .pad ? collectionView(collectionView, cellForItemAt: indexPath) : nil
         switch action.type {
         case .delete:
             if let article = article(at: indexPath) {
@@ -368,7 +337,7 @@ extension SavedArticlesViewController: ActionDelegate {
             }
             return true
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, sourceView: sourceView)
         default:
             assertionFailure("Unsupported action type")
             return false
@@ -412,7 +381,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidBeginEditing searchBar: UISearchBar) {
-        navigationBarHider.isHidingEnabled = false
+        navigationBar.isInteractiveHidingEnabled = false
     }
     
     func saved(_ saved: SavedViewController, searchBarTextDidEndEditing searchBar: UISearchBar) {
@@ -421,7 +390,7 @@ extension SavedArticlesViewController: SavedViewControllerDelegate {
     
     private func makeSearchBarResignFirstResponder(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationBarHider.isHidingEnabled = true
+        navigationBar.isInteractiveHidingEnabled = true
     }
 }
 
@@ -436,17 +405,17 @@ extension SavedArticlesViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-            let url = articleURL(at: indexPath)
-            else {
+        
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let articleURL = articleURL(at: indexPath)
+        else {
                 return nil
         }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
@@ -475,5 +444,15 @@ extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewN
     
     var analyticsContext: String {
         return analyticsName
+    }
+}
+
+extension SavedArticlesViewController: EventLoggingEventValuesProviding {
+    var eventLoggingCategory: EventLoggingCategory {
+        return EventLoggingCategory.saved
+    }
+    
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
     }
 }

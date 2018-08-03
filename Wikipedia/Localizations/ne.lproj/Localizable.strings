@@ -31,10 +31,16 @@
 "about-wikipedia" = "विकिपिडिया";
 "abuse-filter-disallow-heading" = "यस सम्पादनलाई प्रकाशन गर्न सक्नुहुन्न। कृपया पछाडि जानुहोस् र यसलाई परिवर्तन गर्नुहोस्।";
 "account-creation-captcha-request-account" = "खाता अनुरोध गर्नुहोस् ।";
+"account-creation-create-account" = "खाता खोल्नुहोस्";
 "account-creation-log-in" = "लग इन।";
 "account-creation-logging-in" = "प्रवेश गर्दै...";
 "account-creation-saving" = "सङ्ग्रह गर्दै...";
+"account-creation-title" = "नयाँ खाता खोल्नुहोस्";
+"action-add-to" = "यहाँ थप्नुहोस्…";
+"action-add-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-cancel" = "रद्द गर्नुहोस्";
+"action-move-to" = "मा सार्ने…";
+"action-move-to-reading-list" = "अध्ययन सूचीमा थप गर्नुहोस्";
 "action-read" = "पढ्नुहोस्";
 "action-remove" = "हटाउनुहोस्";
 "action-save" = "संग्रह गर्नुहोस्";
@@ -51,8 +57,8 @@
 "article-languages-others" = "अन्य भाषाहरू";
 "article-read-more-title" = "थप पढ्ने";
 "article-share" = "आदान-प्रदान गर्नुहोस्";
-"back" = "पछाडि";
 "back-button-accessibility-label" = "पछाडि";
+"back-button-popover-title" = "पछाडि जानको लागि ट्याप गर्नुहोस्";
 "button-done" = "भयो";
 "button-next" = "अर्को";
 "button-ok" = "ठीक छ";
@@ -82,16 +88,23 @@
 "explore-because-you-read" = "तपाईंले यो लेख पढ्नुभएको हुनाले";
 "explore-continue-reading-heading" = "पढ्ने कार्य जारी राख्नुहोस्";
 "explore-featured-article-heading" = "विशेष लेख";
+"explore-feed-preferences-card-hidden-title" = "लुकाइएको कार्ड";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "बन्द";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "सबैमा खुला";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "खुला";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "खुला $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "सबै %@ लुकाइएका कार्डहरू";
 "explore-main-page-heading" = "विकिपिडियामा आज";
-"explore-most-read-footer-for-date" = "$1मा धेरै पढिएका लेखहरू";
+// Fuzzy
+"explore-most-read-footer" = "सबै धेरै पढिएका लेखहरू";
 "explore-most-read-generic-heading" = "धेरै पढिएको";
 "explore-most-read-more-list-title-for-date" = "$1 मा धेरै पढिएको";
 "explore-nearby-heading" = "नजिकैका स्थानहरू";
-"explore-nearby-placeholder-cancel" = "रद्द गर्नुहोस्";
-"explore-nearby-placeholder-dismiss" = "खारेज गर्नुहोस्";
 "explore-nearby-placeholder-heading" = "स्थानहरू";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियामा";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपिडिया बाट";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपिडियाबाट";
 "explore-nearby-sub-heading-your-location" = "तपाईँको स्थान";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 विकिपिडियाबाट तपाईँको अवस्थिति";
 "explore-potd-heading" = "आजको तस्बिर";
 "explore-random-article-heading" = "कुनै लेख";
 "explore-randomizer" = "क्रमरहित ढङ्गले चुनिएको लेख";
@@ -132,9 +145,9 @@
 "hockeyapp-alert-do-not-send" = "नपठाउने";
 "hockeyapp-alert-send-report" = "प्रतिवेदन पठाउनुहोस्";
 "hockeyapp-alert-title" = "माफ गर्नुहोस्, अनुप्रयोग पछिल्लो पटक क्र्यास भयो";
-"home-hide-suggestion-cancel" = "रद्द गर्नुहोस्";
 "home-more-like-footer" = "$1 जस्तो अरु";
 "home-nearby-location-footer" = "नजिकै थप $1";
+// Fuzzy
 "home-news-footer" = "समचारमा थप";
 "home-themes-action-title" = "अभिरुचीहरू व्यवस्थापन गर्नुहोस्";
 "home-title" = "अन्वेषण";
@@ -150,6 +163,7 @@
 "in-the-news-title" = "समाचारमा";
 "info-box-close-text" = "बन्द गर्नुहोस्";
 "info-box-title" = "छरितो तथ्यहरू";
+"languages-settings-title" = "भाषाहरू";
 "languages-title" = "भाषा परिवर्तन गर्नुहोस्";
 "languages-wikipedia" = "विकिपिडिया भाषहरू";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -171,7 +185,6 @@
 "main-menu-title" = "थप";
 "main-menu-zero-faq" = "विकिपिडिया शून्य प्रायः सोधिने प्रश्नहरू";
 "menu-cancel-accessibility-label" = "रद्द गर्नुहोस्";
-"menu-trash-accessibility-label" = "हटाउने";
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
@@ -189,7 +202,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटनाक्रम|$1 ऐतिहासिक घटनाक्रमहरू}}";
 "on-this-day-footer" = "यस दिनका ऐतिहासिक घटनाक्रमहरू";
 "on-this-day-title" = "आजको दिनमा";
-"onboarding-wikipedia" = "विकिपिडिया";
 "open-link-cancel" = "रद्द गर्नुहोस्";
 "page-edit-history" = "पूर्ण सम्पादन इतिहास";
 "page-history-title" = "लेखको इतिहास";
@@ -206,18 +218,14 @@
 "page-talk-page" = "वार्तालाप पृष्ठ हेर्नुहोस्";
 "pictured" = "तस्विरमा";
 "places-accessibility-clear-saved-searches" = "सङ्ग्रह गरिएका खोजहरू हटाउनुहोस्";
-"places-accessibility-close-search" = "खोज बन्द गर्नुहोस्";
 "places-accessibility-group" = "$1 लेखहरू";
 "places-accessibility-recenter-map-on-user-location" = "तपाईँको स्थानमा पुनःकेन्द्रीकरण गर्नुहोस्";
 "places-accessibility-show-as-list" = "सूचीको रूपमा देखाउनुहोस्";
 "places-accessibility-show-as-map" = "नसक्साको रूपमा देखाउनुहोस्";
 "places-accessibility-show-more" = "थप लेखहरू देखाउनुहोस्";
-"places-dismiss-filter-list-accessibility-label" = "खोज फिल्टरहरू हटाउनुहोस्";
 "places-enable-location-action-button-title" = "स्थान सक्षम पार्नुहोस्";
-"places-filter-list-title" = "खोज फिल्टरहरू";
 "places-filter-no-saved-places" = "कुनै पनि सङ्ग्रह गरिएका स्थानहरू छैनन्";
 "places-filter-saved-articles" = "सङ्ग्रह गरिएका लेखहरू";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 स्थान|$1 स्थानहरू}} भेटियो";
 "places-filter-top-articles" = "धेरै पढिएको";
 "places-search-default-text" = "स्थानहरू खोज्नुहोस्";
 "places-search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
@@ -251,6 +259,7 @@
 "settings-my-languages" = "मेरा भाषाहरू";
 "settings-notifications" = "सूचनाहरू";
 "settings-primary-language" = "प्राथमिक";
+"settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "मेट्नुहोस्";
 "settings-support" = "विकिपिडियालाई समर्थन गर्नुहोस्";
 "settings-title" = "सेटिङ्हरू";
@@ -284,6 +293,7 @@
 "welcome-send-data-sub-title" = "विकिमिडियालाई एप राम्रो बनाउन तपाईँले कसरी एप प्रयोग गर्नुहुन्छ भन्ने जानकारी दिएर सहयोग गर्नुहोस्। संकलित तथ्याङ्क अज्ञातरूपमा गरिन्छ";
 "welcome-volunteer-send-usage-reports" = "उपयोग प्रतिवेदन पठाउनुहोस्।";
 "wikitext-download-success" = "सामग्री लोड गरियो ।";
+"wikitext-downloading" = "सामग्री लोड गर्दै...";
 "wikitext-preview-link-preview-title" = "लिङ्क पूर्वावलोकन";
 "wikitext-upload-save" = "प्रकाशन गर्दै...";
 "wikitext-upload-save-anonymously-warning" = "सम्पादनको श्रेय तपाईँको यन्त्रको IP ठेगानालाई दिइने छ। If you $1 you will have more privacy.";

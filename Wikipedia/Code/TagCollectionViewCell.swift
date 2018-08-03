@@ -53,25 +53,19 @@ class TagCollectionViewCell: CollectionViewCell {
 
         var origin = CGPoint(x: margins.left, y: margins.top)
 
-        let tagLabelFrame = label.wmf_preferredFrame(at: origin, fitting: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
+        let tagLabelFrame = label.wmf_preferredFrame(at: origin, maximumWidth: availableWidth, alignedBy: semanticContentAttributeOverride, apply: true)
         origin.y += tagLabelFrame.height
         origin.y += margins.bottom
 
         return CGSize(width: tagLabelFrame.size.width + margins.left
              + margins.right, height: origin.y)
     }
-    
-    override func updateBackgroundColorOfLabels() {
-        super.updateBackgroundColorOfLabels()
-        label.backgroundColor = labelBackgroundColor
-    }
 }
 
 extension TagCollectionViewCell: Themeable {
     func apply(theme: Theme) {
-        label.textColor = theme.colors.secondaryText
-        let backgroundColor = theme.name == Theme.standard.name ? UIColor.wmf_lightestGray : theme.colors.midBackground
-        setBackgroundColors(backgroundColor, selected: theme.colors.baseBackground)
+        label.textColor = theme.colors.tagText
+        setBackgroundColors(theme.colors.tagBackground, selected: theme.colors.tagSelectedBackground)
         updateSelectedOrHighlighted()
     }
 }

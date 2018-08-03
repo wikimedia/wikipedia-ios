@@ -1,6 +1,5 @@
 import WMF;
 
-@objc(WMFOnThisDayViewController)
 class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHintPresenter {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
     fileprivate static let headerReuseIdentifier = "OnThisDayViewControllerHeader"
@@ -10,15 +9,16 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
+    var initialEvent: WMFFeedOnThisDayEvent?
     
-    @objc(initWithEvents:dataStore:midnightUTCDate:)
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
         super.init()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+        self.theme = theme
+        title = CommonStrings.onThisDayTitle
     }
     
     var isDateVisibleInTitle: Bool {
@@ -34,15 +34,15 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
             })
             
             guard isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
-                title = WMFLocalizedString("on-this-day-title", value:"On this day", comment:"Title for the 'On this day' feed section")
+                title = CommonStrings.onThisDayTitle
                 return
             }
             title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
         }
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -51,10 +51,51 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
-        register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
-        register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(OnThisDayCollectionViewCell.self, forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: OnThisDayViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(OnThisDayViewControllerBlankHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: OnThisDayViewController.blankHeaderReuseIdentifier, addPlaceholder: false)
         readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
+    }
+    
+    func scrollToInitialEvent() {
+        guard let event = initialEvent, let index = events.index(of: event), events.indices.contains(index) else {
+            return
+        }
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: index), at: index < 1 ? .top : .centeredVertically, animated: false)
+    }
+    
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        scrollToInitialEvent()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        initialEvent = nil
+    }
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        guard section > 0 else {
+            return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: section == 1 ? 150 : 0)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier) as? OnThisDayCollectionViewCell else {
+            return estimate
+        }
+        guard let event = event(for: indexPath.section) else {
+            return estimate
+        }
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
+        placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
     }
 }
 
@@ -66,11 +107,18 @@ class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
 extension OnThisDayViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return events.count
+        return events.count + 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return section > 0 ? 1 : 0
+    }
+    
+    func event(for section: Int) -> WMFFeedOnThisDayEvent? {
+        guard section > 0 else {
+            return nil
+        }
+        return events[section - 1]
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,17 +126,22 @@ extension OnThisDayViewController {
         guard let onThisDayCell = cell as? OnThisDayCollectionViewCell else {
             return cell
         }
-        let event = events[indexPath.section]
-        onThisDayCell.layoutMargins = layout.readableMargins
+        guard let event = event(for: indexPath.section) else {
+            return cell
+        }
+        onThisDayCell.layoutMargins = layout.itemLayoutMargins
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
-        onThisDayCell.timelineView.extendTimelineAboveTopDot = indexPath.section == 0 ? false : true
+        onThisDayCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
 
         return onThisDayCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard indexPath.section > 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
         guard
-            indexPath.section == 0,
+            indexPath.section == 1,
             kind == UICollectionElementKindSectionHeader,
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: OnThisDayViewController.headerReuseIdentifier, for: indexPath) as? OnThisDayViewControllerHeader
         else {
@@ -140,25 +193,7 @@ extension OnThisDayViewController {
     }
 }
 
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension OnThisDayViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: section == 0 ? 150 : 0)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 350)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: OnThisDayViewController.cellReuseIdentifier) as? OnThisDayCollectionViewCell else {
-            return estimate
-        }
-        let event = events[indexPath.section]
-        placeholderCell.layoutMargins = layout.readableMargins
-        placeholderCell.configure(with: event, dataStore: dataStore, theme: theme, layoutOnly: true, shouldAnimateDots: false)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        return estimate
-    }
-}
+
 
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
@@ -170,23 +205,22 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
 // MARK: - UIViewControllerPreviewingDelegate
 extension OnThisDayViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location),
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
             let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
-            return nil
+                return nil
         }
         
-        let pointInCellCoordinates =  collectionView.convert(location, to: cell)
+        let pointInCellCoordinates =  view.convert(location, to: cell)
         let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let view = cell.viewForSubItem(at: index) else {
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
             return nil
         }
         
-        let event = events[indexPath.section]
-        guard let previews = event.articlePreviews, index < previews.count else {
+        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
             return nil
         }
         
-        previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
         let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         vc.articlePreviewingActionsDelegate = self

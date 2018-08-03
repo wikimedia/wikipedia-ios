@@ -23,6 +23,8 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 @property (readwrite, nonatomic, copy) dispatch_block_t completion;
 
+@property (nonatomic, strong) NSManagedObjectContext *moc;
+
 @end
 
 @implementation WMFNearbyContentSource
@@ -66,62 +68,65 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(dispatch_block_t)completion {
-    [moc performBlock:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (![WMFLocationManager isAuthorized]) {
-            [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-            if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
-                [self showAuthorizationPlaceholderInManagedObjectContext:moc
-                                                              completion:^{
-                                                                  if (completion) {
-                                                                      completion();
-                                                                  }
-                                                              }];
-            } else if (completion) {
-                completion();
-            }
-            return;
-        }
-
-        [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
-
-        if (self.currentLocationManager.location == nil) {
-            self.isFetchingInitialLocation = YES;
-            self.completion = completion;
-            [self.currentLocationManager startMonitoringLocation];
-        } else {
-            dispatch_block_t done = ^{
-                if (completion) {
+            [moc performBlock:^{
+                [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
+                if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+                    [self showAuthorizationPlaceholderInManagedObjectContext:moc
+                                                                  completion:^{
+                                                                      if (completion) {
+                                                                          completion();
+                                                                      }
+                                                                  }];
+                } else if (completion) {
                     completion();
                 }
-            };
-            [self getGroupForLocation:self.currentLocationManager.location
-                inManagedObjectContext:moc
-                force:force
-                completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
-                    id content = group.fullContent.object;
-                    if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
-                        NSDate *now = [NSDate date];
-                        NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
-                        if (force) {
-                            group.date = now;
-                            group.midnightUTCDate = todayMidnightUTC;
-                        }
-                        done();
-                        return;
-                    }
-                    [self fetchResultsForLocation:location
-                                        placemark:placemark
-                           inManagedObjectContext:moc
-                                       completion:^{
-                                           done();
-                                       }];
-                }
-                failure:^(NSError *error) {
-                    done();
-                }];
-        }
+            }];
+        } else {
+            [moc performBlock:^{
+                [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocationPlaceholder];
+            }];
 
-    }];
+            if (self.currentLocationManager.location == nil) {
+                self.isFetchingInitialLocation = YES;
+                self.moc = moc;
+                self.completion = completion;
+                [self.currentLocationManager startMonitoringLocation];
+            } else {
+                dispatch_block_t done = ^{
+                    if (completion) {
+                        completion();
+                    }
+                };
+                [self getGroupForLocation:self.currentLocationManager.location
+                    inManagedObjectContext:moc
+                    force:force
+                    completion:^(WMFContentGroup *group, CLLocation *location, CLPlacemark *placemark) {
+                        id content = group.fullContent.object;
+                        if (group && [content isKindOfClass:[NSArray class]] && [content count] > 0) {
+                            NSDate *now = [NSDate date];
+                            NSDate *todayMidnightUTC = [now wmf_midnightUTCDateFromLocalDate];
+                            if (force) {
+                                group.date = now;
+                                group.midnightUTCDate = todayMidnightUTC;
+                            }
+                            done();
+                            return;
+                        }
+                        [self fetchResultsForLocation:location
+                                            placemark:placemark
+                               inManagedObjectContext:moc
+                                           completion:^{
+                                               done();
+                                           }];
+                    }
+                    failure:^(NSError *error) {
+                        done();
+                    }];
+            }
+        }
+    });
 }
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -130,6 +135,14 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
+    NSString *preferredSiteURLString = [[MWKLanguageLinkController.sharedInstance.preferredSiteURLs firstObject] wmf_articleDatabaseKey];
+    NSString *mySiteURLString = self.siteURL.wmf_articleDatabaseKey;
+    if (preferredSiteURLString && mySiteURLString && ![mySiteURLString isEqualToString:preferredSiteURLString]) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
@@ -186,7 +199,14 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         [self stopUpdating];
     }
     self.isFetchingInitialLocation = NO;
-    NSManagedObjectContext *moc = self.dataStore.viewContext;
+    NSManagedObjectContext *moc = self.moc;
+    if (!moc) {
+        if (self.completion) {
+            self.completion();
+        }
+        self.completion = nil;
+        return;
+    }
     [self getGroupForLocation:location
         inManagedObjectContext:moc
         force:NO
@@ -223,7 +243,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force {
     CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
-    return [moc locationContentGroupWithinMeters:distanceThreshold ofLocation:location];
+    return [moc locationContentGroupWithSiteURL:self.siteURL withinMeters:distanceThreshold ofLocation:location];
 }
 
 #pragma mark - Fetching
@@ -301,7 +321,6 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
                     completion();
                 }
             }];
-
         }
         failure:^(NSError *_Nonnull error) {
             self.isProcessingLocation = NO;

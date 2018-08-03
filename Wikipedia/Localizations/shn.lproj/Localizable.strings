@@ -59,7 +59,6 @@
 "article-read-more-title" = "သိုပ်ႇလူ";
 "article-unable-to-load-article" = "ဢမ်ႇၸၢင်ႈထုတ်ႇပိုတ်ႇ ပွင်ႈလိၵ်ႈဢၼ်ၼႆႉ။";
 "article-unable-to-load-section" = "ဢမ်ႇၸၢင်ႈထုတ်ႇပိုတ်ႇ တွၼ်ႈၵၼ်ၼႆ့။ ၶတ်းၸႂ်သၢႆၶိုၼ်း ပွင်ႈလိၵ်ႈ တွၼ်ႈတႃတူၺ်း ပေႃးဝႃႈ မၼ်းမႄးပၼ်ပၼ်ႁႃယဝ်ႉၼၼ်ႉ။";
-"back" = "ႁူၼ်လင်";
 "back-button-accessibility-label" = "ႁူၼ်လင်";
 "button-done" = "ယဝ်ႉ";
 "button-next" = "ၵႂႃႇၼႃႈ";
@@ -97,15 +96,13 @@
 "explore-featured-article-heading" = "ပွင်ႈလိၵ်ႈ ႁၢင်ႈၽၢင်";
 "explore-main-page-description" = "ၼႃႈလိၵ်ႈႁူဝ်ႁႅၵ်ႇ ၶွင် ၵၢၼ်ဝီႇၶီႇမီႇတီႇယႃႇ";
 "explore-main-page-heading" = "မိူဝ်ႈၼႆႉ တီႈၼိူဝ် ဝီႇၶီႇၽီးတီးယႃး";
-"explore-most-read-footer-for-date" = "ပွင်ႈလိၵ်ႈ ၸိူဝ်းထုၵ်ႇလူလိူဝ်သုတ်း မိူဝ်ႈ $1";
 "explore-most-read-generic-heading" = "လူလိူဝ်သုတ်း";
-"explore-most-read-heading" = "လူလိူဝ်သုတ်း ၵႃႈတီ ဝီႇၶီႇၽီးတီးယႃး $1";
 "explore-most-read-more-list-title-for-date" = "လိူဝ်သုတ်း မိူဝ်ႈ $1";
 "explore-nearby-heading" = "ဢွင်ႈႁိမ်းႁွမ်း";
-"explore-nearby-placeholder-cancel" = "ဢမ်ႇႁဵတ်း";
-"explore-nearby-placeholder-dismiss" = "လူတ်းၵၢၼ်";
 "explore-nearby-placeholder-heading" = "ဢွင်ႈတီႈ";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "တီႈ $1 ဝီႇၶီႇၽီးတီးယၢး";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "တီႈ ဝီႇၶီႇၽီးတီးယႃး";
 "explore-nearby-sub-heading-your-location" = "ဢွင်ႈတီႈၸဝ်ႈၵဝ်ႇ";
 "explore-potd-heading" = "ၶႅပ်းႁၢင်ႇတႃႇဝၼ်းမိူဝ်ႈၼႆႉ";
@@ -158,11 +155,11 @@
 "home-button-explore-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းတႃႇ ပိုတ်ႇႁႃ";
 "home-button-history-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းၸူး ပိုၼ်းလင်";
 "home-button-saved-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းတႃႇ သိမ်းဝႆႉ";
-"home-hide-suggestion-cancel" = "ဢမ်ႇႁဵတ်း";
-"home-hide-suggestion-prompt" = "သိူင်ႇဝႆႉ လွင်ႈၶႆႈၸႂ်ႈဢၼ်ၼႆႉ";
 "home-more-like-footer" = "လႆႈၸႂ်လိူဝ် $1";
+// Fuzzy
 "home-nearby-footer" = "ၼမ်လိူဝ်ၵႃႈတီႈ ႁိမ်းႁွမ်းၸဝ်ႈၵဝ်ႇ";
 "home-nearby-location-footer" = "ၼမ်လိူဝ် $1";
+// Fuzzy
 "home-news-footer" = "ၼမ်လိူဝ် တီႈၼႂ်းၶၢဝ်ႇ";
 "home-title" = "ပိုတ်ႇႁႃ";
 "home-title-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ လေႃၶိုၼ်ႈၸူး လူလိူဝ်သုတ်း ၶွင်ပိုတ်ႇႁႃ";
@@ -203,7 +200,6 @@
 "main-menu-title" = "ၼမ်လိူဝ်";
 "main-menu-zero-faq" = "ၶေႃႈၵႆႉထၢမ်တွပ်ႇ တႃႇ ဝီႇၶီႇၽီးတီးယႃး သုၼ်";
 "menu-cancel-accessibility-label" = "ဢမ်ႇႁဵတ်း";
-"menu-trash-accessibility-label" = "မွတ်ႇပႅတ်ႈ";
 "navbar-title-mode-edit-wikitext-preview" = "တူၺ်းလူင်ႈၼႃႈ";
 "nearby-distance-label-feet" = "$1 ထတ်း";
 "nearby-distance-label-km" = "$1 km";
@@ -215,7 +211,6 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"onboarding-wikipedia" = "ဝီႇၶီႇၽီးတီးယႃး";
 "open-link-cancel" = "ဢမ်ႇႁဵတ်း";
 "page-edit-history" = "ပိုၼ်းမႄးထတ်း တဵမ်ထူၼ်ႈ";
 "page-history-title" = "ပိုၼ်းပွင်ႈလိၵ်ႈ";
@@ -231,7 +226,6 @@
 "page-similar-titles" = "ၼႃႈလိၵ်ႈ မိူၼ်ၵၼ်";
 "pictured" = "ႁၢင်ႈ";
 "places-accessibility-clear-saved-searches" = "လၢင်ႉပႅတ်ႈ ​လွင်ႈၶူၼ်ႉႁႃ ၸိူဝ်းပႆႇႁိုင်";
-"places-accessibility-close-search" = "ႁပ်ႉလွင်ႈၶူၼ်ႉႁႃ";
 "places-accessibility-group" = "ပွင်ႈလိၵ်ႈ ႑ ဢၼ်";
 "places-accessibility-recenter-map-on-user-location" = "ၸိူဝ်းမီးဝႆႉ တီႈဢွင်ႈၸဝ်ႈၵဝ်ႇ";
 "places-accessibility-show-as-list" = "ၼႄၼင်ႇသဵၼ်ႈမၢႆ";
@@ -242,10 +236,8 @@
 "places-enable-location-action-button-title" = "ပိုတ်ႇၸႂ်ႉ ဢွင်ႈတီႈ";
 "places-enable-location-description" = "လွင်ႈၶဝ်ႈၸႂ်ႉ ဢွင်ႈတီႈၸဝ်ႈၵဝ်ႇၼႆႉ တေၸႂ်ႉလႆႈ ၽွင်းမိူဝ်ႈဢႅပ်ႉ ဢမ်ႇၼၼ် ၽၢင်ႁၢင်ၵၢၼ်ႈသေဢၼ်ဢၼ်ၼႆႉ ႁၼ်လႆႈ ၵႃႈတီႈၼိူဝ် ၼႃႈၸေႃးၸဝ်ႈၵဝ်ႇ။";
 "places-enable-location-title" = "ပိုတ်ႇႁႃ ပွင်ႈလိၵ်ႈ ၸိူဝ်းမီးႁိမ်းႁွမ်းၸဝ်ႈၵဝ်ႇ တင်းပိုတ်ႇၸႂ်ႉ လွင်ႈၸႂ်ႉဢွင်ႈတီႈယူႇ";
-"places-filter-list-title" = "ၶူၼ်ႉႁႃ တူဝ်ထွင်";
 "places-filter-no-saved-places" = "ၸဝ်ႈၵဝ်ႇဢမ်ႇမီးဝႆႉ ဢွင်ႈတီႈ ၸိူဝ်းသိမ်းဝႆႉ";
 "places-filter-saved-articles" = "ပွင်ႈလိၵ်ႈ ၸိူဝ်းသိမ်းဝႆႉ";
-"places-filter-saved-articles-count" = "ႁၼ်ႈမႅၼ်ႈ {{PLURAL:$1|$1 ဢွင်ႈတီး|$1 ဢွင်ႈတီႈ}}";
 "places-filter-top-articles" = "လူလိူဝ်သုတ်း";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 ပွင်ႈလိၵ်ႈ|$1 ပွင်ႈလိၵ်ႈ}}";
 "places-no-saved-articles-have-location" = "ပွင်ႈလိၵ်ႈၸိူဝ်းၸဝ်ႈၵဝ်ႇ သိမ်းဝႆႉၼၼ်ႉ ဢမ်ႇႁၼ်မီး လွၼ်ႉၶၢဝ်ႇ ဢွင်ႇတီႈသေဢၼ်";

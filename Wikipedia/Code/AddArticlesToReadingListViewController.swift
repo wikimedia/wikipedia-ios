@@ -16,64 +16,76 @@ extension AddArticlesToReadingListDelegate where Self: EditableCollection {
 }
 
 @objc(WMFAddArticlesToReadingListViewController)
-class AddArticlesToReadingListViewController: UIViewController {
+class AddArticlesToReadingListViewController: ViewController {
     
     private let dataStore: MWKDataStore
     private let articles: [WMFArticle]
     public let moveFromReadingList: ReadingList?
-    
-    @IBOutlet weak var navigationBar: UINavigationBar?
-    @IBOutlet weak var addButton: UIBarButtonItem?
-    @IBOutlet weak var closeButton: UIBarButtonItem?
-    
-    private var readingListsViewController: ReadingListsViewController?
-    @IBOutlet weak var containerView: UIView!
+
+    private let readingListsViewController: ReadingListsViewController
     public weak var delegate: AddArticlesToReadingListDelegate?
     
     @objc var eventLogAction: (() -> Void)?
 
-    private var theme: Theme
-    
     @objc public init(with dataStore: MWKDataStore, articles: [WMFArticle], moveFromReadingList: ReadingList? = nil, theme: Theme) {
         self.dataStore = dataStore
         self.articles = articles
-        self.theme = theme
         self.moveFromReadingList = moveFromReadingList
-        super.init(nibName: "AddArticlesToReadingListViewController", bundle: nil)
+        self.readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
+        super.init()
+        self.theme = theme
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @IBAction func closeButtonPressed() {
+    @objc private func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
         delegate?.addArticlesToReadingList(self, willBeDismissed: true)
     }
     
-    @IBAction func addButtonPressed() {
-        readingListsViewController?.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
+    @objc private func createNewReadingListButtonPressed() {
+        readingListsViewController.createReadingList(with: articles, moveFromReadingList: moveFromReadingList)
+    }
+
+    private var isCreateNewReadingListButtonViewHidden: Bool = false {
+        didSet {
+            if isCreateNewReadingListButtonViewHidden {
+                navigationBar.removeUnderNavigationBarView()
+                readingListsViewController.createNewReadingListButtonView.button.removeTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
+            } else {
+                readingListsViewController.createNewReadingListButtonView.button.addTarget(self, action: #selector(createNewReadingListButtonPressed), for: .touchUpInside)
+                navigationBar.addUnderNavigationBarView(readingListsViewController.createNewReadingListButtonView)
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonPressed))
         let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
-        navigationBar?.topItem?.title = String.localizedStringWithFormat(title, articles.count)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
-        
-        readingListsViewController = ReadingListsViewController(with: dataStore, articles: articles)
-        guard let readingListsViewController = readingListsViewController else {
-            return
-        }
+        navigationItem.title = String.localizedStringWithFormat(title, articles.count)
+        navigationBar.displayType = .modal
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
+        isCreateNewReadingListButtonViewHidden = readingListsViewController.isEmpty
         addChildViewController(readingListsViewController)
-        readingListsViewController.view.frame = containerView.bounds
-        readingListsViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.addSubview(readingListsViewController.view)
+        view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParentViewController: self)
         readingListsViewController.delegate = self
         apply(theme: theme)
     }
+
+    // MARK: Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        readingListsViewController.apply(theme: theme)
+    }
 }
+
+// MARK: ReadingListsViewControllerDelegate
 
 extension AddArticlesToReadingListViewController: ReadingListsViewControllerDelegate {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
@@ -90,26 +102,8 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
         }
         eventLogAction?()
     }
-}
 
-extension AddArticlesToReadingListViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-
-        navigationBar?.barTintColor = theme.colors.chromeBackground
-        navigationBar?.tintColor = theme.colors.chromeText
-        navigationBar?.titleTextAttributes = theme.navigationBarTitleTextAttributes
-        view.tintColor = theme.colors.link
-        navigationBar?.setBackgroundImage(theme.navigationBarBackgroundImage, for: .default)
-        view.backgroundColor = theme.colors.chromeBackground
-        readingListsViewController?.apply(theme: theme)
-        addButton?.tintColor = theme.colors.link
-    }
-    
-    @objc override public var preferredStatusBarStyle: UIStatusBarStyle {
-        return theme.preferredStatusBarStyle
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool) {
+        isCreateNewReadingListButtonViewHidden = isEmpty
     }
 }

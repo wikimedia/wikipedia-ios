@@ -30,11 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFDateBasedContentSource <NSObject>
 
 /**
- * Load old content into the DB if possible
- */
-- (void)preloadContentForNumberOfDays:(NSInteger)days inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;
-
-/**
  * Load content for a specific date into the DB
  */
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion;

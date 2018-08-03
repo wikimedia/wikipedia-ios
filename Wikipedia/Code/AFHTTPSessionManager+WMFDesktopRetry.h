@@ -42,25 +42,9 @@
                                          success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
                                          failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
-/**
- *  Executes a POST using a mobile url.
- *  If the request fails with the mobile URL for a known reason,
- *  the request will automatically be re-attempted with the desktop URL
- *
- *  @param mobileURLString  The mobile URL
- *  @param desktopURLString The desktop URL
- *  @param parameters       The parameters for the request (same as normal POST:)
- *  @param retry            The retry block - called if a retry is executed. Use this to get the new operation.
- *  @param success          The success block (same as normal POST:)
- *  @param failure          The failure block (same as normal POST:)
- *
- *  @return The operation
- */
-- (NSURLSessionDataTask *)wmf_POSTWithMobileURLString:(NSString *)mobileURLString
-                                     desktopURLString:(NSString *)desktopURLString
-                                           parameters:(id)parameters
-                                                retry:(void (^)(NSURLSessionDataTask *retryOperation, NSError *error))retry
-                                              success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
-                                              failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
+- (NSURLSessionDataTask *)wmf_POSTWithURL:(NSURL *)URL
+                               parameters:(id)parameters
+                                  success:(void (^)(NSURLSessionDataTask *operation, id responseObject))success
+                                  failure:(void (^)(NSURLSessionDataTask *operation, NSError *error))failure;
 
 @end

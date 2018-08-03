@@ -81,7 +81,6 @@
 "article-share" = "Zdieľať";
 "article-unable-to-load-article" = "Článok nebolo možné načítať.";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
-"back" = "Späť";
 "back-button-accessibility-label" = "Späť";
 "button-done" = "Hotovo";
 "button-next" = "Ďalej";
@@ -117,18 +116,20 @@
 "explore-another-random" = "Ďalší náhodný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-featured-article-heading" = "Odporúčaný článok";
+"explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
-"explore-most-read-footer-for-date" = "Všetky najčítanejšie články z $1";
+// Fuzzy
+"explore-most-read-footer" = "Všetky najčítanejšie články";
 "explore-most-read-generic-heading" = "Najčítanejšie články";
 "explore-most-read-more-list-title-for-date" = "Najčítanejšie články z $1";
 "explore-nearby-heading" = "Miesta v okolí";
-"explore-nearby-placeholder-cancel" = "Zrušiť";
-"explore-nearby-placeholder-dismiss" = "Zrušiť";
 "explore-nearby-placeholder-heading" = "Miesta";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédii";
 "explore-nearby-sub-heading-your-location" = "Vaša poloha";
 "explore-potd-heading" = "Obrázok dňa";
+"explore-potd-sub-heading" = "Z Wikimedia Commons";
 "explore-random-article-heading" = "Náhodný článok";
 "explore-randomizer" = "Randomizér";
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
@@ -174,8 +175,6 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "hockeyapp-alert-send-report" = "Odoslať správu";
 "hockeyapp-alert-title" = "Ospravedlňujeme sa za nedávne zlyhanie aplikácie";
-"home-hide-suggestion-cancel" = "Zrušiť";
-"home-hide-suggestion-prompt" = "Skryť túto radu";
 "home-more-like-footer" = "Viac článkov ako $1";
 "icon-shortcut-continue-reading-title" = "Pokračovať v čítaní";
 "icon-shortcut-nearby-title" = "Články v okolí";
@@ -189,6 +188,7 @@
 "in-the-news-title" = "Správy";
 "info-box-close-text" = "Zavrieť";
 "info-box-title" = "Rýchle fakty";
+"languages-settings-title" = "Jazyky";
 "languages-title" = "Zmeniť jazyk";
 "languages-wikipedia" = "Jazyky Wikipédie";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -215,7 +215,6 @@
 "main-menu-title" = "Viac";
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "menu-cancel-accessibility-label" = "Zrušiť";
-"menu-trash-accessibility-label" = "Vymazať";
 "more-languages-tooltip-title" = "Pridať jazyky";
 "navbar-title-mode-edit-wikitext-preview" = "Náhľad";
 "nearby-distance-label-feet" = "$1 stopy (stôp)";
@@ -232,7 +231,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická udalosť|$1 historické udalosti|$1 historických udalostí}}";
 "on-this-day-footer" = "Ďalšie historické udalosti, ktoré sa odohrali v tento deň";
 "on-this-day-title" = "Dnes";
-"onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Zrušiť";
 "page-edit-history" = "Úplná história úprav";
 "page-history-title" = "História článku";
@@ -249,13 +247,11 @@
 "page-talk-page" = "Zobraziť diskusiu";
 "pictured" = "na obrázku";
 "places-accessibility-clear-saved-searches" = "Vymazať nedávno hľadané výrazy";
-"places-accessibility-close-search" = "Zatvoriť vyhľadávanie";
 "places-accessibility-group" = "$1 článkov";
 "places-accessibility-show-as-list" = "Zobraziť ako zoznam";
 "places-accessibility-show-as-map" = "Zobraziť ako mapu";
 "places-accessibility-show-more" = "Zobraziť viac článkov";
 "places-enable-location-action-button-title" = "Povoliť polohu";
-"places-filter-list-title" = "Filtre vyhľadávania";
 "places-filter-no-saved-places" = "Nemáte žiadne uložené miesta";
 "places-filter-saved-articles" = "Uložené články";
 "places-filter-top-articles" = "Najčítanejšie články";
@@ -270,7 +266,6 @@
 "places-search-top-articles" = "Všetky top články";
 "places-search-top-articles-that-match-scope" = "V okolí";
 "places-search-your-current-location" = "Vaša súčasná poloha";
-"places-show-filter-list-accessibility-label" = "Zobraziť filtre vyhľadávania";
 "places-title" = "Miesta";
 "places-unknown-distance" = "neznáma vzdialenosť";
 "potd-description-prefix" = "Obrázok dňa pre $1";
@@ -288,6 +283,7 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Zoradiť články";
 "reading-lists-default-list-title" = "Uložené";
 "reading-lists-sort-saved-articles" = "Zoradiť uložené články";
+"reading-lists-split-notification" = "Zaviedli sme limit %d článkov na zoznam na prečítanie. Existujúce zoznamy prekračujúce tento limit budú rozdelené na viaceré zoznamy.";
 "reading-lists-sync-error-no-internet-connection" = "Synchronizácia bude pokračovať, keď sa obnoví pripojenie k internetu";
 "reading-themes-controls-accessibility-black-theme-button" = "Čierna téma vzhľadu";
 "reading-themes-controls-accessibility-brightness-slider" = "Posuvník jasu";
@@ -300,12 +296,15 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Práve teraz|Pred $1 minútou|Pred $1 minútami}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Minulý rok|Pred $1 rokmi}}";
+"relogin-failed-retry-login-button-title" = "Prihlásiť sa znova";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
+"saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
 "saved-reading-lists-title" = "Zoznamy na prečítanie";
 "saved-search-default-text" = "Hľadať";
 "saved-title" = "Uložené";
 "search-button-accessibility-label" = "Hľadať";
+"search-clear-title" = "Vymazať";
 "search-did-you-mean" = "Mali ste na mysli \"$1\"?";
 "search-field-placeholder-text" = "Hľadať";
 "search-reading-list-placeholder-text" = "Hľadať";
@@ -330,6 +329,7 @@
 "settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
 "settings-notifications-push-notifications" = "Push upozornenia";
 "settings-notifications-system-turn-on" = "Zapnúť upozornenia";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Vymazať";
 "settings-support" = "Podporte Wikipédiu";
 "settings-title" = "Nastavenia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
@@ -360,8 +360,10 @@
 "welcome-exploration-on-this-day-title" = "V tento deň";
 "welcome-explore-continue-button" = "Začíname";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
+"welcome-intro-free-encyclopedia-description" = "Wikipédiu píšu dobrovoľníci a skladá sa z viac než 40 miliónov článkov v takmer 300 jazykoch.";
 "welcome-intro-free-encyclopedia-more" = "Ďalšie informácie o Wikipédii";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipédii";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipédia je celosvetový projekt zameraný na vybudovanie encyklopédie vo všetkých jazykoch sveta. Teoreticky môže ktokoľvek s prístupom na internet prispieť neutrálnymi informáciami s poskytnutím zdroja.";
 "welcome-intro-free-encyclopedia-title" = "Slobodná encyklopédia";
 "welcome-languages-add-button" = "Pridať ďalší jazyk";
 "welcome-languages-add-or-edit-button" = "Pridať alebo upraviť preferované jazyky";

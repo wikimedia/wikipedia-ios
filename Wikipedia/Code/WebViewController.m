@@ -28,7 +28,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 @interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
-@property (nonatomic, strong) NSMutableDictionary *footerViewHeadersByIndex;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
 @property (nonatomic, strong) NSNumber *fontSizeMultiplier;
 
@@ -58,6 +57,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.session = [SessionSingleton sharedInstance];
+        self.headerFadingEnabled = YES;
     }
     return self;
 }
@@ -71,6 +71,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self = [super init];
     if (self) {
         self.session = aSession;
+        self.headerFadingEnabled = YES;
     }
     return self;
 }
@@ -219,7 +220,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                    url = [NSURL wmf_URLWithSiteURL:self.article.url escapedDenormalizedInternalLink:href];
                                                }
                                                url = [url wmf_urlByPrependingSchemeIfSchemeless];
-                                               [(self).delegate webViewController:(self)didTapOnLinkForArticleURL:url];
+                                               [(self).delegate webViewController:(self) didTapOnLinkForArticleURL:url];
                                            } else {
                                                // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                                                if ([href hasPrefix:@"#"]) {
@@ -229,6 +230,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                        // Expand protocol-relative link to https -- secure by default!
                                                        href = [@"https:" stringByAppendingString:href];
                                                    }
+                                                   url = [NSURL URLWithString:href];
                                                    NSCAssert(url, @"Failed to from URL from link %@", href);
                                                    if (url) {
                                                        [self wmf_openExternalUrl:url];
@@ -309,13 +311,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
 
+        if (!self.isHeaderFadingEnabled) {
+            return;
+        }
+        
         [UIView animateWithDuration:0.3
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.headerView.alpha = 1.f;
+                             self.headerView.alpha = 1;
                          }
                          completion:^(BOOL done){
+                             
                          }];
     }
 }
@@ -434,11 +441,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                               "var contentDiv = document.getElementById('content');"
                               "contentDiv.style.marginLeft='%ipx';"
                               "contentDiv.style.marginRight='%ipx';"
-                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);";
+                              "window.wmf.footerContainer.updateLeftAndRightMargin(%i, document);"
+                              "var body = document.getElementsByTagName('body')[0];"
+                              "body.style.paddingTop='%ipx';";
 
         CGFloat marginWidth = [self marginWidthForSize:size];
         int padding = (int)MAX(0, marginWidth);
-        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding];
+        int paddingTop = (int)[self headerHeightForCurrentArticle];
+        NSString *js = [NSString stringWithFormat:jsFormat, padding, padding, padding, paddingTop];
         [self.webView evaluateJavaScript:js completionHandler:NULL];
     }
 }
@@ -520,7 +530,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  CGFloat newOffsetY = matchScrollOffsetY + contentInsetTop - 0.5 * self.delegate.navigationBar.visibleHeight - 0.5 * keyboardBarOriginY + 0.5 * CGRectGetHeight(rect);
                                                  if (newOffsetY <= 0 - contentInsetTop) {
                                                      newOffsetY = 0 - contentInsetTop;
-                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 topSpacingPercentHidden:0 shadowAlpha:1 animated:YES additionalAnimations:NULL];
+                                                 } else if (newOffsetY > (self.delegate.navigationBar.frame.size.height - self.delegate.navigationBar.statusBarHeight)) {
+                                                     [self.delegate.navigationBar setNavigationBarPercentHidden:1 underBarViewPercentHidden:1 extendedViewPercentHidden:1 topSpacingPercentHidden:1 shadowAlpha:1 animated:YES additionalAnimations:NULL];
                                                  }
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
@@ -768,7 +780,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollToFragment:(NSString *)fragment animated:(BOOL)animated {
-    [self.delegate.navigationBar setPercentHidden:0 animated:animated];
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
@@ -858,7 +869,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return;
     }
 
-    self.headerView.alpha = 0.f;
+    self.headerView.alpha = self.isHeaderFadingEnabled ? 0 : 1;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
@@ -949,7 +960,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             CGFloat contentInsetTop = self.webView.scrollView.contentInset.top;
             if (newOffsetY <= 0 - contentInsetTop) {
                 newOffsetY = 0 - contentInsetTop;
-                [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 animated:YES];
+                [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 topSpacingPercentHidden:0 shadowAlpha:1 animated:YES additionalAnimations:NULL];
             }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);

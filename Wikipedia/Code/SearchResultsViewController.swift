@@ -1,10 +1,9 @@
 import UIKit
 import WMF
 
-@objc(WMFSearchResultsViewController)
 class SearchResultsViewController: ArticleCollectionViewController {
-    @objc var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
-    @objc var results: [MWKSearchResult] = [] {
+    var resultsInfo: WMFSearchResults? = nil // don't use resultsInfo.results, it mutates
+    var results: [MWKSearchResult] = [] {
         didSet {
             assert(Thread.isMainThread)
             reload()
@@ -13,7 +12,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
     }
     
@@ -21,17 +20,8 @@ class SearchResultsViewController: ArticleCollectionViewController {
         collectionView.reloadData()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    var searchSiteURL: URL? = nil
     
-    @objc func articleWasUpdated(_ notification: Notification) {
-        updateVisibleCellActions()
-    }
-    
-    @objc var searchSiteURL: URL? = nil
-    
-    @objc(isDisplayingResultsForSearchTerm:fromSiteURL:)
     func isDisplaying(resultsFor searchTerm: String, from siteURL: URL) -> Bool {
         guard let searchResults = resultsInfo, let searchSiteURL = searchSiteURL else {
             return false
@@ -70,6 +60,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return result.displayTitle == mapping.redirectToTitle
         }).first
     }
+    
     func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
         let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: searchSiteURL?.wmf_language)
         let mapping = redirectMappingForSearchResult(result)
@@ -108,7 +99,14 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.imageURL = result.thumbnailURL
         } 
         cell.apply(theme: theme)
-        cell.actions = availableActions(at: indexPath)
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        collectionView.backgroundColor = theme.colors.midBackground
     }
 
 }

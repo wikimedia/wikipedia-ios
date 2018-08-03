@@ -5,12 +5,11 @@ import UIKit
 // 1. A significant in-code implementation was required anyway for handling the complexity of
 //    hiding & showing different parts of the cells with auto layout
 // 2. The performance advantage over auto layout for views that contain several article cells.
-//    (To further alleviate this performance issue, WMFColumnarCollectionViewLayout could be updated
+//    (To further alleviate this performance issue, ColumnarCollectionViewLayout could be updated
 //     to not require a full layout pass for calculating the total collection view content size. Instead,
 //     it could do a rough estimate pass, and then update the content size as the user scrolls.)
 // 3. Handling RTL content on LTR devices and vice versa
 
-@objc(WMFCollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
     // MARK - Methods for subclassing
     
@@ -160,8 +159,8 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attributesToFit = layoutAttributes as? WMFCVLAttributes {
-            layoutMargins = attributesToFit.readableMargins
+        if let attributesToFit = layoutAttributes as? ColumnarCollectionViewLayoutAttributes {
+            layoutMargins = attributesToFit.layoutMargins
             if attributesToFit.precalculated {
                 return attributesToFit
             }
@@ -209,6 +208,21 @@ open class CollectionViewCell: UICollectionViewCell {
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
         
+    }
+    
+    // MARK - Layout Margins
+    
+    public var layoutMarginsAdditions: UIEdgeInsets = .zero
+    public var layoutMarginsInteractiveAdditions: UIEdgeInsets = .zero
+    public func layoutWidth(for size: CGSize) -> CGFloat { // layoutWidth doesn't take into account interactive additions
+        return size.width - layoutMargins.left - layoutMargins.right - layoutMarginsAdditions.right - layoutMarginsAdditions.left
+    }
+    public var calculatedLayoutMargins: UIEdgeInsets {
+        let margins = self.layoutMargins
+        return UIEdgeInsets(top:    margins.top     + layoutMarginsAdditions.top    + layoutMarginsInteractiveAdditions.top,
+                            left:   margins.left    + layoutMarginsAdditions.left   + layoutMarginsInteractiveAdditions.left,
+                            bottom: margins.bottom  + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom,
+                            right:  margins.right   + layoutMarginsAdditions.right  + layoutMarginsInteractiveAdditions.right)
     }
 
 }

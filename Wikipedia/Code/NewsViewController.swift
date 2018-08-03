@@ -8,12 +8,12 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
         super.init()
-        title = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("back", value:"Back", comment:"Generic 'Back' title for back button\n{{Identical|Back}}"), style: .plain, target:nil, action:nil)
+        self.theme = theme
+        title = CommonStrings.inTheNewsTitle
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -22,13 +22,45 @@ class NewsViewController: ColumnarCollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: false)
-        register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
+        layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth, interItemSpacing: 0, interSectionSpacing: 15)
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins, interSectionSpacing: 0, interItemSpacing: 22)
+    }
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        guard section > 0 else {
+            return super.collectionView(collectionView, estimatedHeightForHeaderInSection: section, forColumnWidth: columnWidth)
+        }
+        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 57)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 350)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier) as? NewsCollectionViewCell else {
+            return estimate
+        }
+        guard let story = story(for: indexPath.section) else {
+            return estimate
+        }
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
+        placeholderCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
     }
 }
 
@@ -36,11 +68,11 @@ class NewsViewController: ColumnarCollectionViewController {
 extension NewsViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return stories.count
+        return stories.count + 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return section == 0 ? 0 : 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -48,13 +80,17 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
-        cell.layoutMargins = layout.readableMargins
-        let story = stories[indexPath.section]
-        newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
+        cell.layoutMargins = layout.itemLayoutMargins
+        if let story = story(for: indexPath.section) {
+            newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
+        }
         return newsCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard indexPath.section > 0 else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
         switch kind {
         case UICollectionElementKindSectionHeader:
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NewsViewController.headerReuseIdentifier, for: indexPath)
@@ -88,27 +124,22 @@ extension NewsViewController {
         let headerDateFormatter = DateFormatter()
         headerDateFormatter.locale = Locale.autoupdatingCurrent
         headerDateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        headerDateFormatter.setLocalizedDateFormatFromTemplate("dMMMM") // Year is invalid on news content dates, we can only show month and day
+        headerDateFormatter.setLocalizedDateFormatFromTemplate("EEEEMMMMd") // Year is invalid on news content dates, we can only show month and day
         return headerDateFormatter
     }()
     
+    func story(for section: Int) -> WMFFeedNewsStory? {
+        guard section > 0 else {
+            return nil
+        }
+        return stories[section - 1]
+    }
+    
     func headerTitle(for section: Int) -> String? {
-        let story = stories[section]
-        guard let date = story.midnightUTCMonthAndDay else {
+        guard let story = story(for: section), let date = story.midnightUTCMonthAndDay else {
             return nil
         }
         return NewsViewController.headerDateFormatter.string(from: date)
-    }
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension NewsViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: headerTitle(for: section) == nil ? 0 : 50)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        return WMFLayoutEstimate(precalculated: false, height: 350)
     }
 }
 
@@ -122,23 +153,23 @@ extension NewsViewController: SideScrollingCollectionViewCellDelegate {
 // MARK: - UIViewControllerPreviewingDelegate
 extension NewsViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location),
+
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
             let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
             return nil
         }
         
-        let pointInCellCoordinates =  collectionView.convert(location, to: cell)
+        let pointInCellCoordinates =  view.convert(location, to: cell)
         let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let view = cell.viewForSubItem(at: index) else {
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
             return nil
         }
         
-        let story = stories[indexPath.section]
-        guard let previews = story.articlePreviews, index < previews.count else {
+        guard let story = story(for: indexPath.section), let previews = story.articlePreviews, index < previews.count else {
             return nil
         }
         
-        previewingContext.sourceRect = view.convert(view.bounds, to: collectionView)
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
         let article = previews[index]
         let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)

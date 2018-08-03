@@ -7,7 +7,7 @@
 		<key>sharealike</key>
 		<string>https://creativecommons.org/licenses/by-sa/3.0/</string>
 		<key>mit</key>
-		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt</string>
+		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/develop/LICENSE.txt</string>
 		<key>tsg</key>
 		<string>http://specialistsguild.org</string>
 		<key>feedback</key>
@@ -16,6 +16,8 @@
 		<string>https://translatewiki.net</string>
 		<key>wmf</key>
 		<string>https://wikimediafoundation.org</string>
+		<key>applemaps</key>
+		<string>https://gspe21-ssl.ls.apple.com/html/attribution.html</string>
 	</dict>
 	<key>repositories</key>
 	<dict>
@@ -180,6 +182,7 @@ THE SOFTWARE.</string>
 		<string>Joshua Minor</string>
 		<string>Julien Bodet</string>
 		<string>Kaity Hammerstein</string>
+		<string>Kelly Roach</string>
 		<string>Kenan Wang</string>
 		<string>Kotaro Fujita</string>
 		<string>Kunal Mehta</string>

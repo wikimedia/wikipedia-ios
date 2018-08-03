@@ -23,24 +23,23 @@ class SavedViewController: ViewController {
     }()
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet var extendedNavBarView: UIView!
+    @IBOutlet var searchView: UIView!
     @IBOutlet var underBarView: UIView!
     @IBOutlet var allArticlesButton: UIButton!
     @IBOutlet var readingListsButton: UIButton!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var separatorView: UIView!
     @IBOutlet var toggleButtons: [UIButton]!
     @IBOutlet weak var progressContainerView: UIView!
 
     lazy var addReadingListBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
+        return SystemBarButton(with: .add, target: readingListsViewController.self, action: #selector(readingListsViewController?.presentCreateReadingListViewController))
     }()
     
     fileprivate lazy var savedProgressViewController: SavedProgressViewController? = SavedProgressViewController.wmf_initialViewControllerFromClassStoryboard()
 
     public weak var savedDelegate: SavedViewControllerDelegate?
-    
+
     // MARK: - Initalization and setup
     
     @objc public var dataStore: MWKDataStore? {
@@ -69,9 +68,7 @@ class SavedViewController: ViewController {
         sender.isSelected = true
         currentView = View(rawValue: sender.tag) ?? .savedArticles
     }
-    
-    private var activeEditableCollection: EditableCollection?
-    
+
     private var currentView: View = .savedArticles {
         didSet {
             searchBar.resignFirstResponder()
@@ -82,55 +79,53 @@ class SavedViewController: ViewController {
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
-                leftButtonType = .none
-                isSearchBarHidden = isSavedArticlesEmpty
                 scrollView = savedArticlesViewController.collectionView
                 activeEditableCollection = savedArticlesViewController
+                extendedNavBarViewType = isCurrentViewEmpty ? .none : .search
             case .readingLists :
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
                 addChild(readingListsViewController)
-                leftButtonType = .add
                 scrollView = readingListsViewController?.collectionView
-                isSearchBarHidden = true
+                extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
-            }
-        }
-    }
-    
-    private var isSavedArticlesEmpty: Bool {
-        return savedArticlesViewController.editController.isCollectionViewEmpty
-    }
-    
-    private enum LeftButtonType {
-        case add
-        case none
-    }
-    
-    private var leftButtonType: LeftButtonType = .none {
-        didSet {
-            guard oldValue != leftButtonType else {
-                return
-            }
-            switch leftButtonType {
-            case .add:
-                navigationItem.leftBarButtonItems = [addReadingListBarButtonItem]
-            default:
-                navigationItem.leftBarButtonItems = []
+                extendedNavBarViewType = isCurrentViewEmpty ? .none : .createNewReadingList
             }
         }
     }
 
-    private var isSearchBarHidden: Bool = false {
+    private enum ExtendedNavBarViewType {
+        case none
+        case search
+        case createNewReadingList
+    }
+
+    private var extendedNavBarViewType: ExtendedNavBarViewType = .none {
         didSet {
-            if isSearchBarHidden {
-                navigationBar.removeExtendedNavigationBarView()
-            } else {
-                navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+            navigationBar.removeExtendedNavigationBarView()
+            switch extendedNavBarViewType {
+            case .search:
+                navigationBar.addExtendedNavigationBarView(searchView)
+            case .createNewReadingList:
+                if let createNewReadingListButtonView = readingListsViewController?.createNewReadingListButtonView {
+                    navigationBar.addExtendedNavigationBarView(createNewReadingListButtonView)
+                    createNewReadingListButtonView.apply(theme: theme)
+                }
+            default:
+                break
             }
         }
     }
+
+    private var isCurrentViewEmpty: Bool {
+        guard let activeEditableCollection = activeEditableCollection else {
+            return true
+        }
+        return activeEditableCollection.editController.isCollectionViewEmpty
+    }
+
+    private var activeEditableCollection: EditableCollection?
     
     private func addChild(_ vc: UIViewController?) {
         guard let vc = vc else {
@@ -153,10 +148,15 @@ class SavedViewController: ViewController {
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
-        navigationBar.addExtendedNavigationBarView(extendedNavBarView)
+        navigationBar.addExtendedNavigationBarView(searchView)
         navigationBar.addUnderNavigationBarView(underBarView)
-        navigationBar.isBackVisible = false
-
+        navigationBar.displayType = .largeTitle
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
+        navigationBar.isShadowBelowUnderBarView = true
+        
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         currentView = .savedArticles
@@ -222,19 +222,15 @@ class SavedViewController: ViewController {
         savedArticlesViewController.apply(theme: theme)
         readingListsViewController?.apply(theme: theme)
         savedProgressViewController?.apply(theme: theme)
-        
+
         for button in toggleButtons {
             button.setTitleColor(theme.colors.secondaryText, for: .normal)
             button.tintColor = theme.colors.link
         }
         
-        underBarView.backgroundColor = theme.colors.chromeBackground
-        extendedNavBarView.backgroundColor = theme.colors.chromeBackground
-        searchBar.wmf_enumerateSubviewTextFields{ (textField) in
-            textField.textColor = theme.colors.primaryText
-            textField.keyboardAppearance = theme.keyboardAppearance
-        }
-        separatorView.backgroundColor = theme.colors.border
+        underBarView.backgroundColor = theme.colors.paperBackground
+        searchView.backgroundColor = theme.colors.paperBackground
+        searchBar.apply(theme: theme)
 
         addReadingListBarButtonItem.tintColor = theme.colors.link
         
@@ -250,18 +246,19 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) {
+        defer {
+            navigationBar.updateNavigationItems()
+        }
         navigationItem.rightBarButtonItem = rightBarButton
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         let editingStates: [EditingState] = [.swiping, .open, .editing]
         let isEditing = editingStates.contains(newEditingState)
         actionButton.isEnabled = !isEditing
-        if isEditing {
-            if searchBar.isFirstResponder {
-                searchBar.resignFirstResponder()
-            }
-            leftButtonType = .none
-        } else {
-            leftButtonType = currentView == .savedArticles ? .none : .add
+        guard isEditing else {
+            return
+        }
+        if searchBar.isFirstResponder {
+            searchBar.resignFirstResponder()
         }
     }
     
@@ -279,10 +276,11 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
     }
     
     func emptyStateDidChange(_ empty: Bool) {
-        guard currentView != .readingLists else {
-            return
+        if empty {
+            extendedNavBarViewType = .none
+        } else {
+            extendedNavBarViewType = currentView == .savedArticles ? .search : .createNewReadingList
         }
-        isSearchBarHidden = empty
     }
 }
 

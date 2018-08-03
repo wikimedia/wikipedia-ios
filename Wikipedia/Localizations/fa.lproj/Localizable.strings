@@ -94,6 +94,7 @@
 "appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تاریک";
 "appearance-settings-reading-themes" = "پوستهٔ خواندن";
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازه متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون برنامه باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
 "appearance-settings-theme-options" = "تنظیمات پوسته";
 "article-about-title" = "دربارهٔ این مقاله";
@@ -108,7 +109,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "تنظیمات پوستهٔ خواندن";
 "article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
-"back" = "بازگشت";
 "back-button-accessibility-label" = "بازگشت";
 "button-done" = "انجام شد";
 "button-next" = "بعدی";
@@ -153,15 +153,15 @@
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
 "explore-main-page-description" = "صفحهٔ اصلی در پروژه‌های ویکی‌مدیا";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
-"explore-most-read-footer-for-date" = "همهٔ مقالاتی که بیشترین بازدید را در $1 داشتند";
+// Fuzzy
+"explore-most-read-footer" = "همهٔ مقالاتی که بیشترین بازدید را داشتند";
 "explore-most-read-generic-heading" = "بیشترین خوانده شده";
-"explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
 "explore-most-read-more-list-title-for-date" = "بالاترین در $1";
 "explore-nearby-heading" = "مکان‌های نزدیک";
-"explore-nearby-placeholder-cancel" = "لغو";
-"explore-nearby-placeholder-dismiss" = "پنهان‌سازی";
 "explore-nearby-placeholder-heading" = "مکان‌ها";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "در ویکی‌پدیای $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "در ویکی‌پدیا";
 "explore-nearby-sub-heading-your-location" = "مکان شما";
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
@@ -213,14 +213,12 @@
 "hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به کاوش";
 "home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
-"home-button-popover-description" = "بر روی «W» برای کاوش خوراک‌ها بزنید";
-"home-button-popover-title" = "برای رفتن به خانه بر روی صفحه بزنید";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
-"home-hide-suggestion-cancel" = "لغو";
-"home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
+// Fuzzy
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
 "home-nearby-location-footer" = "موارد نزدیک بیشتر به $1";
+// Fuzzy
 "home-news-footer" = "موارد بیشتر در اخبار";
 "home-reading-list-prompt" = "مقاله‌های ذخیره‌شده شما اکنون می‌توانند در فهرست‌های خواندن مرتب شده و با دیگر دستگاه‌ها همسان‌سازی شود. برای ذخیره فهرست‌های خواندن در ترجیحات کاربری خود، وارد شوید.";
 "home-themes-action-title" = "مدیریت ترجیحات";
@@ -265,7 +263,6 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "menu-cancel-accessibility-label" = "لغو";
-"menu-trash-accessibility-label" = "حذف";
 "more-languages-tooltip-description" = "جستجو در ویکیپدیا به نزدیک ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
@@ -283,7 +280,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-title" = "در این روز";
-"onboarding-wikipedia" = "ویکی‌پدیا";
 "open-link-cancel" = "لغو";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "page-history-title" = "تاریخچهٔ مقاله";
@@ -300,22 +296,18 @@
 "page-talk-page" = "نمایش صفحه بحث";
 "pictured" = "تصویر شده";
 "places-accessibility-clear-saved-searches" = "پاک‌کردن جستجوهای ذخیره‌شده";
-"places-accessibility-close-search" = "بستن جستجو";
 "places-accessibility-group" = "$1 مقاله";
 "places-accessibility-recenter-map-on-user-location" = "وسط قرار دادن موقعیت شما";
 "places-accessibility-show-as-list" = "نمایش به عنوان فهرست";
 "places-accessibility-show-as-map" = "نمایش به عنوان نقشه";
 "places-accessibility-show-more" = "نمایش مقاله‌های بیشتر";
-"places-dismiss-filter-list-accessibility-label" = "رها کردن جستجوی پالایه";
 "places-empty-search-description" = "کاوش شهرها، کشورها، قاره‌ها، جاذبه‌های طبیعی، رویدادهای تاریخی، ساختمان‌ها و موارد دیگر.";
 "places-empty-search-title" = "جستجو برای مقالات ویکی‌پدیا که موقعیت جغرافیایی دارند";
 "places-enable-location-action-button-title" = "فعال‌کردن موقعیت";
 "places-enable-location-description" = "دسترسی به موقعیت شما فقط وقتی که برنامه یا یکی از امکانات آن در نمایشگر شما نمایان باشد ممکن است.";
 "places-enable-location-title" = "با فعال کردن دسترسی به موقعیتتان، مقالات نزدیک به محل خود را جستجو کنید.";
-"places-filter-list-title" = "پالایه‌های جستجوی";
 "places-filter-no-saved-places" = "هیچ مکانی را ذخیره نکردید";
 "places-filter-saved-articles" = "مقاله‌های ذخیره شده";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 مکان|$1 مکان}} یافت شده";
 "places-filter-top-articles" = "بالاترین خوانده‌شده";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}}";
 "places-no-saved-articles-have-location" = "مقالاتی که شما ذخیره کردید هیچ یک اطلاعات موقیتشان وارد نشده است";
@@ -329,7 +321,6 @@
 "places-search-top-articles" = "همهٔ مقالات برتر";
 "places-search-top-articles-that-match-scope" = "در نزدیکی";
 "places-search-your-current-location" = "موقعیت کنونی شما";
-"places-show-filter-list-accessibility-label" = "نمایش جستجوی پالایه‌ها";
 "places-title" = "مکان‌ها";
 "places-unknown-distance" = "مسافت‌های نامشخص";
 "potd-description-prefix" = "تصویر روز برای $1";

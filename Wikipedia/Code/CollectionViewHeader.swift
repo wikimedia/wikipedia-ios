@@ -1,37 +1,135 @@
 import UIKit
 
+protocol CollectionViewHeaderDelegate: class {
+    func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader)
+}
+
 class CollectionViewHeader: SizeThatFitsReusableView {
-    var label = UILabel()
-    let margins = UIEdgeInsets(top: 30, left: 15, bottom: 15, right: 15)
-    var adjustedMargins: UIEdgeInsets {
-        return UIEdgeInsetsMake(margins.top, max(layoutMargins.left, margins.left), margins.bottom, max(layoutMargins.right, margins.right))
+    weak var delegate: CollectionViewHeaderDelegate?
+    
+    public enum Style {
+        case explore
+        case detail
+        case history
+        case recentSearches
     }
+    
+    public var style: Style = .explore {
+        didSet {
+            updateFonts(with: traitCollection)
+        }
+    }
+
+    private let titleLabel: UILabel = UILabel()
+    private let subtitleLabel: UILabel = UILabel()
+    private let button: UIButton = UIButton()
+    private let spacing: CGFloat = 5
+    
+    var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set {
+            titleLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    var subtitle: String? {
+        get {
+            return subtitleLabel.text
+        }
+        set {
+            subtitleLabel.text = newValue
+            subtitleLabel.isHidden = subtitleLabel.text == nil
+            setNeedsLayout()
+        }
+    }
+    
+    var buttonTitle: String? {
+        get {
+            return button.title(for: .normal)
+        }
+        set {
+            button.setTitle(newValue, for: .normal)
+            button.isHidden = newValue == nil
+        }
+    }
+
     override func setup() {
-        addSubview(label)
         super.setup()
+        addSubview(button)
+        addSubview(subtitleLabel)
+        addSubview(titleLabel)
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        button.isHidden = true
+    }
+    
+    @objc func buttonPressed(_ sender: UIButton?) {
+        delegate?.collectionViewHeaderButtonWasPressed(self)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let titleTextStyle: DynamicTextStyle
+        let subtitleTextStyle: DynamicTextStyle = .subheadline
+        let buttonTextStyle: DynamicTextStyle = .subheadline
+        switch style {
+        case .detail:
+            fallthrough
+        case .explore:
+            titleTextStyle = .boldTitle2
+        default:
+            titleTextStyle = .semiboldHeadline
+        }
+        titleLabel.font = UIFont.wmf_font(titleTextStyle, compatibleWithTraitCollection: traitCollection)
+        subtitleLabel.font = UIFont.wmf_font(subtitleTextStyle, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(buttonTextStyle, compatibleWithTraitCollection: traitCollection)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let margins = adjustedMargins
-        let frame = label.wmf_preferredFrame(at:  CGPoint(x: margins.left, y: margins.top), fitting: CGSize(width: size.width - margins.left - margins.right, height: UIViewNoIntrinsicMetric), alignedBy: .unspecified, apply: apply)
-        return CGSize(width: size.width, height: frame.maxY + margins.bottom)
+        let additionalMargins: UIEdgeInsets
+        switch style {
+        case .history:
+            additionalMargins = UIEdgeInsets(top: 30, left: 0, bottom: 10, right: 0)
+        case .recentSearches:
+            additionalMargins = UIEdgeInsets(top: 10, left: 0, bottom: 5, right: 0)
+        case .detail:
+            additionalMargins = UIEdgeInsets(top: 45, left: 0, bottom: 35, right: 0)
+        default:
+            additionalMargins = .zero
+        }
+        let baseMargins = self.layoutMargins
+        let layoutMargins = UIEdgeInsets(top: baseMargins.top + additionalMargins.top, left: baseMargins.left + additionalMargins.left, bottom: baseMargins.bottom + additionalMargins.bottom, right: baseMargins.right + additionalMargins.right)
+        let size = super.sizeThatFits(size, apply: apply)
+        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
+        let isRTL = traitCollection.layoutDirection == .rightToLeft
+        let labelHorizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
+        let buttonHorizontalAlignment: HorizontalAlignment = isRTL ? .left : .right
+        var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
+        if !button.isHidden {
+            let buttonFrame = button.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
+            widthMinusMargins -= (buttonFrame.width + layoutMargins.right)
+        }
+        origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth:widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+        if subtitleLabel.text != nil {
+            origin.y += spacing
+            origin.y += subtitleLabel.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+        }
+        origin.y += layoutMargins.bottom
+        return CGSize(width: size.width, height: origin.y)
     }
     
-    var text: String? {
-        didSet {
-            label.text = text?.uppercased()
-            setNeedsLayout()
-        }
-    }
 }
 
 extension CollectionViewHeader: Themeable {
     func apply(theme: Theme) {
-        label.textColor = theme.colors.secondaryText
+        titleLabel.textColor = theme.colors.primaryText
+        titleLabel.backgroundColor = theme.colors.paperBackground
+        subtitleLabel.textColor = theme.colors.secondaryText
+        subtitleLabel.backgroundColor = theme.colors.paperBackground
+        backgroundColor = theme.colors.paperBackground
+        tintColor = theme.colors.link
+        button.setTitleColor(theme.colors.link, for: .normal)
     }
 }

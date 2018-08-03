@@ -32,7 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) CLLocation *location;
 @property (nullable, nonatomic, retain) CLPlacemark *placemark;
 
+@property (nullable, nonatomic, retain) NSNumber *countOfFullContent;
 @property (nullable, nonatomic, retain) WMFContent *fullContent;
+
+@property (nonatomic)  int16_t undoTypeInteger;
 
 @end
 

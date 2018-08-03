@@ -88,9 +88,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         UIPopoverPresentationControllerDelegate,
                                         WKUIDelegate,
                                         WMFArticlePreviewingActionsDelegate,
-                                        WMFReadingListsAlertControllerDelegate,
+                                        ReadingListsAlertControllerDelegate,
                                         WMFReadingListHintPresenter,
-                                        EventLoggingEventValuesProviding>
+                                        EventLoggingEventValuesProviding,
+                                        WMFSearchButtonProviding,
+                                        WMFImageScaleTransitionProviding,
+                                        UIGestureRecognizerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -119,6 +122,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
 // Views
+@property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
 @property (nonatomic, strong) UIImageView *headerImageView;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
@@ -129,6 +133,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, readwrite) UIBarButtonItem *hideTableOfContentsToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *findInPageToolbarItem;
 @property (nonatomic, strong) UIRefreshControl *pullToRefresh;
+@property (nonatomic, readwrite, nullable) UIImageView *imageScaleTransitionView;
 
 // Table of Contents
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
@@ -637,11 +642,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Progress
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:NO animated:animated];
+    [self.navigationBar setProgressHidden:NO animated:animated];
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    [self.navigationBar setProgressViewHidden:YES animated:animated];
+    [self.navigationBar setProgressHidden:YES animated:animated];
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
@@ -669,6 +674,14 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
     return 0.1 + (0.7 * progress);
+}
+
+#pragma mark - Show search
+
+- (void)ensureWikipediaSearchIsShowing {
+    if (self.navigationBar.navigationBarPercentHidden > 0) {
+        [self.navigationBar setNavigationBarPercentHidden:0];
+    }
 }
 
 #pragma mark - Significantly Viewed Timer
@@ -735,10 +748,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self setupWebView];
 
     [self hideProgressViewAnimated:NO];
-    
+
     self.eventLoggingCategory = EventLoggingCategoryArticle;
     self.eventLoggingLabel = EventLoggingLabelOutLink;
 
+    self.imageScaleTransitionView = self.headerImageView;
+
+    self.navigationBar.isExtendedViewHidingEnabled = YES;
+    self.navigationBar.isShadowBelowUnderBarView = YES;
+    self.navigationBar.isExtendedViewFadingEnabled = NO;
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -802,6 +820,48 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
+#pragma mark - WMFImageScaleTransitionProviding
+- (void)removeHeaderImageTransitionView {
+    if (!self.headerImageTransitionView) {
+        return;
+    }
+    UIImageView *transitionView = self.headerImageTransitionView;
+    self.headerImageTransitionView = nil;
+    [UIView animateWithDuration:0.2
+        animations:^{
+            self.webViewController.view.alpha = 1;
+        }
+        completion:^(BOOL finished) {
+            [transitionView removeFromSuperview];
+        }];
+}
+
+- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+    if (imageView && imageView.image) {
+        self.webViewController.headerFadingEnabled = NO;
+        self.webViewController.view.alpha = 0;
+
+        self.headerImageTransitionView = [[UIImageView alloc] initWithFrame:self.headerImageView.frame];
+        self.headerImageTransitionView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageTransitionView.image = imageView.image;
+        self.headerImageTransitionView.layer.contentsRect = imageView.layer.contentsRect;
+        self.headerImageTransitionView.contentMode = imageView.contentMode;
+        self.headerImageTransitionView.clipsToBounds = YES;
+        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.webViewController.view];
+
+        NSLayoutConstraint *headerImageTransitionTopConstraint = [self.headerImageTransitionView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
+        NSLayoutConstraint *headerImageTransitionLeadingConstraint = [self.headerImageTransitionView.leadingAnchor constraintEqualToAnchor:self.headerImageView.leadingAnchor];
+        NSLayoutConstraint *headerImageTransitionTrailingConstraint = [self.headerImageTransitionView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
+        NSLayoutConstraint *headerImageTransitionHeightConstraint = [self.headerImageTransitionView.heightAnchor constraintEqualToConstant:WebViewControllerHeaderImageHeight];
+        [self.view addConstraints:@[headerImageTransitionTopConstraint, headerImageTransitionLeadingConstraint, headerImageTransitionTrailingConstraint, headerImageTransitionHeightConstraint]];
+
+        self.headerImageView.image = imageView.image;
+        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
+
+        [self.view layoutIfNeeded];
+    }
+}
+
 #pragma mark - Layout
 
 - (void)layoutForSize:(CGSize)size {
@@ -841,13 +901,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = 0.71;
+            self.webViewController.contentWidthPercentage = 0.70;
             break;
         case WMFTableOfContentsDisplayStateInlineVisible:
             self.webViewController.contentWidthPercentage = 0.90;
             break;
         default:
-            self.webViewController.contentWidthPercentage = 0.91;
+            self.webViewController.contentWidthPercentage = 0.90;
             break;
     }
 
@@ -1118,6 +1178,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
+        if ([navigationTitle length] > 16) {
+            navigationTitle = nil;
+        }
+        self.navigationItem.title = navigationTitle;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
@@ -1187,7 +1252,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
                                            dismissPreviousAlerts:NO
@@ -1208,8 +1273,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                     }];
                 }
             }
+
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
+            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
@@ -1283,7 +1350,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
         WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
         addArticlesToReadingListViewController.eventLogAction = eventLogAction;
-        [presenter presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
+        WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+        [navigationController setNavigationBarHidden:YES];
+        [presenter presentViewController:navigationController animated:YES completion:NULL];
         ;
     }];
 
@@ -1341,7 +1410,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+    WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+    [navigationController setNavigationBarHidden:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - WMFReadingListsAlertControllerDelegate
@@ -1455,6 +1526,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+    [self removeHeaderImageTransitionView];
+
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -1612,7 +1685,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
-    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore];
+    WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore theme:self.theme];
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
     articleListVC.navigationItem.leftBarButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(dismissPresentedViewController)];
     [self presentViewControllerEmbeddedInNavigationController:articleListVC];
@@ -1765,19 +1838,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - Peeking registration
 
 - (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        if (self.peekingAllowed && [[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        if (self.peekingAllowed) {
             self.webViewController.webView.UIDelegate = self;
             self.webViewController.webView.allowsLinkPreview = YES;
         } else {
             self.webViewController.webView.allowsLinkPreview = NO;
         }
         [self unregisterForPreviewing];
-        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.webViewController.headerView];
+        self.leadImagePreviewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.headerView];
+    } else {
+        [self unregisterForPreviewing];
     }
-        unavailable:^{
-            [self unregisterForPreviewing];
-        }];
 }
 
 - (void)unregisterForPreviewing {
@@ -1919,13 +1991,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"page-location", nil, nil, @"View on a map", @"Label for button used to show an article on the map")
                                        style:UIPreviewActionStyleDefault
                                      handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-                                         UIViewController *presenter = (UIViewController *)self.articlePreviewingActionsDelegate;
-                                         UIActivityViewController *shareActivityController = [self.article sharingActivityViewControllerWithTextSnippet:nil fromButton:self.shareToolbarItem shareFunnel:self.shareFunnel customActivity:[self addToReadingListActivityWithPresenter:presenter eventLogAction:logPreviewSaveIfNeeded]];
-                                         shareActivityController.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-                                         if (shareActivityController) {
-                                             NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
-                                             [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
-                                         }
+                                         NSAssert([previewViewController isKindOfClass:[WMFArticleViewController class]], @"Unexpected view controller type");
+                                         [self.articlePreviewingActionsDelegate viewOnMapArticlePreviewActionSelectedWithArticleController:(WMFArticleViewController *)previewViewController];
                                      }];
     }
 
@@ -2013,8 +2080,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showWIconPopover {
     [self wmf_presentDynamicHeightPopoverViewControllerForSourceRect:[self.titleButton convertRect:self.titleButton.bounds toView:self.view]
-                                                           withTitle:WMFLocalizedStringWithDefaultValue(@"home-button-popover-title", nil, nil, @"Tap to go home", @"Title for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
-                                                             message:WMFLocalizedStringWithDefaultValue(@"home-button-popover-description", nil, nil, @"Tap on the 'W' to return to the Explore feed", @"Description for popover describing explaining the 'W' icon may be tapped to return to the Explore feed.")
+                                                           withTitle:WMFLocalizedStringWithDefaultValue(@"back-button-popover-title", nil, nil, @"Tap to go back", @"Title for popover explaining the 'W' icon may be tapped to go back.")
+                                                             message:WMFLocalizedStringWithDefaultValue(@"original-tab-button-popover-description", nil, nil, @"Tap on the 'W' to return to the tab you started from", @"Description for popover explaining the 'W' icon may be tapped to return to the original tab.")
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];

@@ -59,6 +59,7 @@
 "appearance-settings-adjust-text-sizing" = "Luyukeun ukuran téks artikel";
 "appearance-settings-image-dimming-footer" = "Turunkeun poékna gambar dina téma poék";
 "appearance-settings-reading-themes" = "Téma bacaan";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Sérét gégéséran di luhur pikeun ngarobah ukuran téks artikel. Mangpaatkeun ukuran téks sistim anjeun pikeun ngarobah ukuran aréa téks lian dina aplikasi.";
 "appearance-settings-theme-options" = "Opsi téma";
 "article-about-title" = "Ngeunaan ieu artikel";
@@ -74,7 +75,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kontrol Téma Bacaan";
 "article-unable-to-load-article" = "Teu bisa muat artikel";
 "article-unable-to-load-section" = "Teu bisa muat ieu bagéan. Coba segerkeun deui artikel pikein nempoan mun éta tarékah bisa menerkeun masalah.";
-"back" = "Balik deui";
 "back-button-accessibility-label" = "Balik deui";
 "button-done" = "Anggeus";
 "button-next" = "Saterusna";
@@ -116,15 +116,15 @@
 "explore-featured-article-heading" = "Artikel petingan";
 "explore-main-page-description" = "Tepas proyék Wikimédia";
 "explore-main-page-heading" = "Poé ieu na Wikipédia";
-"explore-most-read-footer-for-date" = "Sakumna artikel bacaan pangluhurna di $1";
+// Fuzzy
+"explore-most-read-footer" = "Sakumna artikel bacaan pangluhurna";
 "explore-most-read-generic-heading" = "Bacaan pangluhurna";
-"explore-most-read-heading" = "Bacaan pangluhurna na Wikipédia Basa $1";
 "explore-most-read-more-list-title-for-date" = "Pangluhurna dina $1";
 "explore-nearby-heading" = "Tempat pangdeukeutna";
-"explore-nearby-placeholder-cancel" = "Bolay";
-"explore-nearby-placeholder-dismiss" = "Tutup";
 "explore-nearby-placeholder-heading" = "Tempat";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na Wikipedia $1";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Na Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Lokasi anjeun";
 "explore-potd-heading" = "Gambar poé ieu";
@@ -176,14 +176,12 @@
 "hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
 "home-button-history-accessibility-label" = "Wikipédia, balik deui kana Jujutan";
-"home-button-popover-description" = "Toél kana 'W' pikeun balik ka eupan Paluruh";
-"home-button-popover-title" = "Toél pikeun balik ka tepas";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
-"home-hide-suggestion-cancel" = "Bolay";
-"home-hide-suggestion-prompt" = "Sumputkeun ieu saran";
 "home-more-like-footer" = "Lianna nu siga $1";
+// Fuzzy
 "home-nearby-footer" = "Lianna ti lokasi sabudeureun anjeun";
 "home-nearby-location-footer" = "Lianna ti sabudeureun $1";
+// Fuzzy
 "home-news-footer" = "Kajadian kiwari lianna";
 "home-themes-action-title" = "Kokola préferénsi";
 "home-themes-prompt" = "Luyukeun préférénsi bacaan anjeun kaasup ukuran téks jeung téma tina bilah alat artikel atawa di pangaturan pamaké anjeun pikeun pangalaman maca nu leuwih tumaninah.";
@@ -227,7 +225,6 @@
 "main-menu-title" = "Lianna";
 "main-menu-zero-faq" = "NLD Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Bolay";
-"menu-trash-accessibility-label" = "Pupus";
 "navbar-title-mode-edit-wikitext-preview" = "Pramidang";
 "nearby-distance-label-feet" = "$1 kaki";
 "nearby-distance-label-km" = "$1 km";
@@ -243,7 +240,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 kajadian sajarah|$1 kajadian sajarah}}";
 "on-this-day-footer" = "Kajadian sajarah lianna dina poé ieu";
 "on-this-day-title" = "Dina poé ieu";
-"onboarding-wikipedia" = "Wikipédia";
 "open-link-cancel" = "Bolay";
 "page-edit-history" = "Sakumna jujutan édit";
 "page-history-title" = "Jujutan artikel";
@@ -260,22 +256,18 @@
 "page-talk-page" = "Tempo kaca obrolan";
 "pictured" = "gambar";
 "places-accessibility-clear-saved-searches" = "Bersihkeun pamaluruhan kasimpen";
-"places-accessibility-close-search" = "Tutup pamaluruhan";
 "places-accessibility-group" = "$1 artikel";
 "places-accessibility-recenter-map-on-user-location" = "Puseurkeun deui di lokasi anjeun";
 "places-accessibility-show-as-list" = "Témbongkeun minangka daptar";
 "places-accessibility-show-as-map" = "Témbongkeun minangka péta";
 "places-accessibility-show-more" = "Témbongkeun artikel séjén";
-"places-dismiss-filter-list-accessibility-label" = "Tutup saringan pamaluruhan";
 "places-empty-search-description" = "Langlang kota, nagara, buana, panénjoan alam, kajadian sajarah, wangunan jeung lianna.";
 "places-empty-search-title" = "Sungsi artikel di Wikipedia maké lokasi géografis";
 "places-enable-location-action-button-title" = "Hirupan lokasi";
 "places-enable-location-description" = "Aksés ka lokasi anjeun ngan ukur sayaga mun aplikasi atawa salah sahiji tina fitur-fiturna katémbong di layar anjeun.";
 "places-enable-location-title" = "Langlang artikel sabudeureun lokasi anjeun ku cara ngahirupan Aksés Lokasi";
-"places-filter-list-title" = "Filter pamaluruhan";
 "places-filter-no-saved-places" = "Anjeun teu mibanda tempat nu kasimpen";
 "places-filter-saved-articles" = "Artikel kasimpen";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 tempat|$1 tempat}} kapanggih";
 "places-filter-top-articles" = "Bacaan pangluhurna";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artikel|$1 artikel}}";
 "places-no-saved-articles-have-location" = "Taya pisan artikel kasimpeb anjeun nu mibanda info lokasi";
@@ -289,7 +281,6 @@
 "places-search-top-articles" = "Sakur artikel pangluhurna";
 "places-search-top-articles-that-match-scope" = "Sabudeureun";
 "places-search-your-current-location" = "Lokasi anjeun kiwari";
-"places-show-filter-list-accessibility-label" = "Témbongkeun saringan pamaluruhan";
 "places-title" = "Tempat";
 "places-unknown-distance" = "jarak teu dipikanyaho";
 "potd-description-prefix" = "Gambar poé ieu pikeun $1";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -34,12 +34,23 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPu-99-uVN">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="qk5-3i-1A4">
                                 <rect key="frame" x="59" y="7" width="252" height="55.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPu-99-uVN">
+                                        <rect key="frame" x="0.0" y="0.0" width="42" height="55.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IK2-iR-lc5" userLabel="Subtitle Label">
+                                        <rect key="frame" x="0.0" y="55.5" width="33" height="0.0"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QZI-f9-CK6" customClass="WMFProminentSwitch">
                                 <rect key="frame" x="330" y="19.5" width="51" height="31"/>
                             </switch>
@@ -64,17 +75,17 @@
                             <constraint firstAttribute="trailing" secondItem="QZI-f9-CK6" secondAttribute="trailing" constant="16" id="BeK-eP-7IJ"/>
                             <constraint firstItem="c7W-2A-RTf" firstAttribute="leading" secondItem="kcE-Yo-d7o" secondAttribute="trailing" constant="8" id="CbW-Ff-2EU"/>
                             <constraint firstItem="eM6-XP-Gm5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4iN-q3-iVQ" secondAttribute="top" constant="7" id="DLc-z2-dVZ"/>
+                            <constraint firstItem="qk5-3i-1A4" firstAttribute="top" secondItem="4iN-q3-iVQ" secondAttribute="top" constant="7" id="OXd-7x-nnX"/>
                             <constraint firstItem="QZI-f9-CK6" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="PGw-BW-uDd"/>
                             <constraint firstItem="c7W-2A-RTf" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="PW9-TS-zuX"/>
                             <constraint firstItem="eM6-XP-Gm5" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="15" id="Q6G-Df-Tni"/>
-                            <constraint firstItem="cPu-99-uVN" firstAttribute="top" secondItem="4iN-q3-iVQ" secondAttribute="top" constant="7" id="dlR-fe-vbW"/>
+                            <constraint firstAttribute="bottom" secondItem="qk5-3i-1A4" secondAttribute="bottom" constant="7" id="Vaj-sL-qM3"/>
+                            <constraint firstItem="qk5-3i-1A4" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="cmh-TJ-WnD"/>
                             <constraint firstAttribute="trailing" secondItem="c7W-2A-RTf" secondAttribute="trailing" constant="12" id="f2M-cB-Ejf"/>
-                            <constraint firstAttribute="bottom" secondItem="cPu-99-uVN" secondAttribute="bottom" constant="7" id="gdk-KI-5CV"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="eM6-XP-Gm5" secondAttribute="bottom" constant="7" id="kR7-ZR-J5g"/>
-                            <constraint firstItem="kcE-Yo-d7o" firstAttribute="leading" secondItem="cPu-99-uVN" secondAttribute="trailing" constant="10" id="r42-Tl-K8J"/>
-                            <constraint firstItem="cPu-99-uVN" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="59" id="tA8-Kr-fJ6"/>
+                            <constraint firstItem="qk5-3i-1A4" firstAttribute="leading" secondItem="4iN-q3-iVQ" secondAttribute="leading" constant="59" id="mNo-v0-9UN"/>
                             <constraint firstItem="kcE-Yo-d7o" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="ugA-Ee-Flv"/>
-                            <constraint firstItem="cPu-99-uVN" firstAttribute="centerY" secondItem="eM6-XP-Gm5" secondAttribute="centerY" id="xWW-hF-Hqs"/>
+                            <constraint firstItem="kcE-Yo-d7o" firstAttribute="leading" secondItem="qk5-3i-1A4" secondAttribute="trailing" constant="10" id="wka-Is-ecE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -91,9 +102,10 @@
                 <outlet property="disclosureLabel" destination="kcE-Yo-d7o" id="Ixu-Ds-MdH"/>
                 <outlet property="disclosureSwitch" destination="QZI-f9-CK6" id="dQU-lj-y0V"/>
                 <outlet property="imageLeadingWidth" destination="Q6G-Df-Tni" id="i8F-CG-1Yr"/>
+                <outlet property="subtitleLabel" destination="IK2-iR-lc5" id="1X5-ZF-dSz"/>
                 <outlet property="titleIcon" destination="eM6-XP-Gm5" id="NoM-2H-ni8"/>
                 <outlet property="titleLabel" destination="cPu-99-uVN" id="FHc-h7-WLZ"/>
-                <outlet property="titleLabelLeadingWidth" destination="tA8-Kr-fJ6" id="IrY-Tm-fY3"/>
+                <outlet property="titleLabelLeadingWidth" destination="mNo-v0-9UN" id="oOh-4O-CWB"/>
             </connections>
             <point key="canvasLocation" x="344.5" y="363"/>
         </tableViewCell>

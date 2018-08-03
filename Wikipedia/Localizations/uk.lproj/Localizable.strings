@@ -73,7 +73,6 @@
 "article-share" = "Поділитися";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
-"back" = "Назад";
 "back-button-accessibility-label" = "Назад";
 "button-done" = "Готово";
 "button-next" = "Далі";
@@ -108,16 +107,29 @@
 "explore-another-random" = "Інша випадкова стаття";
 "explore-continue-reading-heading" = "Продовжити читання";
 "explore-featured-article-heading" = "Вибрана стаття";
+"explore-feed-preferences-continue-reading-description" = "Швидке посилання назад до читання відкритої статті";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "викл";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Для всіх";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл";
+"explore-feed-preferences-global-card-footer-text" = "Ця картка не є специфічною до мови, її вимкнення вилучить її з Вашої стрічки Огляд.";
+"explore-feed-preferences-global-cards-description" = "Не специфічні до мови картки";
+"explore-feed-preferences-global-cards-subtitle" = "Не специфічна до мови";
+"explore-feed-preferences-global-cards-title" = "Глобальні картки";
+"explore-feed-preferences-potd-description" = "Щоденне вибране зображення Вікісховища";
+"explore-feed-preferences-randomizer-description" = "Згенерувати випадкові статті до читання";
+"explore-feed-preferences-related-pages-description" = "Підказки засновані на історії читання";
+"explore-feed-preferences-show-continue-reading-title" = "Показувати картку Продовження читання";
+"explore-feed-preferences-show-related-pages-title" = "Показувати картку Тому що ви читаєте";
 "explore-main-page-heading" = "Сьогодні у Вікіпедії";
-"explore-most-read-footer-for-date" = "Всі найбільш читані статті на $1";
+// Fuzzy
+"explore-most-read-footer" = "Всі найбільш читані статті";
 "explore-most-read-generic-heading" = "Найбільш читане";
-"explore-most-read-heading" = "Найбільш читані статті в проекті $1 Вікіпедія";
 "explore-most-read-more-list-title-for-date" = "Найбільш читане на $1";
 "explore-nearby-heading" = "Місця поблизу";
-"explore-nearby-placeholder-cancel" = "Скасувати";
-"explore-nearby-placeholder-dismiss" = "Відхилити";
 "explore-nearby-placeholder-heading" = "Місця";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "У Вікіпедії мовою «$1»";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "У Вікіпедії";
 "explore-nearby-sub-heading-your-location" = "Ваше місце розташування";
 "explore-potd-heading" = "Зображення дня";
@@ -169,9 +181,8 @@
 "home-button-explore-accessibility-label" = "Вікіпедія, повернутися до розділу Досліджуйте";
 "home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
-"home-hide-suggestion-cancel" = "Скасувати";
-"home-hide-suggestion-prompt" = "Приховати цю пропозицію";
 "home-more-like-footer" = "Більше схоже на $1";
+// Fuzzy
 "home-nearby-footer" = "Більше про те, що неподалік від вас";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-themes-action-title" = "Керування налаштуваннями";
@@ -215,7 +226,6 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "menu-cancel-accessibility-label" = "Скасувати";
-"menu-trash-accessibility-label" = "Вилучити";
 "navbar-title-mode-edit-wikitext-preview" = "Перегляд";
 "nearby-distance-label-feet" = "$1 фут";
 "nearby-distance-label-km" = "$1 км";
@@ -228,7 +238,6 @@
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
 "on-this-day-footer" = "Більше історичних подій цього дня";
-"onboarding-wikipedia" = "Вікіпедія";
 "open-link-cancel" = "Скасувати";
 "page-edit-history" = "Повна історія редагування";
 "page-history-title" = "Історія статті";
@@ -242,7 +251,6 @@
 "page-protected-sysop" = "Сторінка є повністю захищена.";
 "page-read-in-other-languages" = "Доступно на $1 мовах";
 "page-similar-titles" = "Подібні сторінки";
-"places-accessibility-close-search" = "Закрити пошук";
 "places-accessibility-group" = "$1 статей";
 "places-accessibility-recenter-map-on-user-location" = "Відцентрувати на Вашому місці розташування";
 "places-accessibility-show-as-list" = "Показати як список";
@@ -253,7 +261,6 @@
 "places-enable-location-description" = "Доступ до Вашого розташування доступний лише тоді, коли додаток або одна з його функцій видимі на Вашому екрані.";
 "places-enable-location-title" = "Перегляньте статті поблизу Вашого місця перебування, увімкнувши доступ до Вашого розташування";
 "places-filter-saved-articles" = "Збережені статті";
-"places-filter-saved-articles-count" = "Знайдено $1 {{PLURAL:$1|місце|місць}}";
 "places-filter-top-articles" = "Найбільш читають";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|стаття|статей}}";
 "places-no-saved-articles-have-location" = "Жодна зі збережених Вами статей не має інформації про розташування";

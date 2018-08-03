@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFNewsCollectionViewCell)
 public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
     var descriptionFont:UIFont? = nil
     var descriptionLinkFont:UIFont? = nil
@@ -34,5 +33,12 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
         didSet {
             updateDescriptionHTMLStyle()
         }
+    }
+}
+
+public class NewsExploreCollectionViewCell: NewsCollectionViewCell {
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
     }
 }

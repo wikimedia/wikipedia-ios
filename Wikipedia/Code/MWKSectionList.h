@@ -31,12 +31,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)count;
 - (MWKSection *)objectAtIndexedSubscript:(NSUInteger)idx;
+NS_ASSUME_NONNULL_END
 
 /// @return The first section whose `text` is not empty, or `nil` if all sections (or the receiver) are empty.
-- (MWKSection *)firstNonEmptySection;
+- (nullable MWKSection *)firstNonEmptySection;
 
-- (MWKSection *)sectionWithFragment:(NSString *)fragment;
+- (nullable MWKSection *)sectionWithFragment:(nonnull NSString *)fragment;
 
+NS_ASSUME_NONNULL_BEGIN
 - (BOOL)save:(NSError **)outError;
 
 - (BOOL)isEqualToSectionList:(MWKSectionList *)sectionList;

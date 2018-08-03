@@ -55,7 +55,7 @@
     NSDate *midnightUTC = [now wmf_midnightUTCDateFromLocalDate];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
     NSInteger days = MAX(0, [calendar wmf_daysFromDate:self toDate:midnightUTC]);
-    if (days < 4) {
+    if (days < 2) {
         return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
     } else {
         return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self];

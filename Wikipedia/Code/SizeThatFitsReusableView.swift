@@ -78,8 +78,8 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     }
     
     final override public func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        if let attributesToFit = layoutAttributes as? WMFCVLAttributes {
-            layoutMargins = attributesToFit.readableMargins
+        if let attributesToFit = layoutAttributes as? ColumnarCollectionViewLayoutAttributes {
+            layoutMargins = attributesToFit.layoutMargins
             if attributesToFit.precalculated {
                 return attributesToFit
             }
@@ -104,11 +104,6 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     
     // MARK - Dynamic Type
     // Only applies new fonts if the content size category changes
-    
-    open override func setNeedsLayout() {
-        maybeUpdateFonts(with: traitCollection)
-        super.setNeedsLayout()
-    }
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)

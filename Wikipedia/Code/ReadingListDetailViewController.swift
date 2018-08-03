@@ -4,7 +4,7 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection, ArticleURLProvider {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
@@ -23,9 +23,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)')") // ReadingListEntry has no snippet
     }
     
-    private var cellLayoutEstimate: WMFLayoutEstimate?
+    private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
+    var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
@@ -78,6 +79,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         navigationBar.title = readingList.name
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = true
         addExtendedView()
         
         setupFetchedResultsController()
@@ -85,7 +88,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         setupEditController()
         fetch()
         
-        register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(SavedArticlesCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
 
         if displayType == .modal {
             navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissController))
@@ -93,10 +96,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
         
         isRefreshControlEnabled = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        
+
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     private func addExtendedView() {
@@ -112,8 +115,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func setNavigationBarHidingEnabled(_ enabled: Bool) {
-        navigationBarHider.isExtendedViewHidingEnabled = enabled
-        navigationBarHider.isBarHidingEnabled = enabled
+        navigationBar.isExtendedViewHidingEnabled = enabled
     }
     
     override func refresh() {
@@ -122,19 +124,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     @objc private func dismissController() {
         dismiss(animated: true)
-    }
-    
-    @objc private func articleWasUpdated(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle, article.changedValues()["isDownloaded"] != nil else {
-            return
-        }
-        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,16 +144,13 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }
     
     private func entry(at indexPath: IndexPath) -> ReadingListEntry? {
-        guard let fetchedResultsController = fetchedResultsController,
-            let sections = fetchedResultsController.sections,
-            indexPath.section < sections.count,
-            indexPath.item < sections[indexPath.section].numberOfObjects else {
+        guard let fetchedResultsController = fetchedResultsController, fetchedResultsController.isValidIndexPath(indexPath) else {
                 return nil
         }
         return fetchedResultsController.object(at: indexPath)
     }
     
-    private func articleURL(at indexPath: IndexPath) -> URL? {
+    func articleURL(at indexPath: IndexPath) -> URL? {
         guard let entry = entry(at: indexPath), let key = entry.articleKey else {
             assertionFailure("Can't get articleURL")
             return nil
@@ -215,37 +203,11 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return [addToListItem, moveToListItem, removeItem]
     }()
     
-    // MARK: - Hiding extended view
+    // MARK: - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScroll(scrollView)
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         editController.transformBatchEditPaneOnScroll()
-    }
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewWillBeginDragging(scrollView) // this & following UIScrollViewDelegate calls could be in a default implementation
-        super.scrollViewWillBeginDragging(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndDecelerating(scrollView)
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidEndScrollingAnimation(scrollView)
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        navigationBarHider.scrollViewWillScrollToTop(scrollView)
-        return true
-    }
-    
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        navigationBarHider.scrollViewDidScrollToTop(scrollView)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        navigationBarHider.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
     }
     
     // MARK: - Filtering
@@ -297,6 +259,29 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     lazy var sortAlert: UIAlertController = {
         return alert(title: WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles."), message: nil)
     }()
+    
+    // MARK: - ColumnarCollectionViewLayoutDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
 }
 
 // MARK: - ActionDelegate
@@ -334,16 +319,20 @@ extension ReadingListDetailViewController: ActionDelegate {
         switch action.type {
         case .addTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         case .remove:
             delete(entries)
             return true
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
+            let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
+            navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(addArticlesToReadingListViewController, animated: true, completion: nil)
+            present(navigationController, animated: true)
             return true
         default:
             assert(false, "Unhandled action type")
@@ -379,17 +368,13 @@ extension ReadingListDetailViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView = collectionView.cellForItem(at: indexPath)
         switch action.type {
         case .delete:
             delete(at: indexPath)
             return true
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, sourceView: sourceView)
         default:
             assertionFailure("Unsupported action type")
             return false
@@ -491,31 +476,9 @@ extension ReadingListDetailViewController: CollectionViewUpdaterDelegate {
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
         collectionView.setNeedsLayout()
     }
-}
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-
-extension ReadingListDetailViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? SavedArticlesCollectionViewCell else {
-            return estimate
-        }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        cellLayoutEstimate = estimate
-        return estimate
-    }
     
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
     }
 }
 
@@ -557,16 +520,17 @@ extension ReadingListDetailViewController {
             assertionFailure("Coudn't fetch an article with \(articleKey) articleKey")
             return
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
         
         cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
-        cell.configure(article: article, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         
-        cell.actions = availableActions(at: indexPath)
         cell.isBatchEditable = true
-        cell.layoutMargins = layout.readableMargins
-        
+        cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }
 
@@ -577,17 +541,17 @@ extension ReadingListDetailViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-            let url = articleURL(at: indexPath)
-            else {
-                return nil
-        }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let articleURL = articleURL(at: indexPath)
+        else {
+            return nil
+        }
+        
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
@@ -701,5 +665,15 @@ extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsV
     
     var analyticsContext: String {
         return analyticsName
+    }
+}
+
+extension ReadingListDetailViewController: EventLoggingEventValuesProviding {
+    var eventLoggingLabel: EventLoggingLabel? {
+        return nil
+    }
+    
+    var eventLoggingCategory: EventLoggingCategory {
+        return EventLoggingCategory.saved
     }
 }

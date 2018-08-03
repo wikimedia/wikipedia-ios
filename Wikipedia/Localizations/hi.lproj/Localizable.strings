@@ -74,6 +74,7 @@
 "appearance-settings-adjust-text-sizing" = "लेख में शब्दों का आकार व्यवस्थित करें";
 "appearance-settings-image-dimming-footer" = "डार्क थीम पर चित्रों की अपारदर्शिता कम करें";
 "appearance-settings-reading-themes" = "विषय पढ़ रहा";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "लेख में शब्दों के आकार को बदलने के लिए ऊपर दिए बटन को खिसकाएँ। एप के अन्य स्थानों पर शब्दों के आकार को बदलने के लिए अपने सिस्टम सेटिंग्स का प्रयोग करें।";
 "appearance-settings-theme-options" = "विषय विकल्प";
 "article-about-title" = "इस लेख के बारे में";
@@ -89,7 +90,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "article-unable-to-load-article" = "लेख की लोड करने  में असमर्थ।";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
-"back" = "वापस";
 "back-button-accessibility-label" = "पीछे";
 "button-done" = "पूर्ण हुआ";
 "button-next" = "अगला";
@@ -131,15 +131,15 @@
 "explore-featured-article-heading" = "निर्वाचित लेख";
 "explore-main-page-description" = "विकिमीडिया परियोजनाओं का मुख्यपृष्ठ";
 "explore-main-page-heading" = "विकिपीडिया पर आज";
-"explore-most-read-footer-for-date" = "$1 को सर्वाधिक पढ़े गए लेख";
+// Fuzzy
+"explore-most-read-footer" = "सारे सर्वाधिक पढ़े गए लेख";
 "explore-most-read-generic-heading" = "सर्वाधिक पढ़े गए";
-"explore-most-read-heading" = "$1 विकिपीडिया पर सर्वाधिक पढ़े गए";
 "explore-most-read-more-list-title-for-date" = "$1 के प्रमुख लेख";
 "explore-nearby-heading" = "पास के स्थान";
-"explore-nearby-placeholder-cancel" = "रद्द करें";
-"explore-nearby-placeholder-dismiss" = "निरस्त";
 "explore-nearby-placeholder-heading" = "स्थान";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 विकिपीडिया पर";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "विकिपीडिया पर";
 "explore-nearby-sub-heading-your-location" = "आपकी स्थिति";
 "explore-potd-heading" = "आज का चित्र";
@@ -191,14 +191,12 @@
 "hockeyapp-alert-title" = "क्षमा करें, पिछली बार एप क्रैश हो गयी";
 "home-button-explore-accessibility-label" = "विकिपीडिया, खोज पर लौटें";
 "home-button-history-accessibility-label" = "विकिपीडीया, इतिहास पर लौटें";
-"home-button-popover-description" = "अन्वेषण फ़ीड पर वापस जाने के लिए 'W' पर टैप करें";
-"home-button-popover-title" = "घर जाने के लिए टैप करें";
 "home-button-saved-accessibility-label" = "विकिपीडिया, सहेजे गए पर लौटें";
-"home-hide-suggestion-cancel" = "रद्द करें";
-"home-hide-suggestion-prompt" = "इस सुझाव को छुपाएँ";
 "home-more-like-footer" = "$1 के समान";
+// Fuzzy
 "home-nearby-footer" = "आपकी निकटतम स्थिति से और अधिक";
 "home-nearby-location-footer" = "$1 के निकट और अधिक";
+// Fuzzy
 "home-news-footer" = "समाचारों में अधिक";
 "home-themes-action-title" = "प्राथमिकताएं प्रबंधित करें";
 "home-themes-prompt" = "एक अधिक आरामदायक पठन अनुभव करने के लिए लेख उपकरण पट्टी से विषय और आपके उपयोगकर्ता सेटिंग्स में पढ़ने की वरीयताओं को(टेक्स्ट का आकार सहित) समायोजित करें।";
@@ -242,7 +240,6 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडिया ज़ीरो FAQ";
 "menu-cancel-accessibility-label" = "रद्द करें";
-"menu-trash-accessibility-label" = "हटाएँ";
 "more-languages-tooltip-description" = "विजीपीडिया को लगभग 300 भाषाओं में खोजें";
 "more-languages-tooltip-title" = "भाषाएँ जोड़ें";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
@@ -260,7 +257,6 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ऐतिहासिक घटना|$1 ऐतिहासिक घटनाओं}}";
 "on-this-day-footer" = "इस दिन की अधिक ऐतिहासिक घटनाएं";
 "on-this-day-title" = "आज के दिन";
-"onboarding-wikipedia" = "विकिपीडिया";
 "open-link-cancel" = "रद्द करें";
 "page-edit-history" = "पूर्ण संपादन इतिहास";
 "page-history-title" = "लेख इतिहास";
@@ -277,22 +273,18 @@
 "page-talk-page" = "वार्ता पृष्ठ देखें";
 "pictured" = "चित्रित";
 "places-accessibility-clear-saved-searches" = "सहेजी गईं खोजों को साफ करें";
-"places-accessibility-close-search" = "खोज बंद करें";
 "places-accessibility-group" = "$1 लेख";
 "places-accessibility-recenter-map-on-user-location" = "अपनी स्थिति पर पुनः केंद्रित करें";
 "places-accessibility-show-as-list" = "सूची की तरह दिखाएँ";
 "places-accessibility-show-as-map" = "नक्शे पर दिखाएँ";
 "places-accessibility-show-more" = "अधिक लेख दिखाएं";
-"places-dismiss-filter-list-accessibility-label" = "खोज फिल्टरों को निरस्त करें";
 "places-empty-search-description" = "शहरों, देशों, महाद्वीपों, प्राकृतिक स्थलों, ऐतिहासिक घटनाओं, भवनों और अन्य की खोज करें।";
 "places-empty-search-title" = "भौगिलिक स्थिति के अनुसार विकीपीडिया लेख खोजें";
 "places-enable-location-action-button-title" = "स्थिति सक्रिय करें";
 "places-enable-location-description" = "आपकी स्थिति की उपलब्धता केवल तभी है जब एप या इसके फीचर्स में से एक स्क्रीन पर दिखे।";
 "places-enable-location-title" = "लोकेशन एक्सेस इनेबल कर अपनी लोकेशन के पास के लेख खोजें";
-"places-filter-list-title" = "खोज फिल्टर्स";
 "places-filter-no-saved-places" = "आपके कोई सहेजे गए स्थान नहीं हैं";
 "places-filter-saved-articles" = "सहेजे गए लेख";
-"places-filter-saved-articles-count" = "{{PLURAL:$1|$1 स्थान|$1 स्थान}} मिले";
 "places-filter-top-articles" = "सर्वाधिक पढ़े गए";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 लेख|$1 लेख}}";
 "places-no-saved-articles-have-location" = "आपके सहेजे गए किसी भी लेख में लोकेशन जानकारी नहीं है";
@@ -306,7 +298,6 @@
 "places-search-top-articles" = "सभी टॉप लेख";
 "places-search-top-articles-that-match-scope" = "आस-पास";
 "places-search-your-current-location" = "आपकी वर्तमान लोकेशन";
-"places-show-filter-list-accessibility-label" = "खोज फ़िल्टर दिखाएं";
 "places-title" = "स्थान";
 "places-unknown-distance" = "अज्ञात दूरी";
 "potd-description-prefix" = "$1 के लिए आज का चित्र";

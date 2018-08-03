@@ -56,15 +56,25 @@
                                            disclosureText:[[[MWKLanguageLinkController sharedInstance] appLanguage].languageCode uppercaseString]
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {
+        case WMFSettingsMenuItemType_Search: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-language-bar", nil, nil, @"Show languages on search", @"Title in Settings for toggling the display the language bar in the search view")
+                                                    title:[WMFCommonStrings searchTitle]
                                                  iconName:@"settings-search"
                                                 iconColor:[UIColor wmf_green]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
-                                               isSwitchOn:[[NSUserDefaults wmf_userDefaults] wmf_showSearchLanguageBar]];
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_ExploreFeed: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings exploreFeedTitle]
+                                                 iconName:@"settings-explore"
+                                                iconColor:[UIColor wmf_colorWithHex:0x5ac8fa]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:[NSUserDefaults wmf_userDefaults].defaultTabType != WMFAppDefaultTabTypeExplore ? @"Off" : @"On"
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Notifications: {
             return
@@ -88,13 +98,13 @@
         }
         case WMFSettingsMenuItemType_StorageAndSyncing: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:[WMFCommonStrings settingsStorageAndSyncing]
-                                             iconName:@"settings-saved-articles"
-                                            iconColor:[UIColor wmf_colorWithHex:0x00b4ce]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:[WMFCommonStrings settingsStorageAndSyncing]
+                                                 iconName:@"settings-saved-articles"
+                                                iconColor:[UIColor wmf_colorWithHex:0x00b4ce]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return

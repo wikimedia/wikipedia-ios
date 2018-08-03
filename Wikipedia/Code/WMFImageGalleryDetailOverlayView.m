@@ -1,9 +1,7 @@
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "UIFont+WMFStyle.h"
 #import "Wikipedia-Swift.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "WMFGradientView.h"
 @import WMF.MWKLicense;
 
@@ -81,6 +79,10 @@
 
 - (void)setImageDescription:(NSString *)imageDescription {
     self.imageDescriptionLabel.text = imageDescription;
+}
+
+- (void)setImageDescriptionIsRTL:(BOOL)isRTL {
+    self.imageDescriptionLabel.textAlignment = isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
 }
 
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {

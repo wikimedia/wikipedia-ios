@@ -1,7 +1,5 @@
 import UIKit
 
-fileprivate let reuseIdentifier = "ArticleCollectionViewControllerCell"
-
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
@@ -14,7 +12,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
         }
     }
-    var cellLayoutEstimate: WMFLayoutEstimate?
+    var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
+
     var editController: CollectionViewEditController!
     var readingListHintController: ReadingListHintController?
     
@@ -22,8 +21,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
-
+        layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
         setupEditController()
     }
     
@@ -31,15 +29,30 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         guard let article = article(at: indexPath) else {
             return
         }
-        let numberOfItems = self.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
-        cell.configure(article: article, displayType: .compactList, index: indexPath.item, count: numberOfItems, shouldAdjustMargins: false, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        cell.actions = availableActions(at: indexPath)
-        cell.layoutMargins = layout.readableMargins
+        cell.configure(article: article, displayType: .compactList, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
+        cell.topSeparator.isHidden = indexPath.item == 0
+        cell.bottomSeparator.isHidden = indexPath.item == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1
+        cell.layoutMargins = layout.itemLayoutMargins
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
     open func articleURL(at indexPath: IndexPath) -> URL? {
         assert(false, "Subclassers should override this function")
         return nil
+    }
+    
+    open func imageURL(at indexPath: IndexPath) -> URL? {
+        guard let article = article(at: indexPath) else {
+            return nil
+        }
+        return article.imageURL(forWidth: traitCollection.wmf_nearbyThumbnailWidth)
+    }
+    
+    override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
+        guard let imageURL = imageURL(at: indexPath) else {
+            return nil
+        }
+        return [imageURL]
     }
     
     open func article(at indexPath: IndexPath) -> WMFArticle? {
@@ -73,9 +86,9 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return articleURL(at: indexPath) != nil
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
         cellLayoutEstimate = nil
+        super.contentSizeCategoryDidChange(notification)
     }
     
     // MARK: - EventLoggingEventValuesProviding
@@ -87,6 +100,31 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
+        if let estimate = cellLayoutEstimate {
+            return estimate
+        }
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 60)
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier) as? ArticleRightAlignedImageCollectionViewCell else {
+            return estimate
+        }
+        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
+        // intentionally set all text and unhide image view to get largest possible size
+        placeholderCell.isImageViewHidden = false
+        placeholderCell.titleLabel.text = "any"
+        placeholderCell.descriptionLabel.text = "any"
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        cellLayoutEstimate = estimate
+        return estimate
+    }
+    
+    override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
+        return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
 }
 
@@ -113,7 +151,7 @@ extension ArticleCollectionViewController {
     
     // Override configure(cell: instead to ensure height calculations are accurate
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, for: indexPath)
         guard let articleCell = cell as? ArticleRightAlignedImageCollectionViewCell else {
             return cell
         }
@@ -132,6 +170,10 @@ extension ArticleCollectionViewController {
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
+    }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
@@ -140,17 +182,17 @@ extension ArticleCollectionViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell,
-            let url = articleURL(at: indexPath)
-        else {
-                return nil
-        }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let articleURL = articleURL(at: indexPath)
+        else {
+            return nil
+        }
+
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
@@ -159,32 +201,6 @@ extension ArticleCollectionViewController {
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
-
-// MARK: - WMFColumnarCollectionViewLayoutDelegate
-extension ArticleCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> WMFLayoutEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
-        // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
-        if let estimate = cellLayoutEstimate {
-            return estimate
-        }
-        var estimate = WMFLayoutEstimate(precalculated: false, height: 60)
-        guard let placeholderCell = placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? ArticleRightAlignedImageCollectionViewCell else {
-            return estimate
-        }
-        placeholderCell.prepareForReuse()
-        configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = true
-        cellLayoutEstimate = estimate
-        return estimate
-    }
-    
-    override func metrics(withBoundsSize size: CGSize, readableWidth: CGFloat) -> WMFCVLMetrics {
-        return WMFCVLMetrics.singleColumnMetrics(withBoundsSize: size, readableWidth: readableWidth)
-    }
-}
-
 
 extension ArticleCollectionViewController: ActionDelegate {
     
@@ -210,11 +226,7 @@ extension ArticleCollectionViewController: ActionDelegate {
     
     func didPerformAction(_ action: Action) -> Bool {
         let indexPath = action.indexPath
-        defer {
-            if let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell {
-                cell.actions = availableActions(at: indexPath)
-            }
-        }
+        let sourceView = collectionView.cellForItem(at: indexPath)
         switch action.type {
         case .delete:
             delete(at: indexPath)
@@ -241,7 +253,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 return true
             }
         case .share:
-            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel)
+            return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         }
         return false
     }
@@ -264,15 +276,6 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
 
         return actions
-    }
-    
-    func updateVisibleCellActions() {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
-                continue
-            }
-            cell.actions = availableActions(at: indexPath)
-        }
     }
 }
 

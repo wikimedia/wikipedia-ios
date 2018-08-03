@@ -66,22 +66,6 @@
 			<string>%1$d esdeveniments històrics</string>
 		</dict>
 	</dict>
-	<key>places-filter-saved-articles-count</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d lloc trobat</string>
-			<key>other</key>
-			<string>%1$d llocs trobats</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +80,22 @@
 			<string>%1$d article</string>
 			<key>other</key>
 			<string>%1$d articles</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>L'article no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
+			<key>other</key>
+			<string>Els articles no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -216,6 +216,22 @@
 			<string>Fa %1$d anys</string>
 			<key>zero</key>
 			<string>Enguany</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Voleu deixar de desar article?</string>
+			<key>other</key>
+			<string>Voleu deixar de desar articles?</string>
 		</dict>
 	</dict>
 </dict>

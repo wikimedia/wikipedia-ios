@@ -77,8 +77,8 @@
 "explore-continue-reading-heading" = "Wigger lässe";
 "explore-featured-article-heading" = "De bäste Atikelle";
 "explore-main-page-heading" = "Hück op de Wikkipehdija";
-"explore-most-read-footer-for-date" = "All de mihts jelässe Sigge op $1";
-"explore-most-read-heading" = "De mihts jelässe Sigge en de Wikkipehdija op $1";
+// Fuzzy
+"explore-most-read-footer" = "All de mihts jelässe Sigge";
 "explore-most-read-more-list-title-for-date" = "Jähn jelässe aam $1";
 "explore-nearby-heading" = "Pläz en der Nöhde vun";
 "explore-potd-heading" = "Belld vum Daach";
@@ -97,9 +97,8 @@
 "hockeyapp-alert-question-with-response-field" = "Wells De ene Bereesch met Dahte övver dä Affbroch aan de $1 scheke, so dat mer en de Wikkimehdija-Schtefftong do noh lohre kann? Bes esu johd on donn schriehve, wat doh paßehrd es.";
 "hockeyapp-alert-send-report" = "Bereesch schecke";
 "hockeyapp-alert-title" = "Schahd, di Äpp es beim läzde Mohl kapott jejange";
-"home-hide-suggestion-cancel" = "Ophühre";
-"home-hide-suggestion-prompt" = "Donn dä Vörschlahch ußblände";
 "home-more-like-footer" = "Mih ähnlesch wi $1";
+// Fuzzy
 "home-nearby-footer" = "Mih uß Dinger Nöhde";
 "home-nearby-location-footer" = "Mih en de Nöhde vun $1";
 "home-title" = "Ußfochsche";
@@ -133,14 +132,12 @@
 "main-menu-title" = "Mih";
 "main-menu-zero-faq" = "Öff jeschtallte Frohre övver de Wikkiphedija Zero, un de Antwoote dozoh";
 "menu-cancel-accessibility-label" = "Ophühre";
-"menu-trash-accessibility-label" = "Fottschmiiße";
 "navbar-title-mode-edit-wikitext-preview" = "Vörschou";
 "nearby-distance-label-feet" = "$1 Fohß";
 "nearby-distance-label-km" = "$1 Killomehter";
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-miles" = "$1 Meile";
 "no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";
-"onboarding-wikipedia" = "Wikkipehdija";
 "open-link-cancel" = "Ophühre";
 "page-edit-history" = "De kumplätte Verjangeheijt";
 "page-history-title" = "Väsjohne vun dä Sigg";
