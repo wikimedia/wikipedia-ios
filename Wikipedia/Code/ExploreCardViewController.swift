@@ -6,7 +6,7 @@ protocol ExploreCardViewControllerDelegate {
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
-class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate {
+class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -32,6 +32,8 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     var collectionView: UICollectionView {
         return view as! UICollectionView
     }
+    
+    var updater: ArticleURLProviderEditControllerUpdater?
     
     var theme: Theme = Theme.standard
     
@@ -60,6 +62,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         layoutManager.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier, addPlaceholder: true)
         collectionView.isOpaque = true
         view.isOpaque = true
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,7 +181,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
-    private func articleURL(at indexPath: IndexPath) -> URL? {
+    func articleURL(at indexPath: IndexPath) -> URL? {
         return contentGroup?.previewArticleURLForItemAtIndex(indexPath.row)
     }
     
