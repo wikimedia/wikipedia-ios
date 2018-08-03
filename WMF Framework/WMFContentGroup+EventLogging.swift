@@ -31,7 +31,8 @@
             guard let date = midnightUTCDate else {
                 return nil
             }
-            return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: Date()))
+            let now = NSDate().wmf_midnightUTCDateFromLocal
+            return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
         }
     }
 
