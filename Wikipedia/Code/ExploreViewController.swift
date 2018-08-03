@@ -658,27 +658,35 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
 // MARK - Analytics
 extension ExploreViewController {
-    private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle) {
+    private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle, userInfo: Any?) {
         guard let articleURL = article.url else {
             assert(false, "Article missing url: \(article)")
             return
         }
+        guard
+            let userInfo = userInfo as? ExploreSaveButtonUserInfo,
+            let midnightUTCDate = userInfo.midnightUTCDate,
+            let kind = userInfo.kind
+        else {
+            assert(false, "Article missing user info: \(article)")
+            return
+        }
+        let index = userInfo.indexPath.item
         if wasArticleSaved {
-            ReadingListsFunnel.shared.logSaveInFeed(saveButton: saveButton, articleURL: articleURL)
+            ReadingListsFunnel.shared.logSaveInFeed(saveButton: saveButton, articleURL: articleURL, kind: kind, index: index, date: midnightUTCDate)
         } else {
-            ReadingListsFunnel.shared.logUnsaveInFeed(saveButton: saveButton, articleURL: articleURL)
-            
+            ReadingListsFunnel.shared.logUnsaveInFeed(saveButton: saveButton, articleURL: articleURL, kind: kind, index: index, date: midnightUTCDate)
         }
     }
 }
 
 extension ExploreViewController: SaveButtonsControllerDelegate {
-    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle) {
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?) {
         readingListHintController.didSave(didSave, article: article, theme: theme)
-        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article)
+        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article, userInfo: userInfo)
     }
     
-    func willUnsaveArticle(_ article: WMFArticle) {
+    func willUnsaveArticle(_ article: WMFArticle, userInfo: Any?) {
         if article.userCreatedReadingListsCount > 0 {
             let alertController = ReadingListsAlertController()
             alertController.showAlert(presenter: self, article: article)
