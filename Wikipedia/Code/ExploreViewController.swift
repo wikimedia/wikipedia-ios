@@ -137,8 +137,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndDecelerating(scrollView)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         logFeedImpression()
     }
 
@@ -149,17 +148,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         for indexPath in collectionView.indexPathsForVisibleItems where frc.isValidIndexPath(indexPath) {
-            guard let cell = collectionView.cellForItem(at: indexPath) else {
-                continue
-            }
-            let cellY = cell.frame.origin.y
-            let visibleHeight = collectionView.bounds.height - navigationBar.visibleHeight - bottomLayoutGuide.length
-            let isUnobstructed = cellY < visibleHeight
-            guard isUnobstructed else {
-                continue
-            }
             let group = frc.object(at: indexPath)
-            FeedFunnel.shared.logFeedImpression(for: group.eventLoggingLabel)
+            let measureAge: Int?
+            if group.appearsOncePerDay {
+                measureAge = group.eventLoggingMeasureAge?.intValue
+            } else {
+                let groups = frc.fetchedObjects?.filter { $0.contentGroupKind == group.contentGroupKind }
+                measureAge = groups?.index(of: group)
+            }
+            FeedFunnel.shared.logFeedImpression(for: group.eventLoggingLabel, measureAge: measureAge)
         }
     }
     

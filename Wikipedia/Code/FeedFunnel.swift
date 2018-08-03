@@ -19,7 +19,7 @@
         case closeCard = "close_card"
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: Double? = nil, measurePosition: Double? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: Int? = nil, measurePosition: Double? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
         let category = category.rawValue
         let action = action.rawValue
         
@@ -28,7 +28,7 @@
             event["label"] = label
         }
         if let measureAge = measureAge {
-            event["measure_age"] = Int(round(measureAge))
+            event["measure_age"] = measureAge
         }
         if let measurePosition = measurePosition {
             event["measure_position"] = Int(round(measurePosition))
@@ -82,8 +82,8 @@
         log(event(category: .feed, label: nil, action: .refresh))
     }
 
-    @objc public func logFeedImpression(for label: EventLoggingLabel?) {
-        log(event(category: .feed, label: label, action: .impression))
+    public func logFeedImpression(for label: EventLoggingLabel?, measureAge: Int?) {
+        log(event(category: .feed, label: label, action: .impression, measureAge: measureAge))
     }
 }
 /*
