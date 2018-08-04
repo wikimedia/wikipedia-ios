@@ -406,7 +406,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
-            wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
+            wmf_push(vc, contentGroup: group, animated: true)
             return
         }
         
@@ -415,7 +415,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 present(vc, animated: true)
                 FeedFunnel.shared.logFeedCardOpened(for: group)
             } else {
-                wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
+                wmf_push(vc, contentGroup: group, animated: true)
             }
             return
         }
@@ -543,7 +543,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             present(vc, animated: true)
             FeedFunnel.shared.logFeedCardOpened(for: contentGroup)
         default:
-            wmf_push(vc, eventLoggingLabel: contentGroup.eventLoggingLabel, animated: true)
+            wmf_push(vc, contentGroup: contentGroup, animated: true)
         }
     }
     
@@ -649,9 +649,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             FeedFunnel.shared.logFeedCardOpened(for: previewedGroup)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, eventLoggingLabel: eventLoggingLabel, animated: false)
+            wmf_push(avc, contentGroup: contentGroup, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, eventLoggingLabel: eventLoggingLabel, animated: true)
+            wmf_push(viewControllerToCommit, contentGroup: previewedGroup, animated: true)
         }
     }
 }
