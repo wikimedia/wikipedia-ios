@@ -58,32 +58,32 @@
     }
     */
 
-    @objc public func logFeedCardOpened(for label: EventLoggingLabel?) {
-        log(event(category: .feedDetail, label: label, action: .openCard))
+    @objc public func logFeedCardOpened(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feedDetail, label: label, action: .openCard, measureAge: measureAge?.intValue))
     }
 
-    @objc public func logFeedCardDismissed(for label: EventLoggingLabel?) {
-        log(event(category: .feed, label: label, action: .dismiss))
+    @objc public func logFeedCardDismissed(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feed, label: label, action: .dismiss, measureAge: measureAge?.intValue))
     }
 
-    @objc public func logFeedCardRetained(for label: EventLoggingLabel?) {
-        log(event(category: .feed, label: label, action: .retain))
+    @objc public func logFeedCardRetained(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feed, label: label, action: .retain, measureAge: measureAge?.intValue))
     }
 
-    @objc public func logFeedCardPreviewed(for label: EventLoggingLabel?) {
-        log(event(category: .feed, label: label, action: .preview))
+    @objc public func logFeedCardPreviewed(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feed, label: label, action: .preview, measureAge: measureAge?.intValue))
     }
 
-    @objc public func logFeedCardReadingStarted(for label: EventLoggingLabel?) {
-        log(event(category: .feed, label: label, action: .readStart))
+    @objc public func logFeedCardReadingStarted(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feed, label: label, action: .readStart, measureAge: measureAge?.intValue))
     }
 
     @objc public func logFeedRefreshed() {
         log(event(category: .feed, label: nil, action: .refresh))
     }
 
-    public func logFeedImpression(for label: EventLoggingLabel?, measureAge: Int?) {
-        log(event(category: .feed, label: label, action: .impression, measureAge: measureAge))
+    public func logFeedImpression(for label: EventLoggingLabel?, measureAge: NSNumber?) {
+        log(event(category: .feed, label: label, action: .impression, measureAge: measureAge?.intValue))
     }
 }
 /*
