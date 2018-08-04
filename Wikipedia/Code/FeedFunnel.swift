@@ -121,6 +121,29 @@
     }
 }
 
+private extension WMFContentGroup {
+    var eventLoggingMeasureAge: NSNumber? {
+        if appearsOncePerDay {
+            guard let date = midnightUTCDate else {
+                return nil
+            }
+            let now = NSDate().wmf_midnightUTCDateFromLocal
+            return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
+        } else {
+            return nil
+        }
+    }
+
+    var appearsOncePerDay: Bool {
+        switch contentGroupKind {
+        case .continueReading:
+            fallthrough
+        case .relatedPages:
+            return false
+        default:
+            return true
+        }
+    }
 }
 /*
  Q: what constitutes an impression? (on feed is it first time user sees it, or each time it scrolls into view?)

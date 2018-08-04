@@ -23,28 +23,5 @@
             return nil
         }
     }
-
-    public var eventLoggingMeasureAge: NSNumber? {
-        if appearsOncePerDay {
-            guard let date = midnightUTCDate else {
-                return nil
-            }
-            let now = NSDate().wmf_midnightUTCDateFromLocal
-            return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
-        } else {
-            return nil
-        }
-    }
-
-    public var appearsOncePerDay: Bool {
-        switch contentGroupKind {
-        case .continueReading:
-            fallthrough
-        case .relatedPages:
-            return false
-        default:
-            return true
-        }
-    }
 }
 
