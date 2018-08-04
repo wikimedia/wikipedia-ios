@@ -58,24 +58,24 @@
     }
     */
 
-    @objc public func logFeedCardOpened(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feedDetail, label: label, action: .openCard, measureAge: measureAge?.intValue))
+    @objc public func logFeedCardOpened(for group: WMFContentGroup?) {
+        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .openCard, measureAge: measureAge(for: group)))
     }
 
-    @objc public func logFeedCardDismissed(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feed, label: label, action: .dismiss, measureAge: measureAge?.intValue))
+    @objc public func logFeedCardDismissed(for group: WMFContentGroup?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .dismiss, measureAge: measureAge(for: group) ))
     }
 
-    @objc public func logFeedCardRetained(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feed, label: label, action: .retain, measureAge: measureAge?.intValue))
+    @objc public func logFeedCardRetained(for group: WMFContentGroup?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .retain, measureAge: measureAge(for: group)))
     }
 
-    @objc public func logFeedCardPreviewed(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feed, label: label, action: .preview, measureAge: measureAge?.intValue))
+    @objc public func logFeedCardPreviewed(for group: WMFContentGroup?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group)))
     }
 
-    @objc public func logFeedCardReadingStarted(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feed, label: label, action: .readStart, measureAge: measureAge?.intValue))
+    @objc public func logFeedCardReadingStarted(for group: WMFContentGroup?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group)))
     }
 
     @objc public func logFeedRefreshed() {
