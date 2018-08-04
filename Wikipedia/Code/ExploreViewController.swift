@@ -608,22 +608,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return previewedGroup?.eventLoggingLabel
     }
 
-    private func measureAge(for group: WMFContentGroup?) -> NSNumber? {
-        guard let group = group, let fetchedResultsController = fetchedResultsController else {
-            return nil
-        }
-        let measureAge: NSNumber?
-        if group.appearsOncePerDay {
-            measureAge = group.eventLoggingMeasureAge
-        } else {
-            let groups = fetchedResultsController.fetchedObjects?.filter { $0.contentGroupKind == group.contentGroupKind }
-            if let index = groups?.index(of: group) {
-                measureAge = NSNumber(value: index)
-            } else {
-                measureAge = nil
-            }
-        }
-        return measureAge
     }
 
     // MARK: Peek & Pop
