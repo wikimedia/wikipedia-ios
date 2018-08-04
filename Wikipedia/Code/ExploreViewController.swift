@@ -608,6 +608,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return previewedGroup?.eventLoggingLabel
     }
 
+    var contentGroup: WMFContentGroup? {
+        return previewedGroup
     }
 
     // MARK: Peek & Pop
