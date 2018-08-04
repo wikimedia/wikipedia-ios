@@ -87,6 +87,23 @@
     }
 
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
+
+    private func measureAge(for group: WMFContentGroup?) -> NSNumber? {
+        guard let group = group, let fetchedContentGroupsInFeedController = fetchedContentGroupsInFeedController else {
+            return nil
+        }
+        let measureAge: NSNumber?
+        if group.appearsOncePerDay {
+            measureAge = group.eventLoggingMeasureAge
+        } else {
+            let groups = fetchedContentGroupsInFeedController.fetchedObjects?.filter { $0.contentGroupKind == group.contentGroupKind }
+            if let index = groups?.index(of: group) {
+                measureAge = NSNumber(value: index)
+            } else {
+                measureAge = nil
+            }
+        }
+        return measureAge
     }
 }
 /*
