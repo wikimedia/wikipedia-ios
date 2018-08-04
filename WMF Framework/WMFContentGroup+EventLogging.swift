@@ -26,13 +26,13 @@
 
     public var eventLoggingMeasureAge: NSNumber? {
         if appearsOncePerDay {
-            return nil
-        } else {
             guard let date = midnightUTCDate else {
                 return nil
             }
             let now = NSDate().wmf_midnightUTCDateFromLocal
             return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
+        } else {
+            return nil
         }
     }
 
