@@ -72,12 +72,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)wmf_pushViewController:(UIViewController *)viewController eventLoggingLabel:(nullable EventLoggingLabel)eventLoggingLabel animated:(BOOL)animated {
-    [self logFeedEventIfNeeded:eventLoggingLabel pushedViewController:viewController];
+- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup animated:(BOOL)animated {
+    [self logFeedEventIfNeeded:contentGroup pushedViewController:viewController];
     [self wmf_pushViewController:viewController animated:animated];
 }
 
-- (void)logFeedEventIfNeeded:(EventLoggingLabel)eventLoggingLabel pushedViewController:(UIViewController *)pushedViewController {
+- (void)logFeedEventIfNeeded:(nullable WMFContentGroup *)contentGroup pushedViewController:(UIViewController *)pushedViewController {
     if (self.navigationController == nil) {
         return;
     }
@@ -88,9 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     BOOL isArticle = [pushedViewController isKindOfClass:[WMFArticleViewController class]] || [pushedViewController isKindOfClass:[WMFFirstRandomViewController class]];
     if (isArticle) {
-        [FeedFunnel.shared logFeedCardReadingStartedFor:eventLoggingLabel];
+        [FeedFunnel.shared logFeedCardReadingStartedFor:contentGroup];
     } else {
-        [FeedFunnel.shared logFeedCardOpenedFor:eventLoggingLabel];
+        [FeedFunnel.shared logFeedCardOpenedFor:contentGroup];
     }
 }
 

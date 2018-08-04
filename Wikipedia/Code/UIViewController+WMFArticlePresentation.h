@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
-- (void)wmf_pushViewController:(UIViewController *)viewController eventLoggingLabel:(nullable EventLoggingLabel)eventLoggingLabel animated:(BOOL)animated;
+- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup animated:(BOOL)animated;
 
 @end
 
