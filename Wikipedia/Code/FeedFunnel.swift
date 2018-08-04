@@ -82,8 +82,9 @@
         log(event(category: .feed, label: nil, action: .refresh))
     }
 
-    public func logFeedImpression(for label: EventLoggingLabel?, measureAge: NSNumber?) {
-        log(event(category: .feed, label: label, action: .impression, measureAge: measureAge?.intValue))
+    public func logFeedImpression(for group: WMFContentGroup?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .impression, measureAge: measureAge(for: group)))
+    }
     }
 }
 /*
