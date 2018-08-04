@@ -149,7 +149,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
             let group = fetchedResultsController.object(at: indexPath)
-            FeedFunnel.shared.logFeedImpression(for: group.eventLoggingLabel, measureAge: measureAge(for: group))
+            FeedFunnel.shared.logFeedImpression(for: group)
         }
     }
     
@@ -413,7 +413,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let vc = group.detailViewControllerForPreviewItemAtIndex(0, dataStore: dataStore, theme: theme) {
             if vc is WMFImageGalleryViewController {
                 present(vc, animated: true)
-                FeedFunnel.shared.logFeedCardOpened(for: group.eventLoggingLabel, measureAge: measureAge(for: group))
+                FeedFunnel.shared.logFeedCardOpened(for: group)
             } else {
                 wmf_push(vc, eventLoggingLabel: group.eventLoggingLabel, animated: true)
             }
@@ -541,7 +541,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
-            FeedFunnel.shared.logFeedCardOpened(for: contentGroup.eventLoggingLabel, measureAge: measureAge(for: contentGroup))
+            FeedFunnel.shared.logFeedCardOpened(for: contentGroup)
         default:
             wmf_push(vc, eventLoggingLabel: contentGroup.eventLoggingLabel, animated: true)
         }
@@ -651,7 +651,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 avc.articlePreviewingActionsDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
-            FeedFunnel.shared.logFeedCardPreviewed(for: contentGroup.eventLoggingLabel, measureAge: measureAge(for: contentGroup))
+            FeedFunnel.shared.logFeedCardPreviewed(for: previewedGroup)
             return viewControllerToCommit
         } else {
             return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
@@ -662,7 +662,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
-            FeedFunnel.shared.logFeedCardOpened(for: eventLoggingLabel, measureAge: measureAge(for: previewedGroup))
+            FeedFunnel.shared.logFeedCardOpened(for: previewedGroup)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
             wmf_push(avc, eventLoggingLabel: eventLoggingLabel, animated: false)
@@ -772,7 +772,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             self.present(themeableNavigationController, animated: true)
         }
         let hideThisCard = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-hide-card-action-title", value: "Hide this card", comment: "Title for action that allows users to hide a feed card"), style: .default) { (_) in
-            FeedFunnel.shared.logFeedCardDismissed(for: group.eventLoggingLabel, measureAge: self.measureAge(for: group))
+            FeedFunnel.shared.logFeedCardDismissed(for: group)
             group.undoType = .contentGroup
             self.wantsDeleteInsertOnNextItemUpdate = true
             self.save()
@@ -788,7 +788,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 guard feedContentController.countOfVisibleContentGroupKinds > 1 else {
                     return
                 }
-                FeedFunnel.shared.logFeedCardDismissed(for: group.eventLoggingLabel, measureAge: self.measureAge(for: group))
+                FeedFunnel.shared.logFeedCardDismissed(for: group)
                 group.undoType = .contentGroupKind
                 self.wantsDeleteInsertOnNextItemUpdate = true
                 self.needsReloadVisibleCells = true
@@ -809,7 +809,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             let group = vc.contentGroup else {
                 return
         }
-        FeedFunnel.shared.logFeedCardRetained(for: group.eventLoggingLabel, measureAge: measureAge(for: group))
+        FeedFunnel.shared.logFeedCardRetained(for: group)
         if group.undoType == .contentGroupKind {
             dataStore.feedContentController.toggleContentGroup(of: group.contentGroupKind, isOn: true, waitForCallbackFromCoordinator: false, apply: true, updateFeed: false) {
                 self.needsReloadVisibleCells = true
