@@ -85,6 +85,8 @@
     public func logFeedImpression(for group: WMFContentGroup?) {
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .impression, measureAge: measureAge(for: group)))
     }
+
+    public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
     }
 }
 /*

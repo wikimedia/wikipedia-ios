@@ -213,6 +213,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updater.delegate = self
         updater.isSlidingNewContentInFromTheTopEnabled = true
         updater.performFetch()
+        FeedFunnel.shared.fetchedContentGroupsInFeedController = frc
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
