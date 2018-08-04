@@ -605,16 +605,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var eventLoggingLabel: EventLoggingLabel? {
-        return previewedGroup?.eventLoggingLabel
+        return previewed.group?.eventLoggingLabel
     }
 
     var contentGroup: WMFContentGroup? {
-        return previewedGroup
+        return previewed.group
     }
 
     // MARK: Peek & Pop
 
-    private var previewedGroup: WMFContentGroup?
+    private var previewed: (group: WMFContentGroup?, indexPath: IndexPath?)
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard
@@ -626,7 +626,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return nil
         }
 
-        previewedGroup = contentGroup
+        previewed.group = contentGroup
         
         let convertedLocation = view.convert(location, to: vc.collectionView)
         if let indexPath = vc.collectionView.indexPathForItem(at: convertedLocation), let cell = vc.collectionView.cellForItem(at: indexPath), let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) {
@@ -637,7 +637,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 avc.articlePreviewingActionsDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
-            FeedFunnel.shared.logFeedCardPreviewed(for: previewedGroup)
+            previewed.indexPath = indexPath
+            FeedFunnel.shared.logFeedCardPreviewed(for: previewed.group, index: indexPath.item)
             return viewControllerToCommit
         } else {
             return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
@@ -648,12 +649,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
-            FeedFunnel.shared.logFeedCardOpened(for: previewedGroup)
+            FeedFunnel.shared.logFeedCardOpened(for: previewed.group)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
             wmf_push(avc, contentGroup: contentGroup, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, contentGroup: previewedGroup, animated: true)
+            wmf_push(viewControllerToCommit, contentGroup: previewed.group, animated: true)
         }
     }
 }

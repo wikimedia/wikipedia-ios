@@ -19,7 +19,7 @@
         case closeCard = "close_card"
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Double? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Int? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
         let category = category.rawValue
         let action = action.rawValue
         
@@ -31,7 +31,7 @@
             event["measure_age"] = measureAge.intValue
         }
         if let measurePosition = measurePosition {
-            event["measure_position"] = Int(round(measurePosition))
+            event["measure_position"] = measurePosition
         }
         if let measureTime = measureTime {
             event["measure_time"] = Int(round(measureTime))
@@ -70,8 +70,8 @@
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .retain, measureAge: measureAge(for: group)))
     }
 
-    @objc public func logFeedCardPreviewed(for group: WMFContentGroup?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group)))
+    @objc public func logFeedCardPreviewed(for group: WMFContentGroup?, index: Int) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
     @objc public func logFeedCardReadingStarted(for group: WMFContentGroup?) {
@@ -105,6 +105,22 @@
         }
         return measureAge
     }
+
+    private func measurePosition(for group: WMFContentGroup?, index: Int) -> Int? {
+        guard let group = group else {
+            return nil
+        }
+        switch group.contentGroupKind {
+        case .onThisDay:
+            fallthrough
+        case .news:
+            return nil
+        default:
+            return index
+        }
+    }
+}
+
 }
 /*
  Q: what constitutes an impression? (on feed is it first time user sees it, or each time it scrolls into view?)
