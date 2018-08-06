@@ -7,7 +7,7 @@ extension WMFArticle {
             displayTitle = (newValue as NSString).wmf_stringByRemovingHTML()
         }
         get {
-            return displayTitleHTMLString ?? displayTitle ?? ""
+            return displayTitleHTMLString ?? displayTitle ?? url?.wmf_title ?? ""
         }
     }
     
