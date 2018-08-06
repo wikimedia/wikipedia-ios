@@ -257,6 +257,13 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
         return indexPath
     }
+
+    // MARK: - Event logging utiities
+
+    var maxViewed: NSNumber {
+        let value = ((Double(collectionView.contentOffset.y) + Double(collectionView.bounds.height)) / Double(collectionView.contentSize.height)) * 100
+        return NSNumber(value: value)
+    }
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
@@ -316,7 +323,7 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
             contentGroup = nil
             index = nil
         }
-        wmf_push(articleController, contentGroup: contentGroup, index: index, animated: true)
+        wmf_push(articleController, contentGroup: contentGroup, index: index, maxViewed: maxViewed, animated: true)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {

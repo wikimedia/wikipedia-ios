@@ -32,7 +32,7 @@ class NewsViewController: ColumnarCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParentViewController {
-            FeedFunnel.shared.logFeedCardClosed(for: contentGroup)
+            FeedFunnel.shared.logFeedCardClosed(for: contentGroup, maxViewed: maxViewed)
         }
     }
     
@@ -106,7 +106,7 @@ class NewsViewController: ColumnarCollectionViewController {
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndex)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndex, maxViewed: maxViewed)
         wmf_push(viewControllerToCommit, animated: true)
     }
 }

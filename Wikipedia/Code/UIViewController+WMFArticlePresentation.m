@@ -72,12 +72,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index animated:(BOOL)animated {
-    [self logFeedEventIfNeeded:contentGroup index:index pushedViewController:viewController];
+- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index maxViewed:(nullable NSNumber *)maxViewed animated:(BOOL)animated {
+    [self logFeedEventIfNeeded:contentGroup index:index maxViewed:maxViewed pushedViewController:viewController];
     [self wmf_pushViewController:viewController animated:animated];
 }
 
-- (void)logFeedEventIfNeeded:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index pushedViewController:(UIViewController *)pushedViewController {
+- (void)logFeedEventIfNeeded:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index maxViewed:(nullable NSNumber *)maxViewed pushedViewController:(UIViewController *)pushedViewController {
     if (self.navigationController == nil) {
         return;
     }
@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
             [FeedFunnel.shared logFeedCardOpenedFor:contentGroup];
         }
     } else if (isPushedFromExploreDetail) {
-        [FeedFunnel.shared logArticleInFeedDetailReadingStartedFor:contentGroup index:index];
+        [FeedFunnel.shared logArticleInFeedDetailReadingStartedFor:contentGroup index:index maxViewed:maxViewed];
     }
 }
 
