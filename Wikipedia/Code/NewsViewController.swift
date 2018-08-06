@@ -7,10 +7,12 @@ class NewsViewController: ColumnarCollectionViewController {
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
+    let contentGroup: WMFContentGroup?
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, theme: Theme) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
+        self.contentGroup = contentGroup
         super.init()
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
@@ -174,6 +176,7 @@ extension NewsViewController {
         let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.articlePreviewingActionsDelegate = self
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         return articleVC
     }
     
