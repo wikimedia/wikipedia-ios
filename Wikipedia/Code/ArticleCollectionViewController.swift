@@ -170,6 +170,7 @@ extension ArticleCollectionViewController {
             return
         }
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
