@@ -136,6 +136,7 @@
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
+// Fuzzy
 "empty-no-reading-lists-message" = "Feu un toc a la '+' blava per crear llistes de lectura de llocs on viatjar, temes preferits i molt més";
 "empty-no-reading-lists-title" = "Organitzeu els articles desats amb les llistes de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Desa les pàgines a aquesta llista perquè hi apareguin";

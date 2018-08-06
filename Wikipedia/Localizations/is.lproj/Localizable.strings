@@ -120,6 +120,7 @@
 "empty-no-feed-title" = "Engin internettenging";
 "empty-no-history-message" = "Haltu utan um það sem þú hefur verið að lesa hérna";
 "empty-no-history-title" = "Enginn breytingaferill sem hægt er að birta";
+// Fuzzy
 "empty-no-reading-lists-message" = "Bankaðu á bláa ‘+’ merkið til að útbúa lista yfir staði til að heimsækja, skoða eftirlætisumræðuefni og margt fleira";
 "empty-no-reading-lists-title" = "Skipuleggðu vistaðar greinar með leslistum";
 "empty-no-saved-pages-in-reading-list-message" = "Vistaðu síður á þennan lista til að sjá þær birtast hér";
