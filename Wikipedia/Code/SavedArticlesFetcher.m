@@ -446,11 +446,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
     [article updatePropertiesForError:error];
     if (error) {
-        article.isDownloaded = NO;
-        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+        if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
             NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
             [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
             [self stop];
+            article.isDownloaded = NO;
+        } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
+            article.isDownloaded = YES; // skip missing titles
+        } else {
+            article.isDownloaded = NO;
         }
     } else {
         article.isDownloaded = YES;

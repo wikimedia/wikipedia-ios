@@ -430,6 +430,7 @@
 "reading-list-unable-to-update" = "Informs the user that an error occurred while updating their reading list.";
 "reading-list-with-provided-name-not-found" = "Informs the user that a reading list with the name they provided was not found. $1 will be replaced with the name of the reading list which could not be found";
 "reading-lists-article-added-confirmation" = "Confirmation shown after the user adds an article to a list. $1 will be replaced with the name of the list the article was added to.";
+"reading-lists-article-api-failure" = "Text of the alert label informing the user that article couldn't be saved due to a server-side error";
 "reading-lists-article-not-synced" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Text of the alert label informing the user that article couldn't be synced.";
