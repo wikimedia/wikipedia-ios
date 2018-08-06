@@ -98,6 +98,9 @@
         logArticleInFeedDetailReadingStarted(for: group, index: index?.intValue)
     }
 
+    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int) {
+        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: index))
+    }
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
 
     private func measureAge(for group: WMFContentGroup?) -> NSNumber? {
