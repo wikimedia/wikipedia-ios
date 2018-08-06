@@ -99,7 +99,7 @@
     }
 
     public func logFeedCardClosed(for group: WMFContentGroup?, maxViewed: NSNumber) {
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .closeCard, measureMaxViewed: maxViewed))
+        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .closeCard, measureTime: measureTime(for: group), measureMaxViewed: maxViewed))
     }
 
     public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int?) {
@@ -144,6 +144,25 @@
         default:
             return index
         }
+    }
+
+    private var contentGroupKeysToStartTimes = [String: Date]()
+
+    public func startMeasuringTime(for contentGroup: WMFContentGroup?) {
+        guard let key = contentGroup?.key else {
+            assertionFailure()
+            return
+        }
+        contentGroupKeysToStartTimes[key] = Date()
+    }
+
+    private func measureTime(for contentGroup: WMFContentGroup?) -> Double? {
+        guard let key = contentGroup?.key, let startTime = contentGroupKeysToStartTimes[key] else {
+            return nil
+        }
+        let measureTime = fabs(startTime.timeIntervalSinceNow)
+        contentGroupKeysToStartTimes.removeValue(forKey: key)
+        return measureTime
     }
 }
 

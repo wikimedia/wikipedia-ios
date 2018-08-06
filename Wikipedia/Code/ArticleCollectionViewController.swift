@@ -31,6 +31,11 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
             FeedFunnel.shared.logFeedCardClosed(for: contentGroup, maxViewed: maxViewed)
         }
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        FeedFunnel.shared.startMeasuringTime(for: contentGroup)
+    }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let article = article(at: indexPath) else {
