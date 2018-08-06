@@ -9,13 +9,15 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let events: [WMFFeedOnThisDayEvent]
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
+    let contentGroup: WMFContentGroup?
     var initialEvent: WMFFeedOnThisDayEvent?
     
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
+        self.contentGroup = contentGroup
         super.init()
         self.theme = theme
         title = CommonStrings.onThisDayTitle
@@ -228,6 +230,7 @@ extension OnThisDayViewController {
         if let themeable = vc as Themeable? {
             themeable.apply(theme: self.theme)
         }
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         return vc
     }
     

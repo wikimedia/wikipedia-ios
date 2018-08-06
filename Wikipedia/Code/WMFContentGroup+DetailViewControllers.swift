@@ -49,7 +49,7 @@ extension WMFContentGroup {
             guard let date = midnightUTCDate, let events = fullContent?.object as? [WMFFeedOnThisDayEvent] else {
                 break
             }
-            vc = OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, theme: theme)
+            vc = OnThisDayViewController(events: events, dataStore: dataStore, midnightUTCDate: date, contentGroup: self, theme: theme)
         case .pageWithRandomButton:
             guard let siteURL = siteURL else {
                 break
