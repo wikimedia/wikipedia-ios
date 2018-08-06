@@ -101,6 +101,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
     }
+
+    var contentGroup: WMFContentGroup?
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
@@ -193,6 +195,7 @@ extension ArticleCollectionViewController {
         let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         return articleViewController
     }
     

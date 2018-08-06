@@ -48,18 +48,8 @@
     
     // MARK: - Feed
 
-    /*
-    @objc public func logFeedImpression(for label: EventLoggingLabel) {
-        log(event(category: .feed, label: label, action: .impression))
-    }
-
-    @objc public func logFeedDetailImpression(for label: EventLoggingLabel) {
-        log(event(category: .feedDetail, label: label, action: .impression))
-    }
-    */
-
     @objc public func logFeedCardOpened(for group: WMFContentGroup?) {
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .openCard, measureAge: measureAge(for: group)))
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .openCard, measureAge: measureAge(for: group)))
     }
 
     @objc public func logFeedCardDismissed(for group: WMFContentGroup?) {
@@ -92,6 +82,12 @@
 
     public func logFeedImpression(for group: WMFContentGroup?) {
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .impression, measureAge: measureAge(for: group)))
+    }
+
+    // MARK: Feed detail
+
+    public func logArticleInFeedDetailPreviewed(for group: WMFContentGroup?, index: Int) {
+        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: index))
     }
 
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?

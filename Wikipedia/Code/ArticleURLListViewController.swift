@@ -2,15 +2,14 @@ import UIKit
 
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
-    private let contentGroup: WMFContentGroup?
     private var updater: ArticleURLProviderEditControllerUpdater?
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
-        self.contentGroup = contentGroup
         super.init()
         self.theme = theme
         self.dataStore = dataStore
+        self.contentGroup = contentGroup
     }
     
     required init?(coder aDecoder: NSCoder) {
