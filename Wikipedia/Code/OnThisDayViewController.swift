@@ -230,7 +230,7 @@ extension OnThisDayViewController {
         if let themeable = vc as Themeable? {
             themeable.apply(theme: self.theme)
         }
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: index)
         return vc
     }
     

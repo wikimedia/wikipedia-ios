@@ -176,7 +176,7 @@ extension NewsViewController {
         let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.articlePreviewingActionsDelegate = self
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: index)
         return articleVC
     }
     
