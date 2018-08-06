@@ -94,6 +94,10 @@
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: index))
     }
 
+    @objc public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: NSNumber?) {
+        logArticleInFeedDetailReadingStarted(for: group, index: index?.intValue)
+    }
+
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
 
     private func measureAge(for group: WMFContentGroup?) -> NSNumber? {

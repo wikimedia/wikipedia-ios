@@ -102,6 +102,13 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return nil
     }
 
+    var index: NSNumber? {
+        guard let index = previewedIndexPath?.item else {
+            return nil
+        }
+        return NSNumber(value: index)
+    }
+
     var contentGroup: WMFContentGroup?
 
     private var previewedIndexPath: IndexPath?

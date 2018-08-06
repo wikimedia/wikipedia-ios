@@ -82,15 +82,18 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     NSArray<UIViewController *> *viewControllers = self.navigationController.viewControllers;
-    BOOL isPushedFromExplore = viewControllers.count == 1 && [[viewControllers firstObject] isKindOfClass:[ExploreViewController class]];
-    if (!isPushedFromExplore) {
-        return;
-    }
-    BOOL isArticle = [pushedViewController isKindOfClass:[WMFArticleViewController class]] || [pushedViewController isKindOfClass:[WMFFirstRandomViewController class]];
-    if (isArticle) {
-        [FeedFunnel.shared logFeedCardReadingStartedFor:contentGroup index:index];
-    } else {
-        [FeedFunnel.shared logFeedCardOpenedFor:contentGroup];
+    BOOL isFirstViewControllerExplore = [[viewControllers firstObject] isKindOfClass:[ExploreViewController class]];
+    BOOL isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore;
+    BOOL isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore;
+    if (isPushedFromExplore) {
+        BOOL isArticle = [pushedViewController isKindOfClass:[WMFArticleViewController class]] || [pushedViewController isKindOfClass:[WMFFirstRandomViewController class]];
+        if (isArticle) {
+            [FeedFunnel.shared logFeedCardReadingStartedFor:contentGroup index:index];
+        } else {
+            [FeedFunnel.shared logFeedCardOpenedFor:contentGroup];
+        }
+    } else if (isPushedFromExploreDetail) {
+        [FeedFunnel.shared logArticleInFeedDetailReadingStartedFor:contentGroup index:index];
     }
 }
 
