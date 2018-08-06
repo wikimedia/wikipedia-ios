@@ -100,7 +100,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
                 selectedButtonCount += 1
             }
         }
-        //assert(selectedButtonCount == 1, "One button should be selected by now")
+        assert(selectedButtonCount == 1, "One button should be selected by now")
     }
     
     override func viewDidAppear(_ animated: Bool) {
