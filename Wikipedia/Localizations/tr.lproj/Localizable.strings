@@ -143,6 +143,7 @@
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
+// Fuzzy
 "empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için okuma listeleri oluşturmak için mavi \"+\" butonunun üzerine hafifçe dokunun";
 "empty-no-reading-lists-title" = "Kaydedilen okuma listelerini düzenle";
 "empty-no-saved-pages-in-reading-list-title" = "Bu listeye herhangi bir sayfa kaydedilmedi";

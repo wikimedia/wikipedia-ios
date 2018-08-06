@@ -144,6 +144,7 @@
 "empty-no-feed-title" = "インターネットに接続されていません";
 "empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "empty-no-history-title" = "表示する履歴がありません";
+// Fuzzy
 "empty-no-reading-lists-message" = "青の十字マークをタップして、あとで読むリストを作成し、旅行に行きたいところ、好きな話題でも、何でも保存しましょう";
 "empty-no-reading-lists-title" = "あとで読むリストに保存した記事を整理しましょう";
 "empty-no-saved-pages-in-reading-list-message" = "ページをこのリストに保存するとここに表示されます";

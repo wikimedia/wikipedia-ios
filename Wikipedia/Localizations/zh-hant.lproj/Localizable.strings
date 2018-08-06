@@ -140,6 +140,7 @@
 "empty-no-feed-title" = "無網路連線";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "empty-no-history-title" = "無歷史可顯示";
+// Fuzzy
 "empty-no-reading-lists-message" = "輕觸藍色的「+」來建立前往旅行的地點、喜愛的主題，以及更多其它事物的閱讀清單";
 "empty-no-reading-lists-title" = "組織已以閱讀清單儲存條目";
 "empty-no-saved-pages-in-reading-list-message" = "儲存頁面至此清單，以查看在此呈現的頁面";
