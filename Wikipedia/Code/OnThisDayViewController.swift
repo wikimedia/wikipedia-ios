@@ -99,6 +99,47 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         estimate.precalculated = true
         return estimate
     }
+
+    // MARK: - UIViewControllerPreviewingDelegate
+
+    var previewedIndex: Int?
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
+                return nil
+        }
+
+        let pointInCellCoordinates =  view.convert(location, to: cell)
+        let index = cell.subItemIndex(at: pointInCellCoordinates)
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
+            return nil
+        }
+
+        previewedIndex = index
+
+        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
+            return nil
+        }
+
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
+        let article = previews[index]
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        vc.articlePreviewingActionsDelegate = self
+        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
+        if let themeable = vc as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: index)
+        return vc
+    }
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndex)
+        wmf_push(viewControllerToCommit, animated: true)
+    }
+
 }
 
 class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
@@ -202,42 +243,6 @@ extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
         FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension OnThisDayViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
-                return nil
-        }
-        
-        let pointInCellCoordinates =  view.convert(location, to: cell)
-        let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
-            return nil
-        }
-        
-        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
-            return nil
-        }
-        
-        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
-        let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
-        vc.articlePreviewingActionsDelegate = self
-        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        if let themeable = vc as Themeable? {
-            themeable.apply(theme: self.theme)
-        }
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: index)
-        return vc
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
     }
 }
 

@@ -103,6 +103,10 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     }
 
     var contentGroup: WMFContentGroup?
+
+    private var previewedIndexPath: IndexPath?
+
+    // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
@@ -193,6 +197,7 @@ extension ArticleCollectionViewController {
             return nil
         }
 
+        previewedIndexPath = indexPath
         let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
@@ -202,6 +207,7 @@ extension ArticleCollectionViewController {
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndexPath?.item)
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
