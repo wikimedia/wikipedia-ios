@@ -311,7 +311,7 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
         let index: NSNumber?
         if let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
             contentGroup = eventLoggingEventValuesProviding.contentGroup ?? nil
-            index = eventLoggingEventValuesProviding.index ?? nil
+            index = eventLoggingEventValuesProviding.eventLoggingIndex ?? nil
         } else {
             contentGroup = nil
             index = nil
@@ -326,8 +326,8 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
             return
         }
         let contentGroup = eventLoggingEventValuesProviding.contentGroup ?? nil
-        let index = eventLoggingEventValuesProviding.index ?? nil
         FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: index)
+        let index = eventLoggingEventValuesProviding.eventLoggingIndex ?? nil
     }
     
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {

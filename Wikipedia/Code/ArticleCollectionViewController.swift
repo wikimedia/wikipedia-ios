@@ -102,7 +102,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         return nil
     }
 
-    var index: NSNumber? {
+    var eventLoggingIndex: NSNumber? {
         guard let index = previewedIndexPath?.item else {
             return nil
         }
