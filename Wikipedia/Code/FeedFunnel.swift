@@ -74,8 +74,8 @@
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
-    @objc public func logFeedCardReadingStarted(for group: WMFContentGroup?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group)))
+    @objc public func logFeedCardReadingStarted(for group: WMFContentGroup?, index: NSNumber?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index?.intValue)))
     }
 
     @objc public func logFeedRefreshed() {
@@ -106,7 +106,7 @@
         return measureAge
     }
 
-    private func measurePosition(for group: WMFContentGroup?, index: Int) -> Int? {
+    private func measurePosition(for group: WMFContentGroup?, index: Int?) -> Int? {
         guard let group = group else {
             return nil
         }

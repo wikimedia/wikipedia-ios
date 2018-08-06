@@ -307,8 +307,16 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
     
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        let contentGroup = (self as? EventLoggingEventValuesProviding)?.contentGroup ?? nil
-        wmf_push(articleController, contentGroup: contentGroup, animated: true)
+        let contentGroup: WMFContentGroup?
+        let index: NSNumber?
+        if let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
+            contentGroup = eventLoggingEventValuesProviding.contentGroup ?? nil
+            index = eventLoggingEventValuesProviding.index ?? nil
+        } else {
+            contentGroup = nil
+            index = nil
+        }
+        wmf_push(articleController, contentGroup: contentGroup, index: index, animated: true)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
