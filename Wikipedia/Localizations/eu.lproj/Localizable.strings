@@ -132,6 +132,7 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena egin";
 "empty-no-history-title" = "Erakusteko historiarik ez";
+// Fuzzy
 "empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
 "empty-no-saved-pages-in-reading-list-message" = "Gorde orrialdeak zerrenda honetan hemen agertarazteko";
