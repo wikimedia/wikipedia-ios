@@ -322,6 +322,12 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         present(shareActivityController, animated: true, completion: nil)
+        guard self is ExploreViewController, let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding else {
+            return
+        }
+        let contentGroup = eventLoggingEventValuesProviding.contentGroup ?? nil
+        let index = eventLoggingEventValuesProviding.index ?? nil
+        FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: index)
     }
     
     func viewOnMapArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
