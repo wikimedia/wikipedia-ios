@@ -36,9 +36,6 @@
 
 #import "Wikipedia-Swift.h"
 
-const CGFloat WMFArticleViewControllerHeaderImageHeight = 210;
-const CGFloat WMFArticleViewControllerInlineToCContentWidthPercentage = 0.70;
-
 @import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -125,13 +122,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
 
 // Views
+@property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
 @property (nonatomic, strong) UIImageView *headerImageView;
-@property (nonatomic, strong, readonly) UIView *headerView;
-@property (nonatomic, readwrite) CGFloat headerViewHeight;
-@property (nonatomic, strong, readonly) UIView *headerBorderView;
-@property (nonatomic, strong) NSLayoutConstraint *headerImageLeadingConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *headerImageTrailingConstraint;
-
+@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
@@ -146,9 +139,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
 @property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
-
-// Gestures
-@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
@@ -171,8 +161,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @implementation WMFArticleViewController
-@synthesize headerView = _headerView;
-@synthesize headerBorderView = _headerBorderView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -232,17 +220,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
-        self.headerImageView.backgroundColor = UIColor.clearColor;
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
-            [self hideHeaderView];
         } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage
                                                detectFaces:YES
                                                    failure:WMFIgnoreErrorHandler
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
-                                                       [self showHeaderView];
                                                    }];
             NSURL *articleURL = self.articleURL;
             if (articleURL && self.isAddingArticleToHistoryListEnabled) {
@@ -292,68 +278,38 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _shareFunnel;
 }
 
-- (UIView *)headerBorderView {
-    if (!_headerBorderView) {
-        // HAX: Only read the scale at setup
-        _headerBorderView = [[UIView alloc] init];
-        _headerBorderView.backgroundColor = self.theme.colors.border;
-    }
-    return _headerBorderView;
-}
-
 - (UIView *)headerView {
-    if (!_headerView && self.navigationBar.superview != nil) {
+    if (!_headerView) {
+        // HAX: Only read the scale at setup
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGFloat borderHeight = scale > 1 ? 0.5 : 1;
+        CGFloat height = 10;
 
-        self.headerViewHeight = WMFArticleViewControllerHeaderImageHeight + borderHeight;
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
+        _headerView.clipsToBounds = YES;
 
-        _headerView = [[WMFPassthroughView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.headerViewHeight)];
-        _headerView.backgroundColor = self.theme.colors.midBackground;
-        _headerView.hidden = YES;
+        UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
+        headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+        headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 
-        self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageView.frame = CGRectMake(0, 0, 1, height - borderHeight);
         [_headerView addSubview:self.headerImageView];
-        self.headerBorderView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_headerView addSubview:self.headerBorderView];
-
-        NSLayoutConstraint *headerBorderHeightConstraint = [self.headerBorderView.heightAnchor constraintEqualToConstant:borderHeight];
-        [self.headerBorderView addConstraint:headerBorderHeightConstraint];
-
-        NSLayoutConstraint *headerImageHeightConstraint = [self.headerImageView.heightAnchor constraintEqualToConstant:WMFArticleViewControllerHeaderImageHeight];
-        [self.headerImageView addConstraint:headerImageHeightConstraint];
-
-        NSLayoutConstraint *headerImageTopConstraint = [self.headerImageView.topAnchor constraintEqualToAnchor:_headerView.topAnchor];
-        self.headerImageLeadingConstraint = [self.headerImageView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
-        self.headerImageTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
-        NSLayoutConstraint *headerImageBottomConstraint = [self.headerImageView.bottomAnchor constraintEqualToAnchor:self.headerBorderView.topAnchor];
-
-        NSLayoutConstraint *headerBorderLeadingConstraint = [self.headerBorderView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
-        NSLayoutConstraint *headerBorderTrailingConstraint = [self.headerBorderView.trailingAnchor constraintEqualToAnchor:_headerView.trailingAnchor];
-        NSLayoutConstraint *headerBorderBottomConstraint = [self.headerBorderView.bottomAnchor constraintEqualToAnchor:_headerView.bottomAnchor];
-
-        [_headerView addConstraints:@[headerImageTopConstraint, self.headerImageLeadingConstraint, self.headerImageTrailingConstraint, headerImageBottomConstraint, headerBorderLeadingConstraint, headerBorderTrailingConstraint, headerBorderBottomConstraint]];
-
-        _headerView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view insertSubview:_headerView belowSubview:self.navigationBar];
-
-        NSLayoutConstraint *headerTopConstraint = [_headerView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
-        NSLayoutConstraint *headerLeadingConstraint = [_headerView.leadingAnchor constraintEqualToAnchor:self.webViewController.view.leadingAnchor];
-        NSLayoutConstraint *headerTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.webViewController.view.trailingAnchor];
-
-        [self.view addConstraints:@[headerTopConstraint, headerLeadingConstraint, headerTrailingConstraint]];
+        [_headerView addSubview:headerBorderView];
     }
     return _headerView;
 }
 
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
-        _headerImageView = [[WMFPassthroughAnimatedImageView alloc] initWithFrame:CGRectZero];
-        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
+        _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
+        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
         if (@available(iOS 11.0, *)) {
             _headerImageView.accessibilityIgnoresInvertColors = YES;
         }
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
+        [_headerImageView addGestureRecognizer:tap];
     }
     return _headerImageView;
 }
@@ -369,6 +325,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_webViewController) {
         _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate = self;
+        _webViewController.headerView = self.headerView;
     }
     return _webViewController;
 }
@@ -397,30 +354,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)scrollViewInsetsDidChange {
     [super scrollViewInsetsDidChange];
-    [self updateWebViewHeaderHeight];
     [self updateTableOfContentsInsets];
-}
-
-- (void)updateWebViewHeaderHeight {
-    self.webViewController.headerHeight = self.scrollView.scrollIndicatorInsets.top;
 }
 
 - (void)updateTableOfContentsInsets {
     UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
     BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
     if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        UIEdgeInsets scrollViewContentInset = self.scrollView.contentInset;
-        scrollViewContentInset.top = self.navigationBar.visibleHeight;
-        UIEdgeInsets scrollViewScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
-        scrollViewScrollIndicatorInsets.top = self.navigationBar.visibleHeight;
-        BOOL didSet = [scrollView wmf_setContentInset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets preserveContentOffset:YES];
-        if (didSet) {
-            NSIndexPath *indexPath = [[self.tableOfContentsViewController.tableView indexPathsForSelectedRows] firstObject];
-            if (indexPath && ![[self.tableOfContentsViewController.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
-                [self.tableOfContentsViewController.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:true];
-            }
-        }
-
+        scrollView.contentInset = self.scrollView.contentInset;
+        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
     } else {
         CGFloat top = self.navigationController.topLayoutGuide.length;
         if (@available(iOS 11.0, *)) {
@@ -796,8 +738,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
-    self.ignoresTopContentInset = YES;
-
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
@@ -817,11 +757,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.navigationBar.isExtendedViewHidingEnabled = YES;
     self.navigationBar.isShadowBelowUnderBarView = YES;
     self.navigationBar.isExtendedViewFadingEnabled = NO;
-
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap:)];
-    self.tapGestureRecognizer.delegate = self;
-    [self.view addGestureRecognizer:self.tapGestureRecognizer];
-    
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -885,6 +820,48 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
+#pragma mark - WMFImageScaleTransitionProviding
+- (void)removeHeaderImageTransitionView {
+    if (!self.headerImageTransitionView) {
+        return;
+    }
+    UIImageView *transitionView = self.headerImageTransitionView;
+    self.headerImageTransitionView = nil;
+    [UIView animateWithDuration:0.2
+        animations:^{
+            self.webViewController.view.alpha = 1;
+        }
+        completion:^(BOOL finished) {
+            [transitionView removeFromSuperview];
+        }];
+}
+
+- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+    if (imageView && imageView.image) {
+        self.webViewController.headerFadingEnabled = NO;
+        self.webViewController.view.alpha = 0;
+
+        self.headerImageTransitionView = [[UIImageView alloc] initWithFrame:self.headerImageView.frame];
+        self.headerImageTransitionView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageTransitionView.image = imageView.image;
+        self.headerImageTransitionView.layer.contentsRect = imageView.layer.contentsRect;
+        self.headerImageTransitionView.contentMode = imageView.contentMode;
+        self.headerImageTransitionView.clipsToBounds = YES;
+        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.webViewController.view];
+
+        NSLayoutConstraint *headerImageTransitionTopConstraint = [self.headerImageTransitionView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
+        NSLayoutConstraint *headerImageTransitionLeadingConstraint = [self.headerImageTransitionView.leadingAnchor constraintEqualToAnchor:self.headerImageView.leadingAnchor];
+        NSLayoutConstraint *headerImageTransitionTrailingConstraint = [self.headerImageTransitionView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
+        NSLayoutConstraint *headerImageTransitionHeightConstraint = [self.headerImageTransitionView.heightAnchor constraintEqualToConstant:WebViewControllerHeaderImageHeight];
+        [self.view addConstraints:@[headerImageTransitionTopConstraint, headerImageTransitionLeadingConstraint, headerImageTransitionTrailingConstraint, headerImageTransitionHeightConstraint]];
+
+        self.headerImageView.image = imageView.image;
+        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
+
+        [self.view layoutIfNeeded];
+    }
+}
+
 #pragma mark - Layout
 
 - (void)layoutForSize:(CGSize)size {
@@ -924,7 +901,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = WMFArticleViewControllerInlineToCContentWidthPercentage;
+            self.webViewController.contentWidthPercentage = 0.70;
             break;
         case WMFTableOfContentsDisplayStateInlineVisible:
             self.webViewController.contentWidthPercentage = 0.90;
@@ -934,43 +911,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 
+    [self.webViewController.view layoutIfNeeded];
+
     [self layoutHeaderImageViewForSize:size];
 }
 
 - (void)layoutHeaderImageViewForSize:(CGSize)size {
+    CGRect headerViewBounds = self.headerView.bounds;
+
+    self.headerView.bounds = headerViewBounds;
     CGSize imageSize = self.headerImageView.image.size;
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = self.webViewController.marginWidth;
+        marginWidth = self.webViewController.marginWidth + 16;
     }
-    self.headerImageTrailingConstraint.constant = marginWidth;
-    self.headerImageLeadingConstraint.constant = marginWidth;
-}
-
-- (void)showHeaderView {
-    self.headerView.hidden = NO;
-    self.additionalScrollIndicatorInsets = UIEdgeInsetsMake(self.headerViewHeight, 0, 0, 0);
-    [self.view setNeedsLayout];
-}
-
-- (void)hideHeaderView {
-    self.headerView.hidden = YES;
-    self.additionalScrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.view setNeedsLayout];
-}
-
-#pragma mark - WMFImageScaleTransitionProviding
-
-- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
-    if (imageView) {
-        self.headerImageView.image = imageView.image;
-        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
-        if (self.headerImageView.image) {
-            [self showHeaderView];
-        }
-        [self.view layoutIfNeeded];
-    }
+    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, WebViewControllerHeaderImageHeight);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -1223,7 +1179,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
-        if ([navigationTitle length] > 20) {
+        if ([navigationTitle length] > 16) {
             navigationTitle = nil;
         }
         self.navigationItem.title = navigationTitle;
@@ -1296,7 +1252,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
                                            dismissPreviousAlerts:NO
@@ -1317,8 +1273,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                     }];
                 }
             }
+
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
+            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
@@ -1452,7 +1410,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+    WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+    [navigationController setNavigationBarHidden:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - WMFReadingListsAlertControllerDelegate
@@ -1566,6 +1526,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+    [self removeHeaderImageTransitionView];
+
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -1651,10 +1613,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
-    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        [self updateTableOfContentsInsets];
-    }
-    self.headerView.transform = CGAffineTransformMakeTranslation(0, MIN(0, 0 - scrollView.contentOffset.y));
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -1766,30 +1724,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Header Tap Gesture
 
-- (void)viewDidTap:(UITapGestureRecognizer *)tap {
-    if ([tap state] != UIGestureRecognizerStateRecognized) {
-        return;
-    }
+- (void)imageViewDidTap:(UITapGestureRecognizer *)tap {
     WMFArticleImageGalleryViewController *fullscreenGallery = [[WMFArticleImageGalleryViewController alloc] initWithArticle:self.article theme:self.theme overlayViewTopBarHidden:NO];
     //    fullscreenGallery.referenceViewDelegate = self;
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    assert(gestureRecognizer == self.tapGestureRecognizer);
-    if (self.headerView.isHidden) {
-        return NO;
-    }
-    CGPoint location = [gestureRecognizer locationInView:self.view];
-    BOOL containsPoint = CGRectContainsPoint(self.headerView.frame, location);
-    return containsPoint;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer {
-    assert(gestureRecognizer == self.tapGestureRecognizer);
-    return YES;
 }
 
 #pragma mark - WMFImageGalleryViewControllerReferenceViewDelegate
@@ -2158,13 +2098,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [[self wmf_emptyView] applyTheme:self.theme];
-    self.headerView.backgroundColor = theme.colors.midBackground;
-    self.headerBorderView.backgroundColor = theme.colors.border;
+    self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
-        self.headerImageView.backgroundColor = UIColor.clearColor;
-    } else {
-        self.headerImageView.backgroundColor = UIColor.whiteColor;
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
     }
     self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];

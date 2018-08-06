@@ -1,8 +1,9 @@
 import UIKit
 
-class ArticleURLListViewController: ArticleCollectionViewController {
+class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private let contentGroup: WMFContentGroup?
+    private var updater: ArticleURLProviderEditControllerUpdater?
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
@@ -16,17 +17,24 @@ class ArticleURLListViewController: ArticleCollectionViewController {
         fatalError("init(coder:) not supported")
     }
     
-    override func articleURL(at indexPath: IndexPath) -> URL {
+    override func articleURL(at indexPath: IndexPath) -> URL? {
+        guard indexPath.item < articleURLs.count else {
+            return nil
+        }
         return articleURLs[indexPath.item]
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return dataStore.fetchOrCreateArticle(with: articleURL(at: indexPath))
+        guard let articleURL = articleURL(at: indexPath) else {
+            return nil
+        }
+        return dataStore.fetchOrCreateArticle(with: articleURL)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.reloadData()
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     override var eventLoggingCategory: EventLoggingCategory {

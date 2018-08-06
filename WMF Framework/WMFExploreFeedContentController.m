@@ -28,20 +28,22 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
-@property (nonatomic, copy, readonly) NSSet <NSURL *> *preferredSiteURLs;
+@property (nonatomic, copy, readonly) NSSet<NSURL *> *preferredSiteURLs;
 @property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
 @property (nonatomic, nullable) NSNumber *cachedCountOfVisibleContentGroupKinds;
+@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *sortOrderBySiteURLDatabaseKey;
 
 @end
 
 @implementation WMFExploreFeedContentController
+
+@synthesize exploreFeedPreferences = _exploreFeedPreferences;
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.dataStore.viewContext];
     }
     return self;
 }
@@ -70,6 +72,20 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:self.dataStore.viewContext];
+}
+
+- (NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
+    if (!_exploreFeedPreferences) {
+        _exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:self.dataStore.viewContext];
+    }
+    return _exploreFeedPreferences;
+}
+
+- (void)setExploreFeedPreferences:(NSDictionary *)exploreFeedPreferences {
+    assert([NSThread isMainThread]);
+    _exploreFeedPreferences = exploreFeedPreferences;
 }
 
 #pragma mark - Content Sources
@@ -185,11 +201,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [moc performBlock:^{
                                             NSError *saveError = nil;
                                             if ([moc hasChanges]) {
-                                                if (date) {
-                                                    [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
-                                                } else {
-                                                    [self applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:moc];
-                                                }
+                                                [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
                                                     DDLogError(@"Error saving: %@", saveError);
                                                 }
@@ -236,6 +248,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [group waitInBackgroundWithTimeout:WMFFeedRefreshTimeoutInterval
                                 completion:^{
                                     [moc performBlock:^{
+                                        [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                         NSError *saveError = nil;
                                         if ([moc hasChanges] && ![moc save:&saveError]) {
                                             DDLogError(@"Error saving: %@", saveError);
@@ -645,7 +658,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
         }
+        
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
+        [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
+        
         // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
@@ -670,11 +686,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
 }
 
-- (void)applyExploreFeedPreferencesToUpdatedObjectsInManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSSet *updatedOrInsertedObjects = [[moc updatedObjects] setByAddingObjectsFromSet:[moc insertedObjects]];
-    [self applyExploreFeedPreferencesToObjects:updatedOrInsertedObjects inManagedObjectContext:moc];
-}
-
 - (void)save:(NSManagedObjectContext *)moc {
     NSError *error = nil;
     if (moc.hasChanges && ![moc save:&error]) {
@@ -686,6 +697,15 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (void)setSiteURLs:(NSURL *)siteURLs {
     _siteURLs = [siteURLs copy];
+    
+    NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:_siteURLs.count];
+    NSInteger i = 0;
+    for (NSURL *siteURL in _siteURLs) {
+        updatedSortOrder[siteURL.wmf_articleDatabaseKey] = @(i);
+        i++;
+    }
+    self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
+    
     if ([_contentSources count] == 0) {
         return;
     }
@@ -706,7 +726,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             dispatch_async(dispatch_get_main_queue(), ^{
                 WMFContentGroup *newsContentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindNews];
                 if (newsContentGroup) {
-                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.content;
+                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.contentPreview;
                     if (stories.count > 0) {
                         NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
                         WMFFeedNewsStory *randomStory = stories[randomIndex];

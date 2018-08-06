@@ -6,6 +6,12 @@
 
 NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotification";
 
+// Use to suppress "User-facing text should use localized string macro" Analyzer warning
+// where appropriate.
+__attribute__((annotate("returns_localized_nsstring"))) static inline NSString *wmf_localizationNotNeeded(NSString *s) {
+    return s;
+}
+
 @implementation NSUserActivity (WMFExtensions)
 
 + (void)wmf_makeActivityActive:(NSUserActivity *)activity {
@@ -33,7 +39,7 @@ NSString *const WMFNavigateToActivityNotification = @"WMFNavigateToActivityNotif
 
 + (instancetype)wmf_pageActivityWithName:(NSString *)pageName {
     NSUserActivity *activity = [self wmf_activityWithType:[pageName lowercaseString]];
-    activity.title = pageName;
+    activity.title = wmf_localizationNotNeeded(pageName);
     activity.userInfo = @{@"WMFPage": pageName};
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {

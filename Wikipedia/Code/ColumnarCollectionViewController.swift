@@ -6,10 +6,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         return ColumnarCollectionViewLayout()
     }()
     
-    lazy var layoutCache: ColumnarCollectionViewControllerLayoutCache = {
-        return ColumnarCollectionViewControllerLayoutCache()
-    }()
-    
     @objc lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
@@ -151,10 +147,12 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
         return frame
     }
+
+    open var emptyViewAction: Selector?
     
     open func isEmptyDidChange() {
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
+            wmf_showEmptyView(of: emptyViewType, action: emptyViewAction, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
@@ -225,19 +223,12 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         guard section == 0, headerTitle != nil else {
             return estimate
         }
-        let identifier = CollectionViewHeader.identifier
-        let userInfo = "0"
-        if let height = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: "0") {
-            estimate.height = height
-            return estimate
-        }
         guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
         }
         configure(header: placeholder, forSectionAt: section, layoutOnly: true)
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
@@ -251,6 +242,20 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK - Previewing
+    
+    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
+        let translatedLocation = view.convert(location, to: collectionView)
+        guard
+            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
+            let cell = collectionView.cellForItem(at: indexPath)
+        else {
+                return nil
+        }
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+        return indexPath
     }
 }
 

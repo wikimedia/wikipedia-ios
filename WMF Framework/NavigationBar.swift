@@ -43,9 +43,23 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    public var displayType: NavigationBarDisplayType = .backVisible {
-        didSet {
-            isTitleShrinkingEnabled = displayType == .largeTitle
+    private var _displayType: NavigationBarDisplayType = .backVisible
+    public var displayType: NavigationBarDisplayType {
+        get {
+            return _displayType
+        }
+        set {
+            let adjustedNewValue: NavigationBarDisplayType
+            if #available(iOS 11.0, *) {
+                adjustedNewValue = newValue
+            } else {
+                adjustedNewValue = .backVisible
+            }
+            guard adjustedNewValue != _displayType else {
+                return
+            }
+            _displayType = adjustedNewValue
+            isTitleShrinkingEnabled = _displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
         }
@@ -56,8 +70,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         if displayType == .backVisible {
             if let vc = delegate, let nc = vc.navigationController, let index = nc.viewControllers.index(of: vc), index > 0 {
                 items.append(nc.viewControllers[index - 1].navigationItem)
-            } else {
-                items.append(UINavigationItem())
             }
         }
         
@@ -78,6 +90,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     private func configureTitleBar(with navigationItem: UINavigationItem) {
         var titleBarItems: [UIBarButtonItem] = []
+        titleView = nil
         if let titleView = navigationItem.titleView {
             if let cachedTitleViewItem = cachedTitleViewItem {
                 titleBarItems.append(cachedTitleViewItem)
@@ -87,12 +100,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 cachedTitleViewItem = titleItem
             }
         } else if let title = navigationItem.title {
-            let titleLabel = UILabel()
-            titleLabel.text = title
-            titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
-            titleLabel.sizeToFit()
-            titleView = titleLabel
-            let titleItem = UIBarButtonItem(customView: titleLabel)
+            let navigationTitleLabel = UILabel()
+            navigationTitleLabel.text = title
+            navigationTitleLabel.sizeToFit()
+            navigationTitleLabel.font = UIFont.wmf_font(.boldTitle1)
+            titleView = navigationTitleLabel
+            let titleItem = UIBarButtonItem(customView: navigationTitleLabel)
             titleBarItems.append(titleItem)
         }
         
@@ -529,7 +542,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func removeUnderNavigationBarView() {
-        guard let subview = extendedView.subviews.first else {
+        guard let subview = underBarView.subviews.first else {
             return
         }
         subview.removeFromSuperview()
@@ -565,13 +578,13 @@ extension NavigationBar: Themeable {
         
         titleBar.setBackgroundImage(theme.navigationBarBackgroundImage, forToolbarPosition: .any, barMetrics: .default)
         titleBar.isTranslucent = false
-        titleBar.tintColor = theme.colors.primaryText
+        titleBar.tintColor = theme.colors.chromeText
         titleBar.setShadowImage(theme.navigationBarShadowImage, forToolbarPosition: .any)
         titleBar.barTintColor = theme.colors.chromeBackground
         if let items = titleBar.items {
             for item in items {
                 if let label = item.customView as? UILabel {
-                    label.textColor = theme.colors.primaryText
+                    label.textColor = theme.colors.chromeText
                 } else if item.image == nil {
                     item.tintColor = theme.colors.link
                 }
@@ -583,7 +596,7 @@ extension NavigationBar: Themeable {
         bar.isTranslucent = false
         bar.barTintColor = theme.colors.chromeBackground
         bar.shadowImage = theme.navigationBarShadowImage
-        bar.tintColor = theme.colors.primaryText
+        bar.tintColor = theme.colors.chromeText
         
         extendedView.backgroundColor = .clear
         underBarView.backgroundColor = .clear

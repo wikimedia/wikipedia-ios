@@ -26,7 +26,7 @@ import UIKit
     public static let title3 = DynamicTextStyle(.system, .title3)
     
     public static let body = DynamicTextStyle(.system, .body)
-    public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
+    @objc  public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
     
     public static let caption1 = DynamicTextStyle(.system, .caption1)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
@@ -71,7 +71,7 @@ fileprivate var fontCache: [String: UIFont] = [:]
 public extension UIFont {
 
     @objc(wmf_fontForDynamicTextStyle:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle) -> UIFont {
-        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UIScreen.main.traitCollection)
+        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UITraitCollection(preferredContentSizeCategory: .large))
     }
     
     @objc(wmf_fontForDynamicTextStyle:compatibleWithTraitCollection:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont {
@@ -82,15 +82,14 @@ public extension UIFont {
         guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
-                
-        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
-
-        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
+        
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(style.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
         if let font = fontCache[cacheKey] {
             return font
         }
         
-        
+        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
+
         var font: UIFont
         switch fontFamily {
         case .georgia:

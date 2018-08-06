@@ -847,7 +847,7 @@ static uint64_t bundleHash() {
 #pragma clang diagnostic pop
                     [newContentGroup updateKey];
                     [newContentGroup updateContentType];
-                    [newContentGroup updateDailySortPriority];
+                    [newContentGroup updateDailySortPriorityWithSiteURLSortOrder:nil];
                     [newContentGroup updateVisibility];
 
                     //New key differs from old key, so use the calculated key on newContentGroup rather than the old key

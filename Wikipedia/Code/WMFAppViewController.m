@@ -296,7 +296,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 break;
             case WMFAppTabTypeSearch:
                 navigationController.title = [WMFCommonStrings searchTitle];
-                [navigationController setViewControllers:@[self.searchViewController] animated:NO];
                 break;
             case WMFAppTabTypeMain:
                 [self configureDefaultNavigationController:navigationController animated:NO];

@@ -287,7 +287,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         resetRefreshControl()
-        wmf_showEmptyView(of: .noFeed, theme: theme, frame: view.bounds)
+        wmf_showEmptyView(of: .noFeed, action: nil, theme: theme, frame: view.bounds)
     }
     
     var isLoadingNewContent = false
@@ -320,11 +320,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 completion()
             }
         }
-    }
-    
-    override func contentSizeCategoryDidChange(_ notification: Notification?) {
-        layoutCache.reset()
-        super.contentSizeCategoryDidChange(notification)
     }
     
     // MARK - ImageScaleTransitionProviding
@@ -471,19 +466,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
-    private func cacheUserInfoForItem(at indexPath: IndexPath) -> String {
-        guard let group = fetchedResultsController?.object(at: indexPath) else {
-            return ""
-        }
-        return "evc-cell-\(group.key ?? "")"
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = cacheUserInfoForItem(at: indexPath)
-        if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
-            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
-        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
@@ -491,7 +474,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
@@ -585,9 +567,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = cacheUserInfoForItem(at: indexPath)
-        layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
         collectionView.collectionViewLayout.invalidateLayout()
         if wantsDeleteInsertOnNextItemUpdate {
             layout.currentSection = indexPath.section
@@ -595,6 +574,43 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             collectionView.insertItems(at: [indexPath])
         } else {
             needsReloadVisibleCells = true
+        }
+    }
+    
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell,
+            let vc = cell.cardContent as? ExploreCardViewController,
+            let contentGroup = vc.contentGroup
+        else {
+            return nil
+        }
+        
+        let convertedLocation = view.convert(location, to: vc.collectionView)
+        if let indexPath = vc.collectionView.indexPathForItem(at: convertedLocation), let cell = vc.collectionView.cellForItem(at: indexPath), let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) {
+            previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+            if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+                potd.setOverlayViewTopBarHidden(true)
+            } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+                avc.articlePreviewingActionsDelegate = self
+                avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+            }
+            return viewControllerToCommit
+        } else {
+            return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+        }
+    }
+    
+    open override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
+            potd.setOverlayViewTopBarHidden(false)
+            present(potd, animated: false)
+        } else if let avc = viewControllerToCommit as? WMFArticleViewController {
+            avc.wmf_removePeekableChildViewControllers()
+            wmf_push(avc, animated: false)
+        } else {
+            wmf_push(viewControllerToCommit, animated: true)
         }
     }
 }
@@ -669,14 +685,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
 
     @objc func exploreFeedPreferencesDidSave(_ note: Notification) {
-        let identifier = ExploreCardCollectionViewCell.identifier
         DispatchQueue.main.async {
             for indexPath in self.indexPathsForCollapsedCellsThatCanReappear {
                 guard self.fetchedResultsController?.isValidIndexPath(indexPath) ?? false else {
                     continue
                 }
-                let userInfo = self.cacheUserInfoForItem(at: indexPath)
-                self.layoutCache.removeCachedHeightsForCellWithIdentifier(identifier, userInfo: userInfo)
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
             self.indexPathsForCollapsedCellsThatCanReappear = []

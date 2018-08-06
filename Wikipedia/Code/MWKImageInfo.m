@@ -15,6 +15,7 @@ NSUInteger const MWKImageInfoModelVersion_1 = 1;
 NSString *const MWKImageInfoCanonicalPageTitleKey = @"canonicalPageTitle";
 NSString *const MWKImageInfoCanonicalFileURLKey = @"canonicalFileURL";
 NSString *const MWKImageInfoImageDescriptionKey = @"imageDescription";
+NSString *const MWKImageInfoImageDescriptionIsRTLKey = @"imageDescriptionIsRTL";
 NSString *const MWKImageInfoFilePageURLKey = @"filePageURL";
 NSString *const MWKImageInfoImageThumbURLKey = @"imageThumbURL";
 NSString *const MWKImageInfoOwnerKey = @"owner";
@@ -27,6 +28,7 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
 @property (nonatomic, readwrite, copy) NSString *canonicalPageTitle;
 @property (nonatomic, readwrite, copy) NSURL *canonicalFileURL;
 @property (nonatomic, readwrite, copy) NSString *imageDescription;
+@property (nonatomic, assign, readwrite) BOOL imageDescriptionIsRTL;
 @property (nonatomic, readwrite, strong) MWKLicense *license;
 @property (nonatomic, readwrite, copy) NSURL *filePageURL;
 @property (nonatomic, readwrite, copy) NSURL *imageThumbURL;
@@ -42,6 +44,7 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
 - (instancetype)initWithCanonicalPageTitle:(NSString *)canonicalPageTitle
                           canonicalFileURL:(NSURL *)canonicalFileURL
                           imageDescription:(NSString *)imageDescription
+                     imageDescriptionIsRTL:(BOOL)imageDescriptionIsRTL
                                    license:(MWKLicense *)license
                                filePageURL:(NSURL *)filePageURL
                              imageThumbURL:(NSURL *)imageThumbURL
@@ -55,6 +58,7 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
     if (self) {
         self.canonicalPageTitle = canonicalPageTitle;
         self.imageDescription = imageDescription;
+        self.imageDescriptionIsRTL = imageDescriptionIsRTL;
         self.owner = owner;
         self.license = license;
         self.canonicalFileURL = canonicalFileURL;
@@ -71,10 +75,16 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
         return nil;
     }
     // assume all model versions are 1.0.0
+    BOOL isRTL = NO;
+    id isRTLNumber = exportedData[MWKImageInfoImageDescriptionIsRTLKey];
+    if (isRTLNumber && [isRTLNumber isKindOfClass:[NSNumber class]]) {
+        isRTL = [isRTLNumber boolValue];
+    }
     return [[MWKImageInfo alloc]
         initWithCanonicalPageTitle:exportedData[MWKImageInfoCanonicalPageTitleKey]
                   canonicalFileURL:[NSURL URLWithString:exportedData[MWKImageInfoCanonicalFileURLKey]]
                   imageDescription:exportedData[MWKImageInfoImageDescriptionKey]
+             imageDescriptionIsRTL:isRTL
                            license:[MWKLicense licenseWithExportedData:exportedData[MWKImageInfoLicenseKey]]
                        filePageURL:[NSURL URLWithString:exportedData[MWKImageInfoFilePageURLKey]]
                      imageThumbURL:[NSURL URLWithString:exportedData[MWKImageInfoImageThumbURLKey]]
@@ -108,23 +118,23 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
     if (width <= 0) {
         return self.imageThumbURL;
     }
-    
+
     if (width <= targetWidth) {
         return self.canonicalFileURL;
     }
-    
+
     NSString *source = self.canonicalFileURL.absoluteString;
-    
+
     NSString *scaledImageURLString = WMFChangeImageSourceURLSizePrefix(source, targetWidth);
     if (!scaledImageURLString) {
         return self.imageThumbURL;
     }
-    
+
     NSURL *scaledImageURL = [NSURL URLWithString:scaledImageURLString];
     if (!scaledImageURL) {
         return self.imageThumbURL;
     }
-    
+
     return scaledImageURL;
 }
 
