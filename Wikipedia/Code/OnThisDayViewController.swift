@@ -75,6 +75,13 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         super.viewDidAppear(animated)
         initialEvent = nil
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParentViewController {
+            FeedFunnel.shared.logFeedCardClosed(for: contentGroup)
+        }
+    }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     

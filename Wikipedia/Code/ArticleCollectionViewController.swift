@@ -24,6 +24,13 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
         setupEditController()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParentViewController {
+            FeedFunnel.shared.logFeedCardClosed(for: contentGroup)
+        }
+    }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let article = article(at: indexPath) else {

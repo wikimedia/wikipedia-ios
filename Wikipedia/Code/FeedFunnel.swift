@@ -98,7 +98,9 @@
         logArticleInFeedDetailReadingStarted(for: group, index: index?.intValue)
     }
 
-    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int) {
+    public func logFeedCardClosed(for group: WMFContentGroup?) {
+        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .closeCard))
+    }
 
     public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int?) {
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: index))
@@ -107,6 +109,9 @@
     public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: NSNumber?) {
         logFeedDetailShareTapped(for: group, index: index?.intValue)
     }
+
+    // MARK: Utilities
+
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
 
     private func measureAge(for group: WMFContentGroup?) -> NSNumber? {
