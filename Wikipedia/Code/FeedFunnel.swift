@@ -99,7 +99,13 @@
     }
 
     public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int) {
+
+    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int?) {
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: index))
+    }
+
+    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: NSNumber?) {
+        logFeedDetailShareTapped(for: group, index: index?.intValue)
     }
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
 
