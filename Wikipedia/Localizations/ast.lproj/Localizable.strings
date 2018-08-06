@@ -15,6 +15,9 @@
 "about-libraries-complete-list" = "Llista completa";
 "about-libraries-license" = "Llicencia";
 "about-libraries-licenses-title" = "Préstanos el software de códigu abiertu $1";
+"about-places-maps-license" = "Llicencia de los mapes de Sitios";
+"about-places-maps-license-details" = "Sitios utiliza mapes proporcionaos por Apple Maps. $1.";
+"about-places-maps-license-details-link-text" = "Consulta equí los detalles de la llicencia";
 "about-product-of" = "Fecha pola $1 cola ayuda de voluntarios como tu";
 "about-repositories" = "Repositorios";
 "about-repositories-app-source-license" = "Códigu fonte disponible baxo la $1.";
@@ -50,6 +53,7 @@
 "account-creation-title" = "Crear una cuenta nueva";
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a llista de llectura";
+"action-add-to-reading-list-short" = "Amestar a la llista";
 "action-cancel" = "Encaboxar";
 "action-move-to" = "Treslladar a…";
 "action-move-to-reading-list" = "Treslladar a llista de llectura";
@@ -67,15 +71,16 @@
 "add-articles-to-reading-list" = "Añadir {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
 "alert-no-internet" = "Nun hai conexón a Internet";
 "announcements-dismiss" = "Descartar";
+"app-store-keywords" = "Wikipedia, referencia, wiki, enciclopedia, información, conocimientu, investigación, esploración, deprendimientu";
 "app-store-short-description" = "Descarga l'app de Wikipedia pa esplorar sitios cercanos, sincronizar artículos pa lleelos ensin conexón y personalizar la to esperiencia de llectura.";
+"app-store-subtitle" = "La enciclopedia llibre";
 "appearance-settings-adjust-text-sizing" = "Axustar el tamañu del testu del artículu";
 "appearance-settings-expand-tables" = "Ampliar tables";
 "appearance-settings-expand-tables-footer" = "Definir que toles tables de tolos artículos tean abiertes de manera predeterminada, incluyendo les Fiches, Referencies, Notes y Enllaces esternos.";
 "appearance-settings-image-dimming-footer" = "Amenorgar la opacidá de les imaxes na tema escura.";
 "appearance-settings-reading-themes" = "Lleyendo temes";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tables";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Arrastra el control d'arriba pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
+"appearance-settings-text-sizing-example-text" = "Arrastra el control pa camudar el tamañu del testu del artículu. Utiliza'l tamañu de testu del sistema pa cambiar otres árees de testu de l`aplicación.";
 "appearance-settings-theme-options" = "Opciones de temes";
 "article-about-title" = "Tocante a esti artículu";
 "article-delete" = "Desaniciar";
@@ -91,6 +96,7 @@
 "article-unable-to-load-article" = "Nun pudo cargase l'artículu.";
 "article-unable-to-load-section" = "Nun pudo cargase esta seición. Intenta recargar l'artículu para ver si eso igua'l problema.";
 "back-button-accessibility-label" = "Anterior";
+"back-button-popover-title" = "Toca equí pa volver";
 "button-done" = "Fecho";
 "button-next" = "Siguiente";
 "button-ok" = "Aceutar";
@@ -120,7 +126,7 @@
 "empty-no-feed-title" = "Sin conexón a Internet";
 "empty-no-history-message" = "Caltener un rexistru de lo que tuvisti lleyendo equí";
 "empty-no-history-title" = "Nun hai nengún historial qu'amosar";
-"empty-no-reading-lists-message" = "Toca nel «+» azul pa crear llistes de llectura de llugares pa viaxar, temes favorites y muncho más";
+"empty-no-reading-lists-message" = "Crea llistes de llugares pa viaxar, temes favorites y muncho más";
 "empty-no-reading-lists-title" = "Organiza los artículos guardaos con llistes de llectura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarda páxines nesta llista pa qu'apaezan equí";
 "empty-no-saved-pages-in-reading-list-title" = "Nun se guardó nenguna páxina nesta llista";
@@ -135,16 +141,13 @@
 "explore-featured-article-heading" = "Artículu destacáu";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Tolos artículos más lleíos";
 "explore-most-read-generic-heading" = "Más lleíos";
 "explore-most-read-more-list-title-for-date" = "Los más lleíos el $1";
 "explore-nearby-heading" = "Llugares cercanos a";
 "explore-nearby-placeholder-heading" = "Llugares";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Wikipedia en $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "En Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De Wikipedia en $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "De Wikipedia";
 "explore-nearby-sub-heading-your-location" = "El to allugamientu";
 "explore-potd-heading" = "Imaxen del día";
 "explore-random-article-heading" = "Artículu al debalu";
@@ -197,11 +200,9 @@
 "home-button-history-accessibility-label" = "Wikipedia, volver a Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
 "home-more-like-footer" = "Más como $1";
-// Fuzzy
-"home-nearby-footer" = "Más de cerca del to allugamientu";
+"home-nearby-footer" = "Más llugares cerca del to allugamientu";
 "home-nearby-location-footer" = "Más cercanos a $1";
-// Fuzzy
-"home-news-footer" = "Más nes noticies";
+"home-news-footer" = "Más actividaes actuales";
 "home-reading-list-prompt" = "Los artículos guardaos agora pueden organizase'n llistes de llectura y sincronizase ente preseos. Anicia sesión pa permitir que les llistes de llectura se guarden nes preferencies d'usuariu.";
 "home-themes-action-title" = "Alministrar les preferencies";
 "home-themes-prompt" = "Axusta les preferencies de Llectura, incluyendo'l tamañu del testu y tema, dende la barra de ferramientes del artículu o na configuración d'usuariu pa una esperiencia de llectura más cómoda.";

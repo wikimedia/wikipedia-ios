@@ -17,6 +17,7 @@
 // Author: Tonylianlong
 // Author: Wxyveronica
 // Author: Yfdyh000
+// Author: 夢蝶葬花
 // Author: 王庭茂
 
 "about-content-license" = "内容许可协议";
@@ -138,6 +139,7 @@
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-history-message" = "在此记录您的阅读经历";
 "empty-no-history-title" = "没有要显示的历史";
+// Fuzzy
 "empty-no-reading-lists-message" = "点按蓝色加号以创建要旅行的地点、感兴趣的话题以及更多事物的阅读列表";
 "empty-no-reading-lists-title" = "组织已保存条目与阅读列表";
 "empty-no-saved-pages-in-reading-list-message" = "保存页面至此列表，让页面出现在此";
@@ -207,10 +209,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-heading" = "地点接近";
 "explore-nearby-placeholder-heading" = "地方";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1维基百科";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "在维基百科";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "来自$1维基百科";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "来自维基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
 "explore-potd-heading" = "每日图片";
 "explore-potd-sub-heading" = "来自维基共享资源";

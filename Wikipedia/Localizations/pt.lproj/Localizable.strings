@@ -136,6 +136,7 @@
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-history-message" = "Registo do que esteve a ler";
 "empty-no-history-title" = "Não há histórico para mostrar";
+// Fuzzy
 "empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";

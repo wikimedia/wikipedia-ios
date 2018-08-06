@@ -145,7 +145,7 @@
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-history-message" = "Garder trace de ce que vous avez lu ici";
 "empty-no-history-title" = "Aucun historique à afficher";
-"empty-no-reading-lists-message" = "Appuyez sur le '+' bleu pour créer des listes de lecture pour des endroits à visiter, des sujets favoris et autres";
+"empty-no-reading-lists-message" = "Créer des listes de lieux à visiter, de sujets favoris et beaucoup d'autres";
 "empty-no-reading-lists-title" = "Organiser les articles enregistrés avec les listes de lecture";
 "empty-no-saved-pages-in-reading-list-message" = "Enregistrer des pages dans cette liste pour les voir apparaître ici";
 "empty-no-saved-pages-in-reading-list-title" = "Aucune page enregistrée dans cette liste";
