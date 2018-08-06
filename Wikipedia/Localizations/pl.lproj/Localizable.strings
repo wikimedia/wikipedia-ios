@@ -132,7 +132,6 @@
 "explore-feed-preferences-undo-customization" = "Cofnij";
 "explore-hide-card-prompt" = "Ukryj tę kartę";
 "explore-main-page-heading" = "Dzisiaj w Wikipedii";
-// Fuzzy
 "explore-most-read-footer" = "Wszystkie najczęściej czytane artykuły";
 "explore-most-read-generic-heading" = "Najczęściej czytane";
 "explore-most-read-more-list-title-for-date" = "Najlepsze na $1";
@@ -189,6 +188,7 @@
 "hockeyapp-alert-question-with-response-field" = "Chcesz wysłać raport do $1, aby Fundacja Wikimedia mogła zbadać awarię? Proszę, opisz co się stało, gdy wystąpił błąd:";
 "hockeyapp-alert-send-report" = "Wyślij raport";
 "hockeyapp-alert-title" = "Niestety, wystąpił problem techniczny z aplikacją";
+"home-nearby-footer" = "Więcej miejsc w pobliżu Twojej lokalizacji";
 "home-news-footer" = "Więcej aktualnych wydarzeń";
 "home-title" = "Odkryj";
 "icon-shortcut-continue-reading-title" = "Czytaj dalej";
@@ -199,7 +199,6 @@
 "in-the-news-notification-share-action-title" = "Udostępnij...";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "info-box-close-text" = "Zamknij";
-// Fuzzy
 "info-box-title" = "Szybkie fakty";
 "languages-settings-title" = "Języki";
 "languages-title" = "Zmień język";
@@ -257,6 +256,7 @@
 "page-similar-titles" = "Podobne strony";
 "page-talk-page" = "Zobacz stronę dyskusji";
 "pictured" = "z obrazkiem";
+"places-accessibility-clear-saved-searches" = "Wyczyść zapisane wyszukiwania";
 "places-accessibility-group" = "$1 artykułów";
 "places-accessibility-show-as-list" = "Pokaż jako listę";
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
@@ -272,6 +272,7 @@
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
 "places-search-top-articles-that-match-scope" = "W pobliżu";
+"places-search-your-current-location" = "Twoja aktualna lokalizacja";
 "places-title" = "Miejsca";
 "places-unknown-distance" = "odległość nieznana";
 "potd-description-prefix" = "Ilustracja dnia na $1";
@@ -308,6 +309,7 @@
 "search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";
 "search-recent-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "search-recent-clear-delete-all" = "Usuń wszystko";
+"search-recent-empty" = "Brak ostatnich wyszukiwań";
 "search-recent-title" = "Ostatnio wyszukiwane";
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "search-title" = "Wyszukiwanie";

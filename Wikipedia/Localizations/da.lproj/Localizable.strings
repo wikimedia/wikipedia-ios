@@ -9,6 +9,7 @@
 // Author: Mads Haupt
 // Author: Mortenelling
 // Author: Nemo bis
+// Author: Saederup92
 // Author: Sarrus
 
 "about-content-license" = "Indholdslicens";
@@ -320,6 +321,7 @@
 "reading-list-api-error-entry-limit" = "Denne post er ikke synkroniseret, da du har nået grænsen for antallet af poster i denne liste.";
 "reading-list-api-error-generic" = "Der opstod en uventet fejl under synkronisering af dine læselister.";
 "reading-list-api-error-list-limit" = "Denne liste er ikke synkroniseret, da du har nået begrænsningen for antallet af synkroniserede lister.";
+"reading-list-create-new-list-description" = "Beskrivelse";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
 "reading-list-do-not-keep-button-title" = "Nej, slet artikler fra enhed";
 "reading-list-exists-with-same-name" = "Læselistenavn er allerede i brug";
