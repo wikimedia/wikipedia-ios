@@ -504,6 +504,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 return true
             }
         case .share:
+            FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: indexPath.item)
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         default:
             return false

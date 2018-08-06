@@ -79,7 +79,11 @@
     }
 
     @objc public func logFeedShareTapped(for group: WMFContentGroup?, index: NSNumber?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index?.intValue)))
+        logFeedShareTapped(for: group, index: index?.intValue)
+    }
+
+    public func logFeedShareTapped(for group: WMFContentGroup?, index: Int?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
     @objc public func logFeedRefreshed() {
