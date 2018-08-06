@@ -34,6 +34,22 @@
 			<string>Di chuyển %1$d bài viết vào danh sách đọc</string>
 		</dict>
 	</dict>
+	<key>reading-lists-delete-reading-list-alert-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Không thể hoàn tác tác vụ này. Bài nào chỉ được lưu vào danh sách này sẽ không được lưu.</string>
+			<key>other</key>
+			<string>Không thể hoàn tác tác vụ này. Bài nào chỉ được lưu vào các danh sách này sẽ không được lưu.</string>
+		</dict>
+	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -116,6 +132,38 @@
 			<string>Cách đây %1$d năm</string>
 			<key>zero</key>
 			<string>Năm nay</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Khi xóa bài đã lưu, nó sẽ được loại bỏ khỏi các danh sách đọc</string>
+			<key>other</key>
+			<string>Khi xóa các bài đã lưu, chúng sẽ được loại bỏ khỏi các danh sách đọc</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Xóa bài đã lưu?</string>
+			<key>other</key>
+			<string>Xóa các bài đã lưu?</string>
 		</dict>
 	</dict>
 </dict>

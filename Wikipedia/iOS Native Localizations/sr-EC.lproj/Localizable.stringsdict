@@ -2,6 +2,76 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>add-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Додај %1$d чланка у листу за читање</string>
+			<key>one</key>
+			<string>Додај %1$d чланак у листу за читање</string>
+			<key>other</key>
+			<string>Додај %1$d чланака у листу за читање</string>
+		</dict>
+	</dict>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Чланак је избрисан</string>
+			<key>other</key>
+			<string>Чланци су избрисани</string>
+		</dict>
+	</dict>
+	<key>move-articles-to-reading-list</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>Премести %1$d чланка у листу за читање</string>
+			<key>one</key>
+			<string>Премести %1$d чланак у листу за читање</string>
+			<key>other</key>
+			<string>Премести %1$d чланака у листу за читање</string>
+		</dict>
+	</dict>
+	<key>on-this-day-detail-header-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d историјска догађаја</string>
+			<key>one</key>
+			<string>%1$d историјски догађај</string>
+			<key>other</key>
+			<string>%1$d историјских догађаја</string>
+		</dict>
+	</dict>
 	<key>places-accessibility-group</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -54,6 +124,22 @@
 			<string>пре %1$d минута</string>
 			<key>zero</key>
 			<string>управо сад</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Уклонити чланак из сачуваних?</string>
+			<key>other</key>
+			<string>Уклонити чланке из сачуваних?</string>
 		</dict>
 	</dict>
 </dict>

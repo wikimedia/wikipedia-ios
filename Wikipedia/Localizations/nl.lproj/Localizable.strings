@@ -147,20 +147,24 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Uit";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alles aan";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Aan";
+"explore-feed-preferences-undo-customization" = "Ongedaan maken";
+"explore-hide-card-prompt" = "Deze kaart verbergen";
 "explore-main-page-description" = "Hoofdpagina van Wikimedia projects";
 "explore-main-page-heading" = "Vandaag op Wikipedia";
 "explore-most-read-footer" = "Alle meest gelezen pagina's";
 "explore-most-read-generic-heading" = "Meest gelezen";
 "explore-most-read-more-list-title-for-date" = "Meest gelezen op $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Op Wikipedia in het $1";
+"explore-most-read-sub-heading-on-wikipedia" = "Op Wikipedia";
 "explore-nearby-heading" = "Plaatsen in de buurt";
 "explore-nearby-placeholder-heading" = "Plaatsen";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Op Wikipedia in het $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Op Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Van Wikipedia in het $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Van Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Uw locatie";
 "explore-potd-heading" = "Afbeelding van de dag";
+"explore-potd-sub-heading" = "Van Wikimedia Commons";
 "explore-random-article-heading" = "Willekeurige pagina";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Van Wikipedia in het $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
@@ -228,6 +232,7 @@
 "in-the-news-notification-read-now-action-title" = "Nu lezen";
 "in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
 "in-the-news-notification-share-action-title" = "Delen...";
+"in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
 "info-box-close-text" = "Sluiten";
@@ -302,6 +307,8 @@
 "places-enable-location-action-button-title" = "locatie inschakelen";
 "places-enable-location-description" = "Toegang tot uw locatie is alleen beschikbaar als de app of een van de functies op uw scherm zichtbaar is.";
 "places-enable-location-title" = "Verken artikels in de buurt van uw locatie door Locatie Toegang te activeren";
+"places-filter-articles-action-sheet-title" = "Pagina's filteren";
+"places-filter-button-title" = "Filteren";
 "places-filter-no-saved-places" = "U hebt geen opgeslagen plaatsen";
 "places-filter-saved-articles" = "Opgeslagen pagina's";
 "places-filter-top-articles" = "Meest gelezen";
@@ -375,6 +382,7 @@
 "saved-search-default-text" = "Zoeken";
 "saved-title" = "Opgeslagen";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
+"search-clear-title" = "Wissen";
 "search-did-you-mean" = "Bedoelde u $1?";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
 "search-recent-clear-cancel" = "Annuleren";

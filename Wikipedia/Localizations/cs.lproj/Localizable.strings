@@ -137,6 +137,7 @@
 "empty-no-feed-title" = "Žádné připojení k internetu";
 "empty-no-history-message" = "Mějte přehled o tom, co jste zde četli";
 "empty-no-history-title" = "Žádná historie k zobrazení";
+// Fuzzy
 "empty-no-reading-lists-message" = "Klikněte na modré znaménko +, abyste vytvořili seznamy k přečtení k místům, která byste chtěli navštívit, oblíbených témat a mnohem více";
 "empty-no-reading-lists-title" = "Organizovat uložené články pomocí seznamů k přečtení";
 "empty-no-saved-pages-in-reading-list-message" = "Uložte stránky do tohoto seznamu a zobrazte je zde";
