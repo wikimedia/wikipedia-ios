@@ -263,6 +263,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     var maxViewed: Double = 0
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
         guard collectionView.contentSize.height > 0 else {
             return
         }
