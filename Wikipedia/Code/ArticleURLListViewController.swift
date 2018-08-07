@@ -36,11 +36,6 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
         updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        FeedFunnel.shared.startMeasuringTime(for: contentGroup)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParentViewController {

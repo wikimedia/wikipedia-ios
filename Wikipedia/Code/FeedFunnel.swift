@@ -49,6 +49,7 @@
     // MARK: - Feed
 
     @objc public func logFeedCardOpened(for group: WMFContentGroup?) {
+        startMeasuringTime(for: group)
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .openCard, measureAge: measureAge(for: group)))
     }
 
@@ -148,16 +149,39 @@
 
     private var contentGroupKeysToStartTimes = [String: Date]()
 
-    public func startMeasuringTime(for contentGroup: WMFContentGroup?) {
-        guard let key = contentGroup?.key else {
+    private func shouldMeasureTime(for group: WMFContentGroup?) -> Bool {
+        guard let group = group else {
+            return false
+        }
+        switch group.contentGroupKind {
+        case .topRead:
+            fallthrough
+        case .relatedPages:
+            fallthrough
+        case .onThisDay:
+            fallthrough
+        case .news:
+            fallthrough
+        case .location:
+            return true
+        default:
+            return false
+        }
+    }
+
+    private func startMeasuringTime(for group: WMFContentGroup?) {
+        guard shouldMeasureTime(for: group) else {
+            return
+        }
+        guard let key = group?.key else {
             assertionFailure()
             return
         }
         contentGroupKeysToStartTimes[key] = Date()
     }
 
-    private func measureTime(for contentGroup: WMFContentGroup?) -> Double? {
-        guard let key = contentGroup?.key, let startTime = contentGroupKeysToStartTimes[key] else {
+    private func measureTime(for group: WMFContentGroup?) -> Double? {
+        guard let key = group?.key, let startTime = contentGroupKeysToStartTimes[key] else {
             return nil
         }
         let measureTime = fabs(startTime.timeIntervalSinceNow)
