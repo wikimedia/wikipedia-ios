@@ -24,18 +24,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
         layoutManager.register(ArticleRightAlignedImageCollectionViewCell.self, forCellWithReuseIdentifier: ArticleRightAlignedImageCollectionViewCell.identifier, addPlaceholder: true)
         setupEditController()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParentViewController {
-            FeedFunnel.shared.logFeedCardClosed(for: contentGroup, maxViewed: maxViewed)
-        }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        FeedFunnel.shared.startMeasuringTime(for: contentGroup)
-    }
     
     open func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard let article = article(at: indexPath) else {
@@ -123,7 +111,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
 
     var contentGroup: WMFContentGroup?
 
-    private var previewedIndexPath: IndexPath?
+    var previewedIndexPath: IndexPath?
 
     // MARK: - Layout
     
@@ -193,7 +181,6 @@ extension ArticleCollectionViewController {
             return
         }
         delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: indexPath.item, maxViewed: maxViewed)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
@@ -217,16 +204,15 @@ extension ArticleCollectionViewController {
         }
 
         previewedIndexPath = indexPath
+
         let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
         return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndexPath?.item, maxViewed: maxViewed)
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
