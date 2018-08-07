@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
-- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index maxViewed:(nullable NSNumber *)maxViewed animated:(BOOL)animated;
-
 @end
 
 NS_ASSUME_NONNULL_END

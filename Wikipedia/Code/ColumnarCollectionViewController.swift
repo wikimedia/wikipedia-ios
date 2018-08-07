@@ -328,7 +328,7 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
             contentGroup = nil
             index = nil
         }
-        wmf_push(articleController, contentGroup: contentGroup, index: index, maxViewed: maxViewed, animated: true)
+        wmf_push(articleController, contentGroup: contentGroup, index: index, animated: true)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
@@ -340,5 +340,32 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
+    }
+}
+
+extension ColumnarCollectionViewController {
+    func wmf_push(_ viewController: UIViewController, contentGroup: WMFContentGroup?, index: NSNumber?, animated: Bool) {
+        logFeedEventIfNeeded(for: contentGroup, index: index, pushedViewController: viewController)
+        wmf_push(viewController, animated: animated)
+    }
+
+    func logFeedEventIfNeeded(for contentGroup: WMFContentGroup?, index: NSNumber?, pushedViewController: UIViewController) {
+        guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
+            return
+        }
+        let isFirstViewControllerExplore = viewControllers.first is ExploreViewController
+        let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
+        let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
+        if isPushedFromExplore {
+            let isArticle = pushedViewController is WMFArticleViewController
+            if isArticle {
+                FeedFunnel.shared.logFeedCardReadingStarted(for: contentGroup, index: index)
+            } else {
+                FeedFunnel.shared.logFeedCardOpened(for: contentGroup)
+            }
+        } else if isPushedFromExploreDetail {
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: index, maxViewed: maxViewed)
+        }
+
     }
 }

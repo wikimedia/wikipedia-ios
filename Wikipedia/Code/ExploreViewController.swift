@@ -420,7 +420,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
-            wmf_push(vc, contentGroup: group, index: NSNumber(value: indexPath.item), maxViewed: maxViewed, animated: true)
+            wmf_push(vc, contentGroup: group, index: NSNumber(value: indexPath.item), animated: true)
             return
         }
         
@@ -429,7 +429,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 present(vc, animated: true)
                 FeedFunnel.shared.logFeedCardOpened(for: group)
             } else {
-                wmf_push(vc, contentGroup: group, index: NSNumber(value: indexPath.item), maxViewed: maxViewed, animated: true)
+                wmf_push(vc, contentGroup: group, index: NSNumber(value: indexPath.item), animated: true)
             }
             return
         }
@@ -557,7 +557,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             present(vc, animated: true)
             FeedFunnel.shared.logFeedCardOpened(for: contentGroup)
         default:
-            wmf_push(vc, contentGroup: contentGroup, index: NSNumber(value: indexPath.item), maxViewed: maxViewed, animated: true)
+            wmf_push(vc, contentGroup: contentGroup, index: NSNumber(value: indexPath.item), animated: true)
         }
     }
     
@@ -674,9 +674,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             FeedFunnel.shared.logFeedCardOpened(for: previewed.group)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, contentGroup: contentGroup, index: previewedIndex, maxViewed: maxViewed, animated: false)
+            wmf_push(avc, contentGroup: contentGroup, index: previewedIndex, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, contentGroup: previewed.group, index: previewedIndex, maxViewed: maxViewed, animated: true)
+            wmf_push(viewControllerToCommit, contentGroup: previewed.group, index: previewedIndex, animated: true)
         }
     }
 }

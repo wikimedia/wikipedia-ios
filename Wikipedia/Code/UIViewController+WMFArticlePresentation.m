@@ -72,31 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)wmf_pushViewController:(UIViewController *)viewController contentGroup:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index maxViewed:(nullable NSNumber *)maxViewed animated:(BOOL)animated {
-    [self logFeedEventIfNeeded:contentGroup index:index maxViewed:maxViewed pushedViewController:viewController];
-    [self wmf_pushViewController:viewController animated:animated];
-}
-
-- (void)logFeedEventIfNeeded:(nullable WMFContentGroup *)contentGroup index:(nullable NSNumber *)index maxViewed:(nullable NSNumber *)maxViewed pushedViewController:(UIViewController *)pushedViewController {
-    if (self.navigationController == nil) {
-        return;
-    }
-    NSArray<UIViewController *> *viewControllers = self.navigationController.viewControllers;
-    BOOL isFirstViewControllerExplore = [[viewControllers firstObject] isKindOfClass:[ExploreViewController class]];
-    BOOL isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore;
-    BOOL isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore;
-    if (isPushedFromExplore) {
-        BOOL isArticle = [pushedViewController isKindOfClass:[WMFArticleViewController class]] || [pushedViewController isKindOfClass:[WMFFirstRandomViewController class]];
-        if (isArticle) {
-            [FeedFunnel.shared logFeedCardReadingStartedFor:contentGroup index:index];
-        } else {
-            [FeedFunnel.shared logFeedCardOpenedFor:contentGroup];
-        }
-    } else if (isPushedFromExploreDetail) {
-        [FeedFunnel.shared logArticleInFeedDetailReadingStartedFor:contentGroup index:index maxViewed:maxViewed];
-    }
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
