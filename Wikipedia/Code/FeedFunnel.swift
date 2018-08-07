@@ -77,7 +77,7 @@
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
-    @objc public func logFeedRefreshed() {
+    public func logFeedRefreshed() {
         log(event(category: .feed, label: nil, action: .refresh))
     }
 

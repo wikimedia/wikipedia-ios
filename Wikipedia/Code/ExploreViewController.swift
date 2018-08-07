@@ -83,6 +83,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - Refresh
     
     open override func refresh() {
+        FeedFunnel.shared.logFeedRefreshed()
         updateFeedSources(with: nil, userInitiated: true) {
             
         }
@@ -132,6 +133,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         
         isLoadingOlderContent = true
+        FeedFunnel.shared.logFeedRefreshed()
         updateFeedSources(with: (nextOldestDate as NSDate).wmf_midnightLocalDateForEquivalentUTC, userInitiated: false) {
             self.isLoadingOlderContent = false
         }
