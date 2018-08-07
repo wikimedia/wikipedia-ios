@@ -86,7 +86,7 @@
 
     // MARK: Feed detail
 
-    public func logArticleInFeedDetailPreviewed(for group: WMFContentGroup?, index: Int) {
+    public func logArticleInFeedDetailPreviewed(for group: WMFContentGroup?, index: Int?) {
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: index))
     }
 

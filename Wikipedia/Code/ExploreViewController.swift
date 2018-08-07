@@ -637,8 +637,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 avc.articlePreviewingActionsDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             }
+
             previewed.indexPath = indexPath
             FeedFunnel.shared.logFeedCardPreviewed(for: previewed.group, index: indexPath.item)
+
             return viewControllerToCommit
         } else {
             return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
@@ -818,5 +820,13 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     
 }
 
+// MARK: - WMFArticlePreviewingActionsDelegate
+
+extension ExploreViewController {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
+        FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: previewed.indexPath?.item)
+    }
+}
 
 
