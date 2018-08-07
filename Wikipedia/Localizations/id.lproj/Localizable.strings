@@ -132,6 +132,7 @@
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
+// Fuzzy
 "empty-no-reading-lists-message" = "Ketuk tombol ‘+’ yang berwarna biru untuk membuat daftar bacaan untuk tempat yang harus dikunjungi, topik favorit dan banyak lagi";
 "empty-no-reading-lists-title" = "Atur artikel tersimpan dengan daftar bacaan";
 "empty-no-saved-pages-in-reading-list-message" = "Simpan halaman ke daftar ini untuk melihatnya muncul di sini";

@@ -149,7 +149,7 @@
 "empty-no-feed-title" = "Sem conexão com a internet";
 "empty-no-history-message" = "Manter um registro do que você esteve lendo aqui";
 "empty-no-history-title" = "Sem histórico para exibir";
-"empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de locais onde viajar, tópicos favoritos e muito mais";
+"empty-no-reading-lists-message" = "Criar listas de lugares para viajar, tópicos favoritos e muito mais";
 "empty-no-reading-lists-title" = "Organiza os artigos salvados com as listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram salvadas páginas nesta lista";
@@ -222,7 +222,6 @@
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal de Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
-// Fuzzy
 "explore-most-read-footer" = "Todos os artigos mais lidos";
 "explore-most-read-generic-heading" = "Mais lidos";
 "explore-most-read-more-list-title-for-date" = "Mais lidos em $1";
