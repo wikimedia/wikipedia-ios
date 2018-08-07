@@ -149,6 +149,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
             let group = fetchedResultsController.object(at: indexPath)
+            guard let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+                continue
+            }
+            let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
+            let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
+            let itemOrigin = itemFrame.origin
+            let visibleRect = CGRect(origin: visibleRectOrigin, size: visibleRectSize)
+            let itemMaxYPoint = CGPoint(x: itemFrame.origin.x, y: itemFrame.maxY)
+            let isUnobstructed = visibleRect.contains(itemOrigin) || visibleRect.contains(itemMaxYPoint)
+            guard isUnobstructed else {
+                continue
+            }
             FeedFunnel.shared.logFeedImpression(for: group)
         }
     }
@@ -828,5 +840,3 @@ extension ExploreViewController {
         FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: previewed.indexPath?.item)
     }
 }
-
-
