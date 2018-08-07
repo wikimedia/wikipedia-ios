@@ -62,12 +62,9 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         bottomRow.distribution = UIStackViewDistribution.fillEqually
         
         gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).compactMap { $0 as? UIImageView }
-        if #available(iOS 11.0, *) {
-            gridImageViews.forEach {
-                $0.accessibilityIgnoresInvertColors = true
-            }
-        }
+
         gridImageViews.forEach {
+            $0.accessibilityIgnoresInvertColors = true
             $0.contentMode = .scaleAspectFill
             $0.clipsToBounds = true
         }

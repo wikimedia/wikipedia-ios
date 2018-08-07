@@ -65,7 +65,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         view.addConstraints([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            bottomLayoutGuide.topAnchor.constraint(equalTo: containerView.bottomAnchor)
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
         return containerView
