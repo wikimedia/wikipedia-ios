@@ -49,16 +49,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return _displayType
         }
         set {
-            let adjustedNewValue: NavigationBarDisplayType
-            if #available(iOS 11.0, *) {
-                adjustedNewValue = newValue
-            } else {
-                adjustedNewValue = .backVisible
-            }
-            guard adjustedNewValue != _displayType else {
+            guard newValue != _displayType else {
                 return
             }
-            _displayType = adjustedNewValue
+            _displayType = newValue
             isTitleShrinkingEnabled = _displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
@@ -112,18 +106,12 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
         
         if let item = navigationItem.leftBarButtonItem {
-            var leftBarButtonItem  = item
-            if #available(iOS 11.0, *) {
-                leftBarButtonItem = barButtonItem(from: item)
-            }
+            let leftBarButtonItem = barButtonItem(from: item)
             titleBarItems.append(leftBarButtonItem)
         }
         
         if let item = navigationItem.rightBarButtonItem {
-            var rightBarButtonItem = item
-            if #available(iOS 11.0, *) {
-                rightBarButtonItem = barButtonItem(from: item)
-            }
+            let rightBarButtonItem = barButtonItem(from: item)
             titleBarItems.append(rightBarButtonItem)
         }
         titleBar.setItems(titleBarItems, animated: false)
@@ -212,19 +200,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let statusBarUnderlayTopConstraint = topAnchor.constraint(equalTo: statusBarUnderlay.topAnchor)
         updatedConstraints.append(statusBarUnderlayTopConstraint)
         
-        var safeArea: UILayoutGuide?
-        if #available(iOS 11.0, *) {
-            safeArea = safeAreaLayoutGuide
-        }
-        
-        if let safeArea = safeArea {
-            let statusBarUnderlayBottomConstraint = safeArea.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
-            updatedConstraints.append(statusBarUnderlayBottomConstraint)
-        } else {
-            let underlayHeightConstraint = statusBarUnderlay.heightAnchor.constraint(equalToConstant: 0)
-            statusBarHeightConstraint = underlayHeightConstraint
-            statusBarUnderlay.addConstraint(underlayHeightConstraint)
-        }
+        let statusBarUnderlayBottomConstraint = safeAreaLayoutGuide.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor)
+        updatedConstraints.append(statusBarUnderlayBottomConstraint)
         
         let statusBarUnderlayLeadingConstraint = leadingAnchor.constraint(equalTo: statusBarUnderlay.leadingAnchor)
         updatedConstraints.append(statusBarUnderlayLeadingConstraint)

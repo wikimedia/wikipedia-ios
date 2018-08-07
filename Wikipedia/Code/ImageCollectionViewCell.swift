@@ -23,9 +23,7 @@ class ImageCollectionViewCell: CollectionViewCell {
     
     override func setup() {
         super.setup()
-        if #available(iOS 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
         imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         gradientView.setStart(.clear, end: UIColor(white: 0, alpha: 0.8))

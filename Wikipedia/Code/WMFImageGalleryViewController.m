@@ -323,9 +323,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (@available(iOS 11.0, *)) {
-        self.view.accessibilityIgnoresInvertColors = YES;
-    }
+    self.view.accessibilityIgnoresInvertColors = YES;
 }
 
 #pragma mark - Actions

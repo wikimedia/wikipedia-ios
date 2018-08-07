@@ -23,11 +23,7 @@ open class WMFTableOfContentsPresentationController: UIPresentationController, T
     open var minimumVisibleBackgroundWidth: CGFloat = 60.0
     open var maximumTableOfContentsWidth: CGFloat = 300.0
     open var statusBarEstimatedHeight: CGFloat {
-        if #available(iOS 11.0, *) {
-            return max(UIApplication.shared.statusBarFrame.size.height, presentedView?.safeAreaInsets.top ?? 0)
-        } else {
-            return UIApplication.shared.statusBarFrame.size.height
-        }
+        return max(UIApplication.shared.statusBarFrame.size.height, presentedView?.safeAreaInsets.top ?? 0)
     }
     
     // MARK: - Views

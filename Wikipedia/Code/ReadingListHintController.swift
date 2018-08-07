@@ -56,15 +56,14 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         presenter?.view.addSubview(containerView)
         
         if let presenter = presenter {
-            let safeBottomAnchor = presenter.wmf_safeBottomAnchor()
-            let bottomAnchorOffset = presenter.wmf_bottomAnchorOffset()
+            let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
 
             // `containerBottomConstraint` is activated when the hint is visible
-            containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: bottomAnchorOffset)
+            containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor)
             containerBottomConstraint?.isActive = false
 
             // `containerTopConstraint` is activated when the hint is hidden
-            containerTopConstraint = containerView.topAnchor.constraint(equalTo: safeBottomAnchor, constant: bottomAnchorOffset)
+            containerTopConstraint = containerView.topAnchor.constraint(equalTo: safeBottomAnchor)
             
             let leadingConstraint = containerView.leadingAnchor.constraint(equalTo: presenter.view.leadingAnchor)
             let trailingConstraint = containerView.trailingAnchor.constraint(equalTo: presenter.view.trailingAnchor)
@@ -200,22 +199,5 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     func readingListHintHeightChanged(){
         updateRandom(isHintHidden())
-    }
-}
-
-private extension UIViewController {
-    func wmf_safeBottomAnchor() -> NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return view.safeAreaLayoutGuide.bottomAnchor
-        } else {
-            return bottomLayoutGuide.bottomAnchor
-        }
-    }
-    func wmf_bottomAnchorOffset() -> CGFloat {
-        if #available(iOS 11.0, *) {
-            return 0
-        } else {
-            return -bottomLayoutGuide.length
-        }
     }
 }
