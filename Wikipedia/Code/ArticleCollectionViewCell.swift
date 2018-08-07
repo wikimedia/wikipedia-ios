@@ -58,9 +58,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
         
-        if #available(iOSApplicationExtension 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
         
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
@@ -126,9 +124,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     open override func safeAreaInsetsDidChange() {
-        if #available(iOSApplicationExtension 11.0, *) {
-            super.safeAreaInsetsDidChange()
-        }
+        super.safeAreaInsetsDidChange()
         if swipeState == .open {
             swipeTranslation = swipeTranslationWhenOpen
         }
@@ -136,11 +132,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     var actionsViewInsets: UIEdgeInsets {
-        if #available(iOSApplicationExtension 11.0, *) {
-            return safeAreaInsets
-        } else {
-            return UIEdgeInsets.zero
-        }
+        return safeAreaInsets
     }
     
     public final var statusViewDimension: CGFloat = 0 {
@@ -211,15 +203,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 }
             }
             
-            if #available(iOSApplicationExtension 11.0, *) {
-                let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
-                batchEditSelectViewWidth -= safeX
-                if !isBatchEditOnRight && isBatchEditingPaneOpen {
-                    batchEditX += safeX
-                }
-                if isBatchEditOnRight && !isBatchEditingPaneOpen {
-                    batchEditX -= batchEditSelectViewWidth
-                }
+            let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
+            batchEditSelectViewWidth -= safeX
+            if !isBatchEditOnRight && isBatchEditingPaneOpen {
+                batchEditX += safeX
+            }
+            if isBatchEditOnRight && !isBatchEditingPaneOpen {
+                batchEditX -= batchEditSelectViewWidth
             }
             
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)

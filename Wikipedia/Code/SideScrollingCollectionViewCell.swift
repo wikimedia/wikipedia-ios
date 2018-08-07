@@ -279,8 +279,6 @@ extension SideScrollingCollectionViewCell: Themeable {
         descriptionLabel.textColor = theme.colors.primaryText
         updateSelectedOrHighlighted()
         collectionView.reloadData()
-        if #available(iOSApplicationExtension 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
     }
 }
