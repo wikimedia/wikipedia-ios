@@ -489,7 +489,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSaveInFeed(contentGroup: contentGroup, articleURL: articleURL, index: action.indexPath.item)
+                    ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }
@@ -499,7 +499,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsaveInFeed(contentGroup: contentGroup, articleURL: articleURL, index: action.indexPath.item)
+                    ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }

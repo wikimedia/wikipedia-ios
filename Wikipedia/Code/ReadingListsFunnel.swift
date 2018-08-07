@@ -12,7 +12,7 @@
     }
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18126068)
+        super.init(schema: "MobileWikiAppiOSReadingLists", version: 18280648)
     }
     
     private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1, measureAge: Int? = nil, measurePosition: Int? = nil) -> Dictionary<String, Any> {
@@ -72,22 +72,18 @@
         logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
     }
     
-    @objc public func logSaveInFeed(contentGroup: WMFContentGroup?, articleURL: URL, index: Int) {
-        let date = contentGroup?.midnightUTCDate
+    @objc public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
+        let date = context?.midnightUTCDate
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let kind = contentGroup?.contentGroupKind ?? WMFContentGroupKind.unknown
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logSave(category: .feed, label: contentGroup?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
-    @objc public func logUnsaveInFeed(contentGroup: WMFContentGroup?, articleURL: URL, index: Int) {
-        let date = contentGroup?.midnightUTCDate
+    @objc public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
+        let date = context?.midnightUTCDate
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let kind = contentGroup?.contentGroupKind ?? WMFContentGroupKind.unknown
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logUnsave(category: .feed, label: contentGroup?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
     // - MARK: Places
