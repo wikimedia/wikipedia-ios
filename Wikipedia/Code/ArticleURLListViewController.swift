@@ -90,4 +90,9 @@ extension ArticleURLListViewController {
         FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: previewedIndexPath?.item)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, contentGroup: contentGroup, index: previewedIndexPath?.item, animated: true)
+    }
 }

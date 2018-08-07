@@ -270,4 +270,9 @@ extension OnThisDayViewController {
         FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: previewedIndex)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, contentGroup: contentGroup, index: previewedIndex, animated: true)
+    }
 }

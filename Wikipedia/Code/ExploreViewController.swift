@@ -829,10 +829,14 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate
-
 extension ExploreViewController {
     override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
         FeedFunnel.shared.logFeedShareTapped(for: contentGroup, index: previewed.indexPath?.item)
+    }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, contentGroup: previewed.group, index: previewed.indexPath?.item, animated: true)
     }
 }
