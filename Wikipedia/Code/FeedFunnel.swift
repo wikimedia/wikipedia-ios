@@ -19,7 +19,7 @@
         case closeCard = "close_card"
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Int? = nil, measureTime: Double? = nil, measureMaxViewed: NSNumber? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Int? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
         let category = category.rawValue
         let action = action.rawValue
         
@@ -37,7 +37,8 @@
             event["measure_time"] = Int(round(measureTime))
         }
         if let measureMaxViewed = measureMaxViewed {
-            event["measure_max_viewed"] = min(100, Int(floor(measureMaxViewed.doubleValue)))
+            event["measure_max_viewed"] = min(100, Int(floor(measureMaxViewed)))
+            print("here \(event["measure_max_viewed"])")
         }
         return event
     }
@@ -65,12 +66,8 @@
         log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
-    @objc public func logFeedCardReadingStarted(for group: WMFContentGroup?, index: NSNumber?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index?.intValue)))
-    }
-
-    @objc public func logFeedShareTapped(for group: WMFContentGroup?, index: NSNumber?) {
-        logFeedShareTapped(for: group, index: index?.intValue)
+    public func logFeedCardReadingStarted(for group: WMFContentGroup?, index: Int?) {
+        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
     }
 
     public func logFeedShareTapped(for group: WMFContentGroup?, index: Int?) {
@@ -91,16 +88,12 @@
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: index))
     }
 
-    public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: Int?, maxViewed: NSNumber) {
+    public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: Int?, maxViewed: Double) {
         startMeasuringTime(for: group)
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: index, measureMaxViewed: maxViewed))
     }
 
-    @objc public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: NSNumber?, maxViewed: NSNumber) {
-        logArticleInFeedDetailReadingStarted(for: group, index: index?.intValue, maxViewed: maxViewed)
-    }
-
-    public func logFeedCardClosed(for group: WMFContentGroup?, maxViewed: NSNumber) {
+    public func logFeedCardClosed(for group: WMFContentGroup?, maxViewed: Double) {
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .closeCard, measureTime: measureTime(for: group), measureMaxViewed: maxViewed))
     }
 

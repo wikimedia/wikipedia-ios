@@ -260,14 +260,14 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
 
     // MARK: - Event logging utiities
 
-    var maxViewed: NSNumber = NSNumber(value: 0)
+    var maxViewed: Double = 0
 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard collectionView.contentSize.height > 0 else {
             return
         }
         let value = ((collectionView.contentOffset.y + collectionView.bounds.height) / collectionView.contentSize.height) * 100
-        maxViewed = NSNumber(value: max(maxViewed.intValue, Int(value)))
+        maxViewed = max(maxViewed, Double(value))
     }
 }
 
@@ -320,15 +320,13 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
     func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         let contentGroup: WMFContentGroup?
-        let index: NSNumber?
         if let eventLoggingEventValuesProviding = self as? EventLoggingEventValuesProviding {
             contentGroup = eventLoggingEventValuesProviding.contentGroup ?? nil
-            index = eventLoggingEventValuesProviding.eventLoggingIndex ?? nil
         } else {
             contentGroup = nil
-            index = nil
         }
-        wmf_push(articleController, contentGroup: contentGroup, index: index, animated: true)
+        // TODO: Move out
+        wmf_push(articleController, contentGroup: contentGroup, index: 0, animated: true)
     }
     
     func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
@@ -344,12 +342,12 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
 }
 
 extension ColumnarCollectionViewController {
-    func wmf_push(_ viewController: UIViewController, contentGroup: WMFContentGroup?, index: NSNumber?, animated: Bool) {
+    func wmf_push(_ viewController: UIViewController, contentGroup: WMFContentGroup?, index: Int?, animated: Bool) {
         logFeedEventIfNeeded(for: contentGroup, index: index, pushedViewController: viewController)
         wmf_push(viewController, animated: animated)
     }
 
-    func logFeedEventIfNeeded(for contentGroup: WMFContentGroup?, index: NSNumber?, pushedViewController: UIViewController) {
+    func logFeedEventIfNeeded(for contentGroup: WMFContentGroup?, index: Int?, pushedViewController: UIViewController) {
         guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
             return
         }

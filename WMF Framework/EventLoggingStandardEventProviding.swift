@@ -2,7 +2,6 @@
     var eventLoggingCategory: EventLoggingCategory { get }
     var eventLoggingLabel: EventLoggingLabel? { get }
     @objc optional var contentGroup: WMFContentGroup? { get }
-    @objc optional var eventLoggingIndex: NSNumber? { get }
 }
 
 public protocol EventLoggingStandardEventProviding {
