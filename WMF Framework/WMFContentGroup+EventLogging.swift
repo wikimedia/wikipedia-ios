@@ -13,6 +13,8 @@
             return .news
         case .relatedPages:
             return .relatedPages
+        case .continueReading:
+            return .continueReading
         case .locationPlaceholder:
             fallthrough
         case .location:
