@@ -603,9 +603,15 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind {
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind requireIsVisible:(BOOL)isVisibleRequired {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    NSPredicate *predicate = nil;
+    if (isVisibleRequired) {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && isVisible == YES", @(kind)];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    }
+    fetchRequest.predicate = predicate;
     fetchRequest.fetchLimit = 1;
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     NSError *fetchError = nil;
@@ -615,6 +621,14 @@
         return nil;
     }
     return [contentGroups firstObject];
+}
+
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind {
+    return [self newestGroupOfKind:kind requireIsVisible:YES];
+}
+
+- (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind {
+    return [self newestGroupOfKind:kind requireIsVisible:NO];
 }
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
