@@ -260,9 +260,14 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
 
     // MARK: - Event logging utiities
 
-    var maxViewed: NSNumber {
-        let value = ((Double(collectionView.contentOffset.y) + Double(collectionView.bounds.height)) / Double(collectionView.contentSize.height)) * 100
-        return NSNumber(value: value)
+    var maxViewed: NSNumber = NSNumber(value: 0)
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard collectionView.contentSize.height > 0 else {
+            return
+        }
+        let value = ((collectionView.contentOffset.y + collectionView.bounds.height) / collectionView.contentSize.height) * 100
+        maxViewed = NSNumber(value: max(maxViewed.intValue, Int(value)))
     }
 }
 
