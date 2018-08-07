@@ -3,13 +3,14 @@ import UIKit
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private var updater: ArticleURLProviderEditControllerUpdater?
+    private let contentGroup: WMFContentGroup?
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
+        self.contentGroup = contentGroup
         super.init()
         self.theme = theme
         self.dataStore = dataStore
-        self.contentGroup = contentGroup
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,5 +95,14 @@ extension ArticleURLListViewController {
     override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, contentGroup: contentGroup, index: previewedIndexPath?.item, animated: true)
+    }
+}
+
+extension ArticleURLListViewController {
+    override func didPerformAction(_ action: Action) -> Bool {
+        if action.type == .share {
+            FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: action.indexPath.item)
+        }
+        return super.didPerformAction(action)
     }
 }
