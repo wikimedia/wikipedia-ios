@@ -215,20 +215,3 @@ private extension WMFContentGroup {
         }
     }
 }
-/*
- Q: what constitutes an impression? (on feed is it first time user sees it, or each time it scrolls into view?)
- A: FOR NOW: (per Chelsy) log impression if card onscreen for more than 1 second (doesn't matter if moving - may tweak later if needed)
-      do same for feed education card (1 second min onscreen before logging)
-
- Labels:
- EventLoggingLabel const EventLoggingLabelFeaturedArticle = @"featured_article";
- EventLoggingLabel const EventLoggingLabelTopRead = @"top_read";
- EventLoggingLabel const EventLoggingLabelOnThisDay = @"on_this_day";
- EventLoggingLabel const EventLoggingLabelNews = @"news";
- EventLoggingLabel const EventLoggingLabelRelatedPages = @"related_pages";
- EventLoggingLabel const EventLoggingLabelContinueReading = @"continue_reading";
- EventLoggingLabel const EventLoggingLabelMainPage = @"main_page";
- EventLoggingLabel const EventLoggingLabelLocation = @"location";  (ok use "location" instead of "places"? ask chelsy - yes - 5.8.2 uses it when you save compass cell from feed via peek menu save)
- EventLoggingLabel const EventLoggingLabelRandom = @"random";
- EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day";
-*/
