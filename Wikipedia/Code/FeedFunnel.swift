@@ -92,6 +92,7 @@
     }
 
     public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: Int?, maxViewed: NSNumber) {
+        startMeasuringTime(for: group)
         log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: index, measureMaxViewed: maxViewed))
     }
 
