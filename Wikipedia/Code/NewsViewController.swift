@@ -210,7 +210,7 @@ extension NewsViewController: EventLoggingEventValuesProviding {
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate
-extension OnThisDayViewController {
+extension NewsViewController {
     override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: previewedIndex)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
