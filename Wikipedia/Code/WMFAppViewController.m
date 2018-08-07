@@ -253,7 +253,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<WMFArticleNavigationController *> *navigationControllers = @[exploreNavC, placesNavC, savedNavC, historyNavC, searchNavC];
     for (WMFArticleNavigationController *navC in navigationControllers) {
         navC.extendedLayoutIncludesOpaqueBars = YES;
-        navC.automaticallyAdjustsScrollViewInsets = NO;
         [navC setNavigationBarHidden:YES animated:NO];
     }
     [self setViewControllers:navigationControllers animated:NO];

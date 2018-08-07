@@ -130,7 +130,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
-        let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         let labelsAdditionalSpacing: CGFloat = 20
         if !isImageViewHidden {

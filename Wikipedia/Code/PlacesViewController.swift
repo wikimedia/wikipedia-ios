@@ -160,11 +160,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
         listViewController.didMove(toParentViewController: self)
-        listViewController.automaticallyAdjustsScrollViewInsets = true
-        if #available(iOS 11.0, *) {
-            listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
-        }
-
+        listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
+        
         let mapViewFrame = mapContainerView.bounds
         #if OSM
             let styleURL = Bundle.main.url(forResource: "mapstyle", withExtension: "json")
@@ -233,14 +230,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         
         apply(theme: theme)
         self.view.layoutIfNeeded()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if #available(iOS 11.0, *) {
-        } else {
-            navigationBar.statusBarHeight = self.navigationController?.topLayoutGuide.length ?? 0
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
