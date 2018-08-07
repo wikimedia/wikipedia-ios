@@ -1,5 +1,20 @@
 // https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSFeed
 
+@objc public class FeedFunnelContext: NSObject {
+    let label: EventLoggingLabel?
+    let key: String?
+    let midnightUTCDate: Date?
+    convenience init(_ group: WMFContentGroup?) {
+        self.init(label: group?.eventLoggingLabel, key: group?.key, midnightUTCDate: group?.midnightUTCDate)
+    }
+    init(label: EventLoggingLabel?, key: String?, midnightUTCDate: Date?) {
+        self.label = label
+        self.key = key
+        self.midnightUTCDate = midnightUTCDate
+        super.init()
+    }
+}
+
 @objc public final class FeedFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
     @objc public static let shared = FeedFunnel()
     
@@ -48,89 +63,79 @@
     
     // MARK: - Feed
 
-    @objc public func logFeedCardOpened(for group: WMFContentGroup?) {
-        startMeasuringTime(for: group)
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .openCard, measureAge: measureAge(for: group)))
+    @objc public func logFeedCardOpened(for context: FeedFunnelContext?) {
+        startMeasuringTime(for: context?.label, key: context?.key)
+        log(event(category: .feed, label: context?.label, action: .openCard, measureAge: measureAge(for: context?.midnightUTCDate)))
     }
 
-    @objc public func logFeedCardDismissed(for group: WMFContentGroup?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .dismiss, measureAge: measureAge(for: group) ))
+    @objc public func logFeedCardDismissed(for context: FeedFunnelContext?) {
+        log(event(category: .feed, label: context?.label, action: .dismiss, measureAge: measureAge(for: context?.midnightUTCDate) ))
     }
 
-    @objc public func logFeedCardRetained(for group: WMFContentGroup?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .retain, measureAge: measureAge(for: group)))
+    @objc public func logFeedCardRetained(for context: FeedFunnelContext?) {
+        log(event(category: .feed, label: context?.label, action: .retain, measureAge: measureAge(for: context?.midnightUTCDate)))
     }
 
-    @objc public func logFeedCardPreviewed(for group: WMFContentGroup?, index: Int) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
+    @objc public func logFeedCardPreviewed(for context: FeedFunnelContext?, index: Int) {
+        log(event(category: .feed, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
     }
 
-    public func logFeedCardReadingStarted(for group: WMFContentGroup?, index: Int?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
+    public func logFeedCardReadingStarted(for context: FeedFunnelContext?, index: Int?) {
+        log(event(category: .feed, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
     }
 
-    public func logFeedShareTapped(for group: WMFContentGroup?, index: Int?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: measurePosition(for: group, index: index)))
+    public func logFeedShareTapped(for context: FeedFunnelContext?, index: Int?) {
+        log(event(category: .feed, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
     }
 
     public func logFeedRefreshed() {
         log(event(category: .feed, label: nil, action: .refresh))
     }
 
-    public func logFeedImpression(for group: WMFContentGroup?) {
-        log(event(category: .feed, label: group?.eventLoggingLabel, action: .impression, measureAge: measureAge(for: group)))
+    public func logFeedImpression(for context: FeedFunnelContext?) {
+        log(event(category: .feed, label: context?.label, action: .impression, measureAge: measureAge(for: context?.midnightUTCDate)))
     }
 
     // MARK: Feed detail
 
-    public func logArticleInFeedDetailPreviewed(for group: WMFContentGroup?, index: Int?) {
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .preview, measureAge: measureAge(for: group), measurePosition: index))
+    public func logArticleInFeedDetailPreviewed(for context: FeedFunnelContext?, index: Int?) {
+        log(event(category: .feedDetail, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index))
     }
 
-    public func logArticleInFeedDetailReadingStarted(for group: WMFContentGroup?, index: Int?, maxViewed: Double) {
-        startMeasuringTime(for: group)
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .readStart, measureAge: measureAge(for: group), measurePosition: index, measureMaxViewed: maxViewed))
+    public func logArticleInFeedDetailReadingStarted(for context: FeedFunnelContext?, index: Int?, maxViewed: Double) {
+        startMeasuringTime(for: context?.label, key: context?.key)
+        log(event(category: .feedDetail, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index, measureMaxViewed: maxViewed))
     }
 
-    public func logFeedCardClosed(for group: WMFContentGroup?, maxViewed: Double) {
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .closeCard, measureTime: measureTime(for: group), measureMaxViewed: maxViewed))
+    public func logFeedCardClosed(for context: FeedFunnelContext?, maxViewed: Double) {
+        log(event(category: .feedDetail, label: context?.label, action: .closeCard, measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed))
     }
 
-    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: Int?) {
-        log(event(category: .feedDetail, label: group?.eventLoggingLabel, action: .shareTap, measureAge: measureAge(for: group), measurePosition: index))
+    public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?, midnightUTCDate: Date?) {
+        log(event(category: .feedDetail, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index))
     }
 
-    public func logFeedDetailShareTapped(for group: WMFContentGroup?, index: NSNumber?) {
-        logFeedDetailShareTapped(for: group, index: index?.intValue)
+    public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?) {
+        logFeedDetailShareTapped(for: context, index: index)
     }
 
     // MARK: Utilities
 
     public var fetchedContentGroupsInFeedController: NSFetchedResultsController<WMFContentGroup>?
 
-    private func measureAge(for group: WMFContentGroup?) -> NSNumber? {
-        guard let group = group, let fetchedContentGroupsInFeedController = fetchedContentGroupsInFeedController else {
+    private func measureAge(for midnightUTCDate: Date?) -> NSNumber? {
+        guard let date = midnightUTCDate else {
             return nil
         }
-        let measureAge: NSNumber?
-        if group.appearsOncePerDay {
-            measureAge = group.eventLoggingMeasureAge
-        } else {
-            let groups = fetchedContentGroupsInFeedController.fetchedObjects?.filter { $0.contentGroupKind == group.contentGroupKind }
-            if let index = groups?.index(of: group) {
-                measureAge = NSNumber(value: index)
-            } else {
-                measureAge = nil
-            }
-        }
-        return measureAge
+        let now = NSDate().wmf_midnightUTCDateFromLocal
+        return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
     }
 
-    private func measurePosition(for group: WMFContentGroup?, index: Int?) -> Int? {
-        guard let group = group else {
+    private func measurePosition(for label: EventLoggingLabel?, index: Int?) -> Int? {
+        guard let label = label else {
             return nil
         }
-        switch group.contentGroupKind {
+        switch label {
         case .onThisDay:
             fallthrough
         case .news:
@@ -142,11 +147,11 @@
 
     private var contentGroupKeysToStartTimes = [String: Date]()
 
-    private func shouldMeasureTime(for group: WMFContentGroup?) -> Bool {
-        guard let group = group else {
+    private func shouldMeasureTime(for label: EventLoggingLabel?) -> Bool {
+        guard let label = label else {
             return false
         }
-        switch group.contentGroupKind {
+        switch label {
         case .topRead:
             fallthrough
         case .relatedPages:
@@ -162,48 +167,23 @@
         }
     }
 
-    private func startMeasuringTime(for group: WMFContentGroup?) {
-        guard shouldMeasureTime(for: group) else {
+    private func startMeasuringTime(for label: EventLoggingLabel?, key: String?) {
+        guard shouldMeasureTime(for: label) else {
             return
         }
-        guard let key = group?.key else {
+        guard let key = key else {
             assertionFailure()
             return
         }
         contentGroupKeysToStartTimes[key] = Date()
     }
 
-    private func measureTime(for group: WMFContentGroup?) -> Double? {
-        guard let key = group?.key, let startTime = contentGroupKeysToStartTimes[key] else {
+    private func measureTime(key: String?) -> Double? {
+        guard let key = key, let startTime = contentGroupKeysToStartTimes[key] else {
             return nil
         }
         let measureTime = fabs(startTime.timeIntervalSinceNow)
         contentGroupKeysToStartTimes.removeValue(forKey: key)
         return measureTime
-    }
-}
-
-private extension WMFContentGroup {
-    var eventLoggingMeasureAge: NSNumber? {
-        if appearsOncePerDay {
-            guard let date = midnightUTCDate else {
-                return nil
-            }
-            let now = NSDate().wmf_midnightUTCDateFromLocal
-            return NSNumber(integerLiteral: NSCalendar.wmf_gregorian().wmf_days(from: date, to: now))
-        } else {
-            return nil
-        }
-    }
-
-    var appearsOncePerDay: Bool {
-        switch contentGroupKind {
-        case .continueReading:
-            fallthrough
-        case .relatedPages:
-            return false
-        default:
-            return true
-        }
     }
 }

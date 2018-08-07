@@ -3,11 +3,11 @@ import UIKit
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private var updater: ArticleURLProviderEditControllerUpdater?
-    private let contentGroup: WMFContentGroup?
+    private let feedFunnelContext: FeedFunnelContext
     
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
-        self.contentGroup = contentGroup
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme
         self.dataStore = dataStore
@@ -40,7 +40,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParentViewController {
-            FeedFunnel.shared.logFeedCardClosed(for: contentGroup, maxViewed: maxViewed)
+            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
     }
     
@@ -49,7 +49,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return contentGroup?.eventLoggingLabel
+        return feedFunnelContext.label
     }
 }
 
@@ -68,19 +68,19 @@ extension ArticleURLListViewController {
 extension ArticleURLListViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         super.collectionView(collectionView, didSelectItemAt: indexPath)
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: indexPath.item, maxViewed: maxViewed)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: indexPath.item, maxViewed: maxViewed)
     }
 }
 
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleURLListViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: previewedIndexPath?.item)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: previewedIndexPath?.item)
         return super.previewingContext(previewingContext, viewControllerForLocation: location)
     }
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndexPath?.item, maxViewed: maxViewed)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndexPath?.item, maxViewed: maxViewed)
         super.previewingContext(previewingContext, commit: viewControllerToCommit)
     }
 }
@@ -88,20 +88,20 @@ extension ArticleURLListViewController {
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension ArticleURLListViewController {
     override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: previewedIndexPath?.item)
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndexPath?.item)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
 
     override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, contentGroup: contentGroup, index: previewedIndexPath?.item, animated: true)
+        wmf_push(articleController, context: feedFunnelContext, index: previewedIndexPath?.item, animated: true)
     }
 }
 
 extension ArticleURLListViewController {
     override func didPerformAction(_ action: Action) -> Bool {
         if action.type == .share {
-            FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: action.indexPath.item)
+            FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: action.indexPath.item)
         }
         return super.didPerformAction(action)
     }

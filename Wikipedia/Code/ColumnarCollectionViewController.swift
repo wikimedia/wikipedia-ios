@@ -337,11 +337,15 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
 
 extension ColumnarCollectionViewController {
     func wmf_push(_ viewController: UIViewController, contentGroup: WMFContentGroup?, index: Int?, animated: Bool) {
-        logFeedEventIfNeeded(for: contentGroup, index: index, pushedViewController: viewController)
+        wmf_push(viewController, context: FeedFunnelContext(contentGroup), index: index, animated: animated)
+    }
+    
+    func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
+        logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
         wmf_push(viewController, animated: animated)
     }
 
-    func logFeedEventIfNeeded(for contentGroup: WMFContentGroup?, index: Int?, pushedViewController: UIViewController) {
+    func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {
         guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
             return
         }
@@ -351,12 +355,12 @@ extension ColumnarCollectionViewController {
         if isPushedFromExplore {
             let isArticle = pushedViewController is WMFArticleViewController
             if isArticle {
-                FeedFunnel.shared.logFeedCardReadingStarted(for: contentGroup, index: index)
+                FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
             } else {
-                FeedFunnel.shared.logFeedCardOpened(for: contentGroup)
+                FeedFunnel.shared.logFeedCardOpened(for: context)
             }
         } else if isPushedFromExploreDetail {
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: index, maxViewed: maxViewed)
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
         }
 
     }

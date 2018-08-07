@@ -7,12 +7,12 @@ class NewsViewController: ColumnarCollectionViewController {
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
-    let contentGroup: WMFContentGroup?
+    let feedFunnelContext: FeedFunnelContext
     
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
-        self.contentGroup = contentGroup
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
@@ -32,7 +32,7 @@ class NewsViewController: ColumnarCollectionViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParentViewController {
-            FeedFunnel.shared.logFeedCardClosed(for: contentGroup, maxViewed: maxViewed)
+            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
     }
     
@@ -100,13 +100,13 @@ class NewsViewController: ColumnarCollectionViewController {
         let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
         articleVC.articlePreviewingActionsDelegate = self
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: index)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: index)
         return articleVC
     }
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: contentGroup, index: previewedIndex, maxViewed: maxViewed)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
@@ -193,7 +193,7 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: contentGroup, index: indexPath.item)
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: indexPath.item)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
@@ -212,12 +212,12 @@ extension NewsViewController: EventLoggingEventValuesProviding {
 // MARK: - WMFArticlePreviewingActionsDelegate
 extension NewsViewController {
     override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
-        FeedFunnel.shared.logFeedDetailShareTapped(for: contentGroup, index: previewedIndex)
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
     }
 
     override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, contentGroup: contentGroup, index: previewedIndex, animated: true)
+        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 }
