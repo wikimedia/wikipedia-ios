@@ -38,7 +38,6 @@
         }
         if let measureMaxViewed = measureMaxViewed {
             event["measure_max_viewed"] = min(100, Int(floor(measureMaxViewed)))
-            print("here \(event["measure_max_viewed"])")
         }
         return event
     }
