@@ -19,7 +19,7 @@
     @objc public static let shared = FeedFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSFeed", version: 18225687)
+        super.init(schema: "MobileWikiAppiOSFeed", version: 18280649)
     }
     
     private enum Action: String {
