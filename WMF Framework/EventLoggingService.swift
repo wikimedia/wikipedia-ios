@@ -22,8 +22,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var debugDisableImmediateSend = false
     
-    private static let scheme = "http" // "https" // testing is http
-    private static let host = "deployment.wikimedia.beta.wmflabs.org" // "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
+    private static let scheme = "https" // testing is http
+    private static let host = "meta.wikimedia.org" // testing is deployment.wikimedia.beta.wmflabs.org
     private static let path = "/beacon/event"
     
     private let reachabilityManager: AFNetworkReachabilityManager
