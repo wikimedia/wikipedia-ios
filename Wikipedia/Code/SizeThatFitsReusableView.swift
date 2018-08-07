@@ -8,9 +8,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
     open func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         preservesSuperviewLayoutMargins = false
-        if #available(iOS 11.0, *) {
-            insetsLayoutMarginsFromSafeArea = false
-        }
+        insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         reset()
         layoutSubviews()

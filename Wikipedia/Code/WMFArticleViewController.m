@@ -187,7 +187,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
-        self.automaticallyAdjustsScrollViewInsets = NO;
         self.reachabilityManager = [AFNetworkReachabilityManager manager];
         [self.reachabilityManager startMonitoring];
         self.savingOpenArticleTitleEnabled = YES;
@@ -305,9 +304,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
         _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
-        if (@available(iOS 11.0, *)) {
-            _headerImageView.accessibilityIgnoresInvertColors = YES;
-        }
+        _headerImageView.accessibilityIgnoresInvertColors = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
@@ -364,11 +361,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         scrollView.contentInset = self.scrollView.contentInset;
         scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
     } else {
-        CGFloat top = self.navigationController.topLayoutGuide.length;
-        if (@available(iOS 11.0, *)) {
-            top = self.view.safeAreaInsets.top;
-        }
-        CGFloat bottom = self.bottomLayoutGuide.length;
+        CGFloat top = self.view.safeAreaInsets.top;
+        CGFloat bottom = self.view.safeAreaInsets.bottom;
         scrollView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
         scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
     }
@@ -992,10 +986,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)setupWebView {
     self.webViewController.edgesForExtendedLayout = UIRectEdgeAll;
     self.webViewController.extendedLayoutIncludesOpaqueBars = YES;
-    self.webViewController.automaticallyAdjustsScrollViewInsets = NO;
-    if (@available(iOS 11.0, *)) {
-        self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
+    self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
