@@ -655,8 +655,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             FeedFunnel.shared.logFeedCardPreviewed(for: FeedFunnelContext(previewed.group), index: indexPath.item)
 
             return viewControllerToCommit
-        } else {
+        } else if contentGroup.contentGroupKind != .random {
             return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+        } else {
+            return nil
         }
     }
     
