@@ -67,7 +67,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
 #if WMF_IS_NEW_EVENT_LOGGING_ENABLED
     [[WMFEventLoggingService sharedInstance] start];
 #endif
