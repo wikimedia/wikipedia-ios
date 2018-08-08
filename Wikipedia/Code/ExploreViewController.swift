@@ -9,7 +9,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
         
-        titleView.isAccessibilityElement = false
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
@@ -72,12 +71,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
         longTitleButton.sizeToFit()
         longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        longTitleButton.isAccessibilityElement = false
         return longTitleButton
     }()
     
     lazy var titleView: UIView = {
         let titleView = UIView(frame: longTitleButton.bounds)
         titleView.addSubview(longTitleButton)
+        titleView.isAccessibilityElement = false
         return titleView
     }()
 
