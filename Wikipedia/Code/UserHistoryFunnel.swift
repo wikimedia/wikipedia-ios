@@ -95,10 +95,14 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard isTarget else {
             return
         }
-        
+        guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
+            assertionFailure("Last app version should be set by now")
+            return
+        }
+
         let newSnapshot = event()
         
-        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) else {
+        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) || lastAppVersion != WikipediaAppUtils.appVersion() else {
             // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
         }
