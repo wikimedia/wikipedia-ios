@@ -9,6 +9,6 @@ public class Licenses: NSObject {
    
     @objc static let CCBYSA3URL = URL(string: "https://creativecommons.org/licenses/by-sa/3.0/")
     @objc static let GFDLURL = URL(string: "https://www.gnu.org/licenses/fdl.html")
-    @objc static let saveTermsURL = URL(string:"https://wikimediafoundation.org/wiki/Terms_of_Use")
+    @objc static let saveTermsURL = URL(string:"https://foundation.wikimedia.org/wiki/Terms_of_Use")
 }
 

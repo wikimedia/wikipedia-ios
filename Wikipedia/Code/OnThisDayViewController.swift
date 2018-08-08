@@ -10,12 +10,14 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     let dataStore: MWKDataStore
     let midnightUTCDate: Date
     var initialEvent: WMFFeedOnThisDayEvent?
+    let feedFunnelContext: FeedFunnelContext
     
-    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, theme: Theme) {
+    required public init(events: [WMFFeedOnThisDayEvent], dataStore: MWKDataStore, midnightUTCDate: Date, contentGroup: WMFContentGroup, theme: Theme) {
         self.events = events
         self.dataStore = dataStore
         self.midnightUTCDate = midnightUTCDate
         self.isDateVisibleInTitle = false
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme
         title = CommonStrings.onThisDayTitle
@@ -73,6 +75,13 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         super.viewDidAppear(animated)
         initialEvent = nil
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParentViewController {
+            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
+        }
+    }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     
@@ -97,6 +106,47 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         estimate.precalculated = true
         return estimate
     }
+
+    // MARK: - UIViewControllerPreviewingDelegate
+
+    var previewedIndex: Int?
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
+                return nil
+        }
+
+        let pointInCellCoordinates =  view.convert(location, to: cell)
+        let index = cell.subItemIndex(at: pointInCellCoordinates)
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
+            return nil
+        }
+
+        previewedIndex = index
+
+        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
+            return nil
+        }
+
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
+        let article = previews[index]
+        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        vc.articlePreviewingActionsDelegate = self
+        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
+        if let themeable = vc as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: index)
+        return vc
+    }
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
+        wmf_push(viewControllerToCommit, animated: true)
+    }
+
 }
 
 class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
@@ -197,43 +247,9 @@ extension OnThisDayViewController {
 
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
-    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: indexPath.item)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension OnThisDayViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
-                return nil
-        }
-        
-        let pointInCellCoordinates =  view.convert(location, to: cell)
-        let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
-            return nil
-        }
-        
-        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
-            return nil
-        }
-        
-        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
-        let article = previews[index]
-        let vc = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
-        vc.articlePreviewingActionsDelegate = self
-        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        if let themeable = vc as Themeable? {
-            themeable.apply(theme: self.theme)
-        }
-        return vc
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
     }
 }
 
@@ -245,5 +261,18 @@ extension OnThisDayViewController: EventLoggingEventValuesProviding {
     
     var eventLoggingLabel: EventLoggingLabel? {
         return .onThisDay
+    }
+}
+
+// MARK: - WMFArticlePreviewingActionsDelegate
+extension OnThisDayViewController {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
+        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
+    }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 }

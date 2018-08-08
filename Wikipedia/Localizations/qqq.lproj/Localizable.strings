@@ -297,7 +297,7 @@
 "main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
 "main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
-"main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([https://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}";
+"main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([https://foundation.wikimedia.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
 "main-menu-privacy-policy" = "Button text for showing privacy policy\n{{Identical|Privacy policy}}";
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
@@ -522,7 +522,6 @@
 "settings-support" = "Title for button letting user make a donation.";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
-"share-a-fact-share-menu-item" = "Button label for creating a Share-a-fact card from the current text selection";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
 "share-custom-menu-item" = "Button label for text selection Share\n{{Identical|Share}}";

@@ -6,6 +6,12 @@ protocol ExploreCardViewControllerDelegate {
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
+struct ExploreSaveButtonUserInfo {
+    let indexPath: IndexPath
+    let kind: WMFContentGroupKind?
+    let midnightUTCDate: Date?
+}
+
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
@@ -354,7 +360,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
-            delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article)
+            delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article, with: ExploreSaveButtonUserInfo(indexPath: indexPath, kind: contentGroup?.contentGroupKind, midnightUTCDate: contentGroup?.midnightUTCDate))
         }
         if cell is ArticleLocationExploreCollectionViewCell {
             visibleLocationCellCount += 1
@@ -483,7 +489,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }
@@ -493,11 +499,12 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
                 }
                 return true
             }
         case .share:
+            FeedFunnel.shared.logFeedShareTapped(for: FeedFunnelContext(contentGroup), index: indexPath.item)
             return share(article: article(at: indexPath), articleURL: articleURL(at: indexPath), at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
         default:
             return false
@@ -507,7 +514,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
 }
 
 extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
-    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
 }

@@ -253,7 +253,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<WMFArticleNavigationController *> *navigationControllers = @[exploreNavC, placesNavC, savedNavC, historyNavC, searchNavC];
     for (WMFArticleNavigationController *navC in navigationControllers) {
         navC.extendedLayoutIncludesOpaqueBars = YES;
-        navC.automaticallyAdjustsScrollViewInsets = NO;
         [navC setNavigationBarHidden:YES animated:NO];
     }
     [self setViewControllers:navigationControllers animated:NO];
@@ -1634,7 +1633,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [dialog addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"zero-learn-more-learn-more", nil, nil, @"Read more", @"Button text for learn more about Wikipedia Zero.\n{{Identical|Read more}}")
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction *_Nonnull action) {
-                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"] options:@{} completionHandler:NULL];
+                                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ"] options:@{} completionHandler:NULL];
                                              }]];
 
     [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:dialog animated:YES completion:NULL];
@@ -1697,7 +1696,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore theme:self.theme];
+    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore contentGroup:nil theme:self.theme];
     if (!vc) {
         return;
     }

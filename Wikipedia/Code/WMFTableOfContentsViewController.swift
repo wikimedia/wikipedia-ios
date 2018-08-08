@@ -208,15 +208,13 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
 
         view.wmf_addSubviewWithConstraintsToEdges(tableView)
 
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }
+        tableView.contentInsetAdjustmentBehavior = .never
+        
         tableView.semanticContentAttribute = self.semanticContentAttributeOverride
 
         view.semanticContentAttribute = semanticContentAttributeOverride
 
-        automaticallyAdjustsScrollViewInsets = false
-
+        
         apply(theme: theme)
     }
 

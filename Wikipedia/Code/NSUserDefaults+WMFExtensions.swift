@@ -102,6 +102,16 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         self.synchronize()
     }
+
+    @objc public var wmf_lastAppVersion: String? {
+        get {
+            return string(forKey: "WMFLastAppVersion")
+        }
+        set {
+            set(newValue, forKey: "WMFLastAppVersion")
+            synchronize()
+        }
+    }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
         self.set(date, forKey: WMFFeedRefreshDateKey)
