@@ -336,9 +336,13 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             if let contentView = cardContent?.view {
                 updatedAccessibilityElements.append(contentView)
             }
-            if !footerButton.isHidden {
-                updatedAccessibilityElements.append(footerButton)
-
+            if !footerButton.isHidden, let label = footerButton.titleLabel {
+                let footerElement = UIAccessibilityElement(accessibilityContainer: self)
+                footerElement.isAccessibilityElement = true
+                footerElement.accessibilityLabel = label.text
+                footerElement.accessibilityTraits = UIAccessibilityTraitLink
+                footerElement.accessibilityFrameInContainerSpace = footerButton.frame
+                updatedAccessibilityElements.append(footerElement)
             }
         }
         
