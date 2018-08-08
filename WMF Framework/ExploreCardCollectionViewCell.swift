@@ -333,8 +333,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let customizeActionTitle = WMFLocalizedString("explore-feed-customize-accessibility-title", value: "Customize", comment: "Accessibility title for feed customization")
             let customizeAction = UIAccessibilityCustomAction(name: customizeActionTitle, target: self, selector: #selector(customizationButtonPressed))
             updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: [customizeAction]))
-            customizationButton.accessibilityLabel = customizeActionTitle
-            updatedAccessibilityElements.append(customizationButton)
             if let contentView = cardContent?.view {
                 updatedAccessibilityElements.append(contentView)
             }
