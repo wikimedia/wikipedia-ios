@@ -533,6 +533,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.becomeFirstResponder()
         search()
     }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
+            return false
+        }
+        return true
+    }
 }
 
 extension SearchViewController: CollectionViewHeaderDelegate {
