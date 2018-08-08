@@ -187,7 +187,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(shadow)
 
         
-        accessibilityElements = [extendedView, underBarView, bar]
+        accessibilityElements = [extendedView, underBarView, bar, titleBar]
         
         bar.delegate = self
         
