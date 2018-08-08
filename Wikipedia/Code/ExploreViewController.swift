@@ -419,7 +419,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 
         if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
-            wmf_push(vc, contentGroup: group, index: indexPath.item, animated: true)
+            wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             return
         }
         
@@ -428,7 +428,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 present(vc, animated: true)
                 FeedFunnel.shared.logFeedCardOpened(for: FeedFunnelContext(group))
             } else {
-                wmf_push(vc, contentGroup: group, index: indexPath.item, animated: true)
+                wmf_push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             }
             return
         }
@@ -551,12 +551,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             otdvc.initialEvent = (contentGroup.contentPreview as? [Any])?[indexPath.item] as? WMFFeedOnThisDayEvent
         }
         
+        let context = FeedFunnelContext(contentGroup)
+
         switch contentGroup.detailType {
         case .gallery:
             present(vc, animated: true)
-            FeedFunnel.shared.logFeedCardOpened(for: FeedFunnelContext(contentGroup))
+            FeedFunnel.shared.logFeedCardOpened(for: context)
         default:
-            wmf_push(vc, contentGroup: contentGroup, index: indexPath.item, animated: true)
+            wmf_push(vc, context: context, index: indexPath.item, animated: true)
         }
     }
     
@@ -618,16 +620,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     var eventLoggingLabel: EventLoggingLabel? {
-        return previewed.group?.eventLoggingLabel
-    }
-
-    var contentGroup: WMFContentGroup? {
-        return previewed.group
+        return previewed.context?.label
     }
 
     // MARK: Peek & Pop
 
-    private var previewed: (group: WMFContentGroup?, indexPath: IndexPath?)
+    private var previewed: (context: FeedFunnelContext?, indexPath: IndexPath?)
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard
@@ -639,7 +637,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return nil
         }
 
-        previewed.group = contentGroup
+        previewed.context = FeedFunnelContext(contentGroup)
         
         let convertedLocation = view.convert(location, to: vc.collectionView)
         if let indexPath = vc.collectionView.indexPathForItem(at: convertedLocation), let cell = vc.collectionView.cellForItem(at: indexPath), let viewControllerToCommit = contentGroup.detailViewControllerForPreviewItemAtIndex(indexPath.row, dataStore: dataStore, theme: theme) {
@@ -652,11 +650,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
 
             previewed.indexPath = indexPath
-            FeedFunnel.shared.logFeedCardPreviewed(for: FeedFunnelContext(previewed.group), index: indexPath.item)
+            FeedFunnel.shared.logFeedCardPreviewed(for: previewed.context, index: indexPath.item)
 
             return viewControllerToCommit
-        } else {
+        } else if contentGroup.contentGroupKind != .random {
             return contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme)
+        } else {
+            return nil
         }
     }
     
@@ -664,12 +664,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         if let potd = viewControllerToCommit as? WMFImageGalleryViewController {
             potd.setOverlayViewTopBarHidden(false)
             present(potd, animated: false)
-            FeedFunnel.shared.logFeedCardOpened(for: FeedFunnelContext(previewed.group))
+            FeedFunnel.shared.logFeedCardOpened(for: previewed.context)
         } else if let avc = viewControllerToCommit as? WMFArticleViewController {
             avc.wmf_removePeekableChildViewControllers()
-            wmf_push(avc, contentGroup: contentGroup, index: previewed.indexPath?.item, animated: false)
+            wmf_push(avc, context: previewed.context, index: previewed.indexPath?.item, animated: false)
         } else {
-            wmf_push(viewControllerToCommit, contentGroup: previewed.group, index: previewed.indexPath?.item, animated: true)
+            wmf_push(viewControllerToCommit, context: previewed.context, index: previewed.indexPath?.item, animated: true)
         }
     }
 }
@@ -831,11 +831,11 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
 extension ExploreViewController {
     override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
         super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
-        FeedFunnel.shared.logFeedShareTapped(for: FeedFunnelContext(contentGroup), index: previewed.indexPath?.item)
+        FeedFunnel.shared.logFeedShareTapped(for: previewed.context, index: previewed.indexPath?.item)
     }
 
     override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        wmf_push(articleController, contentGroup: previewed.group, index: previewed.indexPath?.item, animated: true)
+        wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
     }
 }
