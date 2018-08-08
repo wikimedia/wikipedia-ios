@@ -35,8 +35,8 @@ static const NSString *kvo_WMFSettingsViewController_authManager_loggedInUsernam
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString *const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
-static NSString *const WMFSettingsURLTerms = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
+static NSString *const WMFSettingsURLZeroFAQ = @"https://foundation.m.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
+static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.org/wiki/Terms_of_Use/en";
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
@@ -543,7 +543,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ZeroFAQ]
     ]
-                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, nil, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([https://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}")
+                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-zero", nil, nil, @"Wikipedia Zero", @"Header text for the Wikipedia Zero section of the menu. ([https://foundation.wikimedia.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}")
                                                                                    footerText:nil];
     return section;
 }
