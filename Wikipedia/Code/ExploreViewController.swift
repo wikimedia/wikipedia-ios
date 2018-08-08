@@ -9,6 +9,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
         
+        titleView.isAccessibilityElement = false
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
