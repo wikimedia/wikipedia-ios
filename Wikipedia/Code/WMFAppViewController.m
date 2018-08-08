@@ -652,6 +652,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self endMigrationBackgroundTask];
                                 [self checkRemoteAppConfigIfNecessary];
+                                [self startEventLogging];
                                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
@@ -1943,5 +1944,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif
+
+#pragma mark - Event logging
+
+- (void)startEventLogging {
+    [UserHistoryFunnel.shared logSnapshot];
+#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
+    [[WMFEventLoggingService sharedInstance] start];
+#endif
+}
 
 @end
