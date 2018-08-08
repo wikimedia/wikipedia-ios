@@ -26,6 +26,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
     
@@ -35,7 +36,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         showOfflineEmptyViewIfNeeded()
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
-        logFeedImpression()
+        logFeedImpressionAfterDelay()
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
@@ -142,12 +143,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        logFeedImpression()
+        logFeedImpressionAfterDelay()
     }
 
     // MARK: - Event logging
 
-    private func logFeedImpression() {
+    private func logFeedImpressionAfterDelay() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(logFeedImpression), object: nil)
+        perform(#selector(logFeedImpression), with: self, afterDelay: 3)
+    }
+
+    @objc private func logFeedImpression() {
         guard let fetchedResultsController = fetchedResultsController else {
             return
         }
