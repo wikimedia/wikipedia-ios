@@ -65,7 +65,7 @@ To test event logging:
     - has all incoming events (as raw, encoded URI query strings) regardless of their validity
   - `/var/log/eventlogging/eventlogging-processor@client-side-00.log`
   - `/var/log/eventlogging/eventlogging-processor@client-side-01.log`
-    - if there are any issues with the incoming events or their validation, there will be detailed messages in the two eventlogging-processor@-client-side-XX logs  
+    - if there are any issues with the incoming events or their validation, there will be detailed messages in the two `eventlogging-processor@-client-side-XX` logs  
   
   Example:
   - `tail -f /srv/log/eventlogging/all-events.log | grep "<app install id>" | grep "<schema id>"`
