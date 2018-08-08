@@ -295,6 +295,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                     [moc performBlock:^{
                                         BOOL didUpdate = NO;
                                         if ([moc hasChanges]) {
+                                            [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                             NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
                                             NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
                                             didUpdate = afterCount != beforeCount;
