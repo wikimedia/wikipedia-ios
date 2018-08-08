@@ -337,6 +337,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.unprocessedShortcutItem = nil;
 
     [[SessionsFunnel shared] logSessionStart];
+    [UserHistoryFunnel.shared logSnapshot];
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
@@ -345,9 +346,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-        [[WMFEventLoggingService sharedInstance] start];
-#endif
+        [self startEventLogging];
     }
 }
 
@@ -652,13 +651,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self endMigrationBackgroundTask];
                                 [self checkRemoteAppConfigIfNecessary];
-                                [self startEventLogging];
                                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
                                     [[SessionsFunnel shared] logSessionStart];
                                     [[UserHistoryFunnel shared] logStartingSnapshot];
+                                    [[UserHistoryFunnel shared] logSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
@@ -789,9 +788,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)finishResumingApp {
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] start];
-#endif
+    [self startEventLogging];
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
@@ -875,7 +872,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)pauseApp {
     [self logSessionEnd];
-
+    [self stopEventLogging];
+    
     if (![self uiIsLoaded]) {
         return;
     }
@@ -945,6 +943,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 #pragma mark - Logging
+
+- (void)startEventLogging {
+    [[WMFEventLoggingService sharedInstance] start];
+}
+
+- (void)stopEventLogging {
+    [[WMFEventLoggingService sharedInstance] stop];
+}
 
 - (void)logSessionEnd {
     [[SessionsFunnel shared] logSessionEnd];
@@ -1944,14 +1950,5 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [exploreNavController pushViewController:vc animated:YES];
 }
 #endif
-
-#pragma mark - Event logging
-
-- (void)startEventLogging {
-    [UserHistoryFunnel.shared logSnapshot];
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] start];
-#endif
-}
 
 @end

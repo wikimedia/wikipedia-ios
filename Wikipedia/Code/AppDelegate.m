@@ -107,9 +107,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)resumeAppIfNecessary {
     if (self.appNeedsResume) {
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-        [[WMFEventLoggingService sharedInstance] start];
-#endif
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
@@ -167,9 +164,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self updateDynamicIconShortcutItems];
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] stop];
-#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
