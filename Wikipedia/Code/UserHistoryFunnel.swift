@@ -90,15 +90,15 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     @objc public func logSnapshot() {
-        guard let latestSnapshot = latestSnapshot else {
-            return
-        }
         guard isTarget else {
             return
         }
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
             UserDefaults.wmf_userDefaults().wmf_lastAppVersion = WikipediaAppUtils.appVersion()
             log(event())
+            return
+        }
+        guard let latestSnapshot = latestSnapshot else {
             return
         }
 
