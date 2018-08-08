@@ -7,10 +7,12 @@ class NewsViewController: ColumnarCollectionViewController {
     
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
+    let feedFunnelContext: FeedFunnelContext
     
-    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, theme: Theme) {
+    @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
         self.theme = theme
         title = CommonStrings.inTheNewsTitle
@@ -25,6 +27,13 @@ class NewsViewController: ColumnarCollectionViewController {
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
         layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParentViewController {
+            FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
+        }
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -61,6 +70,44 @@ class NewsViewController: ColumnarCollectionViewController {
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+    }
+
+    // MARK: - UIViewControllerPreviewingDelegate
+
+    private var previewedIndex: Int?
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
+                return nil
+        }
+
+        let pointInCellCoordinates =  view.convert(location, to: cell)
+        let index = cell.subItemIndex(at: pointInCellCoordinates)
+        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
+            return nil
+        }
+
+        previewedIndex = index
+
+        guard let story = story(for: indexPath.section), let previews = story.articlePreviews, index < previews.count else {
+            return nil
+        }
+
+        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
+        let article = previews[index]
+        let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
+        articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
+        articleVC.articlePreviewingActionsDelegate = self
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: index)
+        return articleVC
+    }
+
+    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        viewControllerToCommit.wmf_removePeekableChildViewControllers()
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
+        wmf_push(viewControllerToCommit, animated: true)
     }
 }
 
@@ -145,41 +192,9 @@ extension NewsViewController {
 
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
-    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL) {
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: indexPath.item)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension NewsViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-
-        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? NewsCollectionViewCell else {
-            return nil
-        }
-        
-        let pointInCellCoordinates =  view.convert(location, to: cell)
-        let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
-            return nil
-        }
-        
-        guard let story = story(for: indexPath.section), let previews = story.articlePreviews, index < previews.count else {
-            return nil
-        }
-        
-        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
-        let article = previews[index]
-        let articleVC = WMFArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme)
-        articleVC.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        articleVC.articlePreviewingActionsDelegate = self
-        return articleVC
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        wmf_push(viewControllerToCommit, animated: true)
     }
 }
 
@@ -191,5 +206,18 @@ extension NewsViewController: EventLoggingEventValuesProviding {
     
     var eventLoggingLabel: EventLoggingLabel? {
         return .news
+    }
+}
+
+// MARK: - WMFArticlePreviewingActionsDelegate
+extension NewsViewController {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
+        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
+    }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 }
