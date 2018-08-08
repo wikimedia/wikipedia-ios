@@ -3,6 +3,7 @@
 #import <WMF/WMF-Swift.h>
 
 EventLoggingCategory const EventLoggingCategoryFeed = @"feed";
+EventLoggingCategory const EventLoggingCategoryFeedDetail = @"feed_detail";
 EventLoggingCategory const EventLoggingCategoryHistory = @"history";
 EventLoggingCategory const EventLoggingCategoryPlaces = @"places";
 EventLoggingCategory const EventLoggingCategoryArticle = @"article";

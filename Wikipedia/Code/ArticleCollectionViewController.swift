@@ -101,6 +101,17 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
     }
+
+    var eventLoggingIndex: NSNumber? {
+        guard let index = previewedIndexPath?.item else {
+            return nil
+        }
+        return NSNumber(value: index)
+    }
+
+    var previewedIndexPath: IndexPath?
+
+    // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
@@ -189,6 +200,8 @@ extension ArticleCollectionViewController {
         else {
             return nil
         }
+
+        previewedIndexPath = indexPath
 
         let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self

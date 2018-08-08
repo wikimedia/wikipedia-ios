@@ -9,7 +9,7 @@ internal struct CellArticle {
 }
 
 public protocol SideScrollingCollectionViewCellDelegate: class {
-    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath)
 }
 
 
@@ -176,7 +176,7 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
         guard let articleURL = selectedArticle.articleURL else {
             return
         }
-        selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL:articleURL)
+        selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL: articleURL, at: indexPath)
     }
 }
 

@@ -11,6 +11,7 @@ typedef NSString *EventLoggingCategory NS_TYPED_EXTENSIBLE_ENUM;
 typedef NSString *EventLoggingLabel NS_TYPED_EXTENSIBLE_ENUM;
 
 extern EventLoggingCategory const EventLoggingCategoryFeed;
+extern EventLoggingCategory const EventLoggingCategoryFeedDetail;
 extern EventLoggingCategory const EventLoggingCategoryHistory;
 extern EventLoggingCategory const EventLoggingCategoryPlaces;
 extern EventLoggingCategory const EventLoggingCategoryArticle;
