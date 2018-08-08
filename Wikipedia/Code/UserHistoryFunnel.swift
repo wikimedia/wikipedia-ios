@@ -94,7 +94,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
-            UserDefaults.wmf_userDefaults().wmf_lastAppVersion = WikipediaAppUtils.appVersion()
             log(event())
             return
         }
