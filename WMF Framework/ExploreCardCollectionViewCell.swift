@@ -172,6 +172,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 titleLabel.isHidden = true
                 subtitleLabel.isHidden = true
                 footerButton.isHidden = true
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, undoButton)
             } else {
                 cardContent?.view.isHidden = false
                 undoLabel.isHidden = true
