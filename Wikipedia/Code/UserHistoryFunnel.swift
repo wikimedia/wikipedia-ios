@@ -82,6 +82,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         EventLoggingService.shared.lastLoggedSnapshot = eventData as NSCoding
+        UserDefaults.wmf_userDefaults().wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
