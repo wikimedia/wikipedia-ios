@@ -342,10 +342,6 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
 }
 
 extension ColumnarCollectionViewController {
-    func wmf_push(_ viewController: UIViewController, contentGroup: WMFContentGroup?, index: Int?, animated: Bool) {
-        wmf_push(viewController, context: FeedFunnelContext(contentGroup), index: index, animated: animated)
-    }
-    
     func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
         logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
         wmf_push(viewController, animated: animated)
