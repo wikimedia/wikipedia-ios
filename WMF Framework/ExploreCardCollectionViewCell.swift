@@ -194,12 +194,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         
         var customizationButtonDeltaWidthMinusMargins: CGFloat = 0
         if !customizationButton.isHidden {
-            var customizationButtonFrame = customizationButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: 44, horizontalAlignment: buttonHorizontalAlignment, apply: false)
-            let halfWidth = round(0.5 * customizationButtonFrame.width)
-            customizationButtonFrame.origin.x = isRTL ? layoutMargins.left - halfWidth : size.width - layoutMargins.right - halfWidth
-            customizationButtonDeltaWidthMinusMargins = halfWidth
+            let customizationButtonSize = CGSize(width: 50, height: 50)
+            let customizationButtonNudgeWidth = round(0.55 * customizationButtonSize.width)
+            customizationButtonDeltaWidthMinusMargins = customizationButtonNudgeWidth
             if apply {
-                customizationButton.frame = customizationButtonFrame
+                let originX = isRTL ? layoutMargins.left - customizationButtonSize.width + customizationButtonNudgeWidth : size.width - layoutMargins.right - customizationButtonNudgeWidth
+                let originY = origin.y - round(0.25 * customizationButtonSize.height)
+                let customizationButtonOrigin = CGPoint(x: originX, y: originY)
+                customizationButton.frame = CGRect(origin: customizationButtonOrigin, size: customizationButtonSize)
             }
         }
         
