@@ -487,9 +487,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             let entry = recentSearches?.entries[indexPath.item]
         else {
             cell.titleLabel.text = WMFLocalizedString("search-recent-empty", value: "No recent searches yet", comment: "String for no recent searches available")
+            cell.isUserInteractionEnabled = false
             return
         }
         cell.titleLabel.text = entry.searchTerm
+        cell.isUserInteractionEnabled = true
     }
     
     override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
