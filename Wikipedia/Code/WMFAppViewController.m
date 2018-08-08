@@ -657,7 +657,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                     self.migrationActive = NO;
                                     [[SessionsFunnel shared] logSessionStart];
                                     [[UserHistoryFunnel shared] logStartingSnapshot];
-                                    [[UserHistoryFunnel shared] logSnapshot];
                                     if (!self.isWaitingToResumeApp) {
                                         [self resumeApp:^{
                                             [self hideSplashViewAnimated:!didShowOnboarding];
