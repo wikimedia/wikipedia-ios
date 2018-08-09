@@ -450,6 +450,7 @@
 "reading-list-unable-to-update" = "Ett oväntat fel uppstod när din läslista uppdaterades. Försök igen senare.";
 "reading-list-with-provided-name-not-found" = "En läslista med namnet \"$1\" hittades inte. Se till att du har rätt namn.";
 "reading-lists-article-added-confirmation" = "Artikeln lades till i \"$1\"";
+"reading-lists-article-api-failure" = "Kunde inte synkronisera artikel";
 "reading-lists-article-not-synced" = "Inte synkroniserad";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgränsen har överstigits, kan inte synkronisera artikel";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listgränsen har överstigits, kan inte synkronisera artikel";
@@ -541,7 +542,6 @@
 "settings-support" = "Stöd Wikipedia";
 "settings-title" = "Inställningar";
 "share-a-fact-made-with" = "Skapad med Wikipedia-appen";
-"share-a-fact-share-menu-item" = "Dela-ett-faktum…";
 "share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
 "share-building" = "Bygger Dela-ett-faktum-kort…";
 "share-custom-menu-item" = "Dela...";
