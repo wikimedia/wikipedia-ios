@@ -108,7 +108,7 @@
     }
 
     public func logFeedCardClosed(for context: FeedFunnelContext?, maxViewed: Double) {
-        log(event(category: .feedDetail, label: context?.label, action: .closeCard, measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed))
+        log(event(category: .feedDetail, label: context?.label, action: .closeCard, measureAge: measureAge(for: context?.midnightUTCDate), measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed))
     }
 
     public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?, midnightUTCDate: Date?) {
