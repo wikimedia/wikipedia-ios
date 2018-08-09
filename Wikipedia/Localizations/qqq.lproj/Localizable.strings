@@ -134,6 +134,7 @@
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
+"explore-feed-customize-accessibility-title" = "Accessibility title for feed customization";
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-card-hidden-title" = "Title for button that appears in place of feed card hidden by user via the overflow button";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
