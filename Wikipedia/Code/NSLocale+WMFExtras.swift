@@ -4,10 +4,6 @@ let wmf_acceptLanguageHeaderForPreferredLanguagesGloabl: String = {
     return NSLocale.wmf_acceptLanguageHeaderForLanguageCodes(NSLocale.wmf_preferredLanguageCodes)
 }()
 
-struct MediaWikiAcceptLanguageMapping: Codable {
-    
-}
-
 let wmf_mediaWikiCodeLookupDefaultKeyGlobal = "default"
 let wmf_mediaWikiCodeLookupGlobal: [String: [String: [String: String]]] = {
     guard
@@ -80,8 +76,8 @@ extension NSLocale {
                     }
                 }
                 
-                if !uniqueLanguageCodes.contains(languageCode) {
-                    uniqueLanguageCodes.append(languageCode)
+                if !uniqueLanguageCodes.contains(preferredLanguage) {
+                    uniqueLanguageCodes.append(preferredLanguage)
                 }
             }
         }
