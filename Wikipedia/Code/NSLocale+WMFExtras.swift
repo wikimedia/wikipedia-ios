@@ -75,9 +75,9 @@ extension NSLocale {
                         }
                     }
                 }
-                
-                if !uniqueLanguageCodes.contains(preferredLanguage) {
-                    uniqueLanguageCodes.append(preferredLanguage)
+                let lowercased = preferredLanguage.lowercased()
+                if !uniqueLanguageCodes.contains(lowercased) {
+                    uniqueLanguageCodes.append(lowercased)
                 }
             }
         }
