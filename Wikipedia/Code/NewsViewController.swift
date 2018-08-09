@@ -193,7 +193,13 @@ extension NewsViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension NewsViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: indexPath.item, maxViewed: maxViewed)
+        let index: Int?
+        if let indexPath = collectionView.indexPath(for: sideScrollingCollectionViewCell) {
+            index = indexPath.section - 1
+        } else {
+            index = nil
+        }
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: index, maxViewed: maxViewed)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
