@@ -123,8 +123,8 @@ extension XCUIApplication {
         let start = Date()
         var keys = items.map{$0.key}
         scrollLoop: repeat {
-            let element = otherElements.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
-            if element.exists {
+            let element = links.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
+            if element.exists && element.isHittable {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
                     wmf_scrollElementToTop(element: element)
                     item.success(element)
