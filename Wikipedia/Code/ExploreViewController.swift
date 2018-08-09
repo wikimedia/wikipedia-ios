@@ -157,7 +157,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
             let group = fetchedResultsController.object(at: indexPath)
-            guard let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+            guard group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
