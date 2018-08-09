@@ -136,8 +136,7 @@
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-history-message" = "Registo do que esteve a ler";
 "empty-no-history-title" = "Não há histórico para mostrar";
-// Fuzzy
-"empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
+"empty-no-reading-lists-message" = "Criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram guardadas páginas nesta lista";
@@ -449,6 +448,7 @@
 "reading-list-unable-to-update" = "Ocorreu um erro inesperado ao atualizar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
+"reading-lists-article-api-failure" = "Não é possível sincronizar o artigo";
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
@@ -540,7 +540,6 @@
 "settings-support" = "Apoie a Wikipédia";
 "settings-title" = "Definições";
 "share-a-fact-made-with" = "Feito com a aplicação Wikipédia";
-"share-a-fact-share-menu-item" = "Partilhar um facto...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "A criar um cartão \"Partilhar um facto\"...";
 "share-custom-menu-item" = "Partilhar...";

@@ -461,6 +461,7 @@
 "reading-list-unable-to-update" = "Ocorreu um erro inesperado ao atualizar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
+"reading-lists-article-api-failure" = "Não é possível sincronizar o artigo";
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
@@ -552,7 +553,6 @@
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
-"share-a-fact-share-menu-item" = "Compartilhe um fato...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "Construindo um cartão de compartilhamento...";
 "share-custom-menu-item" = "Compartilhar...";
