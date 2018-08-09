@@ -70,14 +70,14 @@
         logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
-    @objc public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
+    public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
         let date = context?.midnightUTCDate
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
         logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
-    @objc public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
+    public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
         let date = context?.midnightUTCDate
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)

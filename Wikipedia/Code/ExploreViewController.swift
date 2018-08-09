@@ -844,4 +844,13 @@ extension ExploreViewController {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
     }
+
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+        if didSave {
+            ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        }
+    }
 }
