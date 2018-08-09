@@ -91,7 +91,11 @@
     }
     
     // - MARK: Generic article save & unsave actions
-
+    
+    private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
+        log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: language)
+    }
+    
     private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
         log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_language)
     }
