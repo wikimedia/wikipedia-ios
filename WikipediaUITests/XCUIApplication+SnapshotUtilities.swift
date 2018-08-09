@@ -86,7 +86,7 @@ extension XCUIApplication {
     }
     
     func wmf_tapFirstNavigationBarBackButton() -> Bool {
-        let backButtonTapped = wmf_tapFirstButton(withTranslationIn: ["back", "back-button-accessibility-label"])
+        let backButtonTapped = wmf_tapFirstButton(withTranslationIn: ["back", "back-button-accessibility-label", "home-title"])
         guard !backButtonTapped else {
             return backButtonTapped
         }
