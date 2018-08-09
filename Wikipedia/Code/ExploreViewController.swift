@@ -162,10 +162,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             }
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
             let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
-            let itemOrigin = itemFrame.origin
+            let itemCenter = CGPoint(x: itemFrame.midX, y: itemFrame.midY)
             let visibleRect = CGRect(origin: visibleRectOrigin, size: visibleRectSize)
-            let itemMaxYPoint = CGPoint(x: itemFrame.origin.x, y: itemFrame.maxY)
-            let isUnobstructed = visibleRect.contains(itemOrigin) || visibleRect.contains(itemMaxYPoint)
+            let isUnobstructed = visibleRect.contains(itemCenter)
             guard isUnobstructed else {
                 continue
             }
