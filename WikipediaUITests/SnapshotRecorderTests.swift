@@ -164,11 +164,11 @@ class WikipediaUITests: XCTestCase {
                 }),
 
                 // Top read
-                ScrollItem(key: "explore-most-read-heading", success: { element in
+                ScrollItem(key: "explore-most-read-generic-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenMostRead")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("MostReadDetail")
-                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                    _ = self.app.wmf_tapFirstCloseButton()
                 }),
 
                 // On this day
@@ -176,7 +176,7 @@ class WikipediaUITests: XCTestCase {
                     self.wmf_snapshot("ExploreScreenOnThisDay")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("OnThisDayDetail")
-                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                    _ = self.app.wmf_tapFirstCloseButton()
                 }),
                 
                 // Nearby
@@ -210,7 +210,7 @@ class WikipediaUITests: XCTestCase {
                     self.wmf_snapshot("ExploreScreenInTheNews")
                     _ = element.wmf_tap()
                     self.wmf_snapshot("InTheNewsDetail")
-                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                    _ = self.app.wmf_tapFirstCloseButton()
                 })
             ]
         )
