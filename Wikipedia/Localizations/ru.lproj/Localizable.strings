@@ -467,6 +467,7 @@
 "reading-list-unable-to-update" = "При обновлении списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
+"reading-lists-article-api-failure" = "Не удаётся синхронизировать статью";
 "reading-lists-article-not-synced" = "Не синхронизировано";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Лимит статьи превышен, невозможно синхронизировать статью";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Лимит списка превышен, невозможно синхронизировать список";
@@ -558,7 +559,6 @@
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
 "share-a-fact-made-with" = "Создано с помощью Википедии";
-"share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-building" = "Сформировать карточку \"Поделись фактом\"...";
 "share-custom-menu-item" = "Поделиться...";
