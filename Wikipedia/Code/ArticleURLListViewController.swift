@@ -74,13 +74,14 @@ extension ArticleURLListViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleURLListViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let vc = super.previewingContext(previewingContext, viewControllerForLocation: location)
         FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: previewedIndexPath?.item)
-        return super.previewingContext(previewingContext, viewControllerForLocation: location)
+        return vc
     }
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndexPath?.item, maxViewed: maxViewed)
         super.previewingContext(previewingContext, commit: viewControllerToCommit)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndexPath?.item, maxViewed: maxViewed)
     }
 }
 
