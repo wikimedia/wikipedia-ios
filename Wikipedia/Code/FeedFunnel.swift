@@ -103,8 +103,8 @@
     }
 
     public func logArticleInFeedDetailReadingStarted(for context: FeedFunnelContext?, index: Int?, maxViewed: Double) {
+        log(event(category: .feedDetail, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index, measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed))
         startMeasuringTime(for: context?.label, key: context?.key)
-        log(event(category: .feedDetail, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index, measureMaxViewed: maxViewed))
     }
 
     public func logFeedCardClosed(for context: FeedFunnelContext?, maxViewed: Double) {
