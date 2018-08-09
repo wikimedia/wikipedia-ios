@@ -116,7 +116,7 @@
     }
 
     public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?) {
-        logFeedDetailShareTapped(for: context, index: index)
+        log(event(category: .feedDetail, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index))
     }
 
     // MARK: Utilities
