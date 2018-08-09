@@ -126,8 +126,7 @@
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-history-message" = "Тука се заведува сè имате читано";
 "empty-no-history-title" = "Нема историја";
-// Fuzzy
-"empty-no-reading-lists-message" = "Стиснете на синиот плус (+) за да правите списоци за читање за местата што сакате да ги посетите, омилени теми и многу друго";
+"empty-no-reading-lists-message" = "Правете списоци за читање за местата што сакате да ги посетите, омилени теми и многу друго";
 "empty-no-reading-lists-title" = "Организирајте ги зачуваните статии со списоци за читање";
 "empty-no-saved-pages-in-reading-list-message" = "Зачувајте ги страниците во списоков за да ги видите наведени овде";
 "empty-no-saved-pages-in-reading-list-title" = "Не зачувавте ниедна страница во списоков";
@@ -439,6 +438,7 @@
 "reading-list-unable-to-update" = "Се појави неочекувана грешка при подновата на вашиот список за читање. Обидете се подоцна.";
 "reading-list-with-provided-name-not-found" = "Не пронајдов список за читање наречен „$1“. Проверете дали името ви е исправно.";
 "reading-lists-article-added-confirmation" = "Статијата е додадена во „$1“";
+"reading-lists-article-api-failure" = "Не можам да ја усогласам статијата.";
 "reading-lists-article-not-synced" = "Неусогласена";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Надминат е дозволениот број статии. Не можам да ја усогласам статијата.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Границата е надмината. Не можев да ја усогласам статијата.";
@@ -530,7 +530,6 @@
 "settings-support" = "Поддржете ја Википедија";
 "settings-title" = "Нагодувања";
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";
-"share-a-fact-share-menu-item" = "Сподели факт...";
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-building" = "Создавам карта за споделување факт...";
 "share-custom-menu-item" = "Сподели...";

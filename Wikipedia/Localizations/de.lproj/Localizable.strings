@@ -441,6 +441,7 @@
 "reading-list-unable-to-update" = "Beim Aktualisieren deiner Leseliste ist ein unerwarteter Fehler aufgetreten. Bitte später erneut versuchen.";
 "reading-list-with-provided-name-not-found" = "Eine Leseliste mit dem Namen „$1“ wurde nicht gefunden. Bitte stelle sicher, dass du den richtigen Namen hast.";
 "reading-lists-article-added-confirmation" = "Artikel zu „$1“ hinzugefügt";
+"reading-lists-article-api-failure" = "Der Artikel konnte nicht synchronisiert werden";
 "reading-lists-article-not-synced" = "Nicht synchronisiert";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikelgrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listengrenze überschritten. Der Artikel konnte nicht synchronisiert werden.";
@@ -532,7 +533,6 @@
 "settings-support" = "Wikipedia unterstützen";
 "settings-title" = "Einstellungen";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
-"share-a-fact-share-menu-item" = "Teile-einen-Fakt …";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
 "share-custom-menu-item" = "Teilen …";
