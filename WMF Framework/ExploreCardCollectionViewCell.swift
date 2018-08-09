@@ -172,6 +172,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 titleLabel.isHidden = true
                 subtitleLabel.isHidden = true
                 footerButton.isHidden = true
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, undoButton)
             } else {
                 cardContent?.view.isHidden = false
                 undoLabel.isHidden = true
@@ -317,5 +318,34 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
     @objc func undoButtonPressed() {
         delegate?.exploreCardCollectionViewCellWantsToUndoCustomization(self)
+    }
+    
+    // MARK - Accessibility
+    
+    override open func updateAccessibilityElements() {
+        var updatedAccessibilityElements: [Any] = []
+
+        if isCollapsed {
+            updatedAccessibilityElements.append(undoLabel)
+            updatedAccessibilityElements.append(undoButton)
+        } else {
+            let groupedLabels = [titleLabel, subtitleLabel]
+            let customizeActionTitle = WMFLocalizedString("explore-feed-customize-accessibility-title", value: "Customize", comment: "Accessibility title for feed customization")
+            let customizeAction = UIAccessibilityCustomAction(name: customizeActionTitle, target: self, selector: #selector(customizationButtonPressed))
+            updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: [customizeAction]))
+            if let contentView = cardContent?.view {
+                updatedAccessibilityElements.append(contentView)
+            }
+            if !footerButton.isHidden, let label = footerButton.titleLabel {
+                let footerElement = UIAccessibilityElement(accessibilityContainer: self)
+                footerElement.isAccessibilityElement = true
+                footerElement.accessibilityLabel = label.text
+                footerElement.accessibilityTraits = UIAccessibilityTraitLink
+                footerElement.accessibilityFrameInContainerSpace = footerButton.frame
+                updatedAccessibilityElements.append(footerElement)
+            }
+        }
+        
+        accessibilityElements = updatedAccessibilityElements
     }
 }

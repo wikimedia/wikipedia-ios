@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bowleerin
 // Author: Cathypilot0117
+// Author: Chixvv
 // Author: Cwlin0416
 // Author: Eric850130
 // Author: Hello903hello
@@ -110,7 +111,7 @@
 "article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "back-button-accessibility-label" = "返回";
-"back-button-popover-title" = "返回的分頁";
+"back-button-popover-title" = "點擊返回";
 "button-done" = "已完成";
 "button-next" = "下一步";
 "button-ok" = "確定";
@@ -140,8 +141,7 @@
 "empty-no-feed-title" = "無網路連線";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "empty-no-history-title" = "無歷史可顯示";
-// Fuzzy
-"empty-no-reading-lists-message" = "輕觸藍色的「+」來建立前往旅行的地點、喜愛的主題，以及更多其它事物的閱讀清單";
+"empty-no-reading-lists-message" = "建立前往旅行的地點、喜愛的主題，以及更多其它事物的清單";
 "empty-no-reading-lists-title" = "組織已以閱讀清單儲存條目";
 "empty-no-saved-pages-in-reading-list-message" = "儲存頁面至此清單，以查看在此呈現的頁面";
 "empty-no-saved-pages-in-reading-list-title" = "沒有頁面儲存至此清單";
@@ -453,6 +453,7 @@
 "reading-list-unable-to-update" = "更新您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-with-provided-name-not-found" = "找不到名為「$1」的閱讀清單。請確定是正確的名稱。";
 "reading-lists-article-added-confirmation" = "條目已添加至「$1」";
+"reading-lists-article-api-failure" = "無法同步條目";
 "reading-lists-article-not-synced" = "尚未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超出條目上限，無法同步條目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超出清單上限，無法同步條目";
@@ -544,7 +545,6 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
-"share-a-fact-share-menu-item" = "分享預覽…";
 "share-article-name-on-wikipedia" = " \"$1\"  在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-custom-menu-item" = "分享...";

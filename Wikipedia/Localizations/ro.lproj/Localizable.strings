@@ -181,8 +181,6 @@
 "settings-primary-language-details" = "Prima poziție din această listă reprezintă limba principală a aplicației. Modificarea acestei limbi va conduce la modificarea conținutului zilnic (precum Articole de calitate) afișat în secțiunea Explorare.";
 "settings-support" = "Susțineți Wikipedia";
 "settings-title" = "Setări";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Distribuie-o-informație";
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
 // Fuzzy
 "share-custom-menu-item" = "Distribuie";

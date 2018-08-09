@@ -56,7 +56,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             isTitleShrinkingEnabled = _displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
+            updateAccessibilityElements()
         }
+    }
+    
+    private func updateAccessibilityElements() {
+        let titleElement = displayType == .largeTitle ? titleBar : bar
+        accessibilityElements = [titleElement, extendedView, underBarView]
     }
     
     @objc public func updateNavigationItems() {
@@ -186,8 +192,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(statusBarUnderlay)
         addSubview(shadow)
 
-        
-        accessibilityElements = [extendedView, underBarView, bar]
+        updateAccessibilityElements()
         
         bar.delegate = self
         

@@ -136,8 +136,7 @@
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
-// Fuzzy
-"empty-no-reading-lists-message" = "Feu un toc a la '+' blava per crear llistes de lectura de llocs on viatjar, temes preferits i molt més";
+"empty-no-reading-lists-message" = "Crea llistes de llocs on viatjar, temes preferits i molt més";
 "empty-no-reading-lists-title" = "Organitzeu els articles desats amb les llistes de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Desa les pàgines a aquesta llista perquè hi apareguin";
 "empty-no-saved-pages-in-reading-list-title" = "No s'han desat pàgines a la llista";
@@ -388,6 +387,7 @@
 "reading-list-add-hint-title" = "Voleu afegir «$1» a una llista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, afegeix-los a les meves llistes de lectura";
 "reading-list-add-saved-title" = "S'han trobat articles desats";
+"reading-list-api-error-entry-limit" = "No s'ha sincronitzat l'entrada perquè heu arribat al límit de nombre d'entrades en aquesta llista.";
 "reading-list-api-error-generic" = "S'ha produït un error no esperat mentre se sincronitzaven les vostres llistes de lectura.";
 "reading-list-api-error-list-limit" = "La llista no està sincronitzada perquè heu arribat al límit de nombre de llistes sincronitzades.";
 "reading-list-create-new-list-button-title" = "Crea una llista de lectura";
@@ -402,9 +402,12 @@
 "reading-list-exists-with-same-name" = "El nom de la llista de lectura ja és en ús";
 "reading-list-generic-error" = "S'ha produït un error inesperat mentre s'actualitzaven les llistes de lectura.";
 "reading-list-keep-button-title" = "Sí, conserva els articles en el dispositiu";
+"reading-list-keep-subtitle" = "Hi ha articles sincronitzats al vostre compte de Viquipèdia. Voleu conservar-los en aquest dispositiu quan finalitzeu la sessió?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Desactivar la sincronització suprimirà aquest articles del vostre compte. Si els suprimiu del vostre dispositiu, no els podreu recuperar activant la sincronització de nou més endavant.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "No, suprimeix els articles del dispositiu i del meu compte de Viquipèdia";
 "reading-list-keep-title" = "Voleu mantenir els articles desats al dispositiu?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Ordena els articles";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Hi ha un límit de 5000 articles no ordenats. Ordeneu els vostres articles actuals en llistes per continuar amb la sincronització d'articles no ordenats.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "S'ha arribat el límit per als articles no ordenats";
 "reading-list-list-limit-exceeded-message" = "La llista de lectura i els articles que hi ha desats no se sincronitzaran. Reduïu el nombre de llistes a $1 per resumir la sincronització de la llista.";
 "reading-list-list-limit-exceeded-title" = "Heu excedit el límit de $1 llistes de lectura per compte.";
@@ -412,6 +415,7 @@
 "reading-list-login-button-title" = "Inicieu una sessió per sincronitzar els vostres articles desats";
 "reading-list-login-or-create-account-button-title" = "Inicia una sessió o crea un compte";
 "reading-list-login-or-create-account-title" = "Inicia una sessió per a sincronitzar els articles desats";
+"reading-list-login-subtitle" = "Inicieu una sessió o creeu un compte per permetre que els vostres articles desats i llistes de lectura puguin sincronitzar-se entre dispositius i desar-se a les vostres preferències d'usuari.";
 "reading-list-login-title" = "Voleu sincronitzar els articles desats?";
 "reading-list-name-user-created-annotation" = "_[usuari creat]";
 "reading-list-new-list-description-placeholder" = "descripció curta opcional";
@@ -419,6 +423,7 @@
 "reading-list-sync-disabled-panel-message" = "S'ha inhabilitat la sincronització de la llista de lectura per al vostre compte de Viquipèdia a un altre dispositiu. Podeu tornar a habilitar la sincronització actualitzant la configuració.";
 "reading-list-sync-disabled-panel-title" = "S'ha inhabilitat la sincronització";
 "reading-list-sync-enable-button-title" = "Habilita la sincronització";
+"reading-list-sync-enable-subtitle" = "Els articles desats i les llistes de lectura poden desar-se al vostre compte de Viquipèdia i sincronitzar-se entre aplicacions Viquipèdia.";
 "reading-list-sync-enable-title" = "Voleu activar la sincronització de les llistes de lectura?";
 "reading-list-sync-enabled-panel-message" = "S'ha habilitat la sincronització de llistes de lectura per a aquest compte. Per a aturar la sincronització podeu desactivar-ho actualitzant la configuració.";
 "reading-list-sync-enabled-panel-title" = "La sincronització és habilitada en aquest compte";
@@ -429,6 +434,7 @@
 "reading-list-unable-to-update" = "S'ha produït un error inesperat mentre s'actualitzava la llista de lectura. Torneu-ho a provar més tard.";
 "reading-list-with-provided-name-not-found" = "No s'ha trobat una llista de lectura amb el nom «$1». Assegureu-vos que teniu el nom correcte.";
 "reading-lists-article-added-confirmation" = "Article afegit a «$1»";
+"reading-lists-article-api-failure" = "No es pot sincronitzar l'article";
 "reading-lists-article-not-synced" = "No sincronitzat";
 "reading-lists-article-not-synced-article-limit-exceeded" = "S'ha excedit el límit d'articles. No es pot sincronitzar l'article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "S'ha excedit el límit de llistes. No es pot sincronitzar l'article";
@@ -519,7 +525,6 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
-"share-a-fact-share-menu-item" = "Compateix-un-fet…";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-custom-menu-item" = "Comparteix...";

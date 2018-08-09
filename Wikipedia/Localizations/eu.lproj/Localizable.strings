@@ -155,6 +155,7 @@
 "explore-feed-preferences-customize-explore-feed" = "Arakatzeko iturriak pertsonalizatu";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Arakatzeko iturriak pertsonalizatu";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Txartela mota bat ezkutatzeak Arakatze iturrian ez agertzea eragingo du.";
+"explore-feed-preferences-explore-tab" = "Arakatzaile leihoa";
 "explore-feed-preferences-featured-article-description" = "Eguneko Wikipediako artikulu aipagarria";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Itzalita";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Denak piztuta";
@@ -175,7 +176,14 @@
 "explore-feed-preferences-related-pages-description" = "Irakurketa historian oinarritutako iradokizunak";
 "explore-feed-preferences-show-continue-reading-title" = "Jarraitu irakurtzen txartela erakutsi";
 "explore-feed-preferences-show-featured-article-footer-text" = "Artikulu nabarmenduaren txartela itzaltzeak txartela itzaltzea eragingo du erabilgarri dauden hizkuntza guztietan";
+"explore-feed-preferences-show-places-title" = "Erakutsi Lekuen txartela";
 "explore-feed-preferences-top-read-description" = "Egunean gehien irakurtzen diren artikuluak";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Itzali Arakatzaile jarioa";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Itzali Arakatzaile jarioa?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Arakatzailea Itzali";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Itxi nahi duzu Arakatzaile leihoa?";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Arakatzailea Piztu";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Piztu nahi duzu Arakatzaile leihoa?";
 "explore-feed-preferences-undo-customization" = "Desegin";
 "explore-hide-card-prompt" = "Txartel hau ezkutatu";
 "explore-main-page-description" = "Wikimedia proiektuen orrialde nagusia";
@@ -415,6 +423,7 @@
 "reading-list-unable-to-update" = "Espero gabeko errorea gertatu da zure irakurketa zerrenda eguneratzen ari zen bitartean. Mesedez, saia ezazu geroago.";
 "reading-list-with-provided-name-not-found" = "$1 izendatutako irakurketa zerrenda ez da aurkitu. Mesedez, ziurta ezazu izen zuzena jarri duzula.";
 "reading-lists-article-added-confirmation" = "\"$1\"-ra gehitu da artikulua";
+"reading-lists-article-api-failure" = "Ezin da artikulua sinkronizatu";
 "reading-lists-article-not-synced" = "Sinkronizatu gabe";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikulu-muga gaindituta, ezin da artikulua sinkronizatu";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Zerrenda-muga gaindituta, ezin da artikulua sinkronizatu";
@@ -488,6 +497,7 @@
 "settings-notifications-trending" = "Modan dauden gaurko gertakariak";
 "settings-primary-language" = "Primarioa";
 "settings-primary-language-details" = "Zerrenda honetan erabilitako lehenengo hizkuntza aplikazio honetarako ere erabiltzen den hizkuntza da. Hizkuntza hau aldatzerakoan, eguneroko edukia ere aldatuko da (adibidez, Nabarmendutako Artikulua) Arakatzailean agertzen dena.";
+"settings-search-open-app-on-search" = "Zabaldu aplikazioa Bilaketa leihoan";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Baimendu Wikimediari zure gordetako artikuluak eta irakurketa-zerrendak zure kontuko lehentasunetan gordetzen saioa sinkronizatzeko hasten duzunean.";
 "settings-storage-and-syncing-enable-sync-title" = "Gordetako artikuluak eta zerrendak sinkronizatu";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Zure gordetako artikuluak ezabatzean zure erabiltzaile-kontutik ere ezabatuko dira, bai sinkronizatzea piztuta edukita, zein gailu honetatik. Ezingo duzu ezer berreskuratu.";
@@ -504,7 +514,6 @@
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";
-"share-a-fact-share-menu-item" = "Gertakaria-partekatu...";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedian:";
 "share-building" = "Gertakaria-Partekatu txartela sortzen...";
 "share-custom-menu-item" = "Partekatu...";
