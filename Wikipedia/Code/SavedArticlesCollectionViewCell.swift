@@ -130,7 +130,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
-        let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         let labelsAdditionalSpacing: CGFloat = 20
         if !isImageViewHidden {
@@ -166,9 +165,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
                 origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
             }
         } else {
-            let horizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
-            origin.y += titleLabelFrame.layoutHeight(with: 0)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, spacing: 0, apply: apply)
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText

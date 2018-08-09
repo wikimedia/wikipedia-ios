@@ -11,7 +11,7 @@
 
 NSString *const WMFExploreFeedContentControllerBusyStateDidChange = @"WMFExploreFeedContentControllerBusyStateDidChange";
 const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
-static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 12;
+static const NSTimeInterval WMFFeedRefreshTimeoutInterval = 60;
 static NSTimeInterval WMFFeedRefreshBackgroundTimeout = 30;
 static const NSString *kvo_WMFExploreFeedContentController_operationQueue_operationCount = @"kvo_WMFExploreFeedContentController_operationQueue_operationCount";
 
@@ -295,6 +295,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                     [moc performBlock:^{
                                         BOOL didUpdate = NO;
                                         if ([moc hasChanges]) {
+                                            [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                             NSFetchRequest *afterFetchRequest = [WMFContentGroup fetchRequest];
                                             NSInteger afterCount = [moc countForFetchRequest:afterFetchRequest error:nil];
                                             didUpdate = afterCount != beforeCount;

@@ -257,6 +257,25 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
         return indexPath
     }
+
+    // MARK: - Event logging utiities
+
+    var percentViewed: Double {
+        guard collectionView.contentSize.height > 0 else {
+            return 0
+        }
+        return Double(((collectionView.contentOffset.y + collectionView.bounds.height) / collectionView.contentSize.height) * 100)
+    }
+    
+    var _maxViewed: Double = 0
+    var maxViewed: Double {
+        return min(max(_maxViewed, percentViewed), 100)
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        _maxViewed = max(_maxViewed, percentViewed)
+    }
 }
 
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
@@ -319,5 +338,32 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
+    }
+}
+
+extension ColumnarCollectionViewController {
+    func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
+        logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
+        wmf_push(viewController, animated: animated)
+    }
+
+    func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {
+        guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
+            return
+        }
+        let isFirstViewControllerExplore = viewControllers.first is ExploreViewController
+        let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
+        let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
+        if isPushedFromExplore {
+            let isArticle = pushedViewController is WMFArticleViewController
+            if isArticle {
+                FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
+            } else {
+                FeedFunnel.shared.logFeedCardOpened(for: context)
+            }
+        } else if isPushedFromExploreDetail {
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
+        }
+
     }
 }

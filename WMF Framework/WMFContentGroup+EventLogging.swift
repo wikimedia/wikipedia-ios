@@ -13,12 +13,16 @@
             return .news
         case .relatedPages:
             return .relatedPages
+        case .continueReading:
+            return .continueReading
         case .locationPlaceholder:
             fallthrough
         case .location:
             return .location
         case .mainPage:
             return .mainPage
+        case .pictureOfTheDay:
+            return .pictureOfTheDay
         default:
             return nil
         }

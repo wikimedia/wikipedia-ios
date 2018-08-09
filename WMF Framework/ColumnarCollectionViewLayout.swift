@@ -110,12 +110,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        let readableWidth: CGFloat
-        if #available(iOS 11.0, *) {
-            readableWidth = collectionView.readableContentGuide.layoutFrame.size.width
-        } else {
-            readableWidth = min(maxColumnWidth, collectionView.bounds.size.width - collectionView.layoutMargins.left - collectionView.layoutMargins.right)
-        }
+        let readableWidth: CGFloat = collectionView.readableContentGuide.layoutFrame.size.width
         
         if let metrics = metrics, !metrics.readableWidth.isEqual(to: readableWidth) {
             isLayoutValid = false

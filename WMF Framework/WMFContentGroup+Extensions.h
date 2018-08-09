@@ -109,6 +109,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (void)enumerateContentGroupsOfKind:(WMFContentGroupKind)kind sortedByKey:(NSString *)key ascending:(BOOL)ascending withBlock:(void (^)(WMFContentGroup *_Nonnull group, BOOL *stop))block;
 
+- (nullable WMFContentGroup *)newestVisibleGroupOfKind:(WMFContentGroupKind)kind;
+
 - (nullable WMFContentGroup *)newestGroupOfKind:(WMFContentGroupKind)kind;
 
 - (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;

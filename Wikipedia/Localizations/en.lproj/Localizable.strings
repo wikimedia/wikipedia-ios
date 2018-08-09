@@ -430,6 +430,7 @@
 "reading-list-unable-to-update" = "An unexpected error occurred while updating your reading list. Please try again later.";
 "reading-list-with-provided-name-not-found" = "A reading list with the name “$1” was not found. Please make sure you have the correct name.";
 "reading-lists-article-added-confirmation" = "Article added to “$1”";
+"reading-lists-article-api-failure" = "Unable to sync article";
 "reading-lists-article-not-synced" = "Not synced";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Article limit exceeded, unable to sync article";
 "reading-lists-article-not-synced-list-limit-exceeded" = "List limit exceeded, unable to sync article";
@@ -521,7 +522,6 @@
 "settings-support" = "Support Wikipedia";
 "settings-title" = "Settings";
 "share-a-fact-made-with" = "Made with the Wikipedia app";
-"share-a-fact-share-menu-item" = "Share-a-fact…";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-building" = "Building Share-a-fact card…";
 "share-custom-menu-item" = "Share...";

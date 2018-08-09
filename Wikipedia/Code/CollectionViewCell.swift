@@ -19,10 +19,8 @@ open class CollectionViewCell: UICollectionViewCell {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         preservesSuperviewLayoutMargins = false
         contentView.preservesSuperviewLayoutMargins = false
-        if #available(iOSApplicationExtension 11.0, *) {
-            insetsLayoutMarginsFromSafeArea = false
-            contentView.insetsLayoutMarginsFromSafeArea = false
-        }
+        insetsLayoutMarginsFromSafeArea = false
+        contentView.insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         contentView.autoresizesSubviews = false
         backgroundView = UIView()
