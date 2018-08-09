@@ -18,6 +18,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var readingListHintController: ReadingListHintController?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
+
+    var feedFunnelContext: FeedFunnelContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -251,7 +253,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 }
                 return true
             }
@@ -261,7 +263,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 }
                 return true
             }
