@@ -3,12 +3,11 @@ import UIKit
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private var updater: ArticleURLProviderEditControllerUpdater?
-    private let feedFunnelContext: FeedFunnelContext
-    
+
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
-        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme
         self.dataStore = dataStore
     }
@@ -49,7 +48,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return feedFunnelContext.label
+        return feedFunnelContext?.label
     }
 }
 
