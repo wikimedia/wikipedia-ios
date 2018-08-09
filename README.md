@@ -52,7 +52,7 @@ Note: Testing event logging requires `labs` access to `deployment-eventlog05.eqi
 
 To test event logging:
 - ensure event logging is enabled via `Gear icon > Send usage reports`
-- use debugging settings for `scheme` and `host` in `EventLoggingService.swift` as seen [here](https://github.com/wikimedia/wikipedia-ios/pull/2552/commits/0b0e848064118b984255b79a933cae7daf42d7ef#diff-39f3285546bbb773abe632f15a594ca5)
+- select `Event Logging Dev Debug` scheme in Xcode
 - get the app install id:
   - run app in the simulator
   - pause
