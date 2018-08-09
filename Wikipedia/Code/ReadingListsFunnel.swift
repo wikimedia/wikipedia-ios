@@ -61,15 +61,13 @@
     @objc public func logSaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
     @objc public func logUnsaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
     }
     
     @objc public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
