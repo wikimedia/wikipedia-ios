@@ -59,29 +59,25 @@
     // - MARK: Feed
     
     @objc public func logSaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince(date), measurePosition: index)
     }
     
     @objc public func logUnsaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince(date), measurePosition: index)
     }
     
     public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
-        let date = context?.midnightUTCDate
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
     }
     
     public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
-        let date = context?.midnightUTCDate
+        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
+    }
+
+    private func daysSince(_ date: Date?) -> Int? {
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+        return daysSince
     }
     
     // - MARK: Places
