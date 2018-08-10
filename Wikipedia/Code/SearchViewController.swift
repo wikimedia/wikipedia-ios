@@ -570,6 +570,7 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     }
 }
 
+// MARK: - Event logging
 extension SearchViewController {
     private var source: String {
         guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
@@ -581,10 +582,8 @@ extension SearchViewController {
             return "search_tab"
         }
         let penultimateViewController = viewControllers[viewControllersCount - 2]
-        if penultimateViewController is WMFArticleViewController {
-            return "article"
-        } else if penultimateViewController is ExploreViewController {
-            return "top_of_feed"
+        if let searchSourceProviding = penultimateViewController as? EventLoggingSearchSourceProviding {
+            return searchSourceProviding.searchSource
         }
         return "unknown"
     }
