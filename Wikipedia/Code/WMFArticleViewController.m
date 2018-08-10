@@ -93,7 +93,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
-                                        UIGestureRecognizerDelegate>
+                                        UIGestureRecognizerDelegate,
+                                        EventLoggingSearchSourceProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -2076,6 +2077,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
+}
+
+#pragma mark - EventLoggingSearchSourceProviding
+
+- (nonnull NSString *)searchSource {
+    return @"article";
 }
 
 #pragma mark - WMFThemeable
