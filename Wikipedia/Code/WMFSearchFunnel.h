@@ -10,7 +10,7 @@ typedef NS_ENUM(NSUInteger, WMFSearchType) {
 - (void)logSearchStartFrom:(nullable NSString *)source;
 - (void)logSearchAutoSwitch;
 - (void)logSearchDidYouMean;
-- (void)logSearchResultTap;
+- (void)logSearchResultTapAt:(NSInteger)position;
 - (void)logSearchCancel;
 - (void)logSearchLangSwitch:(nullable NSString *)source;
 

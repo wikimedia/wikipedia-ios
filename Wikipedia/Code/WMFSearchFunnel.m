@@ -7,6 +7,7 @@ static NSString *const kSearchSessionTokenKey = @"sessionToken";
 static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
 static NSString *const kSourceKey = @"source";
+static NSString *const kPositionKey = @"position";
 static NSString *const kSearchTypeKey = @"typeOfSearch";
 static NSString *const kSearchTimeKey = @"timeToDisplayResults";
 static NSString *const kSearchResultsCount = @"numberOfResults";
@@ -61,8 +62,9 @@ static NSString *const kTimestampKey = @"ts";
     [self log:@{kActionKey: @"didyoumean"} language:[self searchLanguage]];
 }
 
-- (void)logSearchResultTap {
-    [self log:@{kActionKey: @"click"} language:[self searchLanguage]];
+- (void)logSearchResultTapAt:(NSInteger)position {
+    NSDictionary *event = @{kActionKey: @"click", kPositionKey: [NSNumber numberWithInteger:position]};
+    [self log:event language:[self searchLanguage]];
 }
 
 - (void)logSearchCancel {

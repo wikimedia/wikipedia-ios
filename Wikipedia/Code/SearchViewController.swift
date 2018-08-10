@@ -557,9 +557,9 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 }
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath) {
+        funnel.logSearchResultTap(at: indexPath.item)
         saveLastSearch()
-        funnel.logSearchResultTap()
     }
 }
 
