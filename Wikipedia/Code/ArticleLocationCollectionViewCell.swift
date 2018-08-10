@@ -27,7 +27,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
-        imageView.image = #imageLiteral(resourceName: "places-w-large")
+        imageView.image = #imageLiteral(resourceName: "compass-w")
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
