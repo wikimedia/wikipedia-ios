@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath)
 }
 
 @objc(WMFArticleCollectionViewController)
@@ -170,7 +170,7 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
+        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
