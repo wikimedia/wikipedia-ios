@@ -2,7 +2,7 @@
 #import "Wikipedia-Swift.h"
 
 static NSString *const kSchemaName = @"MobileWikiAppiOSSearch";
-static int const kSchemaVersion = 18132115; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
+static int const kSchemaVersion = 18289062; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
 static NSString *const kSearchSessionTokenKey = @"sessionToken";
 static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
@@ -48,7 +48,7 @@ static NSString *const kTimestampKey = @"ts";
     return searchLanguage;
 }
 
-- (void)logSearchStartFrom:(nullable NSString *)source {
+- (void)logSearchStartFrom:(nonnull NSString *)source {
     self.searchSessionToken = nil;
     NSDictionary *event = @{kActionKey: @"start", kSourceKey: source};
     [self log:event language:[self searchLanguage]];
@@ -71,7 +71,7 @@ static NSString *const kTimestampKey = @"ts";
     [self log:@{kActionKey: @"cancel"} language:[self searchLanguage]];
 }
 
-- (void)logSearchLangSwitch:(nullable NSString *)source {
+- (void)logSearchLangSwitch:(nonnull NSString *)source { 
     [self log:@{kActionKey: @"langswitch"} language:[self searchLanguage]];
 }
 

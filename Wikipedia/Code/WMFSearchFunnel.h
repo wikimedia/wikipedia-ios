@@ -7,12 +7,12 @@ typedef NS_ENUM(NSUInteger, WMFSearchType) {
 
 @interface WMFSearchFunnel : EventLoggingFunnel
 
-- (void)logSearchStartFrom:(nullable NSString *)source;
+- (void)logSearchStartFrom:(nonnull NSString *)source;
 - (void)logSearchAutoSwitch;
 - (void)logSearchDidYouMean;
 - (void)logSearchResultTapAt:(NSInteger)position;
 - (void)logSearchCancel;
-- (void)logSearchLangSwitch:(nullable NSString *)source;
+- (void)logSearchLangSwitch:(nonnull NSString *)source;
 
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime;
 

@@ -571,9 +571,9 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
 }
 
 extension SearchViewController {
-    private var source: String? {
+    private var source: String {
         guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
-            return nil
+            return "unknown"
         }
         let viewControllers = navigationController.viewControllers
         let viewControllersCount = viewControllers.count
@@ -586,7 +586,7 @@ extension SearchViewController {
         } else if penultimateViewController is ExploreViewController {
             return "top_of_feed"
         }
-        return nil
+        return "unknown"
     }
 }
 
