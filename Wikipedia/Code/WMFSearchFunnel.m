@@ -100,8 +100,9 @@ static NSString *const kTimestampKey = @"ts";
 }
 
 - (NSDictionary *)standardizedEvent:(NSDictionary *)event {
-    NSDictionary *standardEvent = @{kIsAnonKey: self.isAnon, kPrimaryLanguageKey: self.primaryLanguage, kSessionIDKey: self.sessionID};
-    return [NSDictionary dictionaryWithDictionary:standardEvent];
+    NSMutableDictionary *standardEvent = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.isAnon, kIsAnonKey, self.primaryLanguage, kPrimaryLanguageKey, self.sessionID, kSessionIDKey, nil];
+    [standardEvent addEntriesFromDictionary:event];
+    return standardEvent;
 }
 
 + (NSString *)stringForSearchType:(WMFSearchType)type {
