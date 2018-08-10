@@ -3,14 +3,14 @@
 
 static NSString *const kSchemaName = @"MobileWikiAppiOSSearch";
 static int const kSchemaVersion = 18289062; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
-static NSString *const kSearchSessionTokenKey = @"sessionToken";
-static NSString *const kAppInstallIdKey = @"appInstallID";
+static NSString *const kSearchSessionTokenKey = @"session_token";
+static NSString *const kAppInstallIdKey = @"app_install_ID";
 static NSString *const kActionKey = @"action";
 static NSString *const kSourceKey = @"source";
 static NSString *const kPositionKey = @"position";
-static NSString *const kSearchTypeKey = @"typeOfSearch";
-static NSString *const kSearchTimeKey = @"timeToDisplayResults";
-static NSString *const kSearchResultsCount = @"numberOfResults";
+static NSString *const kSearchTypeKey = @"type_of_search";
+static NSString *const kSearchTimeKey = @"time_to_display_results";
+static NSString *const kSearchResultsCount = @"number_of_results";
 static NSString *const kTimestampKey = @"ts";
 
 @interface WMFSearchFunnel ()
@@ -71,7 +71,7 @@ static NSString *const kTimestampKey = @"ts";
     [self log:@{kActionKey: @"cancel"} language:[self searchLanguage]];
 }
 
-- (void)logSearchLangSwitch:(nonnull NSString *)source { 
+- (void)logSearchLangSwitch:(nonnull NSString *)source {
     [self log:@{kActionKey: @"langswitch"} language:[self searchLanguage]];
 }
 
