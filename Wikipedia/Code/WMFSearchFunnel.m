@@ -10,6 +10,9 @@ static NSString *const kSourceKey = @"source";
 static NSString *const kPositionKey = @"position";
 static NSString *const kSearchTypeKey = @"type_of_search";
 static NSString *const kSearchTimeKey = @"time_to_display_results";
+static NSString *const kIsAnonKey = @"is_anon";
+static NSString *const kPrimaryLanguageKey = @"primary_language";
+static NSString *const kSessionIDKey = @"session_id";
 static NSString *const kSearchResultsCount = @"number_of_results";
 static NSString *const kTimestampKey = @"ts";
 
@@ -50,44 +53,55 @@ static NSString *const kTimestampKey = @"ts";
 
 - (void)logSearchStartFrom:(nonnull NSString *)source {
     self.searchSessionToken = nil;
-    NSDictionary *event = @{kActionKey: @"start", kSourceKey: source};
-    [self log:event language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"start", kSourceKey: source}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchAutoSwitch {
-    [self log:@{kActionKey: @"autoswitch"} language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"autoswitch"}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchDidYouMean {
-    [self log:@{kActionKey: @"didyoumean"} language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"didyoumean"}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchResultTapAt:(NSInteger)position {
-    NSDictionary *event = @{kActionKey: @"click", kPositionKey: [NSNumber numberWithInteger:position]};
-    [self log:event language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"click", kPositionKey: [NSNumber numberWithInteger:position]}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchCancel {
-    [self log:@{kActionKey: @"cancel"} language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"cancel"}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchLangSwitch:(nonnull NSString *)source {
-    [self log:@{kActionKey: @"langswitch"} language:[self searchLanguage]];
+    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"langswitch"}];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime {
-    [self log:@{ kActionKey: @"results",
-                 kSearchTypeKey: [[self class] stringForSearchType:type],
-                 kSearchResultsCount: @(count),
-                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }
-        language:[self searchLanguage]];
+    NSDictionary *event = @{ kActionKey: @"results",
+                             kSearchTypeKey: [[self class] stringForSearchType:type],
+                             kSearchResultsCount: @(count),
+                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)) };
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
 }
 
 - (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime {
-    [self log:@{ kActionKey: @"error",
-                 kSearchTypeKey: [[self class] stringForSearchType:type],
-                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }
-        language:[self searchLanguage]];
+    NSDictionary *event = @{ kActionKey: @"error",
+                             kSearchTypeKey: [[self class] stringForSearchType:type],
+                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)) };
+    NSDictionary *standardizedEvent = [self standardizedEvent:event];
+    [self log:standardizedEvent language:[self searchLanguage]];
+}
+
+- (NSDictionary *)standardizedEvent:(NSDictionary *)event {
+    NSDictionary *standardEvent = @{kIsAnonKey: self.isAnon, kPrimaryLanguageKey: self.primaryLanguage, kSessionIDKey: self.sessionID};
+    return [NSDictionary dictionaryWithDictionary:standardEvent];
 }
 
 + (NSString *)stringForSearchType:(WMFSearchType)type {
