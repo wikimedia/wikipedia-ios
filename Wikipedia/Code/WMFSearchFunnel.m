@@ -1,11 +1,12 @@
 #import "WMFSearchFunnel.h"
 #import "Wikipedia-Swift.h"
 
-static NSString *const kSchemaName = @"MobileWikiAppSearch";
-static int const kSchemaVersion = 18071271; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
+static NSString *const kSchemaName = @"MobileWikiAppiOSSearch";
+static int const kSchemaVersion = 18132115; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.
 static NSString *const kSearchSessionTokenKey = @"sessionToken";
 static NSString *const kAppInstallIdKey = @"appInstallID";
 static NSString *const kActionKey = @"action";
+static NSString *const kSourceKey = @"source";
 static NSString *const kSearchTypeKey = @"typeOfSearch";
 static NSString *const kSearchTimeKey = @"timeToDisplayResults";
 static NSString *const kSearchResultsCount = @"numberOfResults";
@@ -46,9 +47,10 @@ static NSString *const kTimestampKey = @"ts";
     return searchLanguage;
 }
 
-- (void)logSearchStart {
+- (void)logSearchStartFrom:(nullable NSString *)source {
     self.searchSessionToken = nil;
-    [self log:@{kActionKey: @"start"} language:[self searchLanguage]];
+    NSDictionary *event = @{kActionKey: @"start", kSourceKey: source};
+    [self log:event language:[self searchLanguage]];
 }
 
 - (void)logSearchAutoSwitch {
@@ -71,13 +73,15 @@ static NSString *const kTimestampKey = @"ts";
     [self log:@{ kActionKey: @"results",
                  kSearchTypeKey: [[self class] stringForSearchType:type],
                  kSearchResultsCount: @(count),
-                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) } language:[self searchLanguage]];
+                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }
+        language:[self searchLanguage]];
 }
 
 - (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime {
     [self log:@{ kActionKey: @"error",
                  kSearchTypeKey: [[self class] stringForSearchType:type],
-                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) } language:[self searchLanguage]];
+                 kSearchTimeKey: @((NSInteger)(searchTime * 1000)) }
+        language:[self searchLanguage]];
 }
 
 + (NSString *)stringForSearchType:(WMFSearchType)type {

@@ -7,7 +7,7 @@ typedef NS_ENUM(NSUInteger, WMFSearchType) {
 
 @interface WMFSearchFunnel : EventLoggingFunnel
 
-- (void)logSearchStart;
+- (void)logSearchStartFrom:(nullable NSString *)source;
 - (void)logSearchAutoSwitch;
 - (void)logSearchDidYouMean;
 - (void)logSearchResultTap;

@@ -30,7 +30,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        funnel.logSearchStart()
+        funnel.logSearchStart(from: source)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
@@ -566,6 +566,26 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
         search()
+    }
+}
+
+extension SearchViewController {
+    private var source: String? {
+        guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
+            return nil
+        }
+        let viewControllers = navigationController.viewControllers
+        let viewControllersCount = viewControllers.count
+        if viewControllersCount == 1 {
+            return "search_tab"
+        }
+        let penultimateViewController = viewControllers[viewControllersCount - 2]
+        if penultimateViewController is WMFArticleViewController {
+            return "article"
+        } else if penultimateViewController is ExploreViewController {
+            return "top_of_feed"
+        }
+        return nil
     }
 }
 
