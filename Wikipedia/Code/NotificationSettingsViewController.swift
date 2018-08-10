@@ -23,7 +23,7 @@ struct NotificationSettingsSection {
 }
 
 @objc(WMFNotificationSettingsViewController)
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding, Themeable {
+class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Themeable {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -54,14 +54,6 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
        updateSections()
-    }
-    
-    var analyticsContext: String {
-        return "notification"
-    }
-    
-    var analyticsContentType: String {
-        return "current events"
     }
     
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
