@@ -154,7 +154,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
 
-        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, theme: theme)
+        listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
         addChildViewController(listViewController)
         listViewController.view.frame = listContainerView.bounds
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
