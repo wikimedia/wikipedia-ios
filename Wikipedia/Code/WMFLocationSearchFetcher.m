@@ -1,6 +1,5 @@
 #import <WMF/WMFLocationSearchFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
 #import <WMF/WMFLocalization.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
@@ -15,6 +14,8 @@
 //Models
 #import <WMF/WMFLocationSearchResults.h>
 #import <WMF/MWKLocationSearchResult.h>
+
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -121,9 +122,8 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
     params.searchTerm = searchTerm;
     params.sortStyle = sortStyle;
     [[MWNetworkActivityIndicatorManager sharedManager] push];
-    return [self.operationManager wmf_GETAndRetryWithURL:url
+    return [self.operationManager wmf_apiZeroSafeGETWithURL:url
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
 
             [[MWNetworkActivityIndicatorManager sharedManager] pop];

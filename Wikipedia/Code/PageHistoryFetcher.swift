@@ -12,22 +12,17 @@ open class PageHistoryFetcher: NSObject {
     }()
 
     @objc open func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
-        operationManager.wmf_GETAndRetry(with: siteURL,
-                                                parameters: requestParams,
-                                                retry: nil,
-                                                success: { (operation, responseObject) in
-                                                    MWNetworkActivityIndicatorManager.shared().pop()
-                                                    guard let results = responseObject as? HistoryFetchResults else { return }
-                                                    results.tackOn(requestParams.lastRevisionFromPreviousCall)
-                                                    success(results)
-            },
-                                                failure: { (operation, error) in
-                                                    MWNetworkActivityIndicatorManager.shared().pop()
-                                                    guard let error = error else {
-                                                        failure(NSError(domain: "", code: 0, userInfo: nil))
-                                                        return
-                                                    }
-                                                    failure(error)
+        operationManager.wmf_apiZeroSafeGET(with: siteURL,
+                                        parameters: requestParams,
+                                        success: { (operation, responseObject) in
+                                            MWNetworkActivityIndicatorManager.shared().pop()
+                                            guard let results = responseObject as? HistoryFetchResults else { return }
+                                            results.tackOn(requestParams.lastRevisionFromPreviousCall)
+                                            success(results)
+        },
+                                        failure: { (operation, error) in
+                                            MWNetworkActivityIndicatorManager.shared().pop()
+                                            failure(error)
         })
 
     }

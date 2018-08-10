@@ -1,11 +1,11 @@
 #import "WMFArticleRevisionFetcher.h"
 @import WMF.AFHTTPSessionManager_WMFConfig;
-@import WMF.AFHTTPSessionManager_WMFDesktopRetry;
 @import WMF.WMFMantleJSONResponseSerializer;
 @import WMF.WMFNetworkUtilities;
 @import WMF.NSURL_WMFLinkParsing;
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleRevisionFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager *requestManager;
@@ -36,7 +36,7 @@
                                      endingWithRevision:(NSUInteger)revisionId
                                                 failure:(WMFErrorHandler)failure
                                                 success:(WMFSuccessIdHandler)success {
-    return [self.requestManager wmf_GETAndRetryWithURL:articleURL
+    return [self.requestManager wmf_apiZeroSafeGETWithURL:articleURL
         parameters:@{
             @"format": @"json",
             @"continue": @"",
@@ -49,9 +49,6 @@
             @"rvendid": @(revisionId),
             @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"]) //,
             //@"pilicense": @"any"
-        }
-        retry:^(NSURLSessionDataTask *retryOperation, NSError *error) {
-
         }
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             success([responseObject firstObject]);
