@@ -565,6 +565,7 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+        funnel.logSearchLangSwitch(source)
         search()
     }
 }

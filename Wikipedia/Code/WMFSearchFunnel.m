@@ -69,6 +69,10 @@ static NSString *const kTimestampKey = @"ts";
     [self log:@{kActionKey: @"cancel"} language:[self searchLanguage]];
 }
 
+- (void)logSearchLangSwitch:(nullable NSString *)source {
+    [self log:@{kActionKey: @"langswitch"} language:[self searchLanguage]];
+}
+
 - (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime {
     [self log:@{ kActionKey: @"results",
                  kSearchTypeKey: [[self class] stringForSearchType:type],
