@@ -370,6 +370,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showLanguages {
     WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
+    languagesVC.showExploreFeedCustomizationSettings = YES;
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
     [self presentViewControllerWrappedInNavigationController:languagesVC];
