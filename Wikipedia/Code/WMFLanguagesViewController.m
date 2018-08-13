@@ -223,6 +223,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [cell applyTheme:self.theme];
 }
 
+- (void)configureExploreFeedCustomizationCell:(WMFSettingsTableViewCell *)cell {
+    cell.disclosureType = WMFSettingsMenuItemDisclosureType_ViewController;
+    cell.title = [WMFCommonStrings customizeExploreFeedTitle];
+    cell.iconName = nil;
+    [cell applyTheme:self.theme];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -255,6 +262,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
                                             forIndexPath:indexPath];
     if ([self isPreferredSection:indexPath.section]) {
         [self configurePreferredLanguageCell:cell atRow:indexPath.row];
+    } else if ([self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
+        WMFSettingsTableViewCell *cell = (WMFSettingsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
+        [self configureExploreFeedCustomizationCell:cell];
+        return cell;
     } else {
         [self configureOtherLanguageCell:cell atRow:indexPath.row];
     }
