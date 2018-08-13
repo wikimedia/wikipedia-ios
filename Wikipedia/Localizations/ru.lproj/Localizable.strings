@@ -171,6 +171,7 @@
 "explore-featured-article-heading" = "Избранная статья";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
+"explore-feed-customize-accessibility-title" = "Настроить";
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";

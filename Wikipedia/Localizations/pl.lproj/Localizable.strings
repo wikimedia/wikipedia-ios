@@ -320,6 +320,7 @@
 "settings-notifications" = "Powiadomienia";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
 "settings-notifications-system-turn-on" = "Włączenie powiadomień";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Usunąć wszystkie zapisane artykuły?";
 "settings-support" = "Wspomóż Wikimedię";
 "settings-title" = "Ustawienia";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
