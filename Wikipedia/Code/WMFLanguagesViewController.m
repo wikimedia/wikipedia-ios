@@ -114,6 +114,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     [self.tableView registerNib:[WMFLanguageCell wmf_classNib] forCellReuseIdentifier:[WMFLanguageCell wmf_nibName]];
     [self.tableView registerNib:[WMFArticleLanguagesSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionHeader wmf_nibName]];
+    [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
     //HAX: force these to take effect if they were set before the VC was presented/pushed.
     self.editing = self.editing;
