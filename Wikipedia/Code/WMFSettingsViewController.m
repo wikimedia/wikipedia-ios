@@ -120,6 +120,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)setShowCloseButton:(BOOL)showCloseButton {
+    _showCloseButton = showCloseButton;
     if (showCloseButton) {
         [self configureBackButton];
     } else {
