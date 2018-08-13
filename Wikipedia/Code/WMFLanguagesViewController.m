@@ -143,6 +143,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.allowsSelection = !disableSelection;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.title = [WMFCommonStrings wikipediaLanguages];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadLanguages];
