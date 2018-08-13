@@ -108,6 +108,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:!self.showCloseButton];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
