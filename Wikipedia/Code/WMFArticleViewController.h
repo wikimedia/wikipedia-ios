@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : WMFViewController <WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFAnalyticsViewNameProviding, WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
+@interface WMFArticleViewController : WMFViewController <WMFWebViewControllerDelegate, WMFImagePreviewingActionsDelegate>
 
 - (instancetype)initWithArticleURL:(NSURL *)url
                          dataStore:(MWKDataStore *)dataStore

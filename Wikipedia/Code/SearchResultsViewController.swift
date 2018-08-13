@@ -29,10 +29,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
         return results.count > 0 && (searchSiteURL as NSURL).wmf_isEqual(toIgnoringScheme: siteURL) && searchResults.searchTerm == searchTerm
     }
     
-    override var analyticsName: String {
-        return "Search"
-    }
-    
     override var eventLoggingCategory: EventLoggingCategory {
         return .search
     }

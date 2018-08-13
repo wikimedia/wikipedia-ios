@@ -157,6 +157,7 @@
 "explore-featured-article-heading" = "典範條目";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "來自維基百科";
+"explore-feed-customize-accessibility-title" = "自訂";
 "explore-feed-preferences-additional-languages-footer-text" = "額外的語言可添加在「我的語言」設定頁面。";
 "explore-feed-preferences-card-hidden-title" = "卡片已隱藏";
 "explore-feed-preferences-continue-reading-description" = "返回到閱讀已開啟條目的快速連結";

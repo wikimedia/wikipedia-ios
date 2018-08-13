@@ -149,6 +149,7 @@
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
+"explore-feed-customize-accessibility-title" = "Personalizar";
 "explore-feed-preferences-additional-languages-footer-text" = "Poden engadirse linguas na páxina de configuración \"As miñas linguas\".";
 "explore-feed-preferences-card-hidden-title" = "Tarxeta oculta";
 "explore-feed-preferences-continue-reading-description" = "Ligazón rápida para regresar á lectura dun artigo aberto";
@@ -195,6 +196,13 @@
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar tódalas tarxetas da canle Explorar, desactivará a pestana Explorar e será substituída pola pestana Configuración";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desactivar a canle de Exploración?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-message" = "A pestana Explorar pode activarse de novo na configuración da canle de exploración";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Desactivar a pestana de Explorar?";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar a pestana de Explorar subsituirá a pestana Explorar por unha pestana de configuración.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ó escoller amosar tarxetas da canle Explorar, está activando a pestana Explorar";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto substituirá a pestana de configuración coa pestana Explorar, pode acceder á configuración dende a parte superior da pestana Explorar premendo na icona da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Activar a pestana Explorar?";
 "explore-feed-preferences-undo-customization" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
@@ -334,6 +342,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia en $2";
 "on-this-day-title" = "Neste día";
 "open-link-cancel" = "Cancelar";
+"original-tab-button-popover-description" = "Prema na \"W\" para volver á pestana na que comezou";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
 "page-issues" = "Problemas na páxina";
@@ -511,6 +520,7 @@
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
+"settings-search-footer-text" = "Configurar a aplicación para abrir na pestana Procurar no canto da pestana Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicación na pestana de procura";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, cando se autenticar e sincronizar, a Wikimedia garde nas súas preferencias os artigos gardados e as listaxes de lectura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e as listas gardadas";

@@ -7,7 +7,7 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, AnalyticsViewNameProviding, UIGestureRecognizerDelegate {
+class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
     @IBOutlet weak var navigationBar: NavigationBar!
@@ -59,9 +59,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
-    fileprivate let mapTrackerContext: AnalyticsContext = "Places_map"
-    fileprivate let listTrackerContext: AnalyticsContext = "Places_list"
-    fileprivate let searchTrackerContext: AnalyticsContext = "Places_search"
     fileprivate let imageController = ImageController.shared
 
     fileprivate var _displayCountForTopPlaces: Int?
@@ -1669,7 +1666,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         guard let url = article.url else {
             return
         }
-        let context = viewMode == .list ? listTrackerContext : mapTrackerContext
         switch action {
         case .read:
             wmf_pushArticle(with: url, dataStore: dataStore, theme: self.theme, animated: true)
@@ -1691,7 +1687,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 addArticlesToReadingListViewController.eventLogAction = { ReadingListsFunnel.shared.logSaveInPlaces(url) }
                 self.present(navigationController, animated: true, completion: nil)
             }
-            let shareActivityController = ShareActivityController(article: article, context: context, customActivities: [addToReadingListActivity])
+            let shareActivityController = ShareActivityController(article: article, customActivities: [addToReadingListActivity])
             shareActivityController.popoverPresentationController?.sourceView = view
             var sourceRect = view.bounds
             if let shareButton = selectedArticlePopover?.shareButton {
@@ -2226,12 +2222,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             return
         }
         perform(action: .read, onArticle: article)
-    }
-    
-    // MARK: - WMFAnalyticsViewNameProviding
-    
-    public var analyticsName: String {
-        return "Places"
     }
     
     // MARK: - UIGestureRecognizerDelegate
