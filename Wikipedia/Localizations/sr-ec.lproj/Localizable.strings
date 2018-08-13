@@ -79,6 +79,7 @@
 "add-articles-to-reading-list" = "Додај {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} у листу за читање";
 "alert-no-internet" = "Нема интернет везе";
 "announcements-dismiss" = "Одбаци";
+"app-store-keywords" = "Википедија, чланци, вики, енциклопедија, инфо, знање, истраживање, информације, истражи, научи";
 "app-store-subtitle" = "Слободна енциклопедија";
 "appearance-settings-adjust-text-sizing" = "Прилагоди величину текста";
 "appearance-settings-expand-tables" = "Прошири табеле";
@@ -164,9 +165,10 @@
 "explore-feed-preferences-in-the-news-description" = "Чланци о текућим догађајима";
 "explore-feed-preferences-on-this-day-description" = "Историјски догађаји на данашњи дан";
 "explore-feed-preferences-places-description" = "Чланци на Википедији у вашој близини";
-"explore-feed-preferences-potd-description" = "Изабрана слика дана из Викиоставе";
+"explore-feed-preferences-potd-description" = "Изабрана слика дана са Викиоставе";
 "explore-feed-preferences-randomizer-description" = "Генериши случајне чланке за читање";
 "explore-feed-preferences-related-pages-description" = "Предлози на основу прочитаног";
+"explore-feed-preferences-show-continue-reading-title" = "Прикажи картицу „Настави читање“";
 "explore-feed-preferences-show-featured-article-title" = "Прикажи картицу „Изабрани чланак“";
 "explore-feed-preferences-show-news-title" = "Прикажи картицу „Вести“";
 "explore-feed-preferences-show-on-this-day-title" = "Прикажи картицу „На данашњи дан“";
@@ -199,7 +201,7 @@
 "explore-nearby-sub-heading-your-location" = "Ваша локација";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Ваша локација са $1 Википедије";
 "explore-potd-heading" = "Слика дана";
-"explore-potd-sub-heading" = "Из Викиоставе";
+"explore-potd-sub-heading" = "Са Викиоставе";
 "explore-random-article-heading" = "Случајни чланак";
 "explore-random-article-sub-heading-from-language-wikipedia" = "Огранак Википедије: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
