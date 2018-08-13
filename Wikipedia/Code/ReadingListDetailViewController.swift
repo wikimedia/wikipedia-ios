@@ -656,18 +656,6 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
 }
 
-// MARK: - Analytics
-
-extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ReadingListDetailView"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
-    }
-}
-
 extension ReadingListDetailViewController: EventLoggingEventValuesProviding {
     var eventLoggingLabel: EventLoggingLabel? {
         return nil

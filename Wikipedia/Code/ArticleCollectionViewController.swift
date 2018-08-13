@@ -141,16 +141,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     }
 }
 
-extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ArticleList"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
-    }
-}
-
 // MARK: - UICollectionViewDataSource
 extension ArticleCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
