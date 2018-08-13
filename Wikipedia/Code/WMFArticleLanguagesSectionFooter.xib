@@ -18,10 +18,7 @@
                     <rect key="frame" x="16" y="0.0" width="326" height="102"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4d6-hq-7L8">
-                            <rect key="frame" x="0.0" y="0.0" width="326" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="0sv-Bl-9XP"/>
-                            </constraints>
+                            <rect key="frame" x="0.0" y="0.0" width="326" height="76"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -29,7 +26,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4f2-ki-fTw">
-                            <rect key="frame" x="0.0" y="50" width="326" height="52"/>
+                            <rect key="frame" x="0.0" y="86" width="326" height="16"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
