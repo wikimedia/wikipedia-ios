@@ -1,12 +1,12 @@
 #import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/MWKSearchResult.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,9 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFMWKSearchResultHandler)success {
     NSDictionary *params = [[self class] params];
 
-    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+    [self.operationManager wmf_apiZeroSafeGETWithURL:siteURL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
 

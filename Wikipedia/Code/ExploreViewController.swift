@@ -855,3 +855,10 @@ extension ExploreViewController {
         }
     }
 }
+
+// MARK: - EventLoggingSearchSourceProviding
+extension ExploreViewController: EventLoggingSearchSourceProviding {
+    var searchSource: String {
+        return "top_of_feed"
+    }
+}

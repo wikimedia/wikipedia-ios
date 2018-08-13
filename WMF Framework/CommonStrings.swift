@@ -97,6 +97,8 @@ public class CommonStrings: NSObject {
 
     @objc public static let myLanguages = WMFLocalizedString("settings-my-languages", value: "My languages", comment: "Title for list of user's preferred languages")
     @objc public static let readingPreferences = WMFLocalizedString("settings-appearance", value: "Reading preferences", comment: "Title of the reading preferences screen.")
+    @objc public static let notifications = WMFLocalizedString("settings-notifications", value: "Notifications", comment: "Title for button letting user choose notifications settings.\n{{Identical|Notification}}")
+    
     @objc public static let settingsStorageAndSyncing = WMFLocalizedString("settings-storage-and-syncing-title", value: "Article storage and syncing", comment: "Title of the saved articles storage and syncing settings screen")
 
     @objc public static let inTheNewsTitle = WMFLocalizedString("in-the-news-title", value:"In the news", comment:"Title for the 'In the news' notification & feed section")

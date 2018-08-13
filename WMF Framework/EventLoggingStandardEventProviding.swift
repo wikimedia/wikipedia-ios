@@ -1,3 +1,7 @@
+@objc public protocol EventLoggingSearchSourceProviding {
+    var searchSource: String { get }
+}
+
 @objc public protocol EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory { get }
     var eventLoggingLabel: EventLoggingLabel? { get }

@@ -1359,7 +1359,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
 		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
@@ -1453,8 +1452,6 @@
 		D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806731C0CE9850065EBC0 /* QueuesSingleton.m */; };
 		D83F8A331D74BC4E009E7D40 /* MWNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83F8A341D74BC55009E7D40 /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */; };
-		D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D83FA6B01D74CD4A008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.m */; };
 		D83FA6B11D74CDAF008CAB00 /* AFHTTPSessionManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806761C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.m */; };
 		D83FA6B21D74CDB2008CAB00 /* AFHTTPSessionManager+WMFConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E806751C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D83FA6B31D74CDB5008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1628,7 +1625,6 @@
 		D84C36421F3245DF00895FA1 /* WMFFeedContentDisplaying.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4871D751ED6000C5919 /* WMFFeedContentDisplaying.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84C36431F3245DF00895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6A6F511D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
-		D84C36501F324F3D00895FA1 /* WMFContentGroup+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */; };
 		D84C36521F33866C00895FA1 /* WMF Framework.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84C36511F33866C00895FA1 /* WMF Framework.xcassets */; };
 		D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
 		D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
@@ -3583,8 +3579,6 @@
 		B0E804401C0CDF850065EBC0 /* WMFPageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageCollectionViewController.m; path = Wikipedia/Code/WMFPageCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E8044D1C0CDFDA0065EBC0 /* WMFURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFURLCache.h; path = Wikipedia/Code/WMFURLCache.h; sourceTree = SOURCE_ROOT; };
 		B0E8044E1C0CDFDA0065EBC0 /* WMFURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFURLCache.m; path = Wikipedia/Code/WMFURLCache.m; sourceTree = SOURCE_ROOT; };
-		B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "AFHTTPSessionManager+WMFDesktopRetry.h"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFDesktopRetry.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPSessionManager+WMFDesktopRetry.m"; path = "Wikipedia/Code/AFHTTPSessionManager+WMFDesktopRetry.m"; sourceTree = SOURCE_ROOT; };
 		B0E804691C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Code/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		B0E8046A1C0CE0B40065EBC0 /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BITHockeyManager+WMFExtensions.m"; path = "Wikipedia/Code/BITHockeyManager+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		B0E8046B1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CIContext+WMFImageProcessing.h"; path = "Wikipedia/Code/CIContext+WMFImageProcessing.h"; sourceTree = SOURCE_ROOT; };
@@ -4275,7 +4269,6 @@
 		D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleRightAlignedImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleRightAlignedImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Description.swift"; sourceTree = "<group>"; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
-		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = ../Wikipedia/Code/Analytics.swift; sourceTree = "<group>"; };
 		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
@@ -4360,7 +4353,6 @@
 		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84C363F1F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "WMF Framework/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
-		D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+Analytics.swift"; sourceTree = "<group>"; };
 		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
 		D84DAA061EEEF527008E4B18 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		D84DAA071EEEF527008E4B18 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
@@ -5518,8 +5510,6 @@
 				B0E806761C0CE9940065EBC0 /* AFHTTPSessionManager+WMFConfig.m */,
 				B0265F2A1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.h */,
 				B0265F2B1CB89CB600740525 /* AFHTTPRequestSerializer+WMFRequestHeaders.m */,
-				B0E804611C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.h */,
-				B0E804621C0CE0920065EBC0 /* AFHTTPSessionManager+WMFDesktopRetry.m */,
 				B09B03EE1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.h */,
 				B09B03EF1CE0FB5200009083 /* AFHTTPSessionManager+WMFCancelAll.m */,
 				B0E807231C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.h */,
@@ -7563,7 +7553,6 @@
 				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
-				D81528511E71DA9B00966DD9 /* Analytics.swift */,
 				D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */,
 				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
 				B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */,
@@ -7613,7 +7602,6 @@
 				D84448571DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m */,
 				D844485C1DDCE4E500425630 /* WMFContentGroup+Extensions.h */,
 				D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */,
-				D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */,
 				7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */,
 				8380754420DE627D000D222C /* WMFContentGroup+Display.swift */,
 				83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */,
@@ -8167,7 +8155,6 @@
 				D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */,
 				0E728D1A1DAEE2B50074EB4B /* WMFFeedDayResponse.h in Headers */,
 				D8F36EFD1EEAEAF20087D4DD /* WMFQuoteMacros.h in Headers */,
-				D83FA6AF1D74CD46008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.h in Headers */,
 				D844D9971D6CB5CA0042D692 /* WikipediaAppUtils.h in Headers */,
 				0E87683A1DDE00D600B8CACD /* WMFAnnouncementsFetcher.h in Headers */,
 				D844D98D1D6CB58E0042D692 /* MWKSectionList.h in Headers */,
@@ -10701,7 +10688,6 @@
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
 				D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */,
 				D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */,
-				D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
 				D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */,
@@ -10715,7 +10701,6 @@
 				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,
 				D84C35F61F323CF000895FA1 /* AlignedImageButton.swift in Sources */,
-				D84C36501F324F3D00895FA1 /* WMFContentGroup+Analytics.swift in Sources */,
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,
@@ -10747,7 +10732,6 @@
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */,
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
-				D83FA6B01D74CD4A008CAB00 /* AFHTTPSessionManager+WMFDesktopRetry.m in Sources */,
 				D8FA18F61E1BDA3F009675C3 /* UIFont+WMFDynamicType.swift in Sources */,
 				7A3AD05920ADB1BD00C92E04 /* WMFAuthLoginInfoFetcher.swift in Sources */,
 				830177FC1FBF3EF70005681C /* NSManagedObjectContext+WMFUtilities.swift in Sources */,

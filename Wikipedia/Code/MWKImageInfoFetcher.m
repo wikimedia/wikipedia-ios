@@ -2,11 +2,11 @@
 @import WMF.WMFNetworkUtilities;
 @import WMF.AFHTTPSessionManager_WMFConfig;
 @import WMF.MWKArticle;
-@import WMF.AFHTTPSessionManager_WMFDesktopRetry;
 @import WMF.AFHTTPSessionManager_WMFCancelAll;
 @import WMF.UIScreen_WMFImageWidth;
 @import WMF.EXTScope;
 @import WMF.NSURL_WMFLinkParsing;
+@import WMF.Swift;
 #import "MWKImageInfoResponseSerializer.h"
 
 @interface MWKImageInfoFetcher ()
@@ -131,24 +131,25 @@
         params[@"iiextmetadatalanguage"] = metadataLanguage;
     }
 
-    @weakify(self);    
+    @weakify(self);
+
     NSURLSessionDataTask *request =
-    [self.manager wmf_POSTWithURL:siteURL
-                       parameters:params
-                          success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-                              @strongify(self);
-                              [self finishWithError:nil fetchedData:galleryItems];
-                              if (success) {
-                                  success(galleryItems);
-                              }
-                          }
-                          failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                              @strongify(self);
-                              [self finishWithError:error fetchedData:nil];
-                              if (failure) {
-                                  failure(error);
-                              }
-                          }];
+    [self.manager
+     wmf_apiZeroSafePOSTWithURL:siteURL parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
+         @strongify(self);
+         [self finishWithError:nil fetchedData:galleryItems];
+         if (success) {
+             success(galleryItems);
+         }
+     }
+     failure:^(NSURLSessionDataTask *operation, NSError *error) {
+         @strongify(self);
+         [self finishWithError:error fetchedData:nil];
+         if (failure) {
+             failure(error);
+         }
+     }];
+    
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;
 }
