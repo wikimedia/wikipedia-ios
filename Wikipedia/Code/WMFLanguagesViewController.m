@@ -482,7 +482,15 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     if ([self shouldShowFooterForSection:section]) {
         WMFArticleLanguagesSectionFooter *footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
-        footer.title = WMFLocalizedStringWithDefaultValue(@"settings-primary-language-details", nil, nil, @"The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.", @"Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.");
+        NSString *title;
+        if ([self isExploreFeedCustomizationSettingsSection:section]) {
+            title = WMFLocalizedStringWithDefaultValue(@"settings-languages-feed-customization", nil, nil, @"You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.", @"Explanation of how you can manage which languages appear in the feed.");
+            [footer setButtonHidden:YES];
+        } else {
+            title = WMFLocalizedStringWithDefaultValue(@"settings-primary-language-details", nil, nil, @"The first language in this list is used as the primary language for the app.", @"Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.");
+            [footer setButtonHidden:NO];
+        }
+        footer.title = title;
         [footer applyTheme:self.theme];
         return footer;
     } else {
