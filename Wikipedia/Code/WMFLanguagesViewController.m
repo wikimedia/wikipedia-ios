@@ -233,6 +233,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (self.showNonPreferredLanguages) {
         count++;
     }
+    if (self.showExploreFeedCustomizationSettings) {
+        count++;
+    }
     return count;
 }
 
