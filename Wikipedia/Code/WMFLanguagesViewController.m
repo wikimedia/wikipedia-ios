@@ -242,6 +242,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self isPreferredSection:section]) {
         return self.languageFilter.filteredPreferredLanguages.count;
+    } else if ([self isExploreFeedCustomizationSettingsSection:section]) {
+        return 1;
     } else {
         return self.languageFilter.filteredOtherLanguages.count;
     }
