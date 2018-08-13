@@ -50,7 +50,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) WMFTheme *theme;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
