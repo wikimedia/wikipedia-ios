@@ -143,11 +143,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.allowsSelection = !disableSelection;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.title = [WMFCommonStrings wikipediaLanguages];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadLanguages];
@@ -447,6 +442,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     self.tableView.estimatedSectionFooterHeight = 50.f;
 
     [self.tableView registerNib:[WMFArticleLanguagesSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFArticleLanguagesSectionFooter wmf_nibName]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.title = [WMFCommonStrings wikipediaLanguages];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
