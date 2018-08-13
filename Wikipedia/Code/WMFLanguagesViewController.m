@@ -336,6 +336,8 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
         } else {
             return UITableViewCellEditingStyleNone;
         }
+    } else if ([self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
+        return UITableViewCellEditingStyleNone;
     } else {
         return UITableViewCellEditingStyleInsert;
     }
