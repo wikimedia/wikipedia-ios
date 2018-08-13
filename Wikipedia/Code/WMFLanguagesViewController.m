@@ -354,10 +354,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return true;
 }
 
-- (NSString *)analyticsContentType {
-    return @"Language";
-}
-
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
