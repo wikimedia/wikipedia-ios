@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSettingsViewController : UIViewController <WMFThemeable>
+@interface WMFSettingsViewController : WMFViewController <WMFThemeable>
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
