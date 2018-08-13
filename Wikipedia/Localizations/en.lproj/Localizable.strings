@@ -134,6 +134,7 @@
 "explore-featured-article-heading" = "Featured article";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "From Wikipedia";
+"explore-feed-customize-accessibility-title" = "Customize";
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
 "explore-feed-preferences-card-hidden-title" = "Card hidden";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";

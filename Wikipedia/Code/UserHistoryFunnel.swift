@@ -94,7 +94,6 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
-            UserDefaults.wmf_userDefaults().wmf_lastAppVersion = WikipediaAppUtils.appVersion()
             log(event())
             return
         }
@@ -116,6 +115,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            logSnapshot() // call standard log snapshot in case version changed, should be logged on session start
             return
         }
         guard isTarget else {

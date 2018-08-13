@@ -72,12 +72,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         longTitleButton.setImage(UIImage(named: "wikipedia"), for: .normal)
         longTitleButton.sizeToFit()
         longTitleButton.addTarget(self, action: #selector(titleBarButtonPressed), for: .touchUpInside)
+        longTitleButton.isAccessibilityElement = false
         return longTitleButton
     }()
     
     lazy var titleView: UIView = {
         let titleView = UIView(frame: longTitleButton.bounds)
         titleView.addSubview(longTitleButton)
+        titleView.isAccessibilityElement = false
         return titleView
     }()
 
@@ -157,15 +159,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
         for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
             let group = fetchedResultsController.object(at: indexPath)
-            guard let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+            guard group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
             let visibleRectSize = view.layoutMarginsGuide.layoutFrame.size
-            let itemOrigin = itemFrame.origin
+            let itemCenter = CGPoint(x: itemFrame.midX, y: itemFrame.midY)
             let visibleRect = CGRect(origin: visibleRectOrigin, size: visibleRectSize)
-            let itemMaxYPoint = CGPoint(x: itemFrame.origin.x, y: itemFrame.maxY)
-            let isUnobstructed = visibleRect.contains(itemOrigin) || visibleRect.contains(itemMaxYPoint)
+            let isUnobstructed = visibleRect.contains(itemCenter)
             guard isUnobstructed else {
                 continue
             }
@@ -843,5 +844,21 @@ extension ExploreViewController {
     override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         wmf_push(articleController, context: previewed.context, index: previewed.indexPath?.item, animated: true)
+    }
+
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        readingListHintController.didSave(didSave, articleURL: articleURL, theme: theme)
+        if didSave {
+            ReadingListsFunnel.shared.logSaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(context: previewed.context, articleURL: articleURL, index: previewed.indexPath?.item)
+        }
+    }
+}
+
+// MARK: - EventLoggingSearchSourceProviding
+extension ExploreViewController: EventLoggingSearchSourceProviding {
+    var searchSource: String {
+        return "top_of_feed"
     }
 }
