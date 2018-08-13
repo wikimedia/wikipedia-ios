@@ -491,8 +491,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMFLanguageCell *cell = (WMFLanguageCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
-    cell.isPrimary = (indexPath.row == 0) ? YES : NO;
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[WMFLanguageCell class]]) {
+        WMFLanguageCell *languageCell = (WMFLanguageCell *)cell;
+        languageCell.isPrimary = (indexPath.row == 0) ? YES : NO;
+    }
     return cell;
 }
 
