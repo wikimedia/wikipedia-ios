@@ -1359,7 +1359,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81528511E71DA9B00966DD9 /* Analytics.swift */; };
 		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3831ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
@@ -1626,7 +1625,6 @@
 		D84C36421F3245DF00895FA1 /* WMFFeedContentDisplaying.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E28C4871D751ED6000C5919 /* WMFFeedContentDisplaying.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84C36431F3245DF00895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6A6F511D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
-		D84C36501F324F3D00895FA1 /* WMFContentGroup+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */; };
 		D84C36521F33866C00895FA1 /* WMF Framework.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84C36511F33866C00895FA1 /* WMF Framework.xcassets */; };
 		D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
 		D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
@@ -4271,7 +4269,6 @@
 		D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleRightAlignedImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleRightAlignedImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Description.swift"; sourceTree = "<group>"; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
-		D81528511E71DA9B00966DD9 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = ../Wikipedia/Code/Analytics.swift; sourceTree = "<group>"; };
 		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
@@ -4356,7 +4353,6 @@
 		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84C363F1F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "WMF Framework/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
-		D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+Analytics.swift"; sourceTree = "<group>"; };
 		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
 		D84DAA061EEEF527008E4B18 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		D84DAA071EEEF527008E4B18 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
@@ -7557,7 +7553,6 @@
 				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
-				D81528511E71DA9B00966DD9 /* Analytics.swift */,
 				D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */,
 				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
 				B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */,
@@ -7607,7 +7602,6 @@
 				D84448571DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.m */,
 				D844485C1DDCE4E500425630 /* WMFContentGroup+Extensions.h */,
 				D844485D1DDCE4E500425630 /* WMFContentGroup+Extensions.m */,
-				D84C364F1F324F3D00895FA1 /* WMFContentGroup+Analytics.swift */,
 				7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */,
 				8380754420DE627D000D222C /* WMFContentGroup+Display.swift */,
 				83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */,
@@ -10694,7 +10688,6 @@
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
 				D849D6541D6CC7DC00D06FC8 /* WMFImageTagList.m in Sources */,
 				D849D6551D6CC7DC00D06FC8 /* WMFImageTagList+ImageURLs.m in Sources */,
-				D818A3F01E71F62100CC05C4 /* Analytics.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
 				D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */,
@@ -10708,7 +10701,6 @@
 				D844D9ED1D6CBFE40042D692 /* WMFZeroConfiguration.m in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,
 				D84C35F61F323CF000895FA1 /* AlignedImageButton.swift in Sources */,
-				D84C36501F324F3D00895FA1 /* WMFContentGroup+Analytics.swift in Sources */,
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8D365101E93DBEB00593A38 /* CacheGroup+CoreDataClass.swift in Sources */,
 				D83FA6B41D74CDBC008CAB00 /* AFHTTPRequestSerializer+WMFRequestHeaders.m in Sources */,

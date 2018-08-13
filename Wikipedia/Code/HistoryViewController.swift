@@ -28,10 +28,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         isDeleteAllVisible = true
     }
     
-    override var analyticsName: String {
-        return "Recent"
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionViewUpdater.isGranularUpdatingEnabled = true
