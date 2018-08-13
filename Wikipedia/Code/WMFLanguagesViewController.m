@@ -176,6 +176,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return NO;
 }
 
+- (BOOL)isExploreFeedCustomizationSettingsSection:(NSInteger)section {
+    return section == 1;
+}
+
 - (void)setShowPreferredLanguages:(BOOL)showPreferredLanguages {
     if (_showPreferredLanguages == showPreferredLanguages) {
         return;
