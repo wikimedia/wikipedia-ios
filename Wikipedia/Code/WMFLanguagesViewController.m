@@ -254,7 +254,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self isPreferredSection:section]) {
         return self.languageFilter.filteredPreferredLanguages.count;
-    } else if ([self isExploreFeedCustomizationSettingsSection:section]) {
+    } else if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:section]) {
         return 1;
     } else {
         return self.languageFilter.filteredOtherLanguages.count;
@@ -267,7 +267,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
                                             forIndexPath:indexPath];
     if ([self isPreferredSection:indexPath.section]) {
         [self configurePreferredLanguageCell:cell atRow:indexPath.row];
-    } else if ([self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
+    } else if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
         WMFSettingsTableViewCell *cell = (WMFSettingsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:WMFSettingsTableViewCell.identifier forIndexPath:indexPath];
         [self configureExploreFeedCustomizationCell:cell];
         return cell;
@@ -297,7 +297,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (NSString *)titleForHeaderInSection:(NSInteger)section {
     NSString *title;
-    if ([self isExploreFeedCustomizationSettingsSection:section]) {
+    if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:section]) {
         title = WMFLocalizedStringWithDefaultValue(@"explore-feed-language-settings", nil, nil, @"Explore feed language settings", @"Title for Explore feed language settings.");
     } else if ([self isPreferredSection:section]) {
         title = WMFLocalizedStringWithDefaultValue(@"article-languages-yours", nil, nil, @"Your languages", @"Title for list of user's preferred languages");
@@ -331,7 +331,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     MWKLanguageLink *selectedLanguage = [self languageAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)]) {
         [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
-    } else if ([self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
+    } else if (self.showExploreFeedCustomizationSettings && [self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
         self.title = nil;
         WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
         feedSettingsVC.dataStore = SessionSingleton.sharedInstance.dataStore;
@@ -563,6 +563,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     languagesVC.articleURL = url;
     languagesVC.editing = NO;
+    languagesVC.showExploreFeedCustomizationSettings = NO;
     languagesVC.title = WMFLocalizedStringWithDefaultValue(@"languages-title", nil, nil, @"Change language", @"Title for language picker\n{{Identical|Language}}");
 
     return languagesVC;
