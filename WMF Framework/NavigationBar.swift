@@ -1,4 +1,4 @@
-public enum NavigationBarDisplayType {
+@objc public enum NavigationBarDisplayType: Int {
     case backVisible
     case largeTitle
     case modal
@@ -44,7 +44,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private var _displayType: NavigationBarDisplayType = .backVisible
-    public var displayType: NavigationBarDisplayType {
+    @objc public var displayType: NavigationBarDisplayType {
         get {
             return _displayType
         }
