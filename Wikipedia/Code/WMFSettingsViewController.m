@@ -123,6 +123,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [self configureBackButton];
     } else {
         self.navigationItem.rightBarButtonItem = nil;
+        self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
     }
 }
 
