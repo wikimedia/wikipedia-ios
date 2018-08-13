@@ -326,6 +326,12 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     MWKLanguageLink *selectedLanguage = [self languageAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(languagesController:didSelectLanguage:)]) {
         [self.delegate languagesController:self didSelectLanguage:selectedLanguage];
+    } else if ([self isExploreFeedCustomizationSettingsSection:indexPath.section]) {
+        self.title = nil;
+        WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
+        feedSettingsVC.dataStore = SessionSingleton.sharedInstance.dataStore;
+        [feedSettingsVC applyTheme:self.theme];
+        [self.navigationController pushViewController:feedSettingsVC animated:YES];
     }
 }
 
