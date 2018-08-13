@@ -487,7 +487,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (BOOL)shouldShowFooterForSection:(NSInteger)section {
-    return (self.showPreferredLanguages && (section == 0));
+    return (self.showPreferredLanguages && (section == 0)) || [self isExploreFeedCustomizationSettingsSection:section];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
