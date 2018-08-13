@@ -291,7 +291,14 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (NSString *)titleForHeaderInSection:(NSInteger)section {
-    NSString *title = ([self isPreferredSection:section]) ? WMFLocalizedStringWithDefaultValue(@"article-languages-yours", nil, nil, @"Your languages", @"Title for list of user's preferred languages") : WMFLocalizedStringWithDefaultValue(@"article-languages-others", nil, nil, @"Other languages", @"Title for list of languages not in user's preferred languages");
+    NSString *title;
+    if ([self isExploreFeedCustomizationSettingsSection:section]) {
+        title = WMFLocalizedStringWithDefaultValue(@"explore-feed-language-settings", nil, nil, @"Explore feed language settings", @"Title for Explore feed language settings.");
+    } else if ([self isPreferredSection:section]) {
+        title = WMFLocalizedStringWithDefaultValue(@"article-languages-yours", nil, nil, @"Your languages", @"Title for list of user's preferred languages");
+    } else {
+        title = WMFLocalizedStringWithDefaultValue(@"article-languages-others", nil, nil, @"Other languages", @"Title for list of languages not in user's preferred languages");
+    }
     return [title uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
