@@ -153,6 +153,8 @@ extension NewsViewController {
             header.label.text = headerTitle(for: indexPath.section)
             header.apply(theme: theme)
             return header
+        case UICollectionElementKindSectionFooter:
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         default:
             assert(false, "ensure you've registered cells and added cases to this switch statement to handle all header/footer types")
             return UICollectionReusableView()
