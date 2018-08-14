@@ -110,6 +110,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController setNavigationBarHidden:!self.showCloseButton];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
+    CGFloat topInset = self.showsNavigationBar ? 80 : 0;
+    [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
+    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
 }
 
