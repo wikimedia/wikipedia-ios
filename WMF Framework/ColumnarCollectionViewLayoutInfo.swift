@@ -52,7 +52,8 @@ public class ColumnarCollectionViewLayoutInfo {
                 let footerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: sectionIndex))
                 footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
-                footerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: width, height: footerHeightEstimate.height))
+                let footerOrigin = CGPoint(x: 0, y: y + section.frame.height)
+                footerAttributes.frame = CGRect(origin: footerOrigin, size: CGSize(width: width, height: footerHeightEstimate.height))
                 footerAttributes.zIndex = -10
                 section.addFooter(footerAttributes)
             }
