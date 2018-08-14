@@ -323,16 +323,22 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
-            assert(false)
-            return UICollectionReusableView()
+        if kind == UICollectionElementKindSectionHeader {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
+            guard let header = view as? CollectionViewHeader else {
+                return view
+            }
+            configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
+            return header
+        } else if kind == UICollectionElementKindSectionFooter {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath)
+            guard let footer = view as? CollectionViewFooter else {
+                return view
+            }
+            configure(footer: footer, forSectionAt: indexPath.section, layoutOnly: false)
+            return footer
         }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let header = view as? CollectionViewHeader else {
-            return view
-        }
-        configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
-        return header
+        return UICollectionReusableView()
     }
 }
 
