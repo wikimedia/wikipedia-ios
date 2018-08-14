@@ -29,6 +29,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         super.viewDidLoad()
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
         layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
