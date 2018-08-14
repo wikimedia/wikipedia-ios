@@ -48,7 +48,7 @@ public class ColumnarCollectionViewLayoutInfo {
             }
             let footerWidth = section.widthForSupplementaryViews
             let footerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForFooterInSection: sectionIndex, forColumnWidth: footerWidth)
-            if !footerHeightEstimate.height.isEqual(to: 0) {
+            if delegate.collectionView(collectionView, shouldShowFooterForSection: sectionIndex), !footerHeightEstimate.height.isEqual(to: 0) {
                 let footerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: sectionIndex))
                 footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
