@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching {
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate {
     lazy var layout: ColumnarCollectionViewLayout = {
         return ColumnarCollectionViewLayout()
     }()
@@ -286,6 +286,12 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
         _maxViewed = max(_maxViewed, percentViewed)
+    }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+
     }
 }
 
