@@ -216,6 +216,16 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         header.style = .detail
         header.apply(theme: theme)
     }
+
+    // MARK: - Footer
+
+    var footerButtonTitle: String?
+
+    open func configure(footer: CollectionViewFooter, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+        footer.buttonTitle = footerButtonTitle
+        footer.delegate = self
+        footer.apply(theme: theme)
+    }
     
     // MARK - ColumnarCollectionViewLayoutDelegate
     
