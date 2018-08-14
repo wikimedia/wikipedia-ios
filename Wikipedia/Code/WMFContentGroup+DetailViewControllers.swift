@@ -65,6 +65,7 @@ extension WMFContentGroup {
         }
         if let customVC = vc as? ColumnarCollectionViewController {
             customVC.headerTitle = headerTitle
+            customVC.footerButtonTitle = "Back to Explore feed"
             customVC.headerSubtitle = moreType != .onThisDay ? headerSubTitle : nil
         }
         return vc
