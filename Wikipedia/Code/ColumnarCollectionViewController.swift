@@ -244,7 +244,21 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
+        guard footerButtonTitle != nil else {
+            return estimate
+        }
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier) as? CollectionViewFooter else {
+            return estimate
+        }
+        configure(footer: placeholder, forSectionAt: section, layoutOnly: true)
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
+        return section == collectionView.numberOfSections - 1
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
