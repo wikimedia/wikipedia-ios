@@ -130,8 +130,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
+        } else if let customView = item.customView {
+            barButtonItem = UIBarButtonItem(customView: customView)
         } else {
-            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
+            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
             barButtonItem = item
         }
         barButtonItem.isEnabled = item.isEnabled
