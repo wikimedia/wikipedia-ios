@@ -82,6 +82,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
+
+    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 }
 
 - (void)dealloc {
@@ -107,10 +109,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:!self.showCloseButton];
+    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    CGFloat topInset = self.showsNavigationBar ? 80 : 0;
+    CGFloat topInset = 80;
     [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
     self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
@@ -122,12 +124,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)setShowCloseButton:(BOOL)showCloseButton {
-    _showCloseButton = showCloseButton;
     if (showCloseButton) {
         [self configureBackButton];
     } else {
         self.navigationItem.rightBarButtonItem = nil;
-        self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
     }
 }
 
