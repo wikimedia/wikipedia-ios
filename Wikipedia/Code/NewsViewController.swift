@@ -109,6 +109,12 @@ class NewsViewController: ColumnarCollectionViewController {
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
         wmf_push(viewControllerToCommit, animated: true)
     }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

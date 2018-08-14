@@ -147,6 +147,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         wmf_push(viewControllerToCommit, animated: true)
     }
 
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
+
 }
 
 class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
