@@ -193,7 +193,7 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard indexPath.section > 0 else {
+        guard indexPath.section > 0, kind == UICollectionElementKindSectionHeader else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
         guard
