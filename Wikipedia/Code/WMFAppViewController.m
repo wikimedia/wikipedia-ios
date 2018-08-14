@@ -1226,7 +1226,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return (UINavigationController *)[self viewControllers][tab];
 }
 
-- (UIViewController<WMFAnalyticsViewNameProviding> *)rootViewControllerForTab:(WMFAppTabType)tab {
+- (UIViewController *)rootViewControllerForTab:(WMFAppTabType)tab {
     return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
 }
 

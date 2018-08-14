@@ -27,6 +27,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
+        imageView.image = #imageLiteral(resourceName: "compass-w")
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -116,7 +117,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        imageView.backgroundColor = theme.colors.midBackground
+        imageView.backgroundColor = .wmf_green
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.distanceBorder.cgColor
         compassView.lineColor = theme.colors.accent

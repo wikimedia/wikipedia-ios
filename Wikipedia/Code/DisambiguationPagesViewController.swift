@@ -66,11 +66,6 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         cell.apply(theme: theme)
     }
     
-    
-    override var analyticsName: String {
-        return "Disambiguation"
-    }
-    
     override var eventLoggingLabel: EventLoggingLabel? {
         return .similarPage
     }

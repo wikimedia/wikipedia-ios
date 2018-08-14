@@ -31,7 +31,7 @@ class CustomShareActivity: UIActivity {
 protocol ShareableArticlesProvider: NSObjectProtocol {
 }
 
-extension ShareableArticlesProvider where Self: UIViewController & AnalyticsContextProviding & EventLoggingEventValuesProviding {
+extension ShareableArticlesProvider where Self: UIViewController & EventLoggingEventValuesProviding {
     func share(article: WMFArticle?, articleURL: URL?, at indexPath: IndexPath, dataStore: MWKDataStore, theme: Theme, eventLoggingCategory: EventLoggingCategory? = nil, eventLoggingLabel: EventLoggingLabel? = nil, sourceView: UIView?) -> Bool {
         if let article = article {
             return createAndPresentShareActivityController(for: article, at: indexPath, dataStore: dataStore, theme: theme, eventLoggingCategory: eventLoggingCategory, eventLoggingLabel: eventLoggingLabel, sourceView: sourceView)
@@ -70,7 +70,7 @@ extension ShareableArticlesProvider where Self: UIViewController & AnalyticsCont
             customActivities.append(moveToReadingListActivity)
         }
         
-        let shareActivityController = ShareActivityController(article: article, context: self, customActivities: customActivities)
+        let shareActivityController = ShareActivityController(article: article, customActivities: customActivities)
         if UIDevice.current.userInterfaceIdiom == .pad {
             shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
             shareActivityController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? view.bounds
@@ -136,7 +136,7 @@ class ShareActivityController: UIActivityViewController {
     
     private var articleApplicationActivities: [UIActivity] = [TUSafariActivity(), WMFOpenInMapsActivity(), WMFGetDirectionsInMapsActivity()]
     
-    @objc init(article: WMFArticle, context: AnalyticsContextProviding, customActivities: [UIActivity]) {
+    @objc init(article: WMFArticle, customActivities: [UIActivity]) {
 
         var items = [Any]()
         

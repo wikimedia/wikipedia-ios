@@ -218,6 +218,22 @@
 			<string>Enguany</string>
 		</dict>
 	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>En deixar de tenir desat aquest article se suprimirà de totes les llistes de lectura associades</string>
+			<key>other</key>
+			<string>En deixar de tenir desat aquests articles se suprimiran de totes les llistes de lectura associades</string>
+		</dict>
+	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -229,9 +245,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Voleu deixar de desar article?</string>
+			<string>Voleu deixar de tenir desats article?</string>
 			<key>other</key>
-			<string>Voleu deixar de desar articles?</string>
+			<string>Voleu deixar de tenir desats articles?</string>
 		</dict>
 	</dict>
 </dict>

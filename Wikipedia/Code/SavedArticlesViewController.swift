@@ -435,18 +435,6 @@ extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
     }
 }
 
-// MARK: - Analytics
-
-extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "SavedArticles"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
-    }
-}
-
 extension SavedArticlesViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
         return EventLoggingCategory.saved

@@ -14,7 +14,7 @@
 
 @end
 
-@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding, WMFThemeable>
+@interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
 
 @property (nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
 

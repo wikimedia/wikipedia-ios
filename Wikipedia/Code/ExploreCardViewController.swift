@@ -645,18 +645,6 @@ extension ExploreCardViewController: Themeable {
     }
 }
 
-extension ExploreCardViewController: AnalyticsContextProviding {
-    var analyticsContext: String {
-        return "explore"
-    }
-}
-
-extension ExploreCardViewController: AnalyticsContentTypeProviding {
-    var analyticsContentType: String {
-        return contentGroup?.analyticsContentType ?? "unknown"
-    }
-}
-
 extension ExploreCardViewController: EventLoggingEventValuesProviding {
     var eventLoggingLabel: EventLoggingLabel? {
         return contentGroup?.eventLoggingLabel

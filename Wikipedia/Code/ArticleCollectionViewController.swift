@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath)
 }
 
 @objc(WMFArticleCollectionViewController)
@@ -141,16 +141,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     }
 }
 
-extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ArticleList"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
-    }
-}
-
 // MARK: - UICollectionViewDataSource
 extension ArticleCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -180,7 +170,7 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
+        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
