@@ -154,7 +154,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
         listViewController.didMove(toParentViewController: self)
-        listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
