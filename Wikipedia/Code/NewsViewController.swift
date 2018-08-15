@@ -109,6 +109,12 @@ class NewsViewController: ColumnarCollectionViewController {
         FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
         wmf_push(viewControllerToCommit, animated: true)
     }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -147,6 +153,8 @@ extension NewsViewController {
             header.label.text = headerTitle(for: indexPath.section)
             header.apply(theme: theme)
             return header
+        case UICollectionElementKindSectionFooter:
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         default:
             assert(false, "ensure you've registered cells and added cases to this switch statement to handle all header/footer types")
             return UICollectionReusableView()
