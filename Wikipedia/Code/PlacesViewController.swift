@@ -233,6 +233,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         placeSearchService.fetchSavedArticles(searchString: nil)
         
         super.viewWillAppear(animated)
+
+        let recenterOnUserLocationButtonTopConstraint = recenterOnUserLocationButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+        let redoSearchButtonTopConstraint = redoSearchButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+        let didYouMeanButtonTopConstraint = didYouMeanButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+
+        NSLayoutConstraint.activate([recenterOnUserLocationButtonTopConstraint, redoSearchButtonTopConstraint, didYouMeanButtonTopConstraint])
         
         let defaults = UserDefaults.wmf_userDefaults()
         if !defaults.wmf_placesHasAppeared() {
