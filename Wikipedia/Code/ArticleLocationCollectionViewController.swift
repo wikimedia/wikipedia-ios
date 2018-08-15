@@ -55,10 +55,11 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier) as? ArticleLocationCollectionViewCell else {
             return estimate
         }
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
