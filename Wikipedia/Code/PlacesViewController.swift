@@ -1101,6 +1101,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
             navigationBar.isInteractiveHidingEnabled = !mapListToggleContainer.isHidden
+            listViewController.scrollView?.contentInsetAdjustmentBehavior = mapListToggleContainer.isHidden ? .automatic : .never
         }
     }
 
