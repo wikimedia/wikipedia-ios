@@ -1101,6 +1101,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
+            navigationBar.isInteractiveHidingEnabled = !mapListToggleContainer.isHidden
         }
     }
 
