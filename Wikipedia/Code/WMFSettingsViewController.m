@@ -50,7 +50,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) WMFTheme *theme;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
@@ -83,6 +82,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
+
+    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 }
 
 - (void)dealloc {
@@ -108,8 +109,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
+    CGFloat topInset = 80;
+    [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
+    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
 }
 
@@ -203,6 +208,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController setNavigationBarHidden:NO];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     switch (cell.tag) {
         case WMFSettingsMenuItemType_Login:
@@ -571,6 +577,37 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #else
     return nil;
 #endif
+}
+
+#pragma mark - Scroll view
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    return YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
 }
 
 #pragma mark - KVO
