@@ -209,13 +209,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
-        
-        if UIAccessibilityIsVoiceOverRunning() {
-            viewMode = .list
-            mapListToggle.selectedSegmentIndex = 1
-        } else {
-            viewMode = .map
-        }
+
+        super.viewDidLoad()
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
@@ -223,11 +218,16 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         overlaySliderPanGestureRecognizer = panGR
         
         self.view.layoutIfNeeded()
-
-        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+
+        if UIAccessibilityIsVoiceOverRunning() {
+            viewMode = .list
+            mapListToggle.selectedSegmentIndex = 1
+        } else {
+            viewMode = .map
+        }
         
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
