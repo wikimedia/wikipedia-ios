@@ -59,6 +59,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier) as? ArticleLocationCollectionViewCell else {
             return estimate
         }
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
