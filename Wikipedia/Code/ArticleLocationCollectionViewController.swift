@@ -61,7 +61,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
-        estimate.precalculated = false
+        estimate.precalculated = true
         return estimate
     }
     
