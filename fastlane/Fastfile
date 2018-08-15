@@ -19,7 +19,7 @@ beta_cluster_configurations_to_test = [
 ]
 
 def get_devices_by_scheme_from_options(options)
-  configs = options[:configurations] || [{device: 'iPhone 6s', os: '11.3'}]
+  configs = options[:configurations] || [{device: 'iPhone 6s', os: '11.4'}]
   devices_by_scheme = {}
   configs.each do |options|
     scheme = options[:scheme] || 'Wikipedia'
