@@ -69,6 +69,12 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

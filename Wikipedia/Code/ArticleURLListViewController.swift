@@ -50,6 +50,10 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     override var eventLoggingLabel: EventLoggingLabel? {
         return feedFunnelContext?.label
     }
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
