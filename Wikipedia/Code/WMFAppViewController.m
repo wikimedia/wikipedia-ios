@@ -1304,8 +1304,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
-        [_placesViewController applyTheme:self.theme];
         _placesViewController.dataStore = self.dataStore;
+        [_placesViewController applyTheme:self.theme];
     }
     return _placesViewController;
 }
