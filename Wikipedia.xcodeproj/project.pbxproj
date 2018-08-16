@@ -1403,11 +1403,6 @@
 		D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */; };
 		D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */; };
 		D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */; };
-		D82E95281F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
-		D82E95291F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
-		D82E952A1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
-		D82E952B1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
-		D82E952C1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */; };
 		D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */; };
 		D82E956B1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */; };
 		D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */; };
@@ -4292,7 +4287,6 @@
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
 		D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsOperation.swift; path = "WMF Framework/ReadingListsOperation.swift"; sourceTree = SOURCE_ROOT; };
 		D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsSyncOperation.swift; path = "WMF Framework/ReadingListsSyncOperation.swift"; sourceTree = SOURCE_ROOT; };
-		D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Theme.swift"; sourceTree = "<group>"; };
 		D82E954B1F15397D007BD960 /* ThemeableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTextField.swift; sourceTree = "<group>"; };
 		D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SubviewEnumeration.swift"; sourceTree = "<group>"; };
 		D82E95821F16502E007BD960 /* WMFLanguagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewController.h; sourceTree = "<group>"; };
@@ -7437,7 +7431,6 @@
 		D82E951A1F101D7D007BD960 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D82E95271F14FBD9007BD960 /* UITableView+Theme.swift */,
 				D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */,
 				7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */,
 				83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */,
@@ -10087,7 +10080,6 @@
 				7A6ED50D20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				B031032D1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
-				D82E95281F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
@@ -10220,7 +10212,6 @@
 				D80ED29B1EE57F4800CE8C50 /* WMFPageHistoryRevision.m in Sources */,
 				D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D80ED2A21EE57F4800CE8C50 /* WMFEmptyView.m in Sources */,
-				D82E952C1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D80ED2A41EE57F4800CE8C50 /* SavedArticlesFetcher.m in Sources */,
 				D80ED2A61EE57F4800CE8C50 /* WMFSettingsTableViewCell.m in Sources */,
 				7A35CB8B1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
@@ -11054,7 +11045,6 @@
 				B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
-				D82E952B1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8421B56203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
 				D8A42B4D1E815A9C00D8E281 /* WMFArticleFetcher.m in Sources */,
@@ -11189,7 +11179,6 @@
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				D8CE250A1E698E2400DAE2E0 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
-				D82E95291F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */,
 				D8CE25141E698E2400DAE2E0 /* SavedArticlesFetcher.m in Sources */,
 				D8CE25151E698E2400DAE2E0 /* WMFSettingsTableViewCell.m in Sources */,
@@ -11518,7 +11507,6 @@
 				D8EC3E011E9BDA35006712EB /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				B0B423631EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */,
-				D82E952A1F14FBD9007BD960 /* UITableView+Theme.swift in Sources */,
 				D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */,
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
