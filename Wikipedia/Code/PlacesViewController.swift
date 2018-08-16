@@ -215,23 +215,28 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         panGR.delegate = self
         view.addGestureRecognizer(panGR)
         overlaySliderPanGestureRecognizer = panGR
-        
+
         self.view.layoutIfNeeded()
     }
+
+    private var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
-
-        if UIAccessibilityIsVoiceOverRunning() {
-            viewMode = .list
-            mapListToggle.selectedSegmentIndex = 1
-        } else {
-            viewMode = .map
-        }
         
         // Update saved places locations
         placeSearchService.fetchSavedArticles(searchString: nil)
         
         super.viewWillAppear(animated)
+
+        if isFirstAppearance {
+            isFirstAppearance = false
+            if UIAccessibilityIsVoiceOverRunning() {
+                viewMode = .list
+                mapListToggle.selectedSegmentIndex = 1
+            } else {
+                viewMode = .map
+            }
+        }
 
         constrainButtonsToNavigationBar()
         
