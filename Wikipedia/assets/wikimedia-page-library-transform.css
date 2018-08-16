@@ -728,8 +728,21 @@ a.pagelib_edit_section_link {
 
 .pagelib_footer_container_heading {
   padding-top: 35px;
-  font-size: 0.95em;
-  line-height: 1.6;
+  font-size: 0.8em;
+  line-height: 0.8em;
+  color: #72777D;
+}
+
+.pagelib_theme_sepia .pagelib_footer_container_heading {
+  color: #646059;
+}
+
+.pagelib_theme_dark .pagelib_footer_container_heading {
+  color: #C8CCD1;
+}
+
+.pagelib_theme_black .pagelib_footer_container_heading {
+  color: #F8F9FA;
 }
 
 #pagelib_footer_container_readmore_pages {

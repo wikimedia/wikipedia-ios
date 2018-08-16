@@ -629,7 +629,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
-    [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 
 @end
