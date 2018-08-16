@@ -134,10 +134,9 @@
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "empty-no-history-title" = "אין היסטוריה להציג";
-// Fuzzy
-"empty-no-reading-lists-message" = "אפשר ללחוץ על הכפתור הכחול ’+‘ כדי ליצור רשימות קריאה עבור מקומות שברצונך לטייל בהם, נושאים שמעניינים אותך ועוד";
-"empty-no-reading-lists-title" = "סידור ערכים שמורים ברשימות קריאה";
-"empty-no-saved-pages-in-reading-list-message" = "באפשרותך לשמור דפים ברשימה זו כדי לראות אותם כאן";
+"empty-no-reading-lists-message" = "צרו רשימות קריאה עבור מקומות שאתם רוצים לטייל בהם, נושאים שמעניינים אתכם, ועוד";
+"empty-no-reading-lists-title" = "סדרו ערכים שמורים ברשימות קריאה";
+"empty-no-saved-pages-in-reading-list-message" = "שמרו דפים ברשימה זו כדי לראות אותם כאן";
 "empty-no-saved-pages-in-reading-list-title" = "לא נשמרו דפים ברשימה זו";
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
@@ -151,6 +150,7 @@
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "מתוך ויקיפדיה בשפה $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
+"explore-feed-customize-accessibility-title" = "התאמה אישית";
 "explore-feed-preferences-additional-languages-footer-text" = "ניתן להוסיף שפות נוספות בדף ההגדרות \"השפות שלי\".";
 "explore-feed-preferences-card-hidden-title" = "הכרטיס מוסתר";
 "explore-feed-preferences-continue-reading-description" = "קישור לחזרה מהירה לקריאת ערך פתוח";
@@ -447,6 +447,7 @@
 "reading-list-unable-to-update" = "אירעה שגיאה בלתי־צפויה בעת עדכון רשימת הקריאה שלך. נא לנסות שוב מאוחר יותר.";
 "reading-list-with-provided-name-not-found" = "לא נמצאה רשימת קריאה בשם ”$1“. נא לוודא שהזנת את השם הנכון.";
 "reading-lists-article-added-confirmation" = "הערך נוסף לרשימה ”$1“";
+"reading-lists-article-api-failure" = "לא ניתן לרענן את הערך";
 "reading-lists-article-not-synced" = "הסנכרון לא בוצע";
 "reading-lists-article-not-synced-article-limit-exceeded" = "עברת את מגבלת הערכים, ולכן לא ניתן לסנכרן את הערך";
 "reading-lists-article-not-synced-list-limit-exceeded" = "עברת את מגבלת הרשימות, ולכן לא ניתן לסנכרן את הערך";

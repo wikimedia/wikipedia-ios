@@ -6,7 +6,7 @@ import UIKit
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+open class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
@@ -132,14 +132,6 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         visible = true
         let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         apply(theme: currentTheme)
-    }
-    
-    public var analyticsContext: String {
-        return "Article"
-    }
-    
-    public var analyticsContentType: String {
-        return "Article"
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification){

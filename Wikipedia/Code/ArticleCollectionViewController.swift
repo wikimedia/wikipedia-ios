@@ -116,7 +116,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // The layout estimate can be re-used in this case because both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
         if let estimate = cellLayoutEstimate {
             return estimate
@@ -138,16 +138,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
-    }
-}
-
-extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ArticleList"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
     }
 }
 

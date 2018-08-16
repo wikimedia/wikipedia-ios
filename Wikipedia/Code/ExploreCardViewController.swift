@@ -420,6 +420,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
         return true
     }
+
+    func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
+        return false
+    }
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         let kind = contentGroup?.contentGroupKind ?? .unknown
@@ -642,18 +646,6 @@ extension ExploreCardViewController: Themeable {
         }
         collectionView.backgroundColor = theme.colors.cardBackground
         view.backgroundColor = theme.colors.cardBackground
-    }
-}
-
-extension ExploreCardViewController: AnalyticsContextProviding {
-    var analyticsContext: String {
-        return "explore"
-    }
-}
-
-extension ExploreCardViewController: AnalyticsContentTypeProviding {
-    var analyticsContentType: String {
-        return contentGroup?.analyticsContentType ?? "unknown"
     }
 }
 

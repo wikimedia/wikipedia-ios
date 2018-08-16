@@ -35,7 +35,7 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
     
     @IBOutlet weak var tableView: UITableView!
@@ -244,14 +244,6 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
                 cell.isSelected = false
             }
         }
-    }
-    
-    public var analyticsContext: String {
-        return "Settings"
-    }
-    
-    public var analyticsContentType: String {
-        return "Settings"
     }
     
     @objc func applyImageDimmingChange(isOn: NSNumber) {

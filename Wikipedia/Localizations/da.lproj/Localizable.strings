@@ -20,6 +20,7 @@
 "about-libraries-complete-list" = "Fuldfør liste";
 "about-libraries-license" = "Licens";
 "about-libraries-licenses-title" = "Vi elsker open source software $1";
+"about-places-maps-license-details-link-text" = "Se her for licens detaljer";
 "about-product-of" = "Skabt af $1 med hjælp fra frivillige som dig";
 "about-repositories" = "Arkiver";
 "about-repositories-app-source-license" = "Kildekode tilgængelig under $1";
@@ -55,6 +56,7 @@
 "account-creation-title" = "Opret en ny konto";
 "action-add-to" = "Tilføj til ...";
 "action-add-to-reading-list" = "Tilføj til læseliste";
+"action-add-to-reading-list-short" = "Tilføj til liste";
 "action-cancel" = "Annuller";
 "action-move-to" = "Flyt til ...";
 "action-move-to-reading-list" = "Flyt til læseliste";
@@ -69,10 +71,10 @@
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
 "action-update" = "Opdater";
-// Fuzzy
-"add-articles-to-reading-list" = "Tilføj $1 til læselisten";
+"add-articles-to-reading-list" = "Tilføj {{PLURAL:$1|$1 artikel|$1 artikler}} til læselisten";
 "alert-no-internet" = "Der er ingen internetforbindelse";
 "announcements-dismiss" = "Nej tak";
+"app-store-subtitle" = "Den frie encyklopædi";
 "appearance-settings-adjust-text-sizing" = "Juster størrelse for artikelteksten";
 "appearance-settings-expand-tables" = "Udvid tabeller";
 "appearance-settings-expand-tables-footer" = "Angiv at alle tabeller i alle artikler skal være åbne som standard, inklusive hurtige fakta, referencer, noter og eksterne henvisninger.";
@@ -95,6 +97,7 @@
 "article-unable-to-load-article" = "Kunne ikke indlæse denne artikel.";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
+"back-button-popover-title" = "Tryk for at gå tilbage";
 "button-done" = "Færdig";
 "button-next" = "Næste";
 "button-ok" = "OK";
@@ -136,21 +139,32 @@
 "explore-continue-reading-heading" = "Fortsæt læsning";
 "explore-enable-location-title" = "Udforsk artikler i nærheden af din nuværende placering";
 "explore-featured-article-heading" = "Fremhævet artikel";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
+"explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
+"explore-feed-preferences-global-cards-title" = "Globale kort";
+"explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle %@ kort";
+"explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle begivenheder";
+"explore-feed-preferences-undo-customization" = "Fortryd";
+"explore-hide-card-prompt" = "Skjul dette kort";
 "explore-main-page-description" = "Hovedside for Wikimedia-projekt";
 "explore-main-page-heading" = "I dag på Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Alle mest læste artikler";
 "explore-most-read-generic-heading" = "Mest læst";
 "explore-most-read-more-list-title-for-date" = "Mest læst d. $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
+"explore-most-read-sub-heading-on-wikipedia" = "På Wikipedia";
 "explore-nearby-heading" = "Steder i nærheden";
 "explore-nearby-placeholder-heading" = "Steder";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "På $1 Wikipedia";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "På Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Fra $1 Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Fra Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Din placering";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Din placering fra $1 Wikipedia";
 "explore-potd-heading" = "Dagens billede";
+"explore-potd-sub-heading" = "Fra Wikimedia Commons";
 "explore-random-article-heading" = "Tilfældig artikel";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
+"explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfældig artikel";
 "feed-news-notification-button-text" = "Slå notifikationer til";
 "feed-news-notification-text" = "Aktiver påmindelser for at blive påmindet af Wikipedia når artikler er populære i nyhederne.";
@@ -200,11 +214,9 @@
 "home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
 "home-more-like-footer" = "Mere som $1";
-// Fuzzy
-"home-nearby-footer" = "Mere fra i nærheden af din placering";
+"home-nearby-footer" = "Flere steder i nærheden af din placering";
 "home-nearby-location-footer" = "Mere nær $1";
-// Fuzzy
-"home-news-footer" = "Mere i nyhederne";
+"home-news-footer" = "Flere aktuelle hændelser";
 "home-reading-list-prompt" = "Dine gemte artikler kan nu organiseres i læselister og synkroniseret på tværs af enheder. Log ind for at acceptere at dine læselister gemmes i dine brugerpræferencer.";
 "home-themes-action-title" = "Håndter præferencer";
 "home-themes-prompt" = "Juster dine læseindstillinger inklusive tekststørrelse og tema fra artiklens værktøjslinje eller i dine brugerindstillinger for en mere komfortabel læseoplevelse.";
@@ -219,9 +231,12 @@
 "in-the-news-notification-read-now-action-title" = "Læs nu";
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
 "in-the-news-notification-share-action-title" = "Del...";
+"in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
+"in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "I nyhederne";
 "info-box-close-text" = "Luk";
 "info-box-title" = "Hurtige fakta";
+"languages-settings-title" = "Sprog";
 "languages-title" = "Skift sprog";
 "languages-wikipedia" = "Wikipediasprog";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -264,6 +279,7 @@
 "on-this-day-detail-header-date-range" = "fra $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hændelse|$1 historiske hændelser}}";
 "on-this-day-footer" = "Flere historiske hændelser på denne dag";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra $2 Wikipedia";
 "on-this-day-title" = "På denne dag";
 "open-link-cancel" = "Annullér";
 "page-edit-history" = "Fuld redigeringshistorik";
@@ -291,6 +307,8 @@
 "places-enable-location-action-button-title" = "Aktivér placering";
 "places-enable-location-description" = "Adgang til din placering er kun tilgængelig, når appen eller en af dens funktioner er synlige på din skærm.";
 "places-enable-location-title" = "Udforsk artikler i nærheden af din placering ved at aktivere placeringsadgang";
+"places-filter-articles-action-sheet-title" = "Filtrer artikler";
+"places-filter-button-title" = "Filtrér";
 "places-filter-no-saved-places" = "Du har ingen gemte steder";
 "places-filter-saved-articles" = "Gemte artikler";
 "places-filter-top-articles" = "Mest læst";
@@ -322,6 +340,7 @@
 "reading-list-api-error-generic" = "Der opstod en uventet fejl under synkronisering af dine læselister.";
 "reading-list-api-error-list-limit" = "Denne liste er ikke synkroniseret, da du har nået begrænsningen for antallet af synkroniserede lister.";
 "reading-list-create-new-list-description" = "Beskrivelse";
+"reading-list-create-new-list-title" = "Opret en ny liste";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
 "reading-list-do-not-keep-button-title" = "Nej, slet artikler fra enhed";
 "reading-list-exists-with-same-name" = "Læselistenavn er allerede i brug";
@@ -339,10 +358,12 @@
 "reading-list-login-title" = "Synkroniser dine gemte artikler?";
 "reading-list-new-list-description-placeholder" = "valgfri kort beskrivelse";
 "reading-list-new-list-name-placeholder" = "titel på læseliste";
+"reading-list-sync-disabled-panel-title" = "Synkronisering deaktiveret";
 "reading-list-sync-enable-button-title" = "Aktiver synkronisering";
 // Fuzzy
 "reading-list-sync-enable-subtitle" = "Dine gemte artikler og læselister kan nu gemmes på din Wikipediakonto og synkroniseres på tværs af enheder.";
 "reading-list-sync-enable-title" = "Aktiver synkronisering af læselister?";
+"reading-list-sync-enabled-panel-title" = "Synkronisering er aktiveret på denne konto";
 "reading-list-unable-to-add-entry" = "Der opstod en uventet fejl under tilføjelse af et punkt til din læseliste. Prøv igen senere.";
 "reading-list-unable-to-create" = "Der opstod en uventet fejl under oprettelse af din læseliste. Prøv venligst igen senere.";
 "reading-list-unable-to-delete" = "Der opstod en uventet fejl under sletning af din læseliste. Prøv igen senere.";
@@ -350,6 +371,8 @@
 "reading-list-unable-to-update" = "Der opstod en uventet fejl under opdatering af din læseliste. Prøv igen senere.";
 "reading-list-with-provided-name-not-found" = "En læseliste med navnet »$1« blev ikke fundet. Sikr dig at du har det korrekte navn.";
 "reading-lists-article-added-confirmation" = "Artikel tilføjet til »$1«";
+"reading-lists-article-api-failure" = "Artiklen kunne ikke synkroniseres";
+"reading-lists-article-not-synced" = "Ikke synkroniseret";
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
@@ -380,6 +403,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Fjernelse {{PLURAL:$1|af denne artikel vil fjerne den|af disse artikler vil fjerne dem }} fra alle associerede læselister";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Fjern {{PLURAL:$1|artikel|artikler}}?";
 "search-button-accessibility-label" = "Søg i Wikipedia";
+"search-clear-title" = "Ryd";
 "search-did-you-mean" = "Mente du $1?";
 "search-field-placeholder-text" = "Søg i Wikipedia";
 "search-reading-list-placeholder-text" = "Søg i læseliste";
@@ -410,6 +434,7 @@
 // Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
+"settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ryd alle gemte artikler?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
 // Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Slet dine gemte artikler og fjern dem fra din brugerkonto, hvis du også har synkronisering aktiveret og fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring 364,4 MB plads.";

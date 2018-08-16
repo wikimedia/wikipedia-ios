@@ -615,7 +615,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
+                                 [self pushArticleViewControllerWithURL:language.articleURL animated:YES];
                              }];
 }
 
@@ -1562,7 +1562,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    [self pushArticleViewControllerWithURL:url contentType:nil animated:YES];
+    [self pushArticleViewControllerWithURL:url animated:YES];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
@@ -1910,7 +1910,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
+        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2022,30 +2022,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Article Navigation
 
-- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController animated:(BOOL)animated {
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
                                                    dataStore:self.dataStore
                                                        theme:self.theme];
-    [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
-}
-
-#pragma mark - WMFAnalyticsContextProviding
-
-- (NSString *)analyticsContext {
-    return @"Article";
-}
-
-- (NSString *)analyticsContentType {
-    return @"Article";
-}
-
-- (NSString *)analyticsName {
-    return self.articleURL.host;
+    [self pushArticleViewController:articleViewController animated:animated];
 }
 
 #pragma mark - One-time toolbar item popover tips

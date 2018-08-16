@@ -319,7 +319,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.showCloseButton = NO;
-            [navigationController setNavigationBarHidden:NO animated:animated];
     }
 }
 
@@ -1226,7 +1225,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return (UINavigationController *)[self viewControllers][tab];
 }
 
-- (UIViewController<WMFAnalyticsViewNameProviding> *)rootViewControllerForTab:(WMFAppTabType)tab {
+- (UIViewController *)rootViewControllerForTab:(WMFAppTabType)tab {
     return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
 }
 
