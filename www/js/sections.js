@@ -75,7 +75,7 @@ class Section {
 
   leadSectionHeading() {
     const heading = lazyDocument.createElement('h1')
-    heading.class = 'section_heading'
+    heading.classList.add('section_heading')
     this.addAnchorAsIdToHeading(heading)
     heading.sectionId = this.id
     heading.innerHTML = this.article.displayTitle
@@ -143,7 +143,7 @@ class Section {
 
     const block = lazyDocument.createElement('div')
     block.id = `content_block_${this.id}`
-    block.class = 'content_block'
+    block.classList.add('content_block')
     block.innerHTML = this.html()
 
     container.appendChild(block)
