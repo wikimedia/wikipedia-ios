@@ -535,6 +535,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.exploreViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+
+    override func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
+        return false
+    }
     
     // MARK - ExploreCardViewControllerDelegate
     

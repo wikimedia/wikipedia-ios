@@ -42,16 +42,16 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let size: CGSize = super.sizeThatFits(size, apply: apply)
-        let isLTR: Bool = articleSemanticContentAttribute != .forceRightToLeft
+        let size = super.sizeThatFits(size, apply: apply)
+        let isLTR = articleSemanticContentAttribute != .forceRightToLeft
 
-        let layoutMargins: UIEdgeInsets = calculatedLayoutMargins
+        let layoutMargins = calculatedLayoutMargins
         
-        let minHeight: CGFloat = compassViewDimension
-        
-        let widthForLabels: CGFloat = size.width - layoutMargins.left - layoutMargins.right - compassViewDimension - spacing
+        let minHeight = compassViewDimension
+        let hSpaceBetweenCompassAndLabels: CGFloat = 10
+        let widthForLabels = size.width - layoutMargins.left - compassViewDimension - hSpaceBetweenCompassAndLabels - layoutMargins.right
 
-        let x: CGFloat = isLTR ? layoutMargins.left + compassViewDimension + spacing : layoutMargins.left
+        let x = isLTR ? layoutMargins.left + compassViewDimension + hSpaceBetweenCompassAndLabels : layoutMargins.left
        
         var origin = CGPoint(x: x, y: layoutMargins.top)
         

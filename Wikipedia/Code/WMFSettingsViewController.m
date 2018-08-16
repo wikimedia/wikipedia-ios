@@ -624,12 +624,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
+    [super applyTheme:theme];
     self.theme = theme;
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
-    [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 
 @end
