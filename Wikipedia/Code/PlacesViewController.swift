@@ -2265,6 +2265,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
         listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
 
+        mapContainerView.backgroundColor = theme.colors.baseBackground
+
         listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
 
         emptySearchOverlayView.backgroundColor = theme.colors.midBackground
