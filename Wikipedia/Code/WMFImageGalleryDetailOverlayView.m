@@ -10,8 +10,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
-
-@property (nonatomic, strong) WMFGradientView *gradientView;
+@property (nonatomic, strong) IBOutlet WMFGradientView *gradientView;
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;
@@ -25,30 +24,16 @@
     self.infoButton.imageView.contentMode = UIViewContentModeCenter;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
 
-    WMFGradientView *gradientView = [WMFGradientView new];
-    [gradientView.gradientLayer setLocations:@[@0, @1]];
-    [gradientView.gradientLayer setColors:@[(id)[UIColor colorWithWhite:0.0 alpha:0.85].CGColor,
-                                            (id)[UIColor clearColor].CGColor]];
+    [self.gradientView.gradientLayer setLocations:@[@0.0, @0.5, @1.0]];
+    [self.gradientView.gradientLayer setColors:@[
+        (id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
+        (id)[UIColor colorWithWhite:0.0 alpha:0.5].CGColor,
+        (id)[UIColor clearColor].CGColor
+    ]];
     // default start/end points, to be adjusted w/ image size
-    [gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
-    [gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
-    gradientView.userInteractionEnabled = NO;
-    [self insertSubview:gradientView atIndex:0];
-    self.gradientView = gradientView;
-    gradientView.frame = self.bounds;
-    gradientView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
+    [self.gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
     [self wmf_configureSubviewsForDynamicType];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.frame.size.height > 0.0) {
-        // start gradient at the top of the image description label
-        double const imageDescriptionTop =
-            self.frame.size.height - CGRectGetMinY(self.imageDescriptionTextView.frame);
-        double const relativeImageDescriptionTop = 1.0 - imageDescriptionTop / self.frame.size.height;
-        self.gradientView.gradientLayer.startPoint = CGPointMake(0.5, relativeImageDescriptionTop);
-    }
 }
 
 - (IBAction)didTapOwnerButton {

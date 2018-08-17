@@ -15,8 +15,12 @@
             <rect key="frame" x="0.0" y="0.0" width="438" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
-                    <rect key="frame" x="0.0" y="63" width="438" height="74"/>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFGradientView">
+                    <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
+                    <rect key="frame" x="0.0" y="63" width="438" height="84"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <textView contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFScreenHeightConstrainedGradientTextView" customModule="Wikipedia" customModuleProvider="target">
@@ -87,20 +91,24 @@
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="2k3-u8-8nA"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="56h-aE-LPJ"/>
                 <constraint firstAttribute="bottom" secondItem="VQe-aq-b55" secondAttribute="bottom" constant="12" id="5dp-ZE-MgE"/>
+                <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="qPd-lO-dTZ" secondAttribute="bottom" id="Dcg-Jt-Mbc"/>
                 <constraint firstItem="VQe-aq-b55" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="E2r-23-E1B"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="Khe-Sx-wKS"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VQe-aq-b55" secondAttribute="trailing" constant="10" id="MGE-49-XQ0"/>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="Mnb-t4-tcL"/>
                 <constraint firstAttribute="bottom" secondItem="l6E-b6-poB" secondAttribute="bottom" constant="12" id="PWz-xR-vOr"/>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="uty-fY-Zwq" secondAttribute="top" id="QLQ-lY-ZRu"/>
+                <constraint firstItem="qPd-lO-dTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VKq-cD-uZj"/>
+                <constraint firstAttribute="trailing" secondItem="qPd-lO-dTZ" secondAttribute="trailing" id="WdX-n4-o9b"/>
                 <constraint firstItem="uty-fY-Zwq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XGM-g6-SGI"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="trailing" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="aRE-ep-0ka"/>
                 <constraint firstAttribute="bottom" secondItem="2dn-jB-W86" secondAttribute="bottom" constant="12" id="bhl-iP-XNu"/>
                 <constraint firstItem="VQe-aq-b55" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="e3T-TX-bvw"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="eSj-hx-LwA"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="trailing" secondItem="VQe-aq-b55" secondAttribute="trailing" id="jrk-1u-9Ze"/>
-                <constraint firstAttribute="bottom" secondItem="uty-fY-Zwq" secondAttribute="bottom" id="kxD-7P-NaF"/>
+                <constraint firstAttribute="bottom" secondItem="uty-fY-Zwq" secondAttribute="bottom" constant="-10" id="kxD-7P-NaF"/>
                 <constraint firstAttribute="trailingMargin" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="tll-y7-tNL"/>
+                <constraint firstItem="qPd-lO-dTZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="uuB-b3-QVZ"/>
                 <constraint firstAttribute="trailing" secondItem="uty-fY-Zwq" secondAttribute="trailing" id="vlt-5s-rBc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -110,6 +118,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="gradientView" destination="qPd-lO-dTZ" id="i8h-5R-0fu"/>
                 <outlet property="imageDescriptionTextView" destination="I6f-Vm-XuX" id="Ayb-mr-e9F"/>
                 <outlet property="infoButton" destination="2dn-jB-W86" id="85x-w2-2vz"/>
                 <outlet property="ownerButton" destination="l6E-b6-poB" id="y4l-ZK-1vr"/>
