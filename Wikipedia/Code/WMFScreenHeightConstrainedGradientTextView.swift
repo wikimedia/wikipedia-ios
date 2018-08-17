@@ -74,6 +74,11 @@ private extension CGFloat {
         openStatePercent = openStatePercent == .normal ? .maximized : .normal
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        assert(isScrollEnabled == false, "isScrollEnabled must be initially `false` for text to be initially scrolled to top... unsure why...")
+    }
+    
     override var intrinsicContentSize: CGSize {
         let previousIsScrollEnabled = isScrollEnabled
         isScrollEnabled = false // "isScrollEnabled must be `false` for super.intrinsicContentSize to correctly account for text height: https://stackoverflow.com/a/45070888/135557
