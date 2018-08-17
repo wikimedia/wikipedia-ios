@@ -59,6 +59,7 @@
 "account-creation-captcha-cannot-see-image" = "Nie widać obrazka? $1";
 "account-creation-captcha-obtaining" = "Uzyskiwanie nowego CAPTCHA...";
 "account-creation-captcha-request-account" = "Wniosek o założenie konta.";
+"account-creation-captcha-title" = "Kontrola bezpieczeństwa CAPTCHA";
 "account-creation-create-account" = "Utwórz konto";
 "account-creation-have-account" = "Masz już konto? $1";
 "account-creation-logging-in" = "Logowanie...";
@@ -66,6 +67,7 @@
 "account-creation-passwords-mismatched" = "Hasła nie są identyczne.";
 "account-creation-saving" = "Zapisywanie...";
 "account-creation-title" = "Utwórz nowe konto";
+"action-add-to" = "Dodaj do...";
 "action-add-to-reading-list-short" = "Dodaj do listy";
 "action-cancel" = "Anuluj";
 "action-read" = "Czytaj";
@@ -74,6 +76,7 @@
 "action-saved-accessibility" = "Zapisane. Aktywuj,by nie zapisywać.";
 "action-share" = "Udostępnij";
 "action-sort" = "Sortuj";
+"action-unsaved-accessibility-notification" = "Artykuł niezapisany";
 "action-update" = "Aktualizuj";
 "alert-no-internet" = "Nie ma połączenia internetowego";
 "announcements-dismiss" = "Odrzuć";
@@ -107,6 +110,7 @@
 "edit-summary-field-placeholder-text" = "Inne sposoby, którymi można poprawić stronę";
 "edit-summary-title" = "Jak poprawiłeś stronę?";
 "empty-no-article-message" = "Niestety nie udało się wczytać artykułu";
+"empty-no-feed-action-message" = "Nadal możesz czytać zapisane strony";
 "empty-no-feed-title" = "Brak połączenia z internetem";
 "empty-no-history-title" = "Nie ma historii do pokazania";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
@@ -148,6 +152,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "feed-news-notification-button-text" = "Włącz powiadomienia";
+"field-alert-captcha-invalid" = "Niepoprawna CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Hasła nie są takie same";
 "field-alert-password-invalid" = "Nieprawidłowe hasło";
 "field-alert-token-invalid" = "Nieprawidłowy kod";
@@ -198,6 +203,7 @@
 "in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
 "in-the-news-notification-share-action-title" = "Udostępnij...";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
+"in-the-news-title" = "W wiadomościach";
 "info-box-close-text" = "Zamknij";
 "info-box-title" = "Szybkie fakty";
 "languages-settings-title" = "Języki";
@@ -262,13 +268,16 @@
 "places-accessibility-show-as-map" = "Pokaż jako mapę";
 "places-accessibility-show-more" = "Pokaż więcej artykułów";
 "places-filter-button-title" = "Filtr";
+"places-filter-no-saved-places" = "Nie masz zapisanych miejsc";
 "places-filter-saved-articles" = "Zapisane artykuły";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artykuł|artykuły|artykułów}}";
 "places-filter-top-read-articles" = "Najczęściej czytane artykuły";
+"places-location-enabled" = "Usługa lokalizacji włączona";
 "places-no-saved-articles-have-location" = "Żaden z twoich zapisanych artykułów nie ma informacji o lokalizacji";
 // Fuzzy
 "places-search-default-text" = "Szukaj";
 "places-search-did-you-mean" = "Czy chodziło Ci o $1?";
+"places-search-recently-searched-header" = "Ostatnio wyszukiwane";
 "places-search-saved-articles" = "Wszystkie zapisane artykuły";
 "places-search-suggested-searches-header" = "Proponowane wyszukiwania";
 "places-search-top-articles-that-match-scope" = "W pobliżu";
@@ -279,8 +288,10 @@
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "readers-accessibility-label" = "$1 czytelników";
+"reading-list-add-saved-title" = "Znaleziono zapisane artykuły";
 "reading-list-create-new-list-description" = "Opis";
 "reading-list-create-new-list-title" = "Utwórz nową listę";
+"reading-list-do-not-keep-button-title" = "Nie, usuń artykuły z urządzenia";
 "reading-list-keep-button-title" = "Tak, zachowaj artykuły na urządzeniu";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sortuj artykuły";
 "reading-list-login-or-create-account-button-title" = "Zaloguj się lub utwórz konto";
@@ -350,9 +361,12 @@
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
 "welcome-intro-free-encyclopedia-title" = "Wolna encyklopedia";
 "welcome-languages-add-button" = "Dodaj kolejny język";
+"welcome-languages-add-or-edit-button" = "Dodaj lub edytuj preferowane języki";
+"welcome-languages-description" = "Na Twoim urządzeniu znaleźliśmy następujące języki:";
 "welcome-languages-search-title" = "Wyszukuj w prawie 300 językach";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";
 "welcome-send-data-helps-title" = "Pomóż ulepszyć tę aplikację";
+"welcome-send-data-learn-more" = "Dowiedz się więcej o gromadzonych danych";
 "welcome-volunteer-send-usage-reports" = "Wyślij raporty używania";
 "wikitext-download-failed" = "Nie można uzyskać najnowszej wersji.";
 "wikitext-download-success" = "Zawartość załadowana.";
