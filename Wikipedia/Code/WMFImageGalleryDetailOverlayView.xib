@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="63" width="438" height="74"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <textView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFScreenHeightConstrainedGradientTextView" customModule="Wikipedia" customModuleProvider="target">
+                <textView contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFScreenHeightConstrainedGradientTextView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="20" y="63" width="398" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
