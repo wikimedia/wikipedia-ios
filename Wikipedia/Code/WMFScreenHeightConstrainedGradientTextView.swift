@@ -53,8 +53,8 @@ private extension CGFloat {
 }
 
 @objc class WMFScreenHeightConstrainedGradientTextView : WMFGradientTextView {
-    private let maxPercentOfScreenHeight = 22
     private let minHeight = 30
+    private let maxPercentOfScreenHeight = 22
     
     override var intrinsicContentSize: CGSize {
         // https://stackoverflow.com/a/45070888/135557
