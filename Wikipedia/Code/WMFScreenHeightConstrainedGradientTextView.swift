@@ -57,10 +57,11 @@ private extension CGFloat {
     private let maxPercentOfScreenHeight = 22
     
     override var intrinsicContentSize: CGSize {
-        // https://stackoverflow.com/a/45070888/135557
-        assert(isScrollEnabled == false, "isScrollEnabled must be `false` for height to correctly account for text height.")
+        let previousIsScrollEnabled = isScrollEnabled
+        isScrollEnabled = false // "isScrollEnabled must be `false` for super.intrinsicContentSize to correctly account for text height: https://stackoverflow.com/a/45070888/135557
         assert(contentCompressionResistancePriority(for: .vertical) == .required, "vertical contentCompressionResistancePriority must be `.required` for height to correctly account for text height.")
         let superSize = super.intrinsicContentSize
+        isScrollEnabled = previousIsScrollEnabled
         let constrainedHeight = superSize.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight)
         return CGSize(width: superSize.width, height: constrainedHeight)
     }
@@ -68,10 +69,6 @@ private extension CGFloat {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setContentOffset(.zero, animated: false)
-        isScrollEnabled = false // Reminder: scrolling to be disabled so intrinsicContentSize can correctly calculate size given the current width and how much text is displayed
-        invalidateIntrinsicContentSize()                // Needed so height is correctly adjusted on rotation...
-        dispatchOnMainQueueAfterDelayInSeconds(0.1) {   // ... but after small delay it's safe to re-enable scrolling.
-            self.isScrollEnabled = true
-        }
+        invalidateIntrinsicContentSize() // Needed so height is correctly adjusted on rotation.
     }
 }
