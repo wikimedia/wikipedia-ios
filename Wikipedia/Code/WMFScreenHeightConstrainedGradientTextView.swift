@@ -76,20 +76,25 @@ private extension CGFloat {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        assert(isScrollEnabled == false, "isScrollEnabled must be initially `false` for text to be initially scrolled to top... unsure why...")
-        isScrollEnabled = true
+        assert(contentCompressionResistancePriority(for: .vertical) == .required, "vertical contentCompressionResistancePriority must be `.required` for height to correctly account for text height.")
     }
     
     override var intrinsicContentSize: CGSize {
-        let previousIsScrollEnabled = isScrollEnabled
-        isScrollEnabled = false // "isScrollEnabled must be `false` for super.intrinsicContentSize to correctly account for text height: https://stackoverflow.com/a/45070888/135557
-        assert(contentCompressionResistancePriority(for: .vertical) == .required, "vertical contentCompressionResistancePriority must be `.required` for height to correctly account for text height.")
         let superSize = super.intrinsicContentSize
-        isScrollEnabled = previousIsScrollEnabled
         let constrainedHeight = superSize.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight)
         return CGSize(width: superSize.width, height: constrainedHeight)
     }
+
+    override func invalidateIntrinsicContentSize() {
+        isScrollEnabled = false // UITextView intrinsicContentSize only works when scrolling is false
+        super.invalidateIntrinsicContentSize()
+    }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        isScrollEnabled = true
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setContentOffset(.zero, animated: false)
