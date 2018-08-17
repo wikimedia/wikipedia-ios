@@ -15,13 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="438" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
+                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
                     <rect key="frame" x="0.0" y="57" width="438" height="80"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <textView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFScreenHeightConstrainedGradientTextView" customModule="Wikipedia" customModuleProvider="target">
+                <textView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFScreenHeightConstrainedGradientTextView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="20" y="57" width="398" height="36"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" priority="750" constant="30" placeholder="YES" id="rtk-mh-hIm"/>
                     </constraints>
@@ -33,6 +34,9 @@
                             <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="nCy-cX-oYp" appends="YES" id="AdE-uK-pDN"/>
+                    </connections>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" showsTouchWhenHighlighted="YES" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6E-b6-poB">
                     <rect key="frame" x="20" y="99" width="30" height="26"/>
@@ -113,6 +117,11 @@
             </connections>
             <point key="canvasLocation" x="-1703" y="-198.5"/>
         </view>
+        <tapGestureRecognizer id="nCy-cX-oYp">
+            <connections>
+                <action selector="didTapImageDescription" destination="iN0-l3-epB" id="cdn-qW-p8P"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="info-white" width="16" height="16"/>

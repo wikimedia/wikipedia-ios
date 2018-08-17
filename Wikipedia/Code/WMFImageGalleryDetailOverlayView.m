@@ -64,6 +64,15 @@
     }
 }
 
+- (IBAction)didTapImageDescription {
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [self.imageDescriptionTextView toggleOpenState];
+                         [self.superview layoutIfNeeded];
+                     }
+                     completion:NULL];
+}
+
 - (NSString *)imageDescription {
     return self.imageDescriptionTextView.text;
 }

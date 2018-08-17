@@ -52,10 +52,28 @@ private extension CGFloat {
     }
 }
 
-@objc class WMFScreenHeightConstrainedGradientTextView : WMFGradientTextView {
+@objc enum WMFScreenHeightConstrainedGradientTextViewOpenStatePercent: Int {
+    case normal = 22, maximized = 66
+}
+
+@objc class WMFScreenHeightConstrainedGradientTextView: WMFGradientTextView {
     private let minHeight = 30
-    private let maxPercentOfScreenHeight = 22
+    private var maxPercentOfScreenHeight: Int {
+        get {
+            return openStatePercent.rawValue
+        }
+    }
     
+    @objc var openStatePercent: WMFScreenHeightConstrainedGradientTextViewOpenStatePercent = .normal {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    @objc func toggleOpenState() {
+        openStatePercent = openStatePercent == .normal ? .maximized : .normal
+    }
+
     override var intrinsicContentSize: CGSize {
         let previousIsScrollEnabled = isScrollEnabled
         isScrollEnabled = false // "isScrollEnabled must be `false` for super.intrinsicContentSize to correctly account for text height: https://stackoverflow.com/a/45070888/135557
