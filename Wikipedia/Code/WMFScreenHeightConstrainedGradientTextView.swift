@@ -77,6 +77,7 @@ private extension CGFloat {
     override func awakeFromNib() {
         super.awakeFromNib()
         assert(isScrollEnabled == false, "isScrollEnabled must be initially `false` for text to be initially scrolled to top... unsure why...")
+        isScrollEnabled = true
     }
     
     override var intrinsicContentSize: CGSize {
