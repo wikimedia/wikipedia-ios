@@ -77,9 +77,9 @@ private extension CGFloat {
     }
     
     override var intrinsicContentSize: CGSize {
-        let superSize = super.intrinsicContentSize
-        let constrainedHeight = superSize.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight)
-        return CGSize(width: superSize.width, height: constrainedHeight)
+        var size = super.intrinsicContentSize
+        size.height = size.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight)
+        return size
     }
 
     override func invalidateIntrinsicContentSize() {
