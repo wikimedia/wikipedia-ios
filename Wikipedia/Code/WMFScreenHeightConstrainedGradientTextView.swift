@@ -49,7 +49,7 @@ private extension CGFloat {
     }
 }
 
-@objc enum WMFScreenHeightConstrainedGradientTextViewOpenStatePercent: Int {
+private enum WMFScreenHeightConstrainedGradientTextViewOpenStatePercent: Int {
     case normal = 22, maximized = 66
 }
 
