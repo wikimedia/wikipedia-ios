@@ -61,7 +61,7 @@ private extension CGFloat {
         }
     }
     
-    @objc var openStatePercent: WMFScreenHeightConstrainedGradientTextViewOpenStatePercent = .normal {
+    private var openStatePercent: WMFScreenHeightConstrainedGradientTextViewOpenStatePercent = .normal {
         didSet {
             invalidateIntrinsicContentSize()
         }
