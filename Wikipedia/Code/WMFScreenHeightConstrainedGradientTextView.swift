@@ -45,10 +45,7 @@ private extension CGFloat {
         if (proportionOfScreenHeight > maxAllowedProportionOfScreenHeight) {
             constrainedHeight = screenHeight * maxAllowedProportionOfScreenHeight
         }
-        if (constrainedHeight < CGFloat(minHeight)) {
-            constrainedHeight = CGFloat(minHeight)
-        }
-        return constrainedHeight
+        return fmax(CGFloat(minHeight), constrainedHeight)
     }
 }
 
