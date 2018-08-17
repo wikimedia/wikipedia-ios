@@ -6,7 +6,7 @@
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property (nonatomic, strong) IBOutlet UILabel *imageDescriptionLabel;
+@property (nonatomic, strong) IBOutlet WMFScreenHeightConstrainedGradientTextView *imageDescriptionTextView; // Text view allows scrolling excess text.
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
@@ -25,7 +25,6 @@
     [super awakeFromNib];
     self.infoButton.imageView.contentMode = UIViewContentModeCenter;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
-    [self.imageDescriptionLabel wmf_applyDropShadow];
 
     WMFGradientView *gradientView = [WMFGradientView new];
     [gradientView.gradientLayer setLocations:@[@0, @1]];
@@ -47,17 +46,9 @@
     if (self.frame.size.height > 0.0) {
         // start gradient at the top of the image description label
         double const imageDescriptionTop =
-            self.frame.size.height - CGRectGetMinY(self.imageDescriptionLabel.frame);
+            self.frame.size.height - CGRectGetMinY(self.imageDescriptionTextView.frame);
         double const relativeImageDescriptionTop = 1.0 - imageDescriptionTop / self.frame.size.height;
         self.gradientView.gradientLayer.startPoint = CGPointMake(0.5, relativeImageDescriptionTop);
-    }
-}
-
-- (void)didMoveToSuperview {
-    [super didMoveToSuperview];
-    if (self.superview) {
-        NSLayoutConstraint *maxHeightConstraint = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.superview attribute:NSLayoutAttributeHeight multiplier:0.3f constant:0.0f];
-        [self.superview addConstraint:maxHeightConstraint];
     }
 }
 
@@ -74,15 +65,15 @@
 }
 
 - (NSString *)imageDescription {
-    return self.imageDescriptionLabel.text;
+    return self.imageDescriptionTextView.text;
 }
 
 - (void)setImageDescription:(NSString *)imageDescription {
-    self.imageDescriptionLabel.text = imageDescription;
+    self.imageDescriptionTextView.text = imageDescription;
 }
 
 - (void)setImageDescriptionIsRTL:(BOOL)isRTL {
-    self.imageDescriptionLabel.textAlignment = isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
+    self.imageDescriptionTextView.textAlignment = isRTL ? NSTextAlignmentRight : NSTextAlignmentLeft;
 }
 
 - (void)setLicense:(MWKLicense *)license owner:(NSString *)owner {
