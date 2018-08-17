@@ -10,7 +10,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
-@property (nonatomic, strong) IBOutlet UIStackView *ownerLabel;
 
 @property (nonatomic, strong) WMFGradientView *gradientView;
 
