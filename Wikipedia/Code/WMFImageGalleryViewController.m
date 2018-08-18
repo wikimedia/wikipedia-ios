@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFBasePhoto: NSObject
+@interface WMFBasePhoto : NSObject
 
 @property (nullable, nonatomic, strong) WMFTypedImageData *typedImageData;
 
@@ -66,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 //used for metadaata
 @property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
-
 @end
 
 @interface WMFArticlePhoto : WMFBasePhoto <WMFPhoto>
@@ -76,7 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //used to fetch the full size image
 @property (nonatomic, strong, nullable) MWKImage *imageObject;
-
 
 @end
 
@@ -103,11 +101,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)imageDataUTType {
-    return  self.isGIF ? (NSString *)kUTTypeGIF : nil;
+    return self.isGIF ? (NSString *)kUTTypeGIF : nil;
 }
 
 @end
-
 
 @implementation WMFArticlePhoto
 
@@ -382,9 +379,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
+    caption.alpha = 0;
+    [UIView beginAnimations:@"animateImageGalleryDetailOverlayViewReveal" context:nil];
+    [UIView setAnimationDuration:0.35];
+    caption.alpha = 1.0;
 
     caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
-    
+
     caption.imageDescription =
         [imageInfo.imageDescription stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -394,16 +395,16 @@ NS_ASSUME_NONNULL_BEGIN
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
+    [UIView commitAnimations];
+
     @weakify(self)
         caption.ownerTapCallback = ^{
-        @strongify(self)
-            if (imageInfo.license.URL) {
-                [self wmf_openExternalUrl:imageInfo.license.URL];
-            }
+        @strongify(self) if (imageInfo.license.URL) {
+            [self wmf_openExternalUrl:imageInfo.license.URL];
+        }
     };
     caption.infoTapCallback = ^{
-        @strongify(self)
-        if (imageInfo.filePageURL) {
+        @strongify(self) if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
@@ -598,7 +599,6 @@ NS_ASSUME_NONNULL_BEGIN
     UIPreviewAction *share = [UIPreviewAction actionWithTitle:[WMFCommonStrings shareActionTitle]
                                                         style:UIPreviewActionStyleDefault
                                                       handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-
                                                           id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
                                                           MWKImageInfo *info = [photo bestImageInfo];
                                                           NSURL *url = [photo bestImageURL];
@@ -616,7 +616,6 @@ NS_ASSUME_NONNULL_BEGIN
 
                                                                   [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
                                                               }];
-
                                                       }];
     return @[share];
 }
