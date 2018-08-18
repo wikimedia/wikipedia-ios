@@ -31,6 +31,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
         [[UIColor clearColor] setFill];
         CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
         clearImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     });
 
     [self.secondToolbar setBackgroundImage:clearImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
