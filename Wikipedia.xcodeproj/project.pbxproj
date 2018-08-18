@@ -599,11 +599,11 @@
 		B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
 		B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
 		B03F8A8D205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
-		B0408C552127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */; };
-		B0408C562127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */; };
-		B0408C572127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */; };
-		B0408C582127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */; };
-		B0408C592127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */; };
+		B0408C552127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */; };
+		B0408C562127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */; };
+		B0408C572127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */; };
+		B0408C582127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */; };
+		B0408C592127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */; };
 		B0408C5B2127FB1300AC76CE /* WMFUnconfiguredGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */; };
 		B0408C5C2127FB1300AC76CE /* WMFUnconfiguredGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */; };
 		B0408C5D2127FB1300AC76CE /* WMFUnconfiguredGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */; };
@@ -3402,7 +3402,7 @@
 		B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B040343E1F0592F7001B837B /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
 		B04034491F0722B3001B837B /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/NewsCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
-		B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryGradientView.swift; sourceTree = "<group>"; };
+		B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFImageGalleryBottomGradientView.swift; sourceTree = "<group>"; };
 		B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFUnconfiguredGradientView.swift; sourceTree = "<group>"; };
 		B0421AA1206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedTabBarItemProgressBadgeManager.swift; sourceTree = "<group>"; };
 		B0432343210680A800A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroupKind+FeedCustomization.swift"; sourceTree = "<group>"; };
@@ -5741,7 +5741,7 @@
 			children = (
 				0E9B9E311CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.h */,
 				0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */,
-				B0408C542127F2C100AC76CE /* WMFImageGalleryGradientView.swift */,
+				B0408C542127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift */,
 				B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */,
 				B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */,
 				0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */,
@@ -10151,7 +10151,7 @@
 				7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
-				B0408C552127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */,
+				B0408C552127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */,
 				B0E805911C0CE2C60065EBC0 /* WMFLoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,
 				D88C70181EE595E90022A26A /* MapView.swift in Sources */,
@@ -10299,7 +10299,7 @@
 				D80ED2F01EE57F4800CE8C50 /* WMFPasswordResetter.swift in Sources */,
 				D80ED2F31EE57F4800CE8C50 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D80ED2F41EE57F4800CE8C50 /* UIViewController+WMFEmptyView.m in Sources */,
-				B0408C592127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */,
+				B0408C592127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */,
 				BA4524281F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C61F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D80ED2F71EE57F4800CE8C50 /* WMFArticleContainerViewController+TOC.swift in Sources */,
@@ -11125,7 +11125,7 @@
 				D8A42B851E815A9C00D8E281 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				7ADEAB061FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				D8A42B871E815A9C00D8E281 /* WMFLoginFunnel.m in Sources */,
-				B0408C582127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */,
+				B0408C582127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */,
 				7A29A5CB1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D8A42B881E815A9C00D8E281 /* TabularScrollView.m in Sources */,
 				D8A42B891E815A9C00D8E281 /* MapUtilities.swift in Sources */,
@@ -11273,7 +11273,7 @@
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				D8CE255B1E698E2400DAE2E0 /* UIViewController+WMFEmptyView.m in Sources */,
-				B0408C562127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */,
+				B0408C562127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */,
 				BA69725B1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				D8CE255E1E698E2400DAE2E0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				D8CE25621E698E2400DAE2E0 /* WikiGlyphLabel.m in Sources */,
@@ -11598,7 +11598,7 @@
 				D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
 				D8EC3E471E9BDA35006712EB /* UIViewController+WMFArticlePresentation.m in Sources */,
 				D8EC3E481E9BDA35006712EB /* UIViewController+WMFOpenExternalUrl.m in Sources */,
-				B0408C572127F2C100AC76CE /* WMFImageGalleryGradientView.swift in Sources */,
+				B0408C572127F2C100AC76CE /* WMFImageGalleryBottomGradientView.swift in Sources */,
 				D8EC3E491E9BDA35006712EB /* WMFArticleTextActivitySource.m in Sources */,
 				D8EC3E4C1E9BDA35006712EB /* String?+WMFExtras.swift in Sources */,
 				D8EC3E4E1E9BDA35006712EB /* MTLValueTransformer+WMFColorTransformer.m in Sources */,

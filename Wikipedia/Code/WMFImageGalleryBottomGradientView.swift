@@ -1,4 +1,4 @@
-@objc class WMFImageGalleryGradientView: WMFUnconfiguredGradientView {
+@objc class WMFImageGalleryBottomGradientView: WMFUnconfiguredGradientView {
     override public func configureGradientLayer() {
         gradientLayer.locations = [0.0, 0.5, 1.0]
         gradientLayer.colors = [

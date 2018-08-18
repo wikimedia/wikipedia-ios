@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="438" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFImageGalleryGradientView" customModule="Wikipedia" customModuleProvider="target">
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFImageGalleryBottomGradientView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
