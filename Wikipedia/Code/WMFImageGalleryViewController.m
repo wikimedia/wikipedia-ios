@@ -240,6 +240,10 @@ NS_ASSUME_NONNULL_BEGIN
         self.overlayView.leftBarButtonItem = nil;
         self.overlayView.topCoverBackgroundColor = [UIColor clearColor];
     } else {
+        self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
+        self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
+        [self.overlayView.navigationBar setBackgroundImage:[WMFImageGalleryViewController stretchableNavigationBarGradientImage] forBarMetrics:UIBarMetricsDefault];
+        
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
@@ -249,6 +253,29 @@ NS_ASSUME_NONNULL_BEGIN
         close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
     }
+}
+
+// Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
++ (UIImage *)stretchableNavigationBarGradientImage {
+    static UIImage *stretchableGradientImage;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CAGradientLayer *gradientView = [CAGradientLayer new];
+        gradientView.backgroundColor = [UIColor clearColor].CGColor;
+        [gradientView setLocations:@[@1.0, @0.0]];
+        [gradientView setColors:@[
+                                  (id)[UIColor colorWithWhite:0.0 alpha:0.35].CGColor,
+                                  (id)[UIColor clearColor].CGColor
+                                  ]];
+        [gradientView setStartPoint:CGPointMake(0.5, 1.0)];
+        [gradientView setEndPoint:CGPointMake(0.5, 0.0)];
+        gradientView.frame = CGRectMake(0, 0, 25, 44);
+        UIGraphicsBeginImageContextWithOptions(gradientView.bounds.size, NO, 0);
+        [gradientView renderInContext:UIGraphicsGetCurrentContext()];
+        stretchableGradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode: UIImageResizingModeStretch];
+        UIGraphicsEndImageContext();
+    });
+    return stretchableGradientImage;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
