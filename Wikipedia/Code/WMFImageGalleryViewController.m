@@ -45,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateOverlayInformation;
 
-@property (nonatomic, assign) BOOL overlayViewHidden;
-
 - (NYTPhotoViewController *)currentPhotoViewController;
 
 - (UIImageView *)currentImageView;
@@ -259,18 +257,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)shouldAutorotate {
     return YES;
-}
-
-- (void)setOverlayViewHidden:(BOOL)overlayViewHidden {
-    if (overlayViewHidden) {
-        [self.overlayView removeFromSuperview];
-    } else {
-        [self.view addSubview:self.overlayView];
-    }
-}
-
-- (BOOL)overlayViewHidden {
-    return [self.overlayView superview] == nil;
 }
 
 - (UIImageView *)currentImageView {
