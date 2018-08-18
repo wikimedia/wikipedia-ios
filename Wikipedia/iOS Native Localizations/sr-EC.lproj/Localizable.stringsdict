@@ -176,6 +176,26 @@
 			<string>данас</string>
 		</dict>
 	</dict>
+	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>пре %1$d сата</string>
+			<key>one</key>
+			<string>пре %1$d сат</string>
+			<key>other</key>
+			<string>пре %1$d сати</string>
+			<key>zero</key>
+			<string>недавно</string>
+		</dict>
+	</dict>
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -192,6 +212,26 @@
 			<string>пре %1$d минута</string>
 			<key>zero</key>
 			<string>управо сад</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>пре %1$d године</string>
+			<key>one</key>
+			<string>прошле године</string>
+			<key>other</key>
+			<string>пре %1$d година</string>
+			<key>zero</key>
+			<string>ове године</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
