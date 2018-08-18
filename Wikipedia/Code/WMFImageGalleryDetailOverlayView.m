@@ -2,7 +2,6 @@
 #import "Wikipedia-Swift.h"
 #import "UILabel+WMFStyling.h"
 #import "MWKLicense+ToGlyph.h"
-#import "WMFGradientView.h"
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
@@ -10,7 +9,6 @@
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
-@property (nonatomic, strong) IBOutlet WMFGradientView *gradientView;
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;
@@ -23,16 +21,6 @@
     [super awakeFromNib];
     self.infoButton.imageView.contentMode = UIViewContentModeCenter;
     [self.ownerButton.titleLabel wmf_applyDropShadow];
-
-    [self.gradientView.gradientLayer setLocations:@[@0.0, @0.5, @1.0]];
-    [self.gradientView.gradientLayer setColors:@[
-        (id)[UIColor colorWithWhite:0.0 alpha:1.0].CGColor,
-        (id)[UIColor colorWithWhite:0.0 alpha:0.5].CGColor,
-        (id)[UIColor clearColor].CGColor
-    ]];
-    // default start/end points, to be adjusted w/ image size
-    [self.gradientView.gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
-    [self.gradientView.gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
     [self wmf_configureSubviewsForDynamicType];
 }
 

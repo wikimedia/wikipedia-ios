@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="438" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFGradientView">
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFImageGalleryGradientView" customModule="Wikipedia" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -118,7 +118,6 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="gradientView" destination="qPd-lO-dTZ" id="i8h-5R-0fu"/>
                 <outlet property="imageDescriptionTextView" destination="I6f-Vm-XuX" id="Ayb-mr-e9F"/>
                 <outlet property="infoButton" destination="2dn-jB-W86" id="85x-w2-2vz"/>
                 <outlet property="ownerButton" destination="l6E-b6-poB" id="y4l-ZK-1vr"/>
