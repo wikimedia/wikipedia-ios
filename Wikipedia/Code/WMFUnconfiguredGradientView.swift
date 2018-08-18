@@ -1,4 +1,4 @@
-@objc class WMFUnconfiguredGradientView: UIView {
+@objcMembers class WMFUnconfiguredGradientView: UIView {
     public var gradientLayer: CAGradientLayer!
     override class var layerClass: AnyClass {
         return CAGradientLayer.self
