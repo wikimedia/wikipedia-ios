@@ -391,12 +391,17 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
+    // The caption tends to overlay more of the image in compact vertical size class which makes the fade a bit jarring when swiping between multiple images.
+    BOOL shouldDoFadeAnimation = self.traitCollection.verticalSizeClass != UIUserInterfaceSizeClassCompact;
+    
     WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
-    caption.alpha = 0;
-    [UIView beginAnimations:@"animateImageGalleryDetailOverlayViewReveal" context:nil];
-    [UIView setAnimationDuration:0.35];
-    caption.alpha = 1.0;
-
+    if (shouldDoFadeAnimation) {
+        caption.alpha = 0;
+        [UIView beginAnimations:@"animateImageGalleryDetailOverlayViewReveal" context:nil];
+        [UIView setAnimationDuration:0.35];
+        caption.alpha = 1.0;
+    }
+        
     caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
 
     caption.imageDescription =
@@ -408,7 +413,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
-    [UIView commitAnimations];
+    if (shouldDoFadeAnimation) {
+        [UIView commitAnimations];
+    }
 
     @weakify(self)
         caption.ownerTapCallback = ^{
