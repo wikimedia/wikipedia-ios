@@ -50,7 +50,7 @@ private extension CGFloat {
 }
 
 private enum OpenStatePercent: Int {
-    case normal = 22, maximized = 66
+    case normal = 22, maximized = 60
 }
 
 @objc class WMFScreenHeightConstrainedGradientTextView: WMFGradientTextView {
