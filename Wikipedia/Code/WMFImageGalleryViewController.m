@@ -6,6 +6,7 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
+#import "UIView+WMFSnapshotting.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -260,20 +261,7 @@ NS_ASSUME_NONNULL_BEGIN
     static UIImage *stretchableGradientImage;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        CAGradientLayer *gradientLayer = [CAGradientLayer new];
-        gradientLayer.backgroundColor = [UIColor clearColor].CGColor;
-        [gradientLayer setLocations:@[@1.0, @0.0]];
-        [gradientLayer setColors:@[
-                                  (id)[UIColor colorWithWhite:0.0 alpha:0.35].CGColor,
-                                  (id)[UIColor clearColor].CGColor
-                                  ]];
-        [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
-        [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
-        gradientLayer.frame = CGRectMake(0, 0, 25, 44);
-        UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, NO, 0);
-        [gradientLayer renderInContext:UIGraphicsGetCurrentContext()];
-        stretchableGradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode: UIImageResizingModeStretch];
-        UIGraphicsEndImageContext();
+        stretchableGradientImage = [[[WMFImageGalleryTopGradientView alloc] initWithFrame:CGRectMake(0, 0, 25, 44)] wmf_snapshotStretchableImageOpaque:NO];
     });
     return stretchableGradientImage;
 }
