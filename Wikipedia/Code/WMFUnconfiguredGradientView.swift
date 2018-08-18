@@ -13,9 +13,9 @@
     }
     private func setup() {
         gradientLayer = layer as! CAGradientLayer
-        configureGradientLayer()
+        configure()
     }
-    public func configureGradientLayer() {
-        // override to configure gradientLayer.
+    public func configure() {
+        // override to configure gradientLayer and such.
     }
 }
