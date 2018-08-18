@@ -260,18 +260,18 @@ NS_ASSUME_NONNULL_BEGIN
     static UIImage *stretchableGradientImage;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        CAGradientLayer *gradientView = [CAGradientLayer new];
-        gradientView.backgroundColor = [UIColor clearColor].CGColor;
-        [gradientView setLocations:@[@1.0, @0.0]];
-        [gradientView setColors:@[
+        CAGradientLayer *gradientLayer = [CAGradientLayer new];
+        gradientLayer.backgroundColor = [UIColor clearColor].CGColor;
+        [gradientLayer setLocations:@[@1.0, @0.0]];
+        [gradientLayer setColors:@[
                                   (id)[UIColor colorWithWhite:0.0 alpha:0.35].CGColor,
                                   (id)[UIColor clearColor].CGColor
                                   ]];
-        [gradientView setStartPoint:CGPointMake(0.5, 1.0)];
-        [gradientView setEndPoint:CGPointMake(0.5, 0.0)];
-        gradientView.frame = CGRectMake(0, 0, 25, 44);
-        UIGraphicsBeginImageContextWithOptions(gradientView.bounds.size, NO, 0);
-        [gradientView renderInContext:UIGraphicsGetCurrentContext()];
+        [gradientLayer setStartPoint:CGPointMake(0.5, 1.0)];
+        [gradientLayer setEndPoint:CGPointMake(0.5, 0.0)];
+        gradientLayer.frame = CGRectMake(0, 0, 25, 44);
+        UIGraphicsBeginImageContextWithOptions(gradientLayer.bounds.size, NO, 0);
+        [gradientLayer renderInContext:UIGraphicsGetCurrentContext()];
         stretchableGradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode: UIImageResizingModeStretch];
         UIGraphicsEndImageContext();
     });
