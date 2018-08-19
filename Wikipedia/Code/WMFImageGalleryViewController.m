@@ -242,10 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
         self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
-        
-        // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
-        [self.overlayView.navigationBar setBackgroundImage:[WMFImageGalleryTopGradientView sharedStretchableImage] forBarMetrics:UIBarMetricsDefault];
-        
+
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
@@ -313,6 +310,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.accessibilityIgnoresInvertColors = YES;
+
+    // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
+    [self.overlayView.navigationBar setBackgroundImage:[WMFImageGalleryTopGradientView sharedStretchableImage] forBarMetrics:UIBarMetricsDefault];
 }
 
 #pragma mark - Actions
