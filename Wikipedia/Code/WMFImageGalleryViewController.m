@@ -383,13 +383,15 @@ NS_ASSUME_NONNULL_BEGIN
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
     @weakify(self)
-        caption.ownerTapCallback = ^{
-        @strongify(self) if (imageInfo.license.URL) {
+    caption.ownerTapCallback = ^{
+        @strongify(self)
+        if (imageInfo.license.URL) {
             [self wmf_openExternalUrl:imageInfo.license.URL];
         }
     };
     caption.infoTapCallback = ^{
-        @strongify(self) if (imageInfo.filePageURL) {
+        @strongify(self)
+        if (imageInfo.filePageURL) {
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
