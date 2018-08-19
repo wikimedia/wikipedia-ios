@@ -1,5 +1,4 @@
 @objcMembers class WMFUnconfiguredGradientView: UIView {
-    public var gradientLayer: CAGradientLayer!
     override class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
@@ -12,10 +11,9 @@
         setup()
     }
     private func setup() {
-        gradientLayer = layer as! CAGradientLayer
-        configure()
+        configure(gradientLayer: layer as! CAGradientLayer)
     }
-    public func configure() {
+    public func configure(gradientLayer: CAGradientLayer) {
         // override to configure gradientLayer and such.
     }
 }
