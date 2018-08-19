@@ -17,9 +17,9 @@
 - (nullable UIImage *)wmf_stretchableSnapshotImageWithAlphaChannel {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *stretchableGradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeStretch];
+    UIImage *stretchableImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeStretch];
     UIGraphicsEndImageContext();
-    return stretchableGradientImage;
+    return stretchableImage;
 }
 
 @end
