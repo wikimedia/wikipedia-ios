@@ -1,6 +1,6 @@
 @objcMembers class WMFImageGalleryTopGradientView: WMFUnconfiguredGradientView {
     public static let sharedStretchableImage = {
-        return WMFImageGalleryTopGradientView.init(frame: CGRect(x: 0, y: 0, width: 25, height: 44)).wmf_snapshotStretchableImageOpaque(false)
+        return WMFImageGalleryTopGradientView.init(frame: CGRect(x: 0, y: 0, width: 25, height: 44)).wmf_stretchableSnapshotImageWithAlphaChannel()
     }()
     override public func configure() {
         backgroundColor = .clear

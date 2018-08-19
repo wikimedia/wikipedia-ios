@@ -14,8 +14,8 @@
     return [self wmf_snapshotImageAfterScreenUpdates:YES];
 }
 
-- (nullable UIImage *)wmf_snapshotStretchableImageOpaque:(BOOL)opaque {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, opaque, 0);
+- (nullable UIImage *)wmf_stretchableSnapshotImageWithAlphaChannel {
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *stretchableGradientImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeStretch];
     UIGraphicsEndImageContext();
