@@ -1,4 +1,7 @@
 @objcMembers class WMFImageGalleryTopGradientView: WMFUnconfiguredGradientView {
+    public static let sharedStretchableImage = {
+        return WMFImageGalleryTopGradientView.init(frame: CGRect(x: 0, y: 0, width: 25, height: 44)).wmf_snapshotStretchableImageOpaque(false)
+    }()
     override public func configure() {
         backgroundColor = .clear
         gradientLayer.locations = [1.0, 0.0]

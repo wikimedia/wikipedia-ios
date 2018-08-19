@@ -6,7 +6,6 @@
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFImageGalleryDetailOverlayView.h"
-#import "UIView+WMFSnapshotting.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -243,7 +242,9 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
         self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
-        [self.overlayView.navigationBar setBackgroundImage:[WMFImageGalleryViewController sharedStretchableNavigationBarGradientImage] forBarMetrics:UIBarMetricsDefault];
+        
+        // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
+        [self.overlayView.navigationBar setBackgroundImage:[WMFImageGalleryTopGradientView sharedStretchableImage] forBarMetrics:UIBarMetricsDefault];
         
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
@@ -254,16 +255,6 @@ NS_ASSUME_NONNULL_BEGIN
         close.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.overlayView.leftBarButtonItem = close;
     }
-}
-
-// Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
-+ (UIImage *)sharedStretchableNavigationBarGradientImage {
-    static UIImage *stretchableGradientImage;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        stretchableGradientImage = [[[WMFImageGalleryTopGradientView alloc] initWithFrame:CGRectMake(0, 0, 25, 44)] wmf_snapshotStretchableImageOpaque:NO];
-    });
-    return stretchableGradientImage;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
