@@ -22,6 +22,8 @@
 
 + (instancetype)nonPreferredLanguagesViewController;
 
+@property (nonatomic, assign) BOOL showExploreFeedCustomizationSettings;
+
 @end
 
 @class WMFPreferredLanguagesViewController;

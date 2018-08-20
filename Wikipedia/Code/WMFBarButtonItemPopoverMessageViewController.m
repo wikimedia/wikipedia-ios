@@ -25,7 +25,6 @@
 - (CGSize)preferredContentSize {
     // Make the popover's dimensions result from the storyboard constraints, i.e. respect
     // dynamic height for localized strings which end up being long enough to wrap lines, etc.
-    // Works with both iOS 8 and 9.
     return [self.view systemLayoutSizeFittingSize:CGSizeMake(UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric)
                     withHorizontalFittingPriority:UILayoutPriorityFittingSizeLevel
                           verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
