@@ -38,8 +38,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         collectionView.reloadData()
     }
 
-    private var isFirstAppearance = true
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isFirstAppearance {
