@@ -187,12 +187,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     } catch let error {
                         DDLogError(error.localizedDescription)
                     }
-                    DispatchQueue.main.async {
-                        operation.finish()
-                    }
+                    operation.finish()
                 }
-                #endif
+                #else
                 operation.finish()
+                #endif
             }
         }
         operationQueue.addOperation(operation)
@@ -219,10 +218,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 self.timer?.invalidate()
                 self.timer = nil
 
-                self.managedObjectContext.performAndWait {
+                self.managedObjectContext.perform {
                     self.save()
+                    operation.finish()
                 }
-                operation.finish()
+
             }
         }
         operationQueue.addOperation(operation)
@@ -310,9 +310,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     DDLogError(error.localizedDescription)
                 }
 
-                DispatchQueue.main.async {
-                    operation.finish()
-                }
+                operation.finish()
             }
         }
         operationQueue.addOperation(operation)
