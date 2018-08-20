@@ -35,15 +35,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private let reachabilityManager: AFNetworkReachabilityManager
     private let urlSessionConfiguration: URLSessionConfiguration
     private var urlSession: URLSession?
-    private let postLock = NSLock()
-    private var posting = false
-    private var started = false
     private var timer: Timer?
     
     private var lastNetworkRequestTimestamp: TimeInterval?
     
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
     private let managedObjectContext: NSManagedObjectContext
+    private let operationQueue: OperationQueue
     
     @objc(sharedInstance) public static let shared: EventLoggingService = {
         let fileManager = FileManager.default
@@ -76,10 +74,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var shouldSendImmediately: Bool {
         
-        if !started {
-            return false
-        }
-        
         if (debugDisableImmediateSend) {
             return false
         }
@@ -102,6 +96,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         self.reachabilityManager = reachabilityManager
         self.urlSessionConfiguration = urlSesssionConfiguration
+        operationQueue = OperationQueue()
+        operationQueue.maxConcurrentOperationCount = 1
         
         let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "EventLogging", withExtension: "momd")!
@@ -156,46 +152,50 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
 
     @objc
     public func start() {
-        
         assert(Thread.isMainThread, "must be started on main thread")
-        guard !self.started else {
-            return
-        }
-        self.started = true
-        
-        self.urlSession = URLSession(configuration: self.urlSessionConfiguration, delegate: self, delegateQueue: nil)
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFNetworkRequestBegan, object: nil, queue: .main) { (note) in
-            self.lastNetworkRequestTimestamp = Date.timeIntervalSinceReferenceDate
-            //DDLogDebug("last network request: \(String(describing: self.lastNetworkRequestTimestamp))")
-        }
 
-        self.reachabilityManager.setReachabilityStatusChange { (status) in
-            switch status {
-            case .reachableViaWiFi:
-                self.tryPostEvents()
-            default:
-                break
+        let operation = AsyncBlockOperation.init { (operation) in
+            DispatchQueue.main.async {
+                self.urlSession = URLSession(configuration: self.urlSessionConfiguration, delegate: self, delegateQueue: nil)
+
+                NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFNetworkRequestBegan, object: nil, queue: .main) { (note) in
+                    self.lastNetworkRequestTimestamp = Date.timeIntervalSinceReferenceDate
+                    //DDLogDebug("last network request: \(String(describing: self.lastNetworkRequestTimestamp))")
+                }
+
+                self.reachabilityManager.setReachabilityStatusChange { (status) in
+                    switch status {
+                    case .reachableViaWiFi:
+                        self.tryPostEvents()
+                    default:
+                        break
+                    }
+                }
+                self.reachabilityManager.startMonitoring()
+
+                self.timer = Timer.scheduledTimer(timeInterval: self.postInterval, target: self, selector: #selector(self.timerFired), userInfo: nil, repeats: true)
+
+                self.prune()
+
+                #if DEBUG
+                self.managedObjectContext.perform {
+                    do {
+                        let countFetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
+                        countFetch.includesSubentities = false
+                        let count = try self.managedObjectContext.count(for: countFetch)
+                        DDLogInfo("EventLoggingService: There are \(count) queued events")
+                    } catch let error {
+                        DDLogError(error.localizedDescription)
+                    }
+                    DispatchQueue.main.async {
+                        operation.finish()
+                    }
+                }
+                #endif
+                operation.finish()
             }
         }
-        self.reachabilityManager.startMonitoring()
-        
-        self.timer = Timer.scheduledTimer(timeInterval: self.postInterval, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
-        
-        prune()
-
-#if DEBUG
-        self.managedObjectContext.perform {
-            do {
-                let countFetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
-                countFetch.includesSubentities = false
-                let count = try self.managedObjectContext.count(for: countFetch)
-                DDLogInfo("EventLoggingService: There are \(count) queued events")
-            } catch let error {
-                DDLogError(error.localizedDescription)
-            }
-        }
-#endif
+        operationQueue.addOperation(operation)
     }
     
     @objc
@@ -207,24 +207,25 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     public func stop() {
         assert(Thread.isMainThread, "must be stopped on main thread")
-        guard self.started else {
-            return
-        }
-        self.started = false
+        let operation = AsyncBlockOperation { (operation) in
+            DispatchQueue.main.async {
+                self.reachabilityManager.stopMonitoring()
 
-        self.reachabilityManager.stopMonitoring()
-        
-        self.urlSession?.finishTasksAndInvalidate()
-        self.urlSession = nil
-        
-        NotificationCenter.default.removeObserver(self)
-        
-        self.timer?.invalidate()
-        self.timer = nil
-        
-        self.managedObjectContext.performAndWait {
-            self.save()
+                self.urlSession?.finishTasksAndInvalidate()
+                self.urlSession = nil
+
+                NotificationCenter.default.removeObserver(self)
+
+                self.timer?.invalidate()
+                self.timer = nil
+
+                self.managedObjectContext.performAndWait {
+                    self.save()
+                }
+                operation.finish()
+            }
         }
+        operationQueue.addOperation(operation)
     }
     
     @objc
@@ -232,7 +233,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.resetSession()
         self.resetInstall()
     }
-    
+
+    // Called inside AsyncBlockOperation.
     private func prune() {
         
         self.managedObjectContext.perform {
@@ -286,38 +288,32 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     private func tryPostEvents() {
+        let operation = AsyncBlockOperation { (operation) in
+            let moc = self.managedObjectContext
+            moc.perform {
+                let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
+                fetch.sortDescriptors = [NSSortDescriptor(keyPath: \EventRecord.recorded, ascending: true)]
+                fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
+                fetch.fetchLimit = self.postBatchSize
 
-        self.postLock.lock()
-        guard started, !posting else {
-            self.postLock.unlock()
-            return
-        }
-        posting = true
-        self.postLock.unlock()
-        
-        let moc = self.managedObjectContext
-        moc.perform {
-            let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
-            fetch.sortDescriptors = [NSSortDescriptor(keyPath: \EventRecord.recorded, ascending: true)]
-            fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
-            fetch.fetchLimit = self.postBatchSize
-            
-            do {
-                var eventRecords: [EventRecord] = []
-                defer {
-                    if eventRecords.count > 0 {
-                        self.postEvents(eventRecords)
-                    } else {
-                        self.postLock.lock()
-                        self.posting = false
-                        self.postLock.unlock()
+                do {
+                    var eventRecords: [EventRecord] = []
+                    defer {
+                        if eventRecords.count > 0 {
+                            self.postEvents(eventRecords)
+                        }
                     }
+                    eventRecords = try moc.fetch(fetch)
+                } catch let error {
+                    DDLogError(error.localizedDescription)
                 }
-                eventRecords = try moc.fetch(fetch)
-            } catch let error {
-                DDLogError(error.localizedDescription)
+
+                DispatchQueue.main.async {
+                    operation.finish()
+                }
             }
         }
+        operationQueue.addOperation(operation)
     }
     
     private func asyncSave() {
@@ -327,8 +323,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func postEvents(_ eventRecords: [EventRecord]) {
-        assert(posting, "method expects posting to be set when called")
-
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
@@ -374,9 +368,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     record.failed = true
                 }
                 self.save()
-                self.postLock.lock()
-                self.posting = false
-                self.postLock.unlock()
                 if (completedRecordIDs.count == eventRecords.count) {
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
