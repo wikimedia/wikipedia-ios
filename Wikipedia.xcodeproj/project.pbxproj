@@ -675,11 +675,11 @@
 		B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		B09BE6A11FB3DA46007F52E3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BE6A01FB3DA45007F52E3 /* WebKit.framework */; };
 		B09BE6A31FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */; };
-		B0ACB13321265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */; };
-		B0ACB13421265B9C0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */; };
-		B0ACB13521265B9D0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */; };
-		B0ACB13621265B9D0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */; };
-		B0ACB13721265B9E0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */; };
+		B0ACB13321265B930078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */; };
+		B0ACB13421265B9C0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */; };
+		B0ACB13521265B9D0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */; };
+		B0ACB13621265B9D0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */; };
+		B0ACB13721265B9E0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */; };
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		B0B423471EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */; };
@@ -3431,7 +3431,7 @@
 		B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+WMFWelcomeStoryboard.swift"; path = "Wikipedia/Code/UIViewController+WMFWelcomeStoryboard.swift"; sourceTree = SOURCE_ROOT; };
 		B09BE6A01FB3DA45007F52E3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFArticleSectionLoadingJSPerformanceTests.swift; sourceTree = "<group>"; };
-		B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFScreenHeightConstrainedGradientTextView.swift; sourceTree = "<group>"; };
+		B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFScreenHeightConstrainedTextView.swift; sourceTree = "<group>"; };
 		B0B0CAD71D2345CB009CE8ED /* WMFImageTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageTagList.h; path = Wikipedia/Code/WMFImageTagList.h; sourceTree = SOURCE_ROOT; };
 		B0B0CAD81D2345CB009CE8ED /* WMFImageTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageTagList.m; path = Wikipedia/Code/WMFImageTagList.m; sourceTree = SOURCE_ROOT; };
 		B0B0CADA1D234927009CE8ED /* WMFImageTagList+ImageURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTagList+ImageURLs.h"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.h"; sourceTree = SOURCE_ROOT; };
@@ -5707,7 +5707,7 @@
 				0E9B9E301CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m */,
 				B0408C542127F2C100AC76CE /* WMFImageGalleryGradientViews.swift */,
 				B0408C5A2127FB1200AC76CE /* WMFUnconfiguredGradientView.swift */,
-				B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift */,
+				B0ACB13221265B930078C136 /* WMFScreenHeightConstrainedTextView.swift */,
 				0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */,
 			);
 			name = "Overlay View";
@@ -9811,7 +9811,7 @@
 				B027FD281E678F5C005644A9 /* WMFAuthButton.swift in Sources */,
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
-				B0ACB13321265B930078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */,
+				B0ACB13321265B930078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				B07F823B203F68FE00317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
@@ -10337,7 +10337,7 @@
 				8382F8CB20D844C800AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				D80ED3661EE57F4800CE8C50 /* ArticleCollectionViewController.swift in Sources */,
 				7AFEB1C01FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
-				B0ACB13721265B9E0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */,
+				B0ACB13721265B9E0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */,
 				D80ED3671EE57F4800CE8C50 /* WMFHamburgerMenuFunnel.m in Sources */,
 				D80ED3681EE57F4800CE8C50 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				D8A3C4EB2113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
@@ -10775,7 +10775,7 @@
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */,
-				B0ACB13621265B9D0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */,
+				B0ACB13621265B9D0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */,
 				B07F823E203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
@@ -11301,7 +11301,7 @@
 				8382F8C820D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				D8CE25C91E698E2400DAE2E0 /* UIView+RemoveConstraints.m in Sources */,
 				7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
-				B0ACB13421265B9C0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */,
+				B0ACB13421265B9C0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */,
 				D8CE25CA1E698E2400DAE2E0 /* SectionEditorViewController.m in Sources */,
 				D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */,
 				D8A3C4E82113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
@@ -11621,7 +11621,7 @@
 				D8EC3EC71E9BDA35006712EB /* UIView+RemoveConstraints.m in Sources */,
 				7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				D8EC3EC81E9BDA35006712EB /* SectionEditorViewController.m in Sources */,
-				B0ACB13521265B9D0078C136 /* WMFScreenHeightConstrainedGradientTextView.swift in Sources */,
+				B0ACB13521265B9D0078C136 /* WMFScreenHeightConstrainedTextView.swift in Sources */,
 				D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */,
 				8382F8DB20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				D8A3C4E92113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
