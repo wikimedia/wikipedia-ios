@@ -136,6 +136,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
 "explore-feed-customize-accessibility-title" = "Accessibility title for feed customization";
+"explore-feed-language-settings" = "Title for Explore feed language settings.";
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-card-hidden-title" = "Title for button that appears in place of feed card hidden by user via the overflow button";
 "explore-feed-preferences-continue-reading-description" = "Description of Continue reading section of Explore feed";
@@ -497,6 +498,7 @@
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
+"settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
 "settings-notifications" = "Title for button letting user choose notifications settings.\n{{Identical|Notification}}";
 "settings-notifications-info" = "A short description of notifications shown in settings";

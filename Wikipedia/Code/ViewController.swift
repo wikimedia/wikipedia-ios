@@ -146,6 +146,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             self?.updateScrollViewInsets()
         })
     }
+
+    var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

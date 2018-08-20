@@ -61,6 +61,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     @IBAction func addLanguages(withSender sender: AnyObject) {
         let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        langsVC?.showExploreFeedCustomizationSettings = false
         langsVC?.delegate = self
         let navC = WMFThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
         present(navC, animated: true, completion: nil)

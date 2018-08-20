@@ -777,7 +777,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return nil
         }
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let customizeExploreFeed = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-customize-explore-feed-action-title", value: "Customize Explore feed", comment: "Title for action that allows users to go to the Explore feed settings screen"), style: .default) { (_) in
+        let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
             exploreFeedSettingsViewController.apply(theme: self.theme)

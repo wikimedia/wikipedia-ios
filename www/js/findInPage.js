@@ -85,16 +85,16 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
 
   recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
 
-    // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
-    // matches in first-to-last order. We can work around this by adding the "id"
-    // and building our results array *after* the recursion is done, thanks to
-    // "getElementsByClassName".
+  // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
+  // matches in first-to-last order. We can work around this by adding the "id"
+  // and building our results array *after* the recursion is done, thanks to
+  // "getElementsByClassName".
   const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
   FindInPageResultMatches.length = orderedMatchElements.length
   for (let i = 0; i < orderedMatchElements.length; i++) {
     const matchSpanId = 'findInPageMatchID|' + i
     orderedMatchElements[i].setAttribute('id', matchSpanId)
-        // For now our results message to native land will be just an array of match span ids.
+    // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
   }
 

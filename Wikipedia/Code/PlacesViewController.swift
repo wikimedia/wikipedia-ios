@@ -7,11 +7,10 @@ import Mapbox
 import MapKit
 
 @objc(WMFPlacesViewController)
-class PlacesViewController: PreviewingViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
+class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverViewControllerDelegate, PlaceSearchSuggestionControllerDelegate, WMFLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIPopoverPresentationControllerDelegate, ArticlePlaceViewDelegate, UIGestureRecognizerDelegate {
 
     fileprivate var mapView: MapView!
-    @IBOutlet weak var navigationBar: NavigationBar!
-    
+
     @IBOutlet weak var mapContainerView: UIView!
     
     @IBOutlet weak var redoSearchButton: UIButton!
@@ -72,9 +71,7 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
             }
         }
     }
-    
-    fileprivate var theme = Theme.standard
-    
+
     lazy fileprivate var placeSearchService: PlaceSearchService! = {
         return PlaceSearchService(dataStore: self.dataStore)
     }()
@@ -145,11 +142,11 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("places-filter-button-title", value: "Filter", comment: "Title for button that allows users to filter places"), style: .plain, target: self, action: #selector(filterButtonPressed(_:)))
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.displayType = .largeTitle
         navigationBar.delegate = self
+        navigationBar.isBarHidingEnabled = false
 
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme)
         addChildViewController(listViewController)
@@ -157,7 +154,6 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         listViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         listContainerView.addSubview(listViewController.view)
         listViewController.didMove(toParentViewController: self)
-        listViewController.collectionView.contentInsetAdjustmentBehavior = .automatic
         
         let mapViewFrame = mapContainerView.bounds
         #if OSM
@@ -212,20 +208,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         searchSuggestionController = PlaceSearchSuggestionController()
         searchSuggestionController.tableView = searchSuggestionView
         searchSuggestionController.delegate = self
-        
-        if UIAccessibilityIsVoiceOverRunning() {
-            viewMode = .list
-            mapListToggle.selectedSegmentIndex = 1
-        } else {
-            viewMode = .map
-        }
+
+        super.viewDidLoad()
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGR.delegate = self
         view.addGestureRecognizer(panGR)
         overlaySliderPanGestureRecognizer = panGR
-        
-        apply(theme: theme)
+
         self.view.layoutIfNeeded()
     }
     
@@ -235,13 +225,24 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         placeSearchService.fetchSavedArticles(searchString: nil)
         
         super.viewWillAppear(animated)
+
+        if isFirstAppearance {
+            isFirstAppearance = false
+            if UIAccessibilityIsVoiceOverRunning() {
+                viewMode = .list
+                mapListToggle.selectedSegmentIndex = 1
+            } else {
+                viewMode = .map
+            }
+        }
+
+        constrainButtonsToNavigationBar()
         
         let defaults = UserDefaults.wmf_userDefaults()
         if !defaults.wmf_placesHasAppeared() {
             defaults.wmf_setPlacesHasAppeared(true)
         }
 
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -265,6 +266,14 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         locationManager.stopMonitoringLocation()
         mapView.showsUserLocation = false
+    }
+
+    private func constrainButtonsToNavigationBar() {
+        let recenterOnUserLocationButtonTopConstraint = recenterOnUserLocationButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+        let redoSearchButtonTopConstraint = redoSearchButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+        let didYouMeanButtonTopConstraint = didYouMeanButton.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 17)
+
+        NSLayoutConstraint.activate([recenterOnUserLocationButtonTopConstraint, redoSearchButtonTopConstraint, didYouMeanButtonTopConstraint])
     }
     
     func selectVisibleArticle(articleKey: String) -> Bool {
@@ -1097,6 +1106,8 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
+            navigationBar.isInteractiveHidingEnabled = !mapListToggleContainer.isHidden
+            listViewController.scrollView?.contentInsetAdjustmentBehavior = mapListToggleContainer.isHidden ? .automatic : .never
         }
     }
 
@@ -2235,6 +2246,37 @@ class PlacesViewController: PreviewingViewController, UISearchBarDelegate, Artic
         let shouldReceive = location.x < listAndSearchOverlayContainerView.frame.maxX && abs(location.y - listAndSearchOverlayContainerView.frame.maxY - 10) < 32
         return shouldReceive
     }
+
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.baseBackground
+        navigationBar.apply(theme: theme)
+
+        searchBar.apply(theme: theme)
+        searchBar.backgroundColor = theme.colors.paperBackground
+
+        searchSuggestionController.apply(theme: theme)
+
+        listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
+        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
+
+        mapContainerView.backgroundColor = theme.colors.baseBackground
+
+        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
+
+        emptySearchOverlayView.backgroundColor = theme.colors.midBackground
+        emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
+        emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
+
+        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
+        selectedArticlePopover?.apply(theme: theme)
+        redoSearchButton.backgroundColor = theme.colors.link
+        didYouMeanButton.backgroundColor = theme.colors.link
+        listViewController.apply(theme: theme)
+    }
 }
 
 extension PlacesViewController {
@@ -2472,39 +2514,5 @@ extension PlacesViewController {
                 return false
             }
         }
-    }
-}
-
-// MARK: - Themeable
-
-extension PlacesViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.baseBackground
-        navigationBar.apply(theme: theme)
-        
-        searchBar.apply(theme: theme)
-        searchBar.backgroundColor = theme.colors.paperBackground
-        
-        searchSuggestionController.apply(theme: theme)
-        
-        listAndSearchOverlayContainerView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.backgroundColor = theme.colors.chromeBackground
-        listAndSearchOverlaySliderView.tintColor = theme.colors.tertiaryText
-        
-        listAndSearchOverlaySliderSeparator.backgroundColor = theme.colors.midBackground
-        
-        emptySearchOverlayView.backgroundColor = theme.colors.midBackground
-        emptySearchOverlayView.mainLabel.textColor = theme.colors.primaryText
-        emptySearchOverlayView.detailLabel.textColor = theme.colors.secondaryText
-        
-        recenterOnUserLocationButton.backgroundColor = theme.colors.chromeBackground
-        selectedArticlePopover?.apply(theme: theme)
-        redoSearchButton.backgroundColor = theme.colors.link
-        didYouMeanButton.backgroundColor = theme.colors.link
-        listViewController.apply(theme: theme)
     }
 }
