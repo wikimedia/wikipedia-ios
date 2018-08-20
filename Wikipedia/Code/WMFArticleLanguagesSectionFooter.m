@@ -5,6 +5,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 
 @end
 
@@ -22,6 +23,11 @@
                     forState:UIControlStateNormal];
     [self wmf_configureSubviewsForDynamicType];
     [self applyTheme:[WMFTheme standard]];
+}
+
+- (void)setButtonHidden:(BOOL)hidden {
+    [self.addButton setHidden:hidden];
+    self.topConstraint.constant = hidden ? 10 : 0;
 }
 
 - (void)applyTheme:(WMFTheme *)theme {
