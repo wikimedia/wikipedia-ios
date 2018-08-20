@@ -218,8 +218,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
         self.view.layoutIfNeeded()
     }
-
-    private var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
         
