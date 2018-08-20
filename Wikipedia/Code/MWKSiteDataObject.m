@@ -4,8 +4,6 @@
 
 @interface MWKSiteDataObject ()
 
-@property (readwrite, strong, nonatomic) NSURL *url;
-
 @end
 
 @implementation MWKSiteDataObject

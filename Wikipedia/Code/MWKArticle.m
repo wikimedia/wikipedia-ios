@@ -158,6 +158,13 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return [dict copy];
 }
 
+- (void)setRedirectedURL:(NSURL *)redirectedURL {
+    _redirectedURL = redirectedURL;
+    if (redirectedURL) {
+        self.url = redirectedURL;
+    }
+}
+
 - (void)importMobileViewJSON:(NSDictionary *)dict {
     // uncomment when schema is bumped to perform migrations if necessary
     //    MWKArticleSchemaVersion schemaVersion = [dict[@"schemaVersion"] unsignedIntegerValue];
