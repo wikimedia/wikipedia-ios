@@ -197,7 +197,9 @@
 "hockeyapp-alert-send-report" = "အစီရင်ခံချက် ပို့ရန်";
 "hockeyapp-alert-title" = "စိတ်မကောင်းပါ။ နောက်ဆုံးအကြိမ်က app သည် crash ဖြစ်ခဲ့သည်။";
 "home-button-history-accessibility-label" = "ဝီကီပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်သွားရန်";
+"home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
+"home-nearby-footer" = "သင့်တည်နေရာအနီးရှိ နေရာများပို၍";
 "home-news-footer" = "လက်ရှိဖြစ်ရပ်များ ပို၍";
 "home-themes-action-title" = "ရေးချယ်စရာများကို စီမံရန်";
 "home-title" = "ရှာဖွေစူးစမ်းပါ";
@@ -313,6 +315,8 @@
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
 "reading-list-exists-with-same-name" = "စာဖတ်စာရင်းနာမည်မှာ အသုံးပြုပြီးသားဖြစ်သည်";
 "reading-list-keep-button-title" = "ဟုတ်ကဲ့၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲ မှတ်ထားပါ။";
+"reading-list-keep-subtitle" = "သင်၏ဝီကီပီးဒီးယားအကောင့်သို့ sync လုပ်ထားသော ဆောင်းပါးများ ရှိသည်။ အကောင့်မှထွက်ပါက သင့်စက်ပစ္စည်းထဲတွင် ယင်းတို့ကို ဆက်လက်ထားချင်ပါသလား။";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "ဟင့်အင်း၊ မိမိ၏ ဝီကီပီးဒီးယားအကောင့်နှင့် စက်ပစ္စည်းမှ ဆောင်းပါးများကို ဖယ်ရှားလိုက်ပါ";
 "reading-list-keep-title" = "သိမ်းထားတဲ့ဆောင်းပါးတွေကို စက်ပစ္စည်းထဲ ဆက်ထားမှာလာ?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ဆောင်းပါးများကို စီလိုက်ပါ";
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";

@@ -109,6 +109,7 @@
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
+"back-button-popover-title" = "Napauta palataksesi";
 "button-done" = "Valmis";
 "button-next" = "Seuraava";
 "button-ok" = "OK";
