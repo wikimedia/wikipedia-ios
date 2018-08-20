@@ -296,13 +296,16 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
                 fetch.fetchLimit = self.postBatchSize
 
+
+                var eventRecords: [EventRecord] = []
                 do {
-                    var eventRecords: [EventRecord] = []
                     defer {
                         if eventRecords.count > 0 {
                             self.postEvents(eventRecords, completion: {
                                 operation.finish()
                             })
+                        } else {
+                            operation.finish()
                         }
                     }
                     eventRecords = try moc.fetch(fetch)
@@ -310,7 +313,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     DDLogError(error.localizedDescription)
                 }
 
-                operation.finish()
             }
         }
         operationQueue.addOperation(operation)
