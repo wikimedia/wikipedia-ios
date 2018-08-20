@@ -150,6 +150,7 @@
 "explore-because-you-read" = "Perquè vau llegir";
 "explore-because-you-read-footer" = "Articles relacionats addicionals";
 "explore-continue-reading-heading" = "Continua llegint";
+"explore-detail-back-button-title" = "Torna al canal d'exploració";
 "explore-enable-location-title" = "Explora articles prop de la vostra ubicació actual";
 "explore-featured-article-heading" = "Article destacat";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la Viquipèdia en $1";

@@ -157,6 +157,7 @@
 "explore-because-you-read" = "Parce que vous avez lu";
 "explore-because-you-read-footer" = "Articles supplémentaires associés";
 "explore-continue-reading-heading" = "Continuer à lire";
+"explore-detail-back-button-title" = "Retour au fil d’exploration";
 "explore-enable-location-title" = "Explorer les articles proches de votre emplacement actuel";
 "explore-featured-article-heading" = "Article vedette";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";

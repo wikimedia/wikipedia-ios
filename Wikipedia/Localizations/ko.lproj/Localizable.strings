@@ -156,6 +156,7 @@
 "explore-because-you-read" = "당신이 읽었기 때문입니다";
 "explore-because-you-read-footer" = "추가 관련 문서";
 "explore-continue-reading-heading" = "계속 읽기";
+"explore-detail-back-button-title" = "탐색 피드로 돌아가기";
 "explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
