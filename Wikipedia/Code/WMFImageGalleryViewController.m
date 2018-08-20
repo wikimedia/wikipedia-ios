@@ -342,12 +342,6 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
-- (void)didTapInfoButton {
-    id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
-    MWKImageInfo *info = [photo bestImageInfo];
-    [self wmf_openExternalUrl:info.filePageURL];
-}
-
 #pragma mark NYTPhotosViewControllerDelegate
 
 - (UIView *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id<NYTPhoto>)photo {
