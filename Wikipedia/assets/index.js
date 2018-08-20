@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const wmf = {}
 
 wmf.compatibility = require('wikimedia-page-library').CompatibilityTransform
@@ -192,7 +192,6 @@ document.addEventListener('click', event => {
   event.preventDefault()
   handleClickEvent(event)
 }, false)
-
 },{"./utilities":7,"wikimedia-page-library":9}],3:[function(require,module,exports){
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 
@@ -202,7 +201,7 @@ exports.getImageWithSrc = src => document.querySelector(`img[src$="${src}"]`)
 
 exports.getElementRect = element => {
   const rect = element.getBoundingClientRect()
-    // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
+  // Important: use "X", "Y", "Width" and "Height" keys so we can use CGRectMakeWithDictionaryRepresentation in native land to convert to CGRect.
   return {
     Y: rect.top,
     X: rect.left,
@@ -316,16 +315,16 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
 
   recursivelyHighlightSearchTermInTextNodesStartingWithElement(document.body, searchTerm.toLowerCase())
 
-    // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
-    // matches in first-to-last order. We can work around this by adding the "id"
-    // and building our results array *after* the recursion is done, thanks to
-    // "getElementsByClassName".
+  // The recursion doesn't walk a first-to-last path, so it doesn't encounter the
+  // matches in first-to-last order. We can work around this by adding the "id"
+  // and building our results array *after* the recursion is done, thanks to
+  // "getElementsByClassName".
   const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
   FindInPageResultMatches.length = orderedMatchElements.length
   for (let i = 0; i < orderedMatchElements.length; i++) {
     const matchSpanId = 'findInPageMatchID|' + i
     orderedMatchElements[i].setAttribute('id', matchSpanId)
-        // For now our results message to native land will be just an array of match span ids.
+    // For now our results message to native land will be just an array of match span ids.
     FindInPageResultMatches[i] = matchSpanId
   }
 
@@ -513,7 +512,7 @@ class Section {
 
   leadSectionHeading() {
     const heading = lazyDocument.createElement('h1')
-    heading.class = 'section_heading'
+    heading.classList.add('section_heading')
     this.addAnchorAsIdToHeading(heading)
     heading.sectionId = this.id
     heading.innerHTML = this.article.displayTitle
@@ -581,7 +580,7 @@ class Section {
 
     const block = lazyDocument.createElement('div')
     block.id = `content_block_${this.id}`
-    block.class = 'content_block'
+    block.classList.add('content_block')
     block.innerHTML = this.html()
 
     container.appendChild(block)
@@ -706,22 +705,22 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
   performEarlyNonSectionTransforms(article)
   const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
-  .then(processResponseStatus)
-  .then(extractResponseJSON)
-  .then(extractSectionsJSON)
-  .then(sectionsJSON => {
-    if (sectionsJSON.length > 0) {
-      transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
-    }
-    // Giving the lead section a tiny head-start speeds up its appearance dramatically.
-    const nonLeadDelay = 50
-    setTimeout(() => {
-      transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
-      scrollToSection(hash)
-      successCallback()
-    }, nonLeadDelay)
-  })
-  .catch(error => console.log(`Promise was rejected with error: ${error}`))
+    .then(processResponseStatus)
+    .then(extractResponseJSON)
+    .then(extractSectionsJSON)
+    .then(sectionsJSON => {
+      if (sectionsJSON.length > 0) {
+        transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
+      }
+      // Giving the lead section a tiny head-start speeds up its appearance dramatically.
+      const nonLeadDelay = 50
+      setTimeout(() => {
+        transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
+        scrollToSection(hash)
+        successCallback()
+      }, nonLeadDelay)
+    })
+    .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
@@ -757,7 +756,7 @@ const scrollToFragment = fragmentId => {
 }
 
 const accessibilityCursorToFragment = fragmentId => {
-    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+  /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
      in order to have the desired effect, so we first give focus to the body element,
      then move it to the desired fragment. */
   const focus_element = document.getElementById(fragmentId)
