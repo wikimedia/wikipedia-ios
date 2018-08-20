@@ -154,7 +154,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     public func start() {
         assert(Thread.isMainThread, "must be started on main thread")
 
-        let operation = AsyncBlockOperation.init { (operation) in
+        let operation = AsyncBlockOperation { (operation) in
             DispatchQueue.main.async {
                 self.urlSession = URLSession(configuration: self.urlSessionConfiguration, delegate: self, delegateQueue: nil)
 
