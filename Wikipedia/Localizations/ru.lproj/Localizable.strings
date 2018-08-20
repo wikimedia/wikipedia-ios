@@ -167,6 +167,7 @@
 "explore-because-you-read" = "На основе прочитанного";
 "explore-because-you-read-footer" = "Больше статей на основе прочитанного";
 "explore-continue-reading-heading" = "Продолжить чтение";
+"explore-detail-back-button-title" = "Назад к вкладке Обзор";
 "explore-enable-location-title" = "Прочитайте статьи википедии об объектах вблизи текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
