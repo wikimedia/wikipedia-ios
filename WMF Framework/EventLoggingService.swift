@@ -300,7 +300,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     var eventRecords: [EventRecord] = []
                     defer {
                         if eventRecords.count > 0 {
-                            self.postEvents(eventRecords)
+                            self.postEvents(eventRecords, completion: {
+                                operation.finish()
+                            })
                         }
                     }
                     eventRecords = try moc.fetch(fetch)
@@ -322,7 +324,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func postEvents(_ eventRecords: [EventRecord]) {
+    private func postEvents(_ eventRecords: [EventRecord], completion: () -> Void) {
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
