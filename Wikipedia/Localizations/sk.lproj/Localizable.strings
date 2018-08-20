@@ -53,6 +53,7 @@
 "account-creation-title" = "Vytvoriť nový účet";
 "action-add-to" = "Pridať do…";
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
+"action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
 "action-move-to" = "Presunúť do…";
 "action-move-to-reading-list" = "Presunúť do zoznamu na prečítanie";
@@ -67,6 +68,7 @@
 "action-update" = "Aktualizovať";
 "alert-no-internet" = "Žiadne pripojenie na internet";
 "announcements-dismiss" = "Zrušiť";
+"app-store-subtitle" = "Slobodná encyklopédia";
 "appearance-settings-theme-options" = "Nastavenia témy vzhľadu";
 "article-about-title" = "O tomto článku";
 "article-delete" = "Vymazať";
@@ -116,6 +118,9 @@
 "explore-another-random" = "Ďalší náhodný článok";
 "explore-continue-reading-heading" = "Pokračovať v čítaní";
 "explore-featured-article-heading" = "Odporúčaný článok";
+"explore-feed-customize-accessibility-title" = "Prispôsobiť";
+"explore-feed-preferences-hide-card-action-title" = "Skryť túto kartu";
+"explore-feed-preferences-undo-customization" = "Vrátiť";
 "explore-hide-card-prompt" = "Skryť túto kartu";
 "explore-main-page-description" = "Hlavná stránka projektov Wikimedie";
 "explore-main-page-heading" = "Dnes na Wikipédii";
