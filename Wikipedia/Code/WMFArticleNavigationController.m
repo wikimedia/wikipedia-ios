@@ -15,6 +15,15 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
 
 @implementation WMFArticleNavigationController
 
++ (UIImage *)secondToolbarBackgroundImage {
+    static UIImage *clearImage = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        clearImage = [UIImage wmf_imageFromColor:[UIColor clearColor]];
+    });
+    return clearImage;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [super setDelegate:self];
@@ -23,18 +32,7 @@ static const NSTimeInterval WMFArticleNavigationControllerSecondToolbarAnimation
     self.secondToolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
     self.readingListHintHidden = YES;
 
-    static UIImage *clearImage = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        UIGraphicsBeginImageContext(CGSizeMake(1, 1));
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [[UIColor clearColor] setFill];
-        CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
-        clearImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    });
-
-    [self.secondToolbar setBackgroundImage:clearImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.secondToolbar setBackgroundImage:[WMFArticleNavigationController secondToolbarBackgroundImage] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     self.secondToolbar.clipsToBounds = YES;
 
     [self.view addSubview:self.secondToolbar];
