@@ -389,6 +389,17 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
+    @weakify(caption)
+    caption.descriptionTapCallback = ^{
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             @strongify(self)
+                             @strongify(caption)
+                             [caption toggleDescriptionOpenState];
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:NULL];
+    };
 
     return caption;
 }

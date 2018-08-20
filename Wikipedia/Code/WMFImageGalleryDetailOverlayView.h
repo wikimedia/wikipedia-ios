@@ -7,6 +7,9 @@
 @property (nonatomic, assign) BOOL imageDescriptionIsRTL;
 @property (nonatomic, copy) dispatch_block_t ownerTapCallback;
 @property (nonatomic, copy) dispatch_block_t infoTapCallback;
+@property (nonatomic, copy) dispatch_block_t descriptionTapCallback;
+
+- (void)toggleDescriptionOpenState;
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 

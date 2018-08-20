@@ -102,7 +102,7 @@
         </view>
         <tapGestureRecognizer id="nCy-cX-oYp">
             <connections>
-                <action selector="didTapImageDescription" destination="iN0-l3-epB" id="cdn-qW-p8P"/>
+                <action selector="didTapDescriptionTextView" destination="iN0-l3-epB" id="Ce0-Tt-mwT"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
