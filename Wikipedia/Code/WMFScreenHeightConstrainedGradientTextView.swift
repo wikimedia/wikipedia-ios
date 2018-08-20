@@ -1,36 +1,45 @@
 
+// UITextView with slight top and bottom gradients covering scrolling text.
 class WMFGradientTextView : UITextView {
-    private let fadeHeight: CGFloat = 6
-    private let fadeColor = UIColor.black
-    private let clear = UIColor.black.withAlphaComponent(0)
-    private lazy var topGradientView: WMFGradientView = {
-        let gradient = WMFGradientView()
-        gradient.translatesAutoresizingMaskIntoConstraints = false
-        gradient.startPoint = .zero
-        gradient.endPoint = CGPoint(x: 0, y: 1)
-        gradient.setStart(fadeColor, end: clear)
-        addSubview(gradient)
-        return gradient
-    }()
-    
-    private lazy var bottomGradientView: WMFGradientView = {
-        let gradient = WMFGradientView()
-        gradient.translatesAutoresizingMaskIntoConstraints = false
-        gradient.startPoint = CGPoint(x: 0, y: 1)
-        gradient.endPoint = .zero
-        gradient.setStart(fadeColor, end: clear)
-        addSubview(gradient)
-        return gradient
-    }()
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateGradientFrames()
+    private let fadeHeight = 6.0
+    private var normalizedFadeHeight: Double {
+        return bounds.size.height > 0 ? fadeHeight /  Double(bounds.size.height) : 0
     }
+
+    private lazy var gradientMask: CAGradientLayer = {
+        let mask = CAGradientLayer()
+        mask.startPoint = .zero
+        mask.endPoint = CGPoint(x: 0, y: 1)
+        mask.colors = [
+            UIColor.clear.cgColor,
+            UIColor.black.cgColor,
+            UIColor.black.cgColor,
+            UIColor.clear.cgColor
+        ]
+        layer.mask = mask
+        return mask
+    }()
     
-    private func updateGradientFrames() {
-        topGradientView.frame = CGRect(x: 0, y: contentOffset.y, width: bounds.size.width, height: fadeHeight)
-        bottomGradientView.frame = topGradientView.frame.offsetBy(dx: 0, dy: bounds.size.height - fadeHeight)
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        guard layer == gradientMask.superlayer else {
+            assertionFailure("Unexpected superlayer")
+            return
+        }
+
+        // Keep fade heights fixed to `fadeHeight` regardless of text view height
+        gradientMask.locations = [
+            0.0,
+            NSNumber(value: normalizedFadeHeight),          // upper stop
+            NSNumber(value: 1.0 - normalizedFadeHeight),    // lower stop
+            1.0
+        ]
+
+        // Maintain fixed mask location on scroll
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        gradientMask.frame = CGRect(x: 0, y: contentOffset.y, width: bounds.size.width, height: bounds.size.height)
+        CATransaction.commit()
     }
 }
 
