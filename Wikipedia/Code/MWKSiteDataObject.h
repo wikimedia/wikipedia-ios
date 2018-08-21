@@ -4,7 +4,7 @@
 
 @interface MWKSiteDataObject : MWKDataObject
 
-@property (readwrite, strong, nonatomic) NSURL *url;
+@property (readonly, strong, nonatomic) NSURL *url;
 
 - (instancetype)initWithURL:(NSURL *)url NS_DESIGNATED_INITIALIZER;
 
