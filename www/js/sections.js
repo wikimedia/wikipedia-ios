@@ -224,6 +224,9 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
   lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
   lazyImageLoadingTransformer.loadPlaceholders()
+
+  // Fix bug preventing audio from playing on 1st click of play button.
+  fragment.querySelectorAll('audio[preload="none"]').forEach(audio => audio.setAttribute('preload', 'metadata'))
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
