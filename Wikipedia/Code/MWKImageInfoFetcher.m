@@ -70,21 +70,6 @@
                      failure:failure];
 }
 
-- (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
-                             fromSiteURL:(NSURL *)siteURL
-                        metadataLanguage:(nullable NSString *)metadataLanguage
-                                 failure:(WMFErrorHandler)failure
-                                 success:(WMFSuccessIdHandler)success {
-    [self fetchInfoForTitles:pageTitles
-                 fromSiteURL:siteURL
-              thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-             extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-            metadataLanguage:metadataLanguage
-                useGenerator:YES
-                     success:success
-                     failure:failure];
-}
-
 - (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray *)imageTitles
                                              fromSiteURL:(NSURL *)siteURL
                                                  success:(void (^)(NSArray *infoObjects))success
