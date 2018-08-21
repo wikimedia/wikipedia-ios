@@ -148,6 +148,7 @@
 "explore-because-you-read" = "Porque leu";
 "explore-because-you-read-footer" = "Artigos relacionados complementares";
 "explore-continue-reading-heading" = "Continuar a ler";
+"explore-detail-back-button-title" = "Voltar ao feed Explorar";
 "explore-enable-location-title" = "Explorar artigos de temas perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";

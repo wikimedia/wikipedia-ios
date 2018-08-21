@@ -141,6 +141,7 @@
 "explore-because-you-read" = "Weil du liest";
 "explore-because-you-read-footer" = "Weitere ähnliche Artikel";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
+"explore-detail-back-button-title" = "Zurück zum Entdecken-Feed";
 "explore-enable-location-title" = "Entdecke Artikel nahe deines aktuellen Standortes";
 "explore-featured-article-heading" = "Vorgestellter Artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Von der Wikipedia auf $1";

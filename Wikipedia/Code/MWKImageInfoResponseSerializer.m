@@ -29,10 +29,6 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
              ExtMetadataArtistKey];
 }
 
-+ (NSArray *)picOfTheDayExtMetadataKeys {
-    return @[ExtMetadataImageDescriptionKey];
-}
-
 - (id)responseObjectForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError *__autoreleasing *)error {
     NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
     if (!json) {

@@ -50,6 +50,7 @@
 "account-creation-title" = "Búa til nýjan aðgang";
 "action-add-to" = "Bæta við…";
 "action-add-to-reading-list" = "Bæta á leslista";
+"action-add-to-reading-list-short" = "Bæta við lista";
 "action-cancel" = "Hætta við";
 "action-move-to" = "Færa í…";
 "action-move-to-reading-list" = "Færa á leslista";
@@ -68,13 +69,13 @@
 "alert-no-internet" = "Það er engin internettenging";
 "announcements-dismiss" = "Vísa frá";
 "app-store-short-description" = "Sæktu Wikipedia-forritið til að kanna staði í þínu næsta nágrenni, samstilla greinar til að lesa án nettengingar og til að sérsníða upplifun þína við lestur.";
+"app-store-subtitle" = "Frjálsa alfræðiritið";
 "appearance-settings-adjust-text-sizing" = "Breyta stærð leturs í grein";
 "appearance-settings-expand-tables" = "Þenja út töflur";
 "appearance-settings-expand-tables-footer" = "Láta allar töflur í öllum greinum vera sjálfgefið opnar, þar með taldar 'Staðreyndir strax', 'Tilvísanir', 'Minnispunktar' og 'Ytri tenglar'.";
 "appearance-settings-image-dimming-footer" = "Minnka ógegnsæi mynda í dökku þema";
 "appearance-settings-reading-themes" = "Lestrarþemu";
 "appearance-settings-set-automatic-table-opening" = "Töflustillingar";
-// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Dragðu til sleðann hér fyrir ofan til að breyta stærð textans í greininni. Notaðu stærðarbreytingar í stillingum kerfisins til að breyta stærð texta í öðrum hlutum forritsins.";
 "appearance-settings-theme-options" = "Valkostir þema";
 "article-about-title" = "Um þessa grein";
@@ -134,18 +135,24 @@
 "explore-continue-reading-heading" = "Halda lestri áfram";
 "explore-enable-location-title" = "Skoðaðu greinar í nágrenni við núverandi staðsetningu þína";
 "explore-featured-article-heading" = "Forsíðugrein";
+"explore-featured-article-sub-heading-from-wikipedia" = "Af Wikipedia";
+"explore-feed-customize-accessibility-title" = "Sérsníða";
+"explore-feed-preferences-explore-tab" = "Uppgötva-flipi";
+"explore-feed-preferences-featured-article-description" = "Forsíðugrein dagsins á Wikipedia";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Slökkt";
+"explore-feed-preferences-undo-customization" = "Afturkalla";
+"explore-hide-card-prompt" = "Fela þetta spjald";
 "explore-main-page-description" = "Aðalsíða Wikimedia-verkefna";
 "explore-main-page-heading" = "Í dag á Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Allar mest lesnu greinar";
 "explore-most-read-generic-heading" = "Mest lesið";
 "explore-most-read-more-list-title-for-date" = "Mest lesið á $1";
+"explore-most-read-sub-heading-on-wikipedia" = "Á Wikipedia";
 "explore-nearby-heading" = "Staðir í nágrenninu";
 "explore-nearby-placeholder-heading" = "Staðir";
 // Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Á $1 Wikipedia";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Á Wikipedia";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Af Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Staðsetning þín";
 "explore-potd-heading" = "Mynd dagsins";
 "explore-random-article-heading" = "Handahófsvalin grein";
@@ -217,9 +224,11 @@
 "in-the-news-notification-read-now-action-title" = "Lesa núna";
 "in-the-news-notification-save-for-later-action-title" = "Vista til síðari tíma";
 "in-the-news-notification-share-action-title" = "Deila...";
+"in-the-news-sub-title-from-wikipedia" = "Af Wikipedia";
 "in-the-news-title" = "Í fréttum";
 "info-box-close-text" = "Loka";
 "info-box-title" = "Staðreyndir strax";
+"languages-settings-title" = "Tungumál";
 "languages-title" = "Skipta um tungumál";
 "languages-wikipedia" = "Tungumál á Wikipediu";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -263,6 +272,7 @@
 "on-this-day-detail-header-date-range" = "frá $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 sögulegur atburður|$1 sögulegir atburðir}}";
 "on-this-day-footer" = "Fleiri sögulegir atburðir á þessum degi";
+"on-this-day-footer-with-event-count" = "$1 fleiri sögulegir atburðir á þessum degi";
 "on-this-day-title" = "Á þessum degi";
 "open-link-cancel" = "Hætta við";
 "page-edit-history" = "Öll breytingaskráin";
@@ -290,10 +300,14 @@
 "places-enable-location-action-button-title" = "Virkja staðsetningu";
 "places-enable-location-description" = "Aðgangur að staðsetningunni þinni er einungis í boði þegar forritið eða einhver hluti þess er sýnilegur á skjánum.";
 "places-enable-location-title" = "Skoðaðu greinar í nágrenni við núverandi staðsetningu þína með því að leyfa aðgang að hnattstaðsetningu";
+"places-filter-articles-action-sheet-title" = "Sía greinar";
+"places-filter-button-title" = "Sía";
 "places-filter-no-saved-places" = "Þú ert ekki með neina vistaða staði";
 "places-filter-saved-articles" = "Vistaðar greinar";
 "places-filter-top-articles" = "Mest lesið";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 grein|$1 greinar}}";
+"places-filter-top-read-articles" = "Mest lesnu greinar";
+"places-location-enabled" = "Staðsetning virkjuð";
 "places-no-saved-articles-have-location" = "Engar vistuðu greinanna þinna eru með staðsetningarupplýsingar";
 "places-search-articles-that-match" = "$1 samsvarandi “$2”";
 "places-search-default-text" = "Leita að stöðum";
@@ -364,6 +378,7 @@
 "reading-list-unable-to-update" = "Óvænt villa kom upp við að uppfæra leslistann þinn. Endilega reyndu aftur síðar.";
 "reading-list-with-provided-name-not-found" = "Leslisti með heitinu „$1“ fannst ekki. Gakktu úr skugga um að þú hafir sett inn rétt heiti.";
 "reading-lists-article-added-confirmation" = "Grein bætt við “$1”";
+"reading-lists-article-api-failure" = "Gat ekki samstillt grein";
 "reading-lists-article-not-synced" = "Ekki samstillt";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Farið fram úr takmörkum greina, tókst ekki að samstilla grein";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Farið fram úr takmörkum lista, tókst ekki að samstilla grein";
@@ -408,6 +423,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "Afturköllun á vistun {{PLURAL:$1|þessarar greinar mun fjarlægja hana|þessara greina mun fjarlægja þær}} af öllum tengdum leslistum";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "Afturkalla vistun á {{PLURAL:$|$ grein|$1 greinar}}?";
 "search-button-accessibility-label" = "Leita á Wikipedia";
+"search-clear-title" = "Hreinsa";
 "search-did-you-mean" = "Áttir þú við $1?";
 "search-field-placeholder-text" = "Leita í Wikipedia";
 "search-reading-list-placeholder-text" = "Leita í leslista";

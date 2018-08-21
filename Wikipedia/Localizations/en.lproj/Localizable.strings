@@ -136,6 +136,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-feed-customize-accessibility-title" = "Customize";
+"explore-feed-language-settings" = "Explore feed language settings";
 "explore-feed-preferences-additional-languages-footer-text" = "Additional languages can be added in the ‘My languages’ settings page.";
 "explore-feed-preferences-card-hidden-title" = "Card hidden";
 "explore-feed-preferences-continue-reading-description" = "Quick link back to reading an open article";
@@ -381,6 +382,7 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-list-add-generic-hint-title" = "Add this article to a reading list?";
 "reading-list-add-hint-title" = "Add “$1” to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
@@ -497,6 +499,7 @@
 "settings-clear-cache-ok" = "Clear cache";
 "settings-help-and-feedback" = "Help and feedback";
 "settings-language-bar" = "Show languages on search";
+"settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
 "settings-my-languages" = "My languages";
 "settings-notifications" = "Notifications";
 "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
@@ -505,7 +508,7 @@
 "settings-notifications-system-turn-on" = "Turn on Notifications";
 "settings-notifications-trending" = "Trending current events";
 "settings-primary-language" = "Primary";
-"settings-primary-language-details" = "The first language in this list is used as the primary language for the app. Changing this language will change daily content (such as Featured Article) shown on Explore.";
+"settings-primary-language-details" = "The first language in this list is used as the primary language for the app.";
 "settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
 "settings-search-open-app-on-search" = "Open app on Search tab";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Allow Wikimedia to save your saved articles and reading lists to your user preferences when you login and sync.";

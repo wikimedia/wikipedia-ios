@@ -205,8 +205,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)setArticle:(nullable MWKArticle *)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
-             @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
+    if (![article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]]) {
+        self.articleURL = article.url;
+    }
 
     _shareFunnel = nil;
     NSURL *articleURLToCancel = self.articleURL;
@@ -1002,21 +1003,42 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
     if (animated) {
-        UIScrollView *scrollView = self.webViewController.webView.scrollView;
-        CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
-        UIColor *previousBackgrondColor = scrollView.backgroundColor;
-        scrollView.backgroundColor = [UIColor whiteColor];
-        [UIView animateWithDuration:0.20
+
+        void (^makeLayoutAdjustments)(void) = ^{
+            UIScrollView *scrollView = self.webViewController.webView.scrollView;
+            CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
+
+            [self layoutForSize:self.view.bounds.size];
+            if (self.sectionToRestoreScrollOffset) {
+                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            } else {
+                scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+            }
+        };
+
+        // Fade the web view out fully.
+        [UIView animateWithDuration:0.15
+            delay:0.0
+            options:UIViewAnimationOptionBeginFromCurrentState
             animations:^{
-                [self layoutForSize:self.view.bounds.size];
-                if (self.sectionToRestoreScrollOffset) {
-                    [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else {
-                    scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-                }
+                self.webViewController.view.alpha = 0.0;
             }
             completion:^(BOOL finished) {
-                scrollView.backgroundColor = previousBackgrondColor;
+                // Make layout adjustments. These trigger a web view width change, which triggers an unanimatable (slightly 'jerky') text-reflow, which is why we ensure the web view is faded out for this step.
+                [UIView animateWithDuration:0.15
+                                      delay:0.0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:makeLayoutAdjustments
+                                 completion:^(BOOL finished) {
+                                     // Then fade the web view back in.
+                                     [UIView animateWithDuration:0.1
+                                                           delay:0.05 // Important! Slight delay ensures text reflow *and* contentOffset changes have completely finished (otherwise you can sometimes get another frame or 2 of flicker).
+                                                         options:UIViewAnimationOptionBeginFromCurrentState
+                                                      animations:^{
+                                                          self.webViewController.view.alpha = 1.0;
+                                                      }
+                                                      completion:NULL];
+                                 }];
             }];
     } else {
         [self layoutForSize:self.view.bounds.size];

@@ -153,6 +153,7 @@
 "explore-because-you-read" = "您曾閱讀過的";
 "explore-because-you-read-footer" = "額外相關條目";
 "explore-continue-reading-heading" = "繼續閱讀";
+"explore-detail-back-button-title" = "返回探索摘要";
 "explore-enable-location-title" = "瀏覽接近您目前位置的條目";
 "explore-featured-article-heading" = "典範條目";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
