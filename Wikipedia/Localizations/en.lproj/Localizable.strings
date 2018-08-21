@@ -382,6 +382,7 @@
 "preference-title-eventlogging-opt-in" = "Send usage reports";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
+"reading-list-add-generic-hint-title" = "Add this article to a reading list?";
 "reading-list-add-hint-title" = "Add “$1” to a reading list?";
 "reading-list-add-saved-button-title" = "Yes, add them to my reading lists";
 "reading-list-add-saved-subtitle" = "There are articles saved to your Wikipedia app. Would you like to keep them and merge with reading lists synced to your account?";
