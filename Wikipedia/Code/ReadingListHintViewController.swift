@@ -13,7 +13,14 @@ class ReadingListHintViewController: UIViewController {
     }
     
     private var hintButtonTitle: String {
-        let articleTitle = article?.displayTitle ?? "article"
+        var articleTitle = "article"
+        if let article = article {
+            if let displayTitle = article.displayTitle, displayTitle.wmf_hasNonWhitespaceText {
+                articleTitle = displayTitle
+            } else if let articleURL = article.url, let title = articleURL.wmf_title {
+                articleTitle = title
+            }
+        }
         return String.localizedStringWithFormat(WMFLocalizedString("reading-list-add-hint-title", value: "Add “%1$@” to a reading list?", comment: "Title of the reading list hint that appears after an article is saved. %1$@ will be replaced with the saved article title"), "\(articleTitle)")
     }
     
