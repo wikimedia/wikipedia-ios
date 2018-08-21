@@ -21,7 +21,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, weak, nonatomic) MWKDataStore *dataStore;
 
 // Metadata
-@property (readwrite, strong, nonatomic) NSURL *redirectedURL;            // optional
 @property (readwrite, strong, nonatomic) NSDate *lastmodified;            // optional
 @property (readwrite, strong, nonatomic) MWKUser *lastmodifiedby;         // required
 @property (readwrite, assign, nonatomic) int articleId;                   // required; -> 'id'
@@ -98,7 +97,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle *)other {
-    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.redirectedURL, isEqual:, other.redirectedURL) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count;
+    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article {
@@ -115,8 +114,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
     dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
-
-    [dict wmf_maybeSetObject:self.redirectedURL.wmf_title forKey:@"redirect"];
 
     [dict wmf_maybeSetObject:[self iso8601DateString:self.lastmodified] forKey:@"lastmodified"];
 
@@ -181,7 +178,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     self.acceptLanguageRequestHeader = [self optionalString:@"acceptLanguageRequestHeader" dict:dict];
     self.revisionId = [self optionalNumber:@"revision" dict:dict];
-    self.redirectedURL = [self optionalURL:@"redirected" dict:dict];
     self.displaytitle = [self optionalString:@"displaytitle" dict:dict];
     self.entityDescription = [self optionalString:@"description" dict:dict];
     // From mobileview API...
