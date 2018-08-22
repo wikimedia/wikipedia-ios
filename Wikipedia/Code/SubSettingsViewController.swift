@@ -2,6 +2,11 @@ import UIKit
 
 class SubSettingsViewController: ViewController {
     @IBOutlet weak var tableView: UITableView!
+
+    override func viewDidLoad() {
+        scrollView = tableView
+        super.viewDidLoad()
+    }
 }
 
 extension SubSettingsViewController: UITableViewDataSource {
