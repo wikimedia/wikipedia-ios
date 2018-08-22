@@ -416,8 +416,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Appearance
 
 - (void)showAppearance {
-    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
-    [appearanceSettingsVC applyTheme:self.theme];
+    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
