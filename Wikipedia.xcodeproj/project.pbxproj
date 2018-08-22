@@ -112,11 +112,6 @@
 		7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
-		7A0DE50520CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
-		7A0DE50620CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
-		7A0DE50720CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
-		7A0DE50820CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
-		7A0DE50920CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */; };
 		7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
@@ -3207,7 +3202,6 @@
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
-		7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseExploreFeedSettingsViewController.xib; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
 		7A16C4E4212D941C00F0D5EC /* SubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSettingsViewController.swift; sourceTree = "<group>"; };
 		7A16C4E5212D941C00F0D5EC /* SubSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubSettingsViewController.xib; sourceTree = "<group>"; };
@@ -5869,7 +5863,6 @@
 			children = (
 				7AA7011220DB352000F3F0BC /* Common */,
 				7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */,
-				7A0DE4FF20CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib */,
 				7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */,
 			);
 			name = "Explore Feed";
@@ -8924,7 +8917,6 @@
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50520CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -8965,7 +8957,6 @@
 				D8C4D3D71FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
 				D80ED3DF1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon@2x.png in Resources */,
 				7A410B83205225BF0035ADE3 /* StorageAndSyncingSettingsViewController.xib in Resources */,
-				7A0DE50920CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				D80ED3E01EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.storyboard in Resources */,
 				7AFA21C420110D7900E957E7 /* ReadingListHintViewController.xib in Resources */,
 				D80ED3E11EE57F4800CE8C50 /* PageHistoryResultPrototypeView.xib in Resources */,
@@ -9155,7 +9146,6 @@
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50820CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9249,7 +9239,6 @@
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50620CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9343,7 +9332,6 @@
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
-				7A0DE50720CEEC760032AB57 /* BaseExploreFeedSettingsViewController.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
