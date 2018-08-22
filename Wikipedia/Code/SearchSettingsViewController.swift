@@ -12,22 +12,12 @@ private struct Item {
 }
 
 @objc(WMFSearchSettingsViewController)
-public final class SearchSettingsViewController: UIViewController {
-    private var theme = Theme.standard
-
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: view.bounds, style: .grouped)
-        view.wmf_addSubviewWithConstraintsToEdges(tableView)
-        tableView.separatorStyle = .none
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
-        return tableView
-    }()
+final class SearchSettingsViewController: SubSettingsViewController {
 
     public override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         title = CommonStrings.searchTitle
-        apply(theme: theme)
     }
 
     private lazy var sections: [Section] = {
@@ -48,19 +38,27 @@ public final class SearchSettingsViewController: UIViewController {
         assert(items.indices.contains(indexPath.row), "Item at indexPath \(indexPath) doesn't exist")
         return items[indexPath.row]
     }
+
+    // MARK: - Themeable
+
+    override public func apply(theme: Theme) {
+        super.apply(theme: theme)
+        view.backgroundColor = theme.colors.baseBackground
+        tableView.backgroundColor = theme.colors.baseBackground
+    }
 }
 
-extension SearchSettingsViewController: UITableViewDataSource {
-    public func numberOfSections(in tableView: UITableView) -> Int {
+extension SearchSettingsViewController {
+    override public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = getSection(at: section)
         return section.items.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
@@ -76,7 +74,7 @@ extension SearchSettingsViewController: UITableViewDataSource {
     }
 }
 
-extension SearchSettingsViewController: UITableViewDelegate {
+extension SearchSettingsViewController {
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return getSection(at: section).footerTitle
     }
@@ -93,16 +91,5 @@ extension SearchSettingsViewController: WMFSettingsTableViewCellDelegate {
         default:
             break
         }
-    }
-}
-
-extension SearchSettingsViewController: Themeable {
-    public func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.baseBackground
-        tableView.backgroundColor = theme.colors.baseBackground
     }
 }
