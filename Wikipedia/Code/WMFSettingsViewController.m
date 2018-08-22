@@ -84,6 +84,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self applyTheme:self.theme];
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
+
+    self.definesScrollViewInsets = YES;
+    self.scrollViewInsets = UIEdgeInsetsMake(80, self.view.safeAreaInsets.left, 0, self.view.safeAreaInsets.right);
 }
 
 - (void)dealloc {
@@ -108,13 +111,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
+- (UIScrollView *_Nullable)scrollView {
+    return self.tableView;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    CGFloat topInset = 80;
-    [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
-    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
 }
 

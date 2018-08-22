@@ -107,6 +107,12 @@
     if (!scrollView) {
         return;
     }
+
+    if (self.definesScrollViewInsets) {
+        UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollViewInsets.top + self.additionalScrollIndicatorInsets.top, self.scrollViewInsets.left + self.additionalScrollIndicatorInsets.left, self.scrollViewInsets.bottom + self.additionalScrollIndicatorInsets.bottom, self.scrollViewInsets.right + self.additionalScrollIndicatorInsets.right);
+        [self setContentInset:self.scrollViewInsets scrollIndicatorInsets:scrollIndicatorInsets forScrollView:scrollView];
+        return;
+    }
     
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
@@ -114,19 +120,23 @@
     } else if (self.navigationController) {
         frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
     }
-    CGFloat top = CGRectGetMaxY(frame);
 
     UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+    CGFloat top = CGRectGetMaxY(frame);
     CGFloat bottom = safeInsets.bottom;
+
     UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top + self.additionalScrollIndicatorInsets.top, safeInsets.left + self.additionalScrollIndicatorInsets.left, bottom + self.additionalScrollIndicatorInsets.bottom, safeInsets.right + self.additionalScrollIndicatorInsets.right);
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
     UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
+    [self setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets forScrollView:scrollView];
+}
+
+- (void)setContentInset:(UIEdgeInsets)contentInset scrollIndicatorInsets:(UIEdgeInsets)scrollIndicatorInsets forScrollView:(UIScrollView *)scrollView {
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    
     if ([self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES]) {
         [self scrollViewInsetsDidChange];
     }
