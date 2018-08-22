@@ -23,11 +23,7 @@ struct NotificationSettingsSection {
 }
 
 @objc(WMFNotificationSettingsViewController)
-class NotificationSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Themeable {
-
-    @IBOutlet weak var tableView: UITableView!
-    
-    fileprivate var theme = Theme.standard
+class NotificationSettingsViewController: SubSettingsViewController {
     
     var sections = [NotificationSettingsSection]()
     var observationToken: NSObjectProtocol?
@@ -35,15 +31,10 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.notifications
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
         observationToken = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             self?.updateSections()
         }
-        apply(theme: self.theme)
     }
     
     deinit {
@@ -122,15 +113,15 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
@@ -196,12 +187,11 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
         return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
     }
     
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
-        
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }
