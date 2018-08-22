@@ -148,15 +148,13 @@ enum ExploreFeedSettingsDisplayType: Equatable {
     case detail(WMFContentGroupKind)
 }
 
-class BaseExploreFeedSettingsViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     @objc var dataStore: MWKDataStore?
-    var theme = Theme.standard
 
     var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
     override var nibName: String? {
-        return "BaseExploreFeedSettingsViewController"
+        return "SubSettingsViewController"
     }
 
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
@@ -233,21 +231,31 @@ class BaseExploreFeedSettingsViewController: UIViewController {
         }
     }
 
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        tableView.backgroundColor = theme.colors.baseBackground
+    }
+
 }
 
 // MARK: - UITableViewDataSource
 
-extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+extension BaseExploreFeedSettingsViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = getSection(at: section)
         return section.items.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WMFSettingsTableViewCell.identifier, for: indexPath) as? WMFSettingsTableViewCell else {
             return UITableViewCell()
         }
@@ -265,7 +273,7 @@ extension BaseExploreFeedSettingsViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension BaseExploreFeedSettingsViewController: UITableViewDelegate {
+extension BaseExploreFeedSettingsViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let section = getSection(at: section)
         return section.headerTitle
@@ -297,17 +305,5 @@ extension BaseExploreFeedSettingsViewController: UITableViewDelegate {
 extension BaseExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
     open func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         assertionFailure("Subclassers should override")
-    }
-}
-
-// MARK: - Themeable
-
-extension BaseExploreFeedSettingsViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        tableView.backgroundColor = theme.colors.baseBackground
     }
 }
