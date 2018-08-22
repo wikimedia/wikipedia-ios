@@ -174,6 +174,9 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         tableView.backgroundColor = theme.colors.baseBackground
         eraseSavedArticlesView?.apply(theme: theme)
     }

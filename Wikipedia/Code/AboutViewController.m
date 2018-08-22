@@ -340,8 +340,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    self.theme = theme;
-
+    [super applyTheme:theme];
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.view.backgroundColor = theme.colors.paperBackground;
 }
 

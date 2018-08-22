@@ -268,6 +268,9 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
 
     override public func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }

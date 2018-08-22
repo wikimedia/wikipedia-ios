@@ -188,11 +188,10 @@ class NotificationSettingsViewController: SubSettingsViewController {
     }
     
     override func apply(theme: Theme) {
-        self.theme = theme
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
-        
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }

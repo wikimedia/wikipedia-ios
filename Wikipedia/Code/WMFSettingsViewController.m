@@ -397,6 +397,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showSearch {
     WMFSearchSettingsViewController *searchSettingsViewController = [[WMFSearchSettingsViewController alloc] init];
+    [searchSettingsViewController applyTheme:self.theme];
     [self.navigationController pushViewController:searchSettingsViewController animated:YES];
 }
 
@@ -405,6 +406,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)showExploreFeedSettings {
     WMFExploreFeedSettingsViewController *feedSettingsVC = [[WMFExploreFeedSettingsViewController alloc] init];
     feedSettingsVC.dataStore = self.dataStore;
+    [feedSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:feedSettingsVC animated:YES];
 }
 
@@ -412,6 +414,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showNotifications {
     WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
+    [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 
@@ -419,6 +422,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showAppearance {
     WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
+    [appearanceSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
@@ -427,6 +431,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)showStorageAndSyncing {
     WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] init];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
+    [storageAndSyncingSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
 }
 
@@ -621,7 +626,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)applyTheme:(WMFTheme *)theme {
     [super applyTheme:theme];
-    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
