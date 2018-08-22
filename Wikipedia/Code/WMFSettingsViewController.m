@@ -82,8 +82,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     [self applyTheme:self.theme];
-
-    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 }
 
 - (void)dealloc {
@@ -109,12 +107,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    CGFloat topInset = 80;
-    [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
-    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
 }
 
@@ -208,7 +202,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController setNavigationBarHidden:NO];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     switch (cell.tag) {
         case WMFSettingsMenuItemType_Login:
