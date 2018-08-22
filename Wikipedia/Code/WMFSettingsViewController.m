@@ -285,7 +285,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self presentViewControllerWrappedInNavigationController:vc];
     }
 }
 #endif
@@ -431,7 +431,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)showStorageAndSyncingDebug {
 #if DEBUG
     DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewControllerWrappedInNavigationController:vc];
 #endif
 }
 
