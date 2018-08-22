@@ -165,7 +165,6 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
-        apply(theme: theme)
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newExploreFeedPreferencesWereRejected(_:)), name: NSNotification.Name.WMFNewExploreFeedPreferencesWereRejected, object: nil)
     }
@@ -233,10 +232,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
     // MARK: - Themeable
 
     override func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
+        super.apply(theme: theme)
         tableView.backgroundColor = theme.colors.baseBackground
     }
 
