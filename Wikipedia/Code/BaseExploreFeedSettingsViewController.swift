@@ -163,7 +163,6 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
         apply(theme: theme)
