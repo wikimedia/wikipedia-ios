@@ -35,15 +35,11 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class AppearanceSettingsViewController: SubSettingsViewController {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+
     var sections = [AppearanceSettingsSection]()
-    
-    fileprivate var theme = Theme.standard
-    
+
     @objc static var disclosureText: String {
         let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
         return currentAppTheme.displayName
@@ -55,19 +51,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
         extendedLayoutIncludesOpaqueBars = true
-        
         title = CommonStrings.readingPreferences
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
         sections = sectionsForAppearanceSettings()
-        apply(theme: self.theme)
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
@@ -90,15 +78,15 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    public override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.item]
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
@@ -275,17 +263,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footerText
     }
-    
-}
 
-extension AppearanceSettingsViewController: Themeable {
-    public func apply(theme: Theme) {
-        self.theme = theme
-        
-        guard viewIfLoaded != nil else {
-            return
-        }
+    // MARK: - Themeable
+
+    override public func apply(theme: Theme) {
+        super.apply(theme: theme)
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }
+    
 }
