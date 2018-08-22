@@ -62,9 +62,7 @@ private enum ItemType: Int {
 }
 
 @objc(WMFStorageAndSyncingSettingsViewController)
-class StorageAndSyncingSettingsViewController: UIViewController {
-    private var theme: Theme = Theme.standard
-    @IBOutlet weak var tableView: UITableView!
+class StorageAndSyncingSettingsViewController: SubSettingsViewController {
     @objc public var dataStore: MWKDataStore?
     private var indexPathForCellWithSyncSwitch: IndexPath?
     private var shouldShowReadingListsSyncAlertWhenViewAppears = false
@@ -87,13 +85,11 @@ class StorageAndSyncingSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.settingsStorageAndSyncing
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
         tableView.sectionFooterHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionFooterHeight = 44
-        apply(theme: self.theme)
         NotificationCenter.default.addObserver(self, selector: #selector(readingListsServerDidConfirmSyncWasEnabledForAccount(notification:)), name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil)
     }
     
@@ -173,24 +169,32 @@ class StorageAndSyncingSettingsViewController: UIViewController {
         eraseSavedArticlesView?.button.addTarget(self, action: #selector(eraseSavedArticles), for: .touchUpInside)
        return eraseSavedArticlesView
     }()
+
+    // MARK: - Themeable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        tableView.backgroundColor = theme.colors.baseBackground
+        eraseSavedArticlesView?.apply(theme: theme)
+    }
 }
 
 // MARK: UITableViewDataSource
 
-extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
+extension StorageAndSyncingSettingsViewController {
     private func getItem(at indexPath: IndexPath) -> Item {
         return sections[indexPath.section].items[indexPath.row]
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let settingsItem = getItem(at: indexPath)
         
         guard let disclosureType = settingsItem.disclosureType else {
@@ -252,7 +256,7 @@ extension StorageAndSyncingSettingsViewController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 
-extension StorageAndSyncingSettingsViewController: UITableViewDelegate {
+extension StorageAndSyncingSettingsViewController {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
             return nil
@@ -321,18 +325,5 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
         default:
             return
         }
-    }
-}
-
-// MARK: Themeable
-
-extension StorageAndSyncingSettingsViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        tableView.backgroundColor = theme.colors.baseBackground
-        eraseSavedArticlesView?.apply(theme: theme)
     }
 }
