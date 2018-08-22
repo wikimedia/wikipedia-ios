@@ -107,12 +107,6 @@
     if (!scrollView) {
         return;
     }
-
-    if (self.definesScrollViewInsets) {
-        UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollViewInsets.top + self.additionalScrollIndicatorInsets.top, self.scrollViewInsets.left + self.additionalScrollIndicatorInsets.left, self.scrollViewInsets.bottom + self.additionalScrollIndicatorInsets.bottom, self.scrollViewInsets.right + self.additionalScrollIndicatorInsets.right);
-        [self setContentInset:self.scrollViewInsets scrollIndicatorInsets:scrollIndicatorInsets forScrollView:scrollView];
-        return;
-    }
     
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
@@ -130,10 +124,7 @@
         top += scrollView.refreshControl.frame.size.height;
     }
     UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
-    [self setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets forScrollView:scrollView];
-}
 
-- (void)setContentInset:(UIEdgeInsets)contentInset scrollIndicatorInsets:(UIEdgeInsets)scrollIndicatorInsets forScrollView:(UIScrollView *)scrollView {
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }

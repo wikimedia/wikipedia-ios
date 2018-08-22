@@ -18,10 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readwrite) BOOL ignoresTopContentInset; // workaround for WKWebView ignoring touches inside of the content inset https://bugs.webkit.org/show_bug.cgi?id=134230
 
-@property (nonatomic, readwrite) BOOL definesScrollViewInsets;
-
-@property (nonatomic, readwrite) UIEdgeInsets scrollViewInsets;
-
 @property (nonatomic, strong, readonly) WMFNavigationBar *navigationBar;
 
 @property (nonatomic, strong, readonly) WMFNavigationBarHider *navigationBarHider;

@@ -82,9 +82,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
-
-    self.definesScrollViewInsets = YES;
-    self.scrollViewInsets = UIEdgeInsetsMake(80, self.view.safeAreaInsets.left, 0, self.view.safeAreaInsets.right);
 }
 
 - (void)dealloc {
