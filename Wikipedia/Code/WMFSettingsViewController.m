@@ -619,6 +619,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)applyTheme:(WMFTheme *)theme {
     [super applyTheme:theme];
     self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
