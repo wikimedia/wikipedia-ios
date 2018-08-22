@@ -1338,7 +1338,6 @@
 		D80ED40E1EE57F4800CE8C50 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D80ED40F1EE57F4800CE8C50 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D80ED4151EE57F4800CE8C50 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D80ED4191EE57F4800CE8C50 /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
 		D80ED41A1EE57F4800CE8C50 /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
@@ -1591,7 +1590,6 @@
 		D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
 		D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */; };
-		D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
 		D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */; };
 		D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C951ECA48490011E379 /* CollectionViewCell.swift */; };
@@ -1996,7 +1994,6 @@
 		D8A42C001E815A9C00D8E281 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8A42C081E815A9C00D8E281 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8A42C0D1E815A9C00D8E281 /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
 		D8A42C0E1E815A9C00D8E281 /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
@@ -2309,7 +2306,6 @@
 		D8CE26871E698E2400DAE2E0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8CE268F1E698E2400DAE2E0 /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8CE26941E698E2400DAE2E0 /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
 		D8CE26951E698E2400DAE2E0 /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
@@ -2655,7 +2651,6 @@
 		D8EC3F871E9BDA35006712EB /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B4A1DF22E1700B95311 /* NotificationBackgroundError@2x.png */; };
 		D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9B9E2F1CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib */; };
-		D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */; };
 		D8EC3F8F1E9BDA35006712EB /* WMFRandomDiceButton.html in Resources */ = {isa = PBXBuildFile; fileRef = D84F2BF81D2FEE6300963D42 /* WMFRandomDiceButton.html */; };
 		D8EC3F941E9BDA35006712EB /* WMFForgotPasswordViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0267CE81E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard */; };
 		D8EC3F951E9BDA35006712EB /* PageHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E804021C0CDE480065EBC0 /* PageHistoryViewController.storyboard */; };
@@ -4320,7 +4315,6 @@
 		D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SizeThatFitsView.swift; path = Wikipedia/Code/SizeThatFitsView.swift; sourceTree = SOURCE_ROOT; };
 		D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankedArticleCollectionViewCell.swift; path = Wikipedia/Code/RankedArticleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84C363F1F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "WMF Framework/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
 		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
@@ -7669,7 +7663,6 @@
 			isa = PBXGroup;
 			children = (
 				D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */,
-				D84BF62A1DB96D5900E0C85E /* NotificationSettingsViewController.xib */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -8916,7 +8909,6 @@
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				D84BF62C1DB96D5900E0C85E /* NotificationSettingsViewController.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9012,7 +9004,6 @@
 				D80ED43B1EE57FCA00CE8C50 /* Wikipedia OSM-Info.plist in Resources */,
 				D80ED40F1EE57F4800CE8C50 /* NotificationBackgroundError@2x.png in Resources */,
 				D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				D80ED4151EE57F4800CE8C50 /* NotificationSettingsViewController.xib in Resources */,
 				D80ED4161EE57F4800CE8C50 /* WMFRandomDiceButton.html in Resources */,
 				7A2FE55A2051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D80ED4191EE57F4800CE8C50 /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -9145,7 +9136,6 @@
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				D8A42C071E815A9C00D8E281 /* NotificationSettingsViewController.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BB01F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0812022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9238,7 +9228,6 @@
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				D8CE268E1E698E2400DAE2E0 /* NotificationSettingsViewController.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAE1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07F2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9331,7 +9320,6 @@
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
-				D8EC3F8E1E9BDA35006712EB /* NotificationSettingsViewController.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
 				D8E27BAF1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA0802022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
