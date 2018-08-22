@@ -3,16 +3,16 @@
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    private let targetCountries: [String] = [
+    private let targetCountries: Set<String> = Set<String>(arrayLiteral:
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
         "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
         "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
         "PT", "HU", "GR", "EG"
-    ]
+    )
     @objc public static let shared = UserHistoryFunnel()
     
     private var isTarget: Bool {
-        guard let countryCode = Locale.current.regionCode else {
+        guard let countryCode = Locale.current.regionCode?.uppercased() else {
             return false
         }
         return targetCountries.contains(countryCode)
@@ -90,9 +90,14 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     @objc public func logSnapshot() {
+        guard EventLoggingService.shared.isEnabled else {
+            return
+        }
+        
         guard isTarget else {
             return
         }
+        
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
             log(event())
             return
