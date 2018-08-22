@@ -43,6 +43,9 @@ final class SearchSettingsViewController: SubSettingsViewController {
 
     override public func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
     }
