@@ -90,9 +90,14 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     @objc public func logSnapshot() {
+        guard EventLoggingService.shared.isEnabled else {
+            return
+        }
+        
         guard isTarget else {
             return
         }
+        
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
             log(event())
             return
