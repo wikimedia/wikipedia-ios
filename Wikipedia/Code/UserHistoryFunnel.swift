@@ -12,7 +12,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     @objc public static let shared = UserHistoryFunnel()
     
     private var isTarget: Bool {
-        guard let countryCode = Locale.current.regionCode else {
+        guard let countryCode = Locale.current.regionCode?.uppercased() else {
             return false
         }
         return targetCountries.contains(countryCode)
