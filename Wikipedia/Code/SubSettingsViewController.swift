@@ -7,6 +7,10 @@ class SubSettingsViewController: ViewController {
         scrollView = tableView
         super.viewDidLoad()
     }
+
+    override var nibName: String? {
+        return "SubSettingsViewController"
+    }
 }
 
 extension SubSettingsViewController: UITableViewDataSource {

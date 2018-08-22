@@ -153,10 +153,6 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
 
     var cellsToItemsThatNeedReloading = [WMFSettingsTableViewCell: ExploreFeedSettingsItem]()
 
-    override var nibName: String? {
-        return "SubSettingsViewController"
-    }
-
     open var displayType: ExploreFeedSettingsDisplayType = .singleLanguage
 
     override func viewDidLoad() {
