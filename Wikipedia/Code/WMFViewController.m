@@ -153,6 +153,10 @@
 
 #pragma mark - WMFThemeable
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.theme.preferredStatusBarStyle;
+}
+
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
     if (self.viewIfLoaded == nil) {
