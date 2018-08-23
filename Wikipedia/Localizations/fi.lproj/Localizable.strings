@@ -511,6 +511,7 @@
 "settings-notifications-system-turn-on" = "Ota ilmoitukset käyttöön";
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
+// Fuzzy
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Salli Wikimedian tallentaa tallennetut artikkelisi ja lukulistasi käyttäjäasetuksiisi kun kirjaudut ja synkronoit.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";

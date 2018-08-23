@@ -408,6 +408,7 @@
 "settings-notifications-system-turn-on" = "Meldingen inschakelen";
 "settings-notifications-trending" = "Huidige actuele gebeurtenissen";
 "settings-primary-language" = "Primair";
+// Fuzzy
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als de primaire taal voor de app. Door het wijzigen van deze taal verandert de dagelijkse inhoud (zoals de Uitgelichte pagina) die wordt weergegeven op Verkennen.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen artikelen wissen?";
 "settings-storage-and-syncing-title" = "Pagina-opslag en -synchronisatie";

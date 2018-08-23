@@ -507,6 +507,7 @@
 "settings-notifications-system-turn-on" = "ပံက် တင်မကဵုသမ္တီ";
 "settings-notifications-trending" = "ပခိုဟ်ပတိုန် သဘင် ပြဟ်ဟ်ဏအ်";
 "settings-primary-language" = "အဓိက";
+// Fuzzy
 "settings-primary-language-details" = "အရေဝ်ဘာသာကၠာအိုတ် ပ္ဍဲ စရင်ဏအ်ဂှ် စကာ နကဵုအရေဝ်ဘာသာ အဓိက သွက် app ဏအ်ရ၊၊ မပြံင်လှာဲ အရေဝ်ဘာသာဏအ်ဂှ် မာတိကာ လၟေင်တ္ၚဲ (ဗီုကဵု လိက်ရေင် တၟေင်) မထ္ၜး ပ္ဍဲ Explore ဂှ်လေဝ် ပြံင်လှာဲအာကီုရ၊၊";
 "settings-search-footer-text" = "ဖျေဟ်ဒၞာဲ app သွက်ဂွံ ပံက် ပ္ဍဲ ဒၞာဲတေပ် ဂၠာဲ စၞး ဒၞာဲတေပ် Explore";
 "settings-search-open-app-on-search" = "ပံက် app ပ္ဍဲ ဒၞာဲတေပ် ဂၠာဲ";

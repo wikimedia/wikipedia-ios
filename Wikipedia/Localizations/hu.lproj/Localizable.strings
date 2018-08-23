@@ -373,6 +373,7 @@
 "settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
 "settings-notifications-trending" = "Jelenlegi események";
 "settings-primary-language" = "Elsődleges";
+// Fuzzy
 "settings-primary-language-details" = "A listában szereplő első nyelv az alkalmazás elsődleges nyelve. Ennek megváltoztatása módosítja a napi tartalmat (mint a kiemelt szócikket) a Felfedezés lapon.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Törlés";
 "settings-support" = "Támogasd a Wikipédiát!";

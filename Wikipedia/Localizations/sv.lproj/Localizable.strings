@@ -150,11 +150,13 @@
 "explore-because-you-read" = "Eftersom du läste";
 "explore-because-you-read-footer" = "Ytterligare relaterade artiklar";
 "explore-continue-reading-heading" = "Fortsätt läsa";
+"explore-detail-back-button-title" = "Tillbaka till utforskarflödet";
 "explore-enable-location-title" = "Utforska artiklar nära din nuvarande plats";
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Från Wikipedia på $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-feed-customize-accessibility-title" = "Anpassa";
+"explore-feed-language-settings" = "Språkinställningar för utforskarflödet";
 "explore-feed-preferences-additional-languages-footer-text" = "Ytterligare språk kan läggas till i inställningen \"Mina språk\".";
 "explore-feed-preferences-card-hidden-title" = "Kortet doldes";
 "explore-feed-preferences-continue-reading-description" = "Snabblänk tillbaka för att läsa en öppen artikel";
@@ -400,6 +402,7 @@
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 läsare";
+"reading-list-add-generic-hint-title" = "Lägg till denna artikel i en läslista?";
 "reading-list-add-hint-title" = "Lägg till \"$1\" i en läslista?";
 "reading-list-add-saved-button-title" = "Ja, lägg till dem i mina läslistor";
 "reading-list-add-saved-subtitle" = "Det finns sparade artiklar i din Wikipedia-app. Vill du behålla och sammanfoga dem med läslistorna som är synkroniserade till ditt konto?";
@@ -516,6 +519,7 @@
 "settings-clear-cache-ok" = "Rensa cachen";
 "settings-help-and-feedback" = "Hjälp och återkoppling";
 "settings-language-bar" = "Visa språk vid sökfältet";
+"settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";
 "settings-my-languages" = "Mina språk";
 "settings-notifications" = "Notiser";
 "settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
@@ -524,7 +528,7 @@
 "settings-notifications-system-turn-on" = "Aktivera notiser";
 "settings-notifications-trending" = "Populära aktuella händelser";
 "settings-primary-language" = "Primär";
-"settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk. Om språket ändras kommer även det dagliga innehållet ändras (t.ex. Utmärkt artikel) som visas i Utforska.";
+"settings-primary-language-details" = "Det första språket i denna lista används som appens primära språk.";
 "settings-search-footer-text" = "Låt appen öppna sökfliken istället för utforskarfliken";
 "settings-search-open-app-on-search" = "Öppna appen på sökfliken";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillåt Wikimedia att spara dina sparade artiklar och läslistor till dina användarinställningar när du loggar in och synkroniserar";
