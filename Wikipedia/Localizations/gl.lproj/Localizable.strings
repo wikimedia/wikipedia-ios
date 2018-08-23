@@ -519,6 +519,7 @@
 "settings-notifications-system-turn-on" = "Activar as notificacións";
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
+// Fuzzy
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
 "settings-search-footer-text" = "Configurar a aplicación para abrir na pestana Procurar no canto da pestana Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicación na pestana de procura";

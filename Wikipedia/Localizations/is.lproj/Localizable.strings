@@ -450,6 +450,7 @@
 "settings-notifications-system-turn-on" = "Kveikja á tilkynningum";
 "settings-notifications-trending" = "Atburðir núna í umræðunni";
 "settings-primary-language" = "Aðal";
+// Fuzzy
 "settings-primary-language-details" = "Fyrsta tungumálið á þessum lista er notað sem aðaltungumál forritsins. Ef skipt er um tungumál, mun efni dagsins breytast (t.d. forsíðugreinar) eins og það birtist í 'Uppgötva'.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Leyfa Wikimedia að vista vistaðar greinar og leslista í notandaaðganginn þinn þegar þú skráir þig inn og samstillir.";
 "settings-storage-and-syncing-enable-sync-title" = "Samstilla vistaðar greinar og lista";

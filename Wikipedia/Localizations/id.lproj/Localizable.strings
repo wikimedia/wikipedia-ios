@@ -157,6 +157,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-feed-customize-accessibility-title" = "Sesuaikan";
+"explore-feed-language-settings" = "Pengaturan bahasa umpan Jelajahi";
 "explore-feed-preferences-additional-languages-footer-text" = "Bahasa tambahan dapat ditambahkan di halaman pengaturan ‘Bahasa saya’.";
 "explore-feed-preferences-card-hidden-title" = "Kartu disembunyikan";
 "explore-feed-preferences-continue-reading-description" = "Pranala cepat kembali untuk membaca artikel terbuka";
@@ -518,6 +519,7 @@
 "settings-clear-cache-ok" = "Hapus cache";
 "settings-help-and-feedback" = "Bantuan dan masukan";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
+"settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
 "settings-my-languages" = "Bahasa saya";
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
@@ -526,7 +528,7 @@
 "settings-notifications-system-turn-on" = "Aktifkan Pemberitahuan";
 "settings-notifications-trending" = "Peristiwa terkini";
 "settings-primary-language" = "Utama";
-"settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi. Mengubah bahasa ini akan mengubah konten harian (seperti Artikel Pilihan) yang ditampilkan pada Jelajah.";
+"settings-primary-language-details" = "Bahasa pertama di daftar ini digunakan sebagai bahasa utama untuk aplikasi.";
 "settings-search-footer-text" = "Setel aplikasi untuk membuka tab Pencarian, bukan tab Jelajahi";
 "settings-search-open-app-on-search" = "Buka aplikasi di tab Pencarian";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Izinkan Wikimedia untuk menyimpan artikel tersimpan Anda dan daftar bacaan ke preferensi pengguna Anda ketika Anda masuk log dan sinkronisasi.";

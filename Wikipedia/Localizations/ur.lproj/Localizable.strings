@@ -304,6 +304,7 @@
 "settings-language-bar" = "تلاش ميں زبانوں کو دکھائیں";
 "settings-my-languages" = "میری زبانیں";
 "settings-primary-language" = "ابتدائی";
+// Fuzzy
 "settings-primary-language-details" = "اس فہرست کی پہلی زبان ایپ کی ابتدائی زبان کے طور پر استعمال کی گئی ہے۔ اس زبان کو بدلنے سے روزانہ کا مواد بدل سکتا ہے (جیسے کہ منتخب مضمون) جو کہ ایکسپلور (Explore) پر دکھایا جاتا ہے۔";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "متائیں";
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";

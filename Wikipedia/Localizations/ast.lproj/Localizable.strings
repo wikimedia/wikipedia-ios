@@ -460,6 +460,7 @@
 "settings-notifications-system-turn-on" = "Activar los Avisos";
 "settings-notifications-trending" = "Enclín nes actividaes actuales";
 "settings-primary-language" = "Principal";
+// Fuzzy
 "settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que Wikimedia almacene los tos artículos y llistes de llectura nes preferencies d'usuariu cuando anicies sesión y sincronices.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar los artículos guardaos y les llistes";

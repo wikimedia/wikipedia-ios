@@ -302,6 +302,7 @@
 "settings-notifications-system-turn-on" = "Увімкнути сповіщення";
 "settings-notifications-trending" = "В тренді поточних подій";
 "settings-primary-language" = "Основний";
+// Fuzzy
 "settings-primary-language-details" = "Перша мова в цьому списку використовується як основна мова додатку. Зміна цієї мови буде змінювати щоденний контент, наприклад обрані статті.";
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";

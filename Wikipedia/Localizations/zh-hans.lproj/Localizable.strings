@@ -512,6 +512,7 @@
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
+// Fuzzy
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
 "settings-search-open-app-on-search" = "在搜索选项卡打开app";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置。";

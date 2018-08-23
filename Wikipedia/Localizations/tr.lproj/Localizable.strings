@@ -409,6 +409,7 @@
 "settings-notifications-system-turn-on" = "Bildirimleri aç";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-primary-language" = "Birincil";
+// Fuzzy
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Kaydedilen tüm maddeler silinsin mi?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";

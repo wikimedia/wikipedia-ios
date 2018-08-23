@@ -162,6 +162,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-featured-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-feed-customize-accessibility-title" = "사용자 지정";
+"explore-feed-language-settings" = "탐색 피드 언어 설정";
 "explore-feed-preferences-additional-languages-footer-text" = "'내 언어' 설정 문서에서 추가 언어를 추가할 수 있습니다.";
 "explore-feed-preferences-card-hidden-title" = "카드 숨겨짐";
 "explore-feed-preferences-continue-reading-description" = "열린 문서 읽기로 돌아가는 빠른 링크";
@@ -521,6 +522,7 @@
 "settings-clear-cache-ok" = "캐시 지우기";
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-language-bar" = "검색 결과에 표시할 언어";
+"settings-languages-feed-customization" = "탐색 피드 설정의 사용자 지정을 통해 어느 언어가 탐색 피드에 표시될지 관리할 수 있습니다.";
 "settings-my-languages" = "내 언어";
 "settings-notifications" = "알림";
 "settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인 정보와 시간 데이터까지 모두 제공됩니다.";
@@ -529,7 +531,7 @@
 "settings-notifications-system-turn-on" = "알림 켜기";
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
-"settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-primary-language-details" = "이 목록의 첫 번째 언어가 이 앱의 주 언어로 사용됩니다.";
 "settings-search-footer-text" = "이 앱을 탐색 탭이 아닌 검색 탭에 개방되도록 설정";
 "settings-search-open-app-on-search" = "검색 탭에서 앱 열기";
 "settings-storage-and-syncing-enable-sync-footer-text" = "로그인하고 동기화할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다.";

@@ -159,6 +159,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-feed-customize-accessibility-title" = "自訂";
+"explore-feed-language-settings" = "探索摘要語言設定";
 "explore-feed-preferences-additional-languages-footer-text" = "額外的語言可添加在「我的語言」設定頁面。";
 "explore-feed-preferences-card-hidden-title" = "卡片已隱藏";
 "explore-feed-preferences-continue-reading-description" = "返回到閱讀已開啟條目的快速連結";
@@ -404,6 +405,7 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-list-add-generic-hint-title" = "新增此條目至閱讀清單？";
 "reading-list-add-hint-title" = "添加「$1」至閱讀清單嗎？";
 "reading-list-add-saved-button-title" = "是的，添加它們至我的閱讀清單";
 "reading-list-add-saved-subtitle" = "這些是已儲存在您維基百科應用程式上的條目，您想要保留它們並與已同步閱讀清單來合併至您的帳號上？";
@@ -520,6 +522,7 @@
 "settings-clear-cache-ok" = "清除快取";
 "settings-help-and-feedback" = "說明與回饋";
 "settings-language-bar" = "搜尋時顯示語言";
+"settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
 "settings-notifications" = "通知";
 "settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被最多閱讀以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
@@ -528,7 +531,7 @@
 "settings-notifications-system-turn-on" = "開啟通知";
 "settings-notifications-trending" = "目前最新事件趨勢";
 "settings-primary-language" = "首選";
-"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
+"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。";
 "settings-search-footer-text" = "設定應用程式成開啟搜尋分頁來取代探索分頁";
 "settings-search-open-app-on-search" = "在搜尋分頁開啓應用程式";
 "settings-storage-and-syncing-enable-sync-footer-text" = "當您登入並同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";

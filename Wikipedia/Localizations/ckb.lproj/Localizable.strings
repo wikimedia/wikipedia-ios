@@ -339,6 +339,7 @@
 "settings-notifications-system-turn-on" = "ئاگادارییەکان کار پێ بکە";
 "settings-notifications-trending" = "ڕووداوە بەناوبانگەکانی ئێستا";
 "settings-primary-language" = "سەرەکی";
+// Fuzzy
 "settings-primary-language-details" = "یەکەم زمانی ئەم لیستە وەک زمانی سەرەکی ئەپەکە بەکاردێت. گۆڕینی ئەم زمانە ناوەڕۆکی ڕۆژانەی پەڕەی سەرەکی دەگۆڕێت (وەک وتاری ھەڵبژێردراو، ھەواڵەکان، ھتد...)";
 "settings-support" = "پشتگیریی ویکیپیدیا بکە";
 "settings-title" = "ڕێکخستنەکان";
