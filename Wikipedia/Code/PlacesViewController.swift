@@ -2251,6 +2251,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
+            return
+        }
         view.backgroundColor = theme.colors.baseBackground
         navigationBar.apply(theme: theme)
 

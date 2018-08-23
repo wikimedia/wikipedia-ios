@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="LWA-GV-VZP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="D0v-Ur-OGk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
@@ -34,8 +33,8 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="D0v-Ur-OGk" secondAttribute="trailing" id="6gJ-fI-ts0"/>
                             <constraint firstItem="D0v-Ur-OGk" firstAttribute="leading" secondItem="1oL-zz-ml3" secondAttribute="leading" id="VHo-as-TcL"/>
-                            <constraint firstItem="gVo-Tk-NhT" firstAttribute="top" secondItem="D0v-Ur-OGk" secondAttribute="bottom" id="hoA-2b-fwK"/>
-                            <constraint firstItem="D0v-Ur-OGk" firstAttribute="top" secondItem="kn0-4d-Wca" secondAttribute="bottom" id="uxs-do-Ngn"/>
+                            <constraint firstAttribute="bottom" secondItem="D0v-Ur-OGk" secondAttribute="bottom" id="hoA-2b-fwK"/>
+                            <constraint firstItem="D0v-Ur-OGk" firstAttribute="top" secondItem="1oL-zz-ml3" secondAttribute="top" id="uxs-do-Ngn"/>
                         </constraints>
                     </view>
                     <connections>

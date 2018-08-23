@@ -289,6 +289,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         //
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.theme.preferredStatusBarStyle
+    }
+
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
