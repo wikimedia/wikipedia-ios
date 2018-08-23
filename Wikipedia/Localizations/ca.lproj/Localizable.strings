@@ -525,6 +525,7 @@
 "settings-notifications-system-turn-on" = "Activa les notificacions";
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
+// Fuzzy
 "settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
 "settings-search-footer-text" = "Defineix l'aplicació per obrir la pestanya de cerca en comptes de la pestanya d'exploració";
 "settings-search-open-app-on-search" = "Obre l'aplicació en la pestanya de cerca";

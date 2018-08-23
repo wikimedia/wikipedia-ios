@@ -146,6 +146,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Dari Wikipedia $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-feed-customize-accessibility-title" = "Ubah suai";
+"explore-feed-language-settings" = "Tetapan bahasa suapan Jelajahi";
 "explore-feed-preferences-additional-languages-footer-text" = "Bahasa tambahan boleh ditambah di halaman tetapan 'Bahasa saya'.";
 "explore-feed-preferences-card-hidden-title" = "Kad disembunyikan";
 "explore-feed-preferences-continue-reading-description" = "Pautan cepat kembali membaca rencana terbuka";
@@ -507,6 +508,7 @@
 "settings-clear-cache-ok" = "Padamkan cache";
 "settings-help-and-feedback" = "Bantuan dan maklum balas";
 "settings-language-bar" = "Tampilkan bahasa pada carian";
+"settings-languages-feed-customization" = "Anda boleh mengurus bahasa mana yang ditunjukkan pada suapan Teroka anda dengan menyesuaikan tetapan suapan Teroka anda.";
 "settings-my-languages" = "Bahasa saya";
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-info" = "Dimaklumkan kepada arah aliran dan membaca bahagian rencana mengenai Wikipedia dengan pemberitahuan menolak kami. Semua yang diperuntukkan berkenaan dengan privasi dan sehingga data minit.";
@@ -515,7 +517,7 @@
 "settings-notifications-system-turn-on" = "Aktifkan Notis";
 "settings-notifications-trending" = "Peristiwa semasa";
 "settings-primary-language" = "Utama";
-"settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi. Menukar bahasa ini akan menukar kandungan setiap hari (seperti Rencana Pilihan) yang ditunjukkan pada Jelajah.";
+"settings-primary-language-details" = "Bahasa pertama dalam senarai ini digunakan sebagai bahasa utama untuk aplikasi.";
 "settings-search-footer-text" = "Tetapkan apl untuk dibuka ke tab Carian dan bukannya tab Jelajah";
 "settings-search-open-app-on-search" = "Buka aplikasi pada tab Carian";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Benarkan Wikimedia menyimpan rencana dan senarai bacaan anda yang disimpan ke keutamaan pengguna anda apabila anda log masuk dan penyegerakan.";

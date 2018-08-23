@@ -342,6 +342,7 @@
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-primary-language" = "প্রাথমিক";
+// Fuzzy
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";

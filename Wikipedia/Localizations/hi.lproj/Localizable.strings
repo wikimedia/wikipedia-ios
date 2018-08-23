@@ -364,6 +364,7 @@
 "settings-notifications-system-turn-on" = "नोटिफिकेशन्स चालू करें";
 "settings-notifications-trending" = "रुझानों में हाल की घटनाएं";
 "settings-primary-language" = "प्राथमिक";
+// Fuzzy
 "settings-primary-language-details" = "इस सूची की पहली भाषा को इस एप की प्राथमिक भाषा के रूप में प्रयोग किया जाता है।\nइस भाषा को बदलने पर खोज पर दिखाई जाने वाली दैनिक सामग्री (जैसे निर्वाचित लेख) भी परिवर्तित हो जायेगा।";
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";

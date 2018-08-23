@@ -144,6 +144,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Од Википедија на $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-feed-customize-accessibility-title" = "Прилагоди";
+"explore-feed-language-settings" = "Јазични поставки за „Истражи“";
 "explore-feed-preferences-additional-languages-footer-text" = "Можете да додадете уште јазици во „Мои јазици“.";
 "explore-feed-preferences-card-hidden-title" = "Картичката е скриена.";
 "explore-feed-preferences-continue-reading-description" = "Брза врска назад кон читањето на отворена статија";
@@ -389,6 +390,7 @@
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
+"reading-list-add-generic-hint-title" = "Да ја додадам статијава во списокот за читање?";
 "reading-list-add-hint-title" = "Да го додадам „$1“ во список за читање?";
 "reading-list-add-saved-button-title" = "Да, додај ги во списоците за читање";
 "reading-list-add-saved-subtitle" = "Има статии зачувани на вашиот Википедиин прилог. Дали сакате да ги задржите и да ги споите со списоците за читање усогласени на вашата сметка?";
@@ -505,6 +507,7 @@
 "settings-clear-cache-ok" = "Исчисти";
 "settings-help-and-feedback" = "Помош и мислења";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
+"settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
 "settings-notifications" = "Известувања";
 "settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
@@ -513,7 +516,7 @@
 "settings-notifications-system-turn-on" = "Вклучи известувања";
 "settings-notifications-trending" = "Тековни настани";
 "settings-primary-language" = "Главен";
-"settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот. Ако го смените јазикот, ќе ја смените и дневната содржина (како на пр. Избраната статија) што се прикажува на „Истражете“.";
+"settings-primary-language-details" = "Првиот јазик на овој список ќе се користи како главен за прилогот.";
 "settings-search-footer-text" = "Прилогот нека се отвора во јазичето „Пребарај“ наместо во јазичето „Истражи“";
 "settings-search-open-app-on-search" = "Отворај го прилогот во јазичето Пребарај";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволи Викимедија да зачувува статии и списоци за читање во вашите кориснички нагодувања при најава и усогласување.";

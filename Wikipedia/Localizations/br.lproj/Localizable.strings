@@ -302,6 +302,7 @@
 "settings-notifications-system-turn-on" = "Gweredekaat ar c'hemennadennoù.";
 "settings-notifications-trending" = "Berzh darvoudoù ar mare";
 "settings-primary-language" = "Pennañ";
+// Fuzzy
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload. Ma cheñchit an dibarzh-mañ e cheñcho an danvez diskouezet war Ergerzhiñ (evel pennad an talbenn).";
 "settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";

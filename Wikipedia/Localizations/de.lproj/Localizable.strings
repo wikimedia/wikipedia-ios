@@ -3,6 +3,7 @@
 // Author: BodminPill
 // Author: Envlh
 // Author: Fitoschido
+// Author: Hwboehm
 // Author: JanRei
 // Author: Kghbln
 // Author: Metalhead64
@@ -147,6 +148,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Von Wikipedia";
 "explore-feed-customize-accessibility-title" = "Anpassen";
+"explore-feed-language-settings" = "Spracheinstellungen für den Entdecken-Feed";
 "explore-feed-preferences-additional-languages-footer-text" = "Zusätzliche Sprachen können in der Einstellungsseite „Meine Sprachen“ hinzugefügt werden.";
 "explore-feed-preferences-card-hidden-title" = "Karte ausgeblendet";
 "explore-feed-preferences-continue-reading-description" = "Schnelles Zurückverweisen auf das Lesen eines offenen Artikels";
@@ -392,6 +394,7 @@
 "preference-title-eventlogging-opt-in" = "Nutzungsberichte senden";
 "rank-accessibility-label" = "Platz $1";
 "readers-accessibility-label" = "$1 Leser";
+"reading-list-add-generic-hint-title" = "Diesen Artikel zu einer Leseliste hinzufügen?";
 "reading-list-add-hint-title" = "„$1“ zu einer Leseliste hinzufügen?";
 "reading-list-add-saved-button-title" = "Ja, füge sie zu meinen Leselisten hinzu";
 "reading-list-add-saved-subtitle" = "Auf deiner Wikipedia-App sind gespeicherte Artikel vorhanden. Möchtest du sie behalten und sie mit deinem Benutzerkonto synchronisierte Leselisten zusammenführen?";
@@ -508,6 +511,7 @@
 "settings-clear-cache-ok" = "Cache löschen";
 "settings-help-and-feedback" = "Hilfe und Rückmeldung";
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
+"settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
 "settings-notifications" = "Benachrichtigungen";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
@@ -516,7 +520,7 @@
 "settings-notifications-system-turn-on" = "Benachrichtigungen anschalten";
 "settings-notifications-trending" = "Beliebte aktuelle Ereignisse";
 "settings-primary-language" = "Primär";
-"settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet. Das Ändern dieser Sprache ändert den Tagesinhalt (wie den vorgestellten Artikel), der bei „Entdecken“ angezeigt wird.";
+"settings-primary-language-details" = "Die erste Sprache in dieser Liste wird als primäre Sprache für die App verwendet.";
 "settings-search-footer-text" = "Passe die App an, damit der Suchreiter anstatt des Entdecken-Reiters geöffnet wird.";
 "settings-search-open-app-on-search" = "App mit dem Suchreiter öffnen";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Der Wikimedia erlauben, deine gespeicherten Artikel und Leselisten in deinen Benutzereinstellungen zu speichern, wenn du dich anmeldest und synchronisierst.";

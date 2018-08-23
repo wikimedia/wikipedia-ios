@@ -143,6 +143,7 @@
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia in $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
+"explore-feed-customize-accessibility-title" = "Personalizza";
 "explore-feed-preferences-undo-customization" = "Annulla";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
@@ -363,7 +364,7 @@
 "settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
 "settings-notifications-system-turn-on" = "Attiva le notifiche";
 "settings-primary-language" = "Primaria";
-"settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione. La modifica di questa lingua cambierà i contenuti del giorno (come l'articolo in vetrina) mostrato su Esplora.";
+"settings-primary-language-details" = "La prima lingua in questo elenco è utilizzata come lingua principale per l'applicazione.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permetti a Wikipedia di conservare le tue voci salvate e i tuoi elenchi di lettura nelle tue preferenze utente quando ti colleghi e sincronizzi";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Cancellando le tue voci salvate li rimuoverai dal tuo account se hai l'account sincronizzato con questo dispositivo.\n\nCancellando le tue voci salvate guadagnerai $1 di spazio.";
 "settings-storage-and-syncing-server-sync-footer-text" = "Richiedi un aggiornamento alle tue voci sincronizzate e degli elenchi di lettura.";
