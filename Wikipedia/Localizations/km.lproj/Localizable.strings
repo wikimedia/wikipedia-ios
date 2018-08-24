@@ -328,6 +328,7 @@
 "settings-notifications-system-turn-on" = "បើកប្រើសារជូនដំណឹង";
 "settings-notifications-trending" = "ព្រឹត្តិកាណ៍ដែលកំពុងពេញនិយម";
 "settings-primary-language" = "ភាសាចម្បង";
+// Fuzzy
 "settings-primary-language-details" = "ភាសាលើគេនៅក្នុងបញ្ជីនេះនឹងត្រូវបានប្រើជាភាសាចម្បងសម្រាប់កម្មវិធីនេះ។ ការប្ដូរភាសានេះនឹងប្ដូរខ្លឹមសារប្រចាំថ្ងៃ (ដូចជាអត្ថបទលេចធ្លោជាដើម) នៅលើ រុករក។";
 "settings-support" = "គាំទ្រវិគីភីឌា";
 "settings-title" = "ការកំណត់";

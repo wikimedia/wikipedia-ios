@@ -221,6 +221,7 @@
 "settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "settings-primary-language" = "ਮੁੱਢਲਾ";
+// Fuzzy
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";

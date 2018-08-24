@@ -486,6 +486,7 @@
 "settings-notifications-system-turn-on" = "Bật Thông báo";
 "settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-primary-language" = "Chính";
+// Fuzzy
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
 "settings-search-footer-text" = "Hiển thị thẻ Tìm kiếm thay vì thẻ Thám hiểm khi mở ứng dụng";
 "settings-search-open-app-on-search" = "Hiện thẻ Tìm kiếm khi mở ứng dụng";

@@ -21,7 +21,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(10)
-    private let cardShadowOpacity = Float(0.13)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
     
     static let overflowImage = UIImage(named: "overflow")
@@ -283,6 +282,15 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
     
+    private var cardShadowOpacity: Float = 0 {
+        didSet {
+            guard cardBackgroundView.layer.shadowOpacity != cardShadowOpacity else {
+                return
+            }
+            cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
+        }
+    }
+    
     public override func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
@@ -308,6 +316,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = backgroundColor
+        cardShadowOpacity = theme.colors.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
     }

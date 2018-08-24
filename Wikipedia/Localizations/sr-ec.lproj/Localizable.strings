@@ -153,6 +153,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Огранак Википедије: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-feed-customize-accessibility-title" = "Прилагоди";
+"explore-feed-language-settings" = "Подешавања језика за фид „Истражи“";
 "explore-feed-preferences-additional-languages-footer-text" = "Можете додати још језика у одељку „Моји језици“.";
 "explore-feed-preferences-card-hidden-title" = "Картица је скривена";
 "explore-feed-preferences-continue-reading-description" = "Брзи линк за враћање на читање отвореног чланка";
@@ -398,6 +399,7 @@
 "preference-title-eventlogging-opt-in" = "Шаљи извештаје о употреби";
 "rank-accessibility-label" = "Број: $1";
 "readers-accessibility-label" = "Читалаца: $1";
+"reading-list-add-generic-hint-title" = "Додати овај чланак на списак за читање?";
 "reading-list-add-hint-title" = "Додати „$1“ на списак за читање?";
 "reading-list-add-saved-button-title" = "Да, додај их на списак за читање";
 "reading-list-add-saved-subtitle" = "Постоје чланци сачувани у апликацији Википедија. Желите ли да их задржите и спојите са списковима за читање који су синхронизовани са вашим налогом?";
@@ -514,6 +516,7 @@
 "settings-clear-cache-ok" = "Очисти кеш";
 "settings-help-and-feedback" = "Помоћ и повратне информације";
 "settings-language-bar" = "Приказуј језике при претрази";
+"settings-languages-feed-customization" = "Можете да управљате језицима за приказ у фиду „Истражи“ променом подешавања.";
 "settings-my-languages" = "Моји језици";
 "settings-notifications" = "Обавештења";
 "settings-notifications-info" = "Будите обавештени о најчитанијим чланцима на Википедији путем наших пуш нотификација. Све је омогућено уз поштовање приватности и са подробним информацијама.";
@@ -522,7 +525,7 @@
 "settings-notifications-system-turn-on" = "Укључи Обавештења";
 "settings-notifications-trending" = "Најактуелнији тренутни догађаји";
 "settings-primary-language" = "Примарни";
-"settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације. Ако га промените, променићете и дневни садржај (нпр. Изабрани чланак) који се приказује у одељку „Истражи“.";
+"settings-primary-language-details" = "Први језик на овом списку ће се користити као главни језик апликације.";
 "settings-search-footer-text" = "Подесите апликацију да отвара картицу „Претражи“ уместо картице „Истражи“";
 "settings-search-open-app-on-search" = "Отвори апликацију у картици „Претражи“";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Дозволите Викимедији да чува чланке и спискове за читање у вашим подешавањима при пријављивању и синхронизовању.";

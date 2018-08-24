@@ -388,6 +388,7 @@
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-primary-language" = "Primär";
+// Fuzzy
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";

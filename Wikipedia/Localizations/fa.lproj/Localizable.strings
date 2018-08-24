@@ -420,6 +420,7 @@
 "settings-notifications-system-turn-on" = "روشن کردن آگاه‌سازی";
 "settings-notifications-trending" = "رتبه‌بندی رویدادهای کنونی";
 "settings-primary-language" = "ابتدایی";
+// Fuzzy
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به عنوان زبان اصلی اپلیکیشن است. تغییر این زبان محتوای روزانه (مانند مقالات برگزیدهٔ روز) که در زمان مرور دیده می‌شوند، را تغییر می‌دهد.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "حذف";
 "settings-support" = "حمایت از ویکی‌پدیا";

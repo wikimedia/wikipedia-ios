@@ -353,6 +353,7 @@
 "settings-notifications-system-turn-on" = "Slå på varsler";
 "settings-notifications-trending" = "Tendende aktuelle hendelser";
 "settings-primary-language" = "Primær";
+// Fuzzy
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen. Dette påvirker hvilket innhold som vises under Utforsk (f.eks. hvilken utmerket artikkel).";
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";

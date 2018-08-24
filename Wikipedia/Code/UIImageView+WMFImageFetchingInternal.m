@@ -118,7 +118,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     self.wmf_imageURLToCancel = imageURL;
     self.wmf_imageTokenToCancel = [self.wmf_imageController fetchImageWithURL:imageURL
                                                                      priority:0.5
-                                                                      failure:failure
+                                                                      failure:^(NSError * _Nonnull error) {
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              if (failure) {
+                                                                                  failure(error);
+                                                                              }
+                                                                          });
+                                                                      }
                                                                       success:^(WMFImageDownload *_Nonnull download) {
                                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                                               @strongify(self);
@@ -155,7 +161,13 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     NSURL *imageURL = [self wmf_imageURLToFetch];
     [self wmf_getFaceBoundsInImage:image
                              onGPU:onGPU
-                           failure:failure
+                           failure:^(NSError * _Nonnull error) {
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   if (failure) {
+                                       failure(error);
+                                   }
+                               });
+                           }
                            success:^(NSValue *bounds) {
                                dispatch_async(dispatch_get_main_queue(), ^{
                                    if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {

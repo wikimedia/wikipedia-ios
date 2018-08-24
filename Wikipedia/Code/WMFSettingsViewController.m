@@ -81,8 +81,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
-    [self applyTheme:self.theme];
-
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 }
 
@@ -108,13 +106,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
+- (UIScrollView *_Nullable)scrollView {
+    return self.tableView;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
-    CGFloat topInset = 80;
-    [self.tableView setContentOffset:CGPointMake(0, 0 - topInset) animated:NO];
-    self.tableView.contentInset = UIEdgeInsetsMake(topInset, 0, 0, 0);
     [self loadSections];
 }
 
@@ -208,7 +207,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.navigationController setNavigationBarHidden:NO];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     switch (cell.tag) {
         case WMFSettingsMenuItemType_Login:
@@ -286,7 +284,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self presentViewControllerWrappedInNavigationController:vc];
     }
 }
 #endif
@@ -412,7 +410,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
@@ -420,7 +418,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Appearance
 
 - (void)showAppearance {
-    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
     [appearanceSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
@@ -428,16 +426,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
-    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] initWithNibName:@"StorageAndSyncingSettingsViewController" bundle:nil];
-    [storageAndSyncingSettingsVC applyTheme:self.theme];
+    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] init];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
+    [storageAndSyncingSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
 }
 
 - (void)showStorageAndSyncingDebug {
 #if DEBUG
     DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewControllerWrappedInNavigationController:vc];
 #endif
 }
 
@@ -625,7 +623,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)applyTheme:(WMFTheme *)theme {
     [super applyTheme:theme];
-    self.theme = theme;
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;

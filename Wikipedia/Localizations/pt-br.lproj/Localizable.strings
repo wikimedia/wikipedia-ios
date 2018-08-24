@@ -167,6 +167,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-feed-customize-accessibility-title" = "Personalizar";
+"explore-feed-language-settings" = "Explorar as configurações de idioma de feed";
 "explore-feed-preferences-additional-languages-footer-text" = "Idiomas adicionais podem ser adicionados na página de configurações ‘Meus idiomas’.";
 "explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
@@ -412,6 +413,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-list-add-generic-hint-title" = "Adicione este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” à lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
 "reading-list-add-saved-subtitle" = "Existem artigos salvos em seu aplicativo Wikipedia. Você gostaria de mantê-los e mesclar com listas de leitura sincronizadas com sua conta?";
@@ -528,6 +530,7 @@
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-language-bar" = "Mostrar idiomas ao buscar";
+"settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
 "settings-my-languages" = "Meus idiomas";
 "settings-notifications" = "Notificações";
 "settings-notifications-info" = "Seja alertado para artigos de tendências e de leitura de topo na Wikipédia com as nossas notificações de envio. Todos equipados com respeito à privacidade e dados atualizados ao minuto.";
@@ -536,7 +539,7 @@
 "settings-notifications-system-turn-on" = "Ativar notificações";
 "settings-notifications-trending" = "Tendências atuais";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "O primeiro idioma desta lista é usado como o idioma principal para o aplicativo. Alterar esse idioma alterará o conteúdo diário (como o artigo em destaque) exibido no Explorar.";
+"settings-primary-language-details" = "O primeiro idioma nessa lista é usado como o idioma principal do aplicativo.";
 "settings-search-footer-text" = "Definir o aplicativo para abrir a guia Pesquisar em vez da guia Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicativo na guia \"Pesquisar\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia salve nas suas preferências os artigos salvados e as listas de leitura.";

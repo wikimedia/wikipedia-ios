@@ -114,19 +114,20 @@
     } else if (self.navigationController) {
         frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
     }
-    CGFloat top = CGRectGetMaxY(frame);
 
     UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+    CGFloat top = CGRectGetMaxY(frame);
     CGFloat bottom = safeInsets.bottom;
+
     UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top + self.additionalScrollIndicatorInsets.top, safeInsets.left + self.additionalScrollIndicatorInsets.left, bottom + self.additionalScrollIndicatorInsets.bottom, safeInsets.right + self.additionalScrollIndicatorInsets.right);
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
     UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
+
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    
     if ([self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES]) {
         [self scrollViewInsetsDidChange];
     }
@@ -142,6 +143,10 @@
 }
 
 #pragma mark - WMFThemeable
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.theme.preferredStatusBarStyle;
+}
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;

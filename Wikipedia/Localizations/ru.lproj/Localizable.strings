@@ -173,6 +173,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-feed-customize-accessibility-title" = "Настроить";
+"explore-feed-language-settings" = "Языковые настройки Ленты";
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
@@ -542,7 +543,7 @@
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
-"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка приведёт к смене ежедневного содержимого, показываемого в ленте (например, избранных статей).";
+"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
 "settings-search-open-app-on-search" = "Открыть приложение на вкладке \"Поиск\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";

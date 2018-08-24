@@ -1,6 +1,7 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
 // Author: ANDROBETA
+// Author: Kyouko
 // Author: Macofe
 // Author: Matrafox
 // Author: Minisarm
@@ -178,7 +179,7 @@
 "settings-language-bar" = "Arată limbile la căutări";
 "settings-my-languages" = "Limbile mele";
 "settings-primary-language" = "Principală";
-"settings-primary-language-details" = "Prima poziție din această listă reprezintă limba principală a aplicației. Modificarea acestei limbi va conduce la modificarea conținutului zilnic (precum Articole de calitate) afișat în secțiunea Explorare.";
+"settings-primary-language-details" = "Prima limbă din această listă reprezintă limba principală a aplicației.";
 "settings-support" = "Susțineți Wikipedia";
 "settings-title" = "Setări";
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";

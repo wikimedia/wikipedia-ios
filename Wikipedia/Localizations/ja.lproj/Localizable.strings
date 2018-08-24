@@ -479,6 +479,7 @@
 "settings-notifications-system-turn-on" = "通知をオンにする";
 "settings-notifications-trending" = "現在進行中のできごと";
 "settings-primary-language" = "メインの言語";
+// Fuzzy
 "settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。言語を変更すると、「探してみよう」フィードに表示される日替わりコンテンツ(例えば、秀逸な記事など)も変更されます。";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたのユーザー設定に保存した記事とあとで読むリストを保存することを許可する";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
