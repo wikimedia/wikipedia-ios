@@ -401,11 +401,10 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("PlacesScreen1")
         app.wmf_tapFirstButton(withTranslationIn: ["places-enable-location-action-button-title"])
         wmf_snapshot("PlacesScreen2")
-        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-        let allowButton = springboard.buttons.element(boundBy: 2) // Reminder: would need to adjust this if an RTL lang support is added to fastlane for snapshots.
-        if allowButton.exists && allowButton.isHittable {
-            allowButton.tap()
-            sleep(6)
+
+        // Reminder: would need to adjust `boundBy:` if an RTL lang support is added to fastlane for snapshots.
+        if let allowLocationPermissionButton = XCUIApplication(bundleIdentifier: "com.apple.springboard").buttons.element(boundBy: 2).wmf_waitUntilExists(timeout: 6) {
+            allowLocationPermissionButton.wmf_tap()
             wmf_snapshot("PlacesScreen3")
         }
         app.wmf_tapFirstButton(withTranslationIn: ["places-accessibility-show-as-list"])
