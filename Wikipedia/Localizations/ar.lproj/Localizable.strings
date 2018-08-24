@@ -531,6 +531,7 @@
 "settings-notifications-system-turn-on" = "تشغيل الإشعارات";
 "settings-notifications-trending" = "الأحداث الجارية";
 "settings-primary-language" = "أساسي";
+// Fuzzy
 "settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
 "settings-search-footer-text" = "عيِّن التطبيق لفتحه على علامة التبويب بحث بدلا من علامة التبويب استكشاف";
 "settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";

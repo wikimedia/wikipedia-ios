@@ -99,10 +99,8 @@ internal class ImageControllerCompletionManager<T> {
             guard let completionsForKey = self.completions[identifier] else {
                 return
             }
-            DispatchQueue.main.async {
-                for (_, completion) in completionsForKey {
-                        enumerator(completion)
-                }
+            for (_, completion) in completionsForKey {
+                enumerator(completion)
             }
             self.completions.removeValue(forKey: identifier)
             self.tasks[group]?.removeValue(forKey: identifier)

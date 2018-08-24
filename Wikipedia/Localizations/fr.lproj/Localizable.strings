@@ -163,6 +163,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipédia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-feed-customize-accessibility-title" = "Personnaliser";
+"explore-feed-language-settings" = "Paramètres de langue du fil d’exploration";
 "explore-feed-preferences-additional-languages-footer-text" = "Des langues supplémentaires peuvent être ajoutées dans la page des paramètres 'Mes langues'.";
 "explore-feed-preferences-card-hidden-title" = "Carte masquée";
 "explore-feed-preferences-continue-reading-description" = "Lien de retour rapide pour lire un article ouvert";
@@ -408,6 +409,7 @@
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
 "readers-accessibility-label" = "$1 lecteurs";
+"reading-list-add-generic-hint-title" = "Ajouter cet article à une liste de lecture ?";
 "reading-list-add-hint-title" = "Ajouter « $1 » à la liste de lecture ?";
 "reading-list-add-saved-button-title" = "Oui, les ajouter à mes listes de lecture";
 "reading-list-add-saved-subtitle" = "Voici les articles enregistrés dans votre application Wikipédia. Voulez-vous les conserver et les fusionner avec les listes de lecture synchronisées avec votre compte ?";
@@ -524,6 +526,7 @@
 "settings-clear-cache-ok" = "Vider le cache";
 "settings-help-and-feedback" = "Aide et commentaires";
 "settings-language-bar" = "Afficher les langues dans la recherche";
+"settings-languages-feed-customization" = "Vous pouvez gérer quelles langues sont affichées dans votre fil d’exploration en personnalisant vos paramètres du fil d’exploration.";
 "settings-my-languages" = "Mes langues";
 "settings-notifications" = "Notifications";
 "settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
@@ -532,7 +535,7 @@
 "settings-notifications-system-turn-on" = "Activer les notifications";
 "settings-notifications-trending" = "Tendance des événements actuels";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application. Modifier cette langue changera le contenu quotidien (comme les Articles en vedette) affiché dans Explore.";
+"settings-primary-language-details" = "La première langue dans cette liste est utilisée comme langue principale de votre application.";
 "settings-search-footer-text" = "Configurer l'application pour s'ouvrir dans l'onglet Recherche putôt que Explorer";
 "settings-search-open-app-on-search" = "Ouvrir l'application dans l'onglet Recherche";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permettre à Wikimédia de sauvegarder vos articles enregistrés et vos listes de lecture dans vos préférences utilisateur quand vous vous connectez et synchronisez.";

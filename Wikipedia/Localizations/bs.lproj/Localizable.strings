@@ -313,6 +313,7 @@
 "settings-notifications-system-turn-on" = "Uključi obavještenja";
 "settings-notifications-trending" = "Aktualni događaji";
 "settings-primary-language" = "Glavni";
+// Fuzzy
 "settings-primary-language-details" = "Prvi jezik na ovom spisku koristit će se kao glavni jezik aplikacije. Ako ga promijenite, promijenit ćete i jezik sadržaja (naprimjer, jezik Odabranih članaka) koji se prikazuje pod \"Istraži\".";
 "settings-support" = "Podržite Wikipediju";
 "settings-title" = "Postavke";

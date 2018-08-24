@@ -430,6 +430,7 @@
 "settings-notifications-system-turn-on" = "Slå notifikationer til";
 "settings-notifications-trending" = "Populære aktuelle begivenheder";
 "settings-primary-language" = "Primær";
+// Fuzzy
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
 // Fuzzy
 "settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";

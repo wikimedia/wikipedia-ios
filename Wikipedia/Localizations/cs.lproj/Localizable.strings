@@ -10,6 +10,7 @@
 // Author: H4nek
 // Author: Ilimanaq29
 // Author: Juandev
+// Author: Korytaacheck
 // Author: Marek Pavlica
 // Author: Matěj Suchánek
 // Author: Meliganai
@@ -153,6 +154,7 @@
 "explore-featured-article-heading" = "Nejlepší článek";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Z $1 Wikipedie";
 "explore-featured-article-sub-heading-from-wikipedia" = "Z Wikipedie";
+"explore-feed-customize-accessibility-title" = "Přizpůsobit";
 "explore-feed-preferences-continue-reading-description" = "Rychlý odkaz zpět na čtení otevřeného článku";
 "explore-feed-preferences-customize-explore-feed" = "Přizpůsobení funkci Prozkoumat zdroj";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Přizpůsobení funkci Prozkoumat zdroj";
@@ -450,6 +452,7 @@
 "settings-notifications-push-notifications" = "Push oznámení";
 "settings-notifications-system-turn-on" = "Zapnout upozornění";
 "settings-primary-language" = "Primární";
+// Fuzzy
 "settings-primary-language-details" = "První jazyk v seznamu bude použit jako primární jazyk pro aplikaci. Změna tohoto jazyku změní denní obsah (jako Doporučený Článek), znázorněných na \"Prozkoumat\".";
 "settings-support" = "Podpořte Wikipedii";
 "settings-title" = "Nastavení";

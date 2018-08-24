@@ -46,14 +46,23 @@
 "account-creation-passwords-mismatched" = "Babagan tembung wadiné ora cocog.";
 "account-creation-saving" = "Nyimpen...";
 "account-creation-title" = "Gawé akun anyar";
+"action-add-to" = "Tambahaké ing...";
+"action-add-to-reading-list" = "Tambahaké ing pratélan wacan";
+"action-add-to-reading-list-short" = "Tambahaké ing pratélan";
+"action-cancel" = "Wurung";
+"action-move-to" = "Lih menyang...";
+"action-move-to-reading-list" = "Lih menyang pratélan wacan";
 "action-read" = "Waca";
+"action-remove" = "Buwang";
 "action-save" = "Simpen";
 "action-saved" = "Kasimpen";
 "action-saved-accessibility" = "Kasimpen. Urubaké saperlu wurung nyimpen.";
 "action-saved-accessibility-notification" = "Artikel disimpen kanggo mengko";
 "action-share" = "Dum";
+"action-sort" = "Urutaké";
 "action-unsave" = "Wurung nyimpen";
 "action-unsaved-accessibility-notification" = "Artikel wurung disimpen";
+"action-update" = "Anyari";
 "alert-no-internet" = "Ora ana gayutan Internèt";
 "announcements-dismiss" = "Tutup";
 "appearance-settings-adjust-text-sizing" = "Larasaké ukurané tulisan ing artikel";
@@ -134,10 +143,8 @@
 "explore-most-read-more-list-title-for-date" = "Ndhuwur ing $1";
 "explore-nearby-heading" = "Tempat terdekat";
 "explore-nearby-placeholder-heading" = "Panggonan";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Ing Wikipédia $1";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Ing Wikipédia";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Saka Wikipédia $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Saka Wikipédia";
 "explore-nearby-sub-heading-your-location" = "Pernahé panjenengan";
 "explore-potd-heading" = "Gambar dina iki";
 "explore-random-article-heading" = "Artikel sembarang";
@@ -338,6 +345,7 @@
 "settings-notifications-system-turn-on" = "Urubaké Wara-wara";
 "settings-notifications-trending" = "Prastawa saiki sing mumbul";
 "settings-primary-language" = "Pokok";
+// Fuzzy
 "settings-primary-language-details" = "Basa pisanan ing pratélan iki dianggo minangka basa pokok mungguh ing aplikasiné. Ngganti basa iki bakal ngganti isi padinané (kayata Artikel Pinilih) sing katon ing Dlajah.";
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";

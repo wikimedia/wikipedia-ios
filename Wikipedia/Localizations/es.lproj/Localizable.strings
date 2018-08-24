@@ -445,6 +445,7 @@
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
+// Fuzzy
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
 "settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
