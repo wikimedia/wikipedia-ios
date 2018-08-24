@@ -76,7 +76,7 @@ extension UIView {
         }
         
         let fitFrame = CGRect(x: round(x), y: round(y), width: ceil(viewWidth), height: ceil(viewHeight))
-        if apply && fitFrame != frame {
+        if apply {
             frame = fitFrame
         }
         return fitFrame
