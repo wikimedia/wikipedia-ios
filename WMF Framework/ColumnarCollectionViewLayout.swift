@@ -28,8 +28,8 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         return ColumnarCollectionViewLayoutInvalidationContext.self
     }
     
-    private var delegate: ColumnarCollectionViewLayoutDelegate {
-        return collectionView!.delegate as! ColumnarCollectionViewLayoutDelegate
+    private var delegate: ColumnarCollectionViewLayoutDelegate? {
+        return collectionView?.delegate as? ColumnarCollectionViewLayoutDelegate
     }
     
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -90,7 +90,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     }
     
     public func layoutHeight(forWidth width: CGFloat) -> CGFloat {
-        guard let collectionView = collectionView, width >= 1 else {
+        guard let collectionView = collectionView, let delegate = delegate, width >= 1 else {
             return 0
         }
         let oldMetrics = metrics
@@ -119,7 +119,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         
         let size = collectionView.bounds.size
         
-        guard !isLayoutValid, size.width > 0, size.height > 0 else {
+        guard let delegate = delegate, !isLayoutValid, size.width > 0, size.height > 0 else {
             return
         }
 
@@ -172,7 +172,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         let context = superContext as? ColumnarCollectionViewLayoutInvalidationContext ?? ColumnarCollectionViewLayoutInvalidationContext()
         context.preferredLayoutAttributes = preferredAttributes
         context.originalLayoutAttributes = originalAttributes
-        if let metrics = metrics, let info = info, let collectionView = collectionView {
+        if let delegate = delegate, let metrics = metrics, let info = info, let collectionView = collectionView {
             info.update(with: metrics, invalidationContext: context, delegate: delegate, collectionView: collectionView)
         }
         return context
@@ -186,8 +186,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     var disappearingIndexPaths: Set<IndexPath> = []
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
-        guard animateItems,
-            let info = info else {
+        guard animateItems, let info = info else {
             appearingIndexPaths.removeAll(keepingCapacity: true)
             disappearingIndexPaths.removeAll(keepingCapacity: true)
             maxNewSection = -1
