@@ -492,6 +492,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             var isEnabled = false
             if let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber {
                 isEnabled = enabledNumber.boolValue
+            } else {
+                setLibraryValue(NSNumber(booleanLiteral: false), for: Key.isEnabled) // set false so that it's cached and doesn't keep fetching
             }
             return isEnabled
         }

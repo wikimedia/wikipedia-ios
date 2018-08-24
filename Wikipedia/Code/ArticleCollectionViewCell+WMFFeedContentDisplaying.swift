@@ -99,7 +99,7 @@ public extension RankedArticleCollectionViewCell {
     public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(5)
-        rankView.tintColor = theme.colors.rankGradient.color(at: percent)
+        rankView.rankColor = theme.colors.rankGradient.color(at: percent)
         super.configure(article: article, displayType: displayType, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, layoutOnly: layoutOnly)
     }
     
