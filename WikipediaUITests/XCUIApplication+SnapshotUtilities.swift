@@ -119,12 +119,11 @@ extension XCUIElement {
     }
     
     // Scrolls to first element for each ScrollItem key in single scrolling pass (i.e. without scrolling back to top between items).
-    func wmf_scrollToFirstElements(items: [ScrollItem], timeout seconds: Double = 360) {
+    func wmf_scrollToFirstElements(matching type: XCUIElement.ElementType, yOffset: CGFloat, items: [ScrollItem], timeout seconds: Double = 360) {
         let start = Date()
         var keys = items.map{$0.key}
         scrollLoop: repeat {
-            let element = links.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
-            if element.exists && element.isHittable {
+            if let element = descendants(matching: type).wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1) {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
                     wmf_scrollElementToTop(element: element, yOffset: yOffset)
                     item.success(element)
