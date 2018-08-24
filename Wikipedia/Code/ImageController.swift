@@ -489,13 +489,11 @@ open class ImageController : NSObject {
             }
             self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
                 //DDLogDebug("complete: \(url) \(token)")
-                DispatchQueue.main.async {
-                    guard let data = data, let response = response else {
-                        completion.failure(error ?? ImageControllerError.invalidResponse)
-                        return
-                    }
-                    completion.success(data, response)
+                guard let data = data, let response = response else {
+                    completion.failure(error ?? ImageControllerError.invalidResponse)
+                    return
                 }
+                completion.success(data, response)
             })
         }
         task.priority = priority
