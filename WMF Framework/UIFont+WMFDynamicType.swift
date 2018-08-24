@@ -23,6 +23,8 @@ import UIKit
 
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)
     
+    public static let callout = DynamicTextStyle(.system, .callout)
+    
     public static let title3 = DynamicTextStyle(.system, .title3)
     
     public static let body = DynamicTextStyle(.system, .body)
