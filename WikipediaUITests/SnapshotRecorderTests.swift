@@ -70,45 +70,45 @@ class WikipediaUITests: XCTestCase {
         // WECOME
         wmf_snapshot("WelcomeScreen1")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["welcome-intro-free-encyclopedia-more"])
+        app.wmf_tapFirstButton(withTranslationIn: ["welcome-intro-free-encyclopedia-more"])
         wmf_snapshot("WelcomeScreen2")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-tell-me-more-done-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-tell-me-more-done-button"])
         wmf_snapshot("WelcomeScreen3")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
+        app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
         wmf_snapshot("WelcomeScreen4")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
+        app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
         wmf_snapshot("WelcomeScreen5")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["welcome-languages-add-or-edit-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["welcome-languages-add-or-edit-button"])
         wmf_snapshot("WelcomeScreen6")
 
-        _ = app.wmf_tapFirstCloseButton()
+        app.wmf_tapFirstCloseButton()
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
+        app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
         wmf_snapshot("WelcomeScreen7")
         
-        _ = app.wmf_tapFirstSwitch(withTranslationIn: ["preference-title-eventlogging-opt-in"])
+        app.wmf_tapFirstSwitch(withTranslationIn: ["preference-title-eventlogging-opt-in"])
         wmf_snapshot("WelcomeScreen8")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-continue-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-continue-button"])
 
 
         // Useful if you temporarily comment out the welcome screens above.
-        // _ = app.wmf_tapFirstButton(withTranslationIn: ["button-skip"])
+        // app.wmf_tapFirstButton(withTranslationIn: ["button-skip"])
 
 
         // Sleep for a bit to give Explore data some time to be fetched.
         sleep(6)
         // Scroll down a ways then back up to increase odds that feed elements are in place and won't be freshing underneath us while the code below scrolls and attempts to tap on elements.
         app.wmf_scrollDown(times: 20)
-        _ = app.wmf_scrollToTop()
+        app.wmf_scrollToTop()
 
 
         // EXPLORE
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["home-title"])
+        app.wmf_tapFirstButton(withTranslationIn: ["home-title"])
         wmf_snapshot("ExploreScreen1")
 
         let iPhoneXSafeTopOffset: CGFloat = 0.04 // As of Xcode 9.4 an offset of 0 drags elements a little too far up.
@@ -118,10 +118,10 @@ class WikipediaUITests: XCTestCase {
                 // Picture of the day / Gallery
                 ScrollItem(key: "explore-potd-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenPicOfTheDay")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("GalleryScreen")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 }),
 
                 // Featured article
@@ -132,17 +132,17 @@ class WikipediaUITests: XCTestCase {
                 // Top read
                 ScrollItem(key: "explore-most-read-generic-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenMostRead")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("MostReadDetail")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 }),
 
                 // On this day
                 ScrollItem(key: "on-this-day-title", success: { element in
                     self.wmf_snapshot("ExploreScreenOnThisDay")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("OnThisDayDetail")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 }),
                 
                 // Nearby
@@ -153,37 +153,37 @@ class WikipediaUITests: XCTestCase {
                 // Random article
                 ScrollItem(key: "explore-random-article-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenRandom")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("RandomDetail")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
                     sleep(2)
                     self.wmf_snapshot("RandomDetailSaved")
-                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                    self.app.wmf_tapFirstNavigationBarBackButton()
                 }),
                 
                 // Main page
                 ScrollItem(key: "explore-main-page-heading", success: { element in
                     self.wmf_snapshot("ExploreScreenMainPage")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("MainPageDetail")
-                    _ = self.app.wmf_tapFirstNavigationBarBackButton()
+                    self.app.wmf_tapFirstNavigationBarBackButton()
                 }),
                 
                 // In the news
                 ScrollItem(key: "in-the-news-title", success: { element in
                     self.wmf_snapshot("ExploreScreenInTheNews")
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("InTheNewsDetail")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 })
             ]
         )
 
         
         // SEARCH
-        _ = app.wmf_scrollToTop()
+        app.wmf_scrollToTop()
         if let searchField = app.wmf_firstSearchField(withTranslationIn: ["search-field-placeholder-text"]){
             if searchField.wmf_tap() {
                 wmf_snapshot("SearchScreen1")
@@ -195,7 +195,7 @@ class WikipediaUITests: XCTestCase {
         
         
         // ARTICLE
-        _ = app.wmf_tapFirstCollectionViewCell()
+        app.wmf_tapFirstCollectionViewCell()
         sleep(8)
         wmf_snapshot("ArticleScreen1")
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
@@ -203,32 +203,32 @@ class WikipediaUITests: XCTestCase {
         // TOC and ARTICLE FOOTERS
         if UIDevice.current.userInterfaceIdiom != .pad {
             // TOC
-            _ = app.wmf_tapFirstButton(withTranslationIn: ["table-of-contents-button-label"])
+            app.wmf_tapFirstButton(withTranslationIn: ["table-of-contents-button-label"])
             wmf_snapshot("ArticleScreenTOC")
             
             app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                 [
                     ScrollItem(key: "article-about-title", success: { element in
                         // `About this article` footer
-                        _ = element.wmf_tap()
+                        element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooterAboutThisArticle")
                         
                         // Article history
-                        _ = self.app.wmf_tapFirstStaticText(withTranslationIn: ["page-last-edited"], convertTranslationSubstitutionStringsToWildcards: true)
+                        self.app.wmf_tapFirstStaticText(withTranslationIn: ["page-last-edited"], convertTranslationSubstitutionStringsToWildcards: true)
                         sleep(8)
                         self.wmf_snapshot("ArticleScreenFooterArticleHistory")
-                        _ = self.app.wmf_tapFirstCloseButton()
+                        self.app.wmf_tapFirstCloseButton()
                     })
                 ]
             )
             
-            _ = app.wmf_tapFirstButton(withTranslationIn: ["table-of-contents-button-label"])
+            app.wmf_tapFirstButton(withTranslationIn: ["table-of-contents-button-label"])
 
             app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                 [
                     ScrollItem(key: "article-read-more-title", success: { element in
                         // `Read more` footer
-                        _ = element.wmf_tap()
+                        element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooterReadMore")
                     })
                 ]
@@ -238,7 +238,7 @@ class WikipediaUITests: XCTestCase {
                 [
                     ScrollItem(key: "article-about-title", success: { element in
                         // `About this article` footer
-                        _ = element.wmf_tap()
+                        element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooter")
                     })
                 ]
@@ -247,25 +247,25 @@ class WikipediaUITests: XCTestCase {
         
         
         // Article theme panel
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["article-toolbar-reading-themes-controls-toolbar-item"])
+        app.wmf_tapFirstButton(withTranslationIn: ["article-toolbar-reading-themes-controls-toolbar-item"])
         wmf_snapshot("ArticleScreenThemesLight")
         
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-sepia-theme-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-sepia-theme-button"])
         wmf_snapshot("ArticleScreenThemesSepia")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-dark-theme-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-dark-theme-button"])
         wmf_snapshot("ArticleScreenThemesDark")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-black-theme-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-black-theme-button"])
         wmf_snapshot("ArticleScreenThemesBlack")
 
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-light-theme-button"])
+        app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-light-theme-button"])
 
         sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
 
         
         // Article find in page
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["find-in-page-button-label"])
+        app.wmf_tapFirstButton(withTranslationIn: ["find-in-page-button-label"])
         wmf_snapshot("ArticleScreenFindInPage1")
         if let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists(){
             if textField.wmf_tap() {
@@ -274,15 +274,15 @@ class WikipediaUITests: XCTestCase {
                 }
             }
         }
-        _ = app.wmf_tapFirstCloseButton()
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
+        app.wmf_tapFirstCloseButton()
+        app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
         
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["home-button-explore-accessibility-label"])
+        app.wmf_tapFirstButton(withTranslationIn: ["home-button-explore-accessibility-label"])
 
 
         
         // SETTINGS
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+        app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
         wmf_snapshot("SettingsScreen1")
 
         
@@ -290,63 +290,63 @@ class WikipediaUITests: XCTestCase {
             [
                 // Login
                 ScrollItem(key: "main-menu-account-login", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("LoginScreen1")
 
                     // Create account
-                    _ = self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-no-account"], convertTranslationSubstitutionStringsToWildcards: true)
+                    self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-no-account"], convertTranslationSubstitutionStringsToWildcards: true)
                     self.wmf_snapshot("CreateAccountScreen1")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
 
                     // Forgot password
-                    _ = element.wmf_tap()
-                    _ = self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-forgot-password"])
+                    element.wmf_tap()
+                    self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-forgot-password"])
                     self.wmf_snapshot("ForgotPasswordScreen1")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 }),
                 // My languages
                 ScrollItem(key: "settings-my-languages", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("MyLanguagesScreen1")
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstCloseButton()
                 }),
                 // Notifications
                 ScrollItem(key: "settings-notifications", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("NotificationsScreen1")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 }),
                 // Reading preferences
                 ScrollItem(key: "settings-appearance", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("AppearanceScreen1")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 }),
                 // Article storage and syncing
                 ScrollItem(key: "settings-storage-and-syncing-title", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("StorageAndSyncingScreen1")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 }),
                 // Clear cached data
                 ScrollItem(key: "settings-clear-cache", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("ClearCacheScreen1")
                 }),
                 // Help and feedback
                 ScrollItem(key: "settings-help-and-feedback", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(4)
                     self.wmf_snapshot("HelpAndFeedbackScreen1")
                     sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 }),
                 // About the app
                 ScrollItem(key: "main-menu-about", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("AboutTheAppScreen1")
                     self.app.wmf_scrollDown()
@@ -358,46 +358,46 @@ class WikipediaUITests: XCTestCase {
                         [
                             // Libraries used
                             ScrollItem(key: "about-libraries-complete-list", success: { element in
-                                _ = element.wmf_tap()
+                                element.wmf_tap()
                                 self.wmf_snapshot("AboutTheAppScreenLibrariesUsed")
-                                _ = self.app.wmf_tapFirstCloseButton()
+                                self.app.wmf_tapFirstCloseButton()
                             })
                         ]
                     )
 
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                    _ = self.app.wmf_tapFirstCloseButton()
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstCloseButton()
                 }),
                 // Explore feed
                 ScrollItem(key: "welcome-exploration-explore-feed-title", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("ExploreCustomizationScreen1")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 }),
                 // Search
                 ScrollItem(key: "search-title", success: { element in
-                    _ = element.wmf_tap()
+                    element.wmf_tap()
                     self.wmf_snapshot("SearchCustomizationScreen1")
-                    _ = self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
+                    self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 })
             ]
         )
 
         
         // SAVED
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["saved-title"])
+        app.wmf_tapFirstButton(withTranslationIn: ["saved-title"])
         wmf_snapshot("SavedScreen1")
-        _ = app.wmf_tapFirstCloseButton()
+        app.wmf_tapFirstCloseButton()
         wmf_snapshot("SavedScreen2")
 
         
         // HISTORY
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["history-title"])
+        app.wmf_tapFirstButton(withTranslationIn: ["history-title"])
         wmf_snapshot("HistoryScreen1")
 
         
         // PLACES
-        _ = app.wmf_tapFirstButton(withTranslationIn: ["places-title"])
+        app.wmf_tapFirstButton(withTranslationIn: ["places-title"])
         wmf_snapshot("PlacesScreen1")
     }
 }

@@ -4,7 +4,7 @@ import WMF
 let pressDuration = 0.1 // don't set this to too large a value or presses which happen to land on buttons will activate the button instead of letting the drag event bubble up
 
 extension XCUIElement {
-    func wmf_tap() -> Bool {
+    @discardableResult func wmf_tap() -> Bool {
         guard exists else { return false }
         if isHittable {
             tap()
@@ -32,7 +32,7 @@ extension XCUIElement {
     func wmf_firstButton(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement? {
         return buttons.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
-    func wmf_tapFirstButton(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+    @discardableResult func wmf_tapFirstButton(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
         if let firstButton = wmf_firstButton(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert) {
             return firstButton.wmf_tap()
         } else {
@@ -43,7 +43,7 @@ extension XCUIElement {
     func wmf_firstStaticText(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement? {
         return staticTexts.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
-    func wmf_tapFirstStaticText(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+    @discardableResult func wmf_tapFirstStaticText(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
         if let firstStaticText = wmf_firstStaticText(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert) {
             return firstStaticText.wmf_tap()
         } else {
@@ -54,7 +54,7 @@ extension XCUIElement {
     func wmf_firstSwitch(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement? {
         return switches.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
-    func wmf_tapFirstSwitch(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
+    @discardableResult func wmf_tapFirstSwitch(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> Bool {
         if let firstSwitch = wmf_firstSwitch(withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert) {
             return firstSwitch.wmf_tap()
         } else {
@@ -62,15 +62,15 @@ extension XCUIElement {
         }
     }
     
-    func wmf_firstSearchField(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement? {
+    @discardableResult func wmf_firstSearchField(withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false) -> XCUIElement? {
         return searchFields.wmf_firstElement(with: .placeholderValue, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: shouldConvert)
     }
 
-    func wmf_tapFirstCloseButton() -> Bool {
+    @discardableResult func wmf_tapFirstCloseButton() -> Bool {
         return wmf_tapFirstButton(withTranslationIn: ["close-button-accessibility-label"])
     }
     
-    func wmf_tapFirstNavigationBarBackButton() -> Bool {
+    @discardableResult func wmf_tapFirstNavigationBarBackButton() -> Bool {
         let backButtonTapped = wmf_tapFirstButton(withTranslationIn: ["back", "back-button-accessibility-label", "home-title"])
         guard !backButtonTapped else {
             return backButtonTapped
@@ -83,7 +83,7 @@ extension XCUIElement {
         }
     }
     
-    func wmf_tapFirstCollectionViewCell() -> Bool {
+    @discardableResult func wmf_tapFirstCollectionViewCell() -> Bool {
         if let cell = collectionViews.children(matching: .cell).element(boundBy: 0).wmf_waitUntilExists() {
             return cell.wmf_tap()
         } else {
@@ -91,7 +91,7 @@ extension XCUIElement {
         }
     }
     
-    func wmf_scrollToTop() -> Bool {
+    @discardableResult func wmf_scrollToTop() -> Bool {
         if let statusBar = statusBars.element(boundBy: 0).wmf_waitUntilExists() {
             let tapResult = statusBar.wmf_tap()
             sleep(2) // Give it time to scroll up.
