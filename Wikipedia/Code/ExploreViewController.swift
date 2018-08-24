@@ -22,6 +22,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         title = CommonStrings.exploreTabTitle
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
 
     deinit {
@@ -116,7 +117,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        guard let lastGroup = fetchedResultsController?.object(at: IndexPath(item: lastItemIndex, section: lastSectionIndex)) else {
+        guard let lastGroup = group(at: IndexPath(item: lastItemIndex, section: lastSectionIndex)) else {
             return
         }
         let now = Date()
@@ -234,6 +235,14 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         updater.delegate = self
         updater.isSlidingNewContentInFromTheTopEnabled = true
         updater.performFetch()
+    }
+    
+    private func group(at indexPath: IndexPath) -> WMFContentGroup? {
+        return fetchedResultsController?.object(at: indexPath)
+    }
+    
+    private func groupKey(at indexPath: IndexPath) -> String? {
+        return group(at: indexPath)?.key
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
@@ -360,6 +369,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
+    override func contentSizeCategoryDidChange(_ notification: Notification?) {
+        layoutCache.reset()
+        super.contentSizeCategoryDidChange(notification)
+    }
+    
     // MARK - ImageScaleTransitionProviding
     
     var imageScaleTransitionView: UIImageView?
@@ -402,7 +416,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let group = fetchedResultsController?.object(at: indexPath) else {
+        guard let group = group(at: indexPath) else {
             return false
         }
         return group.isSelectable
@@ -421,7 +435,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 imageScaleTransitionView = nil
             }
         }
-        guard let group = fetchedResultsController?.object(at: indexPath) else {
+        guard let group = group(at: indexPath) else {
             return
         }
 
@@ -445,7 +459,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard collectionView(collectionView, numberOfItemsInSection: sectionIndex) > 0 else {
             return
         }
-        guard let group = fetchedResultsController?.object(at: IndexPath(item: 0, section: sectionIndex)) else {
+        guard let group = group(at: IndexPath(item: 0, section: sectionIndex)) else {
             return
         }
         header.title = (group.midnightUTCDate as NSDate?)?.wmf_localizedRelativeDateFromMidnightUTCDate()
@@ -465,7 +479,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
-        guard let group = fetchedResultsController?.object(at: indexPath) else {
+        guard let group = group(at: indexPath) else {
             return
         }
         cardVC.contentGroup = group
@@ -505,8 +519,16 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
-    
+
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        guard let group = group(at: indexPath) else {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
+        }
+        let identifier = ExploreCardCollectionViewCell.identifier
+        let userInfo = "evc-cell-\(group.key ?? "")"
+        if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
+        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier) as? ExploreCardCollectionViewCell else {
             return estimate
@@ -514,12 +536,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, groupKey: group.key, userInfo: userInfo)
         return estimate
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let group = fetchedResultsController?.object(at: IndexPath(item: 0, section: section))
-        guard let date = group?.midnightUTCDate, date < Date() else {
+        guard let group = self.group(at: IndexPath(item: 0, section: section)), let date = group.midnightUTCDate, date < Date() else {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
@@ -576,7 +598,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     // MARK - Prefetching
     
     override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
-        guard let contentGroup = fetchedResultsController?.object(at: indexPath) else {
+        guard let contentGroup = group(at: indexPath) else {
             return nil
         }
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
@@ -613,7 +635,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layout.currentSection = nil
     }
     
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex sectionIndex: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        guard let sections = fetchedResultsController?.sections else {
+            return
+        }
+        
+        guard sectionIndex < sections.count else {
+            return
+        }
+        
+        let count = sections[sectionIndex].numberOfObjects
+        for index in 0..<count {
+            let indexPath = IndexPath(item: index, section: sectionIndex)
+            collectionViewUpdater(updater, willRemoveItemAtIndexPath: indexPath, in: collectionView)
+        }
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        layoutCache.invalidateGroupKey(groupKey(at: indexPath))
+    }
+    
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        layoutCache.invalidateGroupKey(groupKey(at: indexPath))
         collectionView.collectionViewLayout.invalidateLayout()
         if wantsDeleteInsertOnNextItemUpdate {
             layout.currentSection = indexPath.section
@@ -766,10 +809,18 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
                 guard self.fetchedResultsController?.isValidIndexPath(indexPath) ?? false else {
                     continue
                 }
+                self.layoutCache.invalidateGroupKey(self.groupKey(at: indexPath))
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
             self.indexPathsForCollapsedCellsThatCanReappear = []
         }
+    }
+    
+    @objc func articleDidChange(_ note: Notification) {
+        guard let article = note.object as? WMFArticle else {
+            return
+        }
+        layoutCache.invalidateArticleKey(article.key)
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
