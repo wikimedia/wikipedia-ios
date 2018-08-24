@@ -6,7 +6,11 @@ let pressDuration = 0.1 // don't set this to too large a value or presses which 
 extension XCUIElement {
     func wmf_tap() -> Bool {
         guard exists else { return false }
-        tap()
+        if isHittable {
+            tap()
+        } else {
+            coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0)).tap()
+        }
         return true
     }
     func wmf_typeText(text: String) -> Bool {
