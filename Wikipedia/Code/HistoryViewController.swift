@@ -98,8 +98,13 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
+        let userInfo = "universal"
         let reuseIdentifier = CollectionViewHeader.identifier
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
+        if let height = layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
+            estimate.height = height
+            return estimate
+        }
         guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
@@ -109,6 +114,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         placeholder.title = title
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
         estimate.precalculated = true
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
 }
