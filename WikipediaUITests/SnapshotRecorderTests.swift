@@ -408,13 +408,8 @@ class WikipediaUITests: XCTestCase {
             sleep(6)
             wmf_snapshot("PlacesScreen3")
         }
-
-        
-        
-        
-        
-        
-        
-        
+        app.wmf_tapFirstButton(withTranslationIn: ["places-accessibility-show-as-list"])
+        sleep(3)
+        wmf_snapshot("PlacesScreen4")
     }
 }
