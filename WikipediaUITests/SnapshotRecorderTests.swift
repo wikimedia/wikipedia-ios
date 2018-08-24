@@ -184,11 +184,12 @@ class WikipediaUITests: XCTestCase {
         
         // SEARCH
         _ = app.wmf_scrollToTop()
-        let searchField = app.wmf_firstSearchField(withTranslationIn: ["search-field-placeholder-text"])
-        if searchField.wmf_tap() {
-            wmf_snapshot("SearchScreen1")
-            if searchField.wmf_typeText(text: "a") {
-                wmf_snapshot("SearchScreen2")
+        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["search-field-placeholder-text"]){
+            if searchField.wmf_tap() {
+                wmf_snapshot("SearchScreen1")
+                if searchField.wmf_typeText(text: "a") {
+                    wmf_snapshot("SearchScreen2")
+                }
             }
         }
         
