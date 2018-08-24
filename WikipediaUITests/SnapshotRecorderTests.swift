@@ -116,42 +116,42 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToFirstElements(matching: .link, yOffset: iPhoneXSafeTopOffset, items:
             [
                 // Picture of the day / Gallery
-                ScrollItem(key: "explore-potd-heading", success: { element in
+                ScrollItem(key: "explore-potd-heading") { element in
                     self.wmf_snapshot("ExploreScreenPicOfTheDay")
                     element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("GalleryScreen")
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
 
                 // Featured article
-                ScrollItem(key: "explore-featured-article-heading", success: { element in
+                ScrollItem(key: "explore-featured-article-heading") { element in
                     self.wmf_snapshot("ExploreScreenFeaturedArticle")
-                }),
+                },
 
                 // Top read
-                ScrollItem(key: "explore-most-read-generic-heading", success: { element in
+                ScrollItem(key: "explore-most-read-generic-heading") { element in
                     self.wmf_snapshot("ExploreScreenMostRead")
                     element.wmf_tap()
                     self.wmf_snapshot("MostReadDetail")
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
 
                 // On this day
-                ScrollItem(key: "on-this-day-title", success: { element in
+                ScrollItem(key: "on-this-day-title") { element in
                     self.wmf_snapshot("ExploreScreenOnThisDay")
                     element.wmf_tap()
                     self.wmf_snapshot("OnThisDayDetail")
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
                 
                 // Nearby
-                ScrollItem(key: "explore-nearby-placeholder-heading", success: { element in
+                ScrollItem(key: "explore-nearby-placeholder-heading") { element in
                     self.wmf_snapshot("ExploreScreenNearbyPlaces")
-                }),
+                },
                 
                 // Random article
-                ScrollItem(key: "explore-random-article-heading", success: { element in
+                ScrollItem(key: "explore-random-article-heading") { element in
                     self.wmf_snapshot("ExploreScreenRandom")
                     element.wmf_tap()
                     sleep(8)
@@ -160,24 +160,24 @@ class WikipediaUITests: XCTestCase {
                     sleep(2)
                     self.wmf_snapshot("RandomDetailSaved")
                     self.app.wmf_tapFirstNavigationBarBackButton()
-                }),
+                },
                 
                 // Main page
-                ScrollItem(key: "explore-main-page-heading", success: { element in
+                ScrollItem(key: "explore-main-page-heading") { element in
                     self.wmf_snapshot("ExploreScreenMainPage")
                     element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("MainPageDetail")
                     self.app.wmf_tapFirstNavigationBarBackButton()
-                }),
+                },
                 
                 // In the news
-                ScrollItem(key: "in-the-news-title", success: { element in
+                ScrollItem(key: "in-the-news-title") { element in
                     self.wmf_snapshot("ExploreScreenInTheNews")
                     element.wmf_tap()
                     self.wmf_snapshot("InTheNewsDetail")
                     self.app.wmf_tapFirstCloseButton()
-                })
+                }
             ]
         )
 
@@ -208,7 +208,7 @@ class WikipediaUITests: XCTestCase {
             
             app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                 [
-                    ScrollItem(key: "article-about-title", success: { element in
+                    ScrollItem(key: "article-about-title") { element in
                         // `About this article` footer
                         element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooterAboutThisArticle")
@@ -218,7 +218,7 @@ class WikipediaUITests: XCTestCase {
                         sleep(8)
                         self.wmf_snapshot("ArticleScreenFooterArticleHistory")
                         self.app.wmf_tapFirstCloseButton()
-                    })
+                    }
                 ]
             )
             
@@ -226,21 +226,21 @@ class WikipediaUITests: XCTestCase {
 
             app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                 [
-                    ScrollItem(key: "article-read-more-title", success: { element in
+                    ScrollItem(key: "article-read-more-title") { element in
                         // `Read more` footer
                         element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooterReadMore")
-                    })
+                    }
                 ]
             )
         } else {
             app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                 [
-                    ScrollItem(key: "article-about-title", success: { element in
+                    ScrollItem(key: "article-about-title") { element in
                         // `About this article` footer
                         element.wmf_tap()
                         self.wmf_snapshot("ArticleScreenFooter")
-                    })
+                    }
                 ]
             )
         }
@@ -289,7 +289,7 @@ class WikipediaUITests: XCTestCase {
         app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.13, items:
             [
                 // Login
-                ScrollItem(key: "main-menu-account-login", success: { element in
+                ScrollItem(key: "main-menu-account-login") { element in
                     element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("LoginScreen1")
@@ -304,48 +304,48 @@ class WikipediaUITests: XCTestCase {
                     self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-forgot-password"])
                     self.wmf_snapshot("ForgotPasswordScreen1")
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
                 // My languages
-                ScrollItem(key: "settings-my-languages", success: { element in
+                ScrollItem(key: "settings-my-languages") { element in
                     element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("MyLanguagesScreen1")
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
                 // Notifications
-                ScrollItem(key: "settings-notifications", success: { element in
+                ScrollItem(key: "settings-notifications") { element in
                     element.wmf_tap()
                     sleep(2)
                     self.wmf_snapshot("NotificationsScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                }),
+                },
                 // Reading preferences
-                ScrollItem(key: "settings-appearance", success: { element in
+                ScrollItem(key: "settings-appearance") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("AppearanceScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                }),
+                },
                 // Article storage and syncing
-                ScrollItem(key: "settings-storage-and-syncing-title", success: { element in
+                ScrollItem(key: "settings-storage-and-syncing-title") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("StorageAndSyncingScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                }),
+                },
                 // Clear cached data
-                ScrollItem(key: "settings-clear-cache", success: { element in
+                ScrollItem(key: "settings-clear-cache") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("ClearCacheScreen1")
-                }),
+                },
                 // Help and feedback
-                ScrollItem(key: "settings-help-and-feedback", success: { element in
+                ScrollItem(key: "settings-help-and-feedback") { element in
                     element.wmf_tap()
                     sleep(4)
                     self.wmf_snapshot("HelpAndFeedbackScreen1")
                     sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                }),
+                },
                 // About the app
-                ScrollItem(key: "main-menu-about", success: { element in
+                ScrollItem(key: "main-menu-about") { element in
                     element.wmf_tap()
                     sleep(8)
                     self.wmf_snapshot("AboutTheAppScreen1")
@@ -357,29 +357,29 @@ class WikipediaUITests: XCTestCase {
                     self.app.webViews.element(boundBy: 0).wmf_waitUntilExists(timeout: 1.0)?.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.1, items:
                         [
                             // Libraries used
-                            ScrollItem(key: "about-libraries-complete-list", success: { element in
+                            ScrollItem(key: "about-libraries-complete-list") { element in
                                 element.wmf_tap()
                                 self.wmf_snapshot("AboutTheAppScreenLibrariesUsed")
                                 self.app.wmf_tapFirstCloseButton()
-                            })
+                            }
                         ]
                     )
 
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                     self.app.wmf_tapFirstCloseButton()
-                }),
+                },
                 // Explore feed
-                ScrollItem(key: "welcome-exploration-explore-feed-title", success: { element in
+                ScrollItem(key: "welcome-exploration-explore-feed-title") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("ExploreCustomizationScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                }),
+                },
                 // Search
-                ScrollItem(key: "search-title", success: { element in
+                ScrollItem(key: "search-title") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("SearchCustomizationScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
-                })
+                }
             ]
         )
 
