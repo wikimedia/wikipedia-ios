@@ -16,10 +16,10 @@ class ColumnarCollectionViewControllerLayoutCache {
     public func setHeight(_ height: CGFloat, forCellWithIdentifier identifier: String, columnWidth: CGFloat, groupKey: String? = nil, articleKey: String? = nil, userInfo: String) {
         let cacheKey = cacheKeyForCellWithIdentifier(identifier, userInfo: userInfo)
         if let groupKey = groupKey {
-            cacheKeysByGroupKey[groupKey, default: []].insert(groupKey)
+            cacheKeysByGroupKey[groupKey, default: []].insert(cacheKey)
         }
         if let articleKey = articleKey {
-            cacheKeysByArticleKey[articleKey, default: []].insert(articleKey)
+            cacheKeysByArticleKey[articleKey, default: []].insert(cacheKey)
         }
         cachedHeights[cacheKey, default: [:]][columnWidth.roundedColumnWidth] = height
     }
