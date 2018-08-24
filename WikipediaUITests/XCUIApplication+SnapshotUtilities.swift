@@ -97,10 +97,13 @@ extension XCUIElement {
         }
     }
     
-    func wmf_scrollElementToTop(element: XCUIElement) {
-        let elementTopCoord = element.coordinate(withNormalizedOffset:CGVector(dx: 0.5, dy: 0.0))
-        let iPhoneXSafeTopOffset = 0.04 // As of Xcode 9.4 an offset of 0 drags elements a little too far up.
-        elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: iPhoneXSafeTopOffset)))
+    func wmf_scrollElementToTop(element: XCUIElement, yOffset: CGFloat = 0.0) {
+        let normalizedOffset = CGVector(
+            dx: 0.5,
+            dy: 0.0 /* 0.0 is important - in case only top of view is above bottom of screen! (if we were scrolling elements to bottom of screen this would need to be 1.0) */
+        )
+        let elementTopCoord = element.coordinate(withNormalizedOffset: normalizedOffset)
+        elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: yOffset)))
         sleep(2) // Give it time to scroll up.
     }
     
@@ -119,7 +122,7 @@ extension XCUIElement {
             let element = links.wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1)
             if element.exists && element.isHittable {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
-                    wmf_scrollElementToTop(element: element)
+                    wmf_scrollElementToTop(element: element, yOffset: yOffset)
                     item.success(element)
                     sleep(2)
                     if let index = keys.index(of: item.key) {
