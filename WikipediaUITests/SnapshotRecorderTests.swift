@@ -266,10 +266,11 @@ class WikipediaUITests: XCTestCase {
         // Article find in page
         _ = app.wmf_tapFirstButton(withTranslationIn: ["find-in-page-button-label"])
         wmf_snapshot("ArticleScreenFindInPage1")
-        let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists()
-        if textField.wmf_tap() {
-            if textField.wmf_typeText(text: "a") {
-                wmf_snapshot("ArticleScreenFindInPage2")
+        if let textField = app.textFields.element(boundBy: 0).wmf_waitUntilExists(){
+            if textField.wmf_tap() {
+                if textField.wmf_typeText(text: "a") {
+                    wmf_snapshot("ArticleScreenFindInPage2")
+                }
             }
         }
         _ = app.wmf_tapFirstCloseButton()
