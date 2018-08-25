@@ -109,10 +109,10 @@ extension XCUIElement {
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: yOffset)))
     }
     
-    func wmf_scrollDown(times: Int = 1) {
+    func wmf_scrollDown(times: Int = 1, dragStartY: Double = 0.8) {
         for _ in 0 ..< times {
-            let iPadSafeBottomDragStartY: Double = 0.8 // If set to 1.0 it drags from very bottom of the screen which triggers an iPad task switcher and zooms out the app. So drag from a little above the very bottom.
-            coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: iPadSafeBottomDragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.0)))
+            // If dragStartY set to 1.0 it drags from very bottom of the screen which triggers an iPad task switcher and zooms out the app. So drag from a little above the very bottom - hence the 0.8 dragStartY default value.
+            coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: dragStartY)).press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.0)))
         }
     }
     
