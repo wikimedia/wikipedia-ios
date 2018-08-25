@@ -94,7 +94,6 @@ extension XCUIElement {
     @discardableResult func wmf_scrollToTop() -> Bool {
         if let statusBar = statusBars.element(boundBy: 0).wmf_waitUntilExists() {
             let tapResult = statusBar.wmf_tap()
-            sleep(2) // Give it time to scroll up.
             return tapResult
         } else {
             return false
@@ -108,7 +107,6 @@ extension XCUIElement {
         )
         let elementTopCoord = element.coordinate(withNormalizedOffset: normalizedOffset)
         elementTopCoord.press(forDuration: pressDuration, thenDragTo: coordinate(withNormalizedOffset: CGVector(dx: 0, dy: yOffset)))
-        sleep(2) // Give it time to scroll up.
     }
     
     func wmf_scrollDown(times: Int = 1) {
@@ -127,7 +125,6 @@ extension XCUIElement {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
                     wmf_scrollElementToTop(element: element, yOffset: yOffset)
                     item.success(element)
-                    sleep(2)
                     if let index = keys.index(of: item.key) {
                         keys.remove(at: index)
                     }

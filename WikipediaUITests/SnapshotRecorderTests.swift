@@ -57,10 +57,8 @@ class WikipediaUITests: XCTestCase {
     
     // Prepends an auto-incremented numeric prefix to screenshot names so they appear on the index html page in the order they were captured.
     func wmf_snapshot(_ name: String, timeWaitingForIdle timeout: TimeInterval = 45) {
-        sleep(2)
         snapshot("\(String(format: "%04d", snapshotIndex))-\(name)", timeWaitingForIdle: timeout)
         snapshotIndex = snapshotIndex + 1
-        sleep(2)
     }
     
     // This UI test is used as a harness to navigate to various parts of the app and record screenshots. Fastlane snapshots don't seem to play nice with multiple tests taking snapshots, so we have all of them in this single test.
@@ -100,8 +98,6 @@ class WikipediaUITests: XCTestCase {
         // app.wmf_tapFirstButton(withTranslationIn: ["button-skip"])
 
 
-        // Sleep for a bit to give Explore data some time to be fetched.
-        sleep(6)
         // Scroll down a ways then back up to increase odds that feed elements are in place and won't be freshing underneath us while the code below scrolls and attempts to tap on elements.
         app.wmf_scrollDown(times: 20)
         app.wmf_scrollToTop()
@@ -119,7 +115,6 @@ class WikipediaUITests: XCTestCase {
                 ScrollItem(key: "explore-potd-heading") { element in
                     self.wmf_snapshot("ExploreScreenPicOfTheDay")
                     element.wmf_tap()
-                    sleep(8)
                     self.wmf_snapshot("GalleryScreen")
                     self.app.wmf_tapFirstCloseButton()
                 },
@@ -157,7 +152,6 @@ class WikipediaUITests: XCTestCase {
                     sleep(8)
                     self.wmf_snapshot("RandomDetail")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
-                    sleep(2)
                     self.wmf_snapshot("RandomDetailSaved")
                     self.app.wmf_tapFirstNavigationBarBackButton()
                 },
@@ -166,7 +160,6 @@ class WikipediaUITests: XCTestCase {
                 ScrollItem(key: "explore-main-page-heading") { element in
                     self.wmf_snapshot("ExploreScreenMainPage")
                     element.wmf_tap()
-                    sleep(8)
                     self.wmf_snapshot("MainPageDetail")
                     self.app.wmf_tapFirstNavigationBarBackButton()
                 },
@@ -196,9 +189,9 @@ class WikipediaUITests: XCTestCase {
         
         // ARTICLE
         app.wmf_tapFirstCollectionViewCell()
-        sleep(8)
+        sleep(6)
         wmf_snapshot("ArticleScreen1")
-        sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
+        sleep(8) // give popover time to disappear
 
         // TOC and ARTICLE FOOTERS
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -215,7 +208,6 @@ class WikipediaUITests: XCTestCase {
                         
                         // Article history
                         self.app.wmf_tapFirstStaticText(withTranslationIn: ["page-last-edited"], convertTranslationSubstitutionStringsToWildcards: true)
-                        sleep(8)
                         self.wmf_snapshot("ArticleScreenFooterArticleHistory")
                         self.app.wmf_tapFirstCloseButton()
                     }
@@ -261,8 +253,6 @@ class WikipediaUITests: XCTestCase {
 
         app.wmf_tapFirstButton(withTranslationIn: ["reading-themes-controls-accessibility-light-theme-button"])
 
-        sleep(8) // give popover time to disappear (this uitest target sleeps - the app doesn't)
-
         
         // Article find in page
         app.wmf_tapFirstButton(withTranslationIn: ["find-in-page-button-label"])
@@ -291,7 +281,6 @@ class WikipediaUITests: XCTestCase {
                 // Login
                 ScrollItem(key: "main-menu-account-login") { element in
                     element.wmf_tap()
-                    sleep(2)
                     self.wmf_snapshot("LoginScreen1")
 
                     // Create account
@@ -308,14 +297,12 @@ class WikipediaUITests: XCTestCase {
                 // My languages
                 ScrollItem(key: "settings-my-languages") { element in
                     element.wmf_tap()
-                    sleep(2)
                     self.wmf_snapshot("MyLanguagesScreen1")
                     self.app.wmf_tapFirstCloseButton()
                 },
                 // Notifications
                 ScrollItem(key: "settings-notifications") { element in
                     element.wmf_tap()
-                    sleep(2)
                     self.wmf_snapshot("NotificationsScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
@@ -341,13 +328,11 @@ class WikipediaUITests: XCTestCase {
                     element.wmf_tap()
                     sleep(4)
                     self.wmf_snapshot("HelpAndFeedbackScreen1")
-                    sleep(8) // give tooltip time to disappear (this uitest target sleeps - the app doesn't)
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
                 // About the app
                 ScrollItem(key: "main-menu-about") { element in
                     element.wmf_tap()
-                    sleep(8)
                     self.wmf_snapshot("AboutTheAppScreen1")
                     self.app.wmf_scrollDown()
                     self.wmf_snapshot("AboutTheAppScreen2")
@@ -408,7 +393,6 @@ class WikipediaUITests: XCTestCase {
             wmf_snapshot("PlacesScreen3")
         }
         app.wmf_tapFirstButton(withTranslationIn: ["places-accessibility-show-as-list"])
-        sleep(3)
         wmf_snapshot("PlacesScreen4")
     }
 }
