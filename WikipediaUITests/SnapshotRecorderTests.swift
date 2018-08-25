@@ -154,7 +154,7 @@ class WikipediaUITests: XCTestCase {
                     self.wmf_snapshot("RandomDetailSaved")
                     self.app.wmf_tapFirstNavigationBarBackButton()
                 },
-                
+                /*
                 // Main page
                 ScrollItem(key: "explore-main-page-heading") { element in
                     self.wmf_snapshot("ExploreMainPage")
@@ -162,7 +162,7 @@ class WikipediaUITests: XCTestCase {
                     self.wmf_snapshot("MainPageDetail")
                     self.app.wmf_tapFirstNavigationBarBackButton()
                 },
-                
+                */
                 // In the news
                 ScrollItem(key: "in-the-news-title") { element in
                     self.wmf_snapshot("ExploreInTheNews")
