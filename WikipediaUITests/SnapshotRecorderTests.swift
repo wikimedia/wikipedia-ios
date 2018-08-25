@@ -389,11 +389,11 @@ class WikipediaUITests: XCTestCase {
         // Reminder: would need to adjust `boundBy:` if an RTL lang support is added to fastlane for snapshots.
         if let allowLocationPermissionButton = XCUIApplication(bundleIdentifier: "com.apple.springboard").buttons.element(boundBy: 2).wmf_waitUntilExists(timeout: 6) {
             allowLocationPermissionButton.wmf_tap()
-            sleep(4)
+            sleep(8)
             wmf_snapshot("Places3")
         }
         app.wmf_tapFirstButton(withTranslationIn: ["places-accessibility-show-as-list"])
-        sleep(4)
+        sleep(8)
         wmf_snapshot("Places4")
     }
 }
