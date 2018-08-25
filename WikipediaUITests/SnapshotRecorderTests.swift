@@ -72,24 +72,23 @@ class WikipediaUITests: XCTestCase {
         wmf_snapshot("WelcomeScreen2")
 
         app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-tell-me-more-done-button"])
+
+        app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
         wmf_snapshot("WelcomeScreen3")
 
         app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
         wmf_snapshot("WelcomeScreen4")
 
-        app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
-        wmf_snapshot("WelcomeScreen5")
-
         app.wmf_tapFirstButton(withTranslationIn: ["welcome-languages-add-or-edit-button"])
-        wmf_snapshot("WelcomeScreen6")
+        wmf_snapshot("WelcomeScreen5")
 
         app.wmf_tapFirstCloseButton()
 
         app.wmf_tapFirstButton(withTranslationIn: ["button-next"])
-        wmf_snapshot("WelcomeScreen7")
+        wmf_snapshot("WelcomeScreen6")
         
         app.wmf_tapFirstSwitch(withTranslationIn: ["preference-title-eventlogging-opt-in"])
-        wmf_snapshot("WelcomeScreen8")
+        wmf_snapshot("WelcomeScreen7")
 
         app.wmf_tapFirstButton(withTranslationIn: ["welcome-explore-continue-button"])
 
