@@ -308,7 +308,7 @@ class WikipediaUITests: XCTestCase {
                 // Reading preferences
                 ScrollItem(key: "settings-appearance") { element in
                     element.wmf_tap()
-                    self.wmf_snapshot("AppearanceScreen1")
+                    self.wmf_snapshot("ReadingPreferencesScreen1")
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
                 // Article storage and syncing
