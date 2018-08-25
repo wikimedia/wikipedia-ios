@@ -273,6 +273,9 @@ class WikipediaUITests: XCTestCase {
         // SETTINGS
         app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
         wmf_snapshot("Settings1")
+        app.wmf_scrollDown()
+        wmf_snapshot("Settings2")
+        app.wmf_scrollToTop()
 
         
         app.wmf_scrollToFirstElements(matching: .staticText, yOffset: 0.13, items:
@@ -285,6 +288,9 @@ class WikipediaUITests: XCTestCase {
                     // Create account
                     self.app.wmf_tapFirstStaticText(withTranslationIn: ["login-no-account"], convertTranslationSubstitutionStringsToWildcards: true)
                     self.wmf_snapshot("CreateAccount1")
+                    self.app.wmf_scrollDown(times: 2, dragStartY: 0.25) // when keyboard is onscreen need to override dragStartY to be above keyboard
+                    self.wmf_snapshot("CreateAccount2")
+                    self.app.wmf_scrollToTop()
                     self.app.wmf_tapFirstCloseButton()
 
                     // Forgot password
@@ -309,12 +315,18 @@ class WikipediaUITests: XCTestCase {
                 ScrollItem(key: "settings-appearance") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("ReadingPreferences1")
+                    self.app.wmf_scrollDown()
+                    self.wmf_snapshot("ReadingPreferences2")
+                    self.app.wmf_scrollToTop()
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
                 // Article storage and syncing
                 ScrollItem(key: "settings-storage-and-syncing-title") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("StorageAndSyncing1")
+                    self.app.wmf_scrollDown()
+                    self.wmf_snapshot("StorageAndSyncing2")
+                    self.app.wmf_scrollToTop()
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
                 // Clear cached data
@@ -356,6 +368,9 @@ class WikipediaUITests: XCTestCase {
                 ScrollItem(key: "welcome-exploration-explore-feed-title") { element in
                     element.wmf_tap()
                     self.wmf_snapshot("ExploreCustomization1")
+                    self.app.wmf_scrollDown()
+                    self.wmf_snapshot("ExploreCustomization2")
+                    self.app.wmf_scrollToTop()
                     self.app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])
                 },
                 // Search
