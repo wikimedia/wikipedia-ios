@@ -2,7 +2,6 @@ import UIKit
 
 protocol DetailTransitionSourceProviding {
     var detailTransitionSourceRect: CGRect? { get }
-    var theme: Theme { get }
 }
 
 @objc(WMFImageScaleTransitionProviding)

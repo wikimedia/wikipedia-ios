@@ -41,10 +41,10 @@ public func asImageOrigin<T: ImageOriginConvertible>(_ c: T) -> ImageOrigin { re
 
 @objc(WMFImageDownload) public class ImageDownload: NSObject {
     // Exposing enums as string constants for ObjC compatibility
-    @objc open static let imageOriginNetwork = ImageOrigin.network.rawValue
-    @objc open static let imageOriginDisk = ImageOrigin.disk.rawValue
-    @objc open static let imageOriginMemory = ImageOrigin.memory.rawValue
-    @objc open static let imageOriginUnknown = ImageOrigin.unknown.rawValue
+    @objc public static let imageOriginNetwork = ImageOrigin.network.rawValue
+    @objc public static let imageOriginDisk = ImageOrigin.disk.rawValue
+    @objc public static let imageOriginMemory = ImageOrigin.memory.rawValue
+    @objc public static let imageOriginUnknown = ImageOrigin.unknown.rawValue
     
     @objc open var url: URL
     @objc open var image: Image

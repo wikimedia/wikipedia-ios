@@ -11,8 +11,8 @@ open class TableOfContentsAboutThisArticleItem : NSObject, TableOfContentsFooter
         return WMFLocalizedString("article-about-title", language: self.url.wmf_language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article")
     }
     
-    open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    open let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.aboutThisArticle
+    public let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
+    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.aboutThisArticle
 
     open override func isEqual(_ object: Any?) -> Bool {
         if let item = object as? TableOfContentsAboutThisArticleItem {
