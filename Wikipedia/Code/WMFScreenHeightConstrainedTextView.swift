@@ -1,14 +1,13 @@
 
 private extension CGFloat {
-    func constrainedBetween(minHeight: Int, maxPercentOfScreenHeight: Int) -> CGFloat {
+    func constrainedBetween(minHeight: Int, maxPercentOfScreenHeight: Int, availableHeight: CGFloat) -> CGFloat {
         assert(minHeight >= 0, "minHeight should be at least 0")
         assert(maxPercentOfScreenHeight <= 100, "maxPercentOfScreenHeight should be no more than 100")
-        let screenHeight = UIScreen.main.bounds.size.height
-        let proportionOfScreenHeight = screenHeight > 0.0 ? self / screenHeight : 0.0
+        let proportionOfScreenHeight = availableHeight > 0.0 ? self / availableHeight : 0.0
         var constrainedHeight = self
         let maxAllowedProportionOfScreenHeight = CGFloat(maxPercentOfScreenHeight) / 100.0
         if (proportionOfScreenHeight > maxAllowedProportionOfScreenHeight) {
-            constrainedHeight = screenHeight * maxAllowedProportionOfScreenHeight
+            constrainedHeight = availableHeight * maxAllowedProportionOfScreenHeight
         }
         return fmax(CGFloat(minHeight), constrainedHeight)
     }
@@ -18,7 +17,9 @@ private enum OpenStatePercent: Int {
     case normal = 22, maximized = 60
 }
 
-@objc class WMFScreenHeightConstrainedTextView: UITextView {
+@objcMembers class WMFScreenHeightConstrainedTextView: UITextView {
+    public var availableHeight: CGFloat = 0
+
     private let minHeight = 30
     private var maxPercentOfScreenHeight: Int {
         get {
@@ -32,7 +33,7 @@ private enum OpenStatePercent: Int {
         }
     }
     
-    @objc func toggleOpenState() {
+    public func toggleOpenState() {
         openStatePercent = openStatePercent == .normal ? .maximized : .normal
     }
 
@@ -43,7 +44,7 @@ private enum OpenStatePercent: Int {
     
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
-        size.height = size.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight)
+        size.height = size.height.constrainedBetween(minHeight: minHeight, maxPercentOfScreenHeight: maxPercentOfScreenHeight, availableHeight: availableHeight)
         return size
     }
 

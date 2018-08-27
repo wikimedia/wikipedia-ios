@@ -17,6 +17,11 @@
 
 @implementation WMFImageGalleryDetailOverlayView
 
+- (void)setMaximumDescriptionHeight:(CGFloat)maximumDescriptionHeight {
+    _maximumDescriptionHeight = maximumDescriptionHeight;
+    self.imageDescriptionTextView.availableHeight = maximumDescriptionHeight;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.infoButton.imageView.contentMode = UIViewContentModeCenter;
