@@ -17,7 +17,7 @@ private enum OpenStatePercent: Int {
     case normal = 22, maximized = 60
 }
 
-@objcMembers class WMFScreenHeightConstrainedTextView: UITextView {
+@objcMembers class WMFImageGalleryDescriptionTextView: UITextView {
     public var availableHeight: CGFloat = 0
 
     private let minHeight = 30

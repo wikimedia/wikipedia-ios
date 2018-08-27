@@ -5,7 +5,7 @@
 @import WMF.MWKLicense;
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property (nonatomic, strong) IBOutlet WMFScreenHeightConstrainedTextView *imageDescriptionTextView; // Text view allows scrolling excess text.
+@property (nonatomic, strong) IBOutlet WMFImageGalleryDescriptionTextView *imageDescriptionTextView; // Text view allows scrolling excess text.
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
