@@ -406,7 +406,22 @@ class WikipediaUITests: XCTestCase {
             allowLocationPermissionButton.wmf_tap()
             wmf_snapshot("Places3")
         }
+        if let searchField = app.wmf_firstSearchField(withTranslationIn: ["places-search-default-text"]){
+            if searchField.wmf_tap() {
+                wmf_snapshot("Places4")
+                if searchField.wmf_typeText(text: "a") {
+                    sleep(6)
+                    wmf_snapshot("Places5")
+                    // HAX: `boundBy: 3` below is a hack: once https://phabricator.wikimedia.org/T202800 is fixed we can set `boundBy` to 0 or make and use a `wmf_tapFirstTableViewCell` func
+                    if let cell = app.tables.children(matching: .cell).element(boundBy: 3).wmf_waitUntilExists() {
+                        cell.wmf_tap()
+                        wmf_snapshot("Place6")
+                    }
+                }
+            }
+        }
+        
         app.wmf_tapFirstButton(withTranslationIn: ["places-accessibility-show-as-list"])
-        wmf_snapshot("Places4")
+        wmf_snapshot("Places7")
     }
 }
