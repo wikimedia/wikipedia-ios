@@ -22,18 +22,15 @@ public extension ArticleCollectionViewCell {
         switch displayType {
         case .random:
             imageViewDimension = 196
-            isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .pageWithPreview:
             imageViewDimension = 196
-            isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .continueReading:
             imageViewDimension = 130
             extractLabel?.text = nil
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
@@ -41,11 +38,9 @@ public extension ArticleCollectionViewCell {
             updateSelectedOrHighlighted()
             imageViewDimension = 130
             extractLabel?.text = nil
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .mainPage:
-            isSaveButtonHidden = true
             titleTextStyle = .georgiaTitle3
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
@@ -54,7 +49,6 @@ public extension ArticleCollectionViewCell {
         case .pageWithLocationPlaceholder:
             fallthrough
         case .pageWithLocation:
-            isSaveButtonHidden = true
             isImageViewHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
@@ -70,7 +64,6 @@ public extension ArticleCollectionViewCell {
             fallthrough
         default:
             imageViewDimension = 40
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         }
