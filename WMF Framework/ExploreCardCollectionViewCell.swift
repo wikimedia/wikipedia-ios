@@ -312,7 +312,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardShadowOpacity = theme.colors.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
-        cardBorderWidth = theme.cardBorderWidth
+        let displayScale = max(1, traitCollection.displayScale)
+        cardBorderWidth = CGFloat(theme.cardBorderWidthInPixels) / displayScale
     }
     
     @objc func customizationButtonPressed() {
