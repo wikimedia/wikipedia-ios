@@ -55,7 +55,7 @@ private enum OpenStatePercent: Int {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        isScrollEnabled = true
+        isScrollEnabled = openStatePercent == .maximized
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
