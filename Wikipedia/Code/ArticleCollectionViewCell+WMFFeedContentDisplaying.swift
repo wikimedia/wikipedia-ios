@@ -85,6 +85,7 @@ public extension ArticleRightAlignedImageCollectionViewCell {
             self.bottomSeparator.isHidden = true
         }
         super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
+        
     }
 }
 
@@ -98,5 +99,19 @@ public extension RankedArticleCollectionViewCell {
     
     public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         configure(article: article, displayType: displayType, index: index, shouldShowSeparators: false, theme: theme, layoutOnly: layoutOnly)
+    }
+}
+
+public extension ArticleFullWidthImageCollectionViewCell {
+    public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+        switch displayType {
+        case .random:
+            fallthrough
+        case .pageWithPreview:
+            isSaveButtonHidden = false
+        default:
+            isSaveButtonHidden = true
+        }
+        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
     }
 }
