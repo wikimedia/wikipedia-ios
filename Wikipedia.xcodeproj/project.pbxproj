@@ -435,6 +435,11 @@
 		8382F8CF20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */; };
 		8382F8D020D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */; };
 		8382F8D120D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */; };
+		8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */; };
+		8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */; };
+		8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */; };
+		8382F8D620D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */; };
+		8382F8D720D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */; };
 		8382F8D920D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D820D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift */; };
 		8382F8DA20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D820D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift */; };
 		8382F8DB20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382F8D820D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift */; };
@@ -3268,6 +3273,7 @@
 		8380754420DE627D000D222C /* WMFContentGroup+Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+Display.swift"; sourceTree = "<group>"; };
 		8382F8C020D8431000AE5250 /* ArticleLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		8382F8CC20D9206000AE5250 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewControllerLayoutCache.swift; sourceTree = "<group>"; };
 		8382F8D820D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+DetailViewControllers.swift"; sourceTree = "<group>"; };
 		8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		83836ECA1F615E5B007D1A05 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -7299,6 +7305,7 @@
 				D8B166841FD97A0500097D8B /* ViewController.swift */,
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */,
+				8382F8D220D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift */,
 				830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */,
 				7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */,
 				D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */,
@@ -9762,6 +9769,7 @@
 				B01490A51DB96EA7007F5391 /* WMFReferencePanelViewController.swift in Sources */,
 				D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
+				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				B07F823B203F68FE00317D78 /* UILabel+WMFStyling.swift in Sources */,
 				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
@@ -10209,6 +10217,7 @@
 				D80ED31E1EE57F4800CE8C50 /* WMFCompassView.m in Sources */,
 				B0CD9DF51F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D82118001EE58C080076C040 /* MapAnnotation.swift in Sources */,
+				8382F8D720D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D80ED31F1EE57F4800CE8C50 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				8304D7C41F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				7A49A20521231510005C574C /* CollectionViewFooter.swift in Sources */,
@@ -10721,6 +10730,7 @@
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
 				B0B4236B1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift in Sources */,
 				D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */,
+				8382F8D620D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				B07F823E203F690900317D78 /* UILabel+WMFStyling.swift in Sources */,
 				B0C7A0811F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */,
@@ -11170,6 +11180,7 @@
 				D818D3AC1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D82117FD1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				B0CD9DE01F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
+				8382F8D420D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8CE25831E698E2400DAE2E0 /* WMFWelcomeIntroductionViewController.swift in Sources */,
 				7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */,
 				7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
@@ -11488,6 +11499,7 @@
 				D8EC3E791E9BDA35006712EB /* PreviewAndSaveViewController.m in Sources */,
 				8304D7C21F60131900A0CDD6 /* WMFWebView.m in Sources */,
 				D8EC3E7A1E9BDA35006712EB /* ToCInteractionFunnel.m in Sources */,
+				8382F8D520D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
 				D8EC3E7D1E9BDA35006712EB /* UIViewController+WMFChildViewController.swift in Sources */,
 				7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */,
 				7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,

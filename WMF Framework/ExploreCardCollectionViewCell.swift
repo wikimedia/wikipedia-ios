@@ -21,7 +21,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(10)
-    private let cardShadowOpacity = Float(0.13)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
     
     static let overflowImage = UIImage(named: "overflow")
@@ -35,17 +34,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
-        titleLabel.isOpaque = true
         contentView.addSubview(titleLabel)
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.isOpaque = true
         contentView.addSubview(subtitleLabel)
         customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
         customizationButton.contentEdgeInsets = .zero
         customizationButton.imageEdgeInsets = .zero
         customizationButton.titleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
-        customizationButton.isOpaque = true
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
         cardBackgroundView.layer.borderWidth = singlePixelDimension
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
@@ -58,7 +54,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
-        footerButton.isOpaque = true
         let image = #imageLiteral(resourceName: "places-more").imageFlippedForRightToLeftLayoutDirection()
         footerButton.setImage(image, for: .normal)
         footerButton.isUserInteractionEnabled = false
@@ -66,9 +61,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
         undoLabel.numberOfLines = 0
-        undoLabel.isOpaque = true
         contentView.addSubview(undoLabel)
-        undoButton.isOpaque = true
         undoButton.titleLabel?.numberOfLines = 0
         undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
@@ -283,6 +276,15 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
     
+    private var cardShadowOpacity: Float = 0 {
+        didSet {
+            guard cardBackgroundView.layer.shadowOpacity != cardShadowOpacity else {
+                return
+            }
+            cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
+        }
+    }
+    
     public override func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
@@ -308,6 +310,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = backgroundColor
+        cardShadowOpacity = theme.colors.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
     }
