@@ -52,7 +52,7 @@
 "action-saved" = "သိမ်းဆည်းပြီး";
 "action-saved-accessibility-notification" = "နောင်အတွက် ဆောင်းပါးသိမ်းဆည်း";
 "action-share" = "မျှဝေ";
-"action-sort" = "စီစဉ်";
+"action-sort" = "စီစဉ်ရန်";
 "action-unsave" = "မသိမ်းရသေးပါ";
 "action-unsaved-accessibility-notification" = "ဆောင်းပါး မသိမ်းရသေးပါ";
 "action-update" = "မွမ်းမံ";
@@ -304,6 +304,7 @@
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
 "rank-accessibility-label" = "နံပါတ် $1";
 "readers-accessibility-label" = "$1 စာဖတ်သူများ";
+"reading-list-add-generic-hint-title" = "ဤဆောင်းပါးအား စာဖတ်စာရင်းတစ်ခုသို့ ပေါင်းထည့်မည်လော";
 "reading-list-add-hint-title" = "“$1” ကို စာဖတ်စာရင်းသို့ ထည့်သွင်းမှာလား";
 "reading-list-add-saved-button-title" = "ဟုတ်ကဲ့၊ စာဖတ်စာရင်းထဲ ထည့်သွင်းပေးပါ";
 "reading-list-add-saved-title" = "သိမ်းထားသော ဆောင်းပါးများ တွေ့ရှိပါသည်";
