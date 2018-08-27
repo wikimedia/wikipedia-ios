@@ -1,5 +1,4 @@
 import Foundation
-import SystemConfiguration
 
 public extension UIColor {
     @objc public convenience init(_ hex: Int, alpha: CGFloat) {
@@ -111,11 +110,9 @@ public extension UIColor {
 @objc(WMFColors)
 public class Colors: NSObject {
     
-    private static let defaultCardShadowOpacity: Float = {
-        return DeviceInfo.shared.isOlderDevice ? 0 : 0.13
-    }()
+    private static let defaultCardShadowOpacity: Float = 0.13
     
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, cardBorder: .wmf_lightestGray, cardShadow: .base10, cardShadowOpacity: defaultCardShadowOpacity, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50)
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, cardBorder: .base100, cardShadow: .base10, cardShadowOpacity: defaultCardShadowOpacity, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50)
 
     fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardBackground: .papyrus, cardBorder: .sand, cardShadow: .clear, cardShadowOpacity: 0, cardButtonBackground: .amate, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .blue50, rankGradientEnd: .blue50, distanceBorder: .masi)
     
@@ -275,10 +272,6 @@ public class Theme: NSObject {
     
     @objc public lazy var navigationBarShadowImage: UIImage = {
         return #imageLiteral(resourceName: "transparent-pixel")
-    }()
-    
-    public lazy var cardBorderWidth: CGFloat = {
-        return DeviceInfo.shared.isOlderDevice ? 2 : 1
     }()
     
     static let tabBarItemBadgeParagraphStyle: NSParagraphStyle = {

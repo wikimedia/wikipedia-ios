@@ -22,8 +22,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(10)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
-
+    
     static let overflowImage = UIImage(named: "overflow")
+    
+    public var singlePixelDimension: CGFloat = 0.5
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
+    }
     
     public override func setup() {
         super.setup()
@@ -37,6 +43,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         customizationButton.titleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
+        cardBackgroundView.layer.borderWidth = singlePixelDimension
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
         cardBackgroundView.layer.shadowRadius = cardShadowRadius
@@ -211,7 +218,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
             if apply {
                 view?.frame = cardContentViewFrame
-                cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -cardBorderWidth, dy: -cardBorderWidth)
+                cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
             }
             origin.y += cardContentViewFrame.height
         }
@@ -278,12 +285,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
     
-    private var cardBorderWidth: CGFloat = 1 {
-        didSet {
-            cardBackgroundView.layer.borderWidth = cardBorderWidth
-        }
-    }
-    
     public override func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
@@ -312,7 +313,6 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardShadowOpacity = theme.colors.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
-        cardBorderWidth = theme.cardBorderWidth
     }
     
     @objc func customizationButtonPressed() {
