@@ -89,6 +89,14 @@ class ArticleFetchedResultsViewController: ArticleCollectionViewController, Coll
         
     }
     
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex index: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+        
+    }
+    
     override func isEmptyDidChange() {
         super.isEmptyDidChange()
         updateDeleteButton()

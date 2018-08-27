@@ -401,6 +401,7 @@
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
+"reading-list-add-generic-hint-title" = "Voleu afegir l'article a una llista de lectura?";
 "reading-list-add-hint-title" = "Voleu afegir «$1» a una llista de lectura?";
 "reading-list-add-saved-button-title" = "Sí, afegeix-los a les meves llistes de lectura";
 "reading-list-add-saved-subtitle" = "Hi ha articles desats a l'aplicació de la Viquipèdia. Voleu conservar-los i fusionar-los amb les llistes de lectura sincronitzades amb el vostre compte?";
@@ -525,8 +526,7 @@
 "settings-notifications-system-turn-on" = "Activa les notificacions";
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
-// Fuzzy
-"settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació. En canviar l'aplicació canviarà el contingut diari (com ara l'article destacat) que es mostra a 'Explora'.";
+"settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació.";
 "settings-search-footer-text" = "Defineix l'aplicació per obrir la pestanya de cerca en comptes de la pestanya d'exploració";
 "settings-search-open-app-on-search" = "Obre l'aplicació en la pestanya de cerca";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permet a Wikimedia desar els articles desats i les llistes de lectures a les vostres preferències d'usuari quan inicieu una sessió i sincronitzeu.";
