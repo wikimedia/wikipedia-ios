@@ -18,7 +18,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
         view.addGestureRecognizer(tapGR)
 
-        collapsedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         collapsedArticleView.frame = view.bounds
         view.addSubview(collapsedArticleView)
 
@@ -73,7 +72,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         collapsedArticleView.titleTextStyle = .body
         collapsedArticleView.updateFonts(with: traitCollection)
         collapsedArticleView.tintColor = theme.colors.link
-        collapsedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
 
         expandedArticleView.configure(article: article, displayType: .pageWithPreview, index: 0, theme: theme, layoutOnly: false)
         expandedArticleView.tintColor = theme.colors.link
@@ -128,7 +126,6 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         }
         let isSaved = dataStore?.savedPageList.toggleSavedPage(forKey: articleKey) ?? false
         expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
-        collapsedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
     }
 
     @objc func handleTapGesture(_ tapGR: UITapGestureRecognizer) {
