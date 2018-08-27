@@ -49,7 +49,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    override open func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         extendedLayoutIncludesOpaqueBars = true
         title = CommonStrings.readingPreferences
