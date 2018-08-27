@@ -352,6 +352,7 @@
 "places-filter-saved-articles" = "Gordetako artikuluak";
 "places-filter-top-articles" = "Irakurrienak";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
+"places-filter-top-read-articles" = "Irakurritako artikulu gorenak";
 "places-location-enabled" = "Kokapena gaitua";
 "places-no-saved-articles-have-location" = "Zure gordetako artikuluetatik batek ere ez du kokapenari buruzko informazioa";
 "places-search-articles-that-match" = "$1 “$2”(r)ekin dator bat";
@@ -372,6 +373,7 @@
 "preference-title-eventlogging-opt-in" = "Bidali erabilpen iruzkina";
 "rank-accessibility-label" = "$1 zenbakia";
 "readers-accessibility-label" = "$1 irakurle";
+"reading-list-add-generic-hint-title" = "Artikulu hau gehitu irakurtze zerrendara?";
 "reading-list-add-hint-title" = "Gehitu $1 irakurketa zerrendara?";
 "reading-list-add-saved-button-title" = "Bai, gehitu itzazu nire irakurketa zerrendetara";
 "reading-list-add-saved-subtitle" = "Zure Wikipedia aplikazioan irakurketa zerrendako artikuluak gorde dira. Zure kontuarekin sinkronizatutako irakurketen zerrendak gorde eta bateratu nahi dituzu?";
