@@ -635,26 +635,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         layout.currentSection = nil
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex sectionIndex: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        guard let sections = fetchedResultsController?.sections else {
-            return
-        }
-        
-        guard sectionIndex < sections.count else {
-            return
-        }
-        
-        let count = sections[sectionIndex].numberOfObjects
-        for index in 0..<count {
-            let indexPath = IndexPath(item: index, section: sectionIndex)
-            collectionViewUpdater(updater, willRemoveItemAtIndexPath: indexPath, in: collectionView)
-        }
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        layoutCache.invalidateGroupKey(groupKey(at: indexPath))
-    }
-    
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
         layoutCache.invalidateGroupKey(groupKey(at: indexPath))
         collectionView.collectionViewLayout.invalidateLayout()
