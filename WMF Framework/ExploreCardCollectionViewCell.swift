@@ -309,7 +309,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = backgroundColor
-        cardShadowOpacity = theme.colors.cardShadowOpacity
+        cardShadowOpacity = theme.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
         let displayScale = max(1, traitCollection.displayScale)
