@@ -7,7 +7,7 @@ import UIKit
 
 @objc(WMFSaveButton) public class SaveButton: AlignedImageButton, EventLoggingEventValuesProviding {
     @objc(WMFSaveButtonState)
-    public enum State: Int {
+    public enum SaveButtonState: Int {
         case shortSaved
         case longSaved
         case shortSave
@@ -20,7 +20,7 @@ import UIKit
     public var eventLoggingLabel: EventLoggingLabel? = nil
     public var eventLoggingCategory: EventLoggingCategory = .feed
     
-    public var saveButtonState: SaveButton.State = .shortSave {
+    public var saveButtonState: SaveButton.SaveButtonState = .shortSave {
         didSet {
             let saveTitle: String
             let saveImage: UIImage?

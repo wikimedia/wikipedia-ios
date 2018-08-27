@@ -8,6 +8,13 @@
 
 // Emitted when article state changes. Can be used for things such as being notified when article 'saved' state changes.
 NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification";
+NSString *const WMFArticleDeletedNotification = @"WMFArticleDeletedNotification";
+NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey = @"WMFArticleDeletedNotificationUserInfoArticleKeyKey";
+
+NSString *const WMFContentGroupUpdatedNotification = @"WMFContentGroupUpdatedNotification";
+NSString *const WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey = @"WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey";
+NSString *const WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey = @"WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey";
+
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -319,9 +326,20 @@ static uint64_t bundleHash() {
                     continue;
                 }
                 [self.articlePreviewCache removeObjectForKey:articleKey];
-                if (![key isEqualToString:NSDeletedObjectsKey]) {
+                if ([key isEqualToString:NSDeletedObjectsKey]) { // Could change WMFArticleUpdatedNotification to use UserInfo for consistency but want to keep change set minimal at this point
+                    [nc postNotificationName:WMFArticleDeletedNotification object:[note object] userInfo:@{WMFArticleDeletedNotificationUserInfoArticleKeyKey: articleKey}];
+                } else {
                     [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
+            } else if ([object isKindOfClass:[WMFContentGroup class]]) {
+                WMFContentGroup *group = (WMFContentGroup *)object;
+                NSString *groupKey = group.key;
+                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+                if (groupKey) {
+                    userInfo[WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey] = groupKey;
+                }
+                userInfo[WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey] = key;
+                [nc postNotificationName:WMFContentGroupUpdatedNotification object:[note object] userInfo:userInfo];
             }
         }
     }

@@ -152,18 +152,12 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
+        if descriptionLabel.wmf_hasText || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            
-            if !isSaveButtonHidden {
-                origin.y += spacing
-                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
-            }
         } else {
             origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, spacing: 0, apply: apply)
         }
@@ -321,7 +315,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         self.theme = theme
         apply(theme: theme)
-        isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 100
     

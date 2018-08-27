@@ -14,6 +14,7 @@ struct ExploreSaveButtonUserInfo {
 }
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+    
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -29,6 +30,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         lm.delegate = self
         return lm
     }()
+    
+    deinit {
+        if visibleLocationCellCount > 0 {
+            locationManager.stopMonitoringLocation()
+        }
+    }
     
     lazy var editController: CollectionViewEditController = {
         let editController = CollectionViewEditController(collectionView: collectionView)
@@ -206,7 +213,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
-        cell.saveButton.eventLoggingLabel = eventLoggingLabel
+        if let fullWidthCell = cell as? ArticleFullWidthImageCollectionViewCell {
+            fullWidthCell.saveButton.eventLoggingLabel = eventLoggingLabel
+        }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -360,7 +369,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article, with: ExploreSaveButtonUserInfo(indexPath: indexPath, kind: contentGroup?.contentGroupKind, midnightUTCDate: contentGroup?.midnightUTCDate))
         }
         if cell is ArticleLocationExploreCollectionViewCell {
@@ -372,7 +381,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
         if cell is ArticleLocationExploreCollectionViewCell {

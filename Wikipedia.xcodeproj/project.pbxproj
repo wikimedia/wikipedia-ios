@@ -1405,6 +1405,7 @@
 		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
 		D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D8987E011E325C7A00E75DA6 /* WMFKeyValue+CoreDataClass.m */; };
 		D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D8987E031E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.m */; };
+		D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82C3A98213451100073EEAC /* DeviceInfo.swift */; };
 		D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */; };
 		D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */; };
 		D82E956A1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */; };
@@ -4262,6 +4263,7 @@
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
+		D82C3A98213451100073EEAC /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
 		D82CA32E2020E87D005C2D5C /* ReadingListsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsOperation.swift; path = "WMF Framework/ReadingListsOperation.swift"; sourceTree = SOURCE_ROOT; };
 		D82CA3322020E8D8005C2D5C /* ReadingListsSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsSyncOperation.swift; path = "WMF Framework/ReadingListsSyncOperation.swift"; sourceTree = SOURCE_ROOT; };
 		D82E954B1F15397D007BD960 /* ThemeableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTextField.swift; sourceTree = "<group>"; };
@@ -7501,6 +7503,7 @@
 				8383446B1F62EBD000BD5A37 /* UIView+Constraints.swift */,
 				B019FECE2029347200BDE9C9 /* UIStackView+SubviewVerification.swift */,
 				D837B5A51F06AA8C00DCB9CD /* Theme.swift */,
+				D82C3A98213451100073EEAC /* DeviceInfo.swift */,
 				D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */,
 				D8704C67203E399800C889C7 /* URLSessionTaskOperation.swift */,
 				D8CAD1E2203EEFDD006467E2 /* CSRFTokenOperation.swift */,
@@ -10594,6 +10597,7 @@
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
 				D8DC16EE1D6F6DEC00D6D9FB /* MWKSite.m in Sources */,
 				7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */,
+				D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
 				D8FA18F21E1BDA35009675C3 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				0E728D251DAEE2B50074EB4B /* WMFFeedContentFetcher.m in Sources */,

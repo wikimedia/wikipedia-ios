@@ -6,7 +6,6 @@ extension ArticleCollectionViewCell: Themeable {
         titleLabel.textColor = theme.colors.primaryText
         descriptionLabel.textColor = theme.colors.secondaryText
         extractLabel?.textColor = theme.colors.primaryText
-        saveButton.setTitleColor(theme.colors.link, for: .normal)
         imageView.alpha = theme.imageOpacity
         statusView.backgroundColor = theme.colors.warning
         alertIcon.tintColor = alertType == .downloading ? theme.colors.warning : theme.colors.error
@@ -22,5 +21,12 @@ extension ArticleRightAlignedImageCollectionViewCell {
         super.apply(theme: theme)
         bottomSeparator.backgroundColor = theme.colors.border
         topSeparator.backgroundColor = theme.colors.border
+    }
+}
+
+extension ArticleFullWidthImageCollectionViewCell {
+    open override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        saveButton.setTitleColor(theme.colors.link, for: .normal)
     }
 }
