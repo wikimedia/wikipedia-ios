@@ -1068,16 +1068,19 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
                 mapListToggleContainer.isHidden = true
+                navigationBar.isInteractiveHidingEnabled = false
+                listViewController.scrollView?.contentInsetAdjustmentBehavior = .automatic
             case .list:
                 deselectAllAnnotations()
                 listViewController.updateLocationOnVisibleCells()
                 logListViewImpressionsForVisibleCells()
                 emptySearchOverlayView.removeFromSuperview()
-                
                 mapView.isHidden = true
                 listContainerView.isHidden = false
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = false
+                navigationBar.isInteractiveHidingEnabled = true
+                listViewController.scrollView?.contentInsetAdjustmentBehavior = .never
             case .searchOverlay:
                 if overlayState == .min {
                     set(overlayState: .mid, withVelocity: 0, animated: true)
@@ -1086,11 +1089,19 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                navigationBar.isInteractiveHidingEnabled = false
+                searchSuggestionView.contentInsetAdjustmentBehavior = .automatic
+                scrollView = nil
+                searchSuggestionController.navigationBarHider = nil
             case .search:
                 mapView.isHidden = true
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = false
                 listAndSearchOverlayContainerView.isHidden = false
+                navigationBar.isInteractiveHidingEnabled = true
+                searchSuggestionView.contentInsetAdjustmentBehavior = .never
+                scrollView = searchSuggestionView
+                searchSuggestionController.navigationBarHider = navigationBarHider
             case .map:
                 fallthrough
             default:
@@ -1098,6 +1109,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 listContainerView.isHidden = true
                 searchSuggestionView.isHidden = true
                 listAndSearchOverlayContainerView.isHidden = true
+                navigationBar.isInteractiveHidingEnabled = false
             }
             recenterOnUserLocationButton.isHidden = mapView.isHidden
             if (mapView.isHidden) {
@@ -1106,8 +1118,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 updateViewIfMapMovedSignificantly(forVisibleRegion: mapView.region)
             }
             listAndSearchOverlayContainerView.radius = isViewModeOverlay ? 5 : 0
-            navigationBar.isInteractiveHidingEnabled = !mapListToggleContainer.isHidden
-            listViewController.scrollView?.contentInsetAdjustmentBehavior = mapListToggleContainer.isHidden ? .automatic : .never
         }
     }
 
