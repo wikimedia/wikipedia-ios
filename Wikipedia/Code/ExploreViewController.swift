@@ -23,6 +23,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(contentGroupDidChange(_:)), name: NSNotification.Name.WMFContentGroupUpdated, object: nil)
     }
 
     deinit {
@@ -801,6 +803,20 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateArticleKey(article.key)
+    }
+    
+    @objc func articleDeleted(_ note: Notification) {
+        guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? String else {
+            return
+        }
+        layoutCache.invalidateArticleKey(articleKey)
+    }
+    
+    @objc func contentGroupDidChange(_ note: Notification) {
+        guard let groupKey = note.userInfo?[WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey] as? String else {
+            return
+        }
+        layoutCache.invalidateGroupKey(groupKey)
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
