@@ -243,8 +243,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             defaults.wmf_setPlacesHasAppeared(true)
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChanged), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         guard WMFLocationManager.isAuthorized() else {
             if !defaults.wmf_placesDidPromptForLocationAuthorization() {
@@ -388,39 +386,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         alertController.popoverPresentationController?.barButtonItem = sender
         present(alertController, animated: true)
     }
-    
-    // MARK: - Keyboard
-    
-    @objc func keyboardChanged(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-            let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
-                return
-        }
-        let keyboardScreenFrame = frameValue.cgRectValue
-        var inset = searchSuggestionView.contentInset
-        inset.bottom = keyboardScreenFrame.size.height
-        searchSuggestionView.contentInset = inset
-        
-        let keyboardViewFrame = emptySearchOverlayView.convert(keyboardScreenFrame, from: (UIApplication.shared.delegate?.window)!)
-        
-        switch (notification.name) {
-        case NSNotification.Name.UIKeyboardWillShow:
-            let overlap = keyboardViewFrame.intersection(emptySearchOverlayView.frame)
-            var newFrame = emptySearchOverlayView.frame
-            newFrame.size.height -= overlap.height
-            emptySearchOverlayView.frame = newFrame
-            
-        case NSNotification.Name.UIKeyboardWillHide:
-            // reset the frame
-            emptySearchOverlayView.frame = searchSuggestionView.frame
-            
-        default:
-            DDLogWarn("unexpected notification \(notification.name)")
-        }
 
-        self.view.setNeedsLayout()
-    }
-    
     // MARK: - Map Region
     
     fileprivate func region(thatFits regionToFit: MKCoordinateRegion) -> MKCoordinateRegion {
@@ -1663,6 +1629,11 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }, completion: nil)
     }
     
+    override func scrollViewInsetsDidChange() {
+        super.scrollViewInsetsDidChange()
+        emptySearchOverlayView.frame = UIEdgeInsetsInsetRect(searchSuggestionView.frame, searchSuggestionView.contentInset)
+    }
+    
     func dismissCurrentArticlePopover() {
         guard let popover = selectedArticlePopover else {
             return
@@ -1920,7 +1891,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             let searchText = searchBar.text ?? ""
             if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
                 setupEmptySearchOverlayView()
-                emptySearchOverlayView.frame = searchSuggestionView.frame
+                emptySearchOverlayView.frame = UIEdgeInsetsInsetRect(searchSuggestionView.frame, searchSuggestionView.contentInset)
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
             } else {
                 emptySearchOverlayView.removeFromSuperview()
