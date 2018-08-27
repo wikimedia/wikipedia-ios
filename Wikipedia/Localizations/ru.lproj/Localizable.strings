@@ -419,6 +419,7 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-list-add-generic-hint-title" = "Добавить эту статью в список для чтения?";
 "reading-list-add-hint-title" = "Добавить “$1” в список для чтения";
 "reading-list-add-saved-button-title" = "Да, добавьте их в мои списки чтения";
 "reading-list-add-saved-subtitle" = "Есть статьи, сохранённые в вашем приложении в Википедии. Хотите сохранить их и объединить с списками чтения, синхронизированными с вашей учётной записью?";
