@@ -53,7 +53,7 @@
 "abuse-filter-warning-blanking" = "문서가 비어 있거나 스팸을 넣음";
 "abuse-filter-warning-caps" = "모두 대문자로 입력";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
-"abuse-filter-warning-irrelevant" = "관련 없는 바깥 링크나 그림";
+"abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
 "abuse-filter-warning-repeat" = "글자 반복";
 "abuse-filter-warning-subheading" = "당신의 편집에 다음 중 하나 이상을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
@@ -406,6 +406,7 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-list-add-generic-hint-title" = "이 문서를 읽기 목록ㄹ에 추가하시겠습니까?";
 "reading-list-add-hint-title" = "\"$1\" 문서를 읽기 목록에 추가할까요?";
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
 "reading-list-add-saved-subtitle" = "위키백과 앱에 저장된 문서가 있습니다. 이 문서들을 보관하고 계정에 동기화된 읽기 목록으로 병합하시겠습니까?";
@@ -629,7 +630,7 @@
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
 "zero-interstitial-cancel" = "여기에 머물기";
 "zero-interstitial-continue" = "떠나기";
-"zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 바깥 사이트로 계속해서 떠날까요?";
+"zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 외부 사이트로 계속해서 떠날까요?";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
 "zero-learn-more" = "데이터 요금은 이 위키백과 앱에 대해서 면제됩니다.";
 "zero-learn-more-learn-more" = "더 읽어보기";

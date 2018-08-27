@@ -311,6 +311,7 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-list-add-generic-hint-title" = "Dësen Artikel op eng Lieslëscht derbäisetzen?";
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";

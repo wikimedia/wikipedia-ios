@@ -72,24 +72,6 @@
 			<string>%1$d историјских догађаја</string>
 		</dict>
 	</dict>
-	<key>places-accessibility-group</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v0@</string>
-		<key>v0</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
-			<key>few</key>
-			<string>%1$@ чланка</string>
-			<key>one</key>
-			<string>%1$@ чланак</string>
-			<key>other</key>
-			<string>%1$@ чланака</string>
-		</dict>
-	</dict>
 	<key>places-filter-top-articles-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -169,9 +151,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Избрисати листу?</string>
+			<string>Избрисати списак?</string>
 			<key>other</key>
-			<string>Избрисати листе?</string>
+			<string>Избрисати спискове?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
