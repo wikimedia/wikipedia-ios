@@ -367,8 +367,22 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar
         bar.isHidden = isUsingTitleBarInsteadOfNavigationBar
         titleBar.isHidden = !isUsingTitleBarInsteadOfNavigationBar
-        barTopSpacing = isUsingTitleBarInsteadOfNavigationBar ? 30 : 0
+        updateBarTopSpacing()
         setNeedsUpdateConstraints()
+    }
+    
+    public override func safeAreaInsetsDidChange() {
+        super.safeAreaInsetsDidChange()
+        updateBarTopSpacing()
+    }
+    
+    // collapse bar top spacing if there's no status bar
+    private func updateBarTopSpacing() {
+        guard displayType == .largeTitle else {
+            barTopSpacing = 0
+            return
+        }
+        barTopSpacing = safeAreaInsets.top > 0 ? 30 : 0
     }
     
     private func updateShadowConstraints() {
@@ -414,7 +428,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let navigationBarPercentHidden = _navigationBarPercentHidden
         let extendedViewPercentHidden = _extendedViewPercentHidden
         let underBarViewPercentHidden = _underBarViewPercentHidden
-        let topSpacingPercentHidden = _topSpacingPercentHidden
+        let topSpacingPercentHidden = safeAreaInsets.top > 0 ? _topSpacingPercentHidden : 1 // treat top spacing as hidden if there's no status bar so that the title is smaller
         
         let underBarViewHeight = underBarView.frame.height
         let barHeight = self.barHeight
