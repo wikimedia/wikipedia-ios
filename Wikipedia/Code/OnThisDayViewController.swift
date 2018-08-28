@@ -147,6 +147,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         wmf_push(viewControllerToCommit, animated: true)
     }
 
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
+    }
+
 }
 
 class OnThisDayViewControllerBlankHeader: UICollectionReusableView {
@@ -187,7 +193,7 @@ extension OnThisDayViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard indexPath.section > 0 else {
+        guard indexPath.section > 0, kind == UICollectionElementKindSectionHeader else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
         guard
@@ -248,7 +254,13 @@ extension OnThisDayViewController {
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath) {
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: indexPath.item)
+        let index: Int?
+        if let indexPath = collectionView.indexPath(for: sideScrollingCollectionViewCell) {
+            index = indexPath.section - 1
+        } else {
+            index = nil
+        }
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: index, maxViewed: maxViewed)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: self.theme, animated: true)
     }
 }

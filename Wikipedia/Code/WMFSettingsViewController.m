@@ -50,7 +50,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) WMFTheme *theme;
 
 @property (nullable, nonatomic) WMFAuthenticationManager *authManager;
 
@@ -82,7 +81,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     self.authManager = [WMFAuthenticationManager sharedInstance];
 
-    [self applyTheme:self.theme];
+    self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
 }
 
 - (void)dealloc {
@@ -107,7 +106,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
+- (UIScrollView *_Nullable)scrollView {
+    return self.tableView;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
     [self loadSections];
@@ -280,7 +284,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        [self presentViewControllerWrappedInNavigationController:vc];
     }
 }
 #endif
@@ -370,6 +374,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)showLanguages {
     WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
+    languagesVC.showExploreFeedCustomizationSettings = YES;
     languagesVC.delegate = self;
     [languagesVC applyTheme:self.theme];
     [self presentViewControllerWrappedInNavigationController:languagesVC];
@@ -405,7 +410,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithNibName:@"NotificationSettingsViewController" bundle:nil];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
@@ -413,7 +418,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Appearance
 
 - (void)showAppearance {
-    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+    WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
     [appearanceSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
@@ -421,16 +426,16 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
-    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] initWithNibName:@"StorageAndSyncingSettingsViewController" bundle:nil];
-    [storageAndSyncingSettingsVC applyTheme:self.theme];
+    WMFStorageAndSyncingSettingsViewController *storageAndSyncingSettingsVC = [[WMFStorageAndSyncingSettingsViewController alloc] init];
     storageAndSyncingSettingsVC.dataStore = self.dataStore;
+    [storageAndSyncingSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:storageAndSyncingSettingsVC animated:YES];
 }
 
 - (void)showStorageAndSyncingDebug {
 #if DEBUG
     DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewControllerWrappedInNavigationController:vc];
 #endif
 }
 
@@ -513,9 +518,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Search]];
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:10]) {
-        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
-    }
+
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
 #if DEBUG
@@ -573,6 +578,37 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #endif
 }
 
+#pragma mark - Scroll view
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillBeginDragging:scrollView];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    [self.navigationBarHider scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndDecelerating:scrollView];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidEndScrollingAnimation:scrollView];
+}
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewWillScrollToTop:scrollView];
+    return YES;
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    [self.navigationBarHider scrollViewDidScrollToTop:scrollView];
+}
+
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary<NSKeyValueChangeKey, id> *)change context:(nullable void *)context {
@@ -586,12 +622,14 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    self.theme = theme;
+    [super applyTheme:theme];
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.tableView.backgroundColor = theme.colors.baseBackground;
     self.tableView.indicatorStyle = theme.scrollIndicatorStyle;
     self.view.backgroundColor = theme.colors.baseBackground;
     [self loadSections];
-    [self.tableView wmf_applyThemeToHeadersAndFooters:theme];
 }
 
 @end

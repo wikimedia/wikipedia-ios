@@ -32,6 +32,8 @@
 "about-libraries-complete-list" = "완성 목록";
 "about-libraries-license" = "라이선스";
 "about-libraries-licenses-title" = "저희는 오픈 소스 소프트웨어 $1을(를) 좋아합니다";
+"about-places-maps-license" = "장소 지도 라이선스";
+"about-places-maps-license-details" = "장소는 애플 지도가 제공한 지도를 사용합니다. $1.";
 "about-places-maps-license-details-link-text" = "자세한 라이선스에 대해서는 여기를 확인해 주십시오";
 "about-product-of" = "여러분과 같은 기여자들의 도움으로 $1이 개발하였습니다";
 "about-repositories" = "저장소";
@@ -51,7 +53,7 @@
 "abuse-filter-warning-blanking" = "문서가 비어 있거나 스팸을 넣음";
 "abuse-filter-warning-caps" = "모두 대문자로 입력";
 "abuse-filter-warning-heading" = "비생산적인 편집인 것 같습니다. 그래도 게시하겠습니까?";
-"abuse-filter-warning-irrelevant" = "관련 없는 바깥 링크나 그림";
+"abuse-filter-warning-irrelevant" = "관련 없는 외부 링크나 그림";
 "abuse-filter-warning-repeat" = "글자 반복";
 "abuse-filter-warning-subheading" = "당신의 편집에 다음 중 하나 이상을 포함할 수 있습니다:";
 "account-creation-captcha-cannot-see-image" = "사진이 보이지 않습니까? $1";
@@ -154,10 +156,13 @@
 "explore-because-you-read" = "당신이 읽었기 때문입니다";
 "explore-because-you-read-footer" = "추가 관련 문서";
 "explore-continue-reading-heading" = "계속 읽기";
+"explore-detail-back-button-title" = "탐색 피드로 돌아가기";
 "explore-enable-location-title" = "주변 지역에 관한 글을 찾아보세요";
 "explore-featured-article-heading" = "알찬 글";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 위키백과에서";
 "explore-featured-article-sub-heading-from-wikipedia" = "위키백과에서";
+"explore-feed-customize-accessibility-title" = "사용자 지정";
+"explore-feed-language-settings" = "탐색 피드 언어 설정";
 "explore-feed-preferences-additional-languages-footer-text" = "'내 언어' 설정 문서에서 추가 언어를 추가할 수 있습니다.";
 "explore-feed-preferences-card-hidden-title" = "카드 숨겨짐";
 "explore-feed-preferences-continue-reading-description" = "열린 문서 읽기로 돌아가는 빠른 링크";
@@ -178,6 +183,7 @@
 "explore-feed-preferences-hide-card-action-title" = "이 카드 숨기기";
 "explore-feed-preferences-hide-feed-cards-action-title" = "모든 %@ 카드 숨기기";
 "explore-feed-preferences-in-the-news-description" = "요즘 화제에 관한 글";
+"explore-feed-preferences-languages-footer-text" = "자신의 모든 언어의 모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지게 됩니다.";
 "explore-feed-preferences-on-this-day-description" = "오늘의 역사의 사건";
 "explore-feed-preferences-places-description" = "주변 지역의 위키백과 문서";
 "explore-feed-preferences-potd-description" = "공용의 일일 알찬 그림";
@@ -193,6 +199,9 @@
 "explore-feed-preferences-show-picture-of-the-day-title" = "오늘의 사진 카드 표시";
 "explore-feed-preferences-show-places-footer-text" = "장소 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-show-places-title" = "장소 카드 표시";
+"explore-feed-preferences-show-randomizer-footer-text" = "임의 문서 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
+"explore-feed-preferences-show-randomizer-title" = "임의 문서 카드 표시";
+"explore-feed-preferences-show-top-read-footer-text" = "많이 읽은 글 카드를 끄면 사용 가능한 모든 언어에 대한 카드가 꺼지게 됩니다.";
 "explore-feed-preferences-top-read-description" = "하루 중 가장 많이 읽은 글";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "탐색 피드 끄기";
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "모든 탐색 피드 카드를 숨기면 탐색 탭이 꺼지고 설정 탭으로 바뀝니다";
@@ -397,6 +406,7 @@
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
 "readers-accessibility-label" = "$1명의 독자";
+"reading-list-add-generic-hint-title" = "이 문서를 읽기 목록ㄹ에 추가하시겠습니까?";
 "reading-list-add-hint-title" = "\"$1\" 문서를 읽기 목록에 추가할까요?";
 "reading-list-add-saved-button-title" = "예, 내 읽기 목록에 추가합니다";
 "reading-list-add-saved-subtitle" = "위키백과 앱에 저장된 문서가 있습니다. 이 문서들을 보관하고 계정에 동기화된 읽기 목록으로 병합하시겠습니까?";
@@ -448,6 +458,7 @@
 "reading-list-unable-to-update" = "읽기 목록을 업데이트하는 동안 예측하지 못한 오류가 발생했습니다. 나중에 다시 시도해 주십시오.";
 "reading-list-with-provided-name-not-found" = "\"$1\" 이름의 읽기 목록을 찾을 수 없습니다. 올바른 이름인지 확인해 주십시오.";
 "reading-lists-article-added-confirmation" = "문서를 \"$1\" 목록에 추가했습니다";
+"reading-lists-article-api-failure" = "문서를 동기화할 수 없습니다";
 "reading-lists-article-not-synced" = "동기화되지 않음";
 "reading-lists-article-not-synced-article-limit-exceeded" = "문서 수 제한에 도달하여 문서를 동기화할 수 없습니다";
 "reading-lists-article-not-synced-list-limit-exceeded" = "목록 제한에 도달하여 문서를 동기화할 수 없습니다";
@@ -512,6 +523,7 @@
 "settings-clear-cache-ok" = "캐시 지우기";
 "settings-help-and-feedback" = "도움말 및 의견";
 "settings-language-bar" = "검색 결과에 표시할 언어";
+"settings-languages-feed-customization" = "탐색 피드 설정의 사용자 지정을 통해 어느 언어가 탐색 피드에 표시될지 관리할 수 있습니다.";
 "settings-my-languages" = "내 언어";
 "settings-notifications" = "알림";
 "settings-notifications-info" = "가장 많이 읽은 최신 유행의 위키백과 문서를 푸시 알림으로 알려줍니다. 개인 정보와 시간 데이터까지 모두 제공됩니다.";
@@ -520,7 +532,7 @@
 "settings-notifications-system-turn-on" = "알림 켜기";
 "settings-notifications-trending" = "새로 들어온 소식";
 "settings-primary-language" = "주 언어";
-"settings-primary-language-details" = "이 목록에 처음 사용한 언어가 이 앱의 주 언어로 사용됩니다. 이 언어를 변경하면 탐색에서 보이는 오늘의 글(알찬 글 등)이 변경됩니다.";
+"settings-primary-language-details" = "이 목록의 첫 번째 언어가 이 앱의 주 언어로 사용됩니다.";
 "settings-search-footer-text" = "이 앱을 탐색 탭이 아닌 검색 탭에 개방되도록 설정";
 "settings-search-open-app-on-search" = "검색 탭에서 앱 열기";
 "settings-storage-and-syncing-enable-sync-footer-text" = "로그인하고 동기화할 때 내가 저장한 문서와 읽기 목록을 위키미디어가 환경 설정에 저장할 수 있게 합니다.";
@@ -539,7 +551,6 @@
 "settings-support" = "위키백과 지원";
 "settings-title" = "설정";
 "share-a-fact-made-with" = "위키백과 앱으로 작성함";
-"share-a-fact-share-menu-item" = "사실을 공유…";
 "share-article-name-on-wikipedia" = "@Wikipedia의 \"$1\":";
 "share-building" = "사실을 공유 카드를 만드는 중...";
 "share-custom-menu-item" = "공유...";
@@ -619,7 +630,7 @@
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
 "zero-interstitial-cancel" = "여기에 머물기";
 "zero-interstitial-continue" = "떠나기";
-"zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 바깥 사이트로 계속해서 떠날까요?";
+"zero-interstitial-leave-app" = "데이터 요금이 부과될 수 있습니다. 외부 사이트로 계속해서 떠날까요?";
 "zero-interstitial-title" = "위키백과 제로를 떠나고 있습니다";
 "zero-learn-more" = "데이터 요금은 이 위키백과 앱에 대해서 면제됩니다.";
 "zero-learn-more-learn-more" = "더 읽어보기";

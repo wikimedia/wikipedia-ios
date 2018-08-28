@@ -369,9 +369,7 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-
     }
-
 }
 
 // MARK: - ActionDelegate

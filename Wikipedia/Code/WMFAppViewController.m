@@ -118,6 +118,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) SavedTabBarItemProgressBadgeManager *savedTabBarItemProgressBadgeManager;
 
+@property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
+
 @end
 
 @implementation WMFAppViewController
@@ -319,7 +321,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.showCloseButton = NO;
-            [navigationController setNavigationBarHidden:NO animated:animated];
     }
 }
 
@@ -337,6 +338,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.unprocessedShortcutItem = nil;
 
     [[SessionsFunnel shared] logSessionStart];
+    [UserHistoryFunnel.shared logSnapshot];
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
@@ -345,9 +347,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
         [self.savedArticlesFetcher start];
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-        [[WMFEventLoggingService sharedInstance] start];
-#endif
+        [self startEventLogging];
     }
 }
 
@@ -448,13 +448,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
-        [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
-                                                    sticky:YES
-                                     dismissPreviousAlerts:YES
-                                               tapCallBack:nil];
+        if (!self.hasSyncErrorBeenShownThisSesssion) {
+            self.hasSyncErrorBeenShownThisSesssion = YES; //only show sync error once for multiple failed syncs
+            [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
+                                                        sticky:YES
+                                         dismissPreviousAlerts:YES
+                                                   tapCallBack:nil];
+        }
     }
 
     if (!error) {
+        self.hasSyncErrorBeenShownThisSesssion = NO; // reset on successful sync
         if ([[NSDate date] timeIntervalSinceDate:self.syncStartDate] >= 5) {
             NSInteger syncedReadingListsCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListsCountKey] integerValue];
             NSInteger syncedReadingListEntriesCount = [note.userInfo[WMFReadingListsController.syncDidFinishSyncedReadingListEntriesCountKey] integerValue];
@@ -788,9 +792,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)finishResumingApp {
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] start];
-#endif
+    [self startEventLogging];
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
@@ -874,6 +876,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)pauseApp {
     [self logSessionEnd];
+    [self stopEventLogging];
 
     if (![self uiIsLoaded]) {
         return;
@@ -944,6 +947,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 #pragma mark - Logging
+
+- (void)startEventLogging {
+    [[WMFEventLoggingService sharedInstance] start];
+}
+
+- (void)stopEventLogging {
+    [[WMFEventLoggingService sharedInstance] stop];
+}
 
 - (void)logSessionEnd {
     [[SessionsFunnel shared] logSessionEnd];
@@ -1142,7 +1153,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFUserActivityTypeAppearanceSettings: {
             [self setSelectedIndex:WMFAppTabTypeMain];
             [[self navigationControllerForTab:WMFAppTabTypeMain] popToRootViewControllerAnimated:NO];
-            WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] initWithNibName:@"AppearanceSettingsViewController" bundle:nil];
+            WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
@@ -1220,7 +1231,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     return (UINavigationController *)[self viewControllers][tab];
 }
 
-- (UIViewController<WMFAnalyticsViewNameProviding> *)rootViewControllerForTab:(WMFAppTabType)tab {
+- (UIViewController *)rootViewControllerForTab:(WMFAppTabType)tab {
     return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
 }
 
@@ -1299,8 +1310,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (WMFPlacesViewController *)placesViewController {
     if (!_placesViewController) {
         _placesViewController = [[UIStoryboard storyboardWithName:@"Places" bundle:nil] instantiateInitialViewController];
-        [_placesViewController applyTheme:self.theme];
         _placesViewController.dataStore = self.dataStore;
+        [_placesViewController applyTheme:self.theme];
     }
     return _placesViewController;
 }

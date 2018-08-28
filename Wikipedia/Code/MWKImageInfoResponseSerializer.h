@@ -4,6 +4,4 @@
 
 + (NSArray<NSString *> *)galleryExtMetadataKeys;
 
-+ (NSArray<NSString *> *)picOfTheDayExtMetadataKeys;
-
 @end

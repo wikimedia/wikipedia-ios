@@ -59,31 +59,25 @@
     // - MARK: Feed
     
     @objc public func logSaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logSave(category: .feed, label: saveButton?.eventLoggingLabel ?? .none, articleURL: articleURL, measureAge: daysSince(date), measurePosition: index)
     }
     
     @objc public func logUnsaveInFeed(saveButton: SaveButton?, articleURL: URL, kind: WMFContentGroupKind, index: Int, date: Date) {
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        let measurePosition = kind == .relatedPages ? index : index + 1 // related pages start at 0, others start at 1
-        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince, measurePosition: measurePosition)
+        logUnsave(category: .feed, label: saveButton?.eventLoggingLabel, articleURL: articleURL, measureAge: daysSince(date), measurePosition: index)
     }
     
-    @objc public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
-        let date = context?.midnightUTCDate
-        let now = NSDate().wmf_midnightUTCDateFromLocal
-        let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+    public func logSaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
+        logSave(category: .feed, label: context?.label ?? .none, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
     }
     
-    @objc public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int) {
-        let date = context?.midnightUTCDate
+    public func logUnsaveInFeed(context: FeedFunnelContext?, articleURL: URL, index: Int?) {
+        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince(context?.midnightUTCDate), measurePosition: index)
+    }
+
+    private func daysSince(_ date: Date?) -> Int? {
         let now = NSDate().wmf_midnightUTCDateFromLocal
         let daysSince = NSCalendar.wmf_gregorian().wmf_days(from: date, to: now)
-        logUnsave(category: .feed, label: context?.label, articleURL: articleURL, measureAge: daysSince, measurePosition: index)
+        return daysSince
     }
     
     // - MARK: Places
@@ -102,7 +96,7 @@
         log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: language)
     }
     
-    public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
+    private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
         log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_language)
     }
     
@@ -118,8 +112,16 @@
         log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: language)
     }
     
-    public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
+    private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
         log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_language)
+    }
+
+    public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
+        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_language)
+    }
+
+    public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
+        log(event(category: category, label: label, action: .save, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_language)
     }
     
     // - MARK: Saved - default reading list

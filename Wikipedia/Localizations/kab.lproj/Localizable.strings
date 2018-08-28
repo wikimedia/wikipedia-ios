@@ -327,11 +327,11 @@
 "settings-notifications-system-turn-on" = "Rmed ilɣa";
 "settings-notifications-trending" = "Amek teddunt tidyanin timiranin";
 "settings-primary-language" = "Agejdan";
+// Fuzzy
 "settings-primary-language-details" = "Tutlayt tamezwarut di tebdart-agi ad tettwaseqdec d tutlayt tagejdant n usnas-ik. Asnifel n tutlayt-agi ad ibeddel agbur n wass (am imagraden itran) yettwaseknen di Snirem (Explore).";
 "settings-support" = "Mudd afus i Wikipedia";
 "settings-title" = "Iɣewwaren";
 "share-a-fact-made-with" = "Yettwag s usnas Wikipedia";
-"share-a-fact-share-menu-item" = "Bḍu-tigawt...";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
 "share-building" = "Rnu takarḍa Bḍu-tigawt...";
 "share-custom-menu-item" = "Bḍu...";

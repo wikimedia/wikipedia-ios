@@ -151,6 +151,7 @@
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Từ Wikipedia tiếng $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Từ Wikipedia";
+"explore-feed-customize-accessibility-title" = "Tùy chỉnh";
 "explore-feed-preferences-additional-languages-footer-text" = "Có thể chọn thêm ngôn ngữ trong trang cài đặt “Ngôn ngữ của tôi”.";
 "explore-feed-preferences-card-hidden-title" = "Phiếu đã ẩn";
 "explore-feed-preferences-customize-explore-feed" = "Tùy biến nguồn cấp Thám hiểm";
@@ -485,6 +486,7 @@
 "settings-notifications-system-turn-on" = "Bật Thông báo";
 "settings-notifications-trending" = "Thời sự thịnh hành";
 "settings-primary-language" = "Chính";
+// Fuzzy
 "settings-primary-language-details" = "Ngôn ngữ đứng đầu tiên trong danh sách này sẽ được dùng làm ngôn ngữ chính của ứng dụng. Thay đổi nó sẽ làm thay đổi các nội dung hằng ngày (chẳng hạn mục Bài viết chọn lọc) hiển thị ở Thám hiểm.";
 "settings-search-footer-text" = "Hiển thị thẻ Tìm kiếm thay vì thẻ Thám hiểm khi mở ứng dụng";
 "settings-search-open-app-on-search" = "Hiện thẻ Tìm kiếm khi mở ứng dụng";
@@ -503,7 +505,6 @@
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";
-"share-a-fact-share-menu-item" = "Chia sẻ một sự thật…";
 "share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
 "share-building" = "Đang tạo phiếu chia sẻ sự thật…";
 "share-custom-menu-item" = "Chia sẻ…";

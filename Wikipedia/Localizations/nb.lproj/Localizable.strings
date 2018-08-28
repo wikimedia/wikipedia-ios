@@ -118,6 +118,7 @@
 "empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-history-message" = "Her kan du holde styr på hva du har lest";
 "empty-no-history-title" = "Ingen historikk å vise";
+"empty-no-reading-lists-message" = "Opprett lister for steder du vil reise til, favorittemner og mye mer";
 "empty-no-saved-pages-in-reading-list-title" = "Ingen sider er lagret i denne listen";
 "empty-no-saved-pages-message" = "Lagre sider for senere visning, også offline.";
 "empty-no-saved-pages-title" = "Ingen sider lagret enda";
@@ -310,6 +311,7 @@
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 lesere";
 "reading-list-sync-disabled-panel-title" = "Synkronisering er skrudd av";
+"reading-lists-article-api-failure" = "Artikkelen kunne ikke lastes inn.";
 "reading-themes-controls-accessibility-black-theme-button" = "Svart drakt";
 "reading-themes-controls-accessibility-brightness-slider" = "Glidebryter for lysstyrke";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk drakt";
@@ -351,11 +353,11 @@
 "settings-notifications-system-turn-on" = "Slå på varsler";
 "settings-notifications-trending" = "Tendende aktuelle hendelser";
 "settings-primary-language" = "Primær";
+// Fuzzy
 "settings-primary-language-details" = "Det første språket i denne lista brukes som primærspråk for appen. Dette påvirker hvilket innhold som vises under Utforsk (f.eks. hvilken utmerket artikkel).";
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
 "share-a-fact-made-with" = "Laget med Wikipedia-appen";
-"share-a-fact-share-menu-item" = "Del fakta …";
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger faktadelingskort …";
 "share-custom-menu-item" = "Del ...";

@@ -191,6 +191,9 @@
 }
 
 - (id)objectInEntriesAtIndex:(NSUInteger)idx {
+    if (![self countOfEntries] || [self countOfEntries] <= idx) {
+        return NULL;
+    }
     return [_mutableEntries objectAtIndex:idx];
 }
 

@@ -25,7 +25,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         super.reset()
         bottomSeparator.isHidden = true
         topSeparator.isHidden = true
-        titleTextStyle = .body
+        titleTextStyle = .callout
         updateFonts(with: traitCollection)
     }
     
@@ -48,19 +48,13 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
+        if descriptionLabel.wmf_hasText || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             descriptionLabel.isHidden = false
-            
-            if !isSaveButtonHidden {
-                origin.y += spacing
-                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
-            }
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)

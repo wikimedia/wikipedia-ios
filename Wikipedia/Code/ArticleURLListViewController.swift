@@ -3,12 +3,11 @@ import UIKit
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
     private var updater: ArticleURLProviderEditControllerUpdater?
-    private let feedFunnelContext: FeedFunnelContext
-    
+
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
-        feedFunnelContext = FeedFunnelContext(contentGroup)
         super.init()
+        feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme
         self.dataStore = dataStore
     }
@@ -49,7 +48,11 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {
-        return feedFunnelContext.label
+        return feedFunnelContext?.label
+    }
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -75,13 +78,14 @@ extension ArticleURLListViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleURLListViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        let vc = super.previewingContext(previewingContext, viewControllerForLocation: location)
         FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: previewedIndexPath?.item)
-        return super.previewingContext(previewingContext, viewControllerForLocation: location)
+        return vc
     }
 
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndexPath?.item, maxViewed: maxViewed)
         super.previewingContext(previewingContext, commit: viewControllerToCommit)
+        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndexPath?.item, maxViewed: maxViewed)
     }
 }
 

@@ -3,6 +3,7 @@ import UIKit
 protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var readingListHintController: ReadingListHintController { get }
+    var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
 }
 
@@ -13,6 +14,7 @@ struct ExploreSaveButtonUserInfo {
 }
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+    
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -28,6 +30,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         lm.delegate = self
         return lm
     }()
+    
+    deinit {
+        if visibleLocationCellCount > 0 {
+            locationManager.stopMonitoringLocation()
+        }
+    }
     
     lazy var editController: CollectionViewEditController = {
         let editController = CollectionViewEditController(collectionView: collectionView)
@@ -205,7 +213,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
-        cell.saveButton.eventLoggingLabel = eventLoggingLabel
+        if let fullWidthCell = cell as? ArticleFullWidthImageCollectionViewCell {
+            fullWidthCell.saveButton.eventLoggingLabel = eventLoggingLabel
+        }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -359,7 +369,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article, with: ExploreSaveButtonUserInfo(indexPath: indexPath, kind: contentGroup?.contentGroupKind, midnightUTCDate: contentGroup?.midnightUTCDate))
         }
         if cell is ArticleLocationExploreCollectionViewCell {
@@ -371,7 +381,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
         if cell is ArticleLocationExploreCollectionViewCell {
@@ -398,12 +408,24 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
+        let key: String?
+        let article: WMFArticle? = self.article(at: indexPath)
+        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
+            key = "\(contentGroupKey)-\(indexPath.row)"
+        } else {
+            key = article?.key
+        }
+        let userInfo = "\(key ?? "")-\(displayType.rawValue)"
+        if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
+            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: height)
+        }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
         let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: contentGroup?.key, articleKey: article?.key, userInfo: userInfo)
         estimate.height = height
         estimate.precalculated = true
         return estimate
@@ -419,6 +441,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, prefersWiderColumnForSectionAt index: UInt) -> Bool {
         return true
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
+        return false
     }
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
@@ -642,18 +668,6 @@ extension ExploreCardViewController: Themeable {
         }
         collectionView.backgroundColor = theme.colors.cardBackground
         view.backgroundColor = theme.colors.cardBackground
-    }
-}
-
-extension ExploreCardViewController: AnalyticsContextProviding {
-    var analyticsContext: String {
-        return "explore"
-    }
-}
-
-extension ExploreCardViewController: AnalyticsContentTypeProviding {
-    var analyticsContentType: String {
-        return contentGroup?.analyticsContentType ?? "unknown"
     }
 }
 

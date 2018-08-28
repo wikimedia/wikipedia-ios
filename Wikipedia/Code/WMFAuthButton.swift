@@ -13,15 +13,14 @@ class WMFAuthButton: UIButton, Themeable {
     }
     override open func awakeFromNib() {
         super.awakeFromNib()
-        layer.borderWidth = 1.0
         layer.cornerRadius = 5
         apply(theme: self.theme)
     }
     
     func apply(theme: Theme) {
         self.theme = theme
-        setTitleColor(theme.colors.tertiaryText, for: .disabled)
-        layer.borderColor = borderColor(forIsEnabled: isEnabled)
+        backgroundColor = theme.colors.cardButtonBackground
+        setTitleColor(theme.colors.unselected, for: .disabled)
         setNeedsDisplay()
     }
 }

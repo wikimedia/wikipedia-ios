@@ -128,10 +128,13 @@
 "explore-because-you-read" = "Επειδή διαβάζετε";
 "explore-because-you-read-footer" = "Πρόσθετα σχετικά άρθρα";
 "explore-continue-reading-heading" = "Συνέχεια ανάγνωσης";
+"explore-detail-back-button-title" = "Επιστροφή στη ροή Εξερεύνησης";
 "explore-enable-location-title" = "Εξερευνήστε άρθρα κοντά στην τρέχουσα τοποθεσία σας";
 "explore-featured-article-heading" = "Προβεβλημένο λήμμα";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "explore-featured-article-sub-heading-from-wikipedia" = "Από την Βικιπαίδεια";
+"explore-feed-customize-accessibility-title" = "Προσαρμογή";
+"explore-feed-language-settings" = "Εξερεύνηση ρυθμίσεων γλώσσας ροής";
 "explore-feed-preferences-customize-explore-feed" = "Εξατομικεύστε την ροή Εξερεύνησης";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Εξατομικεύστε την ροή Εξερεύνησης";
 "explore-feed-preferences-featured-article-description" = "Καθημερινό προβεβλημμένο λήμμα στη Βικιπαίδεια";
@@ -422,7 +425,6 @@
 "settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "settings-title" = "Ρυθμίσεις";
 "share-a-fact-made-with" = "Δημιουργήθηκε με την εφαρμογή Βικιπαίδεια";
-"share-a-fact-share-menu-item" = "Μοιραστείτε ένα γεγονός...";
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
 "share-building" = "Χτίζοντας μια κάρτα κοινοποίησης ενός γεγονότος...";
 "share-custom-menu-item" = "Κοινοποίηση...";

@@ -16,8 +16,8 @@ import FLAnimatedImage
 
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {
-    @objc open let data:Data?
-    @objc open let MIMEType:String?
+    @objc public let data:Data?
+    @objc public let MIMEType:String?
     
     @objc public init(data data_: Data?, MIMEType type_: String?) {
         data = data_

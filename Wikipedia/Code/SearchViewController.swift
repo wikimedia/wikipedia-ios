@@ -30,7 +30,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        funnel.logSearchStart()
+        funnel.logSearchStart(from: source)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
@@ -533,6 +533,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.becomeFirstResponder()
         search()
     }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
+            return false
+        }
+        return true
+    }
 }
 
 extension SearchViewController: CollectionViewHeaderDelegate {
@@ -550,15 +557,35 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 }
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath) {
+        funnel.logSearchResultTap(at: indexPath.item)
         saveLastSearch()
-        funnel.logSearchResultTap()
     }
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+        funnel.logSearchLangSwitch(source)
         search()
+    }
+}
+
+// MARK: - Event logging
+extension SearchViewController {
+    private var source: String {
+        guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
+            return "unknown"
+        }
+        let viewControllers = navigationController.viewControllers
+        let viewControllersCount = viewControllers.count
+        if viewControllersCount == 1 {
+            return "search_tab"
+        }
+        let penultimateViewController = viewControllers[viewControllersCount - 2]
+        if let searchSourceProviding = penultimateViewController as? EventLoggingSearchSourceProviding {
+            return searchSourceProviding.searchSource
+        }
+        return "unknown"
     }
 }
 

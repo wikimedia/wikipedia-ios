@@ -15,8 +15,8 @@ open class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
         return WMFLocalizedString("article-read-more-title", language: self.url.wmf_language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}")
     }
     
-    open let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
-    open let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.readMore
+    public let itemType: TableOfContentsItemType = TableOfContentsItemType.primary
+    public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.readMore
 
     open override func isEqual(_ object: Any?) -> Bool {
         if let item = object as? TableOfContentsReadMoreItem {

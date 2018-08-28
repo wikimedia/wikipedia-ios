@@ -21,7 +21,7 @@ NSTimeInterval const WMFFeedNotificationArticleRepeatLimit = 30 * 24 * 60 * 60; 
 NSInteger const WMFFeedInTheNewsNotificationMaxRank = 40;
 NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
-@interface WMFFeedContentSource () <WMFAnalyticsContextProviding>
+@interface WMFFeedContentSource ()
 
 @property (readwrite, nonatomic, strong) NSURL *siteURL;
 
@@ -597,10 +597,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     }
 
     return YES;
-}
-
-- (NSString *)analyticsContext {
-    return @"notification";
 }
 
 #pragma mark - Utility

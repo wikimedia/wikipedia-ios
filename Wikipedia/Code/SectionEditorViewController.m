@@ -45,11 +45,9 @@
 
     [self.editTextView setDelegate:self];
 
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        // Fix for strange ios 7 bug with large pages of text in the edit text view
-        // jumping around if scrolled quickly.
-        self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
-    }
+    // Fix for strange ios 7 bug with large pages of text in the edit text view
+    // jumping around if scrolled quickly.
+    self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
 
     [self loadLatestWikiTextForSectionFromServer];
 

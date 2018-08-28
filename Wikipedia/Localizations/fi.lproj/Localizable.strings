@@ -109,6 +109,7 @@
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
+"back-button-popover-title" = "Napauta palataksesi";
 "button-done" = "Valmis";
 "button-next" = "Seuraava";
 "button-ok" = "OK";
@@ -154,6 +155,7 @@
 "explore-featured-article-heading" = "Suositeltu artikkeli";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Wikipediasta";
 "explore-featured-article-sub-heading-from-wikipedia" = "Wikipediasta";
+"explore-feed-customize-accessibility-title" = "Mukauta";
 "explore-feed-preferences-additional-languages-footer-text" = "Lisäkieliä voi lisätä asetusten 'Omat kielet' -sivulta.";
 "explore-feed-preferences-continue-reading-description" = "Pikalinkki takaisin avoimeen artikkeliin";
 "explore-feed-preferences-customize-explore-feed" = "Mukauta Tutki-syötettä";
@@ -196,7 +198,9 @@
 "explore-feed-preferences-top-read-description" = "Päivittäin eniten luetut artikkelit";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Poista Tutki-syöte käytöstä";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Poistetaanko Tutki-syöte käytöstä?";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Tutki-välilehti voidaan ottaa uudelleen käyttöön Tutki-syötteen asetuksissa";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
 "explore-feed-preferences-undo-customization" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
 "explore-main-page-description" = "Wikimedia projektin etusivu";
@@ -439,6 +443,7 @@
 "reading-list-unable-to-update" = "Odottamaton virhe tapahtui lukulistaasi päivittäessä. Yritä myöhemmin uudelleen.";
 "reading-list-with-provided-name-not-found" = "Lukulistaa nimellä “$1” ei löytynyt. Varmista, että sinulle on oikea nimi.";
 "reading-lists-article-added-confirmation" = "Artikkeli lisätty listaan “$1”";
+"reading-lists-article-api-failure" = "Artikkelin synkronointi ei onnistu";
 "reading-lists-article-not-synced" = "Ei synkronoitu";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Artikkeliraja ylitetty, ei voi synkronoida artikkelia";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Listaraja ylitetty, ei voi synkronoida artikkelia";
@@ -491,6 +496,7 @@
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
 "search-recent-clear-delete-all" = "Poista kaikki";
+"search-recent-empty" = "Ei vielä tuoreita hakuja";
 "search-recent-title" = "Viimeisimmät haut";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "search-title" = "Haku";
@@ -510,7 +516,7 @@
 "settings-notifications-system-turn-on" = "Ota ilmoitukset käyttöön";
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
-"settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli. Asetuksen muuttaminen vaikuttaa esimerkiksi Suositeltu artikkeli -toiminnon sisältöön.";
+"settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Salli Wikimedian tallentaa tallennetut artikkelisi ja lukulistasi käyttäjäasetuksiisi kun kirjaudut ja synkronoit.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne tililtäsi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";
@@ -527,7 +533,6 @@
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
-"share-a-fact-share-menu-item" = "Jaa fakta…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
 "share-custom-menu-item" = "Jaa...";

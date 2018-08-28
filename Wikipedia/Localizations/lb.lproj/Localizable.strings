@@ -119,6 +119,7 @@
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
+"explore-feed-customize-accessibility-title" = "Upassen";
 "explore-feed-preferences-card-hidden-title" = "Kaart verstoppt";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
@@ -310,6 +311,7 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-list-add-generic-hint-title" = "Dësen Artikel op eng Lieslëscht derbäisetzen?";
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
@@ -387,6 +389,7 @@
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-primary-language" = "Primär";
+// Fuzzy
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
@@ -398,7 +401,6 @@
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
-"share-a-fact-share-menu-item" = "E-Fait-deelen...";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-custom-menu-item" = "Deelen...";
 "share-default-format" = "\"$1\" vu(n) \"$2\": $3";

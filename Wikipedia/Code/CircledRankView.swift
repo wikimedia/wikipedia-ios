@@ -2,6 +2,16 @@ class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
     let padding = UIEdgeInsetsMake(3, 3, 3, 3)
     
+    public var rankColor: UIColor = .wmf_blue {
+        didSet {
+            guard !label.textColor.isEqual(rankColor) else {
+                return
+            }
+            label.textColor = rankColor
+            layer.borderColor = rankColor.cgColor
+        }
+    }
+    
     override func setup() {
         super.setup()
         layer.borderWidth = 1
@@ -20,11 +30,6 @@ class CircledRankView: SizeThatFitsView {
         didSet {
             label.backgroundColor = labelBackgroundColor
         }
-    }
-    
-    override func tintColorDidChange() {
-        label.textColor = tintColor
-        layer.borderColor = tintColor.cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

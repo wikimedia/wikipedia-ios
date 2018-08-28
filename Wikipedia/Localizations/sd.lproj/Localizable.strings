@@ -133,6 +133,7 @@
 "explore-featured-article-heading" = "چونڊ مضمون";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "explore-featured-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
+"explore-feed-customize-accessibility-title" = "ترميميو";
 "explore-feed-preferences-featured-article-description" = "وڪيپيڊيا تي اڄ جو چونڊ مضمون";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند ڪريو";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سڀ کوليو";
@@ -401,6 +402,7 @@
 "settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
 "settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
 "settings-primary-language" = "شروعاتي";
+// Fuzzy
 "settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور چونڊ مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "سڀني سانڍيل مضمونن کي مِٽايو؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مِٽايو";
@@ -408,7 +410,6 @@
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-title" = "ترتيبون";
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";
-"share-a-fact-share-menu-item" = "ھڪ-حقيقت-ونڊيو...";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
 "share-building" = "ھڪ-نقطو-ونڊيو ڪارڊ اڏيندي...";
 "share-custom-menu-item" = "ونڊيو...";

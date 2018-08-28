@@ -219,7 +219,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
-        isSaveButtonHidden = true
         layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
         

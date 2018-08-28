@@ -133,7 +133,12 @@ extension UIButton {
             buttonAdjustedSize.height = buttonAdjustedSize.height - heightAdjustment
         }
         
-        let buttonLabelSize = titleLabel?.sizeThatFits(buttonAdjustedSize) ?? .zero
+        let buttonLabelSize: CGSize
+        if let titleLabel = titleLabel {
+            buttonLabelSize = titleLabel.sizeThatFits(buttonAdjustedSize)
+        } else {
+            buttonLabelSize = .zero
+        }
         
         return CGSize(width: buttonLabelSize.width + widthAdjustment, height: buttonLabelSize.height + heightAdjustment)
     }

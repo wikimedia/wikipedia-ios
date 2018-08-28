@@ -167,10 +167,13 @@
 "explore-because-you-read" = "На основе прочитанного";
 "explore-because-you-read-footer" = "Больше статей на основе прочитанного";
 "explore-continue-reading-heading" = "Продолжить чтение";
+"explore-detail-back-button-title" = "Назад к вкладке Обзор";
 "explore-enable-location-title" = "Прочитайте статьи википедии об объектах вблизи текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
+"explore-feed-customize-accessibility-title" = "Настроить";
+"explore-feed-language-settings" = "Языковые настройки Ленты";
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
 "explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
@@ -416,6 +419,7 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-list-add-generic-hint-title" = "Добавить эту статью в список для чтения?";
 "reading-list-add-hint-title" = "Добавить “$1” в список для чтения";
 "reading-list-add-saved-button-title" = "Да, добавьте их в мои списки чтения";
 "reading-list-add-saved-subtitle" = "Есть статьи, сохранённые в вашем приложении в Википедии. Хотите сохранить их и объединить с списками чтения, синхронизированными с вашей учётной записью?";
@@ -467,6 +471,7 @@
 "reading-list-unable-to-update" = "При обновлении списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
+"reading-lists-article-api-failure" = "Не удаётся синхронизировать статью";
 "reading-lists-article-not-synced" = "Не синхронизировано";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Лимит статьи превышен, невозможно синхронизировать статью";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Лимит списка превышен, невозможно синхронизировать список";
@@ -539,7 +544,7 @@
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
-"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка приведёт к смене ежедневного содержимого, показываемого в ленте (например, избранных статей).";
+"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
 "settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
 "settings-search-open-app-on-search" = "Открыть приложение на вкладке \"Поиск\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
@@ -558,7 +563,6 @@
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
 "share-a-fact-made-with" = "Создано с помощью Википедии";
-"share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-building" = "Сформировать карточку \"Поделись фактом\"...";
 "share-custom-menu-item" = "Поделиться...";

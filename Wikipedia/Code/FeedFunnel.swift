@@ -4,13 +4,15 @@
     let label: EventLoggingLabel?
     let key: String?
     let midnightUTCDate: Date?
+    let siteURLString: String?
     convenience init(_ group: WMFContentGroup?) {
-        self.init(label: group?.eventLoggingLabel, key: group?.key, midnightUTCDate: group?.midnightUTCDate)
+        self.init(label: group?.eventLoggingLabel, key: group?.key, midnightUTCDate: group?.midnightUTCDate, siteURLString: group?.siteURLString)
     }
-    init(label: EventLoggingLabel?, key: String?, midnightUTCDate: Date?) {
+    init(label: EventLoggingLabel?, key: String?, midnightUTCDate: Date?, siteURLString: String?) {
         self.label = label
         self.key = key
         self.midnightUTCDate = midnightUTCDate
+        self.siteURLString = siteURLString
         super.init()
     }
 }
@@ -65,27 +67,27 @@
 
     @objc public func logFeedCardOpened(for context: FeedFunnelContext?) {
         startMeasuringTime(for: context?.label, key: context?.key)
-        log(event(category: .feed, label: context?.label, action: .openCard, measureAge: measureAge(for: context?.midnightUTCDate)))
+        log(event(category: .feed, label: context?.label, action: .openCard, measureAge: measureAge(for: context?.midnightUTCDate)), language: language(from: context?.siteURLString))
     }
 
     @objc public func logFeedCardDismissed(for context: FeedFunnelContext?) {
-        log(event(category: .feed, label: context?.label, action: .dismiss, measureAge: measureAge(for: context?.midnightUTCDate) ))
+        log(event(category: .feed, label: context?.label, action: .dismiss, measureAge: measureAge(for: context?.midnightUTCDate)), language: language(from: context?.siteURLString))
     }
 
     @objc public func logFeedCardRetained(for context: FeedFunnelContext?) {
-        log(event(category: .feed, label: context?.label, action: .retain, measureAge: measureAge(for: context?.midnightUTCDate)))
+        log(event(category: .feed, label: context?.label, action: .retain, measureAge: measureAge(for: context?.midnightUTCDate)), language: language(from: context?.siteURLString))
     }
 
     @objc public func logFeedCardPreviewed(for context: FeedFunnelContext?, index: Int) {
-        log(event(category: .feed, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
+        log(event(category: .feed, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)), language: language(from: context?.siteURLString))
     }
 
     public func logFeedCardReadingStarted(for context: FeedFunnelContext?, index: Int?) {
-        log(event(category: .feed, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
+        log(event(category: .feed, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)), language: language(from: context?.siteURLString))
     }
 
     public func logFeedShareTapped(for context: FeedFunnelContext?, index: Int?) {
-        log(event(category: .feed, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)))
+        log(event(category: .feed, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: measurePosition(for: context?.label, index: index)), language: language(from: context?.siteURLString))
     }
 
     public func logFeedRefreshed() {
@@ -93,30 +95,30 @@
     }
 
     public func logFeedImpression(for context: FeedFunnelContext?) {
-        log(event(category: .feed, label: context?.label, action: .impression, measureAge: measureAge(for: context?.midnightUTCDate)))
+        log(event(category: .feed, label: context?.label, action: .impression, measureAge: measureAge(for: context?.midnightUTCDate)), language: language(from: context?.siteURLString))
     }
 
     // MARK: Feed detail
 
     public func logArticleInFeedDetailPreviewed(for context: FeedFunnelContext?, index: Int?) {
-        log(event(category: .feedDetail, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index))
+        log(event(category: .feedDetail, label: context?.label, action: .preview, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index), language: language(from: context?.siteURLString))
     }
 
     public func logArticleInFeedDetailReadingStarted(for context: FeedFunnelContext?, index: Int?, maxViewed: Double) {
+        log(event(category: .feedDetail, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index, measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed), language: language(from: context?.siteURLString))
         startMeasuringTime(for: context?.label, key: context?.key)
-        log(event(category: .feedDetail, label: context?.label, action: .readStart, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index, measureMaxViewed: maxViewed))
     }
 
     public func logFeedCardClosed(for context: FeedFunnelContext?, maxViewed: Double) {
-        log(event(category: .feedDetail, label: context?.label, action: .closeCard, measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed))
+        log(event(category: .feedDetail, label: context?.label, action: .closeCard, measureAge: measureAge(for: context?.midnightUTCDate), measureTime: measureTime(key: context?.key), measureMaxViewed: maxViewed), language: language(from: context?.siteURLString))
     }
 
     public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?, midnightUTCDate: Date?) {
-        log(event(category: .feedDetail, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index))
+        log(event(category: .feedDetail, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index), language: language(from: context?.siteURLString))
     }
 
     public func logFeedDetailShareTapped(for context: FeedFunnelContext?, index: Int?) {
-        logFeedDetailShareTapped(for: context, index: index)
+        log(event(category: .feedDetail, label: context?.label, action: .shareTap, measureAge: measureAge(for: context?.midnightUTCDate), measurePosition: index), language: language(from: context?.siteURLString))
     }
 
     // MARK: Utilities
@@ -185,5 +187,12 @@
         let measureTime = fabs(startTime.timeIntervalSinceNow)
         contentGroupKeysToStartTimes.removeValue(forKey: key)
         return measureTime
+    }
+
+    private func language(from siteURLString: String?) -> String? {
+        guard let siteURLString = siteURLString else {
+            return nil
+        }
+        return URL(string: siteURLString)?.wmf_language
     }
 }

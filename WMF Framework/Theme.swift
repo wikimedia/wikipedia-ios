@@ -1,4 +1,5 @@
 import Foundation
+import SystemConfiguration
 
 public extension UIColor {
     @objc public convenience init(_ hex: Int, alpha: CGFloat) {
@@ -109,9 +110,10 @@ public extension UIColor {
 
 @objc(WMFColors)
 public class Colors: NSObject {
-    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, cardBorder: .base100, cardShadow: .base10, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50)
+    
+    fileprivate static let light = Colors(baseBackground: .base80, midBackground: .base90, paperBackground: .base100, chromeBackground: .base100,  popoverBackground: .base100, subCellBackground: .base100, overlayBackground: .black50PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .base30, tertiaryText: .base70, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .base80, shadow: .base80, chromeShadow: .defaultShadow, cardBackground: .base100, cardBorder: .wmf_lightestGray, cardShadow: .base10, cardButtonBackground: .wmf_lightestGray, secondaryAction: .blue10, icon: nil, iconBackground: nil, destructive: .red50, error: .red50, warning: .osage, unselected: .base50, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .blue50, tagBackground: .blue50At10PercentAlpha, tagSelectedBackground: .blue50At25PercentAlpha, rankGradientStart: .blue50, rankGradientEnd: .green50, distanceBorder: .base50)
 
-    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardBackground: .papyrus, cardBorder: .sand, cardShadow: .clear, cardButtonBackground: .amate, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .blue50, rankGradientEnd: .blue50, distanceBorder: .masi)
+    fileprivate static let sepia = Colors(baseBackground: .amate, midBackground: .papyrus, paperBackground: .parchment, chromeBackground: .parchment, popoverBackground: .base100, subCellBackground: .papyrus, overlayBackground: .masi60PercentAlpha, batchSelectionBackground: .lightBlue, referenceHighlightBackground: .clear, hintBackground: .lightBlue, overlayText: .base20, searchFieldBackground: .darkSearchFieldBackground, keyboardBarSearchFieldBackground: .base80, primaryText: .base10, secondaryText: .masi, tertiaryText: .masi, disabledText: .base80, disabledLink: .lightBlue, chromeText: .base10, link: .blue50, accent: .green50, border: .kraft, shadow: .kraft,  chromeShadow: .base20, cardBackground: .papyrus, cardBorder: .sand, cardShadow: .clear,  cardButtonBackground: .amate, secondaryAction: .accent10, icon: .masi, iconBackground: .amate, destructive: .red30, error: .red30, warning: .osage, unselected: .masi, blurEffectStyle: .extraLight, blurEffectBackground: .clear, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .blue50, rankGradientEnd: .blue50, distanceBorder: .masi)
     
     fileprivate static let dark = Colors(baseBackground: .base10, midBackground: .exosphere, paperBackground: .thermosphere, chromeBackground: .mesosphere, popoverBackground: .base10, subCellBackground: .exosphere, overlayBackground: .black75PercentAlpha, batchSelectionBackground: .accent10, referenceHighlightBackground: .clear, hintBackground: .pitchBlack, overlayText: .base20, searchFieldBackground: .lightSearchFieldBackground, keyboardBarSearchFieldBackground: .thermosphere, primaryText: .base90, secondaryText: .base70, tertiaryText: .base70, disabledText: .base70, disabledLink: .lightBlue, chromeText: .base90, link: .stratosphere, accent: .green50, border: .mesosphere, shadow: .base10, chromeShadow: .base10, cardBackground: .exosphere, cardBorder: .thermosphere, cardShadow: .clear, cardButtonBackground: .mesosphere, secondaryAction: .accent10, icon: .base70, iconBackground: .exosphere, destructive: .red75, error: .red75, warning: .yellow50, unselected: .base70, blurEffectStyle: .dark, blurEffectBackground: .base70At55PercentAlpha, tagText: .base100, tagBackground: .stratosphere, tagSelectedBackground: .blue50, rankGradientStart: .stratosphere, rankGradientEnd: .green50, distanceBorder: .base70)
 
@@ -317,7 +319,9 @@ public class Theme: NSObject {
     }()
 
     @objc public let imageOpacity: CGFloat
-    
+    @objc public let cardBorderWidthInPixels: Int
+    @objc public let cardShadowOpacity: Float
+
     @objc public let name: String
     @objc public let displayName: String
 
@@ -325,27 +329,38 @@ public class Theme: NSObject {
     fileprivate static let lightMultiSelectIndicator = UIImage(named: "selected", in: Bundle.main, compatibleWith:nil)
     fileprivate static let darkMultiSelectIndicator = UIImage(named: "selected-dark", in: Bundle.main, compatibleWith:nil)
     
-    @objc public static let light = Theme(colors: .light, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
+    private static let defaultCardBorderWidthInPixels: Int = 1
+    private static let lightCardBorderWidthInPixels: Int = {
+        return DeviceInfo.shared.isOlderDevice ? 4 : defaultCardBorderWidthInPixels
+    }()
     
-    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
+    private static let defaultCardShadowOpacity: Float = {
+        return DeviceInfo.shared.isOlderDevice ? 0 : 0.13
+    }()
     
-    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    @objc public static let light = Theme(colors: .light, imageOpacity: 1, cardBorderWidthInPixels: Theme.lightCardBorderWidthInPixels, cardShadowOpacity: defaultCardShadowOpacity, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "standard", displayName: WMFLocalizedString("theme-default-display-name", value: "Default", comment: "Default theme name presented to the user"))
     
-    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
+    @objc public static let sepia = Theme(colors: .sepia, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.lightMultiSelectIndicator, isDark: false, name: "sepia", displayName: WMFLocalizedString("theme-sepia-display-name", value: "Sepia", comment: "Sepia theme name presented to the user"))
+    
+    @objc public static let dark = Theme(colors: .dark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark", displayName: WMFLocalizedString("theme-dark-display-name", value: "Dark", comment: "Dark theme name presented to the user"))
+    
+    @objc public static let darkDimmed = Theme(colors: .dark, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "dark-dimmed", displayName: Theme.dark.displayName)
 
-    @objc public static let black = Theme(colors: .black, imageOpacity: 1, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
+    @objc public static let black = Theme(colors: .black, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black", displayName: WMFLocalizedString("theme-black-display-name", value: "Black", comment: "Black theme name presented to the user"))
 
-    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
+    @objc public static let blackDimmed = Theme(colors: .black, imageOpacity: 0.65, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: Theme.darkMultiSelectIndicator, isDark: true, name: "black-dimmed", displayName: Theme.black.displayName)
 
-    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
+    @objc public static let widget = Theme(colors: .widget, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, name: "", displayName: "")
     
-    init(colors: Colors, imageOpacity: CGFloat, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
+    init(colors: Colors, imageOpacity: CGFloat, cardBorderWidthInPixels: Int, cardShadowOpacity: Float, multiSelectIndicatorImage: UIImage?, isDark: Bool, name: String, displayName: String) {
         self.colors = colors
         self.imageOpacity = imageOpacity
         self.name = name
         self.displayName = displayName
         self.multiSelectIndicatorImage = multiSelectIndicatorImage
         self.isDark = isDark
+        self.cardBorderWidthInPixels = cardBorderWidthInPixels
+        self.cardShadowOpacity = cardShadowOpacity
     }
     
     fileprivate static let themesByName = [Theme.light.name: Theme.light, Theme.dark.name: Theme.dark, Theme.sepia.name: Theme.sepia, Theme.darkDimmed.name: Theme.darkDimmed, Theme.black.name: Theme.black, Theme.blackDimmed.name: Theme.blackDimmed]

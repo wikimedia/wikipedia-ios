@@ -136,8 +136,7 @@
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-history-message" = "Registo do que esteve a ler";
 "empty-no-history-title" = "Não há histórico para mostrar";
-// Fuzzy
-"empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
+"empty-no-reading-lists-message" = "Criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram guardadas páginas nesta lista";
@@ -149,10 +148,13 @@
 "explore-because-you-read" = "Porque leu";
 "explore-because-you-read-footer" = "Artigos relacionados complementares";
 "explore-continue-reading-heading" = "Continuar a ler";
+"explore-detail-back-button-title" = "Voltar ao feed Explorar";
 "explore-enable-location-title" = "Explorar artigos de temas perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipédia";
+"explore-feed-customize-accessibility-title" = "Personalizar";
+"explore-feed-language-settings" = "Configurações de língua do feed Explorar";
 "explore-feed-preferences-additional-languages-footer-text" = "Podem ser adicionada línguas na página de definições 'Línguas'.";
 "explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
@@ -398,6 +400,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” à lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
 "reading-list-add-saved-subtitle" = "Há artigos guardados na sua aplicação Wikipédia. Deseja mantê-los e fundi-los nas listas de leitura que forem sincronizadas com a sua conta?";
@@ -449,6 +452,7 @@
 "reading-list-unable-to-update" = "Ocorreu um erro inesperado ao atualizar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
+"reading-lists-article-api-failure" = "Não é possível sincronizar o artigo";
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
@@ -513,6 +517,7 @@
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-language-bar" = "Mostrar línguas na pesquisa";
+"settings-languages-feed-customization" = "Pode gerir que línguas são mostradas no seu feed Explorar personalizando as configurações do mesmo.";
 "settings-my-languages" = "As minhas línguas";
 "settings-notifications" = "Notificações";
 "settings-notifications-info" = "Receba alertas sobre os artigos em tendência e mais lidos da Wikipédia, com o nosso sistema de notificações. Tudo fornecido com respeito pela sua privacidade e atualizado ao minuto.";
@@ -521,7 +526,7 @@
 "settings-notifications-system-turn-on" = "Ativar notificações";
 "settings-notifications-trending" = "Atualidades em tendência";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação. Alterá-la irá alterar também o conteúdo diário (como o \"Artigo em destaque\") apresentado em Explorar.";
+"settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação.";
 "settings-search-footer-text" = "Configurar a aplicação para abrir no separador Pesquisar em vez do separador Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicação no separador Pesquisar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura.";
@@ -540,7 +545,6 @@
 "settings-support" = "Apoie a Wikipédia";
 "settings-title" = "Definições";
 "share-a-fact-made-with" = "Feito com a aplicação Wikipédia";
-"share-a-fact-share-menu-item" = "Partilhar um facto...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "A criar um cartão \"Partilhar um facto\"...";
 "share-custom-menu-item" = "Partilhar...";

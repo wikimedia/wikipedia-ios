@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFFindInPageScrollDirectionPrevious
 };
 
-@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFAnalyticsContextProviding, WMFAnalyticsContentTypeProviding, WMFThemeable>
+@interface WebViewController () <WKScriptMessageHandler, UIScrollViewDelegate, WMFFindInPageKeyboardBarDelegate, UIPageViewControllerDelegate, WMFReferencePageViewAppearanceDelegate, WMFThemeable>
 
 @property (nonatomic, strong) NSLayoutConstraint *headerHeightConstraint;
 @property (nonatomic, strong) IBOutlet UIView *containerView;
@@ -347,14 +347,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     }
     return _savedPagesFunnel;
-}
-
-- (NSString *)analyticsContext {
-    return @"Article";
-}
-
-- (NSString *)analyticsContentType {
-    return @"Read More";
 }
 
 #pragma mark - Find-in-page

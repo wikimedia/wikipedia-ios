@@ -105,7 +105,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         view.addConstraints([top, bottom, leading, trailing])
-        button.accessibilityTraits = UIAccessibilityTraitNone
+        button.isAccessibilityElement = false
         scrollToTopButton = button
     }
     
@@ -149,11 +149,24 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             self?.updateScrollViewInsets()
         })
     }
+
+    var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+ 
         guard navigationMode == .bar else {
+            if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
+                var updatedElements: [Any] = [closeButton]
+                let existingElements: [Any] = view.accessibilityElements ?? view.subviews
+                for element in existingElements {
+                    guard element as? UIButton !== closeButton else {
+                        continue
+                    }
+                    updatedElements.append(element)
+                }
+                view.accessibilityElements = updatedElements
+            }
             return
         }
         
@@ -199,7 +212,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             }
         }
     }
-    
+ 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateScrollViewInsets()
@@ -277,6 +290,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
         //
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.theme.preferredStatusBarStyle
     }
 
     func apply(theme: Theme) {

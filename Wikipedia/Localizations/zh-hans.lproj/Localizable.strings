@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: Chixvv
 // Author: Davidzdh
 // Author: Endermoon
 // Author: Hudafu
@@ -22,7 +23,7 @@
 
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
-"about-content-license-details-share-alike-license" = "知识共享署名-相同方式共享许可协议";
+"about-content-license-details-share-alike-license" = "知识共享-署名-相同方式共享许可协议";
 "about-contributors" = "贡献者";
 "about-libraries" = "使用的库";
 "about-libraries-complete-list" = "完整列表";
@@ -110,6 +111,7 @@
 "article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "back-button-accessibility-label" = "返回";
+"back-button-popover-title" = "点击返回";
 "button-done" = "完成";
 "button-next" = "下一个";
 "button-ok" = "确定";
@@ -139,8 +141,7 @@
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-history-message" = "在此记录您的阅读经历";
 "empty-no-history-title" = "没有要显示的历史";
-// Fuzzy
-"empty-no-reading-lists-message" = "点按蓝色加号以创建要旅行的地点、感兴趣的话题以及更多事物的阅读列表";
+"empty-no-reading-lists-message" = "创建旅行的地点、感兴趣的话题以及更多事物的列表";
 "empty-no-reading-lists-title" = "组织已保存条目与阅读列表";
 "empty-no-saved-pages-in-reading-list-message" = "保存页面至此列表，让页面出现在此";
 "empty-no-saved-pages-in-reading-list-title" = "没有页面保存至此列表";
@@ -157,6 +158,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "来自$1维基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "来自维基百科";
 "explore-feed-preferences-additional-languages-footer-text" = "额外语言可添加到“我的语言”设置页面中。";
+"explore-feed-preferences-card-hidden-title" = "卡片已隐藏";
 "explore-feed-preferences-continue-reading-description" = "快速链接以返回阅读打开的条目";
 "explore-feed-preferences-customize-explore-feed" = "自定义探索订阅源";
 "explore-feed-preferences-customize-explore-feed-action-title" = "自定义探索订阅源";
@@ -167,6 +169,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "在所有";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "开";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "在$1";
+"explore-feed-preferences-feed-cards-hidden-title" = "所有%@点卡片已隐藏";
 "explore-feed-preferences-global-card-footer-text" = "此卡片并非语言特定，关闭此卡片将从您的探索订阅源中移除它。";
 "explore-feed-preferences-global-cards-description" = "非语言特定卡片";
 "explore-feed-preferences-global-cards-subtitle" = "非语言特定";
@@ -367,6 +370,7 @@
 "places-filter-top-articles" = "最多阅读";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1个条目}}";
 "places-filter-top-read-articles" = "最多阅读条目";
+"places-location-enabled" = "位置已启用";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "$1匹配“$2”";
 "places-search-default-text" = "搜索地点";
@@ -508,7 +512,9 @@
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
+// Fuzzy
 "settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
+"settings-search-open-app-on-search" = "在搜索选项卡打开app";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置。";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "如果您启用了从此设备同步，那么清空您保存的条目将从您的用户账户中移除它们。您不能撤销这一操作。";
@@ -525,7 +531,6 @@
 "settings-support" = "支持维基百科";
 "settings-title" = "设置";
 "share-a-fact-made-with" = "通过维基百科应用制作";
-"share-a-fact-share-menu-item" = "分享预览…";
 "share-article-name-on-wikipedia" = "“$1”在@Wikipedia：";
 "share-building" = "建立分享预览卡…";
 "share-custom-menu-item" = "分享...";

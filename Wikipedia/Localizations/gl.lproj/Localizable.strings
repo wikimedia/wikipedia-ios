@@ -8,6 +8,7 @@
 // Author: Estevoaei
 // Author: Fisterraeomar
 // Author: Macofe
+// Author: Maria zaos
 // Author: Navhy
 // Author: Nemo bis
 // Author: Toliño
@@ -77,7 +78,7 @@
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, Galipedia, referencia, wiki, enciclopedia, info, coñecemento, investigación, información, explorar, aprender";
-"app-store-release-notes" = "Canle de exploración completamente configurable e doado de ler. Localización, melloras de rendemento e corrección de erros.";
+"app-store-release-notes" = "Canle de exploración completamente configurable e doada de ler. Localización, melloras de rendemento e corrección de erros.";
 "app-store-short-description" = "Descargue a aplicación de Wikipedia para explorar lugares preto de vostede, sincronizar artigos para ler cando non teña conexión e personalizar a súa experiencia de lectura.";
 "app-store-subtitle" = "A enciclopedia libre";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -148,6 +149,7 @@
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
+"explore-feed-customize-accessibility-title" = "Personalizar";
 "explore-feed-preferences-additional-languages-footer-text" = "Poden engadirse linguas na páxina de configuración \"As miñas linguas\".";
 "explore-feed-preferences-card-hidden-title" = "Tarxeta oculta";
 "explore-feed-preferences-continue-reading-description" = "Ligazón rápida para regresar á lectura dun artigo aberto";
@@ -169,7 +171,7 @@
 "explore-feed-preferences-hide-feed-cards-action-title" = "Agochar tódalas tarxetas %@";
 "explore-feed-preferences-in-the-news-description" = "Artigos sobre eventos actuais";
 "explore-feed-preferences-languages-footer-text" = "Ocultar tódalas tarxetas da canle de exploración en tódalas súas linguas, desactivará a pestana de exploración.";
-"explore-feed-preferences-on-this-day-description" = "Acontedementos da historia neste día";
+"explore-feed-preferences-on-this-day-description" = "Acontecementos históricos neste día";
 "explore-feed-preferences-places-description" = "Artigos da Wikipedia preto da súa localización";
 "explore-feed-preferences-potd-description" = "Imaxe destacada do día en Commons";
 "explore-feed-preferences-randomizer-description" = "Xerar artigos aleatorios para ler";
@@ -182,6 +184,25 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desactivando a tarxeta 'Neste día', desactivará a tarxeta en tódalas linguas dispoñibles.";
 "explore-feed-preferences-show-on-this-day-title" = "Amosar a tarxeta 'Neste día'";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Amosar a tarxeta 'Imaxe do día'";
+"explore-feed-preferences-show-places-footer-text" = "Desactivando a tarxeta de 'Lugares', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-places-title" = "Amosar a tarxeta de 'Lugares'";
+"explore-feed-preferences-show-randomizer-footer-text" = "Desactivando a tarxeta de 'Aleatoria', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-randomizer-title" = "Amosar a tarxeta 'Aleatoria'";
+"explore-feed-preferences-show-related-pages-title" = "Amosar a tarxeta 'Porque leu'";
+"explore-feed-preferences-show-top-read-footer-text" = "Desactivando a tarxeta de 'Os máis lidos', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-top-read-title" = "Amosar a tarxeta 'Os máis lidos'";
+"explore-feed-preferences-top-read-description" = "Artigos máis lidos do día";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desactivar a canle de Exploración";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar tódalas tarxetas da canle Explorar, desactivará a pestana Explorar e será substituída pola pestana Configuración";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desactivar a canle de Exploración?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-message" = "A pestana Explorar pode activarse de novo na configuración da canle de exploración";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Desactivar a pestana de Explorar?";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar a pestana de Explorar subsituirá a pestana Explorar por unha pestana de configuración.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ó escoller amosar tarxetas da canle Explorar, está activando a pestana Explorar";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto substituirá a pestana de configuración coa pestana Explorar, pode acceder á configuración dende a parte superior da pestana Explorar premendo na icona da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Activar a pestana Explorar?";
 "explore-feed-preferences-undo-customization" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
@@ -196,6 +217,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Da Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Da Wikipedia";
 "explore-nearby-sub-heading-your-location" = "A súa localización";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "A súa localización da Wikipedia en $1";
 "explore-potd-heading" = "Imaxe do día";
 "explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Artigo ao chou";
@@ -317,8 +339,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecemento histórico|$1 acontecementos históricos}}";
 "on-this-day-footer" = "Máis acontecementos históricos deste día";
 "on-this-day-footer-with-event-count" = "$1 acontecementos históricos máis nesta data";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia en $2";
 "on-this-day-title" = "Neste día";
 "open-link-cancel" = "Cancelar";
+"original-tab-button-popover-description" = "Prema na \"W\" para volver á pestana na que comezou";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
 "page-issues" = "Problemas na páxina";
@@ -422,6 +446,7 @@
 "reading-list-unable-to-update" = "Houbo un erro inesperado ó actualizar a lista de lectura. Inténteo de novo máis tarde.";
 "reading-list-with-provided-name-not-found" = "Non se atopou a lista de lectura denominada «$1». Asegúrese de que teña o nome correcto.";
 "reading-lists-article-added-confirmation" = "Engadiuse o artigo a «$1»";
+"reading-lists-article-api-failure" = "Imposible sincronizar o artigo";
 "reading-lists-article-not-synced" = "Non sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Límite de artigos excedido, non é posible sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Límite de listas excedido, non é posible sincronizar o artigo";
@@ -494,7 +519,9 @@
 "settings-notifications-system-turn-on" = "Activar as notificacións";
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
+// Fuzzy
 "settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
+"settings-search-footer-text" = "Configurar a aplicación para abrir na pestana Procurar no canto da pestana Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicación na pestana de procura";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, cando se autenticar e sincronizar, a Wikimedia garde nas súas preferencias os artigos gardados e as listaxes de lectura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e as listas gardadas";
@@ -512,7 +539,6 @@
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
-"share-a-fact-share-menu-item" = "Comparta-un-feito...";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
 "share-custom-menu-item" = "Compartir...";

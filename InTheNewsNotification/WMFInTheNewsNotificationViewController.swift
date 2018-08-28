@@ -4,7 +4,7 @@ import UserNotificationsUI
 import WMF
 import CocoaLumberjackSwift
 
-class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
     @IBOutlet weak var imageView: UIImageView!
 
     @IBOutlet weak var statusView: UIVisualEffectView!
@@ -35,14 +35,6 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
                 articleTitleLabelLeadingMargin.constant = marginWidthForVisibleImageView
             }
         }
-    }
-    
-    var analyticsContext: String {
-        return "notification"
-    }
-    
-    var analyticsContentType: String {
-        return AnalyticsContent(articleURL?.host ?? AnalyticsContent.defaultContent).analyticsContentType
     }
     
     override func viewDidLoad() {

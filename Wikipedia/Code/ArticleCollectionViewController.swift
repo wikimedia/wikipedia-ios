@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFArticleCollectionViewControllerDelegate)
 protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL)
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath)
 }
 
 @objc(WMFArticleCollectionViewController)
@@ -18,6 +18,8 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     var readingListHintController: ReadingListHintController?
     
     @objc weak var delegate: ArticleCollectionViewControllerDelegate?
+
+    var feedFunnelContext: FeedFunnelContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +116,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     // MARK: - Layout
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        // The layout estimate can be re-used in this case becuause both labels are one line, meaning the cell
+        // The layout estimate can be re-used in this case because both labels are one line, meaning the cell
         // size only varies with font size. The layout estimate is nil'd when the font size changes on trait collection change
         if let estimate = cellLayoutEstimate {
             return estimate
@@ -136,16 +138,6 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Reading
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
-    }
-}
-
-extension ArticleCollectionViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ArticleList"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
     }
 }
 
@@ -178,7 +170,7 @@ extension ArticleCollectionViewController {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL)
+        delegate?.articleCollectionViewController(self, didSelectArticleWithURL: articleURL, at: indexPath)
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
@@ -251,7 +243,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(true, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logSave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 }
                 return true
             }
@@ -261,7 +253,7 @@ extension ArticleCollectionViewController: ActionDelegate {
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     readingListHintController?.didSave(false, article: article, theme: theme)
-                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL)
+                    ReadingListsFunnel.shared.logUnsave(category: eventLoggingCategory, label: eventLoggingLabel, articleURL: articleURL, date: feedFunnelContext?.midnightUTCDate, measurePosition: indexPath.item)
                 }
                 return true
             }

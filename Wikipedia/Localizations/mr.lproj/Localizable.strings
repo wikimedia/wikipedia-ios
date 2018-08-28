@@ -189,6 +189,7 @@
 "settings-my-languages" = "माझ्या भाषा";
 "settings-notifications" = "अधिसूचना";
 "settings-primary-language" = "प्राथमिक";
+// Fuzzy
 "settings-primary-language-details" = "या अॲपसाठी, यादीतील प्रथम भाषा ही प्राथमिक भाषा म्हणून वापरल्या जाते. ही भाषा बदलण्याने, शोधा वर दाखविलेले, रोजचे आशय  बदलतील(जसे अविशिष्ट लेख).";
 "settings-support" = "विकिपीडियास साहाय्य करा";
 "settings-title" = "मांडण्या";

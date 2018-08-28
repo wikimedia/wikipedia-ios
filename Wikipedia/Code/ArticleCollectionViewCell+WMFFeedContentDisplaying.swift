@@ -22,18 +22,15 @@ public extension ArticleCollectionViewCell {
         switch displayType {
         case .random:
             imageViewDimension = 196
-            isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .pageWithPreview:
             imageViewDimension = 196
-            isSaveButtonHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescription
             extractLabel?.text = article.snippet
         case .continueReading:
             imageViewDimension = 130
             extractLabel?.text = nil
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .relatedPagesSourceArticle:
@@ -41,11 +38,9 @@ public extension ArticleCollectionViewCell {
             updateSelectedOrHighlighted()
             imageViewDimension = 130
             extractLabel?.text = nil
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         case .mainPage:
-            isSaveButtonHidden = true
             titleTextStyle = .georgiaTitle3
             descriptionTextStyle = .subheadline
             updateFonts(with: traitCollection)
@@ -54,7 +49,6 @@ public extension ArticleCollectionViewCell {
         case .pageWithLocationPlaceholder:
             fallthrough
         case .pageWithLocation:
-            isSaveButtonHidden = true
             isImageViewHidden = false
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
@@ -70,7 +64,6 @@ public extension ArticleCollectionViewCell {
             fallthrough
         default:
             imageViewDimension = 40
-            isSaveButtonHidden = true
             descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
             extractLabel?.text = nil
         }
@@ -92,6 +85,7 @@ public extension ArticleRightAlignedImageCollectionViewCell {
             self.bottomSeparator.isHidden = true
         }
         super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
+        
     }
 }
 
@@ -99,11 +93,25 @@ public extension RankedArticleCollectionViewCell {
     public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
         rankView.rank = index + 1
         let percent = CGFloat(index + 1) / CGFloat(5)
-        rankView.tintColor = theme.colors.rankGradient.color(at: percent)
+        rankView.rankColor = theme.colors.rankGradient.color(at: percent)
         super.configure(article: article, displayType: displayType, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, layoutOnly: layoutOnly)
     }
     
     public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
         configure(article: article, displayType: displayType, index: index, shouldShowSeparators: false, theme: theme, layoutOnly: layoutOnly)
+    }
+}
+
+public extension ArticleFullWidthImageCollectionViewCell {
+    public override func configure(article: WMFArticle, displayType: WMFFeedDisplayType, index: Int, theme: Theme, layoutOnly: Bool) {
+        switch displayType {
+        case .random:
+            fallthrough
+        case .pageWithPreview:
+            isSaveButtonHidden = false
+        default:
+            isSaveButtonHidden = true
+        }
+        super.configure(article: article, displayType: displayType, index: index, theme: theme, layoutOnly: layoutOnly)
     }
 }

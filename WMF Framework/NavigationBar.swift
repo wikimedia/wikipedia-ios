@@ -1,4 +1,4 @@
-public enum NavigationBarDisplayType {
+@objc public enum NavigationBarDisplayType: Int {
     case backVisible
     case largeTitle
     case modal
@@ -44,7 +44,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private var _displayType: NavigationBarDisplayType = .backVisible
-    public var displayType: NavigationBarDisplayType {
+    @objc public var displayType: NavigationBarDisplayType {
         get {
             return _displayType
         }
@@ -56,7 +56,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             isTitleShrinkingEnabled = _displayType == .largeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
+            updateAccessibilityElements()
         }
+    }
+    
+    private func updateAccessibilityElements() {
+        let titleElement = displayType == .largeTitle ? titleBar : bar
+        accessibilityElements = [titleElement, extendedView, underBarView]
     }
     
     @objc public func updateNavigationItems() {
@@ -124,8 +130,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             barButtonItem = UIBarButtonItem(title: title, style: item.style, target: item.target, action: item.action)
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
+        } else if let customView = item.customView {
+            barButtonItem = UIBarButtonItem(customView: customView)
         } else {
-            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image")
+            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
             barButtonItem = item
         }
         barButtonItem.isEnabled = item.isEnabled
@@ -175,8 +183,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         addSubview(statusBarUnderlay)
         addSubview(shadow)
 
-        
-        accessibilityElements = [extendedView, underBarView, bar]
+        updateAccessibilityElements()
         
         bar.delegate = self
         

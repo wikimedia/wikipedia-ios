@@ -2,6 +2,7 @@ import UIKit
 
 @objc(WMFArticleFullWidthImageCollectionViewCell)
 open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
+    public let saveButton = SaveButton()
     
     fileprivate let headerBackgroundView = UIView()
     
@@ -29,6 +30,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    var saveButtonObservation: NSKeyValueObservation?
     
     override open func setup() {
         let extractLabel = UILabel()
@@ -39,6 +41,24 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         super.setup()
         descriptionLabel.numberOfLines = 2
         titleLabel.numberOfLines = 0
+        
+        saveButton.isOpaque = true
+        
+        contentView.addSubview(saveButton)
+        
+        saveButton.verticalPadding = 16
+        saveButton.rightPadding = 16
+        saveButton.leftPadding = 12
+        saveButton.saveButtonState = .longSave
+        saveButton.titleLabel?.numberOfLines = 0
+        
+        saveButtonObservation = saveButton.observe(\.titleLabel?.text) { [weak self] (saveButton, change) in
+            self?.setNeedsLayout()
+        }
+    }
+    
+    deinit {
+        saveButtonObservation?.invalidate()
     }
     
     open override func reset() {
@@ -52,6 +72,29 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         if !isHeaderBackgroundViewHidden {
             titleLabel.backgroundColor = headerBackgroundColor
             descriptionLabel.backgroundColor = headerBackgroundColor
+        }
+        saveButton.backgroundColor = labelBackgroundColor
+        saveButton.titleLabel?.backgroundColor = labelBackgroundColor
+    }
+    
+    open override func updateFonts(with traitCollection: UITraitCollection) {
+        super.updateFonts(with: traitCollection)
+        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    public var isSaveButtonHidden = false {
+        didSet {
+            saveButton.isHidden = isSaveButtonHidden
+            setNeedsLayout()
+        }
+    }
+    
+    open override func updateAccessibilityElements() {
+        super.updateAccessibilityElements()
+        if !isSaveButtonHidden {
+            var updatedAccessibilityElements = accessibilityElements ?? []
+            updatedAccessibilityElements.append(saveButton)
+            accessibilityElements = updatedAccessibilityElements
         }
     }
     

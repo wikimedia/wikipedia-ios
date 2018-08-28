@@ -3,16 +3,16 @@
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    private let targetCountries: [String] = [
+    private let targetCountries: Set<String> = Set<String>(arrayLiteral:
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
         "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
         "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
         "PT", "HU", "GR", "EG"
-    ]
+    )
     @objc public static let shared = UserHistoryFunnel()
     
     private var isTarget: Bool {
-        guard let countryCode = Locale.current.regionCode else {
+        guard let countryCode = Locale.current.regionCode?.uppercased() else {
             return false
         }
         return targetCountries.contains(countryCode)
@@ -90,15 +90,19 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     @objc public func logSnapshot() {
-        guard let latestSnapshot = latestSnapshot else {
+        guard EventLoggingService.shared.isEnabled else {
             return
         }
+        
         guard isTarget else {
             return
         }
+        
         guard let lastAppVersion = UserDefaults.wmf_userDefaults().wmf_lastAppVersion else {
-            UserDefaults.wmf_userDefaults().wmf_lastAppVersion = WikipediaAppUtils.appVersion()
             log(event())
+            return
+        }
+        guard let latestSnapshot = latestSnapshot else {
             return
         }
 
@@ -116,6 +120,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            logSnapshot() // call standard log snapshot in case version changed, should be logged on session start
             return
         }
         guard isTarget else {

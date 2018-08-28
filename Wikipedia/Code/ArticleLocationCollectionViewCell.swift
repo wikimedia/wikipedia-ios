@@ -27,6 +27,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         titleTextStyle = .georgiaTitle3
         descriptionTextStyle = .subheadline
         imageViewDimension = 72
+        imageView.image = #imageLiteral(resourceName: "compass-w")
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
@@ -41,16 +42,16 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     }
     
     override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let size: CGSize = super.sizeThatFits(size, apply: apply)
-        let isLTR: Bool = articleSemanticContentAttribute != .forceRightToLeft
+        let size = super.sizeThatFits(size, apply: apply)
+        let isLTR = articleSemanticContentAttribute != .forceRightToLeft
 
-        let layoutMargins: UIEdgeInsets = calculatedLayoutMargins
+        let layoutMargins = calculatedLayoutMargins
         
-        let minHeight: CGFloat = compassViewDimension
-        
-        let widthForLabels: CGFloat = size.width - layoutMargins.left - layoutMargins.right - compassViewDimension - spacing
+        let minHeight = compassViewDimension
+        let hSpaceBetweenCompassAndLabels: CGFloat = 10
+        let widthForLabels = size.width - layoutMargins.left - compassViewDimension - hSpaceBetweenCompassAndLabels - layoutMargins.right
 
-        let x: CGFloat = isLTR ? layoutMargins.left + compassViewDimension + spacing : layoutMargins.left
+        let x = isLTR ? layoutMargins.left + compassViewDimension + hSpaceBetweenCompassAndLabels : layoutMargins.left
        
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
@@ -116,7 +117,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        imageView.backgroundColor = theme.colors.midBackground
+        imageView.backgroundColor = .wmf_green
         distanceLabel.textColor = theme.colors.secondaryText
         distanceLabelBackground.layer.borderColor = theme.colors.distanceBorder.cgColor
         compassView.lineColor = theme.colors.accent

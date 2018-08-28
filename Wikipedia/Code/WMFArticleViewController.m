@@ -93,7 +93,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
-                                        UIGestureRecognizerDelegate>
+                                        UIGestureRecognizerDelegate,
+                                        EventLoggingSearchSourceProviding>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -204,8 +205,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)setArticle:(nullable MWKArticle *)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
-             @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
+    if (![article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]]) {
+        self.articleURL = article.url;
+    }
 
     _shareFunnel = nil;
     NSURL *articleURLToCancel = self.articleURL;
@@ -614,7 +616,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
+                                 [self pushArticleViewControllerWithURL:language.articleURL animated:YES];
                              }];
 }
 
@@ -1001,21 +1003,42 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
     if (animated) {
-        UIScrollView *scrollView = self.webViewController.webView.scrollView;
-        CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
-        UIColor *previousBackgrondColor = scrollView.backgroundColor;
-        scrollView.backgroundColor = [UIColor whiteColor];
-        [UIView animateWithDuration:0.20
+
+        void (^makeLayoutAdjustments)(void) = ^{
+            UIScrollView *scrollView = self.webViewController.webView.scrollView;
+            CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
+
+            [self layoutForSize:self.view.bounds.size];
+            if (self.sectionToRestoreScrollOffset) {
+                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            } else {
+                scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+            }
+        };
+
+        // Fade the web view out fully.
+        [UIView animateWithDuration:0.15
+            delay:0.0
+            options:UIViewAnimationOptionBeginFromCurrentState
             animations:^{
-                [self layoutForSize:self.view.bounds.size];
-                if (self.sectionToRestoreScrollOffset) {
-                    [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else {
-                    scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-                }
+                self.webViewController.view.alpha = 0.0;
             }
             completion:^(BOOL finished) {
-                scrollView.backgroundColor = previousBackgrondColor;
+                // Make layout adjustments. These trigger a web view width change, which triggers an unanimatable (slightly 'jerky') text-reflow, which is why we ensure the web view is faded out for this step.
+                [UIView animateWithDuration:0.15
+                                      delay:0.0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:makeLayoutAdjustments
+                                 completion:^(BOOL finished) {
+                                     // Then fade the web view back in.
+                                     [UIView animateWithDuration:0.1
+                                                           delay:0.05 // Important! Slight delay ensures text reflow *and* contentOffset changes have completely finished (otherwise you can sometimes get another frame or 2 of flicker).
+                                                         options:UIViewAnimationOptionBeginFromCurrentState
+                                                      animations:^{
+                                                          self.webViewController.view.alpha = 1.0;
+                                                      }
+                                                      completion:NULL];
+                                 }];
             }];
     } else {
         [self layoutForSize:self.view.bounds.size];
@@ -1561,7 +1584,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    [self pushArticleViewControllerWithURL:url contentType:nil animated:YES];
+    [self pushArticleViewControllerWithURL:url animated:YES];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
@@ -1909,7 +1932,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
+        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2021,30 +2044,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Article Navigation
 
-- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController animated:(BOOL)animated {
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
                                                    dataStore:self.dataStore
                                                        theme:self.theme];
-    [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
-}
-
-#pragma mark - WMFAnalyticsContextProviding
-
-- (NSString *)analyticsContext {
-    return @"Article";
-}
-
-- (NSString *)analyticsContentType {
-    return @"Article";
-}
-
-- (NSString *)analyticsName {
-    return self.articleURL.host;
+    [self pushArticleViewController:articleViewController animated:animated];
 }
 
 #pragma mark - One-time toolbar item popover tips
@@ -2076,6 +2085,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                                width:230.0f
                                                             duration:3.0];
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
+}
+
+#pragma mark - EventLoggingSearchSourceProviding
+
+- (nonnull NSString *)searchSource {
+    return @"article";
 }
 
 #pragma mark - WMFThemeable
