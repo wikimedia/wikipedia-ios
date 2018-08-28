@@ -23,6 +23,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     
     public weak var selectionDelegate: SideScrollingCollectionViewCellDelegate?
     public let imageView = UIImageView()
+    public let imageViewBackground = UIView()
     public let titleLabel = UILabel()
     public let subTitleLabel = UILabel()
     public let descriptionLabel = UILabel()
@@ -53,6 +54,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         addSubview(subTitleLabel)
         addSubview(descriptionLabel)
     
+        addSubview(imageViewBackground)
         addSubview(imageView)
         addSubview(collectionView)
         addSubview(prototypeCell)
@@ -87,11 +89,13 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
     public var isImageViewHidden = false {
         didSet {
             imageView.isHidden = isImageViewHidden
+            imageViewBackground.isHidden = isImageViewHidden
             setNeedsLayout()
         }
     }
     
     public let imageViewHeight: CGFloat = 130
+    public let maxImageViewAspectRatio: CGFloat = 2.88
     public let spacing: CGFloat = 6
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -100,7 +104,9 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
+                let imageViewWidth = min(imageViewHeight*maxImageViewAspectRatio, size.width)
+                imageView.frame = CGRect(x: round(0.5 * (size.width - imageViewWidth)), y: 0, width: imageViewWidth, height: imageViewHeight)
+                imageViewBackground.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
             }
             origin.y += imageViewHeight
         }
@@ -279,5 +285,6 @@ extension SideScrollingCollectionViewCell: Themeable {
         updateSelectedOrHighlighted()
         collectionView.reloadData()
         imageView.accessibilityIgnoresInvertColors = true
+        imageViewBackground.backgroundColor = theme.colors.midBackground
     }
 }
