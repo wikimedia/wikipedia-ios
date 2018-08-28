@@ -115,7 +115,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     }
     
     override var prefersStatusBarHidden: Bool {
-        return navigationMode == .detail
+        guard navigationMode != .detail else {
+            return true
+        }
+        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {
