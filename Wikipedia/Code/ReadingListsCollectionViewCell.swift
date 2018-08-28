@@ -148,18 +148,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
-        } else if (descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageGridHidden || !isImageViewHidden) {
+        } else if (descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden) {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            
-            if !isSaveButtonHidden {
-                origin.y += spacing
-                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
-            }
         } else {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
@@ -258,7 +252,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         descriptionTextStyle = .footnote
         updateFonts(with: traitCollection)
         imageViewDimension = 40
-        isSaveButtonHidden = true
     }
     
     private var isImageGridHidden: Bool = false {
@@ -341,7 +334,6 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         apply(theme: theme)
-        isSaveButtonHidden = true
         extractLabel?.text = nil
         setNeedsLayout()
     }

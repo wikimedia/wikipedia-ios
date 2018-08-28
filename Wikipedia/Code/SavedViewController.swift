@@ -75,7 +75,7 @@ class SavedViewController: ViewController {
             switch currentView {
             case .savedArticles:
                 removeChild(readingListsViewController)
-                addChild(savedArticlesViewController)
+                addSavedChildViewController(savedArticlesViewController)
                 savedArticlesViewController.editController.navigationDelegate = self
                 readingListsViewController?.editController.navigationDelegate = nil
                 savedDelegate = savedArticlesViewController
@@ -86,7 +86,7 @@ class SavedViewController: ViewController {
                 readingListsViewController?.editController.navigationDelegate = self
                 savedArticlesViewController.editController.navigationDelegate = nil
                 removeChild(savedArticlesViewController)
-                addChild(readingListsViewController)
+                addSavedChildViewController(readingListsViewController)
                 scrollView = readingListsViewController?.collectionView
                 extendedNavBarViewType = .createNewReadingList
                 activeEditableCollection = readingListsViewController
@@ -127,7 +127,7 @@ class SavedViewController: ViewController {
 
     private var activeEditableCollection: EditableCollection?
     
-    private func addChild(_ vc: UIViewController?) {
+    private func addSavedChildViewController(_ vc: UIViewController?) {
         guard let vc = vc else {
             return
         }
