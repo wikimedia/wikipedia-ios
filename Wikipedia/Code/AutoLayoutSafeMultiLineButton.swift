@@ -34,12 +34,19 @@ class AutoLayoutSafeMultiLineButton: UIButton {
         return sizeByAddingInsets(to: titleLabel.sizeThatFits(size))
     }
     
+    private var isSafeToLayoutSubviews = true // Recursion guard for setting `titleLabel.preferredMaxLayoutWidth` within `layoutSubviews()`.
     override func layoutSubviews() {
+        guard isSafeToLayoutSubviews else {
+            isSafeToLayoutSubviews = true
+            return
+        }
         guard let titleLabel = titleLabel else {
             super.layoutSubviews()
             return
         }
+        isSafeToLayoutSubviews = false
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.width
+        isSafeToLayoutSubviews = true
         super.layoutSubviews()
     }
     
