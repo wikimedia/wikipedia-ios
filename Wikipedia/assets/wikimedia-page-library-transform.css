@@ -599,6 +599,15 @@ div.pagelib_collapse_table_container {
 .pagelib_collapse_table_icon {
   box-sizing: border-box;
 }
+
+/* Avoid infobox too narrow issue, see https://phabricator.wikimedia.org/T201381,
+   undoing some of https://gerrit.wikimedia.org/r/c/mediawiki/skins/MinervaNeue/+/428868
+   but only for tables we collapse. */
+.pagelib_collapse_table_container table {
+    display: block;
+    width: 100% !important
+}
+
 .pagelib_dim_images img {
   opacity: 0.65;
 }
