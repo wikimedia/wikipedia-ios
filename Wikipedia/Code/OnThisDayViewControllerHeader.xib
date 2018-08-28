@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,24 +11,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="OnThisDayViewControllerHeader" customModule="Wikipedia" customModuleProvider="target">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" id="U6b-Vx-4bR" customClass="OnThisDayViewControllerHeader" customModule="Wikipedia" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="388" height="171"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January 23" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBW-Xz-UTy">
-                    <rect key="frame" x="34" y="0.0" width="218.5" height="48"/>
+                    <rect key="frame" x="20" y="0.0" width="218.5" height="48"/>
                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="47 HISTORICAL EVENTS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-hO-qka">
-                    <rect key="frame" x="34" y="63" width="195" height="28"/>
+                    <rect key="frame" x="20" y="63" width="195" height="28"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from 2006 - 363 BC" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1x8-Z7-u7U">
-                    <rect key="frame" x="34" y="90.5" width="161" height="20.5"/>
+                    <rect key="frame" x="20" y="90.5" width="161" height="20.5"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -40,9 +39,9 @@
                 <constraint firstItem="gsO-hO-qka" firstAttribute="top" secondItem="SBW-Xz-UTy" secondAttribute="bottom" constant="15" id="2mH-Oh-nYb"/>
                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="1x8-Z7-u7U" secondAttribute="trailing" constant="34" id="ASi-zj-5a2"/>
                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="SBW-Xz-UTy" secondAttribute="trailing" constant="34" id="AiP-YJ-euX"/>
-                <constraint firstItem="SBW-Xz-UTy" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" constant="14" id="D85-jK-7Xt"/>
-                <constraint firstItem="1x8-Z7-u7U" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" constant="14" id="EPV-zJ-MWD"/>
-                <constraint firstItem="gsO-hO-qka" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" constant="14" id="J2M-YX-9X3"/>
+                <constraint firstItem="SBW-Xz-UTy" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" id="D85-jK-7Xt"/>
+                <constraint firstItem="1x8-Z7-u7U" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" id="EPV-zJ-MWD"/>
+                <constraint firstItem="gsO-hO-qka" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leadingMargin" id="J2M-YX-9X3"/>
                 <constraint firstItem="1x8-Z7-u7U" firstAttribute="top" secondItem="gsO-hO-qka" secondAttribute="bottom" id="JUy-G5-NrS"/>
                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="gsO-hO-qka" secondAttribute="trailing" constant="34" id="agN-sX-7dH"/>
                 <constraint firstAttribute="bottom" secondItem="1x8-Z7-u7U" secondAttribute="bottom" priority="999" constant="60" id="oRx-j9-Mr5"/>

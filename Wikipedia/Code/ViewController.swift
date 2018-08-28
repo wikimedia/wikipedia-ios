@@ -72,7 +72,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
         button.addConstraints([height, width])
         let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
         view.addConstraints([top, trailing])
         closeButton = button
         applyThemeToCloseButton()
