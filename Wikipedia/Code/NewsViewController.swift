@@ -8,7 +8,8 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     let feedFunnelContext: FeedFunnelContext
-    
+    let cellImageViewHeight: CGFloat = 170
+
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
@@ -57,6 +58,7 @@ class NewsViewController: ColumnarCollectionViewController {
             return estimate
         }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
+        placeholderCell.imageViewHeight = cellImageViewHeight
         placeholderCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
         estimate.precalculated = true
@@ -133,7 +135,8 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
-        cell.layoutMargins = layout.itemLayoutMargins
+        newsCell.layoutMargins = layout.itemLayoutMargins
+        newsCell.imageViewHeight = cellImageViewHeight
         if let story = story(for: indexPath.section) {
             newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         }
