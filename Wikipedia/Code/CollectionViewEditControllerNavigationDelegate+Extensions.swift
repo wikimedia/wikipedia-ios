@@ -8,10 +8,10 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
             batchEditToolbarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(batchEditToolbarViewController.view)
             batchEditToolbarViewController.didMove(toParentViewController: self)
-            
+            let height = max(view.safeAreaInsets.bottom, 60)
             let leadingConstraint = batchEditToolbarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
             let trailingConstraint = batchEditToolbarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            let heightConstraint = batchEditToolbarViewController.view.heightAnchor.constraint(equalToConstant: view.safeAreaInsets.bottom)
+            let heightConstraint = batchEditToolbarViewController.view.heightAnchor.constraint(equalToConstant: height)
             let bottomConstraint = batchEditToolbarViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             view.addConstraints([leadingConstraint, trailingConstraint, heightConstraint, bottomConstraint])
             
