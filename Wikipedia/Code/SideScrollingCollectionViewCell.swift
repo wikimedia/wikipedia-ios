@@ -91,7 +91,11 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
     }
     
-    public let imageViewHeight: CGFloat = 130
+    public var imageViewHeight: CGFloat = 130 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     public let spacing: CGFloat = 6
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -100,7 +104,8 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
+                let imageViewWidth = size.width - widthToFit > 50 ? widthToFit : size.width
+                imageView.frame = CGRect(x: round(0.5 * (size.width - imageViewWidth)), y: 0, width: imageViewWidth, height: imageViewHeight)
             }
             origin.y += imageViewHeight
         }
