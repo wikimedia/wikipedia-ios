@@ -150,17 +150,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    /// Remove this when dropping iOS 10
-    fileprivate var statusBarHeightConstraint: NSLayoutConstraint?
-    /// Remove this when dropping iOS 10
-    /// `statusBarHeight` only used on iOS 10 due to lack of safeAreaLayoutGuide
-    @objc public var statusBarHeight: CGFloat = 0 {
-        didSet {
-            statusBarHeightConstraint?.constant = statusBarHeight
-            setNeedsLayout()
-        }
-    }
-    
     var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
     var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
     
