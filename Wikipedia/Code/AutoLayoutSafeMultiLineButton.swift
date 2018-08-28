@@ -5,6 +5,7 @@ class AutoLayoutSafeMultiLineButton: UIButton {
     func multiLineSafeSetup () {
         titleLabel?.numberOfLines = 0
         titleLabel?.lineBreakMode = .byWordWrapping
+        titleLabel?.adjustsFontSizeToFitWidth = false
         setContentHuggingPriority(.defaultLow + 1, for: .vertical)
         setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
     }
