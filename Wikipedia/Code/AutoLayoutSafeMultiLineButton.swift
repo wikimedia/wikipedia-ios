@@ -35,9 +35,12 @@ class AutoLayoutSafeMultiLineButton: UIButton {
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
-        guard let titleLabel = titleLabel else { return }
+        guard let titleLabel = titleLabel else {
+            super.layoutSubviews()
+            return
+        }
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.width
+        super.layoutSubviews()
     }
     
     private func sizeByAddingInsets(to size: CGSize) -> CGSize {
