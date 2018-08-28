@@ -42,7 +42,7 @@ class AutoLayoutSafeMultiLineButton: UIButton {
     }
     
     private func sizeByAddingInsets(to size: CGSize) -> CGSize {
-        return CGSize.init(
+        return CGSize(
             width: size.width + titleEdgeInsets.left + titleEdgeInsets.right,
             height: size.height + titleEdgeInsets.top + titleEdgeInsets.bottom
         )
