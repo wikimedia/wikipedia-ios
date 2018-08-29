@@ -311,8 +311,8 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
     self.view.accessibilityIgnoresInvertColors = YES;
     // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
-    UIImage *topGradient = [[UIImage imageNamed:@"gallery-top-gradient"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
-    [self.overlayView.navigationBar setBackgroundImage:topGradient forBarMetrics:UIBarMetricsDefault];
+    UIImage *gradientImage = [[UIImage imageNamed:@"gallery-top-gradient"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    [self.overlayView.navigationBar setBackgroundImage:gradientImage forBarMetrics:UIBarMetricsDefault];
 }
 
 #pragma mark - Actions
