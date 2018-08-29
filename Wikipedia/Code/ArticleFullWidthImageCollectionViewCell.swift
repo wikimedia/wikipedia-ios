@@ -46,7 +46,7 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         
         contentView.addSubview(saveButton)
         
-        saveButton.verticalPadding = 16
+        saveButton.verticalPadding = 8
         saveButton.rightPadding = 16
         saveButton.leftPadding = 12
         saveButton.saveButtonState = .longSave
