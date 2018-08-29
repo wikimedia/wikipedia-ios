@@ -33,8 +33,8 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var imageView: UIImageView!
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
-    @IBOutlet fileprivate weak var primaryButton: UIButton!
-    @IBOutlet fileprivate weak var secondaryButton: UIButton!
+    @IBOutlet fileprivate weak var primaryButton: AutoLayoutSafeMultiLineButton!
+    @IBOutlet fileprivate weak var secondaryButton: AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate weak var footerLabel: UILabel!
 
     @IBOutlet fileprivate weak var scrollViewContainer: UIView!
@@ -130,10 +130,10 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, stackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         
         reset()
-        primaryButton.titleLabel?.wmf_configureToAutoAdjustFontSize()
-        secondaryButton.titleLabel?.numberOfLines = 2
-        secondaryButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        primaryButton.titleLabel?.textAlignment = .center
         secondaryButton.titleLabel?.textAlignment = .center
+        
         closeButton.isHidden = !showCloseButton
         [self.view, self.roundedCornerContainer].forEach {view in
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.overlayTapped(_:))))
