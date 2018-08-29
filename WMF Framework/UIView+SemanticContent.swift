@@ -117,9 +117,10 @@ extension UIButton {
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
         
+        var imageHeight: CGFloat = 0
         if let image = image(for: .normal) {
-            heightAdjustment += imageEdgeInsets.top + imageEdgeInsets.bottom + image.size.height
             widthAdjustment += imageEdgeInsets.left + imageEdgeInsets.right + image.size.width
+            imageHeight = image.size.height + imageEdgeInsets.top + imageEdgeInsets.bottom + contentEdgeInsets.top + contentEdgeInsets.bottom
         }
         
         heightAdjustment += titleEdgeInsets.top + titleEdgeInsets.bottom
@@ -140,7 +141,8 @@ extension UIButton {
             buttonLabelSize = .zero
         }
         
-        return CGSize(width: buttonLabelSize.width + widthAdjustment, height: buttonLabelSize.height + heightAdjustment)
+        let maxHeight = max(imageHeight, buttonLabelSize.height + heightAdjustment)
+        return CGSize(width: buttonLabelSize.width + widthAdjustment, height: maxHeight)
     }
 }
 

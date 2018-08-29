@@ -131,7 +131,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
 
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
+            flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
