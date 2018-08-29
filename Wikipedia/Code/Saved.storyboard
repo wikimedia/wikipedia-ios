@@ -44,10 +44,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="actionButton" destination="269-0y-zMz" id="afs-tZ-Hwi"/>
-                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
+                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="FuC-sg-qXp"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
-                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
+                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="L0n-ol-sJk"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
                         <outlet property="searchView" destination="eby-nN-6Yg" id="ImI-Ka-saE"/>
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
@@ -71,7 +71,7 @@
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
-                                            <integer key="value" value="2"/>
+                                            <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="useDefaultFont" value="NO"/>
                                     </userDefinedRuntimeAttributes>
