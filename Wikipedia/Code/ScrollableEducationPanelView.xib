@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,21 +30,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtK-Db-J92" userLabel="Rounded Corner Container">
-                    <rect key="frame" x="9" y="44.5" width="280" height="440"/>
+                    <rect key="frame" x="9" y="43.5" width="280" height="442"/>
                     <subviews>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-1u-tKd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="440"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="442"/>
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OsN-uF-riJ">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="440"/>
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="442"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <blurEffect style="extraLight"/>
                         </visualEffectView>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3o-Ht-LDd">
-                            <rect key="frame" x="0.0" y="0.0" width="280" height="440.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="280" height="442.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-b3-oKp" userLabel="Scroll Container">
-                                    <rect key="frame" x="0.0" y="0.5" width="280" height="440.5"/>
+                                    <rect key="frame" x="0.0" y="0.5" width="280" height="442.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evj-R4-67a">
                                             <rect key="frame" x="0.0" y="16" width="280" height="15"/>
@@ -64,7 +63,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="zdf-Q2-cLc">
-                                            <rect key="frame" x="15" y="31" width="250" height="391.5"/>
+                                            <rect key="frame" x="15" y="31" width="250" height="393.5"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="places-auth-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="rFJ-kb-kte">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="95"/>
@@ -84,14 +83,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8">
-                                                    <rect key="frame" x="0.0" y="253.5" width="250" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="40" id="C08-Su-Zrl"/>
-                                                    </constraints>
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUm-ox-sR8" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="253.5" width="250" height="33"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <inset key="titleEdgeInsets" minX="14" minY="0.0" maxX="14" maxY="0.0"/>
-                                                    <state key="normal" title="Sample PRIMARY button title"/>
+                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
@@ -107,13 +102,10 @@
                                                         <action selector="primaryButtonTapped:" destination="-1" eventType="touchUpInside" id="uCd-V8-oNv"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX">
-                                                    <rect key="frame" x="0.0" y="307.5" width="250" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" priority="999" constant="18" id="85p-VQ-b8x"/>
-                                                    </constraints>
+                                                <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hB2-ah-QwX" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="300.5" width="250" height="27"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                    <state key="normal" title="Sample SECONDARY button title"/>
+                                                    <inset key="titleEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="5"/>
@@ -127,7 +119,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a reasonably long sample DESCRIPTION for this panel. It is probably the best thing ever." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCF-lS-nEw">
-                                                    <rect key="frame" x="0.0" y="339.5" width="250" height="52"/>
+                                                    <rect key="frame" x="0.0" y="341.5" width="250" height="52"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
