@@ -72,7 +72,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
         button.addConstraints([height, width])
         let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
         view.addConstraints([top, trailing])
         closeButton = button
         applyThemeToCloseButton()
@@ -115,7 +115,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     }
     
     override var prefersStatusBarHidden: Bool {
-        return navigationMode == .detail
+        guard navigationMode != .detail else {
+            return true
+        }
+        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {

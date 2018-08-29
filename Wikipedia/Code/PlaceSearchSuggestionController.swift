@@ -50,6 +50,8 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     
     weak var delegate: PlaceSearchSuggestionControllerDelegate?
     
+    var navigationBarHider: NavigationBarHider? = nil
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return searches.count
     }
@@ -167,4 +169,35 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         delegate?.placeSearchSuggestionControllerClearButtonPressed(self)
     }
     
+    
+    // MARK - ScrollViewDelegate. Ideally, convert this to a ViewController & remove this code
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationBarHider?.scrollViewDidScroll(scrollView)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationBarHider?.scrollViewWillBeginDragging(scrollView)
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        navigationBarHider?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        navigationBarHider?.scrollViewDidEndDecelerating(scrollView)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        navigationBarHider?.scrollViewDidEndScrollingAnimation(scrollView)
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        navigationBarHider?.scrollViewWillScrollToTop(scrollView)
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        navigationBarHider?.scrollViewDidScrollToTop(scrollView)
+    }
 }
