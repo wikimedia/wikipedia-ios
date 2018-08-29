@@ -110,11 +110,15 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             descriptionTextField.returnKeyType = .default
         }
         if descriptionTextField.isFirstResponder {
+            let selectedRange = descriptionTextField.selectedTextRange
             descriptionTextField.resignFirstResponder()
             descriptionTextField.becomeFirstResponder()
+            descriptionTextField.selectedTextRange = selectedRange
         } else {
+            let selectedRange = readingListNameTextField.selectedTextRange
             readingListNameTextField.resignFirstResponder()
             readingListNameTextField.becomeFirstResponder()
+            readingListNameTextField.selectedTextRange = selectedRange
         }
     }
     
