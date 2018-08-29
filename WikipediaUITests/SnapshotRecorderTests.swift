@@ -263,6 +263,7 @@ class WikipediaUITests: XCTestCase {
                 }
             }
         }
+        app.wmf_scrollToTop()
         app.wmf_tapFirstCloseButton()
         app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
         
@@ -412,11 +413,8 @@ class WikipediaUITests: XCTestCase {
                 if searchField.wmf_typeText(text: "a") {
                     sleep(6)
                     wmf_snapshot("Places5")
-                    // HAX: `boundBy: 3` below is a hack: once https://phabricator.wikimedia.org/T202800 is fixed we can set `boundBy` to 0 or make and use a `wmf_tapFirstTableViewCell` func
-                    if let cell = app.tables.children(matching: .cell).element(boundBy: 3).wmf_waitUntilExists() {
-                        cell.wmf_tap()
-                        wmf_snapshot("Place6")
-                    }
+                    app.wmf_tapFirstTableViewCell()
+                    wmf_snapshot("Place6")
                 }
             }
         }

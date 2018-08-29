@@ -90,7 +90,15 @@ extension XCUIElement {
             return false
         }
     }
-    
+
+    @discardableResult func wmf_tapFirstTableViewCell() -> Bool {
+        if let cell = tables.children(matching: .cell).element(boundBy: 0).wmf_waitUntilExists() {
+            return cell.wmf_tap()
+        } else {
+            return false
+        }
+    }
+
     @discardableResult func wmf_scrollToTop() -> Bool {
         if let statusBar = statusBars.element(boundBy: 0).wmf_waitUntilExists() {
             let tapResult = statusBar.wmf_tap()
