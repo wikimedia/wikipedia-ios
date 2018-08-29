@@ -14,12 +14,4 @@
     return [self wmf_snapshotImageAfterScreenUpdates:YES];
 }
 
-- (nullable UIImage *)wmf_stretchableSnapshotImageWithAlphaChannel {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *stretchableImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0) resizingMode:UIImageResizingModeStretch];
-    UIGraphicsEndImageContext();
-    return stretchableImage;
-}
-
 @end
