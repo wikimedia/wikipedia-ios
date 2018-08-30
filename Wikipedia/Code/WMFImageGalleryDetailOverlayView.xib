@@ -19,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
                     <rect key="frame" x="0.0" y="63" width="438" height="84"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
