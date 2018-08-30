@@ -1650,8 +1650,10 @@ static uint64_t bundleHash() {
     NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
     BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
     self.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
-    self.readingListsController.maxEntriesPerList = readingListsConfig[@"maxEntriesPerList"];
-    self.readingListsController.maxListsPerUser = readingListsConfig[@"maxListsPerUser"];
+    NSNumber *maxEntriesPerList = readingListsConfig[@"maxEntriesPerList"];
+    NSNumber *maxListsPerUser = readingListsConfig[@"maxListsPerUser"];
+    self.readingListsController.maxEntriesPerList = maxEntriesPerList;
+    self.readingListsController.maxListsPerUser = [maxListsPerUser intValue];
 }
 
 #pragma mark - Core Data
