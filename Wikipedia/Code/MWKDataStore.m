@@ -1596,7 +1596,7 @@ static uint64_t bundleHash() {
             completion(error);
         }
     };
-
+    // Site info
     NSURL *siteInfoURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/api.php?action=query&format=json&meta=siteinfo"];
     if (!siteInfoURL) {
         combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
@@ -1607,7 +1607,6 @@ static uint64_t bundleHash() {
         combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
         return;
     }
-
     [[[WMFSession shared] jsonDictionaryTaskWith:siteInfoRequest
                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                    dispatch_async(dispatch_get_main_queue(), ^{
@@ -1616,40 +1615,43 @@ static uint64_t bundleHash() {
                                            combinedCompletion(error);
                                            return;
                                        }
-
                                        NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
                                        NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
-
-                                       NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
-                                       if (!remoteConfigURL) {
-                                           combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+                                       [self updateReadingListsLimits:readingListsConfig];
+                                   });
+                               }] resume];
+    // Remote config
+    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
+    if (!remoteConfigURL) {
+        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        return;
+    }
+    NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
+    if (!request) {
+        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+        return;
+    }
+    [[[WMFSession shared] jsonDictionaryTaskWith:request
+                               completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                       if (error) {
+                                           DDLogError(@"Error checking remote config: %@", error);
+                                           combinedCompletion(error);
                                            return;
                                        }
-                                       NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
-                                       if (!request) {
-                                           combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
-                                           return;
-                                       }
-                                       [[[WMFSession shared] jsonDictionaryTaskWith:request
-                                                                  completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                          if (error) {
-                                                                              DDLogError(@"Error checking remote config: %@", error);
-                                                                              combinedCompletion(error);
-                                                                              return;
-                                                                          }
-                                                                          [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary readingListsConfig:readingListsConfig];
-                                                                          combinedCompletion(error);
-                                                                      });
-                                                                  }] resume];
+                                       [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                       combinedCompletion(error);
                                    });
                                }] resume];
 }
 
-- (void)updateLocalConfigurationFromRemoteConfiguration:(NSDictionary *)remoteConfigurationDictionary readingListsConfig:(NSDictionary *)readingListsConfig {
+- (void)updateLocalConfigurationFromRemoteConfiguration:(NSDictionary *)remoteConfigurationDictionary {
     NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
     BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
     self.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
+}
+
+- (void)updateReadingListsLimits:(NSDictionary *)readingListsConfig {
     NSNumber *maxEntriesPerList = readingListsConfig[@"maxEntriesPerList"];
     NSNumber *maxListsPerUser = readingListsConfig[@"maxListsPerUser"];
     self.readingListsController.maxEntriesPerList = maxEntriesPerList;
