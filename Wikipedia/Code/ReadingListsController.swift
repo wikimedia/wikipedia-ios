@@ -421,16 +421,16 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
 
-    @objc public var maxEntriesPerList: Int {
+    @objc public var maxEntriesPerList: NSNumber {
         get {
             assert(Thread.isMainThread)
             let moc = dataStore.viewContext
-            return moc.wmf_readingListsConfigMaxEntriesPerList.intValue
+            return moc.wmf_readingListsConfigMaxEntriesPerList
         }
         set {
             assert(Thread.isMainThread)
             let moc = dataStore.viewContext
-            moc.wmf_readingListsConfigMaxEntriesPerList = NSNumber(value: newValue)
+            moc.wmf_readingListsConfigMaxEntriesPerList = newValue
         }
     }
 
