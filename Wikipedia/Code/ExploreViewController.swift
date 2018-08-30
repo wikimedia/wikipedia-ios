@@ -803,6 +803,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateArticleKey(article.key)
+        layout.invalidateLayout()
     }
     
     @objc func articleDeleted(_ note: Notification) {
@@ -810,6 +811,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateArticleKey(articleKey)
+        layout.invalidateLayout()
     }
     
     @objc func contentGroupDidChange(_ note: Notification) {
@@ -817,6 +819,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateGroupKey(groupKey)
+        layout.invalidateLayout()
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {
