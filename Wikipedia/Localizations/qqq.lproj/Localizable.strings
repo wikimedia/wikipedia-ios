@@ -105,6 +105,10 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"description-published-button-title" = "Title for description panel done button.";
+"description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
+"description-published-subtitle" = "Subtitle encouraging user to continue editing";
+"description-published-title" = "Title for letting the user know their description change succeeded.";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";

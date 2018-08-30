@@ -120,6 +120,17 @@ class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelVi
     }
 }
 
+class DescriptionPublishedPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "saved-blank")
+        heading = WMFLocalizedString("description-published-title", value: "Description published!", comment: "Title for letting the user know their description change succeeded.")
+        subheading = WMFLocalizedString("description-published-subtitle", value:  "You just made Wikipedia better for everyone", comment: "Subtitle encouraging user to continue editing")
+        primaryButtonTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
+        footer = WMFLocalizedString("description-published-footer", value: "You can also edit articles within this app. Try fixing typos and small sentences by clicking on the pencil icon next time", comment: "Title for footer explaining articles may be edited too - not just descriptions.")
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
@@ -333,4 +344,8 @@ extension UIViewController {
         present(panelVC, animated: true, completion: completion)
     }
 
+    @objc func wmf_showDescriptionPublishedPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
+        let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        present(panelVC, animated: true, completion: completion)
+    }
 }
