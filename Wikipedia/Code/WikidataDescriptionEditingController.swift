@@ -12,4 +12,12 @@
         return blacklistedLanguages.contains(languageCode)
     }
 }
+
+public extension MWKArticle {
+    @objc var isWikidataDescriptionEditable: Bool {
+        guard let dataStore = dataStore, let language = self.url.wmf_language else {
+            return false
+        }
+        return dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+    }
 }
