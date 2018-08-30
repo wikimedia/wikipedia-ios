@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -16,7 +19,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
                     <rect key="frame" x="0.0" y="63" width="438" height="84"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -35,7 +38,7 @@
                     </connections>
                 </textView>
                 <view opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96u-R3-P8F" customClass="WMFImageGalleryDescriptionGradientView" customModule="Wikipedia" customModuleProvider="target">
-                    <rect key="frame" x="20" y="63" width="398" height="30"/>
+                    <rect key="frame" x="0.0" y="63" width="438" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" showsTouchWhenHighlighted="YES" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6E-b6-poB">
@@ -75,7 +78,6 @@
                 <constraint firstAttribute="bottom" secondItem="VQe-aq-b55" secondAttribute="bottom" constant="12" id="5dp-ZE-MgE"/>
                 <constraint firstItem="96u-R3-P8F" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="top" id="6s7-wa-q2n"/>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="qPd-lO-dTZ" secondAttribute="bottom" id="Dcg-Jt-Mbc"/>
-                <constraint firstItem="96u-R3-P8F" firstAttribute="trailing" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="DhA-eW-IYi"/>
                 <constraint firstItem="VQe-aq-b55" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="E2r-23-E1B"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="Khe-Sx-wKS"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VQe-aq-b55" secondAttribute="trailing" constant="10" id="MGE-49-XQ0"/>
@@ -89,9 +91,10 @@
                 <constraint firstAttribute="bottom" secondItem="2dn-jB-W86" secondAttribute="bottom" constant="12" id="bhl-iP-XNu"/>
                 <constraint firstItem="VQe-aq-b55" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="e3T-TX-bvw"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="eSj-hx-LwA"/>
-                <constraint firstItem="96u-R3-P8F" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="fYM-xm-BoE"/>
+                <constraint firstAttribute="trailing" secondItem="96u-R3-P8F" secondAttribute="trailing" id="fTj-F3-AO1"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="trailing" secondItem="VQe-aq-b55" secondAttribute="trailing" id="jrk-1u-9Ze"/>
                 <constraint firstAttribute="bottom" secondItem="uty-fY-Zwq" secondAttribute="bottom" constant="-10" id="kxD-7P-NaF"/>
+                <constraint firstItem="96u-R3-P8F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="q9M-3g-zyo"/>
                 <constraint firstAttribute="trailingMargin" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="tll-y7-tNL"/>
                 <constraint firstItem="qPd-lO-dTZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="uuB-b3-QVZ"/>
                 <constraint firstAttribute="trailing" secondItem="uty-fY-Zwq" secondAttribute="trailing" id="vlt-5s-rBc"/>
