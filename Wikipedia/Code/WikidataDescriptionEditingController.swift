@@ -1,6 +1,4 @@
-
-@objc(WMFWikidataDescriptionEditingController)
-class WikidataDescriptionEditingController: NSObject {
+@objc public class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {

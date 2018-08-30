@@ -3226,7 +3226,7 @@
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
 		7AE1D3321FCD057200393471 /* Saved.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Saved.storyboard; sourceTree = "<group>"; };
 		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
-		7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikidataDescriptionEditingController.swift; sourceTree = "<group>"; };
+		7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikidataDescriptionEditingController.swift; path = Wikipedia/Code/WikidataDescriptionEditingController.swift; sourceTree = SOURCE_ROOT; };
 		7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+IndexPathValidation.swift"; sourceTree = "<group>"; };
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
