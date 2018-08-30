@@ -420,6 +420,32 @@ public typealias ReadingListsController = WMFReadingListsController
             }
         }
     }
+
+    @objc public var maxEntriesPerList: Int {
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_readingListsConfigMaxEntriesPerList.intValue
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_readingListsConfigMaxEntriesPerList = NSNumber(value: newValue)
+        }
+    }
+
+    @objc public var maxListsPerUser: Int {
+        get {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            return moc.wmf_readingListsConfigMaxListsPerUser
+        }
+        set {
+            assert(Thread.isMainThread)
+            let moc = dataStore.viewContext
+            moc.wmf_readingListsConfigMaxListsPerUser = newValue
+        }
+    }
     
     func postReadingListsServerDidConfirmSyncWasEnabledForAccountNotification(_ wasSyncEnabledForAccount: Bool) {
         // we want to know if sync was ever enabled on this device
