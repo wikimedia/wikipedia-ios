@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -45,10 +44,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="actionButton" destination="269-0y-zMz" id="afs-tZ-Hwi"/>
-                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="F0v-LU-kMw"/>
+                        <outlet property="allArticlesButton" destination="Euv-Dh-yK7" id="FuC-sg-qXp"/>
                         <outlet property="containerView" destination="hVp-Ga-oZr" id="ypl-2a-8uk"/>
                         <outlet property="progressContainerView" destination="gPn-7Q-j2P" id="E6G-Ij-GGb"/>
-                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="5IA-VI-xA7"/>
+                        <outlet property="readingListsButton" destination="Kqc-qA-t3B" id="L0n-ol-sJk"/>
                         <outlet property="searchBar" destination="nj7-Fx-dME" id="N8j-eC-oeH"/>
                         <outlet property="searchView" destination="eby-nN-6Yg" id="ImI-Ka-saE"/>
                         <outlet property="underBarView" destination="MOy-Ht-6zp" id="iln-NY-tBP"/>
@@ -64,7 +63,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Oco-6Z-eRG">
                             <rect key="frame" x="28" y="6" width="319" height="38"/>
                             <subviews>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Euv-Dh-yK7" customClass="WMFUnderlineButton">
                                     <rect key="frame" x="0.0" y="0.0" width="151.5" height="38"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <state key="normal" title="All articles">
@@ -72,7 +71,7 @@
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="underlineHeight">
-                                            <integer key="value" value="2"/>
+                                            <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="useDefaultFont" value="NO"/>
                                     </userDefinedRuntimeAttributes>
@@ -80,7 +79,7 @@
                                         <action selector="toggleButtonPressed:" destination="DbA-ai-MSH" eventType="touchUpInside" id="Tjj-9u-FAV"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
+                                <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqc-qA-t3B" customClass="WMFUnderlineButton">
                                     <rect key="frame" x="167.5" y="0.0" width="151.5" height="38"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <state key="normal" title="Reading lists">

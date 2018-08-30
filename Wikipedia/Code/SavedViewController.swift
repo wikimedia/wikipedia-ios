@@ -25,8 +25,8 @@ class SavedViewController: ViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var searchView: UIView!
     @IBOutlet var underBarView: UIView!
-    @IBOutlet var allArticlesButton: UIButton!
-    @IBOutlet var readingListsButton: UIButton!
+    @IBOutlet var allArticlesButton: UnderlineButton!
+    @IBOutlet var readingListsButton: UnderlineButton!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet var toggleButtons: [UIButton]!
