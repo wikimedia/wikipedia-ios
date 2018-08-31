@@ -49,7 +49,7 @@ class TagCollectionViewCell: CollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let availableWidth = (size.width == UIViewNoIntrinsicMetric ? maxWidth : size.width) - margins.left - margins.right
+        let availableWidth = (size.width == UIView.noIntrinsicMetric ? maxWidth : size.width) - margins.left - margins.right
 
         var origin = CGPoint(x: margins.left, y: margins.top)
 

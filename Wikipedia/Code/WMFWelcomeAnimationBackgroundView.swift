@@ -26,7 +26,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
         return imageModels.map{ (model) in
             let imgView = UIImageView()
             imgView.image = UIImage(named: model.name)
-            imgView.contentMode = UIViewContentMode.scaleAspectFit
+            imgView.contentMode = UIView.ContentMode.scaleAspectFit
             imgView.layer.opacity = model.initialOpacity
             return ImageViewAndModel.init(model: model, imageView: imgView)
         }

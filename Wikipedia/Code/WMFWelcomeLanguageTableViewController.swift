@@ -8,7 +8,7 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
     }
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
-        return CGSize(width: UIViewNoIntrinsicMetric, height: contentSize.height)
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 }
 
@@ -28,7 +28,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add or edit preferred languages", comment:"Title for button for managing languages"), for: .normal)
         moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
-        languageTableView.rowHeight = UITableViewAutomaticDimension
+        languageTableView.rowHeight = UITableView.automaticDimension
         languageTableView.estimatedRowHeight = 30
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         view.wmf_configureSubviewsForDynamicType()

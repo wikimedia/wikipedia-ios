@@ -31,7 +31,7 @@ class FontSizeSliderViewController: UIViewController {
         apply(theme: self.theme)
         
         slider.isAccessibilityElement = true
-        slider.accessibilityTraits = UIAccessibilityTraitAdjustable
+        slider.accessibilityTraits = UIAccessibilityTraits.adjustable
         slider.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
     }
     

@@ -8,8 +8,8 @@ extension UIViewController {
     ///   - childController: Controller whose view will be embedded in containerView
     ///   - containerView: View to which childController's view will be added as a subview
     @objc public func wmf_add(childController: UIViewController!, andConstrainToEdgesOfContainerView containerView: UIView!) {
-        addChildViewController(childController)
+        addChild(childController)
         containerView.wmf_addHeightDeterminingSubviewWithConstraintsToEdges(childController.view)
-        childController.didMove(toParentViewController: self)
+        childController.didMove(toParent: self)
     }
 }

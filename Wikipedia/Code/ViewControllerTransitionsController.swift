@@ -2,7 +2,7 @@ import UIKit
 
 @objc(WMFViewControllerTransitionsController)
 class ViewControllerTransitionsController: NSObject, UINavigationControllerDelegate {
-    @objc func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    @objc func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         if let searchController = searchAnimationController(for: operation, from: fromVC, to: toVC) {
             return searchController
@@ -16,7 +16,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     }
     
     
-    private func searchAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    private func searchAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard
             let exploreVC = fromVC as? ExploreViewController ?? toVC as? ExploreViewController,
             exploreVC.wantsCustomSearchTransition
@@ -36,7 +36,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     }
 
     
-    private func detailAnimationController(for operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    private func detailAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let source = fromVC as? (DetailTransitionSourceProviding & ViewController) ?? toVC as? (DetailTransitionSourceProviding & ViewController)
         else {
             return nil

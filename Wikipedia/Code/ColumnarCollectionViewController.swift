@@ -32,8 +32,8 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
-        layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
@@ -147,7 +147,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     private var emptyViewFrame: CGRect {
         let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
-        let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
+        let frame = view.bounds.inset(by: insets)
         return frame
     }
 
@@ -242,11 +242,11 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
             estimate.height = height
             return estimate
         }
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
         }
         configure(header: placeholder, forSectionAt: section, layoutOnly: true)
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
@@ -257,11 +257,11 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         guard footerButtonTitle != nil else {
             return estimate
         }
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier) as? CollectionViewFooter else {
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier) as? CollectionViewFooter else {
             return estimate
         }
         configure(footer: placeholder, forSectionAt: section, layoutOnly: true)
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
@@ -332,14 +332,14 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
             guard let header = view as? CollectionViewHeader else {
                 return view
             }
             configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
             return header
-        } else if kind == UICollectionElementKindSectionFooter {
+        } else if kind == UICollectionView.elementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath)
             guard let footer = view as? CollectionViewFooter else {
                 return view
