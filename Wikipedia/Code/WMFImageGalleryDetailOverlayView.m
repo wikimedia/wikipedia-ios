@@ -65,6 +65,7 @@
 
 - (void)setImageDescription:(NSString *)imageDescription {
     self.imageDescriptionTextView.text = imageDescription;
+    self.lineImageView.alpha = imageDescription.length > 0 ? 1.0 : 0.0;
 }
 
 - (void)setImageDescriptionIsRTL:(BOOL)isRTL {
