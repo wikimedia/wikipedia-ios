@@ -799,11 +799,49 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func articleDidChange(_ note: Notification) {
-        guard let article = note.object as? WMFArticle else {
+        guard
+            let article = note.object as? WMFArticle,
+            let articleKey = article.key
+        else {
             return
         }
-        layoutCache.invalidateArticleKey(article.key)
-        layout.invalidateLayout()
+        layoutCache.invalidateArticleKey(articleKey)
+        var missingCell = false
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard
+                let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell,
+                let cardVC = cell.cardContent as? ExploreCardViewController
+                else {
+                    missingCell = true
+                    continue
+            }
+            guard cardVC.isDisplayingArticleWithKey(articleKey) else {
+                missingCell = true
+                continue
+            }
+            guard let oldAttributes = layout.layoutAttributesForItem(at: indexPath) else {
+                missingCell = true
+                continue
+            }
+            let oldWidth = oldAttributes.frame.width
+            let newHeightEstimate = collectionView(collectionView, estimatedHeightForItemAt: indexPath, forColumnWidth: oldWidth)
+            guard newHeightEstimate.precalculated else {
+                missingCell = true
+                continue
+            }
+            guard let newAttributes = oldAttributes.copy() as? ColumnarCollectionViewLayoutAttributes else {
+                missingCell = true
+                continue
+            }
+            let newFrame = CGRect(origin: oldAttributes.frame.origin, size: CGSize(width: oldWidth, height: newHeightEstimate.height))
+            newAttributes.frame = newFrame
+            let context = layout.invalidationContext(forPreferredLayoutAttributes: newAttributes, withOriginalAttributes: oldAttributes)
+            layout.invalidateLayout(with: context)
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
+        if missingCell {
+            layout.invalidateLayout()
+        }
     }
     
     @objc func articleDeleted(_ note: Notification) {
@@ -811,15 +849,17 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
             return
         }
         layoutCache.invalidateArticleKey(articleKey)
-        layout.invalidateLayout()
     }
     
     @objc func contentGroupDidChange(_ note: Notification) {
-        guard let groupKey = note.userInfo?[WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey] as? String else {
+        guard
+            let groupKey = note.userInfo?[WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey] as? String,
+            let changeType = note.userInfo?[WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey] as? String,
+            changeType == NSDeletedObjectsKey
+        else {
             return
         }
         layoutCache.invalidateGroupKey(groupKey)
-        layout.invalidateLayout()
     }
 
     private func menuActionSheetForGroup(_ group: WMFContentGroup) -> UIAlertController? {

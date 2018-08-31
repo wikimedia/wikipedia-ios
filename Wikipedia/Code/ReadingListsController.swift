@@ -632,6 +632,18 @@ public extension WMFArticle {
 }
 
 extension WMFArticle {
+    #if DEBUG
+    func randomizeDescription() {
+        var randomDescription = ""
+        let rand = arc4random_uniform(4)
+        for _ in 0..<rand {
+            randomDescription.append(NSUUID().uuidString)
+        }
+        wikidataDescription = randomDescription
+        snippet = randomDescription
+    }
+    #endif
+    
     func addToDefaultReadingList() throws {
         guard let moc = self.managedObjectContext else {
             return

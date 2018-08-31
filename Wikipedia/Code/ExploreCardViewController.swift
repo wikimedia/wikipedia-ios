@@ -127,6 +127,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     private func reloadData() {
         contentHeightByWidth.removeAll()
+        indexPathsByArticleKey.removeAll()
         if visibleLocationCellCount > 0 {
             locationManager.stopMonitoringLocation()
         }
@@ -134,6 +135,14 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         collectionView.reloadData()
     }
     
+    public func isDisplayingArticleWithKey(_ articleKey: String) -> Bool {
+        guard let indexPaths = indexPathsByArticleKey[articleKey], indexPaths.count > 0 else {
+            return false
+        }
+        return true
+    }
+    
+    var indexPathsByArticleKey: [String: Set<IndexPath>] = [:]
     var contentHeightByWidth: [Int: CGFloat] = [:]
     
     public func contentHeight(forWidth width: CGFloat) -> CGFloat {
@@ -342,6 +351,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     private func configure(cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
+        if let article = article(at: indexPath), let articleKey = article.key {
+            indexPathsByArticleKey[articleKey, default: []].insert(indexPath)
+        }
         switch displayType {
         case .ranked, .page, .continueReading, .mainPage, .random, .pageWithPreview, .relatedPagesSourceArticle, .relatedPages, .compactList:
             configureArticleCell(cell, forItemAt: indexPath, with: displayType, layoutOnly: layoutOnly)

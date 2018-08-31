@@ -149,6 +149,11 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         isLayoutValid = false
     }
     
+    public override func invalidateLayout() {
+        isLayoutValid = false
+        super.invalidateLayout()
+    }
+    
     override public func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         guard let metrics = metrics else {
             return true

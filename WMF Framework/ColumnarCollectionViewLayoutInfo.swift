@@ -144,7 +144,7 @@ public class ColumnarCollectionViewLayoutInfo {
     }
 }
 
-class ColumnarCollectionViewLayoutInvalidationContext: UICollectionViewLayoutInvalidationContext {
+public class ColumnarCollectionViewLayoutInvalidationContext: UICollectionViewLayoutInvalidationContext {
     var originalLayoutAttributes: UICollectionViewLayoutAttributes?
     var preferredLayoutAttributes: UICollectionViewLayoutAttributes?
     var boundsDidChange: Bool = false

@@ -8,7 +8,8 @@ class ColumnarCollectionViewControllerLayoutCache {
     private var cachedHeights: [String: [Int: CGFloat]] = [:]
     private var cacheKeysByGroupKey: [String: Set<String>] = [:]
     private var cacheKeysByArticleKey: [String: Set<String>] = [:]
-
+    private var groupKeysByArticleKey: [String: Set<String>] = [:]
+    
     private func cacheKeyForCellWithIdentifier(_ identifier: String, userInfo: String) -> String {
         return "\(identifier)-\(userInfo)"
     }
@@ -20,6 +21,9 @@ class ColumnarCollectionViewControllerLayoutCache {
         }
         if let articleKey = articleKey {
             cacheKeysByArticleKey[articleKey, default: []].insert(cacheKey)
+            if let groupKey = groupKey {
+                groupKeysByArticleKey[articleKey, default: []].insert(groupKey)
+            }
         }
         cachedHeights[cacheKey, default: [:]][columnWidth.roundedColumnWidth] = height
     }
@@ -41,13 +45,20 @@ class ColumnarCollectionViewControllerLayoutCache {
     }
     
     public func invalidateArticleKey(_ articleKey: String?) {
-        guard let articleKey = articleKey, let cacheKeys = cacheKeysByArticleKey[articleKey] else {
+        guard let articleKey = articleKey else {
             return
         }
-        for cacheKey in cacheKeys {
-            cachedHeights.removeValue(forKey: cacheKey)
+        if let cacheKeys = cacheKeysByArticleKey[articleKey] {
+            for cacheKey in cacheKeys {
+                cachedHeights.removeValue(forKey: cacheKey)
+            }
+            cacheKeysByArticleKey.removeValue(forKey: articleKey)
         }
-        cacheKeysByArticleKey.removeValue(forKey: articleKey)
+        if let groupKeys = groupKeysByArticleKey[articleKey] {
+            for groupKey in groupKeys {
+                invalidateGroupKey(groupKey)
+            }
+        }
     }
     
     public func invalidateGroupKey(_ groupKey: String?) {
