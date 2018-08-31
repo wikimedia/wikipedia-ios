@@ -13,7 +13,7 @@ private extension CGFloat {
     }
 }
 
-private enum OpenStatePercent: Int {
+@objc public enum GalleryDescriptionOpenStatePercent: Int {
     case normal = 22, maximized = 60
 }
 
@@ -27,7 +27,7 @@ private enum OpenStatePercent: Int {
         }
     }
     
-    private var openStatePercent: OpenStatePercent = .normal {
+    public var openStatePercent: GalleryDescriptionOpenStatePercent = .normal {
         didSet {
             invalidateIntrinsicContentSize()
         }
