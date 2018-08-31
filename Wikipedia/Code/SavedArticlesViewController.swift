@@ -166,7 +166,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
@@ -307,7 +307,7 @@ extension SavedArticlesViewController: ActionDelegate {
     private func delete(articles: [WMFArticle]) {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         let language = articles.count == 1 ? articles.first?.url?.wmf_language : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }

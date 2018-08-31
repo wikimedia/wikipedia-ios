@@ -38,7 +38,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLP
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
     }

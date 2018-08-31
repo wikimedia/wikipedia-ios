@@ -198,7 +198,6 @@
 		7A3AD05D20ADB21800C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */; };
 		7A3AD05E20ADB22000C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804931C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
-		7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48469620373D660079EE9A /* EnumCollection.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -3203,7 +3202,6 @@
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFCaptcha.swift; path = "../../WMF Framework/WMFCaptcha.swift"; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
-		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
@@ -5874,7 +5872,6 @@
 			isa = PBXGroup;
 			children = (
 				7ABAD6BE20349B91006A364C /* Collection.swift */,
-				7A48469620373D660079EE9A /* EnumCollection.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -10612,7 +10609,6 @@
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
-				7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */,
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */,
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
@@ -12309,7 +12305,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -12459,7 +12455,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -13001,7 +12997,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -14093,7 +14089,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -14160,7 +14156,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -14682,7 +14678,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -15101,7 +15097,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15512,7 +15508,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
@@ -16518,7 +16514,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -16757,7 +16753,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
@@ -17707,7 +17703,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -18207,7 +18203,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -18502,7 +18498,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
@@ -19107,7 +19103,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -19433,7 +19429,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -19981,7 +19977,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

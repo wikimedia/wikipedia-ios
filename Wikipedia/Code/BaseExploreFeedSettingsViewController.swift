@@ -159,7 +159,7 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
-        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newExploreFeedPreferencesWereRejected(_:)), name: NSNotification.Name.WMFNewExploreFeedPreferencesWereRejected, object: nil)
@@ -290,7 +290,7 @@ extension BaseExploreFeedSettingsViewController {
         guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
             return 0
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 }
 

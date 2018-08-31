@@ -392,7 +392,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         guard collectionViewAvailableWidth > 0 else {
             placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-            return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+            return placeholderCell.sizeThatFits(CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric))
         }
         
         guard collectionViewAvailableWidth - spacing >= 0 else {
@@ -403,14 +403,14 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         collectionViewAvailableWidth -= spacing
         
         placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIView.noIntrinsicMetric))
         
         let isLastTagToConfigure = tagToConfigure.index + 1 == tags.readingLists.count
         
         if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= placeholderCell.minWidth, !isLastTagToConfigure {
             tagToConfigure.isLast = true
             placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIView.noIntrinsicMetric))
         }
         
         collectionViewAvailableWidth -= placeholderCellSize.width
