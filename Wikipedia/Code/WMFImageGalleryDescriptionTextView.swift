@@ -34,6 +34,10 @@ private extension CGFloat {
     }
     
     public func toggleOpenState() {
+        let overflowTextExists = contentSize.height > bounds.size.height
+        guard overflowTextExists || openStatePercent == .maximized else {
+            return
+        }
         openStatePercent = openStatePercent == .normal ? .maximized : .normal
     }
 
@@ -55,7 +59,7 @@ private extension CGFloat {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        isScrollEnabled = openStatePercent == .maximized
+        isScrollEnabled = true
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
