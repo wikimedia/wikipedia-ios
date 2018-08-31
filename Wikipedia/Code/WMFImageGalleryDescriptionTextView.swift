@@ -33,8 +33,16 @@ private extension CGFloat {
         }
     }
     
+    // `contentSize` only reports full content height when `isScrollEnabled` is true.
+    private func scrollDisabledSafeContentSize() -> CGSize {
+        guard isScrollEnabled else {
+            return sizeThatFits(CGSize(width: frame.size.width, height: UIViewNoIntrinsicMetric))
+        }
+        return contentSize
+    }
+    
     public func toggleOpenState() {
-        let overflowTextExists = contentSize.height > bounds.size.height
+        let overflowTextExists = scrollDisabledSafeContentSize().height > bounds.size.height
         guard overflowTextExists || openStatePercent == .maximized else {
             return
         }
@@ -59,7 +67,7 @@ private extension CGFloat {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        isScrollEnabled = true
+        isScrollEnabled = openStatePercent == .maximized
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
