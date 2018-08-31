@@ -9,6 +9,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *ownerButton;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet WMFLicenseView *ownerStackView;
+@property (nonatomic, strong) IBOutlet UIImageView *lineImageView;
 
 - (IBAction)didTapOwnerButton;
 - (IBAction)didTapInfoButton;
