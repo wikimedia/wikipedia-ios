@@ -56,6 +56,7 @@
 
 - (void)toggleDescriptionOpenState {
     [self.imageDescriptionTextView toggleOpenState];
+    self.lineImageView.image = (self.imageDescriptionTextView.openStatePercent == GalleryDescriptionOpenStatePercentNormal) ? [UIImage imageNamed:@"gallery-line"] : [UIImage imageNamed:@"gallery-line-bent"];
 }
 
 - (NSString *)imageDescription {
