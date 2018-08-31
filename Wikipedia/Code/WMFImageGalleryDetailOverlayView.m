@@ -48,6 +48,12 @@
     }
 }
 
+- (IBAction)didTapBottomGradientView {
+    if (self.descriptionTapCallback) {
+        self.descriptionTapCallback();
+    }
+}
+
 - (void)toggleDescriptionOpenState {
     [self.imageDescriptionTextView toggleOpenState];
 }
