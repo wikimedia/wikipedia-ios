@@ -145,6 +145,7 @@
 "explore-because-you-read" = "Zuk irakurtzen duzulako";
 "explore-because-you-read-footer" = "Erlazionatutako artikulu gehiago";
 "explore-continue-reading-heading" = "Irakurtzen jarraitu";
+"explore-detail-back-button-title" = "Atzera Arakatze jariora";
 "explore-enable-location-title" = "Zure kokapenetik gertuko artikuluak arakatu";
 "explore-featured-article-heading" = "Nabarmendutako artikulua";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 Wikipediatik";
@@ -176,6 +177,8 @@
 "explore-feed-preferences-related-pages-description" = "Irakurketa historian oinarritutako iradokizunak";
 "explore-feed-preferences-show-continue-reading-title" = "Jarraitu irakurtzen txartela erakutsi";
 "explore-feed-preferences-show-featured-article-footer-text" = "Artikulu nabarmenduaren txartela itzaltzeak txartela itzaltzea eragingo du erabilgarri dauden hizkuntza guztietan";
+"explore-feed-preferences-show-news-title" = "Erakutsi berrien txartelan";
+"explore-feed-preferences-show-picture-of-the-day-title" = "Erakutsi Eguneko txartelaren argazkia";
 "explore-feed-preferences-show-places-title" = "Erakutsi Lekuen txartela";
 "explore-feed-preferences-top-read-description" = "Egunean gehien irakurtzen diren artikuluak";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Itzali Arakatzaile jarioa";
@@ -190,6 +193,7 @@
 "explore-main-page-heading" = "Gaur Wikipedian";
 "explore-most-read-generic-heading" = "Irakurrienak";
 "explore-most-read-more-list-title-for-date" = "$1(e)n ospetsuenak";
+"explore-most-read-sub-heading-on-language-wikipedia" = "$1 Wikipedian";
 "explore-most-read-sub-heading-on-wikipedia" = "Wikipedian";
 "explore-nearby-heading" = "Inguruko tokiak";
 "explore-nearby-placeholder-heading" = "Lekuak";
@@ -321,6 +325,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "open-link-cancel" = "Utzi";
+"original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";
 "page-edit-history" = "Aldaketa guztien historia";
 "page-history-title" = "Artikuluaren historia";
 "page-issues" = "Orriaren arazoak";

@@ -145,6 +145,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-feed-customize-accessibility-title" = "Personalizar";
+"explore-feed-language-settings" = "Preferencies de llingua de la canal Esplorar";
 "explore-feed-preferences-additional-languages-footer-text" = "Pueden añadise más llingües dende la páxina de configuración 'Les mios llingües'.";
 "explore-feed-preferences-card-hidden-title" = "Tarxeta tapecida";
 "explore-feed-preferences-continue-reading-description" = "Enllaz rápidu pa regresar a la llectura d'un artículu abiertu";
@@ -165,6 +166,15 @@
 "explore-feed-preferences-hide-card-action-title" = "Tapecer esta tarxeta";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes %@";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobro actividaes de recién";
+"explore-feed-preferences-languages-footer-text" = "Tapecer toles tarxetes de la canal d'esploración en tolos idiomes desactivará la llingüeta Esplorar.";
+"explore-feed-preferences-on-this-day-description" = "Acontecimientos históricos de güei";
+"explore-feed-preferences-places-description" = "Artículos de Wikipedia cerca del to allugamientu";
+"explore-feed-preferences-potd-description" = "Imaxe diaria destacada de Wikimedia Commons";
+"explore-feed-preferences-randomizer-description" = "Xenerar artículos al debalu pa lleer";
+"explore-feed-preferences-related-pages-description" = "Suxerencies basaes nel historial de llectura";
+"explore-feed-preferences-show-continue-reading-title" = "Ver la tarxeta de siguir lleyendo";
+"explore-feed-preferences-show-featured-article-footer-text" = "Desactivar la tarxeta d'Artículu destacáu desactivará la tarxeta en tolos idiomes disponibles.";
+"explore-feed-preferences-show-featured-article-title" = "Ver la tarxeta d'Artículu destacáu";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-most-read-footer" = "Tolos artículos más lleíos";
@@ -460,8 +470,7 @@
 "settings-notifications-system-turn-on" = "Activar los Avisos";
 "settings-notifications-trending" = "Enclín nes actividaes actuales";
 "settings-primary-language" = "Principal";
-// Fuzzy
-"settings-primary-language-details" = "La primera llingua d'esta llista emplégase como l'idioma principal de l'aplicación. Al camudalu, vas camudar tamién el conteníu diariu (por casu, l'Artículu de portada) que s'amuesa n'Esplorar.";
+"settings-primary-language-details" = "La primera llingua d'esta llista emplégase como idioma principal de l'aplicación.";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que Wikimedia almacene los tos artículos y llistes de llectura nes preferencies d'usuariu cuando anicies sesión y sincronices.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar los artículos guardaos y les llistes";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Al borrar los artículos guardaos van desaniciase de la to cuenta d'usuariu si tienes activada la sincronización, amás de nesti preséu. Esta aición nun puede desfacese.";
