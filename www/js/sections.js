@@ -178,6 +178,17 @@ const fragmentForSection = section => {
   return fragment
 }
 
+const fragmentForLeadImageURL = leadImageURL => {
+  const fragment = lazyDocument.createDocumentFragment()
+  enrichFragment(fragment)
+  const container = fragment.createElement('div')
+  const img = fragment.createElement('img')
+  img.src = leadImageURL
+  container.appendChild(img)
+  fragment.appendChild(container)
+  return fragment
+}
+
 const applyTransformationsToFragment = (fragment, article, isLead) => {
   requirements.redLinks.hideRedLinks(fragment)
 
@@ -267,10 +278,11 @@ const scrollToSection = hash => {
   }
 }
 
-const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, hash, successCallback) => {
+const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, articleLeadImageURL, hash, successCallback) => {
   performEarlyNonSectionTransforms(article)
   const mainContentDiv = liveDocument.querySelector('div.content')
-  fetch(articleSectionsURL)
+
+  const articleFetchPromise = fetch(articleSectionsURL)
     .then(processResponseStatus)
     .then(extractResponseJSON)
     .then(extractSectionsJSON)
@@ -286,7 +298,25 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
         successCallback()
       }, nonLeadDelay)
     })
-    .catch(error => console.log(`Promise was rejected with error: ${error}`))
+    .catch(error => console.log(`Article fetch promise was rejected with error: ${error}`))
+
+  fetch(articleLeadImageURL)
+    .then(processResponseStatus)
+    .catch(error => {
+      console.log(`Lead image URL fetch promise was rejected with error: ${error}`)
+      return {} // Resolve promise so chain continues
+    })
+    .then(response => response.text())
+    .catch(error => {
+      console.log(`Lead image URL response text extraction promise was rejected with error: ${error}`)
+      return null  // Resolve promise so chain continues
+    })
+    .then(leadImageURL => {
+      if (leadImageURL) {
+        mainContentDiv.appendChild(fragmentForLeadImageURL(leadImageURL))
+      }
+      return articleFetchPromise
+    })
 }
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'
