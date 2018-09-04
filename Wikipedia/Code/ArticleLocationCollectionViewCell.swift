@@ -71,8 +71,8 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         let distanceLabelVerticalPadding: CGFloat = 5
         let distanceLabelExtraTopMargin: CGFloat = 3
         let distanceLabelFrame = distanceLabel.wmf_preferredFrame(at: CGPoint(x: origin.x + distanceLabelHorizontalPadding, y: origin.y + distanceLabelVerticalPadding + distanceLabelExtraTopMargin), maximumWidth: widthForLabels - 2 * distanceLabelHorizontalPadding, alignedBy: articleSemanticContentAttribute, apply: apply)
- 
-        let distanceLabelBackgroundFrame = UIEdgeInsetsInsetRect(distanceLabelFrame, UIEdgeInsets(top: 0 - distanceLabelVerticalPadding, left: 0 - distanceLabelHorizontalPadding, bottom: 0 - distanceLabelVerticalPadding, right: 0 - distanceLabelHorizontalPadding))
+
+        let distanceLabelBackgroundFrame = distanceLabelFrame.inset(by: UIEdgeInsets(top: 0 - distanceLabelVerticalPadding, left: 0 - distanceLabelHorizontalPadding, bottom: 0 - distanceLabelVerticalPadding, right: 0 - distanceLabelHorizontalPadding))
 
         origin.y += distanceLabelBackgroundFrame.height + distanceLabelExtraTopMargin + spacing
 

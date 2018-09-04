@@ -25,7 +25,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
         view.isUserInteractionEnabled = false
         let nextIndex = index + 1
-        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
+        let direction:UIPageViewController.NavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
         let nextVC = pageControllers[nextIndex]
         hideButtons(for: nextVC)
         setViewControllers([nextVC], direction: direction, animated: true, completion: {(Bool) in
@@ -76,7 +76,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         dataSource = self
         delegate = self
         
-        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
+        let direction:UIPageViewController.NavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
         

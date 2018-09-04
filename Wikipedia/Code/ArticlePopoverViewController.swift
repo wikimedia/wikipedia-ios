@@ -68,8 +68,8 @@ class ArticlePopoverViewController: UIViewController {
         view.wmf_configureSubviewsForDynamicType()
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        super.didMove(toParentViewController: parent)
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
         updateMoreButtonImage(with: traitCollection)
     }
     
@@ -116,7 +116,7 @@ class ArticlePopoverViewController: UIViewController {
         }
         customElement.accessibilityLabel = accessibilityTitles.joined(separator: "\n")
         customElement.accessibilityCustomActions = [saveAction, shareAction]
-        customElement.accessibilityTraits = UIAccessibilityTraitLink
+        customElement.accessibilityTraits = UIAccessibilityTraits.link
         view.accessibilityElements = [customElement]
     }
     

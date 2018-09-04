@@ -5,7 +5,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     lazy var bubbleLeftImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-langs-left")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.opacity = 0
         imgView.layer.transform = wmf_scaleZeroAndLowerLeftTransform
@@ -15,7 +15,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
     lazy var bubbleRightImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-langs-right")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
         imgView.layer.transform = wmf_scaleZeroAndLowerRightTransform

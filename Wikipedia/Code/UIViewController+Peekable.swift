@@ -9,19 +9,19 @@ extension UIViewController {
     @objc func wmf_addPeekableChildViewController(for articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
         let articlePeekPreviewViewController = ArticlePeekPreviewViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         
-        addChildViewController(articlePeekPreviewViewController)
+        addChild(articlePeekPreviewViewController)
         view.wmf_addSubviewWithConstraintsToEdges(articlePeekPreviewViewController.view)
-        articlePeekPreviewViewController.didMove(toParentViewController: self)
+        articlePeekPreviewViewController.didMove(toParent: self)
     }
     
     @objc func wmf_removePeekableChildViewControllers() {
-        for vc in childViewControllers {
+        for vc in children {
             guard vc is Peekable else {
                 return
             }
             vc.view.removeFromSuperview()
-            vc.willMove(toParentViewController: nil)
-            vc.removeFromParentViewController()
+            vc.willMove(toParent: nil)
+            vc.removeFromParent()
         }
     }
 

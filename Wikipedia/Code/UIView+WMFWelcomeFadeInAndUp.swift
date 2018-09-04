@@ -9,7 +9,7 @@ extension UIView {
         UIView.animate(
             withDuration: duration,
             delay: delay,
-            options: UIViewAnimationOptions(),
+            options: UIView.AnimationOptions(),
             animations: {
                 self.layer.opacity = 1
                 self.layer.transform = CATransform3DIdentity

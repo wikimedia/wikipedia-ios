@@ -32,7 +32,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         title = CommonStrings.notifications
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
-        observationToken = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] (note) in
+        observationToken = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             self?.updateSections()
         }
     }
@@ -54,8 +54,8 @@ class NotificationSettingsViewController: SubSettingsViewController {
         let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-learn-more", value:"Learn more about notifications", comment:"A title for a button to learn more about notifications"), buttonAction: { [weak self] in
             let title = WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
             let message = "\(WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))"
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: UIAlertActionStyle.default, handler: { (action) in
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: UIAlertAction.Style.default, handler: { (action) in
             }))
             self?.present(alertController, animated: true, completion: nil)
         })]
@@ -86,7 +86,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
     
     func sectionsForSystemSettingsUnauthorized()  -> [NotificationSettingsSection] {
         let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-system-turn-on", value:"Turn on Notifications", comment:"Title for a button for turnining on notifications in the system settings"), buttonAction: {
-            guard let URL = URL(string: UIApplicationOpenSettingsURLString) else {
+            guard let URL = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
             UIApplication.shared.open(URL, options: [:], completionHandler: nil)

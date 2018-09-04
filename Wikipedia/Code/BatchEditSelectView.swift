@@ -63,7 +63,7 @@ public class BatchEditSelectView: SizeThatFitsView, Themeable {
     }
 }
 
-public enum EditingState: Int, EnumCollection {
+public enum EditingState: Int {
     case unknown // pre-init state, nil delegate state
     case empty // collection view is empty
     case none // initial state
