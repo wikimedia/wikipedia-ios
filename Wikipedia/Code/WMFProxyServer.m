@@ -9,6 +9,7 @@
 #import "MWKArticle.h"
 
 NSString *const WMFProxyServerArticleSectionDataBasePath = @"articleSectionData";
+NSString *const WMFProxyServerArticleLeadImageBasePath = @"articleLeadImage";
 NSString *const WMFProxyServerArticleKeyQueryItem = @"articleKey";
 NSString *const WMFProxyServerImageWidthQueryItem = @"imageWidth";
 
@@ -246,6 +247,45 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             }
             GCDWebServerResponse *response = [GCDWebServerDataResponse responseWithData:JSONData contentType:@"application/json; charset=utf-8"];
             completionBlock(response);
+        } else if ([baseComponent isEqualToString:WMFProxyServerArticleLeadImageBasePath]) {
+            NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFProxyServerArticleKeyQueryItem];
+            if (!articleKey) {
+                notFound();
+                return;
+            }
+            MWKArticle *article = [self articleForKey:articleKey];
+            if (!article) {
+                notFound();
+                return;
+            }
+            NSString *imageWidthString = [request.URL wmf_valueForQueryKey:WMFProxyServerImageWidthQueryItem];
+            if (!imageWidthString) {
+                notFound();
+                return;
+            }
+            NSInteger imageWidth = [imageWidthString integerValue];
+            if (imageWidth <= 0) {
+                notFound();
+                return;
+            }
+            if ([article.url wmf_isNonStandardURL]) {
+                notFound();
+                return;
+            }
+            NSString *imageURL = article.imageURL;
+            if(!imageURL){
+                imageURL = article.thumbnailURL;
+            }
+            if (!imageURL) {
+                notFound();
+                return;
+            }
+            NSString *imgSrcWithProxy = [self proxyURLForImageURLString:imageURL].absoluteString;
+            if (!imgSrcWithProxy) {
+                notFound();
+                return;
+            }
+            completionBlock([[GCDWebServerDataResponse alloc] initWithText:imgSrcWithProxy]);
         } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
             NSAssert(components.count == 6, @"Expected 6 components when using WMFProxyAPIBasePath");
             if (components.count == 6) {
@@ -395,6 +435,28 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
     components.queryItems = @[articleKeyQueryItem, imageWidthQueryItem];
 
+    return components.URL;
+}
+
+- (nullable NSURL *)articleLeadImageURLForArticleWithURL:(NSURL *)articleURL targetImageWidth:(NSInteger)targetImageWidth {
+    NSString *secret = self.secret;
+    NSURL *serverURL = self.webServer.serverURL;
+    NSString *key = articleURL.wmf_articleDatabaseKey;
+    if (secret == nil || serverURL == nil || key == nil) {
+        return nil;
+    }
+    
+    NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyServerArticleLeadImageBasePath]];
+    NSURLQueryItem *articleKeyQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerArticleKeyQueryItem value:key];
+    NSString *imageWidthString = [NSString stringWithFormat:@"%lli", (long long)targetImageWidth];
+    NSURLQueryItem *imageWidthQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerImageWidthQueryItem value:imageWidthString];
+    if (!articleKeyQueryItem || !imageWidthString) {
+        return nil;
+    }
+    
+    components.queryItems = @[articleKeyQueryItem, imageWidthQueryItem];
+    
     return components.URL;
 }
 
