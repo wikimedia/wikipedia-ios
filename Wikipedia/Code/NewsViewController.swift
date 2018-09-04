@@ -8,7 +8,8 @@ class NewsViewController: ColumnarCollectionViewController {
     let stories: [WMFFeedNewsStory]
     let dataStore: MWKDataStore
     let feedFunnelContext: FeedFunnelContext
-    
+    let cellImageViewHeight: CGFloat = 170
+
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.stories = stories
         self.dataStore = dataStore
@@ -25,13 +26,13 @@ class NewsViewController: ColumnarCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(NewsCollectionViewCell.self, forCellWithReuseIdentifier: NewsViewController.cellReuseIdentifier, addPlaceholder: true)
-        layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
+        layoutManager.register(UINib(nibName: NewsViewController.headerReuseIdentifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewsViewController.headerReuseIdentifier, addPlaceholder: false)
         collectionView.allowsSelection = false
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             FeedFunnel.shared.logFeedCardClosed(for: feedFunnelContext, maxViewed: maxViewed)
         }
     }
@@ -57,8 +58,9 @@ class NewsViewController: ColumnarCollectionViewController {
             return estimate
         }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
+        placeholderCell.imageViewHeight = cellImageViewHeight
         placeholderCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
@@ -133,7 +135,8 @@ extension NewsViewController {
         guard let newsCell = cell as? NewsCollectionViewCell else {
             return cell
         }
-        cell.layoutMargins = layout.itemLayoutMargins
+        newsCell.layoutMargins = layout.itemLayoutMargins
+        newsCell.imageViewHeight = cellImageViewHeight
         if let story = story(for: indexPath.section) {
             newsCell.configure(with: story, dataStore: dataStore, theme: theme, layoutOnly: false)
         }
@@ -145,7 +148,7 @@ extension NewsViewController {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
         switch kind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NewsViewController.headerReuseIdentifier, for: indexPath)
             guard let header = view as? NewsCollectionViewHeader else {
                 return view
@@ -153,7 +156,7 @@ extension NewsViewController {
             header.label.text = headerTitle(for: indexPath.section)
             header.apply(theme: theme)
             return header
-        case UICollectionElementKindSectionFooter:
+        case UICollectionView.elementKindSectionFooter:
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         default:
             assert(false, "ensure you've registered cells and added cases to this switch statement to handle all header/footer types")

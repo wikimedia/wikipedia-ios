@@ -14,6 +14,7 @@ struct ExploreSaveButtonUserInfo {
 }
 
 class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+    
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
     lazy var layoutManager: ColumnarCollectionViewLayoutManager = {
@@ -29,6 +30,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         lm.delegate = self
         return lm
     }()
+    
+    deinit {
+        if visibleLocationCellCount > 0 {
+            locationManager.stopMonitoringLocation()
+        }
+    }
     
     lazy var editController: CollectionViewEditController = {
         let editController = CollectionViewEditController(collectionView: collectionView)
@@ -206,7 +213,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return
         }
         cell.configure(article: article, displayType: displayType, index: indexPath.row, theme: theme, layoutOnly: layoutOnly)
-        cell.saveButton.eventLoggingLabel = eventLoggingLabel
+        if let fullWidthCell = cell as? ArticleFullWidthImageCollectionViewCell {
+            fullWidthCell.saveButton.eventLoggingLabel = eventLoggingLabel
+        }
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
     
@@ -360,7 +369,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.willDisplay(saveButton: cell.saveButton, for: article, with: ExploreSaveButtonUserInfo(indexPath: indexPath, kind: contentGroup?.contentGroupKind, midnightUTCDate: contentGroup?.midnightUTCDate))
         }
         if cell is ArticleLocationExploreCollectionViewCell {
@@ -372,7 +381,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let cell = cell as? ArticleCollectionViewCell, let article = article(at: indexPath) {
+        if let cell = cell as? ArticleFullWidthImageCollectionViewCell, let article = article(at: indexPath) {
             delegate?.saveButtonsController.didEndDisplaying(saveButton: cell.saveButton, for: article)
         }
         if cell is ArticleLocationExploreCollectionViewCell {
@@ -415,7 +424,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
-        let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: contentGroup?.key, articleKey: article?.key, userInfo: userInfo)
         estimate.height = height
         estimate.precalculated = true
@@ -503,7 +512,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         case .save:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.addSavedPage(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilitySavedNotification)
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilitySavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(true, article: article, theme: theme)
                     ReadingListsFunnel.shared.logSaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)
@@ -513,7 +522,7 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         case .unsave:
             if let articleURL = articleURL(at: indexPath) {
                 dataStore.savedPageList.removeEntry(with: articleURL)
-                UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.accessibilityUnsavedNotification)
+                UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.accessibilityUnsavedNotification)
                 if let article = article(at: indexPath) {
                     delegate?.readingListHintController.didSave(false, article: article, theme: theme)
                     ReadingListsFunnel.shared.logUnsaveInFeed(context: FeedFunnelContext(contentGroup), articleURL: articleURL, index: action.indexPath.item)

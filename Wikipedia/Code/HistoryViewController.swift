@@ -64,7 +64,7 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
+        guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
@@ -84,8 +84,8 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     }
 
     func updateVisibleHeaders() {
-        for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionElementKindSectionHeader) {
-            guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
+        for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader) {
+            guard let headerView = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) as? CollectionViewHeader else {
                 continue
             }
             headerView.title = titleForHeaderInSection(indexPath.section)
@@ -105,14 +105,14 @@ class HistoryViewController: ArticleFetchedResultsViewController {
             estimate.height = height
             return estimate
         }
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
             return estimate
         }
         let title = titleForHeaderInSection(section)
         placeholder.prepareForReuse()
         placeholder.style = .history
         placeholder.title = title
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric)).height
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric)).height
         estimate.precalculated = true
         layoutCache.setHeight(estimate.height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate

@@ -3,9 +3,6 @@ import Foundation
 protocol CollectionViewUpdaterDelegate: NSObjectProtocol {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView)
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView)
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView)
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex index: Int, in collectionView: UICollectionView)
-
 }
 
 class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResultsControllerDelegate {
@@ -52,9 +49,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         objectChange.toIndexPath = newIndexPath
         objectChange.type = type
         objectChanges.append(objectChange)
-        if type == .delete, let indexPath = indexPath {
-            delegate?.collectionViewUpdater(self, willRemoveItemAtIndexPath: indexPath, in: collectionView)
-        }
     }
     
     @objc func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
@@ -62,9 +56,6 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         sectionChange.sectionIndex = sectionIndex
         sectionChange.type = type
         sectionChanges.append(sectionChange)
-        if type == .delete {
-            delegate?.collectionViewUpdater(self, willRemoveSectionAtIndex: sectionIndex, in: collectionView)
-        }
     }
     
     private var previousSectionCounts: [Int] = []

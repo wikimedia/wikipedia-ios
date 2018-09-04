@@ -35,9 +35,9 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     
     private func removeHint() {
         task?.cancel()
-        hintVC.willMove(toParentViewController: nil)
+        hintVC.willMove(toParent: nil)
         hintVC.view.removeFromSuperview()
-        hintVC.removeFromParentViewController()
+        hintVC.removeFromParent()
         containerView.removeFromSuperview()
         resetHint()
     }

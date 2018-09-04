@@ -273,7 +273,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
@@ -356,7 +356,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         let entriesCount = entries.count
         do {
             try dataStore.readingListsController.remove(entries: entries)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: entriesCount))
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }
@@ -410,7 +410,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         return self.theme
     }
     
-    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {
         let newEditingState: EditingState
         
         switch currentEditingState {
@@ -527,14 +527,6 @@ extension ReadingListDetailViewController {
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex index: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

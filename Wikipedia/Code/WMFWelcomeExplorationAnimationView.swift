@@ -5,7 +5,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
     lazy var tubeImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-telescope-tube")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
 
         // Adjust tubeImgView anchorPoint so rotation happens at that point (at hinge)
@@ -21,7 +21,7 @@ open class WMFWelcomeExplorationAnimationView : WMFWelcomeAnimationView {
     lazy var baseImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-telescope-base")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.transform = wmf_lowerTransform
         imgView.layer.opacity = 0

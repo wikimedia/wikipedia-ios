@@ -166,7 +166,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
@@ -190,14 +190,6 @@ extension SavedArticlesViewController: CollectionViewUpdaterDelegate {
         }
         updateEmptyState()
         collectionView.setNeedsLayout()
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex index: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
@@ -315,7 +307,7 @@ extension SavedArticlesViewController: ActionDelegate {
     private func delete(articles: [WMFArticle]) {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         let language = articles.count == 1 ? articles.first?.url?.wmf_language : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }

@@ -215,7 +215,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
@@ -368,18 +368,8 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
         collectionView.setNeedsLayout()
     }
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveSectionAtIndex index: Int, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, willRemoveItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-    }
-    
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-
     }
-
 }
 
 // MARK: - ActionDelegate
@@ -450,7 +440,7 @@ extension ReadingListsViewController: ActionDelegate {
         switch action.type {
         case .delete:
             self.deleteReadingLists([readingList])
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
             return true
         default:
             return false

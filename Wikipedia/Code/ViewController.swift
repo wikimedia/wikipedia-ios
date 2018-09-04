@@ -72,7 +72,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
         button.addConstraints([height, width])
         let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
         view.addConstraints([top, trailing])
         closeButton = button
         applyThemeToCloseButton()
@@ -115,7 +115,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     }
     
     override var prefersStatusBarHidden: Bool {
-        return navigationMode == .detail
+        guard navigationMode != .detail else {
+            return true
+        }
+        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {
@@ -134,14 +137,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         apply(theme: theme)
         scrollView?.contentInsetAdjustmentBehavior = .never
  
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
-            if let window = self?.view.window, let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillChangeFrameNotification, object: nil, queue: nil, using: { [weak self] notification in
+            if let window = self?.view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 let windowFrame = window.convert(endFrame, from: nil)
                 self?.keyboardFrame = window.convert(windowFrame, to: self?.view)
             }
             self?.updateScrollViewInsets()
         })
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardDidHide, object: nil, queue: nil, using: { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardDidHideNotification, object: nil, queue: nil, using: { [weak self] notification in
             self?.keyboardFrame = nil
             self?.updateScrollViewInsets()
         })
@@ -264,7 +267,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
 
     open func scrollViewInsetsDidChange() {
         if showsNavigationBar && ownsNavigationBar {
-            for child in childViewControllers {
+            for child in children {
                 guard let vc = child as? ViewController, !vc.ownsNavigationBar else {
                     continue
                 }
