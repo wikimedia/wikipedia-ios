@@ -62,6 +62,7 @@
 "app-store-keywords" = "ဝီကီပီးဒီးယား၊ ကိုးကား၊ ဝီကီ၊ စွယ်စုံကျမ်း၊ အချက်အလက်၊ ဗဟုသုတ၊ သုတေသန၊ သတင်းအချက်အလက်၊ စူးစမ်း၊ သင်ယူ";
 "app-store-subtitle" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "appearance-settings-adjust-text-sizing" = "ဆောင်းပါး စာသားအရွယ်အစား ချိန်ညှိရန်";
+"appearance-settings-set-automatic-table-opening" = "ဇယား အပြင်အဆင်များ";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-delete" = "ဖျက်​ပါ​";
 "article-deleted-accessibility-notification" = "ဆောင်းပါး {{PLURAL:$1|ခု|ခု}} ဖျက်ပစ်ခဲ့သည်";

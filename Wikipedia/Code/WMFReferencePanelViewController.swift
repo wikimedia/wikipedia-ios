@@ -58,9 +58,9 @@ class WMFReferencePanelViewController: UIViewController, Themeable {
         guard let view = containerController.view else {
             return
         }
-        addChildViewController(containerController)
+        addChild(containerController)
         containerView.wmf_addSubviewWithConstraintsToEdges(view)
-        containerView.bringSubview(toFront: view)
-        containerController.didMove(toParentViewController: self)
+        containerView.bringSubviewToFront(view)
+        containerController.didMove(toParent: self)
     }
 }

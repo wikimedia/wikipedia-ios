@@ -71,9 +71,9 @@ open class ReadingThemesControlsViewController: UIViewController {
             slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
         
-        preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
     
     deinit {
@@ -89,14 +89,14 @@ open class ReadingThemesControlsViewController: UIViewController {
         button.borderWidth = 2
         button.isEnabled = false
         button.borderColor = theme.colors.link
-        button.accessibilityTraits = UIAccessibilityTraitSelected
+        button.accessibilityTraits = UIAccessibilityTraits.selected
     }
     
     func removeBorderFrom(_ button: UIButton) {
         button.borderWidth = traitCollection.displayScale > 0.0 ? 1.0/traitCollection.displayScale : 0.5
         button.isEnabled = true
         button.borderColor = theme.colors.border
-        button.accessibilityTraits = UIAccessibilityTraitButton
+        button.accessibilityTraits = UIAccessibilityTraits.button
     }
     
     var isTextSizeSliderHidden: Bool {
@@ -105,7 +105,7 @@ open class ReadingThemesControlsViewController: UIViewController {
             for slideView in textSizeSliderViews {
                 slideView.isHidden = newValue
             }
-            preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         }
         get {
             return textSizeSliderViews.first?.isHidden ?? false
@@ -143,7 +143,7 @@ open class ReadingThemesControlsViewController: UIViewController {
 
     fileprivate func logBrightnessChange() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
-        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [.defaultRunLoopMode])
+        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [RunLoop.Mode.default])
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {

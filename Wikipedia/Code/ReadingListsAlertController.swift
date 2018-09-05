@@ -7,7 +7,7 @@ public enum ReadingListsAlertActionType {
     
     public func action(with handler: (() -> Void)? = nil) -> UIAlertAction {
         let title: String
-        let style: UIAlertActionStyle
+        let style: UIAlertAction.Style
         switch self {
         case .delete:
             title = CommonStrings.deleteActionTitle

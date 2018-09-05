@@ -94,11 +94,11 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             let vc = customViewItem.viewController
 
             if let view = vc.view {
-                addChildViewController(vc)
+                addChild(vc)
                 view.frame = cell.contentView.bounds
                 view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 cell.contentView.addSubview(view)
-                vc.didMove(toParentViewController: self)
+                vc.didMove(toParent: self)
             }
             
             if let themeable = vc as? Themeable {
@@ -179,9 +179,9 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             return
         }
         let vc = customViewItem.viewController
-        vc.willMove(toParentViewController: nil)
+        vc.willMove(toParent: nil)
         vc.view.removeFromSuperview()
-        vc.removeFromParentViewController()
+        vc.removeFromParent()
         if let cell = cell as? WMFSettingsTableViewCell {
             cell.disclosureSwitch.removeTarget(nil, action: nil, for: .valueChanged)
         }
