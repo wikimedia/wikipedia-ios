@@ -285,6 +285,17 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
                 notFound();
                 return;
             }
+
+            CGFloat yFocalOffset = 0;
+            MWKImage *leadImage = article.leadImage;
+            if (leadImage && leadImage.hasFaces && !CGRectEqualToRect(leadImage.firstFaceBounds, CGRectZero)) {
+                // The lead image CSS is structured to use yFocalOffset which is percent to shift image vertically.
+                // 0 aligns top to top of lead_image_div, 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
+                float percentFromTop = CGRectGetMidY(leadImage.firstFaceBounds) * 100.0f;
+                yFocalOffset = @(MAX(0, MIN(100, percentFromTop))).integerValue;
+            }
+            imgSrcWithProxy = [NSString stringWithFormat:@"%@&yFocalOffset=%f", imgSrcWithProxy, yFocalOffset];
+
             completionBlock([[GCDWebServerDataResponse alloc] initWithText:imgSrcWithProxy]);
         } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
             NSAssert(components.count == 6, @"Expected 6 components when using WMFProxyAPIBasePath");
