@@ -192,7 +192,8 @@ extension WKWebView {
             let url = article.url,
             let host = url.host,
             let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: host),
-            let apiURL = WMFProxyServer.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let apiURL = WMFProxyServer.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth),
+            let apiLeadImageURL = WMFProxyServer.shared().articleLeadImageURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, proxyURL and encodedTitle")
                 return
@@ -201,6 +202,7 @@ extension WKWebView {
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
         let proxyURLString = proxyURL.absoluteString
         let apiURLString = apiURL.absoluteString
+        let apiLeadImageURLString = apiLeadImageURL.absoluteString
         let title = (article.url as NSURL).wmf_title ?? ""
 
         let addFooterCallbackJS = """
@@ -226,6 +228,7 @@ extension WKWebView {
             window.wmf.sections.fetchTransformAndAppendSectionsToDocument(
                 \(articleJS(for: article, title: title)),
                 '\(apiURLString.wmf_stringBySanitizingForJavaScript())',
+                '\(apiLeadImageURLString.wmf_stringBySanitizingForJavaScript())',
                 '\((fragment ?? "").wmf_stringBySanitizingForJavaScript())',
                 \(addFooterCallbackJS)
             )
