@@ -250,16 +250,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
         navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
+        navigationBarTopSpacing = incomingNavigationBar.barTopSpacing
         navigationBar.isTopSpacingHidingEnabled = true
+        navigationBar.barTopSpacing = navigationBarTopSpacing
         navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
         navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
         navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
         navigationBar.shadowAlpha = navigationBarShadowAlpha
     }
     
+    func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = outgoingNavigationBar.topSpacingPercentHidden
+        navigationBarShadowAlpha = outgoingNavigationBar.shadowAlpha
+        navigationBarTopSpacing = outgoingNavigationBar.barTopSpacing
+    }
+    
     private var navigationBarShadowAlpha: CGFloat = 0
     private var navigationBarTopSpacingPercentHidden: CGFloat = 0
-    
+    private var navigationBarTopSpacing: CGFloat = 0
+
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var _isSearchVisible: Bool = false
     func setSearchVisible(_ visible: Bool, animated: Bool) {
@@ -271,17 +280,19 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isTitleShrinkingEnabled = true
             self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
         }
+        if searchLanguageBarViewController != nil {
+            navigationBar.shadowAlpha = 0
+        }
         if visible {
             navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
             navigationBarShadowAlpha = navigationBar.shadowAlpha
-        }
-        if searchLanguageBarViewController != nil {
-            navigationBar.shadowAlpha = 0
+            navigationBarTopSpacing = navigationBar.barTopSpacing
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
             self.navigationBar.isTitleShrinkingEnabled = false
+            self.navigationBar.barTopSpacing = self.navigationBarTopSpacing
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
             self.navigationBar.isBarHidingEnabled = false
             self.navigationBar.isTopSpacingHidingEnabled = !visible

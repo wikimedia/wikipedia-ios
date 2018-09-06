@@ -140,6 +140,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         return barButtonItem
     }
     
+    private var titleBarHeightConstraint: NSLayoutConstraint!
+    
     private var underBarViewHeightConstraint: NSLayoutConstraint!
     
     private var shadowTopUnderBarViewBottomConstraint: NSLayoutConstraint!
@@ -150,7 +152,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     private var titleBarTopConstraint: NSLayoutConstraint!
     private var barTopConstraint: NSLayoutConstraint!
-    var barTopSpacing: CGFloat = 0 {
+    public var barTopSpacing: CGFloat = 0 {
         didSet {
             titleBarTopConstraint.constant = barTopSpacing
             barTopConstraint.constant = barTopSpacing
@@ -203,6 +205,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         updatedConstraints.append(statusBarUnderlayLeadingConstraint)
         let statusBarUnderlayTrailingConstraint = trailingAnchor.constraint(equalTo: statusBarUnderlay.trailingAnchor)
         updatedConstraints.append(statusBarUnderlayTrailingConstraint)
+        
+        titleBarHeightConstraint = titleBar.heightAnchor.constraint(equalToConstant: 44)
+        titleBarHeightConstraint.priority = UILayoutPriority(rawValue: 999)
+        titleBar.addConstraint(titleBarHeightConstraint)
         
         titleBarTopConstraint = titleBar.topAnchor.constraint(equalTo: statusBarUnderlay.bottomAnchor, constant: barTopSpacing)
         let titleBarLeadingConstraint = leadingAnchor.constraint(equalTo: titleBar.leadingAnchor)
@@ -386,7 +392,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             barTopSpacing = 0
             return
         }
-        barTopSpacing = safeAreaInsets.top > 0 ? 30 : 0
+        let isSafeAreaInsetsTopGreaterThanZero = safeAreaInsets.top > 0
+        barTopSpacing = isSafeAreaInsetsTopGreaterThanZero ? 30 : 0
+        titleBarHeightConstraint.constant = isSafeAreaInsetsTopGreaterThanZero ? 44 : 32 // it doesn't seem like there's a way to force update of bar metrics - as it stands the bar height gets stuck in whatever mode the app was launched in
     }
     
     private func updateShadowConstraints() {
