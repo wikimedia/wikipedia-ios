@@ -3,10 +3,10 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
         
         
         if batchEditToolbarViewController.parent == nil {
-            addChildViewController(batchEditToolbarViewController)
+            addChild(batchEditToolbarViewController)
             batchEditToolbarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(batchEditToolbarViewController.view)
-            batchEditToolbarViewController.didMove(toParentViewController: self)
+            batchEditToolbarViewController.didMove(toParent: self)
             
             let leadingConstraint = batchEditToolbarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
             let trailingConstraint = batchEditToolbarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -22,8 +22,8 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
         }) { _ in
             if isHidden {
                 batchEditToolbarViewController.view.removeFromSuperview()
-                batchEditToolbarViewController.willMove(toParentViewController: nil)
-                batchEditToolbarViewController.removeFromParentViewController()
+                batchEditToolbarViewController.willMove(toParent: nil)
+                batchEditToolbarViewController.removeFromParent()
             }
         }
         batchEditToolbarViewController.apply(theme: currentTheme)

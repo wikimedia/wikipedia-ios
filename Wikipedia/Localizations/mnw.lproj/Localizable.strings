@@ -122,7 +122,6 @@
 "empty-no-feed-title" = "အဆက်စၠောအ် ကုအေန်တာနေတ် ဟွံမွဲ";
 "empty-no-history-message" = "ဆက် ကလေင်ကျောဝ် မုမၞးမဗှ်လဝ် ပ္ဍဲဒၞာဲဏအ်၊၊";
 "empty-no-history-title" = "အရာမကၠောန်လဝ်တုဲတုဲ သွက်ဂွံထ္ၜး ဟွံမွဲ";
-// Fuzzy
 "empty-no-reading-lists-message" = "စွံကောန်လဴ လတူ အသာ်သၚေက် ‘+’ သွက်ဂွံ ခၞံကၠောန် စရင် လိက်ဗွဟ် သွက်ဒၞာဲ သွက်ဂွံအာဝေင်၊ က္ဍိုပ်လိက် မဒးဂၞပ် ကေုာံ အရာတၞဟ်၊၊";
 "empty-no-reading-lists-title" = "ပကောံစွံ လိက်ပရေင် မဂိုင်သိပ် နကဵု စရင် လိက်ဗွဟ်";
 "empty-no-saved-pages-in-reading-list-message" = "ဂိုင်သိပ် မုက်လိက် ပ္ဍဲ စရင်ဏအ် သွက်ဂွံဆဵု မုက်လိက်တအ် ပ္ဍဲဒၞာဲဏအ်";
@@ -135,10 +134,13 @@
 "explore-because-you-read" = "ဟိုတ်နူ မၞး ဗှ်ဒၟံင်";
 "explore-because-you-read-footer" = "လိက်ပရေင် မဆက်စပ်ဂမၠိုင်";
 "explore-continue-reading-heading" = "ဆက် ဗှ်";
+"explore-detail-back-button-title" = "ကလေင်အာ ဒၞာဲမုက် မထ္ၜး";
 "explore-enable-location-title" = "ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ဗဒဲါဒၞာဲမၞး မနွံဒၟံင် လၟုဟ်";
 "explore-featured-article-heading" = "လိက်ပရေင် မုက်ဂတ";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "explore-featured-article-sub-heading-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
+"explore-feed-customize-accessibility-title" = "ဖျေဟ်ဒၞာဲ အတိုင်ပၟိက်စိုတ်";
+"explore-feed-language-settings" = "ဖျေဟ်ဒၞာဲ အရေဝ်ဘာသာ ပ္ဍဲ ဒၞာဲမုက် မထ္ၜး";
 "explore-feed-preferences-additional-languages-footer-text" = "လိက်မချူလဝ် နကဵုဘာသာတအ်ဏအ် စုတ် ပ္ဍဲ မုက်လိက် ဒၞာဲ 'အရေဝ်ဘာသာ အဲ' ဂွံ၊၊";
 "explore-feed-preferences-card-hidden-title" = "ကာတ် ဗဒန်အာ";
 "explore-feed-preferences-continue-reading-description" = "ကလေင်အာလေန် သွက်ဂွံ ဗှ် လိက်ပရေင် မပံက်လဝ်မွဲ";
@@ -384,6 +386,7 @@
 "preference-title-eventlogging-opt-in" = "ပလံင် လိက်ဒုင်စဳရေင် ညးမသုင်စောဲ";
 "rank-accessibility-label" = "ဂၞန် $1";
 "readers-accessibility-label" = "$1 မၞိဟ်ဗွဟ်";
+"reading-list-add-generic-hint-title" = "စုတ် လိက်ပရေင်ဏအ် ပ္ဍဲ စရင်လိက်ဗွဟ်？";
 "reading-list-add-hint-title" = "စုတ် ＂$1＂ပ္ဍဲစရင်လိက်ဗွဟ်";
 "reading-list-add-saved-button-title" = "ယွံ၊ စုတ် လိက်တအ် ပ္ဍဲ စရင် လိက်ဗွဟ် အဲညိ၊၊";
 "reading-list-add-saved-subtitle" = "ပ္ဍဲ app ဝဳကဳပဳဒဳယာ မၞးဂှ် ဂိုင်သိပ်လဝ် လိက်ပရေင် နွံဒၟံင်၊၊ မၞး မိက်ဂွံ စွံလဝ် လိက်တအ်တုဲ ပကောံစုတ် ပ္ဍဲ စရင်လိက်ဗွဟ် ပ္ဍဲအကံက် မၞးဟာ？";
@@ -435,6 +438,7 @@
 "reading-list-unable-to-update" = "အဃော မတၟိလဟဵုဒၟံင် စရင် လိက်ဗွဟ်မၞးဂှ် အရာမဗၠေတ် မဟွံစၟဳမွဲ ကတဵုဒှ်ကၠုင်၊၊ ပဂုန်တုဲ လက္ကရဴ ကလေင်ကၠောန်ပၠန်၊၊";
 "reading-list-with-provided-name-not-found" = "စရင် လိက်ဗွဟ် နကဵု ယၟု ＂$1＂ဂှ် ဟွံဂွံဆဵု၊၊ ပဂုန်တုဲ ပချိုတ်ပၠိုတ်ထောအ် ဒဒှ်ရ နကဵုယၟုဂှ် ပ္ဍဲ မၞး နွံ ဟွံမဲဂှ်၊၊";
 "reading-lists-article-added-confirmation" = "လိက်ပရေင်ဂှ် စုတ် ပ္ဍဲ ＂$1＂";
+"reading-lists-article-api-failure" = "လိက်ပရေင်ဂှ် syne ဟွံဂွံ၊၊";
 "reading-lists-article-not-synced" = "ဟွံ ကချဳဓရာင်";
 "reading-lists-article-not-synced-article-limit-exceeded" = "လိက်ပရေင် လၟိဟ်အပိုင်အခြာ စိုပ်အာရ၊ ကချဳဓရာင် လိက်ပရေင် ဟွံသၟဟ်အစောံရ၊၊";
 "reading-lists-article-not-synced-list-limit-exceeded" = "စရင် လၟိဟ်အပိုင်အခြာ စိုပ်အာရ၊၊ ကချဳဓရာင် လိက်ပရေင် ဟွံသၟဟ်အစောံရ၊၊";
@@ -499,6 +503,7 @@
 "settings-clear-cache-ok" = "ဖအး တင်ဂၞင်ပၞုက်";
 "settings-help-and-feedback" = "ရီုဗင် ကေုာံ ကဵုfeedback";
 "settings-language-bar" = "ထ္ၜး အရေဝ်ဘာသာဂမၠိုင် ပ္ဍဲ ဒၞာဲမဂၠာဲ";
+"settings-languages-feed-customization" = "နကဵု မဖျေဟ်ဒၞာဲ အတိုင်ပၟိက်စိုတ် ပ္ဍဲဒၞာဲမုက် မထ္ၜးဂှ် မၞးရုဲကေတ် နကဵု အရေဝ်ဘာသာ လဵု မၞးမိက်ဂွံစကာ ပ္ဍဲ ဒၞာဲမုက် မထ္ၜး မၞး ဂွံရ၊၊";
 "settings-my-languages" = "အရေဝ်ဘာသာ အဲ";
 "settings-notifications" = "တင်မကဵုသမ္တီ";
 "settings-notifications-info" = "နကဵု တင်မကဵုသမ္တီ ပ္ဍဲ ဝဳကဳပဳဒဳယာဂှ် မၞးကဵုသမ္တီ လိက်မၞိဟ်မဗှ်ဂၠိုင်အိုတ် ဂွံရ၊၊ အရာ မၞးမကဵုသမ္တီဂှ် မဂွံရှ်ေသှ်ေ အခေါင်ပူဂဵု ကေုာံ တင်မဂိုင်ဒိပ် တင်ဂၞင်တအ်ရ၊၊";
@@ -507,8 +512,7 @@
 "settings-notifications-system-turn-on" = "ပံက် တင်မကဵုသမ္တီ";
 "settings-notifications-trending" = "ပခိုဟ်ပတိုန် သဘင် ပြဟ်ဟ်ဏအ်";
 "settings-primary-language" = "အဓိက";
-// Fuzzy
-"settings-primary-language-details" = "အရေဝ်ဘာသာကၠာအိုတ် ပ္ဍဲ စရင်ဏအ်ဂှ် စကာ နကဵုအရေဝ်ဘာသာ အဓိက သွက် app ဏအ်ရ၊၊ မပြံင်လှာဲ အရေဝ်ဘာသာဏအ်ဂှ် မာတိကာ လၟေင်တ္ၚဲ (ဗီုကဵု လိက်ရေင် တၟေင်) မထ္ၜး ပ္ဍဲ Explore ဂှ်လေဝ် ပြံင်လှာဲအာကီုရ၊၊";
+"settings-primary-language-details" = "အရေဝ်ဘာသာကၠာအိုတ် ပ္ဍဲ စရင်ဏအ်ဂှ် စကာ နကဵုအရေဝ်ဘာသာ အဓိက သွက် app ဏအ်ရ၊၊";
 "settings-search-footer-text" = "ဖျေဟ်ဒၞာဲ app သွက်ဂွံ ပံက် ပ္ဍဲ ဒၞာဲတေပ် ဂၠာဲ စၞး ဒၞာဲတေပ် Explore";
 "settings-search-open-app-on-search" = "ပံက် app ပ္ဍဲ ဒၞာဲတေပ် ဂၠာဲ";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ကဵုအခေါင် ကုဝဳကဳမဳဒဳယာ သွက်ဂွံ ဂိုင်သိပ် လိက်ပရေင်မဂိုင်သိပ်လဝ် ကေုာံ စရင် လိက်ဗွဟ်မၞး ပ္ဍဲဒၞာဲ မၞိဟ်မသုင်စောဲမဒးဂၞပ် ကာလ မၞးလုပ်လံက်အေန် ကေုာံ ကချဳဓရာင်၊၊";

@@ -54,12 +54,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         contentView.addSubview(defaultListTag)
         
         let topRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
-        topRow.axis = UILayoutConstraintAxis.horizontal
-        topRow.distribution = UIStackViewDistribution.fillEqually
+        topRow.axis = NSLayoutConstraint.Axis.horizontal
+        topRow.distribution = UIStackView.Distribution.fillEqually
         
         let bottomRow = UIStackView(arrangedSubviews: [UIImageView(), UIImageView()])
-        bottomRow.axis = UILayoutConstraintAxis.horizontal
-        bottomRow.distribution = UIStackViewDistribution.fillEqually
+        bottomRow.axis = NSLayoutConstraint.Axis.horizontal
+        bottomRow.distribution = UIStackView.Distribution.fillEqually
         
         gridImageViews = (topRow.arrangedSubviews + bottomRow.arrangedSubviews).compactMap { $0 as? UIImageView }
 
@@ -70,8 +70,8 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
         
         let outermostStackView = UIStackView(arrangedSubviews: [topRow, bottomRow])
-        outermostStackView.axis = UILayoutConstraintAxis.vertical
-        outermostStackView.distribution = UIStackViewDistribution.fillEqually
+        outermostStackView.axis = NSLayoutConstraint.Axis.vertical
+        outermostStackView.distribution = UIStackView.Distribution.fillEqually
         
         imageGrid.addSubview(outermostStackView)
         outermostStackView.frame = imageGrid.frame
@@ -145,7 +145,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             } else {
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
         } else if (descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden) {
@@ -155,7 +155,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
         } else {
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             if !isAlertIconHidden || !isAlertLabelHidden {
                 origin.y += titleLabelFrame.layoutHeight(with: spacing) + spacing * 2

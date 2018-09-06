@@ -5,9 +5,9 @@ class WMFMapsActivity : UIActivity {
     
     public var mapItem: MKMapItem?
     
-    override open var activityType: UIActivityType? {
+    override open var activityType: UIActivity.ActivityType? {
         get {
-            return UIActivityType(rawValue: String(describing: self))
+            return UIActivity.ActivityType(rawValue: String(describing: self))
         }
     }
     

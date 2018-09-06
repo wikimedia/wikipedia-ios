@@ -14,8 +14,8 @@ class PageIssuesTableViewController: UITableViewController {
         self.title = WMFLocalizedStringWithDefaultValue("page-issues", nil, nil, "Page issues", "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}")
         
         self.tableView.estimatedRowHeight = 90.0
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: PageIssuesTableViewController.defaultViewCellReuseIdentifier)
 

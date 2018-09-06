@@ -14,7 +14,7 @@ class GroupedAccessibilityView: UIView {
         super.awakeFromNib()
         wmf_disableSubviewAccessibility()
         isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraitLink
+        accessibilityTraits = UIAccessibilityTraits.link
         
         guard let first = accessibilityView0 else {
             return

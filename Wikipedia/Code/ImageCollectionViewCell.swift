@@ -47,18 +47,18 @@ class ImageCollectionViewCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         var size = super.sizeThatFits(size, apply: apply)
-        if size.width != UIViewNoIntrinsicMetric {
+        if size.width != UIView.noIntrinsicMetric {
             size.height = round(ratio * size.width)
-        }else if size.height != UIViewNoIntrinsicMetric {
+        }else if size.height != UIView.noIntrinsicMetric {
             size.width = round(size.height / ratio)
         }
         if apply {
-            let boundsInsetByMargins = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), layoutMargins)
+            let boundsInsetByMargins = CGRect(origin: .zero, size: size).inset(by: layoutMargins)
             imageView.frame = CGRect(origin: .zero, size: size)
             if captionLabel.wmf_hasAnyNonWhitespaceText {
                 captionLabel.isHidden = false
                 gradientView.isHidden = false
-                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, minimumSize: CGSize(width: boundsInsetByMargins.size.width, height: UIViewNoIntrinsicMetric), alignedBy: semanticContentAttribute, apply: false)
+                var labelFrame = captionLabel.wmf_preferredFrame(at: boundsInsetByMargins.origin, maximumSize: boundsInsetByMargins.size, minimumSize: CGSize(width: boundsInsetByMargins.size.width, height: UIView.noIntrinsicMetric), alignedBy: semanticContentAttribute, apply: false)
                 let extraBottomPadding: CGFloat = 5.0
                 labelFrame.origin = CGPoint(x: labelFrame.origin.x, y: size.height - labelFrame.height - layoutMargins.bottom - extraBottomPadding)
                 captionLabel.frame = labelFrame

@@ -198,7 +198,6 @@
 		7A3AD05D20ADB21800C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */; };
 		7A3AD05E20ADB22000C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804931C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
-		7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A48469620373D660079EE9A /* EnumCollection.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20321231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -689,7 +688,6 @@
 		B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30CE1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift */; };
 		B09B30D11DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
 		B09BE6A11FB3DA46007F52E3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BE6A01FB3DA45007F52E3 /* WebKit.framework */; };
-		B09BE6A31FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */; };
 		B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0ACB13421265B9C0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0ACB13521265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
@@ -3218,7 +3216,6 @@
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFCaptcha.swift; path = "../../WMF Framework/WMFCaptcha.swift"; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
-		7A48469620373D660079EE9A /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
@@ -5895,7 +5892,6 @@
 			isa = PBXGroup;
 			children = (
 				7ABAD6BE20349B91006A364C /* Collection.swift */,
-				7A48469620373D660079EE9A /* EnumCollection.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -9665,7 +9661,6 @@
 				B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */,
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
 				BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */,
-				B09BE6A31FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
@@ -10639,7 +10634,6 @@
 				D844D9A11D6CB6660042D692 /* WMFURLCache.m in Sources */,
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
-				7A48469C20373DA10079EE9A /* EnumCollection.swift in Sources */,
 				D844D9EB1D6CBFE40042D692 /* WMFZeroConfigurationManager.m in Sources */,
 				D85421C21FD1F4B300DAA763 /* UIView+Shadow.swift in Sources */,
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
@@ -12227,7 +12221,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -12252,7 +12245,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -12277,7 +12269,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Test;
 		};
@@ -12345,7 +12336,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -12425,7 +12416,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Test;
@@ -12495,7 +12485,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -12693,7 +12683,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UITest;
 		};
@@ -12734,7 +12723,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = UITest;
@@ -12794,7 +12782,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UITest;
 		};
@@ -12824,7 +12811,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UITest;
 		};
@@ -12853,7 +12839,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UITest;
 		};
@@ -12909,7 +12894,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = UITest;
@@ -12931,7 +12915,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = UITest;
 		};
@@ -12966,7 +12950,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13037,7 +13021,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -13235,7 +13219,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -13276,7 +13259,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = EventLoggingDevDebug;
@@ -13336,7 +13318,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -13366,7 +13347,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -13395,7 +13375,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -13451,7 +13430,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = EventLoggingDevDebug;
@@ -13473,7 +13451,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -13508,7 +13486,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13545,7 +13523,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13578,7 +13556,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13611,7 +13589,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13644,7 +13622,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13677,7 +13655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13710,7 +13688,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13743,7 +13721,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13776,7 +13754,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13809,7 +13787,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13842,7 +13820,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13875,7 +13853,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13908,7 +13886,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13941,7 +13919,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -13974,7 +13952,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Wikipedia;
 			};
@@ -14017,7 +13995,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = Debug;
@@ -14060,7 +14037,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Release;
@@ -14129,7 +14105,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -14196,7 +14172,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -14718,7 +14694,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -14916,7 +14892,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMDebug;
 		};
@@ -14957,7 +14932,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = OSMDebug;
@@ -14988,7 +14962,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMDebug;
 		};
@@ -15018,7 +14991,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMDebug;
 		};
@@ -15052,7 +15024,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = OSMDebug;
@@ -15074,7 +15045,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = OSMDebug;
 		};
@@ -15137,7 +15108,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -15331,7 +15302,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMRelease;
 		};
@@ -15373,7 +15343,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = OSMRelease;
@@ -15399,7 +15368,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMRelease;
 		};
@@ -15424,7 +15392,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMRelease;
 		};
@@ -15459,7 +15426,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = OSMRelease;
@@ -15478,7 +15444,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = OSMRelease;
 		};
@@ -15548,7 +15514,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
@@ -15562,7 +15528,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -15615,7 +15581,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaClusterDebug;
 		};
@@ -15656,7 +15621,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = BetaClusterDebug;
@@ -15687,7 +15651,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaClusterDebug;
 		};
@@ -15717,7 +15680,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaClusterDebug;
 		};
@@ -15751,7 +15713,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = BetaClusterDebug;
@@ -15781,7 +15742,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -15806,7 +15766,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMDebug;
 		};
@@ -15831,7 +15790,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingDebug;
 		};
@@ -15856,7 +15814,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaDebug;
 		};
@@ -15881,7 +15838,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaClusterDebug;
 		};
@@ -15906,7 +15862,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = AlphaDebug;
 		};
@@ -15931,7 +15886,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -15956,7 +15910,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = OSMRelease;
 		};
@@ -15981,7 +15934,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingRelease;
 		};
@@ -16006,7 +15958,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Beta;
 		};
@@ -16031,7 +15982,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaCluster;
 		};
@@ -16056,7 +16006,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Test;
 		};
@@ -16081,7 +16030,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.FeaturedArticleWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Alpha;
 		};
@@ -16115,7 +16063,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
@@ -16151,7 +16098,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
@@ -16187,7 +16133,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Test;
@@ -16463,7 +16408,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = AlphaDebug;
 		};
@@ -16490,7 +16434,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Alpha;
 		};
@@ -16554,7 +16497,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -16569,7 +16512,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -16636,7 +16579,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = Alpha;
@@ -16662,7 +16604,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Alpha;
 		};
@@ -16687,7 +16628,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Alpha;
 		};
@@ -16722,7 +16662,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Alpha;
@@ -16793,7 +16732,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.alpha;
@@ -16807,7 +16746,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -16880,7 +16819,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = AlphaDebug;
@@ -16911,7 +16849,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = AlphaDebug;
 		};
@@ -16941,7 +16878,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = AlphaDebug;
 		};
@@ -16975,7 +16911,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = AlphaDebug;
@@ -17006,7 +16941,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -17031,7 +16965,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -17056,7 +16989,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Test;
 		};
@@ -17077,7 +17009,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -17095,7 +17027,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = UserTestingDebug;
 		};
@@ -17113,7 +17045,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = BetaDebug;
 		};
@@ -17131,7 +17063,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = BetaClusterDebug;
 		};
@@ -17149,7 +17081,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = AlphaDebug;
 		};
@@ -17167,7 +17099,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -17185,7 +17117,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = UserTestingRelease;
 		};
@@ -17203,7 +17135,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Beta;
 		};
@@ -17221,7 +17153,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = BetaCluster;
 		};
@@ -17239,7 +17171,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Test;
 		};
@@ -17257,7 +17189,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Alpha;
 		};
@@ -17627,7 +17559,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -17651,7 +17582,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -17675,7 +17605,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Test;
 		};
@@ -17743,7 +17672,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -17941,7 +17870,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -17982,7 +17910,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = PageLibraryDevDebug;
@@ -18042,7 +17969,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -18072,7 +17998,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -18101,7 +18026,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -18157,7 +18081,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = PageLibraryDevDebug;
@@ -18179,7 +18102,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = PageLibraryDevDebug;
 		};
@@ -18243,7 +18166,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -18258,7 +18181,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -18339,7 +18262,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Beta;
 		};
@@ -18381,7 +18303,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Beta;
@@ -18407,7 +18328,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Beta;
 		};
@@ -18432,7 +18352,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Beta;
 		};
@@ -18467,7 +18386,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Beta;
@@ -18538,7 +18456,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia.beta;
@@ -18552,7 +18470,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -18638,7 +18556,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaDebug;
 		};
@@ -18679,7 +18596,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = BetaDebug;
@@ -18710,7 +18626,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaDebug;
 		};
@@ -18740,7 +18655,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaDebug;
 		};
@@ -18774,7 +18688,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = BetaDebug;
@@ -19143,7 +19056,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -19271,7 +19184,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingRelease;
 		};
@@ -19313,7 +19225,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = UserTestingRelease;
@@ -19339,7 +19250,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingRelease;
 		};
@@ -19364,7 +19274,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingRelease;
 		};
@@ -19399,7 +19308,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = UserTestingRelease;
@@ -19469,7 +19377,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				WMF_APP_GROUP_IDENTIFIER = group.org.wikimedia.wikipedia;
@@ -19601,7 +19509,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingDebug;
 		};
@@ -19642,7 +19549,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = UserTestingDebug;
@@ -19673,7 +19579,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingDebug;
 		};
@@ -19703,7 +19608,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.0;
 			};
 			name = UserTestingDebug;
 		};
@@ -19737,7 +19641,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = UserTestingDebug;
@@ -20017,7 +19920,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -20032,7 +19935,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AlphaAppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
@@ -20113,7 +20016,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaCluster;
 		};
@@ -20155,7 +20057,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = BetaCluster;
@@ -20181,7 +20082,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaCluster;
 		};
@@ -20206,7 +20106,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = BetaCluster;
 		};
@@ -20241,7 +20140,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
-				SWIFT_VERSION = 4.0;
 				VERSION_INFO_PREFIX = "";
 			};
 			name = BetaCluster;

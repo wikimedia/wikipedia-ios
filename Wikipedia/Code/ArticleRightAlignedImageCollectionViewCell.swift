@@ -57,7 +57,7 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
             descriptionLabel.isHidden = false
         } else {
             let horizontalAlignment: HorizontalAlignment = isRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
+            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: 0)
             descriptionLabel.isHidden = true
         }
