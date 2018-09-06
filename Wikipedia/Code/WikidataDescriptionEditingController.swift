@@ -1,3 +1,8 @@
+public struct WikidataAPI {
+    public static let host = "wikidata.org"
+    public static let path = "/w/api.php"
+    public static let scheme = "https"
+}
 @objc public class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
