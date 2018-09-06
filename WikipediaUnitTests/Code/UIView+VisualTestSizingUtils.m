@@ -3,7 +3,7 @@
 @implementation UIView (VisualTestSizingUtils)
 
 - (CGRect)wmf_sizeThatFitsWidth:(CGFloat)width {
-    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:CGSizeMake(width, UIView.noIntrinsicMetric)
+    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:CGSizeMake(width, UIViewNoIntrinsicMetric)
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
     return (CGRect){
