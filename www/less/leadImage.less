@@ -1,0 +1,21 @@
+
+/* Override the top margin - needed so the lead image spacer can control top margin. */
+.content {
+  margin-top: 0px;
+}
+
+.lead_image_div {
+  height: auto !important;
+  height: 155pt !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+/* Tablet override */
+@media (min-device-width: 768px) {
+  .lead_image_div {
+    height: 250pt;
+  }
+}
