@@ -288,6 +288,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
+            self.view.layoutIfNeeded()
         }
         guard animated else {
             animations()
@@ -297,6 +298,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         isAnimatingSearchBarState = true
         self.resultsViewController.view.alpha = visible ? 0 : 1
         self.resultsViewController.view.isHidden = false
+        self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
     
