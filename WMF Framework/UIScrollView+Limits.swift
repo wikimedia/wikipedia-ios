@@ -44,7 +44,7 @@ extension UIScrollView {
         
         if wasAtTop {
             contentOffset = wmf_topOffset
-        } else if contentSize.height > UIEdgeInsetsInsetRect(bounds, contentInset).height && wasAtBottom {
+        } else if contentSize.height > bounds.inset(by: contentInset).height && wasAtBottom {
             contentOffset = wmf_bottomOffset
         }
         

@@ -10,8 +10,8 @@ enum CollectionViewCellState {
 
 // wrapper around UIBarButtonItem that lets us access systemItem after button creation
 public class SystemBarButton: UIBarButtonItem {
-    var systemItem: UIBarButtonSystemItem?
-    public convenience init(with barButtonSystemItem: UIBarButtonSystemItem, target: Any?, action: Selector?) {
+    var systemItem: UIBarButtonItem.SystemItem?
+    public convenience init(with barButtonSystemItem: UIBarButtonItem.SystemItem, target: Any?, action: Selector?) {
         self.init(barButtonSystemItem: barButtonSystemItem, target: target, action: action)
         self.systemItem = barButtonSystemItem
     }
@@ -20,7 +20,7 @@ public class SystemBarButton: UIBarButtonItem {
 public protocol CollectionViewEditControllerNavigationDelegate: class {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
-    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState
     func emptyStateDidChange(_ empty: Bool)
     var currentTheme: Theme { get }
 }
@@ -89,7 +89,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         longPressGestureRecognizer.require(toFail: panGestureRecognizer)
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(close), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(close), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     deinit {
@@ -182,7 +182,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         let velocity = gestureRecognizer.velocity(in: collectionView)
         
         // Begin only if there's enough x velocity.
-        if fabs(velocity.y) >= fabs(velocity.x) {
+        if abs(velocity.y) >= abs(velocity.x) {
             return shouldBegin
         }
         
@@ -432,8 +432,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     private func editingStateDidChange(from oldValue: EditingState, to newValue: EditingState) {
         
-        let rightBarButtonSystemItem: UIBarButtonSystemItem?
-        let leftBarButtonSystemItem: UIBarButtonSystemItem?
+        let rightBarButtonSystemItem: UIBarButtonItem.SystemItem?
+        let leftBarButtonSystemItem: UIBarButtonItem.SystemItem?
         var isRightBarButtonEnabled = !(isCollectionViewEmpty || isShowingDefaultCellOnly) || shouldShowEditButtonsForEmptyState
         
         switch newValue {
@@ -481,7 +481,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         rightButton?.isEnabled = isRightBarButtonEnabled
         
         let font = rightBarButtonSystemItem != .edit ? UIFont.wmf_font(.semiboldBody) : UIFont.wmf_font(.body)
-        let attributes = [NSAttributedStringKey.font: font]
+        let attributes = [NSAttributedString.Key.font: font]
         rightButton?.setTitleTextAttributes(attributes, for: .normal)
         leftButton?.setTitleTextAttributes(attributes, for: .normal)
         
@@ -627,7 +627,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             let button = UIButton(type: .system)
             button.addTarget(self, action: #selector(didPerformBatchEditToolbarAction(with:)), for: .touchUpInside)
             button.tag = index
-            button.setTitle(action.title, for: UIControlState.normal)
+            button.setTitle(action.title, for: UIControl.State.normal)
             buttons.append(button)
             button.isEnabled = false
         }

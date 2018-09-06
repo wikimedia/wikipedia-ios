@@ -28,7 +28,7 @@ public class ColumnarCollectionViewLayoutInfo {
             let headerWidth = section.widthForSupplementaryViews
             let headerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForHeaderInSection: sectionIndex, forColumnWidth: headerWidth)
             if !headerHeightEstimate.height.isEqual(to: 0) {
-                let headerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: sectionIndex))
+                let headerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: sectionIndex))
                 headerAttributes.layoutMargins = metrics.itemLayoutMargins
                 headerAttributes.precalculated = headerHeightEstimate.precalculated
                 headerAttributes.frame = CGRect(origin: section.originForNextSupplementaryView, size: CGSize(width: headerWidth, height: headerHeightEstimate.height))
@@ -49,7 +49,7 @@ public class ColumnarCollectionViewLayoutInfo {
             let footerWidth = section.widthForSupplementaryViews
             let footerHeightEstimate = delegate.collectionView(collectionView, estimatedHeightForFooterInSection: sectionIndex, forColumnWidth: footerWidth)
             if delegate.collectionView(collectionView, shouldShowFooterForSection: sectionIndex), !footerHeightEstimate.height.isEqual(to: 0) {
-                let footerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: sectionIndex))
+                let footerAttributes = ColumnarCollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, with: IndexPath(item: 0, section: sectionIndex))
                 footerAttributes.layoutMargins = metrics.itemLayoutMargins
                 footerAttributes.precalculated = footerHeightEstimate.precalculated
                 let footerOrigin = CGPoint(x: 0, y: y + section.frame.height)
@@ -99,7 +99,7 @@ public class ColumnarCollectionViewLayoutInfo {
         }
         
         if invalidatedHeaderIndexPaths.count > 0 {
-            context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionHeader, at: invalidatedHeaderIndexPaths)
+            context.invalidateSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader, at: invalidatedHeaderIndexPaths)
         }
         
         if invalidatedItemIndexPaths.count > 0 {
@@ -107,7 +107,7 @@ public class ColumnarCollectionViewLayoutInfo {
         }
         
         if invalidatedFooterIndexPaths.count > 0 {
-            context.invalidateSupplementaryElements(ofKind: UICollectionElementKindSectionFooter, at: invalidatedFooterIndexPaths)
+            context.invalidateSupplementaryElements(ofKind: UICollectionView.elementKindSectionFooter, at: invalidatedFooterIndexPaths)
         }
     }
     
@@ -128,12 +128,12 @@ public class ColumnarCollectionViewLayoutInfo {
         }
         let section = sections[indexPath.section]
         switch elementKind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             guard section.headers.indices.contains(indexPath.item) else {
                 return nil
             }
             return section.headers[indexPath.item]
-        case UICollectionElementKindSectionFooter:
+        case UICollectionView.elementKindSectionFooter:
             guard section.footers.indices.contains(indexPath.item) else {
                 return nil
             }

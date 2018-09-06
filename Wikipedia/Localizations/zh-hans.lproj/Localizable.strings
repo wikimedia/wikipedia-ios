@@ -153,10 +153,13 @@
 "explore-because-you-read" = "因为您阅读";
 "explore-because-you-read-footer" = "额外的相关条目";
 "explore-continue-reading-heading" = "继续阅读";
+"explore-detail-back-button-title" = "回到探索订阅源";
 "explore-enable-location-title" = "浏览您当前位置附近的条目";
 "explore-featured-article-heading" = "典范条目";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "来自$1维基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "来自维基百科";
+"explore-feed-customize-accessibility-title" = "自定义";
+"explore-feed-language-settings" = "探索订阅源语言设置";
 "explore-feed-preferences-additional-languages-footer-text" = "额外语言可添加到“我的语言”设置页面中。";
 "explore-feed-preferences-card-hidden-title" = "卡片已隐藏";
 "explore-feed-preferences-continue-reading-description" = "快速链接以返回阅读打开的条目";
@@ -200,8 +203,17 @@
 "explore-feed-preferences-show-top-read-title" = "显示最多阅读卡片";
 "explore-feed-preferences-top-read-description" = "每日最多阅读条目";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "关闭探索订阅源";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "隐藏所有探索订阅源卡片将关闭探索标签，并将其替换为设置标签";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "关闭探索订阅源么？";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "关闭探索";
+"explore-feed-preferences-turn-off-explore-tab-message" = "探索标签可通过探索订阅源设置重新打开";
+"explore-feed-preferences-turn-off-explore-tab-title" = "关闭探索标签么？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "关闭探索标签将替换探索标签为设置标签。";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "通过选择以显示您在探索标签中打开的探索订阅源卡片";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "打开探索";
+"explore-feed-preferences-turn-on-explore-tab-message" = "这将替换设置标签为探索标签，您可以在探索标签上方通过点按齿轮图标访问设置";
+"explore-feed-preferences-turn-on-explore-tab-title" = "打开探索标签么？";
+"explore-feed-preferences-undo-customization" = "撤销";
 "explore-hide-card-prompt" = "隐藏此卡片";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -215,6 +227,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "来自$1维基百科";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "来自维基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "您的位置来自$1维基百科";
 "explore-potd-heading" = "每日图片";
 "explore-potd-sub-heading" = "来自维基共享资源";
 "explore-random-article-heading" = "随机条目";
@@ -336,8 +349,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1个历史事件}}";
 "on-this-day-footer" = "这一天的更多历史事件";
 "on-this-day-footer-with-event-count" = "今天的$1个更多历史活动";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "open-link-cancel" = "取消";
+"original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
 "page-edit-history" = "完整编辑历史";
 "page-history-title" = "条目历史";
 "page-issues" = "页面问题";
@@ -390,6 +405,7 @@
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
 "rank-accessibility-label" = "第$1";
 "readers-accessibility-label" = "$1位读者";
+"reading-list-add-generic-hint-title" = "添加此条目至阅读列表么？";
 "reading-list-add-hint-title" = "添加“$1”至阅读列表么？";
 "reading-list-add-saved-button-title" = "是，将他们添加到我的阅读列表";
 "reading-list-add-saved-subtitle" = "这些是保存到您的维基百科应用的条目。您是否希望保留它们，并合并到同步至您账户的阅读列表？";
@@ -441,6 +457,7 @@
 "reading-list-unable-to-update" = "更新您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-with-provided-name-not-found" = "找不到名为“$1”的阅读列表。请确保您已提供正确名称。";
 "reading-lists-article-added-confirmation" = "条目已添加至“$1”";
+"reading-lists-article-api-failure" = "无法同步条目";
 "reading-lists-article-not-synced" = "未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超过条目限制，无法同步条目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超过列表限制，无法同步条目";
@@ -493,6 +510,7 @@
 "search-recent-clear-confirmation-heading" = "删除全部最近搜索？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-delete-all" = "删除全部";
+"search-recent-empty" = "尚无最近搜索";
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
 "search-title" = "搜索";
@@ -504,6 +522,7 @@
 "settings-clear-cache-ok" = "清空缓存";
 "settings-help-and-feedback" = "帮助和反馈";
 "settings-language-bar" = "在搜索时显示语言";
+"settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
 "settings-notifications" = "通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
@@ -512,8 +531,8 @@
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
-// Fuzzy
-"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
+"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。";
+"settings-search-footer-text" = "设置应用以打开搜索标签而不是探索标签";
 "settings-search-open-app-on-search" = "在搜索选项卡打开app";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置。";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";

@@ -57,7 +57,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
             if let dictionary = info[WMFNotificationInfoFeedNewsStoryKey] as? [String: AnyObject],
                 let newsStory = try MTLJSONAdapter.model(of: WMFFeedNewsStory.self, fromJSONDictionary: dictionary) as? WMFFeedNewsStory,
                 let html = newsStory.storyHTML  {
-                let font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote, compatibleWith: nil)
+                let font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote, compatibleWith: nil)
                 let linkFont = UIFont.boldSystemFont(ofSize: font.pointSize)
                 let attributedString = html.wmf_attributedStringFromHTML(with: font, boldFont: linkFont, italicFont: font, boldItalicFont: linkFont, withAdditionalBoldingForMatchingSubstring:nil, boldLinks: true).wmf_trim()
                 summaryLabel.attributedText = attributedString

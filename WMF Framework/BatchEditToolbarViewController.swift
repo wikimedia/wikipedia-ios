@@ -15,12 +15,12 @@ public final class BatchEditToolbarViewController: UIViewController {
     }
     
     public func remove() {
-        self.willMove(toParentViewController: nil)
+        self.willMove(toParent: nil)
         view.removeFromSuperview()
-        self.removeFromParentViewController()
+        self.removeFromParent()
     }
     
-    public override func didMove(toParentViewController parent: UIViewController?) {
+    public override func didMove(toParent parent: UIViewController?) {
         if let parent = parent, let safeAreaOwningView = view.safeAreaLayoutGuide.owningView {
             bottomConstraint.constant = max(0, parent.view.safeAreaInsets.bottom - safeAreaOwningView.frame.height)
         }

@@ -13,6 +13,7 @@
 // Author: Iwan Novirion
 // Author: Kenrick95
 // Author: Macofe
+// Author: Mas ady
 // Author: Nemo bis
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
@@ -403,6 +404,7 @@
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
 "readers-accessibility-label" = "$1 pembaca";
+"reading-list-add-generic-hint-title" = "Tambahkan artikel ini ke dalam daftar bacaan?";
 "reading-list-add-hint-title" = "Tambahkan “$1” ke daftar bacaan?";
 "reading-list-add-saved-button-title" = "Ya, tambahkan ke daftar bacaan saya";
 "reading-list-add-saved-subtitle" = "Ada artikel yang disimpan ke aplikasi Wikipedia Anda. Apakah Anda ingin menyimpannya dan menggabungkannya dengan daftar bacaan yang disinkronkan ke akun Anda?";

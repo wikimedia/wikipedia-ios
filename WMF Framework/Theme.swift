@@ -168,7 +168,7 @@ public class Colors: NSObject {
     @objc public let rankGradientEnd: UIColor
     @objc public let rankGradient: Gradient
     
-    @objc public let blurEffectStyle: UIBlurEffectStyle
+    @objc public let blurEffectStyle: UIBlurEffect.Style
     @objc public let blurEffectBackground: UIColor
     
     @objc public let tagText: UIColor
@@ -178,7 +178,7 @@ public class Colors: NSObject {
     @objc public let distanceBorder: UIColor
 
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffectStyle, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -251,11 +251,11 @@ public class Theme: NSObject {
         return isDark ? .lightContent : .default
     }
     
-    @objc public var scrollIndicatorStyle: UIScrollViewIndicatorStyle {
+    @objc public var scrollIndicatorStyle: UIScrollView.IndicatorStyle {
         return isDark ? .white : .black
     }
     
-    @objc public var blurEffectStyle: UIBlurEffectStyle {
+    @objc public var blurEffectStyle: UIBlurEffect.Style {
         return isDark ? .dark : .light
     }
     
@@ -285,11 +285,11 @@ public class Theme: NSObject {
         return [NSAttributedString.Key.foregroundColor: colors.chromeBackground, NSAttributedString.Key.paragraphStyle: Theme.tabBarItemBadgeParagraphStyle]
     }()
     
-    public lazy var tabBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
+    public lazy var tabBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
         return [.foregroundColor: colors.secondaryText, .font: Theme.tabBarItemFont]
     }()
     
-    public lazy var tabBarSelectedTitleTextAttributes: [NSAttributedStringKey: Any] = {
+    public lazy var tabBarSelectedTitleTextAttributes: [NSAttributedString.Key: Any] = {
         return [.foregroundColor: colors.link, .font: Theme.tabBarItemFont]
     }()
         
@@ -304,7 +304,7 @@ public class Theme: NSObject {
         context.setFillColor(color.cgColor)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
         path.fill()
-        let capInsets = UIEdgeInsetsMake(cornerRadius, cornerRadius, cornerRadius, cornerRadius)
+        let capInsets = UIEdgeInsets(top: cornerRadius, left: cornerRadius, bottom: cornerRadius, right: cornerRadius)
         let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: capInsets)
         UIGraphicsEndImageContext()
         return image
@@ -314,8 +314,8 @@ public class Theme: NSObject {
         return Theme.roundedRectImage(with: colors.searchFieldBackground, cornerRadius: 10, height: 36)
     }()
 
-    @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
-        return [NSAttributedStringKey.foregroundColor: colors.chromeText]
+    @objc public lazy var navigationBarTitleTextAttributes: [NSAttributedString.Key: Any] = {
+        return [NSAttributedString.Key.foregroundColor: colors.chromeText]
     }()
 
     @objc public let imageOpacity: CGFloat
