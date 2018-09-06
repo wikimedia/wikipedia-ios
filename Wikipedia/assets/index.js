@@ -619,9 +619,17 @@ const fragmentForLeadImageURL = leadImageURL => {
   const fragment = lazyDocument.createDocumentFragment()
   enrichFragment(fragment)
   const container = fragment.createElement('div')
-  const img = fragment.createElement('img')
-  img.src = leadImageURL
-  container.appendChild(img)
+  container.id = 'lead_image_div'
+  container.classList.add('lead_image_div')
+  container.style.backgroundImage = `url(${leadImageURL})`
+  let yFocalOffset = (new URL(leadImageURL)).searchParams.get('yFocalOffset')
+  if (isNaN(yFocalOffset) || yFocalOffset < 0) {
+    yFocalOffset = 0
+  }
+  if (yFocalOffset > 100) {
+    yFocalOffset = 100
+  }
+  container.style.backgroundPosition = `50% ${yFocalOffset}%`
   fragment.appendChild(container)
   return fragment
 }
