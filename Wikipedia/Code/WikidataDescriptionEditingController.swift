@@ -23,6 +23,13 @@ enum WikidataAPIError: String, LocalizedError {
     }
 }
 
+struct WikidataAPIResult: Decodable {
+    struct Error: Decodable {
+        let code, info: String?
+    }
+    let error: Error?
+}
+
 @objc public class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
