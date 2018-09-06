@@ -3,6 +3,26 @@ public struct WikidataAPI {
     public static let path = "/w/api.php"
     public static let scheme = "https"
 }
+
+enum WikidataAPIError: String, LocalizedError {
+    case missingToken = "notoken"
+
+    init?(from wikidataAPIResult: WikidataAPIResult?) {
+        guard let errorCode = wikidataAPIResult?.error?.code else {
+            return nil
+        }
+        self.init(rawValue: errorCode)
+    }
+
+    var localizedDescription: String {
+        return "TODO 🚧"
+    }
+
+    var errorDescription: String? {
+        return "TODO 🚧"
+    }
+}
+
 @objc public class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
