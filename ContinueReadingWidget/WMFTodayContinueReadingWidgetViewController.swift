@@ -146,7 +146,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.collapseImageAndWidenLabels = true
         }
         
-        var fitSize = UILayoutFittingCompressedSize
+        var fitSize = UIView.layoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
         fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         preferredContentSize = fitSize

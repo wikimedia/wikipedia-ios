@@ -158,7 +158,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 titleLabel.isHidden = true
                 subtitleLabel.isHidden = true
                 footerButton.isHidden = true
-                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, undoButton)
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: undoButton)
             } else {
                 cardContent?.view.isHidden = false
                 undoLabel.isHidden = true
@@ -230,8 +230,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
             let undoButtonMaxWidth = widthMinusMargins * undoButtonMaxWidthPercentage
             let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
-            let undoButtonMinSize = CGSize(width: UIViewNoIntrinsicMetric, height: undoLabelFrameHeight)
-            let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIViewNoIntrinsicMetric)
+            let undoButtonMinSize = CGSize(width: UIView.noIntrinsicMetric, height: undoLabelFrameHeight)
+            let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIView.noIntrinsicMetric)
             let undoButtonFrame = undoButton.wmf_preferredFrame(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumSize: undoButtonMaxSize, minimumSize: undoButtonMinSize, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
             let undoHeight = max(undoLabelFrameHeight, undoButtonFrame.height)
             let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
@@ -344,7 +344,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 let footerElement = UIAccessibilityElement(accessibilityContainer: self)
                 footerElement.isAccessibilityElement = true
                 footerElement.accessibilityLabel = label.text
-                footerElement.accessibilityTraits = UIAccessibilityTraitLink
+                footerElement.accessibilityTraits = UIAccessibilityTraits.link
                 footerElement.accessibilityFrameInContainerSpace = footerButton.frame
                 updatedAccessibilityElements.append(footerElement)
             }

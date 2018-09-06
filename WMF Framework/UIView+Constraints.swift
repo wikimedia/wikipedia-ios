@@ -31,7 +31,7 @@ import UIKit
     // Until we drop iOS 10 and can use NSDirectionalEdgeInsets, assume insets.left == leading & insets.right == trailing
     @objc public func wmf_addConstraintsToEdgesOfView(_ subview: UIView, withInsets insets: UIEdgeInsets = .zero, priority: UILayoutPriority = .required) {
         subview.translatesAutoresizingMaskIntoConstraints = false
-        subview.frame = UIEdgeInsetsInsetRect(bounds, insets)
+        subview.frame = bounds.inset(by: insets)
         let topConstraint = subview.topAnchor.constraint(equalTo: topAnchor, constant: insets.top)
         topConstraint.priority = priority
         let bottomConstraint = bottomAnchor.constraint(equalTo: subview.bottomAnchor, constant: insets.bottom)

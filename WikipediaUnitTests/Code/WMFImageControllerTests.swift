@@ -24,7 +24,7 @@ class WMFImageControllerTests: XCTestCase {
     func testReceivingDataResponseResolves() {
         let testURL = URL(string: "https://upload.wikimedia.org/foo@\(Int(UIScreen.main.scale))x.png")!
         let testImage = #imageLiteral(resourceName: "wikipedia-wordmark")
-        let stubbedData = UIImagePNGRepresentation(testImage)
+        let stubbedData = testImage.pngData()
 
         _ = stubRequest("GET", testURL.absoluteString as LSMatcheable?).andReturnRawResponse(stubbedData)
         
@@ -78,7 +78,7 @@ class WMFImageControllerTests: XCTestCase {
     
     func testCancellationDoesNotAffectRetry() {
         let testImage = #imageLiteral(resourceName: "wikipedia-wordmark")
-        let stubbedData = UIImagePNGRepresentation(testImage)!
+        let stubbedData = testImage.pngData()!
         let scale = Int(UIScreen.main.scale)
         let testURLString = "https://example.com/foo@\(scale)x.png"
         guard let testURL = URL(string:testURLString) else {
