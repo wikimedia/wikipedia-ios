@@ -107,6 +107,8 @@ class NotificationSettingsViewController: SubSettingsViewController {
                 case .denied:
                     self.sections = self.sectionsForSystemSettingsUnauthorized()
                     break
+                default:
+                    break
                 }
                 self.tableView.reloadData()
             })
