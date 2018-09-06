@@ -50,15 +50,15 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChildViewController(pageViewController)
+        addChild(pageViewController)
         pageViewController.view.frame = containerView.bounds
         pageViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(pageViewController.view)
-        pageViewController.didMove(toParentViewController: self)
+        pageViewController.didMove(toParent: self)
         
         pageViewController.dataSource = self
         
-        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
+        let direction:UIPageViewController.NavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         let initiallyVisibleController = pageControllers[lastClickedReferencesIndex]
         
@@ -75,7 +75,7 @@ class WMFReferencePageViewController: UIViewController, UIPageViewControllerData
     
     fileprivate func addBackgroundView() {
         view.wmf_addSubviewWithConstraintsToEdges(backgroundView)
-        view.sendSubview(toBack: backgroundView)
+        view.sendSubviewToBack(backgroundView)
     }
     
     @objc internal func firstPanelView() -> UIView? {

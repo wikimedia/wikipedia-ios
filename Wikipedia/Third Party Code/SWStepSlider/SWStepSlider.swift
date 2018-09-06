@@ -65,7 +65,7 @@ open class SWStepSlider: UIControl {
     
     fileprivate func commonInit() {
         self.isAccessibilityElement = true
-        self.accessibilityTraits = UIAccessibilityTraitAdjustable
+        self.accessibilityTraits = UIAccessibilityTraits.adjustable
         
         self.trackLayer.backgroundColor = self.trackColor.cgColor
         self.layer.addSublayer(trackLayer)
@@ -192,7 +192,7 @@ open class SWStepSlider: UIControl {
     
     // MARK: - Helper
     func deltaValue(_ deltaLocation: CGFloat) -> Int {
-        return Int(round(fabs(deltaLocation) / self.stepWidth))
+        return Int(round(abs(deltaLocation) / self.stepWidth))
     }
     
     func clipValue(_ value: Int) -> Int {

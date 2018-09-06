@@ -28,7 +28,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
         }
     }
     
-    override func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivityType?) -> String {
+    override func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
         return articleTitle
     }
     

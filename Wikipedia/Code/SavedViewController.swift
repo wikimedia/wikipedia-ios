@@ -131,9 +131,9 @@ class SavedViewController: ViewController {
         guard let vc = vc else {
             return
         }
-        addChildViewController(vc)
+        addChild(vc)
         containerView.wmf_addSubviewWithConstraintsToEdges(vc.view)
-        vc.didMove(toParentViewController: self)
+        vc.didMove(toParent: self)
     }
     
     private func removeChild(_ vc: UIViewController?) {
@@ -141,8 +141,8 @@ class SavedViewController: ViewController {
             return
         }
         vc.view.removeFromSuperview()
-        vc.willMove(toParentViewController: nil)
-        vc.removeFromParentViewController()
+        vc.willMove(toParent: nil)
+        vc.removeFromParent()
     }
     
     // MARK: - View lifecycle
@@ -262,7 +262,7 @@ extension SavedViewController: CollectionViewEditControllerNavigationDelegate {
         }
     }
     
-    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {
         let newEditingState: EditingState
         
         switch currentEditingState {

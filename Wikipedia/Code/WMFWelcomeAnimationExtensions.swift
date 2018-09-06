@@ -68,20 +68,20 @@ extension CABasicAnimation {
         let anim = CABasicAnimation(keyPath: "transform")
         anim.duration = duration
         anim.beginTime = CACurrentMediaTime() + delay
-        anim.fillMode = kCAFillModeForwards
+        anim.fillMode = CAMediaTimingFillMode.forwards
         anim.isRemovedOnCompletion = false
         anim.toValue = NSValue(caTransform3D: transform)
-        anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         return anim;
     }
     class func wmf_animationToOpacity(_ opacity: Double, delay: Double, duration: Double) -> CABasicAnimation {
         let anim = CABasicAnimation(keyPath: "opacity")
         anim.duration = duration
         anim.beginTime = CACurrentMediaTime() + delay
-        anim.fillMode = kCAFillModeForwards
+        anim.fillMode = CAMediaTimingFillMode.forwards
         anim.isRemovedOnCompletion = false
         anim.toValue = opacity
-        anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         return anim;
     }
 }

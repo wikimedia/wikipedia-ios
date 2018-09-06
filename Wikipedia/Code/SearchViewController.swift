@@ -14,7 +14,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.isShadowHidingEnabled = true
         navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        view.bringSubview(toFront: resultsViewController.view)
+        view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
     }
 
@@ -104,7 +104,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 return
         }
         
-        guard (searchTerm as NSString).character(at: 0) != NSAttachmentCharacter else {
+        guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else {
             return
         }
         
@@ -190,15 +190,15 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let showLanguageBar = UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
-            addChildViewController(searchLanguageBarViewController)
+            addChild(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
-            searchLanguageBarViewController.didMove(toParentViewController: self)
+            searchLanguageBarViewController.didMove(toParent: self)
             searchLanguageBarViewController.view.isHidden = false
         } else if !showLanguageBar && searchLanguageBarViewController != nil {
-            searchLanguageBarViewController?.willMove(toParentViewController: nil)
+            searchLanguageBarViewController?.willMove(toParent: nil)
             navigationBar.removeExtendedNavigationBarView()
-            searchLanguageBarViewController?.removeFromParentViewController()
+            searchLanguageBarViewController?.removeFromParent()
             searchLanguageBarViewController = nil
         }
     }
@@ -305,9 +305,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.dataStore = dataStore
         resultsViewController.apply(theme: theme)
         resultsViewController.delegate = self
-        addChildViewController(resultsViewController)
+        addChild(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParentViewController: self)
+        resultsViewController.didMove(toParent: self)
         return resultsViewController
     }()
     
@@ -501,7 +501,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
+        guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
@@ -515,12 +515,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         guard
             self.collectionView(collectionView, numberOfItemsInSection: 0) > 0,
-            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
+            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
         else {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         configure(header: header, forSectionAt: section, layoutOnly: true)
-        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false)
+        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false)
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: size.height)
     }
     

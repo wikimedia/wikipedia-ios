@@ -6,6 +6,6 @@ class AutoLayoutSafeMultiLineButton: SetupButton {
     }
 
     override var intrinsicContentSize: CGSize {
-        return wmf_sizeThatFits(CGSize(width: bounds.size.width, height: UIViewNoIntrinsicMetric))
+        return wmf_sizeThatFits(CGSize(width: bounds.size.width, height: UIView.noIntrinsicMetric))
     }
 }

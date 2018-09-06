@@ -281,8 +281,8 @@ public class Theme: NSObject {
         return UIFont.systemFont(ofSize: 12)
     }()
     
-    public lazy var tabBarItemBadgeTextAttributes: [String: Any] = {
-        return [NSAttributedStringKey.foregroundColor.rawValue: colors.chromeBackground, NSAttributedStringKey.paragraphStyle.rawValue: Theme.tabBarItemBadgeParagraphStyle]
+    public lazy var tabBarItemBadgeTextAttributes: [NSAttributedString.Key: Any] = {
+        return [NSAttributedString.Key.foregroundColor: colors.chromeBackground, NSAttributedString.Key.paragraphStyle: Theme.tabBarItemBadgeParagraphStyle]
     }()
     
     public lazy var tabBarTitleTextAttributes: [NSAttributedStringKey: Any] = {
