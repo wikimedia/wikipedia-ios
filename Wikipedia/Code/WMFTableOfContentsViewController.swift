@@ -140,7 +140,7 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
             }
         }
         
-        var scrollPosition = UITableViewScrollPosition.top
+        var scrollPosition = UITableView.ScrollPosition.top
         if let indexPaths = tableView.indexPathsForVisibleRows, indexPaths.contains(indexPath) {
             scrollPosition = .none
         }
@@ -200,9 +200,9 @@ open class WMFTableOfContentsViewController: UIViewController, UITableViewDelega
         tableView.register(WMFTableOfContentsCell.wmf_classNib(),
                     forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         tableView.estimatedRowHeight = 41
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 32
         tableView.separatorStyle = .none
 

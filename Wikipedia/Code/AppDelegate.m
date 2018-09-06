@@ -118,7 +118,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *_Nullable))restorationHandler {
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{

@@ -51,14 +51,14 @@ class WMFAuthLinkLabel: UILabel, Themeable {
     fileprivate func combinedAttributedString(from strings: WMFAuthLinkLabelStrings) -> NSAttributedString {
         // Combine and style 'dollarSignString' and 'substitutionString': https://github.com/wikimedia/wikipedia-ios/pull/1216#discussion_r104224511
         
-        var dollarSignStringAttributes: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor : theme.colors.secondaryText]
+        var dollarSignStringAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor : theme.colors.secondaryText]
         if let subheadlineFont = subheadlineFont {
-            dollarSignStringAttributes[NSAttributedStringKey.font] = subheadlineFont
+            dollarSignStringAttributes[NSAttributedString.Key.font] = subheadlineFont
         }
 
-        var substitutionStringAttributes: [NSAttributedStringKey:Any] = [NSAttributedStringKey.foregroundColor : theme.colors.link]
+        var substitutionStringAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor : theme.colors.link]
         if let boldSubheadlineFont = boldSubheadlineFont {
-            substitutionStringAttributes[NSAttributedStringKey.font] = boldSubheadlineFont
+            substitutionStringAttributes[NSAttributedString.Key.font] = boldSubheadlineFont
         }
         
         assert(strings.dollarSignString.contains("%1$@"), "Expected dollar sign substitution placeholder not found")
