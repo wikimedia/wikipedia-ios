@@ -119,11 +119,18 @@
     CGFloat top = CGRectGetMaxY(frame);
     CGFloat bottom = safeInsets.bottom;
 
-    UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top + self.additionalScrollIndicatorInsets.top, safeInsets.left + self.additionalScrollIndicatorInsets.left, bottom + self.additionalScrollIndicatorInsets.bottom, safeInsets.right + self.additionalScrollIndicatorInsets.right);
+    UIEdgeInsets scrollIndicatorInsets;
+    
+    if (self.isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) {
+         scrollIndicatorInsets = UIEdgeInsetsMake(top - safeInsets.top, safeInsets.left, bottom - safeInsets.bottom, safeInsets.right);
+    } else {
+        scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
+    }
+   
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
-    UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
+    UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
 
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;

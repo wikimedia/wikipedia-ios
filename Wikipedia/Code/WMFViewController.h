@@ -16,15 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL showsNavigationBar;
 
-@property (nonatomic, readwrite) BOOL ignoresTopContentInset; // workaround for WKWebView ignoring touches inside of the content inset https://bugs.webkit.org/show_bug.cgi?id=134230
+@property (nonatomic, readwrite, getter=isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) BOOL subtractTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets; // WKWebView workaround
 
 @property (nonatomic, strong, readonly) WMFNavigationBar *navigationBar;
 
 @property (nonatomic, strong, readonly) WMFNavigationBarHider *navigationBarHider;
 
 @property (nonatomic, readonly, nullable) UIScrollView *scrollView; // Override to provide the scroll view for inset adjustment
-
-@property (nonatomic) UIEdgeInsets additionalScrollIndicatorInsets;
 
 - (void)scrollViewInsetsDidChange;
 
