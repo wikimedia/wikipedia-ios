@@ -111,15 +111,18 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
+        let size = collectionView.bounds.size
+        guard size.width > 0 && size.height > 0 else {
+            return
+        }
+        
         let readableWidth: CGFloat = collectionView.readableContentGuide.layoutFrame.size.width
         
         if let metrics = metrics, !metrics.readableWidth.isEqual(to: readableWidth) {
             isLayoutValid = false
         }
         
-        let size = collectionView.bounds.size
-        
-        guard let delegate = delegate, !isLayoutValid, size.width > 0, size.height > 0 else {
+        guard let delegate = delegate, !isLayoutValid else {
             return
         }
 
