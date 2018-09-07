@@ -6,6 +6,7 @@ public struct WikidataAPI {
 
 enum WikidataAPIError: String, LocalizedError {
     case missingToken = "notoken"
+    case invalidToken = "badtoken"
     case failedToRetrieveToken
 
     init?(from wikidataAPIResult: WikidataAPIResult?) {
