@@ -6,6 +6,7 @@ public struct WikidataAPI {
 
 enum WikidataAPIError: String, LocalizedError {
     case missingToken = "notoken"
+    case failedToRetrieveToken
 
     init?(from wikidataAPIResult: WikidataAPIResult?) {
         guard let errorCode = wikidataAPIResult?.error?.code else {
@@ -67,7 +68,7 @@ extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
     }
 
     public func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext) {
-        context.completion?(nil, nil, APIReadingListError.generic)
+        context.completion?(nil, nil, WikidataAPIError.failedToRetrieveToken)
     }
 
     public func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
