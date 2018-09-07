@@ -94,12 +94,6 @@
  */
 @property (copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
 
-/**
- * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
- * @return The normalized bounds of the first face, or `CGRectZero` if allNormalizedFaceBounds is empty or `nil`.
- */
-- (CGRect)firstFaceBounds;
-
 #pragma mark - Variants
 
 /**

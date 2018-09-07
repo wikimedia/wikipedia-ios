@@ -93,11 +93,6 @@
     return self.allNormalizedFaceBounds != nil;
 }
 
-- (CGRect)firstFaceBounds {
-    NSValue *firstFace = [self.allNormalizedFaceBounds firstObject];
-    return firstFace ? [firstFace CGRectValue] : CGRectZero;
-}
-
 - (void)setAllNormalizedFaceBounds:(NSArray *)allNormalizedFaceBounds {
     if (!allNormalizedFaceBounds) {
         allNormalizedFaceBounds = @[];

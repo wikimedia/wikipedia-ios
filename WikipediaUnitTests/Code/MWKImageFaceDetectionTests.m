@@ -59,7 +59,6 @@
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssert(self.image.didDetectFaces);
     XCTAssert([self.image.allNormalizedFaceBounds isEqual:@[[NSValue valueWithCGRect:testRect]]]);
-    XCTAssert(CGRectEqualToRect(self.image.firstFaceBounds, testRect));
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
 
