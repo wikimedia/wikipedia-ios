@@ -59,34 +59,6 @@
     return self;
 }
 
-- (id)dataExport {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    dict[@"sourceURL"] = self.sourceURLString;
-
-    if (self.mimeType) {
-        dict[@"mimeType"] = self.mimeType;
-    }
-    if (self.width) {
-        dict[@"width"] = self.width;
-    }
-    if (self.height) {
-        dict[@"height"] = self.height;
-    }
-    if (self.originalFileWidth) {
-        dict[@"originalFileWidth"] = self.originalFileWidth;
-    }
-    if (self.originalFileHeight) {
-        dict[@"originalFileHeight"] = self.originalFileHeight;
-    }
-    if (self.allNormalizedFaceBounds) {
-        dict[@"focalRects"] = [self.allNormalizedFaceBounds wmf_map:^id(NSValue *rectValue) {
-            return NSStringFromCGRect(rectValue.CGRectValue);
-        }];
-    }
-
-    return [dict copy];
-}
-
 #pragma mark - Accessors
 
 - (BOOL)didDetectFaces {
