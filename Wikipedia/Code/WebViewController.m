@@ -853,6 +853,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     }
 }
 
+- (NSURL*)leadImageURL {
+    NSString *imageURL = self.article.imageURL;
+    if(!imageURL){
+        imageURL = self.article.thumbnailURL;
+    }
+    if (!imageURL) {
+        return nil;
+    }
+    return [[WMFProxyServer sharedProxyServer] proxyURLForImageURLString:imageURL];
+}
+
 - (void)displayArticle {
     if (!self.article) {
         return;
@@ -866,7 +877,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
     [proxy cacheSectionDataForArticle:self.article];
 
-    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
+    NSURL *leadImageURL = [self leadImageURL];
+    CGFloat leadImageYOffset = 0;
+    MWKImage *leadImage = self.article.leadImage;
+    if (leadImage && leadImage.hasFaces && !CGRectEqualToRect(leadImage.firstFaceBounds, CGRectZero)) {
+        // The lead image CSS is structured to use yFocalOffset which is percent to shift image vertically.
+        // 0 aligns top to top of lead_image_div, 50 centers it vertically, and 100 aligns bottom of image to bottom of lead_image_div.
+        float percentFromTop = CGRectGetMidY(leadImage.firstFaceBounds) * 100.0f;
+        leadImageYOffset = @(MAX(0, MIN(100, percentFromTop))).integerValue;
+    }
+    
+    [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme leadImageURL:leadImageURL leadImageYOffset:leadImageYOffset];
 
     NSString *shareMenuItemTitle = WMFLocalizedStringWithDefaultValue(@"share-menu-item", nil, nil, @"Share…", @"Button label for 'Share…' menu");
     UIMenuItem *shareSnippet = [[UIMenuItem alloc] initWithTitle:shareMenuItemTitle

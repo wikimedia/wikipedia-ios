@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSURL *)articleSectionDataURLForArticleWithURL:(NSURL *)articleURL targetImageWidth:(NSInteger)targetImageWidth;
 
+- (NSURL *)proxyURLForImageURLString:(NSString *)imageURLString;
+
 @end
 
 NS_ASSUME_NONNULL_END
