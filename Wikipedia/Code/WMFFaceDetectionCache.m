@@ -33,7 +33,7 @@
 }
 
 - (BOOL)imageRequiresFaceDetection:(MWKImage *)imageMetadata {
-    return ![imageMetadata didDetectFaces];
+    return [self imageAtURLRequiresFaceDetection:imageMetadata.sourceURL];
 }
 
 - (NSValue *)faceBoundsForURL:(NSURL *)url {
@@ -41,7 +41,7 @@
 }
 
 - (NSValue *)faceBoundsForImageMetadata:(MWKImage *)imageMetadata {
-    return [imageMetadata.allNormalizedFaceBounds firstObject];
+    return [self faceBoundsForURL:imageMetadata.sourceURL];
 }
 
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
@@ -60,18 +60,7 @@
 }
 
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU imageMetadata:(MWKImage *)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
-    NSArray *savedBounds = imageMetadata.allNormalizedFaceBounds;
-    if (savedBounds) {
-        success([savedBounds firstObject]);
-    } else {
-        [self getFaceBoundsInImage:image
-                             onGPU:onGPU
-                           failure:failure
-                           success:^(NSArray *faceBounds) {
-                               imageMetadata.allNormalizedFaceBounds = faceBounds;
-                               success([faceBounds firstObject]);
-                           }];
-    }
+    [self detectFaceBoundsInImage:image onGPU:onGPU URL:imageMetadata.sourceURL failure:failure success:success];
 }
 
 - (void)getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {

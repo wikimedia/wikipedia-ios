@@ -81,19 +81,6 @@
  */
 - (instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
-#pragma mark - Managing Face Information
-
-- (BOOL)didDetectFaces;
-
-/**
- * Array of NSValue-wrapped unit rectangles, in the coordinate space of the receiver's image (y-origin on the bottom).
- *
- * Used to cache the results of face detection.
- *
- * @see CIDetector+WMFFaceDetection
- */
-@property (copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
-
 #pragma mark - Variants
 
 /**

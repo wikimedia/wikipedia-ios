@@ -58,17 +58,6 @@
 
 #pragma mark - Accessors
 
-- (BOOL)didDetectFaces {
-    return self.allNormalizedFaceBounds != nil;
-}
-
-- (void)setAllNormalizedFaceBounds:(NSArray *)allNormalizedFaceBounds {
-    if (!allNormalizedFaceBounds) {
-        allNormalizedFaceBounds = @[];
-    }
-    _allNormalizedFaceBounds = allNormalizedFaceBounds;
-}
-
 - (NSString *)sourceURLString {
     return self.sourceURL.absoluteString;
 }

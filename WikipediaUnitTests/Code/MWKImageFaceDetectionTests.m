@@ -24,6 +24,8 @@
 
 #pragma mark - Serialization
 
+/* TODO: replace these tests with tests which use `faceDetectionCache` (vs `focalRects` which is deprecated, as is `didDetectFaces`).
+
 - (void)testInitialStateShouldIndicateNoDetectionOrFaces {
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
     XCTAssertFalse(self.image.didDetectFaces);
@@ -39,7 +41,6 @@
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
 
-/* TODO: replace these tests with tests which use `faceDetectionCache` (vs `focalRects` which is deprecated).
 - (void)testDeserializedImageWithDetectionButNoFaces {
     NSDictionary *testData = @{
         @"focalRects": @[],
@@ -62,7 +63,6 @@
     XCTAssert([self.image.allNormalizedFaceBounds isEqual:@[[NSValue valueWithCGRect:testRect]]]);
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
-*/
 
 #pragma mark - Detection
 
@@ -71,5 +71,7 @@
     self.image.allNormalizedFaceBounds = nil;
     XCTAssert(self.image.didDetectFaces, @"Need to be able to handle cases where CIDetector passes nil.");
 }
+
+*/
 
 @end
