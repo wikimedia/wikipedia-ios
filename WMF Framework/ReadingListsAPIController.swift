@@ -549,7 +549,7 @@ class ReadingListsAPIController: NSObject {
 
 extension ReadingListsAPIController: CSRFTokenOperationDelegate {
     func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        self.session.jsonDictionaryTask(host: context.host, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: context.bodyParameters) { (result , response, error) in
+        self.session.jsonDictionaryTask(host: context.host, method: context.method, path: context.path, queryParameters: ["csrf_token": token.token], bodyParameters: context.bodyParameters) { (result , response, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(context.method.stringValue) \(context.path) \(apiError)")
                 context.completion?(result, nil, apiError)
