@@ -64,7 +64,7 @@ struct WikidataAPIResult: Decodable {
 
 extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
     public func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters) { (result: WikidataAPIResult?, response, error) in
+        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: ["token": token.token], bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
             context.completion?(result, response, error)
         }
     }
