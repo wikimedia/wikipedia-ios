@@ -465,7 +465,7 @@ static const NSString *kvo_PreviewAndSaveViewController_previewWebViewContainer_
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [[WMFAlertManager sharedInstance] dismissAlert];
-                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme];
+                [self.previewWebViewContainer.webView loadHTML:fetchedData baseURL:[NSURL URLWithString:@"https://wikipedia.org"] withAssetsFile:@"preview.html" scrolledToFragment:nil padding:UIEdgeInsetsZero theme:self.theme leadImageURL:nil leadImageYOffset:0];
             } break;
             case FETCH_FINAL_STATUS_FAILED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];

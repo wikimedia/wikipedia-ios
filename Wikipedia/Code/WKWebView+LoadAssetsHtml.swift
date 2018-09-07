@@ -18,7 +18,7 @@ extension WKWebView {
     }
     
     // Loads html passed to it injected into html from fileName.
-    @objc func loadHTML(_ string: String?, baseURL: URL?, withAssetsFile fileName: String?, scrolledToFragment fragment: String?, padding: UIEdgeInsets, theme: Theme) {
+    @objc func loadHTML(_ string: String?, baseURL: URL?, withAssetsFile fileName: String?, scrolledToFragment fragment: String?, padding: UIEdgeInsets, theme: Theme, leadImageURL: URL?, leadImageYOffset: Float = 0) {
         guard
             let fileName = fileName,
             let baseURL = baseURL,
@@ -39,8 +39,8 @@ extension WKWebView {
             return
         }
 
-        assert(fileContents.split(separator: "@").count == (6 + 1), """
-                HTML template file does not have required number of percent-ampersand occurences (5).
+        assert(fileContents.split(separator: "@").count == (7 + 1), """
+                HTML template file does not have required number of percent-ampersand occurences (7).
                 Number of percent-ampersands must match number of values passed to 'stringWithFormat:'
         """)
         
@@ -53,8 +53,13 @@ extension WKWebView {
             """
         }
         
-        // index.html and preview.html have 6 "%@" subsitition markers. Replace these with actual content.
-        let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
+        var leadImageHTMLString = ""
+        if let leadImageURLString = leadImageURL?.absoluteString {
+            leadImageHTMLString = "<div id='lead_image_div' class='lead_image_div' style='background-image:url(\(leadImageURLString)); background-position:50% \(leadImageYOffset)%;'></div>"
+        }
+        
+        // index.html and preview.html have 7 "%@" subsitition markers. Replace these with actual content.
+        let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, leadImageHTMLString, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
         proxyServer.setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath)
