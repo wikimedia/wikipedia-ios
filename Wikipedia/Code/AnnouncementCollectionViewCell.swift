@@ -117,7 +117,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.alignment = .center
         let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
         mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
         captionTextView.attributedText = mutableText
 

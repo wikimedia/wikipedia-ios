@@ -17,7 +17,7 @@
 
 "about-content-license" = "Лиценца садржаја";
 "about-content-license-details" = "Осим ако је другачије наведено, садржај је доступан под $1.";
-"about-content-license-details-share-alike-license" = "лиценцом Кријејтив комонс Ауторство-Делити под истим условима 3.0";
+"about-content-license-details-share-alike-license" = "лиценцом Creative Commons Attribution-ShareAlike";
 "about-contributors" = "Сарадници";
 "about-libraries" = "Коришћене библиотеке";
 "about-libraries-complete-list" = "Целокупан списак";
@@ -28,7 +28,7 @@
 "about-places-maps-license-details-link-text" = "Детаљније о лиценци";
 "about-product-of" = "Апликацију је направила $1 уз помоћ добровољаца попут вас";
 "about-repositories" = "Ризнице";
-"about-repositories-app-source-license" = "Изворни код је доступан под $1.";
+"about-repositories-app-source-license" = "Изворни кôд је доступан под $1.";
 "about-repositories-app-source-license-mit" = "лиценцом MIT";
 "about-send-feedback" = "Пошаљи повратне информације";
 "about-testers" = "Тестери";

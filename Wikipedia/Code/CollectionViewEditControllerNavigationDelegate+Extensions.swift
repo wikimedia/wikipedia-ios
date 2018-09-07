@@ -6,7 +6,7 @@ extension CollectionViewEditControllerNavigationDelegate where Self: UIViewContr
             addChild(batchEditToolbarViewController)
             batchEditToolbarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(batchEditToolbarViewController.view)
-            batchEditToolbarViewController.didMove(toParentViewController: self)
+            batchEditToolbarViewController.didMove(toParent: self)
             
             let leadingConstraint = batchEditToolbarViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor)
             let trailingConstraint = batchEditToolbarViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)

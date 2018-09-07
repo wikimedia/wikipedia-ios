@@ -10,6 +10,7 @@
 // Author: Happy13241
 // Author: Helpau
 // Author: Iluvatar
+// Author: Iniquity
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
@@ -170,7 +171,7 @@
 "explore-detail-back-button-title" = "Назад к вкладке Обзор";
 "explore-enable-location-title" = "Прочитайте статьи википедии об объектах вблизи текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
-"explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-feed-customize-accessibility-title" = "Настроить";
 "explore-feed-language-settings" = "Языковые настройки Ленты";
@@ -232,20 +233,20 @@
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
-"explore-most-read-generic-heading" = "Наиболее читаемые";
+"explore-most-read-generic-heading" = "Самые читаемые";
 "explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
-"explore-most-read-sub-heading-on-language-wikipedia" = "На $1 Википедии";
-"explore-most-read-sub-heading-on-wikipedia" = "На Википедии";
+"explore-most-read-sub-heading-on-language-wikipedia" = "В Википедии ($1 раздел)";
+"explore-most-read-sub-heading-on-wikipedia" = "В Википедии";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-placeholder-heading" = "Места";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Раздел википедии: $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Из википедии";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Раздел Википедии: $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Из Википедии";
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
-"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Местоположение, согласно разделу википедии: $1";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Местоположение, согласно разделу Википедии: $1";
 "explore-potd-heading" = "Изображение дня";
 "explore-potd-sub-heading" = "Из Викисклада";
 "explore-random-article-heading" = "Случайная статья";
-"explore-random-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "feed-news-notification-button-text" = "Включить уведомления";
@@ -313,7 +314,7 @@
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-notification-share-action-title" = "Поделиться...";
-"in-the-news-sub-title-from-language-wikipedia" = "Раздел википедии: $1";
+"in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
 "info-box-close-text" = "Закрыть";
@@ -589,7 +590,7 @@
 "theme-default-display-name" = "По умолчанию";
 "theme-sepia-display-name" = "Сепия";
 "top-read-header-generic" = "Википедия";
-"top-read-header-with-language" = "$1 Википедия";
+"top-read-header-with-language" = "Википедия ($1 раздел)";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";

@@ -1,6 +1,6 @@
 class CircledRankView: SizeThatFitsView {
     fileprivate let label: UILabel = UILabel()
-    let padding = UIEdgeInsetsMake(3, 3, 3, 3)
+    let padding = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
     
     public var rankColor: UIColor = .wmf_blue {
         didSet {
@@ -38,7 +38,7 @@ class CircledRankView: SizeThatFitsView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let insetSize = UIEdgeInsetsInsetRect(CGRect(origin: .zero, size: size), padding)
+        let insetSize = CGRect(origin: .zero, size: size).inset(by: padding)
         let labelSize = label.sizeThatFits(insetSize.size)
         if (apply) {
             layer.cornerRadius = 0.5*size.width

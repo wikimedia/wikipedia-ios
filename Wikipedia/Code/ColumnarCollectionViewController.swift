@@ -76,6 +76,18 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         }
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            let boundsChange = self.collectionView.bounds
+            guard self.layout.shouldInvalidateLayout(forBoundsChange: boundsChange) else {
+                return
+            }
+            let invalidationContext = self.layout.invalidationContext(forBoundsChange: boundsChange)
+            self.layout.invalidateLayout(with: invalidationContext)
+        })
+    }
+    
     // MARK: - UIScrollViewDelegate
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

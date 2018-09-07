@@ -204,9 +204,9 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
                 articlePreviewViewControllers.append(vc)
             }
             if vc.parent == nil {
-                addChildViewController(vc)
+                addChild(vc)
                 stackView.addArrangedSubview(vc.view)
-                vc.didMove(toParentViewController: self)
+                vc.didMove(toParent: self)
             }
             let result = results[i]
             
@@ -277,7 +277,7 @@ class WMFTodayTopReadWidgetViewController: UIViewController, NCWidgetProviding {
         
         stackViewHeightConstraint.isActive = false
         stackViewWidthConstraint.constant = maximumSize.width
-        var sizeToFit = UILayoutFittingCompressedSize
+        var sizeToFit = UIView.layoutFittingCompressedSize
         sizeToFit.width = maximumSize.width
         var size = stackView.systemLayoutSizeFitting(sizeToFit, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         size.width = maximumSize.width
