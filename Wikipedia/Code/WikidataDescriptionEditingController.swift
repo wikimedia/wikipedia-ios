@@ -1,5 +1,5 @@
 public struct WikidataAPI {
-    public static let host = "wikidata.org"
+    public static let host = "www.wikidata.org"
     public static let path = "/w/api.php"
     public static let scheme = "https"
 }
