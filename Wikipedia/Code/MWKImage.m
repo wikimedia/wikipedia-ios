@@ -52,9 +52,6 @@
         self.height = [self optionalNumber:@"height" dict:dict];
         self.originalFileWidth = [self optionalNumber:@"originalFileWidth" dict:dict];
         self.originalFileHeight = [self optionalNumber:@"originalFileHeight" dict:dict];
-        _allNormalizedFaceBounds = [dict[@"focalRects"] wmf_map:^NSValue *(NSString *rectString) {
-            return [NSValue valueWithCGRect:CGRectFromString(rectString)];
-        }];
     }
     return self;
 }

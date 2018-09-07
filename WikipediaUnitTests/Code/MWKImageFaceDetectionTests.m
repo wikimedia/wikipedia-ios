@@ -39,6 +39,7 @@
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
 
+/* TODO: replace these tests with tests which use `faceDetectionCache` (vs `focalRects` which is deprecated).
 - (void)testDeserializedImageWithDetectionButNoFaces {
     NSDictionary *testData = @{
         @"focalRects": @[],
@@ -61,6 +62,7 @@
     XCTAssert([self.image.allNormalizedFaceBounds isEqual:@[[NSValue valueWithCGRect:testRect]]]);
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
+*/
 
 #pragma mark - Detection
 
