@@ -11,10 +11,10 @@ public struct CSRFTokenOperationContext {
 }
 
 public protocol CSRFTokenOperationDelegate: class {
-    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext)
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
     func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
-    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext)
-    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext)
+    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
+    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
 }
 
 public class CSRFTokenOperation: AsyncOperation {
@@ -50,9 +50,10 @@ public class CSRFTokenOperation: AsyncOperation {
     }
     
     override public func finish(with error: Error) {
-        delegate?.CSRFTokenOperationWillFinish(self, error: error, context: context)
-        completion = nil
-        super.finish(with: error)
+        delegate?.CSRFTokenOperationWillFinish(self, error: error, context: context) {
+            self.completion = nil
+            super.finish(with: error)
+        }
     }
     
     override public func cancel() {
@@ -70,9 +71,10 @@ public class CSRFTokenOperation: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                delegate?.CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(self, context: context)
-                completion = nil
-                finish()
+                delegate?.CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(self, context: context) {
+                    self.completion = nil
+                    finish()
+                }
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
@@ -82,9 +84,10 @@ public class CSRFTokenOperation: AsyncOperation {
                 finish()
             }
         }) { (error) in
-            self.delegate?.CSRFTokenOperationDidFailToFetchToken(self, error: error, context: self.context)
-            self.completion = nil
-            finish()
+            self.delegate?.CSRFTokenOperationDidFailToFetchToken(self, error: error, context: self.context) {
+                self.completion = nil
+                finish()
+            }
         }
     }
 }

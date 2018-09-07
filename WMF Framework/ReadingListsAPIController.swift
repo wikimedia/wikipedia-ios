@@ -548,7 +548,6 @@ class ReadingListsAPIController: NSObject {
 }
 
 extension ReadingListsAPIController: CSRFTokenOperationDelegate {
-
     func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         self.session.jsonDictionaryTask(host: context.host, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: context.bodyParameters) { (result , response, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
@@ -568,16 +567,19 @@ extension ReadingListsAPIController: CSRFTokenOperationDelegate {
         }?.resume()
     }
 
-    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext) {
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, APIReadingListError.generic)
+        completion()
     }
 
-    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, error)
+        completion()
     }
 
-    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, error)
+        completion()
     }
 
 }

@@ -68,16 +68,19 @@ extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
         }
     }
 
-    public func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext) {
+    public func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, WikidataAPIError.failedToRetrieveToken)
+        completion()
     }
 
-    public func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+    public func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, error)
+        completion()
     }
 
-    public func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+    public func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, error)
+        completion()
     }
 }
 
