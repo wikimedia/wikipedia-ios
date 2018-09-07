@@ -169,25 +169,25 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(task, for: key)
     }
     
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: { (result, response, error) in
+        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, delegate: self, completion: { (result, response, error) in
             completion(result, response, error)
             self.removePendingTask(for: key)
         })
         addPendingTask(op, for: key)
     }
     
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
-    fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func delete(path: String, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .delete, completion: completion)
     }
     
-    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
     }
     
@@ -220,7 +220,7 @@ class ReadingListsAPIController: NSObject {
     func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let id = result["id"] as? Int64 else {
+            guard let result = result as? [String: Any], let id = result["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
                 return
             }
@@ -243,7 +243,7 @@ class ReadingListsAPIController: NSObject {
         }
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
+            guard let result = result as? [String: Any], let batch = result["batch"] as? [[String: Any]] else {
                 guard lists.count > 1 else {
                     completion([(nil, error ?? APIReadingListError.generic)], nil)
                     return
@@ -317,7 +317,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             
-            guard let result = result else {
+            guard let result = result as? [String: Any] else {
                 completion(nil, error ?? ReadingListError.unableToAddEntry)
                 return
             }
@@ -373,7 +373,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
 
-            guard let result = result else {
+            guard let result = result as? [String: Any] else {
                 completion(nil, error ?? ReadingListError.unableToAddEntry)
                 return
             }
@@ -545,4 +545,39 @@ class ReadingListsAPIController: NSObject {
             }
         }
     }
+}
+
+extension ReadingListsAPIController: CSRFTokenOperationDelegate {
+
+    func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
+        self.session.jsonDictionaryTask(host: context.host, method: context.method, path: context.path, queryParameters: ["csrf_token": token.token], bodyParameters: context.bodyParameters) { (result , response, error) in
+            if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                DDLogDebug("RLAPI FAILED: \(context.method.stringValue) \(context.path) \(apiError)")
+                context.completion?(result, nil, apiError)
+            } else {
+                #if DEBUG
+                if let error = error {
+                    DDLogDebug("RLAPI FAILED: \(context.method.stringValue) \(context.path) \(error)")
+                } else {
+                    DDLogDebug("RLAPI: \(context.method.stringValue) \(context.path)")
+                }
+                #endif
+                context.completion?(result, response, error)
+            }
+            completion()
+        }?.resume()
+    }
+
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, APIReadingListError.generic)
+    }
+
+    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, error)
+    }
+
+    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, error)
+    }
+
 }
