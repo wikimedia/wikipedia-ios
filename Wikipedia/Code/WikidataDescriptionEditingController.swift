@@ -43,6 +43,16 @@ struct WikidataAPIResult: Decodable {
         }
         return blacklistedLanguages.contains(languageCode)
     }
+
+    @objc public func publish(newWikidataDescription: String, forPageWithTitle title: String, in language: String, completion: @escaping (_ error: Error?) -> Void) {
+        guard !isBlacklisted(language) else {
+            print("Attempting to publish a wikidata description in a blacklisted language; aborting")
+            return
+        }
+        let _ = Session.shared.jsonCodableTask(host: WikidataAPI.host, scheme: WikidataAPI.scheme, method: .post, path: WikidataAPI.path, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"]) { (result: WikidataAPIResult?, response, error) in
+            completion(WikidataAPIError(from: result))
+        }
+    }
 }
 
 public extension MWKArticle {
