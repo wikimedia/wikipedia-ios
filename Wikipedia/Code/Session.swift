@@ -192,7 +192,6 @@ import Foundation
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                print(response)
                 completionHandler(nil, response, nil)
                 return
             }
