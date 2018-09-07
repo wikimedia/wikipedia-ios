@@ -45,6 +45,7 @@ struct WikidataAPIResult: Decodable {
         return blacklistedLanguages.contains(languageCode)
     }
 
+    // TODO: If necessary, modify to pass one of the article types (WMFArticle, MWKArticle) instead.
     @objc public func publish(newWikidataDescription: String, forPageWithTitle title: String, in language: String, completion: @escaping (_ error: Error?) -> Void) {
         guard !isBlacklisted(language) else {
             print("Attempting to publish a wikidata description in a blacklisted language; aborting")
