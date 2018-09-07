@@ -49,9 +49,36 @@ struct WikidataAPIResult: Decodable {
             print("Attempting to publish a wikidata description in a blacklisted language; aborting")
             return
         }
+        let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"], delegate: self) { (result, response, error) in
+            guard let result = result as? WikidataAPIResult else {
+                assertionFailure()
+                return
+            }
+            completion(WikidataAPIError(from: result))
+        }
         let _ = Session.shared.jsonCodableTask(host: WikidataAPI.host, scheme: WikidataAPI.scheme, method: .post, path: WikidataAPI.path, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"]) { (result: WikidataAPIResult?, response, error) in
             completion(WikidataAPIError(from: result))
         }
+    }
+}
+
+extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
+    public func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
+        let _ = Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters) { (result: WikidataAPIResult?, response, error) in
+            context.completion?(result, response, error)
+        }
+    }
+
+    public func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, APIReadingListError.generic)
+    }
+
+    public func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, error)
+    }
+
+    public func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext) {
+        context.completion?(nil, nil, error)
     }
 }
 
