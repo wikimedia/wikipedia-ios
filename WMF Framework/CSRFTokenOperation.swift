@@ -1,6 +1,23 @@
 import Foundation
 
-class CSRFTokenOperation: AsyncOperation {
+public struct CSRFTokenOperationContext {
+    let scheme: String
+    let host: String
+    let path: String
+    let method: Session.Request.Method
+    let queryParameters: [String: Any]?
+    let bodyParameters: [String: Any]?
+    let completion: ((Any?, URLResponse?, Error?) -> Void)?
+}
+
+public protocol CSRFTokenOperationDelegate: class {
+    func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext)
+    func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext)
+    func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext)
+}
+
+public class CSRFTokenOperation: AsyncOperation {
     private let session: Session
     private let tokenFetcher: WMFAuthTokenFetcher
     
@@ -10,31 +27,40 @@ class CSRFTokenOperation: AsyncOperation {
     
     private let method: Session.Request.Method
     private let bodyParameters: [String: Any]?
-    private var completion: (([String: Any]?, URLResponse?, Error?) -> Void)?
+    private let queryParameters: [String: Any]?
+    private var completion: ((Any?, URLResponse?, Error?) -> Void)?
+
+    private var context: CSRFTokenOperationContext {
+        return CSRFTokenOperationContext(scheme: self.scheme, host: self.host, path: self.path, method: self.method, queryParameters: self.queryParameters, bodyParameters: self.bodyParameters, completion: self.completion)
+    }
+
+    public weak var delegate: CSRFTokenOperationDelegate?
     
-    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, delegate: CSRFTokenOperationDelegate? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
         self.host = host
         self.path = path
         self.method = method
+        self.queryParameters = queryParameters
         self.bodyParameters = bodyParameters
         self.completion = completion
+        self.delegate = delegate
     }
     
-    override func finish(with error: Error) {
-        completion?(nil, nil, error)
+    override public func finish(with error: Error) {
+        delegate?.CSRFTokenOperationWillFinish(self, error: error, context: context)
         completion = nil
         super.finish(with: error)
     }
     
-    override func cancel() {
+    override public func cancel() {
         super.cancel()
         finish(with: AsyncOperationError.cancelled)
     }
     
-    override func execute() {
+    override public func execute() {
         let finish = {
             self.finish()
         }
@@ -44,31 +70,18 @@ class CSRFTokenOperation: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                completion?(nil, nil, APIReadingListError.generic)
+                delegate?.CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(self, context: context)
                 completion = nil
                 finish()
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
-            self.session.jsonDictionaryTask(host: self.host, method: self.method, path: self.path, queryParameters: ["csrf_token": token.token], bodyParameters: self.bodyParameters) { (result , response, error) in
-                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                    DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(apiError)")
-                    self.completion?(result, nil, apiError)
-                } else {
-                    #if DEBUG
-                    if let error = error {
-                        DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(error)")
-                    } else {
-                        DDLogDebug("RLAPI: \(self.method.stringValue) \(self.path)")
-                    }
-                    #endif
-                    self.completion?(result, response, error)
-                }
+            self.delegate?.CSRFTokenOperationDidFetchToken(self, token: token, context: self.context) {
                 self.completion = nil
                 finish()
-                }?.resume()
-        }) { (failure) in
-            self.completion?(nil, nil, failure)
+            }
+        }) { (error) in
+            self.delegate?.CSRFTokenOperationDidFailToFetchToken(self, error: error, context: self.context)
             self.completion = nil
             finish()
         }
