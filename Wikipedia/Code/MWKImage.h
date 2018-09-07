@@ -83,8 +83,6 @@
 
 #pragma mark - Managing Face Information
 
-- (BOOL)hasFaces;
-
 - (BOOL)didDetectFaces;
 
 /**

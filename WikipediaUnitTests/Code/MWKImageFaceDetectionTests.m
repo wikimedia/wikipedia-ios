@@ -27,7 +27,6 @@
 - (void)testInitialStateShouldIndicateNoDetectionOrFaces {
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
     XCTAssertFalse(self.image.didDetectFaces);
-    XCTAssertFalse(self.image.hasFaces);
     XCTAssertNil(self.image.allNormalizedFaceBounds);
 }
 
@@ -37,7 +36,6 @@
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssert([self.image.sourceURLString isEqualToString:sourceURL]);
     XCTAssertFalse(self.image.didDetectFaces);
-    XCTAssertFalse(self.image.hasFaces);
     XCTAssert([self.image.dataExport isEqual:testData]);
 }
 
@@ -48,7 +46,6 @@
     };
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssert(self.image.didDetectFaces);
-    XCTAssertFalse(self.image.hasFaces);
     XCTAssertEqual(self.image.allNormalizedFaceBounds.count, 0);
     XCTAssert([[self.image dataExport] isEqual:testData]);
 }
@@ -61,7 +58,6 @@
     };
     self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle dict:testData];
     XCTAssert(self.image.didDetectFaces);
-    XCTAssert(self.image.hasFaces);
     XCTAssert([self.image.allNormalizedFaceBounds isEqual:@[[NSValue valueWithCGRect:testRect]]]);
     XCTAssert(CGRectEqualToRect(self.image.firstFaceBounds, testRect));
     XCTAssert([self.image.dataExport isEqual:testData]);

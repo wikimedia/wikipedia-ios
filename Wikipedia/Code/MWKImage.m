@@ -93,10 +93,6 @@
     return self.allNormalizedFaceBounds != nil;
 }
 
-- (BOOL)hasFaces {
-    return self.allNormalizedFaceBounds.count > 0;
-}
-
 - (CGRect)firstFaceBounds {
     NSValue *firstFace = [self.allNormalizedFaceBounds firstObject];
     return firstFace ? [firstFace CGRectValue] : CGRectZero;
