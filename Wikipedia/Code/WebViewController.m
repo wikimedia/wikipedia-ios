@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic, getter=isAfterFirstUserScrollInteraction) BOOL afterFirstUserScrollInteraction;
+
 @end
 
 @implementation WebViewController
@@ -310,7 +312,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
-
+        
         if (!self.isHeaderFadingEnabled) {
             return;
         }
@@ -855,7 +857,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!self.article) {
         return;
     }
-
+    
     self.headerView.alpha = self.isHeaderFadingEnabled ? 0 : 1;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
@@ -1059,6 +1061,14 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self.delegate webViewController:self scrollViewDidScroll:scrollView];
     }
     [self minimizeFindInPage];
+    if (@available(iOS 12.0, *)) {
+        // Somewhere along the line the webView.scrollView.contentOffset is set to 0,0 on iOS 12 and there's nothing useful in the stack trace
+        // Workaround this issue by correcting it to the top offset if it occurs before the first user scroll event
+        // 😂😭
+        if (!self.isAfterFirstUserScrollInteraction && CGPointEqualToPoint(scrollView.contentOffset, CGPointZero)) {
+            [scrollView wmf_scrollToTop:NO];
+        }
+    }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
@@ -1075,6 +1085,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.afterFirstUserScrollInteraction = YES;
     if ([self.delegate respondsToSelector:@selector(webViewController:scrollViewWillBeginDragging:)]) {
         [self.delegate webViewController:self scrollViewWillBeginDragging:scrollView];
     }
