@@ -56,15 +56,12 @@ struct WikidataAPIResult: Decodable {
             }
             completion(WikidataAPIError(from: result))
         }
-        let _ = Session.shared.jsonCodableTask(host: WikidataAPI.host, scheme: WikidataAPI.scheme, method: .post, path: WikidataAPI.path, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"]) { (result: WikidataAPIResult?, response, error) in
-            completion(WikidataAPIError(from: result))
-        }
     }
 }
 
 extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
     public func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        let _ = Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters) { (result: WikidataAPIResult?, response, error) in
+        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters) { (result: WikidataAPIResult?, response, error) in
             context.completion?(result, response, error)
         }
     }

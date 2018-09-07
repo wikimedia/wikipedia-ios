@@ -185,7 +185,7 @@ import Foundation
         return task
     }
 
-    public func jsonCodableTask<T: Decodable>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? {
+    public func jsonCodableTask<T: Decodable>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) {
         guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)
@@ -204,11 +204,10 @@ import Foundation
                 completionHandler(nil, response, resultParsingError)
             }
         }) else {
-            return nil
+            return
         }
         let op = URLSessionTaskOperation(task: task)
         queue.addOperation(op)
-        return task
     }
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
