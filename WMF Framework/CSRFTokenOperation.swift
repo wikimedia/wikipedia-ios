@@ -27,7 +27,7 @@ public class CSRFTokenOperation: AsyncOperation {
     
     private let method: Session.Request.Method
     private let bodyParameters: [String: Any]?
-    private let queryParameters: [String: Any]?
+    private var queryParameters: [String: Any] = [:]
     private var completion: ((Any?, URLResponse?, Error?) -> Void)?
 
     private var context: CSRFTokenOperationContext {
@@ -36,7 +36,7 @@ public class CSRFTokenOperation: AsyncOperation {
 
     public weak var delegate: CSRFTokenOperationDelegate?
     
-    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, delegate: CSRFTokenOperationDelegate? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any] = [:], bodyParameters: [String: Any]? = nil, delegate: CSRFTokenOperationDelegate? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -76,6 +76,7 @@ public class CSRFTokenOperation: AsyncOperation {
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
+            self.queryParameters["csrf_token"] = token.token
             self.delegate?.CSRFTokenOperationDidFetchToken(self, token: token, context: self.context) {
                 self.completion = nil
                 finish()
