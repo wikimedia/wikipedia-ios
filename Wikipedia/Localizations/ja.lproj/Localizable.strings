@@ -96,6 +96,7 @@
 "add-articles-to-reading-list" = "$1記事をあとで読むリストに追加";
 "alert-no-internet" = "インターネットが接続されていません";
 "announcements-dismiss" = "断る";
+"app-store-keywords" = "ウィキペディア, 参考資料, ウィキ, 百科事典, 情報, 知識, リサーチ, 情報, 発見, 学習";
 "app-store-short-description" = "ウィキペディアアプリをダウンロードして、お近くのスポットを探したり、オフラインで読む記事を同期したり、記事の読み方をカスタマイズしたりしてみましょう。";
 "app-store-subtitle" = "フリー百科事典";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整";
@@ -167,12 +168,15 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1版ウィキペディアより";
 "explore-featured-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-feed-customize-accessibility-title" = "カスタマイズ";
+"explore-feed-preferences-additional-languages-footer-text" = "言語は「お使いになる言語」設定から追加できます。";
 "explore-feed-preferences-card-hidden-title" = "非表示にしたカード";
 "explore-feed-preferences-featured-article-description" = "ウィキペディアの今日の秀逸な記事";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "オフ";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "すべてオンにする";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "オン";
+"explore-feed-preferences-global-cards-description" = "言語非依存のカードです";
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
+"explore-feed-preferences-global-cards-title" = "グローバルカード";
 "explore-feed-preferences-hide-card-action-title" = "カードを隠す";
 "explore-feed-preferences-hide-feed-cards-action-title" = "%@のカードをすべて非表示";
 "explore-feed-preferences-in-the-news-description" = "最近の出来事の記事";
@@ -189,6 +193,14 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "今日は何の日カードをオフにすると、全言語版でこのカードがオフになります。";
 "explore-feed-preferences-show-on-this-day-title" = "今日は何の日カードを表示";
 "explore-feed-preferences-show-picture-of-the-day-title" = "今日の一枚カードを表示";
+"explore-feed-preferences-show-places-footer-text" = "近くのスポットカードをオフにすると、全言語版でこのカードがオフになります。";
+"explore-feed-preferences-show-places-title" = "近くのスポットカードを表示";
+"explore-feed-preferences-show-randomizer-footer-text" = "おまかせ記事カードをオフにすると、全言語版でこのカードがオフになります。";
+"explore-feed-preferences-show-randomizer-title" = "おまかせ記事カードを表示";
+"explore-feed-preferences-show-related-pages-title" = "こんな記事も読まれていますカードを表示";
+"explore-feed-preferences-show-top-read-footer-text" = "よく読まれている記事カードをオフにすると、全言語版でこのカードがオフになります。";
+"explore-feed-preferences-show-top-read-title" = "よく読まれている記事カードを表示";
+"explore-feed-preferences-top-read-description" = "今日の最も読まれた記事";
 "explore-feed-preferences-undo-customization" = "取り消す";
 "explore-hide-card-prompt" = "カードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
@@ -197,16 +209,18 @@
 "explore-most-read-generic-heading" = "よく読まれている記事";
 "explore-most-read-more-list-title-for-date" = "$1の上位記事";
 "explore-most-read-sub-heading-on-language-wikipedia" = "$1版ウィキペディアより";
+"explore-most-read-sub-heading-on-wikipedia" = "ウィキペディアで";
 "explore-nearby-heading" = "近くのスポット";
 "explore-nearby-placeholder-heading" = "場所";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1語版ウィキペディアより";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアで";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアより";
 "explore-nearby-sub-heading-your-location" = "自分の位置";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1語版ウィキペディアより付近の記事";
 "explore-potd-heading" = "今日の一枚";
+"explore-potd-sub-heading" = "ウィキメディア・コモンズより";
 "explore-random-article-heading" = "おまかせ記事";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1語版ウィキペディアより";
+"explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
 "feed-news-notification-button-text" = "通知をオンにする";
 "feed-news-notification-text" = "ニュースで記事が流行しているときに通知をWikipediaで通知できるようにする。";
@@ -256,8 +270,7 @@
 "home-button-history-accessibility-label" = "ウィキペディア、履歴に戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
 "home-more-like-footer" = "$1 なども読まれています";
-// Fuzzy
-"home-nearby-footer" = "付近の記事";
+"home-nearby-footer" = "付近の記事をもっと見る";
 "home-nearby-location-footer" = "$1 付近についてもっと詳しく";
 "home-news-footer" = "ニュースについてもっと読む";
 "home-reading-list-prompt" = "保存した記事は、あとで読むリストとしてまとめて、デバイス間で同期することができるようになりました。ログインして、ユーザー設定にあとで読むリストを同期してみましょう。";
@@ -275,9 +288,11 @@
 "in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
 "in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1語版ウィキペディアより";
+"in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
 "info-box-close-text" = "閉じる";
 "info-box-title" = "概要";
+"languages-settings-title" = "言語";
 "languages-title" = "言語を変更";
 "languages-wikipedia" = "ウィキペディアの言語";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
@@ -321,6 +336,7 @@
 "on-this-day-detail-header-date-range" = "$1 - $2から";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 歴史的イベント|$1 歴史的イベント}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
+"on-this-day-footer-with-event-count" = "この日に起きた歴史上の出来事をさらに $1 記事";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2語版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "open-link-cancel" = "キャンセル";
@@ -350,10 +366,14 @@
 "places-enable-location-action-button-title" = "位置情報を有効にする";
 "places-enable-location-description" = "位置情報にアクセスできるのは、アプリまたはアプリの機能の一部が画面上に表示されている間に限られます。";
 "places-enable-location-title" = "位置情報アクセスを有効にして近くの記事を探しましょう";
+"places-filter-articles-action-sheet-title" = "記事を絞り込み";
+"places-filter-button-title" = "絞り込み";
 "places-filter-no-saved-places" = "保存した場所がありません";
 "places-filter-saved-articles" = "保存済みの記事";
 "places-filter-top-articles" = "よく読まれている記事";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1件}}";
+"places-filter-top-read-articles" = "よく読まれている記事";
+"places-location-enabled" = "位置情報を有効にしました";
 "places-no-saved-articles-have-location" = "保存した記事のいずれも位置情報を持っていません";
 "places-search-articles-that-match" = "“$2”に一致する$1";
 "places-search-default-text" = "場所を検索";
@@ -373,6 +393,7 @@
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
+"reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか？";
 "reading-list-add-hint-title" = "「$1」をあとで読むリストに保存しますか？";
 "reading-list-add-saved-button-title" = "はい、記事をあとで読むリストに追加します";
 "reading-list-add-saved-subtitle" = "ウィキペディアアプリに保存された記事があります。その記事をそのままにして、あなたのアカウントに同期したあとで読むリストに統合しますか？";
@@ -424,6 +445,7 @@
 "reading-list-unable-to-update" = "あとで読むリストを更新しようとした際に予期せぬエラーが発生しました。後でもう一度試してください。";
 "reading-list-with-provided-name-not-found" = "「$1」という名前のあとで読むリストは見つかりませんでした。名前が正しいか確認してください。";
 "reading-lists-article-added-confirmation" = "「$1」に記事が追加されました";
+"reading-lists-article-api-failure" = "記事を同期できません";
 "reading-lists-article-not-synced" = "同期されていません";
 "reading-lists-article-not-synced-article-limit-exceeded" = "記事数が上限に達し、記事を同期できません";
 "reading-lists-article-not-synced-list-limit-exceeded" = "リスト数が上限に達し、記事を同期できません";
@@ -468,6 +490,7 @@
 "saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|この記事を削除|これらの記事を削除}}すると、すべての関連するあとで読むリストから消去されます";
 "saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|記事|記事}}を削除しますか？";
 "search-button-accessibility-label" = "ウィキペディア内を検索";
+"search-clear-title" = "消去";
 "search-did-you-mean" = "もしかして: $1";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
 "search-reading-list-placeholder-text" = "あとで読むリストを検索";
@@ -489,14 +512,15 @@
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-my-languages" = "お使いになる言語";
 "settings-notifications" = "通知";
-"settings-notifications-info" = "トレンドのWikipediaトップ記事をプッシュ通知で読むことができます。すべてはプライバシーと時間データまで提供されます。";
+"settings-notifications-info" = "ウィキペディア上で話題の記事、最も読まれている記事をプッシュ通知で受け取りましょう。通知はすべてプライバシーに配慮して行われ、毎分ごとのデータに基づいています。";
 "settings-notifications-learn-more" = "通知についてさらに詳しく";
 "settings-notifications-push-notifications" = "プッシュ通知";
 "settings-notifications-system-turn-on" = "通知をオンにする";
 "settings-notifications-trending" = "現在進行中のできごと";
 "settings-primary-language" = "メインの言語";
-// Fuzzy
-"settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。言語を変更すると、「探してみよう」フィードに表示される日替わりコンテンツ(例えば、秀逸な記事など)も変更されます。";
+"settings-primary-language-details" = "このリストの先頭の言語が、このアプリのメインの言語として使用されます。";
+"settings-search-footer-text" = "アプリ起動の際に、探してみようタブの代わりに検索タブを開きます";
+"settings-search-open-app-on-search" = "アプリ起動時に検索タブを表示";
 "settings-storage-and-syncing-enable-sync-footer-text" = "ログインして同期した際に、ウィキメディア財団が、あなたのユーザー設定に保存した記事とあとで読むリストを保存することを許可する";
 "settings-storage-and-syncing-enable-sync-title" = "保存した記事とリストの同期";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "同期を有効にしている場合、保存した記事を消去すると、あなたのアカウントからとこのデバイスの両方から消去されます。この操作は取り消せません。";
@@ -583,7 +607,7 @@
 "wikitext-upload-captcha-needed" = "CAPTCHA認証が必要です。";
 "wikitext-upload-result-unknown" = "ウィキテキストのアップロード結果が不明です。";
 "wikitext-upload-save" = "公開中...";
-"wikitext-upload-save-anonymously-warning" = "編集はあなたの機器のIPアドレスに関連付けられます。$1すれば、よりプライバシーが高まります。";
+"wikitext-upload-save-anonymously-warning" = "編集はあなたのデバイスのIPアドレスと関連付けて記録されます。$1すれば、よりプライバシーが高まります。";
 "wikitext-upload-save-sign-in" = "ログイン";
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "変更内容を保存すると、あなたは $1 に同意し、自分の投稿内容を $2 {{PLURAL:$3|ライセンス}}のもとで公開することに同意したと見なされます。";
 "wikitext-upload-save-terms-name" = "利用規約";

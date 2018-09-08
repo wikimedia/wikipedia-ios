@@ -537,6 +537,7 @@
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
+"settings-languages-feed-customization" = "В настройках вы можете указать, какие языки будут показаны в вашей Ленте.";
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Уведомления";
 "settings-notifications-info" = "Будьте в курсе трендов и самых читаемых статей Википедии используя push-уведомления. Вся информация предоставляется актуальной и с сохранением конфиденциальности.";
