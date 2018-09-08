@@ -1,6 +1,7 @@
 // Messages for Tulu (ತುಳು)
 // Exported from translatewiki.net
 // Author: BHARATHESHA ALASANDEMAJALU
+// Author: Lokesha kunchadka
 // Author: Nemo bis
 
 "about-content-license" = "ಪರವಾನಿಗೆತಾ ವಿಸಯ";
@@ -42,6 +43,7 @@
 "button-report-a-bug" = "ತೊಂದರೆನ್ ತೆರಿಪಾಲೆ";
 "button-save-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಲೆ";
 "button-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
+"cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
@@ -53,13 +55,15 @@
 "empty-no-feed-action-message" = "ಇರ್ ಒರಿಪಾಯಿನ ಪುಟೋನ್ ಓದೋಲಿ";
 "empty-no-feed-title" = "ಇಂಟೆರ್ನೇಟ್ ತಿಕೊಂತಿಜ್ಜಿ";
 "empty-no-search-results-message" = "ಒವ್ವೆ ವಿಚಾರೊಲ್ ತಿಕೀಜಿ";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "ಅಪ್";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "ಅನ್";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "ಅನ್";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "ನೆತ್ತ $1";
 "explore-main-page-heading" = "ವಿಕಿಪೀಡಿಯಾಡ್ ಇನಿ";
 "explore-most-read-generic-heading" = "ಮಸ್ತ್ ಓದುನವೂ";
 "explore-nearby-placeholder-heading" = "ಜಾಗೆಲು";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯ ಡ್";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಡ್";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ವಿಕಿಪೀಡಿಯ.";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ವಿಕಿಪೀಡಿಯ.";
 "explore-nearby-sub-heading-your-location" = "ಇರ್ ಉಪ್ಪುನಾ ಜಾಗೋ";
 "explore-potd-heading" = "ದಿನೊತ್ತಾ ಪೆಟೊ";
 "field-alert-captcha-invalid" = "CAPTCHA ಸರಿ ಒಂದುಜೀ";
@@ -94,10 +98,12 @@
 "in-the-news-notification-save-for-later-action-title" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
 "in-the-news-notification-share-action-title" = "ಪಟ್ಟುಲೇ...";
 "info-box-close-text" = "ಮುಚ್ಚಿಲೆ";
-// Fuzzy
-"info-box-title" = "ಇತ್ತೆತಾ ವಿಸಯೊ";
+"info-box-title" = "ಇತ್ತೆತ ವಿಸಯೊ.";
+"languages-settings-title" = "ಭಾಸೆಲು";
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
+"languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಬಾಸೆ";
 "license-footer-name" = "CC BY-SA 3.0";
+"license-footer-text" = "ಪ್ರತ್ಯೇಕವಾದ್ ಉಲ್ಲೇಕ ಮಲ್ಪಂದೆ ಇತ್ತ್ಂಡ, ವಿಸಯ \"$1\" ದಡಿಟ್ ಲಭ್ಯ ಉಂಡು.";
 "login-forgot-password" = "ಈರೆನೆ ಪ್ರವೇಸೊ ಪದೊ ಮರತ್ತ್‌ಂಡಾ?";
 "login-join-wikipedia" = "ವಿಕಿಪಿಡಿಯಾಗ್ ಸೇರ್ಲೆ.";
 "login-no-account" = "ಈರೆನ ಖಾತೆ ಇಜ್ಜೇ? $1";
@@ -109,10 +115,13 @@
 "main-menu-heading-zero" = "ವಿಕಿಪೀಡಿಯಾ ಜಿರೋ";
 "main-menu-nearby" = "ಒಂಜೆ ನಮೂನೆತಾ";
 "main-menu-privacy-policy" = "ಕಾಸಗಿ ಕಾರ್ಯೊನೀತಿ";
+"main-menu-rate-app" = "Rate the app";
 "main-menu-terms-of-use" = "ಗಳಸುನಾ ನಿಬಂದೊಲು";
 "main-menu-title" = "ನನಾತ್";
 "main-menu-zero-faq" = "ವಿಕಿಪೀಡಿಯ ಜಿರೋತಾ FAQ";
 "menu-cancel-accessibility-label" = "ವಜಾ ಮಲ್ಪುಲೆ";
+"more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
+"more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ.";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
 "nearby-distance-label-feet" = "$1 ಪೀಟ್";
 "nearby-distance-label-km" = "$1 km";
