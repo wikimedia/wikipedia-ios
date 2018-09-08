@@ -1,7 +1,6 @@
 #import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/CIDetector+WMFFaceDetection.h>
 #import "UIImage+WMFNormalization.h"
-#import <WMF/MWKImage.h>
 #import <WMF/WMFImageURLParsing.h>
 
 @interface WMFFaceDetectionCache ()
@@ -33,16 +32,8 @@
     return ([self faceDetectionBoundsForURL:url] == nil);
 }
 
-- (BOOL)imageRequiresFaceDetection:(MWKImage *)imageMetadata {
-    return [self imageAtURLRequiresFaceDetection:imageMetadata.sourceURL];
-}
-
 - (NSValue *)faceBoundsForURL:(NSURL *)url {
     return [[self faceDetectionBoundsForURL:url] firstObject];
-}
-
-- (NSValue *)faceBoundsForImageMetadata:(MWKImage *)imageMetadata {
-    return [self faceBoundsForURL:imageMetadata.sourceURL];
 }
 
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
@@ -58,10 +49,6 @@
                                success([faceBounds firstObject]);
                            }];
     }
-}
-
-- (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU imageMetadata:(MWKImage *)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
-    [self detectFaceBoundsInImage:image onGPU:onGPU URL:imageMetadata.sourceURL failure:failure success:success];
 }
 
 - (void)getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
