@@ -13,9 +13,11 @@
 "about-libraries" = "အသုံးပြုထားသော စာကြည့်တိုက်များ";
 "about-libraries-complete-list" = "စာရင်းအပြည့်အစုံ";
 "about-libraries-license" = "လိုင်စင်";
+"about-libraries-licenses-title" = "လွတ်လပ်ရင်းမြစ် ဆော့ဝဲလ်ကို ကျွန်ုပ်တို့ ချစ်မြတ်နိုးပါသည် $1";
 "about-places-maps-license" = "နေရာပြမြေပုံများ လိုင်စင်";
 "about-places-maps-license-details-link-text" = "လိုင်စင်အသေးစိတ်အတွက် ဤနေရာတွင်ကြည့်ပါ";
 "about-product-of" = "သင်ကဲ့သို့သော စေတနာ့ဝန်ထမ်းများ၏ အကူအညီဖြင့် $1 မှပြုလုပ်ထားသည်";
+"about-repositories-app-source-license" = "ရင်းမြစ်ကုဒ်ကို $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
 "about-testers" = "စမ်းသပ်သူများ";
 "about-title" = "အကြောင်း";
 "about-translators" = "ဘာသာပြန်သူများ";
@@ -62,6 +64,7 @@
 "app-store-keywords" = "ဝီကီပီးဒီးယား၊ ကိုးကား၊ ဝီကီ၊ စွယ်စုံကျမ်း၊ အချက်အလက်၊ ဗဟုသုတ၊ သုတေသန၊ သတင်းအချက်အလက်၊ စူးစမ်း၊ သင်ယူ";
 "app-store-subtitle" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "appearance-settings-adjust-text-sizing" = "ဆောင်းပါး စာသားအရွယ်အစား ချိန်ညှိရန်";
+"appearance-settings-expand-tables" = "ဇယားများကို ချဲ့ကားရန်";
 "appearance-settings-set-automatic-table-opening" = "ဇယား အပြင်အဆင်များ";
 "article-about-title" = "ဤဆောင်းပါးအကြောင်း";
 "article-delete" = "ဖျက်​ပါ​";
@@ -184,6 +187,7 @@
 "find-in-page-button-label" = "စာမျက်နှာတွင် ရှာဖွေရန်";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "ပြန်စရန်";
+"forgot-password-email-sent" = "စကားဝှက်ပြန်ချိန်ခြင်း လမ်းညွှန်ချက်များနှင့် အီးမေးလ်တစ်စောင်ကို ပို့လိုက်သည်";
 "forgot-password-title" = "စကားဝှက်ကို ပြန်ချိန်ရန်";
 "forgot-password-username-or-email-title" = "သို့မဟုတ်";
 "gfdl" = "GFDL";
@@ -201,6 +205,7 @@
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
 "home-nearby-footer" = "သင့်တည်နေရာအနီးရှိ နေရာများပို၍";
+"home-nearby-location-footer" = "အနီးအနား $1 ပို၍";
 "home-news-footer" = "လက်ရှိဖြစ်ရပ်များ ပို၍";
 "home-themes-action-title" = "ရေးချယ်စရာများကို စီမံရန်";
 "home-title" = "ရှာဖွေစူးစမ်းပါ";
@@ -289,6 +294,7 @@
 "places-filter-top-read-articles" = "ဖတ်ရှုမှု အများဆုံး ဆောင်းပါးများ";
 "places-location-enabled" = "တည်နေရာ ဖွင့်ပြီးပြီ";
 "places-no-saved-articles-have-location" = "သင် သိမ်းထားသောဆောင်းပါးများထဲက မည်သည့်တစ်ခုတွင်မျှ တည်နေရာအချက်အလက် မရှိပါ။";
+"places-search-articles-that-match" = "$1 သည် “$2” နှင့်ကိုက်ညီနေသည်";
 "places-search-default-text" = "နေရာများ ရှာဖွေရန်";
 "places-search-did-you-mean" = "$1 ဟု ဆိုလိုပါသလား?";
 "places-search-recently-searched-header" = "လတ်တလော ရှာဖွေခဲ့သည်";
@@ -309,12 +315,14 @@
 "reading-list-add-hint-title" = "“$1” ကို စာဖတ်စာရင်းသို့ ထည့်သွင်းမှာလား";
 "reading-list-add-saved-button-title" = "ဟုတ်ကဲ့၊ စာဖတ်စာရင်းထဲ ထည့်သွင်းပေးပါ";
 "reading-list-add-saved-title" = "သိမ်းထားသော ဆောင်းပါးများ တွေ့ရှိပါသည်";
+"reading-list-api-error-generic" = "သင်၏စာဖတ်စာရင်းကို sync လုပ်နေစဉ် မမျော်လင့်ထားသောအမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။";
 "reading-list-create-new-list-button-title" = "စာဖတ်စာရင်း ဖန်တီးရန်";
 "reading-list-create-new-list-description" = "ဖော်ပြချက်";
 "reading-list-create-new-list-reading-list-name" = "စာရင်းနာမည်ကို ဖတ်နေသည်";
 "reading-list-create-new-list-title" = "စာရင်းသစ်တစ်ခု ဖန်တီးရန်";
 "reading-list-deleted-accessibility-notification" = "စာဖတ်စာရင်း ဖျက်ပြီးပြီ";
 "reading-list-do-not-keep-button-title" = "ဟင်းအင်း၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲမှ ဖျက်လိုက်ပါ။";
+"reading-list-entry-limit-exceeded-title" = "အကောင့်တစ်ခုလျင် $1 ဆောင်းပါးနှုန်း ကန့်သတ်ချက်ကို ကျော်လွန်သွားပါသည်။";
 "reading-list-exists-with-same-name" = "စာဖတ်စာရင်းနာမည်မှာ အသုံးပြုပြီးသားဖြစ်သည်";
 "reading-list-keep-button-title" = "ဟုတ်ကဲ့၊ ဆောင်ပါးများကို စက်ပစ္စည်းထဲ မှတ်ထားပါ။";
 "reading-list-keep-subtitle" = "သင်၏ဝီကီပီးဒီးယားအကောင့်သို့ sync လုပ်ထားသော ဆောင်းပါးများ ရှိသည်။ အကောင့်မှထွက်ပါက သင့်စက်ပစ္စည်းထဲတွင် ယင်းတို့ကို ဆက်လက်ထားချင်ပါသလား။";
@@ -323,7 +331,7 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "ဆောင်းပါးများကို စီလိုက်ပါ";
 "reading-list-limit-hit-for-unsorted-articles-title" = "မစီထားသော ဆောင်းပါးများအတွက် ကန့်သတ်ချက်ရောက်ပါပြီ";
 "reading-list-login-button-title" = "သိမ်းထားသော သင်၏ဆောင်းပါးများကို sync လုပ်ရန် အကောင့်ထဲဝင်ပါ";
-"reading-list-login-or-create-account-button-title" = "Log in ဝင်ရန်/ အကောင့် ဖန်တီးရန်";
+"reading-list-login-or-create-account-button-title" = "အကောင့်ထဲဝင်ရန် (သို့) အကောင့်ဖန်တီးရန်";
 "reading-list-login-or-create-account-title" = "သိမ်းထားသောဆောင်းပါးများကို sync လုပ်ရန် အကောင့်ထဲဝင်ပါ";
 "reading-list-login-title" = "သိမ်းထားသော သင်၏ဆောင်းပါးများကို sync လုပ်မှာလား?";
 "reading-list-name-user-created-annotation" = "_[အသုံးပြုသူ ဖန်တီးခဲ့သော]";
@@ -332,6 +340,7 @@
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";
 "reading-list-sync-enable-button-title" = "Sync လုပ်ခြင်းကို ဖွင့်ရန်";
 "reading-list-sync-enabled-panel-title" = "ဤအကောင့်တွင် snyc လုပ်ခြင်းကို ဖွင့်ထားပါပြီ";
+"reading-list-with-provided-name-not-found" = "“$1” အမည်ဖြင့် စာဖတ်စာရင်းတစ်ခုကို မတွေ့ရှိပါ။ သင့်တွင် မှန်ကန်သောအမည်ရှိသည်မှာ သေချာပါစေ။";
 "reading-lists-article-added-confirmation" = "“$1” သို့ ဆောင်းပါး ပေါင်းထည့်ခဲ့သည်";
 "reading-lists-article-api-failure" = "ဆောင်းပါးကို sync မလုပ်နိုင်ပါ";
 "reading-lists-article-not-synced-article-limit-exceeded" = "ဆောင်းပါးကန့်သတ်ချက် ကျော်လွန်သွားပါပြီ၊ ဆောင်းပါးကို sync မလုပ်နိုင်ပါ။";
@@ -386,6 +395,7 @@
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
 "settings-notifications-system-turn-on" = "အသိပေးချက်များ ဖွင့်ရန်";
 "settings-primary-language" = "ပင်မ";
+"settings-primary-language-details" = "ဤစာရင်းရှိ ပထမဆုံးဘာသာစကားသည် app အတွက် ပင်မဘာသာစကားအဖြစ် အသုံးပြုထားပါသည်။";
 "settings-storage-and-syncing-enable-sync-title" = "သိမ်းထားသော ဆောင်းပါးများနှင့်စာရင်းများကို sync လုပ်ရန်";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "သိမ်းထားသော ဆောင်းပါးအားလုံးကို ဖျက်မှာလား";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "ဖျက်";
@@ -438,6 +448,7 @@
 "welcome-intro-free-encyclopedia-more-description" = "ဝီကီပီးဒီးယားသည် တစ်ကမ္ဘာလုံးရှိ ဘာသာစကားအားလုံးတွင် စွယ်စုံကျမ်းများကို အခမဲ့ဖန်တီးရန် ကမ္ဘာလုံးဆိုင်ရာ ပရောဂျက်တစ်ခုဖြစ်သည်။ အင်တာနက်ရှိသော မည်သူမဆို ဆောင်းပါးများကို ဘက်လိုက်မှုမရှိ ပြင်ဆင်ခြင်း၊ သတင်းအချက်အလက်များကို စိစစ်ခြင်းတို့ကို လုပ်ဆောင်နိုင်ပါသည်။";
 "welcome-intro-free-encyclopedia-title" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
+"welcome-languages-add-or-edit-button" = "ပိုမိုနှစ်သက်သော ဘာသာစကားများကို ထည့်ပေါင်း (သို့) ပြင်ဆင်ရန်";
 "welcome-languages-description" = "သင်၏စက်ပစ္စည်းပေါ်တွင် အောက်ပါဘာသာစကားများကို တွေ့ရှိပါသည်။";
 "welcome-languages-search-title" = "ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
 "welcome-notifications-tell-me-more-title" = "အသိပေးချက်များအကြောင်း ပို၍";
