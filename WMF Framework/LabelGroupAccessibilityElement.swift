@@ -9,7 +9,7 @@ public class LabelGroupAccessibilityElement: UIAccessibilityElement {
         self.view = view
         super.init(accessibilityContainer: view)
         isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraitLink
+        accessibilityTraits = UIAccessibilityTraits.link
         accessibilityCustomActions = actions
         update()
     }

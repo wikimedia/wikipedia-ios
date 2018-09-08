@@ -56,7 +56,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         view.backgroundColor = .wmf_lightGray
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: LibrariesUsedViewController.cellReuseIdentifier)
         tableView.estimatedRowHeight = 41
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.tableHeaderView = tableHeaderView
         tableView.semanticContentAttribute = .forceLeftToRight
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target:nil, action:nil)

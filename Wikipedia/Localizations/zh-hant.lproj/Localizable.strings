@@ -364,7 +364,7 @@
 "page-protected-other" = "此頁面已受到以下層級的保護：$1";
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
-"page-similar-titles" = "相似頁面";
+"page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視討論頁";
 "pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";

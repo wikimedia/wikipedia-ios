@@ -33,16 +33,16 @@ import UIKit
     public static let caption1 = DynamicTextStyle(.system, .caption1)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
-    public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [.traitItalic])
+    public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
 
     public static let georgiaTitle3 = DynamicTextStyle(.georgia, .title3)
 
     let family: FontFamily
-    let style: UIFontTextStyle
+    let style: UIFont.TextStyle
     let weight: UIFont.Weight
-    let traits: UIFontDescriptorSymbolicTraits
+    let traits: UIFontDescriptor.SymbolicTraits
     
-    init(_ family: FontFamily = .system, _ style: UIFontTextStyle, _ weight: UIFont.Weight = .regular, _ traits: UIFontDescriptorSymbolicTraits = []) {
+    init(_ family: FontFamily = .system, _ style: UIFont.TextStyle, _ weight: UIFont.Weight = .regular, _ traits: UIFontDescriptor.SymbolicTraits = []) {
         self.family = family
         self.weight = weight
         self.traits = traits
@@ -53,11 +53,11 @@ import UIKit
         return DynamicTextStyle(family, style, weight, traits)
     }
     
-    func with(traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+    func with(traits: UIFontDescriptor.SymbolicTraits) -> DynamicTextStyle {
         return DynamicTextStyle(family, style, weight, traits)
     }
     
-    func with(weight: UIFont.Weight, traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+    func with(weight: UIFont.Weight, traits: UIFontDescriptor.SymbolicTraits) -> DynamicTextStyle {
         return DynamicTextStyle(family, style, weight, traits)
     }
 }
@@ -117,7 +117,7 @@ public extension UIFont {
         return font
     }
     
-    func with(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+    func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
             return self
         }

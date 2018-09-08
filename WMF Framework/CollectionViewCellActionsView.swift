@@ -68,7 +68,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
         guard let index = actions.index(of: action) else {
             return
         }
-        bringSubview(toFront: buttons[index])
+        bringSubviewToFront(buttons[index])
         activatedIndex = index
         setNeedsLayout()
     }
@@ -118,8 +118,8 @@ public class ActionsView: SizeThatFitsView, Themeable {
                 }
             }
         }
-        let width = superSize.width == UIViewNoIntrinsicMetric ? maximumWidth : superSize.width
-        let height = superSize.height == UIViewNoIntrinsicMetric ? 50 : superSize.height
+        let width = superSize.width == UIView.noIntrinsicMetric ? maximumWidth : superSize.width
+        let height = superSize.height == UIView.noIntrinsicMetric ? 50 : superSize.height
         return CGSize(width: width, height: height)
     }
     
@@ -135,7 +135,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
             let button = UIButton(type: .custom)
             button.setImage(action.icon, for: .normal)
             button.titleLabel?.numberOfLines = 1
-            button.contentEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 14)
+            button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
             button.tag = index
             switch (action.type) {
             case .delete:

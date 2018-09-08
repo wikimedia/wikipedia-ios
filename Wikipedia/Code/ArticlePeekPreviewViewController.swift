@@ -6,7 +6,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     fileprivate let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
-    fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
@@ -44,7 +44,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
 
         activityIndicatorView.stopAnimating()
         
-        let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UILayoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
+        let preferredSize = self.view.systemLayoutSizeFitting(CGSize(width: self.view.bounds.size.width, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.preferredContentSize = expandedArticleView.sizeThatFits(preferredSize, apply: true)
         self.parent?.preferredContentSize = self.preferredContentSize
     }
@@ -53,7 +53,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
 
-        activityIndicatorView.activityIndicatorViewStyle = theme.isDark ? .white : .gray
+        activityIndicatorView.style = theme.isDark ? .white : .gray
         activityIndicatorView.startAnimating()
 
         view.addSubview(activityIndicatorView)

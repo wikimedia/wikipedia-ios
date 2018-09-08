@@ -93,7 +93,7 @@ class ArticlePlaceView: MapAnnotationView {
         dimension = largeOpaqueDotOutlineImage.size.width
         imageDimension = mediumOpaqueDotOutlineImage.size.width
         
-        let gravity = kCAGravityBottomRight
+        let gravity = CALayerContentsGravity.bottomRight
         
         isPlaceholderHidden = false
         
@@ -128,7 +128,7 @@ class ArticlePlaceView: MapAnnotationView {
         imageView.addSubview(imageImagePlaceholderView)
         
         var inset: CGFloat = 3.5
-        var imageViewFrame = UIEdgeInsetsInsetRect(imageView.bounds, UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+        var imageViewFrame = imageView.bounds.inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
         imageViewFrame.origin = CGPoint(x: frame.origin.x + inset, y: frame.origin.y + inset)
         imageImageView.frame = imageViewFrame
         imageImageView.contentMode = .scaleAspectFill
@@ -159,7 +159,7 @@ class ArticlePlaceView: MapAnnotationView {
         selectedImageView.addSubview(selectedImageImagePlaceholderView)
         
         inset = imageDimension > 40 ? 3.5 : 5.5
-        imageViewFrame = UIEdgeInsetsInsetRect(selectedImageView.bounds, UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
+        imageViewFrame = selectedImageView.bounds.inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
         imageViewFrame.origin = CGPoint(x: frame.origin.x + inset, y: frame.origin.y + inset)
         selectedImageImageView.frame = imageViewFrame
         selectedImageImageView.contentMode = .scaleAspectFill
@@ -175,7 +175,7 @@ class ArticlePlaceView: MapAnnotationView {
         selectedImageView.addSubview(selectedImageOutlineView)
         
         selectedImageButton.frame = selectedImageView.bounds
-        selectedImageButton.accessibilityTraits = UIAccessibilityTraitNone
+        selectedImageButton.accessibilityTraits = UIAccessibilityTraits.none
         selectedImageView.addSubview(selectedImageButton)
         
         countLabel.frame = groupView.bounds

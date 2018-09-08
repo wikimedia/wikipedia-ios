@@ -734,6 +734,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
+    if (@available(iOS 12, *)) {
+        self.subtractTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets = YES;
+    }
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 

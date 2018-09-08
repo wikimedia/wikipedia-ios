@@ -45,7 +45,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         super.viewDidDisappear(animated)
         locationManager.delegate = nil
         locationManager.stopMonitoringLocation()
-        if isMovingFromParentViewController, let context = feedFunnelContext {
+        if isMovingFromParent, let context = feedFunnelContext {
             FeedFunnel.shared.logFeedCardClosed(for: context, maxViewed: maxViewed)
         }
     }
@@ -61,7 +61,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         }
         placeholderCell.layoutMargins = layout.itemLayoutMargins
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }

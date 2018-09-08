@@ -84,13 +84,13 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         }
         
         var sizeToFit = layoutAttributes.size
-        sizeToFit.height = UIViewNoIntrinsicMetric
+        sizeToFit.height = UIView.noIntrinsicMetric
         var fitSize = self.sizeThatFits(sizeToFit)
         if fitSize == sizeToFit {
             return layoutAttributes
         } else  if let attributes = layoutAttributes.copy() as? UICollectionViewLayoutAttributes {
             fitSize.width = sizeToFit.width
-            if fitSize.height == CGFloat.greatestFiniteMagnitude || fitSize.height == UIViewNoIntrinsicMetric {
+            if fitSize.height == CGFloat.greatestFiniteMagnitude || fitSize.height == UIView.noIntrinsicMetric {
                 fitSize.height = layoutAttributes.size.height
             }
             attributes.frame = CGRect(origin: layoutAttributes.frame.origin, size: fitSize)

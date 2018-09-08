@@ -14,7 +14,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.isShadowHidingEnabled = true
         navigationBar.isBarHidingEnabled = false
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        view.bringSubview(toFront: resultsViewController.view)
+        view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
     }
 
@@ -104,7 +104,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 return
         }
         
-        guard (searchTerm as NSString).character(at: 0) != NSAttachmentCharacter else {
+        guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else {
             return
         }
         
@@ -190,15 +190,15 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         let showLanguageBar = UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
-            addChildViewController(searchLanguageBarViewController)
+            addChild(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
-            searchLanguageBarViewController.didMove(toParentViewController: self)
+            searchLanguageBarViewController.didMove(toParent: self)
             searchLanguageBarViewController.view.isHidden = false
         } else if !showLanguageBar && searchLanguageBarViewController != nil {
-            searchLanguageBarViewController?.willMove(toParentViewController: nil)
+            searchLanguageBarViewController?.willMove(toParent: nil)
             navigationBar.removeExtendedNavigationBarView()
-            searchLanguageBarViewController?.removeFromParentViewController()
+            searchLanguageBarViewController?.removeFromParent()
             searchLanguageBarViewController = nil
         }
     }
@@ -250,16 +250,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
         navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
+        navigationBarTopSpacing = incomingNavigationBar.barTopSpacing
         navigationBar.isTopSpacingHidingEnabled = true
+        navigationBar.barTopSpacing = navigationBarTopSpacing
         navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
         navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
         navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
         navigationBar.shadowAlpha = navigationBarShadowAlpha
     }
     
+    func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = outgoingNavigationBar.topSpacingPercentHidden
+        navigationBarShadowAlpha = outgoingNavigationBar.shadowAlpha
+        navigationBarTopSpacing = outgoingNavigationBar.barTopSpacing
+    }
+    
     private var navigationBarShadowAlpha: CGFloat = 0
     private var navigationBarTopSpacingPercentHidden: CGFloat = 0
-    
+    private var navigationBarTopSpacing: CGFloat = 0
+
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
     private var _isSearchVisible: Bool = false
     func setSearchVisible(_ visible: Bool, animated: Bool) {
@@ -271,23 +280,26 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isTitleShrinkingEnabled = true
             self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
         }
+        if searchLanguageBarViewController != nil {
+            navigationBar.shadowAlpha = 0
+        }
         if visible {
             navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
             navigationBarShadowAlpha = navigationBar.shadowAlpha
-        }
-        if searchLanguageBarViewController != nil {
-            navigationBar.shadowAlpha = 0
+            navigationBarTopSpacing = navigationBar.barTopSpacing
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
             self.navigationBar.isTitleShrinkingEnabled = false
+            self.navigationBar.barTopSpacing = self.navigationBarTopSpacing
             self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
             self.navigationBar.isBarHidingEnabled = false
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
+            self.view.layoutIfNeeded()
         }
         guard animated else {
             animations()
@@ -297,6 +309,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         isAnimatingSearchBarState = true
         self.resultsViewController.view.alpha = visible ? 0 : 1
         self.resultsViewController.view.isHidden = false
+        self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
     
@@ -305,9 +318,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.dataStore = dataStore
         resultsViewController.apply(theme: theme)
         resultsViewController.delegate = self
-        addChildViewController(resultsViewController)
+        addChild(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParentViewController: self)
+        resultsViewController.didMove(toParent: self)
         return resultsViewController
     }()
     
@@ -501,7 +514,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
+        guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
@@ -515,12 +528,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         guard
             self.collectionView(collectionView, numberOfItemsInSection: 0) > 0,
-            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
+            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
         else {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         configure(header: header, forSectionAt: section, layoutOnly: true)
-        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false)
+        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false)
         return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: size.height)
     }
     
