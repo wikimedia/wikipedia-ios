@@ -33,9 +33,11 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             exploreViewController.searchBar.alpha = 0
             containerView.insertSubview(toViewController.view, aboveSubview: fromViewController.view)
         } else {
+            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
+            exploreViewController.view.layoutIfNeeded()
+            searchViewController.prepareForOutgoingTransition(with: exploreViewController.navigationBar)
             searchViewController.nonSearchAlpha = 1
             exploreViewController.searchBar.alpha = 0
-            containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
         }
 
         let duration = self.transitionDuration(using: transitionContext)

@@ -72,7 +72,7 @@ public class OnThisDayTimelineView: UIView {
             return nil
         }
         let link = CADisplayLink(target: self, selector: #selector(maybeUpdateDotsRadii))
-        link.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         return link
     }()
     

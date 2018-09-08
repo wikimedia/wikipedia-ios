@@ -89,7 +89,7 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         guard viewIfLoaded != nil else {
             return
         }
-        var maximumSize = CGSize(width: view.bounds.size.width, height: UIViewNoIntrinsicMetric)
+        var maximumSize = CGSize(width: view.bounds.size.width, height: UIView.noIntrinsicMetric)
         if let context = extensionContext {
             isExpanded = context.widgetActiveDisplayMode == .expanded
             maximumSize = context.widgetMaximumSize(for: context.widgetActiveDisplayMode)
@@ -101,11 +101,11 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
     func updateViewWithMaximumSize(_ maximumSize: CGSize, isExpanded: Bool) {
         let sizeThatFits: CGSize
         if isExpanded {
-            sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
+            sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIView.noIntrinsicMetric), apply: true)
             expandedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         } else {
             collapsedArticleView.imageViewDimension = maximumSize.height - 30 //hax
-            sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIViewNoIntrinsicMetric), apply: true)
+            sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIView.noIntrinsicMetric), apply: true)
             collapsedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         }
         preferredContentSize = CGSize(width: maximumSize.width, height: sizeThatFits.height)

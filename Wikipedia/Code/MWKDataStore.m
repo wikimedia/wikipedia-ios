@@ -11,10 +11,6 @@ NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification"
 NSString *const WMFArticleDeletedNotification = @"WMFArticleDeletedNotification";
 NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey = @"WMFArticleDeletedNotificationUserInfoArticleKeyKey";
 
-NSString *const WMFContentGroupUpdatedNotification = @"WMFContentGroupUpdatedNotification";
-NSString *const WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey = @"WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey";
-NSString *const WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey = @"WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey";
-
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
@@ -331,15 +327,6 @@ static uint64_t bundleHash() {
                 } else {
                     [nc postNotificationName:WMFArticleUpdatedNotification object:article];
                 }
-            } else if ([object isKindOfClass:[WMFContentGroup class]]) {
-                WMFContentGroup *group = (WMFContentGroup *)object;
-                NSString *groupKey = group.key;
-                NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-                if (groupKey) {
-                    userInfo[WMFContentGroupUpdatedNotificationUserInfoContentGroupKeyKey] = groupKey;
-                }
-                userInfo[WMFContentGroupUpdatedNotificationUserInfoChangeTypeKey] = key;
-                [nc postNotificationName:WMFContentGroupUpdatedNotification object:[note object] userInfo:userInfo];
             }
         }
     }
