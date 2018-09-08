@@ -25,7 +25,7 @@ import UIKit
     
     @objc public func wmf_addSubview(_ subview: UIView, withConstraintsToEdgesWithInsets insets: UIEdgeInsets, priority: UILayoutPriority = .required) {
         addSubview(subview)
-        wmf_addConstraintsToEdgesOfView(subview, withInsets: insets)
+        wmf_addConstraintsToEdgesOfView(subview, withInsets: insets, priority: priority)
     }
 
     // Until we drop iOS 10 and can use NSDirectionalEdgeInsets, assume insets.left == leading & insets.right == trailing
