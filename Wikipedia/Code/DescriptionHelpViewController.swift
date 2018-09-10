@@ -27,6 +27,8 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var headingLabels: [UILabel]!
     @IBOutlet private var italicLabels: [UILabel]!
 
+    @IBOutlet private var imageViews: [UIImageView]!
+
     @objc public init(theme: Theme) {
         super.init()
         self.theme = theme
@@ -67,9 +69,19 @@ class DescriptionHelpViewController: ViewController {
         guard viewIfLoaded != nil else {
             return
         }
+        for imageView in imageViews {
+            imageView.tintColor = theme.colors.primaryText
+        }
         view.backgroundColor = theme.colors.midBackground
         for label in allLabels {
             label.textColor = theme.colors.primaryText
+        }
+        
+        for label in italicLabels {
+            label.backgroundColor = theme.colors.descriptionBackground
+        }
+        for label in headingLabels {
+            label.textColor = theme.colors.secondaryText
         }
     }
     
