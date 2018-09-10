@@ -603,7 +603,7 @@
 "welcome-send-data-learn-more" = "Сазнајте више о прикупљању података";
 "welcome-send-data-sub-title" = "Помозите Задужбини Викимедија да побољша апликацију слањем информација о употреби. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
-"wikitext-download-failed" = "Не могу да преузмем најновију ревизију.";
+"wikitext-download-failed" = "Не могу да преузмем најновију измену.";
 "wikitext-download-success" = "Садржај је учитан.";
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимам преглед ваших промена…";
