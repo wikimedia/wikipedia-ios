@@ -123,7 +123,7 @@ class LimitHitForUnsortedArticlesPanelViewController: ScrollableEducationPanelVi
 class DescriptionPublishedPanelViewController: ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        image = UIImage(named: "saved-blank")
+        image = UIImage(named: "description-published")
         heading = WMFLocalizedString("description-published-title", value: "Description published!", comment: "Title for letting the user know their description change succeeded.")
         subheading = WMFLocalizedString("description-published-subtitle", value:  "You just made Wikipedia better for everyone", comment: "Subtitle encouraging user to continue editing")
         primaryButtonTitle = WMFLocalizedString("description-published-button-title", value: "Done", comment: "Title for description panel done button.")
