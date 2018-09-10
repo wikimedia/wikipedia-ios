@@ -70,32 +70,37 @@ class DescriptionHelpViewController: ViewController {
         guard viewIfLoaded != nil else {
             return
         }
-        for imageView in imageViews {
-            imageView.tintColor = theme.colors.primaryText
-        }
         view.backgroundColor = theme.colors.midBackground
-        for label in allLabels {
-            label.textColor = theme.colors.primaryText
+        imageViews.forEach {
+            $0.tintColor = theme.colors.primaryText
         }
-        
-        for view in exampleBackgroundViews {
-            view.backgroundColor = theme.colors.descriptionBackground
+        allLabels.forEach {
+            $0.textColor = theme.colors.primaryText
         }
-        for label in headingLabels {
-            label.textColor = theme.colors.secondaryText
+        exampleBackgroundViews.forEach {
+            $0.backgroundColor = theme.colors.descriptionBackground
+        }
+        headingLabels.forEach {
+            $0.textColor = theme.colors.secondaryText
         }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        for label in allLabels {
-            label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        allLabels.forEach {
+            $0.set(dynamicTextStyle: .body)
         }
-        for label in headingLabels {
-            label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        headingLabels.forEach {
+            $0.set(dynamicTextStyle: .headline)
         }
-        for label in italicLabels {
-            label.font = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
+        italicLabels.forEach {
+            $0.set(dynamicTextStyle: .italicBody)
         }
+    }
+}
+
+private extension UILabel {
+    func set(dynamicTextStyle: DynamicTextStyle) {
+        font = UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: traitCollection)
     }
 }
