@@ -24,7 +24,9 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private weak var wikidataGuideLabel: UILabel!
 
     @IBOutlet private var allLabels: [UILabel]!
-    
+    @IBOutlet private var headingLabels: [UILabel]!
+    @IBOutlet private var italicLabels: [UILabel]!
+
     @objc public init(theme: Theme) {
         super.init()
         self.theme = theme
@@ -68,6 +70,19 @@ class DescriptionHelpViewController: ViewController {
         view.backgroundColor = theme.colors.midBackground
         for label in allLabels {
             label.textColor = theme.colors.primaryText
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        for label in allLabels {
+            label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        }
+        for label in headingLabels {
+            label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        }
+        for label in italicLabels {
+            label.font = UIFont.wmf_font(.italicBody, compatibleWithTraitCollection: traitCollection)
         }
     }
 }
