@@ -113,7 +113,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="128"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEB-Dw-ApD">
-                                                                            <rect key="frame" x="4" y="4" width="347" height="120"/>
+                                                                            <rect key="frame" x="6" y="4" width="343" height="120"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -121,11 +121,17 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="qEB-Dw-ApD" secondAttribute="trailing" constant="4" id="3P3-GE-xov"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="qEB-Dw-ApD" secondAttribute="trailing" constant="6" id="3P3-GE-xov"/>
                                                                         <constraint firstAttribute="bottom" secondItem="qEB-Dw-ApD" secondAttribute="bottom" constant="4" id="cm8-ma-tv7"/>
                                                                         <constraint firstItem="qEB-Dw-ApD" firstAttribute="top" secondItem="4lA-8W-V66" secondAttribute="top" constant="4" id="cxs-Xs-LIn"/>
-                                                                        <constraint firstItem="qEB-Dw-ApD" firstAttribute="leading" secondItem="4lA-8W-V66" secondAttribute="leading" constant="4" id="qE9-3E-lxV"/>
+                                                                        <constraint firstItem="qEB-Dw-ApD" firstAttribute="leading" secondItem="4lA-8W-V66" secondAttribute="leading" constant="6" id="qE9-3E-lxV"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="3"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS2-7g-eO9">
                                                                     <rect key="frame" x="0.0" y="130" width="355" height="20.5"/>
@@ -142,7 +148,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="128"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21w-uf-z6C">
-                                                                            <rect key="frame" x="4" y="4" width="347" height="120"/>
+                                                                            <rect key="frame" x="6" y="4" width="343" height="120"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -150,11 +156,17 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="21w-uf-z6C" firstAttribute="leading" secondItem="j3o-Zm-eHq" secondAttribute="leading" constant="4" id="489-XW-I1d"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="21w-uf-z6C" secondAttribute="trailing" constant="4" id="DRp-Oz-cmN"/>
+                                                                        <constraint firstItem="21w-uf-z6C" firstAttribute="leading" secondItem="j3o-Zm-eHq" secondAttribute="leading" constant="6" id="489-XW-I1d"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="21w-uf-z6C" secondAttribute="trailing" constant="6" id="DRp-Oz-cmN"/>
                                                                         <constraint firstAttribute="bottom" secondItem="21w-uf-z6C" secondAttribute="bottom" constant="4" id="USm-0s-eRa"/>
                                                                         <constraint firstItem="21w-uf-z6C" firstAttribute="top" secondItem="j3o-Zm-eHq" secondAttribute="top" constant="4" id="ykp-2u-ABw"/>
                                                                     </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                            <real key="value" value="3"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGh-03-MoS">
                                                                     <rect key="frame" x="0.0" y="130" width="355" height="20.5"/>
