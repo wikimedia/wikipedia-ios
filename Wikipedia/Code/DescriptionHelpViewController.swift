@@ -22,6 +22,17 @@ class DescriptionHelpViewController: ViewController {
 
     @IBOutlet private weak var aboutWikidataLabel: UILabel!
     @IBOutlet private weak var wikidataGuideLabel: UILabel!
+
+    @IBOutlet private var allLabels: [UILabel]!
+    
+    @objc public init(theme: Theme) {
+        super.init()
+        self.theme = theme
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(theme: Theme.standard)
+    }
     
     public override func viewDidLoad() {
         scrollView = helpScrollView
@@ -47,5 +58,16 @@ class DescriptionHelpViewController: ViewController {
 
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"")
+    }
+    
+    override func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        view.backgroundColor = theme.colors.midBackground
+        for label in allLabels {
+            label.textColor = theme.colors.primaryText
+        }
     }
 }
