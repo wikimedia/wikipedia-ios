@@ -23,6 +23,7 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         apply(theme: theme)
         readingListNameTextField.delegate = self
         descriptionTextField.delegate = self
+        descriptionTextField.returnKeyType = .next
         readingListNameTextField.returnKeyType = .next
         readingListNameTextField.enablesReturnKeyAutomatically = true
         
@@ -95,7 +96,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             hideReadingListError()
         }
         createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && readingListNameErrorLabel.isHidden
-        showDoneReturnKeyIfNecessary()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,24 +103,9 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
         readingListNameTextField.becomeFirstResponder()
     }
     
-    func showDoneReturnKeyIfNecessary() {
-        if !isReadingListNameFieldEmpty && !isDescriptionFieldEmpty {
-            descriptionTextField.returnKeyType = .done
-        } else {
-            descriptionTextField.returnKeyType = .default
-        }
-        if descriptionTextField.isFirstResponder {
-            descriptionTextField.resignFirstResponder()
-            descriptionTextField.becomeFirstResponder()
-        } else {
-            readingListNameTextField.resignFirstResponder()
-            readingListNameTextField.becomeFirstResponder()
-        }
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard !descriptionTextField.isFirstResponder else {
-            createReadingListButtonPressed()
+            readingListNameTextField.becomeFirstResponder()
             return true
         }
         if readingListNameTextField.isFirstResponder {
@@ -134,7 +119,6 @@ class CreateReadingListViewController: WMFScrollViewController, UITextFieldDeleg
             hideReadingListError()
         }
         createReadingListButton.isEnabled = !isReadingListNameFieldEmpty && !readingListNameTextField.isFirstResponder && readingListNameErrorLabel.isHidden
-        showDoneReturnKeyIfNecessary()
         return true
     }
 }
