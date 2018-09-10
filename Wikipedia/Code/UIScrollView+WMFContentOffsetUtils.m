@@ -4,7 +4,7 @@
 @implementation UIScrollView (WMFContentOffsetUtils)
 
 - (CGPoint)wmf_topContentOffset {
-    return CGPointMake(self.contentInset.left, self.contentInset.top);
+    return CGPointMake(0 - self.contentInset.left, 0 - self.contentInset.top);
 }
 
 - (void)wmf_scrollToTop:(BOOL)animated {
@@ -25,7 +25,7 @@
         }
 #endif
         [UIView animateWithDuration:(animated ? 0.3f : 0.0f)
-                delay:0.0f
+                              delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              CGPoint safeOffset = CGPointMake(offset.x, MAX(0 - self.contentInset.top, MIN(self.contentSize.height - self.bounds.size.height, offset.y)));
