@@ -15,9 +15,11 @@
 "about-libraries-license" = "လိုင်စင်";
 "about-libraries-licenses-title" = "လွတ်လပ်ရင်းမြစ် ဆော့ဝဲလ်ကို ကျွန်ုပ်တို့ ချစ်မြတ်နိုးပါသည် $1";
 "about-places-maps-license" = "နေရာပြမြေပုံများ လိုင်စင်";
+"about-places-maps-license-details" = "Apple Maps မှ ထောက်ပံ့ထားသော မြေပုံများကို အသုံးပြုပါ။ $1။";
 "about-places-maps-license-details-link-text" = "လိုင်စင်အသေးစိတ်အတွက် ဤနေရာတွင်ကြည့်ပါ";
 "about-product-of" = "သင်ကဲ့သို့သော စေတနာ့ဝန်ထမ်းများ၏ အကူအညီဖြင့် $1 မှပြုလုပ်ထားသည်";
 "about-repositories-app-source-license" = "ရင်းမြစ်ကုဒ်ကို $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
+"about-send-feedback" = "app အကြံပြုချက် ပို့ရန်";
 "about-testers" = "စမ်းသပ်သူများ";
 "about-title" = "အကြောင်း";
 "about-translators" = "ဘာသာပြန်သူများ";
@@ -27,8 +29,10 @@
 "abuse-filter-disallow-heading" = "ဤတည်းဖြတ်မှုအား မလွှင့်တင်နိုင်ပါ။ နောက်ပြန်သွား၍ ပြောင်းလဲပါရန်။";
 "abuse-filter-disallow-notable" = "ဝီကီပီးဒီးယားသည် စွယ်စုံကျမ်းတစ်ခုဖြစ်ပြီး ဘက်မလိုက်သော၊ အရေးပါထင်ရှားသော အကြောင်းအရာများသာ ဤနေရာနှင့်သက်ဆိုင်သည်။";
 "abuse-filter-warning-blanking" = "ဆောင်းပါးများကို ဗလာလုပ်ခြင်း သို့မဟုတ် လိုက်ဖွခြင်း";
+"abuse-filter-warning-caps" = "စာလုံးကြီးများဖြင့် ရိုက်ထည့်";
 "abuse-filter-warning-heading" = "ဤတည်းဖြတ်မှုသည် အပြုသဘောမဆောင်သည့် တည်းဖြတ်မှု ဖြစ်နိုင်သည်။ ဤသည်ကို သိမ်းဆည်းရန်မှာ သေချာပါသလား?";
 "abuse-filter-warning-irrelevant" = "သင့်လျော်မှုမရှိသော ပြင်ပလင့်ခ်များ သို့မဟုတ် ပုံများ";
+"abuse-filter-warning-repeat" = "ထပ်ခါတလဲလဲ အက္ခရာများ";
 "abuse-filter-warning-subheading" = "သင်၏တည်းဖြတ်မှုတွင် အောက်ပါထဲမှတစ်ခု သို့မဟုတ် တစ်ခုထက်ပိုသောအရာများ ပါဝင်နိုင်သည်:";
 "account-creation-captcha-cannot-see-image" = "ပုံကို မမြင်ရပါသလား $1";
 "account-creation-captcha-obtaining" = "CAPTCHA အသစ် ရယူနေသည်...";
@@ -52,6 +56,7 @@
 "action-remove" = "ဖယ်ရှားရန်";
 "action-save" = "သိမ်းရန်";
 "action-saved" = "သိမ်းဆည်းပြီး";
+"action-saved-accessibility" = "သိမ်းပြီးပြီ။ မသိမ်းတော့ရန် အတည်ပြုပါ။";
 "action-saved-accessibility-notification" = "နောင်အတွက် ဆောင်းပါးသိမ်းဆည်း";
 "action-share" = "မျှဝေ";
 "action-sort" = "စီစဉ်ရန်";
@@ -62,6 +67,7 @@
 "alert-no-internet" = "အင်တာနက် ဆက်သွယ်မှု မရှိပါ";
 "announcements-dismiss" = "ဖြုတ်ရန်";
 "app-store-keywords" = "ဝီကီပီးဒီးယား၊ ကိုးကား၊ ဝီကီ၊ စွယ်စုံကျမ်း၊ အချက်အလက်၊ ဗဟုသုတ၊ သုတေသန၊ သတင်းအချက်အလက်၊ စူးစမ်း၊ သင်ယူ";
+"app-store-short-description" = "သင့်အနီးအနားရှိ နေရာများကိုစူးစမ်းရန် ဝီကီပီးဒီးယား app ကို ဒေါင်းလုတ်ယူပါ၊ အင်တာနက်မရှိချိန်ဖတ်ရန် ဆောင်းပါးများကို syn လုပ်ပါ၊ သင်၏စာဖတ်အတွေ့အကြုံကို စိတ်ကြိုက်ပြင်ဆင်ပါ။";
 "app-store-subtitle" = "အခမဲ့ လွတ်လပ်စွယ်စုံကျမ်း";
 "appearance-settings-adjust-text-sizing" = "ဆောင်းပါး စာသားအရွယ်အစား ချိန်ညှိရန်";
 "appearance-settings-expand-tables" = "ဇယားများကို ချဲ့ကားရန်";
@@ -107,6 +113,7 @@
 "empty-no-feed-action-message" = "သိမ်းထားသော စာမျက်နှာများကို ဖတ်နိုင်ပါသေးသည်";
 "empty-no-feed-message" = "အင်တာနက်ရရှိချိန်တွင် သင့်ကိုအကြံပြုထောက်ခံထားသော ဆောင်းပါးများကို မြင်တွေ့နိုင်သည်";
 "empty-no-feed-title" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
+"empty-no-history-message" = "ဤနေရာတွင် သင်ဖတ်ရှုသောအရာကို ခြေရာခံမည်";
 "empty-no-history-title" = "ပြသရန် ရာဇဝင် မရှိပါ";
 "empty-no-reading-lists-title" = "စာဖတ်စာရင်းများဖြင့် သိမ်းထားသောဆောင်းပါးများကို ဖွဲ့စည်းရန်";
 "empty-no-saved-pages-in-reading-list-title" = "ဤစာရင်းသို့ စာမျက်နှာများ မသိမ်းရသေးပါ";
@@ -124,6 +131,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "explore-feed-customize-accessibility-title" = "စိတ်ကြိုက်ပြင်ဆင်ရန်";
 "explore-feed-preferences-card-hidden-title" = "ကဒ် ဝှက်ပြီး";
+"explore-feed-preferences-continue-reading-description" = "ဖွင့်ထားသောဆောင်းပါးအား ပြန်ဖတ်ရန် အမြန်ဆုံးလင့်ခ်";
 "explore-feed-preferences-featured-article-description" = "ဝီကီပီးဒီးယားရှိ နေ့စဉ်အထူးဆောင်းပါး";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "ပိတ်";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "အကုန်ဖွင့်ရန်";
@@ -140,6 +148,14 @@
 "explore-feed-preferences-potd-description" = "ကွန်မွန်းစ်မှ နေ့စဉ်အထူးဓါတ်ပုံ";
 "explore-feed-preferences-randomizer-description" = "ဖတ်ရှုရန် ကျပန်းဆောင်းပါးများကို ထုတ်မည်";
 "explore-feed-preferences-related-pages-description" = "စာဖတ်ခြင်းရာဇဝင်ပေါ် အခြေခံသော အကြံပြုချက်များ";
+"explore-feed-preferences-show-continue-reading-title" = "ဆက်လက်ဖတ်ရှုကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-featured-article-title" = "အထူးဆောင်းပါးကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-news-title" = "သတင်းထဲတွင်ကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-on-this-day-title" = "ဤနေ့ရက်တွင်ကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-picture-of-the-day-title" = "ယနေ့အထူးဓါတ်ပုံကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-places-title" = "နေရာများကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-randomizer-title" = "ကျပန်းကဒ်ကို ပြသရန်";
+"explore-feed-preferences-show-related-pages-title" = "သင်ဖတ်ရှုသောကြောင့်ကဒ်ကို ပြသရန်";
 "explore-feed-preferences-top-read-description" = "နေ့စဉ်ဖတ်ရှုမှုအများဆုံး ဆောင်းပါးများ";
 "explore-feed-preferences-undo-customization" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "explore-hide-card-prompt" = "ဤကဒ်ကို ဝှက်";
@@ -201,6 +217,7 @@
 "hockeyapp-alert-privacy" = "$1 ပုဂ္ဂိုလ်ရေးလုံခြုံမှု";
 "hockeyapp-alert-send-report" = "အစီရင်ခံချက် ပို့ရန်";
 "hockeyapp-alert-title" = "စိတ်မကောင်းပါ။ နောက်ဆုံးအကြိမ်က app သည် crash ဖြစ်ခဲ့သည်။";
+"home-button-explore-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရေးသို့ ပြန်သွားရန်";
 "home-button-history-accessibility-label" = "ဝီကီပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်သွားရန်";
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";
 "home-more-like-footer" = "$1 ကဲ့သို့ နောက်ထပ််";
@@ -238,6 +255,7 @@
 "main-menu-account-logout-are-you-sure" = "သင် ထွက်မည်ဆိုသည်မှာ သေချာပါသလား?";
 "main-menu-account-logout-cancel" = "မလုပ်တော့ပါ";
 "main-menu-account-title-logged-in" = "$1 အဖြစ် လော့ဂ်အင်ဝင်ခဲ့သည်";
+"main-menu-debug-tweaks" = "ဆော့ဝဲလ်တီထွင်သူ အပြင်အဆင်များ";
 "main-menu-heading-legal" = "တရားဝင် အချက်အလက်များ";
 "main-menu-heading-zero" = "ဝီကီပီးဒီးယားသုည";
 "main-menu-nearby" = "အနီးအနား";
@@ -340,6 +358,9 @@
 "reading-list-sync-disabled-panel-title" = "Sync လုပ်ဆောင်ချက် ပိတ်ထားပြီး";
 "reading-list-sync-enable-button-title" = "Sync လုပ်ခြင်းကို ဖွင့်ရန်";
 "reading-list-sync-enabled-panel-title" = "ဤအကောင့်တွင် snyc လုပ်ခြင်းကို ဖွင့်ထားပါပြီ";
+"reading-list-unable-to-create" = "သင်၏စာဖတ်စာရင်းကို ဖန်တီးနေစဉ် မမျော်လင့်ထားသော အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါသည်။ ကျေးဇူးပြု၍ နောက်တခါမှ ထပ်မံကြိုးစားကြည့်ပါ။";
+"reading-list-unable-to-delete" = "သင်၏စာဖတ်စာရင်းကို ဖျက်နေစဉ် မမျော်လင့်ထားသော အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါသည်။ ကျေးဇူးပြု၍ နောက်တခါမှ ထပ်မံကြိုးစားကြည့်ပါ။";
+"reading-list-unable-to-update" = "သင်၏စာဖတ်စာရင်းကို မွမ်းမံနေစဉ် မမျော်လင့်ထားသော အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါသည်။ ကျေးဇူးပြု၍ နောက်တခါမှ ထပ်မံကြိုးစားကြည့်ပါ။";
 "reading-list-with-provided-name-not-found" = "“$1” အမည်ဖြင့် စာဖတ်စာရင်းတစ်ခုကို မတွေ့ရှိပါ။ သင့်တွင် မှန်ကန်သောအမည်ရှိသည်မှာ သေချာပါစေ။";
 "reading-lists-article-added-confirmation" = "“$1” သို့ ဆောင်းပါး ပေါင်းထည့်ခဲ့သည်";
 "reading-lists-article-api-failure" = "ဆောင်းပါးကို sync မလုပ်နိုင်ပါ";
@@ -393,6 +414,7 @@
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
+"settings-notifications-push-notifications" = "အသိပေးချက်များ";
 "settings-notifications-system-turn-on" = "အသိပေးချက်များ ဖွင့်ရန်";
 "settings-primary-language" = "ပင်မ";
 "settings-primary-language-details" = "ဤစာရင်းရှိ ပထမဆုံးဘာသာစကားသည် app အတွက် ပင်မဘာသာစကားအဖြစ် အသုံးပြုထားပါသည်။";

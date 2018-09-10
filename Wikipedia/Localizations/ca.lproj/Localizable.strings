@@ -519,6 +519,7 @@
 "settings-clear-cache-ok" = "Neteja la memòria cau";
 "settings-help-and-feedback" = "Ajuda i comentaris";
 "settings-language-bar" = "Mostra llengües a la cerca";
+"settings-languages-feed-customization" = "Podeu gestionar quines llengües es mostren en el canal d'exploració personalitzant els paràmetres del canal d'exploració.";
 "settings-my-languages" = "Les meves llengües";
 "settings-notifications" = "Notificacions";
 "settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
