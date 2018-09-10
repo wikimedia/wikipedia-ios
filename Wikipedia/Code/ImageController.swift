@@ -244,8 +244,8 @@ open class ImageController : NSObject {
         guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) else {
             return
         }
-        let moc = self.managedObjectContext
-        moc.perform {
+        let task = Background.manager.beginTask()
+        perform { (moc) in
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
                 if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
                     group.addToCacheItems(item)
@@ -283,8 +283,7 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
                 }
-                
-                moc.perform {
+                self.perform { (moc) in
                     guard createItem else {
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                             completion.failure(ImageControllerError.fileError)
@@ -337,10 +336,18 @@ open class ImageController : NSObject {
         }
     }
     
-    @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
+    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
+        let task = Background.manager.beginTask()
         let moc = self.managedObjectContext
-        let fm = self.fileManager
         moc.perform {
+            block(moc)
+            Background.manager.endTask(withIdentifier: task)
+        }
+    }
+    
+    @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
+        let fm = self.fileManager
+        perform { (moc) in
             self.permanentCacheCompletionManager.cancel(group: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
                 completion()
@@ -568,10 +575,9 @@ open class ImageController : NSObject {
     }
     
     @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
-        let moc = self.managedObjectContext
         let legacyCacheFolderURL = self.legacyCacheFolderURL
         let legacyCacheFolderPath = legacyCacheFolderURL.path
-        moc.perform {
+        perform { (moc) in
             let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
             for imageURL in imageURLs {
                 let key = self.cacheKeyForURL(imageURL)
