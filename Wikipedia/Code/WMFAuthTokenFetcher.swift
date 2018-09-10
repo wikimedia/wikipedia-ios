@@ -6,12 +6,15 @@
 public enum WMFAuthTokenError: LocalizedError {
     case cannotExtractToken
     case zeroLengthToken
+    case anonymousToken
     public var errorDescription: String? {
         switch self {
         case .cannotExtractToken:
             return "Could not extract token"
         case .zeroLengthToken:
             return "Invalid zero-length token fetched"
+        case .anonymousToken:
+            return "Got anonymous token"
         }
     }
 }
@@ -65,6 +68,10 @@ public class WMFAuthTokenFetcher: NSObject {
             }
             guard token.count > 0 else {
                 failure(WMFAuthTokenError.zeroLengthToken)
+                return
+            }
+            guard token != "+\\" else {
+                failure(WMFAuthTokenError.anonymousToken)
                 return
             }
             success(WMFAuthToken.init(token: token, type: type))

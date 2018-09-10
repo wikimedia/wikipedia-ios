@@ -53,6 +53,10 @@ struct WikidataAPIResult: Decodable {
             return
         }
         let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"], delegate: self) { (result, response, error) in
+            guard error == nil else {
+                completion(error)
+                return
+            }
             guard let result = result as? WikidataAPIResult else {
                 assertionFailure()
                 return
