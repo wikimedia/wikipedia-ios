@@ -2,7 +2,7 @@ import UIKit
 
 class DescriptionHelpViewController: ViewController {
 
-    @IBOutlet weak var helpScrollView: UIScrollView!
+    @IBOutlet private weak var helpScrollView: UIScrollView!
 
     @IBOutlet private weak var aboutTitleLabel: UILabel!
     @IBOutlet private weak var aboutDescriptionLabel: UILabel!
