@@ -45,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateOverlayInformation;
 
-@property (nonatomic, assign) BOOL overlayViewHidden;
-
 - (NYTPhotoViewController *)currentPhotoViewController;
 
 - (UIImageView *)currentImageView;
@@ -55,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface WMFBasePhoto: NSObject
+@interface WMFBasePhoto : NSObject
 
 @property (nullable, nonatomic, strong) WMFTypedImageData *typedImageData;
 
@@ -66,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
 //used for metadaata
 @property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
-
 @end
 
 @interface WMFArticlePhoto : WMFBasePhoto <WMFPhoto>
@@ -76,7 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //used to fetch the full size image
 @property (nonatomic, strong, nullable) MWKImage *imageObject;
-
 
 @end
 
@@ -103,11 +99,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)imageDataUTType {
-    return  self.isGIF ? (NSString *)kUTTypeGIF : nil;
+    return self.isGIF ? (NSString *)kUTTypeGIF : nil;
 }
 
 @end
-
 
 @implementation WMFArticlePhoto
 
@@ -245,6 +240,9 @@ NS_ASSUME_NONNULL_BEGIN
         self.overlayView.leftBarButtonItem = nil;
         self.overlayView.topCoverBackgroundColor = [UIColor clearColor];
     } else {
+        self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
+        self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
+
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
         share.tintColor = [UIColor whiteColor];
         self.overlayView.rightBarButtonItem = share;
@@ -262,18 +260,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)shouldAutorotate {
     return YES;
-}
-
-- (void)setOverlayViewHidden:(BOOL)overlayViewHidden {
-    if (overlayViewHidden) {
-        [self.overlayView removeFromSuperview];
-    } else {
-        [self.view addSubview:self.overlayView];
-    }
-}
-
-- (BOOL)overlayViewHidden {
-    return [self.overlayView superview] == nil;
 }
 
 - (UIImageView *)currentImageView {
@@ -324,6 +310,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.accessibilityIgnoresInvertColors = YES;
+    // Very subtle gradient background so close and share buttons don't disappear when over white background parts of image.
+    UIImage *gradientImage = [[UIImage imageNamed:@"gallery-top-gradient"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    [self.overlayView.navigationBar setBackgroundImage:gradientImage forBarMetrics:UIBarMetricsDefault];
 }
 
 #pragma mark - Actions
@@ -353,12 +342,6 @@ NS_ASSUME_NONNULL_BEGIN
         }];
 }
 
-- (void)didTapInfoButton {
-    id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
-    MWKImageInfo *info = [photo bestImageInfo];
-    [self wmf_openExternalUrl:info.filePageURL];
-}
-
 #pragma mark NYTPhotosViewControllerDelegate
 
 - (UIView *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController referenceViewForPhoto:(id<NYTPhoto>)photo {
@@ -380,11 +363,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (!imageInfo) {
         return nil;
     }
-
-    WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
-
-    caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
     
+    WMFImageGalleryDetailOverlayView *caption = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
+    caption.imageDescriptionIsRTL = imageInfo.imageDescriptionIsRTL;
+
     caption.imageDescription =
         [imageInfo.imageDescription stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -395,11 +377,11 @@ NS_ASSUME_NONNULL_BEGIN
     [caption setLicense:imageInfo.license owner:ownerOrFallback];
 
     @weakify(self)
-        caption.ownerTapCallback = ^{
+    caption.ownerTapCallback = ^{
         @strongify(self)
-            if (imageInfo.license.URL) {
-                [self wmf_openExternalUrl:imageInfo.license.URL];
-            }
+        if (imageInfo.license.URL) {
+            [self wmf_openExternalUrl:imageInfo.license.URL];
+        }
     };
     caption.infoTapCallback = ^{
         @strongify(self)
@@ -407,13 +389,32 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_openExternalUrl:imageInfo.filePageURL];
         }
     };
+    @weakify(caption)
+    caption.descriptionTapCallback = ^{
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             @strongify(self)
+                             @strongify(caption)
+                             [caption toggleDescriptionOpenState];
+                             [self.view layoutIfNeeded];
+                         }
+                         completion:NULL];
+    };
 
+    caption.maximumDescriptionHeight = self.view.frame.size.height;
+    
     return caption;
 }
 
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
     //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
     [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView*)self.overlayView.captionView;
+    detailOverlayView.maximumDescriptionHeight = size.height;
 }
 
 #pragma mark - WMFThemeable
@@ -598,7 +599,6 @@ NS_ASSUME_NONNULL_BEGIN
     UIPreviewAction *share = [UIPreviewAction actionWithTitle:[WMFCommonStrings shareActionTitle]
                                                         style:UIPreviewActionStyleDefault
                                                       handler:^(UIPreviewAction *_Nonnull action, UIViewController *_Nonnull previewViewController) {
-
                                                           id<WMFPhoto> photo = (id<WMFPhoto>)self.currentlyDisplayedPhoto;
                                                           MWKImageInfo *info = [photo bestImageInfo];
                                                           NSURL *url = [photo bestImageURL];
@@ -616,7 +616,6 @@ NS_ASSUME_NONNULL_BEGIN
 
                                                                   [self.imagePreviewingActionsDelegate shareImagePreviewActionSelectedWithImageController:(WMFImageGalleryViewController *)previewViewController shareActivityController:vc];
                                                               }];
-
                                                       }];
     return @[share];
 }
