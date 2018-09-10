@@ -26,6 +26,7 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var allLabels: [UILabel]!
     @IBOutlet private var headingLabels: [UILabel]!
     @IBOutlet private var italicLabels: [UILabel]!
+    @IBOutlet private var exampleBackgroundViews: [UIView]!
 
     @IBOutlet private var imageViews: [UIImageView]!
 
@@ -77,8 +78,8 @@ class DescriptionHelpViewController: ViewController {
             label.textColor = theme.colors.primaryText
         }
         
-        for label in italicLabels {
-            label.backgroundColor = theme.colors.descriptionBackground
+        for view in exampleBackgroundViews {
+            view.backgroundColor = theme.colors.descriptionBackground
         }
         for label in headingLabels {
             label.textColor = theme.colors.secondaryText
