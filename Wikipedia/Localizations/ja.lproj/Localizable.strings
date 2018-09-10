@@ -101,7 +101,7 @@
 "app-store-subtitle" = "フリー百科事典";
 "appearance-settings-adjust-text-sizing" = "記事のテキストサイズを調整";
 "appearance-settings-expand-tables" = "表を展開する";
-"appearance-settings-expand-tables-footer" = "クイックファクト、参照、メモ、外部リンクを含め、すべての記事のすべての表をデフォルトで開くように設定します。";
+"appearance-settings-expand-tables-footer" = "基本データ、参照、メモ、外部リンクを含め、すべての記事のすべての表をデフォルトで開くように設定します。";
 "appearance-settings-image-dimming-footer" = "ダークモード/黒モードのときに画像の透過度を下げる";
 "appearance-settings-reading-themes" = "閲覧時のテーマ";
 "appearance-settings-set-automatic-table-opening" = "表の書式設定";
