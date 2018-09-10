@@ -18,7 +18,6 @@ class LicenseView: UIStackView {
                 imageView.contentMode = .center
                 imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
                 addArrangedSubview(imageView)
-                addConstraints([topAnchor.constraint(equalTo: imageView.topAnchor), bottomAnchor.constraint(equalTo: imageView.bottomAnchor)])
             }
         }
     }
