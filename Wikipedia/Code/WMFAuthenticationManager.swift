@@ -86,14 +86,24 @@ public class WMFAuthenticationManager: NSObject {
             return "Could not construct login URL; login URL is nil"
         }
     }
+
+
+    /// @objc wrapper around attemptLogin(to:completion:failure:) that lets us avoid having @objc classes call LoginURLs struct.
+    @objc public func attemptWikipediaLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+        attemptLogin(completion, failure: failure)
+    }
     
-    @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+    public func attemptLogin(to loginURL: URL? = LoginURLs.wikipedia, _ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+        guard let loginURL = loginURL else {
+            failure(LoginURLError.couldNotConstructLoginURL)
+            return
+        }
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
                 completion()
             }
         }
-        self.loginWithSavedCredentials(success: { (success) in
+        self.loginWithSavedCredentials(loginURL: loginURL, success: { (success) in
             DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(success.username).\n\n")
             performCompletionOnTheMainThread()
         }, userAlreadyLoggedInHandler: { (loggedIn) in
@@ -118,8 +128,11 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    @objc public func login(username: String, password:String, retypePassword:String?, oathToken:String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
-        let siteURL = loginSiteURL
+    public func login(loginURL: URL? = LoginURLs.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+        guard let siteURL = loginURL else {
+            failure(LoginURLError.couldNotConstructLoginURL)
+            return
+        }
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { tokenBlock in
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
@@ -141,8 +154,12 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    @objc public func loginWithSavedCredentials(success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
-        
+    public func loginWithSavedCredentials(loginURL: URL? = LoginURLs.wikipedia, success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
+        guard let siteURL = LoginURLs.wikipedia else {
+            failure(LoginURLError.couldNotConstructLoginURL)
+            return
+        }
+
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
             let password = KeychainCredentialsManager.shared.password
@@ -151,8 +168,7 @@ public class WMFAuthenticationManager: NSObject {
             return
         }
         
-        let siteURL = loginSiteURL
-        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
+        currentlyLoggedInUserFetcher.fetch(siteURL: loginURL, success: { result in
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
