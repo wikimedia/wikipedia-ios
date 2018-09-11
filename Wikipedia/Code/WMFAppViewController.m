@@ -517,7 +517,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         }
 
         [[WMFAuthenticationManager sharedInstance]
-            attemptLogin:^{
+            attemptWikipediaLogin:^{
                 [self.dataStore.readingListsController backgroundUpdate:^{
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
@@ -797,7 +797,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
     [[WMFAuthenticationManager sharedInstance]
-        attemptLogin:^{
+        attemptWikipediaLogin:^{
             [self checkRemoteAppConfigIfNecessary];
             [self.dataStore.readingListsController start];
             [self.savedArticlesFetcher start];
