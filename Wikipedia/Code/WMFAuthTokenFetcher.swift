@@ -81,8 +81,13 @@ public class WMFAuthTokenFetcher: NSObject {
                 failure(WMFAuthTokenError.zeroLengthToken)
                 return
             }
-            guard token != "+\\" else {
-                failure(WMFAuthTokenError.anonymousToken)
+            guard token != Constants.anonymousToken else {
+                if WMFAuthenticationManager.sharedInstance.isLoggedIn {
+                    DDLogDebug("Fetched anonymous token for \(siteURL), retrying with login")
+                } else {
+                    // TODO: login alert
+                    return
+                }
                 return
             }
             success(WMFAuthToken.init(token: token, type: type))
