@@ -182,15 +182,7 @@ static NSMutableDictionary *globalDesignDictionary;
     if (string == nil) {
         return nil;
     }
-    NSAssert([string hasPrefix:@"#"], @"Expected string to start with #");
-    NSString *stringWithoutHash = [string stringByReplacingOccurrencesOfString:@"#" withString:@""];
-    NSAssert([stringWithoutHash length] == 6, @"Expected string to be 6 characters");
-    NSScanner *scanner = [NSScanner scannerWithString:stringWithoutHash];
-    unsigned intFromHex = 0;
-    if (![scanner scanHexInt:&intFromHex] || intFromHex == UINT_MAX) {
-        return nil;
-    }
-    return [[UIColor alloc] initWithHexInteger:intFromHex alpha:alpha];
+    return [[UIColor alloc] initWithHexString:string alpha:alpha];
 }
 
 #pragma mark - Get Image From Resource Bundle

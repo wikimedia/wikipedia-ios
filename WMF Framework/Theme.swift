@@ -19,6 +19,19 @@ public extension UIColor {
         return UIColor(hex)
     }
 
+    // `initWithHexString:alpha:` should almost never be used. `initWithHexInteger:alpha:` is preferred.
+    @objc(initWithHexString:alpha:)
+    public convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int = UInt32()
+        guard hex.count == 6, Scanner(string: hex).scanHexInt32(&int) && int != UINT32_MAX else {
+            assertionFailure("Unexpected issue scanning hex string: \(hexString)")
+            self.init(white: 0, alpha: alpha)
+            return
+        }
+        self.init(Int(int), alpha: alpha)
+    }
+    
     fileprivate static let defaultShadow = UIColor(white: 0, alpha: 0.25)
 
     fileprivate static let pitchBlack = UIColor(0x101418)
