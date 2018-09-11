@@ -501,6 +501,7 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
+		83DAC3442146E82600CEE256 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAC3432146E82600CEE256 /* Background.swift */; };
 		83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
@@ -3291,6 +3292,7 @@
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
+		83DAC3432146E82600CEE256 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
 		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
@@ -7595,6 +7597,7 @@
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
+				83DAC3432146E82600CEE256 /* Background.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -10559,6 +10562,7 @@
 				D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */,
 				D8FA18F41E1BDA35009675C3 /* UIImage+WMFNormalization.m in Sources */,
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
+				83DAC3442146E82600CEE256 /* Background.swift in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
