@@ -7,6 +7,7 @@ public enum WMFAuthTokenError: LocalizedError {
     case cannotExtractToken
     case zeroLengthToken
     case anonymousToken
+    case enhaustedMaxLoginRetries
     public var errorDescription: String? {
         switch self {
         case .cannotExtractToken:
@@ -15,6 +16,8 @@ public enum WMFAuthTokenError: LocalizedError {
             return "Invalid zero-length token fetched"
         case .anonymousToken:
             return "Got anonymous token"
+        case .enhaustedMaxLoginRetries:
+            return "Failed to get authenticated token despite relogin attempts"
         }
     }
 }
