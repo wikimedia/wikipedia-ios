@@ -38,6 +38,14 @@ public class WMFAuthTokenFetcher: NSObject {
     public func isFetching() -> Bool {
         return manager.operationQueue.operationCount > 0
     }
+    private var isRetryingLogin = false
+
+    private struct Constants {
+        static let anonymousToken = "+\\"
+        static let maxLoginRetries = 2
+    }
+
+    private var attemptedLoginRetries = 0
     
     @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
