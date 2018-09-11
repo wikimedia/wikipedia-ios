@@ -1632,11 +1632,6 @@
 		D84C36431F3245DF00895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6A6F511D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6A6F521D9E9AB300189C80 /* WMFContentGroup+WMFFeedContentDisplaying.m */; };
 		D84C36521F33866C00895FA1 /* WMF Framework.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D84C36511F33866C00895FA1 /* WMF Framework.xcassets */; };
-		D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
-		D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
-		D84DAA131EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
-		D84DAA141EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
-		D84DAA151EEEF527008E4B18 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA071EEEF527008E4B18 /* HexColors.m */; };
 		D84DAA161EEEF527008E4B18 /* SWStepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */; };
 		D84DAA171EEEF527008E4B18 /* SWStepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */; };
 		D84DAA181EEEF527008E4B18 /* SWStepSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */; };
@@ -4319,8 +4314,6 @@
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84C363F1F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "WMF Framework/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
 		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
-		D84DAA061EEEF527008E4B18 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
-		D84DAA071EEEF527008E4B18 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
 		D84DAA091EEEF527008E4B18 /* SWStepSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWStepSlider.swift; sourceTree = "<group>"; };
 		D84E07D61EF05B0D0020A2DB /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = Frameworks/HockeySDK.framework; sourceTree = "<group>"; };
 		D84E2A9A1FFBCAF600878968 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ta; path = ta.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -7291,7 +7284,6 @@
 		D810C34C1DF1C36F003427DA /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				D84DAA051EEEF527008E4B18 /* Hex Colors */,
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D8E27B9C1F82AFE600F9D2B3 /* RMessage */,
 				D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */,
@@ -7706,16 +7698,6 @@
 			);
 			name = Extensions;
 			sourceTree = "<group>";
-		};
-		D84DAA051EEEF527008E4B18 /* Hex Colors */ = {
-			isa = PBXGroup;
-			children = (
-				D84DAA061EEEF527008E4B18 /* HexColors.h */,
-				D84DAA071EEEF527008E4B18 /* HexColors.m */,
-			);
-			name = "Hex Colors";
-			path = "Wikipedia/Third Party Code/Hex Colors";
-			sourceTree = SOURCE_ROOT;
 		};
 		D84DAA081EEEF527008E4B18 /* SWStepSlider */ = {
 			isa = PBXGroup;
@@ -9872,7 +9854,6 @@
 				B010E1A81E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				BA4524241F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				BA7683C51F30D86A00A487AA /* ProminentSwitch.swift in Sources */,
-				D84DAA111EEEF527008E4B18 /* HexColors.m in Sources */,
 				7A0161E01FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
@@ -10199,7 +10180,6 @@
 				D80ED3041EE57F4800CE8C50 /* NewsCollectionViewHeader.swift in Sources */,
 				D80ED3051EE57F4800CE8C50 /* WMFSuggestedPagesFunnel.m in Sources */,
 				7A2FE56020517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
-				D84DAA151EEEF527008E4B18 /* HexColors.m in Sources */,
 				D80ED3061EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
 				83023C1520E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51A20ADBF950001849F /* SettingsFunnel.swift in Sources */,
@@ -10730,7 +10710,6 @@
 				B0EFCD701EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				B0CD9DEB1F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				D8A42A5C1E815A9C00D8E281 /* WMFArticleResponseSerializer.m in Sources */,
-				D84DAA141EEEF527008E4B18 /* HexColors.m in Sources */,
 				830D71C61F703C980080078B /* ArticleURLListViewController.swift in Sources */,
 				B01E54B2206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83987AD320E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
@@ -11170,7 +11149,6 @@
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
-				D84DAA121EEEF527008E4B18 /* HexColors.m in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0C7A0831F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
@@ -11376,7 +11354,6 @@
 				D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */,
 				83987AD220E4FB2C00C92C60 /* UISearchBar+Theme.swift in Sources */,
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
-				D84DAA131EEEF527008E4B18 /* HexColors.m in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */,

@@ -1,7 +1,7 @@
 #import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/CIDetector+WMFFaceDetection.h>
 #import "UIImage+WMFNormalization.h"
-#import <WMF/MWKImage.h>
+#import <WMF/WMFImageURLParsing.h>
 
 @interface WMFFaceDetectionCache ()
 
@@ -32,16 +32,8 @@
     return ([self faceDetectionBoundsForURL:url] == nil);
 }
 
-- (BOOL)imageRequiresFaceDetection:(MWKImage *)imageMetadata {
-    return ![imageMetadata didDetectFaces];
-}
-
 - (NSValue *)faceBoundsForURL:(NSURL *)url {
     return [[self faceDetectionBoundsForURL:url] firstObject];
-}
-
-- (NSValue *)faceBoundsForImageMetadata:(MWKImage *)imageMetadata {
-    return [imageMetadata.allNormalizedFaceBounds firstObject];
 }
 
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
@@ -54,21 +46,6 @@
                            failure:failure
                            success:^(NSArray *faceBounds) {
                                [self cacheFaceDetectionBounds:faceBounds forURL:url];
-                               success([faceBounds firstObject]);
-                           }];
-    }
-}
-
-- (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU imageMetadata:(MWKImage *)imageMetadata failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
-    NSArray *savedBounds = imageMetadata.allNormalizedFaceBounds;
-    if (savedBounds) {
-        success([savedBounds firstObject]);
-    } else {
-        [self getFaceBoundsInImage:image
-                             onGPU:onGPU
-                           failure:failure
-                           success:^(NSArray *faceBounds) {
-                               imageMetadata.allNormalizedFaceBounds = faceBounds;
                                success([faceBounds firstObject]);
                            }];
     }
@@ -94,16 +71,29 @@
     if (!bounds) {
         bounds = @[];
     }
-
-    [self.faceDetectionBoundsKeyedByURL setObject:bounds forKey:url];
+    NSURL *key = [self sizeInvariantURLKeyForFullImageURL:url];
+    [self.faceDetectionBoundsKeyedByURL setObject:bounds forKey:key];
 }
 
 - (NSArray *)faceDetectionBoundsForURL:(NSURL *)url {
-    return [self.faceDetectionBoundsKeyedByURL objectForKey:url];
+    NSURL *key = [self sizeInvariantURLKeyForFullImageURL:url];
+    return [self.faceDetectionBoundsKeyedByURL objectForKey:key];
 }
 
 - (void)clearCache {
     [self.faceDetectionBoundsKeyedByURL removeAllObjects];
+}
+
+// Face bounds are stored as unit rects so no need to recalculate for size variants.
+// i.e. if you have a unit rect for the 240px version of an image, the 640px version of the same image has the same unit rect.
+- (NSURL *)sizeInvariantURLKeyForFullImageURL: (NSURL *)url {
+    NSString *imgNameWithoutSizePrefix = WMFParseImageNameFromSourceURL(url.absoluteString);
+    if (!imgNameWithoutSizePrefix) {
+        return url;
+    }
+    // Reminder: the url returned is deliberately *not* a valid url to the image. Key needs to be unique *only* on host and image name w/o size prefix.
+    NSURL *sizeInvariantURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", url.host, imgNameWithoutSizePrefix]];
+    return sizeInvariantURL;
 }
 
 @end
