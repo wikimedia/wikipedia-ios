@@ -48,8 +48,8 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc public static let sharedInstance = WMFAuthenticationManager()
 
-    private struct LoginURLs {
-        static var wikipedia: URL? {
+    public struct LoginURLs {
+        public static var wikipedia: URL? {
             var baseURL: URL?
             if let host = KeychainCredentialsManager.shared.host {
                 var components = URLComponents()
