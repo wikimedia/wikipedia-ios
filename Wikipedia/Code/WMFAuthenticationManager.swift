@@ -47,57 +47,8 @@ public class WMFAuthenticationManager: NSObject {
      *  @return The shared Authentication Manager
      */
     @objc public static let sharedInstance = WMFAuthenticationManager()
-
-    public struct LoginURLs {
-        public static var wikipedia: URL? {
-            var baseURL: URL?
-            if let host = KeychainCredentialsManager.shared.host {
-                var components = URLComponents()
-                components.host = host
-                components.scheme = "https"
-                baseURL = components.url
-            }
-
-            if baseURL == nil {
-                //            #if DEBUG
-                //                let loginHost = "readinglists.wmflabs.org"
-                //                let loginScheme = "https"
-                //                var components = URLComponents()
-                //                components.host = loginHost
-                //                components.scheme = loginScheme
-                //                baseURL = components.url
-                //            #else
-                baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-                //            #endif
-            }
-
-            return baseURL
-        }
-
-        static var wikidata: URL? {
-            return URL(string: WikidataAPI.host)
-        }
-    }
-
-    private enum LoginURLError: LocalizedError {
-        case couldNotConstructLoginURL
-
-        var errorDescription: String? {
-            return "Could not construct login URL; login URL is nil"
-        }
-    }
-
-
-    /// @objc wrapper around attemptLogin(to:completion:failure:) that lets us avoid having @objc classes call LoginURLs struct.
-    @objc public func attemptWikipediaLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
-        attemptLogin(completion, failure: failure)
-    }
     
-    public func attemptLogin(to loginURL: URL? = LoginURLs.wikipedia, _ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
-        guard let loginURL = loginURL else {
-            failure(LoginURLError.couldNotConstructLoginURL)
-            return
-        }
+    public func attemptLogin(_ loginURL: URL? = LoginURL.wikipedia, completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
                 completion()
@@ -128,7 +79,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(loginURL: URL? = LoginURLs.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+    public func login(loginURL: URL? = LoginURL.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
         guard let siteURL = loginURL else {
             failure(LoginURLError.couldNotConstructLoginURL)
             return
@@ -154,8 +105,8 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(loginURL: URL? = LoginURLs.wikipedia, success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
-        guard let siteURL = LoginURLs.wikipedia else {
+    public func loginWithSavedCredentials(loginURL: URL? = LoginURL.wikipedia, success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
+        guard let siteURL = loginURL else {
             failure(LoginURLError.couldNotConstructLoginURL)
             return
         }
@@ -168,7 +119,7 @@ public class WMFAuthenticationManager: NSObject {
             return
         }
         
-        currentlyLoggedInUserFetcher.fetch(siteURL: loginURL, success: { result in
+        currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
@@ -195,7 +146,7 @@ public class WMFAuthenticationManager: NSObject {
         loginWithSavedCredentials(success: success, userAlreadyLoggedInHandler: userAlreadyLoggedInHandler, failure: failure)
     }
     
-    fileprivate var logoutManager:AFHTTPSessionManager?
+    fileprivate var logoutManager: AFHTTPSessionManager?
     
     fileprivate func resetLocalUserLoginSettings() {
         KeychainCredentialsManager.shared.username = nil
@@ -222,18 +173,32 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(completion: @escaping () -> Void = {}){
+    @objc(logoutAndResetLocalUserLoginSettings:completion:)
+    public func logout(resetLocalUserLoginSettings: Bool = true, completion: @escaping () -> Void = {}) {
+        let resetIfNeeded = {
+            if resetLocalUserLoginSettings {
+                DDLogDebug("Deleted login tokens and other browser cookies")
+                self.resetLocalUserLoginSettings()
+            }
+        }
+        let failure: (Error) -> Void = { error in
+            DDLogDebug("Failed to log out: \(error)")
+            resetIfNeeded()
+            completion()
+        }
+        guard let loginSiteURL = LoginURL.wikipedia else {
+            failure(LoginURLError.couldNotConstructLoginURL)
+            return
+        }
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
-            DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+            DDLogDebug("Successfully logged out")
             // It's best to call "action=logout" API *before* clearing local login settings...
-            self.resetLocalUserLoginSettings()
+            resetIfNeeded()
             completion()
         }, failure: { (_, error) in
             // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
-            self.resetLocalUserLoginSettings()
-            completion()
+            failure(error)
         })
     }
     
@@ -258,6 +223,9 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
     }
     
     public func isUserLoggedInRemotely() -> Bool {
+        guard let loginSiteURL = LoginURL.wikipedia else {
+            return false
+        }
         let taskGroup = WMFTaskGroup()
         let sessionManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         var errorCode: String? = nil
@@ -274,4 +242,54 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
         return errorCode == nil
     }
 
+}
+
+// MARK: LoginURL
+extension WMFAuthenticationManager {
+    public struct LoginURL {
+        public static var wikipedia: URL? {
+            var baseURL: URL?
+            if let host = KeychainCredentialsManager.shared.host {
+                var components = URLComponents()
+                components.host = host
+                components.scheme = "https"
+                baseURL = components.url
+            }
+
+            if baseURL == nil {
+                //            #if DEBUG
+                //                let loginHost = "readinglists.wmflabs.org"
+                //                let loginScheme = "https"
+                //                var components = URLComponents()
+                //                components.host = loginHost
+                //                components.scheme = loginScheme
+                //                baseURL = components.url
+                //            #else
+                baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+                //            #endif
+            }
+
+            return baseURL
+        }
+
+        public static var wikidata: URL? {
+            return URL(string: WikidataAPI.host)
+        }
+    }
+
+    private enum LoginURLError: LocalizedError {
+        case couldNotConstructLoginURL
+
+        var errorDescription: String? {
+            return "Could not construct login URL; login URL is nil"
+        }
+    }
+}
+
+
+// MARK: @objc Wikipedia login
+extension WMFAuthenticationManager {
+    @objc public func attemptWikipediaLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+        attemptLogin(completion: completion, failure: failure)
+    }
 }
