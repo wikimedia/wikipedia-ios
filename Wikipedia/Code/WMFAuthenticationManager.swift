@@ -47,30 +47,44 @@ public class WMFAuthenticationManager: NSObject {
      *  @return The shared Authentication Manager
      */
     @objc public static let sharedInstance = WMFAuthenticationManager()
-    
-    var loginSiteURL: URL {
-        var baseURL: URL?
-        if let host = KeychainCredentialsManager.shared.host {
-            var components = URLComponents()
-            components.host = host
-            components.scheme = "https"
-            baseURL = components.url
-        }
-        
-        if baseURL == nil {
-//            #if DEBUG
-//                let loginHost = "readinglists.wmflabs.org"
-//                let loginScheme = "https"
-//                var components = URLComponents()
-//                components.host = loginHost
-//                components.scheme = loginScheme
-//                baseURL = components.url
-//            #else
+
+    private struct LoginURLs {
+        static var wikipedia: URL? {
+            var baseURL: URL?
+            if let host = KeychainCredentialsManager.shared.host {
+                var components = URLComponents()
+                components.host = host
+                components.scheme = "https"
+                baseURL = components.url
+            }
+
+            if baseURL == nil {
+                //            #if DEBUG
+                //                let loginHost = "readinglists.wmflabs.org"
+                //                let loginScheme = "https"
+                //                var components = URLComponents()
+                //                components.host = loginHost
+                //                components.scheme = loginScheme
+                //                baseURL = components.url
+                //            #else
                 baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-//            #endif
+                //            #endif
+            }
+
+            return baseURL
         }
-        
-        return baseURL!
+
+        static var wikidata: URL? {
+            return URL(string: WikidataAPI.host)
+        }
+    }
+
+    private enum LoginURLError: LocalizedError {
+        case couldNotConstructLoginURL
+
+        var errorDescription: String? {
+            return "Could not construct login URL; login URL is nil"
+        }
     }
     
     @objc public func attemptLogin(_ completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
