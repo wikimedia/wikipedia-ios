@@ -145,11 +145,6 @@ public class WMFAuthenticationManager: NSObject {
             })
         })
     }
-
-    /// @objc wrapper around loginWithSavedCredentials(loginURL:success:userAlreadyLoggedInHandler:failure:) that lets us avoid having @objc classes call LoginURLs struct.
-    @objc func wikipediaLoginWithSavedCredentials(success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
-        loginWithSavedCredentials(success: success, userAlreadyLoggedInHandler: userAlreadyLoggedInHandler, failure: failure)
-    }
     
     fileprivate var logoutManager: AFHTTPSessionManager?
     
@@ -294,4 +289,5 @@ extension WMFAuthenticationManager {
     @objc public func attemptWikipediaLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         attemptLogin(completion: completion, failure: failure)
     }
+
 }
