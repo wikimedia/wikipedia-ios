@@ -95,4 +95,31 @@ public class WMFAuthTokenFetcher: NSObject {
             failure(error)
         })
     }
+
+    private struct FetchTokenContext {
+        let tokenType: WMFAuthTokenType
+        let siteURL: URL
+        let success: WMFAuthTokenBlock
+        let failure: WMFErrorHandler
+    }
+
+    private func retryWithLogin(context: FetchTokenContext) {
+        guard !isRetryingLogin else {
+            return
+        }
+        guard attemptedLoginRetries < Constants.maxLoginRetries else {
+            DDLogDebug("Exhausted the number of allowed login retries, returning with error")
+            context.failure(WMFAuthTokenError.enhaustedMaxLoginRetries)
+            return
+        }
+        isRetryingLogin = true
+        WMFAuthenticationManager.sharedInstance.loginSilently(loginURL: context.siteURL, success: {
+            self.fetchToken(ofType: context.tokenType, siteURL: context.siteURL, success: context.success, failure: context.failure)
+        }, failure: { (error) in
+            context.failure(error)
+        }, completion: {
+            self.isRetryingLogin = false
+        })
+        attemptedLoginRetries += 1
+    }
 }
