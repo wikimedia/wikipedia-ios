@@ -79,7 +79,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(loginURL: URL? = LoginURL.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess:@escaping WMFAccountLoginResultBlock, failure:@escaping WMFErrorHandler){
+    public func login(loginURL: URL? = LoginURL.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
         guard let siteURL = loginURL else {
             failure(LoginURLError.couldNotConstructLoginURL)
             return
@@ -105,7 +105,12 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(loginURL: URL? = LoginURL.wikipedia, success:@escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler:@escaping WMFCurrentlyLoggedInUserBlock, failure:@escaping WMFErrorHandler){
+    public func loginWithSavedCredentials(loginURL: URL? = LoginURL.wikipedia, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler, completion: @escaping () -> Void = {}) {
+        
+        defer {
+            completion()
+        }
+
         guard let siteURL = loginURL else {
             failure(LoginURLError.couldNotConstructLoginURL)
             return
@@ -128,7 +133,7 @@ public class WMFAuthenticationManager: NSObject {
                 success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
                 return
             }
-            self.login(username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
+            self.login(loginURL: siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
                     success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
@@ -173,17 +178,14 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc(logoutAndResetLocalUserLoginSettings:completion:)
-    public func logout(resetLocalUserLoginSettings: Bool = true, completion: @escaping () -> Void = {}) {
-        let resetIfNeeded = {
-            if resetLocalUserLoginSettings {
-                DDLogDebug("Deleted login tokens and other browser cookies")
-                self.resetLocalUserLoginSettings()
-            }
+    @objc public func logout(completion: @escaping () -> Void = {}) {
+        let reset = {
+            DDLogDebug("Deleted login tokens and other browser cookies")
+            self.resetLocalUserLoginSettings()
         }
         let failure: (Error) -> Void = { error in
             DDLogDebug("Failed to log out: \(error)")
-            resetIfNeeded()
+            reset()
             completion()
         }
         guard let loginSiteURL = LoginURL.wikipedia else {
@@ -194,7 +196,7 @@ public class WMFAuthenticationManager: NSObject {
         _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
             DDLogDebug("Successfully logged out")
             // It's best to call "action=logout" API *before* clearing local login settings...
-            resetIfNeeded()
+            reset()
             completion()
         }, failure: { (_, error) in
             // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
