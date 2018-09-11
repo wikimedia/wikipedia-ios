@@ -7,7 +7,7 @@
 //
 
 #import "RMessageView.h"
-#import "HexColors.h"
+#import "Wikipedia-Swift.h"
 
 static NSString *const RDesignFileName = @"RMessageDefaultDesign";
 
@@ -170,20 +170,27 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (UIColor *)colorForString:(NSString *)string
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:1.f];
-  return nil;
+  return [self colorForString:string alpha:1.0];
 }
 
 /**
- Wrapper method to avoid getting a black color when passing a nil string to
- hx_colorWithHexRGBAString
  @param string A hex string representation of a color.
  @return nil or a color.
  */
 - (UIColor *)colorForString:(NSString *)string alpha:(CGFloat)alpha
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:alpha];
-  return nil;
+    if (string == nil) {
+        return nil;
+    }
+    NSAssert([string hasPrefix:@"#"], @"Expected string to start with #");
+    NSString *stringWithoutHash = [string stringByReplacingOccurrencesOfString:@"#" withString:@""];
+    NSAssert([stringWithoutHash length] == 6, @"Expected string to be 6 characters");
+    NSScanner *scanner = [NSScanner scannerWithString:stringWithoutHash];
+    unsigned intFromHex = 0;
+    if (![scanner scanHexInt:&intFromHex] || intFromHex == UINT_MAX) {
+        return nil;
+    }
+    return [[UIColor alloc] initWithHexInteger:intFromHex alpha:alpha];
 }
 
 #pragma mark - Get Image From Resource Bundle
