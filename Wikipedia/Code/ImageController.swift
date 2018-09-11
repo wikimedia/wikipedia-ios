@@ -244,7 +244,6 @@ open class ImageController : NSObject {
         guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) else {
             return
         }
-        let task = Background.manager.beginTask()
         perform { (moc) in
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
                 if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
