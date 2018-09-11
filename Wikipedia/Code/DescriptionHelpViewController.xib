@@ -198,7 +198,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="6U7-Ds-3A6" userLabel="Bottom stack view">
                                                     <rect key="frame" x="0.0" y="736.5" width="355" height="65"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PSt-6U-jVg">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PSt-6U-jVg" userLabel="About Wikidata Stack View">
                                                             <rect key="frame" x="0.0" y="0.0" width="355" height="20.5"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="999" verticalHuggingPriority="251" image="description-barcode" translatesAutoresizingMaskIntoConstraints="NO" id="BwW-72-Tox">
@@ -214,8 +214,12 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
+                                                            <gestureRecognizers/>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="skP-Nd-U6s" appends="YES" id="ROI-hI-4g2"/>
+                                                            </connections>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-QW-JbE">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-QW-JbE" userLabel="Wikidata Guide Stack View">
                                                             <rect key="frame" x="0.0" y="44.5" width="355" height="20.5"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="999" verticalHuggingPriority="251" image="description-info" translatesAutoresizingMaskIntoConstraints="NO" id="BhX-PJ-H6d">
@@ -231,6 +235,10 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
+                                                            <gestureRecognizers/>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="Qll-Dw-mSK" appends="YES" id="R1g-83-nmr"/>
+                                                            </connections>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
@@ -275,6 +283,16 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="138.40000000000001" y="266.26686656671666"/>
         </view>
+        <tapGestureRecognizer id="skP-Nd-U6s">
+            <connections>
+                <action selector="showAboutWikidataPage" destination="-1" id="TOG-21-iX3"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="Qll-Dw-mSK">
+            <connections>
+                <action selector="showWikidataGuidePage" destination="-1" id="M26-xK-jH4"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="description-barcode" width="27" height="18"/>

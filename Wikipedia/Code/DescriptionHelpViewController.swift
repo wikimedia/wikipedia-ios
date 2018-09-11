@@ -97,6 +97,14 @@ class DescriptionHelpViewController: ViewController {
             $0.set(dynamicTextStyle: .italicBody)
         }
     }
+    
+    @IBAction func showAboutWikidataPage() {
+        wmf_openExternalUrl(URL(string: "https://m.wikidata.org/wiki/Wikidata:Introduction"))
+    }
+
+    @IBAction func showWikidataGuidePage() {
+        wmf_openExternalUrl(URL(string: "https://m.wikidata.org/wiki/Help:Description#Guidelines_for_descriptions_in_English"))
+    }
 }
 
 private extension UILabel {
