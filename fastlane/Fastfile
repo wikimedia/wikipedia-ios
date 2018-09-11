@@ -6,16 +6,16 @@ $:.unshift File.dirname(__FILE__)
 default_platform :ios
 
 configurations_to_test_on_pull = [
-  {device: 'iPhone 6s', os: '11.4'},
+  {device: 'iPhone 6s', os: '12.0'},
   {device: 'iPad Air 2', os: '11.4'}
 ]
 
 configurations_to_test = configurations_to_test_on_pull + [
-  {device: 'iPhone 6s', os: '11.4', scheme: "WikipediaRTL"},
+  {device: 'iPhone 6s', os: '12.0', scheme: "WikipediaRTL"}
 ]
 
 beta_cluster_configurations_to_test = [
-  {device: 'iPhone 6s', os: '11.4', scheme: "Beta Cluster Tests"}
+  {device: 'iPhone 6s', os: '12.0', scheme: "Beta Cluster Tests"}
 ]
 
 def get_devices_by_scheme_from_options(options)
