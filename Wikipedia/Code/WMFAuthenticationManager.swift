@@ -221,7 +221,7 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
     }
     
     public func isUserLoggedInRemotely() -> Bool {
-        guard let loginSiteURL = LoginURL.wikipedia else {
+        guard let loginSiteURL = LoginSite.wikipedia.url else {
             return false
         }
         let taskGroup = WMFTaskGroup()
