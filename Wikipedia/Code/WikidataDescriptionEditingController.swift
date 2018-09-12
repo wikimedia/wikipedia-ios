@@ -2,6 +2,13 @@ public struct WikidataAPI {
     public static let host = "www.wikidata.org"
     public static let path = "/w/api.php"
     public static let scheme = "https"
+
+    public static var urlWithoutAPIPath: URL? {
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
+        return components.url
+    }
 }
 
 enum WikidataAPIError: String, LocalizedError {
