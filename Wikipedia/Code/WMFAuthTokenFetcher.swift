@@ -119,7 +119,7 @@ public class WMFAuthTokenFetcher: NSObject {
         let fetchToken = {
             self.fetchToken(ofType: context.tokenType, siteURL: context.siteURL, success: context.success, failure: context.failure)
         }
-        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(loginURL: context.siteURL, success: { (_) in
+        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(context.siteURL, success: { (_) in
             fetchToken()
         }, userAlreadyLoggedInHandler: { (_) in
             fetchToken()
