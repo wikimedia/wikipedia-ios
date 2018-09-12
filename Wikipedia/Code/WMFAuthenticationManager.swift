@@ -81,7 +81,7 @@ public class WMFAuthenticationManager: NSObject {
      */
     public func login(_ loginURL: URL? = LoginSite.wikipedia.url, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
         guard let siteURL = loginURL else {
-            failure(LoginURLError.couldNotConstructLoginURL)
+            failure(LoginSite.Error.couldNotConstructLoginURL)
             return
         }
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { tokenBlock in
@@ -111,7 +111,7 @@ public class WMFAuthenticationManager: NSObject {
         }
 
         guard let siteURL = loginURL else {
-            failure(LoginURLError.couldNotConstructLoginURL)
+            failure(LoginSite.Error.couldNotConstructLoginURL)
             return
         }
 
@@ -244,7 +244,6 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
 
 // MARK: LoginURL
 extension WMFAuthenticationManager {
-
     public enum LoginSite: CaseIterable {
         case wikipedia
         case wikidata
@@ -257,13 +256,13 @@ extension WMFAuthenticationManager {
                 return WikidataAPI.urlWithoutAPIPath
             }
         }
-    }
 
-    private enum LoginURLError: LocalizedError {
-        case couldNotConstructLoginURL
+        enum Error: LocalizedError {
+            case couldNotConstructLoginURL
 
-        var errorDescription: String? {
-            return "Could not construct login URL; login URL is nil"
+            var errorDescription: String? {
+                return "Could not construct login URL; login URL is nil"
+            }
         }
     }
 }
