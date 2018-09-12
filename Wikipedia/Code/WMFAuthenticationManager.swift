@@ -90,7 +90,6 @@ public class WMFAuthenticationManager: NSObject {
                 self.loggedInUsername = normalizedUserName
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
-                KeychainCredentialsManager.shared.host = siteURL.host
                 self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 loginSuccess(result)
