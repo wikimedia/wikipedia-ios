@@ -40,7 +40,13 @@ struct WikidataAPIResult: Decodable {
     let success: Int?
 }
 
-@objc public class WikidataDescriptionEditingController: NSObject {
+extension WikidataAPIResult {
+    var succeeded: Bool {
+        return success == 1
+    }
+}
+
+@objc public final class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
