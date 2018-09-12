@@ -14,8 +14,7 @@ public struct WikidataAPI {
 enum WikidataAPIError: String, LocalizedError {
     case missingToken = "notoken"
     case invalidToken = "badtoken"
-    case failedToRetrieveToken
-    case permissionDenied = "permissiondenied" // page not editable, should never be allowed via ui but will catch for debugging
+    case permissionDenied = "permissiondenied"
 
     init?(from wikidataAPIResult: WikidataAPIResult?) {
         guard let errorCode = wikidataAPIResult?.error?.code else {
