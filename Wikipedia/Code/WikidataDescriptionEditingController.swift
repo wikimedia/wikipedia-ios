@@ -56,10 +56,19 @@ struct WikidataAPIResult: Decodable {
     // TODO: If necessary, modify to pass one of the article types (WMFArticle, MWKArticle) instead.
     @objc public func publish(newWikidataDescription: String, forPageWithTitle title: String, in language: String, completion: @escaping (_ error: Error?) -> Void) {
         guard !isBlacklisted(language) else {
-            print("Attempting to publish a wikidata description in a blacklisted language; aborting")
+            //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
             return
         }
-        let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: ["action": "wbsetdescription", "language": language, "title": title, "value": newWikidataDescription, "format": "json"], delegate: self) { (result, response, error) in
+        let queryParameters = ["action": "wbsetdescription",
+                               "format": "json",
+                               "formatversion": "2"]
+        let bodyParameters = ["language": language,
+                              "uselang": language,
+                              "site": "plwiki",
+                              "title": title,
+                              "value": newWikidataDescription,
+                              "assert": "user"]
+        let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, delegate: self) { (result, response, error) in
             guard error == nil else {
                 completion(error)
                 return
@@ -75,7 +84,9 @@ struct WikidataAPIResult: Decodable {
 
 extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
     public func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: ["token": token.token], bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
+        var bodyParameters = context.bodyParameters
+        bodyParameters?["token"] = token.token.wmf_UTF8StringWithPercentEscapes()
+        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
             context.completion?(result, response, error)
         }
     }
