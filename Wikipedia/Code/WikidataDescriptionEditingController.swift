@@ -11,33 +11,18 @@ public struct WikidataAPI {
     }
 }
 
-enum WikidataAPIError: String, LocalizedError {
-    case missingToken = "notoken"
-    case invalidToken = "badtoken"
-    case permissionDenied = "permissiondenied"
-
-    init?(from wikidataAPIResult: WikidataAPIResult?) {
-        guard let errorCode = wikidataAPIResult?.error?.code else {
-            return nil
-        }
-        self.init(rawValue: errorCode)
-    }
-
-    var localizedDescription: String {
-        return "TODO 🚧"
-    }
-
-    var errorDescription: String? {
-        return "TODO 🚧"
-    }
-}
-
 struct WikidataAPIResult: Decodable {
     struct Error: Decodable {
         let code, info: String?
     }
     let error: Error?
     let success: Int?
+}
+
+extension WikidataAPIResult.Error: LocalizedError {
+    var errorDescription: String? {
+        return info
+    }
 }
 
 extension WikidataAPIResult {
@@ -102,7 +87,7 @@ extension WikidataAPIResult {
                 assertionFailure()
                 return
             }
-            completion(WikidataAPIError(from: result))
+            completion(result.error)
         }
     }
 }
