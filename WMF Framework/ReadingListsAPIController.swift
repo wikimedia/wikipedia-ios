@@ -567,7 +567,7 @@ extension ReadingListsAPIController: CSRFTokenOperationDelegate {
         }?.resume()
     }
 
-    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
         context.completion?(nil, nil, APIReadingListError.generic)
         completion()
     }

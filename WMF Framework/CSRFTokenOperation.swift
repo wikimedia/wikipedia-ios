@@ -11,10 +11,14 @@ public struct CSRFTokenOperationContext {
 }
 
 public protocol CSRFTokenOperationDelegate: class {
-    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
+    func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
     func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
     func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
     func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
+}
+
+enum CSRFTokenOperationError: Error {
+    case failedToRetrieveURLForTokenFetcher
 }
 
 public class CSRFTokenOperation: AsyncOperation {
@@ -71,7 +75,7 @@ public class CSRFTokenOperation: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                delegate?.CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(self, context: context) {
+                delegate?.CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(self, error: CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher, context: context) {
                     self.completion = nil
                     finish()
                 }
