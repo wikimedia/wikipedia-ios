@@ -15,7 +15,7 @@ public enum WMFAuthTokenError: LocalizedError {
         case .zeroLengthToken:
             return "Invalid zero-length token fetched"
         case .anonymousToken:
-            return "Got anonymous token"
+            return "Got anonymous token; user has to log in"
         case .enhaustedMaxLoginRetries:
             return "Failed to get authenticated token despite relogin attempts"
         }
@@ -87,7 +87,7 @@ public class WMFAuthTokenFetcher: NSObject {
                     let context = FetchTokenContext(tokenType: type, siteURL: siteURL, success: success, failure: failure)
                     self.retryWithLogin(context: context)
                 } else {
-                    // TODO: login alert
+                    failure(WMFAuthTokenError.anonymousToken)
                     return
                 }
                 return
