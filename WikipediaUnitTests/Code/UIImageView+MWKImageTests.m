@@ -75,10 +75,10 @@
 
     XCTAssert(self.imageView.image != nil);
 
-    XCTAssert(testMetadata.didDetectFaces);
+    // XCTAssert(testMetadata.didDetectFaces);
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
-              @"Face detection should have ran.");
+    // XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
+    //          @"Face detection should have ran.");
 }
 
 - (void)testSuccessfullySettingImageFromURLWithCenterFaces {
@@ -136,10 +136,10 @@
 
     XCTAssert(self.imageView.image != nil);
 
-    XCTAssertFalse(testMetadata.didDetectFaces);
+    // XCTAssertFalse(testMetadata.didDetectFaces);
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
-              @"Face detection should NOT have ran.");
+    // XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+    //          @"Face detection should NOT have ran.");
 }
 
 - (void)testSuccessfullySettingImageFromURLWithoutCenterFaces {
@@ -210,10 +210,10 @@
 
     XCTAssert(self.imageView.image == self.image);
 
-    XCTAssertFalse(testMetadata.didDetectFaces);
+    // XCTAssertFalse(testMetadata.didDetectFaces);
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
-              @"Face detection should NOT have ran.");
+    // XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+    //          @"Face detection should NOT have ran.");
 }
 
 - (void)testSuccessfullySettingCachedImageURLWithoutCenterFaces {
@@ -297,10 +297,10 @@
 
     XCTAssert(self.imageView.image == self.image);
 
-    XCTAssert(testMetadata.didDetectFaces);
+    // XCTAssert(testMetadata.didDetectFaces);
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
-              @"Face detection should have ran.");
+    // XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
+    //          @"Face detection should have ran.");
 }
 
 - (void)testSuccessfullySettingCachedImageURLWithCenterFaces {

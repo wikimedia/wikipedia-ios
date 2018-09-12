@@ -71,28 +71,20 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     return [WMFFaceDetectionCache sharedCache];
 }
 
+- (NSURL *)imageURLForFaceDetection {
+    return self.wmf_imageURL ? self.wmf_imageURL : self.wmf_imageMetadata.sourceURL;
+}
+
 - (BOOL)wmf_imageRequiresFaceDetection {
-    if (self.wmf_imageURL) {
-        return [[[self class] faceDetectionCache] imageAtURLRequiresFaceDetection:self.wmf_imageURL];
-    } else {
-        return [[[self class] faceDetectionCache] imageRequiresFaceDetection:self.wmf_imageMetadata];
-    }
+    return [[[self class] faceDetectionCache] imageAtURLRequiresFaceDetection:[self imageURLForFaceDetection]];
 }
 
 - (NSValue *)wmf_faceBoundsInImage:(UIImage *)image {
-    if (self.wmf_imageURL) {
-        return [[[self class] faceDetectionCache] faceBoundsForURL:self.wmf_imageURL];
-    } else {
-        return [[[self class] faceDetectionCache] faceBoundsForImageMetadata:self.wmf_imageMetadata];
-    }
+    return [[[self class] faceDetectionCache] faceBoundsForURL:[self imageURLForFaceDetection]];
 }
 
 - (void)wmf_getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
-    if (self.wmf_imageURL) {
-        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:self.wmf_imageURL failure:failure success:success];
-    } else {
-        [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU imageMetadata:self.wmf_imageMetadata failure:failure success:success];
-    }
+    [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:[self imageURLForFaceDetection] failure:failure success:success];
 }
 
 #pragma mark - Set Image
