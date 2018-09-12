@@ -151,7 +151,11 @@ public class WMFAuthenticationManager: NSObject {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         self.loggedInUsername = nil
-        deleteCookies()
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        HTTPCookieStorage.shared.cookies?.forEach { cookie in
+            HTTPCookieStorage.shared.deleteCookie(cookie)
+        }
         SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
         
         SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
@@ -159,14 +163,6 @@ public class WMFAuthenticationManager: NSObject {
         // Reset so can show for next logged in user.
         UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
         UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(false)
-    }
-
-    public func deleteCookies() {
-        // Cookie reminders:
-        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
-        HTTPCookieStorage.shared.cookies?.forEach { cookie in
-            HTTPCookieStorage.shared.deleteCookie(cookie)
-        }
     }
     
     /**
