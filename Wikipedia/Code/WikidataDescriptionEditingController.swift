@@ -84,7 +84,7 @@ extension WikidataAPIResult {
                 return
             }
             guard let result = result as? WikidataAPIResult else {
-                assertionFailure()
+                assertionFailure("Expected result to be of type WikidataAPIResult")
                 return
             }
             completion(result.error)
