@@ -56,6 +56,15 @@ struct WikidataAPIResult: Decodable {
 
     // TODO: If necessary, modify to pass one of the article types (WMFArticle, MWKArticle) instead.
     @objc public func publish(newWikidataDescription: String, forPageWithTitle title: String, in language: String, completion: @escaping (_ error: Error?) -> Void) {
+    /// Publish new wikidata description.
+    ///
+    /// - Parameters:
+    ///   - newWikidataDescription: new wikidata description to be published, e.g., "Capital of England and the United Kingdom".
+    ///   - title: title of the page to be updated with new wikidata description, e.g., "London".
+    ///   - language: language code of the page's wiki, e.g., "en".
+    ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
+    ///   - completion: completion block called when operation is completed.
+    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (_ error: Error?) -> Void) {
         guard !isBlacklisted(language) else {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
             return
@@ -65,7 +74,7 @@ struct WikidataAPIResult: Decodable {
                                "formatversion": "2"]
         let bodyParameters = ["language": language,
                               "uselang": language,
-                              "site": "plwiki",
+                              "site": wiki,
                               "title": title,
                               "value": newWikidataDescription,
                               "assert": "user"]
