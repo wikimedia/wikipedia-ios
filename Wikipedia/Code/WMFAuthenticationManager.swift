@@ -177,25 +177,27 @@ public class WMFAuthenticationManager: NSObject {
             DDLogDebug("Deleted login tokens and other browser cookies")
             self.resetLocalUserLoginSettings()
         }
-        let failure: (Error) -> Void = { error in
-            DDLogDebug("Failed to log out: \(error)")
+        let taskGroup = WMFTaskGroup()
+        for loginSite in LoginSite.allCases {
+            guard let loginURL = loginSite.url else {
+                continue
+            }
+            taskGroup.enter()
+            logoutManager = AFHTTPSessionManager(baseURL: loginURL)
+            _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (task, response) in
+                DDLogDebug("Successfully logged out of \(loginURL)")
+                // It's best to call "action=logout" API *before* clearing local login settings...
+                taskGroup.leave()
+            }, failure: { (task, error) in
+                // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+                DDLogDebug("Failed to log out of \(loginURL): \(error)")
+                taskGroup.leave()
+            })
+        }
+        taskGroup.waitInBackground {
             reset()
             completion()
         }
-        guard let loginSiteURL = LoginURL.wikipedia else {
-            failure(LoginURLError.couldNotConstructLoginURL)
-            return
-        }
-        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
-            DDLogDebug("Successfully logged out")
-            // It's best to call "action=logout" API *before* clearing local login settings...
-            reset()
-            completion()
-        }, failure: { (_, error) in
-            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-            failure(error)
-        })
     }
     
     fileprivate func cloneSessionCookies() {
