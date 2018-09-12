@@ -48,13 +48,13 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc public static let sharedInstance = WMFAuthenticationManager()
     
-    public func attemptLogin(_ loginURL: URL? = LoginURL.wikipedia, completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+    public func attemptLogin(_ loginURL: URL? = LoginSite.wikipedia.url, completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
                 completion()
             }
         }
-        self.loginWithSavedCredentials(loginURL: loginURL, success: { (success) in
+        self.loginWithSavedCredentials(loginURL, success: { (success) in
             DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(success.username).\n\n")
             performCompletionOnTheMainThread()
         }, userAlreadyLoggedInHandler: { (loggedIn) in
@@ -79,7 +79,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(loginURL: URL? = LoginURL.wikipedia, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
+    public func login(_ loginURL: URL? = LoginSite.wikipedia.url, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
         guard let siteURL = loginURL else {
             failure(LoginURLError.couldNotConstructLoginURL)
             return
@@ -105,7 +105,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(loginURL: URL? = LoginURL.wikipedia, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler, completion: @escaping () -> Void = {}) {
+    public func loginWithSavedCredentials(_ loginURL: URL? = LoginSite.wikipedia.url, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler, completion: @escaping () -> Void = {}) {
         
         defer {
             completion()
@@ -133,7 +133,7 @@ public class WMFAuthenticationManager: NSObject {
                 success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
                 return
             }
-            self.login(loginURL: siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
+            self.login(siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
                     success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
@@ -243,34 +243,18 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
 
 // MARK: LoginURL
 extension WMFAuthenticationManager {
-    public struct LoginURL {
-        public static var wikipedia: URL? {
-            var baseURL: URL?
-            if let host = KeychainCredentialsManager.shared.host {
-                var components = URLComponents()
-                components.host = host
-                components.scheme = "https"
-                baseURL = components.url
+
+    public enum LoginSite: CaseIterable {
+        case wikipedia
+        case wikidata
+
+        public var url: URL? {
+            switch self {
+            case .wikipedia:
+                return MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
+            case .wikidata:
+                return WikidataAPI.urlWithoutAPIPath
             }
-
-            if baseURL == nil {
-                //            #if DEBUG
-                //                let loginHost = "readinglists.wmflabs.org"
-                //                let loginScheme = "https"
-                //                var components = URLComponents()
-                //                components.host = loginHost
-                //                components.scheme = loginScheme
-                //                baseURL = components.url
-                //            #else
-                baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-                //            #endif
-            }
-
-            return baseURL
-        }
-
-        public static var wikidata: URL? {
-            return URL(string: WikidataAPI.host)
         }
     }
 
