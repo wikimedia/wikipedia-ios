@@ -83,7 +83,7 @@ public class WMFAuthTokenFetcher: NSObject {
             }
             guard token != Constants.anonymousToken else {
                 if WMFAuthenticationManager.sharedInstance.isLoggedIn {
-                    DDLogDebug("Fetched anonymous token for \(siteURL), retrying with login")
+                    //DDLogDebug("Fetched anonymous token for \(siteURL), retrying with login")
                     let context = FetchTokenContext(tokenType: type, siteURL: siteURL, success: success, failure: failure)
                     self.retryWithLogin(context: context)
                 } else {
@@ -107,11 +107,11 @@ public class WMFAuthTokenFetcher: NSObject {
 
     private func retryWithLogin(context: FetchTokenContext) {
         guard !isRetryingLogin else {
-            DDLogDebug("Still retrying with login; aborting another attempt")
+            //DDLogDebug("Still retrying with login; aborting another attempt")
             return
         }
         guard attemptedLoginRetries < Constants.maxLoginRetries else {
-            DDLogDebug("Exhausted the number of allowed login retries, returning with error")
+            //DDLogDebug("Exhausted the number of allowed login retries, returning with error")
             context.failure(WMFAuthTokenError.enhaustedMaxLoginRetries)
             return
         }
