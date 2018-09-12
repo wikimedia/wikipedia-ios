@@ -37,6 +37,7 @@ struct WikidataAPIResult: Decodable {
         let code, info: String?
     }
     let error: Error?
+    let success: Int?
 }
 
 @objc public class WikidataDescriptionEditingController: NSObject {
