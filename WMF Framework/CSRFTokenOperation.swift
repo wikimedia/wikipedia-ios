@@ -25,8 +25,6 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         let shouldPercentEncodeToken: Bool
     }
 
-    
-    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, delegate: CSRFTokenOperationDelegate? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
     let tokenContext: TokenContext
 
     enum TokenPlacement {
@@ -34,6 +32,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, didFetchTokenTaskCompletion: @escaping (Result?, URLResponse?, Error?) -> Void, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -42,7 +41,10 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         self.method = method
         self.queryParameters = queryParameters
         self.bodyParameters = bodyParameters
-        self.completion = completion
+        self.bodyEncoding = bodyEncoding
+        self.tokenContext = tokenContext
+        self.didFetchTokenTaskCompletion = didFetchTokenTaskCompletion
+        self.operationCompletion = operationCompletion
     }
     
     override public func finish(with error: Error) {
