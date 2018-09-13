@@ -14,7 +14,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     private let method: Session.Request.Method
     private let bodyParameters: [String: Any]?
     private let queryParameters: [String: Any]?
-    private var completion: ((Any?, URLResponse?, Error?) -> Void)?
+    var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
 
     }
 
