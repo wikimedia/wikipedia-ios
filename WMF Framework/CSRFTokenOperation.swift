@@ -48,6 +48,9 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     }
     
     override public func finish(with error: Error) {
+        super.finish(with: error)
+        operationCompletion?(nil, nil, error)
+        operationCompletion = nil
     }
     
     override public func cancel() {
