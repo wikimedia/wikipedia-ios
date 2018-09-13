@@ -32,7 +32,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
-    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, didFetchTokenTaskCompletion: @escaping (Result?, URLResponse?, Error?) -> Void, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, didFetchTokenTaskCompletion: @escaping (Result?, URLResponse?, Error?) -> Void, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
