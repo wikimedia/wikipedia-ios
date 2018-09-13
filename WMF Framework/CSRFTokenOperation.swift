@@ -100,6 +100,16 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     open func didFetchToken(completion: @escaping () -> Void) {
         assertionFailure("Subclasses should override")
     }
+
+public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
+    public override func didFetchToken(completion: @escaping () -> Void) {
+        let combinedCompletion: ([String: Any]?, URLResponse?, Error?) -> Void = { result, response, error in
+            self.didFetchTokenTaskCompletion?(result, response, error)
+            completion()
+        }
+        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: combinedCompletion)?.resume()
+    }
+}
         }
     }
 }
