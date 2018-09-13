@@ -75,6 +75,8 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.addTokenToRequest(token)
+            self.didFetchToken() {
+                self.operationCompletion = nil
                 finish()
             }
         }) { (error) in
