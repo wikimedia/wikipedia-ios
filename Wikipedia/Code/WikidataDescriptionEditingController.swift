@@ -91,28 +91,6 @@ extension WikidataAPIResult {
     }
 }
 
-extension WikidataDescriptionEditingController: CSRFTokenOperationDelegate {
-    public func CSRFTokenOperationDidFetchToken(_ operation: CSRFTokenOperation, token: WMFAuthToken, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        var bodyParameters = context.bodyParameters
-        bodyParameters?["token"] = token.token.wmf_UTF8StringWithPercentEscapes()
-        Session.shared.jsonCodableTask(host: context.host, scheme: context.scheme, method: context.method, path: context.path, queryParameters: context.queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form) { (result: WikidataAPIResult?, response, error) in
-            context.completion?(result, response, error)
-        }
-    }
-
-    public func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        context.completion?(nil, nil, error)
-        completion()
-    }
-
-    public func CSRFTokenOperationWillFinish(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        context.completion?(nil, nil, error)
-        completion()
-    }
-
-    public func CSRFTokenOperationDidFailToFetchToken(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void) {
-        context.completion?(nil, nil, error)
-        completion()
     }
 }
 
