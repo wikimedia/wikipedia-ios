@@ -76,8 +76,7 @@ extension WikidataAPIResult {
                               "uselang": language,
                               "site": wiki,
                               "title": title,
-                              "value": newWikidataDescription,
-                              "assert": "user"]
+                              "value": newWikidataDescription]
         let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, delegate: self) { (result, response, error) in
             guard error == nil else {
                 completion(error)
