@@ -169,11 +169,25 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(task, for: key)
     }
     
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, operationCompletion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, delegate: self, completion: { (result, response, error) in
-            completion(result, response, error)
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false), didFetchTokenTaskCompletion: { (result, response, error) in
+            if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+                operationCompletion(result, nil, apiError)
+            } else {
+                #if DEBUG
+                if let error = error {
+                    DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                } else {
+                    DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+                }
+                #endif
+                operationCompletion(result, response, error)
+            }
+        }, operationCompletion: { (result, response, error) in
+            operationCompletion(result, response, error)
             self.removePendingTask(for: key)
         })
         addPendingTask(op, for: key)
