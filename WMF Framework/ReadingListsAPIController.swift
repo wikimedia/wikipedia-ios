@@ -193,15 +193,15 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(op, for: key)
     }
     
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, operationCompletion: completion)
     }
     
-    fileprivate func delete(path: String, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .delete, operationCompletion: completion)
     }
     
-    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, operationCompletion: completion)
     }
     
@@ -234,7 +234,7 @@ class ReadingListsAPIController: NSObject {
     func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result as? [String: Any], let id = result["id"] as? Int64 else {
+            guard let id = result?["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
                 return
             }
@@ -257,7 +257,7 @@ class ReadingListsAPIController: NSObject {
         }
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result as? [String: Any], let batch = result["batch"] as? [[String: Any]] else {
+            guard let batch = result?["batch"] as? [[String: Any]] else {
                 guard lists.count > 1 else {
                     completion([(nil, error ?? APIReadingListError.generic)], nil)
                     return
