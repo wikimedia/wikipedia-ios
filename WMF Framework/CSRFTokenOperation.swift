@@ -19,10 +19,21 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
     var didFetchTokenTaskCompletion: ((Result?, URLResponse?, Error?) -> Void)?
 
+    public struct TokenContext {
+        let tokenName: String
+        let tokenPlacement: TokenPlacement
+        let shouldPercentEncodeToken: Bool
     }
 
     
     init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, delegate: CSRFTokenOperationDelegate? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
+    let tokenContext: TokenContext
+
+    enum TokenPlacement {
+        case body
+        case query
+    }
+
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
