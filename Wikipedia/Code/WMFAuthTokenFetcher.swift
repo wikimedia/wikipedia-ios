@@ -40,6 +40,9 @@ public class WMFAuthTokenFetcher: NSObject {
     }
 
     private var attemptedLoginRetries = 0
+    private var shouldRetryWithLogin: Bool {
+        return WMFAuthenticationManager.sharedInstance.isLoggedIn && attemptedLoginRetries < Constants.maxLoginRetries
+    }
     
     @objc public func fetchToken(ofType type: WMFAuthTokenType, siteURL: URL, success: @escaping WMFAuthTokenBlock, failure: @escaping WMFErrorHandler){
         func stringForToken(_ type: WMFAuthTokenType) -> String {
@@ -76,7 +79,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 return
             }
             guard token != Constants.anonymousToken else {
-                if WMFAuthenticationManager.sharedInstance.isLoggedIn && self.attemptedLoginRetries < Constants.maxLoginRetries {
+                if self.shouldRetryWithLogin {
                     //DDLogDebug("Fetched anonymous token for \(siteURL), retrying with login")
                     let context = FetchTokenContext(tokenType: type, siteURL: siteURL, success: success, failure: failure)
                     self.retryWithLogin(context: context)
