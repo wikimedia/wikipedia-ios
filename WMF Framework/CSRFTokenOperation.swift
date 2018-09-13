@@ -68,6 +68,9 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         guard
             let siteURL = components.url
             else {
+                operationCompletion?(nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
+                self.operationCompletion = nil
+                finish()
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
