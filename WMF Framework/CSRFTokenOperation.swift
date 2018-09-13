@@ -4,8 +4,7 @@ enum CSRFTokenOperationError: Error {
     case failedToRetrieveURLForTokenFetcher
 }
 
-public class CSRFTokenOperation: AsyncOperation {
-    private let session: Session
+public class CSRFTokenOperation<Result>: AsyncOperation {
     private let tokenFetcher: WMFAuthTokenFetcher
     
     private let scheme: String
