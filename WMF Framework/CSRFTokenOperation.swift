@@ -1,14 +1,5 @@
 import Foundation
 
-public struct CSRFTokenOperationContext {
-    let scheme: String
-    let host: String
-    let path: String
-    let method: Session.Request.Method
-    let queryParameters: [String: Any]?
-    let bodyParameters: [String: Any]?
-    let completion: ((Any?, URLResponse?, Error?) -> Void)?
-}
 
 public protocol CSRFTokenOperationDelegate: class {
     func CSRFTokenOperationDidFailToRetrieveURLForTokenFetcher(_ operation: CSRFTokenOperation, error: Error, context: CSRFTokenOperationContext, completion: @escaping () -> Void)
@@ -34,8 +25,6 @@ public class CSRFTokenOperation: AsyncOperation {
     private let queryParameters: [String: Any]?
     private var completion: ((Any?, URLResponse?, Error?) -> Void)?
 
-    private var context: CSRFTokenOperationContext {
-        return CSRFTokenOperationContext(scheme: self.scheme, host: self.host, path: self.path, method: self.method, queryParameters: self.queryParameters, bodyParameters: self.bodyParameters, completion: self.completion)
     }
 
     public weak var delegate: CSRFTokenOperationDelegate?
