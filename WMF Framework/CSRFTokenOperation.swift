@@ -5,16 +5,17 @@ enum CSRFTokenOperationError: Error {
 }
 
 public class CSRFTokenOperation<Result>: AsyncOperation {
+    let session: Session
     private let tokenFetcher: WMFAuthTokenFetcher
     
-    private let scheme: String
-    private let host: String
-    private let path: String
+    let scheme: String
+    let host: String
+    let path: String
     
-    private let method: Session.Request.Method
-    private let bodyParameters: [String: Any]?
-    private let queryParameters: [String: Any]?
+    let method: Session.Request.Method
+    var bodyParameters: [String: Any]?
     let bodyEncoding: Session.Request.Encoding
+    var queryParameters: [String: Any]?
     var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
 
     }
