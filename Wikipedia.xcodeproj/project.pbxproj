@@ -6080,6 +6080,7 @@
 		B0524B0121484F1F00D8FD8D /* Description Editing */ = {
 			isa = PBXGroup;
 			children = (
+				B08013D22149F5DA00B52D03 /* Help */,
 				B0524B7A2148846F00D8FD8D /* Welcome */,
 			);
 			name = "Description Editing";
@@ -6131,6 +6132,15 @@
 				B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */,
 			);
 			name = UINavigationController;
+			sourceTree = "<group>";
+		};
+		B08013D22149F5DA00B52D03 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */,
+				B0524AF02144D7BE00D8FD8D /* DescriptionHelpViewController.xib */,
+			);
+			name = Help;
 			sourceTree = "<group>";
 		};
 		B0866F421CCAEB290088A789 /* Footer */ = {
@@ -7420,8 +7430,6 @@
 				7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */,
 				7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */,
 				7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */,
-				B0524AEF2144D7BE00D8FD8D /* DescriptionHelpViewController.swift */,
-				B0524AF02144D7BE00D8FD8D /* DescriptionHelpViewController.xib */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
