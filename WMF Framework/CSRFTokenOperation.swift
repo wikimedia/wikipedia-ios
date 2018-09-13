@@ -80,6 +80,12 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
                 finish()
             }
         }) { (error) in
+            self.operationCompletion?(nil, nil, error)
+            self.operationCompletion = nil
+            finish()
+        }
+    }
+
     private func addTokenToRequest(_ token: WMFAuthToken) {
         let tokenValue = token.token
         let maybePercentEncodedTokenValue = tokenContext.shouldPercentEncodeToken ? tokenValue.wmf_UTF8StringWithPercentEscapes() : tokenValue
