@@ -123,6 +123,12 @@
 "description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";
+"description-welcome-concise-sub-title" = "Subtitle text explaining descriptions should be concise";
+"description-welcome-concise-title" = "Title text explaining descriptions should be concise";
+"description-welcome-descriptions-sub-title" = "Subtitle text explaining title descriptions";
+"description-welcome-descriptions-title" = "Title text explaining title descriptions";
+"description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
+"description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "dim-images" = "Label for image dimming setting";
 "edit-summary-choice-fixed-grammar" = "Button text for quick 'improved grammar' edit summary selection";
 "edit-summary-choice-fixed-typos" = "Button text for quick 'fixed typos' edit summary selection";

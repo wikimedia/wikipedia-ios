@@ -123,6 +123,12 @@
 "description-published-footer" = "You can also edit articles within this app. Try fixing typos and small sentences by clicking on the pencil icon next time";
 "description-published-subtitle" = "You just made Wikipedia better for everyone";
 "description-published-title" = "Description published!";
+"description-welcome-concise-sub-title" = "Ideally one line, between two to twelve words";
+"description-welcome-concise-title" = "Keep it short";
+"description-welcome-descriptions-sub-title" = "Summarizes an article to help readers understand the subject at a glance";
+"description-welcome-descriptions-title" = "Title descriptions";
+"description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
+"description-welcome-start-editing-button" = "Start editing";
 "dim-images" = "Dim images";
 "edit-summary-choice-fixed-grammar" = "Fixed grammar";
 "edit-summary-choice-fixed-typos" = "Fixed typo";
