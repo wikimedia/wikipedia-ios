@@ -29,6 +29,7 @@ class DescriptionHelpViewController: ViewController {
     @IBOutlet private var exampleBackgroundViews: [UIView]!
 
     @IBOutlet private var imageViews: [UIImageView]!
+    @IBOutlet private var dividerViews: [UIView]!
 
     @objc public init(theme: Theme) {
         super.init()
@@ -82,6 +83,9 @@ class DescriptionHelpViewController: ViewController {
         }
         headingLabels.forEach {
             $0.textColor = theme.colors.secondaryText
+        }
+        dividerViews.forEach {
+            $0.backgroundColor = theme.colors.border
         }
     }
     
