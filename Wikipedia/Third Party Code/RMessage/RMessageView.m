@@ -7,7 +7,7 @@
 //
 
 #import "RMessageView.h"
-#import "HexColors.h"
+#import "Wikipedia-Swift.h"
 
 static NSString *const RDesignFileName = @"RMessageDefaultDesign";
 
@@ -170,20 +170,19 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (UIColor *)colorForString:(NSString *)string
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:1.f];
-  return nil;
+  return [self colorForString:string alpha:1.0];
 }
 
 /**
- Wrapper method to avoid getting a black color when passing a nil string to
- hx_colorWithHexRGBAString
  @param string A hex string representation of a color.
  @return nil or a color.
  */
 - (UIColor *)colorForString:(NSString *)string alpha:(CGFloat)alpha
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:alpha];
-  return nil;
+    if (string == nil) {
+        return nil;
+    }
+    return [[UIColor alloc] initWithHexString:string alpha:alpha];
 }
 
 #pragma mark - Get Image From Resource Bundle

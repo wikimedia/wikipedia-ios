@@ -81,27 +81,6 @@
  */
 - (instancetype)initWithArticle:(MWKArticle *)article dict:(NSDictionary *)dict;
 
-#pragma mark - Managing Face Information
-
-- (BOOL)hasFaces;
-
-- (BOOL)didDetectFaces;
-
-/**
- * Array of NSValue-wrapped unit rectangles, in the coordinate space of the receiver's image (y-origin on the bottom).
- *
- * Used to cache the results of face detection.
- *
- * @see CIDetector+WMFFaceDetection
- */
-@property (copy, nonatomic /*, nullable*/) NSArray<NSValue *> *allNormalizedFaceBounds;
-
-/**
- * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
- * @return The normalized bounds of the first face, or `CGRectZero` if allNormalizedFaceBounds is empty or `nil`.
- */
-- (CGRect)firstFaceBounds;
-
 #pragma mark - Variants
 
 /**
