@@ -153,7 +153,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     public func start() {
         assert(Thread.isMainThread, "must be started on main thread")
-
+        let backgroundTaskIdentifier = Background.manager.beginTask()
         let operation = AsyncBlockOperation { (operation) in
             DispatchQueue.main.async {
                 self.urlSession = URLSession(configuration: self.urlSessionConfiguration, delegate: self, delegateQueue: nil)
@@ -195,6 +195,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             }
         }
         operationQueue.addOperation(operation)
+        operationQueue.addOperation {
+            Background.manager.endTask(withIdentifier: backgroundTaskIdentifier)
+        }
     }
     
     @objc
@@ -205,6 +208,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc
     public func stop() {
+        let backgroundTaskIdentifier = Background.manager.beginTask()
         assert(Thread.isMainThread, "must be stopped on main thread")
         let operation = AsyncBlockOperation { (operation) in
             DispatchQueue.main.async {
@@ -226,6 +230,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             }
         }
         operationQueue.addOperation(operation)
+        operationQueue.addOperation {
+            Background.manager.endTask(withIdentifier: backgroundTaskIdentifier)
+        }
     }
     
     @objc
