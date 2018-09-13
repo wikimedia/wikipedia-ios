@@ -1583,53 +1583,64 @@ static uint64_t bundleHash() {
             completion(error);
         }
     };
+
+    __block NSError *updateError = nil;
+    NSError *invalidRequestParametersError = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil];
+    WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
+
+
     // Site info
     NSURL *siteInfoURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/api.php?action=query&format=json&meta=siteinfo"];
-    if (!siteInfoURL) {
-        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
-        return;
-    }
     NSURLRequest *siteInfoRequest = [NSURLRequest requestWithURL:siteInfoURL];
-    if (!siteInfoRequest) {
-        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+
+    [taskGroup enter];
+    if (!siteInfoURL || !siteInfoRequest) {
+        updateError = invalidRequestParametersError;
+        [taskGroup leave];
         return;
     }
+
     [[[WMFSession shared] jsonDictionaryTaskWith:siteInfoRequest
                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        if (error) {
-                                           DDLogError(@"Error fetching site info: %@", error);
-                                           combinedCompletion(error);
+                                           updateError = error;
+                                           [taskGroup leave];
                                            return;
                                        }
                                        NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
                                        NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
                                        [self updateReadingListsLimits:readingListsConfig];
+                                       [taskGroup leave];
                                    });
                                }] resume];
     // Remote config
     NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
-    if (!remoteConfigURL) {
-        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
-        return;
-    }
     NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
-    if (!request) {
-        combinedCompletion([NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]);
+
+    [taskGroup enter];
+    if (!remoteConfigURL || !request) {
+        updateError = invalidRequestParametersError;
+        [taskGroup leave];
         return;
     }
+
     [[[WMFSession shared] jsonDictionaryTaskWith:request
                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        if (error) {
-                                           DDLogError(@"Error checking remote config: %@", error);
-                                           combinedCompletion(error);
+                                           updateError = error;
+                                           [taskGroup leave];
                                            return;
                                        }
                                        [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                       combinedCompletion(error);
+                                       [taskGroup leave];
                                    });
                                }] resume];
+
+    [taskGroup waitInBackgroundWithCompletion:^{
+        combinedCompletion(updateError);
+    }];
 }
 
 - (void)updateLocalConfigurationFromRemoteConfiguration:(NSDictionary *)remoteConfigurationDictionary {
