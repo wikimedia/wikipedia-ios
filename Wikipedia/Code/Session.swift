@@ -50,7 +50,7 @@ import Foundation
     }
     
     public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, didFetchTokenTaskCompletion: @escaping (R?, URLResponse?, Error?) -> Void, operationCompletion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, tokenContext: tokenContext, didFetchTokenTaskCompletion: didFetchTokenTaskCompletion, operationCompletion: operationCompletion)
+        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, didFetchTokenTaskCompletion: didFetchTokenTaskCompletion, operationCompletion: operationCompletion)
         queue.addOperation(op)
         return op
     }
