@@ -74,9 +74,24 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
+            self.addTokenToRequest(token)
                 finish()
             }
         }) { (error) in
+    private func addTokenToRequest(_ token: WMFAuthToken) {
+        let tokenValue = token.token
+        let maybePercentEncodedTokenValue = tokenContext.shouldPercentEncodeToken ? tokenValue.wmf_UTF8StringWithPercentEscapes() : tokenValue
+        switch tokenContext.tokenPlacement {
+        case .body:
+            bodyParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+        case .query:
+            queryParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+        }
+    }
+
+    open func didFetchToken(completion: @escaping () -> Void) {
+        assertionFailure("Subclasses should override")
+    }
         }
     }
 }
