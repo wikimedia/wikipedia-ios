@@ -6,18 +6,12 @@
 public enum WMFAuthTokenError: LocalizedError {
     case cannotExtractToken
     case zeroLengthToken
-    case anonymousToken
-    case enhaustedMaxLoginRetries
     public var errorDescription: String? {
         switch self {
         case .cannotExtractToken:
             return "Could not extract token"
         case .zeroLengthToken:
             return "Invalid zero-length token fetched"
-        case .anonymousToken:
-            return "Got anonymous token; user has to log in"
-        case .enhaustedMaxLoginRetries:
-            return "Failed to get authenticated token despite relogin attempts"
         }
     }
 }
@@ -82,12 +76,12 @@ public class WMFAuthTokenFetcher: NSObject {
                 return
             }
             guard token != Constants.anonymousToken else {
-                if WMFAuthenticationManager.sharedInstance.isLoggedIn {
+                if WMFAuthenticationManager.sharedInstance.isLoggedIn && self.attemptedLoginRetries < Constants.maxLoginRetries {
                     //DDLogDebug("Fetched anonymous token for \(siteURL), retrying with login")
                     let context = FetchTokenContext(tokenType: type, siteURL: siteURL, success: success, failure: failure)
                     self.retryWithLogin(context: context)
                 } else {
-                    failure(WMFAuthTokenError.anonymousToken)
+                    success(WMFAuthToken(token: token, type: type))
                     return
                 }
                 return
@@ -108,11 +102,6 @@ public class WMFAuthTokenFetcher: NSObject {
     private func retryWithLogin(context: FetchTokenContext) {
         guard !isRetryingLogin else {
             //DDLogDebug("Still retrying with login; aborting another attempt")
-            return
-        }
-        guard attemptedLoginRetries < Constants.maxLoginRetries else {
-            //DDLogDebug("Exhausted the number of allowed login retries, returning with error")
-            context.failure(WMFAuthTokenError.enhaustedMaxLoginRetries)
             return
         }
         isRetryingLogin = true
