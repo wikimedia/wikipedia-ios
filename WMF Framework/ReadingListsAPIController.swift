@@ -180,15 +180,15 @@ class ReadingListsAPIController: NSObject {
     }
     
     fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
+        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, operationCompletion: completion)
     }
     
     fileprivate func delete(path: String, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .delete, completion: completion)
+        requestWithCSRF(path: path, method: .delete, operationCompletion: completion)
     }
     
     fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping (Any?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
+        requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, operationCompletion: completion)
     }
     
     @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {
