@@ -17,6 +17,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     let bodyEncoding: Session.Request.Encoding
     var queryParameters: [String: Any]?
     var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
+    var didFetchTokenTaskCompletion: ((Result?, URLResponse?, Error?) -> Void)?
 
     }
 
