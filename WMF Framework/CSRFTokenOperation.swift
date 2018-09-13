@@ -100,6 +100,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     open func didFetchToken(completion: @escaping () -> Void) {
         assertionFailure("Subclasses should override")
     }
+}
 
 public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
     public override func didFetchToken(completion: @escaping () -> Void) {
