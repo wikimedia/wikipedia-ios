@@ -173,27 +173,19 @@ public class WMFAuthenticationManager: NSObject {
             DDLogDebug("Deleted login tokens and other browser cookies")
             self.resetLocalUserLoginSettings()
         }
-        let taskGroup = WMFTaskGroup()
-        for loginSite in LoginSite.allCases {
-            guard let loginURL = loginSite.url else {
-                continue
-            }
-            taskGroup.enter()
-            logoutManager = AFHTTPSessionManager(baseURL: loginURL)
-            _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (task, response) in
-                DDLogDebug("Successfully logged out of \(loginURL)")
-                // It's best to call "action=logout" API *before* clearing local login settings...
-                taskGroup.leave()
-            }, failure: { (task, error) in
-                // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-                DDLogDebug("Failed to log out of \(loginURL): \(error)")
-                taskGroup.leave()
-            })
-        }
-        taskGroup.waitInBackground {
+        let url = LoginSite.wikipedia.url
+        logoutManager = AFHTTPSessionManager(baseURL: url)
+        _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (task, response) in
+            DDLogDebug("Successfully logged out")
+            // It's best to call "action=logout" API *before* clearing local login settings...
             reset()
             completion()
-        }
+        }, failure: { (task, error) in
+            // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+            DDLogDebug("Failed to log out: \(error)")
+            reset()
+            completion()
+        })
     }
     
     fileprivate func cloneSessionCookies() {
