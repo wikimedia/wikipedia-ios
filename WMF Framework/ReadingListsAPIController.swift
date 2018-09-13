@@ -331,12 +331,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             
-            guard let result = result as? [String: Any] else {
-                completion(nil, error ?? ReadingListError.unableToAddEntry)
-                return
-            }
-            
-            guard let id = result["id"] as? Int64 else {
+            guard let id = result?["id"] as? Int64 else {
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
@@ -387,8 +382,8 @@ class ReadingListsAPIController: NSObject {
                 return
             }
 
-            guard let result = result as? [String: Any] else {
-                completion(nil, error ?? ReadingListError.unableToAddEntry)
+            guard let result = result else {
+                completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
             
