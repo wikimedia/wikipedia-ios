@@ -110,6 +110,13 @@ public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]>
         self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: combinedCompletion)?.resume()
     }
 }
+
+public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
+    public override func didFetchToken(completion: @escaping () -> Void) {
+        let combinedCompletion: (Result?, URLResponse?, Error?) -> Void = { result, response, error in
+            self.didFetchTokenTaskCompletion?(result, response, error)
+            completion()
         }
+        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: combinedCompletion)
     }
 }
