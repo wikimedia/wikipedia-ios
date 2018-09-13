@@ -69,6 +69,13 @@ extension WikidataAPIResult {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
             return
         }
+        let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
+            guard error == nil else {
+                completion(error)
+                return
+            }
+            completion(result?.error)
+        }
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
                                "formatversion": "2"]
@@ -77,20 +84,7 @@ extension WikidataAPIResult {
                               "site": wiki,
                               "title": title,
                               "value": newWikidataDescription]
-        let _ = Session.shared.requestWithCSRF(scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, delegate: self) { (result, response, error) in
-            guard error == nil else {
-                completion(error)
-                return
-            }
-            guard let result = result as? WikidataAPIResult else {
-                assertionFailure("Expected result to be of type WikidataAPIResult")
-                return
-            }
-            completion(result.error)
-        }
-    }
-}
-
+        let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), didFetchTokenTaskCompletion: requestWithCSRFCompletion, operationCompletion: requestWithCSRFCompletion)
     }
 }
 
