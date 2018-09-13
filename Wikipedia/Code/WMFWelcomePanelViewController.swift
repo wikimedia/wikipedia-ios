@@ -4,7 +4,7 @@ class WMFWelcomePanelViewController: UIViewController {
     
     @IBOutlet fileprivate var containerView:UIView!
     @IBOutlet fileprivate var titleLabel:UILabel!
-    @IBOutlet fileprivate var nextButton:UIButton!
+    @IBOutlet fileprivate var nextButton:AutoLayoutSafeMultiLineButton!
     @IBOutlet fileprivate var scrollView:WMFWelcomePanelGradientScrollView!
     @IBOutlet fileprivate var nextButtonContainerView:UIView!
 
