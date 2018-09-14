@@ -109,6 +109,11 @@ override func didReceiveMemoryWarning() {
 
     private func save() {
         wmf_hideKeyboard()
+        
+        // Final trim to remove leading and trailing space
+        let descriptionToSave = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        print("'\(descriptionToSave)'")
+        
 //        sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
     }
     
