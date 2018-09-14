@@ -2,7 +2,6 @@
 import UIKit
 
 //TODO:
-// - do final trim via trimmingCharacters(in: .whitespaces) on save to remove leading and trailing
 // - add "Try to keep descriptions short so users can understand the article's subject at a glance"
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
 // - toggle placeholder label visibility when description field empty? or instead just set its text to placeholder text, and if text is placeholder text make its color change AND make giving it focus clear the text?
@@ -116,38 +115,16 @@ override func didReceiveMemoryWarning() {
         
         // Final trim to remove leading and trailing space
         let descriptionToSave = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        print("'\(descriptionToSave)'")
         
-//        sendPasswordResetEmail(userName: usernameField.text, email: emailField.text)
+print("'\(descriptionToSave)'")
+// TODO: call new method to save `descriptionToSave` here - on success dismiss and show new `Description published` panel, on error show alert with server error msg
+        
     }
     
     @objc func closeButtonPushed(_ : UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-    /*
-    func sendPasswordResetEmail(userName: String?, email: String?) {
-        guard let siteURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL() else {
-            WMFAlertManager.sharedInstance.showAlert("No site url", sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            return
-        }
-        
-        let failure: WMFErrorHandler = {error in
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        }
-        
-        tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { tokenBlock in
-            self.passwordResetter.resetPassword(
-                siteURL: siteURL,
-                token: tokenBlock.token,
-                userName: userName,
-                email: email,
-                success: { result in
-                    self.dismiss(animated: true, completion:nil)
-                    WMFAlertManager.sharedInstance.showSuccessAlert(WMFLocalizedString("forgot-password-email-sent", value:"An email with password reset instructions was sent", comment:"Alert text shown when password reset email is sent"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            }, failure:failure)
-        }, failure:failure)
-    }
-    */
+
     func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
