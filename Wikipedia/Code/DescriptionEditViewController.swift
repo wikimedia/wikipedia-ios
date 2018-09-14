@@ -2,8 +2,10 @@
 import UIKit
 
 //TODO:
-// do final trim via trimmingCharacters(in: .whitespaces) on save to remove leading and trailing
-// add "Try to keep descriptions short so users can understand the article's subject at a glance"
+// - do final trim via trimmingCharacters(in: .whitespaces) on save to remove leading and trailing
+// - add "Try to keep descriptions short so users can understand the article's subject at a glance"
+// - remove testing didReceiveMemoryWarning triggers here and in other VCs
+// - toggle placeholder label visibility when description field empty? or instead just set its text to placeholder text, and if text is placeholder text make its color change AND make giving it focus clear the text?
 
 
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
