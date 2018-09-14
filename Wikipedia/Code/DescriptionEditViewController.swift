@@ -44,21 +44,16 @@ override func didReceiveMemoryWarning() {
     @IBOutlet private var descriptionTextView: UITextView! //ThemeableTextField!
     @IBOutlet private var orLabel: UILabel!
     @IBOutlet private var divider: UIView!
-
     @IBOutlet private var resetPasswordButton: WMFAuthButton!
-
     private var theme = Theme.standard
-/*
-    let tokenFetcher = WMFAuthTokenFetcher()
-    let passwordResetter = WMFPasswordResetter()
-*/
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-//      descriptionTextView.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
+        // descriptionTextView.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
         resetPasswordButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}")
         
