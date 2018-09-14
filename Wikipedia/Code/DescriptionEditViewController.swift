@@ -68,6 +68,10 @@ override func didReceiveMemoryWarning() {
 
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
+        
+        if let existingDescription = article?.wikidataDescription {
+          descriptionTextView.text = existingDescription
+        }
     }
     
     private var titleDescriptionFor: NSAttributedString {
