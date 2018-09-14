@@ -1,6 +1,6 @@
 
 /// Button configured with common auth style settings which also updates layer border color on "isEnabled" state change.
-class WMFAuthButton: UIButton, Themeable {
+class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
     fileprivate var theme: Theme = Theme.standard
     
     override open var isEnabled:Bool{
