@@ -832,6 +832,16 @@
 		B0CD9DF61F70997500051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03103261F677BB300E2FCF6 /* WMFWelcomeExplorationAnimationView.swift */; };
 		B0CD9DF71F70997500051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB591C8A89EF00996DE0 /* WMFWelcomeLanguagesAnimationView.swift */; };
 		B0CD9DF81F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB551C8A89E300996DE0 /* WMFWelcomeAnalyticsAnimationView.swift */; };
+		B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
+		B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
+		B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
+		B0D3E70F214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
+		B0D3E710214AF776007578BA /* DescriptionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */; };
+		B0D3E711214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
+		B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
+		B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
+		B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
+		B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */; };
 		B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */; };
 		B0D7FC4F1D0A192500CDC2F0 /* ImageProxyParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */; };
 		B0DE92271D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */; };
@@ -3512,6 +3522,8 @@
 		B0C7A07E1F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeLanguagesAnimationBackgroundView.swift; sourceTree = "<group>"; };
 		B0C7A0841F710EB0008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFWelcomeAnalyticsAnimationBackgroundView.swift; sourceTree = "<group>"; };
 		B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFDynamicTypeExtentions.swift; path = Wikipedia/Code/WMFDynamicTypeExtentions.swift; sourceTree = SOURCE_ROOT; };
+		B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionEditViewController.swift; sourceTree = "<group>"; };
+		B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DescriptionEditViewController.storyboard; sourceTree = "<group>"; };
 		B0D530EA1CE151C10078BAED /* CodeFileLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeFileLocationTests.m; sourceTree = "<group>"; };
 		B0D7FC4E1D0A192500CDC2F0 /* ImageProxyParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProxyParsingTests.m; sourceTree = "<group>"; };
 		B0DE92261D6E26C700EC76A7 /* WMFBarButtonItemPopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFBarButtonItemPopoverMessageViewController.storyboard; sourceTree = "<group>"; };
@@ -6080,6 +6092,7 @@
 		B0524B0121484F1F00D8FD8D /* Description Editing */ = {
 			isa = PBXGroup;
 			children = (
+				B0D3E709214AF54F007578BA /* Form */,
 				B08013D22149F5DA00B52D03 /* Help */,
 				B0524B7A2148846F00D8FD8D /* Welcome */,
 			);
@@ -6198,6 +6211,15 @@
 				B0C6BE561E4526A40033BD6E /* WMFChangePasswordViewController.swift */,
 			);
 			name = "Change Password";
+			sourceTree = "<group>";
+		};
+		B0D3E709214AF54F007578BA /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				B0D3E70B214AF776007578BA /* DescriptionEditViewController.storyboard */,
+				B0D3E70A214AF776007578BA /* DescriptionEditViewController.swift */,
+			);
+			name = Form;
 			sourceTree = "<group>";
 		};
 		B0DE92301D6E3A2000EC76A7 /* UIBarButtonItem Popover Message */ = {
@@ -8950,6 +8972,7 @@
 				D8533ED91ECF581600E44F86 /* NewsCollectionViewHeader.xib in Resources */,
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
 				D8D92B5F1DF22E1700B95311 /* NotificationBackgroundMessage@2x.png in Resources */,
+				B0D3E711214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D8D92B661DF22E1700B95311 /* NotificationBackgroundWarningIcon.png in Resources */,
 				B0E8040F1C0CDE480065EBC0 /* WMFLoginViewController.storyboard in Resources */,
 				B083371F1DADBD7F002860D2 /* WMFWelcome.storyboard in Resources */,
@@ -9014,6 +9037,7 @@
 				D80ED3D11EE57F4800CE8C50 /* AboutViewController.plist in Resources */,
 				D80ED3D21EE57F4800CE8C50 /* NotificationBackgroundMessage.png in Resources */,
 				D8E27BB11F82B54E00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
+				B0D3E715214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				D80ED3D51EE57F4800CE8C50 /* WMFRandomDiceButtonRoll.js in Resources */,
 				D80ED3D61EE57F4800CE8C50 /* NotificationBackgroundSuccess.png in Resources */,
 				83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */,
@@ -9175,6 +9199,7 @@
 				D8A42BD71E815A9C00D8E281 /* WMFEmptyView.xib in Resources */,
 				D8A42BD81E815A9C00D8E281 /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA4524201F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
+				B0D3E714214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242C1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8A42BD91E815A9C00D8E281 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8A42BDA1E815A9C00D8E281 /* WMFLoginViewController.storyboard in Resources */,
@@ -9266,6 +9291,7 @@
 				D8CE265E1E698E2400DAE2E0 /* WMFEmptyView.xib in Resources */,
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
+				B0D3E712214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8CE26601E698E2400DAE2E0 /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8CE26611E698E2400DAE2E0 /* WMFLoginViewController.storyboard in Resources */,
@@ -9357,6 +9383,7 @@
 				D8EC3F5E1E9BDA35006712EB /* WMFEmptyView.xib in Resources */,
 				D8EC3F5F1E9BDA35006712EB /* NotificationBackgroundMessage@2x.png in Resources */,
 				BA45241F1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
+				B0D3E713214AF776007578BA /* DescriptionEditViewController.storyboard in Resources */,
 				BA45242B1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				D8EC3F601E9BDA35006712EB /* NotificationBackgroundWarningIcon.png in Resources */,
 				D8EC3F611E9BDA35006712EB /* WMFLoginViewController.storyboard in Resources */,
@@ -10061,6 +10088,7 @@
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,
 				D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
+				B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
@@ -10174,6 +10202,7 @@
 				D80ED2751EE57F4800CE8C50 /* LibrariesUsed.swift in Sources */,
 				B0524B79214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				7A998ABF1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
+				B0D3E710214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				D80ED2771EE57F4800CE8C50 /* WMFCaptchaResetter.swift in Sources */,
 				D80ED27A1EE57F4800CE8C50 /* PlacesViewController.swift in Sources */,
 				B0CD9DF31F70997500051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -11043,6 +11072,7 @@
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				D8A42B3F1E815A9C00D8E281 /* PageHistoryResultCell.m in Sources */,
 				D8A42B411E815A9C00D8E281 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
+				B0D3E70F214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */,
 				D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */,
 				D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
@@ -11156,6 +11186,7 @@
 				D8CE24E61E698E2400DAE2E0 /* WMFArticleResponseSerializer.m in Sources */,
 				B0524B76214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
+				B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0EFCD6E1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
@@ -11484,6 +11515,7 @@
 				D8EC3DDC1E9BDA35006712EB /* BulletedLabel.m in Sources */,
 				B0524B77214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				D8EC3DDD1E9BDA35006712EB /* WMFArticleResponseSerializer.m in Sources */,
+				B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				7A998ABD1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */,
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
