@@ -152,19 +152,12 @@ print("'\(descriptionToSave)'")
         guard viewIfLoaded != nil else {
             return
         }
-        
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
-        
-        let labels = [subTitleLabel/*, licenseLabel*/]
-        for label in labels {
-            label?.textColor = theme.colors.secondaryText
-        }
-        
+        subTitleLabel.textColor = theme.colors.secondaryText
         cc0ImageView.tintColor = theme.colors.primaryText
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
-
         publishDescriptionButton.apply(theme: theme)
     }
 }
