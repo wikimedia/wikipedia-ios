@@ -108,11 +108,15 @@ override func didReceiveMemoryWarning() {
     }
     
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        isPlaceholderLabelHidden = true
+        isPlaceholderLabelHidden = shouldHidePlaceholder()
     }
     
     public func textViewDidEndEditing(_ textView: UITextView) {
-        isPlaceholderLabelHidden = (textView.text ?? "").count > 0
+        isPlaceholderLabelHidden = shouldHidePlaceholder()
+    }
+    
+    private func shouldHidePlaceholder() -> Bool {
+        return (descriptionTextView.text ?? "").count > 0
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -141,6 +145,7 @@ override func didReceiveMemoryWarning() {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isPlaceholderLabelHidden = shouldHidePlaceholder()
         enableProgressiveButton(false)
     }
     
