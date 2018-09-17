@@ -91,6 +91,8 @@ override func didReceiveMemoryWarning() {
         if let existingDescription = article?.wikidataDescription {
           descriptionTextView.text = existingDescription
         }
+        
+        descriptionTextView.textContainer.lineFragmentPadding = 0
     }
     
     private var titleDescriptionFor: NSAttributedString {
