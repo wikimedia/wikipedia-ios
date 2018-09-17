@@ -69,8 +69,7 @@ override func didReceiveMemoryWarning() {
     @IBOutlet private var licenseLabel: UILabel!
     @IBOutlet private var divider: UIView!
     @IBOutlet private var cc0ImageView: UIImageView!
-//TODO: use theme color for cc0ImageView
-    @IBOutlet private var resetPasswordButton: WMFAuthButton!
+    @IBOutlet private var publishDescriptionButton: WMFAuthButton!
     private var theme = Theme.standard
 
     override func viewDidLoad() {
@@ -80,7 +79,7 @@ override func didReceiveMemoryWarning() {
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
         // descriptionTextView.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
-        resetPasswordButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
+        publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
         title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
@@ -126,7 +125,7 @@ override func didReceiveMemoryWarning() {
     }
 
     func enableProgressiveButton(_ highlight: Bool) {
-        resetPasswordButton.isEnabled = highlight
+        publishDescriptionButton.isEnabled = highlight
     }
 
     @IBAction private func resetPasswordButtonTapped(withSender sender: UIButton) {
@@ -166,6 +165,6 @@ print("'\(descriptionToSave)'")
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
 
-        resetPasswordButton.apply(theme: theme)
+        publishDescriptionButton.apply(theme: theme)
     }
 }
