@@ -160,7 +160,8 @@ print("'\(descriptionToSave)'")
             label?.textColor = theme.colors.secondaryText
         }
         
-        descriptionTextView.textColor = theme.colors.secondaryText
+        cc0ImageView.tintColor = theme.colors.link
+        descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
 
         resetPasswordButton.apply(theme: theme)
