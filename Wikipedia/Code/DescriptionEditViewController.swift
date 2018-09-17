@@ -9,8 +9,7 @@ import UIKit
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
     
     private var licenseLabelAttributedString: NSAttributedString {
-//TODO: fix the comment! the links to use are presently from the similar editing string "wikitext-upload-save-terms-cc-by-sa-and-gfdl"
-        let formatString = WMFLocalizedString("description-edit-license", value: "By changing the title description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link")
+        let formatString = WMFLocalizedString("description-edit-license", value: "By changing the title description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link, %2$@ - license name link")
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
