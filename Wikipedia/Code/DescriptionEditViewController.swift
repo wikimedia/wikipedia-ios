@@ -94,6 +94,8 @@ override func didReceiveMemoryWarning() {
         
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.textContainerInset = .zero
+        
+        isPlaceholderLabelHidden = shouldHidePlaceholder()
     }
     
     private var isPlaceholderLabelHidden = true {
@@ -145,7 +147,6 @@ override func didReceiveMemoryWarning() {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        isPlaceholderLabelHidden = shouldHidePlaceholder()
         enableProgressiveButton(false)
     }
     
