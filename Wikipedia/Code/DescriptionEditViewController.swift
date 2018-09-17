@@ -127,7 +127,7 @@ override func didReceiveMemoryWarning() {
         publishDescriptionButton.isEnabled = highlight
     }
 
-    @IBAction private func resetPasswordButtonTapped(withSender sender: UIButton) {
+    @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
         save()
     }
 
