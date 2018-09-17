@@ -6,8 +6,22 @@ import UIKit
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
 // - toggle placeholder label visibility when description field empty? or instead just set its text to placeholder text, and if text is placeholder text make its color change AND make giving it focus clear the text?
 
-
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
+    
+    private var licenseLabelAttributedString: NSAttributedString {
+//TODO: fix the comment! the links to use are presently from the similar editing string "wikitext-upload-save-terms-cc-by-sa-and-gfdl"
+        let formatString = WMFLocalizedString("description-edit-license", value: "By changing the title description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link ([[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-name]])\n* %2$@ - license name link")
+        
+        let baseAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
+            NSAttributedString.Key.font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
+        ]
+        let linkAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor : theme.colors.link
+        ]
+        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [Licenses.localizedSaveTermsTitle, Licenses.localizedCCZEROTitle], substitutionAttributes: [linkAttributes, linkAttributes])
+    }
+    
     @objc var article: WMFArticle? = nil
 
     private lazy var whiteSpaceNormalizationRegex: NSRegularExpression? = {
@@ -18,7 +32,17 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         return regex
     }()
 
-    
+    @IBAction func licenseTapped() {
+        let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
+        sheet.addAction(UIAlertAction.init(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { _ in
+            self.wmf_openExternalUrl(Licenses.saveTermsURL)
+        }))
+        sheet.addAction(UIAlertAction.init(title: Licenses.localizedCCZEROTitle, style: .default, handler: { _ in
+            self.wmf_openExternalUrl(Licenses.CCZEROURL)
+        }))
+        sheet.addAction(UIAlertAction.init(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
+        present(sheet, animated: true, completion: nil)
+    }
     
 override func didReceiveMemoryWarning() {
     guard view.superview != nil else {
@@ -41,9 +65,11 @@ override func didReceiveMemoryWarning() {
 
     @IBOutlet private var learnMoreButton: UIButton!
     @IBOutlet private var subTitleLabel: UILabel!
-    @IBOutlet private var descriptionTextView: UITextView! //ThemeableTextField!
-    @IBOutlet private var orLabel: UILabel!
+    @IBOutlet private var descriptionTextView: UITextView!
+    @IBOutlet private var licenseLabel: UILabel!
     @IBOutlet private var divider: UIView!
+    @IBOutlet private var cc0ImageView: UIImageView!
+//TODO: use theme color for cc0ImageView
     @IBOutlet private var resetPasswordButton: WMFAuthButton!
     private var theme = Theme.standard
 
@@ -55,7 +81,6 @@ override func didReceiveMemoryWarning() {
 
         // descriptionTextView.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
         resetPasswordButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
-        orLabel.text = WMFLocalizedString("forgot-password-username-or-email-title", value:"Or", comment:"Title shown between the username and email text fields. User only has to specify either username \"Or\" email address\n{{Identical|Or}}")
         
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
         title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
@@ -76,6 +101,7 @@ override func didReceiveMemoryWarning() {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         subTitleLabel.attributedText = titleDescriptionFor
+        licenseLabel.attributedText = licenseLabelAttributedString
     }
     
     @IBAction func showAboutWikidataPage() {
@@ -129,7 +155,7 @@ print("'\(descriptionToSave)'")
         view.backgroundColor = theme.colors.paperBackground
         view.tintColor = theme.colors.link
         
-        let labels = [subTitleLabel, orLabel]
+        let labels = [subTitleLabel/*, licenseLabel*/]
         for label in labels {
             label?.textColor = theme.colors.secondaryText
         }
