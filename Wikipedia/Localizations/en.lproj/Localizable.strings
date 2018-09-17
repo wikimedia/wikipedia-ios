@@ -109,6 +109,7 @@
 "description-edit-for-article" = "Title description for $1";
 "description-edit-learn-more" = "Learn more";
 "description-edit-license" = "By changing the title description, I agree to the $1 and to irrevocably release my contributions under the $2 license.";
+"description-edit-placeholder-title" = "Short descriptions are best";
 "description-edit-publish" = "Publish description";
 "description-edit-title" = "Edit description";
 "description-help-about-description" = "Title descriptions summarize an article to help readers understand the subject at a glance.";

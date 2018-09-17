@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXJ-Dz-D2r" userLabel="Scroll container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="313"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="318"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="XlA-bu-PXu">
-                                                <rect key="frame" x="43.5" y="30" width="288" height="253"/>
+                                                <rect key="frame" x="43.5" y="30" width="288" height="258"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hmf-yd-2wE">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="48"/>
@@ -52,8 +52,8 @@
                                                             </button>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="a00-Zy-REo">
-                                                        <rect key="frame" x="0.0" y="66" width="288" height="61"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="a00-Zy-REo">
+                                                        <rect key="frame" x="0.0" y="66" width="288" height="66"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uFn-tR-SPz">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
@@ -67,8 +67,18 @@
                                                                     <outlet property="delegate" destination="a7r-jI-djU" id="WSp-Sn-e4l"/>
                                                                 </connections>
                                                             </textView>
+                                                            <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YD-NP-CSB">
+                                                                <rect key="frame" x="0.0" y="62.5" width="288" height="0.0"/>
+                                                                <gestureRecognizers/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="Q3y-tS-J9c" appends="YES" id="Ag9-iS-G3q"/>
+                                                                </connections>
+                                                            </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lM7-m8-kQq">
-                                                                <rect key="frame" x="0.0" y="60" width="288" height="1"/>
+                                                                <rect key="frame" x="0.0" y="65" width="288" height="1"/>
                                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="999" constant="1" id="ERH-pL-bbO"/>
@@ -77,7 +87,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GIS-pM-xmd" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="145" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="150" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="WsJ-Xz-2LG"/>
                                                         </constraints>
@@ -89,7 +99,7 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZzN-ir-Tqp">
-                                                        <rect key="frame" x="0.0" y="203" width="288" height="50"/>
+                                                        <rect key="frame" x="0.0" y="208" width="288" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0f-MY-IcO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
@@ -156,6 +166,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cc0ImageView" destination="s9o-Mv-UTa" id="zKx-i4-NLR"/>
+                        <outlet property="descriptionPlaceholderLabel" destination="0YD-NP-CSB" id="h1h-l2-7Mt"/>
                         <outlet property="descriptionTextView" destination="uFn-tR-SPz" id="w9w-Qa-LqG"/>
                         <outlet property="divider" destination="lM7-m8-kQq" id="Fi3-Sx-39A"/>
                         <outlet property="learnMoreButton" destination="vOK-l9-VLz" id="A5q-EG-xKo"/>
@@ -169,6 +180,11 @@
                 <tapGestureRecognizer id="ZDL-12-khV">
                     <connections>
                         <action selector="licenseTapped" destination="a7r-jI-djU" id="tMZ-rf-Byb"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Q3y-tS-J9c">
+                    <connections>
+                        <action selector="descriptionPlaceholderLabelTapped" destination="a7r-jI-djU" id="JoG-4A-Kel"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

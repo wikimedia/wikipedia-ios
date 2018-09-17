@@ -65,6 +65,7 @@ override func didReceiveMemoryWarning() {
     @IBOutlet private var learnMoreButton: UIButton!
     @IBOutlet private var subTitleLabel: UILabel!
     @IBOutlet private var descriptionTextView: UITextView!
+    @IBOutlet private var descriptionPlaceholderLabel: UILabel!
     @IBOutlet private var licenseLabel: UILabel!
     @IBOutlet private var divider: UIView!
     @IBOutlet private var cc0ImageView: UIImageView!
@@ -83,6 +84,8 @@ override func didReceiveMemoryWarning() {
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
         title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
 
+        descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text for title editing text box")
+
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
         
@@ -91,6 +94,35 @@ override func didReceiveMemoryWarning() {
         }
         
         descriptionTextView.textContainer.lineFragmentPadding = 0
+        descriptionTextView.textContainerInset = .zero
+    }
+    
+    private var isPlaceholderLabelHidden = true {
+        didSet {
+            descriptionPlaceholderLabel.isHidden = isPlaceholderLabelHidden
+            descriptionTextView.isHidden = !isPlaceholderLabelHidden
+        }
+    }
+    
+    @IBAction private func descriptionPlaceholderLabelTapped() {
+        isPlaceholderLabelHidden = true
+    }
+    
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        isPlaceholderLabelHidden = true
+    }
+    
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        isPlaceholderLabelHidden = (textView.text ?? "").count > 0
+    }
+    
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let range = Range(range, in: textView.text) else {
+            return true
+        }
+        let newText = textView.text.replacingCharacters(in: range, with: text)
+        isPlaceholderLabelHidden = newText.count > 0
+        return true
     }
     
     private var titleDescriptionFor: NSAttributedString {
@@ -157,6 +189,7 @@ print("'\(descriptionToSave)'")
         cc0ImageView.tintColor = theme.colors.primaryText
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
+        descriptionPlaceholderLabel.textColor = theme.colors.unselected
         publishDescriptionButton.apply(theme: theme)
     }
 }
