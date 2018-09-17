@@ -172,10 +172,9 @@ class ReadingListsAPIController: NSObject {
     fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, operationCompletion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false), didFetchTokenTaskCompletion: { (result, response, error) in
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false)) { (result, response, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
-                operationCompletion(result, nil, apiError)
             } else {
                 #if DEBUG
                 if let error = error {
@@ -184,12 +183,9 @@ class ReadingListsAPIController: NSObject {
                     DDLogDebug("RLAPI: \(method.stringValue) \(path)")
                 }
                 #endif
-                operationCompletion(result, response, error)
             }
-        }, operationCompletion: { (result, response, error) in
-            operationCompletion(result, response, error)
             self.removePendingTask(for: key)
-        })
+        }
         addPendingTask(op, for: key)
     }
     

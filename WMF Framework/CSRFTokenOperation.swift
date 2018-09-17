@@ -17,7 +17,6 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     let bodyEncoding: Session.Request.Encoding
     var queryParameters: [String: Any]?
     var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
-    var didFetchTokenTaskCompletion: ((Result?, URLResponse?, Error?) -> Void)?
 
     public struct TokenContext {
         let tokenName: String
@@ -32,7 +31,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
-    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, didFetchTokenTaskCompletion: @escaping (Result?, URLResponse?, Error?) -> Void, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -43,7 +42,6 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         self.bodyParameters = bodyParameters
         self.bodyEncoding = bodyEncoding
         self.tokenContext = tokenContext
-        self.didFetchTokenTaskCompletion = didFetchTokenTaskCompletion
         self.operationCompletion = operationCompletion
     }
     
@@ -59,7 +57,9 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     }
     
     override public func execute() {
-        let finish = {
+        let finish: (Result?, URLResponse?, Error?) -> Void  = { (result, response, error) in
+            self.operationCompletion?(result, response, error)
+            self.operationCompletion = nil
             self.finish()
         }
         var components = URLComponents()
@@ -68,21 +68,14 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                operationCompletion?(nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
-                self.operationCompletion = nil
-                finish()
+                finish(nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.addTokenToRequest(token)
-            self.didFetchToken() {
-                self.operationCompletion = nil
-                finish()
-            }
+            self.didFetchToken(completion: finish)
         }) { (error) in
-            self.operationCompletion?(nil, nil, error)
-            self.operationCompletion = nil
-            finish()
+            finish(nil, nil, error)
         }
     }
 
@@ -97,27 +90,19 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         }
     }
 
-    open func didFetchToken(completion: @escaping () -> Void) {
+    open func didFetchToken(completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
         assertionFailure("Subclasses should override")
     }
 }
 
 public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
-    public override func didFetchToken(completion: @escaping () -> Void) {
-        let combinedCompletion: ([String: Any]?, URLResponse?, Error?) -> Void = { result, response, error in
-            self.didFetchTokenTaskCompletion?(result, response, error)
-            completion()
-        }
-        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: combinedCompletion)?.resume()
+    public override func didFetchToken(completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: completion)?.resume()
     }
 }
 
 public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
-    public override func didFetchToken(completion: @escaping () -> Void) {
-        let combinedCompletion: (Result?, URLResponse?, Error?) -> Void = { result, response, error in
-            self.didFetchTokenTaskCompletion?(result, response, error)
-            completion()
-        }
-        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: combinedCompletion)
+    public override func didFetchToken(completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: completion)
     }
 }
