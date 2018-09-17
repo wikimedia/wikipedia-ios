@@ -385,7 +385,7 @@
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-see-more" = "Se flere populære artikler";
 "two-factor-login-continue" = "Fortsett innlogging";
-"two-factor-login-instructions" = "Fyll inn tofaktorautentiseringskode";
+"two-factor-login-instructions" = "Fyll inn bekreftelseskoden for totrinns pålogging";
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
