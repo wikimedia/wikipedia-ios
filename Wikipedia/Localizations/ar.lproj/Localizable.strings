@@ -162,6 +162,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "من ويكيبيديا $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-feed-customize-accessibility-title" = "تخصيص";
+"explore-feed-language-settings" = "استكشاف إعدادات لغة التغذية";
 "explore-feed-preferences-additional-languages-footer-text" = "يمكن إضافة لغات إضافية في صفحة إعدادات \"لغاتى\".";
 "explore-feed-preferences-card-hidden-title" = "البطاقة أخفيت";
 "explore-feed-preferences-continue-reading-description" = "رابط سريع للعودة لقراءة مقالة مفتوحة";
@@ -407,6 +408,7 @@
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
 "rank-accessibility-label" = "رقم $1";
 "readers-accessibility-label" = "$1 قارئ";
+"reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
 "reading-list-add-hint-title" = "أضف \"$ 1\" إلى قائمة قراءة؟";
 "reading-list-add-saved-button-title" = "نعم ، أضفهم إلى قوائم قراءتي";
 "reading-list-add-saved-subtitle" = "هناك مقالات محفوظة في تطبيق ويكيبيديا الخاص بك، هل ترغب في الاحتفاظ بها ودمجها مع قوائم القراءة التي تمت مزامنتها مع حسابك؟";
@@ -523,6 +525,7 @@
 "settings-clear-cache-ok" = "مسح المخزون";
 "settings-help-and-feedback" = "المساعدة والآراء والملاحظات";
 "settings-language-bar" = "إظهار اللغات في البحث";
+"settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
 "settings-notifications" = "الإشعارات";
 "settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
@@ -531,8 +534,7 @@
 "settings-notifications-system-turn-on" = "تشغيل الإشعارات";
 "settings-notifications-trending" = "الأحداث الجارية";
 "settings-primary-language" = "أساسي";
-// Fuzzy
-"settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق , تغيير هذه اللغة سيسبب تغيير المحتويات اليومية ( كالمواد المميزة) الظاهرة في المتصفح";
+"settings-primary-language-details" = "اللغة الأولى في هذه القائمة هي اللغة الأساسية للتطبيق";
 "settings-search-footer-text" = "عيِّن التطبيق لفتحه على علامة التبويب بحث بدلا من علامة التبويب استكشاف";
 "settings-search-open-app-on-search" = "افتح التطبيق على تبويب البحث";
 "settings-storage-and-syncing-enable-sync-footer-text" = "السماح لـويكيميديا بحفظ مقالاتك المحفوظة وقوائم القراءة لتفضيلات المستخدم الخاصة بك عند تسجيل الدخول والمزامنة.";
