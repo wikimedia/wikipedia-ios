@@ -161,7 +161,7 @@ print("'\(descriptionToSave)'")
             label?.textColor = theme.colors.secondaryText
         }
         
-        cc0ImageView.tintColor = theme.colors.link
+        cc0ImageView.tintColor = theme.colors.primaryText
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
 
