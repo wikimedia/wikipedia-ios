@@ -52,14 +52,14 @@ override func didReceiveMemoryWarning() {
     
 
     public func textViewDidChange(_ textView: UITextView) {
-        guard let username = descriptionTextView.text else{
+        guard let description = descriptionTextView.text else{
             enableProgressiveButton(false)
             return
         }
         if let text = descriptionTextView.text, let whiteSpaceNormalizationRegex = whiteSpaceNormalizationRegex {
             descriptionTextView.text = whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: NSMakeRange(0, text.count), withTemplate: " ")
         }
-        enableProgressiveButton(username.count > 0)
+        enableProgressiveButton(description.count > 0)
     }
 
     @IBOutlet private var learnMoreButton: UIButton!
