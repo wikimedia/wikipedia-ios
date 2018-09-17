@@ -109,7 +109,7 @@
 "description-edit-for-article" = "String describing which article title description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
 "description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
-"description-edit-placeholder-title" = "Placeholder text for title editing text box";
+"description-edit-placeholder-title" = "Placeholder text shown inside description field until user taps on it";
 "description-edit-publish" = "Title for publish description button";
 "description-edit-title" = "Title text for description editing screen";
 "description-help-about-description" = "Description editing details label text";

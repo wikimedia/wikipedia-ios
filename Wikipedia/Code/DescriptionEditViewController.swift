@@ -84,7 +84,7 @@ override func didReceiveMemoryWarning() {
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
         title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
 
-        descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text for title editing text box")
+        descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text shown inside description field until user taps on it")
 
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
