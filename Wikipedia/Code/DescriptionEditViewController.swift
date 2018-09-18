@@ -1,9 +1,6 @@
 
 import UIKit
 
-//TODO:
-// - remove testing didReceiveMemoryWarning triggers here and in other VCs
-
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
     @IBOutlet private var learnMoreButton: UIButton!
     @IBOutlet private var subTitleLabel: UILabel!

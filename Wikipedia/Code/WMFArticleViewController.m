@@ -163,40 +163,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @implementation WMFArticleViewController
 
-
-
-
-
-
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    
-    UIViewController *visibleVC = self.navigationController.visibleViewController;
-    if (self != visibleVC) { // ignore memory warning for all but top vc
-        return;
-    }
-    
-    DescriptionEditViewController *vc = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
-    if (vc) {
-        vc.article = [self.dataStore fetchArticleWithURL:self.articleURL];
-        [vc applyTheme: self.theme];
-        WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:vc theme:self.theme];
-        [self presentViewController:navVC animated: YES completion:nil];
-    }
-}
-
-
-
-
-
-
-
-
-
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
