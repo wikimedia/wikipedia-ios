@@ -97,12 +97,12 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        subTitleLabel.attributedText = titleDescriptionFor
+        subTitleLabel.attributedText = subTitleLabelAttributedString
         licenseLabel.attributedText = licenseLabelAttributedString
         loginLabel.attributedText = loginLabelAttributedString
     }
 
-    private var titleDescriptionFor: NSAttributedString {
+    private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
         return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .headline, matching: traitCollection)
     }
