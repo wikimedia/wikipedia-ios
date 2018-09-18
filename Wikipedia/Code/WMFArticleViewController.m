@@ -172,7 +172,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 
 
--(void)didReceiveMemoryWarning{
+- (void)didReceiveMemoryWarning {
     
     UIViewController *visibleVC = self.navigationController.visibleViewController;
     if (self != visibleVC) { // ignore memory warning for all but top vc

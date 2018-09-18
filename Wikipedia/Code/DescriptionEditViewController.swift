@@ -3,6 +3,9 @@ import UIKit
 
 //TODO:
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
+// - talk to carolyn about showing some sort of indication as to user's login state on edit form, like we do in wikitext editing...
+//      YES
+// - change title to "add description" if no descrip!
 
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
     
@@ -32,14 +35,14 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         sheet.addAction(UIAlertAction.init(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
         present(sheet, animated: true, completion: nil)
     }
-    
+/*
 override func didReceiveMemoryWarning() {
     guard view.superview != nil else {
         return
     }
     dismiss(animated: true, completion: nil)
 }
-    
+*/
 
     public func textViewDidChange(_ textView: UITextView) {
         guard let description = descriptionTextView.text else{
@@ -125,7 +128,7 @@ override func didReceiveMemoryWarning() {
     
     private var titleDescriptionFor: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .subheadline, matching: traitCollection)
+        return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .headline, matching: traitCollection)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

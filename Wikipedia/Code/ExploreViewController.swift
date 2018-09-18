@@ -9,12 +9,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
 /*
     override func didReceiveMemoryWarning() {
-        let vc = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
-        vc.apply(theme: theme)
-        present(vc, animated: true, completion: nil)
+//        let vc = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
+//        vc.apply(theme: theme)
+//        present(vc, animated: true, completion: nil)
+
+//        let vc = DescriptionHelpViewController.init(theme: theme)
+//        let navVC = WMFThemeableNavigationController.init(rootViewController: vc, theme: theme)
+//        present(navVC, animated: true, completion: nil)
         
-        let vc = DescriptionHelpViewController.init(theme: theme)
-        present(vc, animated: true, completion: nil)
+//        wmf_showDescriptionPublishedPanelViewController(theme: theme, primaryButtonTapHandler: {_ in}, completion: {})
     }
 */
     

@@ -25,26 +25,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXJ-Dz-D2r" userLabel="Scroll container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="353.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="XlA-bu-PXu">
-                                                <rect key="frame" x="43.5" y="30" width="288" height="288"/>
+                                                <rect key="frame" x="43.5" y="30" width="288" height="293.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hmf-yd-2wE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="48"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="53.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title description for Article Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNw-96-aJ5">
-                                                                <rect key="frame" x="0.0" y="0.0" width="288" height="18"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="Fex-H3-6Jp"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOK-l9-VLz">
-                                                                <rect key="frame" x="0.0" y="18" width="288" height="30"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <rect key="frame" x="0.0" y="20.5" width="288" height="33"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <connections>
                                                                     <action selector="showAboutWikidataPage" destination="a7r-jI-djU" eventType="touchUpInside" id="J3v-jP-HSr"/>
@@ -53,7 +53,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="a00-Zy-REo">
-                                                        <rect key="frame" x="0.0" y="66" width="288" height="96"/>
+                                                        <rect key="frame" x="0.0" y="71.5" width="288" height="96"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uFn-tR-SPz">
                                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
@@ -115,7 +115,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GIS-pM-xmd" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="180" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="185.5" width="288" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="WsJ-Xz-2LG"/>
                                                         </constraints>
@@ -127,7 +127,7 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZzN-ir-Tqp">
-                                                        <rect key="frame" x="0.0" y="238" width="288" height="50"/>
+                                                        <rect key="frame" x="0.0" y="243.5" width="288" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0f-MY-IcO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
