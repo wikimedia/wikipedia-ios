@@ -111,6 +111,8 @@
 "description-edit-learn-more" = "Learn more";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "By changing the title description, I agree to the $1 and to irrevocably release my contributions under the $2 license.";
+"description-edit-pencil-introduction" = "Edit introduction";
+"description-edit-pencil-title" = "Edit title description";
 "description-edit-placeholder-title" = "Short descriptions are best";
 "description-edit-publish" = "Publish description";
 "description-edit-title" = "Edit description";

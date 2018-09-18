@@ -1583,7 +1583,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
-    [self showEditorForSection:section];
+    [self showEditorForSectionOrTitleDescription:section];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
@@ -1763,17 +1763,53 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Edit Section
 
-- (void)showEditorForSection:(MWKSection *)section {
+- (void)showEditorForSectionOrTitleDescription:(MWKSection *)section {
     if (self.article.editable) {
-        SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-        sectionEditVC.section = section;
-        sectionEditVC.delegate = self;
-        [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+        if ([section isLeadSection] && self.article.entityDescription) {
+            [self showEditSectionOrTitleDescriptionDialogForSection:section];
+        } else {
+            [self showEditorForSection:section];
+        }
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
         [self showProtectedDialog];
     }
+}
+
+- (void)showEditorForSection:(MWKSection *)section {
+    SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    sectionEditVC.section = section;
+    sectionEditVC.delegate = self;
+    [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+}
+
+- (void)showTitleDescriptionEditor {
+    DescriptionEditViewController *vc = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
+    vc.article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    [vc applyTheme:self.theme];
+    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:vc theme:self.theme];
+    [self presentViewController:navVC animated:YES completion:nil];
+}
+
+- (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showTitleDescriptionEditor];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showEditorForSection:section];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings cancelActionTitle] style:UIAlertActionStyleCancel handler:NULL]];
+
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 - (void)showProtectedDialog {
