@@ -2,7 +2,6 @@
 import UIKit
 
 //TODO:
-// - add "Try to keep descriptions short so users can understand the article's subject at a glance"
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
 
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
@@ -21,14 +20,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     @objc var article: WMFArticle? = nil
-
-    private lazy var whiteSpaceNormalizationRegex: NSRegularExpression? = {
-        guard let regex = try? NSRegularExpression(pattern: "\\s+", options: []) else {
-            assertionFailure("Unexpected failure to create regex")
-            return nil
-        }
-        return regex
-    }()
 
     @IBAction func licenseTapped() {
         let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
@@ -55,10 +46,9 @@ override func didReceiveMemoryWarning() {
             enableProgressiveButton(false)
             return
         }
-        if let text = descriptionTextView.text, let whiteSpaceNormalizationRegex = whiteSpaceNormalizationRegex {
-            descriptionTextView.text = whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: NSMakeRange(0, text.count), withTemplate: " ")
-        }
+        descriptionTextView.normalizeWhitespace()
         enableProgressiveButton(description.count > 0)
+        updateWarningLabelsForDescriptionCount()
     }
 
     @IBOutlet private var learnMoreButton: UIButton!
@@ -69,6 +59,8 @@ override func didReceiveMemoryWarning() {
     @IBOutlet private var divider: UIView!
     @IBOutlet private var cc0ImageView: UIImageView!
     @IBOutlet private var publishDescriptionButton: WMFAuthButton!
+    @IBOutlet private var warningLabel: UILabel!
+    @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
     override func viewDidLoad() {
@@ -77,7 +69,7 @@ override func didReceiveMemoryWarning() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        // descriptionTextView.placeholder = WMFLocalizedString("field-username-placeholder", value:"enter username", comment:"Placeholder text shown inside username field until user taps on it")
+        warningLabel.text = WMFLocalizedString("description-edit-warning", value:"Try to keep descriptions short so users can understand the article's subject at a glance", comment:"Title text for label reminding users to keep descriptions concise")
         publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
@@ -96,6 +88,7 @@ override func didReceiveMemoryWarning() {
         descriptionTextView.textContainerInset = .zero
         
         isPlaceholderLabelHidden = shouldHidePlaceholder()
+        updateWarningLabelsForDescriptionCount()
     }
     
     private var isPlaceholderLabelHidden = true {
@@ -118,7 +111,7 @@ override func didReceiveMemoryWarning() {
     }
     
     private func shouldHidePlaceholder() -> Bool {
-        return (descriptionTextView.text ?? "").count > 0
+        return descriptionTextView.nilTextSafeCount() > 0
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -195,6 +188,48 @@ print("'\(descriptionToSave)'")
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
         descriptionPlaceholderLabel.textColor = theme.colors.unselected
+        warningLabel.textColor = theme.colors.descriptionBackground
+        warningCharacterCountLabel.textColor = theme.colors.descriptionBackground
         publishDescriptionButton.apply(theme: theme)
+    }
+    
+    private let showWarningIfDescriptionLongerThanCount = 90
+    
+    private func updateWarningLabelsForDescriptionCount() {
+        warningCharacterCountLabel.text = characterCountWarningString(for: descriptionTextView.nilTextSafeCount())
+        
+        let isDescriptionLong = descriptionTextView.nilTextSafeCount() > showWarningIfDescriptionLongerThanCount
+        warningLabel.isHidden = !isDescriptionLong
+        warningCharacterCountLabel.textColor = isDescriptionLong ? theme.colors.descriptionBackground : theme.colors.secondaryText
+    }
+ 
+    private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
+        guard descriptionCharacterCount > 0 else {
+            return nil
+        }
+        return String.localizedStringWithFormat(WMFLocalizedString("description-edit-length-warning", value: "%1$@ / %2$@", comment: "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. %1$@ is replaced with the number of characters entered, %2$@ is replaced with the recommended maximum number of characters."), String(descriptionCharacterCount), String(showWarningIfDescriptionLongerThanCount))
+    }
+}
+
+private var whiteSpaceNormalizationRegex: NSRegularExpression? = {
+    guard let regex = try? NSRegularExpression(pattern: "\\s+", options: []) else {
+        assertionFailure("Unexpected failure to create regex")
+        return nil
+    }
+    return regex
+}()
+
+private extension UITextView {
+    func nilTextSafeCount() -> Int {
+        guard let text = text else {
+            return 0
+        }
+        return text.count
+    }
+
+    func normalizeWhitespace() {
+        if let text = text, let whiteSpaceNormalizationRegex = whiteSpaceNormalizationRegex {
+            self.text = whiteSpaceNormalizationRegex.stringByReplacingMatches(in: text, options: [], range: NSMakeRange(0, text.count), withTemplate: " ")
+        }
     }
 }
