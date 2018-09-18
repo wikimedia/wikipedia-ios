@@ -149,14 +149,14 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     @IBAction func licenseTapped() {
-        let sheet = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
-        sheet.addAction(UIAlertAction.init(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { _ in
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: Licenses.localizedSaveTermsTitle, style: .default, handler: { _ in
             self.wmf_openExternalUrl(Licenses.saveTermsURL)
         }))
-        sheet.addAction(UIAlertAction.init(title: Licenses.localizedCCZEROTitle, style: .default, handler: { _ in
+        sheet.addAction(UIAlertAction(title: Licenses.localizedCCZEROTitle, style: .default, handler: { _ in
             self.wmf_openExternalUrl(Licenses.CCZEROURL)
         }))
-        sheet.addAction(UIAlertAction.init(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
+        sheet.addAction(UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
         present(sheet, animated: true, completion: nil)
     }
     
