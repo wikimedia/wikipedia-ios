@@ -52,6 +52,7 @@
 "account-creation-title" = "نئون کاتو کوليو";
 "action-add-to" = "۾ وجھو…";
 "action-add-to-reading-list" = "پڙھڻ جي فھرست ۾ وجھو";
+"action-add-to-reading-list-short" = "فھرست ۾ شامل ڪريو";
 "action-cancel" = "رد";
 "action-move-to" = "ڏانهن چوريو";
 "action-move-to-reading-list" = "پڙھڻ جي فھرست ڏانھن چوريو";
@@ -90,6 +91,7 @@
 "article-unable-to-load-article" = "مضمون لاهڻ لائق نه آهي.";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "back-button-accessibility-label" = "واپس";
+"back-button-popover-title" = "واپس وڃڻ لاءِ ڇھو";
 "button-done" = "ٿي ويو";
 "button-next" = "اڳيون";
 "button-ok" = "ٺيڪ";
@@ -119,6 +121,7 @@
 "empty-no-feed-title" = "باهمڄار ڳانڍاپو نه آھي";
 "empty-no-history-message" = "هتي توهان ڇا پڙهندا رهيا آهيو ان جي يادگيري رکو";
 "empty-no-history-title" = "ڏيکارڻ لاءِ ڪابہ سوانح ناھي";
+"empty-no-reading-lists-message" = "سفر جي جڳھن، پسنديده عنوانن، ۽ گھڻي ڪجھ لاءِ فھرستون سرجيو";
 "empty-no-reading-lists-title" = "سانڍيل مضمونن کي پڙھڻ جي فھرستن سان منظم ڪريو";
 "empty-no-saved-pages-in-reading-list-title" = "ھن فھرست ۾ ڪي بہ صفحا سانڍيل ناھن";
 "empty-no-saved-pages-message" = "بعد ۾ ڏسڻ لاءِ صفحا سانڍيو ، ڀلي آف لائين بہ";
@@ -129,16 +132,22 @@
 "explore-because-you-read" = "ڇو تہ توھان پڙھيو";
 "explore-because-you-read-footer" = "وڌيڪ لاڳاپيل مضمون";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
+"explore-detail-back-button-title" = "کوجنا رسد ڏانھن واپس";
 "explore-enable-location-title" = "پنھنجي ھاڻوڪي مڪانيت جي ويجھو مضمون کوجيو";
 "explore-featured-article-heading" = "چونڊ مضمون";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "explore-featured-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
 "explore-feed-customize-accessibility-title" = "ترميميو";
+"explore-feed-preferences-card-hidden-title" = "ڪارڊ لڪيل";
+"explore-feed-preferences-customize-explore-feed" = "کوجنا رسد کي پنھنجايو";
+"explore-feed-preferences-customize-explore-feed-action-title" = "کوجنا رسد کي پنھنجايو";
+"explore-feed-preferences-explore-tab" = "کوجنا دري";
 "explore-feed-preferences-featured-article-description" = "وڪيپيڊيا تي اڄ جو چونڊ مضمون";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند ڪريو";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سڀ کوليو";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "کوليو";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "کوليو $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "سڀ %@ ڪارڊ لڪل";
 "explore-feed-preferences-global-cards-title" = "عالمي ڪارڊ";
 "explore-feed-preferences-hide-card-action-title" = "هن ڪارڊ کي لڪايو";
 "explore-feed-preferences-in-the-news-description" = "ھاڻوڪن واقعن بابت مضمون";
@@ -156,10 +165,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
 "explore-nearby-heading" = "ويجھيون جڳھون";
 "explore-nearby-placeholder-heading" = "ماڳ";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 وڪيپيڊيا تي";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا تي";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 وڪيپيڊيا مان";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "وڪيپيڊيا مان";
 "explore-nearby-sub-heading-your-location" = "توھان جي مڪانيت";
 "explore-potd-heading" = "اڄ جي تصوير";
 "explore-potd-sub-heading" = "وڪيميڊيا ڪامنز تان";
@@ -230,6 +237,7 @@
 "in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
 "in-the-news-notification-share-action-title" = "ونڊيو...";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
 "in-the-news-sub-title-from-wikipedia" = "وڪيپيڊيا تان";
 "in-the-news-title" = "خبرن ۾";
 "info-box-close-text" = "بند ڪريو";
@@ -370,6 +378,8 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
+"relogin-failed-retry-login-button-title" = "ٻيھر داخل ٿيڻ جي ڪوشش ڪريو";
+"relogin-failed-stay-logged-out-button-title" = "مون کي خارج ٿيل رکو";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "saved-all-articles-title" = "سڀ مضمون";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";
@@ -378,8 +388,10 @@
 "saved-search-default-text" = "ڳولا";
 "saved-title" = "سانڍيل";
 "search-button-accessibility-label" = "وڪيپيڊيا ڳوليو";
+"search-clear-title" = "ختم ڪريو";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
+"search-reading-list-placeholder-text" = "پڙھڻ جي فھرست ڳوليو";
 "search-recent-clear-cancel" = "رد";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
@@ -402,8 +414,7 @@
 "settings-notifications-system-turn-on" = "اطلاع آن ڪريو";
 "settings-notifications-trending" = "لاڙو رکندڙ تازا واقعا";
 "settings-primary-language" = "شروعاتي";
-// Fuzzy
-"settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي. اھا ٻولي تبديل ڪرڻ سان روزانو جو مواد تبديل ٿيندو (مثال طور چونڊ مضمون) جيڪو ايڪسپلور تي ڏيکاريو وڃي ٿو.";
+"settings-primary-language-details" = "ھن فھرست جي پھرين ٻولي ايپ جي شروعاتي ٻولي طور استعمال ڪئي وڃي ٿي.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "سڀني سانڍيل مضمونن کي مِٽايو؟";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مِٽايو";
 "settings-storage-and-syncing-erase-saved-articles-title" = "سانڍيل مضمون مِٽايو";

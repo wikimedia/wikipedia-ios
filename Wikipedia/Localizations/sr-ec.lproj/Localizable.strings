@@ -173,7 +173,7 @@
 "explore-feed-preferences-global-cards-title" = "Глобалне картице";
 "explore-feed-preferences-hide-card-action-title" = "Сакриј ову картицу";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Сакриј све %@ картице";
-"explore-feed-preferences-in-the-news-description" = "Чланци о актуелним догађајима";
+"explore-feed-preferences-in-the-news-description" = "Чланци о тренутним догађајима";
 "explore-feed-preferences-languages-footer-text" = "Скривањем свих картица на свим вашим језицима, искључићете фид „Истражи”.";
 "explore-feed-preferences-on-this-day-description" = "Историјски догађаји на данашњи дан";
 "explore-feed-preferences-places-description" = "Чланци на Википедији у вашој близини";
@@ -229,7 +229,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
 "feed-news-notification-button-text" = "Укључи обавештења";
-"feed-news-notification-text" = "Омогућите обавештења да бисте сазнали када чланци постану актуелни у вестима.";
+"feed-news-notification-text" = "Омогућите обавештења да бисте сазнали када чланци постану тренутни у вестима.";
 "field-alert-captcha-invalid" = "Неважећа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Лозинке се не поклапају";
 "field-alert-password-invalid" = "Неважећа лозинка";
@@ -519,7 +519,7 @@
 "settings-languages-feed-customization" = "Можете да управљате језицима за приказ у фиду „Истражи“ променом подешавања.";
 "settings-my-languages" = "Моји језици";
 "settings-notifications" = "Обавештења";
-"settings-notifications-info" = "Будите обавештени о најчитанијим чланцима на Википедији помоћу наших push обавештења. Све информације су актуелне и поштују вашу приватност.";
+"settings-notifications-info" = "Будите обавештени о најчитанијим чланцима на Википедији помоћу наших push обавештења. Све информације су тренутне и поштују вашу приватност.";
 "settings-notifications-learn-more" = "Сазнајте више о обавештењима";
 "settings-notifications-push-notifications" = "Push обавештења";
 "settings-notifications-system-turn-on" = "Укључи обавештења";
@@ -603,7 +603,7 @@
 "welcome-send-data-learn-more" = "Сазнајте више о прикупљању података";
 "welcome-send-data-sub-title" = "Помозите Задужбини Викимедија да побољша апликацију слањем информација о употреби. Прикупљени подаци су анонимни.";
 "welcome-volunteer-send-usage-reports" = "Шаљи извештаје о употреби";
-"wikitext-download-failed" = "Не могу да преузмем најновију измену.";
+"wikitext-download-failed" = "Не могу да прибавим најновију измену.";
 "wikitext-download-success" = "Садржај је учитан.";
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимам преглед ваших промена…";
