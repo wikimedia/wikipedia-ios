@@ -118,11 +118,11 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         let formatString = WMFLocalizedString("description-edit-license", value: "By changing the title description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link, %2$@ - license name link")
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
-            NSAttributedString.Key.font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
+            .foregroundColor : theme.colors.secondaryText,
+            .font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
         ]
         let linkAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.foregroundColor : theme.colors.link
+            .foregroundColor : theme.colors.link
         ]
         return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [Licenses.localizedSaveTermsTitle, Licenses.localizedCCZEROTitle], substitutionAttributes: [linkAttributes, linkAttributes])
     }
@@ -131,11 +131,11 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         let formatString = CommonStrings.editAttribution
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
-            NSAttributedString.Key.font : loginLabel.font // Grab font so we get font updated for current dynamic type size
+            .foregroundColor : theme.colors.secondaryText,
+            .font : loginLabel.font // Grab font so we get font updated for current dynamic type size
         ]
         let linkAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.foregroundColor : theme.colors.link
+            .foregroundColor : theme.colors.link
         ]
         return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [linkAttributes])
     }
