@@ -25,7 +25,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
-            NSAttributedString.Key.font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
+            NSAttributedString.Key.font : loginLabel.font // Grab font so we get font updated for current dynamic type size
         ]
         let linkAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.foregroundColor : theme.colors.link
