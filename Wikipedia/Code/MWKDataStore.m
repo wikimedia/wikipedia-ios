@@ -31,6 +31,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
+@property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -169,6 +170,7 @@ static uint64_t bundleHash() {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] init];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] init];
     }
     return self;
 }
