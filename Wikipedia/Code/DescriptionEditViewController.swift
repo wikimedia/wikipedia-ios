@@ -3,8 +3,6 @@ import UIKit
 
 //TODO:
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
-// - talk to carolyn about showing some sort of indication as to user's login state on edit form, like we do in wikitext editing...
-//      YES
 // - change title to "add description" if no descrip!
 
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
@@ -21,7 +19,20 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         ]
         return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [Licenses.localizedSaveTermsTitle, Licenses.localizedCCZEROTitle], substitutionAttributes: [linkAttributes, linkAttributes])
     }
-    
+
+    private var loginLabelAttributedString: NSAttributedString {
+        let formatString = CommonStrings.editAttribution
+        
+        let baseAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor : theme.colors.secondaryText,
+            NSAttributedString.Key.font : licenseLabel.font // Grab font so we get font updated for current dynamic type size
+        ]
+        let linkAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor : theme.colors.link
+        ]
+        return formatString.attributedString(attributes: baseAttributes, substitutionStrings: [CommonStrings.editSignIn], substitutionAttributes: [linkAttributes])
+    }
+
     @objc var article: WMFArticle? = nil
 
     @IBAction func licenseTapped() {
@@ -35,6 +46,19 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         sheet.addAction(UIAlertAction.init(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil))
         present(sheet, animated: true, completion: nil)
     }
+    
+    @IBAction func loginTapped() {
+        wmf_showLoginViewController(theme: theme) // should this func add a funnel as seen below?
+/*
+WMFLoginViewController *loginVC = [WMFLoginViewController wmf_initialViewControllerFromClassStoryboard];
+loginVC.funnel = [[WMFLoginFunnel alloc] init];
+[loginVC.funnel logStartFromEdit:self.funnel.editSessionToken];
+[loginVC applyTheme:self.theme];
+UINavigationController *nc = [[WMFThemeableNavigationController alloc] initWithRootViewController:loginVC theme:self.theme];
+[self presentViewController:nc animated:YES completion:nil];
+*/
+    }
+
 /*
 override func didReceiveMemoryWarning() {
     guard view.superview != nil else {
@@ -59,6 +83,7 @@ override func didReceiveMemoryWarning() {
     @IBOutlet private var descriptionTextView: UITextView!
     @IBOutlet private var descriptionPlaceholderLabel: UILabel!
     @IBOutlet private var licenseLabel: UILabel!
+    @IBOutlet private var loginLabel: UILabel!
     @IBOutlet private var divider: UIView!
     @IBOutlet private var cc0ImageView: UIImageView!
     @IBOutlet private var publishDescriptionButton: WMFAuthButton!
@@ -135,6 +160,7 @@ override func didReceiveMemoryWarning() {
         super.traitCollectionDidChange(previousTraitCollection)
         subTitleLabel.attributedText = titleDescriptionFor
         licenseLabel.attributedText = licenseLabelAttributedString
+        loginLabel.attributedText = loginLabelAttributedString
     }
     
     @IBAction func showAboutWikidataPage() {
@@ -144,6 +170,7 @@ override func didReceiveMemoryWarning() {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableProgressiveButton(false)
+        loginLabel.isHidden = WMFAuthenticationManager.sharedInstance.isLoggedIn
     }
     
     override func viewDidAppear(_ animated: Bool) {

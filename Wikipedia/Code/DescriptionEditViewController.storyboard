@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXJ-Dz-D2r" userLabel="Scroll container">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="353.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="XlA-bu-PXu">
-                                                <rect key="frame" x="43.5" y="30" width="288" height="293.5"/>
+                                                <rect key="frame" x="43.5" y="30" width="288" height="288"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hmf-yd-2wE">
                                                         <rect key="frame" x="0.0" y="0.0" width="288" height="53.5"/>
@@ -115,7 +115,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="GIS-pM-xmd" customClass="WMFAuthButton" customModule="Wikipedia" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="185.5" width="288" height="40"/>
+                                                        <rect key="frame" x="0.0" y="185.5" width="288" height="40.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="40" id="WsJ-Xz-2LG"/>
                                                         </constraints>
@@ -127,10 +127,10 @@
                                                         </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZzN-ir-Tqp">
-                                                        <rect key="frame" x="0.0" y="243.5" width="288" height="50"/>
+                                                        <rect key="frame" x="0.0" y="244" width="288" height="44"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0f-MY-IcO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="44"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="license-cc0" translatesAutoresizingMaskIntoConstraints="NO" id="s9o-Mv-UTa">
                                                                         <rect key="frame" x="2" y="3" width="16" height="16"/>
@@ -147,12 +147,27 @@
                                                                     <constraint firstItem="s9o-Mv-UTa" firstAttribute="centerX" secondItem="f0f-MY-IcO" secondAttribute="centerX" id="vIf-UE-7yz"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="License" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czb-fX-czB">
-                                                                <rect key="frame" x="30" y="0.0" width="258" height="50"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fFt-Sj-eIS">
+                                                                <rect key="frame" x="30" y="0.0" width="258" height="44"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="License" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czb-fX-czB">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="258" height="18"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajM-UL-huc">
+                                                                        <rect key="frame" x="0.0" y="26" width="258" height="18"/>
+                                                                        <gestureRecognizers/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <connections>
+                                                                            <outletCollection property="gestureRecognizers" destination="5TN-tg-JtF" appends="YES" id="wCP-HV-LJI"/>
+                                                                        </connections>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                         <gestureRecognizers/>
                                                         <connections>
@@ -199,6 +214,7 @@
                         <outlet property="divider" destination="lM7-m8-kQq" id="Fi3-Sx-39A"/>
                         <outlet property="learnMoreButton" destination="vOK-l9-VLz" id="A5q-EG-xKo"/>
                         <outlet property="licenseLabel" destination="Czb-fX-czB" id="odu-ck-f47"/>
+                        <outlet property="loginLabel" destination="ajM-UL-huc" id="RWh-KZ-wLF"/>
                         <outlet property="publishDescriptionButton" destination="GIS-pM-xmd" id="PIk-sF-qFa"/>
                         <outlet property="scrollView" destination="Qcu-nR-SIU" id="Zhh-sK-eKq"/>
                         <outlet property="subTitleLabel" destination="gNw-96-aJ5" id="GJN-qJ-r6a"/>
@@ -215,6 +231,11 @@
                 <tapGestureRecognizer id="Q3y-tS-J9c">
                     <connections>
                         <action selector="descriptionPlaceholderLabelTapped" destination="a7r-jI-djU" id="JoG-4A-Kel"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="5TN-tg-JtF">
+                    <connections>
+                        <action selector="loginTapped" destination="a7r-jI-djU" id="DPV-XQ-lVs"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
