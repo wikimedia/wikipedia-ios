@@ -105,7 +105,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="license-cc0" translatesAutoresizingMaskIntoConstraints="NO" id="s9o-Mv-UTa">
-                                                                        <rect key="frame" x="2" y="17" width="16" height="16"/>
+                                                                        <rect key="frame" x="2" y="3" width="16" height="16"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="16" id="L60-35-DgS"/>
                                                                             <constraint firstAttribute="height" constant="16" id="Tiz-0D-vZz"/>
@@ -114,7 +114,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="s9o-Mv-UTa" firstAttribute="centerY" secondItem="f0f-MY-IcO" secondAttribute="centerY" id="eTe-Gp-iUm"/>
+                                                                    <constraint firstItem="s9o-Mv-UTa" firstAttribute="top" secondItem="f0f-MY-IcO" secondAttribute="top" constant="3" id="R1M-Jx-iZ9"/>
                                                                     <constraint firstAttribute="width" constant="20" id="uBz-7c-BXe"/>
                                                                     <constraint firstItem="s9o-Mv-UTa" firstAttribute="centerX" secondItem="f0f-MY-IcO" secondAttribute="centerX" id="vIf-UE-7yz"/>
                                                                 </constraints>
