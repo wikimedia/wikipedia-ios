@@ -32,15 +32,17 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
-        title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
-
+        
         descriptionPlaceholderLabel.text = WMFLocalizedString("description-edit-placeholder-title", value:"Short descriptions are best", comment:"Placeholder text shown inside description field until user taps on it")
 
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
         
         if let existingDescription = article?.wikidataDescription {
-          descriptionTextView.text = existingDescription
+            descriptionTextView.text = existingDescription
+            title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
+        } else {
+            title = WMFLocalizedString("description-add-title", value:"Add a description", comment:"Title text for description addition screen")
         }
         
         descriptionTextView.textContainer.lineFragmentPadding = 0

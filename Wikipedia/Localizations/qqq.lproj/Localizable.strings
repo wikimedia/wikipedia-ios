@@ -106,6 +106,7 @@
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
 "continue-reading-empty-description" = "Explore Wikipedia for more articles to read";
 "continue-reading-empty-title" = "No recently read articles";
+"description-add-title" = "Title text for description addition screen";
 "description-edit-for-article" = "String describing which article title description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
