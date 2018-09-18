@@ -3,7 +3,6 @@ import UIKit
 
 //TODO:
 // - remove testing didReceiveMemoryWarning triggers here and in other VCs
-// - change title to "add description" if no descrip!
 
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
     @IBOutlet private var learnMoreButton: UIButton!
