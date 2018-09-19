@@ -1690,6 +1690,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
+    [self showTitleDescriptionEditor];
+}
+
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];

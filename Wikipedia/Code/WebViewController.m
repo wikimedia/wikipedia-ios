@@ -98,6 +98,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         case WMFWKScriptMessageReferenceClicked:
             [self handleReferenceClickedScriptMessage:safeMessageBody];
             break;
+        case WMFWKScriptMessageAddTitleDescriptionClicked:
+            [self handleAddTitleDescriptionClickedScriptMessage:safeMessageBody];
+            break;
         case WMFWKScriptMessageEditClicked:
             [self handleEditClickedScriptMessage:safeMessageBody];
             break;
@@ -288,6 +291,10 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     NSAssert(messageDict[@"selectedIndex"], @"Expected key 'selectedIndex' not found in script message dictionary");
     NSNumber *selectedIndex = messageDict[@"selectedIndex"];
     [self showReferenceFromLastClickedReferencesGroupAtIndex:selectedIndex.integerValue];
+}
+
+- (void)handleAddTitleDescriptionClickedScriptMessage:(NSDictionary *)messageDict {
+    [self.delegate webViewController:self didTapAddTitleDescriptionForArticle:self.article];
 }
 
 - (void)handleEditClickedScriptMessage:(NSDictionary *)messageDict {
@@ -580,6 +587,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         @"linkClicked",
         @"imageClicked",
         @"referenceClicked",
+        @"addTitleDescriptionClicked",
         @"editClicked",
         @"javascriptConsoleLog",
         @"articleState",

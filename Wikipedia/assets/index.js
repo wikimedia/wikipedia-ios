@@ -178,6 +178,12 @@ const handleClickEvent = event => {
     return
   }
 
+  // Handle add title description link.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'add_title_description'){
+    window.webkit.messageHandlers.addTitleDescriptionClicked.postMessage('add_title_description')
+    return
+  }
+
   const href = anchorForTarget.getAttribute( 'href' )
   if(!href) {
     return
@@ -485,9 +491,10 @@ class Article {
       p.innerHTML = this.description
       return p
     } else {
+//TODO: refactor this method to call 2 smaller methods?
       const a = lazyDocument.createElement('a')
-//TODO: need to handle taps (clickHandling.js?) & relay to native to show actual editor
       a.href = '#'
+      a.setAttribute('data-action', 'add_title_description')
       const p = lazyDocument.createElement('p')
       p.id = 'add_entity_description'
 //TODO: pass in localized version of this string
