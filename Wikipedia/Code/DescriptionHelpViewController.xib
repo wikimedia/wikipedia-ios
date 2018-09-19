@@ -63,10 +63,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="916"/>
                     <subviews>
                         <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CWZ-sZ-c2H" userLabel="Scroll container view">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="946.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="901.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6EU-DO-QWJ" userLabel="Inner container view">
-                                    <rect key="frame" x="10" y="30" width="355" height="836.5"/>
+                                    <rect key="frame" x="10" y="50" width="355" height="836.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="ee9-Cu-Xae" userLabel="Outer stack view">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="836.5"/>
@@ -301,7 +301,7 @@
                                 <constraint firstItem="6EU-DO-QWJ" firstAttribute="leading" secondItem="Q7M-c8-XBW" secondAttribute="leading" constant="10" id="9mz-NB-ftY"/>
                                 <constraint firstItem="Q7M-c8-XBW" firstAttribute="trailing" secondItem="6EU-DO-QWJ" secondAttribute="trailing" constant="10" id="Mpg-fd-kMt"/>
                                 <constraint firstItem="6EU-DO-QWJ" firstAttribute="top" secondItem="Q7M-c8-XBW" secondAttribute="top" constant="30" id="Zeb-vT-90z"/>
-                                <constraint firstItem="Q7M-c8-XBW" firstAttribute="bottom" secondItem="6EU-DO-QWJ" secondAttribute="bottom" constant="80" id="eWU-Gn-FAJ"/>
+                                <constraint firstItem="Q7M-c8-XBW" firstAttribute="bottom" secondItem="6EU-DO-QWJ" secondAttribute="bottom" constant="15" id="eWU-Gn-FAJ"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="Q7M-c8-XBW"/>
                         </view>
