@@ -1795,7 +1795,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
     @weakify(self);
     @weakify(navVC);
-    [self presentViewController:navVC animated:YES completion:^{
+    
+    void (^showTitleDescriptionEditingIntroOnce)(void)  = ^{
         if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
             dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
                 @strongify(self);
@@ -1807,7 +1808,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 }];
             });
         }
-    }];
+    };
+    
+    [self presentViewController:navVC animated:YES completion:showTitleDescriptionEditingIntroOnce];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
