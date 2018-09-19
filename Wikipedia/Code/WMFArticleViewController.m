@@ -1796,8 +1796,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     @weakify(self);
     @weakify(navVC);
     [self presentViewController:navVC animated:YES completion:^{
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
+        if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
                 @strongify(self);
                 @strongify(navVC);
                 DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
@@ -1805,8 +1805,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                 [navVC presentViewController:welcomeVC animated:YES completion:^{
                     [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
                 }];
-            }
-        });
+            });
+        }
     }];
 }
 
