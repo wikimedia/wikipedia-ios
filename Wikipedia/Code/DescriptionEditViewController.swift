@@ -188,7 +188,7 @@ print("'\(descriptionToSave)'")
         
         let isDescriptionLong = descriptionTextView.nilTextSafeCount() > showWarningIfDescriptionLongerThanCount
         warningLabel.isHidden = !isDescriptionLong
-        warningCharacterCountLabel.textColor = isDescriptionLong ? theme.colors.descriptionBackground : theme.colors.secondaryText
+        warningCharacterCountLabel.textColor = isDescriptionLong ? theme.colors.descriptionWarning : theme.colors.secondaryText
     }
     
     public func textViewDidChange(_ textView: UITextView) {
@@ -213,8 +213,8 @@ print("'\(descriptionToSave)'")
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
         descriptionPlaceholderLabel.textColor = theme.colors.unselected
-        warningLabel.textColor = theme.colors.descriptionBackground
-        warningCharacterCountLabel.textColor = theme.colors.descriptionBackground
+        warningLabel.textColor = theme.colors.descriptionWarning
+        warningCharacterCountLabel.textColor = theme.colors.descriptionWarning
         publishDescriptionButton.apply(theme: theme)
     }
 }
