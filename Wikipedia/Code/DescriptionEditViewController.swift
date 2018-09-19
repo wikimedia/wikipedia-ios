@@ -142,7 +142,9 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     @IBAction func showAboutWikidataPage() {
-        wmf_openExternalUrl(URL(string: "https://m.wikidata.org/wiki/Wikidata:Introduction"))
+        let vc = DescriptionHelpViewController.init(theme: theme)
+        let navVC = WMFThemeableNavigationController.init(rootViewController: vc, theme: theme)
+        present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func licenseTapped() {

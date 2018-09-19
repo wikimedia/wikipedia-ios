@@ -44,6 +44,9 @@ class DescriptionHelpViewController: ViewController {
         scrollView = helpScrollView
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
+        navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+
         title = WMFLocalizedString("description-help-title", value:"Title description help", comment:"Title for description editing help page")
         
         aboutTitleLabel.text = WMFLocalizedString("description-help-about-title", value:"About", comment:"Description editing about label text")
@@ -66,6 +69,10 @@ class DescriptionHelpViewController: ViewController {
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
     }
     
+    @objc func closeButtonPushed(_ : UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+
     override func apply(theme: Theme) {
         self.theme = theme
         guard viewIfLoaded != nil else {
