@@ -485,24 +485,27 @@ class Article {
     this.language = language
     this.addTitleDescriptionString = addTitleDescriptionString
   }
-  descriptionParagraph() {
-    if(this.description !== undefined && this.description.length > 0){
-      const p = lazyDocument.createElement('p')
-      p.id = 'entity_description'
-      p.innerHTML = this.description
-      return p
-    } else {
-//TODO: refactor this method to call 2 smaller methods?
-      const a = lazyDocument.createElement('a')
-      a.href = '#'
-      a.setAttribute('data-action', 'add_title_description')
-      const p = lazyDocument.createElement('p')
-      p.id = 'add_entity_description'
-      p.innerHTML = this.addTitleDescriptionString
-      a.appendChild(p)
-      return a
+  descriptionElements() {
+    if (this.description !== undefined && this.description.length > 0) {
+      return this.existingDescriptionElements()
     }
-    // return undefined
+    return this.descriptionAdditionElements()
+  }
+  existingDescriptionElements() {
+    const p = lazyDocument.createElement('p')
+    p.id = 'entity_description'
+    p.innerHTML = this.description
+    return p
+  }
+  descriptionAdditionElements() {
+    const a = lazyDocument.createElement('a')
+    a.href = '#'
+    a.setAttribute('data-action', 'add_title_description')
+    const p = lazyDocument.createElement('p')
+    p.id = 'add_entity_description'
+    p.innerHTML = this.addTitleDescriptionString
+    a.appendChild(p)
+    return a
   }
 }
 
@@ -571,7 +574,7 @@ class Section {
 
   description() {
     if(this.isLeadSection()){
-      return this.article.descriptionParagraph()
+      return this.article.descriptionElements()
     }
     return undefined
   }
