@@ -38,7 +38,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             descriptionTextView.text = existingDescription
             title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
         } else {
-            title = WMFLocalizedString("description-add-title", value:"Add a description", comment:"Title text for description addition screen")
+            title = WMFLocalizedString("description-add-title", value:"Add description", comment:"Title text for description addition screen")
         }
         
         descriptionTextView.textContainer.lineFragmentPadding = 0
