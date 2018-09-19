@@ -1789,11 +1789,25 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showTitleDescriptionEditor {
-    DescriptionEditViewController *vc = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
-    vc.article = [self.dataStore fetchArticleWithURL:self.articleURL];
-    [vc applyTheme:self.theme];
-    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:vc theme:self.theme];
-    [self presentViewController:navVC animated:YES completion:nil];
+    DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
+    editVC.article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    [editVC applyTheme:self.theme];
+    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
+    @weakify(self);
+    @weakify(navVC);
+    [self presentViewController:navVC animated:YES completion:^{
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
+                @strongify(self);
+                @strongify(navVC);
+                DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+                [welcomeVC applyTheme:self.theme];
+                [navVC presentViewController:welcomeVC animated:YES completion:^{
+                    [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+                }];
+            }
+        });
+    }];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {

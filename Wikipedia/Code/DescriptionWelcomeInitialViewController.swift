@@ -28,7 +28,7 @@ class DescriptionWelcomeInitialViewController: UIViewController, Themeable {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return true
+        return false
     }
     
     override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
