@@ -105,9 +105,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
-        guard descriptionCharacterCount > 0 else {
-            return nil
-        }
         return String.localizedStringWithFormat(WMFLocalizedString("description-edit-length-warning", value: "%1$@ / %2$@", comment: "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. %1$@ is replaced with the number of characters entered, %2$@ is replaced with the recommended maximum number of characters."), String(descriptionCharacterCount), String(showWarningIfDescriptionLongerThanCount))
     }
     
