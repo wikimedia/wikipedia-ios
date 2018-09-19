@@ -1798,15 +1798,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     
     void (^showTitleDescriptionEditingIntroOnce)(void)  = ^{
         if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
-            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-                @strongify(self);
-                @strongify(navVC);
-                DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
-                [welcomeVC applyTheme:self.theme];
-                [navVC presentViewController:welcomeVC animated:YES completion:^{
-                    [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
-                }];
-            });
+            @strongify(self);
+            @strongify(navVC);
+            DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+            [welcomeVC applyTheme:self.theme];
+            [navVC presentViewController:welcomeVC animated:YES completion:^{
+                [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+            }];
         }
     };
     
