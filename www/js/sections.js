@@ -47,8 +47,18 @@ class Article {
       p.id = 'entity_description'
       p.innerHTML = this.description
       return p
+    } else {
+      const a = lazyDocument.createElement('a')
+//TODO: need to handle taps (clickHandling.js?) & relay to native to show actual editor
+      a.href = '#'
+      const p = lazyDocument.createElement('p')
+      p.id = 'add_entity_description'
+//TODO: pass in localized version of this string
+      p.innerHTML = 'Add title description' //this.description
+      a.appendChild(p)
+      return a
     }
-    return undefined
+    // return undefined
   }
 }
 
