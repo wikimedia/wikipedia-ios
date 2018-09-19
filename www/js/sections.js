@@ -33,13 +33,14 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, displayTitle, description, editable, language) {
+  constructor(ismain, title, displayTitle, description, editable, language, addTitleDescriptionString) {
     this.ismain = ismain
     this.title = title
     this.displayTitle = displayTitle
     this.description = description
     this.editable = editable
     this.language = language
+    this.addTitleDescriptionString = addTitleDescriptionString
   }
   descriptionParagraph() {
     if(this.description !== undefined && this.description.length > 0){
@@ -54,8 +55,7 @@ class Article {
       a.setAttribute('data-action', 'add_title_description')
       const p = lazyDocument.createElement('p')
       p.id = 'add_entity_description'
-//TODO: pass in localized version of this string
-      p.innerHTML = 'Add title description' //this.description
+      p.innerHTML = this.addTitleDescriptionString
       a.appendChild(p)
       return a
     }
