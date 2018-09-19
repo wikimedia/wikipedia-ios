@@ -101,7 +101,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
 
     private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .headline, matching: traitCollection)
+        return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
