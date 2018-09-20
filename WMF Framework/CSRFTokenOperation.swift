@@ -16,7 +16,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     var bodyParameters: [String: Any]?
     let bodyEncoding: Session.Request.Encoding
     var queryParameters: [String: Any]?
-    var operationCompletion: ((Result?, URLResponse?, Error?) -> Void)?
+    var completion: ((Result?, URLResponse?, Error?) -> Void)?
 
     public struct TokenContext {
         let tokenName: String
@@ -31,7 +31,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
-    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, operationCompletion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -42,13 +42,13 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         self.bodyParameters = bodyParameters
         self.bodyEncoding = bodyEncoding
         self.tokenContext = tokenContext
-        self.operationCompletion = operationCompletion
+        self.completion = completion
     }
     
     override public func finish(with error: Error) {
         super.finish(with: error)
-        operationCompletion?(nil, nil, error)
-        operationCompletion = nil
+        completion?(nil, nil, error)
+        completion = nil
     }
     
     override public func cancel() {
@@ -58,8 +58,8 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     
     override public func execute() {
         let finish: (Result?, URLResponse?, Error?) -> Void  = { (result, response, error) in
-            self.operationCompletion?(result, response, error)
-            self.operationCompletion = nil
+            self.completion?(result, response, error)
+            self.completion = nil
             self.finish()
         }
         var components = URLComponents()
