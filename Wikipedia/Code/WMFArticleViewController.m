@@ -1790,7 +1790,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showTitleDescriptionEditor {
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
-    editVC.article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    editVC.article = self.article;
     [editVC applyTheme:self.theme];
 
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];

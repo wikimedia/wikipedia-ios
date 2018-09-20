@@ -15,7 +15,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var article: WMFArticle? = nil
+    @objc var article: MWKArticle? = nil
     private let showWarningIfDescriptionLongerThanCount = 90
 
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         view.wmf_configureSubviewsForDynamicType()
         apply(theme: theme)
         
-        if let existingDescription = article?.wikidataDescription {
+        if let existingDescription = article?.entityDescription {
             descriptionTextView.text = existingDescription
             title = WMFLocalizedString("description-edit-title", value:"Edit description", comment:"Title text for description editing screen")
         } else {
@@ -101,7 +101,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
 
     private var subTitleLabelAttributedString: NSAttributedString {
         let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
-        return String.localizedStringWithFormat(formatString, article?.displayTitleHTML ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
+        return String.localizedStringWithFormat(formatString, article?.displaytitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
