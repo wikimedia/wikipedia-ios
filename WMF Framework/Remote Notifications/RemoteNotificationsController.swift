@@ -12,13 +12,20 @@
         }
         struct Notification: Decodable {
             let wiki: String?
-            let type: NotificationType?
+            let type: Type?
+            let category: Category?
 
-            enum NotificationType: String, Decodable {
+            enum `Type`: String, Decodable {
                 case talkPageEdit = "edit-user-talk"
                 case thankYouEdit = "thank-you-edit"
                 case loginSuccess = "login-success"
                 case editReverted = "reverted"
+            }
+
+            enum Category: String, Decodable {
+                case system
+                case loginSuccess = "login-success"
+                case talkPageEdit = "edit-user-talk"
             }
         }
         struct Notifications: Decodable {
@@ -98,7 +105,7 @@
         enum Filter: String {
             case read = "read"
             case unread = "!read"
-            case none = "read!read"
+            case none = "read|!read"
         }
 
         static var allNotifications: Parameters {
