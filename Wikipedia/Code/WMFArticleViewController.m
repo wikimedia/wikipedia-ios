@@ -1792,23 +1792,31 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
     editVC.article = [self.dataStore fetchArticleWithURL:self.articleURL];
     [editVC applyTheme:self.theme];
+
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
+
+    BOOL didShowIntro = [[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro];
+    if (!didShowIntro) {
+        navVC.view.opaque = NO;
+        navVC.view.backgroundColor = [UIColor clearColor];
+        navVC.view.alpha = 0;
+        navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }
+    
     @weakify(self);
     @weakify(navVC);
-    
-    void (^showTitleDescriptionEditingIntroOnce)(void)  = ^{
-        if (![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro]) {
-            @strongify(self);
+    void (^showTitleDescriptionEditingIntro)(void)  = ^{
+        @strongify(self);
+        DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        [welcomeVC applyTheme:self.theme];
+        [navVC presentViewController:welcomeVC animated:YES completion:^{
             @strongify(navVC);
-            DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
-            [welcomeVC applyTheme:self.theme];
-            [navVC presentViewController:welcomeVC animated:YES completion:^{
-                [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
-            }];
-        }
+            [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+            navVC.view.alpha = 1;
+        }];
     };
     
-    [self presentViewController:navVC animated:YES completion:showTitleDescriptionEditingIntroOnce];
+    [self presentViewController:navVC animated:didShowIntro completion:(didShowIntro ? nil : showTitleDescriptionEditingIntro)];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
