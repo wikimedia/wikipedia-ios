@@ -42,4 +42,8 @@ class DescriptionWelcomeInitialViewController: UIViewController, Themeable {
     override var shouldAutorotate : Bool {
         return false
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return theme.preferredStatusBarStyle
+    }
 }
