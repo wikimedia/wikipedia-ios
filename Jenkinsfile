@@ -6,7 +6,7 @@ pipeline {
       steps {
         sh '''rm -rf build/reports
         eval "$(rbenv init -)"
-        gem intall bundler
+        gem install bundler
         bundle install
         scripts/carthage_bootstrap
         bundle exec fastlane verify_pull_request
