@@ -1794,13 +1794,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [editVC applyTheme:self.theme];
 
     WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
+    navVC.view.opaque = NO;
+    navVC.view.backgroundColor = [UIColor clearColor];
+    navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 
-    BOOL didShowIntro = [[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro];
-    if (!didShowIntro) {
-        navVC.view.opaque = NO;
-        navVC.view.backgroundColor = [UIColor clearColor];
+    BOOL needsIntro = ![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro];
+    if (needsIntro) {
         navVC.view.alpha = 0;
-        navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     }
     
     @weakify(self);
@@ -1816,7 +1816,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }];
     };
     
-    [self presentViewController:navVC animated:didShowIntro completion:(didShowIntro ? nil : showIntro)];
+    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
