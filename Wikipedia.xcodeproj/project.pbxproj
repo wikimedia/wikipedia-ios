@@ -158,6 +158,7 @@
 		7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
+		7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */; };
 		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
@@ -3204,6 +3205,7 @@
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -5862,6 +5864,15 @@
 			name = "Explore Feed";
 			sourceTree = "<group>";
 		};
+		7A255D3D215162AF0081A068 /* Remote Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */,
+				7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */,
+			);
+			path = "Remote Notifications";
+			sourceTree = "<group>";
+		};
 		7A976F81207BAC2100F7EFE6 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -7600,6 +7611,7 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
+				7A255D3D215162AF0081A068 /* Remote Notifications */,
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
 				83DAC3432146E82600CEE256 /* Background.swift */,
 			);
@@ -7839,7 +7851,6 @@
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
-				7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */,
 			);
 			name = Controllers;
 			path = ../Wikipedia/Code;
@@ -10510,6 +10521,7 @@
 				D83FA6B11D74CDAF008CAB00 /* AFHTTPSessionManager+WMFConfig.m in Sources */,
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
+				7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
@@ -20887,6 +20899,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */,
+			);
+			currentVersion = 7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */;
+			path = RemoteNotifications.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
