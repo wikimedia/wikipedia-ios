@@ -1805,7 +1805,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     
     @weakify(self);
     @weakify(navVC);
-    void (^showTitleDescriptionEditingIntro)(void)  = ^{
+    void (^showIntro)(void)  = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
         [welcomeVC applyTheme:self.theme];
@@ -1816,7 +1816,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }];
     };
     
-    [self presentViewController:navVC animated:didShowIntro completion:(didShowIntro ? nil : showTitleDescriptionEditingIntro)];
+    [self presentViewController:navVC animated:didShowIntro completion:(didShowIntro ? nil : showIntro)];
 }
 
 - (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
