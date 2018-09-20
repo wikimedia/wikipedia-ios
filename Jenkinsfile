@@ -5,7 +5,8 @@ pipeline {
     stage('Test') {
       steps {
         sh '''rm -rf build/reports
-        scripts/setup_rbenv_and_ruby
+        eval "$(rbenv init -)"
+        bundle install
         scripts/carthage_bootstrap
         bundle exec fastlane verify_pull_request
         '''
