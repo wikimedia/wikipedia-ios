@@ -20,7 +20,7 @@ struct RemoteNotificationsModelController {
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error {
-                assertionFailure()
+                assertionFailure() // TODO
             } else {
                 print(storeDescription)
             }
