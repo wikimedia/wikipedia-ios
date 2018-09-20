@@ -1,4 +1,10 @@
 @objc public final class RemoteNotificationsController: NSObject {
+    let modelController: RemoteNotificationsModelController?
+
+    public override init() {
+        modelController = RemoteNotificationsModelController()
+        super.init()
+    }
 
     private struct NotificationsAPI {
         static let scheme = "https"
