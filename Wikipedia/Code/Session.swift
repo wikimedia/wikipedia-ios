@@ -49,8 +49,8 @@ import Foundation
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
     }
     
-    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, operationCompletion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, operationCompletion: operationCompletion)
+    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
+        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
         queue.addOperation(op)
         return op
     }
