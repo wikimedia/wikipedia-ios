@@ -104,11 +104,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(_ loginURL: URL? = LoginSite.wikipedia.url, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler, completion: @escaping () -> Void = {}) {
-        
-        defer {
-            completion()
-        }
+    public func loginWithSavedCredentials(_ loginURL: URL? = LoginSite.wikipedia.url, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
 
         guard let siteURL = loginURL else {
             failure(LoginSite.Error.couldNotConstructLoginURL)
