@@ -62,7 +62,7 @@ enum WikidataPublishingError: LocalizedError {
             failure(WikidataPublishingError.invalidArticleURL)
             return
         }
-        publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
+        publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, success: success, failure: failure)
     }
 
     /// Publish new wikidata description.
