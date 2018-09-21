@@ -47,7 +47,7 @@ extension WikidataAPIResult {
 
     @objc(publishNewWikidataDescription:forArticle:completion:)
     public func publish(newWikidataDescription: String, for article: MWKArticle, completion: @escaping (_ error: Error?) -> Void) {
-        guard let title = article.displaytitle,
+        guard let title = article.url.wmf_title,
         let language = article.url.wmf_language,
         let wiki = article.url.wmf_wiki else {
             assertionFailure()
