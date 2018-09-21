@@ -140,7 +140,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
-    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
