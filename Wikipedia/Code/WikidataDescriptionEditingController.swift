@@ -108,12 +108,3 @@ enum WikidataPublishingError: LocalizedError {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
     }
 }
-
-public extension MWKArticle {
-    @objc var isWikidataDescriptionEditable: Bool {
-        guard let dataStore = dataStore, let language = self.url.wmf_language else {
-            return false
-        }
-        return dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
-    }
-}
