@@ -73,7 +73,7 @@ enum WikidataPublishingError: LocalizedError {
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
-    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (_ error: Error?) -> Void) {
+    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, success: @escaping Success, failure: @escaping Failure) {
         guard !isBlacklisted(language) else {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
             return
