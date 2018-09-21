@@ -103,6 +103,7 @@ public class WMFAuthTokenFetcher: NSObject {
     }
 
     private func retryWithLogin(context: FetchTokenContext) {
+        assert(Thread.isMainThread)
         guard !isRetryingLogin else {
             //DDLogDebug("Still retrying with login; aborting another attempt")
             return
@@ -111,14 +112,17 @@ public class WMFAuthTokenFetcher: NSObject {
         let fetchToken = {
             self.fetchToken(ofType: context.tokenType, siteURL: context.siteURL, success: context.success, failure: context.failure)
         }
-        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(context.siteURL, success: { (_) in
-            fetchToken()
-        }, userAlreadyLoggedInHandler: { (_) in
-            fetchToken()
-        }, failure: { (error) in
-            context.failure(error)
-        }) {
-            self.isRetryingLogin = false
+        DispatchQueue.main.async {
+            WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(context.siteURL, success: { (_) in
+                self.isRetryingLogin = false
+                fetchToken()
+            }, userAlreadyLoggedInHandler: { (_) in
+                self.isRetryingLogin = false
+                fetchToken()
+            }, failure: { (error) in
+                self.isRetryingLogin = false
+                context.failure(error)
+            })
         }
         attemptedLoginRetries += 1
     }
