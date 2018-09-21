@@ -140,6 +140,16 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return nil;
 }
 
++ (nullable instancetype)wmf_activityForURL:(NSURL *)url {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    components.scheme = @"https";
+    NSURL *wikipediaURL = components.URL;
+    if (![wikipediaURL wmf_isWikiResource]) {
+        return nil;
+    }
+    return [self wmf_articleViewActivityWithURL:wikipediaURL];
+}
+
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle *)article {
     NSParameterAssert(article.url.wmf_title);
     NSParameterAssert(article.displaytitle);
