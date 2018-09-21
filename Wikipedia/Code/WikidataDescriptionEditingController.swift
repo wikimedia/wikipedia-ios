@@ -51,6 +51,8 @@ extension WikidataAPIResult {
         let language = article.url.wmf_language,
         let wiki = article.url.wmf_wiki else {
             assertionFailure()
+    public typealias Success = () -> Void
+    public typealias Failure = (Error) -> Void
             return
         }
         publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
