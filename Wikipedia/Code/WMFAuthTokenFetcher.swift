@@ -114,14 +114,20 @@ public class WMFAuthTokenFetcher: NSObject {
         }
         DispatchQueue.main.async {
             WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(context.siteURL, success: { (_) in
-                self.isRetryingLogin = false
-                fetchToken()
+                DispatchQueue.main.async {
+                    self.isRetryingLogin = false
+                    fetchToken()
+                }
             }, userAlreadyLoggedInHandler: { (_) in
-                self.isRetryingLogin = false
-                fetchToken()
+                DispatchQueue.main.async {
+                    self.isRetryingLogin = false
+                    fetchToken()
+                }
             }, failure: { (error) in
-                self.isRetryingLogin = false
-                context.failure(error)
+                DispatchQueue.main.async {
+                    self.isRetryingLogin = false
+                    context.failure(error)
+                }
             })
         }
         attemptedLoginRetries += 1
