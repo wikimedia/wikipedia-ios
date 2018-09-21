@@ -34,6 +34,7 @@ extension WikidataAPIResult {
 enum WikidataPublishingError: LocalizedError {
     case invalidArticleURL
     case apiResultNotParsedCorrectly
+    case blacklistedLanguage
     case unknown
 }
 
@@ -76,6 +77,7 @@ enum WikidataPublishingError: LocalizedError {
     private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, success: @escaping Success, failure: @escaping Failure) {
         guard !isBlacklisted(language) else {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
+            failure(WikidataPublishingError.blacklistedLanguage)
             return
         }
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
