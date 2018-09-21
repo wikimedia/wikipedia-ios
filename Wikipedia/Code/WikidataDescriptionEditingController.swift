@@ -52,18 +52,15 @@ enum WikidataPublishingError: LocalizedError {
         return blacklistedLanguages.contains(languageCode)
     }
 
-    public typealias Success = () -> Void
-    public typealias Failure = (Error) -> Void
-
-    @objc(publishNewWikidataDescription:forArticle:success:failure:)
-    public func publish(newWikidataDescription: String, for articleURL: URL, success: @escaping Success, failure: @escaping Failure) {
+    @objc(publishNewWikidataDescription:forArticleURL:completion:)
+    public func publish(newWikidataDescription: String, for articleURL: URL, completion: @escaping (Error?) -> Void) {
         guard let title = articleURL.wmf_title,
         let language = articleURL.wmf_language,
         let wiki = articleURL.wmf_wiki else {
-            failure(WikidataPublishingError.invalidArticleURL)
+            completion(WikidataPublishingError.invalidArticleURL)
             return
         }
-        publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, success: success, failure: failure)
+        publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
     }
 
     /// Publish new wikidata description.
@@ -74,30 +71,14 @@ enum WikidataPublishingError: LocalizedError {
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
-    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, success: @escaping Success, failure: @escaping Failure) {
+    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
         guard !isBlacklisted(language) else {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
-            failure(WikidataPublishingError.blacklistedLanguage)
+            completion(WikidataPublishingError.blacklistedLanguage)
             return
         }
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
-            if let error = error {
-                failure(error)
-                return
-            }
-            guard let result = result else {
-                failure(WikidataPublishingError.apiResultNotParsedCorrectly)
-                return
-            }
-            if let error = result.error {
-                failure(error)
-                return
-            }
-            guard result.succeeded else {
-                failure(WikidataPublishingError.unknown)
-                return
-            }
-            success()
+            completion(result?.error)
         }
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
