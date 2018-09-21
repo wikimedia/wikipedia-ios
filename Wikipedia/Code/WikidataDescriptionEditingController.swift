@@ -31,6 +31,12 @@ extension WikidataAPIResult {
     }
 }
 
+enum WikidataPublishingError: LocalizedError {
+    case invalidArticleURL
+    case apiResultNotParsedCorrectly
+    case unknown
+}
+
 @objc public final class WikidataDescriptionEditingController: NSObject {
     private var blacklistedLanguages = Set<String>()
 
