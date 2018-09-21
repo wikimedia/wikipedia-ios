@@ -41,6 +41,8 @@ extern NSString *const WMFNavigateToActivityNotification;
 
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url;
 
++ (nullable instancetype)wmf_activityForURL:(NSURL *)url;
+
 - (WMFUserActivityType)wmf_type;
 
 - (nullable NSString *)wmf_searchTerm;
