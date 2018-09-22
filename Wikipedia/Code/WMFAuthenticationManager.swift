@@ -3,17 +3,13 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 public class WMFAuthenticationManager: NSObject {
-    @objc public static let userLoggedInNotification = NSNotification.Name("WMFUserLoggedInNotification")
-    
+
     /**
      *  The current logged in user. If nil, no user is logged in
      */
     @objc dynamic private(set) var loggedInUsername: String? = nil {
         didSet {
             SessionSingleton.sharedInstance().dataStore.readingListsController.authenticationDelegate = self
-            if loggedInUsername != nil {
-                NotificationCenter.default.post(name: WMFAuthenticationManager.userLoggedInNotification, object: nil)
-            }
         }
     }
     
