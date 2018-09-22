@@ -20,6 +20,11 @@ public class WMFAuthenticationManager: NSObject {
         return (loggedInUsername != nil)
     }
 
+    private var loggedInURLs = Set<URL>()
+    public func isLoggedIn(at loginURL: URL) -> Bool {
+        return loggedInURLs.contains(loginURL)
+    }
+
     @objc public var hasKeychainCredentials: Bool {
         guard
             let userName = KeychainCredentialsManager.shared.username,
@@ -84,6 +89,7 @@ public class WMFAuthenticationManager: NSObject {
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
+                self.loggedInURLs.insert(siteURL)
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
                 self.cloneSessionCookies()
@@ -117,20 +123,24 @@ public class WMFAuthenticationManager: NSObject {
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
+            self.loggedInURLs.insert(siteURL)
             userAlreadyLoggedInHandler(result)
         }, failure:{ error in
             guard !(error is URLError) else {
                 self.loggedInUsername = userName
+                self.loggedInURLs.insert(siteURL)
                 success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
                 return
             }
             self.login(siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
+                    self.loggedInURLs.insert(siteURL)
                     success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
                     return
                 }
                 self.loggedInUsername = nil
+                self.loggedInURLs.insert(siteURL)
                 self.logout()
                 failure(error)
             })
@@ -143,6 +153,7 @@ public class WMFAuthenticationManager: NSObject {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         self.loggedInUsername = nil
+        self.loggedInURLs.removeAll()
         // Cookie reminders:
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
         HTTPCookieStorage.shared.cookies?.forEach { cookie in
