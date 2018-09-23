@@ -94,13 +94,14 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(_ loginURL: URL? = LoginSite.wikipedia.url, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, success loginSuccess: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
+    public func login(_ loginURL: URL? = LoginSite.wikipedia.url, username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping LoginResultHandler) {
         guard let siteURL = loginURL else {
-            failure(LoginSite.Error.couldNotConstructLoginURL)
+            let error = LoginSite.Error.couldNotConstructLoginURL
+            completion(.failure(error))
             return
         }
-        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { tokenBlock in
-            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: tokenBlock.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
+        self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { (token) in
+            self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: { (result) in
                 let normalizedUserName = result.username
                 self.loggedInUsername = normalizedUserName
                 self.loggedInURLs.insert(siteURL)
@@ -108,9 +109,13 @@ public class WMFAuthenticationManager: NSObject {
                 KeychainCredentialsManager.shared.password = password
                 self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
-                loginSuccess(result)
-            }, failure: failure)
-        }, failure:failure)
+                completion(.success(result))
+            }, failure: { (error) in
+                completion(.failure(error))
+            })
+        }) { (error) in
+            completion(.failure(error))
+        }
     }
     
     /**
