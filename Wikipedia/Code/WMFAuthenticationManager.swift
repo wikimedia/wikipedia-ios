@@ -291,10 +291,25 @@ extension WMFAuthenticationManager {
 // MARK: @objc Wikipedia login
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
-        attemptLogin(LoginSite.wikipedia.url, completion: completion, failure: failure)
+        let completion: LoginResultHandler = { result in
+            completion()
+        }
+        attemptLogin(LoginSite.wikipedia.url, completion: completion)
     }
 
     @objc func loginWithSavedCredentials(success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
-        loginWithSavedCredentials(LoginSite.wikipedia.url, success: success, userAlreadyLoggedInHandler: userAlreadyLoggedInHandler, failure: failure)
+        let completion: LoginResultHandler = { loginResult in
+            switch loginResult {
+            case .success(let result):
+                success(result)
+            case .alreadyLoggedIn(let result):
+                userAlreadyLoggedInHandler(result)
+            case .failure(let error):
+                failure(error)
+            default:
+                break
+            }
+        }
+        loginWithSavedCredentials(LoginSite.wikipedia.url, completion: completion)
     }
 }
