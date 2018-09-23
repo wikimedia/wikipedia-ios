@@ -58,25 +58,30 @@ public class WMFAuthenticationManager: NSObject {
 
     public typealias LoginResultHandler = (LoginResult) -> Void
     
-    public func attemptLogin(_ loginURL: URL? = LoginSite.wikipedia.url, completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+    public func attemptLogin(_ loginURL: URL? = LoginSite.wikipedia.url, completion: @escaping LoginResultHandler) {
         let performCompletionOnTheMainThread = {
             DispatchQueue.main.async {
-                completion()
+                completion(.any)
             }
         }
-        self.loginWithSavedCredentials(loginURL, success: { (success) in
-            DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(success.username).\n\n")
-            performCompletionOnTheMainThread()
-        }, userAlreadyLoggedInHandler: { (loggedIn) in
-            DDLogDebug("\n\nUser \(loggedIn.name) is already logged in.\n\n")
-            performCompletionOnTheMainThread()
-        }, failure: { (error) in
-            DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
-            performCompletionOnTheMainThread()
-            DispatchQueue.main.async {
-                failure(error)
+        self.loginWithSavedCredentials(loginURL) { (loginResult) in
+            switch loginResult {
+            case .success(let result):
+                DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(result.username).\n\n")
+                performCompletionOnTheMainThread()
+            case .alreadyLoggedIn(let result):
+                DDLogDebug("\n\nUser \(result.name) is already logged in.\n\n")
+                performCompletionOnTheMainThread()
+            case .failure(let error):
+                DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                performCompletionOnTheMainThread()
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            default:
+                break
             }
-        })
+        }
     }
     
     /**
