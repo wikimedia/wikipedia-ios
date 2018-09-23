@@ -55,6 +55,8 @@ public class WMFAuthenticationManager: NSObject {
         case failure(_: Error)
         case any
     }
+
+    public typealias LoginResultHandler = (LoginResult) -> Void
     
     public func attemptLogin(_ loginURL: URL? = LoginSite.wikipedia.url, completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let performCompletionOnTheMainThread = {
