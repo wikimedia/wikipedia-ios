@@ -125,10 +125,11 @@ public class WMFAuthenticationManager: NSObject {
      *  @param userAlreadyLoggedInHandler     The handler called if a user was found to already be logged in
      *  @param failure     The handler for any errors
      */
-    public func loginWithSavedCredentials(_ loginURL: URL? = LoginSite.wikipedia.url, success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
+    public func loginWithSavedCredentials(_ loginURL: URL? = LoginSite.wikipedia.url, completion: @escaping LoginResultHandler) {
 
         guard let siteURL = loginURL else {
-            failure(LoginSite.Error.couldNotConstructLoginURL)
+            let error = LoginSite.Error.couldNotConstructLoginURL
+            completion(.failure(error))
             return
         }
 
@@ -136,32 +137,42 @@ public class WMFAuthenticationManager: NSObject {
             let userName = KeychainCredentialsManager.shared.username,
             let password = KeychainCredentialsManager.shared.password
         else {
-            failure(WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword)
+            let error = WMFCurrentlyLoggedInUserFetcherError.blankUsernameOrPassword
+            completion(.failure(error))
             return
         }
         
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
             self.loggedInURLs.insert(siteURL)
-            userAlreadyLoggedInHandler(result)
+            completion(.alreadyLoggedIn(result))
         }, failure:{ error in
             guard !(error is URLError) else {
                 self.loggedInUsername = userName
                 self.loggedInURLs.insert(siteURL)
-                success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
+                let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                completion(.success(loginResult))
                 return
             }
-            self.login(siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, success: success, failure: { error in
-                guard !(error is URLError) else {
-                    self.loggedInUsername = userName
+            self.login(siteURL, username: userName, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil, completion: { (loginResult) in
+                switch loginResult {
+                case .success(let result):
+                    completion(.success(result))
+                case .failure(let error):
+                    guard !(error is URLError) else {
+                        self.loggedInUsername = userName
+                        self.loggedInURLs.insert(siteURL)
+                        let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
+                        completion(.success(loginResult))
+                        return
+                    }
+                    self.loggedInUsername = nil
                     self.loggedInURLs.insert(siteURL)
-                    success(WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil))
-                    return
+                    self.logout()
+                    completion(.failure(error))
+                default:
+                    break
                 }
-                self.loggedInUsername = nil
-                self.loggedInURLs.insert(siteURL)
-                self.logout()
-                failure(error)
             })
         })
     }
