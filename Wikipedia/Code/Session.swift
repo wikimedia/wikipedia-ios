@@ -49,8 +49,8 @@ import Foundation
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
     }
     
-    public func requestWithCSRF(scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = CSRFTokenOperation(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, bodyParameters: bodyParameters, completion: completion)
+    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
+        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
         queue.addOperation(op)
         return op
     }
@@ -184,7 +184,31 @@ import Foundation
         queue.addOperation(op)
         return task
     }
-    
+
+    public func jsonDecodableTask<T: Decodable>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) {
+        guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                completionHandler(nil, response, error)
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                completionHandler(nil, response, nil)
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                let result: T = try decoder.decode(T.self, from: data)
+                completionHandler(result, response, error)
+            } catch let resultParsingError {
+                DDLogError("Error parsing codable response: \(resultParsingError)")
+                completionHandler(nil, response, resultParsingError)
+            }
+        }) else {
+            return
+        }
+        let op = URLSessionTaskOperation(task: task)
+        queue.addOperation(op)
+    }
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return session.dataTask(with: request, completionHandler: { (data, response, error) in

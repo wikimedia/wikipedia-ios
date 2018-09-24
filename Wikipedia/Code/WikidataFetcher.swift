@@ -15,9 +15,9 @@ class WikidataFetcher: NSObject {
         }
         
         var components = URLComponents()
-        components.host = "wikidata.org"
-        components.path = "/w/api.php"
-        components.scheme = "https"
+        components.host = WikidataAPI.host
+        components.path = WikidataAPI.path
+        components.scheme = WikidataAPI.scheme
         let actionQueryItem = URLQueryItem(name: "action", value: "wbgetentities")
         let titlesQueryItem = URLQueryItem(name: "titles", value: title)
         let sitesQueryItem = URLQueryItem(name: "sites", value: "\(language)wiki")

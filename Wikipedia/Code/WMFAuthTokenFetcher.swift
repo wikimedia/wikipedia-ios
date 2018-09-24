@@ -44,32 +44,46 @@ public class WMFAuthTokenFetcher: NSObject {
                 return "createaccount"
             }
         }
-        
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
-        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-        let parameters = [
-            "action": "query",
-            "meta": "tokens",
-            "type": stringForToken(type),
-            "format": "json"
-        ]
-        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
-            guard
-                let response = response as? [String : AnyObject],
-                let query = response["query"] as? [String: Any],
-                let tokens = query["tokens"] as? [String: Any],
-                let token = tokens[stringForToken(type) + "token"] as? String
-            else {
-                failure(WMFAuthTokenError.cannotExtractToken)
-                return
+
+        let loginGroup = WMFTaskGroup()
+        if !WMFAuthenticationManager.sharedInstance.isLoggedIn(at: siteURL) {
+            loginGroup.enter()
+            WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(siteURL, success: { (_) in
+                loginGroup.leave()
+            }, userAlreadyLoggedInHandler: { (_) in
+                loginGroup.leave()
+            }) { (_) in
+                loginGroup.leave()
             }
-            guard token.count > 0 else {
-                failure(WMFAuthTokenError.zeroLengthToken)
-                return
-            }
-            success(WMFAuthToken.init(token: token, type: type))
-        }, failure: { (_, error) in
-            failure(error)
-        })
+        }
+
+        loginGroup.waitInBackground {
+            let manager = AFHTTPSessionManager(baseURL: siteURL)
+            manager.responseSerializer = WMFApiJsonResponseSerializer.init();
+            let parameters = [
+                "action": "query",
+                "meta": "tokens",
+                "type": stringForToken(type),
+                "format": "json"
+            ]
+            _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
+                guard
+                    let response = response as? [String : AnyObject],
+                    let query = response["query"] as? [String: Any],
+                    let tokens = query["tokens"] as? [String: Any],
+                    let token = tokens[stringForToken(type) + "token"] as? String
+                    else {
+                        failure(WMFAuthTokenError.cannotExtractToken)
+                        return
+                }
+                guard token.count > 0 else {
+                    failure(WMFAuthTokenError.zeroLengthToken)
+                    return
+                }
+                success(WMFAuthToken(token: token, type: type))
+            }, failure: { (_, error) in
+                failure(error)
+            })
+        }
     }
 }
