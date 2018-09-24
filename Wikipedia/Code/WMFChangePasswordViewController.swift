@@ -104,6 +104,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         guard let userName = userName,
             let password = passwordField.text,
             let retypePassword = retypeField.text else {
+            assertionFailure("One or more of the required parameters are nil")
             return
         }
 

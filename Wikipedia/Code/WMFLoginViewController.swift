@@ -154,6 +154,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         disableProgressiveButton()
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
         guard let username = usernameField.text, let password = passwordField.text else {
+            assertionFailure("One or more of the required parameters are nil")
             return
         }
         WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
