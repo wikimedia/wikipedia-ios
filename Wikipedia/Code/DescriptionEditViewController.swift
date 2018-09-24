@@ -1,6 +1,10 @@
 
 import UIKit
 
+@objc protocol DescriptionEditViewControllerDelegate: NSObjectProtocol {
+    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController)
+}
+
 class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
     @IBOutlet private var learnMoreButton: UIButton!
     @IBOutlet private var subTitleLabel: UILabel!
@@ -18,6 +22,8 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     @objc var article: MWKArticle? = nil
     private let showWarningIfDescriptionLongerThanCount = 90
 
+    @objc var delegate: DescriptionEditViewControllerDelegate? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -178,9 +184,24 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         // Final trim to remove leading and trailing space
         let descriptionToSave = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
-print("'\(descriptionToSave)'")
-// TODO: call new method to save `descriptionToSave` here - on success dismiss and show new `Description published` panel, on error show alert with server error msg
+        guard let article = article, let dataStore = article.dataStore, let articleURL = article.url else {
+            assertionFailure("Expected article, datastore or article url not found")
+            return
+        }
         
+        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, for: articleURL) {error in
+            let presentingVC = self.presentingViewController
+            DispatchQueue.main.async {
+                guard let error = error else {
+                    self.delegate?.descriptionEditViewControllerEditSucceeded(self)
+                    self.dismiss(animated: true) {
+                        presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
+                    }
+                    return
+                }
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            }
+        }
     }
     
     private func updateWarningLabelsForDescriptionCount() {

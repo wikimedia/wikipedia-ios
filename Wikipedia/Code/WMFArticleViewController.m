@@ -94,7 +94,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
-                                        EventLoggingSearchSourceProviding>
+                                        EventLoggingSearchSourceProviding,
+                                        DescriptionEditViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1788,8 +1789,13 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
 }
 
+- (void)descriptionEditViewControllerEditSucceeded:(DescriptionEditViewController *)descriptionEditViewController {
+    [self fetchArticle];
+}
+
 - (void)showTitleDescriptionEditor {
     DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
+    editVC.delegate = self;
     editVC.article = self.article;
     [editVC applyTheme:self.theme];
 
