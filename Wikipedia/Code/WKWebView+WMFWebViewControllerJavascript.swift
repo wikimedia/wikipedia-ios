@@ -169,7 +169,8 @@ extension WKWebView {
             '\(articleEntityDescription.wmf_stringBySanitizingForJavaScript())',
             \(article.editable.toString()),
             \(languageJS(for: article)),
-            '\(addTitleDescriptionLocalizedString.wmf_stringBySanitizingForJavaScript())'
+            '\(addTitleDescriptionLocalizedString.wmf_stringBySanitizingForJavaScript())',
+            \(article.isWikidataDescriptionEditable.toString())
         )
         """
     }

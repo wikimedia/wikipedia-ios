@@ -1770,7 +1770,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)showEditorForSectionOrTitleDescription:(MWKSection *)section {
     if (self.article.editable) {
-        if ([section isLeadSection] && self.article.entityDescription) {
+        if ([self.article isWikidataDescriptionEditable] && [section isLeadSection] && self.article.entityDescription) {
             [self showEditSectionOrTitleDescriptionDialogForSection:section];
         } else {
             [self showEditorForSection:section];

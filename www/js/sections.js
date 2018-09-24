@@ -33,7 +33,7 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, displayTitle, description, editable, language, addTitleDescriptionString) {
+  constructor(ismain, title, displayTitle, description, editable, language, addTitleDescriptionString, isTitleDescriptionEditable) {
     this.ismain = ismain
     this.title = title
     this.displayTitle = displayTitle
@@ -41,9 +41,10 @@ class Article {
     this.editable = editable
     this.language = language
     this.addTitleDescriptionString = addTitleDescriptionString
+    this.isTitleDescriptionEditable = isTitleDescriptionEditable
   }
   descriptionElements() {
-    if (this.description !== undefined && this.description.length > 0) {
+    if (!this.isTitleDescriptionEditable || this.description !== undefined && this.description.length > 0) {
       return this.existingDescriptionElements()
     }
     return this.descriptionAdditionElements()
