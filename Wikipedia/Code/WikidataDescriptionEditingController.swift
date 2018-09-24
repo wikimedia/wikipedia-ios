@@ -40,6 +40,7 @@ enum WikidataPublishingError: LocalizedError {
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
     weak var viewContext: NSManagedObjectContext?
+    private let semaphore = DispatchSemaphore(value: 1)
 
     @objc public init(with viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
@@ -48,6 +49,10 @@ enum WikidataPublishingError: LocalizedError {
     private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
     private var blacklistedLanguages: NSSet {
         assert(Thread.isMainThread)
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
         let fallback = NSSet(set: ["en"])
         guard
             let viewContext = viewContext,
@@ -62,6 +67,10 @@ enum WikidataPublishingError: LocalizedError {
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
         assert(Thread.isMainThread)
         assert(viewContext != nil)
+        semaphore.wait()
+        defer {
+            semaphore.signal()
+        }
         let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
         viewContext?.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
     }
