@@ -97,6 +97,6 @@ public extension MWKArticle {
         guard let dataStore = dataStore, let language = self.url.wmf_language else {
             return false
         }
-        return dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+        return !dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
     }
 }
