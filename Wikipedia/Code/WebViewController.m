@@ -208,7 +208,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
                                        [self hideFindInPageWithCompletion:^{
-
                                            NSString *href = messageDict[@"href"];
 
                                            if (href.length == 0) {
@@ -311,6 +310,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
 - (void)handleArticleStateScriptMessage:(NSString *)messageString {
     if ([messageString isEqualToString:@"indexHTMLDocumentLoaded"]) {
+        self.afterFirstUserScrollInteraction = NO;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
         BOOL collapseTables = ![[NSUserDefaults wmf_userDefaults] wmf_isAutomaticTableOpeningEnabled];
@@ -319,11 +319,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];
         NSAssert(self.article, @"Article not set");
         [self.delegate webViewController:self didLoadArticle:self.article];
-        
+
         if (!self.isHeaderFadingEnabled) {
             return;
         }
-        
+
         [UIView animateWithDuration:0.3
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState
@@ -331,7 +331,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                              self.headerView.alpha = 1;
                          }
                          completion:^(BOOL done){
-                             
+
                          }];
     }
 }
@@ -865,7 +865,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     if (!self.article) {
         return;
     }
-    
+
     self.headerView.alpha = self.isHeaderFadingEnabled ? 0 : 1;
     CGFloat headerHeight = [self headerHeightForCurrentArticle];
     self.headerHeightConstraint.constant = headerHeight;
@@ -887,7 +887,6 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 - (void)refererenceLinkTappedWithNotification:(NSNotification *)notification {
     [self wmf_dismissReferencePopoverAnimated:NO
                                    completion:^{
-
                                        NSAssert([notification.object isMemberOfClass:[NSURL class]], @"WMFReferenceLinkTappedNotification did not contain NSURL");
                                        NSURL *URL = notification.object;
                                        NSAssert(URL != nil, @"WMFReferenceLinkTappedNotification NSURL was unexpectedly nil");
