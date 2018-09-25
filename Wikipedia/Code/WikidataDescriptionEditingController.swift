@@ -53,7 +53,6 @@ enum WikidataPublishingError: LocalizedError {
             let viewContext = viewContext,
             let keyValue = viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
             let value = keyValue.value as? NSSet else {
-                assertionFailure("Failed to retrieve WMFKeyValue for key \(BlacklistedLanguagesKey), returning fallback object \(fallback)")
                 return fallback
         }
         return value
