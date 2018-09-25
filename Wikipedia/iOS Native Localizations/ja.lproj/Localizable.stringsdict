@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d 歴史的イベント</string>
+			<string>%1$d件の歴史上の出来事</string>
 			<key>other</key>
-			<string>%1$d 歴史的イベント</string>
+			<string>%1$d件の歴史上の出来事</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

@@ -46,6 +46,10 @@ extension URL {
     public var wmf_isNonStandardURL: Bool {
         return (self as NSURL).wmf_isNonStandardURL
     }
+
+    public var wmf_wiki: String? {
+        return wmf_language?.appending("wiki")
+    }
     
     fileprivate func wmf_URLForSharing(with wprov: String) -> URL {
         let queryItems = [URLQueryItem(name: "wprov", value: wprov)]

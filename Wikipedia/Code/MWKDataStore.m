@@ -29,8 +29,8 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (readwrite, strong, nonatomic) ArticleLocationController *articleLocationController;
 
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
-
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
+@property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -168,6 +168,7 @@ static uint64_t bundleHash() {
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
+        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self.viewContext];
     }
     return self;
 }
@@ -1647,6 +1648,8 @@ static uint64_t bundleHash() {
     NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
     BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
     self.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
+
+    [self.wikidataDescriptionEditingController setBlacklistedLanguages:remoteConfigurationDictionary[@"descriptionEditLangBlacklist"]];
 }
 
 - (void)updateReadingListsLimits:(NSDictionary *)readingListsConfig {

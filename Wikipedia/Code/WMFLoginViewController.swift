@@ -153,54 +153,61 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         setViewControllerUserInteraction(enabled: false)
         disableProgressiveButton()
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        WMFAuthenticationManager.sharedInstance.login(username: usernameField.text!, password: passwordField.text!, retypePassword:nil, oathToken:nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, success: { _ in
-            let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
-            WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.loginSuccessCompletion?()
-            self.setViewControllerUserInteraction(enabled: true)
-            self.dismiss(animated: true)
-            self.funnel?.logSuccess()
-            
-            if let start = self.startDate {
-                LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
-            } else {
-                assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
-            }
-        
-        }, failure: { error in
+        guard let username = usernameField.text, let password = passwordField.text else {
+            assertionFailure("One or more of the required parameters are nil")
+            return
+        }
+        WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
+            switch loginResult {
+            case .success(_):
+                let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
+                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.loginSuccessCompletion?()
+                self.setViewControllerUserInteraction(enabled: true)
+                self.dismiss(animated: true)
+                self.funnel?.logSuccess()
 
-            self.setViewControllerUserInteraction(enabled: true)
-            
-            // Captcha's appear to be one-time, so always try to get a new one on failure.
-            self.getCaptcha()
-            
-            if let error = error as? WMFAccountLoginError {
-                switch error {
-                case .temporaryPasswordNeedsChange:
-                    self.showChangeTempPasswordViewController()
-                    return
-                case .needsOathTokenFor2FA:
-                    self.showTwoFactorViewController()
-                    return
-                case .statusNotPass:
-                    self.passwordField.text = nil
-                    self.passwordField.becomeFirstResponder()
-                case .wrongPassword:
-                    self.passwordAlertLabel.text = error.localizedDescription
-                    self.passwordAlertLabel.isHidden = false
-                    self.passwordField.textColor = self.theme.colors.error
-                    self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
-                    self.funnel?.logError(error.localizedDescription)
-                    WMFAlertManager.sharedInstance.dismissAlert()
-                    return
-                default: break
+                if let start = self.startDate {
+                    LoginFunnel.shared.logSuccess(timeElapsed: fabs(start.timeIntervalSinceNow))
+                } else {
+                    assertionFailure("startDate is nil; startDate is required to calculate timeElapsed")
                 }
+            case .failure(let error):
+                self.setViewControllerUserInteraction(enabled: true)
+
+                // Captcha's appear to be one-time, so always try to get a new one on failure.
+                self.getCaptcha()
+
+                if let error = error as? WMFAccountLoginError {
+                    switch error {
+                    case .temporaryPasswordNeedsChange:
+                        self.showChangeTempPasswordViewController()
+                        return
+                    case .needsOathTokenFor2FA:
+                        self.showTwoFactorViewController()
+                        return
+                    case .statusNotPass:
+                        self.passwordField.text = nil
+                        self.passwordField.becomeFirstResponder()
+                    case .wrongPassword:
+                        self.passwordAlertLabel.text = error.localizedDescription
+                        self.passwordAlertLabel.isHidden = false
+                        self.passwordField.textColor = self.theme.colors.error
+                        self.passwordField.keyboardAppearance = self.theme.keyboardAppearance
+                        self.funnel?.logError(error.localizedDescription)
+                        WMFAlertManager.sharedInstance.dismissAlert()
+                        return
+                    default: break
+                    }
+                }
+
+                self.enableProgressiveButtonIfNecessary()
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.funnel?.logError(error.localizedDescription)
+            default:
+                break
             }
-            
-            self.enableProgressiveButtonIfNecessary()
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-            self.funnel?.logError(error.localizedDescription)
-        })
+        }
     }
 
     func showChangeTempPasswordViewController() {
