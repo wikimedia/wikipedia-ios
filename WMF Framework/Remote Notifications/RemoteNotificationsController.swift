@@ -1,19 +1,16 @@
-// @objc facing object that facilitates communication between RemoteNotificationsFetcher and RemoteNotificationsModelController.
 @objc public final class RemoteNotificationsController: NSObject {
-    let modelController: RemoteNotificationsModelController?
-    let fetcher: RemoteNotificationsFetcher
+    private let operationsController: RemoteNotificationsOperationsController
 
-    public override init() {
-        modelController = RemoteNotificationsModelController()
-        fetcher = RemoteNotificationsFetcher()
+    @objc public required override init() {
+        operationsController = RemoteNotificationsOperationsController()
         super.init()
     }
 
-    public func getAllNotifications() {
-        //fetcher.request(Query.allNotifications)
+    @objc public func start() {
+        operationsController.start()
     }
 
-    public func getAllUnreadNotifications() {
-        //fetcher.request(Query.allUnreadNotifications)
+    @objc public func stop() {
+        operationsController.stop()
     }
 }
