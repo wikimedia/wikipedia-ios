@@ -39,14 +39,35 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    private var blacklistedLanguages = Set<String>()
+    weak var viewContext: NSManagedObjectContext?
+
+    @objc public init(with viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
+    }
+
+    private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
+    private var blacklistedLanguages: NSSet {
+        assert(Thread.isMainThread)
+        let fallback = NSSet(set: ["en"])
+        guard
+            let viewContext = viewContext,
+            let keyValue = viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
+            let value = keyValue.value as? NSSet else {
+                assertionFailure("Failed to retrieve WMFKeyValue for key \(BlacklistedLanguagesKey), returning fallback object \(fallback)")
+                return fallback
+        }
+        return value
+    }
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
-        blacklistedLanguages = Set(blacklistedLanguagesFromRemoteConfig)
+        assert(Thread.isMainThread)
+        assert(viewContext != nil)
+        let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
+        viewContext?.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
     }
 
     public func isBlacklisted(_ languageCode: String) -> Bool {
-        guard !blacklistedLanguages.isEmpty else {
+        guard blacklistedLanguages.count > 0 else {
             return false
         }
         return blacklistedLanguages.contains(languageCode)
@@ -97,6 +118,6 @@ public extension MWKArticle {
         guard let dataStore = dataStore, let language = self.url.wmf_language else {
             return false
         }
-        return dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+        return !dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
     }
 }
