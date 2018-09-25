@@ -1,0 +1,31 @@
+
+// Wikidata description styling
+#entity_description {
+    font-size: 14px;
+    line-height:22px;
+    color: #777D84;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    padding-bottom:0px;
+}
+
+#add_entity_description {
+    font-size: 14px;
+    font-style: italic;
+    display: inline;
+}
+
+#add_entity_description:before {
+    content: "";
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAMCAYAAAADFL+5AAAAAXNSR0IArs4c6QAAADFJREFUOBFjNE47859hAAHTANoNtnrUAQMdA6P2D3wIMFK7HDg7y4SRFG+NZsMBDwEAJj8Gc0QaQK8AAAAASUVORK5CYII=');
+    background-repeat: no-repeat;
+    width: 1.8em;
+    height: 0.75em;
+    background-size: 1.0em 0.375em;
+    display: inline-block;
+    background-position: left center;
+}
+
+[dir="rtl"] #add_entity_description:before {
+    transform: scaleX(-1);
+}

@@ -1,14 +1,14 @@
 
 class WMFWelcomeExplorationViewController: UIViewController {
 
-    @IBOutlet fileprivate var exploreTitleLabel:UILabel!
-    @IBOutlet fileprivate var exploreDescriptionLabel:UILabel!
+    @IBOutlet private var exploreTitleLabel:UILabel!
+    @IBOutlet private var exploreDescriptionLabel:UILabel!
 
-    @IBOutlet fileprivate var placesTitleLabel:UILabel!
-    @IBOutlet fileprivate var placesDescriptionLabel:UILabel!
+    @IBOutlet private var placesTitleLabel:UILabel!
+    @IBOutlet private var placesDescriptionLabel:UILabel!
 
-    @IBOutlet fileprivate var onThisDayTitleLabel:UILabel!
-    @IBOutlet fileprivate var onThisDayDescriptionLabel:UILabel!
+    @IBOutlet private var onThisDayTitleLabel:UILabel!
+    @IBOutlet private var onThisDayDescriptionLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -14,7 +14,7 @@ public protocol WMFWelcomeNavigationDelegate: class{
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
 
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
     
     @objc var completionBlock: (() -> Void)?
     
@@ -45,14 +45,14 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         })
     }
     */
-    fileprivate func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
+    private func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
         let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
         controller.welcomePageType = type
         return controller
     }
     
-    fileprivate lazy var pageControllers: [UIViewController] = {
+    private lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
         controllers.append(containerControllerForWelcomePageType(.intro))
         controllers.append(containerControllerForWelcomePageType(.exploration))
@@ -61,7 +61,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return controllers
     }()
     
-    fileprivate lazy var pageControl: UIPageControl? = {
+    private lazy var pageControl: UIPageControl? = {
         return view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
@@ -88,7 +88,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
     
-    fileprivate func configureAndAddNextButton(){
+    private func configureAndAddNextButton(){
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
@@ -109,7 +109,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addConstraints([leading, trailing])
     }
 
-    fileprivate func configureAndAddSkipButton(){
+    private func configureAndAddSkipButton(){
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         skipButton.isUserInteractionEnabled = true

@@ -38,7 +38,7 @@
     [self styleLinks:self.licenseTitleLabel];
     [self.licenseTitleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(termsLicenseLabelTapped:)]];
 
-    self.licenseLoginLabel.text = WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-anonymously-warning", nil, nil, @"Edits will be attributed to the IP address of your device. If you %1$@ you will have more privacy.", @"Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - sign in button text");
+    self.licenseLoginLabel.text = [WMFCommonStrings editAttribution];
     [self underlineSignIn:self.licenseLoginLabel];
 
     self.licenseCCLabel.attributedText = [self getCCIconAttributedString];
@@ -106,7 +106,7 @@
 
     label.attributedText =
         [label.text attributedStringWithAttributes:baseAttributes
-                               substitutionStrings:@[WMFLocalizedStringWithDefaultValue(@"wikitext-upload-save-sign-in", nil, nil, @"Log in", @"{{Identical|Log in}}")]
+                               substitutionStrings:@[[WMFCommonStrings editSignIn]]
                             substitutionAttributes:@[substitutionAttributes]];
 }
 

@@ -29,7 +29,8 @@ import UIKit
     
     public static let body = DynamicTextStyle(.system, .body)
     @objc  public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
-    
+    public static let italicBody = DynamicTextStyle(.system, .body, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
+
     public static let caption1 = DynamicTextStyle(.system, .caption1)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)

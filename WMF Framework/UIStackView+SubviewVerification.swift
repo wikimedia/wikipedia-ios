@@ -1,19 +1,24 @@
+public extension UIView {
+    func wmf_hasRequiredNonZeroHeightConstraint() -> Bool {
+        let requiredHeightConstraint = constraints.first(where: {constraint in
+            guard
+                type(of: constraint) == NSLayoutConstraint.self,
+                constraint.firstAttribute == .height,
+                constraint.priority == UILayoutPriority.required,
+                constraint.constant != 0
+                else{
+                    return false
+            }
+            return true
+        })
+        return (requiredHeightConstraint != nil)
+    }
+}
 
 public extension UIStackView {
     func wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() -> UIView? {
-        return arrangedSubviews.first(where: {arrangedSubview in
-            let requiredHeightConstraint = arrangedSubview.constraints.first(where: {constraint in
-                guard
-                    type(of: constraint) == NSLayoutConstraint.self,
-                    constraint.firstAttribute == .height,
-                    constraint.priority == UILayoutPriority.required,
-                    constraint.constant != 0
-                    else{
-                        return false
-                }
-                return true
-            })
-            return (requiredHeightConstraint != nil)
+        return arrangedSubviews.first(where: { arrangedSubview in
+            return arrangedSubview.wmf_hasRequiredNonZeroHeightConstraint()
         })
     }
     func wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString() -> String {
