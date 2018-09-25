@@ -3,6 +3,7 @@ pipeline {
   
   stages {
     stage('Test') {
+      triggers { pollSCM('H/3 * * * *') }
       steps {
         sh '''rm -rf build/reports
         eval "$(rbenv init -)"
