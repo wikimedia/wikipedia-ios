@@ -7,14 +7,15 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        try {
-          sh '''rm -rf build/reports
-          eval "$(rbenv init -)"
-          bundle install
-          scripts/carthage_bootstrap
-          bundle exec fastlane verify_pull_request
-          '''
-        } finally {
+        sh '''rm -rf build/reports
+        eval "$(rbenv init -)"
+        bundle install
+        scripts/carthage_bootstrap
+        bundle exec fastlane verify_pull_request
+        '''
+      }
+      post {
+        always {
           junit '**/build/reports/*.junit'
         }
       }
