@@ -2,7 +2,7 @@
     case addedNewNotifications
 }
 
-@objc class RemoteNotificationsModelChange: NSObject {
+@objc final class RemoteNotificationsModelChange: NSObject {
     @objc let type: RemoteNotificationsModelChangeType
     @objc let notifications: [RemoteNotification]
 
@@ -13,7 +13,7 @@
     }
 }
 
-@objc class RemoteNotificationsModelChangeResponseCoordinator: NSObject {
+@objc final class RemoteNotificationsModelChangeResponseCoordinator: NSObject {
     @objc let modelChange: RemoteNotificationsModelChange
     private let modelController: RemoteNotificationsModelController
 
