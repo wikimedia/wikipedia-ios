@@ -84,12 +84,18 @@ enum AsyncOperationError: Error {
             finish(with: AsyncOperationError.cancelled)
             return
         }
-        
-        state = .executing
-        execute()
+
+        if shouldExecute {
+            state = .executing
+            execute()
+        }
     }
     
     // MARK: - Custom behavior
+
+    open var shouldExecute: Bool {
+        return true
+    }
     
     @objc open func finish() {
         state = .finished
