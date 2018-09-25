@@ -107,7 +107,10 @@
 		7A0161E31FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0161E41FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */; };
-		7A0312F92153DEB30095C953 /* RemoteNotificationsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F82153DEB30095C953 /* RemoteNotificationsFetcher.swift */; };
+		7A0312F92153DEB30095C953 /* RemoteNotificationsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */; };
+		7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */; };
+		7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */; };
+		7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */; };
 		7A06020E20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */; };
 		7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
@@ -217,6 +220,7 @@
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A52C01B2150389D00A3A4A1 /* RemoteNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */; };
+		7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
 		7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */; };
 		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */; };
@@ -256,6 +260,8 @@
 		7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
+		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
+		7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */; };
 		7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
@@ -3195,7 +3201,10 @@
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsModelController.swift; sourceTree = "<group>"; };
-		7A0312F82153DEB30095C953 /* RemoteNotificationsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetcher.swift; sourceTree = "<group>"; };
+		7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsAPIController.swift; sourceTree = "<group>"; };
+		7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetchOperation.swift; sourceTree = "<group>"; };
+		7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAsReadOperation.swift; sourceTree = "<group>"; };
+		7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperationsController.swift; sourceTree = "<group>"; };
 		7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedPreferencesUpdateCoordinator.swift; sourceTree = "<group>"; };
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
@@ -3224,12 +3233,15 @@
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
 		7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsController.swift; sourceTree = "<group>"; };
+		7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperation.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
 		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingStandardEventProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
+		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
@@ -5858,6 +5870,27 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		7A03130021542F120095C953 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */,
+				7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */,
+				7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		7A03130121542F250095C953 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */,
+				7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */,
+				7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */,
+				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7A0DE4F120CEEBE40032AB57 /* Explore Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -5872,9 +5905,10 @@
 			isa = PBXGroup;
 			children = (
 				7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */,
-				7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */,
-				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
-				7A0312F82153DEB30095C953 /* RemoteNotificationsFetcher.swift */,
+				7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */,
+				7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */,
+				7A03130121542F250095C953 /* Model */,
+				7A03130021542F120095C953 /* Operations */,
 			);
 			path = "Remote Notifications";
 			sourceTree = "<group>";
@@ -10422,12 +10456,13 @@
 				B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,
-				7A0312F92153DEB30095C953 /* RemoteNotificationsFetcher.swift in Sources */,
+				7A0312F92153DEB30095C953 /* RemoteNotificationsAPIController.swift in Sources */,
 				D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */,
 				D8FA18DE1E1BD8A3009675C3 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
 				D84C36401F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */,
+				7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */,
 				83EE477020D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
@@ -10460,6 +10495,7 @@
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,
+				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
@@ -10503,6 +10539,7 @@
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
 				7A3AD05D20ADB21800C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
+				7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
 				D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */,
@@ -10517,6 +10554,7 @@
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
 				D84C361D1F32404700895FA1 /* SideScrollingCollectionViewCell.swift in Sources */,
+				7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				D8E78FA81FB4D8EB0094B968 /* AFHTTPSessionManager+WMFAPI.swift in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
@@ -10577,6 +10615,7 @@
 				D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */,
 				D84C361C1F32403D00895FA1 /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				0E728D411DAEEC380074EB4B /* WMFRelatedSearchResults.m in Sources */,
+				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D8CAD1E3203EEFDD006467E2 /* CSRFTokenOperation.swift in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
@@ -10686,6 +10725,7 @@
 				D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */,
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */,
+				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 				0E728D371DAEEAD60074EB4B /* MWKLocationSearchResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
