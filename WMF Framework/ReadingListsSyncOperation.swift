@@ -77,9 +77,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
             taskGroup.enter()
             let loginURL = WMFAuthenticationManager.LoginSite.wikipedia.url
-            authenticationDelegate.attemptLogin(loginURL, completion: {
+            authenticationDelegate.attemptLogin(loginURL, completion: { (_) in
                 taskGroup.leave()
-            }, failure: { _ in })
+            })
             taskGroup.wait()
         }
         
