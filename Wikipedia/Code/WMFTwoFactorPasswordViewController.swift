@@ -267,23 +267,17 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         }
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
 
-        WMFAuthenticationManager.sharedInstance
-            .login(username: userName,
-                   password: password,
-                   retypePassword: nil,
-                   oathToken: token(),
-                   captchaID: captchaID,
-                   captchaWord: captchaWord,
-                   success: { _ in
-                    let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                    WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                    let presenter = self.presentingViewController
-                    self.dismiss(animated: true, completion: {
-                        presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
-                    })
-                    self.funnel?.logSuccess()
-            }, failure: { error in
-                
+        WMFAuthenticationManager.sharedInstance.login(username: userName, password: password, retypePassword: nil, oathToken: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in
+            switch loginResult {
+            case .success(_):
+                let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
+                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                let presenter = self.presentingViewController
+                self.dismiss(animated: true, completion: {
+                    presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
+                })
+                self.funnel?.logSuccess()
+            case .failure(let error):
                 if let error = error as? WMFAccountLoginError {
                     switch error {
                     case .temporaryPasswordNeedsChange:
@@ -296,17 +290,20 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
                         self.funnel?.logError(error.localizedDescription)
                         WMFAlertManager.sharedInstance.dismissAlert()
                         return
-                    default: break
+                    default:
+                        break
                     }
+                    self.enableProgressiveButton(true)
+                    WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                    self.funnel?.logError(error.localizedDescription)
+                    self.oathTokenFields.forEach {$0.text = nil}
+                    self.backupOathTokenField.text = nil
+                    self.makeAppropriateFieldFirstResponder()
                 }
-                
-                self.enableProgressiveButton(true)
-                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel?.logError(error.localizedDescription)
-                self.oathTokenFields.forEach {$0.text = nil}
-                self.backupOathTokenField.text = nil
-                self.makeAppropriateFieldFirstResponder()
-            })
+            default:
+                break
+            }
+        }
     }
     
     func showChangeTempPasswordViewController() {

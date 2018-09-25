@@ -46,14 +46,12 @@ public class WMFAuthTokenFetcher: NSObject {
         }
 
         let loginGroup = WMFTaskGroup()
-        if !WMFAuthenticationManager.sharedInstance.isLoggedIn(at: siteURL) {
-            loginGroup.enter()
-            WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(siteURL, success: { (_) in
-                loginGroup.leave()
-            }, userAlreadyLoggedInHandler: { (_) in
-                loginGroup.leave()
-            }) { (_) in
-                loginGroup.leave()
+        if type == .csrf {
+            if !WMFAuthenticationManager.sharedInstance.isLoggedIn(at: siteURL) {
+                loginGroup.enter()
+                WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(siteURL) { (_) in
+                    loginGroup.leave()
+                }
             }
         }
 
