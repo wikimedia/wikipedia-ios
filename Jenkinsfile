@@ -1,6 +1,9 @@
 pipeline {
   agent any
   
+  triggers { 
+    pollSCM('H/3 * * * *') 
+  }
   stages {
     stage('Test') {
       steps {
@@ -10,7 +13,11 @@ pipeline {
         scripts/carthage_bootstrap
         bundle exec fastlane verify_pull_request
         '''
-        junit '**/build/reports/*.junit'
+      }
+      post {
+        always {
+          junit '**/build/reports/*.junit'
+        }
       }
     }
   }
