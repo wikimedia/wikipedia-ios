@@ -31,26 +31,53 @@ extension WikidataAPIResult {
     }
 }
 
+enum WikidataPublishingError: LocalizedError {
+    case invalidArticleURL
+    case apiResultNotParsedCorrectly
+    case blacklistedLanguage
+    case unknown
+}
+
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    private var blacklistedLanguages = Set<String>()
+    weak var viewContext: NSManagedObjectContext?
+
+    @objc public init(with viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
+    }
+
+    private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
+    private var blacklistedLanguages: NSSet {
+        assert(Thread.isMainThread)
+        let fallback = NSSet(set: ["en"])
+        guard
+            let viewContext = viewContext,
+            let keyValue = viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
+            let value = keyValue.value as? NSSet else {
+                return fallback
+        }
+        return value
+    }
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
-        blacklistedLanguages = Set(blacklistedLanguagesFromRemoteConfig)
+        assert(Thread.isMainThread)
+        assert(viewContext != nil)
+        let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
+        viewContext?.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
     }
 
     public func isBlacklisted(_ languageCode: String) -> Bool {
-        guard !blacklistedLanguages.isEmpty else {
+        guard blacklistedLanguages.count > 0 else {
             return false
         }
         return blacklistedLanguages.contains(languageCode)
     }
 
-    @objc(publishNewWikidataDescription:forArticle:completion:)
-    public func publish(newWikidataDescription: String, for article: MWKArticle, completion: @escaping (_ error: Error?) -> Void) {
-        guard let title = article.displaytitle,
-        let language = article.url.wmf_language,
-        let wiki = article.url.wmf_wiki else {
-            assertionFailure()
+    @objc(publishNewWikidataDescription:forArticleURL:completion:)
+    public func publish(newWikidataDescription: String, for articleURL: URL, completion: @escaping (Error?) -> Void) {
+        guard let title = articleURL.wmf_title,
+        let language = articleURL.wmf_language,
+        let wiki = articleURL.wmf_wiki else {
+            completion(WikidataPublishingError.invalidArticleURL)
             return
         }
         publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
@@ -64,16 +91,13 @@ extension WikidataAPIResult {
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
-    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (_ error: Error?) -> Void) {
+    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
         guard !isBlacklisted(language) else {
             //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
+            completion(WikidataPublishingError.blacklistedLanguage)
             return
         }
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
-            guard error == nil else {
-                completion(error)
-                return
-            }
             completion(result?.error)
         }
         let queryParameters = ["action": "wbsetdescription",
@@ -93,6 +117,6 @@ public extension MWKArticle {
         guard let dataStore = dataStore, let language = self.url.wmf_language else {
             return false
         }
-        return dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+        return !dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
     }
 }

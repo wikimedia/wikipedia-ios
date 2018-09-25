@@ -5,5 +5,7 @@ scripts/setup_homebrew
 brew update && brew install rbenv ruby-build && brew upgrade rbenv ruby-build
 rbenv install -s
 
+eval "$(rbenv init -)"
+
 gem install bundler
 bundle install
