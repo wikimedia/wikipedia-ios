@@ -63,6 +63,10 @@ class RemoteNotificationsOperationsController {
         guard operationQueue.operationCount == 0 else {
             return
         }
+        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
+            stop()
+            return
+        }
         if let startTime = getStartTime() {
             guard now - startTime < deadline else {
                 return

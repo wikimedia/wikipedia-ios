@@ -85,19 +85,11 @@ enum AsyncOperationError: Error {
             return
         }
 
-        if shouldExecute {
-            state = .executing
-            execute()
-        } else {
-            finish()
-        }
+        state = .executing
+        execute()
     }
     
     // MARK: - Custom behavior
-
-    open var shouldExecute: Bool {
-        return true
-    }
     
     @objc open func finish() {
         state = .finished

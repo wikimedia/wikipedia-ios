@@ -9,8 +9,4 @@ class RemoteNotificationsOperation: AsyncOperation {
         self.managedObjectContext = modelController.managedObjectContext
         super.init()
     }
-
-    override var shouldExecute: Bool {
-        return WMFAuthenticationManager.sharedInstance.isLoggedIn
-    }
 }
