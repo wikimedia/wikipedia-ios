@@ -105,9 +105,11 @@
         }
     }
 
-    let handledNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
+    // MARK: Validation
 
-    private func shouldHandle(_ notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
+    let validNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
+
+    private func validateCategory(of notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
         guard let categoryString = notification.category else {
             assertionFailure("Missing notification category")
             return false
@@ -115,7 +117,14 @@
         guard let category = RemoteNotification.Category(rawValue: categoryString) else {
             return false
         }
-        return handledNotificationCategories.contains(category)
+        return validNotificationCategories.contains(category)
+    }
+
+    private func validateAge(ofNotificationDated date: Date) -> Bool {
+        let sinceNow = Int(date.timeIntervalSinceNow)
+        let hoursPassed = abs(sinceNow / 3600)
+        let maxHoursPassed = 24
+        return hoursPassed <= maxHoursPassed
     }
 
     public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
@@ -132,7 +141,14 @@
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
     private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
-        guard self.shouldHandle(notification) else {
+        guard let date = date(from: notification.timestamp?.utciso8601) else {
+            assertionFailure("Notification should have a date")
+            return
+        }
+        guard self.validateCategory(of: notification) else {
+            return
+        }
+        guard self.validateAge(ofNotificationDated: date) else {
             return
         }
         let message = notification.message?.header?.wmf_stringByRemovingHTML()
@@ -143,7 +159,7 @@
                                                                     "message": message,
                                                                     "read": false,
                                                                     "wiki": notification.wiki,
-                                                                    "date": date(from: notification.timestamp?.utciso8601)])
+                                                                    "date": date])
     }
 
     private func date(from dateString: String?) -> Date? {
