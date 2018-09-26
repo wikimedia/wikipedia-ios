@@ -145,21 +145,7 @@ struct RemoteNotificationsAPIController {
             case none = "read|!read"
         }
 
-        static var allNotifications: Parameters {
-            return notifications()
-        }
 
-        static var allUnreadNotifications: Parameters {
-            return notifications(filter: .unread)
-        }
-
-        static var lastNotification: Parameters {
-            return notifications(limit: .numeric(1))
-        }
-
-        static var lastUnreadNotification: Parameters {
-            return notifications(limit: .numeric(1), filter: .unread)
-        }
 
         static func notifications(for wiki: Wiki = .all, limit: Limit = .max, filter: Filter = .none) -> Parameters {
             return ["action": "query",
