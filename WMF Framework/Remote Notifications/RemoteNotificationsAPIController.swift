@@ -49,6 +49,34 @@ struct RemoteNotificationsAPIController {
     }
 
     private func notifications(from result: Result?) -> Set<Result.Notification>? {
+    // MARK: Decodable: MarkReadResult
+
+    struct MarkReadResult: Decodable {
+        let query: Query?
+        let error: ResultError?
+
+        var succeeded: Bool {
+            return query?.markAsRead?.result == .success
+        }
+
+        struct Query: Decodable {
+            let markAsRead: MarkedAsRead?
+
+            enum CodingKeys: String, CodingKey {
+                case markAsRead = "echomarkread"
+            }
+        }
+        struct MarkedAsRead: Decodable {
+            let result: Result?
+        }
+        enum Result: String, Decodable {
+            case success
+        }
+    }
+
+    enum MarkReadError: LocalizedError {
+        case unknown
+    }
         guard let result = result else {
             return nil
         }
