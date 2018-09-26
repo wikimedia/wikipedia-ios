@@ -131,15 +131,16 @@
     // Reminder: Methods that access managedObjectContext should perform their operations
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
-    private func createNewNotification(from notification: RemoteNotificationsAPIController.Result.Notification) {
+    private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
         guard self.shouldHandle(notification) else {
             return
         }
+        let message = notification.message?.header?.wmf_stringByRemovingHTML()
         let _ = managedObjectContext.wmf_create(entityNamed: "RemoteNotification",
                                                 withKeysAndValues: ["id": notification.id,
                                                                     "categoryString" : notification.category,
                                                                     "typeString": notification.type,
-                                                                    "message": notification.message?.header,
+                                                                    "message": message,
                                                                     "read": false,
                                                                     "wiki": notification.wiki,
                                                                     "date": date(from: notification.timestamp?.utciso8601)])
