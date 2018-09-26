@@ -47,7 +47,7 @@ enum WikidataPublishingError: LocalizedError {
 
     private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
     private var blacklistedLanguages: NSSet {
-        assert(Thread.isMainThread)
+        assertMainThreadAndDataStore()
         let fallback = NSSet(set: ["en"])
         guard
             let dataStore = dataStore,
@@ -59,8 +59,7 @@ enum WikidataPublishingError: LocalizedError {
     }
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
-        assert(Thread.isMainThread)
-        assert(dataStore != nil)
+        assertMainThreadAndDataStore()
         let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
         dataStore?.viewContext.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
     }
@@ -132,8 +131,7 @@ enum WikidataPublishingError: LocalizedError {
     private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEditKey"
     @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
         set {
-            assert(Thread.isMainThread)
-            assert(dataStore != nil)
+            assertMainThreadAndDataStore()
             guard madeAuthorizedWikidataDescriptionEdit != newValue else {
                 return
             }
@@ -141,8 +139,7 @@ enum WikidataPublishingError: LocalizedError {
             dataStore?.remoteNotificationsController.start()
         }
         get {
-            assert(Thread.isMainThread)
-            assert(dataStore != nil)
+            assertMainThreadAndDataStore()
             guard let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey) else {
                 return false
             }
@@ -152,6 +149,11 @@ enum WikidataPublishingError: LocalizedError {
             }
             return value.boolValue
         }
+    }
+
+    private func assertMainThreadAndDataStore() {
+        assert(Thread.isMainThread)
+        assert(dataStore != nil)
     }
 }
 
