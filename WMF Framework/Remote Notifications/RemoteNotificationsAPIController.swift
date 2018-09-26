@@ -155,7 +155,7 @@ struct RemoteNotificationsAPIController {
                     "notformat": "model",
                     "meta": "notifications",
                     "notlimit": limit.value,
-                    "notwikis": wiki.value,
+                    "notwikis": listOfWikis,
                     "notfilter": filter.rawValue]
         }
     }
