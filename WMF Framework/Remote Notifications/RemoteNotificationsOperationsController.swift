@@ -3,7 +3,7 @@ class RemoteNotificationsOperationsController {
     private let modelController: RemoteNotificationsModelController
     weak var viewContext: NSManagedObjectContext?
 
-    private let syncTimeInterval: TimeInterval = 15
+    private let syncTimeInterval: TimeInterval = 10
     private var syncTimer: Timer?
     private let operationQueue: OperationQueue
 
@@ -56,13 +56,11 @@ class RemoteNotificationsOperationsController {
         return CFAbsoluteTimeGetCurrent()
     }
     private func setStartTime() {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
+        assertMainThreadAndViewContext()
         viewContext?.wmf_setValue(NSNumber(value: now), forKey: startTimeKey)
     }
     private func getStartTime() -> CFAbsoluteTime? {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
+        assertMainThreadAndViewContext()
         let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
         guard let value = keyValue?.value else {
             return nil
@@ -72,5 +70,10 @@ class RemoteNotificationsOperationsController {
             return nil
         }
         return number.doubleValue
+    }
+
+    private func assertMainThreadAndViewContext() {
+        assert(Thread.isMainThread)
+        assert(viewContext != nil)
     }
 }
