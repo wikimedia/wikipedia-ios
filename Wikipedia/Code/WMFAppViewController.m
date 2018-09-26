@@ -346,7 +346,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (self.isResumeComplete) {
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
-        [self.dataStore.remoteNotificationsController start];
+        [self startRemoteNotificationsController];
         [self.savedArticlesFetcher start];
         [self startEventLogging];
     }
@@ -792,6 +792,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
 }
 
+- (void)startRemoteNotificationsController {
+    if (self.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit) {
+        [self.dataStore.remoteNotificationsController start];
+    }
+}
+
 - (void)finishResumingApp {
     [self startEventLogging];
 
@@ -801,6 +807,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
             [self.dataStore.readingListsController start];
+            [self startRemoteNotificationsController];
             [self.savedArticlesFetcher start];
             self.resumeComplete = YES;
         }

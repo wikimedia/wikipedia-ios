@@ -128,7 +128,7 @@ enum WikidataPublishingError: LocalizedError {
     }
 
     private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEdit"
-    private var madeAuthorizedWikidataDescriptionEdit: Bool {
+    @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
         set {
             assert(Thread.isMainThread)
             assert(dataStore != nil)

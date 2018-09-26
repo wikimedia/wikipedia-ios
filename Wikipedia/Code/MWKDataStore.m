@@ -170,7 +170,7 @@ static uint64_t bundleHash() {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] init];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithViewContext:self.viewContext];
     }
     return self;
 }
