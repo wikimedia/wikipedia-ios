@@ -13,6 +13,8 @@ struct RemoteNotificationsAPIController {
     struct ResultError: Decodable {
         let code, info: String?
     }
+
+    struct NotificationsResult: Decodable {
         struct Notification: Decodable, Hashable {
             let wiki: String?
             let type: String?
