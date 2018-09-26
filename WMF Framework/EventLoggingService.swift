@@ -331,7 +331,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func postEvents(_ eventRecords: [EventRecord], completion: () -> Void) {
+    private func postEvents(_ eventRecords: [EventRecord], completion: @escaping () -> Void) {
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
@@ -383,6 +383,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 } else {
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
+                completion()
             }
         }
     }
