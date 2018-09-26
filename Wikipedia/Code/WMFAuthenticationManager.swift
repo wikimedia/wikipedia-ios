@@ -24,13 +24,6 @@ public class WMFAuthenticationManager: NSObject {
     public func isLoggedIn(at loginURL: URL) -> Bool {
         return loggedInURLs.contains(loginURL)
     }
-    public func isLoggedIn(at loginSite: LoginSite) -> Bool {
-        guard let loginURL = loginSite.url else {
-            assertionFailure("Expected login URL")
-            return false
-        }
-        return loggedInURLs.contains(loginURL)
-    }
 
     @objc public var hasKeychainCredentials: Bool {
         guard
