@@ -98,7 +98,15 @@ enum WikidataPublishingError: LocalizedError {
             return
         }
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
-            completion(result?.error)
+            if let error = error {
+                completion(error)
+            }
+            guard let result = result else {
+                completion(WikidataPublishingError.apiResultNotParsedCorrectly)
+                return
+            }
+
+            completion(result.error)
         }
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
