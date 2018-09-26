@@ -107,6 +107,17 @@
 
     public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.Result.Notification>) throws {
     let handledNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
+
+    private func shouldHandle(_ notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
+        guard let categoryString = notification.category else {
+            assertionFailure("Missing notification category")
+            return false
+        }
+        guard let category = RemoteNotification.Category(rawValue: categoryString) else {
+            return false
+        }
+        return handledNotificationCategories.contains(category)
+    }
         managedObjectContext.perform {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(from: notification)
@@ -119,6 +130,9 @@
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
     private func createNewNotification(from notification: RemoteNotificationsAPIController.Result.Notification) {
+        guard self.shouldHandle(notification) else {
+            return
+        }
         let _ = managedObjectContext.wmf_create(entityNamed: "RemoteNotification",
                                                 withKeysAndValues: ["id": notification.id,
                                                                     "categoryString" : notification.category,
