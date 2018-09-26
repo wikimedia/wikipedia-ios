@@ -30,19 +30,6 @@ struct RemoteNotificationsAPIController {
                 case message = "*"
                 case timestamp
             }
-//            enum `Type`: String, Decodable {
-//                case talkPageEdit = "edit-user-talk"
-//                case thankYouEdit = "thank-you-edit"
-//                case loginSuccess = "login-success"
-//                case editReverted = "reverted"
-//            }
-//
-//            enum Category: String, Decodable {
-//                case system
-//                case loginSuccess = "login-success"
-//                case talkPageEdit = "edit-user-talk"
-//                case rev
-//            }
         }
         struct Notifications: Decodable {
             let list: [Notification]
