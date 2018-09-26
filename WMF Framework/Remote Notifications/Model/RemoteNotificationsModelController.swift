@@ -53,8 +53,6 @@
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error {
                 fatalError("Unexpected Core Data error occurred while loading persistent stores: \(error)") // TODO
-            } else {
-                print(storeDescription)
             }
         }
         managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
