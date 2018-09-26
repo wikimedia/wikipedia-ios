@@ -99,29 +99,15 @@ struct RemoteNotificationsAPIController {
         request(Query.notifications(from: subdomains, limit: .max, filter: .unread), completion: completion)
     }
 
-    // MARK: Query parameters
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
 
-    private struct Query {
-        typealias Parameters = [String: String]
-
-        enum Wiki: Equatable {
-            case all
-            case single(String)
         guard notifications.count <= maxNumberOfNotificationsPerRequest else {
             // TODO: Split requests? 50 is the limit.
             assertionFailure()
             return
         }
 
-            var value: String {
-                switch self {
-                case .all:
-                    return "*"
-                case .single(let name):
-                    return "\(name)wiki"
-                }
         request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
             if let error = error {
                 completion(error)
