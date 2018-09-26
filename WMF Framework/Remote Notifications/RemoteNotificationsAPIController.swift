@@ -119,6 +119,7 @@ struct RemoteNotificationsAPIController {
             }
             completion(result.error)
         }
+    }
 
     private func request<T: Decodable>(_ queryParameters: Query.Parameters, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
