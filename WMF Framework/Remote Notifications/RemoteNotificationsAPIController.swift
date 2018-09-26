@@ -88,7 +88,7 @@ struct RemoteNotificationsAPIController {
     }
 
     public func getAllUnreadNotifications(from subdomains: [String], completion: @escaping (Set<NotificationsResult.Notification>?, Error?) -> Void) {
-        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, response, error in
+        let completion: (NotificationsResult?, URLResponse?, Bool?, Error?) -> Void = { result, _, _, error in
             guard error == nil else {
                 completion([], error)
                 return
@@ -108,7 +108,7 @@ struct RemoteNotificationsAPIController {
             return
         }
 
-        request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
+        request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
             if let error = error {
                 completion(error)
             }
@@ -121,7 +121,7 @@ struct RemoteNotificationsAPIController {
         }
     }
 
-    private func request<T: Decodable>(_ queryParameters: Query.Parameters, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
+    private func request<T: Decodable>(_ queryParameters: Query.Parameters, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
     }
 

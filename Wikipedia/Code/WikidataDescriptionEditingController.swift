@@ -96,7 +96,7 @@ enum WikidataPublishingError: LocalizedError {
             completion(WikidataPublishingError.blacklistedLanguage)
             return
         }
-        let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
+        let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Bool?, Error?) -> Void = { result, response, authorized, error in
             if let error = error {
                 completion(error)
             }
@@ -107,9 +107,7 @@ enum WikidataPublishingError: LocalizedError {
 
             completion(result.error)
 
-            // TODO: Check if request was sent with an authorized token instead of checking if user is logged in.
-            let isLoggedIn = WMFAuthenticationManager.sharedInstance.isLoggedIn(at: WMFAuthenticationManager.LoginSite.wikidata)
-            if isLoggedIn, result.error == nil {
+            if let authorized = authorized, authorized, result.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
                     self.madeAuthorizedWikidataDescriptionEdit = true
