@@ -29,7 +29,8 @@
 }
 
 @objc final class RemoteNotificationsModelController: NSObject {
-    @objc static let ModelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChangeNotification")
+    @objc static let ModelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
+    static let ModelControllerDidLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
 
     let managedObjectContext: NSManagedObjectContext
 
@@ -39,11 +40,11 @@
         let modelBundle = Bundle.wmf
         guard let modelURL = modelBundle.url(forResource: modelName, withExtension: modelExtension) else {
             assertionFailure("Couldn't find url for resource named \(modelName) with extension \(modelExtension) in bundle \(modelBundle); make sure you're providing the right name, extension and bundle")
-            abort() // TODO
+            abort()
         }
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
             assertionFailure("Couldn't create model with contents of \(modelURL); make sure \(modelURL) is the correct url for \(modelName)")
-            abort() // TODO
+            abort()
         }
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         let sharedAppContainerURL = FileManager.default.wmf_containerURL()
@@ -51,8 +52,8 @@
         let description = NSPersistentStoreDescription(url: remoteNotificationsStorageURL)
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (storeDescription, error) in
-            if let error = error {
-                fatalError("Unexpected Core Data error occurred while loading persistent stores: \(error)") // TODO
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelControllerDidLoadPersistentStoresNotification, object: error)
             }
         }
         managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)

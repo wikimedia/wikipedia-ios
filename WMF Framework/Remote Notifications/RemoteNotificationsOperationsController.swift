@@ -6,6 +6,13 @@ class RemoteNotificationsOperationsController {
     private let syncTimeInterval: TimeInterval = 10
     private var syncTimer: Timer?
     private let operationQueue: OperationQueue
+    private var isLocked: Bool = false {
+        didSet {
+            if isLocked {
+                stop()
+            }
+        }
+    }
 
     required init(with viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
@@ -17,6 +24,7 @@ class RemoteNotificationsOperationsController {
         operationQueue.maxConcurrentOperationCount = 1
 
         NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.ModelControllerDidLoadPersistentStoresNotification, object: nil)
     }
 
     deinit {
@@ -58,6 +66,9 @@ class RemoteNotificationsOperationsController {
     }
 
     public func start() {
+        guard !isLocked else {
+            return
+        }
         guard syncTimer == nil else {
             assertionFailure("Timer should be nil; stop the controller before restarting it")
             return
@@ -94,7 +105,19 @@ class RemoteNotificationsOperationsController {
         operationQueue.addOperation(fetchOperation)
     }
 
+
+    // MARK: Notifications
+
     @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
         startTime = now
+    }
+
+    @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
+        if let object = note.object, let error = object as? Error {
+            DDLogDebug("RemoteNotificationsModelController failed to load persistent stores with error \(error); stopping RemoteNotificationsOperationsController")
+            isLocked = true
+        } else {
+            isLocked = true
+        }
     }
 }
