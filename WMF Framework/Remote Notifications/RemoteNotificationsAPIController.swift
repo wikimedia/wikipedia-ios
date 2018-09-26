@@ -158,6 +158,26 @@ struct RemoteNotificationsAPIController {
                     "notwikis": listOfWikis,
                     "notfilter": filter.rawValue]
         }
+
+        static func pipeSeparatedList(of values: [String]) -> String {
+            var listOfValues = ""
+
+            for (index, value) in values.enumerated() {
+                let isLast = index == values.count - 1
+                if isLast {
+                    listOfValues.append(contentsOf: "\(value)")
+                } else {
+                    listOfValues.append(contentsOf: "\(value)|")
+                }
+            }
+
+            guard listOfValues.wmf_hasNonWhitespaceText else {
+                assertionFailure("Expected pipe seperated values")
+                return listOfValues
+            }
+
+            return listOfValues
+        }
     }
 }
 
