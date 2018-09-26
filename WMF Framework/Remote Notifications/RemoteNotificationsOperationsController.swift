@@ -117,7 +117,7 @@ class RemoteNotificationsOperationsController {
             DDLogDebug("RemoteNotificationsModelController failed to load persistent stores with error \(error); stopping RemoteNotificationsOperationsController")
             isLocked = true
         } else {
-            isLocked = true
+            isLocked = false
         }
     }
 }
