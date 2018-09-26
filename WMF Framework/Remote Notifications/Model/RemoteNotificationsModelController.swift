@@ -105,7 +105,6 @@
         }
     }
 
-    public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.Result.Notification>) throws {
     let handledNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
 
     private func shouldHandle(_ notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
@@ -118,11 +117,14 @@
         }
         return handledNotificationCategories.contains(category)
     }
+
+    public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
         managedObjectContext.perform {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(from: notification)
             }
             self.save()
+            completion()
         }
     }
 
@@ -150,7 +152,7 @@
         return DateFormatter.wmf_iso8601()?.date(from: dateString)
     }
 
-    public func updateNotifications(_ savedNotifications: Set<RemoteNotification>, with notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.Result.Notification>) throws {
+    public func updateNotifications(_ savedNotifications: Set<RemoteNotification>, with notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
         let savedIDs = Set(savedNotifications.compactMap { $0.id })
         let fetchedIDs = Set(notificationsFetchedFromTheServer.compactMap { $0.id })
         let commonIDs = savedIDs.intersection(fetchedIDs)
@@ -174,6 +176,7 @@
             }
 
             self.save()
+            completion()
         }
     }
 
