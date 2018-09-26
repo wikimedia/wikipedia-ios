@@ -8,7 +8,7 @@ struct RemoteNotificationsAPIController {
         static let path = "/w/api.php"
     }
 
-    // MARK: Decodable
+    // MARK: Decodable: NotificationsResult
 
     struct ResultError: Decodable {
         let code, info: String?
