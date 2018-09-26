@@ -127,7 +127,9 @@ enum WikidataPublishingError: LocalizedError {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
     }
 
-    private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEdit"
+    // MARK: - WMFKeyValue
+
+    private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEditKey"
     @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
         set {
             assert(Thread.isMainThread)
@@ -140,12 +142,15 @@ enum WikidataPublishingError: LocalizedError {
         }
         get {
             assert(Thread.isMainThread)
-            guard
-                let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey),
-                let numberValue = keyValue.value as? NSNumber else {
+            assert(dataStore != nil)
+            guard let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey) else {
                 return false
             }
-            return numberValue.boolValue
+            guard let value = keyValue.value as? NSNumber else {
+                assertionFailure("Expected value of keyValue \(madeAuthorizedWikidataDescriptionEditKey) to be of type NSNumber")
+                return false
+            }
+            return value.boolValue
         }
     }
 }
