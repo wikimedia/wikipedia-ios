@@ -48,7 +48,6 @@ struct RemoteNotificationsAPIController {
         let query: Query?
     }
 
-    private func notifications(from result: Result?) -> Set<Result.Notification>? {
     // MARK: Decodable: MarkReadResult
 
     struct MarkReadResult: Decodable {
@@ -77,6 +76,8 @@ struct RemoteNotificationsAPIController {
     enum MarkReadError: LocalizedError {
         case unknown
     }
+
+    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
         guard let result = result else {
             return nil
         }
