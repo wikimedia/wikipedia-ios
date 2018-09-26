@@ -111,6 +111,7 @@ enum WikidataPublishingError: LocalizedError {
             let isLoggedIn = WMFAuthenticationManager.sharedInstance.isLoggedIn(at: WMFAuthenticationManager.LoginSite.wikidata)
             if isLoggedIn, result.error == nil {
                 DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
                     self.madeAuthorizedWikidataDescriptionEdit = true
                 }
             }
@@ -128,6 +129,7 @@ enum WikidataPublishingError: LocalizedError {
 
     // MARK: - WMFKeyValue
 
+    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
     private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEditKey"
     @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
         set {

@@ -15,6 +15,12 @@ class RemoteNotificationsOperationsController {
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
@@ -22,21 +28,28 @@ class RemoteNotificationsOperationsController {
     private var now: CFAbsoluteTime {
         return CFAbsoluteTimeGetCurrent()
     }
-    private func setStartTime() {
-        assertMainThreadAndViewContext()
-        viewContext?.wmf_setValue(NSNumber(value: now), forKey: startTimeKey)
-    }
-    private func getStartTime() -> CFAbsoluteTime? {
-        assertMainThreadAndViewContext()
-        let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
-        guard let value = keyValue?.value else {
-            return nil
+
+    private var startTime: CFAbsoluteTime? {
+        set {
+            assertMainThreadAndViewContext()
+            if let newValue = newValue {
+                viewContext?.wmf_setValue(NSNumber(value: newValue), forKey: startTimeKey)
+            } else {
+                viewContext?.wmf_setValue(nil, forKey: startTimeKey)
+            }
         }
-        guard let number = value as? NSNumber else {
-            assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
-            return nil
+        get {
+            assertMainThreadAndViewContext()
+            let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
+            guard let value = keyValue?.value else {
+                return nil
+            }
+            guard let number = value as? NSNumber else {
+                assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
+                return nil
+            }
+            return number.doubleValue
         }
-        return number.doubleValue
     }
 
     private func assertMainThreadAndViewContext() {
@@ -67,17 +80,21 @@ class RemoteNotificationsOperationsController {
             stop()
             return
         }
-        if let startTime = getStartTime() {
+        if let startTime = startTime {
             guard now - startTime < deadline else {
                 return
             }
         } else {
-            setStartTime()
+            startTime = now
         }
         let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
         let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
         fetchOperation.addDependency(markAsReadOperation)
         operationQueue.addOperation(markAsReadOperation)
         operationQueue.addOperation(fetchOperation)
+    }
+
+    @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
+        startTime = now
     }
 }
