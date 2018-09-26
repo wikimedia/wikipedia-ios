@@ -125,6 +125,11 @@ struct RemoteNotificationsAPIController {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
     }
 
+    // MARK: Query parameters
+
+    private struct Query {
+        typealias Parameters = [String: String]
+
         enum Limit {
             case max
             case numeric(Int)
