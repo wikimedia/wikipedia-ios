@@ -1,6 +1,6 @@
 class WMFWelcomeAnimationViewController: UIViewController {
     var welcomePageType:WMFWelcomePageType = .intro
-    fileprivate var hasAlreadyAnimated = false
+    private var hasAlreadyAnimated = false
     
     private(set) var animationView: WMFWelcomeAnimationView? = nil
     

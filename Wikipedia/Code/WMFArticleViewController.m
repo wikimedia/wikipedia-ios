@@ -94,7 +94,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFSearchButtonProviding,
                                         WMFImageScaleTransitionProviding,
                                         UIGestureRecognizerDelegate,
-                                        EventLoggingSearchSourceProviding>
+                                        EventLoggingSearchSourceProviding,
+                                        DescriptionEditViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -1583,7 +1584,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
-    [self showEditorForSection:section];
+    [self showEditorForSectionOrTitleDescription:section];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
@@ -1690,6 +1691,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
 }
 
+- (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
+    [self showTitleDescriptionEditor];
+}
+
 - (void)showLocation {
     NSURL *placesURL = [NSUserActivity wmf_URLForActivityOfType:WMFUserActivityTypePlaces withArticleURL:self.article.url];
     [[UIApplication sharedApplication] openURL:placesURL options:@{} completionHandler:NULL];
@@ -1763,17 +1768,81 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Edit Section
 
-- (void)showEditorForSection:(MWKSection *)section {
+- (void)showEditorForSectionOrTitleDescription:(MWKSection *)section {
     if (self.article.editable) {
-        SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-        sectionEditVC.section = section;
-        sectionEditVC.delegate = self;
-        [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+        if ([self.article isWikidataDescriptionEditable] && [section isLeadSection] && self.article.entityDescription) {
+            [self showEditSectionOrTitleDescriptionDialogForSection:section];
+        } else {
+            [self showEditorForSection:section];
+        }
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
         [self showProtectedDialog];
     }
+}
+
+- (void)showEditorForSection:(MWKSection *)section {
+    SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    sectionEditVC.section = section;
+    sectionEditVC.delegate = self;
+    [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+}
+
+- (void)descriptionEditViewControllerEditSucceeded:(DescriptionEditViewController *)descriptionEditViewController {
+    [self fetchArticle];
+}
+
+- (void)showTitleDescriptionEditor {
+    DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
+    editVC.delegate = self;
+    editVC.article = self.article;
+    [editVC applyTheme:self.theme];
+
+    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
+    navVC.view.opaque = NO;
+    navVC.view.backgroundColor = [UIColor clearColor];
+    navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+
+    BOOL needsIntro = ![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro];
+    if (needsIntro) {
+        navVC.view.alpha = 0;
+    }
+    
+    @weakify(self);
+    @weakify(navVC);
+    void (^showIntro)(void)  = ^{
+        @strongify(self);
+        DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        [welcomeVC applyTheme:self.theme];
+        [navVC presentViewController:welcomeVC animated:YES completion:^{
+            @strongify(navVC);
+            [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+            navVC.view.alpha = 1;
+        }];
+    };
+    
+    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+}
+
+- (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showTitleDescriptionEditor];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showEditorForSection:section];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings cancelActionTitle] style:UIAlertActionStyleCancel handler:NULL]];
+
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 - (void)showProtectedDialog {

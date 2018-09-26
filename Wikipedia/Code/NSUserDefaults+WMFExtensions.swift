@@ -31,6 +31,7 @@ let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDefaultTabTypeKey = "WMFDefaultTabTypeKey"
+let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -498,5 +499,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
             synchronize()
             wmf_openAppOnSearchTab = newValue == .settings
         }
+    }
+    
+    @objc public func wmf_didShowTitleDescriptionEditingIntro() -> Bool {
+        return self.bool(forKey: WMFDidShowTitleDescriptionEditingIntro)
+    }
+    
+    @objc public func wmf_setDidShowTitleDescriptionEditingIntro(_ didShow: Bool) {
+        self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
+        self.synchronize()
     }
 }

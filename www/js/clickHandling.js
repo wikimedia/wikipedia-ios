@@ -160,6 +160,12 @@ const handleClickEvent = event => {
     return
   }
 
+  // Handle add title description link.
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'add_title_description'){
+    window.webkit.messageHandlers.addTitleDescriptionClicked.postMessage('add_title_description')
+    return
+  }
+
   const href = anchorForTarget.getAttribute( 'href' )
   if(!href) {
     return
