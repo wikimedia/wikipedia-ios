@@ -17,6 +17,33 @@ class RemoteNotificationsOperationsController {
         operationQueue.maxConcurrentOperationCount = 1
     }
 
+    let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
+    let deadline: TimeInterval = 86400 // 24 hours
+    private var now: CFAbsoluteTime {
+        return CFAbsoluteTimeGetCurrent()
+    }
+    private func setStartTime() {
+        assertMainThreadAndViewContext()
+        viewContext?.wmf_setValue(NSNumber(value: now), forKey: startTimeKey)
+    }
+    private func getStartTime() -> CFAbsoluteTime? {
+        assertMainThreadAndViewContext()
+        let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
+        guard let value = keyValue?.value else {
+            return nil
+        }
+        guard let number = value as? NSNumber else {
+            assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
+            return nil
+        }
+        return number.doubleValue
+    }
+
+    private func assertMainThreadAndViewContext() {
+        assert(Thread.isMainThread)
+        assert(viewContext != nil)
+    }
+
     public func start() {
         guard syncTimer == nil else {
             assertionFailure("Timer should be nil; stop the controller before restarting it")
@@ -48,32 +75,5 @@ class RemoteNotificationsOperationsController {
         fetchOperation.addDependency(markAsReadOperation)
         operationQueue.addOperation(markAsReadOperation)
         operationQueue.addOperation(fetchOperation)
-    }
-
-    let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
-    let deadline: TimeInterval = 86400 // 24 hours
-    private var now: CFAbsoluteTime {
-        return CFAbsoluteTimeGetCurrent()
-    }
-    private func setStartTime() {
-        assertMainThreadAndViewContext()
-        viewContext?.wmf_setValue(NSNumber(value: now), forKey: startTimeKey)
-    }
-    private func getStartTime() -> CFAbsoluteTime? {
-        assertMainThreadAndViewContext()
-        let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
-        guard let value = keyValue?.value else {
-            return nil
-        }
-        guard let number = value as? NSNumber else {
-            assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
-            return nil
-        }
-        return number.doubleValue
-    }
-
-    private func assertMainThreadAndViewContext() {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
     }
 }
