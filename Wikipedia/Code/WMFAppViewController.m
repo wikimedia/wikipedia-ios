@@ -346,6 +346,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (self.isResumeComplete) {
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
+        [self.dataStore.remoteNotificationsController start];
         [self.savedArticlesFetcher start];
         [self startEventLogging];
     }
@@ -884,8 +885,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
-    [self.dataStore.readingListsController stop:^{
-    }];
+    [self.dataStore.readingListsController stop:^{}];
+    [self.dataStore.remoteNotificationsController stop];
     [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
