@@ -4,16 +4,25 @@ import CoreData
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
 
-    enum Category: String {
-        case editReverted = "reverted"
+    @objc public enum Category: Int {
+        case editReverted
         case unknown
+
+        init(stringValue: String) {
+            switch stringValue {
+            case "reverted":
+                self = .editReverted
+            default:
+                self = .unknown
+            }
+        }
     }
 
-    private var category: Category {
+    public var category: Category {
         guard let categoryString = categoryString else {
             return .unknown
         }
-        return Category(rawValue: categoryString) ?? .unknown
+        return Category(stringValue: categoryString)
     }
 
 }

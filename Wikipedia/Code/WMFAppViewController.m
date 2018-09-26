@@ -205,6 +205,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:WMFExploreFeedPreferencesDidChangeNotification
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(remoteNotificationsModelDidChange:)
+                                                 name:RemoteNotificationsModelController.ModelDidChangeNotification
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -789,12 +794,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         done();
     } else {
         done();
-    }
-}
-
-- (void)startRemoteNotificationsController {
-    if (self.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit) {
-        [self.dataStore.remoteNotificationsController start];
     }
 }
 
@@ -1932,6 +1931,32 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     ReadingList *readingList = (ReadingList *)notification.userInfo[ReadingList.entriesLimitReachedReadingListKey];
     if (readingList) {
         [self.readingListsAlertController showLimitHitForDefaultListPanelIfNecessaryWithPresenter:self dataStore:self.dataStore readingList:readingList theme:self.theme];
+    }
+}
+
+#pragma mark - Remote Notifications
+
+- (void)startRemoteNotificationsController {
+    if (self.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit) {
+        [self.dataStore.remoteNotificationsController start];
+    }
+}
+
+- (void)remoteNotificationsModelDidChange:(NSNotification *)note {
+    RemoteNotificationsModelChangeResponseCoordinator *responseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
+    RemoteNotificationsModelChange *modelChange = (RemoteNotificationsModelChange *)responseCoordinator.modelChange;
+    assert(responseCoordinator);
+    assert(modelChange);
+    switch (modelChange.type) {
+        case RemoteNotificationsModelChangeTypeAddedNewNotifications: {
+            NSString *singleRevert = @"Your edit has been reverted";
+            NSString *multipleReverts = @"Your ";
+            [WMFAlertManager.sharedInstance showErrorAlertWithMessage:@"Your edit has been reverted" sticky:YES dismissPreviousAlerts:YES tapCallBack:^{
+                NSLog(@"");
+            }];
+        }
+        default:
+            break;
     }
 }
 
