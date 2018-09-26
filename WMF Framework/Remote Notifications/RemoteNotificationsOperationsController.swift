@@ -2,7 +2,7 @@ class RemoteNotificationsOperationsController {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController
 
-    private let syncTimeInterval: TimeInterval = 10
+    private let syncTimeInterval: TimeInterval = 15
     private var syncTimer: Timer?
     private let operationQueue: OperationQueue
 
