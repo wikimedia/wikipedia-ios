@@ -87,12 +87,8 @@ struct RemoteNotificationsAPIController {
         return Set(list)
     }
 
-    public func getAllUnreadNotifications(completion: @escaping (Set<Result.Notification>?, Error?) -> Void) {
-        request(Query.allUnreadNotifications, completion: completion)
-    }
-
-    private func request(_ queryParameters: Query.Parameters, completion: @escaping (Set<Result.Notification>?, Error?) -> Void) {
-        let completion: (Result?, URLResponse?, Error?) -> Void = { result, response, error in
+    public func getAllUnreadNotifications(from subdomains: [String], completion: @escaping (Set<NotificationsResult.Notification>?, Error?) -> Void) {
+        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, response, error in
             guard error == nil else {
                 completion([], error)
                 return
@@ -100,7 +96,7 @@ struct RemoteNotificationsAPIController {
             let notifications = self.notifications(from: result)
             completion(notifications, result?.error)
         }
-        let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: .get, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: false), completion: completion)
+        request(Query.notifications(from: subdomains, limit: .max, filter: .unread), completion: completion)
     }
 
     // MARK: Query parameters
