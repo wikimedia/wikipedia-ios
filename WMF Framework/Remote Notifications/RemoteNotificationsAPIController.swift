@@ -178,6 +178,18 @@ struct RemoteNotificationsAPIController {
 
             return listOfValues
         }
+
+        static func markAsRead(notifications: Set<RemoteNotification>) -> Parameters {
+            let IDs = notifications.compactMap { $0.id }
+            let listOfIDs = pipeSeparatedList(of: IDs)
+            let wikis = notifications.compactMap { $0.wiki }
+            let listOfWikis = pipeSeparatedList(of: wikis)
+
+            return ["action": "echomarkread",
+                    "format": "json",
+                    "wikis": listOfWikis,
+                    "list": listOfIDs]
+        }
     }
 }
 
