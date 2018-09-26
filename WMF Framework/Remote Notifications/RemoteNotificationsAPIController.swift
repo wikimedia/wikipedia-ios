@@ -10,10 +10,9 @@ struct RemoteNotificationsAPIController {
 
     // MARK: Decodable
 
-    struct Result: Decodable {
-        struct Error: Decodable {
-            let code, info: String?
-        }
+    struct ResultError: Decodable {
+        let code, info: String?
+    }
         struct Notification: Decodable, Hashable {
             let wiki: String?
             let type: String?
@@ -43,7 +42,7 @@ struct RemoteNotificationsAPIController {
         struct Timestamp: Decodable, Hashable {
             let utciso8601: String?
         }
-        let error: Error?
+        let error: ResultError?
         let query: Query?
     }
 
@@ -141,7 +140,7 @@ struct RemoteNotificationsAPIController {
     }
 }
 
-extension RemoteNotificationsAPIController.Result.Error: LocalizedError {
+extension RemoteNotificationsAPIController.ResultError: LocalizedError {
     var errorDescription: String? {
         return info
     }
