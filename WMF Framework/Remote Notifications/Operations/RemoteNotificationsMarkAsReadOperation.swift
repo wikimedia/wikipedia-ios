@@ -7,8 +7,13 @@ class RemoteNotificationsMarkAsReadOperation: RemoteNotificationsOperation {
                         self.finish()
                         return
                     }
-                    print(readNotifications)
-                    self.finish()
+                    self.apiController.markAsRead(readNotifications) { error in
+                        if let error = error {
+                            self.finish(with: error)
+                        } else {
+                            self.finish()
+                        }
+                    }
                 }
             }
         }
