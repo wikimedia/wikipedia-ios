@@ -39,10 +39,10 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    weak var viewContext: NSManagedObjectContext?
+    weak var dataStore: MWKDataStore?
 
-    @objc public init(with viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
+    @objc public init(with dataStore: MWKDataStore) {
+        self.dataStore = dataStore
     }
 
     private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
@@ -50,8 +50,8 @@ enum WikidataPublishingError: LocalizedError {
         assert(Thread.isMainThread)
         let fallback = NSSet(set: ["en"])
         guard
-            let viewContext = viewContext,
-            let keyValue = viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
+            let dataStore = dataStore,
+            let keyValue = dataStore.viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
             let value = keyValue.value as? NSSet else {
                 return fallback
         }
@@ -60,9 +60,9 @@ enum WikidataPublishingError: LocalizedError {
 
     @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
         assert(Thread.isMainThread)
-        assert(viewContext != nil)
+        assert(dataStore != nil)
         let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
-        viewContext?.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
+        dataStore?.viewContext.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
     }
 
     public func isBlacklisted(_ languageCode: String) -> Bool {
@@ -107,6 +107,13 @@ enum WikidataPublishingError: LocalizedError {
             }
 
             completion(result.error)
+
+            // TODO: Check if request was sent with an authorized token.
+            if result.error == nil {
+                DispatchQueue.main.async {
+                    self.madeAuthorizedWikidataDescriptionEdit = true
+                }
+            }
         }
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
@@ -117,6 +124,28 @@ enum WikidataPublishingError: LocalizedError {
                               "title": title,
                               "value": newWikidataDescription]
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
+    }
+
+    private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEdit"
+    private var madeAuthorizedWikidataDescriptionEdit: Bool {
+        set {
+            assert(Thread.isMainThread)
+            assert(dataStore != nil)
+            guard madeAuthorizedWikidataDescriptionEdit != newValue else {
+                return
+            }
+            dataStore?.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
+            dataStore?.remoteNotificationsController.start()
+        }
+        get {
+            assert(Thread.isMainThread)
+            guard
+                let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey),
+                let numberValue = keyValue.value as? NSNumber else {
+                return false
+            }
+            return numberValue.boolValue
+        }
     }
 }
 
