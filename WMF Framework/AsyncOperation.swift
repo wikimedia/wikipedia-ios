@@ -88,6 +88,8 @@ enum AsyncOperationError: Error {
         if shouldExecute {
             state = .executing
             execute()
+        } else {
+            finish()
         }
     }
     
