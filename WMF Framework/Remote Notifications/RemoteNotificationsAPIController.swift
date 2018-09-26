@@ -145,9 +145,10 @@ struct RemoteNotificationsAPIController {
             case none = "read|!read"
         }
 
+        static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+            let wikis = subdomains.compactMap { "\($0)wiki" }
+            let listOfWikis = pipeSeparatedList(of: wikis)
 
-
-        static func notifications(for wiki: Wiki = .all, limit: Limit = .max, filter: Filter = .none) -> Parameters {
             return ["action": "query",
                     "format": "json",
                     "formatversion": "2",
