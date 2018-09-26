@@ -108,8 +108,9 @@ enum WikidataPublishingError: LocalizedError {
 
             completion(result.error)
 
-            // TODO: Check if request was sent with an authorized token.
-            if result.error == nil {
+            // TODO: Check if request was sent with an authorized token instead of checking if user is logged in.
+            let isLoggedIn = WMFAuthenticationManager.sharedInstance.isLoggedIn(at: WMFAuthenticationManager.LoginSite.wikidata)
+            if isLoggedIn, result.error == nil {
                 DispatchQueue.main.async {
                     self.madeAuthorizedWikidataDescriptionEdit = true
                 }

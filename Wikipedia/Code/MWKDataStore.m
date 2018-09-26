@@ -169,7 +169,7 @@ static uint64_t bundleHash() {
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
-        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self.viewContext];
+        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] init];
     }
     return self;
