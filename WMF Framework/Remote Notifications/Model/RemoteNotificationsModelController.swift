@@ -106,6 +106,7 @@
     }
 
     public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.Result.Notification>) throws {
+    let handledNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
         managedObjectContext.perform {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(from: notification)
