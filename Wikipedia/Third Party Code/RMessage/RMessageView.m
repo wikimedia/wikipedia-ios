@@ -24,6 +24,8 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UIView *titleSubtitleContainerView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *button;
+@property (nonatomic, weak) IBOutlet UIStackView *stackView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewCenterYConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
 
@@ -223,6 +225,7 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self) {
     _delegate = delegate;
     _title = title;
+    _buttonTitle = buttonTitle;
     _subtitle = subtitle;
     _iconImage = iconImage;
     _duration = duration;
@@ -294,6 +297,11 @@ static NSMutableDictionary *globalDesignDictionary;
 {
   _subtitleTextColor = subtitleTextColor;
   [self.subtitleLabel setTextColor:_subtitleTextColor];
+}
+
+- (void)setButtonTitleColor:(UIColor *)buttonTitleColor {
+    _buttonTitleColor = buttonTitleColor;
+    [self.button setTitleColor:_buttonTitleColor forState:UIControlStateNormal];
 }
 
 - (void)setMessageIcon:(UIImage *)messageIcon
@@ -401,6 +409,7 @@ static NSMutableDictionary *globalDesignDictionary;
   [self setupImagesAndBackground];
   [self setupTitleLabel];
   [self setupSubTitleLabel];
+  [self setupButton];
 }
 
 - (void)setupLayout
@@ -563,6 +572,15 @@ static NSMutableDictionary *globalDesignDictionary;
   _subtitleLabel.shadowOffset = CGSizeZero;
   _subtitleLabel.backgroundColor = nil;
 
+    _button.titleLabel.numberOfLines = 0;
+    _button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _button.titleLabel.font = [UIFont systemFontOfSize:12.f];
+    _button.titleLabel.textAlignment = NSTextAlignmentLeft;
+    _button.titleLabel.textColor = [UIColor darkGrayColor];
+    _button.titleLabel.shadowColor = nil;
+    _button.titleLabel.shadowOffset = CGSizeZero;
+    _button.titleLabel.backgroundColor = nil;
+
   _iconImageView.clipsToBounds = NO;
 }
 
@@ -619,6 +637,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupTitleLabel
 {
+  [_titleLabel setHidden:_title == NULL];
   CGFloat titleFontSize = [[_messageViewDesignDictionary valueForKey:@"titleFontSize"] floatValue];
   NSString *titleFontName = [_messageViewDesignDictionary valueForKey:@"titleFontName"];
   if (titleFontName) {
@@ -646,8 +665,22 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 }
 
+-(void)setupButton {
+    if (_buttonTitle) {
+        [_button setHidden:NO];
+        [_button setTitle:_buttonTitle forState:UIControlStateNormal];
+        _stackView.spacing = -5;
+        [_button addTarget:self action:@selector(executeMessageViewButtonCallBack) forControlEvents:UIControlEventTouchUpInside];
+        _button.titleLabel.font = _titleLabel.font;
+    } else {
+        [_button setHidden:YES];
+        _stackView.spacing = 5;
+    }
+}
+
 - (void)setupSubTitleLabel
 {
+  [_subtitleLabel setHidden:_title == NULL];
   id subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subTitleFontSize"];
   if (!subTitleFontSizeValue) {
     subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subtitleFontSize"];
