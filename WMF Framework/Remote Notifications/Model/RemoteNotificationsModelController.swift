@@ -106,14 +106,14 @@
 
     // MARK: Validation
 
-    let validNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
+    let validNotificationCategories: Set<RemoteNotificationCategory> = [.editReverted]
 
     private func validateCategory(of notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
         guard let categoryString = notification.category else {
             assertionFailure("Missing notification category")
             return false
         }
-        let category = RemoteNotification.Category(stringValue: categoryString)
+        let category = RemoteNotificationCategory(stringValue: categoryString)
         return validNotificationCategories.contains(category)
     }
 
