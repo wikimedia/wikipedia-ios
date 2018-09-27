@@ -4,11 +4,11 @@
 
 @objc final class RemoteNotificationsModelChange: NSObject {
     @objc let type: RemoteNotificationsModelChangeType
-    @objc let noficationsGroupedByCategory: [RemoteNotification.Category: [RemoteNotification]]
+    @objc let notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]
 
-    init(type: RemoteNotificationsModelChangeType, noficationsGroupedByCategory: [RemoteNotification.Category: [RemoteNotification]]) {
+    init(type: RemoteNotificationsModelChangeType, notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]) {
         self.type = type
-        self.noficationsGroupedByCategory = noficationsGroupedByCategory
+        self.notificationsGroupedByCategoryNumber = notificationsGroupedByCategoryNumber
         super.init()
     }
 }
@@ -208,8 +208,11 @@
         }
         if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
             let notifications = insertedObjects.compactMap { $0 as? RemoteNotification }
-            let noficationsGroupedByCategory = Dictionary(grouping: notifications, by: { $0.category })
-            let modelChange = RemoteNotificationsModelChange(type: .addedNewNotifications, noficationsGroupedByCategory: noficationsGroupedByCategory)
+            guard !notifications.isEmpty else {
+                return
+            }
+            let notificationsGroupedByCategoryNumber = Dictionary(grouping: notifications, by: { NSNumber(value: $0.category.rawValue) })
+            let modelChange = RemoteNotificationsModelChange(type: .addedNewNotifications, notificationsGroupedByCategoryNumber: notificationsGroupedByCategoryNumber)
             let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
             DispatchQueue.main.async {
                 NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelDidChangeNotification, object: responseCoordinator)
