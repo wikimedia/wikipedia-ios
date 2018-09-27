@@ -1945,19 +1945,29 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)remoteNotificationsModelDidChange:(NSNotification *)note {
     RemoteNotificationsModelChangeResponseCoordinator *responseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
     RemoteNotificationsModelChange *modelChange = (RemoteNotificationsModelChange *)responseCoordinator.modelChange;
+    NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *notificationsGroupedByCategoryNumber = (NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)modelChange.notificationsGroupedByCategoryNumber;
     assert(responseCoordinator);
     assert(modelChange);
-    switch (modelChange.type) {
-        case RemoteNotificationsModelChangeTypeAddedNewNotifications: {
-            NSString *singleRevert = @"Your edit has been reverted";
-            NSString *multipleReverts = @"Your ";
-            [WMFAlertManager.sharedInstance showErrorAlertWithMessage:@"Your edit has been reverted" sticky:YES dismissPreviousAlerts:YES tapCallBack:^{
-                NSLog(@"");
-            }];
-        }
-        default:
-            break;
+    if (modelChange.type != RemoteNotificationsModelChangeTypeAddedNewNotifications) {
+        return;
     }
+    NSNumber *editRevertedCategoryNumber = [NSNumber numberWithInt:RemoteNotificationCategoryEditReverted];
+    NSArray<RemoteNotification *> *editRevertedNotifications = notificationsGroupedByCategoryNumber[editRevertedCategoryNumber];
+    if (editRevertedNotifications.count == 0) {
+        return;
+    }
+    NSString *alertMessage;
+    if (editRevertedNotifications.count == 1) {
+        alertMessage = @"Your edit has been reverted";
+    } else {
+        alertMessage = @"Your %d edits have been reverted.";
+    }
+    [WMFAlertManager.sharedInstance showErrorAlertWithMessage:alertMessage
+                                                       sticky:YES
+                                        dismissPreviousAlerts:YES
+                                                  tapCallBack:^{
+                                                      [responseCoordinator markAsRead:editRevertedNotifications];
+                                                  }];
 }
 
 #pragma mark - Perma Random Mode
