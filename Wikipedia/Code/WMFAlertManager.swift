@@ -116,6 +116,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
         messageView.backgroundColor = theme.colors.popoverBackground
         messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
+        messageView.buttonTitleColor = theme.colors.link
         switch messageView.messageType {
         case .error:
             messageView.titleTextColor = theme.colors.error
