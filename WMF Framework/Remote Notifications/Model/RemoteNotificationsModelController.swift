@@ -23,8 +23,8 @@
         super.init()
     }
 
-    @objc func markAsRead(_ notification: RemoteNotification) {
-        modelController.markAsRead(notification)
+    @objc func markAsRead(_ notifications: [RemoteNotification]) {
+        modelController.markAsRead(notifications)
     }
 }
 
@@ -194,12 +194,16 @@
         }
     }
 
-    public func markAsRead(_ notification: RemoteNotification) {
+    // MARK: Mark as read
+
+    public func markAsRead(_ notifications: [RemoteNotification]) {
         self.managedObjectContext.perform {
-            notification.read = true
+            notifications.forEach { $0.read = true }
             self.save()
         }
     }
+
+    // MARK: Notifications
 
     @objc private func managedObjectContextDidSave(_ note: Notification) {
         guard let userInfo = note.userInfo else {
