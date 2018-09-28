@@ -17,18 +17,47 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     @objc public var articleKeys: [String]?
 
+    private var isSingleRevert: Bool {
+        return articleKeys?.count == 1
+    }
+
+    private var buttonTitle: String {
+        if isSingleRevert {
+            return WMFLocalizedString("reverted-edit-back-to-article-button-title", value: "Back to article", comment: "Title for button that allows the user to go back to the article they edited")
+        } else {
+            return WMFLocalizedString("reverted-edit-back-to-history-button-title", value: "Back to History", comment: "Title for button that allows the user to go back to reading history")
+        }
+    }
+
+    private var subtitle: String {
+        if isSingleRevert {
+            return WMFLocalizedString("reverted-edit-possible-reasons-subtitle", value: "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
+        } else {
+            return WMFLocalizedString("reverted-edits-possible-reasons-subtitle", value: "We know that you tried your best, but some reviewers had concerns.\n\nPossible reasons your edits were reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
+        }
+    }
+
+    private var titleText: String? {
+        if isSingleRevert {
+            return WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaning why an edit was reverted.")
+        } else {
+            return WMFLocalizedString("reverted-edits-title", value: "Reverted edits", comment: "Title for the view explaning why edits were reverted.")
+        }
+    }
+
     @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         contentTextView.delegate = self
-        title = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaning why an edit was reverted.")
+        title = titleText
+        
         view.wmf_configureSubviewsForDynamicType()
 
         titleLabel.text = WMFLocalizedString("reverted-edit-thanks-for-editing-title", value: "Thanks for editing Wikipedia!", comment: "Title thanking the user for contributing to Wikipedia")
-        subtitleLabel.text = WMFLocalizedString("reverted-edit-possible-reasons-subtitle", value: "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
+        subtitleLabel.text = subtitle
 
-        button.setTitle(WMFLocalizedString("reverted-edit-back-to-article-button-title", value: "Back to article", comment: "Title for button that allows the user to go back to the article they edited"), for: .normal)
+        button.setTitle(buttonTitle, for: .normal)
         button.layer.cornerRadius = 8
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -53,7 +82,6 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
         super.viewWillAppear(animated)
         let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(close))
         navigationItem.leftBarButtonItem = closeButton
-        button.isHidden = articleURL == nil
     }
 
     let editingGuidelines = (text: WMFLocalizedString("reverted-edit-view-guidelines-text", value: "View guidelines", comment: "Text for link for viewing editing guidelines"),
