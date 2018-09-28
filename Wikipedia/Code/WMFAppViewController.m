@@ -1971,15 +1971,45 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (editRevertedNotifications.count == 0) {
         return;
     }
-    NSString *alertMessage;
     // TODO: How do we handle multiple notifications?
-    NSUInteger editRevertedNotificationsCount = editRevertedNotifications.count;
-    if (editRevertedNotificationsCount == 1) {
+    NSString *alertMessage;
+    NSString *notificationBody;
+    NSString *notificationTitle;
+    NSMutableArray<WMFArticle *>*articles = [NSMutableArray new];
+    NSMutableArray<NSString *>*articleKeys = [NSMutableArray new];
+    NSMutableArray<RemoteNotification *> *filteredNotifications = [NSMutableArray new];
+    NSMutableArray<NSString *> *filteredNotificationsIDs = [NSMutableArray new];;
+
+    for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
+        WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
+        if (article) {
+            // Hide notifications without article context
+            [filteredNotifications addObject:editRevertedNotification];
+            // We don't create notifications without ids so the objects that we're adding won't be nil
+            [filteredNotificationsIDs addObject:editRevertedNotification.id];
+            [articles addObject:article];
+            [articleKeys addObject:article.key];
+        }
+    }
+
+    if (filteredNotifications.count == 0) {
+        return;
+    }
+
+    if (filteredNotifications.count == 1) {
         alertMessage = @"Your edit has been reverted";
+        notificationTitle = @"Reverted edit";
+        NSString *bodyFormat = @"The edit you made of the article %1$@ was reverted by %2$@";
+        NSString *agent = filteredNotifications.firstObject.agent;
+        NSString *articleTitle = articles.firstObject.displayTitle;
+        assert(articleTitle);
+        notificationBody = [NSString localizedStringWithFormat:bodyFormat, articleTitle, agent];
     } else {
         alertMessage = @"Your edits have been reverted";
+        notificationTitle = @"Reverted edits";
+        NSString *bodyFormat = @"The %1$d edits you made were reverted";
+        notificationBody = [NSString localizedStringWithFormat:bodyFormat, filteredNotifications.count];
     }
-    [self.notificationsController sendNotificationWithTitle:@"Test" body:@"body" categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:[NSDictionary new] atDateComponents:nil];
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
