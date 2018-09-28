@@ -48,6 +48,7 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
         super.viewWillAppear(animated)
         let closeButton = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(close))
         navigationItem.leftBarButtonItem = closeButton
+        button.isHidden = articleURL == nil
     }
 
     let editingGuidelines = (text: WMFLocalizedString("reverted-edit-view-guidelines-text", value: "View guidelines", comment: "Text for link for viewing editing guidelines"),

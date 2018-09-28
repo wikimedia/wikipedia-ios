@@ -1971,21 +1971,31 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (editRevertedNotifications.count == 0) {
         return;
     }
-    NSString *alertMessage = @"Your edit has been reverted";
+    NSString *alertMessage;
     // TODO: How do we handle multiple notifications?
+    NSUInteger editRevertedNotificationsCount = editRevertedNotifications.count;
+    if (editRevertedNotificationsCount == 1) {
+        alertMessage = @"Your edit has been reverted";
+    } else {
+        alertMessage = @"Your edits were been reverted";
+    }
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
         buttonCallback:^{
             ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
+            if (editRevertedNotificationsCount == 1) {
             readMoreViewController.delegate = self;
             WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotifications.firstObject.affectedPageID];
             readMoreViewController.articleURL = article.URL;
+            } else {
+                // Pass articles to readMoreViewController, adjust copy and link to a vc with all affected articles?
+            }
             WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
             [self presentViewController:navController animated:YES completion:nil];
         }
         tapCallBack:^{
-            [responseCoordinator markAsRead:@[editRevertedNotifications.firstObject]];
+            [responseCoordinator markAsRead:editRevertedNotifications];
         }];
 }
 
