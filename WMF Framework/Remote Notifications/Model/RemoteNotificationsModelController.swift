@@ -153,6 +153,8 @@
                                                 withKeysAndValues: ["id": notification.id,
                                                                     "categoryString" : notification.category,
                                                                     "typeString": notification.type,
+                                                                    "agent": notification.agent?.name,
+                                                                    "affectedPageID": notification.affectedPageID?.full,
                                                                     "message": message,
                                                                     "read": false,
                                                                     "wiki": notification.wiki,

@@ -22,6 +22,8 @@ struct RemoteNotificationsAPIController {
             let id: String?
             let message: Message?
             let timestamp: Timestamp?
+            let agent: Agent?
+            let affectedPageID: AffectedPageID?
 
             enum CodingKeys: String, CodingKey {
                 case wiki
@@ -30,6 +32,8 @@ struct RemoteNotificationsAPIController {
                 case id
                 case message = "*"
                 case timestamp
+                case agent
+                case affectedPageID = "title"
             }
         }
         struct Notifications: Decodable {
@@ -43,6 +47,12 @@ struct RemoteNotificationsAPIController {
         }
         struct Timestamp: Decodable, Hashable {
             let utciso8601: String?
+        }
+        struct Agent: Decodable, Hashable {
+            let name: String?
+        }
+        struct AffectedPageID: Decodable, Hashable {
+            let full: String?
         }
         let error: ResultError?
         let query: Query?
