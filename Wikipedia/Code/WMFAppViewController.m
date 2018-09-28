@@ -1685,7 +1685,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - UNUserNotificationCenterDelegate
 
-
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     NSString *categoryIdentifier = notification.request.content.categoryIdentifier;
@@ -1718,13 +1717,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         // WMFEditRevertedNotification
     } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
         NSDictionary *info = response.notification.request.content.userInfo;
-        NSArray<NSString *> *notificationIDs = (NSArray<NSString *>*)info[WMFEditRevertedInfoNotificationIDs];
-        NSArray<NSString *> *articleKeys = (NSArray<NSString *>*)info[WMFEditRevertedInfoArticleKeys];
+        NSArray<NSString *> *notificationIDs = (NSArray<NSString *> *)info[WMFEditRevertedInfoNotificationIDs];
+        NSArray<NSString *> *articleKeys = (NSArray<NSString *> *)info[WMFEditRevertedInfoArticleKeys];
         assert(notificationIDs);
         if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:notificationIDs articleKeys:articleKeys completion:^{
-                self.markRemoteNotificationsAsRead(notificationIDs);
-            }];
+            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:notificationIDs
+                                                                         articleKeys:articleKeys
+                                                                          completion:^{
+                                                                              self.markRemoteNotificationsAsRead(notificationIDs);
+                                                                          }];
         } else {
             _markRemoteNotificationsAsRead(notificationIDs);
         }
@@ -2000,10 +2001,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *alertMessage;
     NSString *notificationBody;
     NSString *notificationTitle;
-    NSMutableArray<WMFArticle *>*articles = [NSMutableArray new];
-    NSMutableArray<NSString *>*articleKeys = [NSMutableArray new];
+    NSMutableArray<WMFArticle *> *articles = [NSMutableArray new];
+    NSMutableArray<NSString *> *articleKeys = [NSMutableArray new];
     NSMutableArray<RemoteNotification *> *filteredNotifications = [NSMutableArray new];
-    NSMutableArray<NSString *> *filteredNotificationsIDs = [NSMutableArray new];;
+    NSMutableArray<NSString *> *filteredNotificationsIDs = [NSMutableArray new];
 
     for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
         WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
@@ -2052,16 +2053,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         type:RMessageTypeError
         dismissPreviousAlerts:YES
         buttonCallback:^{
-            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:filteredNotificationsIDs articleKeys:articleKeys completion:^{
-                seen();
-            }];
+            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:filteredNotificationsIDs
+                                                                         articleKeys:articleKeys
+                                                                          completion:^{
+                                                                              seen();
+                                                                          }];
         }
         tapCallBack:^{
             seen();
         }];
 }
 
-- (void)showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:(NSArray<NSString *>*)notificationIDs articleKeys:(NSArray<NSString *>*)articleKeys completion:(void (^)(void))completion{
+- (void)showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:(NSArray<NSString *> *)notificationIDs articleKeys:(NSArray<NSString *> *)articleKeys completion:(void (^)(void))completion {
     ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
     readMoreViewController.delegate = self;
     readMoreViewController.articleKeys = articleKeys;
