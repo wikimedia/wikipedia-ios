@@ -213,6 +213,11 @@
         }
     }
 
+    private func markAsReadAndSave(_ notifications: [RemoteNotification]) {
+        notifications.forEach { $0.read = true }
+        self.save()
+    }
+
     // MARK: Notifications
 
     @objc private func managedObjectContextDidSave(_ note: Notification) {
