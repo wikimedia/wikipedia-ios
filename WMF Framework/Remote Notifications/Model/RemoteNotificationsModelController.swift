@@ -211,6 +211,17 @@
             self.markAsReadAndSave(notifications)
         }
     }
+
+    public func markAsReadNotificationsWithIDs(_ IDs: [String]) {
+        let moc = managedObjectContext
+        moc.perform {
+            let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+            let predicate = NSPredicate(format: "id IN %@", IDs)
+            fetchRequest.predicate = predicate
+            guard let notifications = try? moc.fetch(fetchRequest) else {
+                return
+            }
+            self.markAsReadAndSave(notifications)
         }
     }
 
