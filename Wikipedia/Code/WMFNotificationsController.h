@@ -7,6 +7,11 @@ extern NSString *const WMFInTheNewsNotificationReadNowActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationShareActionIdentifier;
 
+extern NSString *const WMFEditRevertedNotificationCategoryIdentifier;
+extern NSString *const WMFEditRevertedReadMoreActionIdentifier;
+extern NSString *const WMFEditRevertedInfoNotificationIDs;
+extern NSString *const WMFEditRevertedInfoArticleKeys;
+
 extern NSString *const WMFNotificationInfoArticleTitleKey;
 extern NSString *const WMFNotificationInfoArticleURLStringKey;
 extern NSString *const WMFNotificationInfoThumbnailURLStringKey;
