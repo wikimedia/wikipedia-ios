@@ -88,4 +88,44 @@ class WikidataFetcher: NSObject {
             success(coordinates.wmf_boundingRegion(with: 1))
         }
     }
+
+    @objc public func wikidataID(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
+        guard let title = articleURL.wmf_title,
+            let host = articleURL.host else {
+                failure(WikidataFetcherError.genericError)
+                return
+        }
+
+        var components = URLComponents()
+        components.host = host
+        components.path = WMFAPIPath
+        components.scheme = "https"
+        let actionQueryItem = URLQueryItem(name: "action", value: "query")
+        let propQueryItem = URLQueryItem(name: "prop", value: "pageprops")
+        let titlesQueryItem = URLQueryItem(name: "titles", value: title)
+        let pppropQueryItem = URLQueryItem(name: "ppprop", value: "wikibase_item")
+        let formatQueryItem = URLQueryItem(name: "format", value: "json")
+        components.queryItems = [actionQueryItem, titlesQueryItem, propQueryItem, pppropQueryItem, formatQueryItem]
+
+        guard let requestURL = components.url else {
+            failure(WikidataFetcherError.genericError)
+            return
+        }
+
+        URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+            guard let data = data else {
+                failure(error ?? WikidataFetcherError.genericError)
+                return
+            }
+            do {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+                    failure(WikidataFetcherError.genericError)
+                    return
+                }
+                success(jsonObject)
+            } catch let parseError {
+                failure(parseError)
+            }
+        }).resume()
+    }
 }
