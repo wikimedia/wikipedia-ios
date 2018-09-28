@@ -1977,8 +1977,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (editRevertedNotificationsCount == 1) {
         alertMessage = @"Your edit has been reverted";
     } else {
-        alertMessage = @"Your edits were been reverted";
+        alertMessage = @"Your edits have been reverted";
     }
+    [self.notificationsController sendNotificationWithTitle:@"Test" body:@"body" categoryIdentifier:WMFInTheNewsNotificationCategoryIdentifier userInfo:[NSDictionary new] atDateComponents:nil];
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
@@ -1992,7 +1993,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 // Pass articles to readMoreViewController, adjust copy and link to a vc with all affected articles?
             }
             WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
-            [self presentViewController:navController animated:YES completion:nil];
+            [self presentViewController:navController animated:YES completion:^{
+                [responseCoordinator markAsRead:editRevertedNotifications];
+            }];
         }
         tapCallBack:^{
             [responseCoordinator markAsRead:editRevertedNotifications];
