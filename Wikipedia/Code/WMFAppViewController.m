@@ -1715,6 +1715,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self showInTheNewsForNotificationInfo:info];
         } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
         }
+        // WMFEditRevertedNotification
+    } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
+        NSDictionary *info = response.notification.request.content.userInfo;
+        NSArray<NSString *> *notificationIDs = (NSArray<NSString *>*)info[WMFEditRevertedInfoNotificationIDs];
+        NSArray<NSString *> *articleKeys = (NSArray<NSString *>*)info[WMFEditRevertedInfoArticleKeys];
+        assert(notificationIDs);
+        if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:notificationIDs articleKeys:articleKeys completion:^{
+                self.markRemoteNotificationsAsRead(notificationIDs);
+            }];
+        } else {
+            _markRemoteNotificationsAsRead(notificationIDs);
+        }
     }
 
     completionHandler();
