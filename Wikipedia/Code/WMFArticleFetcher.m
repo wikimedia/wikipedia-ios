@@ -40,6 +40,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
+@property (nonatomic, strong) WikidataFetcher *wikidataFetcher;
 
 @property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
 
@@ -65,6 +66,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.pageSummarySessionManager = [AFHTTPSessionManager wmf_createDefaultManager];
 
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
+        self.wikidataFetcher = [[WikidataFetcher alloc] init];
 
         /*
          Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
@@ -129,6 +131,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     //                                 }];
 
     __block id articleResponse = nil;
+    __block id wikidataResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];
     NSURLSessionDataTask *operation = [self.operationManager GET:url.absoluteString
@@ -153,6 +156,14 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     operation.priority = priority;
     [self trackOperation:operation forArticleURL:articleURL];
 
+    [taskGroup enter];
+    [self.wikidataFetcher wikidataIDForArticleURL:articleURL failure:^(NSError * _Nonnull error) {
+        [taskGroup leave];
+    } success:^(NSDictionary<NSString *,id> * _Nonnull response) {
+        wikidataResponse = response;
+        [taskGroup leave];
+    }];
+
     [taskGroup waitInBackgroundAndNotifyOnQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
                                       withBlock:^{
                                           [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -171,6 +182,26 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
                                               articleResponse = mutableArticleResponse;
 
+                                              NSString *wikidataID;
+                                              if (wikidataResponse && [wikidataResponse isKindOfClass:[NSDictionary class]]) {
+                                                  NSDictionary *wikidataResponseDictionary = (NSDictionary *)wikidataResponse;
+                                                  id query = [wikidataResponseDictionary objectForKey:@"query"];
+                                                  if (query && [query isKindOfClass:[NSDictionary class]]) {
+                                                      id pages = [(NSDictionary *)query objectForKey:@"pages"];
+                                                      if (pages && [pages isKindOfClass:[NSDictionary class]]) {
+                                                          NSDictionary *pagesDictionary = (NSDictionary *)pages;
+                                                          NSArray *allKeys = [pagesDictionary allKeys];
+                                                          if (allKeys.count > 0) {
+                                                              NSString *firstKey = [allKeys firstObject];
+                                                              NSDictionary *pageDictionary = (NSDictionary *)[pagesDictionary objectForKey:firstKey];
+                                                              NSDictionary *pagepropsDictionary = (NSDictionary *)[pageDictionary objectForKey:@"pageprops"];
+                                                              wikidataID = [pagepropsDictionary objectForKey:@"wikibase_item"];
+                                                              assert(wikidataID);
+                                                          }
+                                                      }
+                                                  }
+                                              }
+
                                               MWKArticle *mwkArticle = [self serializedArticleWithURL:updatedArticleURL response:articleResponse];
                                               [self.dataStore asynchronouslyCacheArticle:mwkArticle
                                                                                   toDisk:saveToDisk
@@ -180,6 +211,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
                                                                                       article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      article.wikidataID = wikidataID;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
                                                                                       }
