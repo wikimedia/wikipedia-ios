@@ -142,6 +142,10 @@
             assertionFailure("Notification should have a date")
             return
         }
+        guard let id = notification.id else {
+            assertionFailure("Notification must have an id")
+            return
+        }
         guard self.validateCategory(of: notification) else {
             return
         }
@@ -150,7 +154,7 @@
         }
         let message = notification.message?.header?.wmf_stringByRemovingHTML()
         let _ = managedObjectContext.wmf_create(entityNamed: "RemoteNotification",
-                                                withKeysAndValues: ["id": notification.id,
+                                                withKeysAndValues: ["id": id,
                                                                     "categoryString" : notification.category,
                                                                     "typeString": notification.type,
                                                                     "agent": notification.agent?.name,
