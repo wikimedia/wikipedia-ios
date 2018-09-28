@@ -1,6 +1,6 @@
 import UIKit
 
-class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
+class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Themeable {
 
     @IBOutlet weak var listLimitTextField: UITextField!
     @IBOutlet weak var entryLimitTextField: UITextField!
@@ -56,6 +56,10 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
 
     @objc private func close() {
         dismiss(animated: true)
+    }
+
+    func apply(theme: Theme) {
+        view.backgroundColor = theme.colors.paperBackground
     }
 
 }
