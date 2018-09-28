@@ -138,6 +138,11 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     return identifier;
 }
 
+- (void)removePendingNotificationRequestsWithIdentifiers:(NSArray<NSString *> *)identifiers {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center removePendingNotificationRequestsWithIdentifiers:identifiers];
+}
+
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents {
     if (![UNUserNotificationCenter class]) {
         return;
