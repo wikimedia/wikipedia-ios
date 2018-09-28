@@ -2016,6 +2016,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.markRemoteNotificationsAsRead = ^(NSArray<NSString *> *filteredNotificationsIDs) {
         [responseCoordinator markAsReadNotificationsWithIDs:filteredNotificationsIDs];
     };
+
+    NSDictionary *userInfo = @{WMFEditRevertedInfoNotificationIDs: filteredNotificationsIDs, WMFEditRevertedInfoArticleKeys: articleKeys};
+    [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
