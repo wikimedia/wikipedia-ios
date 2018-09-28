@@ -26,6 +26,10 @@
     @objc func markAsRead(_ notifications: [RemoteNotification]) {
         modelController.markAsRead(notifications)
     }
+
+    @objc func markAsReadNotificationsWithIDs(_ IDs: [String]) {
+        modelController.markAsReadNotificationsWithIDs(IDs)
+    }
 }
 
 @objc final class RemoteNotificationsModelController: NSObject {
