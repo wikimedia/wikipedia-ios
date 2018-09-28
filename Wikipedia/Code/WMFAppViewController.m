@@ -67,7 +67,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate>
 
 @property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
@@ -1962,12 +1962,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     } else {
         alertMessage = @"Your %d edits have been reverted.";
     }
-    [WMFAlertManager.sharedInstance showErrorAlertWithMessage:alertMessage
-                                                       sticky:YES
-                                        dismissPreviousAlerts:YES
-                                                  tapCallBack:^{
-                                                      [responseCoordinator markAsRead:editRevertedNotifications];
-                                                  }];
+    [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
+        type:RMessageTypeError
+        dismissPreviousAlerts:YES
+        buttonCallback:^{
+            ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
+            readMoreViewController.delegate = self;
+            WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotifications.firstObject.affectedPageID];
+            readMoreViewController.articleURL = article.URL;
+            WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
+            [self presentViewController:navController animated:YES completion:nil];
+        }
+        tapCallBack:^{
+            [responseCoordinator markAsRead:editRevertedNotifications];
+        }];
+}
+
+- (void)buttonPressedIn:(ReadMoreAboutRevertedEditViewController *)readMoreAboutRevertedEditViewController articleURL:(NSURL *)articleURL {
+    assert(articleURL);
+    [self showArticleForURL:articleURL animated:YES];
 }
 
 #pragma mark - Perma Random Mode
