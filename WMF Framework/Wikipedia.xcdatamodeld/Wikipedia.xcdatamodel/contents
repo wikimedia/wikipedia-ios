@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
@@ -96,6 +96,7 @@
         <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wikidataID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="previewReadingLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="previewArticles" inverseEntity="ReadingList" syncable="YES"/>
         <relationship name="readingLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="articles" inverseEntity="ReadingList" syncable="YES"/>
         <fetchIndex name="byKeyIndex">
@@ -181,7 +182,7 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="300"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="180"/>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="465"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="480"/>
         <element name="WMFContent" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="345"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
