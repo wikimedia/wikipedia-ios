@@ -1,6 +1,10 @@
 import UIKit
 import WMF
 
+@objc protocol ReadMoreAboutRevertedEditViewControllerDelegate: class {
+    func buttonPressed(in readMoreAboutRevertedEditViewController: ReadMoreAboutRevertedEditViewController, articleURL: URL?)
+}
+
 class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     private var theme = Theme.standard
     @IBOutlet weak var contentView: UIView!
@@ -10,7 +14,11 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     @IBOutlet weak var contentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var button: UIButton!
 
-    override func viewDidLoad() {
+    @objc public var articleURL: URL?
+
+    @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
+
+    override public func viewDidLoad() {
         super.viewDidLoad()
         contentTextView.delegate = self
         title = WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaning why an edit was reverted.")
@@ -32,7 +40,8 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     }
 
     @objc private func buttonPressed() {
-
+        close()
+        delegate?.buttonPressed(in: self, articleURL: articleURL)
     }
 
     override func viewWillAppear(_ animated: Bool) {
