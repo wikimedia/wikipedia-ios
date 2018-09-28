@@ -336,6 +336,20 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
 }
 
+- (void)showAlert {
+    [[WMFAlertManager sharedInstance] showAlertWithReadMore:@"Your edit has been reverted"
+        type:RMessageTypeError
+        dismissPreviousAlerts:YES
+        buttonCallback:^{
+            ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
+            WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
+            [self presentViewController:navController animated:YES completion:nil];
+        }
+        tapCallBack:^{
+            NSLog(@"");
+        }];
+}
+
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
@@ -891,7 +905,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf_userDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
-    [self.dataStore.readingListsController stop:^{}];
+    [self.dataStore.readingListsController stop:^{
+    }];
     [self.dataStore.remoteNotificationsController stop];
     [self.savedArticlesFetcher stop];
 
@@ -1956,12 +1971,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (editRevertedNotifications.count == 0) {
         return;
     }
-    NSString *alertMessage;
-    if (editRevertedNotifications.count == 1) {
-        alertMessage = @"Your edit has been reverted";
-    } else {
-        alertMessage = @"Your %d edits have been reverted.";
-    }
+    NSString *alertMessage = @"Your edit has been reverted";
+    // TODO: How do we handle multiple notifications?
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
@@ -1974,7 +1985,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [self presentViewController:navController animated:YES completion:nil];
         }
         tapCallBack:^{
-            [responseCoordinator markAsRead:editRevertedNotifications];
+            [responseCoordinator markAsRead:@[editRevertedNotifications.firstObject]];
         }];
 }
 
