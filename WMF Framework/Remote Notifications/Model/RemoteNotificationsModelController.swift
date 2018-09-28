@@ -208,8 +208,9 @@
 
     public func markAsRead(_ notifications: [RemoteNotification]) {
         self.managedObjectContext.perform {
-            notifications.forEach { $0.read = true }
-            self.save()
+            self.markAsReadAndSave(notifications)
+        }
+    }
         }
     }
 
