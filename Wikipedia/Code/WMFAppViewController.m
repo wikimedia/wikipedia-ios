@@ -2061,7 +2061,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         }];
 }
 
-- (void)buttonPressedIn:(ReadMoreAboutRevertedEditViewController *)readMoreAboutRevertedEditViewController articleURL:(NSURL *)articleURL {
 - (void)showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:(NSArray<NSString *>*)notificationIDs articleKeys:(NSArray<NSString *>*)articleKeys completion:(void (^)(void))completion{
     ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
     readMoreViewController.delegate = self;
@@ -2069,8 +2068,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
     [self presentViewController:navController animated:YES completion:completion];
 }
+
+- (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(NSString *)articleKey {
+    NSURL *articleURL = [[NSURL alloc] initWithString:articleKey];
     assert(articleURL);
     [self showArticleForURL:articleURL animated:YES];
+}
+
+- (void)readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton {
+    [self setSelectedIndex:WMFAppTabTypeRecent];
 }
 
 #pragma mark - Perma Random Mode
