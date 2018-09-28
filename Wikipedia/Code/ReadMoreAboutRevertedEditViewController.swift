@@ -64,7 +64,10 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         contentTextView.attributedText = contentTextViewText
         button.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+    }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         contentTextViewHeightConstraint.constant = contentTextView.sizeThatFits(contentTextView.frame.size).height
     }
 }
@@ -76,6 +79,7 @@ extension ReadMoreAboutRevertedEditViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        contentTextView.backgroundColor = view.backgroundColor
         titleLabel.textColor = theme.colors.secondaryText
         subtitleLabel.textColor = theme.colors.primaryText
         contentTextView.textColor = theme.colors.primaryText

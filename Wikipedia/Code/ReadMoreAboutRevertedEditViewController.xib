@@ -27,10 +27,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOQ-vF-hJy">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmP-MH-dF7">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YFK-xV-en7">
                                     <rect key="frame" x="15" y="30" width="345" height="189"/>
@@ -49,7 +49,6 @@
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uec-ut-7qT">
                                             <rect key="frame" x="0.0" y="61" width="345" height="128"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="128" id="pEb-Db-xno"/>
                                             </constraints>
@@ -60,14 +59,17 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdQ-DG-ISQ">
-                                    <rect key="frame" x="15" y="607" width="345" height="30"/>
+                                    <rect key="frame" x="15" y="592" width="345" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="7d8-ZJ-Byk"/>
+                                    </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="YFK-xV-en7" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="15" id="31x-0g-n12"/>
-                                <constraint firstAttribute="bottom" secondItem="qdQ-DG-ISQ" secondAttribute="bottom" constant="30" id="Ar2-wT-1Qk"/>
+                                <constraint firstAttribute="bottom" secondItem="qdQ-DG-ISQ" secondAttribute="bottom" constant="15" id="Ar2-wT-1Qk"/>
                                 <constraint firstAttribute="trailing" secondItem="qdQ-DG-ISQ" secondAttribute="trailing" constant="15" id="SaY-h7-euw"/>
                                 <constraint firstItem="qdQ-DG-ISQ" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="15" id="VfJ-cJ-iiY"/>
                                 <constraint firstAttribute="trailing" secondItem="YFK-xV-en7" secondAttribute="trailing" constant="15" id="Wpl-6h-TP5"/>
@@ -87,10 +89,10 @@
                 </scrollView>
             </subviews>
             <constraints>
-                <constraint firstItem="kOQ-vF-hJy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CmC-70-Rb7"/>
-                <constraint firstAttribute="trailing" secondItem="kOQ-vF-hJy" secondAttribute="trailing" id="Ltu-Ul-BeI"/>
-                <constraint firstAttribute="bottom" secondItem="kOQ-vF-hJy" secondAttribute="bottom" id="pud-Rq-4nt"/>
-                <constraint firstItem="kOQ-vF-hJy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="reZ-SM-Jrd"/>
+                <constraint firstItem="kOQ-vF-hJy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CmC-70-Rb7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kOQ-vF-hJy" secondAttribute="trailing" id="Ltu-Ul-BeI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kOQ-vF-hJy" secondAttribute="bottom" id="pud-Rq-4nt"/>
+                <constraint firstItem="kOQ-vF-hJy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="reZ-SM-Jrd"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
         </view>
