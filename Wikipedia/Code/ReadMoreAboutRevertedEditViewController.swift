@@ -2,7 +2,8 @@ import UIKit
 import WMF
 
 @objc protocol ReadMoreAboutRevertedEditViewControllerDelegate: class {
-    func buttonPressed(in readMoreAboutRevertedEditViewController: ReadMoreAboutRevertedEditViewController, articleURL: URL?)
+    func readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(_ articleKey: String)
+    func readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton()
 }
 
 class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
@@ -14,7 +15,7 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     @IBOutlet weak var contentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var button: UIButton!
 
-    @objc public var articleURL: URL?
+    @objc public var articleKeys: [String]?
 
     @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
 
@@ -41,7 +42,11 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     @objc private func buttonPressed() {
         close()
-        delegate?.buttonPressed(in: self, articleURL: articleURL)
+        if isSingleRevert, let articleKey = articleKeys?.first {
+            delegate?.readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(articleKey)
+        } else {
+            delegate?.readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
