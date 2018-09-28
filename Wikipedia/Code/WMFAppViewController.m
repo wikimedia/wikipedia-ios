@@ -120,6 +120,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
+@property (nonatomic, copy) void (^markRemoteNotificationsAsRead)(NSArray<NSString *> *);
+
 @end
 
 @implementation WMFAppViewController
@@ -2010,6 +2012,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         NSString *bodyFormat = @"The %1$d edits you made were reverted";
         notificationBody = [NSString localizedStringWithFormat:bodyFormat, filteredNotifications.count];
     }
+
+    self.markRemoteNotificationsAsRead = ^(NSArray<NSString *> *filteredNotificationsIDs) {
+        [responseCoordinator markAsReadNotificationsWithIDs:filteredNotificationsIDs];
+    };
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
