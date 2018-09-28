@@ -15,6 +15,7 @@
                 <outlet property="button" destination="qdQ-DG-ISQ" id="qoJ-vi-tiY"/>
                 <outlet property="contentTextView" destination="uec-ut-7qT" id="3tQ-fH-0nK"/>
                 <outlet property="contentTextViewHeightConstraint" destination="pEb-Db-xno" id="X5b-k2-sxK"/>
+                <outlet property="contentView" destination="KmP-MH-dF7" id="fuc-jN-ix8"/>
                 <outlet property="scrollView" destination="kOQ-vF-hJy" id="Ux4-Q0-l1i"/>
                 <outlet property="subtitleLabel" destination="k7k-av-FcT" id="VtL-dc-O64"/>
                 <outlet property="titleLabel" destination="lHs-kB-op4" id="leD-JH-W1U"/>
@@ -29,7 +30,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOQ-vF-hJy">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmP-MH-dF7">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmP-MH-dF7" userLabel="Content View">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YFK-xV-en7">
@@ -59,19 +60,18 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdQ-DG-ISQ">
-                                    <rect key="frame" x="15" y="592" width="345" height="40"/>
+                                    <rect key="frame" x="10" y="592" width="350" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="7d8-ZJ-Byk"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="YFK-xV-en7" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="15" id="31x-0g-n12"/>
                                 <constraint firstAttribute="bottom" secondItem="qdQ-DG-ISQ" secondAttribute="bottom" constant="15" id="Ar2-wT-1Qk"/>
                                 <constraint firstAttribute="trailing" secondItem="qdQ-DG-ISQ" secondAttribute="trailing" constant="15" id="SaY-h7-euw"/>
-                                <constraint firstItem="qdQ-DG-ISQ" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="15" id="VfJ-cJ-iiY"/>
+                                <constraint firstItem="qdQ-DG-ISQ" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="10" id="VfJ-cJ-iiY"/>
                                 <constraint firstAttribute="trailing" secondItem="YFK-xV-en7" secondAttribute="trailing" constant="15" id="Wpl-6h-TP5"/>
                                 <constraint firstItem="YFK-xV-en7" firstAttribute="top" secondItem="KmP-MH-dF7" secondAttribute="top" constant="30" id="gw6-1D-n32"/>
                                 <constraint firstItem="qdQ-DG-ISQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YFK-xV-en7" secondAttribute="bottom" constant="30" id="r8g-yG-yKp"/>

@@ -3,6 +3,7 @@ import WMF
 
 class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     private var theme = Theme.standard
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
@@ -45,7 +46,7 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     private var contentTextViewText: NSAttributedString? {
         let formatString = WMFLocalizedString("reverted-edit-possible-reasons", value: "- Your contribution didn’t follow one of the guidelines. %1$@ \n\n - Your contribution looked like an experiment or vandalism", comment: "List of possible reasons describing why an edit might have been reverted. %1$@ is replaced with a link to view editing guidelines")
-        let baseAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)]
+        let baseAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection), .foregroundColor: theme.colors.primaryText];
         let linkAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: theme.colors.link,
         .font: UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)]
         guard let attributedString = formatString.attributedString(attributes: baseAttributes, substitutionStrings: [editingGuidelines.text], substitutionAttributes: [linkAttributes]) else {
@@ -79,10 +80,10 @@ extension ReadMoreAboutRevertedEditViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        contentView.backgroundColor = theme.colors.paperBackground
         contentTextView.backgroundColor = view.backgroundColor
         titleLabel.textColor = theme.colors.secondaryText
         subtitleLabel.textColor = theme.colors.primaryText
-        contentTextView.textColor = theme.colors.primaryText
         button.setTitleColor(theme.colors.link, for: .normal)
         button.backgroundColor = theme.colors.cardButtonBackground
     }
