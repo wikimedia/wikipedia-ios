@@ -2019,25 +2019,22 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     NSDictionary *userInfo = @{WMFEditRevertedInfoNotificationIDs: filteredNotificationsIDs, WMFEditRevertedInfoArticleKeys: articleKeys};
     [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
+
+    void (^seen)(void) = ^{
+        [responseCoordinator markAsRead:filteredNotifications];
+        [self.notificationsController removePendingNotificationRequestsWithIdentifiers:@[WMFEditRevertedNotificationCategoryIdentifier]];
+    };
+
     [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
         type:RMessageTypeError
         dismissPreviousAlerts:YES
         buttonCallback:^{
-            ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
-            if (editRevertedNotificationsCount == 1) {
-            readMoreViewController.delegate = self;
-            WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotifications.firstObject.affectedPageID];
-            readMoreViewController.articleURL = article.URL;
-            } else {
-                // Pass articles to readMoreViewController, adjust copy and link to a vc with all affected articles?
-            }
-            WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
-            [self presentViewController:navController animated:YES completion:^{
-                [responseCoordinator markAsRead:editRevertedNotifications];
+            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:filteredNotificationsIDs articleKeys:articleKeys completion:^{
+                seen();
             }];
         }
         tapCallBack:^{
-            [responseCoordinator markAsRead:editRevertedNotifications];
+            seen();
         }];
 }
 
