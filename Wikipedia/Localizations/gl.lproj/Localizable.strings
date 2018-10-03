@@ -120,6 +120,9 @@
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
+"description-help-about-title" = "Acerca de";
+"description-help-about-wikidata" = "Sobre Wikidata";
+"description-published-button-title" = "Feito";
 "dim-images" = "Atenuación de imaxes";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Error ortográfico correxido";
@@ -357,7 +360,7 @@
 "page-similar-titles" = "Páxinas similares";
 "page-talk-page" = "Ver a páxina de conversa";
 "pictured" = "retratado";
-"places-accessibility-clear-saved-searches" = "Limpar as buscas gardadas";
+"places-accessibility-clear-saved-searches" = "Limpar as procuras gardadas";
 "places-accessibility-group" = "$1 artigos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
 "places-accessibility-show-as-list" = "Amosar como lista";
@@ -380,9 +383,9 @@
 "places-search-articles-that-match" = "$1 correspondente a “$2”";
 "places-search-default-text" = "Procurar lugares";
 "places-search-did-you-mean" = "Quixo dicir $1?";
-"places-search-recently-searched-header" = "Buscado recentemente";
+"places-search-recently-searched-header" = "Procurado recentemente";
 "places-search-saved-articles" = "Todos os artigos gardados";
-"places-search-suggested-searches-header" = "Buscas suxeridas";
+"places-search-suggested-searches-header" = "Procuras suxeridas";
 "places-search-this-area" = "Resultados nesta área";
 "places-search-top-articles" = "Todos os artigos mellores";
 "places-search-top-articles-that-match-scope" = "Preto";
@@ -496,11 +499,11 @@
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-reading-list-placeholder-text" = "Procurar na lista de lectura";
 "search-recent-clear-cancel" = "Cancelar";
-"search-recent-clear-confirmation-heading" = "Borrar tódalas buscas recentes?";
+"search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-delete-all" = "Borrar todo";
 "search-recent-empty" = "Non hai procuras recentes aínda";
-"search-recent-title" = "Buscado recentemente";
+"search-recent-title" = "Procurado recentemente";
 "search-result-redirected-from" = "Redirixido de: $1";
 "search-title" = "Procurar";
 "settings-appearance" = "Preferencias de lectura";
@@ -510,7 +513,7 @@
 "settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Axuda e comentarios";
-"settings-language-bar" = "Amosar as linguas ó buscar";
+"settings-language-bar" = "Amosar as linguas ó procurar";
 "settings-my-languages" = "As miñas linguas";
 "settings-notifications" = "Notificacións";
 "settings-notifications-info" = "Ter alertas co noso sistema de notificacións sobre tendencias e artigos máis lidos na Wikipedia. Todo respectando a súa privacidade e actualizado coa última información dispoñible.";

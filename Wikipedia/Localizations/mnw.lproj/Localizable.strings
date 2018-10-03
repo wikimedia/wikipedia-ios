@@ -1,5 +1,6 @@
 // Messages for Mon (ဘာသာ မန်)
 // Exported from translatewiki.net
+// Author: Aue Nai
 // Author: Htawmonzel
 
 "about-content-license" = "လာင်ဇြေန် အရာမကတဵုဒှ်ပြဟ်";
@@ -105,10 +106,47 @@
 "button-skip" = "သလာ်";
 "cancel" = "တးပဲါ";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Commons CC0 မဒှ်မခၞံကၠောန်";
 "close-button-accessibility-label" = "ကၟာတ်";
 "compass-direction" = "ပ္ဍဲ $1 နာဍဳ";
 "continue-reading-empty-description" = "ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ပ္ဍဲ ဝဳကဳပဳဒဳယာ သွက်ဂွံ ဗှ်";
 "continue-reading-empty-title" = "လိက်ပရေင် မဗှ်လဝ်တုဲ ပြဟ်ဟ်ဏအ် ဟွံမွဲ";
+"description-add-link-title" = "စုတ် က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
+"description-add-title" = "ထပ် မဗၟံက်ထ္ၜး";
+"description-edit-for-article" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး သွက်$1";
+"description-edit-learn-more" = "ဆက် လ္ၚတ်";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "နပွမပြံၚ်ကေတ် မဗမံက်ထ္ၜးက္ဍိုပ်လိက်, အဲတုပ်ကဵု $1 ကေုာံ သ္ဂောံပတိတ်မကလေၚ်ဂွံမာန် ရီုဗၚ်အဲ သၟတ်လာၚ်ဇြေန် $2";
+"description-edit-pencil-introduction" = "ပလေဝ်ဒါန် မဆက်မိတ်";
+"description-edit-pencil-title" = "ပလေဝ်ဒါန် က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
+"description-edit-placeholder-title" = "မဗမံက်ထ္ၜးဂၠိဂှ်ဒှ်ခိုဟ်အိုတ်";
+"description-edit-publish" = "တြးပတိတ် မဗမံက်ထ္ၜး";
+"description-edit-title" = "ပလေဝ်ဒါန် မဗၟံက်ထ္ၜး";
+"description-edit-warning" = "ဂစာန်သ္ဂောံသီ မဗမံက်ထ္ၜးဂၠိညိ ညအ်တှ် ညးလွပ်တအ် ကၠိုဟ်မာန်ကဵု ဘာသာလိက်ပရေၚ် အပ္ဍဲမရံၚ်မွဲတမြိပ်မတ်";
+"description-help-about-description" = "က္ဍိုပ်လိက် မဖဍန်ချူ လိက်ပရေင်မွဲ သွက်ဂွံ ရီု ညးဗွဟ်လိက် ဂွံတီ ပရူ ပ္ဍဲ ဒၞာဲမွဲဓရေပ်မတ်၊၊";
+"description-help-about-title" = "ပရူ";
+"description-help-about-wikidata" = "ပရူ ဝဳကဳဒေတ";
+"description-help-more-info-description" = "ပရူမချူထ္ၜးဂှ် ဂိုင်ဒိပ် တုဲ သှ်ေဒၟံင် ပ္ဍဲ ဝဳကဳပဳဒဳယာ၊ မဒှ် ပရဝ်ဂျေန် the Wikimedia Foundation မဒှ် အရာ သက္ကုၚုဟ်၊ မပံင်တောဲကၠောန်၊ မစုင်လေင်၊ မပကောံတင်ဂၞင်တုဲ ထံက်ပင် ဝဳကဳပဳဒဳယာ ကေုာံ ပရဝ်ဂျေန် တၞဟ်တအ်၊၊";
+"description-help-more-info-title" = "ဆက်ကဵု ပရိုင်တင်ဂၞင်";
+"description-help-tips-description" = "ချူဗၟံက်ထ္ၜးဂှ် သ္ဒးဒှ် မွဲ ပၞောန် တုဲ မၞုံ အကြာ မလိက် ၂ ကဵု ၁၂ မ၊၊ ယဝ်ရ မလိက်ကၠာဂှ် ဟွံဒှ် မနာမ်ယၟုမ္ဂး လ္ပစကာ မအက္ခရ်ဇၞော်ညိ၊၊";
+"description-help-tips-example-description-one" = "က္ဍိုပ်လိက် ပရူ သွက် လိက်ပရေင် ပရူ Mona Lisa";
+"description-help-tips-example-description-two" = "က္ဍိုပ်လိက် သွက် လိက်ပရေင် ပူ ဒဵုသန္နရာဇ်";
+"description-help-tips-example-title-one" = "ဓဇက်လဝ် နကဵု Leonardo da Vinci";
+"description-help-tips-example-title-two" = "ဂၠးတိ ဒဵု သၠုင်အိုတ်";
+"description-help-tips-for-example" = "သွက် ဥပမာ:";
+"description-help-tips-title" = "ဂလာန်မြော် သွက်ဂွံခၞံကၠောန်အာ မဗမံက်ထ္ၜးဂမၠိုၚ်";
+"description-help-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး ရီု";
+"description-help-wikidata-guide" = "သ္ကအ်တဲ ဝဳကဳဒေသ သွက်မချူဗမံက်ထ္ၜး";
+"description-published-button-title" = "တုဲဒှ်";
+"description-published-footer" = "မၞးလေဝ် ပလေဝ်ဒါန်လိက်ပရေၚ် အပ္ဍဲapp ဏအ်မာန်. ဂစာန်သောၚ်ပ္ဍဵု ကေုာံ ဝါကဇမၠိ နပွမပ္ဍဵုကေတ် ပ္ဍဲသၚ်္ကေတ ကၞေဟ် အဓာန်ဂတ";
+"description-published-subtitle" = "မၞး ဆကၠောန်လဝ်ဝဳကဳပဳဒဳယာ မခိုဟ်သွက်ဇၟာပ်မၞိဟ်";
+"description-published-title" = "ပရူပရာဂှ် တြးပတိတ်တုဲ ဗွဲမအံင်ဇၞး";
+"description-welcome-concise-sub-title" = "မွဲကသပ် မွဲရေၚ်, အြကာ မအက္ခရ် ၜါမ ကဵု စှ်ၜါမ ဂမၠိုၚ်";
+"description-welcome-concise-title" = "သီကေတ်ဍေံဗွဲဂၠိ";
+"description-welcome-descriptions-sub-title" = "သ္ပသရုပ်ကဵုလိက်ပရေၚ် သ္ဂောံရီုဗၚ်ညးဗှ်လိက် ဂွံကၠိုဟ်ပရူပရာ မွဲဓရေပ်မတ်။";
+"description-welcome-descriptions-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
+"description-welcome-promise-title" = "နပွစကေတ်, အဲကဵုကတိ ဟွံသ္ဂောအ်ကဵုသုၚ်စောဲလိက်ပရေၚ်ဏအ် ဒၞဲါဗၠေတ်";
+"description-welcome-start-editing-button" = "စပလေဝ်ဒါန်ဒၟံၚ်";
 "dim-images" = "ဓလုကၠုဖျေဟ် ဗီုရုပ်";
 "edit-summary-choice-fixed-grammar" = "ပလေဝ်ပလေတ် သဒ္ဒါ";
 "edit-summary-choice-fixed-typos" = "ပလေဝ်ပလေတ် ဗီုပြင်";
