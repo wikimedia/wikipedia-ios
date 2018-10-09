@@ -17,4 +17,12 @@ public class KeychainCredentialsManager: NSObject {
             keychainCredentials.password = newValue
         }
     }
+
+    public var host: String? {
+        get {
+            return keychainCredentials.host
+        } set {
+            keychainCredentials.host = newValue
+        }
+    }
 }
