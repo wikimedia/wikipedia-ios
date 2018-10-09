@@ -1,18 +1,17 @@
 
 class WMFWelcomeContainerViewController: UIViewController {
     
-    @IBOutlet fileprivate var topContainerView:UIView!
-    @IBOutlet fileprivate var bottomContainerView:UIView!
-    @IBOutlet fileprivate var overallContainerStackView:UIStackView!
-    @IBOutlet fileprivate var overallContainerStackViewCenterYConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var topContainerViewHeightConstraint:NSLayoutConstraint!
-    @IBOutlet fileprivate var bottomContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet private var bottomContainerView:UIView!
+    @IBOutlet private var overallContainerStackView:UIStackView!
+    @IBOutlet private var overallContainerStackViewCenterYConstraint:NSLayoutConstraint!
+    @IBOutlet private var topContainerViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet private var bottomContainerViewHeightConstraint:NSLayoutConstraint!
 
     var welcomePageType:WMFWelcomePageType = .intro
     weak var welcomeNavigationDelegate:WMFWelcomeNavigationDelegate? = nil
     
-    fileprivate var hasAlreadyFadedInAndUp = false
-    fileprivate var needsDeviceAdjustments = true
+    private var hasAlreadyFadedInAndUp = false
+    private var needsDeviceAdjustments = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,7 +28,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
     
-    fileprivate func shouldFadeInAndUp() -> Bool {
+    private func shouldFadeInAndUp() -> Bool {
         switch welcomePageType {
         case .intro:
             return false
@@ -46,10 +45,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         super.updateViewConstraints()
         if needsDeviceAdjustments {
             let height = view.bounds.size.height
-            if height <= 480 {
-                // Just hide animations on iPhone 4s
-                hideAndCollapseTopContainerView()
-            } else if height <= 568 {
+            if height <= 568 {
                 // On iPhone 5 reduce size of animations.
                 reduceTopAnimationsSizes(reduction: 30)
                 bottomContainerViewHeightConstraint.constant = 367
@@ -63,15 +59,11 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
     
-    fileprivate func reduceTopAnimationsSizes(reduction: CGFloat) {
+    private func reduceTopAnimationsSizes(reduction: CGFloat) {
         topContainerViewHeightConstraint.constant = topContainerViewHeightConstraint.constant - reduction
     }
     
-    fileprivate func hideAndCollapseTopContainerView() {
-        topContainerView.isHidden = true
-    }
-    
-    fileprivate func useBottomAlignmentIfPhone() {
+    private func useBottomAlignmentIfPhone() {
         assert(Int(overallContainerStackViewCenterYConstraint.priority.rawValue) == 999, "The Y centering constraint must not have required '1000' priority because on non-tablets we add a required bottom alignment constraint on overallContainerView which we want to be favored when present.")
         if (UI_USER_INTERFACE_IDIOM() == .phone) {
             overallContainerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
@@ -86,7 +78,7 @@ class WMFWelcomeContainerViewController: UIViewController {
         }
     }
     
-    @IBAction fileprivate func next(withSender sender: AnyObject) {
+    @IBAction private func next(withSender sender: AnyObject) {
         welcomeNavigationDelegate?.showNextWelcomePage(self)
     }
 }

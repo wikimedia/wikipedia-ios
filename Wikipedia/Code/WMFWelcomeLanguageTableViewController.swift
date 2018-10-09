@@ -14,11 +14,11 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
     
-    @IBOutlet fileprivate var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
-    @IBOutlet fileprivate var moreLanguagesButton:UIButton!
-    @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
+    @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
+    @IBOutlet private var moreLanguagesButton:UIButton!
+    @IBOutlet private var languagesDescriptionLabel:UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()

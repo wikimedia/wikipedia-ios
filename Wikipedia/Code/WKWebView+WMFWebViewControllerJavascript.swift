@@ -159,7 +159,8 @@ extension WKWebView {
     private func articleJS(for article: MWKArticle, title: String) -> String {
         let articleDisplayTitle = article.displaytitle ?? ""
         let articleEntityDescription = (article.entityDescription ?? "").wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: article.url.wmf_language)
-        
+        let addTitleDescriptionLocalizedString = WMFLocalizedString("description-add-link-title", language: (article.url as NSURL).wmf_language, value: "Add title description", comment: "Text for link for adding a title description")
+
         return """
         new window.wmf.sections.Article(
             \(article.isMain.toString()),
@@ -167,7 +168,9 @@ extension WKWebView {
             '\(articleDisplayTitle.wmf_stringBySanitizingForJavaScript())',
             '\(articleEntityDescription.wmf_stringBySanitizingForJavaScript())',
             \(article.editable.toString()),
-            \(languageJS(for: article))
+            \(languageJS(for: article)),
+            '\(addTitleDescriptionLocalizedString.wmf_stringBySanitizingForJavaScript())',
+            \(article.isWikidataDescriptionEditable.toString())
         )
         """
     }

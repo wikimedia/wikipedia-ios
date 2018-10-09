@@ -1,9 +1,9 @@
 
 class WMFWelcomeIntroductionViewController: UIViewController {
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
 
-    @IBOutlet fileprivate var descriptionLabel:UILabel!
-    @IBOutlet fileprivate var learnMoreButton:UIButton!
+    @IBOutlet private var descriptionLabel:UILabel!
+    @IBOutlet private var learnMoreButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

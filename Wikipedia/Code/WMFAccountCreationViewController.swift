@@ -207,14 +207,11 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
 
     fileprivate func login() {
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("account-creation-logging-in", value:"Logging in...", comment:"Alert shown after account successfully created and the user is being logged in automatically.\n{{Identical|Logging in}}"), sticky: true, canBeDismissedByUser: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        WMFAuthenticationManager.sharedInstance.login(
-            username: usernameField.text ?? "",
-            password: passwordField.text ?? "",
-            retypePassword: nil,
-            oathToken: nil,
-            captchaID: nil,
-            captchaWord: nil,
-            success: { _ in
+        let username = usernameField.text ?? ""
+        let password = passwordField.text ?? ""
+        WMFAuthenticationManager.sharedInstance.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+            switch loginResult {
+            case .success(_):
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 if let start = self.startDate {
@@ -226,11 +223,15 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                 self.dismiss(animated: true, completion: {
                     presenter?.wmf_showEnableReadingListSyncPanel(theme: self.theme, oncePerLogin: true)
                 })
-        }, failure: { error in
-            self.setViewControllerUserInteraction(enabled: true)
-            self.enableProgressiveButtonIfNecessary()
-            WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
-        })
+            case .failure(let error):
+                self.setViewControllerUserInteraction(enabled: true)
+                self.enableProgressiveButtonIfNecessary()
+                WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+            default:
+                assertionFailure("Unhandled login result")
+                break
+            }
+        }
     }
     
     fileprivate func requiredInputFields() -> [UITextField] {

@@ -33,22 +33,37 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, displayTitle, description, editable, language) {
+  constructor(ismain, title, displayTitle, description, editable, language, addTitleDescriptionString, isTitleDescriptionEditable) {
     this.ismain = ismain
     this.title = title
     this.displayTitle = displayTitle
     this.description = description
     this.editable = editable
     this.language = language
+    this.addTitleDescriptionString = addTitleDescriptionString
+    this.isTitleDescriptionEditable = isTitleDescriptionEditable
   }
-  descriptionParagraph() {
-    if(this.description !== undefined && this.description.length > 0){
-      const p = lazyDocument.createElement('p')
-      p.id = 'entity_description'
-      p.innerHTML = this.description
-      return p
+  descriptionElements() {
+    if (!this.isTitleDescriptionEditable || this.description !== undefined && this.description.length > 0) {
+      return this.existingDescriptionElements()
     }
-    return undefined
+    return this.descriptionAdditionElements()
+  }
+  existingDescriptionElements() {
+    const p = lazyDocument.createElement('p')
+    p.id = 'entity_description'
+    p.innerHTML = this.description
+    return p
+  }
+  descriptionAdditionElements() {
+    const a = lazyDocument.createElement('a')
+    a.href = '#'
+    a.setAttribute('data-action', 'add_title_description')
+    const p = lazyDocument.createElement('p')
+    p.id = 'add_entity_description'
+    p.innerHTML = this.addTitleDescriptionString
+    a.appendChild(p)
+    return a
   }
 }
 
@@ -117,7 +132,7 @@ class Section {
 
   description() {
     if(this.isLeadSection()){
-      return this.article.descriptionParagraph()
+      return this.article.descriptionElements()
     }
     return undefined
   }

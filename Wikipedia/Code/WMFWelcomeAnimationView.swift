@@ -5,10 +5,10 @@ open class WMFWelcomeAnimationView : UIView {
     // Reminder - these transforms are on WMFWelcomeAnimationView 
     // so they can scale proportionally to the view size.
     
-    fileprivate var wmf_proportionalHorizontalOffset: CGFloat{
+    private var wmf_proportionalHorizontalOffset: CGFloat{
         return CGFloat(0.35).wmf_denormalizeUsingReference(frame.width)
     }
-    fileprivate var wmf_proportionalVerticalOffset: CGFloat{
+    private var wmf_proportionalVerticalOffset: CGFloat{
         return CGFloat(0.35).wmf_denormalizeUsingReference(frame.height)
     }
     
