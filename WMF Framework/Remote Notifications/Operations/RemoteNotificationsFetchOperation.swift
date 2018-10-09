@@ -15,24 +15,25 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
                             }
                             if fetchedNotifications.isEmpty {
                                 self.finish()
-                            }
-                            if savedNotifications.isEmpty {
-                                do {
-                                    try self.modelController.createNewNotifications(from: fetchedNotifications) {
-                                        self.finish()
-                                    }
-                                } catch let error {
-                                    assertionFailure()
-                                    self.finish(with: error)
-                                }
                             } else {
-                                do {
-                                    try self.modelController.updateNotifications(savedNotifications, with: fetchedNotifications) {
-                                        self.finish()
+                                if savedNotifications.isEmpty {
+                                    do {
+                                        try self.modelController.createNewNotifications(from: fetchedNotifications) {
+                                            self.finish()
+                                        }
+                                    } catch let error {
+                                        assertionFailure()
+                                        self.finish(with: error)
                                     }
-                                } catch let error {
-                                    assertionFailure()
-                                    self.finish(with: error)
+                                } else {
+                                    do {
+                                        try self.modelController.updateNotifications(savedNotifications, with: fetchedNotifications) {
+                                            self.finish()
+                                        }
+                                    } catch let error {
+                                        assertionFailure()
+                                        self.finish(with: error)
+                                    }
                                 }
                             }
                         }
