@@ -222,14 +222,25 @@ public class WMFAuthenticationManager: NSObject {
         }
         let cookie1Name = "\(domain)wikiSession"
         let cookie2Name = "\(domain)wikiUserID"
-        HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name, withDomain: nil)
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: nil)
-        createWikidataCookies()
+        HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, withDomain: loginSiteURL.host, usingCookieAsTemplate: cookie2Name, templateDomain: loginSiteURL.host)
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", withDomain: ".wikipedia.org", usingCookieAsTemplate: "centralauth_User", templateDomain: ".wikipedia.org")
+        recreateWikidataCookies()
     }
 
     private func createWikidataCookies() {
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: WikidataAPI.host)
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_User", usingCookieAsTemplate: "centralauth_User", withDomain: WikidataAPI.host)
+        let sessionCookieName = "centralauth_Session"
+        let userCookieName = "centralauth_User"
+        let templateCookieDomain = ".wikipedia.org"
+        HTTPCookieStorage.shared.wmf_createCookie(withName: sessionCookieName, newDomain: WikidataAPI.host, usingCookieAsTemplate: sessionCookieName, templateDomain: templateCookieDomain)
+        HTTPCookieStorage.shared.wmf_createCookie(withName: userCookieName, newDomain: WikidataAPI.host, usingCookieAsTemplate: userCookieName, templateDomain: templateCookieDomain)
+    }
+
+    private func recreateWikidataCookies() {
+        let sessionCookieName = "centralauth_Session"
+        let userCookieName = "centralauth_User"
+        let templateCookieDomain = ".wikipedia.org"
+        HTTPCookieStorage.shared.wmf_recreateCookie(sessionCookieName, withDomain: WikidataAPI.host, usingCookieAsTemplate: userCookieName, templateDomain: templateCookieDomain)
+        HTTPCookieStorage.shared.wmf_recreateCookie(userCookieName, withDomain: WikidataAPI.host, usingCookieAsTemplate: userCookieName, templateDomain: templateCookieDomain)
     }
 
     public func createWikidataCookiesIfNecessary() {
