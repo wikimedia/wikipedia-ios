@@ -220,8 +220,10 @@ public class WMFAuthenticationManager: NSObject {
         }
         let cookie1Name = "\(domain)wikiSession"
         let cookie2Name = "\(domain)wikiUserID"
-        HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name)
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User")
+        HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name, withDomain: nil)
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: nil)
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: "www.wikidata.org")
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_User", usingCookieAsTemplate: "centralauth_User", withDomain: "www.wikidata.org")
     }
 }
 

@@ -3,7 +3,7 @@
 
 @implementation NSHTTPCookieStorage (WMFCloneCookie)
 
-- (void)wmf_recreateCookie:(NSString *)cookieToRecreate usingCookieAsTemplate:(NSString *)templateCookie {
+- (void)wmf_recreateCookie:(NSString *)cookieToRecreate usingCookieAsTemplate:(NSString *)templateCookie withDomain:(nullable NSString *)domain {
     void (^cloneCookie)(NSString *, NSString *) = ^void(NSString *name1, NSString *name2) {
         NSUInteger (^getIndexOfCookie)(NSString *) = ^NSUInteger(NSString *name) {
             return [self.cookies indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -33,6 +33,9 @@
             cookie2Props[@"Created"] = [NSDate date];
             cookie2Props[@"Name"] = cookie1Name;
             cookie2Props[@"Value"] = cookie1Value;
+            if (domain) {
+                cookie2Props[@"Domain"] = domain;
+            }
             NSHTTPCookie *newCookie = [NSHTTPCookie cookieWithProperties:cookie2Props];
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:newCookie];
         }

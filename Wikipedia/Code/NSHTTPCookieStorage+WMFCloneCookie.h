@@ -6,6 +6,6 @@
 // recreate it using templateCookie as a template. All of templateCookie's properties
 // will be used, except "Name", "Value" and "Created", which will come from the original
 // cookieToRecreate.
-- (void)wmf_recreateCookie:(NSString *)cookieToRecreate usingCookieAsTemplate:(NSString *)templateCookie;
+- (void)wmf_recreateCookie:(nonnull NSString *)cookieToRecreate usingCookieAsTemplate:(nonnull NSString *)templateCookie withDomain:(nullable NSString *)domain;
 
 @end
