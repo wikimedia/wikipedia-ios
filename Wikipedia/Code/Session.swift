@@ -30,10 +30,26 @@ import Foundation
         }
 
     }
+    
+    private static let defaultCookieStorage: HTTPCookieStorage = {
+        let storage = HTTPCookieStorage.shared
+        storage.cookieAcceptPolicy = .always
+        return storage
+    }()
+    
+    @objc public static var defaultConfiguration: URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = Session.defaultCookieStorage
+        return config
+    }
+    
+    @objc public static let urlSession: URLSession = {
+        return URLSession(configuration: Session.defaultConfiguration)
+    }()
 
     @objc public static let shared = Session()
     
-    private let session = URLSession.shared
+    private let session = Session.urlSession
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
