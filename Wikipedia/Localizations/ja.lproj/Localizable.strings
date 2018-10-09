@@ -156,6 +156,8 @@
 "description-help-about-wikidata" = "ウィキデータについて";
 "description-help-more-info-description" = "説明はウィキメディア財団のプロジェクトであるウィキデータに保存され、メンテナンスされています。ウィキデータはウィキメディア財団のプロジェクトの一つです。自由、協同的、多言語、二次的なデータベースで、ウィキペディアやその他のプロジェクトを支えています。";
 "description-help-more-info-title" = "詳細情報";
+"description-help-tips-description" = "説明は理想的には1行に収まり、30文字程度の長さです。最初の単語が固有名詞でない限り、大文字ではありません。";
+"description-help-tips-example-description-one" = "モナリザについての記事のタイトルの説明";
 "description-help-tips-example-description-two" = "エベレストについての記事のタイトルの説明";
 "description-help-tips-example-title-one" = "レオナルド・ダ・ヴィンチの絵画";
 "description-help-tips-example-title-two" = "地球上で最も高い山";
@@ -167,6 +169,7 @@
 "description-published-footer" = "アプリ内で記事も編集できます。次回は鉛筆アイコンをクリックして、誤字を直したり、文を編集したりを試してみましょう。";
 "description-published-subtitle" = "みんなのためにウィキペディアを改善しました。やったね！";
 "description-published-title" = "説明が公開されました！";
+"description-welcome-concise-sub-title" = "説明は1行のみで、30文字程度で書いてください";
 "description-welcome-concise-title" = "できるだけ短くしましょう";
 "description-welcome-descriptions-sub-title" = "記事を要約して、読者がひと目でテーマが分かるようにします。";
 "description-welcome-descriptions-title" = "タイトルの説明";
@@ -204,6 +207,7 @@
 "explore-feed-customize-accessibility-title" = "カスタマイズ";
 "explore-feed-preferences-additional-languages-footer-text" = "言語は「お使いになる言語」設定から追加できます。";
 "explore-feed-preferences-card-hidden-title" = "非表示にしたカード";
+"explore-feed-preferences-continue-reading-description" = "読んでいた記事にすぐ戻れるリンク";
 "explore-feed-preferences-featured-article-description" = "ウィキペディアの今日の秀逸な記事";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "オフ";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "すべてオンにする";

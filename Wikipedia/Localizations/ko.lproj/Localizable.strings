@@ -142,7 +142,7 @@
 "description-edit-placeholder-title" = "설명은 짧을수록 좋습니다";
 "description-edit-publish" = "설명 게시";
 "description-edit-title" = "설명 편집";
-"description-edit-warning" = "사용자가 문서의 주레를 바로 이해할 수 있도록 설명은 간결하게 작성하십시오";
+"description-edit-warning" = "사용자가 문서의 주제를 바로 이해할 수 있도록 설명은 간결하게 작성하십시오";
 "description-help-about-description" = "제목 설명은 독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다.";
 "description-help-about-title" = "정보";
 "description-help-about-wikidata" = "위키데이터 정보";
