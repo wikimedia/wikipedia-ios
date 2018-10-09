@@ -90,7 +90,6 @@ public class WMFAuthenticationManager: NSObject {
                 self.loggedInUsername = normalizedUserName
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
-                self.cloneSessionCookies()
                 SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
                 completion(.success(result))
             }, failure: { (error) in
@@ -197,20 +196,6 @@ public class WMFAuthenticationManager: NSObject {
             reset()
             completion()
         })
-    }
-    
-    fileprivate func cloneSessionCookies() {
-        // Make the session cookies expire at same time user cookies. Just remember they still can't be
-        // necessarily assumed to be valid as the server may expire them, but at least make them last as
-        // long as we can to lessen number of server requests. Uses user tokens as templates for copying
-        // session tokens. See "recreateCookie:usingCookieAsTemplate:" for details.
-        guard let domain = MWKLanguageLinkController.sharedInstance().appLanguage?.languageCode else {
-            return
-        }
-        let cookie1Name = "\(domain)wikiSession"
-        let cookie2Name = "\(domain)wikiUserID"
-        HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name)
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User")
     }
 }
 
