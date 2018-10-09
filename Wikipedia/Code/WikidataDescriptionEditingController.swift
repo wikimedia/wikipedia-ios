@@ -97,6 +97,7 @@ enum WikidataPublishingError: LocalizedError {
             completion(WikidataPublishingError.blacklistedLanguage)
             return
         }
+        WMFAuthenticationManager.sharedInstance.createWikidataCookiesIfNecessary()
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
             completion(result?.error)
         }

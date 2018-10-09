@@ -224,8 +224,23 @@ public class WMFAuthenticationManager: NSObject {
         let cookie2Name = "\(domain)wikiUserID"
         HTTPCookieStorage.shared.wmf_recreateCookie(cookie1Name, usingCookieAsTemplate: cookie2Name, withDomain: nil)
         HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: nil)
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: "www.wikidata.org")
-        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_User", usingCookieAsTemplate: "centralauth_User", withDomain: "www.wikidata.org")
+        createWikidataCookies()
+    }
+
+    private func createWikidataCookies() {
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_Session", usingCookieAsTemplate: "centralauth_User", withDomain: WikidataAPI.host)
+        HTTPCookieStorage.shared.wmf_recreateCookie("centralauth_User", usingCookieAsTemplate: "centralauth_User", withDomain: WikidataAPI.host)
+    }
+
+    public func createWikidataCookiesIfNecessary() {
+        guard let wikidataURL = WikidataAPI.urlWithoutAPIPath else {
+            assertionFailure("Wikidata URL cannot be nil")
+            return
+        }
+        guard let wikidataCookies = HTTPCookieStorage.shared.cookies(for: wikidataURL), wikidataCookies.count == 2 else {
+            createWikidataCookies()
+            return
+        }
     }
 }
 
