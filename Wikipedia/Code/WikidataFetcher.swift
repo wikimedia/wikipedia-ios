@@ -89,10 +89,10 @@ class WikidataFetcher: NSObject {
         }
     }
 
-    @objc public func wikidataID(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
+    @objc public func wikidataID(forArticleURL articleURL: URL, completion: @escaping ([String: Any]?, Error?) -> Void) {
         guard let title = articleURL.wmf_title,
             let host = articleURL.host else {
-                failure(WikidataFetcherError.genericError)
+                completion(nil, WikidataFetcherError.genericError)
                 return
         }
 
@@ -108,23 +108,23 @@ class WikidataFetcher: NSObject {
         components.queryItems = [actionQueryItem, titlesQueryItem, propQueryItem, pppropQueryItem, formatQueryItem]
 
         guard let requestURL = components.url else {
-            failure(WikidataFetcherError.genericError)
+            completion(nil, WikidataFetcherError.genericError)
             return
         }
 
         URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
             guard let data = data else {
-                failure(error ?? WikidataFetcherError.genericError)
+                completion(nil, error ?? WikidataFetcherError.genericError)
                 return
             }
             do {
                 guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
-                    failure(WikidataFetcherError.genericError)
+                    completion(nil, WikidataFetcherError.genericError)
                     return
                 }
-                success(jsonObject)
+                completion(jsonObject, nil)
             } catch let parseError {
-                failure(parseError)
+                completion(nil, parseError)
             }
         }).resume()
     }

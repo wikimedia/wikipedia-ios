@@ -91,12 +91,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 - (void)fetchWikidataIDForArticleURL:(NSURL *)articleURL completion:(void (^)(NSString *_Nullable wikidataID, NSError *_Nullable error))completion {
     NSAssert(![NSThread isMainThread], @"Wikidata ID should be fetched on a background thread");
-    [self.wikidataFetcher wikidataIDForArticleURL:articleURL
-        failure:^(NSError *_Nonnull error) {
+    [self.wikidataFetcher wikidataIDForArticleURL:articleURL completion:^(NSDictionary<NSString *,id> * _Nullable response, NSError * _Nullable error) {
+        if (error) {
             completion(nil, error);
-        }
-        success:^(NSDictionary<NSString *, id> *_Nonnull response) {
-            NSString *wikidataID;
+        } else {
             if (response && [response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *wikidataResponseDictionary = (NSDictionary *)response;
                 id query = [wikidataResponseDictionary objectForKey:@"query"];
@@ -109,14 +107,15 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                             NSString *firstKey = [allKeys firstObject];
                             NSDictionary *pageDictionary = (NSDictionary *)[pagesDictionary objectForKey:firstKey];
                             NSDictionary *pagepropsDictionary = (NSDictionary *)[pageDictionary objectForKey:@"pageprops"];
-                            wikidataID = [pagepropsDictionary objectForKey:@"wikibase_item"];
+                            NSString *wikidataID = [pagepropsDictionary objectForKey:@"wikibase_item"];
                             assert(wikidataID);
                             completion(wikidataID, nil);
                         }
                     }
                 }
             }
-        }];
+        }
+    }];
 }
 
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
