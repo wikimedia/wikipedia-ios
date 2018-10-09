@@ -158,7 +158,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/AFHTTPSessionManager+WMFCancelAll.h>
 #import <WMF/WMFArticlePreviewFetcher.h>
 #import <WMF/WMFBaseRequestSerializer.h>
-#import <WMF/NSHTTPCookieStorage+WMFCloneCookie.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/NSDictionary+WMFCommonParams.h>
 
