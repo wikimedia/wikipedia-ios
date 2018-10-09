@@ -45,43 +45,32 @@ public class WMFAuthTokenFetcher: NSObject {
             }
         }
 
-        let loginGroup = WMFTaskGroup()
-        if type == .csrf {
-            if !WMFAuthenticationManager.sharedInstance.isLoggedIn(at: siteURL) {
-                loginGroup.enter()
-                WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials(siteURL) { (_) in
-                    loginGroup.leave()
-                }
-            }
-        }
-
-        loginGroup.waitInBackground {
-            let manager = AFHTTPSessionManager(baseURL: siteURL)
-            manager.responseSerializer = WMFApiJsonResponseSerializer.init();
-            let parameters = [
-                "action": "query",
-                "meta": "tokens",
-                "type": stringForToken(type),
-                "format": "json"
-            ]
-            _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
-                guard
-                    let response = response as? [String : AnyObject],
-                    let query = response["query"] as? [String: Any],
-                    let tokens = query["tokens"] as? [String: Any],
-                    let token = tokens[stringForToken(type) + "token"] as? String
-                    else {
-                        failure(WMFAuthTokenError.cannotExtractToken)
-                        return
-                }
-                guard token.count > 0 else {
-                    failure(WMFAuthTokenError.zeroLengthToken)
+        
+        let manager = AFHTTPSessionManager(baseURL: siteURL)
+        manager.responseSerializer = WMFApiJsonResponseSerializer.init();
+        let parameters = [
+            "action": "query",
+            "meta": "tokens",
+            "type": stringForToken(type),
+            "format": "json"
+        ]
+        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
+            guard
+                let response = response as? [String : AnyObject],
+                let query = response["query"] as? [String: Any],
+                let tokens = query["tokens"] as? [String: Any],
+                let token = tokens[stringForToken(type) + "token"] as? String
+                else {
+                    failure(WMFAuthTokenError.cannotExtractToken)
                     return
-                }
-                success(WMFAuthToken(token: token, type: type))
-            }, failure: { (_, error) in
-                failure(error)
-            })
-        }
+            }
+            guard token.count > 0 else {
+                failure(WMFAuthTokenError.zeroLengthToken)
+                return
+            }
+            success(WMFAuthToken(token: token, type: type))
+        }, failure: { (_, error) in
+            failure(error)
+        })
     }
 }
