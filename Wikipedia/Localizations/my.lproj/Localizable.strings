@@ -1,5 +1,6 @@
 // Messages for Burmese (မြန်မာဘာသာ)
 // Exported from translatewiki.net
+// Author: Christine Ivy
 // Author: Dr Lotus Black
 // Author: Mhurd
 // Author: NayiMuu
@@ -102,6 +103,14 @@
 "compass-direction" = "$1 နာရီတွင်";
 "continue-reading-empty-description" = "ဆောင်းပါးများပိုမိုဖတ်ရှုရန် ဝီကီပီးဒီးယားကို စူးစမ်းပါ";
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
+"description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
+"description-edit-pencil-title" = "ခေါင်းစဥ်ဖော်ပြချက် တည်းဖြတ်ရန်";
+"description-edit-title" = "ဖော်ပြချက် တည်းဖြတ်ရန်";
+"description-help-more-info-title" = "သတင်းအချက်အလက်အသစ်များ";
+"description-help-tips-example-description-two" = "ဧဝရတ်တောင်ဆောင်းပါး ခေါင်းစဉ်ဖော်ပြချက်";
+"description-published-button-title" = "ပြီးပါပြီ";
+"description-welcome-concise-sub-title" = "စာလုံးရေ နှစ်လုံးမှတစ်ဆယ့်နှစ်လုံးကြား တစ်ကြောင်းတည်းရေးနိုင်လျှင် အကောင်းဆုံးဖြစ်သည်။";
+"description-welcome-concise-title" = "လိုရင်းတိုရှင်းဖော်ပြပါ";
 "dim-images" = "ရုပ်ပုံများကို မှိန်ထားရန်";
 "edit-summary-choice-fixed-grammar" = "သဒ္ဒါပြင်ခဲ့သည်";
 "edit-summary-choice-fixed-typos" = "စာလုံးပေါင်း ပြင်ခဲ့သည်";
@@ -277,7 +286,7 @@
 "no-email-account-alert" = "သင်၏ စက်ပစ္စည်းတွင် အီးမေးလ်လိပ်စာတစ်ခု ထည့်သွင်း၍ ထပ်မံကြိုးစားပါ။";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
-"number-thousands" = "$1K";
+"number-thousands" = "$1ထောင်";
 "on-this-day-detail-header-date-range" = "$1 မှ - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 သမိုင်းဝင်ဖြစ်ရပ်|$1 သမိုင်းဝင်ဖြစ်ရပ်များ}}";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
