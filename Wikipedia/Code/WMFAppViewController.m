@@ -1708,17 +1708,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         // WMFEditRevertedNotification
     } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
         NSDictionary *info = response.notification.request.content.userInfo;
-        NSArray<NSString *> *notificationIDs = (NSArray<NSString *> *)info[WMFEditRevertedInfoNotificationIDs];
-        NSArray<NSString *> *articleKeys = (NSArray<NSString *> *)info[WMFEditRevertedInfoArticleKeys];
-        assert(notificationIDs);
+        NSString *articleURLString = (NSString *)info[WMFNotificationInfoArticleURLStringKey];
+        NSString *notificationID = (NSString *)info[WMFEditRevertedNotificationIDKey];
+        assert(articleURLString);
+        assert(notificationID);
         if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:notificationIDs
-                                                                         articleKeys:articleKeys
-                                                                          completion:^{
-                                                                              self.markRemoteNotificationsAsRead(notificationIDs);
-                                                                          }];
+            NSURL *articleURL = [NSURL URLWithString:articleURLString];
+            assert(articleURL);
+            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL completion:^{
+                self.markRemoteNotificationAsRead(notificationID);
+            }];
         } else {
-            _markRemoteNotificationsAsRead(notificationIDs);
+            _markRemoteNotificationAsRead(notificationID);
         }
     }
 
