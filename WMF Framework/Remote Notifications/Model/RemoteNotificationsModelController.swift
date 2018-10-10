@@ -30,6 +30,10 @@
     @objc func markAsReadNotificationsWithIDs(_ IDs: [String]) {
         modelController.markAsReadNotificationsWithIDs(IDs)
     }
+
+    @objc func markAsExcluded(_ notifications: [RemoteNotification]) {
+        modelController.markAsExcluded(notifications)
+    }
 }
 
 @objc final class RemoteNotificationsModelController: NSObject {
@@ -228,6 +232,16 @@
     private func markAsReadAndSave(_ notifications: [RemoteNotification]) {
         notifications.forEach { $0.wasRead = true }
         self.save()
+    }
+
+    // MARK: Mark as excluded
+
+    public func markAsExcluded(_ notifications: [RemoteNotification]) {
+        let moc = managedObjectContext
+        moc.perform {
+            notifications.forEach { $0.isExcluded = true }
+            self.save()
+        }
     }
 
     // MARK: Notifications
