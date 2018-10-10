@@ -14,7 +14,6 @@
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
 #import "WMFSearchFetcher.h"
-#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "WMFProxyServer.h"
 
 #import "WMFArticleTextActivitySource.h"
