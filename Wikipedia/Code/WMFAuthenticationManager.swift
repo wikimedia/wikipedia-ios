@@ -3,19 +3,35 @@
  *  This class provides a simple interface for performing authentication tasks.
  */
 public class WMFAuthenticationManager: NSObject {
-    public enum LoginResult {
+    public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)
         case failure(_: Error)
     }
     
-    public typealias LoginResultHandler = (LoginResult) -> Void
+    public typealias AuthenticationResultHandler = (AuthenticationResult) -> Void
+    
+    public enum AuthenticationError: LocalizedError {
+        case missingLoginURL
+        
+        public var errorDescription: String? {
+            switch self {
+            default:
+                return CommonStrings.genericErrorDescription
+            }
+        }
+        
+        public var recoverySuggestion: String? {
+            switch self {
+            default:
+                 return CommonStrings.genericErrorRecoverySuggestion
+            }
+        }
+    }
     
     private let session: Session = {
         return Session.shared
     }()
-    
-    @objc public static let userLoggedInNotification = NSNotification.Name("WMFUserLoggedInNotification")
     
     /**
      *  The current logged in user. If nil, no user is logged in
@@ -23,9 +39,6 @@ public class WMFAuthenticationManager: NSObject {
     @objc dynamic private(set) var loggedInUsername: String? = nil {
         didSet {
             SessionSingleton.sharedInstance().dataStore.readingListsController.authenticationDelegate = self
-            if loggedInUsername != nil {
-                NotificationCenter.default.post(name: WMFAuthenticationManager.userLoggedInNotification, object: nil)
-            }
         }
     }
     
@@ -60,7 +73,7 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc public static let sharedInstance = WMFAuthenticationManager()
     
-    var loginSiteURL: URL {
+    var loginSiteURL: URL? {
         var baseURL: URL?
         if let host = KeychainCredentialsManager.shared.host {
             var components = URLComponents()
@@ -70,22 +83,17 @@ public class WMFAuthenticationManager: NSObject {
         }
         
         if baseURL == nil {
-            //            #if DEBUG
-            //                let loginHost = "readinglists.wmflabs.org"
-            //                let loginScheme = "https"
-            //                var components = URLComponents()
-            //                components.host = loginHost
-            //                components.scheme = loginScheme
-            //                baseURL = components.url
-            //            #else
             baseURL = MWKLanguageLinkController.sharedInstance().appLanguage?.siteURL()
-            //            #endif
         }
         
-        return baseURL!
+        if baseURL == nil {
+            baseURL = NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        }
+        
+        return baseURL
     }
     
-    public func attemptLogin(completion: @escaping LoginResultHandler) {
+    public func attemptLogin(completion: @escaping AuthenticationResultHandler) {
         self.loginWithSavedCredentials { (loginResult) in
             switch loginResult {
             case .success(let result):
@@ -113,8 +121,11 @@ public class WMFAuthenticationManager: NSObject {
      *  @param loginSuccess  The handler for success - at this point the user is logged in
      *  @param failure     The handler for any errors
      */
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping LoginResultHandler) {
-        let siteURL = loginSiteURL
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, completion: @escaping AuthenticationResultHandler) {
+        guard let siteURL = loginSiteURL else {
+            completion(.failure(AuthenticationError.missingLoginURL))
+            return
+        }
         self.tokenFetcher.fetchToken(ofType: .login, siteURL: siteURL, success: { (token) in
             self.accountLogin.login(username: username, password: password, retypePassword: retypePassword, loginToken: token.token, oathToken: oathToken, captchaID: captchaID, captchaWord: captchaWord, siteURL: siteURL, success: {result in
                 let normalizedUserName = result.username
@@ -139,7 +150,7 @@ public class WMFAuthenticationManager: NSObject {
      *  @param success  The handler for success - at this point the user is logged in
      *  @param completion
      */
-    public func loginWithSavedCredentials(completion: @escaping LoginResultHandler) {
+    public func loginWithSavedCredentials(completion: @escaping AuthenticationResultHandler) {
         
         guard hasKeychainCredentials,
             let userName = KeychainCredentialsManager.shared.username,
@@ -150,7 +161,11 @@ public class WMFAuthenticationManager: NSObject {
                 return
         }
         
-        let siteURL = loginSiteURL
+        guard let siteURL = loginSiteURL else {
+            completion(.failure(AuthenticationError.missingLoginURL))
+            return
+        }
+        
         currentlyLoggedInUserFetcher.fetch(siteURL: siteURL, success: { result in
             self.loggedInUsername = result.name
             completion(.alreadyLoggedIn(result))
@@ -247,14 +262,14 @@ extension WMFAuthenticationManager: AuthenticationDelegate {
 // MARK: @objc Wikipedia login
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
-        let completion: LoginResultHandler = { result in
+        let completion: AuthenticationResultHandler = { result in
             completion()
         }
         attemptLogin(completion: completion)
     }
     
     @objc func loginWithSavedCredentials(success: @escaping WMFAccountLoginResultBlock, userAlreadyLoggedInHandler: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
-        let completion: LoginResultHandler = { loginResult in
+        let completion: AuthenticationResultHandler = { loginResult in
             switch loginResult {
             case .success(let result):
                 success(result)
