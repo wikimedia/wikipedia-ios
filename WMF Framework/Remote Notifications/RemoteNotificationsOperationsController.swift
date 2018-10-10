@@ -3,7 +3,7 @@ class RemoteNotificationsOperationsController {
     private let modelController: RemoteNotificationsModelController
     weak var viewContext: NSManagedObjectContext?
 
-    private let syncTimeInterval: TimeInterval = 10
+    private let syncTimeInterval: TimeInterval = 15
     private var syncTimer: Timer?
     private let operationQueue: OperationQueue
     private var isLocked: Bool = false {
