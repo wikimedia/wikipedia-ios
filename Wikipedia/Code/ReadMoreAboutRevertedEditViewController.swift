@@ -2,8 +2,7 @@ import UIKit
 import WMF
 
 @objc protocol ReadMoreAboutRevertedEditViewControllerDelegate: class {
-    func readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(_ articleKey: String)
-    func readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton()
+    func readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(_ articleURL: URL)
 }
 
 class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
@@ -44,11 +43,15 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     @objc private func buttonPressed() {
         close()
-        if isSingleRevert, let articleKey = articleKeys?.first {
-            delegate?.readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(articleKey)
-        } else {
-            delegate?.readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton()
+        guard let articleURL = articleURL else {
+            assertionFailure("articleURL should be set by now")
+            return
         }
+        guard let delegate = delegate else {
+            assertionFailure("delegate should be set by now")
+            return
+        }
+        delegate.readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(articleURL)
     }
 
     override func viewWillAppear(_ animated: Bool) {
