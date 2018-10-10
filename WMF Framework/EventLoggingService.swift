@@ -137,7 +137,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
      
         let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
-        let urlSessionConfig = URLSessionConfiguration.default
+        let urlSessionConfig = Session.defaultConfiguration
         urlSessionConfig.httpShouldUsePipelining = true
         urlSessionConfig.allowsCellularAccess = true
         urlSessionConfig.httpMaximumConnectionsPerHost = 2
