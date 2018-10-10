@@ -120,7 +120,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, copy) void (^markRemoteNotificationsAsRead)(NSArray<NSString *> *);
+@property (nonatomic, copy) void (^markRemoteNotificationAsRead)(NSString *);
 
 @end
 
