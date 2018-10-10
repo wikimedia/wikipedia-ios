@@ -1750,6 +1750,7 @@
 		D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */; };
 		D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */; };
 		D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */; };
+		D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */; };
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D8650B7B20350FEE0044DFFA /* NSString+SHA256.h in Headers */ = {isa = PBXBuildFile; fileRef = D8650B7920350FEE0044DFFA /* NSString+SHA256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */; };
@@ -4478,6 +4479,7 @@
 		D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPCookieStorage+Migration.swift"; sourceTree = "<group>"; };
 		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
 		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D8650B7920350FEE0044DFFA /* NSString+SHA256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA256.h"; sourceTree = "<group>"; };
@@ -8000,6 +8002,7 @@
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
+				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
 			);
 			name = Controllers;
@@ -10642,6 +10645,7 @@
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
+				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
