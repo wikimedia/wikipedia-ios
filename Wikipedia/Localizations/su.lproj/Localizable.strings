@@ -1,6 +1,7 @@
 // Messages for Sundanese (Basa Sunda)
 // Exported from translatewiki.net
 // Author: Dipusparaga
+// Author: Kandar
 // Author: Nemo bis
 // Author: Uchup19
 // Author: WikiKaruhun
@@ -321,7 +322,7 @@
 "settings-clear-cache-ok" = "Bersihkeun telih";
 "settings-help-and-feedback" = "Pitulung jeung eupan balik";
 "settings-language-bar" = "Témbongkeun basa dina pamaluruhan";
-"settings-my-languages" = "Basa kuring";
+"settings-my-languages" = "Basa kami";
 "settings-notifications" = "Iber";
 "settings-notifications-info" = "Meunangkeun iber ngeunaan artikel nu keur trén sarta bacaan pangluhurna di Wikipédia kalawan iber otomatis kami. Sakumna sayaga patalian jeung privasi sarta nepi ka data menit.";
 "settings-notifications-learn-more" = "Tungtik leuwih jero ngeunaan iber";

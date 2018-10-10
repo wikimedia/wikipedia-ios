@@ -106,10 +106,8 @@
 "explore-most-read-generic-heading" = "அதிகமாக படிக்கப்பட்டது";
 "explore-nearby-heading" = "அருகில் இடங்கள்";
 "explore-nearby-placeholder-heading" = "இடங்கள்";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 விக்கிபீடியா";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "விக்கிப்பீடியாவில்";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 விக்கிபீடியாவில் இருந்து";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "விக்கிப்பீடியாவில் இருந்து";
 "explore-nearby-sub-heading-your-location" = "உங்களது இருப்பிடம்";
 "explore-potd-heading" = "இன்றைய சிறப்புப்படம்";
 "explore-random-article-heading" = "தொடர்பற்ற கட்டுரை";
@@ -154,11 +152,9 @@
 "home-button-history-accessibility-label" = "விக்கிப்பீடியா, வரலாற்றுக்கு திரும்புக";
 "home-button-saved-accessibility-label" = "விக்கிப்பீடியா, சேமிக்கபட்டதற்கு திரும்புக";
 "home-more-like-footer" = "$1 போல மேலும்";
-// Fuzzy
-"home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் மேலும்";
+"home-nearby-footer" = "உங்கள் இடத்திற்கு அருகாமையில் இருக்கும் மேலும் இடங்கள்";
 "home-nearby-location-footer" = "$1 க்கு அருகாமையில் மேலும்";
-// Fuzzy
-"home-news-footer" = "செய்திகளில் மேலும்";
+"home-news-footer" = "மேலும் தற்போதய நிக்ழ்வுகள்";
 "home-themes-action-title" = "விருப்பத்தேர்வுகளை நிர்வகி";
 "home-title" = "சுற்றிப்பார்";
 "icon-shortcut-continue-reading-title" = "தொடர்ந்து படிக்கவும்";
@@ -181,7 +177,7 @@
 "login-no-account" = "பயனர் கணக்கு இல்லையா? $1";
 "login-title" = "உங்கள் கணக்கிற்கு உள்நுழையவும்";
 "main-menu-about" = "நிரலைப் பற்றி";
-"main-menu-account-login" = "புகுபதிகை செய்க";
+"main-menu-account-login" = "உள்நுழை.";
 "main-menu-account-logout" = "விடுபதிகை";
 "main-menu-account-logout-are-you-sure" = "நீங்கள் விடுபதிகை செய்ய உறுதியாக உள்ளீர்களா ?";
 "main-menu-account-logout-cancel" = "ரத்து செய்";
@@ -307,7 +303,7 @@
 "welcome-languages-add-button" = "மற்றொரு மொழி சேர்க்கவும்";
 "welcome-volunteer-send-usage-reports" = "பயன்பாடு அறிக்கை அனுப்பு";
 "wikitext-upload-save" = "பதிப்பிடப்படுகின்றது...";
-"wikitext-upload-save-sign-in" = "புகுபதிகை";
+"wikitext-upload-save-sign-in" = "உள்நுழை";
 "wikitext-upload-save-terms-name" = "பயன்பாட்டு விதிமுறைகள்";
 "zero-interstitial-cancel" = "இங்கேயே இருக்கவும்";
 "zero-interstitial-continue" = "விட்டுவிடவும்";

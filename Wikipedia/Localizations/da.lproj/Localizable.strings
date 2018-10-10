@@ -114,6 +114,17 @@
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
+"description-add-title" = "Tilføj beskrivelse";
+"description-edit-learn-more" = "Lær mere";
+"description-edit-pencil-introduction" = "Rediger introduktion";
+"description-edit-title" = "Rediger beskrivelse";
+"description-help-about-title" = "Om";
+"description-help-about-wikidata" = "Om Wikidata";
+"description-help-more-info-title" = "Flere oplysninger";
+"description-help-tips-for-example" = "For eksempel:";
+"description-published-button-title" = "Udført";
+"description-published-title" = "Beskrivelse offentliggjort!";
+"description-welcome-concise-title" = "Gør det kort";
 "dim-images" = "Mørklæg billeder";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -339,6 +350,7 @@
 "reading-list-api-error-entry-limit" = "Denne post er ikke synkroniseret, da du har nået grænsen for antallet af poster i denne liste.";
 "reading-list-api-error-generic" = "Der opstod en uventet fejl under synkronisering af dine læselister.";
 "reading-list-api-error-list-limit" = "Denne liste er ikke synkroniseret, da du har nået begrænsningen for antallet af synkroniserede lister.";
+"reading-list-create-new-list-button-title" = "Opret læseliste";
 "reading-list-create-new-list-description" = "Beskrivelse";
 "reading-list-create-new-list-title" = "Opret en ny liste";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
