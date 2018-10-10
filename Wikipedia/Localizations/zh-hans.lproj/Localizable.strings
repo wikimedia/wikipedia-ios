@@ -1,5 +1,6 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: A Chinese Wikipedian
 // Author: Chixvv
 // Author: Davidzdh
 // Author: Endermoon
@@ -13,6 +14,7 @@
 // Author: Nemo bis
 // Author: NeverBehave
 // Author: NigelSoft
+// Author: Phenolla
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: Tonylianlong
@@ -124,10 +126,47 @@
 "button-skip" = "跳过";
 "cancel" = "取消";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "知识共享CC0";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
+"description-add-link-title" = "添加标题描述";
+"description-add-title" = "添加描述";
+"description-edit-for-article" = "$1的标题说明";
+"description-edit-learn-more" = "了解更多";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "通过更改标题描述，我同意$1，并在$2的许可下不可撤销地发布我的稿件。";
+"description-edit-pencil-introduction" = "编辑此介绍";
+"description-edit-pencil-title" = "编辑标题描述";
+"description-edit-placeholder-title" = "最好使用简短的描述";
+"description-edit-publish" = "发布描述";
+"description-edit-title" = "编辑描述";
+"description-edit-warning" = "尽量保持描述简短，这样用户就可以一目了然地理解文章的主题。";
+"description-help-about-description" = "标题描述总结一篇文章，帮助读者一目了然地理解这个主题。";
+"description-help-about-title" = "关于";
+"description-help-about-wikidata" = "关于Wikidata";
+"description-help-more-info-description" = "维基媒体基金会的项目维基数据提供了一个自由的、协作的、多语言的、支持维基百科和其他项目的辅助数据库。";
+"description-help-more-info-title" = "更多信息";
+"description-help-tips-description" = "描述应该理想地拟合在一行上，长度在两到十二个单词之间。除非第一个词是专有名词，否则它们不会大写。";
+"description-help-tips-example-description-one" = "有关蒙娜丽莎条目的标题描述";
+"description-help-tips-example-description-two" = "关于珠峰的文章标题描述";
+"description-help-tips-example-title-one" = "由列奥纳多·达·芬奇绘制";
+"description-help-tips-example-title-two" = "地球第一高峰";
+"description-help-tips-for-example" = "例如：";
+"description-help-tips-title" = "创建描述的技巧";
+"description-help-title" = "标题描述帮助";
+"description-help-wikidata-guide" = "维基数据写作说明指南";
+"description-published-button-title" = "完成";
+"description-published-footer" = "您也可以使用此 App 对条目进行编辑。点击铅笔图标便可以尝试修正笔误以及短句。";
+"description-published-subtitle" = "您可以让维基百科变得更美好";
+"description-published-title" = "描述已发布！";
+"description-welcome-concise-sub-title" = "理想的一行，在两到十二个字之间";
+"description-welcome-concise-title" = "保持简短";
+"description-welcome-descriptions-sub-title" = "总结条目以帮助读者一眼了解主题。";
+"description-welcome-descriptions-title" = "标题描述";
+"description-welcome-promise-title" = "通过开始，我保证不滥用这个特性。";
+"description-welcome-start-editing-button" = "开始编辑";
 "dim-images" = "使图片变暗";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-typos" = "修正笔误";
