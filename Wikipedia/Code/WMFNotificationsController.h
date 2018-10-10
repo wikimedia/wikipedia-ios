@@ -7,6 +7,11 @@ extern NSString *const WMFInTheNewsNotificationReadNowActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier;
 extern NSString *const WMFInTheNewsNotificationShareActionIdentifier;
 
+extern NSString *const WMFEditRevertedNotificationCategoryIdentifier;
+extern NSString *const WMFEditRevertedReadMoreActionIdentifier;
+extern NSString *const WMFEditRevertedInfoNotificationIDs;
+extern NSString *const WMFEditRevertedInfoArticleKeys;
+
 extern NSString *const WMFNotificationInfoArticleTitleKey;
 extern NSString *const WMFNotificationInfoArticleURLStringKey;
 extern NSString *const WMFNotificationInfoThumbnailURLStringKey;
@@ -24,6 +29,8 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
+
+- (void)removePendingNotificationRequestsWithIdentifiers:(NSArray<NSString *> *)identifiers;
 
 @end
 

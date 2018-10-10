@@ -601,7 +601,7 @@ static uint64_t bundleHash() {
         }
     }
     
-    if (currentLibraryVersion < 6) {
+    if (currentLibraryVersion < 7) {
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
             return;
@@ -610,7 +610,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 6;
+    static const NSInteger libraryVersion = 7;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -1694,6 +1694,10 @@ static uint64_t bundleHash() {
         [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;
+}
+
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID {
+    return [_viewContext fetchArticleWithWikidataID:wikidataID];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {

@@ -12,6 +12,7 @@
 // Author: Mansil
 // Author: MokaAkashiyaPT
 // Author: Nemo bis
+// Author: Ruila
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -119,10 +120,47 @@
 "button-skip" = "Ignorar";
 "cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"description-add-link-title" = "Adicionar título de descrição";
+"description-add-title" = "Adicionar descrição";
+"description-edit-for-article" = "Título de descrição para $1";
+"description-edit-learn-more" = "Saber mais";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Ao alterar o título de descrição, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
+"description-edit-pencil-introduction" = "Editar introdução";
+"description-edit-pencil-title" = "Editar título de descrição";
+"description-edit-placeholder-title" = "As descrições curtas são melhores";
+"description-edit-publish" = "Publicar descrição";
+"description-edit-title" = "Editar descrição";
+"description-edit-warning" = "Tente manter as descrições breves para que os utilizadores possam entender o assunto do artigo imediatamente";
+"description-help-about-description" = "Os títulos de descrição sumarizam um artigo para ajudar os leitores a entender o assunto imediatamente";
+"description-help-about-title" = "Sobre";
+"description-help-about-wikidata" = "Sobre a wiki Wikidata";
+"description-help-more-info-description" = "As descrições são armazenadas na wiki Wikidata, um projeto da Wikimedia Foundation que fornece uma base de dados secundária gratuita, colaborativa e multilingue, que suporta a Wikipédia e outros projetos.";
+"description-help-more-info-title" = "Mais informações";
+"description-help-tips-description" = "Idealmente, as descrições devem caber numa linha e ter entre duas a doze palavras. Não têm maiúscula inicial a não ser que a primeira palavra seja um nome próprio.";
+"description-help-tips-example-description-one" = "título de descrição para um artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "título de descrição para um artigo sobre o monte Evereste";
+"description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
+"description-help-tips-example-title-two" = "A montanha mais alta da Terra";
+"description-help-tips-for-example" = "Por exemploː";
+"description-help-tips-title" = "Dicas para criar descrições";
+"description-help-title" = "Ajuda do título de descrição";
+"description-help-wikidata-guide" = "Guia Wikidata para escrever descrições";
+"description-published-button-title" = "Concluído";
+"description-published-footer" = "Também pode editar artigos com esta aplicação. Na próxima vez, tente corrigir erros ortográficos e pequenas frases clicando no ícone do lápis";
+"description-published-subtitle" = "Acabou de tornar a Wikipédia melhor para todos";
+"description-published-title" = "Descrição publicadaǃ";
+"description-welcome-concise-sub-title" = "Idealmente uma linha, entre 2 a 12 palavras";
+"description-welcome-concise-title" = "Concisa";
+"description-welcome-descriptions-sub-title" = "Sumariza um artigo para ajudar os leitores a entender o assunto imediatamente";
+"description-welcome-descriptions-title" = "Títulos de descrição";
+"description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
+"description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Atenuar imagens";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";

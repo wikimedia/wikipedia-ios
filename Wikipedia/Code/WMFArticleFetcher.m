@@ -40,6 +40,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
+@property (nonatomic, strong) WikidataFetcher *wikidataFetcher;
 
 @property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
 
@@ -65,6 +66,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.pageSummarySessionManager = [AFHTTPSessionManager wmf_createDefaultManager];
 
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
+        self.wikidataFetcher = [[WikidataFetcher alloc] init];
 
         /*
          Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
@@ -180,6 +182,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
                                                                                       article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      article.wikidataID = mwkArticle.wikidataId;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
                                                                                       }

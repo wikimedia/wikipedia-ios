@@ -11,6 +11,11 @@ NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNot
 NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier = @"inTheNewsNotificationSaveForLaterActionIdentifier";
 NSString *const WMFInTheNewsNotificationShareActionIdentifier = @"inTheNewsNotificationShareActionIdentifier";
 
+NSString *const WMFEditRevertedNotificationCategoryIdentifier = @"WMFEditRevertedNotificationCategoryIdentifier";
+NSString *const WMFEditRevertedReadMoreActionIdentifier = @"WMFEditRevertedReadMoreActionIdentifier";
+NSString *const WMFEditRevertedInfoNotificationIDs = @"WMFEditRevertedInfoNotificationIDs";
+NSString *const WMFEditRevertedInfoArticleKeys = @"WMFEditRevertedInfoArticleKeys";
+
 NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
 NSString *const WMFNotificationInfoThumbnailURLStringKey = @"thumbnailURLString";
@@ -80,8 +85,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     UNNotificationAction *readNowAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationReadNowActionIdentifier title:WMFLocalizedStringWithDefaultValue(@"in-the-news-notification-read-now-action-title", nil, nil, @"Read Now", @"Title on the 'Read Now' action button") options:UNNotificationActionOptionForeground];
     UNNotificationAction *shareAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationShareActionIdentifier title:WMFLocalizedStringWithDefaultValue(@"in-the-news-notification-share-action-title", nil, nil, @"Share...", @"Title on the 'Share' action button\n{{Identical|Share}}") options:UNNotificationActionOptionForeground];
     UNNotificationAction *saveForLaterAction = [UNNotificationAction actionWithIdentifier:WMFInTheNewsNotificationSaveForLaterActionIdentifier title:WMFLocalizedStringWithDefaultValue(@"in-the-news-notification-save-for-later-action-title", nil, nil, @"Save for later", @"Title on the 'Save for later' action button") options:UNNotificationActionOptionNone];
+    UNNotificationAction *readMoreAction = [UNNotificationAction actionWithIdentifier:WMFEditRevertedReadMoreActionIdentifier title:WMFLocalizedStringWithDefaultValue(@"reverted-edit-notification-read-more-action-title", nil, nil, @"Read more", @"Title on the 'Read more' action button") options:UNNotificationActionOptionNone];
 
-    if (!readNowAction || !saveForLaterAction || !shareAction) {
+    if (!readNowAction || !saveForLaterAction || !shareAction || !readMoreAction) {
         DDLogError(@"Unable to create notification categories");
         return;
     }
@@ -93,7 +99,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         return;
     }
 
-    [center setNotificationCategories:[NSSet setWithObject:inTheNewsCategory]];
+    UNNotificationCategory *editRevertedCategory = [UNNotificationCategory categoryWithIdentifier:WMFEditRevertedNotificationCategoryIdentifier actions:@[readMoreAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+
+    [center setNotificationCategories:[NSSet setWithObjects:inTheNewsCategory, editRevertedCategory, nil]];
 }
 
 - (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
@@ -131,6 +139,11 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                  }
              }];
     return identifier;
+}
+
+- (void)removePendingNotificationRequestsWithIdentifiers:(NSArray<NSString *> *)identifiers {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center removePendingNotificationRequestsWithIdentifiers:identifiers];
 }
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents {

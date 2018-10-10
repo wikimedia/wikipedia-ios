@@ -24,6 +24,7 @@
 // Author: Verdy p
 // Author: Weft
 // Author: Wladek92
+// Author: Zarisi
 
 "about-content-license" = "Licence du contenu";
 "about-content-license-details" = "À moins d'indication contraire, le contenu est disponible sous $1.";
@@ -128,10 +129,47 @@
 "button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "licence Creative Commons Zéro";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipedia pour plus d'articles à lire";
 "continue-reading-empty-title" = "Pas d'articles lus récemment";
+"description-add-link-title" = "Ajouter la description du titre";
+"description-add-title" = "Ajouter une description";
+"description-edit-for-article" = "Description du titre pour $1";
+"description-edit-learn-more" = "En savoir plus";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "En modifiant la description du titre, j'accepte le $1 et je m'engage à diffuser irrévocablement mes contributions sous la licence $2.";
+"description-edit-pencil-introduction" = "Modifier l'introduction";
+"description-edit-pencil-title" = "Modifier la description du titre";
+"description-edit-placeholder-title" = "Les descriptions courtes sont les meilleures";
+"description-edit-publish" = "Publier la description";
+"description-edit-title" = "Modifier la description";
+"description-edit-warning" = "Essayez de garder les descriptions courtes de sorte à ce que les utilisateurs puissent comprendre les articles du premier coup";
+"description-help-about-description" = "Les descriptions de titre résument un article pour aider les lecteurs à comprendre le sujet du premier coup d’œil.";
+"description-help-about-title" = "À propos";
+"description-help-about-wikidata" = "A propos de Wikidata";
+"description-help-more-info-description" = "Les descriptions sont enregistrées et maintenues sur Wikidata,  un projet de la Fondation Wikimedia qui fournit une base de données secondaire gratuite, collaborative, multilingue, supportant Wikipedia et d'autres projets.";
+"description-help-more-info-title" = "Davantage d’information";
+"description-help-tips-description" = "Les descriptions devraient, dans l’idéal, tenir en une ligne, et comporter entre deux et douze mots. Elles ne sont pas mises en majuscules sauf si le premier mot est un nom propre.";
+"description-help-tips-example-description-one" = "description de titre pour un article sur Mona Lisa";
+"description-help-tips-example-description-two" = "description de titre pour un article sur le mont Everest";
+"description-help-tips-example-title-one" = "peinture de Léonard de Vinci";
+"description-help-tips-example-title-two" = "Plus haut sommet sur terre";
+"description-help-tips-for-example" = "Par exemple :";
+"description-help-tips-title" = "Conseils pour créer des descriptions";
+"description-help-title" = "Aide de la description du titre";
+"description-help-wikidata-guide" = "Guide Wikidata pour l'écriture des descriptions";
+"description-published-button-title" = "Fait";
+"description-published-footer" = "Vous pouvez aussi modifier les articles dans cette application. La prochaine fois, essayez de corriger les fautes de frappe et les petites phrases en cliquant sur l'icône du crayon";
+"description-published-subtitle" = "Vous venez d'améliorer Wikipedia pour chacun";
+"description-published-title" = "Description publiée !";
+"description-welcome-concise-sub-title" = "Dans l'idéal, une ligne, entre deux et douze mots";
+"description-welcome-concise-title" = "Faites court";
+"description-welcome-descriptions-sub-title" = "Résume un article pour aider le lecteur à comprendre le sujet au premier coup d'oeil";
+"description-welcome-descriptions-title" = "Descriptions du titre";
+"description-welcome-promise-title" = "En commençant, je promet de ne pas détourner cette fonctionalité";
+"description-welcome-start-editing-button" = "Commencer à modifier";
 "dim-images" = "Assombrir les images";
 "edit-summary-choice-fixed-grammar" = "Correction grammaticale";
 "edit-summary-choice-fixed-typos" = "Correction de fautes";

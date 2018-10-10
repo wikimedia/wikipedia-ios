@@ -506,6 +506,16 @@
 "relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
 "relogin-failed-title" = "Title for letting user know they are no longer logged in.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
+"reverted-edit-back-to-article-button-title" = "Title for button that allows the user to go back to the article they edited";
+"reverted-edit-back-to-history-button-title" = "Title for button that allows the user to go back to reading history";
+"reverted-edit-notification-read-more-action-title" = "Title on the 'Read more' action button";
+"reverted-edit-possible-reasons" = "List of possible reasons describing why an edit might have been reverted. $1 is replaced with a link to view editing guidelines";
+"reverted-edit-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
+"reverted-edit-thanks-for-editing-title" = "Title thanking the user for contributing to Wikipedia";
+"reverted-edit-title" = "Title for the view explaning why an edit was reverted.";
+"reverted-edit-view-guidelines-text" = "Text for link for viewing editing guidelines";
+"reverted-edits-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
+"reverted-edits-title" = "Title for the view explaning why edits were reverted.";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
