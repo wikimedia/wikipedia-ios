@@ -512,10 +512,10 @@
 "reverted-edit-possible-reasons" = "List of possible reasons describing why an edit might have been reverted. $1 is replaced with a link to view editing guidelines";
 "reverted-edit-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
 "reverted-edit-thanks-for-editing-title" = "Title thanking the user for contributing to Wikipedia";
-"reverted-edit-title" = "Title for the view explaning why an edit was reverted.";
+"reverted-edit-title" = "Title for the view explaining why an edit was reverted.";
 "reverted-edit-view-guidelines-text" = "Text for link for viewing editing guidelines";
 "reverted-edits-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
-"reverted-edits-title" = "Title for the view explaning why edits were reverted.";
+"reverted-edits-title" = "Title for the view explaining why edits were reverted.";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";

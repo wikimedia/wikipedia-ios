@@ -39,9 +39,9 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
 
     private var titleText: String? {
         if isSingleRevert {
-            return WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaning why an edit was reverted.")
+            return WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaining why an edit was reverted.")
         } else {
-            return WMFLocalizedString("reverted-edits-title", value: "Reverted edits", comment: "Title for the view explaning why edits were reverted.")
+            return WMFLocalizedString("reverted-edits-title", value: "Reverted edits", comment: "Title for the view explaining why edits were reverted.")
         }
     }
 
