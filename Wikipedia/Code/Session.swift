@@ -38,7 +38,7 @@ import Foundation
     }()
     
     public func cloneCentralAuthCookies() {
-        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: WMFDefaultSiteDomain, to: [".wikidata.org"])
+        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".\(WMFDefaultSiteDomain)", to: [".wikidata.org"])
     }
     
     public func removeAllCookies() {
