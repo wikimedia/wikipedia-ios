@@ -41,6 +41,17 @@ import Foundation
         session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: WMFDefaultSiteDomain, to: [".wikidata.org"])
     }
     
+    public func removeAllCookies() {
+        guard let storage = session.configuration.httpCookieStorage else {
+            return
+        }
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        storage.cookies?.forEach { cookie in
+            storage.deleteCookie(cookie)
+        }
+    }
+    
     @objc public static var defaultConfiguration: URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage

@@ -188,11 +188,9 @@ public class WMFAuthenticationManager: NSObject {
         KeychainCredentialsManager.shared.username = nil
         KeychainCredentialsManager.shared.password = nil
         self.loggedInUsername = nil
-        // Cookie reminders:
-        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
-        HTTPCookieStorage.shared.cookies?.forEach { cookie in
-            HTTPCookieStorage.shared.deleteCookie(cookie)
-        }
+
+        session.removeAllCookies()
+        
         SessionSingleton.sharedInstance()?.dataStore.clearMemoryCache()
         
         SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
