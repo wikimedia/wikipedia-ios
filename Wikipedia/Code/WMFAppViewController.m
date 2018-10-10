@@ -2013,10 +2013,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 }
 
-- (void)showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:(NSArray<NSString *> *)notificationIDs articleKeys:(NSArray<NSString *> *)articleKeys completion:(void (^)(void))completion {
+- (void)showReadMoreAboutRevertedEditViewControllerWithArticleURL:(NSURL *)articleURL completion:(void (^)(void))completion {
     ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
     readMoreViewController.delegate = self;
-    readMoreViewController.articleKeys = articleKeys;
+    readMoreViewController.articleURL = articleURL;
     WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
     [self presentViewController:navController animated:YES completion:completion];
 }
