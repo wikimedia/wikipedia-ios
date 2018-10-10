@@ -1988,73 +1988,28 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (editRevertedNotifications.count == 0) {
         return;
     }
-    // TODO: How do we handle multiple notifications?
-    NSString *alertMessage;
-    NSString *notificationBody;
-    NSString *notificationTitle;
-    NSMutableArray<WMFArticle *> *articles = [NSMutableArray new];
-    NSMutableArray<NSString *> *articleKeys = [NSMutableArray new];
-    NSMutableArray<RemoteNotification *> *filteredNotifications = [NSMutableArray new];
-    NSMutableArray<NSString *> *filteredNotificationsIDs = [NSMutableArray new];
 
     for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
         WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
-        if (article) {
-            [filteredNotifications addObject:editRevertedNotification];
-            // We don't create notifications without ids so the objects that we're adding won't be nil
-            [filteredNotificationsIDs addObject:editRevertedNotification.id];
-            [articles addObject:article];
-            [articleKeys addObject:article.key];
+        if (!article || !article.displayTitle || !editRevertedNotification.agent || !article.URL) {
+            // Exclude notifications without article context or notification agent
+            [responseCoordinator markAsExcluded:editRevertedNotification];
         } else {
-            // Exclude notifications without article context
-            [responseCoordinator markAsExcluded:@[editRevertedNotification]];
+            NSString *articleTitle = article.displayTitle;
+            NSString *agent = editRevertedNotification.agent;
+
+            NSString *notificationTitle = [WMFCommonStrings revertedEditTitle];
+            NSString *notificationBodyFormat = WMFLocalizedStringWithDefaultValue(@"reverted-edit-notification-body", nil, nil, @"The edit you made of the article %1$@ was reverted by %2$@", @"Title for notification telling user that the edit they made was reverted. %1$@ is replaced with the title of the affected article, %2$@ is replaced with the username of the person who reverted the edit.");
+            NSString *notificationBody = [NSString localizedStringWithFormat:notificationBodyFormat, articleTitle, agent];
+
+            self.markRemoteNotificationAsRead = ^(NSString *notificationID) {
+                [responseCoordinator markAsReadNotificationWithID:notificationID];
+            };
+
+            NSDictionary *userInfo = @{WMFNotificationInfoArticleURLStringKey: article.URL.absoluteString, WMFEditRevertedNotificationIDKey: editRevertedNotification.id};
+            [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
         }
     }
-
-    if (filteredNotifications.count == 0) {
-        return;
-    }
-
-    if (filteredNotifications.count == 1) {
-        alertMessage = @"Your edit has been reverted";
-        notificationTitle = @"Reverted edit";
-        NSString *bodyFormat = @"The edit you made of the article %1$@ was reverted by %2$@";
-        NSString *agent = filteredNotifications.firstObject.agent;
-        NSString *articleTitle = articles.firstObject.displayTitle;
-        assert(articleTitle);
-        notificationBody = [NSString localizedStringWithFormat:bodyFormat, articleTitle, agent];
-    } else {
-        alertMessage = @"Your edits have been reverted";
-        notificationTitle = @"Reverted edits";
-        NSString *bodyFormat = @"The %1$d edits you made were reverted";
-        notificationBody = [NSString localizedStringWithFormat:bodyFormat, filteredNotifications.count];
-    }
-
-    self.markRemoteNotificationsAsRead = ^(NSArray<NSString *> *filteredNotificationsIDs) {
-        [responseCoordinator markAsReadNotificationsWithIDs:filteredNotificationsIDs];
-    };
-
-    NSDictionary *userInfo = @{WMFEditRevertedInfoNotificationIDs: filteredNotificationsIDs, WMFEditRevertedInfoArticleKeys: articleKeys};
-    [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
-
-    void (^seen)(void) = ^{
-        [responseCoordinator markAsRead:filteredNotifications];
-        [self.notificationsController removePendingNotificationRequestsWithIdentifiers:@[WMFEditRevertedNotificationCategoryIdentifier]];
-    };
-
-    [[WMFAlertManager sharedInstance] showAlertWithReadMore:alertMessage
-        type:RMessageTypeError
-        dismissPreviousAlerts:YES
-        buttonCallback:^{
-            [self showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:filteredNotificationsIDs
-                                                                         articleKeys:articleKeys
-                                                                          completion:^{
-                                                                              seen();
-                                                                          }];
-        }
-        tapCallBack:^{
-            seen();
-        }];
 }
 
 - (void)showReadMoreAboutRevertedEditViewControllerForNotificationsWithIDs:(NSArray<NSString *> *)notificationIDs articleKeys:(NSArray<NSString *> *)articleKeys completion:(void (^)(void))completion {
