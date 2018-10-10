@@ -89,36 +89,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 #pragma mark - Fetching
 
-- (void)fetchWikidataIDForArticleURL:(NSURL *)articleURL completion:(void (^)(NSString *_Nullable wikidataID, NSError *_Nullable error))completion {
-    NSAssert(![NSThread isMainThread], @"Wikidata ID should be fetched on a background thread");
-    [self.wikidataFetcher wikidataIDForArticleURL:articleURL
-                                       completion:^(NSDictionary<NSString *, id> *_Nullable response, NSError *_Nullable error) {
-                                           if (error) {
-                                               completion(nil, error);
-                                           } else {
-                                               if (response && [response isKindOfClass:[NSDictionary class]]) {
-                                                   NSDictionary *wikidataResponseDictionary = (NSDictionary *)response;
-                                                   id query = [wikidataResponseDictionary objectForKey:@"query"];
-                                                   if (query && [query isKindOfClass:[NSDictionary class]]) {
-                                                       id pages = [(NSDictionary *)query objectForKey:@"pages"];
-                                                       if (pages && [pages isKindOfClass:[NSDictionary class]]) {
-                                                           NSDictionary *pagesDictionary = (NSDictionary *)pages;
-                                                           NSArray *allKeys = [pagesDictionary allKeys];
-                                                           if (allKeys.count > 0) {
-                                                               NSString *firstKey = [allKeys firstObject];
-                                                               NSDictionary *pageDictionary = (NSDictionary *)[pagesDictionary objectForKey:firstKey];
-                                                               NSDictionary *pagepropsDictionary = (NSDictionary *)[pageDictionary objectForKey:@"pageprops"];
-                                                               NSString *wikidataID = [pagepropsDictionary objectForKey:@"wikibase_item"];
-                                                               assert(wikidataID);
-                                                               completion(wikidataID, nil);
-                                                           }
-                                                       }
-                                                   }
-                                               }
-                                           }
-                                       }];
-}
-
 - (nullable NSURLSessionTask *)fetchArticleForURL:(NSURL *)articleURL
                                     useDesktopURL:(BOOL)useDeskTopURL
                                        saveToDisk:(BOOL)saveToDisk
@@ -212,18 +182,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
                                                                                       article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-                                                                                      [self.dataStore performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *_Nonnull moc) {
-                                                                                          [self fetchWikidataIDForArticleURL:articleURL
-                                                                                                                  completion:^(NSString *_Nullable wikidataID, NSError *_Nullable error) {
-                                                                                                                      if (wikidataID) {
-                                                                                                                          article.wikidataID = wikidataID;
-                                                                                                                          NSError *saveError = nil;
-                                                                                                                          if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                                                                                              DDLogError(@"Error saving after updating article: %@", saveError);
-                                                                                                                          }
-                                                                                                                      }
-                                                                                                                  }];
-                                                                                      }];
+                                                                                      article.wikidataID = mwkArticle.wikidataId;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
                                                                                       }
