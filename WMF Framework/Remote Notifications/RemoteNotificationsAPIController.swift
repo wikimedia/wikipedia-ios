@@ -131,7 +131,7 @@ struct RemoteNotificationsAPIController {
         }
     }
 
-    private func request<T: Decodable>(_ queryParameters: Query.Parameters, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
+    private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
     }
 
@@ -161,45 +161,33 @@ struct RemoteNotificationsAPIController {
         }
 
         static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
-            let wikis = subdomains.compactMap { "\($0)wiki" }
-            let listOfWikis = pipeSeparatedList(of: wikis)
-
-            return ["action": "query",
+            var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
                     "notformat": "model",
                     "meta": "notifications",
                     "notlimit": limit.value,
-                    "notwikis": listOfWikis,
                     "notfilter": filter.rawValue]
-        }
 
-        static func pipeSeparatedList(of values: [String]) -> String {
-            var listOfValues = ""
-
-            for (index, value) in values.enumerated() {
-                let isLast = index == values.count - 1
-                if isLast {
-                    listOfValues.append(contentsOf: "\(value)")
-                } else {
-                    listOfValues.append(contentsOf: "\(value)|")
-                }
+            let wikis = subdomains.compactMap { "\($0)wiki" }
+            if let listOfWikis = WMFJoinedPropertyParameters(wikis) {
+                dictionary["notwikis"] = listOfWikis
             }
 
-            guard listOfValues.wmf_hasNonWhitespaceText else {
-                assertionFailure("Expected pipe seperated values")
-                return listOfValues
-            }
-
-            return listOfValues
+            return dictionary
         }
 
-        static func markAsRead(notifications: Set<RemoteNotification>) -> Parameters {
+        static func markAsRead(notifications: Set<RemoteNotification>) -> Parameters? {
             let IDs = notifications.compactMap { $0.id }
-            let listOfIDs = pipeSeparatedList(of: IDs)
             let wikis = notifications.compactMap { $0.wiki }
-            let listOfWikis = pipeSeparatedList(of: wikis)
-
+            guard let listOfIDs = WMFJoinedPropertyParameters(IDs) else {
+                assertionFailure("List of IDs cannot be nil")
+                return nil
+            }
+            guard let listOfWikis = WMFJoinedPropertyParameters(wikis) else {
+                assertionFailure("List of wikis cannot be nil")
+                return nil
+            }
             return ["action": "echomarkread",
                     "format": "json",
                     "wikis": listOfWikis,
