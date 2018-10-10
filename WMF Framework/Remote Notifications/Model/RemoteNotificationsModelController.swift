@@ -23,16 +23,13 @@
         super.init()
     }
 
-    @objc func markAsRead(_ notifications: [RemoteNotification]) {
-        modelController.markAsRead(notifications)
+    @objc(markAsReadNotificationWithID:)
+    func markAsRead(notificationWithID notificationID: String) {
+        modelController.markAsRead(notificationsWithIDs: [notificationID])
     }
 
-    @objc func markAsReadNotificationsWithIDs(_ IDs: [String]) {
-        modelController.markAsReadNotificationsWithIDs(IDs)
-    }
-
-    @objc func markAsExcluded(_ notifications: [RemoteNotification]) {
-        modelController.markAsExcluded(notifications)
+    @objc func markAsExcluded(_ notification: RemoteNotification) {
+        modelController.markAsExcluded([notification])
     }
 }
 
@@ -216,11 +213,11 @@
         }
     }
 
-    public func markAsReadNotificationsWithIDs(_ IDs: [String]) {
+    public func markAsRead(notificationsWithIDs notificationIDs: [String]) {
         let moc = managedObjectContext
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-            let predicate = NSPredicate(format: "id IN %@", IDs)
+            let predicate = NSPredicate(format: "id IN %@", notificationIDs)
             fetchRequest.predicate = predicate
             guard let notifications = try? moc.fetch(fetchRequest) else {
                 return
