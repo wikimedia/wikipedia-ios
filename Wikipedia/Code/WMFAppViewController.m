@@ -2009,12 +2009,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
         WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
         if (article) {
-            // Hide notifications without article context
             [filteredNotifications addObject:editRevertedNotification];
             // We don't create notifications without ids so the objects that we're adding won't be nil
             [filteredNotificationsIDs addObject:editRevertedNotification.id];
             [articles addObject:article];
             [articleKeys addObject:article.key];
+        } else {
+            // Exclude notifications without article context
+            [responseCoordinator markAsExcluded:@[editRevertedNotification]];
         }
     }
 
