@@ -3,7 +3,7 @@ extension HTTPCookieStorage {
         let standardizedPrefix = prefix.lowercased().precomposedStringWithCanonicalMapping
         let standardizedDomain = domain.lowercased().precomposedStringWithCanonicalMapping
         return (cookies ?? []).filter({ (cookie) -> Bool in
-            return cookie.name.lowercased().precomposedStringWithCanonicalMapping.hasPrefix(standardizedPrefix) && cookie.domain.lowercased().precomposedStringWithCanonicalMapping.hasSuffix(standardizedDomain)
+            return cookie.domain.lowercased().precomposedStringWithCanonicalMapping == standardizedDomain && cookie.name.lowercased().precomposedStringWithCanonicalMapping.hasPrefix(standardizedPrefix)
         })
     }
     
