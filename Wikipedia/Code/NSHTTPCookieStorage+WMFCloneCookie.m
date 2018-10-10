@@ -3,23 +3,10 @@
 
 @implementation NSHTTPCookieStorage (WMFCloneCookie)
 
-- (void)wmf_recreateCookie:(NSString *)cookieToRecreate usingCookieAsTemplate:(NSString *)templateCookie {
-    void (^cloneCookie)(NSString *, NSString *) = ^void(NSString *name1, NSString *name2) {
-        NSUInteger (^getIndexOfCookie)(NSString *) = ^NSUInteger(NSString *name) {
-            return [self.cookies indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-                NSHTTPCookie *cookie = (NSHTTPCookie *)obj;
-                if (cookie.properties[@"Name"]) {
-                    if ([cookie.properties[@"Name"] isEqualToString:name]) {
-                        *stop = YES;
-                        return YES;
-                    }
-                }
-                return NO;
-            }];
-        };
-
-        NSUInteger indexCookie1 = getIndexOfCookie(name1);
-        NSUInteger indexCookie2 = getIndexOfCookie(name2);
+- (void)wmf_recreateCookie:(NSString *)cookieToRecreateName withDomain:(NSString *)domain usingCookieAsTemplate:(NSString *)templateCookieName templateDomain:(NSString *)templateDomain {
+    void (^cloneCookie)(NSString *, NSString *) = ^void(NSString *cookieToRecreateName, NSString *templateCookieName) {
+        NSUInteger indexCookie1 = [self getIndexOfCookieWithName:cookieToRecreateName domain:domain];
+        NSUInteger indexCookie2 = [self getIndexOfCookieWithName:templateCookieName domain:templateDomain];
 
         if ((indexCookie1 != NSNotFound) && (indexCookie2 != NSNotFound)) {
             NSHTTPCookie *cookie1 = self.cookies[indexCookie1];
@@ -33,12 +20,49 @@
             cookie2Props[@"Created"] = [NSDate date];
             cookie2Props[@"Name"] = cookie1Name;
             cookie2Props[@"Value"] = cookie1Value;
+            if (domain) {
+                cookie2Props[@"Domain"] = domain;
+            }
             NSHTTPCookie *newCookie = [NSHTTPCookie cookieWithProperties:cookie2Props];
             [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:newCookie];
         }
     };
 
-    cloneCookie(cookieToRecreate, templateCookie);
+    cloneCookie(cookieToRecreateName, templateCookieName);
+}
+
+- (NSUInteger)getIndexOfCookieWithName:(NSString *)name domain:(NSString *)domain {
+    return [self.cookies indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        NSHTTPCookie *cookie = (NSHTTPCookie *)obj;
+        if (cookie.properties[@"Name"] && cookie.properties[@"Domain"]) {
+            if ([cookie.properties[@"Name"] isEqualToString:name] && [cookie.properties[@"Domain"] isEqualToString:domain]) {
+                *stop = YES;
+                return YES;
+            }
+        }
+        return NO;
+    }];
+}
+
+- (void)wmf_createCookieWithName:(NSString *)cookieToCreateName newDomain:(NSString *)newDomain usingCookieAsTemplate:(NSString *)templateCookieName templateDomain:(NSString *)templateDomain {
+    void (^cloneCookie)(NSString *, NSString *) = ^void(NSString *cookieToCreateName, NSString *templateCookieName) {
+        NSUInteger cookieToCreateIndex = [self getIndexOfCookieWithName:cookieToCreateName domain:newDomain];
+        NSUInteger templateCookieIndex = [self getIndexOfCookieWithName:templateCookieName domain:templateDomain];
+
+        if ((cookieToCreateIndex == NSNotFound) && (templateCookieIndex != NSNotFound)) {
+            NSHTTPCookie *templateCookie = self.cookies[templateCookieIndex];
+
+            NSMutableDictionary *newCookieProps = [templateCookie.properties mutableCopy];
+            newCookieProps[@"Name"] = cookieToCreateName;
+            newCookieProps[@"Domain"] = newDomain;
+            newCookieProps[@"Created"] = [NSDate date];
+            newCookieProps[@"Value"] = templateCookie.value;
+            NSHTTPCookie *newCookie = [NSHTTPCookie cookieWithProperties:newCookieProps];
+            [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:newCookie];
+        }
+    };
+
+    cloneCookie(cookieToCreateName, templateCookieName);
 }
 
 @end
