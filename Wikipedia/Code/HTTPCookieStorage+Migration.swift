@@ -1,8 +1,11 @@
 extension HTTPCookieStorage {
     public func cookiesWithNamePrefix(_ prefix: String, for domain: String) -> [HTTPCookie] {
+        guard let cookies = cookies, cookies.count > 0 else {
+            return []
+        }
         let standardizedPrefix = prefix.lowercased().precomposedStringWithCanonicalMapping
         let standardizedDomain = domain.lowercased().precomposedStringWithCanonicalMapping
-        return (cookies ?? []).filter({ (cookie) -> Bool in
+        return cookies.filter({ (cookie) -> Bool in
             return cookie.domain.lowercased().precomposedStringWithCanonicalMapping == standardizedDomain && cookie.name.lowercased().precomposedStringWithCanonicalMapping.hasPrefix(standardizedPrefix)
         })
     }
