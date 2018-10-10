@@ -10,6 +10,7 @@
 // Author: Happy13241
 // Author: Helpau
 // Author: Iluvatar
+// Author: Infovarius
 // Author: Iniquity
 // Author: Irus
 // Author: JackLantern
@@ -139,10 +140,47 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"description-add-link-title" = "Добавить описание названия";
+"description-add-title" = "Добавить описание";
+"description-edit-for-article" = "Описание названия «$1»";
+"description-edit-learn-more" = "Узнать больше";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Изменяя описание названия, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
+"description-edit-pencil-introduction" = "Редактировать введение";
+"description-edit-pencil-title" = "Редактировать описание названия";
+"description-edit-placeholder-title" = "Краткие описания лучше всего";
+"description-edit-publish" = "Записать описание";
+"description-edit-title" = "Править описание";
+"description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы пользователи могли понимать предмет статьи с одного взгляда";
+"description-help-about-description" = "Краткие описания помогают читателям понять тему статьи с первого взгляда.";
+"description-help-about-title" = "О приложении";
+"description-help-about-wikidata" = "О Викиданных";
+"description-help-more-info-description" = "Описания хранятся в Викиданных (Wikidata) — проекте Фонда Викимедиа, представляющем собой свободную совместно наполняемую  многоязычную основанную на внешних источниках вторичную базу данных для поддержки Википедии и других проектов.";
+"description-help-more-info-title" = "Подробнее";
+"description-help-tips-description" = "Описания по возможности должны вписываться в одну строку и составлять от двух до двенадцати слов. Их следует начинать со строчной (маленькой) буквы, кроме случаев, когда первое слово — имя собственное.";
+"description-help-tips-example-description-one" = "краткое описание статьи о Мона Лизе";
+"description-help-tips-example-description-two" = "краткое описание статьи о горе Эверест";
+"description-help-tips-example-title-one" = "картина Леонардо да Винчи";
+"description-help-tips-example-title-two" = "Самая высокая гора Земли";
+"description-help-tips-for-example" = "Например:";
+"description-help-tips-title" = "Советы по созданию описаний";
+"description-help-title" = "Помощь по описанию названия";
+"description-help-wikidata-guide" = "Руководство Викиданных по созданию описаний.";
+"description-published-button-title" = "Готово";
+"description-published-footer" = "С этим приложением вы также можете редактировать статьи. Затем нажмите на иконку, чтобы исправить опечатки и малые предложения";
+"description-published-subtitle" = "Вы только что сделали Википедию лучше для каждого";
+"description-published-title" = "Описание сохранено!";
+"description-welcome-concise-sub-title" = "По возможности одна строка, от двух до двадцати слов";
+"description-welcome-concise-title" = "Пожалуйста, кратко";
+"description-welcome-descriptions-sub-title" = "Краткие описания помогают читателям понять тему статьи с первого взгляда";
+"description-welcome-descriptions-title" = "Описания названий";
+"description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
+"description-welcome-start-editing-button" = "Начать редактирование";
 "dim-images" = "Делать изображения менее яркими";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
