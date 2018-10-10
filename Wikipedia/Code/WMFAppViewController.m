@@ -1694,6 +1694,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
     NSString *actionIdentifier = response.actionIdentifier;
+
     if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
         NSDictionary *info = response.notification.request.content.userInfo;
         NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
@@ -1715,9 +1716,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
             NSURL *articleURL = [NSURL URLWithString:articleURLString];
             assert(articleURL);
-            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL completion:^{
-                self.markRemoteNotificationAsRead(notificationID);
-            }];
+            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL
+                                                                 completion:^{
+                                                                     self.markRemoteNotificationAsRead(notificationID);
+                                                                 }];
         } else {
             _markRemoteNotificationAsRead(notificationID);
         }
@@ -2021,14 +2023,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self presentViewController:navController animated:YES completion:completion];
 }
 
-- (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(NSString *)articleKey {
-    NSURL *articleURL = [[NSURL alloc] initWithString:articleKey];
-    assert(articleURL);
+- (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
     [self showArticleForURL:articleURL animated:YES];
-}
-
-- (void)readMoreAboutRevertedEditViewControllerDidPressShowHistoryButton {
-    [self setSelectedIndex:WMFAppTabTypeRecent];
 }
 
 #pragma mark - Perma Random Mode
