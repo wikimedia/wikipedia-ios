@@ -15,52 +15,25 @@ class ReadMoreAboutRevertedEditViewController: WMFScrollViewController {
     @IBOutlet weak var contentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var button: UIButton!
 
-    @objc public var articleKeys: [String]?
-
-    private var isSingleRevert: Bool {
-        return articleKeys?.count == 1
-    }
-
-    private var buttonTitle: String {
-        if isSingleRevert {
-            return WMFLocalizedString("reverted-edit-back-to-article-button-title", value: "Back to article", comment: "Title for button that allows the user to go back to the article they edited")
-        } else {
-            return WMFLocalizedString("reverted-edit-back-to-history-button-title", value: "Back to History", comment: "Title for button that allows the user to go back to reading history")
-        }
-    }
-
-    private var subtitle: String {
-        if isSingleRevert {
-            return WMFLocalizedString("reverted-edit-possible-reasons-subtitle", value: "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
-        } else {
-            return WMFLocalizedString("reverted-edits-possible-reasons-subtitle", value: "We know that you tried your best, but some reviewers had concerns.\n\nPossible reasons your edits were reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
-        }
-    }
-
-    private var titleText: String? {
-        if isSingleRevert {
-            return WMFLocalizedString("reverted-edit-title", value: "Reverted edit", comment: "Title for the view explaining why an edit was reverted.")
-        } else {
-            return WMFLocalizedString("reverted-edits-title", value: "Reverted edits", comment: "Title for the view explaining why edits were reverted.")
-        }
-    }
+    @objc public var articleURL: URL?
 
     @objc public weak var delegate: ReadMoreAboutRevertedEditViewControllerDelegate?
 
     override public func viewDidLoad() {
         super.viewDidLoad()
+
         contentTextView.delegate = self
-        title = titleText
-        
-        view.wmf_configureSubviewsForDynamicType()
 
+        title = CommonStrings.revertedEditTitle
         titleLabel.text = WMFLocalizedString("reverted-edit-thanks-for-editing-title", value: "Thanks for editing Wikipedia!", comment: "Title thanking the user for contributing to Wikipedia")
-        subtitleLabel.text = subtitle
+        subtitleLabel.text = WMFLocalizedString("reverted-edit-possible-reasons-subtitle", value: "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:", comment: "Subtitle leading to an explanation why an edit was reverted.")
+        button.setTitle(WMFLocalizedString("reverted-edit-back-to-article-button-title", value: "Back to article", comment: "Title for button that allows the user to go back to the article they edited"), for: .normal)
 
-        button.setTitle(buttonTitle, for: .normal)
         button.layer.cornerRadius = 8
         button.contentEdgeInsets = UIEdgeInsets(top: 12, left: 24, bottom: 12, right: 24)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+
+        view.wmf_configureSubviewsForDynamicType()
 
         apply(theme: theme)
     }
