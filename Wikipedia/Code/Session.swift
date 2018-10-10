@@ -37,6 +37,10 @@ import Foundation
         return storage
     }()
     
+    public func cloneCentralAuthCookies() {
+        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: WMFDefaultSiteDomain, to: [".wikidata.org"])
+    }
+    
     @objc public static var defaultConfiguration: URLSessionConfiguration {
         let config = URLSessionConfiguration.default
         config.httpCookieStorage = Session.defaultCookieStorage
