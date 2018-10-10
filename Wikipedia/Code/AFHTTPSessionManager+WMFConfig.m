@@ -1,12 +1,14 @@
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFBaseRequestSerializer.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation AFHTTPSessionManager (WMFConfig)
 
 + (instancetype)wmf_createDefaultManager {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURLSessionConfiguration *config = [WMFSession defaultConfiguration];
+    AFHTTPSessionManager *manager =[[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
     manager.requestSerializer = [WMFBaseRequestSerializer serializer];
 
     NSMutableIndexSet *set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
@@ -16,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)wmf_createIgnoreCacheManager {
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *config = [WMFSession defaultConfiguration];
     config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
     manager.requestSerializer = [WMFBaseRequestSerializer serializer];
