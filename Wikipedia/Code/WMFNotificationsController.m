@@ -13,8 +13,7 @@ NSString *const WMFInTheNewsNotificationShareActionIdentifier = @"inTheNewsNotif
 
 NSString *const WMFEditRevertedNotificationCategoryIdentifier = @"WMFEditRevertedNotificationCategoryIdentifier";
 NSString *const WMFEditRevertedReadMoreActionIdentifier = @"WMFEditRevertedReadMoreActionIdentifier";
-NSString *const WMFEditRevertedInfoNotificationIDs = @"WMFEditRevertedInfoNotificationIDs";
-NSString *const WMFEditRevertedInfoArticleKeys = @"WMFEditRevertedInfoArticleKeys";
+NSString *const WMFEditRevertedNotificationIDKey = @"WMFEditRevertedNotificationIDKey";
 
 NSString *const WMFNotificationInfoArticleTitleKey = @"articleTitle";
 NSString *const WMFNotificationInfoArticleURLStringKey = @"articleURLString";
