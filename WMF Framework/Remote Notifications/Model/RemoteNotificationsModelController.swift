@@ -73,11 +73,11 @@
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "read == NO"), completion: completion)
+        return notifications(with: NSPredicate(format: "wasRead == NO"), completion: completion)
     }
 
     public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "read == YES"), completion: completion)
+        return notifications(with: NSPredicate(format: "wasRead == YES"), completion: completion)
     }
 
     public func getAllNotifications(_ completion: @escaping ResultHandler) {
@@ -226,7 +226,7 @@
     }
 
     private func markAsReadAndSave(_ notifications: [RemoteNotification]) {
-        notifications.forEach { $0.read = true }
+        notifications.forEach { $0.wasRead = true }
         self.save()
     }
 

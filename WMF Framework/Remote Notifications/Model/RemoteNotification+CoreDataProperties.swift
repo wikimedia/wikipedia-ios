@@ -15,6 +15,6 @@ extension RemoteNotification {
     @NSManaged public var message: String?
     @NSManaged public var typeString: String?
     @NSManaged public var wiki: String?
-    @NSManaged public var read: Bool
+    @NSManaged public var wasRead: Bool
 
 }
