@@ -4,7 +4,6 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
             self.managedObjectContext.perform {
                 self.apiController.getAllUnreadNotifications(from: ["wikidata", "en"]) { fetchedNotifications, error in
                     if let error = error {
-                        assertionFailure()
                         self.finish(with: error)
                     } else {
                         self.modelController.getAllNotifications { savedNotifications in
