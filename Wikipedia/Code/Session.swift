@@ -39,7 +39,7 @@ import Foundation
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
-        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org"])
+        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org", ".mediawiki.org"])
     }
     
     public func removeAllCookies() {
