@@ -132,16 +132,11 @@ enum WikidataPublishingError: LocalizedError {
     @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
         set {
             assertMainThreadAndDataStore()
-            guard madeAuthorizedWikidataDescriptionEdit != newValue else {
+            guard madeAuthorizedWikidataDescriptionEdit != newValue, let dataStore = dataStore else {
                 return
             }
-            dataStore?.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
-            if newValue {
-                dataStore?.remoteNotificationsController.start()
-            } else {
-                // Stop polling when user makes an anonymous edit
-                dataStore?.remoteNotificationsController.stop()
-            }
+            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
+            dataStore.remoteNotificationsController.toggle(on: newValue)
         }
         get {
             assertMainThreadAndDataStore()

@@ -6,11 +6,20 @@
         super.init()
     }
 
-    @objc public func start() {
-        operationsController.start()
+    @objc(toggleOn:)
+    public func toggle(on: Bool) {
+        if on {
+            operationsController.start()
+        } else {
+            operationsController.stop()
+        }
     }
 
     @objc public func stop() {
-        operationsController.stop()
+        toggle(on: false)
+    }
+
+    @objc public func start() {
+        toggle(on: true)
     }
 }
