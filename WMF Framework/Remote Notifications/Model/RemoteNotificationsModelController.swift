@@ -256,17 +256,14 @@
             assertionFailure("Expected note with userInfo dictionary")
             return
         }
-        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            let notifications = insertedObjects.compactMap { $0 as? RemoteNotification }
-            guard !notifications.isEmpty else {
-                return
-            }
-            let notificationsGroupedByCategoryNumber = Dictionary(grouping: notifications, by: { NSNumber(value: $0.category.rawValue) })
-            let modelChange = RemoteNotificationsModelChange(type: .addedNewNotifications, notificationsGroupedByCategoryNumber: notificationsGroupedByCategoryNumber)
-            let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelDidChangeNotification, object: responseCoordinator)
-            }
+        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+            postModelDidChangeNotification(ofType: .addedNewNotifications, withNotificationsFromObjects: insertedObjects)
+        }
+        if let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
+            postModelDidChangeNotification(ofType: .updatedExistingNotifications, withNotificationsFromObjects: updatedObjects)
+        }
+    }
+
     private func postModelDidChangeNotification(ofType modelChangeType: RemoteNotificationsModelChangeType, withNotificationsFromObjects objects: Set<NSManagedObject>) {
         let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.wasRead == false && $0.isExcluded == false }
         guard !notifications.isEmpty else {
