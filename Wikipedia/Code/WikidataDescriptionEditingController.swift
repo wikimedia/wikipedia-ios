@@ -72,8 +72,7 @@ enum WikidataPublishingError: LocalizedError {
         return blacklistedLanguages.contains(languageCode)
     }
 
-    @objc(publishNewWikidataDescription:forArticleURL:completion:)
-    public func publish(newWikidataDescription: String, for articleURL: URL, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
         guard let title = articleURL.wmf_title,
         let language = articleURL.wmf_language,
         let wiki = articleURL.wmf_wiki else {

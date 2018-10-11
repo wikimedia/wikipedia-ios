@@ -30,6 +30,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, assign, nonatomic) BOOL editable;                   // required
 @property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
 @property (readwrite, strong, nonatomic) NSNumber *revisionId;
+@property (readwrite, strong, nonatomic) NSNumber *descriptionSourceNumber; // optional
 
 @property (readwrite, nonatomic) NSInteger ns; //optional, defaults to 0
 
@@ -97,7 +98,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle *)other {
-    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count;
+    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count && self.descriptionSourceNumber == self.descriptionSourceNumber;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article {
@@ -162,6 +163,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.lastmodifiedby = [self requiredUser:@"lastmodifiedby" dict:dict];
     self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount = [[self requiredNumber:@"languagecount" dict:dict] intValue];
+    self.descriptionSourceNumber = [self descriptionSourceNumberFromStringValue:[self optionalString:@"descriptionsource" dict:dict]];
 
     self.ns = [[self optionalNumber:@"ns" dict:dict] integerValue];
 
@@ -234,6 +236,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     self.media = dict[@"media"];
     [self importMediaJSON:self.media];
+}
+
+- (NSNumber *)descriptionSourceNumberFromStringValue:(NSString *)stringValue {
+    ArticleDescriptionSource source;
+    if ([stringValue isEqualToString:@"central"]) {
+        source = ArticleDescriptionSourceCentral;
+    } else if ([stringValue isEqualToString:@"local"]) {
+        source = ArticleDescriptionSourceLocal;
+    } else {
+        source = ArticleDescriptionSourceUnknown;
+    }
+    return [NSNumber numberWithInteger:source];
 }
 
 + (NSInteger)articleImageWidth {
