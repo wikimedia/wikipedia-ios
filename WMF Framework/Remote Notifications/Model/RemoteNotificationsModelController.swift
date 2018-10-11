@@ -193,8 +193,15 @@
             }
 
             for notification in notificationsFetchedFromTheServer {
-                // Don't update notifications that are already saved?
-                guard let id = notification.id, !commonIDs.contains(id) else {
+                guard let id = notification.id else {
+                    assertionFailure("Expected notification to have id")
+                    continue
+                }
+                guard !commonIDs.contains(id) else {
+                    if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
+                        // Update notifications that weren't seen so that moc is notified of the update
+                        savedNotification.wasRead = false
+                    }
                     continue
                 }
                 self.createNewNotification(from: notification)
