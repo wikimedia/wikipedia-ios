@@ -120,7 +120,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, copy) void (^markRemoteNotificationAsRead)(NSString *);
+@property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
 
 @end
 
@@ -1704,10 +1704,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             assert(articleURL);
             [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL
                                                                  completion:^{
-                                                                     self.markRemoteNotificationAsRead(notificationID);
+                                                                     [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
                                                                  }];
         } else {
-            _markRemoteNotificationAsRead(notificationID);
+            [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
         }
     }
 
@@ -1964,21 +1964,21 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)remoteNotificationsModelDidChange:(NSNotification *)note {
-    RemoteNotificationsModelChangeResponseCoordinator *responseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
-    RemoteNotificationsModelChange *modelChange = (RemoteNotificationsModelChange *)responseCoordinator.modelChange;
+    self.remoteNotificationsModelChangeResponseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
+    assert(self.remoteNotificationsModelChangeResponseCoordinator);
+    RemoteNotificationsModelChange *modelChange = (RemoteNotificationsModelChange *)self.remoteNotificationsModelChangeResponseCoordinator.modelChange;
     NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *notificationsGroupedByCategoryNumber = (NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)modelChange.notificationsGroupedByCategoryNumber;
-    assert(responseCoordinator);
     assert(modelChange);
     switch (modelChange.type) {
         case RemoteNotificationsModelChangeTypeAddedNewNotifications:
         case RemoteNotificationsModelChangeTypeUpdatedExistingNotifications:
-            [self scheduleLocalNotificationsForRemoteNotificationsWithCategory:RemoteNotificationCategoryEditReverted responseCoordinator:responseCoordinator notificationsGroupedByCategoryNumber:notificationsGroupedByCategoryNumber];
+            [self scheduleLocalNotificationsForRemoteNotificationsWithCategory:RemoteNotificationCategoryEditReverted notificationsGroupedByCategoryNumber:notificationsGroupedByCategoryNumber];
         default:
             break;
     }
 }
 
-- (void)scheduleLocalNotificationsForRemoteNotificationsWithCategory:(RemoteNotificationCategory)category responseCoordinator:(RemoteNotificationsModelChangeResponseCoordinator *)responseCoordinator notificationsGroupedByCategoryNumber:(NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)notificationsGroupedByCategoryNumber {
+- (void)scheduleLocalNotificationsForRemoteNotificationsWithCategory:(RemoteNotificationCategory)category notificationsGroupedByCategoryNumber:(NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)notificationsGroupedByCategoryNumber {
     NSAssert(category == RemoteNotificationCategoryEditReverted, @"Categories other than RemoteNotificationCategoryEditReverted are not supported");
 
     NSNumber *editRevertedCategoryNumber = [NSNumber numberWithInt:RemoteNotificationCategoryEditReverted];
@@ -1991,7 +1991,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
         if (!article || !article.displayTitle || !article.URL || !editRevertedNotification.agent) {
             // Exclude notifications without article context or notification agent
-            [responseCoordinator markAsExcluded:editRevertedNotification];
+            [self.remoteNotificationsModelChangeResponseCoordinator markAsExcluded:editRevertedNotification];
         } else {
             NSString *articleTitle = article.displayTitle;
             NSString *agent = editRevertedNotification.agent;
@@ -1999,10 +1999,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             NSString *notificationTitle = [WMFCommonStrings revertedEditTitle];
             NSString *notificationBodyFormat = WMFLocalizedStringWithDefaultValue(@"reverted-edit-notification-body", nil, nil, @"The edit you made of the article %1$@ was reverted by %2$@", @"Title for notification telling user that the edit they made was reverted. %1$@ is replaced with the title of the affected article, %2$@ is replaced with the username of the person who reverted the edit.");
             NSString *notificationBody = [NSString localizedStringWithFormat:notificationBodyFormat, articleTitle, agent];
-
-            self.markRemoteNotificationAsRead = ^(NSString *notificationID) {
-                [responseCoordinator markAsReadNotificationWithID:notificationID];
-            };
 
             NSDictionary *userInfo = @{WMFNotificationInfoArticleURLStringKey: article.URL.absoluteString, WMFEditRevertedNotificationIDKey: editRevertedNotification.id};
             [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
