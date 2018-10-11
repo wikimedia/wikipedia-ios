@@ -110,7 +110,7 @@ enum WikidataPublishingError: LocalizedError {
             if let authorized = authorized, authorized, result.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
-                    self.madeAuthorizedWikidataDescriptionEdit = true
+                    self.madeAuthorizedWikidataDescriptionEdit = authorized
                 }
             }
         }
@@ -136,7 +136,12 @@ enum WikidataPublishingError: LocalizedError {
                 return
             }
             dataStore?.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
-            dataStore?.remoteNotificationsController.start()
+            if newValue {
+                dataStore?.remoteNotificationsController.start()
+            } else {
+                // Stop polling when user makes an anonymous edit
+                dataStore?.remoteNotificationsController.stop()
+            }
         }
         get {
             assertMainThreadAndDataStore()
