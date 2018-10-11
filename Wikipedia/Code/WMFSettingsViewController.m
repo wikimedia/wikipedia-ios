@@ -118,6 +118,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)configureBackButton {
+    if (self.navigationItem.rightBarButtonItem != nil) {
+        return;
+    }
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.rightBarButtonItem = xButton;
 }
