@@ -1983,8 +1983,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *notificationsGroupedByCategoryNumber = (NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)modelChange.notificationsGroupedByCategoryNumber;
     assert(responseCoordinator);
     assert(modelChange);
-    if (modelChange.type != RemoteNotificationsModelChangeTypeAddedNewNotifications) {
-        return;
+    switch (modelChange.type) {
+        case RemoteNotificationsModelChangeTypeAddedNewNotifications:
+        case RemoteNotificationsModelChangeTypeUpdatedExistingNotifications:
+            [self scheduleLocalNotificationsForRemoteNotificationsWithCategory:RemoteNotificationCategoryEditReverted responseCoordinator:responseCoordinator notificationsGroupedByCategoryNumber:notificationsGroupedByCategoryNumber];
+        default:
+            break;
     }
     NSNumber *editRevertedCategoryNumber = [NSNumber numberWithInt:RemoteNotificationCategoryEditReverted];
     NSArray<RemoteNotification *> *editRevertedNotifications = notificationsGroupedByCategoryNumber[editRevertedCategoryNumber];
