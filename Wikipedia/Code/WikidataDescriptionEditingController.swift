@@ -34,7 +34,7 @@ extension WikidataAPIResult {
 enum WikidataPublishingError: LocalizedError {
     case invalidArticleURL
     case apiResultNotParsedCorrectly
-    case blacklistedLanguage
+    case notEditable
     case unknown
 }
 
@@ -79,7 +79,7 @@ enum WikidataPublishingError: LocalizedError {
             completion(WikidataPublishingError.invalidArticleURL)
             return
         }
-        publish(newWikidataDescription: newWikidataDescription, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
+        publish(newWikidataDescription: newWikidataDescription, from: source, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
     }
 
     /// Publish new wikidata description.
@@ -90,10 +90,9 @@ enum WikidataPublishingError: LocalizedError {
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
-    private func publish(newWikidataDescription: String, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
-        guard !isBlacklisted(language) else {
-            //DDLog("Attempting to publish a wikidata description in a blacklisted language; aborting")
-            completion(WikidataPublishingError.blacklistedLanguage)
+    private func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
+        guard !isBlacklisted(language) || source != .local else {
+            completion(WikidataPublishingError.notEditable)
             return
         }
         let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
@@ -116,6 +115,8 @@ public extension MWKArticle {
         guard let dataStore = dataStore, let language = self.url.wmf_language else {
             return false
         }
-        return !dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+        let isLanguageBlacklisted = dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
+        let isDescriptionFromLocalWiki = descriptionSource == .local
+        return !isLanguageBlacklisted || !isDescriptionFromLocalWiki
     }
 }
