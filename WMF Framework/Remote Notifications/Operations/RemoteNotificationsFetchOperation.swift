@@ -12,7 +12,7 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
                                 self.finish()
                                 return
                             }
-                            if fetchedNotifications.isEmpty {
+                            if fetchedNotifications.isEmpty && savedNotifications.isEmpty {
                                 self.finish()
                             } else {
                                 if savedNotifications.isEmpty {
