@@ -30,10 +30,42 @@ import Foundation
         }
 
     }
+    
+    private static let defaultCookieStorage: HTTPCookieStorage = {
+        let storage = HTTPCookieStorage.shared
+        storage.cookieAcceptPolicy = .always
+        return storage
+    }()
+    
+    public func cloneCentralAuthCookies() {
+        // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
+        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org"])
+    }
+    
+    public func removeAllCookies() {
+        guard let storage = session.configuration.httpCookieStorage else {
+            return
+        }
+        // Cookie reminders:
+        //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
+        storage.cookies?.forEach { cookie in
+            storage.deleteCookie(cookie)
+        }
+    }
+    
+    @objc public static var defaultConfiguration: URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        config.httpCookieStorage = Session.defaultCookieStorage
+        return config
+    }
+    
+    @objc public static let urlSession: URLSession = {
+        return URLSession(configuration: Session.defaultConfiguration)
+    }()
 
     @objc public static let shared = Session()
     
-    private let session = URLSession.shared
+    private let session = Session.urlSession
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()

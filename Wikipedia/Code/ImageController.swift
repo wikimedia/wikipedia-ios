@@ -41,7 +41,7 @@ open class ImageController : NSObject {
     // MARK: - Initialization
     
     @objc(sharedInstance) public static let shared: ImageController = {
-        let session = URLSession.shared
+        let session = Session.urlSession
         let cache = URLCache.shared
         let fileManager = FileManager.default
         var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
@@ -65,7 +65,7 @@ open class ImageController : NSObject {
     @objc public static func temporaryController() -> ImageController {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
-        let config = URLSessionConfiguration.default
+        let config = Session.defaultConfiguration
         let cache = URLCache(memoryCapacity: 1000000000, diskCapacity: 1000000000, diskPath: imageControllerDirectory.path)
         config.urlCache = cache
         let session = URLSession(configuration: config)

@@ -29,7 +29,7 @@ class WikidataFetcher: NSObject {
             return
         }
     
-        URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+        Session.urlSession.dataTask(with: requestURL, completionHandler: { (data, response, error) in
             guard let data = data else {
                 failure(error ?? WikidataFetcherError.genericError)
                 return
