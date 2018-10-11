@@ -1,7 +1,7 @@
 import Foundation
 
 @objc public enum ArticleDescriptionSource: Int {
-    case unknown
+    case none
     case central
     case local
 }
@@ -9,6 +9,6 @@ import Foundation
 extension MWKArticle {
     public var descriptionSource: ArticleDescriptionSource {
         let value = descriptionSourceNumber?.intValue ?? 0
-        return ArticleDescriptionSource(rawValue: value) ?? .unknown
+        return ArticleDescriptionSource(rawValue: value) ?? .none
     }
 }

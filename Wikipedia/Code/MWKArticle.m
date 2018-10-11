@@ -245,7 +245,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     } else if ([stringValue isEqualToString:@"local"]) {
         source = ArticleDescriptionSourceLocal;
     } else {
-        source = ArticleDescriptionSourceUnknown;
+        source = ArticleDescriptionSourceNone;
     }
     return [NSNumber numberWithInteger:source];
 }
