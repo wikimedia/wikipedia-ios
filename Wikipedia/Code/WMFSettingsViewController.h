@@ -10,7 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)loadSections;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic) BOOL showCloseButton;
 
 NS_ASSUME_NONNULL_END
 

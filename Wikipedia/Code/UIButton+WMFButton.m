@@ -17,20 +17,36 @@ NS_ASSUME_NONNULL_BEGIN
     return button;
 }
 
-- (void)wmf_setButtonType:(WMFButtonType)type {
++ (nullable NSString *)wmf_accessibilityLabelForButtonType:(WMFButtonType)type {
     switch (type) {
         case WMFButtonTypeX:
-            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-            self.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
-            break;
+            return [WMFCommonStrings closeButtonAccessibilityLabel];
         case WMFButtonTypeCaretLeft:
-            [self setImage:[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] forState:UIControlStateNormal];
-            break;
+            return [WMFCommonStrings accessibilityBackTitle];
         default:
-            break;
+            return nil;
     }
+}
+
+- (void)wmf_setButtonType:(WMFButtonType)type {
+    [self setImage:[UIImage wmf_imageForType:type] forState:UIControlStateNormal];
+    self.accessibilityLabel = [UIButton wmf_accessibilityLabelForButtonType:type];
 }
 
 @end
 
+@implementation UIImage (WMFButton)
+
++ (nullable UIImage *)wmf_imageForType:(WMFButtonType)type {
+    switch (type) {
+        case WMFButtonTypeX:
+            return [UIImage imageNamed:@"close"];
+        case WMFButtonTypeCaretLeft:
+            return [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"];
+        default:
+            return nil;
+    }
+}
+
+@end
 NS_ASSUME_NONNULL_END
