@@ -338,20 +338,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
 }
 
-- (void)showAlert {
-    [[WMFAlertManager sharedInstance] showAlertWithReadMore:@"Your edit has been reverted"
-        type:RMessageTypeError
-        dismissPreviousAlerts:YES
-        buttonCallback:^{
-            ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
-            WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
-            [self presentViewController:navController animated:YES completion:nil];
-        }
-        tapCallBack:^{
-            NSLog(@"");
-        }];
-}
-
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
