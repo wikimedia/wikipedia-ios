@@ -339,7 +339,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 }
 
 - (void)addNewsNotificationGroupForNewsGroup:(WMFContentGroup *)newsGroup inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf];
     if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
         NSURL *URL = [WMFContentGroup notificationContentGroupURL];
         [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
@@ -377,7 +377,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         return;
     }
 
-    if (![[NSUserDefaults wmf_userDefaults] wmf_inTheNewsNotificationsEnabled]) {
+    if (![[NSUserDefaults wmf] wmf_inTheNewsNotificationsEnabled]) {
         return;
     }
 
@@ -563,7 +563,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             // nil the components to indicate it should be sent immediately, date should still be [NSDate date]
             notificationDateComponents = nil;
         }
-        NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+        NSUserDefaults *defaults = [NSUserDefaults wmf];
         NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
         if (notificationDate && mostRecentDate && [userCalendar wmf_daysFromDate:notificationDate toDate:mostRecentDate] > 0) { // don't send if we have a notification scheduled for tomorrow already
             return NO;
@@ -586,7 +586,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         article.newsNotificationDate = notificationDate;
     }
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     NSDate *mostRecentDate = [defaults wmf_mostRecentInTheNewsNotificationDate];
     if (notificationDate && mostRecentDate && [userCalendar isDate:mostRecentDate inSameDayAsDate:notificationDate]) {
         NSInteger count = [defaults wmf_inTheNewsMostRecentDateNotificationCount] + 1;

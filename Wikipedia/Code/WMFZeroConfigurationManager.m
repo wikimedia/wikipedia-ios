@@ -56,13 +56,12 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 }
 
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
-    [[NSUserDefaults wmf_userDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
+    [[NSUserDefaults wmf] setObject:[NSNumber numberWithBool:warnWhenLeaving]
                                           forKey:WMFZeroWarnWhenLeaving];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)warnWhenLeaving {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroWarnWhenLeaving];
+    return [[NSUserDefaults wmf] boolForKey:WMFZeroWarnWhenLeaving];
 }
 
 #pragma mark - Banner Updates

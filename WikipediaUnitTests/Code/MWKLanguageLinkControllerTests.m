@@ -17,7 +17,7 @@
     [super setUp];
 
     // force language link controller to grab device language, not previous values set by another test
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [[NSUserDefaults wmf] wmf_resetToDefaultValues];
 
     NSAssert([[NSLocale preferredLanguages] containsObject:@"en-US"] || [[NSLocale preferredLanguages] containsObject:@"en"],
              @"For simplicity these tests assume the simulator has 'English' has one of its preferred languages."

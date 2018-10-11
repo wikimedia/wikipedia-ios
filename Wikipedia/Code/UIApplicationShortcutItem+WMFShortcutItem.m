@@ -29,7 +29,7 @@ NSString *const WMFIconShortcutTypeNearby = @"org.wikimedia.wikipedia.icon-short
 }
 
 + (nullable UIApplicationShortcutItem *)wmf_continueReading {
-    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
+    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     if (lastRead.wmf_title.length == 0) {
         return nil;
     }
