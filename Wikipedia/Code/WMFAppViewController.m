@@ -1333,7 +1333,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setDidShowOnboarding {
     [[NSUserDefaults wmf_userDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
@@ -1621,7 +1620,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setZeroOnDialogShownOnce {
     [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)zeroOnDialogShownOnce {

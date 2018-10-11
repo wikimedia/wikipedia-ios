@@ -115,7 +115,7 @@ static id _sharedInstance;
 }
 
 - (NSArray<NSURL *> *)preferredSiteURLs {
-    return [[self preferredLanguages] wmf_mapAndRejectNil:^NSURL * _Nullable(MWKLanguageLink * _Nonnull obj) {
+    return [[self preferredLanguages] wmf_mapAndRejectNil:^NSURL *_Nullable(MWKLanguageLink *_Nonnull obj) {
         return [obj siteURL];
     }];
 }
@@ -208,7 +208,6 @@ static id _sharedInstance;
     NSString *previousAppLanguageCode = self.appLanguage.languageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] setObject:languageCodes forKey:WMFPreviousLanguagesKey];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
     if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]) {
@@ -220,7 +219,6 @@ static id _sharedInstance;
 - (void)resetPreferredLanguages {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSUserDefaults wmf_userDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }

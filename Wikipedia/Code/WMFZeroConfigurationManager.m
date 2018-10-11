@@ -58,7 +58,6 @@ NSString *const WMFZeroXCarrierMeta = @"X-Carrier-Meta";
 - (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
     [[NSUserDefaults wmf_userDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
                                           forKey:WMFZeroWarnWhenLeaving];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (BOOL)warnWhenLeaving {

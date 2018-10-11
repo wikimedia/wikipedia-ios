@@ -57,7 +57,6 @@
     }
     _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
     [[NSUserDefaults wmf_userDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 #pragma mark - Article
@@ -69,7 +68,6 @@
     }
     _currentArticleURL = currentArticleURL;
     [[NSUserDefaults wmf_userDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
 }
 
 - (void)setCurrentArticle:(MWKArticle *)currentArticle {
