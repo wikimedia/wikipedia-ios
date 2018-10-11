@@ -70,7 +70,8 @@ class RemoteNotificationsOperationsController {
             return
         }
         guard syncTimer == nil else {
-            assertionFailure("Timer should be nil; stop the controller before restarting it")
+            stop()
+            start()
             return
         }
         syncTimer = Timer.scheduledTimer(timeInterval: syncTimeInterval, target: self, selector: #selector(sync), userInfo: nil, repeats: true)
