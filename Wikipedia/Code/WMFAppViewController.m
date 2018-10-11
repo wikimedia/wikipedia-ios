@@ -319,7 +319,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         case WMFAppDefaultTabTypeExplore:
             navigationController.title = [WMFCommonStrings exploreTabTitle];
             [navigationController setNavigationBarHidden:YES animated:animated];
-            self.settingsViewController.showCloseButton = YES;
             navigationController.viewControllers = @[self.exploreViewController];
             [self configureExploreViewController];
             break;
@@ -327,7 +326,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             navigationController.viewControllers = @[self.settingsViewController];
             navigationController.title = [WMFCommonStrings settingsTitle];
             self.settingsViewController.navigationItem.title = [WMFCommonStrings settingsTitle];
-            self.settingsViewController.showCloseButton = NO;
     }
 }
 
