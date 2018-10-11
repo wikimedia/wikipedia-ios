@@ -2003,7 +2003,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
         WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
-        if (!article || !article.displayTitle || !editRevertedNotification.agent || !article.URL) {
+        if (!article || !article.displayTitle || !article.URL || !editRevertedNotification.agent) {
             // Exclude notifications without article context or notification agent
             [responseCoordinator markAsExcluded:editRevertedNotification];
         } else {
