@@ -1,5 +1,6 @@
 @objc enum RemoteNotificationsModelChangeType: Int {
     case addedNewNotifications
+    case updatedExistingNotifications
 }
 
 @objc final class RemoteNotificationsModelChange: NSObject {
