@@ -1990,6 +1990,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         default:
             break;
     }
+}
+
+- (void)scheduleLocalNotificationsForRemoteNotificationsWithCategory:(RemoteNotificationCategory)category responseCoordinator:(RemoteNotificationsModelChangeResponseCoordinator *)responseCoordinator notificationsGroupedByCategoryNumber:(NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)notificationsGroupedByCategoryNumber {
+    NSAssert(category == RemoteNotificationCategoryEditReverted, @"Categories other than RemoteNotificationCategoryEditReverted are not supported");
+
     NSNumber *editRevertedCategoryNumber = [NSNumber numberWithInt:RemoteNotificationCategoryEditReverted];
     NSArray<RemoteNotification *> *editRevertedNotifications = notificationsGroupedByCategoryNumber[editRevertedCategoryNumber];
     if (editRevertedNotifications.count == 0) {
