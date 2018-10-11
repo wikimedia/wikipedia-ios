@@ -195,8 +195,6 @@
 		7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C5F1E3A813500B72802 /* WMFAccountLogin.swift */; };
 		7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ED173A1E497AE7008B70AD /* WMFCurrentlyLoggedInUserFetcher.swift */; };
 		7A3AD05C20ADB1F500C92E04 /* WMFKeychainCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066F0D11E4F00B100A199F8 /* WMFKeychainCredentials.swift */; };
-		7A3AD05D20ADB21800C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */; };
-		7A3AD05E20ADB22000C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E804931C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A45AB8020AB2A4C006A92F5 /* Dictionary+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */; };
 		7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
 		7A49A20221231510005C574C /* CollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A49A20021231510005C574C /* CollectionViewFooter.swift */; };
@@ -1742,6 +1740,7 @@
 		D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */; };
 		D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */; };
 		D8619BA71FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */; };
+		D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */; };
 		D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */; };
 		D8650B7B20350FEE0044DFFA /* NSString+SHA256.h in Headers */ = {isa = PBXBuildFile; fileRef = D8650B7920350FEE0044DFFA /* NSString+SHA256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */ = {isa = PBXBuildFile; fileRef = D8650B7A20350FEE0044DFFA /* NSString+SHA256.m */; };
@@ -3651,8 +3650,6 @@
 		B0E804901C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Code/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		B0E804911C0CE0B40065EBC0 /* NSError+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WMFExtensions.h"; path = "Wikipedia/Code/NSError+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		B0E804921C0CE0B40065EBC0 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WMFExtensions.m"; path = "Wikipedia/Code/NSError+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
-		B0E804931C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSHTTPCookieStorage+WMFCloneCookie.h"; path = "Wikipedia/Code/NSHTTPCookieStorage+WMFCloneCookie.h"; sourceTree = SOURCE_ROOT; };
-		B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSHTTPCookieStorage+WMFCloneCookie.m"; path = "Wikipedia/Code/NSHTTPCookieStorage+WMFCloneCookie.m"; sourceTree = SOURCE_ROOT; };
 		B0E804951C0CE0B40065EBC0 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSIndexSet+BKReduce.h"; path = "Wikipedia/Code/NSIndexSet+BKReduce.h"; sourceTree = SOURCE_ROOT; };
 		B0E804961C0CE0B40065EBC0 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduce.m"; path = "Wikipedia/Code/NSIndexSet+BKReduce.m"; sourceTree = SOURCE_ROOT; };
 		B0E804971C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLocale+WMFExtras.swift"; path = "Wikipedia/Code/NSLocale+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
@@ -4462,6 +4459,7 @@
 		D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8619BA11FBB10240045C8BC /* ReadingListEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPCookieStorage+Migration.swift"; sourceTree = "<group>"; };
 		D864D68B1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberFormatterExtrasTests.swift; sourceTree = "<group>"; };
 		D864D68D1DA3EDF900B86934 /* NSNumberFormatter+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNumberFormatter+WMFExtras.swift"; path = "Wikipedia/Code/NSNumberFormatter+WMFExtras.swift"; sourceTree = SOURCE_ROOT; };
 		D8650B7920350FEE0044DFFA /* NSString+SHA256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SHA256.h"; sourceTree = "<group>"; };
@@ -5063,8 +5061,6 @@
 				BCB669621A83DB8100C7B1FE /* Serializers */,
 				B0E8067B1C0CE9C70065EBC0 /* WMFFixtureRecording.h */,
 				B0E8067C1C0CE9C70065EBC0 /* WMFFixtureRecording.m */,
-				B0E804931C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.h */,
-				B0E804941C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -7952,6 +7948,7 @@
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
+				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
 			);
 			name = Controllers;
@@ -8246,7 +8243,6 @@
 				D89F510F1D6CC97F008018E1 /* WMFApiJsonResponseSerializer.h in Headers */,
 				0E728D351DAEE8FF0074EB4B /* WMFRandomContentSource.h in Headers */,
 				0E728D4B1DAEEE910074EB4B /* NSString+WMFDistance.h in Headers */,
-				7A3AD05E20ADB22000C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.h in Headers */,
 				D8FA19051E1BDA66009675C3 /* UIImageView+WMFImageFetching.h in Headers */,
 				0E728D501DAEEEDB0074EB4B /* MWKSiteInfoFetcher.h in Headers */,
 				D881B1111E326ABE00D33F62 /* WMFKeyValue+CoreDataClass.h in Headers */,
@@ -10591,6 +10587,7 @@
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,
+				D8635AE8216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift in Sources */,
 				7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */,
 				D84448231DDB60FF00425630 /* WMFArticle+Extensions.m in Sources */,
 				D844DA071D6CC4D40042D692 /* MWKLanguageLinkController.m in Sources */,
@@ -10627,7 +10624,6 @@
 				0E728D341DAEE8FF0074EB4B /* WMFFeedContentSource.m in Sources */,
 				D844D9A41D6CB7060042D692 /* MWKImage.m in Sources */,
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
-				7A3AD05D20ADB21800C92E04 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,

@@ -150,4 +150,7 @@ public class CommonStrings: NSObject {
     @objc public static let editAttribution = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-anonymously-warning", nil, nil, "Edits will be attributed to the IP address of your device. If you %1$@ you will have more privacy.", "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* %1$@ - sign in button text")
 
     @objc public static let editSignIn = WMFLocalizedStringWithDefaultValue("wikitext-upload-save-sign-in", nil, nil, "Log in", "{{Identical|Log in}}")
+    
+    public static let genericErrorDescription = WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
+    public static let genericErrorRecoverySuggestion = WMFLocalizedString("error-generic-recovery-suggestion", value: "Please try again later", comment: "Generic recovery suggestion for when the error isn't recoverable by the user.")
 }

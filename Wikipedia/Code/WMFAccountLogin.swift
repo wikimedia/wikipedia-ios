@@ -49,7 +49,7 @@ public class WMFAccountLogin {
     }
     
     public func login(username: String, password: String, retypePassword: String?, loginToken: String, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
-        let manager = AFHTTPSessionManager(baseURL: siteURL)
+        let manager = AFHTTPSessionManager(baseURL: siteURL, sessionConfiguration: Session.defaultConfiguration)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
         
         var parameters = [
