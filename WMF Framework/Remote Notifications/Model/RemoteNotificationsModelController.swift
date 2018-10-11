@@ -32,6 +32,11 @@
     @objc func markAsExcluded(_ notification: RemoteNotification) {
         modelController.markAsExcluded([notification])
     }
+
+    @objc(markAsSeenNotificationWithID:)
+    func markAsSeen(notificationWithID notificationID: String) {
+        modelController.markAsSeen(notificationsWithIDs: [notificationID])
+    }
 }
 
 @objc final class RemoteNotificationsModelController: NSObject {
@@ -184,7 +189,7 @@
         let moc = managedObjectContext
 
         moc.perform {
-            // Delete notifications that were marked as read on the server.
+            // Delete notifications that were marked as read on the server
             for notification in savedNotifications {
                 guard let id = notification.id, !commonIDs.contains(id) else {
                     continue
@@ -216,26 +221,22 @@
 
     public func markAsRead(_ notifications: [RemoteNotification]) {
         self.managedObjectContext.perform {
-            self.markAsReadAndSave(notifications)
+            notifications.forEach { $0.wasRead = true }
+            self.save()
         }
     }
 
     public func markAsRead(notificationsWithIDs notificationIDs: [String]) {
         let moc = managedObjectContext
         moc.perform {
-            let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-            let predicate = NSPredicate(format: "id IN %@", notificationIDs)
-            fetchRequest.predicate = predicate
-            guard let notifications = try? moc.fetch(fetchRequest) else {
-                return
+            do {
+                try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "id IN %@", notificationIDs), handler: { (notifications: [RemoteNotification]) in
+                    notifications.forEach { $0.wasRead = true }
+                })
+            } catch let error {
+                DDLogError("Error marking notification as read: \(error)")
             }
-            self.markAsReadAndSave(notifications)
         }
-    }
-
-    private func markAsReadAndSave(_ notifications: [RemoteNotification]) {
-        notifications.forEach { $0.wasRead = true }
-        self.save()
     }
 
     // MARK: Mark as excluded
@@ -245,6 +246,21 @@
         moc.perform {
             notifications.forEach { $0.isExcluded = true }
             self.save()
+        }
+    }
+
+    // MARK: Mark as seen
+
+    public func markAsSeen(notificationsWithIDs notificationIDs: [String]) {
+        let moc = managedObjectContext
+        moc.perform {
+            do {
+                try moc.wmf_batchProcess(matchingPredicate: NSPredicate(format: "id IN %@", notificationIDs), handler: { (notifications: [RemoteNotification]) in
+                    notifications.forEach { $0.wasSeen = true }
+                })
+            } catch let error {
+                DDLogError("Error marking notification as seen: \(error)")
+            }
         }
     }
 
@@ -264,7 +280,7 @@
     }
 
     private func postModelDidChangeNotification(ofType modelChangeType: RemoteNotificationsModelChangeType, withNotificationsFromObjects objects: Set<NSManagedObject>) {
-        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.wasRead == false && $0.isExcluded == false }
+        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.wasRead == false && $0.isExcluded == false && $0.wasSeen == false }
         guard !notifications.isEmpty else {
             return
         }
