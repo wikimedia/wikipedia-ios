@@ -134,12 +134,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSUserDefaults wmf_userDefaults] removeObserver:self forKeyPath:@"WMFDefaultTabTypeKey"];
+    [[NSUserDefaults wmf] removeObserver:self forKeyPath:[WMFUserDefaultsKey defaultTabType]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [[NSUserDefaults wmf_userDefaults] wmf_appTheme];
+    self.theme = [[NSUserDefaults wmf] wmf_appTheme];
 
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
@@ -197,8 +197,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:WMFArticleSaveToDiskDidFailNotification
                                                object:nil];
 
-    [[NSUserDefaults wmf_userDefaults] addObserver:self
-                                        forKeyPath:@"WMFDefaultTabTypeKey"
+    [[NSUserDefaults wmf] addObserver:self
+                                        forKeyPath:[WMFUserDefaultsKey defaultTabType]
                                            options:NSKeyValueObservingOptionNew
                                            context:&kvo_NSUserDefaults_defaultTabType];
 
@@ -278,7 +278,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     UITabBarItem *savedTabBarItem = [[self navigationControllerForTab:WMFAppTabTypeSaved] tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf_userDefaults].wmf_openAppOnSearchTab;
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
@@ -315,7 +315,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)configureDefaultNavigationController:(UINavigationController *)navigationController animated:(BOOL)animated {
-    switch ([NSUserDefaults wmf_userDefaults].defaultTabType) {
+    switch ([NSUserDefaults wmf].defaultTabType) {
         case WMFAppDefaultTabTypeExplore:
             navigationController.title = [WMFCommonStrings exploreTabTitle];
             [navigationController setNavigationBarHidden:YES animated:animated];
@@ -684,7 +684,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)migrateToSharedContainerIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if (![[NSUserDefaults wmf_userDefaults] wmf_didMigrateToSharedContainer]) {
+    if (![[NSUserDefaults wmf] wmf_didMigrateToSharedContainer]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
@@ -692,7 +692,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             }
             error = nil;
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToSharedContainer:YES];
+                [[NSUserDefaults wmf] wmf_setDidMigrateToSharedContainer:YES];
                 completion();
             });
         });
@@ -702,7 +702,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)migrateToNewFeedIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToNewFeed]) {
+    if ([[NSUserDefaults wmf] wmf_didMigrateToNewFeed]) {
         completion();
     } else {
         NSError *migrationError = nil;
@@ -710,7 +710,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         if (migrationError) {
             DDLogError(@"Error migrating: %@", migrationError);
         }
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToNewFeed:YES];
+        [[NSUserDefaults wmf] wmf_setDidMigrateToNewFeed:YES];
         completion();
     }
 }
@@ -725,7 +725,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateToFixArticleCache]) {
+    if ([[NSUserDefaults wmf] wmf_didMigrateToFixArticleCache]) {
         completion();
     } else {
         [self.dataStore
@@ -734,7 +734,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 completion();
             }
             success:^{
-                [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateToFixArticleCache:YES];
+                [[NSUserDefaults wmf] wmf_setDidMigrateToFixArticleCache:YES];
                 completion();
             }];
     }
@@ -819,7 +819,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [self.dataStore.feedContentController startContentSources];
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     NSDate *feedRefreshDate = [defaults wmf_feedRefreshDate];
     NSDate *now = [NSDate date];
 
@@ -889,7 +889,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return;
     }
 
-    [[NSUserDefaults wmf_userDefaults] wmf_setDidShowSyncDisabledPanel:NO];
+    [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
     [self.dataStore.readingListsController stop:^{
     }];
@@ -1211,7 +1211,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
-    NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
     }
@@ -1335,13 +1335,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     }
 #endif
 
-    NSNumber *didShow = [[NSUserDefaults wmf_userDefaults] objectForKey:WMFDidShowOnboarding];
+    NSNumber *didShow = [[NSUserDefaults wmf] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
 
 - (void)setDidShowOnboarding {
-    [[NSUserDefaults wmf_userDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
+    [[NSUserDefaults wmf] setObject:@YES forKey:WMFDidShowOnboarding];
 }
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
@@ -1414,7 +1413,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - Last Read Article
 
 - (BOOL)shouldShowLastReadArticleOnLaunch {
-    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
+    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     if (!lastRead) {
         return NO;
     }
@@ -1424,7 +1423,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return YES;
     }
 
-    NSDate *resignActiveDate = [[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate];
+    NSDate *resignActiveDate = [[NSUserDefaults wmf] wmf_appResignActiveDate];
     if (!resignActiveDate) {
         return NO;
     }
@@ -1442,7 +1441,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showLastReadArticleAnimated:(BOOL)animated {
-    NSURL *lastRead = [[NSUserDefaults wmf_userDefaults] wmf_openArticleURL];
+    NSURL *lastRead = [[NSUserDefaults wmf] wmf_openArticleURL];
     [self showArticleForURL:lastRead animated:animated];
 }
 
@@ -1570,7 +1569,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ([[navigationController viewControllers] count] == 1) {
-        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:nil];
+        [[NSUserDefaults wmf] wmf_setOpenArticleURL:nil];
     }
 
     NSArray *viewControllers = navigationController.viewControllers;
@@ -1628,12 +1627,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)setZeroOnDialogShownOnce {
-    [[NSUserDefaults wmf_userDefaults] setBool:YES forKey:WMFZeroOnDialogShownOnce];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
+    [[NSUserDefaults wmf] setBool:YES forKey:WMFZeroOnDialogShownOnce];
 }
 
 - (BOOL)zeroOnDialogShownOnce {
-    return [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroOnDialogShownOnce];
+    return [[NSUserDefaults wmf] boolForKey:WMFZeroOnDialogShownOnce];
 }
 
 - (void)showFirstTimeZeroOnAlertIfNeeded:(WMFZeroConfiguration *)zeroConfiguration {
@@ -1831,7 +1829,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     if (self.theme != theme) {
         [self applyTheme:theme];
-        [[NSUserDefaults wmf_userDefaults] wmf_setAppTheme:theme];
+        [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
 }
@@ -1852,7 +1850,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)articleFontSizeWasUpdated:(NSNotification *)note {
     NSNumber *multiplier = (NSNumber *)note.userInfo[WMFFontSizeSliderViewController.WMFArticleFontSizeMultiplierKey];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+    [[NSUserDefaults wmf] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 #pragma mark - Search

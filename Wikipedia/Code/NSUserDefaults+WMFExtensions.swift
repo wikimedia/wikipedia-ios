@@ -30,7 +30,6 @@ let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedA
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
-let WMFDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 
 //Legacy Keys
@@ -42,9 +41,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     case settings
 }
 
+
+
 @objc public extension UserDefaults {
-    
-    @objc public class func wmf_userDefaults() -> UserDefaults {
+    @objc(WMFUserDefaultsKey) public class Key: NSObject {
+        @objc static let defaultTabType = "WMFDefaultTabTypeKey"
+    }
+
+    @objc public static let wmf: UserDefaults = {
 #if WMF_NO_APP_GROUP
         return UserDefaults.standard
 #else
@@ -54,10 +58,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         return defaults
 #endif
-    }
+    }()
     
     @objc public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
-        let newDefaults = self.wmf_userDefaults()
+        let newDefaults = self.wmf
         let didMigrate = newDefaults.bool(forKey: WMFDidMigrateToGroupKey)
         if (!didMigrate) {
             let oldDefaults = UserDefaults.standard
@@ -70,7 +74,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
                 newDefaults.set(value, forKey: key)
             }
             newDefaults.set(true, forKey: WMFDidMigrateToGroupKey)
-            newDefaults.synchronize()
         }
     }
 
@@ -88,7 +91,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }else{
             self.removeObject(forKey: WMFAppBecomeActiveDateKey)
         }
-        self.synchronize()
     }
     
     @objc public func wmf_appResignActiveDate() -> Date? {
@@ -101,7 +103,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }else{
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
-        self.synchronize()
     }
 
     @objc public var wmf_lastAppVersion: String? {
@@ -110,13 +111,11 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: "WMFLastAppVersion")
-            synchronize()
         }
     }
     
     @objc public func wmf_setFeedRefreshDate(_ date: Date) {
         self.set(date, forKey: WMFFeedRefreshDateKey)
-        self.synchronize()
     }
     
     @objc public func wmf_feedRefreshDate() -> Date? {
@@ -125,7 +124,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setLocationAuthorized(_ authorized: Bool) {
         self.set(authorized, forKey: WMFLocationAuthorizedKey)
-        self.synchronize()
     }
     
     @objc public var wmf_appTheme: Theme {
@@ -134,7 +132,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setAppTheme(_ theme: Theme) {
         set(theme.name, forKey: WMFAppThemeName)
-        synchronize()
     }
     
     @objc public var wmf_isImageDimmingEnabled: Bool {
@@ -143,7 +140,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFIsImageDimmingEnabled)
-            synchronize()
         }
     }
     
@@ -153,7 +149,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFIsAutomaticTableOpeningEnabled)
-            synchronize()
         }
     }
     
@@ -163,7 +158,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFDidShowThemeCardInFeed)
-            synchronize()
         }
     }
 
@@ -173,7 +167,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFDidShowReadingListCardInFeed)
-            synchronize()
         }
     }
     
@@ -184,7 +177,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setPlacesHasAppeared(_ hasAppeared: Bool) {
         self.set(hasAppeared, forKey: WMFPlacesHasAppeared)
-        self.synchronize()
     }
     
     @objc public func wmf_placesHasAppeared() -> Bool {
@@ -193,7 +185,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setPlacesDidPromptForLocationAuthorization(_ didPrompt: Bool) {
         self.set(didPrompt, forKey: WMFPlacesDidPromptForLocationAuthorization)
-        self.synchronize()
     }
     
     @objc public func wmf_placesDidPromptForLocationAuthorization() -> Bool {
@@ -202,7 +193,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setExploreDidPromptForLocationAuthorization(_ didPrompt: Bool) {
         self.set(didPrompt, forKey: WMFExploreDidPromptForLocationAuthorization)
-        self.synchronize()
     }
     
     
@@ -230,7 +220,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         guard let url = url else{
             self.removeObject(forKey: WMFOpenArticleURLKey)
             self.removeObject(forKey: WMFOpenArticleTitleKey)
-            self.synchronize()
             return
         }
         guard !url.wmf_isNonStandardURL else{
@@ -238,13 +227,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         
         self.set(url, forKey: WMFOpenArticleURLKey)
-        self.synchronize()
     }
 
     @objc public func wmf_setShowSearchLanguageBar(_ enabled: Bool) {
         self.set(NSNumber(value: enabled as Bool), forKey: "ShowLanguageBar")
-        self.synchronize()
-        
     }
     
     @objc public func wmf_showSearchLanguageBar() -> Bool {
@@ -261,7 +247,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: "WMFOpenAppOnSearchTab")
-            synchronize()
         }
     }
     
@@ -280,7 +265,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc public func wmf_setCurrentSearchLanguageDomain(_ url: URL?) {
         guard let url = url else{
             self.removeObject(forKey: WMFSearchURLKey)
-            self.synchronize()
             return
         }
         guard !url.wmf_isNonStandardURL else{
@@ -288,13 +272,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         
         self.set(url, forKey: WMFSearchURLKey)
-        self.synchronize()
     }
     
     @objc public func wmf_setDidShowWIconPopover(_ shown: Bool) {
         self.set(NSNumber(value: shown as Bool), forKey: "ShowWIconPopover")
-        self.synchronize()
-        
     }
     
     @objc public func wmf_didShowWIconPopover() -> Bool {
@@ -307,8 +288,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidShowMoreLanguagesTooltip(_ shown: Bool) {
         self.set(NSNumber(value: shown as Bool), forKey: "ShowMoreLanguagesTooltip")
-        self.synchronize()
-        
     }
     
     @objc public func wmf_didShowMoreLanguagesTooltip() -> Bool {
@@ -321,8 +300,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_setTableOfContentsIsVisibleInline(_ visibleInline: Bool) {
         self.set(NSNumber(value: visibleInline as Bool), forKey: "TableOfContentsIsVisibleInline")
-        self.synchronize()
-        
     }
     
     @objc public func wmf_isTableOfContentsVisibleInline() -> Bool {
@@ -335,7 +312,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidFinishLegacySavedArticleImageMigration(_ didFinish: Bool) {
         self.set(didFinish, forKey: "DidFinishLegacySavedArticleImageMigration2")
-        self.synchronize()
     }
     
     @objc public func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
@@ -344,7 +320,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidMigrateHistoryList(_ didFinish: Bool) {
         self.set(didFinish, forKey: WMFMigrateHistoryListKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateHistoryList() -> Bool {
@@ -353,7 +328,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_setDidMigrateSavedPageList(_ didFinish: Bool) {
         self.set(didFinish, forKey: WMFMigrateSavedPageListKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateSavedPageList() -> Bool {
@@ -362,7 +336,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_setDidMigrateBlackList(_ didFinish: Bool) {
         self.set(didFinish, forKey: WMFMigrateBlackListKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateBlackList() -> Bool {
@@ -371,7 +344,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidMigrateToFixArticleCache(_ didFinish: Bool) {
         self.set(didFinish, forKey: WMFMigrateToFixArticleCacheKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateToFixArticleCache() -> Bool {
@@ -380,7 +352,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidMigrateToSharedContainer(_ didFinish: Bool) {
         self.set(didFinish, forKey: WMFMigrateToSharedContainerKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateToSharedContainer() -> Bool {
@@ -389,7 +360,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_setDidMigrateToNewFeed(_ didMigrate: Bool) {
         self.set(didMigrate, forKey: WMFDidMigrateToCoreDataFeedKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didMigrateToNewFeed() -> Bool {
@@ -402,7 +372,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setMostRecentInTheNewsNotificationDate(_ date: Date) {
         self.set(date, forKey: WMFMostRecentInTheNewsNotificationDateKey)
-        self.synchronize()
     }
     
     @objc public func wmf_inTheNewsMostRecentDateNotificationCount() -> Int {
@@ -411,7 +380,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setInTheNewsMostRecentDateNotificationCount(_ count: Int) {
         self.set(count, forKey: WMFInTheNewsMostRecentDateNotificationCountKey)
-        self.synchronize()
     }
     
     @objc public func wmf_inTheNewsNotificationsEnabled() -> Bool {
@@ -420,12 +388,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setInTheNewsNotificationsEnabled(_ enabled: Bool) {
         self.set(enabled, forKey: WMFInTheNewsNotificationsEnabled)
-        self.synchronize()
     }
 
     @objc public func wmf_setDidShowNewsNotificationCardInFeed(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowNewsNotificatonInFeedKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didShowNewsNotificationCardInFeed() -> Bool {
@@ -434,7 +400,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public func wmf_setDidShowEnableReadingListSyncPanel(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowEnableReadingListSyncPanelKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didShowEnableReadingListSyncPanel() -> Bool {
@@ -443,7 +408,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowLoginToSyncSavedArticlesToReadingListPanelKey)
-        self.synchronize()
     }
     
     @objc public func wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() -> Bool {
@@ -456,7 +420,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidShowLimitHitForUnsortedArticlesPanel(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowLimitHitForUnsortedArticlesPanel)
-        self.synchronize()
     }
     
     @objc public func wmf_didShowSyncDisabledPanel() -> Bool {
@@ -481,22 +444,19 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidSplitExistingReadingLists(_ didSplit: Bool) {
         self.set(didSplit, forKey: WMFDidSplitExistingReadingLists)
-        self.synchronize()
     }
 
     @objc public var defaultTabType: WMFAppDefaultTabType {
         get {
-            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: WMFDefaultTabTypeKey)) else {
+            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: UserDefaults.Key.defaultTabType)) else {
                 let explore = WMFAppDefaultTabType.explore
-                set(explore.rawValue, forKey: WMFDefaultTabTypeKey)
-                synchronize()
+                set(explore.rawValue, forKey: UserDefaults.Key.defaultTabType)
                 return explore
             }
             return defaultTabType
         }
         set {
-            set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
-            synchronize()
+            set(newValue.rawValue, forKey: UserDefaults.Key.defaultTabType)
             wmf_openAppOnSearchTab = newValue == .settings
         }
     }
@@ -507,6 +467,5 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidShowTitleDescriptionEditingIntro(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
-        self.synchronize()
     }
 }

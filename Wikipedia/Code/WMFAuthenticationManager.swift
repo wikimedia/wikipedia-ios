@@ -219,8 +219,8 @@ public class WMFAuthenticationManager: NSObject {
         SessionSingleton.sharedInstance().dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
         
         // Reset so can show for next logged in user.
-        UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(false)
-        UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(false)
+        UserDefaults.wmf.wmf_setDidShowEnableReadingListSyncPanel(false)
+        UserDefaults.wmf.wmf_setDidShowSyncEnabledPanel(false)
     }
     
     /**

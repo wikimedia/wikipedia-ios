@@ -44,7 +44,7 @@ extension WKWebView {
                 Number of percent-ampersands must match number of values passed to 'stringWithFormat:'
         """)
         
-        let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
+        let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf.wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
         
         var siteCSSLink = ""
         if let baseSite = baseURL.wmf_site?.absoluteString {

@@ -16,7 +16,7 @@
     }
     
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
-    if ([SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated && [[NSUserDefaults wmf_userDefaults] boolForKey:WMFZeroWarnWhenLeaving]) {
+    if ([SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated && [[NSUserDefaults wmf] boolForKey:WMFZeroWarnWhenLeaving]) {
         WMFZeroConfiguration *zeroConfiguration = [SessionSingleton sharedInstance].zeroConfigurationManager.zeroConfiguration;
         NSString *exitDialogTitle = zeroConfiguration.exitTitle ?: WMFLocalizedStringWithDefaultValue(@"zero-interstitial-title", nil, nil, @"Leaving Wikipedia Zero", @"Alert text for leaving Wikipedia Zero");
         NSString *messageWithHost = [NSString stringWithFormat:@"%@\n\n%@", zeroConfiguration.exitWarning ?: WMFLocalizedStringWithDefaultValue(@"zero-interstitial-leave-app", nil, nil, @"Data charges may apply. Continue to external site?", @"Alert text shown if Wikipedia Zero free data access is enabled and user taps external link"), url.host];

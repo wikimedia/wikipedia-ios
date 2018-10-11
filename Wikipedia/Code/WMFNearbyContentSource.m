@@ -72,7 +72,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         if (![WMFLocationManager isAuthorized]) {
             [moc performBlock:^{
                 [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-                if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+                if (![[NSUserDefaults wmf] wmf_exploreDidPromptForLocationAuthorization]) {
                     [self showAuthorizationPlaceholderInManagedObjectContext:moc
                                                                   completion:^{
                                                                       if (completion) {
