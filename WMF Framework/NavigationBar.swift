@@ -131,9 +131,27 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         } else if let systemBarButton = item as? SystemBarButton, let systemItem = systemBarButton.systemItem {
             barButtonItem = SystemBarButton(with: systemItem, target: systemBarButton.target, action: systemBarButton.action)
         } else if let customView = item.customView {
-            barButtonItem = UIBarButtonItem(customView: customView)
+            let customViewData = NSKeyedArchiver.archivedData(withRootObject: customView)
+            if let copiedView = NSKeyedUnarchiver.unarchiveObject(with: customViewData) as? UIView {
+                if let button = customView as? UIButton, let copiedButton = copiedView as? UIButton {
+                    for target in button.allTargets {
+                        guard let actions = button.actions(forTarget: target, forControlEvent: .touchUpInside) else {
+                            continue
+                        }
+                        for action in actions {
+                            copiedButton.addTarget(target, action: Selector(action), for: .touchUpInside)
+                        }
+                    }
+                }
+                barButtonItem = UIBarButtonItem(customView: copiedView)
+            } else {
+                assert(false, "unable to copy custom view")
+                barButtonItem = item
+            }
+        } else if let image = item.image {
+            barButtonItem = UIBarButtonItem(image: image, landscapeImagePhone: item.landscapeImagePhone, style: item.style, target: item.target, action: item.action)
         } else {
-            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
+            assert(false, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
             barButtonItem = item
         }
         barButtonItem.isEnabled = item.isEnabled
