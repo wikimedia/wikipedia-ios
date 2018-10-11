@@ -148,8 +148,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 assert(false, "unable to copy custom view")
                 barButtonItem = item
             }
+        } else if let image = item.image {
+            barButtonItem = UIBarButtonItem(image: image, landscapeImagePhone: item.landscapeImagePhone, style: item.style, target: item.target, action: item.action)
         } else {
-            assert(item.image != nil, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
+            assert(false, "barButtonItem must have title OR be of type SystemBarButton OR have image OR have custom view")
             barButtonItem = item
         }
         barButtonItem.isEnabled = item.isEnabled
