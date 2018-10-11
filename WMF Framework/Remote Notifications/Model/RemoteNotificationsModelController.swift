@@ -166,7 +166,6 @@
                                                                     "agent": notification.agent?.name,
                                                                     "affectedPageID": notification.affectedPageID?.full,
                                                                     "message": message,
-                                                                    "read": false,
                                                                     "wiki": notification.wiki,
                                                                     "date": date])
     }
