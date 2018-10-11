@@ -30,7 +30,6 @@ let WMFDidShowLimitHitForUnsortedArticlesPanel = "WMFDidShowLimitHitForUnsortedA
 let WMFDidShowSyncDisabledPanel = "WMFDidShowSyncDisabledPanel"
 let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
-let WMFDefaultTabTypeKey = "WMFDefaultTabTypeKey"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 
 //Legacy Keys
@@ -42,9 +41,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     case settings
 }
 
+
+
 @objc public extension UserDefaults {
-    
-    @objc public class func wmf_userDefaults() -> UserDefaults {
+    @objc(WMFUserDefaultsKey) public class Key: NSObject {
+        @objc static let defaultTabType = "WMFDefaultTabTypeKey"
+    }
+
+    @objc public static let wmf: UserDefaults = {
 #if WMF_NO_APP_GROUP
         return UserDefaults.standard
 #else
@@ -54,10 +58,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         return defaults
 #endif
-    }
+    }()
     
     @objc public class func wmf_migrateToWMFGroupUserDefaultsIfNecessary() {
-        let newDefaults = self.wmf_userDefaults()
+        let newDefaults = self.wmf
         let didMigrate = newDefaults.bool(forKey: WMFDidMigrateToGroupKey)
         if (!didMigrate) {
             let oldDefaults = UserDefaults.standard
@@ -444,15 +448,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 
     @objc public var defaultTabType: WMFAppDefaultTabType {
         get {
-            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: WMFDefaultTabTypeKey)) else {
+            guard let defaultTabType = WMFAppDefaultTabType(rawValue: integer(forKey: UserDefaults.Key.defaultTabType)) else {
                 let explore = WMFAppDefaultTabType.explore
-                set(explore.rawValue, forKey: WMFDefaultTabTypeKey)
+                set(explore.rawValue, forKey: UserDefaults.Key.defaultTabType)
                 return explore
             }
             return defaultTabType
         }
         set {
-            set(newValue.rawValue, forKey: WMFDefaultTabTypeKey)
+            set(newValue.rawValue, forKey: UserDefaults.Key.defaultTabType)
             wmf_openAppOnSearchTab = newValue == .settings
         }
     }

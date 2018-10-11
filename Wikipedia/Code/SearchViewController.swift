@@ -187,7 +187,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
+        let showLanguageBar = UserDefaults.wmf.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
             addChild(searchLanguageBarViewController)

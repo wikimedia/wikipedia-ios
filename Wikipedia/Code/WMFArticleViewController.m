@@ -769,7 +769,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 
-    BOOL isVisibleInline = [[NSUserDefaults wmf_userDefaults] wmf_isTableOfContentsVisibleInline];
+    BOOL isVisibleInline = [[NSUserDefaults wmf] wmf_isTableOfContentsVisibleInline];
 
     self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? isVisibleInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateModalHidden;
 
@@ -816,7 +816,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     //    }
     [self registerForPreviewingIfAvailable];
-    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    NSNumber *multiplier = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
 }
 
@@ -1062,7 +1062,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
-                [[NSUserDefaults wmf_userDefaults] wmf_setTableOfContentsIsVisibleInline:YES];
+                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:YES];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
             [self updateTableOfContentsLayoutAnimated:YES];
@@ -1079,7 +1079,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
-                [[NSUserDefaults wmf_userDefaults] wmf_setTableOfContentsIsVisibleInline:NO];
+                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:NO];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
             [self updateTableOfContentsLayoutAnimated:YES];
@@ -1494,7 +1494,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+    [[NSUserDefaults wmf] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 - (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
@@ -1521,7 +1521,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    NSNumber *fontSize = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
 
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
 
@@ -1579,7 +1579,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return;
         }
         NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
+        [[NSUserDefaults wmf] wmf_setOpenArticleURL:url];
     }];
 }
 
