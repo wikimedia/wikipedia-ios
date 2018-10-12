@@ -15,18 +15,6 @@ import CoreData
     }
 }
 
-public struct RemoteNotificationState: OptionSet {
-    public let rawValue: Int16
-
-    public static let wasSeen = RemoteNotificationState(rawValue: 1 << 0)
-    public static let wasRead = RemoteNotificationState(rawValue: 1 << 1)
-    public static let isExcluded = RemoteNotificationState(rawValue: 1 << 2)
-
-    public init(rawValue: RawValue) {
-        self.rawValue = rawValue
-    }
-}
-
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
 
@@ -37,12 +25,18 @@ public class RemoteNotification: NSManagedObject {
         return RemoteNotificationCategory(stringValue: categoryString)
     }
 
-    public var state: RemoteNotificationState? {
+    public enum State: Int16 {
+        case seen
+        case read
+        case excluded
+    }
+
+    public var state: State? {
         get {
             guard let value = stateNumber?.int16Value else {
                 return nil
             }
-            return RemoteNotificationState(rawValue: value)
+            return State(rawValue: value)
         }
         set {
             guard let value = newValue?.rawValue else {

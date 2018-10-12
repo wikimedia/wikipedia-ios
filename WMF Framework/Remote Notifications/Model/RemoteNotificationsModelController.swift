@@ -205,7 +205,7 @@ final class RemoteNotificationsModelController: NSObject {
                 guard !commonIDs.contains(id) else {
                     if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
-                        savedNotification.state?.insert(.wasRead)
+                        savedNotification.state = .read
                     }
                     continue
                 }
@@ -221,14 +221,14 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsRead(_ notification: RemoteNotification) {
         self.managedObjectContext.perform {
-            notification.state?.insert(.wasRead)
+            notification.state = .read
             self.save()
         }
     }
 
     public func markAsRead(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.state?.insert(.wasRead)
+            notification.state = .read
         }
     }
 
@@ -237,7 +237,7 @@ final class RemoteNotificationsModelController: NSObject {
     public func markAsExcluded(_ notification: RemoteNotification) {
         let moc = managedObjectContext
         moc.perform {
-            notification.state?.insert(.isExcluded)
+            notification.state = .excluded
             self.save()
         }
     }
@@ -246,7 +246,7 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsSeen(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.state?.insert(.wasSeen)
+            notification.state = .seen
         }
     }
 
