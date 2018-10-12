@@ -251,7 +251,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     [self.pageSummarySessionManager wmf_cancelAllTasks];
 }
 
-- (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
+- (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
@@ -262,7 +262,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
-        return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+        return nil;
     }
 }
 
