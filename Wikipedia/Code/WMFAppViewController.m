@@ -351,7 +351,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (self.isResumeComplete) {
         [self checkRemoteAppConfigIfNecessary];
         [self.dataStore.readingListsController start];
-        [self startRemoteNotificationsController];
+        [self.dataStore.remoteNotificationsController start];
         [self.savedArticlesFetcher start];
         [self startEventLogging];
     }
@@ -806,7 +806,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
             [self.dataStore.readingListsController start];
-            [self startRemoteNotificationsController];
+            [self.dataStore.remoteNotificationsController start];
             [self.savedArticlesFetcher start];
             self.resumeComplete = YES;
         }
@@ -1958,12 +1958,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 #pragma mark - Remote Notifications
-
-- (void)startRemoteNotificationsController {
-    if (self.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit) {
-        [self.dataStore.remoteNotificationsController start];
-    }
-}
 
 - (void)remoteNotificationsModelDidChange:(NSNotification *)note {
     self.remoteNotificationsModelChangeResponseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;

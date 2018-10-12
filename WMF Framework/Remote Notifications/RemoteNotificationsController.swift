@@ -2,7 +2,7 @@
     private let operationsController: RemoteNotificationsOperationsController
 
     @objc public required init(viewContext: NSManagedObjectContext) {
-        operationsController = RemoteNotificationsOperationsController(with: viewContext)
+        operationsController = RemoteNotificationsOperationsController()
         super.init()
     }
 
@@ -20,6 +20,15 @@
     }
 
     @objc public func start() {
+        guard shouldStart else {
+            return
+        }
         toggle(on: true)
+    }
+
+    private var shouldStart: Bool {
+        let isLoggedIn = WMFAuthenticationManager.sharedInstance.isLoggedIn
+        let madeAuthorizedWikidataEdit = SessionSingleton.sharedInstance()?.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit ?? false
+        return isLoggedIn && madeAuthorizedWikidataEdit
     }
 }
