@@ -205,7 +205,7 @@ final class RemoteNotificationsModelController: NSObject {
                 guard !commonIDs.contains(id) else {
                     if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
-                        savedNotification.wasRead = false
+                        savedNotification.state?.insert(.wasRead)
                     }
                     continue
                 }
@@ -221,14 +221,14 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsRead(_ notification: RemoteNotification) {
         self.managedObjectContext.perform {
-            notification.wasRead = true
+            notification.state?.insert(.wasRead)
             self.save()
         }
     }
 
     public func markAsRead(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.wasRead = true
+            notification.state?.insert(.wasRead)
         }
     }
 
@@ -237,7 +237,7 @@ final class RemoteNotificationsModelController: NSObject {
     public func markAsExcluded(_ notification: RemoteNotification) {
         let moc = managedObjectContext
         moc.perform {
-            notification.isExcluded = true
+            notification.state?.insert(.isExcluded)
             self.save()
         }
     }
@@ -246,7 +246,7 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsSeen(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.wasSeen = true
+            notification.state?.insert(.wasSeen)
         }
     }
 
@@ -281,7 +281,7 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     private func postModelDidChangeNotification(ofType modelChangeType: RemoteNotificationsModelChangeType, withNotificationsFromObjects objects: Set<NSManagedObject>) {
-        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.wasRead == false && $0.isExcluded == false && $0.wasSeen == false }
+        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.state == nil }
         guard !notifications.isEmpty else {
             return
         }

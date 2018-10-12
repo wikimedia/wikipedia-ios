@@ -6,14 +6,12 @@
         <attribute name="categoryString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isExcluded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stateNumber" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="wasRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="wasSeen" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wiki" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>
