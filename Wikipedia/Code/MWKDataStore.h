@@ -81,6 +81,8 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
 
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
+
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 

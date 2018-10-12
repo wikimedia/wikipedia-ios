@@ -3,7 +3,7 @@ class RemoteNotificationsOperationsController {
     private let modelController: RemoteNotificationsModelController
     weak var viewContext: NSManagedObjectContext?
 
-    private let syncTimeInterval: TimeInterval = 10
+    private let syncTimeInterval: TimeInterval = 15
     private var syncTimer: Timer?
     private let operationQueue: OperationQueue
     private var isLocked: Bool = false {
@@ -70,7 +70,8 @@ class RemoteNotificationsOperationsController {
             return
         }
         guard syncTimer == nil else {
-            assertionFailure("Timer should be nil; stop the controller before restarting it")
+            stop()
+            start()
             return
         }
         syncTimer = Timer.scheduledTimer(timeInterval: syncTimeInterval, target: self, selector: #selector(sync), userInfo: nil, repeats: true)

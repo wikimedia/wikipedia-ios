@@ -130,7 +130,7 @@ open class ReadingThemesControlsViewController: UIViewController {
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
-        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        let currentTheme = UserDefaults.wmf.wmf_appTheme
         apply(theme: currentTheme)
     }
     
@@ -171,11 +171,11 @@ open class ReadingThemesControlsViewController: UIViewController {
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
 
     @IBAction func blackThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
 }
 

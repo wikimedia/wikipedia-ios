@@ -4,7 +4,6 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
             self.managedObjectContext.perform {
                 self.apiController.getAllUnreadNotifications(from: ["wikidata", "en"]) { fetchedNotifications, error in
                     if let error = error {
-                        assertionFailure()
                         self.finish(with: error)
                     } else {
                         self.modelController.getAllNotifications { savedNotifications in
@@ -13,26 +12,27 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
                                 self.finish()
                                 return
                             }
-                            if fetchedNotifications.isEmpty {
+                            if fetchedNotifications.isEmpty && savedNotifications.isEmpty {
                                 self.finish()
-                            }
-                            if savedNotifications.isEmpty {
-                                do {
-                                    try self.modelController.createNewNotifications(from: fetchedNotifications) {
-                                        self.finish()
-                                    }
-                                } catch let error {
-                                    assertionFailure()
-                                    self.finish(with: error)
-                                }
                             } else {
-                                do {
-                                    try self.modelController.updateNotifications(savedNotifications, with: fetchedNotifications) {
-                                        self.finish()
+                                if savedNotifications.isEmpty {
+                                    do {
+                                        try self.modelController.createNewNotifications(from: fetchedNotifications) {
+                                            self.finish()
+                                        }
+                                    } catch let error {
+                                        assertionFailure()
+                                        self.finish(with: error)
                                     }
-                                } catch let error {
-                                    assertionFailure()
-                                    self.finish(with: error)
+                                } else {
+                                    do {
+                                        try self.modelController.updateNotifications(savedNotifications, with: fetchedNotifications) {
+                                            self.finish()
+                                        }
+                                    } catch let error {
+                                        assertionFailure()
+                                        self.finish(with: error)
+                                    }
                                 }
                             }
                         }

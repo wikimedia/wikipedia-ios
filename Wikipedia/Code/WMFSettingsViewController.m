@@ -71,9 +71,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-
-    [self configureBackButton];
-
+    
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = 52.0;
@@ -111,6 +109,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.showCloseButton = self.tabBarController == nil;
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
@@ -118,6 +117,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)configureBackButton {
+    if (self.navigationItem.rightBarButtonItem != nil) {
+        return;
+    }
     UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
     self.navigationItem.rightBarButtonItem = xButton;
 }
@@ -308,7 +310,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Presentation
 
-- (void)presentViewControllerWrappedInNavigationController:(UIViewController *)viewController {
+- (void)presentViewControllerWrappedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
     WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:themeableNavController animated:YES completion:nil];
 }
@@ -382,9 +384,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)languagesController:(WMFPreferredLanguagesViewController *)controller didUpdatePreferredLanguages:(NSArray<MWKLanguageLink *> *)languages {
     if ([languages count] > 1) {
-        [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:YES];
+        [[NSUserDefaults wmf] wmf_setShowSearchLanguageBar:YES];
     } else {
-        [[NSUserDefaults wmf_userDefaults] wmf_setShowSearchLanguageBar:NO];
+        [[NSUserDefaults wmf] wmf_setShowSearchLanguageBar:NO];
     }
 
     [self loadSections];

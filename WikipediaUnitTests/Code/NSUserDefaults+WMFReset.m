@@ -4,7 +4,6 @@
 
 - (void)wmf_resetToDefaultValues {
     [self removePersistentDomainForName:WMFApplicationGroupIdentifier];
-    [self synchronize];
 }
 
 @end

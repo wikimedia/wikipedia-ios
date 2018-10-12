@@ -45,7 +45,7 @@ static NSString *const kTimestampKey = @"ts";
 }
 
 - (NSString *)searchLanguage {
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf];
     NSURL *currentSearchLanguageDomain = [userDefaults wmf_currentSearchLanguageDomain];
     NSString *searchLanguage = currentSearchLanguageDomain.wmf_language;
     return searchLanguage;

@@ -180,6 +180,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
                                                                                       article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
                                                                                       article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      article.wikidataID = mwkArticle.wikidataId;
                                                                                       if (summaryResponse) {
                                                                                           [article updateWithSummary:summaryResponse];
                                                                                       }

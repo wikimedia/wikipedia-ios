@@ -313,7 +313,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.afterFirstUserScrollInteraction = NO;
 
         NSString *decodedFragment = [[self.articleURL fragment] stringByRemovingPercentEncoding];
-        BOOL collapseTables = ![[NSUserDefaults wmf_userDefaults] wmf_isAutomaticTableOpeningEnabled];
+        BOOL collapseTables = ![[NSUserDefaults wmf] wmf_isAutomaticTableOpeningEnabled];
         [self.webView wmf_fetchTransformAndAppendSectionsToDocument:self.article collapseTables:collapseTables scrolledTo:decodedFragment];
 
         [self updateWebContentMarginForSize:self.view.bounds.size force:YES];

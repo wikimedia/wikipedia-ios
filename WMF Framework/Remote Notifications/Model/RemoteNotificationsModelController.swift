@@ -1,14 +1,15 @@
 @objc enum RemoteNotificationsModelChangeType: Int {
     case addedNewNotifications
+    case updatedExistingNotifications
 }
 
 @objc final class RemoteNotificationsModelChange: NSObject {
     @objc let type: RemoteNotificationsModelChangeType
-    @objc let notifications: [RemoteNotification]
+    @objc let notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]
 
-    init(type: RemoteNotificationsModelChangeType, notifications: [RemoteNotification]) {
+    init(type: RemoteNotificationsModelChangeType, notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]) {
         self.type = type
-        self.notifications = notifications
+        self.notificationsGroupedByCategoryNumber = notificationsGroupedByCategoryNumber
         super.init()
     }
 }
@@ -23,8 +24,18 @@
         super.init()
     }
 
-    @objc func markAsRead(_ notification: RemoteNotification) {
-        modelController.markAsRead(notification)
+    @objc(markAsReadNotificationWithID:)
+    func markAsRead(notificationWithID notificationID: String) {
+        modelController.markAsRead(notificationWithID: notificationID)
+    }
+
+    @objc func markAsExcluded(_ notification: RemoteNotification) {
+        modelController.markAsExcluded(notification)
+    }
+
+    @objc(markAsSeenNotificationWithID:)
+    func markAsSeen(notificationWithID notificationID: String) {
+        modelController.markAsSeen(notificationWithID: notificationID)
     }
 }
 
@@ -69,11 +80,11 @@
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "read == NO"), completion: completion)
+        return notifications(with: NSPredicate(format: "wasRead == NO"), completion: completion)
     }
 
     public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "read == YES"), completion: completion)
+        return notifications(with: NSPredicate(format: "wasRead == YES"), completion: completion)
     }
 
     public func getAllNotifications(_ completion: @escaping ResultHandler) {
@@ -106,16 +117,14 @@
 
     // MARK: Validation
 
-    let validNotificationCategories: Set<RemoteNotification.Category> = [.editReverted]
+    let validNotificationCategories: Set<RemoteNotificationCategory> = [.editReverted]
 
     private func validateCategory(of notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
         guard let categoryString = notification.category else {
             assertionFailure("Missing notification category")
             return false
         }
-        guard let category = RemoteNotification.Category(rawValue: categoryString) else {
-            return false
-        }
+        let category = RemoteNotificationCategory(stringValue: categoryString)
         return validNotificationCategories.contains(category)
     }
 
@@ -144,6 +153,10 @@
             assertionFailure("Notification should have a date")
             return
         }
+        guard let id = notification.id else {
+            assertionFailure("Notification must have an id")
+            return
+        }
         guard self.validateCategory(of: notification) else {
             return
         }
@@ -152,11 +165,12 @@
         }
         let message = notification.message?.header?.wmf_stringByRemovingHTML()
         let _ = managedObjectContext.wmf_create(entityNamed: "RemoteNotification",
-                                                withKeysAndValues: ["id": notification.id,
+                                                withKeysAndValues: ["id": id,
                                                                     "categoryString" : notification.category,
                                                                     "typeString": notification.type,
+                                                                    "agent": notification.agent?.name,
+                                                                    "affectedPageID": notification.affectedPageID?.full,
                                                                     "message": message,
-                                                                    "read": false,
                                                                     "wiki": notification.wiki,
                                                                     "date": date])
     }
@@ -175,7 +189,7 @@
         let moc = managedObjectContext
 
         moc.perform {
-            // Delete notifications that were marked as read on the server.
+            // Delete notifications that were marked as read on the server
             for notification in savedNotifications {
                 guard let id = notification.id, !commonIDs.contains(id) else {
                     continue
@@ -184,8 +198,15 @@
             }
 
             for notification in notificationsFetchedFromTheServer {
-                // Don't update notifications that are already saved?
-                guard let id = notification.id, !commonIDs.contains(id) else {
+                guard let id = notification.id else {
+                    assertionFailure("Expected notification to have id")
+                    continue
+                }
+                guard !commonIDs.contains(id) else {
+                    if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
+                        // Update notifications that weren't seen so that moc is notified of the update
+                        savedNotification.wasRead = false
+                    }
                     continue
                 }
                 self.createNewNotification(from: notification)
@@ -196,25 +217,79 @@
         }
     }
 
+    // MARK: Mark as read
+
     public func markAsRead(_ notification: RemoteNotification) {
         self.managedObjectContext.perform {
-            notification.read = true
+            notification.wasRead = true
             self.save()
         }
     }
+
+    public func markAsRead(notificationWithID notificationID: String) {
+        processNotificationWithID(notificationID) { (notification) in
+            notification.wasRead = true
+        }
+    }
+
+    // MARK: Mark as excluded
+
+    public func markAsExcluded(_ notification: RemoteNotification) {
+        let moc = managedObjectContext
+        moc.perform {
+            notification.isExcluded = true
+            self.save()
+        }
+    }
+
+    // MARK: Mark as seen
+
+    public func markAsSeen(notificationWithID notificationID: String) {
+        processNotificationWithID(notificationID) { (notification) in
+            notification.wasSeen = true
+        }
+    }
+
+    private func processNotificationWithID(_ notificationID: String, handler: @escaping (RemoteNotification) -> Void) {
+        let moc = managedObjectContext
+        moc.perform {
+            let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+            fetchRequest.fetchLimit = 1
+            let predicate = NSPredicate(format: "id == %@", notificationID)
+            fetchRequest.predicate = predicate
+            guard let notifications = try? moc.fetch(fetchRequest), let notification = notifications.first else {
+                return
+            }
+            handler(notification)
+            self.save()
+        }
+    }
+
+    // MARK: Notifications
 
     @objc private func managedObjectContextDidSave(_ note: Notification) {
         guard let userInfo = note.userInfo else {
             assertionFailure("Expected note with userInfo dictionary")
             return
         }
-        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            let notifications = insertedObjects.compactMap { $0 as? RemoteNotification }
-            let modelChange = RemoteNotificationsModelChange(type: .addedNewNotifications, notifications: notifications)
-            let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelDidChangeNotification, object: responseCoordinator)
-            }
+        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
+            postModelDidChangeNotification(ofType: .addedNewNotifications, withNotificationsFromObjects: insertedObjects)
+        }
+        if let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
+            postModelDidChangeNotification(ofType: .updatedExistingNotifications, withNotificationsFromObjects: updatedObjects)
+        }
+    }
+
+    private func postModelDidChangeNotification(ofType modelChangeType: RemoteNotificationsModelChangeType, withNotificationsFromObjects objects: Set<NSManagedObject>) {
+        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.wasRead == false && $0.isExcluded == false && $0.wasSeen == false }
+        guard !notifications.isEmpty else {
+            return
+        }
+        let notificationsGroupedByCategoryNumber = Dictionary(grouping: notifications, by: { NSNumber(value: $0.category.rawValue) })
+        let modelChange = RemoteNotificationsModelChange(type: modelChangeType, notificationsGroupedByCategoryNumber: notificationsGroupedByCategoryNumber)
+        let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelDidChangeNotification, object: responseCoordinator)
         }
     }
 }

@@ -37,7 +37,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 - (void)migrateLegacyDataIfNeeded {
     NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
 
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateSavedPageList]) {
+    if ([[NSUserDefaults wmf] wmf_didMigrateSavedPageList]) {
         return;
     }
 
@@ -51,7 +51,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         }];
 
     if ([entries count] == 0) {
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
+        [[NSUserDefaults wmf] wmf_setDidMigrateSavedPageList:YES];
         return;
     }
 
@@ -72,7 +72,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
         return;
     }
 
-    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateSavedPageList:YES];
+    [[NSUserDefaults wmf] wmf_setDidMigrateSavedPageList:YES];
 }
 
 #pragma mark - Convienence Methods

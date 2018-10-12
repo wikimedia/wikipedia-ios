@@ -7,12 +7,16 @@ extension RemoteNotification {
         return NSFetchRequest<RemoteNotification>(entityName: "RemoteNotification")
     }
 
+    @NSManaged public var agent: String?
+    @NSManaged public var affectedPageID: String?
     @NSManaged public var categoryString: String?
     @NSManaged public var date: NSDate?
     @NSManaged public var id: String?
     @NSManaged public var message: String?
     @NSManaged public var typeString: String?
     @NSManaged public var wiki: String?
-    @NSManaged public var read: Bool
+    @NSManaged public var wasRead: Bool
+    @NSManaged public var wasSeen: Bool
+    @NSManaged public var isExcluded: Bool
 
 }

@@ -287,7 +287,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 }
             }];
     };
-    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
             [self migrateLegacyImagesInArticle:article
                                     completion:doneMigration];
@@ -319,7 +319,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         }
         [self cacheImagesForArticleKey:articleKey withURLsInBackground:imageURLsForSaving failure:failure success:success];
     };
-    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
             [self migrateLegacyImagesInArticle:article
                                     completion:doneMigration];

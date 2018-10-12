@@ -137,7 +137,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
      
         let reachabilityManager = AFNetworkReachabilityManager.init(forDomain: EventLoggingService.host)
         
-        let urlSessionConfig = URLSessionConfiguration.default
+        let urlSessionConfig = Session.defaultConfiguration
         urlSessionConfig.httpShouldUsePipelining = true
         urlSessionConfig.allowsCellularAccess = true
         urlSessionConfig.httpMaximumConnectionsPerHost = 2
@@ -471,11 +471,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 return
             }
             
-            if let legacyValue = UserDefaults.wmf_userDefaults().object(forKey: key) as? NSCoding {
+            if let legacyValue = UserDefaults.wmf.object(forKey: key) as? NSCoding {
                 value = legacyValue
                 libraryValueCache[key] = legacyValue
                 managedObjectContext.wmf_setValue(legacyValue, forKey: key)
-                UserDefaults.wmf_userDefaults().removeObject(forKey: key)
+                UserDefaults.wmf.removeObject(forKey: key)
                 save()
             }
         }

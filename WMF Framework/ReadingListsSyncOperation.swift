@@ -76,8 +76,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 return
             }
             taskGroup.enter()
-            let loginURL = WMFAuthenticationManager.LoginSite.wikipedia.url
-            authenticationDelegate.attemptLogin(loginURL, completion: { (_) in
+            authenticationDelegate.attemptLogin(completion: { (_) in
                 taskGroup.leave()
             })
             taskGroup.wait()
@@ -481,7 +480,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         if newReadingLists.count > 0 {
             let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
             NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
-            UserDefaults.wmf_userDefaults().wmf_setDidSplitExistingReadingLists(true)
+            UserDefaults.wmf.wmf_setDidSplitExistingReadingLists(true)
         }
         return newReadingLists
     }
@@ -511,7 +510,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         moc.delete(localReadingList)
                     } else if !localReadingList.isDefault {
                         let entryLimit = moc.wmf_readingListsConfigMaxListsPerUser
-                        if localReadingList.countOfEntries > entryLimit && !UserDefaults.wmf_userDefaults().wmf_didSplitExistingReadingLists() {
+                        if localReadingList.countOfEntries > entryLimit && !UserDefaults.wmf.wmf_didSplitExistingReadingLists() {
                             if let splitReadingLists = try? split(readingList: localReadingList, intoReadingListsOfSize: entryLimit, in: moc) {
                                 listsToCreate.append(contentsOf: splitReadingLists)
                             }

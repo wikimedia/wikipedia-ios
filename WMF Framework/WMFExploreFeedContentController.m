@@ -208,7 +208,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             }
                                             dispatch_async(dispatch_get_main_queue(), ^{
                                                 [self.dataStore teardownFeedImportContext];
-                                                [[NSUserDefaults wmf_userDefaults] wmf_setFeedRefreshDate:[NSDate date]];
+                                                [[NSUserDefaults wmf] wmf_setFeedRefreshDate:[NSDate date]];
                                                 if (completion) {
                                                     completion();
                                                 }

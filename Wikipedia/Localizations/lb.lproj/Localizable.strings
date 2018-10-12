@@ -93,6 +93,16 @@
 "compass-direction" = "ëm $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
+"description-add-title" = "Beschreiwung derbäisetzen";
+"description-edit-learn-more" = "Fir méi ze wëssen";
+"description-edit-publish" = "Beschreiwung verëffentlechen";
+"description-edit-title" = "Beschreiwung änneren";
+"description-help-about-title" = "Iwwer";
+"description-help-about-wikidata" = "Iwwer Wikidata";
+"description-help-more-info-title" = "Méi Informatiounen";
+"description-help-tips-for-example" = "Zum Beispill:";
+"description-published-button-title" = "Fäerdeg";
+"description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
