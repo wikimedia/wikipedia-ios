@@ -10,6 +10,9 @@
         <attribute name="stateNumber" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wiki" optional="YES" attributeType="String" syncable="YES"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="stateNumber" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
