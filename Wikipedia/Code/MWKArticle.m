@@ -98,7 +98,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle *)other {
-    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count;
+    return WMF_EQUAL(self.url, isEqual:, other.url) && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified) && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby) && WMF_EQUAL(self.displaytitle, isEqualToString:, other.displaytitle) && WMF_EQUAL(self.protection, isEqual:, other.protection) && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL) && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL) && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId) && self.articleId == other.articleId && self.languagecount == other.languagecount && self.isMain == other.isMain && self.sections.count == other.sections.count && self.wikidataId == other.wikidataId;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle *)article {
