@@ -31,6 +31,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, assign, nonatomic, getter=isMain) BOOL main;
 @property (readwrite, strong, nonatomic) NSNumber *revisionId;
 @property (readwrite, strong, nonatomic) NSNumber *descriptionSourceNumber; // optional
+@property (readwrite, strong, nonatomic) NSString *wikidataId;
 
 @property (readwrite, nonatomic) NSInteger ns; //optional, defaults to 0
 
@@ -164,6 +165,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.articleId = [[self requiredNumber:@"id" dict:dict] intValue];
     self.languagecount = [[self requiredNumber:@"languagecount" dict:dict] intValue];
     self.descriptionSourceNumber = [self descriptionSourceNumberFromStringValue:[self optionalString:@"descriptionsource" dict:dict]];
+    self.wikidataId = [self optionalString:@"wikibase_item" dict:[self optionalDictionary:@"pageprops" dict:dict]];
 
     self.ns = [[self optionalNumber:@"ns" dict:dict] integerValue];
 

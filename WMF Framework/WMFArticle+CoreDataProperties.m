@@ -31,6 +31,7 @@
 @dynamic viewedScrollPosition;
 @dynamic wasSignificantlyViewed;
 @dynamic wikidataDescription;
+@dynamic wikidataID;
 @dynamic readingLists;
 @dynamic previewReadingLists;
 @dynamic errorCodeNumber;
