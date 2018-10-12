@@ -11,7 +11,19 @@
         <attribute name="typeString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wiki" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+            <fetchIndexElement property="group" type="Binary" order="ascending"/>
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
     <elements>
         <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="54" width="128" height="30"/>
     </elements>
 </model>

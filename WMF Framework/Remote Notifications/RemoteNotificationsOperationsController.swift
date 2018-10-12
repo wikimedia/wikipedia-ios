@@ -12,10 +12,10 @@ class RemoteNotificationsOperationsController {
         }
     }
 
-    required init(with viewContext: NSManagedObjectContext) {
+    required init() {
         apiController = RemoteNotificationsAPIController()
         modelController = RemoteNotificationsModelController()
-        timeController = RemoteNotificationsOperationsTimeController(with: viewContext)
+        timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
@@ -83,7 +83,7 @@ class RemoteNotificationsOperationsController {
 }
 
 final class RemoteNotificationsOperationsTimeController {
-    weak var viewContext: NSManagedObjectContext?
+    private let remoteNotificationsContext: NSManagedObjectContext
 
     private let syncTimeInterval: TimeInterval = 15
     private var syncTimer: Timer?
@@ -94,13 +94,8 @@ final class RemoteNotificationsOperationsTimeController {
         return CFAbsoluteTimeGetCurrent()
     }
 
-    init(with viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
-    }
-
-    private func assertMainThreadAndViewContext() {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
+    init(with remoteNotificationsContext: NSManagedObjectContext) {
+        self.remoteNotificationsContext = remoteNotificationsContext
     }
 
     public func setSyncTimer(target: Any, selector: Selector) {
@@ -117,14 +112,11 @@ final class RemoteNotificationsOperationsTimeController {
     }
 
     private func save() {
-        guard let viewContext = viewContext else {
-            return
-        }
-        guard viewContext.hasChanges else {
+        guard remoteNotificationsContext.hasChanges else {
             return
         }
         do {
-            try viewContext.save()
+            try remoteNotificationsContext.save()
         } catch let error {
             DDLogError("Error saving managedObjectContext: \(error)")
         }
@@ -147,25 +139,40 @@ final class RemoteNotificationsOperationsTimeController {
 
     private var startTime: CFAbsoluteTime? {
         set {
-            assertMainThreadAndViewContext()
-            if let newValue = newValue {
-                viewContext?.wmf_setValue(NSNumber(value: newValue), forKey: self.startTimeKey)
-            } else {
-                viewContext?.wmf_setValue(nil, forKey: self.startTimeKey)
+            let moc = remoteNotificationsContext
+            moc.perform {
+                if let newValue = newValue {
+                    moc.wmf_setValue(NSNumber(value: newValue), forKey: self.startTimeKey)
+                } else {
+                    moc.wmf_setValue(nil, forKey: self.startTimeKey)
+                }
+                self.save()
             }
-            self.save()
         }
         get {
-            assertMainThreadAndViewContext()
-            let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
-            guard let value = keyValue?.value else {
-                return nil
+            let moc = remoteNotificationsContext
+            let value: CFAbsoluteTime? = moc.performWaitAndReturn {
+                let keyValue = remoteNotificationsContext.wmf_keyValue(forKey: startTimeKey)
+                guard let value = keyValue?.value else {
+                    return nil
+                }
+                guard let number = value as? NSNumber else {
+                    assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
+                    return nil
+                }
+                return number.doubleValue
             }
-            guard let number = value as? NSNumber else {
-                assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
-                return nil
-            }
-            return number.doubleValue
+            return value
         }
+    }
+}
+
+private extension NSManagedObjectContext {
+    func performWaitAndReturn<T>(_ block: () -> T?) -> T? {
+        var result: T? = nil
+        performAndWait {
+            result = block()
+        }
+        return result!
     }
 }
