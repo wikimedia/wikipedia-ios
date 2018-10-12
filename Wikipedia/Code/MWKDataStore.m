@@ -610,7 +610,7 @@ static uint64_t bundleHash() {
 }
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 7;
+    static const NSInteger libraryVersion = 6;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
