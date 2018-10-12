@@ -1,10 +1,8 @@
 class RemoteNotificationsOperationsController {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController
-    weak var viewContext: NSManagedObjectContext?
+    private let timeController: RemoteNotificationsOperationsTimeController
 
-    private let syncTimeInterval: TimeInterval = 15
-    private var syncTimer: Timer?
     private let operationQueue: OperationQueue
     private var isLocked: Bool = false {
         didSet {
@@ -15,10 +13,9 @@ class RemoteNotificationsOperationsController {
     }
 
     required init(with viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
-        
         apiController = RemoteNotificationsAPIController()
         modelController = RemoteNotificationsModelController()
+        timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
@@ -31,55 +28,20 @@ class RemoteNotificationsOperationsController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
-    let deadline: TimeInterval = 86400 // 24 hours
-    private var now: CFAbsoluteTime {
-        return CFAbsoluteTimeGetCurrent()
-    }
-
-    private var startTime: CFAbsoluteTime? {
-        set {
-            assertMainThreadAndViewContext()
-            if let newValue = newValue {
-                viewContext?.wmf_setValue(NSNumber(value: newValue), forKey: startTimeKey)
-            } else {
-                viewContext?.wmf_setValue(nil, forKey: startTimeKey)
-            }
-        }
-        get {
-            assertMainThreadAndViewContext()
-            let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
-            guard let value = keyValue?.value else {
-                return nil
-            }
-            guard let number = value as? NSNumber else {
-                assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
-                return nil
-            }
-            return number.doubleValue
-        }
-    }
-
-    private func assertMainThreadAndViewContext() {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
-    }
-
     public func start() {
         guard !isLocked else {
             return
         }
-        guard syncTimer == nil else {
+        guard timeController.wasSyncTimerInvalidated else {
             stop()
             start()
             return
         }
-        syncTimer = Timer.scheduledTimer(timeInterval: syncTimeInterval, target: self, selector: #selector(sync), userInfo: nil, repeats: true)
+        timeController.setSyncTimer(target: self, selector: #selector(sync))
     }
 
     public func stop() {
-        syncTimer?.invalidate()
-        syncTimer = nil
+        timeController.invalidateSyncTimer()
         operationQueue.cancelAllOperations()
     }
 
@@ -92,13 +54,10 @@ class RemoteNotificationsOperationsController {
             stop()
             return
         }
-        if let startTime = startTime {
-            guard now - startTime < deadline else {
-                return
-            }
-        } else {
-            startTime = now
+        guard timeController.validateTime() else {
+            return
         }
+
         let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
         let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
         fetchOperation.addDependency(markAsReadOperation)
@@ -110,7 +69,7 @@ class RemoteNotificationsOperationsController {
     // MARK: Notifications
 
     @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
-        startTime = now
+        timeController.resetStartTime()
     }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
@@ -119,6 +78,94 @@ class RemoteNotificationsOperationsController {
             isLocked = true
         } else {
             isLocked = false
+        }
+    }
+}
+
+final class RemoteNotificationsOperationsTimeController {
+    weak var viewContext: NSManagedObjectContext?
+
+    private let syncTimeInterval: TimeInterval = 15
+    private var syncTimer: Timer?
+
+    let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
+    let deadline: TimeInterval = 86400 // 24 hours
+    private var now: CFAbsoluteTime {
+        return CFAbsoluteTimeGetCurrent()
+    }
+
+    init(with viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
+    }
+
+    private func assertMainThreadAndViewContext() {
+        assert(Thread.isMainThread)
+        assert(viewContext != nil)
+    }
+
+    public func setSyncTimer(target: Any, selector: Selector) {
+        syncTimer = Timer.scheduledTimer(timeInterval: syncTimeInterval, target: target, selector: selector, userInfo: nil, repeats: true)
+    }
+
+    public var wasSyncTimerInvalidated: Bool {
+        return syncTimer == nil
+    }
+
+    public func invalidateSyncTimer() {
+        syncTimer?.invalidate()
+        syncTimer = nil
+    }
+
+    private func save() {
+        guard let viewContext = viewContext else {
+            return
+        }
+        guard viewContext.hasChanges else {
+            return
+        }
+        do {
+            try viewContext.save()
+        } catch let error {
+            DDLogError("Error saving managedObjectContext: \(error)")
+        }
+    }
+
+    public func validateTime() -> Bool {
+        if let startTime = startTime {
+            guard now - startTime < deadline else {
+                return false
+            }
+        } else {
+            startTime = now
+        }
+        return true
+    }
+
+    public func resetStartTime() {
+        startTime = now
+    }
+
+    private var startTime: CFAbsoluteTime? {
+        set {
+            assertMainThreadAndViewContext()
+            if let newValue = newValue {
+                viewContext?.wmf_setValue(NSNumber(value: newValue), forKey: self.startTimeKey)
+            } else {
+                viewContext?.wmf_setValue(nil, forKey: self.startTimeKey)
+            }
+            self.save()
+        }
+        get {
+            assertMainThreadAndViewContext()
+            let keyValue = viewContext?.wmf_keyValue(forKey: startTimeKey)
+            guard let value = keyValue?.value else {
+                return nil
+            }
+            guard let number = value as? NSNumber else {
+                assertionFailure("Expected keyValue \(startTimeKey) to be of type NSNumber")
+                return nil
+            }
+            return number.doubleValue
         }
     }
 }
