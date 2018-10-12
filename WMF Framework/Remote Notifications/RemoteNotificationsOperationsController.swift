@@ -15,7 +15,7 @@ class RemoteNotificationsOperationsController {
     required init(with viewContext: NSManagedObjectContext) {
         apiController = RemoteNotificationsAPIController()
         modelController = RemoteNotificationsModelController()
-        timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
+        timeController = RemoteNotificationsOperationsTimeController(with: viewContext)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
