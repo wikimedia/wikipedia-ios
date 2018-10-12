@@ -107,7 +107,15 @@ enum WikidataPublishingError: LocalizedError {
             guard madeAuthorizedWikidataDescriptionEdit != newValue, let dataStore = dataStore else {
                 return
             }
-            dataStore.viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
+            let viewContext = dataStore.viewContext
+            viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch let error {
+                    DDLogError("Error saving value for key \(madeAuthorizedWikidataDescriptionEditKey): \(error)")
+                }
+            }
             dataStore.remoteNotificationsController.toggle(on: newValue)
         }
         get {
