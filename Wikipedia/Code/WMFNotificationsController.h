@@ -29,8 +29,6 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
 
-- (void)removePendingNotificationRequestsWithIdentifiers:(NSArray<NSString *> *)identifiers;
-
 @end
 
 NS_ASSUME_NONNULL_END
