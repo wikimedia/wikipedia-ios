@@ -40,7 +40,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 @property (nonatomic, strong) WMFArticleRevisionFetcher *revisionFetcher;
-@property (nonatomic, strong) WikidataFetcher *wikidataFetcher;
 
 @property (nonatomic, strong) AFHTTPSessionManager *pageSummarySessionManager;
 
@@ -66,7 +65,6 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.pageSummarySessionManager = [AFHTTPSessionManager wmf_createDefaultManager];
 
         self.revisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
-        self.wikidataFetcher = [[WikidataFetcher alloc] init];
 
         /*
          Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
