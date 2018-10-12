@@ -173,6 +173,6 @@ private extension NSManagedObjectContext {
         performAndWait {
             result = block()
         }
-        return result!
+        return result
     }
 }
