@@ -133,7 +133,7 @@ struct RemoteNotificationsAPIController {
 
     private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
         if method == .get {
-            let _ = Session.shared.jsonDecodableTask(host: NotificationsAPI.host, scheme: NotificationsAPI.scheme, method: .get, path: NotificationsAPI.path, queryParameters: queryParameters, bodyEncoding: .form, completionHandler: completion)
+            let _ = Session.shared.jsonDecodableTask(host: NotificationsAPI.host, scheme: NotificationsAPI.scheme, method: .get, path: NotificationsAPI.path, queryParameters: queryParameters, completionHandler: completion)
         } else {
             let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
         }
