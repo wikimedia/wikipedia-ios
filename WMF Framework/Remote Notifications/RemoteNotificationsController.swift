@@ -2,7 +2,7 @@
     private let operationsController: RemoteNotificationsOperationsController
 
     @objc public required init(viewContext: NSManagedObjectContext) {
-        operationsController = RemoteNotificationsOperationsController()
+        operationsController = RemoteNotificationsOperationsController(with: viewContext)
         super.init()
     }
 
