@@ -114,7 +114,9 @@
 
 - (NSDictionary *)optionalDictionary:(NSString *)key dict:(NSDictionary *)dict {
     id obj = dict[key];
-    if ([obj isKindOfClass:[NSArray class]]) {
+    if (obj == nil) {
+        return nil;
+    } else if ([obj isKindOfClass:[NSArray class]]) {
         // PHP likes to output empty associative arrays as empty JSON arrays,
         // which become empty NSArrays.
         return @{};
