@@ -60,10 +60,11 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
     }
     
     func scrollToInitialEvent() {
-        guard let event = initialEvent, let index = events.index(of: event), events.indices.contains(index) else {
+        guard let event = initialEvent, let eventIndex = events.index(of: event), events.indices.contains(eventIndex) else {
             return
         }
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: index), at: index < 1 ? .top : .centeredVertically, animated: false)
+        let sectionIndex = eventIndex + 1 // index + 1 because section 0 is the header
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: sectionIndex), at: sectionIndex < 1 ? .top : .centeredVertically, animated: false)
     }
     
     override func scrollViewInsetsDidChange() {
