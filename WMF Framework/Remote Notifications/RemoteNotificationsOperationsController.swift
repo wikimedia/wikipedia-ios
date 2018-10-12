@@ -32,12 +32,10 @@ class RemoteNotificationsOperationsController {
         guard !isLocked else {
             return
         }
-        guard timeController.wasSyncTimerInvalidated else {
-            stop()
-            start()
-            return
+        operationQueue.cancelAllOperations()
+        timeController.setSyncTimer { [weak self] in
+            self?.sync()
         }
-        timeController.setSyncTimer(target: self, selector: #selector(sync))
     }
 
     public func stop() {
@@ -85,9 +83,10 @@ class RemoteNotificationsOperationsController {
 final class RemoteNotificationsOperationsTimeController {
     private let remoteNotificationsContext: NSManagedObjectContext
 
-    private let syncTimeInterval: TimeInterval = 15
-    private var syncTimer: Timer?
-
+    private let syncTimeInterval: Int = 15
+    private let source: DispatchSourceTimer
+    private var isSet: Bool = false
+    
     let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
     let deadline: TimeInterval = 86400 // 24 hours
     private var now: CFAbsoluteTime {
@@ -96,19 +95,29 @@ final class RemoteNotificationsOperationsTimeController {
 
     init(with remoteNotificationsContext: NSManagedObjectContext) {
         self.remoteNotificationsContext = remoteNotificationsContext
+        self.source = DispatchSource.makeTimerSource(queue: DispatchQueue.global(qos: .background))
+        self.source.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.seconds(syncTimeInterval))
     }
 
-    public func setSyncTimer(target: Any, selector: Selector) {
-        syncTimer = Timer.scheduledTimer(timeInterval: syncTimeInterval, target: target, selector: selector, userInfo: nil, repeats: true)
-    }
-
-    public var wasSyncTimerInvalidated: Bool {
-        return syncTimer == nil
+    public func setSyncTimer(_ handler: @escaping () -> Void) {
+        assert(Thread.isMainThread)
+        guard !isSet else {
+            return
+        }
+        isSet = true
+        self.source.setEventHandler {
+            handler()
+        }
+        self.source.resume()
     }
 
     public func invalidateSyncTimer() {
-        syncTimer?.invalidate()
-        syncTimer = nil
+        assert(Thread.isMainThread)
+        guard isSet else {
+            return
+        }
+        isSet = false
+        source.suspend()
     }
 
     private func save() {
