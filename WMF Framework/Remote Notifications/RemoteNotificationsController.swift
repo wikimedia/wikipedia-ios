@@ -1,8 +1,8 @@
 @objc public final class RemoteNotificationsController: NSObject {
     private let operationsController: RemoteNotificationsOperationsController
 
-    @objc public required init(viewContext: NSManagedObjectContext) {
-        operationsController = RemoteNotificationsOperationsController()
+    @objc public required init(with session: Session) {
+        operationsController = RemoteNotificationsOperationsController(with: session)
         super.init()
     }
 

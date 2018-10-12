@@ -12,8 +12,8 @@ class RemoteNotificationsOperationsController {
         }
     }
 
-    required init() {
-        apiController = RemoteNotificationsAPIController()
+    required init(with session: Session) {
+        apiController = RemoteNotificationsAPIController(with: session)
         modelController = RemoteNotificationsModelController()
         timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
 
