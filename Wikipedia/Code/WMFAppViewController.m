@@ -209,7 +209,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(remoteNotificationsModelDidChange:)
-                                                 name:RemoteNotificationsModelController.ModelDidChangeNotification
+                                                 name:[RemoteNotificationsModelControllerNotification modelDidChange]
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];

@@ -39,10 +39,17 @@
     }
 }
 
-@objc final class RemoteNotificationsModelController: NSObject {
-    @objc static let ModelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
-    static let ModelControllerDidLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
+public extension NSNotification.Name {
+    public static let RemoteNotificationsModelControllerModelDidChange = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
+    public static let RemoteNotificationsModelControllerDidLoadPersistentStores = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
+}
 
+@objc public class RemoteNotificationsModelControllerNotification: NSObject {
+    @objc public static let modelDidChange = NSNotification.Name.RemoteNotificationsModelControllerModelDidChange
+}
+
+final class RemoteNotificationsModelController: NSObject {
+  
     let managedObjectContext: NSManagedObjectContext
 
     required override init() {
@@ -64,7 +71,7 @@
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (storeDescription, error) in
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelControllerDidLoadPersistentStoresNotification, object: error)
+                NotificationCenter.default.post(name: NSNotification.Name.RemoteNotificationsModelControllerDidLoadPersistentStores, object: error)
             }
         }
         managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -289,7 +296,7 @@
         let modelChange = RemoteNotificationsModelChange(type: modelChangeType, notificationsGroupedByCategoryNumber: notificationsGroupedByCategoryNumber)
         let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: RemoteNotificationsModelController.ModelDidChangeNotification, object: responseCoordinator)
+            NotificationCenter.default.post(name: NSNotification.Name.RemoteNotificationsModelControllerModelDidChange, object: responseCoordinator)
         }
     }
 }

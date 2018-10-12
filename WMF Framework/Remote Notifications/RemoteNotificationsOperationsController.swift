@@ -24,7 +24,7 @@ class RemoteNotificationsOperationsController {
         operationQueue.maxConcurrentOperationCount = 1
 
         NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.ModelControllerDidLoadPersistentStoresNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: NSNotification.Name.RemoteNotificationsModelControllerDidLoadPersistentStores, object: nil)
     }
 
     deinit {
