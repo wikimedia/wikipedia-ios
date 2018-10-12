@@ -29,6 +29,10 @@ public class RemoteNotification: NSManagedObject {
         case seen
         case read
         case excluded
+
+        public var number: NSNumber{
+            return NSNumber(value: rawValue)
+        }
     }
 
     public var state: State? {

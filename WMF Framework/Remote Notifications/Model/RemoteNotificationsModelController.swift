@@ -80,11 +80,12 @@ final class RemoteNotificationsModelController: NSObject {
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "wasRead == NO"), completion: completion)
+        return notifications(with: NSPredicate(format: "stateNumber == nil"), completion: completion)
     }
 
     public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "wasRead == YES"), completion: completion)
+        let read = RemoteNotification.State.read.number
+        return notifications(with: NSPredicate(format: "stateNumber == %@", read), completion: completion)
     }
 
     public func getAllNotifications(_ completion: @escaping ResultHandler) {
