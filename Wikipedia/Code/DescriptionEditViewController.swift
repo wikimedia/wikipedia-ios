@@ -73,7 +73,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     private var isPlaceholderLabelHidden = true {
         didSet {
             descriptionPlaceholderLabel.isHidden = isPlaceholderLabelHidden
-            descriptionTextView.isHidden = !isPlaceholderLabelHidden
         }
     }
     
