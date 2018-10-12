@@ -39,38 +39,6 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    weak var viewContext: NSManagedObjectContext?
-
-    @objc public init(with viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
-    }
-
-    private let BlacklistedLanguagesKey = "WMFWikidataDescriptionEditingBlacklistedLanguagesKey"
-    private var blacklistedLanguages: NSSet {
-        assert(Thread.isMainThread)
-        let fallback = NSSet(set: ["en"])
-        guard
-            let viewContext = viewContext,
-            let keyValue = viewContext.wmf_keyValue(forKey: BlacklistedLanguagesKey),
-            let value = keyValue.value as? NSSet else {
-                return fallback
-        }
-        return value
-    }
-
-    @objc public func setBlacklistedLanguages(_ blacklistedLanguagesFromRemoteConfig: Array<String>) {
-        assert(Thread.isMainThread)
-        assert(viewContext != nil)
-        let blacklistedLanguages = NSSet(array: blacklistedLanguagesFromRemoteConfig)
-        viewContext?.wmf_setValue(blacklistedLanguages, forKey: BlacklistedLanguagesKey)
-    }
-
-    public func isBlacklisted(_ languageCode: String) -> Bool {
-        guard blacklistedLanguages.count > 0 else {
-            return false
-        }
-        return blacklistedLanguages.contains(languageCode)
-    }
 
     public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
         guard let title = articleURL.wmf_title,
@@ -91,7 +59,7 @@ enum WikidataPublishingError: LocalizedError {
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
     private func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
-        guard !isBlacklisted(language) || source != .local else {
+        guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return
         }
@@ -112,11 +80,6 @@ enum WikidataPublishingError: LocalizedError {
 
 public extension MWKArticle {
     @objc var isWikidataDescriptionEditable: Bool {
-        guard let dataStore = dataStore, let language = self.url.wmf_language else {
-            return false
-        }
-        let isLanguageBlacklisted = dataStore.wikidataDescriptionEditingController.isBlacklisted(language)
-        let isDescriptionFromLocalWiki = descriptionSource == .local
-        return !isLanguageBlacklisted || !isDescriptionFromLocalWiki
+        return descriptionSource != .local
     }
 }

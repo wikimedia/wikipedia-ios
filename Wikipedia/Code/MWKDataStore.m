@@ -168,7 +168,7 @@ static uint64_t bundleHash() {
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
-        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self.viewContext];
+        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] init];
     }
     return self;
 }
@@ -220,8 +220,8 @@ static uint64_t bundleHash() {
 
     NSURL *coreDataDBURL = [containerURL URLByAppendingPathComponent:coreDataDBName isDirectory:NO];
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @YES,
-                               NSInferMappingModelAutomaticallyOption: @YES };
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+                              NSInferMappingModelAutomaticallyOption: @YES};
     NSError *persistentStoreError = nil;
     if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
         // TODO: Metrics
@@ -520,26 +520,26 @@ static uint64_t bundleHash() {
         defaultReadingList.canonicalName = [ReadingList defaultListCanonicalName];
         defaultReadingList.isDefault = YES;
     }
-    
+
     for (ReadingListEntry *entry in defaultReadingList.entries) {
         entry.isUpdatedLocally = YES;
     }
-    
+
     if ([moc hasChanges] && ![moc save:migrationError]) {
         return NO;
     }
-    
+
     NSFetchRequest<WMFArticle *> *request = [WMFArticle fetchRequest];
     request.fetchLimit = 500;
     request.predicate = [NSPredicate predicateWithFormat:@"savedDate != NULL && readingLists.@count == 0", defaultReadingList];
-    
+
     NSArray<WMFArticle *> *results = [moc executeFetchRequest:request error:migrationError];
     if (!results) {
         return NO;
     }
-    
+
     NSError *addError = nil;
-    
+
     while (results.count > 0) {
         for (WMFArticle *article in results) {
             [self.readingListsController addArticleToDefaultReadingList:article error:&addError];
@@ -598,7 +598,7 @@ static uint64_t bundleHash() {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 6) {
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
             DDLogError(@"Error during migration: %@", migrationError);
@@ -1111,7 +1111,7 @@ static uint64_t bundleHash() {
     }
 
     if (article.url.wmf_isNonStandardURL) {
-        return YES;  // OK to fail without error
+        return YES; // OK to fail without error
     }
     [self addArticleToMemoryCache:article];
     NSString *path = [self pathForArticle:article];
@@ -1568,9 +1568,10 @@ static uint64_t bundleHash() {
 - (void)clearCachesForUnsavedArticles {
     [[WMFImageController sharedInstance] deleteTemporaryCache];
     [[WMFImageController sharedInstance] removeLegacyCache];
-    [self removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-        DDLogError(@"Error removing unreferenced articles: %@", error);
-    }
+    [self
+        removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
+            DDLogError(@"Error removing unreferenced articles: %@", error);
+        }
         success:^{
             DDLogDebug(@"Successfully removed unreferenced articles");
         }];
@@ -1588,7 +1589,6 @@ static uint64_t bundleHash() {
     __block NSError *updateError = nil;
     NSError *invalidRequestParametersError = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil];
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
-
 
     // Site info
     NSURL *siteInfoURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/api.php?action=query&format=json&meta=siteinfo"];
@@ -1648,8 +1648,6 @@ static uint64_t bundleHash() {
     NSNumber *disableReadingListSyncNumber = remoteConfigurationDictionary[@"disableReadingListSync"];
     BOOL shouldDisableReadingListSync = [disableReadingListSyncNumber boolValue];
     self.readingListsController.isSyncRemotelyEnabled = !shouldDisableReadingListSync;
-
-    [self.wikidataDescriptionEditingController setBlacklistedLanguages:remoteConfigurationDictionary[@"descriptionEditLangBlacklist"]];
 }
 
 - (void)updateReadingListsLimits:(NSDictionary *)readingListsConfig {
