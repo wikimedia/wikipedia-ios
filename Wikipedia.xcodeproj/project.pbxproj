@@ -117,6 +117,7 @@
 		7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
+		7A0F2589217221D10028871B /* WMFDispatchSourceTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */; };
 		7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
@@ -3279,6 +3280,7 @@
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
+		7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDispatchSourceTimer.swift; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
 		7A16C4E4212D941C00F0D5EC /* SubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSettingsViewController.swift; sourceTree = "<group>"; };
 		7A16C4E5212D941C00F0D5EC /* SubSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubSettingsViewController.xib; sourceTree = "<group>"; };
@@ -8151,6 +8153,7 @@
 				B0E807381C0CED810065EBC0 /* WMFMath.m */,
 				D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */,
 				D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */,
+				7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */,
 				B0E804911C0CE0B40065EBC0 /* NSError+WMFExtensions.h */,
 				B0E804921C0CE0B40065EBC0 /* NSError+WMFExtensions.m */,
 				D8494B011D6C8DBA00337433 /* Parsing */,
@@ -10817,6 +10820,7 @@
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
 				83DAC3442146E82600CEE256 /* Background.swift in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
+				7A0F2589217221D10028871B /* WMFDispatchSourceTimer.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				83222DB41F8E554800338BE5 /* WMFContent+CoreDataProperties.m in Sources */,
