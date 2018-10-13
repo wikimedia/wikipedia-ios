@@ -171,7 +171,15 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
                                               articleResponse = mutableArticleResponse;
 
-                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:updatedArticleURL response:articleResponse];
+                                              NSError *articleSerializationError = nil;
+                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:updatedArticleURL response:articleResponse error:&articleSerializationError];
+
+                                              if (articleSerializationError) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      failure(articleSerializationError);
+                                                  });
+                                                  return;
+                                              }
                                               [self.dataStore asynchronouslyCacheArticle:mwkArticle
                                                                                   toDisk:saveToDisk
                                                                               completion:^(NSError *_Nonnull articleCacheError) {
@@ -251,7 +259,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     [self.pageSummarySessionManager wmf_cancelAllTasks];
 }
 
-- (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
+- (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
@@ -262,7 +270,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
-        return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+        if (error) {
+            *error = [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+        }
+        return nil;
     }
 }
 

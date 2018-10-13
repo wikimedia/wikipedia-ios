@@ -23,6 +23,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic, nullable) NSNumber *revisionId;
 @property (readonly, strong, nonatomic, nullable) NSString *wikidataId;
 @property (readonly, strong, nonatomic, nullable) NSNumber *descriptionSourceNumber;
+@property (readonly, strong, nonatomic, nullable) NSString *wikidataId;
 
 @property (copy, nonatomic, nullable) NSString *acceptLanguageRequestHeader;
 
