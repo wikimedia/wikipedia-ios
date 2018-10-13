@@ -1,7 +1,7 @@
 class RemoteNotificationsOperationsController {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController
-    private let timeController: RemoteNotificationsOperationsTimeController
+    private let deadlineController: RemoteNotificationsOperationsDeadlineController
 
     private let syncRepeatingTime: Int = 15
     private let timer: WMFDispatchSourceTimer
@@ -18,7 +18,7 @@ class RemoteNotificationsOperationsController {
     required init(with session: Session) {
         apiController = RemoteNotificationsAPIController(with: session)
         modelController = RemoteNotificationsModelController()
-        timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
+        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController.managedObjectContext)
         timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
 
         operationQueue = OperationQueue()
@@ -56,22 +56,26 @@ class RemoteNotificationsOperationsController {
             stop()
             return
         }
-        guard timeController.validateTime() else {
-            return
+        deadlineController.performIfBeforeDeadline { [weak self] in
+            guard
+                let modelController = self?.modelController,
+                let apiController = self?.apiController,
+                let operationQueue = self?.operationQueue else {
+                    return
+            }
+            let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
+            let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
+            fetchOperation.addDependency(markAsReadOperation)
+            operationQueue.addOperation(markAsReadOperation)
+            operationQueue.addOperation(fetchOperation)
         }
-
-        let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
-        let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
-        fetchOperation.addDependency(markAsReadOperation)
-        operationQueue.addOperation(markAsReadOperation)
-        operationQueue.addOperation(fetchOperation)
     }
 
 
     // MARK: Notifications
 
     @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
-        timeController.resetStartTime()
+        deadlineController.resetDeadline()
     }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
@@ -84,44 +88,19 @@ class RemoteNotificationsOperationsController {
     }
 }
 
-final class RemoteNotificationsOperationsTimeController {
+// MARK: RemoteNotificationsOperationsDeadlineController
+
+final class RemoteNotificationsOperationsDeadlineController {
     private let remoteNotificationsContext: NSManagedObjectContext
 
-    private let syncTimeInterval: Int = 15
-    private let source: DispatchSourceTimer
-    private var isSet: Bool = false
-    
+    init(with remoteNotificationsContext: NSManagedObjectContext) {
+        self.remoteNotificationsContext = remoteNotificationsContext
+    }
+
     let startTimeKey = "WMFRemoteNotificationsOperationsStartTime"
     let deadline: TimeInterval = 86400 // 24 hours
     private var now: CFAbsoluteTime {
         return CFAbsoluteTimeGetCurrent()
-    }
-
-    init(with remoteNotificationsContext: NSManagedObjectContext) {
-        self.remoteNotificationsContext = remoteNotificationsContext
-        self.source = DispatchSource.makeTimerSource(queue: DispatchQueue.global(qos: .background))
-        self.source.schedule(deadline: DispatchTime.now(), repeating: DispatchTimeInterval.seconds(syncTimeInterval))
-    }
-
-    public func setSyncTimer(_ handler: @escaping () -> Void) {
-        assert(Thread.isMainThread)
-        guard !isSet else {
-            return
-        }
-        isSet = true
-        self.source.setEventHandler {
-            handler()
-        }
-        self.source.resume()
-    }
-
-    public func invalidateSyncTimer() {
-        assert(Thread.isMainThread)
-        guard isSet else {
-            return
-        }
-        isSet = false
-        source.suspend()
     }
 
     private func save() {
@@ -135,19 +114,15 @@ final class RemoteNotificationsOperationsTimeController {
         }
     }
 
-    public func validateTime() -> Bool {
+    public func performIfBeforeDeadline(_ eventHandler: @escaping () -> Void) {
         if let startTime = startTime {
             guard now - startTime < deadline else {
-                return false
+                return
             }
         } else {
             startTime = now
         }
-        return true
-    }
-
-    public func resetStartTime() {
-        startTime = now
+        eventHandler()
     }
 
     private var startTime: CFAbsoluteTime? {
@@ -177,6 +152,10 @@ final class RemoteNotificationsOperationsTimeController {
             }
             return value
         }
+    }
+
+    public func resetDeadline() {
+        startTime = now
     }
 }
 
