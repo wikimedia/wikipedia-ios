@@ -3,6 +3,9 @@ class RemoteNotificationsOperationsController {
     private let modelController: RemoteNotificationsModelController
     private let timeController: RemoteNotificationsOperationsTimeController
 
+    private let syncRepeatingTime: Int = 15
+    private let timer: WMFDispatchSourceTimer
+
     private let operationQueue: OperationQueue
     private var isLocked: Bool = false {
         didSet {
@@ -16,6 +19,7 @@ class RemoteNotificationsOperationsController {
         apiController = RemoteNotificationsAPIController(with: session)
         modelController = RemoteNotificationsModelController()
         timeController = RemoteNotificationsOperationsTimeController(with: modelController.managedObjectContext)
+        timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
@@ -33,13 +37,13 @@ class RemoteNotificationsOperationsController {
             return
         }
         operationQueue.cancelAllOperations()
-        timeController.setSyncTimer { [weak self] in
+        timer.start { [weak self] in
             self?.sync()
         }
     }
 
     public func stop() {
-        timeController.invalidateSyncTimer()
+        timer.suspend()
         operationQueue.cancelAllOperations()
     }
 
