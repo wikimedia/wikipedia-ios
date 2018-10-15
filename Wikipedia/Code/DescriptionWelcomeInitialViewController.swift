@@ -31,10 +31,6 @@ class DescriptionWelcomeInitialViewController: UIViewController, Themeable {
         return false
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.landscape]
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return theme.preferredStatusBarStyle
     }
