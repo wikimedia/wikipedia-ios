@@ -152,7 +152,7 @@ extension UIViewController {
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
         if oncePerLogin {
-            guard !UserDefaults.wmf_userDefaults().wmf_didShowEnableReadingListSyncPanel() else {
+            guard !UserDefaults.wmf.wmf_didShowEnableReadingListSyncPanel() else {
                 didNotPresentPanelCompletion?()
                 return
             }
@@ -179,15 +179,15 @@ extension UIViewController {
         let panelVC = EnableReadingListSyncPanelViewController(showCloseButton: true, primaryButtonTapHandler: enableSyncTapHandler, secondaryButtonTapHandler: nil, dismissHandler: dismissHandler, theme: theme)
         
         presenter.present(panelVC, animated: true, completion: {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowEnableReadingListSyncPanel(true)
+            UserDefaults.wmf.wmf_setDidShowEnableReadingListSyncPanel(true)
             // we don't want to present the "Sync disabled" panel if "Enable sync" was presented, wmf_didShowSyncDisabledPanel will be set to false when app is paused.
-            UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
+            UserDefaults.wmf.wmf_setDidShowSyncDisabledPanel(true)
             SettingsFunnel.shared.logEnableSyncPopoverImpression()
         })
     }
     
     @objc func wmf_showSyncDisabledPanel(theme: Theme, wasSyncEnabledOnDevice: Bool) {
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowSyncDisabledPanel(),
+        guard !UserDefaults.wmf.wmf_didShowSyncDisabledPanel(),
             wasSyncEnabledOnDevice else {
                 return
         }
@@ -197,7 +197,7 @@ extension UIViewController {
         let panel = SyncDisabledPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         let presenter = self.presentedViewController ?? self
         presenter.present(panel, animated: true) {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowSyncDisabledPanel(true)
+            UserDefaults.wmf.wmf_setDidShowSyncDisabledPanel(true)
         }
     }
     
@@ -212,7 +212,7 @@ extension UIViewController {
     @objc func wmf_showSyncEnabledPanelOncePerLogin(theme: Theme, wasSyncEnabledOnDevice: Bool) {
         let presenter = self.presentedViewController ?? self
         guard !isAlreadyPresenting(presenter),
-            !UserDefaults.wmf_userDefaults().wmf_didShowSyncEnabledPanel(),
+            !UserDefaults.wmf.wmf_didShowSyncEnabledPanel(),
             !wasSyncEnabledOnDevice else {
                 return
         }
@@ -221,7 +221,7 @@ extension UIViewController {
         }
         let panel = SyncEnabledPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         presenter.present(panel, animated: true) {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowSyncEnabledPanel(true)
+            UserDefaults.wmf.wmf_setDidShowSyncEnabledPanel(true)
         }
     }
     
@@ -294,7 +294,7 @@ extension UIViewController {
     @objc func wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: Theme) {
         guard
             !WMFAuthenticationManager.sharedInstance.isLoggedIn &&
-            !UserDefaults.wmf_userDefaults().wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
+            !UserDefaults.wmf.wmf_didShowLoginToSyncSavedArticlesToReadingListPanel() &&
             !SessionSingleton.sharedInstance().dataStore.readingListsController.isSyncEnabled
         else {
             return
@@ -312,7 +312,7 @@ extension UIViewController {
         let panelVC = LoginToSyncSavedArticlesToReadingListPanelViewController(showCloseButton: true, primaryButtonTapHandler: loginToSyncSavedArticlesTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         
         present(panelVC, animated: true, completion: {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
+            UserDefaults.wmf.wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
         })
     }
     

@@ -24,7 +24,7 @@
 - (void)setUp {
     [super setUp];
 
-    [[NSUserDefaults wmf_userDefaults] wmf_resetToDefaultValues];
+    [[NSUserDefaults wmf] wmf_resetToDefaultValues];
 
     self.dataStore = [MWKDataStore temporaryDataStore];
     NSURL *siteURL = [NSURL URLWithString:@"https://en.wikipedia.org"];
@@ -60,7 +60,7 @@
 }
 
 - (void)testIncrementsNotificationCount {
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
     [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay - 1];
@@ -86,7 +86,7 @@
 
 - (void)testDoesntIncrementNotificationCountForSameArticles {
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
     [defaults wmf_setInTheNewsMostRecentDateNotificationCount:1];
@@ -130,7 +130,7 @@
     NSData *feedJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MCSFeed" ofType:@"json"];
     stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{@"Content-Type": @"application/json"}).withBody(feedJSONData); // News item isn't in top read - test skip notify
 
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
     [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay - 1];
@@ -155,7 +155,7 @@
 }
 
 - (void)testDoesntNotifyWhenHaveNotifiedThreeTimes {
-    NSUserDefaults *defaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
     [defaults wmf_setInTheNewsNotificationsEnabled:YES];
     [defaults wmf_setMostRecentInTheNewsNotificationDate:self.date];
     [defaults wmf_setInTheNewsMostRecentDateNotificationCount:WMFFeedNotificationMaxPerDay];

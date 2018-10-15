@@ -38,7 +38,7 @@
 }
 
 - (void)loadContentForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force addNewContent:(BOOL)shouldAddNewContent completion:(nullable dispatch_block_t)completion {
-    if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {
+    if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
         [moc performBlock:^{
             [self updateVisibilityOfAnnouncementsInManagedObjectContext:moc addNewContent:shouldAddNewContent];
             if (completion) {
@@ -96,7 +96,7 @@
 }
 
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
-    NSUserDefaults *userDefaults = [NSUserDefaults wmf_userDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults wmf];
 
     if (!userDefaults.wmf_didShowThemeCardInFeed) {
         NSURL *themeContentGroupURL = [WMFContentGroup themeContentGroupURL];
@@ -119,7 +119,7 @@
 
     //Only make these visible for previous users of the app
     //Meaning a new install will only see these after they close the app and reopen
-    if ([[NSUserDefaults wmf_userDefaults] wmf_appResignActiveDate] == nil) {
+    if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
         return;
     }
 

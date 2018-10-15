@@ -64,7 +64,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
         updatedSections.append(infoSection)
         
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
-            return UserDefaults.wmf_userDefaults().wmf_inTheNewsNotificationsEnabled()
+            return UserDefaults.wmf.wmf_inTheNewsNotificationsEnabled()
             }, switchAction: { [weak self] (isOn) in
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
@@ -76,7 +76,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
                 } else {
                     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                 }
-                UserDefaults.wmf_userDefaults().wmf_setInTheNewsNotificationsEnabled(isOn)
+                UserDefaults.wmf.wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-push-notifications", value:"Push notifications", comment:"A title for a list of Push notifications"), items: notificationSettingsItems)
         

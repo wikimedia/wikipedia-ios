@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double viewedScrollPosition;
 @property (nonatomic) BOOL wasSignificantlyViewed;
 @property (nullable, nonatomic, copy) NSString *wikidataDescription;
+@property (nullable, nonatomic, copy) NSString *wikidataID;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *readingLists;
 @property (nullable, nonatomic, retain) NSSet<ReadingList *> *previewReadingLists;
 @property (nullable, nonatomic, copy) NSNumber *errorCodeNumber;

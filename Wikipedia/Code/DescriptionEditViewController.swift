@@ -73,7 +73,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     private var isPlaceholderLabelHidden = true {
         didSet {
             descriptionPlaceholderLabel.isHidden = isPlaceholderLabelHidden
-            descriptionTextView.isHidden = !isPlaceholderLabelHidden
         }
     }
     
@@ -189,7 +188,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             return
         }
         
-        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, for: articleURL) {error in
+        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, for: articleURL) {error in
             let presentingVC = self.presentingViewController
             DispatchQueue.main.async {
                 guard let error = error else {
