@@ -84,7 +84,7 @@ enum AsyncOperationError: Error {
             finish(with: AsyncOperationError.cancelled)
             return
         }
-        
+
         state = .executing
         execute()
     }

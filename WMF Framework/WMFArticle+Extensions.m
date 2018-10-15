@@ -114,6 +114,18 @@
     return article;
 }
 
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID {
+    if (!wikidataID) {
+        return nil;
+    }
+    WMFArticle *article = nil;
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.fetchLimit = 1;
+    request.predicate = [NSPredicate predicateWithFormat:@"wikidataID == %@", wikidataID];
+    article = [[self executeFetchRequest:request error:nil] firstObject];
+    return article;
+}
+
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
     WMFArticle *article = [[WMFArticle alloc] initWithEntity:[NSEntityDescription entityForName:@"WMFArticle" inManagedObjectContext:self] insertIntoManagedObjectContext:self];
     article.key = key;

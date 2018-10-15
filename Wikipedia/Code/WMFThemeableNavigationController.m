@@ -8,11 +8,12 @@
 
 @implementation WMFThemeableNavigationController
 
-- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme {
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme {
     self = [super initWithRootViewController:rootViewController];
     if (self) {
         self.theme = theme;
         [self applyTheme:theme];
+        [rootViewController applyTheme:theme];
     }
     return self;
 }

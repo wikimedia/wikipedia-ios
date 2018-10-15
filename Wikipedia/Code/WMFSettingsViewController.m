@@ -310,7 +310,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma mark - Presentation
 
-- (void)presentViewControllerWrappedInNavigationController:(UIViewController *)viewController {
+- (void)presentViewControllerWrappedInNavigationController:(UIViewController<WMFThemeable> *)viewController {
     WMFThemeableNavigationController *themeableNavController = [[WMFThemeableNavigationController alloc] initWithRootViewController:viewController theme:self.theme];
     [self presentViewController:themeableNavController animated:YES completion:nil];
 }

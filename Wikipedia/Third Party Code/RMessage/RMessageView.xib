@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,20 +18,29 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49I-AE-5sP">
                     <rect key="frame" x="21" y="10" width="278" height="46"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
-                            <rect key="frame" x="0.0" y="0.0" width="253" height="20.5"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
-                            <rect key="frame" x="0.0" y="25.5" width="253" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KnX-yz-VaF">
+                            <rect key="frame" x="0.0" y="0.0" width="253" height="46"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJU-tq-cfR">
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Subtitle" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Q-SR-N4H">
+                                    <rect key="frame" x="0.0" y="25.5" width="253" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRl-SV-1p2">
+                                    <rect key="frame" x="0.0" y="30.5" width="253" height="15.5"/>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </subviews>
+                        </stackView>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="SYg-rc-Dhl">
-                            <rect key="frame" x="258" y="0.5" width="20" height="20"/>
+                            <rect key="frame" x="258" y="0.0" width="20" height="20"/>
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="hGq-XR-tNx"/>
@@ -41,15 +49,12 @@
                         </imageView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="bJU-tq-cfR" secondAttribute="trailing" constant="5" id="2PL-eT-CoG"/>
+                        <constraint firstAttribute="bottom" secondItem="KnX-yz-VaF" secondAttribute="bottom" id="2WF-Me-AxC"/>
                         <constraint firstAttribute="trailing" secondItem="SYg-rc-Dhl" secondAttribute="trailing" id="8a9-zF-t2X"/>
-                        <constraint firstItem="bJU-tq-cfR" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="EsI-7x-7GI"/>
-                        <constraint firstAttribute="bottom" secondItem="86Q-SR-N4H" secondAttribute="bottom" id="G2M-fo-892"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="86Q-SR-N4H" secondAttribute="trailing" constant="5" id="J4q-Ie-sxz"/>
-                        <constraint firstItem="bJU-tq-cfR" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="VRO-Hp-HEg"/>
-                        <constraint firstItem="86Q-SR-N4H" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="aEg-41-Ls4"/>
-                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="centerY" secondItem="bJU-tq-cfR" secondAttribute="centerY" id="qJf-L1-xj1"/>
-                        <constraint firstItem="86Q-SR-N4H" firstAttribute="top" secondItem="bJU-tq-cfR" secondAttribute="bottom" constant="5" id="sUB-xD-36O"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="GV3-lT-qko"/>
+                        <constraint firstItem="KnX-yz-VaF" firstAttribute="leading" secondItem="49I-AE-5sP" secondAttribute="leading" id="Psh-zG-NIA"/>
+                        <constraint firstItem="SYg-rc-Dhl" firstAttribute="leading" secondItem="KnX-yz-VaF" secondAttribute="trailing" constant="5" id="pQl-AO-K6b"/>
+                        <constraint firstItem="KnX-yz-VaF" firstAttribute="top" secondItem="49I-AE-5sP" secondAttribute="top" id="xVg-7N-L0W"/>
                     </constraints>
                 </view>
             </subviews>
@@ -64,7 +69,9 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="button" destination="FRl-SV-1p2" id="5Bm-b3-Ggn"/>
                 <outlet property="closeImageView" destination="SYg-rc-Dhl" id="MJ5-uy-cj7"/>
+                <outlet property="stackView" destination="KnX-yz-VaF" id="6Ra-5E-Cad"/>
                 <outlet property="subtitleLabel" destination="86Q-SR-N4H" id="b36-f7-jMs"/>
                 <outlet property="titleLabel" destination="bJU-tq-cfR" id="cQG-kC-CBc"/>
                 <outlet property="titleSubtitleContainerView" destination="49I-AE-5sP" id="gnK-Tn-Kb9"/>
