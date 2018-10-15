@@ -14,6 +14,7 @@
 @class WMFExploreFeedContentController;
 @class WMFReadingListsController;
 @class WikidataDescriptionEditingController;
+@class RemoteNotificationsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,6 +60,7 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
 @property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
+@property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
@@ -78,6 +80,8 @@ extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // Us
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
+
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;

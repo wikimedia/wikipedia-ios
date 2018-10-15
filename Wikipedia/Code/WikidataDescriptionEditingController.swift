@@ -39,6 +39,11 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
+    weak var dataStore: MWKDataStore?
+
+    @objc public init(with dataStore: MWKDataStore) {
+        self.dataStore = dataStore
+    }
 
     public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
         guard let title = articleURL.wmf_title,
@@ -63,8 +68,23 @@ enum WikidataPublishingError: LocalizedError {
             completion(WikidataPublishingError.notEditable)
             return
         }
-        let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Error?) -> Void = { result, response, error in
-            completion(result?.error)
+        let requestWithCSRFCompletion: (WikidataAPIResult?, URLResponse?, Bool?, Error?) -> Void = { result, response, authorized, error in
+            if let error = error {
+                completion(error)
+            }
+            guard let result = result else {
+                completion(WikidataPublishingError.apiResultNotParsedCorrectly)
+                return
+            }
+
+            completion(result.error)
+
+            if let authorized = authorized, authorized, result.error == nil {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+                    self.madeAuthorizedWikidataDescriptionEdit = authorized
+                }
+            }
         }
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
@@ -75,6 +95,45 @@ enum WikidataPublishingError: LocalizedError {
                               "title": title,
                               "value": newWikidataDescription]
         let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
+    }
+
+    // MARK: - WMFKeyValue
+
+    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
+    private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEditKey"
+    @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
+        set {
+            assertMainThreadAndDataStore()
+            guard madeAuthorizedWikidataDescriptionEdit != newValue, let dataStore = dataStore else {
+                return
+            }
+            let viewContext = dataStore.viewContext
+            viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch let error {
+                    DDLogError("Error saving value for key \(madeAuthorizedWikidataDescriptionEditKey): \(error)")
+                }
+            }
+            dataStore.remoteNotificationsController.toggle(on: newValue)
+        }
+        get {
+            assertMainThreadAndDataStore()
+            guard let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey) else {
+                return false
+            }
+            guard let value = keyValue.value as? NSNumber else {
+                assertionFailure("Expected value of keyValue \(madeAuthorizedWikidataDescriptionEditKey) to be of type NSNumber")
+                return false
+            }
+            return value.boolValue
+        }
+    }
+
+    private func assertMainThreadAndDataStore() {
+        assert(Thread.isMainThread)
+        assert(dataStore != nil)
     }
 }
 

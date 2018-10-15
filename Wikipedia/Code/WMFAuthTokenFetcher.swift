@@ -21,9 +21,11 @@ public typealias WMFAuthTokenBlock = (WMFAuthToken) -> Void
 public class WMFAuthToken: NSObject {
     @objc public var token: String
     @objc public var type: WMFAuthTokenType
+    public var isAuthorized: Bool
     @objc init(token:String, type:WMFAuthTokenType) {
         self.token = token
         self.type = type
+        self.isAuthorized = token != "+\\"
     }
 }
 

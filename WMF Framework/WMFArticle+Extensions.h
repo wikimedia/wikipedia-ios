@@ -72,4 +72,6 @@ typedef NS_ENUM(NSUInteger, WMFArticleAction) {
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
 
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
+
 @end
