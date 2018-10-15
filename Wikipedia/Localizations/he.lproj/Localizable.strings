@@ -117,10 +117,15 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "קריאייטיב קומונז אפס";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"description-add-link-title" = "הוספת תיאור כותרת";
+"description-add-title" = "הוספת תיאור";
+"description-edit-for-article" = "תיאור כותרת עבור $1";
+"description-edit-learn-more" = "מידע נוסף";
 "dim-images" = "עמעום תמונות";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";

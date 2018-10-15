@@ -187,6 +187,8 @@
 "empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
 "empty-no-saved-pages-title" = "尚无保存的页面";
 "empty-no-search-results-message" = "找不到结果";
+"error-generic-description" = "发生意外错误。";
+"error-generic-recovery-suggestion" = "请一会儿再试";
 "error-unknown" = "发生未知错误";
 "explore-another-random" = "其他随机条目";
 "explore-because-you-read" = "因为您阅读";

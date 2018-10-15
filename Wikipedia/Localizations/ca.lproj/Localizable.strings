@@ -182,6 +182,8 @@
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-search-results-message" = "No s'han trobat resultats";
+"error-generic-description" = "S'ha produït un error inesperat";
+"error-generic-recovery-suggestion" = "Torneu-ho a provar més tard";
 "error-unknown" = "S'ha produït un error desconegut";
 "explore-another-random" = "Un altre article a l'atzar";
 "explore-because-you-read" = "Perquè vau llegir";

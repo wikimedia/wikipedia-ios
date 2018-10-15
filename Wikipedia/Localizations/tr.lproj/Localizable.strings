@@ -94,6 +94,8 @@
 "alert-no-internet" = "İnternet bağlantısı yok";
 "announcements-dismiss" = "Reddet";
 "app-store-keywords" = "Vikipedi, referans, viki, ansiklopedi, bilgi, bilgilenme, araştırma, bilme, keşfet, öğren";
+"app-store-release-notes" = "Tamamen özelleştirilebilir beslemeleri keşfedin. Yerelleştirme, performans iyileştirmeleri ve hata düzeltmeleri.";
+"app-store-short-description" = "Size yakın yerler keşfetmek, çevrimdışı makaleler okumak ve okuma deneyiminizi özelleştirmek için Vikipedi uygulamasını indirin.";
 "app-store-subtitle" = "Özgür ansiklopedi";
 "appearance-settings-adjust-text-sizing" = "Madde metin boyutunu ayarla";
 "appearance-settings-expand-tables" = "Tabloları genişlet";
@@ -191,6 +193,8 @@
 "empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
 "empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
 "empty-no-search-results-message" = "Sonuç bulunamadı";
+"error-generic-description" = "Beklenmedik bir sorun oluştu";
+"error-generic-recovery-suggestion" = "Lütfen tekrar deneyin";
 "error-unknown" = "Bilinmeyen bir hata oluştu";
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-because-you-read" = "Okuduklarına benzer";
@@ -203,24 +207,43 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-feed-customize-accessibility-title" = "Özelleştir";
 "explore-feed-language-settings" = "Akış dili ayarlarını keşfet";
+"explore-feed-preferences-additional-languages-footer-text" = "\"Dillerim\" sayfasından ek diller eklenebilir.";
+"explore-feed-preferences-card-hidden-title" = "Kart gizlendi";
+"explore-feed-preferences-continue-reading-description" = "Açık bir makaleyi okumak için hızlı bağlantı";
+"explore-feed-preferences-customize-explore-feed" = "Keşfetme menüsünü özelleştirme";
+"explore-feed-preferences-explore-tab" = "Arama sekmesi";
+"explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli makale";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Kapalı";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hepsinde";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Açık";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "$1'de";
 "explore-feed-preferences-feed-cards-hidden-title" = "Tüm %@ kartlar gizlendi";
+"explore-feed-preferences-global-card-footer-text" = "Bu kart dile özgü değil, bu kartın kapatılması onu arama beslemenizden kaldırır.";
+"explore-feed-preferences-global-cards-description" = "Dile özgü olmayan kartlar";
+"explore-feed-preferences-global-cards-subtitle" = "Dile özgü değil";
+"explore-feed-preferences-global-cards-title" = "Küresel kartlar";
+"explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Tüm %@ kartlarını gizle";
+"explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Arama sekmesini kapat";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Arama sekmesini aç";
+"explore-feed-preferences-undo-customization" = "Geri al";
+"explore-hide-card-prompt" = "Bu kartı gizle";
 "explore-main-page-description" = "Wikimedia projeleri ana sayfası";
 "explore-main-page-heading" = "Vikipedi'de Bugün";
-// Fuzzy
-"explore-most-read-footer" = "Bütün en çok okunan maddeler";
+"explore-most-read-footer" = "En çok okunan maddeler";
 "explore-most-read-generic-heading" = "En çok okunanlar";
 "explore-most-read-more-list-title-for-date" = "$1 tarihinde çok okunan maddeler";
+"explore-most-read-sub-heading-on-language-wikipedia" = "$1 Vikipedi'de";
+"explore-most-read-sub-heading-on-wikipedia" = "Vikipedi'de";
 "explore-nearby-heading" = "Yakındaki yerler";
 "explore-nearby-placeholder-heading" = "Yerler";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedi'de";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedi'de";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 Vikipedi için";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Vikipedi'den";
 "explore-nearby-sub-heading-your-location" = "Konumunuz";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Konumunuz için $1 Vikipedi";
 "explore-potd-heading" = "Günün resmi";
+"explore-potd-sub-heading" = "Wikimedia Commons'dan";
 "explore-random-article-heading" = "Rastgele madde";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Vikipedi'den";
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
@@ -289,9 +312,12 @@
 "in-the-news-notification-read-now-action-title" = "Şimdi Oku";
 "in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
 "in-the-news-notification-share-action-title" = "Paylaş...";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
+"in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";
 "info-box-close-text" = "Kapat";
 "info-box-title" = "Pratik Bilgiler";
+"languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
 "license-footer-name" = "CC BY-SA 3.0";
@@ -336,8 +362,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
 "on-this-day-footer" = "Bugünden daha fazla tarihi olay";
 "on-this-day-footer-with-event-count" = "Tarihte bugün gerçekleşen diğer $1 olay";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "open-link-cancel" = "İptal";
+"original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
 "page-edit-history" = "Bütün düzenleme geçmişi";
 "page-history-title" = "Madde geçmişi";
 "page-issues" = "Sayfa sorunları";
@@ -363,10 +391,14 @@
 "places-enable-location-action-button-title" = "Konumu etkinleştir";
 "places-enable-location-description" = "Sadece uygulama veya uygulamanın bir özelliği ekranda açıkken konumunuza erişim imkanı olacaktır.";
 "places-enable-location-title" = "Konum erişimini etkinleştirerek yakınınızdaki maddeleri keşfedin";
+"places-filter-articles-action-sheet-title" = "Filtrelenen Makaleler";
+"places-filter-button-title" = "Filtre";
 "places-filter-no-saved-places" = "Kaydedilmiş yeriniz yok";
 "places-filter-saved-articles" = "Kaydedilmiş maddeler";
 "places-filter-top-articles" = "En çok okunanlar";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 madde|$1 madde}}";
+"places-filter-top-read-articles" = "En çok okunan maddeler";
+"places-location-enabled" = "Konum aktif";
 "places-no-saved-articles-have-location" = "Hiçbir kayıtlı maddenizin konum bilgisi yok";
 "places-search-articles-that-match" = "“$2” hakkındaki $1";
 "places-search-default-text" = "Yerleri ara";
@@ -386,6 +418,7 @@
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
+"reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
 "reading-list-add-hint-title" = "“$1” maddesi okuma listesine eklesin mi?";
 "reading-list-add-saved-button-title" = "Evet, bunları okuma listeme ekleye";
 "reading-list-add-saved-subtitle" = "Wikipedia uygulamanıza kaydedilmiş makaleler var. Bunları saklamak ve hesabınıza senkronize edilen okuma listeleri ile birleştirmek ister misiniz?";
@@ -405,7 +438,10 @@
 "reading-list-keep-subtitle" = "Vikipedi hesabınıza senkronize edilen makaleler var. Çıkış yaptıktan sonra onları bu cihazda tutmak ister misiniz?";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
 "reading-list-keep-title" = "Kaydedilen maddeleri cihazda sakla?";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Makaleleri sırala";
+"reading-list-name-user-created-annotation" = "\n_[kullanıcı oluşturuldu]";
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
+"reading-list-sync-disabled-panel-title" = "Sync devre dışı";
 "reading-list-sync-enable-button-title" = "Senkronizasyonu etkinleştir";
 "reading-lists-article-not-synced" = "Senkronize edilmedi";
 "reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
@@ -433,6 +469,7 @@
 "saved-search-default-text" = "Ara";
 "saved-title" = "Kaydedilenler";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
+"search-clear-title" = "Temizle";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
 "search-field-placeholder-text" = "Vikipedi'de Ara";
 "search-reading-list-placeholder-text" = "Okuma listesinde ara";
@@ -461,6 +498,7 @@
 "settings-primary-language" = "Birincil";
 // Fuzzy
 "settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
+"settings-search-open-app-on-search" = "Arama sekmesinde uygulamayı aç";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Kaydedilen tüm maddeler silinsin mi?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Kaydedilen maddelerin silinmesi, bu cihazın yanı sıra açılmış olarak senkronizasyon gerçekleştirdiyseniz bunları kullanıcı hesabınızdan kaldırır.\n\nKaydedilen maddeleri silmek, yaklaşık $1 alan açacaktır.";
