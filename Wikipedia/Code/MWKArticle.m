@@ -32,7 +32,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) NSNumber *revisionId;
 @property (readwrite, strong, nonatomic) NSString *wikidataId;
 @property (readwrite, strong, nonatomic) NSNumber *descriptionSourceNumber; // optional
-@property (readwrite, strong, nonatomic) NSString *wikidataId;
 
 @property (readwrite, nonatomic) NSInteger ns; //optional, defaults to 0
 
