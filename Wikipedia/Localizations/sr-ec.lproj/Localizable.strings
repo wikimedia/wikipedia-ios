@@ -128,11 +128,13 @@
 "description-edit-for-article" = "Опис наслова за страницу $1";
 "description-edit-learn-more" = "Сазнајте више";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Променом описа наслова, слажем се са $1 и неопозиво доприносим под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
 "description-edit-pencil-title" = "Додај опис наслова";
 "description-edit-placeholder-title" = "Кратки описи су најбољи";
 "description-edit-publish" = "Објави опис";
 "description-edit-title" = "Уређивање описа";
+"description-edit-warning" = "Покушајте да задржите описе кратким да корисници могу да разумеју предмет текста на први поглед";
 "description-help-about-description" = "Описи наслова резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-help-about-title" = "О апликацији";
 "description-help-about-wikidata" = "О Википодацима";
@@ -152,6 +154,7 @@
 "description-published-subtitle" = "Управо сте учинили Википедију бољом за свакога";
 "description-published-title" = "Опис је објављен.";
 "description-welcome-concise-sub-title" = "Идеално један ред, између две и дванаест речи";
+"description-welcome-concise-title" = "Будите кратки";
 "description-welcome-descriptions-sub-title" = "Описи наслова резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-welcome-descriptions-title" = "Описи наслова";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
@@ -176,6 +179,8 @@
 "empty-no-saved-pages-message" = "Сачувајте странице да бисте их читали касније, чак и када сте офлајн";
 "empty-no-saved-pages-title" = "Још увек нема сачуваних страница";
 "empty-no-search-results-message" = "Резултати нису пронађени";
+"error-generic-description" = "Дошло је до неочекиване грешке";
+"error-generic-recovery-suggestion" = "Покушајте поново касније";
 "error-unknown" = "Дошло је до непознате грешке";
 "explore-another-random" = "Други случајни чланак";
 "explore-because-you-read" = "На основу прочитаног";

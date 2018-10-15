@@ -182,6 +182,8 @@
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-search-results-message" = "Inga resultat hittades";
+"error-generic-description" = "Ett oväntat fel uppstod";
+"error-generic-recovery-suggestion" = "Försök igen senare";
 "error-unknown" = "Ett okänt fel uppstod";
 "explore-another-random" = "En annan slumpmässig artikel";
 "explore-because-you-read" = "Eftersom du läste";

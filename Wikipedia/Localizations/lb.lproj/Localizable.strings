@@ -90,7 +90,7 @@
 "cancel" = "Ofbriechen";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zoumaachen";
-"compass-direction" = "ëm $1 Auer";
+"compass-direction" = "um $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
 "description-add-title" = "Beschreiwung derbäisetzen";
@@ -121,6 +121,8 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
+"error-generic-description" = "En onerwaarte Feeler ass geschitt";
+"error-generic-recovery-suggestion" = "Probéiert w.e.g. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
