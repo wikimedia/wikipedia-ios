@@ -1,7 +1,9 @@
 class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
     override func execute() {
         self.managedObjectContext.perform {
-            self.apiController.getAllUnreadNotifications(from: ["wikidata", "en"]) { fetchedNotifications, error in
+            var targetWikis = MWKLanguageLinkController.sharedInstance().readPreferredLanguageCodes()
+            targetWikis.append("wikidata")
+            self.apiController.getAllUnreadNotifications(from: targetWikis) { fetchedNotifications, error in
                 if let error = error {
                     self.finish(with: error)
                 } else {
