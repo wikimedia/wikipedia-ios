@@ -169,10 +169,10 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(task, for: key)
     }
     
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, operationCompletion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false)) { (result, response, error) in
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false)) { (result, response, _, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
             } else {
@@ -190,15 +190,15 @@ class ReadingListsAPIController: NSObject {
     }
     
     fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, operationCompletion: completion)
+        requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
     fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .delete, operationCompletion: completion)
+        requestWithCSRF(path: path, method: .delete, completion: completion)
     }
     
     fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, operationCompletion: completion)
+        requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
     }
     
     @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {

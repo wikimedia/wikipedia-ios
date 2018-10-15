@@ -38,7 +38,11 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc dynamic private(set) var loggedInUsername: String? = nil {
         didSet {
-            SessionSingleton.sharedInstance().dataStore.readingListsController.authenticationDelegate = self
+            guard let dataStore = SessionSingleton.sharedInstance()?.dataStore else {
+                return
+            }
+            dataStore.readingListsController.authenticationDelegate = self
+            dataStore.remoteNotificationsController.toggle(on: loggedInUsername != nil)
         }
     }
     

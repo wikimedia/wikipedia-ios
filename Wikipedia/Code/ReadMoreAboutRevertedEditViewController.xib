@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReadMoreAboutRevertedEditViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="qdQ-DG-ISQ" id="qoJ-vi-tiY"/>
+                <outlet property="contentTextView" destination="uec-ut-7qT" id="3tQ-fH-0nK"/>
+                <outlet property="contentTextViewHeightConstraint" destination="pEb-Db-xno" id="X5b-k2-sxK"/>
+                <outlet property="contentView" destination="KmP-MH-dF7" id="fuc-jN-ix8"/>
+                <outlet property="scrollView" destination="kOQ-vF-hJy" id="Ux4-Q0-l1i"/>
+                <outlet property="subtitleLabel" destination="k7k-av-FcT" id="VtL-dc-O64"/>
+                <outlet property="titleLabel" destination="lHs-kB-op4" id="leD-JH-W1U"/>
+                <outlet property="view" destination="iN0-l3-epB" id="C2L-TL-yzE"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOQ-vF-hJy">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmP-MH-dF7" userLabel="Content View">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YFK-xV-en7">
+                                    <rect key="frame" x="15" y="30" width="345" height="189"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHs-kB-op4" userLabel="Title Label">
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7k-av-FcT" userLabel="Subtitle Label">
+                                            <rect key="frame" x="0.0" y="30.5" width="345" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uec-ut-7qT">
+                                            <rect key="frame" x="0.0" y="61" width="345" height="128"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="128" id="pEb-Db-xno"/>
+                                            </constraints>
+                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                    </subviews>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdQ-DG-ISQ">
+                                    <rect key="frame" x="10" y="592" width="350" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="7d8-ZJ-Byk"/>
+                                    </constraints>
+                                    <state key="normal" title="Button"/>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="YFK-xV-en7" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="15" id="31x-0g-n12"/>
+                                <constraint firstAttribute="bottom" secondItem="qdQ-DG-ISQ" secondAttribute="bottom" constant="15" id="Ar2-wT-1Qk"/>
+                                <constraint firstAttribute="trailing" secondItem="qdQ-DG-ISQ" secondAttribute="trailing" constant="15" id="SaY-h7-euw"/>
+                                <constraint firstItem="qdQ-DG-ISQ" firstAttribute="leading" secondItem="KmP-MH-dF7" secondAttribute="leading" constant="10" id="VfJ-cJ-iiY"/>
+                                <constraint firstAttribute="trailing" secondItem="YFK-xV-en7" secondAttribute="trailing" constant="15" id="Wpl-6h-TP5"/>
+                                <constraint firstItem="YFK-xV-en7" firstAttribute="top" secondItem="KmP-MH-dF7" secondAttribute="top" constant="30" id="gw6-1D-n32"/>
+                                <constraint firstItem="qdQ-DG-ISQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="YFK-xV-en7" secondAttribute="bottom" constant="30" id="r8g-yG-yKp"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="KmP-MH-dF7" firstAttribute="top" secondItem="kOQ-vF-hJy" secondAttribute="top" id="4eU-h0-7Ji"/>
+                        <constraint firstAttribute="bottom" secondItem="KmP-MH-dF7" secondAttribute="bottom" id="7j5-bY-cod"/>
+                        <constraint firstItem="KmP-MH-dF7" firstAttribute="centerY" secondItem="kOQ-vF-hJy" secondAttribute="centerY" id="V50-SP-sJD"/>
+                        <constraint firstItem="KmP-MH-dF7" firstAttribute="leading" secondItem="kOQ-vF-hJy" secondAttribute="leading" id="fX7-rp-YnL"/>
+                        <constraint firstAttribute="trailing" secondItem="KmP-MH-dF7" secondAttribute="trailing" id="qVl-ON-q5w"/>
+                        <constraint firstItem="KmP-MH-dF7" firstAttribute="centerX" secondItem="kOQ-vF-hJy" secondAttribute="centerX" id="v1y-mC-3SC"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="kOQ-vF-hJy" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CmC-70-Rb7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kOQ-vF-hJy" secondAttribute="trailing" id="Ltu-Ul-BeI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kOQ-vF-hJy" secondAttribute="bottom" id="pud-Rq-4nt"/>
+                <constraint firstItem="kOQ-vF-hJy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="reZ-SM-Jrd"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

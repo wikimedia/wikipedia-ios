@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFThemeableNavigationController : UINavigationController <WMFThemeable>
 
-- (instancetype)initWithRootViewController:(UIViewController *)rootViewController theme:(WMFTheme *)theme;
+- (instancetype)initWithRootViewController:(UIViewController<WMFThemeable> *)rootViewController theme:(WMFTheme *)theme;
 
 @end
 

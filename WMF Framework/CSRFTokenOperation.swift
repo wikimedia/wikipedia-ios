@@ -16,7 +16,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     var bodyParameters: [String: Any]?
     let bodyEncoding: Session.Request.Encoding
     var queryParameters: [String: Any]?
-    var completion: ((Result?, URLResponse?, Error?) -> Void)?
+    var completion: ((Result?, URLResponse?, Bool?, Error?) -> Void)?
 
     public struct TokenContext {
         let tokenName: String
@@ -31,7 +31,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
-    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
@@ -47,7 +47,7 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     
     override public func finish(with error: Error) {
         super.finish(with: error)
-        completion?(nil, nil, error)
+        completion?(nil, nil, nil, error)
         completion = nil
     }
     
@@ -57,8 +57,8 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     }
     
     override public func execute() {
-        let finish: (Result?, URLResponse?, Error?) -> Void  = { (result, response, error) in
-            self.completion?(result, response, error)
+        let finish: (Result?, URLResponse?, Bool?, Error?) -> Void  = { (result, response, authorized, error) in
+            self.completion?(result, response, authorized, error)
             self.completion = nil
             self.finish()
         }
@@ -68,14 +68,14 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                finish(nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
+                finish(nil, nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
             self.addTokenToRequest(token)
-            self.didFetchToken(completion: finish)
+            self.didFetchToken(token, completion: finish)
         }) { (error) in
-            finish(nil, nil, error)
+            finish(nil, nil, nil, error)
         }
     }
 
@@ -90,19 +90,19 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         }
     }
 
-    open func didFetchToken(completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
+    open func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
         assertionFailure("Subclasses should override")
     }
 }
 
 public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
-    public override func didFetchToken(completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: completion)?.resume()
+    public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping ([String: Any]?, URLResponse?, Bool?, Error?) -> Void) {
+        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
     }
 }
 
 public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
-    public override func didFetchToken(completion: @escaping (Result?, URLResponse?, Error?) -> Void) {
-        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: completion)
+    public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
+        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
     }
 }
