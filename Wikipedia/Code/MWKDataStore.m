@@ -31,6 +31,7 @@ static NSString *const MWKImageInfoFilename = @"ImageInfo.plist";
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
 @property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
+@property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 
 @property (readwrite, copy, nonatomic) NSString *basePath;
 @property (readwrite, strong, nonatomic) NSCache *articleCache;
@@ -174,7 +175,8 @@ static uint64_t bundleHash() {
         self.feedContentController.siteURLs = [[MWKLanguageLinkController sharedInstance] preferredSiteURLs];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.articleLocationController = [ArticleLocationController new];
-        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] init];
+        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWith:self];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWith:[WMFSession shared]];
     }
     return self;
 }
@@ -1696,6 +1698,10 @@ static uint64_t bundleHash() {
         [self.articlePreviewCache setObject:article forKey:key];
     }
     return article;
+}
+
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID {
+    return [_viewContext fetchArticleWithWikidataID:wikidataID];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {

@@ -106,12 +106,18 @@
 		7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0161E31FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0161E41FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
+		7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */; };
+		7A0312F92153DEB30095C953 /* RemoteNotificationsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */; };
+		7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */; };
+		7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */; };
+		7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */; };
 		7A06020E20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */; };
 		7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
 		7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */; };
+		7A0F2589217221D10028871B /* WMFDispatchSourceTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */; };
 		7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
 		7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */; };
@@ -158,6 +164,7 @@
 		7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
+		7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */; };
 		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
@@ -212,7 +219,14 @@
 		7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5421FA00AF1009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
 		7A4FE5431FA00AF2009FA199 /* ArticlePeekPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */; };
+		7A52C01B2150389D00A3A4A1 /* RemoteNotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */; };
+		7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */; };
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
+		7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
+		7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
+		7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
+		7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
+		7A60E9DA215D511900F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A65A5DC20ACFD98001170B8 /* WMFContentGroup+EventLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */; };
 		7A65A5DD20ACFDB6001170B8 /* EventLoggingStandardEventProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */; };
 		7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */; };
@@ -251,6 +265,8 @@
 		7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
+		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
+		7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */; };
 		7A976F83207BAC3E00F7EFE6 /* AuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */; };
 		7A998ABB1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
 		7A998ABC1FE201AB007FE06E /* SavedArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */; };
@@ -316,6 +332,11 @@
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
+		7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
+		7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
+		7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
+		7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
+		7AF4B71F215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
 		7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7432102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
 		7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */; };
@@ -3250,10 +3271,16 @@
 		7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFunnel.swift; sourceTree = "<group>"; };
 		7A0161B31FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsModelController.swift; sourceTree = "<group>"; };
+		7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsAPIController.swift; sourceTree = "<group>"; };
+		7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetchOperation.swift; sourceTree = "<group>"; };
+		7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAsReadOperation.swift; sourceTree = "<group>"; };
+		7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperationsController.swift; sourceTree = "<group>"; };
 		7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedPreferencesUpdateCoordinator.swift; sourceTree = "<group>"; };
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
+		7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WMFDispatchSourceTimer.swift; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
 		7A16C4E4212D941C00F0D5EC /* SubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSettingsViewController.swift; sourceTree = "<group>"; };
 		7A16C4E5212D941C00F0D5EC /* SubSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubSettingsViewController.xib; sourceTree = "<group>"; };
@@ -3263,6 +3290,7 @@
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -3277,12 +3305,17 @@
 		7A49A20021231510005C574C /* CollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewFooter.swift; sourceTree = "<group>"; };
 		7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHistoryFunnel.swift; sourceTree = "<group>"; };
 		7A4B333B2136EDED00C6C820 /* UnderlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineButton.swift; sourceTree = "<group>"; };
+		7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsController.swift; sourceTree = "<group>"; };
+		7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperation.swift; sourceTree = "<group>"; };
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
+		7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreAboutRevertedEditViewController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
 		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingStandardEventProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
+		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7A976F82207BAC3E00F7EFE6 /* AuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDelegate.swift; sourceTree = "<group>"; };
 		7A998ABA1FE201AB007FE06E /* SavedArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesViewController.swift; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
@@ -3300,6 +3333,7 @@
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
+		7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadMoreAboutRevertedEditViewController.xib; sourceTree = "<group>"; };
 		7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
 		7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListHintViewController.xib; sourceTree = "<group>"; };
@@ -5921,6 +5955,27 @@
 			name = PageHistory;
 			sourceTree = "<group>";
 		};
+		7A03130021542F120095C953 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */,
+				7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */,
+				7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		7A03130121542F250095C953 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */,
+				7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */,
+				7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */,
+				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7A0DE4F120CEEBE40032AB57 /* Explore Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -5929,6 +5984,35 @@
 				7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */,
 			);
 			name = "Explore Feed";
+			sourceTree = "<group>";
+		};
+		7A255D3D215162AF0081A068 /* Remote Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				7A52C01A2150389D00A3A4A1 /* RemoteNotificationsController.swift */,
+				7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */,
+				7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */,
+				7A60E9D0215D41FA00F2D325 /* Views */,
+				7A03130121542F250095C953 /* Model */,
+				7A03130021542F120095C953 /* Operations */,
+			);
+			path = "Remote Notifications";
+			sourceTree = "<group>";
+		};
+		7A60E9D0215D41FA00F2D325 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7A60E9D5215D4FD900F2D325 /* Remote Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */,
+				7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */,
+			);
+			name = "Remote Notifications";
 			sourceTree = "<group>";
 		};
 		7A976F81207BAC2100F7EFE6 /* Authentication */ = {
@@ -6704,6 +6788,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				7A60E9D5215D4FD900F2D325 /* Remote Notifications */,
 				D87233FC1E1FF05800751E83 /* Places */,
 				0EFB48071B3BAFE900381F99 /* Article */,
 				0E98805F1DA2A0C00058D7F2 /* Feed */,
@@ -7713,6 +7798,7 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
+				7A255D3D215162AF0081A068 /* Remote Notifications */,
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
 				83DAC3432146E82600CEE256 /* Background.swift */,
 			);
@@ -8067,6 +8153,7 @@
 				B0E807381C0CED810065EBC0 /* WMFMath.m */,
 				D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */,
 				D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */,
+				7A0F2588217221D10028871B /* WMFDispatchSourceTimer.swift */,
 				B0E804911C0CE0B40065EBC0 /* NSError+WMFExtensions.h */,
 				B0E804921C0CE0B40065EBC0 /* NSError+WMFExtensions.m */,
 				D8494B011D6C8DBA00337433 /* Parsing */,
@@ -8992,6 +9079,7 @@
 				83023C0B20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */,
+				7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8D92B671DF22E1700B95311 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
@@ -9100,6 +9188,7 @@
 				D80ED40C1EE57F4800CE8C50 /* PreviewAndSaveViewController.storyboard in Resources */,
 				D80ED40D1EE57F4800CE8C50 /* NotificationBackgroundWarning.png in Resources */,
 				D80ED40E1EE57F4800CE8C50 /* PreviewLicenseView.xib in Resources */,
+				7AF4B71F215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D80ED43B1EE57FCA00CE8C50 /* Wikipedia OSM-Info.plist in Resources */,
 				D80ED40F1EE57F4800CE8C50 /* NotificationBackgroundError@2x.png in Resources */,
 				D80ED4121EE57F4800CE8C50 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
@@ -9219,6 +9308,7 @@
 				83023C0E20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8A42BEA1E815A9C00D8E281 /* Places.storyboard in Resources */,
 				D8A42BEC1E815A9C00D8E281 /* WMFAccountCreationViewController.storyboard in Resources */,
+				7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8A42BED1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BF11E815A9C00D8E281 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
@@ -9311,6 +9401,7 @@
 				83023C0C20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8CE26711E698E2400DAE2E0 /* Places.storyboard in Resources */,
 				D8CE26731E698E2400DAE2E0 /* WMFAccountCreationViewController.storyboard in Resources */,
+				7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8CE26741E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26781E698E2400DAE2E0 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
@@ -9403,6 +9494,7 @@
 				83023C0D20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D8EC3F711E9BDA35006712EB /* Places.storyboard in Resources */,
 				D8EC3F731E9BDA35006712EB /* WMFAccountCreationViewController.storyboard in Resources */,
+				7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8EC3F741E9BDA35006712EB /* NotificationBackgroundSuccessIcon.png in Resources */,
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F781E9BDA35006712EB /* NotificationBackgroundWarningIcon@2x.png in Resources */,
@@ -9907,6 +9999,7 @@
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
+				7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
@@ -10254,6 +10347,7 @@
 				D80ED2AF1EE57F4800CE8C50 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D80ED2B01EE57F4800CE8C50 /* MWKTitleLanguageController.m in Sources */,
 				D80ED2B11EE57F4800CE8C50 /* UIView+WMFSnapshotting.m in Sources */,
+				7A60E9DA215D511900F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D80ED2B21EE57F4800CE8C50 /* ColumnarCollectionViewController.swift in Sources */,
 				D80ED2B41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524AF52144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
@@ -10550,11 +10644,13 @@
 				B32536001EE87A6200372E93 /* EventRecord+CoreDataClass.swift in Sources */,
 				D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */,
 				D84B224E1DAFD0FC007C44AA /* WMFNotificationsController.m in Sources */,
+				7A0312F92153DEB30095C953 /* RemoteNotificationsAPIController.swift in Sources */,
 				D837D0391D6CC8B8004EFBC6 /* QueuesSingleton.m in Sources */,
 				D8FA18DE1E1BD8A3009675C3 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				D849D6511D6CC7DC00D06FC8 /* WMFImageTagParser.m in Sources */,
 				D84C36401F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */,
+				7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */,
 				83EE477020D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift in Sources */,
 				D844D99F1D6CB63D0042D692 /* SessionSingleton.m in Sources */,
@@ -10574,6 +10670,7 @@
 				D8FA18B61E1BD891009675C3 /* NSDictionary+WMFRequiredValueForKey.m in Sources */,
 				B0B423511EF32D2700D3DC4C /* WMFOnThisDayContentSource.m in Sources */,
 				D8FA18F81E1BDA4C009675C3 /* WMFArticlePreviewViewController.swift in Sources */,
+				7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */,
 				D80A792A1F31E63C00EC06AB /* NSCharacterSet+WMFLinkParsing.m in Sources */,
 				D849D6531D6CC7DC00D06FC8 /* WMFImageTag+TargetImageWidthURL.m in Sources */,
 				D8EBD1BA1FBB16F700AA7DA9 /* Dictionary+JSON.swift in Sources */,
@@ -10586,6 +10683,7 @@
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,
+				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
@@ -10605,6 +10703,7 @@
 				83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */,
 				7A3AD05A20ADB1CD00C92E04 /* WMFAccountLogin.swift in Sources */,
 				D8733C921ECA16580011E379 /* UIView+SemanticContent.swift in Sources */,
+				7A52C01B2150389D00A3A4A1 /* RemoteNotificationsController.swift in Sources */,
 				0E728D451DAEEE880074EB4B /* CLLocation+WMFBearing.m in Sources */,
 				D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */,
 				D84C35F51F323CE800895FA1 /* SaveButton.swift in Sources */,
@@ -10628,6 +10727,7 @@
 				D844D9A41D6CB7060042D692 /* MWKImage.m in Sources */,
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
+				7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
 				D844D97D1D6CB29B0042D692 /* MWKDataObject.m in Sources */,
@@ -10642,6 +10742,7 @@
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
 				D84C361D1F32404700895FA1 /* SideScrollingCollectionViewCell.swift in Sources */,
+				7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				D8E78FA81FB4D8EB0094B968 /* AFHTTPSessionManager+WMFAPI.swift in Sources */,
 				D844D9C21D6CB7D20042D692 /* MWKImageInfo.m in Sources */,
 				D82CA32F2020E87D005C2D5C /* ReadingListsOperation.swift in Sources */,
@@ -10654,6 +10755,7 @@
 				D83FA6B11D74CDAF008CAB00 /* AFHTTPSessionManager+WMFConfig.m in Sources */,
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
+				7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */,
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
@@ -10701,6 +10803,7 @@
 				D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */,
 				D84C361C1F32403D00895FA1 /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				0E728D411DAEEC380074EB4B /* WMFRelatedSearchResults.m in Sources */,
+				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */,
 				D844D9821D6CB3540042D692 /* MWKUser.m in Sources */,
 				D8CAD1E3203EEFDD006467E2 /* CSRFTokenOperation.swift in Sources */,
 				D844D9AB1D6CB7540042D692 /* MWKHistoryList.m in Sources */,
@@ -10717,6 +10820,7 @@
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
 				83DAC3442146E82600CEE256 /* Background.swift in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
+				7A0F2589217221D10028871B /* WMFDispatchSourceTimer.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				83222DB41F8E554800338BE5 /* WMFContent+CoreDataProperties.m in Sources */,
@@ -10811,6 +10915,7 @@
 				D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */,
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
 				D844DA091D6CC4D40042D692 /* MWKLanguageFilter.m in Sources */,
+				7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */,
 				0E728D371DAEEAD60074EB4B /* MWKLocationSearchResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10893,6 +10998,7 @@
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A23CED3211A24FF00441A79 /* FeedFunnel.swift in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
+				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
@@ -11240,6 +11346,7 @@
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE251E1E698E2400DAE2E0 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
+				7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
@@ -11569,6 +11676,7 @@
 				D8EC3E0C1E9BDA35006712EB /* WMFSettingsTableViewCell.m in Sources */,
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
+				7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
@@ -21059,6 +21167,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */,
+			);
+			currentVersion = 7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */;
+			path = RemoteNotifications.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

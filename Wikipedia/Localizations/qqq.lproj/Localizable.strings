@@ -508,6 +508,14 @@
 "relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
 "relogin-failed-title" = "Title for letting user know they are no longer logged in.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
+"reverted-edit-back-to-article-button-title" = "Title for button that allows the user to go back to the article they edited";
+"reverted-edit-notification-body" = "Title for notification telling user that the edit they made was reverted. $1 is replaced with the title of the affected article, $2 is replaced with the username of the person who reverted the edit.";
+"reverted-edit-notification-read-more-action-title" = "Title on the 'Read more' action button";
+"reverted-edit-possible-reasons" = "List of possible reasons describing why an edit might have been reverted. $1 is replaced with a link to view editing guidelines";
+"reverted-edit-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
+"reverted-edit-thanks-for-editing-title" = "Title thanking the user for contributing to Wikipedia";
+"reverted-edit-title" = "Title for notification informing user that their edit was reverted.";
+"reverted-edit-view-guidelines-text" = "Text for link for viewing editing guidelines";
 "saved-all-articles-title" = "Title of the all articles button on Saved screen";
 "saved-default-reading-list-tag" = "Tag on the default reading list cell explaining that the list cannot be deleted";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
