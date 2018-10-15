@@ -21,7 +21,7 @@ class RemoteNotificationsOperationsController {
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
         deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.managedObjectContext)
         if let modelControllerInitializationError = modelControllerInitializationError {
-            DDLogError("Failed to initalize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
+            DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
             isLocked = true
         }
         timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
