@@ -1,7 +1,7 @@
 class RemoteNotificationsOperationsController {
     private let apiController: RemoteNotificationsAPIController
-    private let modelController: RemoteNotificationsModelController
-    private let deadlineController: RemoteNotificationsOperationsDeadlineController
+    private let modelController: RemoteNotificationsModelController?
+    private let deadlineController: RemoteNotificationsOperationsDeadlineController?
 
     private let syncRepeatingTime: Int = 15
     private let timer: WMFDispatchSourceTimer
@@ -17,8 +17,12 @@ class RemoteNotificationsOperationsController {
 
     required init(with session: Session) {
         apiController = RemoteNotificationsAPIController(with: session)
-        modelController = RemoteNotificationsModelController()
-        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController.managedObjectContext)
+        var modelControllerInitializationError: Error?
+        modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
+        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.managedObjectContext)
+        if let modelControllerInitializationError = modelControllerInitializationError {
+            DDLogError("Failed to initalize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
+        }
         timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
 
         operationQueue = OperationQueue()
@@ -56,7 +60,7 @@ class RemoteNotificationsOperationsController {
             stop()
             return
         }
-        deadlineController.performIfBeforeDeadline { [weak self] in
+        deadlineController?.performIfBeforeDeadline { [weak self] in
             guard
                 let modelController = self?.modelController,
                 let apiController = self?.apiController,
@@ -75,7 +79,7 @@ class RemoteNotificationsOperationsController {
     // MARK: Notifications
 
     @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
-        deadlineController.resetDeadline()
+        deadlineController?.resetDeadline()
     }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
@@ -93,7 +97,10 @@ class RemoteNotificationsOperationsController {
 final class RemoteNotificationsOperationsDeadlineController {
     private let remoteNotificationsContext: NSManagedObjectContext
 
-    init(with remoteNotificationsContext: NSManagedObjectContext) {
+    init?(with remoteNotificationsContext: NSManagedObjectContext?) {
+        guard let remoteNotificationsContext = remoteNotificationsContext else {
+            return nil
+        }
         self.remoteNotificationsContext = remoteNotificationsContext
     }
 

@@ -45,17 +45,35 @@ final class RemoteNotificationsModelController: NSObject {
     
     let managedObjectContext: NSManagedObjectContext
 
-    required override init() {
+    enum InitializationError: Error {
+        case unableToCreateModelURL(String, String, Bundle)
+        case unableToCreateModel(URL, String)
+
+        var localizedDescription: String {
+            switch self {
+            case .unableToCreateModelURL(let modelName, let modelExtension, let modelBundle):
+                return "Couldn't find url for resource named \(modelName) with extension \(modelExtension) in bundle \(modelBundle); make sure you're providing the right name, extension and bundle"
+            case .unableToCreateModel(let modelURL, let modelName):
+                return "Couldn't create model with contents of \(modelURL); make sure \(modelURL) is the correct url for \(modelName)"
+            }
+        }
+    }
+
+    required init?(_ initializationError: inout Error?) {
         let modelName = "RemoteNotifications"
         let modelExtension = "momd"
         let modelBundle = Bundle.wmf
         guard let modelURL = modelBundle.url(forResource: modelName, withExtension: modelExtension) else {
-            assertionFailure("Couldn't find url for resource named \(modelName) with extension \(modelExtension) in bundle \(modelBundle); make sure you're providing the right name, extension and bundle")
-            abort()
+            let error = InitializationError.unableToCreateModelURL(modelName, modelExtension, modelBundle)
+            assertionFailure(error.localizedDescription)
+            initializationError = error
+            return nil
         }
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
-            assertionFailure("Couldn't create model with contents of \(modelURL); make sure \(modelURL) is the correct url for \(modelName)")
-            abort()
+            let error = InitializationError.unableToCreateModel(modelURL, modelName)
+            assertionFailure(error.localizedDescription)
+            initializationError = error
+            return nil
         }
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         let sharedAppContainerURL = FileManager.default.wmf_containerURL()
