@@ -103,37 +103,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.resetInstall()
     }
 
-    // Called inside AsyncBlockOperation.
-    private func prune() {
-        
-        self.managedObjectContext.perform {
-            let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
-            fetch.returnsObjectsAsFaults = false
-            
-            let pruneDate = Date().addingTimeInterval(-(self.pruningAge)) as NSDate
-            fetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil) OR (failed == TRUE)", pruneDate)
-            let delete = NSBatchDeleteRequest(fetchRequest: fetch)
-            delete.resultType = .resultTypeCount
-
-            do {
-                let result = try self.managedObjectContext.execute(delete)
-                guard let deleteResult = result as? NSBatchDeleteResult else {
-                    DDLogError("EventLoggingService: Could not read NSBatchDeleteResult")
-                    return
-                }
-                
-                guard let count = deleteResult.result as? Int else {
-                    DDLogError("EventLoggingService: Could not read NSBatchDeleteResult count")
-                    return
-                }
-                DDLogInfo("EventLoggingService: Pruned \(count) events")
-                
-            } catch let error {
-                DDLogError("EventLoggingService: Error pruning events: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     @objc
     private func logEvent(_ event: NSDictionary) {
         let now = NSDate()
@@ -156,6 +125,31 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         let operation = AsyncBlockOperation { (operation) in
             let moc = self.managedObjectContext
             moc.perform {
+                let pruneFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
+                pruneFetch.returnsObjectsAsFaults = false
+                
+                let pruneDate = Date().addingTimeInterval(-(self.pruningAge)) as NSDate
+                pruneFetch.predicate = NSPredicate(format: "(recorded < %@) OR (posted != nil) OR (failed == TRUE)", pruneDate)
+                let delete = NSBatchDeleteRequest(fetchRequest: pruneFetch)
+                delete.resultType = .resultTypeCount
+                
+                do {
+                    let result = try self.managedObjectContext.execute(delete)
+                    guard let deleteResult = result as? NSBatchDeleteResult else {
+                        DDLogError("EventLoggingService: Could not read NSBatchDeleteResult")
+                        return
+                    }
+                    
+                    guard let count = deleteResult.result as? Int else {
+                        DDLogError("EventLoggingService: Could not read NSBatchDeleteResult count")
+                        return
+                    }
+                    DDLogInfo("EventLoggingService: Pruned \(count) events")
+                    
+                } catch let error {
+                    DDLogError("EventLoggingService: Error pruning events: \(error.localizedDescription)")
+                }
+                
                 let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
                 fetch.sortDescriptors = [NSSortDescriptor(keyPath: \EventRecord.recorded, ascending: true)]
                 fetch.predicate = NSPredicate(format: "(posted == nil) AND (failed != TRUE)")
@@ -169,14 +163,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     DDLogError(error.localizedDescription)
                 }
 
-                defer {
-                    if eventRecords.count > 0 {
-                        self.postEvents(eventRecords, completion: {
-                            operation.finish()
-                        })
-                    } else {
+                if eventRecords.count > 0 {
+                    self.postEvents(eventRecords, completion: {
                         operation.finish()
-                    }
+                    })
+                } else {
+                    operation.finish()
                 }
             }
         }
