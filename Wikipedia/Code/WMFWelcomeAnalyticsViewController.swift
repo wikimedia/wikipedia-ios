@@ -25,7 +25,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
         //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
-        if (EventLoggingService.shared.isEnabled) {
+        if (EventLoggingService.shared?.isEnabled ?? false) {
             toggle.isOn = true
             BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
         } else {
@@ -46,10 +46,10 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     @IBAction func toggleAnalytics(withSender sender: UISwitch){
         if(sender.isOn){
             BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
-            EventLoggingService.shared.isEnabled = true
+            EventLoggingService.shared?.isEnabled = true
         }else{
             BITHockeyManager.shared().crashManager.crashManagerStatus = .alwaysAsk
-            EventLoggingService.shared.isEnabled = false
+            EventLoggingService.shared?.isEnabled = false
         }
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }

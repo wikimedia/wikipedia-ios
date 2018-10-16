@@ -42,7 +42,6 @@ public class WMFAuthenticationManager: NSObject {
                 return
             }
             dataStore.readingListsController.authenticationDelegate = self
-            dataStore.remoteNotificationsController.toggle(on: loggedInUsername != nil)
         }
     }
     

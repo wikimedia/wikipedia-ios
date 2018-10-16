@@ -116,7 +116,6 @@ enum WikidataPublishingError: LocalizedError {
                     DDLogError("Error saving value for key \(madeAuthorizedWikidataDescriptionEditKey): \(error)")
                 }
             }
-            dataStore.remoteNotificationsController.toggle(on: newValue)
         }
         get {
             assertMainThreadAndDataStore()

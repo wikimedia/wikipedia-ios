@@ -69,6 +69,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate>
 
+@property (nonatomic, strong) WMFAppController *appController;
+
 @property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
 
@@ -350,10 +352,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     if (self.isResumeComplete) {
         [self checkRemoteAppConfigIfNecessary];
-        [self.dataStore.readingListsController start];
-        [self.dataStore.remoteNotificationsController start];
+        [self.appController start];
         [self.savedArticlesFetcher start];
-        [self startEventLogging];
     }
 }
 
@@ -521,21 +521,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-
-        [[WMFAuthenticationManager sharedInstance]
-            attemptLoginWithCompletion:^{
-                [self.dataStore.readingListsController backgroundUpdate:^{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.dataStore.feedContentController updateBackgroundSourcesWithCompletion:completion];
-                    });
-                }];
-            }
-            failure:^(NSError *error) {
-                if ([error.domain isEqualToString:NSURLErrorDomain]) {
-                    return;
-                }
-                [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
-            }];
+        
+        [self.appController performBackgroundFetch:completion];
     });
 }
 
@@ -798,15 +785,20 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)finishResumingApp {
-    [self startEventLogging];
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
     [[WMFAuthenticationManager sharedInstance]
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
-            [self.dataStore.readingListsController start];
-            [self.dataStore.remoteNotificationsController start];
+            if (!self.appController) {
+                self.appController = [[WMFAppController alloc] init];
+                [self.appController addWorker:self.dataStore.readingListsController];
+                [self.appController addWorker:self.dataStore.remoteNotificationsController];
+                [self.appController addWorker:(id<WMFWorker>)self.dataStore.feedContentController];
+                [self.appController addWorker:[WMFEventLoggingService sharedInstance]];
+            }
+            [self.appController start];
             [self.savedArticlesFetcher start];
             self.resumeComplete = YES;
         }
@@ -883,7 +875,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)pauseApp {
     [self logSessionEnd];
-    [self stopEventLogging];
 
     if (![self uiIsLoaded]) {
         return;
@@ -891,9 +882,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
-    [self.dataStore.readingListsController stop:^{
-    }];
-    [self.dataStore.remoteNotificationsController stop];
+    [self.appController stop];
     [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
@@ -955,14 +944,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 #pragma mark - Logging
-
-- (void)startEventLogging {
-    [[WMFEventLoggingService sharedInstance] start];
-}
-
-- (void)stopEventLogging {
-    [[WMFEventLoggingService sharedInstance] stop];
-}
 
 - (void)logSessionEnd {
     [[SessionsFunnel shared] logSessionEnd];

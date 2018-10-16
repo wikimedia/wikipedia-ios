@@ -162,6 +162,9 @@ import Foundation
         return session.dataTask(with: request, completionHandler: completionHandler)
     }
     
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        return session.dataTask(with: request, completionHandler: completionHandler)
+    }
     
     /**
      Creates a URLSessionTask that will handle the response by decoding it to the codable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
@@ -331,7 +334,7 @@ import Foundation
     
     @objc public var shouldSendUsageReports: Bool = false {
         didSet {
-            guard shouldSendUsageReports, let appInstallID = EventLoggingService.shared.appInstallID else {
+            guard shouldSendUsageReports, let appInstallID = EventLoggingService.shared?.appInstallID else {
                 return
             }
             session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]

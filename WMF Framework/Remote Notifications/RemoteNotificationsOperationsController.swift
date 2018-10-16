@@ -1,11 +1,7 @@
-class RemoteNotificationsOperationsController {
+class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
-
-    private let syncRepeatingTime: Int = 15
-    private let timer: WMFDispatchSourceTimer
-
     private let operationQueue: OperationQueue
     private var isLocked: Bool = false {
         didSet {
@@ -24,11 +20,10 @@ class RemoteNotificationsOperationsController {
             DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
             isLocked = true
         }
-        timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
-
+        super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
@@ -42,13 +37,9 @@ class RemoteNotificationsOperationsController {
             return
         }
         operationQueue.cancelAllOperations()
-        timer.start { [weak self] in
-            self?.sync()
-        }
     }
 
     public func stop() {
-        timer.suspend()
         operationQueue.cancelAllOperations()
     }
 
@@ -90,6 +81,16 @@ class RemoteNotificationsOperationsController {
         } else {
             isLocked = false
         }
+    }
+}
+
+extension RemoteNotificationsOperationsController: Worker {
+    func doPeriodicWork(_ completion: @escaping () -> Void) {
+        completion()
+    }
+    
+    func doBackgroundWork(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        completion(.noData)
     }
 }
 

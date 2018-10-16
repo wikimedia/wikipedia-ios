@@ -81,16 +81,16 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        EventLoggingService.shared.lastLoggedSnapshot = eventData as NSCoding
+        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
         UserDefaults.wmf.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
-        return EventLoggingService.shared.lastLoggedSnapshot as? Dictionary<String, Any>
+        return EventLoggingService.shared?.lastLoggedSnapshot as? Dictionary<String, Any>
     }
     
     @objc public func logSnapshot() {
-        guard EventLoggingService.shared.isEnabled else {
+        guard EventLoggingService.shared?.isEnabled ?? false else {
             return
         }
         
