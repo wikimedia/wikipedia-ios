@@ -2,6 +2,7 @@ import Foundation
 
 enum EventLoggingError {
     case generic
+    case network
 }
 
 @objc(WMFEventLoggingService)
@@ -12,10 +13,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         static let lastLoggedSnapshot = "WMFLastLoggedSnapshot"
         static let appInstallDate = "AppInstallDate"
         static let loggedDaysInstalled = "DailyLoggingStatsDaysInstalled"
+        static let lastSuccessfulPost = "LastSuccessfulPost"
     }
     
     private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
-    private var sendImmediatelyOnWWANThreshhold: TimeInterval = 30
+    private var sendOnWWANThreshhold: TimeInterval = 24 * 60 * 60
     private var postBatchSize = 10
     private var postTimeout: TimeInterval = 60*2 // 2 minutes
     private var postInterval: TimeInterval = 60*10 // 10 minutes
@@ -162,9 +164,18 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 } catch let error {
                     DDLogError(error.localizedDescription)
                 }
+                
+                var wifiOnly = true
+                if let lastSuccessNumber = moc.wmf_keyValue(forKey: Key.lastSuccessfulPost)?.value as? NSNumber {
+                    let now = CFAbsoluteTimeGetCurrent()
+                    let interval = now - CFAbsoluteTime(lastSuccessNumber.doubleValue)
+                    if interval > self.sendOnWWANThreshhold {
+                        wifiOnly = false
+                    }
+                }
 
                 if eventRecords.count > 0 {
-                    self.postEvents(eventRecords, completion: {
+                    self.postEvents(eventRecords, onlyWiFi: wifiOnly, completion: {
                         operation.finish()
                     })
                 } else {
@@ -185,7 +196,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func postEvents(_ eventRecords: [EventRecord], completion: @escaping () -> Void) {
+    private func postEvents(_ eventRecords: [EventRecord], onlyWiFi: Bool, completion: @escaping () -> Void) {
         DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
         
         let taskGroup = WMFTaskGroup()
@@ -201,9 +212,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             }
             taskGroup.enter()
             let userAgent = record.userAgent ?? WikipediaAppUtils.versionedUserAgent()
-            submit(payload: payload, userAgent: userAgent) { (error) in
-                if error != nil {
-                    failedRecordIDs.insert(moid)
+            submit(payload: payload, userAgent: userAgent, onlyWiFi: onlyWiFi) { (error) in
+                if let error = error {
+                    if error != .network {
+                        failedRecordIDs.insert(moid)
+                    }
                 } else {
                     completedRecordIDs.insert(moid)
                 }
@@ -230,11 +243,13 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     }
                     record.failed = true
                 }
-                self.save()
                 if (completedRecordIDs.count == eventRecords.count) {
+                    self.managedObjectContext.wmf_setValue(NSNumber(value: CFAbsoluteTimeGetCurrent()), forKey: Key.lastSuccessfulPost)
+                    self.save()
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
                 } else {
+                    self.save()
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
                 completion()
@@ -242,7 +257,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         }
     }
     
-    private func submit(payload: NSObject, userAgent: String, completion: @escaping (EventLoggingError?) -> Void) {
+    private func submit(payload: NSObject, userAgent: String, onlyWiFi: Bool, completion: @escaping (EventLoggingError?) -> Void) {
         do {
             let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
             
@@ -266,12 +281,16 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             
             var request = URLRequest(url: url)
             request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-            
-            let task = self.session.dataTask(with: request, completionHandler: { (_, response, error) in
+            let session = onlyWiFi ? self.session.wifiOnlyURLSession : self.session.defaultURLSession
+            let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
                 guard error == nil,
                     let httpResponse = response as? HTTPURLResponse,
                     httpResponse.statusCode / 100 == 2 else {
-                        completion(EventLoggingError.generic)
+                        if let error = error as NSError?, error.domain == NSURLErrorDomain {
+                            completion(EventLoggingError.network)
+                        } else {
+                            completion(EventLoggingError.generic)
+                        }
                         return
                 }
                 completion(nil)
