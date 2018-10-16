@@ -453,12 +453,16 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
 }
 
-extension EventLoggingService: Worker {
+extension EventLoggingService: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         tryPostEvents(completion)
     }
-    
-    public func doBackgroundWork(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        completion(.noData)
+}
+
+extension EventLoggingService: BackgroundFetcher {
+    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        doPeriodicWork {
+            completion(.noData)
+        }
     }
 }

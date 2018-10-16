@@ -7,12 +7,14 @@
     }
 }
 
-extension RemoteNotificationsController: Worker {
+extension RemoteNotificationsController: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         operationsController.doPeriodicWork(completion)
     }
-    
-    public func doBackgroundWork(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        operationsController.doBackgroundWork(completion)
+}
+
+extension RemoteNotificationsController: BackgroundFetcher {
+    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        operationsController.performBackgroundFetch(completion)
     }
 }

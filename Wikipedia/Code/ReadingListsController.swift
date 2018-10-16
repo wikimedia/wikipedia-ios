@@ -774,16 +774,18 @@ public extension NSManagedObjectContext {
     }
 }
 
-extension ReadingListsController: Worker {
-    public func doBackgroundWork(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        doPeriodicWork {
-            completion(.newData)
-        }
-    }
-    
+extension ReadingListsController: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             self._syncIfNotSyncing(completion)
+        }
+    }
+}
+
+extension ReadingListsController: BackgroundFetcher {
+    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        doPeriodicWork {
+            completion(.newData)
         }
     }
 }

@@ -84,12 +84,14 @@ class RemoteNotificationsOperationsController: NSObject {
     }
 }
 
-extension RemoteNotificationsOperationsController: Worker {
+extension RemoteNotificationsOperationsController: PeriodicWorker {
     func doPeriodicWork(_ completion: @escaping () -> Void) {
         completion()
     }
-    
-    func doBackgroundWork(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+}
+
+extension RemoteNotificationsOperationsController: BackgroundFetcher {
+    func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
         completion(.noData)
     }
 }

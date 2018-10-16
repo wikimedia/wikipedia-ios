@@ -69,7 +69,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate>
 
-@property (nonatomic, strong) WMFAppController *appController;
+@property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
+@property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
 
 @property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
@@ -352,7 +353,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     if (self.isResumeComplete) {
         [self checkRemoteAppConfigIfNecessary];
-        [self.appController start];
+        [self.periodicWorkerController start];
         [self.savedArticlesFetcher start];
     }
 }
@@ -522,7 +523,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             return;
         }
         
-        [self.appController performBackgroundFetch:completion];
+        [self.backgroundFetcherController performBackgroundFetch:completion];
     });
 }
 
@@ -791,14 +792,20 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [[WMFAuthenticationManager sharedInstance]
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
-            if (!self.appController) {
-                self.appController = [[WMFAppController alloc] init];
-                [self.appController addWorker:self.dataStore.readingListsController];
-                [self.appController addWorker:self.dataStore.remoteNotificationsController];
-                [self.appController addWorker:(id<WMFWorker>)self.dataStore.feedContentController];
-                [self.appController addWorker:[WMFEventLoggingService sharedInstance]];
+            if (!self.periodicWorkerController) {
+                self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] init];
+                [self.periodicWorkerController add:self.dataStore.readingListsController];
+                [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
+                [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
             }
-            [self.appController start];
+            if (!self.backgroundFetcherController) {
+                self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
+                [self.backgroundFetcherController add:self.dataStore.readingListsController];
+                [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
+                [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
+                [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
+            }
+            [self.periodicWorkerController start];
             [self.savedArticlesFetcher start];
             self.resumeComplete = YES;
         }
@@ -882,7 +889,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
-    [self.appController stop];
+    [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
 
     // Show  all navigation bars so that users will always see search when they re-open the app
