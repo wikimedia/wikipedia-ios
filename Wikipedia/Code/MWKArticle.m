@@ -133,8 +133,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     dict[@"protection"] = [self.protection dataExport];
     dict[@"editable"] = @(self.editable);
 
-    dict[@"pageprops"] = [NSDictionary dictionaryWithObject:self.wikidataId forKey:@"wikibase_item"];
-
     [dict wmf_maybeSetObject:self.entityDescription forKey:@"description"];
 
     [dict wmf_maybeSetObject:self.thumbnailURL forKey:@"thumbnailURL"];
@@ -142,6 +140,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [dict wmf_maybeSetObject:self.imageURL forKey:@"imageURL"];
 
     [dict wmf_maybeSetObject:self.revisionId forKey:@"revision"];
+
+    if (self.wikidataId) {
+        NSDictionary *pageProps = [NSDictionary dictionaryWithObject:self.wikidataId forKey:@"wikibase_item"];
+        [dict wmf_maybeSetObject:pageProps forKey:@"pageprops"];
+    }
 
     dict[@"mainpage"] = @(self.isMain);
 
