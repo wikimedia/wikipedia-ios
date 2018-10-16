@@ -184,6 +184,7 @@ class ReadingListsAPIController: NSObject {
                 }
                 #endif
             }
+            completion(result, response, error)
             self.removePendingTask(for: key)
         }
         addPendingTask(op, for: key)
