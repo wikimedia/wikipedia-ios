@@ -41,8 +41,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     case settings
 }
 
-
-
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
