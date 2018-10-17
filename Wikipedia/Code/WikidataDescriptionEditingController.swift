@@ -41,6 +41,8 @@ enum WikidataPublishingError: LocalizedError {
 @objc public final class WikidataDescriptionEditingController: NSObject {
     private let session: Session
 
+    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
+
     @objc public init(with session: Session) {
         self.session = session
     }
@@ -81,7 +83,9 @@ enum WikidataPublishingError: LocalizedError {
             completion(result.error)
 
             if let authorized = authorized, authorized, result.error == nil {
-                UserDefaults.wmf.didMakeAuthorizedTitleDescriptionEdit = true
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+                }
             }
         }
         let queryParameters = ["action": "wbsetdescription",
