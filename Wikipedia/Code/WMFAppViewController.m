@@ -31,6 +31,7 @@
 #import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
 #import "Wikipedia-Swift.h"
+#import "EXTScope.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -71,6 +72,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
+@property (nonatomic, strong) WMFReachabilityNotifier *reachabilityNotifier;
 
 @property (nonatomic, strong) UIImageView *splashView;
 @property (nonatomic, strong) WMFViewControllerTransitionsController *transitionsController;
@@ -201,9 +203,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSUserDefaults wmf] addObserver:self
-                                        forKeyPath:[WMFUserDefaultsKey defaultTabType]
-                                           options:NSKeyValueObservingOptionNew
-                                           context:&kvo_NSUserDefaults_defaultTabType];
+                           forKeyPath:[WMFUserDefaultsKey defaultTabType]
+                              options:NSKeyValueObservingOptionNew
+                              context:&kvo_NSUserDefaults_defaultTabType];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exploreFeedPreferencesDidChange:)
@@ -522,7 +524,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             completion(UIBackgroundFetchResultNoData);
             return;
         }
-        
+
         [self.backgroundFetcherController performBackgroundFetch:completion];
     });
 }
@@ -805,8 +807,25 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
                 [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
             }
+            if (!self.reachabilityNotifier) {
+                @weakify(self);
+                self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain
+                                                                                 callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
+                                                                                     @strongify(self);
+                                                                                     @weakify(self);
+                                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                         @strongify(self);
+                                                                                         if (isReachable) {
+                                                                                             [self.savedArticlesFetcher start];
+                                                                                         } else {
+                                                                                             [self.savedArticlesFetcher stop];
+                                                                                         }
+                                                                                     });
+                                                                                 }];
+            }
             [self.periodicWorkerController start];
             [self.savedArticlesFetcher start];
+            [self.reachabilityNotifier start];
             self.resumeComplete = YES;
         }
         failure:^(NSError *error) {
@@ -889,6 +908,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
+    [self.reachabilityNotifier stop];
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
 
