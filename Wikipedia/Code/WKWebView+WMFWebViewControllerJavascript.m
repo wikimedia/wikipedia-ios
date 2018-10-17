@@ -10,7 +10,10 @@ static int const kMinimumTextSelectionLength = 2;
 @implementation WKWebView (WMFWebViewControllerJavascript)
 
 - (void)wmf_setTextSize:(NSInteger)textSize {
-    [self evaluateJavaScript:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", (long)textSize] completionHandler:NULL];
+    [self evaluateJavaScript:[NSString stringWithFormat:@"window.wmf.windowResizeScroll.recordTopElementAndItsRelativeYOffset(); document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", (long)textSize]
+           completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
+               [self evaluateJavaScript:@"window.wmf.windowResizeScroll.scrollToSamePlaceBeforeResize()" completionHandler:NULL];
+           }];
 }
 
 - (void)wmf_scrollToFragment:(NSString *)fragment {

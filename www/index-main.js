@@ -12,5 +12,6 @@ wmf.themes = require('wikimedia-page-library').ThemeTransform
 wmf.platform = require('wikimedia-page-library').PlatformTransform
 wmf.sections = require('./js/sections')
 wmf.footers = require('./js/footers')
+wmf.windowResizeScroll = require('./js/windowResizeScroll')
 
 window.wmf = wmf
