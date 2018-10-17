@@ -202,6 +202,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             searchLanguageBarViewController = nil
         }
     }
+    
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
+    }
 
     // MARK - Search
     
@@ -511,30 +515,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         header.title = WMFLocalizedString("search-recent-title", value: "Recently searched", comment: "Title for list of recent search terms")
         header.buttonTitle = countOfRecentSearches > 0 ? WMFLocalizedString("search-clear-title", value: "Clear", comment: "Text of the button shown to clear recent search terms") : nil
         header.delegate = self
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let header = view as? CollectionViewHeader else {
-            return view
-        }
-        configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
-        return header
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        guard
-            self.collectionView(collectionView, numberOfItemsInSection: 0) > 0,
-            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
-        else {
-            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
-        }
-        configure(header: header, forSectionAt: section, layoutOnly: true)
-        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false)
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: size.height)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

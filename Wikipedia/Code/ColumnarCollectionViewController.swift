@@ -2,6 +2,16 @@ import UIKit
 import WMF
 
 class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate {
+    
+    enum HeaderStyle {
+        case sections
+        case exploreFeedDetail
+    }
+    
+    open var headerStyle: HeaderStyle {
+        return .exploreFeedDetail
+    }
+    
     lazy var layout: ColumnarCollectionViewLayout = {
         return ColumnarCollectionViewLayout()
     }()
@@ -245,14 +255,15 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
-        guard section == 0, headerTitle != nil else {
-            return estimate
-        }
-        let identifier = CollectionViewHeader.identifier
-        let userInfo = "0"
-        if let height = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: "0") {
-            estimate.height = height
-            return estimate
+        switch headerStyle {
+        case .exploreFeedDetail:
+            guard section == 0, headerTitle != nil else {
+                return estimate
+            }
+        case .sections:
+            guard self.collectionView(collectionView, numberOfItemsInSection: section) > 0 else {
+                return estimate
+            }
         }
         guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
@@ -260,7 +271,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         configure(header: placeholder, forSectionAt: section, layoutOnly: true)
         estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
