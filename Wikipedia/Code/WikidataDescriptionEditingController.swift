@@ -39,10 +39,12 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    weak var dataStore: MWKDataStore?
+    private let session: Session
 
-    @objc public init(with dataStore: MWKDataStore) {
-        self.dataStore = dataStore
+    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
+
+    @objc public init(with session: Session) {
+        self.session = session
     }
 
     public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
@@ -59,6 +61,7 @@ enum WikidataPublishingError: LocalizedError {
     ///
     /// - Parameters:
     ///   - newWikidataDescription: new wikidata description to be published, e.g., "Capital of England and the United Kingdom".
+    ///   - source: description source; none, central or local.
     ///   - title: title of the page to be updated with new wikidata description, e.g., "London".
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
@@ -82,7 +85,6 @@ enum WikidataPublishingError: LocalizedError {
             if let authorized = authorized, authorized, result.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
-                    self.madeAuthorizedWikidataDescriptionEdit = authorized
                 }
             }
         }
@@ -94,45 +96,7 @@ enum WikidataPublishingError: LocalizedError {
                               "site": wiki,
                               "title": title,
                               "value": newWikidataDescription]
-        let _ = Session.shared.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
-    }
-
-    // MARK: - WMFKeyValue
-
-    static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
-    private let madeAuthorizedWikidataDescriptionEditKey = "WMFMadeAuthorizedWikidataDescriptionEditKey"
-    @objc public private(set) var madeAuthorizedWikidataDescriptionEdit: Bool {
-        set {
-            assertMainThreadAndDataStore()
-            guard madeAuthorizedWikidataDescriptionEdit != newValue, let dataStore = dataStore else {
-                return
-            }
-            let viewContext = dataStore.viewContext
-            viewContext.wmf_setValue(NSNumber(value: newValue), forKey: madeAuthorizedWikidataDescriptionEditKey)
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch let error {
-                    DDLogError("Error saving value for key \(madeAuthorizedWikidataDescriptionEditKey): \(error)")
-                }
-            }
-        }
-        get {
-            assertMainThreadAndDataStore()
-            guard let keyValue = dataStore?.viewContext.wmf_keyValue(forKey: madeAuthorizedWikidataDescriptionEditKey) else {
-                return false
-            }
-            guard let value = keyValue.value as? NSNumber else {
-                assertionFailure("Expected value of keyValue \(madeAuthorizedWikidataDescriptionEditKey) to be of type NSNumber")
-                return false
-            }
-            return value.boolValue
-        }
-    }
-
-    private func assertMainThreadAndDataStore() {
-        assert(Thread.isMainThread)
-        assert(dataStore != nil)
+        let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
     }
 }
 
