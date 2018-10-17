@@ -40,3 +40,6 @@ window.addEventListener('scroll', () => {
   }
   timer = setTimeout(recordTopElementAndItsRelativeYOffset, 250)
 }, false)
+
+exports.recordTopElementAndItsRelativeYOffset = recordTopElementAndItsRelativeYOffset
+exports.scrollToSamePlaceBeforeResize = scrollToSamePlaceBeforeResize
