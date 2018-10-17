@@ -37,7 +37,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        didMakeAuthorizedTitleDescriptionEditObserver = nil
+        didMakeAuthorizedTitleDescriptionEditObserver?.invalidate()
     }
 
     public func stop() {
