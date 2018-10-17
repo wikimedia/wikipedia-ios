@@ -41,11 +41,10 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     case settings
 }
 
-
-
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
+        @objc static let didMakeAuthorizedTitleDescriptionEdit = "WMFDidMakeAuthorizedTitleDescriptionEdit"
     }
 
     @objc public static let wmf: UserDefaults = {
@@ -467,5 +466,14 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     
     @objc public func wmf_setDidShowTitleDescriptionEditingIntro(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
+    }
+
+    @objc public var didMakeAuthorizedTitleDescriptionEdit: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didMakeAuthorizedTitleDescriptionEdit)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didMakeAuthorizedTitleDescriptionEdit)
+        }
     }
 }
