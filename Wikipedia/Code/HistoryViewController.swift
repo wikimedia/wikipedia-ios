@@ -50,6 +50,10 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
     }
+    
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
+    }
 
     func titleForHeaderInSection(_ section: Int) -> String? {
         guard let sections = fetchedResultsController.sections, sections.count > section else {
@@ -63,19 +67,11 @@ class HistoryViewController: ArticleFetchedResultsViewController {
         return ((date as NSDate).wmf_midnightUTCDateFromLocal as NSDate).wmf_localizedRelativeDateFromMidnightUTCDate()
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let headerView = view as? CollectionViewHeader else {
-            return view
-        }
-        headerView.style = .history
-        headerView.title = titleForHeaderInSection(indexPath.section)
-        headerView.apply(theme: theme)
-        headerView.layoutMargins = layout.itemLayoutMargins
-        return headerView
+    override func configure(header: CollectionViewHeader, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+        header.style = .history
+        header.title = titleForHeaderInSection(sectionIndex)
+        header.apply(theme: theme)
+        header.layoutMargins = layout.itemLayoutMargins
     }
 
     override func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
@@ -94,28 +90,6 @@ class HistoryViewController: ArticleFetchedResultsViewController {
     
     override var eventLoggingCategory: EventLoggingCategory {
         return .history
-    }
-    
-    // MARK: - ColumnarCollectionViewLayoutDelegate
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        let userInfo = "universal"
-        let reuseIdentifier = CollectionViewHeader.identifier
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 67)
-        if let height = layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
-            estimate.height = height
-            return estimate
-        }
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier) as? CollectionViewHeader else {
-            return estimate
-        }
-        let title = titleForHeaderInSection(section)
-        placeholder.prepareForReuse()
-        placeholder.style = .history
-        placeholder.title = title
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric)).height
-        estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo)
-        return estimate
     }
 }
 
