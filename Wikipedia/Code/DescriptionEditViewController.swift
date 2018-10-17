@@ -192,8 +192,8 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         
         dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, for: articleURL) {error in
             let presentingVC = self.presentingViewController
-            self.enableProgressiveButton(true)
             DispatchQueue.main.async {
+                self.enableProgressiveButton(true)
                 guard let error = error else {
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {
