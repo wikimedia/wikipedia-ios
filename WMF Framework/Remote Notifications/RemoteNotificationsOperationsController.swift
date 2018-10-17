@@ -32,18 +32,14 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
 
-    public func start() {
-        guard !isLocked else {
-            return
-        }
-        operationQueue.cancelAllOperations()
-    }
-
     public func stop() {
         operationQueue.cancelAllOperations()
     }
 
     @objc private func sync() {
+        guard !isLocked else {
+            return
+        }
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(sync), object: nil)
         guard operationQueue.operationCount == 0 else {
             return
