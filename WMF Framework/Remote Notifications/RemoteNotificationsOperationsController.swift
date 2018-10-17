@@ -36,7 +36,7 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
 
-    @objc private func sync() {
+    @objc private func sync(_ completion: @escaping () -> Void) {
         guard !isLocked else {
             return
         }
@@ -57,9 +57,12 @@ class RemoteNotificationsOperationsController: NSObject {
             }
             let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
             let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
+            let completionOperation = BlockOperation(block: completion)
             fetchOperation.addDependency(markAsReadOperation)
+            completionOperation.addDependency(fetchOperation)
             operationQueue.addOperation(markAsReadOperation)
             operationQueue.addOperation(fetchOperation)
+            operationQueue.addOperation(completionOperation)
         }
     }
 
@@ -82,7 +85,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
 extension RemoteNotificationsOperationsController: PeriodicWorker {
     func doPeriodicWork(_ completion: @escaping () -> Void) {
-        completion()
+        sync(completion)
     }
 }
 
