@@ -3,7 +3,6 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
     private let operationQueue: OperationQueue
-    private var didMakeAuthorizedTitleDescriptionEditObserver: NSKeyValueObservation?
 
     private var isLocked: Bool = false {
         didSet {
@@ -28,16 +27,12 @@ class RemoteNotificationsOperationsController: NSObject {
 
         super.init()
 
-        didMakeAuthorizedTitleDescriptionEditObserver = UserDefaults.wmf.observe(\.didMakeAuthorizedTitleDescriptionEdit, options: [.new], changeHandler: { (userDefaults, change) in
-            self.deadlineController?.resetDeadline()
-        })
-
+        NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        didMakeAuthorizedTitleDescriptionEditObserver?.invalidate()
     }
 
     public func stop() {
@@ -45,37 +40,42 @@ class RemoteNotificationsOperationsController: NSObject {
     }
 
     @objc private func sync(_ completion: @escaping () -> Void) {
+        let completeEarly = {
+            self.operationQueue.addOperation(completion)
+        }
+
         guard !isLocked else {
-            completion()
+            completeEarly()
             return
         }
+
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(sync), object: nil)
+
         guard operationQueue.operationCount == 0 else {
-            completion()
+            completeEarly()
             return
         }
+
         guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
             stop()
-            completion()
+            completeEarly()
             return
         }
-        guard UserDefaults.wmf.didMakeAuthorizedTitleDescriptionEdit else {
-            completion()
-            return
-        }
-        deadlineController?.performIfBeforeDeadline { [weak self] in
+        deadlineController?.performIfBeforeDeadline(completeEarly) { [weak self] in
             guard
                 let modelController = self?.modelController,
                 let apiController = self?.apiController,
                 let operationQueue = self?.operationQueue else {
-                    completion()
+                    completeEarly()
                     return
             }
             let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
             let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
             let completionOperation = BlockOperation(block: completion)
+
             fetchOperation.addDependency(markAsReadOperation)
             completionOperation.addDependency(fetchOperation)
+
             operationQueue.addOperation(markAsReadOperation)
             operationQueue.addOperation(fetchOperation)
             operationQueue.addOperation(completionOperation)
@@ -83,6 +83,10 @@ class RemoteNotificationsOperationsController: NSObject {
     }
 
     // MARK: Notifications
+
+    @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
+        deadlineController?.resetDeadline()
+    }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
         if let object = note.object, let error = object as? Error {
@@ -137,13 +141,14 @@ final class RemoteNotificationsOperationsDeadlineController {
         }
     }
 
-    public func performIfBeforeDeadline(_ eventHandler: @escaping () -> Void) {
-        if let startTime = startTime {
-            guard now - startTime < deadline else {
-                return
-            }
-        } else {
-            startTime = now
+    public func performIfBeforeDeadline(_ eventHandler: @escaping () -> Void, completion: () -> Void) {
+        guard let startTime = startTime else {
+            completion()
+            return
+        }
+        guard now - startTime < deadline else {
+            completion()
+            return
         }
         eventHandler()
     }
