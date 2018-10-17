@@ -46,17 +46,21 @@ class RemoteNotificationsOperationsController: NSObject {
 
     @objc private func sync(_ completion: @escaping () -> Void) {
         guard !isLocked else {
+            completion()
             return
         }
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(sync), object: nil)
         guard operationQueue.operationCount == 0 else {
+            completion()
             return
         }
         guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
             stop()
+            completion()
             return
         }
         guard UserDefaults.wmf.didMakeAuthorizedTitleDescriptionEdit else {
+            completion()
             return
         }
         deadlineController?.performIfBeforeDeadline { [weak self] in
@@ -64,6 +68,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 let modelController = self?.modelController,
                 let apiController = self?.apiController,
                 let operationQueue = self?.operationQueue else {
+                    completion()
                     return
             }
             let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
