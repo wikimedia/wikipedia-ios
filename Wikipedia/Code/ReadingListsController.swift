@@ -530,19 +530,18 @@ public typealias ReadingListsController = WMFReadingListsController
         let sync = ReadingListsSyncOperation(readingListsController: self)
         addOperation(sync)
         if let completion = completion {
+            let completionBlockOp = BlockOperation(block: completion)
+            completionBlockOp.addDependency(sync)
             operationQueue.addOperation(completion)
         }
     }
     
-    @objc private func _syncIfNotSyncing(_ completion: (() -> Void)?) {
+    @objc private func _syncIfNotSyncing() {
         assert(Thread.isMainThread)
         guard operationQueue.operationCount == 0 else {
-            if let completion = completion {
-                operationQueue.addOperation(completion)
-            }
             return
         }
-        _sync(completion)
+        _sync()
     }
     
     @objc public func sync() {
@@ -777,7 +776,7 @@ public extension NSManagedObjectContext {
 extension ReadingListsController: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         DispatchQueue.main.async {
-            self._syncIfNotSyncing(completion)
+            self._sync(completion)
         }
     }
 }

@@ -195,6 +195,8 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         guard let completion = completion else {
             return
         }
+        let completionBlockOp = BlockOperation(block: completion)
+        completionBlockOp.addDependency(operation)
         operationQueue.addOperation(completion)
     }
     
