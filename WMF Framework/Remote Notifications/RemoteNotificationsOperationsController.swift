@@ -3,6 +3,8 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
     private let operationQueue: OperationQueue
+    private var didMakeAuthorizedTitleDescriptionEditObserver: NSKeyValueObservation?
+
     private var isLocked: Bool = false {
         didSet {
             if isLocked {
@@ -23,13 +25,19 @@ class RemoteNotificationsOperationsController: NSObject {
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
+
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
+
+        didMakeAuthorizedTitleDescriptionEditObserver = UserDefaults.wmf.observe(\.didMakeAuthorizedTitleDescriptionEdit, options: [.new], changeHandler: { (userDefaults, change) in
+            self.deadlineController?.resetDeadline()
+        })
+
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        didMakeAuthorizedTitleDescriptionEditObserver = nil
     }
 
     public func stop() {
@@ -46,6 +54,9 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
             stop()
+            return
+        }
+        guard UserDefaults.wmf.didMakeAuthorizedTitleDescriptionEdit else {
             return
         }
         deadlineController?.performIfBeforeDeadline { [weak self] in
@@ -66,12 +77,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-
     // MARK: Notifications
-
-    @objc private func didMakeAuthorizedWikidataDescriptionEdit(_ note: Notification) {
-        deadlineController?.resetDeadline()
-    }
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
         if let object = note.object, let error = object as? Error {
