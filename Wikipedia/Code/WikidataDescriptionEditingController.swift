@@ -81,6 +81,7 @@ enum WikidataPublishingError: LocalizedError {
             completion(result.error)
 
             if let authorized = authorized, authorized, result.error == nil {
+                UserDefaults.wmf.didMakeAuthorizedTitleDescriptionEdit = true
             }
         }
         let queryParameters = ["action": "wbsetdescription",
