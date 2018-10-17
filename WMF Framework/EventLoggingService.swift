@@ -17,7 +17,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
-    private var sendOnWWANThreshhold: TimeInterval = 24 * 60 * 60
+    private var sendOnWWANThreshold: TimeInterval = 24 * 60 * 60
     private var postBatchSize = 10
     private var postTimeout: TimeInterval = 60*2 // 2 minutes
     private var postInterval: TimeInterval = 60*10 // 10 minutes
@@ -69,7 +69,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         logEvent(event)
     }
     
-    private init?(session: Session, permanentStorageURL: URL) {
+    public init?(session: Session, permanentStorageURL: URL?) {
         let bundle = Bundle.wmf
         let modelURL = bundle.url(forResource: "EventLogging", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
@@ -78,16 +78,24 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
         self.session = session
-        do {
-            try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: permanentStorageURL, options: options)
-        } catch {
+        if let storeURL = permanentStorageURL {
             do {
-                try FileManager.default.removeItem(at: permanentStorageURL)
+                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
             } catch {
-                
+                do {
+                    try FileManager.default.removeItem(at: storeURL)
+                } catch {
+                    
+                }
+                do {
+                    try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
+                } catch {
+                    return nil
+                }
             }
+        } else {
             do {
-                try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: permanentStorageURL, options: options)
+                try psc.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: options)
             } catch {
                 return nil
             }
@@ -169,7 +177,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 if let lastSuccessNumber = moc.wmf_keyValue(forKey: Key.lastSuccessfulPost)?.value as? NSNumber {
                     let now = CFAbsoluteTimeGetCurrent()
                     let interval = now - CFAbsoluteTime(lastSuccessNumber.doubleValue)
-                    if interval > self.sendOnWWANThreshhold {
+                    if interval > self.sendOnWWANThreshold {
                         wifiOnly = false
                     }
                 }
