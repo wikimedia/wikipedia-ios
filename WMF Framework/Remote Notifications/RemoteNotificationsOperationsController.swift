@@ -91,7 +91,9 @@ extension RemoteNotificationsOperationsController: PeriodicWorker {
 
 extension RemoteNotificationsOperationsController: BackgroundFetcher {
     func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        completion(.noData)
+        doPeriodicWork {
+            completion(.noData)
+        }
     }
 }
 
