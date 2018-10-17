@@ -59,6 +59,7 @@ enum WikidataPublishingError: LocalizedError {
     ///
     /// - Parameters:
     ///   - newWikidataDescription: new wikidata description to be published, e.g., "Capital of England and the United Kingdom".
+    ///   - source: description source; none, central or local.
     ///   - title: title of the page to be updated with new wikidata description, e.g., "London".
     ///   - language: language code of the page's wiki, e.g., "en".
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
