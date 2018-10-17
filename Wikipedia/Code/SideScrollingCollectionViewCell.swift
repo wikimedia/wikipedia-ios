@@ -143,7 +143,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             }
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
-            resetContentOffset()
             deselectSelectedSubItems(animated: false)
         }
 
