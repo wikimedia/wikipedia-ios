@@ -795,7 +795,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
             if (!self.periodicWorkerController) {
-                self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] init];
+                self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30];
                 [self.periodicWorkerController add:self.dataStore.readingListsController];
                 [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
                 [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
