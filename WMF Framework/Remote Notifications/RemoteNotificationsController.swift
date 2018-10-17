@@ -5,30 +5,16 @@
         operationsController = RemoteNotificationsOperationsController(with: session)
         super.init()
     }
+}
 
-    @objc(toggleOn:)
-    public func toggle(on: Bool) {
-        if on {
-            operationsController.start()
-        } else {
-            operationsController.stop()
-        }
+extension RemoteNotificationsController: PeriodicWorker {
+    public func doPeriodicWork(_ completion: @escaping () -> Void) {
+        operationsController.doPeriodicWork(completion)
     }
+}
 
-    @objc public func stop() {
-        toggle(on: false)
-    }
-
-    @objc public func start() {
-        guard shouldStart else {
-            return
-        }
-        toggle(on: true)
-    }
-
-    private var shouldStart: Bool {
-        let isLoggedIn = WMFAuthenticationManager.sharedInstance.isLoggedIn
-        let madeAuthorizedWikidataEdit = SessionSingleton.sharedInstance()?.dataStore.wikidataDescriptionEditingController.madeAuthorizedWikidataDescriptionEdit ?? false
-        return isLoggedIn && madeAuthorizedWikidataEdit
+extension RemoteNotificationsController: BackgroundFetcher {
+    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        operationsController.performBackgroundFetch(completion)
     }
 }

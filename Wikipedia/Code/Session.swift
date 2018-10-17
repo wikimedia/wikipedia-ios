@@ -39,11 +39,11 @@ import Foundation
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
-        session.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org", ".mediawiki.org"])
+        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org", ".mediawiki.org"])
     }
     
     public func removeAllCookies() {
-        guard let storage = session.configuration.httpCookieStorage else {
+        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return
         }
         // Cookie reminders:
@@ -62,10 +62,16 @@ import Foundation
     @objc public static let urlSession: URLSession = {
         return URLSession(configuration: Session.defaultConfiguration)
     }()
-
+    
     @objc public static let shared = Session()
     
-    private let session = Session.urlSession
+    public let defaultURLSession = Session.urlSession
+    
+    public let wifiOnlyURLSession: URLSession = {
+        var config = Session.defaultConfiguration
+        config.allowsCellularAccess = false
+        return URLSession(configuration: config)
+    }()
     
     private lazy var tokenFetcher: WMFAuthTokenFetcher = {
         return WMFAuthTokenFetcher()
@@ -159,9 +165,8 @@ import Foundation
         guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
-        return session.dataTask(with: request, completionHandler: completionHandler)
+        return defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
     }
-    
     
     /**
      Creates a URLSessionTask that will handle the response by decoding it to the codable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
@@ -243,7 +248,7 @@ import Foundation
     }
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
-        return session.dataTask(with: request, completionHandler: { (data, response, error) in
+        return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
@@ -331,10 +336,10 @@ import Foundation
     
     @objc public var shouldSendUsageReports: Bool = false {
         didSet {
-            guard shouldSendUsageReports, let appInstallID = EventLoggingService.shared.appInstallID else {
+            guard shouldSendUsageReports, let appInstallID = EventLoggingService.shared?.appInstallID else {
                 return
             }
-            session.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
+            defaultURLSession.configuration.httpAdditionalHeaders = ["X-WMF-UUID": appInstallID]
         }
     }
     
