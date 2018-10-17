@@ -1068,7 +1068,6 @@
 		B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3369A341EE1F69E0075953E /* EventLoggingService.swift */; };
 		B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */; };
-		B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */; };
 		B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */; };
 		B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		B389CFD01E6F459F00483C06 /* MWKArticle+MKMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */; };
@@ -1486,6 +1485,7 @@
 		D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		D826C51721766F1A0012F940 /* BackgroundFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51621766F1A0012F940 /* BackgroundFetcher.swift */; };
 		D826C519217673C50012F940 /* PointerArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C518217673C50012F940 /* PointerArray.swift */; };
+		D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51A217741C50012F940 /* ReachabilityNotifier.swift */; };
 		D82972831E3950100061550A /* ArticlePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972821E3950100061550A /* ArticlePlace.swift */; };
 		D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82972861E3A49980061550A /* ArticlePopoverViewController.swift */; };
 		D82972891E3A49980061550A /* ArticlePopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82972871E3A49980061550A /* ArticlePopoverViewController.xib */; };
@@ -4052,7 +4052,6 @@
 		B3369A341EE1F69E0075953E /* EventLoggingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventLoggingService.swift; path = "WMF Framework/EventLoggingService.swift"; sourceTree = SOURCE_ROOT; };
 		B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHouseKeeper.swift; sourceTree = "<group>"; };
 		B37B6FE81EEAFE11007CBB12 /* EventLoggingServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLoggingServiceTests.swift; sourceTree = "<group>"; };
-		B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockNetworkReachabilityManager.swift; path = WikipediaUnitTests/Code/MockNetworkReachabilityManager.swift; sourceTree = SOURCE_ROOT; };
 		B389CFCA1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFDatabaseHousekeeperTests.swift; sourceTree = "<group>"; };
 		B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFMapsActivity.swift; path = Wikipedia/Code/WMFMapsActivity.swift; sourceTree = SOURCE_ROOT; };
 		B389CFCF1E6F459F00483C06 /* MWKArticle+MKMapItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWKArticle+MKMapItem.swift"; sourceTree = "<group>"; };
@@ -4356,6 +4355,7 @@
 		D826C51421766E570012F940 /* Collection+AsyncMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMap.swift"; sourceTree = "<group>"; };
 		D826C51621766F1A0012F940 /* BackgroundFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetcher.swift; sourceTree = "<group>"; };
 		D826C518217673C50012F940 /* PointerArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerArray.swift; sourceTree = "<group>"; };
+		D826C51A217741C50012F940 /* ReachabilityNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityNotifier.swift; sourceTree = "<group>"; };
 		D82972821E3950100061550A /* ArticlePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePlace.swift; sourceTree = "<group>"; };
 		D82972861E3A49980061550A /* ArticlePopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticlePopoverViewController.swift; sourceTree = "<group>"; };
 		D82972871E3A49980061550A /* ArticlePopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticlePopoverViewController.xib; sourceTree = "<group>"; };
@@ -7153,7 +7153,6 @@
 				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
 				BC0069D31C7D556C00F2C377 /* WMFMockLocationManager.h */,
 				BC0069D41C7D556C00F2C377 /* WMFMockLocationManager.m */,
-				B37B6FEC1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -8049,6 +8048,7 @@
 				B0267CEE1E3294C1006B6D8D /* WMFAuthTokenFetcher.swift */,
 				B0C6BE451E4288E40033BD6E /* AFHTTPSessionManager+WMFAPI.swift */,
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
+				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
 			);
@@ -9922,7 +9922,6 @@
 				D8EC64031D007B1F00C286EE /* WMFLinkParsingTests.m in Sources */,
 				B0E808F01C0D181D0065EBC0 /* MWKImageStorageTests.m in Sources */,
 				B0E809131C0D19090065EBC0 /* WMFDateFormatterTests.m in Sources */,
-				B37B6FED1EEB0A6D007CBB12 /* MockNetworkReachabilityManager.swift in Sources */,
 				B39427451E71F79700D3146D /* NSSetBlocksKitTest.m in Sources */,
 				B0E808B31C0D16EA0065EBC0 /* MWKSite+Random.m in Sources */,
 				B0E809251C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m in Sources */,
@@ -10690,6 +10689,7 @@
 				D8EBD1BA1FBB16F700AA7DA9 /* Dictionary+JSON.swift in Sources */,
 				D82F601D1D6CE10800388574 /* FetcherBase.m in Sources */,
 				D8FA18AC1E1BD874009675C3 /* EXTScope.m in Sources */,
+				D826C51B217741C50012F940 /* ReachabilityNotifier.swift in Sources */,
 				0E728D391DAEEAD60074EB4B /* WMFLocationSearchFetcher.m in Sources */,
 				D8D365111E93DBEB00593A38 /* CacheGroup+CoreDataProperties.swift in Sources */,
 				8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */,

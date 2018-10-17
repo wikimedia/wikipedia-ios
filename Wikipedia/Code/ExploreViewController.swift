@@ -282,13 +282,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         refreshControl.endRefreshing()
     }
     
-    lazy var reachabilityManager: AFNetworkReachabilityManager = {
-        return AFNetworkReachabilityManager(forDomain: WMFDefaultSiteDomain)
+    lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(WMFDefaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.updateFeedSources(userInitiated: false)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineEmptyViewIfNeeded()
+                }
+            }
+        }
+        return notifier
     }()
     
     private func stopMonitoringReachability() {
-        reachabilityManager.setReachabilityStatusChange(nil)
-        reachabilityManager.stopMonitoring()
+        reachabilityNotifier.stop()
     }
     
     private func startMonitoringReachabilityIfNeeded() {
@@ -296,24 +306,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             stopMonitoringReachability()
             return
         }
-        
-        reachabilityManager.startMonitoring()
-        reachabilityManager.setReachabilityStatusChange { [weak self] (status) in
-            switch status {
-            case .reachableViaWiFi:
-                fallthrough
-            case .reachableViaWWAN:
-                DispatchQueue.main.async {
-                    self?.updateFeedSources(userInitiated: false)
-                }
-            case .notReachable:
-                DispatchQueue.main.async {
-                    self?.showOfflineEmptyViewIfNeeded()
-                }
-            default:
-                break
-            }
-        }
+        reachabilityNotifier.start()
     }
     
     private func showOfflineEmptyViewIfNeeded() {
@@ -330,7 +323,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        guard reachabilityManager.networkReachabilityStatus == .notReachable else {
+        guard !reachabilityNotifier.isReachable else {
             return
         }
         
