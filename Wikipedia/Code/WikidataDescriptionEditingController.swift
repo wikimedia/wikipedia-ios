@@ -39,10 +39,10 @@ enum WikidataPublishingError: LocalizedError {
 }
 
 @objc public final class WikidataDescriptionEditingController: NSObject {
-    weak var dataStore: MWKDataStore?
+    private let session: Session
 
-    @objc public init(with dataStore: MWKDataStore) {
-        self.dataStore = dataStore
+    @objc public init(with session: Session) {
+        self.session = session
     }
 
     public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
@@ -133,6 +133,7 @@ enum WikidataPublishingError: LocalizedError {
     private func assertMainThreadAndDataStore() {
         assert(Thread.isMainThread)
         assert(dataStore != nil)
+        let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
     }
 }
 
