@@ -211,6 +211,7 @@
 "explore-feed-preferences-card-hidden-title" = "Kart gizlendi";
 "explore-feed-preferences-continue-reading-description" = "Açık bir makaleyi okumak için hızlı bağlantı";
 "explore-feed-preferences-customize-explore-feed" = "Keşfetme menüsünü özelleştirme";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Keşif özet akışını özelleştirme";
 "explore-feed-preferences-explore-tab" = "Arama sekmesi";
 "explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli makale";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Kapalı";
@@ -443,6 +444,7 @@
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-title" = "Sync devre dışı";
 "reading-list-sync-enable-button-title" = "Senkronizasyonu etkinleştir";
+"reading-lists-article-added-confirmation" = "Madde \"$1\"'e eklendi.";
 "reading-lists-article-not-synced" = "Senkronize edilmedi";
 "reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
@@ -461,6 +463,11 @@
 "relogin-failed-retry-login-button-title" = "Tekrar giriş yapmayı deneyin";
 "relogin-failed-stay-logged-out-button-title" = "Çıkış yapmamı sağla";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
+"reverted-edit-back-to-article-button-title" = "Maddeye dön";
+"reverted-edit-notification-read-more-action-title" = "Devamını oku";
+"reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
+"reverted-edit-thanks-for-editing-title" = "Vikipedi'yi düzenlediğiniz için teşekkürler!";
+"reverted-edit-title" = "Geri alınan düzenleme";
 "saved-all-articles-title" = "Tüm maddeler";
 "saved-default-reading-list-tag" = "Bu liste silinemedi";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
@@ -496,8 +503,7 @@
 "settings-notifications-system-turn-on" = "Bildirimleri aç";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-primary-language" = "Birincil";
-// Fuzzy
-"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
+"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir. Bu dili değiştirmek, Keşfet'te gösterilen günlük içeriği (Öne Çıkan İçerik gibi) değiştirecektir.";
 "settings-search-open-app-on-search" = "Arama sekmesinde uygulamayı aç";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Kaydedilen tüm maddeler silinsin mi?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";

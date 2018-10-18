@@ -536,6 +536,14 @@
 "relogin-failed-subtitle" = "Votre session a peut-être expiré, ou les références de la connexion précédente ne sont plus valides.";
 "relogin-failed-title" = "Impossible de rétablir la connexion";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
+"reverted-edit-back-to-article-button-title" = "Retour à l'article";
+"reverted-edit-notification-body" = "La modification que vous avez apportée à l'article $1 a été annulée par $2";
+"reverted-edit-notification-read-more-action-title" = "Lire la suite";
+"reverted-edit-possible-reasons" = "- Votre contribution ne suit pas l'une des règles. $1 \n\n- Votre contribution ressemble à un essai ou a du vandalisme";
+"reverted-edit-possible-reasons-subtitle" = "Nous savons que vous avez fait de votre mieux, mais un de nos relecteurs a eu un souci. \n\nLes raisons possibles de l’annulation de votre modification sont :";
+"reverted-edit-thanks-for-editing-title" = "Merci d'avoir enrichi Wikipédia !";
+"reverted-edit-title" = "Contribution annulée";
+"reverted-edit-view-guidelines-text" = "Voir le mode d'emploi";
 "saved-all-articles-title" = "Tous les articles";
 "saved-default-reading-list-tag" = "Cette liste ne peut pas être supprimée";
 "saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";

@@ -547,6 +547,9 @@
 "relogin-failed-subtitle" = "Ваш сеанс истёк или предыдущие учётные данные уже недействительны.";
 "relogin-failed-title" = "Не удалось восстановить вход в систему";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
+"reverted-edit-back-to-article-button-title" = "Назад к статье";
+"reverted-edit-notification-read-more-action-title" = "Подробнее";
+"reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
 "saved-all-articles-title" = "Все статьи";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";

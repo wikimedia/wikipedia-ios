@@ -520,6 +520,14 @@
 "relogin-failed-subtitle" = "Deine Sitzung könnte abgelaufen sein oder frühere Anmeldeinformationen sind nicht mehr gültig.";
 "relogin-failed-title" = "Fehler bei der erneuten Herstellung der Anmeldung";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
+"reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
+"reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";
+"reverted-edit-notification-read-more-action-title" = "Mehr erfahren";
+"reverted-edit-possible-reasons" = "- Dein Beitrag folgte nicht einer der Richtlinien. $1\n\n- Dein Beitrag sieht nach einem Experiment oder Vandalismus aus.";
+"reverted-edit-possible-reasons-subtitle" = "Wir wissen, dass du dein Bestes versucht hast, aber einer der Überprüfer hatte einen Bedenken.\n\nMögliche Gründe, warum deine Bearbeitung zurückgesetzt wurde, sind:";
+"reverted-edit-thanks-for-editing-title" = "Vielen Dank für deine Bearbeitungen auf Wikipedia!";
+"reverted-edit-title" = "Zurückgesetzte Bearbeitung";
+"reverted-edit-view-guidelines-text" = "Richtlinien ansehen";
 "saved-all-articles-title" = "Alle Artikel";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";

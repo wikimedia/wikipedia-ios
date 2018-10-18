@@ -358,6 +358,12 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Quest'anno|L'anno scorso|$1 anni fa}}";
 "request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
+"reverted-edit-back-to-article-button-title" = "Torna alla voce";
+"reverted-edit-notification-body" = "La modifica che hai fatto alla voce $1 è stata annullata da $2";
+"reverted-edit-notification-read-more-action-title" = "Per saperne di più";
+"reverted-edit-thanks-for-editing-title" = "Grazie per aver modificato Wikipedia!";
+"reverted-edit-title" = "Modifica annullata";
+"reverted-edit-view-guidelines-text" = "Vedi le linee guida";
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
