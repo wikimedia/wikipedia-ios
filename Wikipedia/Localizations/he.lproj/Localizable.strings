@@ -126,6 +126,13 @@
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
+"description-edit-length-warning" = "$1 מתוך $2";
+"description-edit-license" = "שינוי תיאור הכותרת מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
+"description-edit-pencil-introduction" = "עריכת הפתיחה";
+"description-edit-pencil-title" = "הוספת תיאור כותרת";
+"description-edit-placeholder-title" = "תיאורים קצרים הם הטובים ביותר";
+"description-edit-publish" = "פרסום התיאור";
+"description-edit-title" = "עריכת תיאור";
 "dim-images" = "עמעום תמונות";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";

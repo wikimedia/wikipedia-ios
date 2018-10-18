@@ -11,6 +11,7 @@
 // Author: Mathonius
 // Author: MedShot
 // Author: MrLeopold
+// Author: Ndecouck
 // Author: Nemo bis
 // Author: Patio
 // Author: Robin van der Vliet
@@ -145,6 +146,8 @@
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-search-results-message" = "Geen resultaten gevonden";
+"error-generic-description" = "Een onverwachte fout is opgetreden";
+"error-generic-recovery-suggestion" = "Probeer later opnieuw";
 "error-unknown" = "Er is een onbekende fout opgetreden";
 "explore-another-random" = "Andere willekeurig pagina";
 "explore-because-you-read" = "Omdat u hebt gelezen";
@@ -458,6 +461,7 @@
 "relogin-failed-retry-login-button-title" = "Probeer om opnieuw aan te melden";
 "relogin-failed-stay-logged-out-button-title" = "Afgemeld blijven";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
+"reverted-edit-back-to-article-button-title" = "Terug naar artikel";
 "saved-all-articles-title" = "Alle pagina's";
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
