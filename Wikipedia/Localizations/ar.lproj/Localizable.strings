@@ -534,6 +534,14 @@
 "relogin-failed-subtitle" = "قد تكون جلسة عملك منتهية الصلاحية أو أن بيانات الاعتماد السابقة لم تعد صالحة.";
 "relogin-failed-title" = "غير قادر على إعادة إنشاء تسجيل الدخول";
 "request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
+"reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
+"reverted-edit-notification-body" = "تم إرجاع التعديل الذي تم إجراؤه بمقالة $1 بواسطة $2";
+"reverted-edit-notification-read-more-action-title" = "قراءة المزيد";
+"reverted-edit-possible-reasons" = "- لم تتوافق مساهمتك مع إحدى الإرشادات، $1\n - بدت مساهمتك كتجربة أو تخريب";
+"reverted-edit-possible-reasons-subtitle" = "نحن نعلم أنك جربت أفضل ما لديك، ولكن كان أحد المراجعين قلقا.\n\nمن بين الأسباب المحتملة لإعادة تعديلك:";
+"reverted-edit-thanks-for-editing-title" = "شكرا على تحرير ويكيبيديا!";
+"reverted-edit-title" = "تم إرجاع التعديل";
+"reverted-edit-view-guidelines-text" = "عرض الإرشادات";
 "saved-all-articles-title" = "كل المقالات";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
