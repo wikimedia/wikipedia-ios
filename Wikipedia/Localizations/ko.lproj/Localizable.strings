@@ -530,6 +530,12 @@
 "relogin-failed-subtitle" = "세션이 만료되었거나 자격 증명의 이전 기록이 더 이상 유효하지 않습니다.";
 "relogin-failed-title" = "로그인을 재수행할 수 없습니다";
 "request-feedback-on-error" = "이 앱은 우리 개발자들이 관심이 있는 문제를 마주쳤습니다. 여기를 탭하여 자세한 오류 설명과 함께 이메일을 저희에게 보내 주세요.";
+"reverted-edit-back-to-article-button-title" = "문서로 돌아가기";
+"reverted-edit-notification-body" = "$1 문서에 한 편집은 $2님에 의해 되돌려졌습니다";
+"reverted-edit-notification-read-more-action-title" = "더 읽어보기";
+"reverted-edit-thanks-for-editing-title" = "위키백과를 편집해 주셔서 감사합니다!";
+"reverted-edit-title" = "되돌려진 편집";
+"reverted-edit-view-guidelines-text" = "지침 보기";
 "saved-all-articles-title" = "모든 문서";
 "saved-default-reading-list-tag" = "이 목록은 삭제할 수 없습니다";
 "saved-pages-image-download-error" = "저장된 문서를 위해 이미지를 다운로드하는데 실패했습니다.";

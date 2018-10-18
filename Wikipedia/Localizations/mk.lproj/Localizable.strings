@@ -516,6 +516,14 @@
 "relogin-failed-subtitle" = "Седницата може да е истечена или претходните најавни податоци повеќе не се важечки.";
 "relogin-failed-title" = "Не можам да ја востановам најавата";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
+"reverted-edit-back-to-article-button-title" = "Назад на статијата";
+"reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";
+"reverted-edit-notification-read-more-action-title" = "Прочитајте повеќе";
+"reverted-edit-possible-reasons" = "- Вашето уредување не беше во склад со едно од напатствијата. $1 \n\n - Вашето уредување делуваше како проба или вандализам";
+"reverted-edit-possible-reasons-subtitle" = "Знаеме дека се трудите да напишете што подобро, но еден од прегледувачите има примедба за уреденото. \n\nВеројатни причини за отповиканото уредување се:";
+"reverted-edit-thanks-for-editing-title" = "Ви благодариме што ја уредувате Википедија!";
+"reverted-edit-title" = "Отповикано уредување";
+"reverted-edit-view-guidelines-text" = "Погл. напатствија";
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";

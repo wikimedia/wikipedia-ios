@@ -143,6 +143,11 @@
 // Fuzzy
 "reading-lists-default-list-title" = "Grāmatzīmes";
 "reference-title" = "Atsauce $1";
+"reverted-edit-back-to-article-button-title" = "Atpakaļ uz rakstu";
+"reverted-edit-notification-read-more-action-title" = "Lasīt vairāk";
+"reverted-edit-thanks-for-editing-title" = "Paldies par Vikipēdijas labošanu!";
+"reverted-edit-title" = "Atcelts labojums";
+"reverted-edit-view-guidelines-text" = "Skatīt vadlīnijas";
 "saved-all-articles-title" = "Visi raksti";
 "saved-search-default-text" = "Meklēt";
 "saved-title" = "Saglabāts";
