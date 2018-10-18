@@ -1,7 +1,6 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
 #import "PaddedLabel.h"
-#import "UITableView+DynamicCellHeight.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "Wikipedia-Swift.h"
 @import WMF.AFHTTPSessionManager_WMFCancelAll;

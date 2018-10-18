@@ -21,33 +21,22 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let cardBackgroundView = UIView()
     private let cardCornerRadius = CGFloat(10)
     private let cardShadowRadius = CGFloat(10)
-    private let cardShadowOpacity = Float(0.13)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
-    
+
     static let overflowImage = UIImage(named: "overflow")
-    
-    public var singlePixelDimension: CGFloat = 0.5
-    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
-    }
     
     public override func setup() {
         super.setup()
         titleLabel.numberOfLines = 0
-        titleLabel.isOpaque = true
         contentView.addSubview(titleLabel)
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.isOpaque = true
         contentView.addSubview(subtitleLabel)
         customizationButton.setImage(ExploreCardCollectionViewCell.overflowImage, for: .normal)
         customizationButton.contentEdgeInsets = .zero
         customizationButton.imageEdgeInsets = .zero
         customizationButton.titleEdgeInsets = .zero
         customizationButton.titleLabel?.textAlignment = .center
-        customizationButton.isOpaque = true
         customizationButton.addTarget(self, action: #selector(customizationButtonPressed), for: .touchUpInside)
-        cardBackgroundView.layer.borderWidth = singlePixelDimension
         cardBackgroundView.layer.cornerRadius = cardCornerRadius
         cardBackgroundView.layer.shadowOffset = cardShadowOffset
         cardBackgroundView.layer.shadowRadius = cardShadowRadius
@@ -58,19 +47,15 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
-        footerButton.isOpaque = true
         let image = #imageLiteral(resourceName: "places-more").imageFlippedForRightToLeftLayoutDirection()
         footerButton.setImage(image, for: .normal)
         footerButton.isUserInteractionEnabled = false
         footerButton.titleLabel?.numberOfLines = 0
         footerButton.titleLabel?.textAlignment = .right
         contentView.addSubview(footerButton)
-        undoLabel.numberOfLines = 1
-        undoLabel.isOpaque = true
+        undoLabel.numberOfLines = 0
         contentView.addSubview(undoLabel)
-        undoButton.isOpaque = true
-        undoButton.titleLabel?.numberOfLines = 1
-        undoButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        undoButton.titleLabel?.numberOfLines = 0
         undoButton.setTitle(WMFLocalizedString("explore-feed-preferences-undo-customization", value: "Undo", comment: "Title for button that reverts recent feed customization changes"), for: .normal)
         undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
         undoButton.isUserInteractionEnabled = true
@@ -173,6 +158,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
                 titleLabel.isHidden = true
                 subtitleLabel.isHidden = true
                 footerButton.isHidden = true
+                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: undoButton)
             } else {
                 cardContent?.view.isHidden = false
                 undoLabel.isHidden = true
@@ -195,12 +181,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         
         var customizationButtonDeltaWidthMinusMargins: CGFloat = 0
         if !customizationButton.isHidden {
-            var customizationButtonFrame = customizationButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: 44, horizontalAlignment: buttonHorizontalAlignment, apply: false)
-            let halfWidth = round(0.5 * customizationButtonFrame.width)
-            customizationButtonFrame.origin.x = isRTL ? layoutMargins.left - halfWidth : size.width - layoutMargins.right - halfWidth
-            customizationButtonDeltaWidthMinusMargins = halfWidth
+            let customizationButtonSize = CGSize(width: 50, height: 50)
+            let customizationButtonNudgeWidth = round(0.55 * customizationButtonSize.width)
+            customizationButtonDeltaWidthMinusMargins = customizationButtonNudgeWidth
             if apply {
-                customizationButton.frame = customizationButtonFrame
+                let originX = isRTL ? layoutMargins.left - customizationButtonSize.width + customizationButtonNudgeWidth : size.width - layoutMargins.right - customizationButtonNudgeWidth
+                let originY = origin.y - round(0.25 * customizationButtonSize.height)
+                let customizationButtonOrigin = CGPoint(x: originX, y: originY)
+                customizationButton.frame = CGRect(origin: customizationButtonOrigin, size: customizationButtonSize)
             }
         }
         
@@ -216,39 +204,51 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         if !subtitleLabel.isHidden {
             origin.y += subtitleLabel.wmf_preferredHeight(at: labelOrigin, maximumWidth: widthMinusMargins - customizationButtonDeltaWidthMinusMargins, horizontalAlignment: labelHorizontalAlignment, spacing: 20, apply: apply)
         }
-        
+
         if let cardContent = cardContent, !cardContent.view.isHidden {
             let view = cardContent.view
             let height = cardContent.contentHeight(forWidth: widthMinusMargins)
             let cardContentViewFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: height))
             if apply {
                 view?.frame = cardContentViewFrame
-                cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -singlePixelDimension, dy: -singlePixelDimension)
+                cardBackgroundView.frame = cardContentViewFrame.insetBy(dx: -cardBorderWidth, dy: -cardBorderWidth)
             }
-            origin.y += cardContentViewFrame.layoutHeight(with: 20)
-        } else if isCollapsed {
+            origin.y += cardContentViewFrame.height
+        }
+
+        if isCollapsed, !undoLabel.isHidden, !undoButton.isHidden {
+            let undoOffset: UIOffset = UIOffset(horizontal: 15, vertical: 16)
+            labelOrigin.x += undoOffset.horizontal
+            labelOrigin.y += undoOffset.vertical
+
+            let undoButtonMaxWidthPercentage: CGFloat = 0.25
+
+            let undoLabelMaxWidth = widthMinusMargins - (widthMinusMargins * undoButtonMaxWidthPercentage)
+            let undoLabelMinWidth = widthMinusMargins * 0.5
+            let undoLabelX = isRTL ? widthMinusMargins - undoLabelMaxWidth : labelOrigin.x
+            let undoLabelFrameHeight = undoLabel.wmf_preferredHeight(at: CGPoint(x: undoLabelX, y: labelOrigin.y), maximumWidth: undoLabelMaxWidth, minimumWidth: undoLabelMinWidth, horizontalAlignment: labelHorizontalAlignment, spacing: 0, apply: apply)
+
+            let undoButtonMaxWidth = widthMinusMargins * undoButtonMaxWidthPercentage
+            let undoButtonX = isRTL ? labelOrigin.x : widthMinusMargins - undoButtonMaxWidth
+            let undoButtonMinSize = CGSize(width: UIView.noIntrinsicMetric, height: undoLabelFrameHeight)
+            let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIView.noIntrinsicMetric)
+            let undoButtonFrame = undoButton.wmf_preferredFrame(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumSize: undoButtonMaxSize, minimumSize: undoButtonMinSize, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
+            let undoHeight = max(undoLabelFrameHeight, undoButtonFrame.height)
+            let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
+            let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
-                let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: labelOrigin.y, width: widthMinusMargins, height: contentView.frame.height)
                 cardBackgroundView.frame = cardBackgroundViewFrame
             }
-        }
 
-        if !undoLabel.isHidden {
-            let undoLabelOrigin = CGPoint(x: labelOrigin.x + 8, y: cardBackgroundView.frame.midY)
-            var undoLabelFrame = undoLabel.wmf_preferredFrame(at: undoLabelOrigin, maximumWidth: widthMinusMargins, minimumWidth: 84, horizontalAlignment: labelHorizontalAlignment, apply: false)
-            let halfHeight = round(0.5 * undoLabelFrame.height)
-            undoLabelFrame.origin.y -= halfHeight
-            undoLabel.frame = undoLabelFrame
-        }
-
-        if !undoButton.isHidden {
-            let undoButtonOrigin = CGPoint(x: origin.x, y: undoLabel.frame.origin.y)
-            origin.y += undoButton.wmf_preferredHeight(at: undoButtonOrigin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            origin.y += cardBackgroundViewFrame.height
         }
     
         if !footerButton.isHidden {
-            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 20, apply: apply)
+            origin.y += layoutMargins.bottom
+            origin.y += footerButton.wmf_preferredHeight(at: origin, maximumWidth: widthMinusMargins, horizontalAlignment: buttonHorizontalAlignment, spacing: 0, apply: apply)
         }
+
+        origin.y += layoutMargins.bottom
 
         return CGSize(width: size.width, height: ceil(origin.y))
     }
@@ -266,6 +266,21 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private var cardShadowColor: UIColor = .black {
         didSet {
             cardBackgroundView.layer.shadowColor = cardShadowColor.cgColor
+        }
+    }
+    
+    private var cardShadowOpacity: Float = 0 {
+        didSet {
+            guard cardBackgroundView.layer.shadowOpacity != cardShadowOpacity else {
+                return
+            }
+            cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
+        }
+    }
+    
+    private var cardBorderWidth: CGFloat = 1 {
+        didSet {
+            cardBackgroundView.layer.borderWidth = cardBorderWidth
         }
     }
     
@@ -294,8 +309,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         undoButton.setTitleColor(theme.colors.link, for: .normal)
         updateSelectedOrHighlighted()
         cardBackgroundView.backgroundColor = backgroundColor
+        cardShadowOpacity = theme.cardShadowOpacity
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
+        let displayScale = max(1, traitCollection.displayScale)
+        cardBorderWidth = CGFloat(theme.cardBorderWidthInPixels) / displayScale
     }
     
     @objc func customizationButtonPressed() {
@@ -304,5 +322,34 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
 
     @objc func undoButtonPressed() {
         delegate?.exploreCardCollectionViewCellWantsToUndoCustomization(self)
+    }
+    
+    // MARK - Accessibility
+    
+    override open func updateAccessibilityElements() {
+        var updatedAccessibilityElements: [Any] = []
+
+        if isCollapsed {
+            updatedAccessibilityElements.append(undoLabel)
+            updatedAccessibilityElements.append(undoButton)
+        } else {
+            let groupedLabels = [titleLabel, subtitleLabel]
+            let customizeActionTitle = WMFLocalizedString("explore-feed-customize-accessibility-title", value: "Customize", comment: "Accessibility title for feed customization")
+            let customizeAction = UIAccessibilityCustomAction(name: customizeActionTitle, target: self, selector: #selector(customizationButtonPressed))
+            updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: [customizeAction]))
+            if let contentView = cardContent?.view {
+                updatedAccessibilityElements.append(contentView)
+            }
+            if !footerButton.isHidden, let label = footerButton.titleLabel {
+                let footerElement = UIAccessibilityElement(accessibilityContainer: self)
+                footerElement.isAccessibilityElement = true
+                footerElement.accessibilityLabel = label.text
+                footerElement.accessibilityTraits = UIAccessibilityTraits.link
+                footerElement.accessibilityFrameInContainerSpace = footerButton.frame
+                updatedAccessibilityElements.append(footerElement)
+            }
+        }
+        
+        accessibilityElements = updatedAccessibilityElements
     }
 }

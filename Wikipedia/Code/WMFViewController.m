@@ -41,10 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    if (@available(iOS 11.0, *)) {
-        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
+    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self applyTheme:self.theme];
 }
 
@@ -69,34 +66,14 @@
 
             [self.view addConstraints:@[topConstraint, leadingConstraint, trailingConstraint]];
 
-            self.automaticallyAdjustsScrollViewInsets = NO;
-            if (@available(iOS 11.0, *)) {
-                self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            }
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         [self.navigationBar updateNavigationItems];
         self.navigationBar.navigationBarPercentHidden = 0;
-        [self updateNavigationBarStatusBarHeight];
     } else {
         if (self.navigationBar.superview) {
             [self.navigationBar removeFromSuperview];
             self.navigationBarHider = nil;
-        }
-    }
-}
-
-- (void)updateNavigationBarStatusBarHeight {
-    if (!self.showsNavigationBar) {
-        return;
-    }
-
-    if (@available(iOS 11.0, *)) {
-        // automatically handled by safe area insets
-    } else {
-        CGFloat newHeight = self.navigationController.topLayoutGuide.length;
-        if (newHeight != self.navigationBar.statusBarHeight) {
-            self.navigationBar.statusBarHeight = newHeight;
-            [self.view setNeedsLayout];
         }
     }
 }
@@ -107,9 +84,7 @@
 }
 
 - (void)viewSafeAreaInsetsDidChange {
-    if (@available(iOS 11.0, *)) {
-        [super viewSafeAreaInsetsDidChange];
-    }
+    [super viewSafeAreaInsetsDidChange];
     [self updateScrollViewInsets];
 }
 
@@ -125,7 +100,7 @@
 }
 
 - (void)updateScrollViewInsets {
-    if (self.automaticallyAdjustsScrollViewInsets) {
+    if (self.scrollView.contentInsetAdjustmentBehavior != UIScrollViewContentInsetAdjustmentNever) {
         return;
     }
     UIScrollView *scrollView = self.scrollView;
@@ -139,25 +114,28 @@
     } else if (self.navigationController) {
         frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
     }
-    CGFloat top = CGRectGetMaxY(frame);
 
-    UIEdgeInsets safeInsets = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *)) {
-        safeInsets = self.view.safeAreaInsets;
-    } else {
-        safeInsets = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, MIN(44, self.bottomLayoutGuide.length), 0); // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
-    }
+    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
+    CGFloat top = CGRectGetMaxY(frame);
     CGFloat bottom = safeInsets.bottom;
-    UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsMake(top + self.additionalScrollIndicatorInsets.top, safeInsets.left + self.additionalScrollIndicatorInsets.left, bottom + self.additionalScrollIndicatorInsets.bottom, safeInsets.right + self.additionalScrollIndicatorInsets.right);
+
+    UIEdgeInsets scrollIndicatorInsets;
+    
+    if (self.isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) {
+         scrollIndicatorInsets = UIEdgeInsetsMake(top - safeInsets.top, safeInsets.left, bottom - safeInsets.bottom, safeInsets.right);
+    } else {
+        scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
+    }
+   
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
-    UIEdgeInsets contentInset = UIEdgeInsetsMake(self.ignoresTopContentInset ? 0 : top, 0, bottom, 0);
+    UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
+
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
         return;
     }
-    
-    if ([self.scrollView wmf_setContentInsetPreservingTopAndBottomOffset:contentInset scrollIndicatorInsets:scrollIndicatorInsets withNavigationBar:self.navigationBar]) {
+    if ([self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES]) {
         [self scrollViewInsetsDidChange];
     }
 }
@@ -172,6 +150,10 @@
 }
 
 #pragma mark - WMFThemeable
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.theme.preferredStatusBarStyle;
+}
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;

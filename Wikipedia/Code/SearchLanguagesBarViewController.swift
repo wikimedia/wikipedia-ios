@@ -4,6 +4,13 @@ import Foundation
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
+class SearchLanguageButton: UnderlineButton {
+    override func setup() {
+        super.setup()
+        titleLabel?.numberOfLines = 1
+    }
+}
+
 class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
     required init() {
         super.init(nibName: "SearchLanguagesBarViewController", bundle: nil)
@@ -15,7 +22,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc weak var delegate: SearchLanguagesBarViewControllerDelegate?
     
-    @IBOutlet fileprivate var languageButtons: [UIButton] = []
+    @IBOutlet fileprivate var languageButtons: [SearchLanguageButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -25,7 +32,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = UserDefaults.wmf_userDefaults().wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
+            if let siteURL = UserDefaults.wmf.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKLanguageLinkController.sharedInstance().language(forSiteURL: siteURL) {
                 return selectedLanguage
             } else {
                 
@@ -39,7 +46,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             }
         }
         set {
-            UserDefaults.wmf_userDefaults().wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
+            UserDefaults.wmf.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
             updateLanguageBarLanguageButtons()
         }
@@ -157,7 +164,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
-    @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: UIButton) {
+    @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
         guard let buttonIndex = languageButtons.index(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
             assertionFailure("Language button not found for language")
             return

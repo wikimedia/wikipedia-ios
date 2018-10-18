@@ -4,7 +4,7 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection {
+class ReadingListDetailViewController: ColumnarCollectionViewController, EditableCollection, SearchableCollection, SortableCollection, ArticleURLProvider {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
@@ -26,6 +26,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private let reuseIdentifier = "ReadingListDetailCollectionViewCell"
     var editController: CollectionViewEditController!
+    var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
@@ -64,7 +65,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         view.addConstraints([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            bottomLayoutGuide.topAnchor.constraint(equalTo: containerView.bottomAnchor)
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
         return containerView
@@ -95,10 +96,10 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
         
         isRefreshControlEnabled = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(articleWasUpdated(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        
+
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        
+        updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: self, collectionView: collectionView, editController: editController)
     }
     
     private func addExtendedView() {
@@ -123,19 +124,8 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     @objc private func dismissController() {
         dismiss(animated: true)
-    }
-    
-    @objc private func articleWasUpdated(_ notification: Notification) {
-        guard let article = notification.object as? WMFArticle, article.changedValues()["isDownloaded"] != nil else {
-            return
-        }
-        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,7 +150,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
         return fetchedResultsController.object(at: indexPath)
     }
     
-    private func articleURL(at indexPath: IndexPath) -> URL? {
+    func articleURL(at indexPath: IndexPath) -> URL? {
         guard let entry = entry(at: indexPath), let key = entry.articleKey else {
             assertionFailure("Can't get articleURL")
             return nil
@@ -283,7 +273,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
@@ -366,7 +356,7 @@ extension ReadingListDetailViewController: ActionDelegate {
         let entriesCount = entries.count
         do {
             try dataStore.readingListsController.remove(entries: entries)
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: entriesCount))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: entriesCount))
         } catch let err {
             DDLogError("Error removing entries from a reading list: \(err)")
         }
@@ -420,7 +410,7 @@ extension ReadingListDetailViewController: CollectionViewEditControllerNavigatio
         return self.theme
     }
     
-    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonSystemItem) -> EditingState {
+    func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {
         let newEditingState: EditingState
         
         switch currentEditingState {
@@ -551,17 +541,17 @@ extension ReadingListDetailViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-            let url = articleURL(at: indexPath)
-            else {
-                return nil
-        }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let articleURL = articleURL(at: indexPath)
+        else {
+            return nil
+        }
+        
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
@@ -663,18 +653,6 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         case .cancel:
             makeSearchBarResignFirstResponder(searchBar)
         }
-    }
-}
-
-// MARK: - Analytics
-
-extension ReadingListDetailViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "ReadingListDetailView"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
     }
 }
 

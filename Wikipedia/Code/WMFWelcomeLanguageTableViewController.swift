@@ -8,17 +8,17 @@ class WMFWelcomeLanguageIntrinsicTableView: UITableView {
     }
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
-        return CGSize(width: UIViewNoIntrinsicMetric, height: contentSize.height)
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 }
 
 class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
     
-    @IBOutlet fileprivate var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
-    @IBOutlet fileprivate var moreLanguagesButton:UIButton!
-    @IBOutlet fileprivate var languagesDescriptionLabel:UILabel!
+    @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
+    @IBOutlet private var moreLanguagesButton:UIButton!
+    @IBOutlet private var languagesDescriptionLabel:UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
         languageTableView.alwaysBounceVertical = false
         moreLanguagesButton.setTitle(WMFLocalizedString("welcome-languages-add-or-edit-button", value:"Add or edit preferred languages", comment:"Title for button for managing languages"), for: .normal)
         moreLanguagesButton.setTitleColor(theme.colors.link, for: .normal)
-        languageTableView.rowHeight = UITableViewAutomaticDimension
+        languageTableView.rowHeight = UITableView.automaticDimension
         languageTableView.estimatedRowHeight = 30
         languageTableView.register(WMFLanguageCell.wmf_classNib(), forCellReuseIdentifier: WMFLanguageCell.wmf_nibName())
         view.wmf_configureSubviewsForDynamicType()
@@ -36,7 +36,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.wmf_userDefaults().wmf_setShowSearchLanguageBar(MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
+        UserDefaults.wmf.wmf_setShowSearchLanguageBar(MWKLanguageLinkController.sharedInstance().preferredLanguages.count > 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,6 +61,7 @@ class WMFWelcomeLanguageTableViewController: UIViewController, WMFPreferredLangu
     
     @IBAction func addLanguages(withSender sender: AnyObject) {
         let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        langsVC?.showExploreFeedCustomizationSettings = false
         langsVC?.delegate = self
         let navC = WMFThemeableNavigationController(rootViewController: langsVC!, theme: Theme.standard)
         present(navC, animated: true, completion: nil)

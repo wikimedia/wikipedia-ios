@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Short description of the image contents (e.g. "John Smith posing for a picture").
 @property (nullable, nonatomic, readonly, copy) NSString *imageDescription;
 
+@property (nonatomic, assign, readonly) BOOL imageDescriptionIsRTL;
+
 @property (nullable, nonatomic, readonly, strong) MWKLicense *license;
 
 /// URL pointing to the corresponding file page for the receiver.
@@ -37,13 +39,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Value which can be used to associate the receiver with a @c MWKImage.
 @property (nullable, nonatomic, readonly, strong) id imageAssociationValue;
+NS_ASSUME_NONNULL_END
 
 /// Factory method for creating an instance from the output of @c exportData.
-+ (instancetype)imageInfoWithExportedData:(nullable NSDictionary *)exportedData;
++ (nullable instancetype)imageInfoWithExportedData:(nullable NSDictionary *)exportedData;
 
+NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCanonicalPageTitle:(nullable NSString *)canonicalPageTitle
                           canonicalFileURL:(nullable NSURL *)canonicalFileURL
                           imageDescription:(nullable NSString *)imageDescription
+                     imageDescriptionIsRTL:(BOOL)imageDescriptionIsRTL
                                    license:(nullable MWKLicense *)license
                                filePageURL:(nullable NSURL *)filePageURL
                              imageThumbURL:(nullable NSURL *)imageThumbURL

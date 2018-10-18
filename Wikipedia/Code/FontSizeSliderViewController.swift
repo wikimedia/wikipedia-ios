@@ -31,7 +31,7 @@ class FontSizeSliderViewController: UIViewController {
         apply(theme: self.theme)
         
         slider.isAccessibilityElement = true
-        slider.accessibilityTraits = UIAccessibilityTraitAdjustable
+        slider.accessibilityTraits = UIAccessibilityTraits.adjustable
         slider.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
     }
     
@@ -69,7 +69,7 @@ class FontSizeSliderViewController: UIViewController {
     }
     
     func indexOfCurrentFontSize() -> Int {
-        if let fontSize = UserDefaults.wmf_userDefaults().wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
+        if let fontSize = UserDefaults.wmf.wmf_articleFontSizeMultiplier() as? Int, let multiplier = WMFFontSizeMultiplier(rawValue: fontSize) {
             return fontSizeMultipliers.index(of: multiplier)!
         }
         return fontSizeMultipliers.count / 2

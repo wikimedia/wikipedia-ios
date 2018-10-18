@@ -31,9 +31,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         daysAgoLabel.textColor = theme.colors.overlayText
         daysAgoView.backgroundColor = theme.colors.overlayBackground
 
-        if #available(iOSApplicationExtension 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
         
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
@@ -93,7 +91,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
         
         let article: WMFArticle
         
-        if let openArticleURL = UserDefaults.wmf_userDefaults().wmf_openArticleURL(), let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
+        if let openArticleURL = UserDefaults.wmf.wmf_openArticleURL(), let openArticle = session.dataStore.historyList.entry(for: openArticleURL) {
             article = openArticle
         } else if let mostRecentHistoryEntry = session.dataStore.historyList.mostRecentEntry() {
             article = mostRecentHistoryEntry
@@ -128,7 +126,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.textLabel.text = nil
         }
         
-        if let date = UserDefaults.wmf_userDefaults().wmf_appResignActiveDate() {
+        if let date = UserDefaults.wmf.wmf_appResignActiveDate() {
             self.daysAgoView.isHidden = false
             self.daysAgoLabel.text = (date as NSDate).wmf_localizedRelativeDateStringFromLocalDateToNow()
         } else {
@@ -148,7 +146,7 @@ class WMFTodayContinueReadingWidgetViewController: UIViewController, NCWidgetPro
             self.collapseImageAndWidenLabels = true
         }
         
-        var fitSize = UILayoutFittingCompressedSize
+        var fitSize = UIView.layoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
         fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         preferredContentSize = fitSize

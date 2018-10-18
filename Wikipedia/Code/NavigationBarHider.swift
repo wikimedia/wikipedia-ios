@@ -48,22 +48,27 @@ public class NavigationBarHider: NSObject {
         guard let navigationBar = navigationBar else {
             return
         }
+        
+        guard scrollView.contentSize.height > 0 else {
+            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
+                navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
+                if navigationBar.isShadowHidingEnabled {
+                    navigationBar.shadowAlpha = 0
+                } else {
+                    navigationBar.shadowAlpha = 1
+                }
+            }
+            return
+        }
 
         let scrollY = scrollView.contentOffset.y + scrollView.contentInset.top
-        let barHeight = navigationBar.bar.frame.size.height
-        let underBarViewHeight = navigationBar.underBarView.frame.size.height
-        let extendedViewHeight = navigationBar.extendedView.frame.size.height
+        var adjustedScrollY = scrollY
+        let barTopSpacing = navigationBar.barTopSpacing
+        let barHeight = navigationBar.barHeight
+        let underBarViewHeight = navigationBar.underBarViewHeight
+        let extendedViewHeight = navigationBar.extendedViewHeight
 
-        var totalHideableHeight: CGFloat = 0
-        if navigationBar.isBarHidingEnabled {
-            totalHideableHeight += barHeight
-        }
-        if navigationBar.isUnderBarViewHidingEnabled {
-            totalHideableHeight += underBarViewHeight
-        }
-        if navigationBar.isExtendedViewHidingEnabled {
-            totalHideableHeight += extendedViewHeight
-        }
+        let totalHideableHeight: CGFloat = navigationBar.hideableHeight
         
         if navigationBar.isShadowHidingEnabled {
             if totalHideableHeight > 0 {
@@ -79,6 +84,7 @@ public class NavigationBarHider: NSObject {
         
         let animated = false
         
+        let currentTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
         let currentExtendedViewPercentHidden = navigationBar.extendedViewPercentHidden
@@ -86,40 +92,42 @@ public class NavigationBarHider: NSObject {
         var navigationBarPercentHidden = currentNavigationBarPercentHidden
         var underBarViewPercentHidden = currentUnderBarViewPercentHidden
         var extendedViewPercentHidden = currentExtendedViewPercentHidden
-
-
+        
         let shouldHideUnderBarView = navigationBar.isUnderBarViewHidingEnabled && underBarViewHeight > 0
         let shouldHideExtendedView = navigationBar.isExtendedViewHidingEnabled && extendedViewHeight > 0
-
+        
         if shouldHideUnderBarView {
             if navigationBar.shouldTransformUnderBarViewWithBar {
                 if !navigationBar.isBarHidingEnabled {
                     underBarViewPercentHidden = 0
-                } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
-                    underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
-                } else if scrollY <= extendedViewHeight + barHeight + underBarViewHeight {
+                } else if initialScrollY < totalHideableHeight {
+                    underBarViewPercentHidden = (adjustedScrollY/underBarViewHeight).wmf_normalizedPercentage
+                } else if scrollY <= totalHideableHeight {
                     underBarViewPercentHidden = min(initialNavigationBarPercentHidden, (scrollY/underBarViewHeight).wmf_normalizedPercentage)
                 } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
-                    underBarViewPercentHidden = ((scrollY - initialScrollY)/underBarViewHeight).wmf_normalizedPercentage
+                    underBarViewPercentHidden = ((adjustedScrollY - initialScrollY)/underBarViewHeight).wmf_normalizedPercentage
                 }
             } else {
-                underBarViewPercentHidden = (scrollY/underBarViewHeight).wmf_normalizedPercentage
+                underBarViewPercentHidden = (adjustedScrollY/underBarViewHeight).wmf_normalizedPercentage
             }
+            adjustedScrollY -= underBarViewHeight
         }
         
-        if shouldHideUnderBarView && shouldHideExtendedView {
-            extendedViewPercentHidden = ((scrollY - underBarViewHeight)/extendedViewHeight).wmf_normalizedPercentage
-        } else if shouldHideExtendedView {
-            extendedViewPercentHidden = (scrollY/extendedViewHeight).wmf_normalizedPercentage
+        if shouldHideExtendedView {
+            extendedViewPercentHidden = (adjustedScrollY/extendedViewHeight).wmf_normalizedPercentage
+            adjustedScrollY -= extendedViewHeight
         }
 
+        let topSpacingPercentHidden = barTopSpacing > 0 ? (adjustedScrollY/barTopSpacing).wmf_normalizedPercentage : 1
+        adjustedScrollY -= barTopSpacing
+        
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
-        } else if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight {
-            navigationBarPercentHidden = ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage
-        } else if scrollY <= extendedViewHeight + barHeight + underBarViewHeight {
-            navigationBarPercentHidden = min(initialNavigationBarPercentHidden, ((scrollY - extendedViewHeight - underBarViewHeight)/barHeight).wmf_normalizedPercentage)
-        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
+        } else if initialScrollY < totalHideableHeight {
+            navigationBarPercentHidden = (adjustedScrollY/barHeight).wmf_normalizedPercentage
+        } else if scrollY <= totalHideableHeight {
+            navigationBarPercentHidden = min(initialNavigationBarPercentHidden, (adjustedScrollY/barHeight).wmf_normalizedPercentage)
+        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar {
                 navigationBarPercentHidden = ((scrollY - initialScrollY - underBarViewHeight)/barHeight).wmf_normalizedPercentage
             } else {
@@ -127,10 +135,10 @@ public class NavigationBarHider: NSObject {
             }
         }
 
-        guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden else {
+        guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden || currentTopSpacingPercentHidden != topSpacingPercentHidden else {
             return
         }
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }
@@ -140,31 +148,40 @@ public class NavigationBarHider: NSObject {
             return
         }
         
-        let barHeight = navigationBar.bar.frame.size.height
-        let underBarViewHeight = navigationBar.underBarView.frame.size.height
-        let extendedViewHeight = navigationBar.extendedView.frame.size.height
+        let topSpacingHideableHeight: CGFloat = navigationBar.topSpacingHideableHeight
+        let barHideableHeight = navigationBar.barHideableHeight
+        let underBarViewHideableHeight = navigationBar.underBarViewHideableHeight
+        let extendedViewHideableHeight = navigationBar.extendedViewHideableHeight
+        
+        let totalHideableHeight: CGFloat = navigationBar.hideableHeight
+        
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
-        if targetOffsetY < extendedViewHeight + barHeight + underBarViewHeight {
+        
+        if targetOffsetY < totalHideableHeight {
             if navigationBar.shouldTransformUnderBarViewWithBar { // transform whole bar together
-                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight + barHeight) {
+                if targetOffsetY < 0.5 * totalHideableHeight {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
                 } else {
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
-                if targetOffsetY < 0.5 * (extendedViewHeight + underBarViewHeight) { // both visible
+                if targetOffsetY < 0.5 * extendedViewHideableHeight { // show everything if extended view is less than half hidden
                     targetContentOffset.pointee = CGPoint(x: 0, y: top)
-                } else if targetOffsetY < extendedViewHeight + underBarViewHeight + 0.5 * barHeight  { // only nav bar visible
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + underBarViewHeight)
-                } else if targetOffsetY < extendedViewHeight + barHeight {
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHeight + barHeight + underBarViewHeight)
+                } else if targetOffsetY < extendedViewHideableHeight + 0.5 * underBarViewHideableHeight { // just hide extended view if it's more than half hidden and under bar view is less than half hidden
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight)
+                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight)
+                } else if targetOffsetY < extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + extendedViewHideableHeight + underBarViewHideableHeight + topSpacingHideableHeight)
+                } else { // hide everything
+                    targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             }
             return
         }
         
-        if initialScrollY < extendedViewHeight + barHeight + underBarViewHeight && targetOffsetY > extendedViewHeight + barHeight + underBarViewHeight { // let it naturally hide
+        if initialScrollY < totalHideableHeight && targetOffsetY > totalHideableHeight { // let it naturally hide
             return
         }
 
@@ -172,13 +189,15 @@ public class NavigationBarHider: NSObject {
 
         let animated = true
 
-        let extendedViewPercentHidden = navigationBar.extendedViewPercentHidden
-        let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
-        let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
+        let currentTopSpacingPercentHidden: CGFloat = navigationBar.topSpacingPercentHidden
+        let extendedViewPercentHidden: CGFloat = navigationBar.extendedViewPercentHidden
+        let currentUnderBarViewPercentHidden: CGFloat = navigationBar.underBarViewPercentHidden
+        let currentNavigationBarPercentHidden: CGFloat = navigationBar.navigationBarPercentHidden
         
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
         var underBarViewPercentHidden: CGFloat = currentUnderBarViewPercentHidden
 
+        
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if velocity.y > 0 {
@@ -199,7 +218,7 @@ public class NavigationBarHider: NSObject {
             return
         }
 
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated, additionalAnimations:{
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: currentTopSpacingPercentHidden, animated: animated, additionalAnimations:{
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }

@@ -40,6 +40,7 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
         return [[MWKImageInfo alloc] initWithCanonicalPageTitle:info.canonicalPageTitle
                                                canonicalFileURL:info.canonicalFileURL
                                                imageDescription:potdDescription
+                                          imageDescriptionIsRTL:info.imageDescriptionIsRTL
                                                         license:info.license
                                                     filePageURL:info.filePageURL
                                                   imageThumbURL:info.imageThumbURL
@@ -50,19 +51,6 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
 }
 
 @implementation MWKImageInfoFetcher (PicOfTheDayInfo)
-
-- (void)fetchPicOfTheDaySectionInfoForDate:(NSDate *)date
-                          metadataLanguage:(nullable NSString *)metadataLanguage
-                                   failure:(WMFErrorHandler)failure
-                                   success:(WMFSuccessIdHandler)success {
-    [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
-                               fromSiteURL:[NSURL wmf_wikimediaCommonsURL]
-                          metadataLanguage:metadataLanguage
-                                   failure:failure
-                                   success:^(id _Nonnull object) {
-                                       success(selectFirstImageInfo(date)(object));
-                                   }];
-}
 
 - (void)fetchPicOfTheDayGalleryInfoForDate:(NSDate *)date
                           metadataLanguage:(nullable NSString *)metadataLanguage

@@ -130,7 +130,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         var widthMinusMargins = layoutWidth(for: size)
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
-        let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
         
         let labelsAdditionalSpacing: CGFloat = 20
         if !isImageViewHidden {
@@ -153,22 +152,14 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         var origin = CGPoint(x: x, y: layoutMargins.top)
         
-        if descriptionLabel.wmf_hasText || !isSaveButtonHidden || !isImageViewHidden {
+        if descriptionLabel.wmf_hasText || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
             let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += descriptionLabelFrame.layoutHeight(with: 0)
-            
-            if !isSaveButtonHidden {
-                origin.y += spacing
-                let saveButtonFrame = saveButton.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
-                origin.y += saveButtonFrame.height - 2 * saveButton.verticalPadding + spacing
-            }
         } else {
-            let horizontalAlignment: HorizontalAlignment = isArticleRTL ? .right : .left
-            let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: layoutMargins.left, y: layoutMargins.top), maximumSize: CGSize(width: titleLabelAvailableWidth, height: UIViewNoIntrinsicMetric), minimumSize: CGSize(width: UIViewNoIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: horizontalAlignment, verticalAlignment: .center, apply: apply)
-            origin.y += titleLabelFrame.layoutHeight(with: 0)
+            origin.y += titleLabel.wmf_preferredHeight(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, spacing: 0, apply: apply)
         }
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
@@ -324,7 +315,6 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         self.theme = theme
         apply(theme: theme)
-        isSaveButtonHidden = true
         extractLabel?.text = nil
         imageViewDimension = 100
     
@@ -402,7 +392,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         
         guard collectionViewAvailableWidth > 0 else {
             placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-            return placeholderCell.sizeThatFits(CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric))
+            return placeholderCell.sizeThatFits(CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric))
         }
         
         guard collectionViewAvailableWidth - spacing >= 0 else {
@@ -413,14 +403,14 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
         collectionViewAvailableWidth -= spacing
         
         placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+        var placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIView.noIntrinsicMetric))
         
         let isLastTagToConfigure = tagToConfigure.index + 1 == tags.readingLists.count
         
         if collectionViewAvailableWidth - placeholderCellSize.width - spacing <= placeholderCell.minWidth, !isLastTagToConfigure {
             tagToConfigure.isLast = true
             placeholderCell.configure(with: tagToConfigure, for: tagsCount, theme: theme)
-            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIViewNoIntrinsicMetric))
+            placeholderCellSize = placeholderCell.sizeThatFits(CGSize(width: collectionViewAvailableWidth, height: UIView.noIntrinsicMetric))
         }
         
         collectionViewAvailableWidth -= placeholderCellSize.width

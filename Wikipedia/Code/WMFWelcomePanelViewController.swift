@@ -1,20 +1,20 @@
 
 class WMFWelcomePanelViewController: UIViewController {
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
     
-    @IBOutlet fileprivate var containerView:UIView!
-    @IBOutlet fileprivate var titleLabel:UILabel!
-    @IBOutlet fileprivate var nextButton:UIButton!
-    @IBOutlet fileprivate var scrollView:WMFWelcomePanelGradientScrollView!
-    @IBOutlet fileprivate var nextButtonContainerView:UIView!
+    @IBOutlet private var containerView:UIView!
+    @IBOutlet private var titleLabel:UILabel!
+    @IBOutlet private var nextButton:AutoLayoutSafeMultiLineButton!
+    @IBOutlet private var scrollView:WMFWelcomePanelGradientScrollView!
+    @IBOutlet private var nextButtonContainerView:UIView!
 
-    fileprivate var viewControllerForContainerView:UIViewController? = nil
+    private var viewControllerForContainerView:UIViewController? = nil
     var welcomePageType:WMFWelcomePageType = .intro
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // For iPhone 4s and iPhone 5 a smaller size is used.
+        // For iPhone 5 a smaller size is used.
         if view.bounds.size.height <= 568 {
             titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .medium)
         }
@@ -30,15 +30,15 @@ class WMFWelcomePanelViewController: UIViewController {
         view.wmf_configureSubviewsForDynamicType()
     }
     
-    fileprivate func embedContainerControllerView() {
+    private func embedContainerControllerView() {
         if let containerController = containerController {
-            addChildViewController(containerController)
+            addChild(containerController)
             containerView.wmf_addSubviewWithConstraintsToEdges(containerController.view)
-            containerController.didMove(toParentViewController: self)
+            containerController.didMove(toParent: self)
         }
     }
     
-    fileprivate lazy var containerController: UIViewController? = {
+    private lazy var containerController: UIViewController? = {
         switch welcomePageType {
         case .intro:
             return WMFWelcomeIntroductionViewController.wmf_viewControllerFromWelcomeStoryboard()
@@ -51,7 +51,7 @@ class WMFWelcomePanelViewController: UIViewController {
         }
     }()
 
-    fileprivate func updateUIStrings(){
+    private func updateUIStrings(){
         switch welcomePageType {
         case .intro:
             titleLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-title", value:"The free encyclopedia", comment:"Title for introductory welcome screen")
@@ -74,7 +74,7 @@ class WMFWelcomePanelViewController: UIViewController {
     }
 }
 
-fileprivate extension UIScrollView {
+private extension UIScrollView {
     func wmf_contentSizeHeightExceedsBoundsHeight() -> Bool {
         return contentSize.height - bounds.size.height > 0
     }
@@ -86,10 +86,10 @@ fileprivate extension UIScrollView {
 }
 
 class WMFWelcomePanelGradientScrollView : UIScrollView {
-    fileprivate let fadeHeight: CGFloat = 8
-    fileprivate let fadeColor = UIColor.white
-    fileprivate let clear = UIColor.white.withAlphaComponent(0)
-    fileprivate lazy var topGradientView: WMFGradientView = {
+    private let fadeHeight: CGFloat = 8
+    private let fadeColor = UIColor.white
+    private let clear = UIColor.white.withAlphaComponent(0)
+    private lazy var topGradientView: WMFGradientView = {
         let gradient = WMFGradientView()
         gradient.translatesAutoresizingMaskIntoConstraints = false
         gradient.startPoint = .zero
@@ -99,7 +99,7 @@ class WMFWelcomePanelGradientScrollView : UIScrollView {
         return gradient
     }()
     
-    fileprivate lazy var bottomGradientView: WMFGradientView = {
+    private lazy var bottomGradientView: WMFGradientView = {
         let gradient = WMFGradientView()
         gradient.translatesAutoresizingMaskIntoConstraints = false
         gradient.startPoint = CGPoint(x: 0, y: 1)
@@ -114,7 +114,7 @@ class WMFWelcomePanelGradientScrollView : UIScrollView {
         updateGradientFrames()
     }
 
-    fileprivate func updateGradientFrames() {
+    private func updateGradientFrames() {
         topGradientView.frame = CGRect(x: 0, y: contentOffset.y, width: bounds.size.width, height: fadeHeight)
         bottomGradientView.frame = topGradientView.frame.offsetBy(dx: 0, dy: bounds.size.height - fadeHeight)
     }

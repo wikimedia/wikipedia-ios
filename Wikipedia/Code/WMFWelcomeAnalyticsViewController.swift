@@ -1,13 +1,13 @@
 
 class WMFWelcomeAnalyticsViewController: UIViewController {
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
 
-    @IBOutlet fileprivate var toggleLabel:UILabel!
-    @IBOutlet fileprivate var toggleSubtitleLabel:UILabel!
-    @IBOutlet fileprivate var toggle:UISwitch!
+    @IBOutlet private var toggleLabel:UILabel!
+    @IBOutlet private var toggleSubtitleLabel:UILabel!
+    @IBOutlet private var toggle:UISwitch!
 
-    @IBOutlet fileprivate var descriptionLabel:UILabel!
-    @IBOutlet fileprivate var learnMoreButton:UIButton!
+    @IBOutlet private var descriptionLabel:UILabel!
+    @IBOutlet private var learnMoreButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
         //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
-        if (EventLoggingService.shared.isEnabled) {
+        if (EventLoggingService.shared?.isEnabled ?? false) {
             toggle.isOn = true
             BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
         } else {
@@ -35,7 +35,7 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
         view.wmf_configureSubviewsForDynamicType()
     }
     
-    fileprivate func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
+    private func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
         //Hide accessibility of label because switch will become the label by default.
         toggleLabel.isAccessibilityElement = false
         
@@ -46,10 +46,10 @@ class WMFWelcomeAnalyticsViewController: UIViewController {
     @IBAction func toggleAnalytics(withSender sender: UISwitch){
         if(sender.isOn){
             BITHockeyManager.shared().crashManager.crashManagerStatus = .autoSend
-            EventLoggingService.shared.isEnabled = true
+            EventLoggingService.shared?.isEnabled = true
         }else{
             BITHockeyManager.shared().crashManager.crashManagerStatus = .alwaysAsk
-            EventLoggingService.shared.isEnabled = false
+            EventLoggingService.shared?.isEnabled = false
         }
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }

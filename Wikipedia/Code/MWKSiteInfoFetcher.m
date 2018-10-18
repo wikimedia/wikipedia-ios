@@ -1,10 +1,10 @@
 #import <WMF/MWKSiteInfoFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFDesktopRetry.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFNetworkUtilities.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/MWKSiteInfo.h>
+#import <WMF/WMF-Swift.h>
 
 @interface MWKSiteInfoFetcher ()
 @property (nonatomic, strong) AFHTTPSessionManager *operationManager;
@@ -39,9 +39,8 @@
         @"siprop": @"general"
     };
 
-    [self.operationManager wmf_GETAndRetryWithURL:siteURL
+    [self.operationManager wmf_apiZeroSafeGETWithURL:siteURL
         parameters:params
-        retry:NULL
         success:^(NSURLSessionDataTask *operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             NSDictionary *generalProps = [responseObject valueForKeyPath:@"query.general"];

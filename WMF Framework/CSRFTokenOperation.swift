@@ -1,41 +1,65 @@
 import Foundation
 
-class CSRFTokenOperation: AsyncOperation {
-    private let session: Session
+enum CSRFTokenOperationError: Error {
+    case failedToRetrieveURLForTokenFetcher
+}
+
+public class CSRFTokenOperation<Result>: AsyncOperation {
+    let session: Session
     private let tokenFetcher: WMFAuthTokenFetcher
     
-    private let scheme: String
-    private let host: String
-    private let path: String
+    let scheme: String
+    let host: String
+    let path: String
     
-    private let method: Session.Request.Method
-    private let bodyParameters: [String: Any]?
-    private var completion: (([String: Any]?, URLResponse?, Error?) -> Void)?
-    
-    init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    let method: Session.Request.Method
+    var bodyParameters: [String: Any]?
+    let bodyEncoding: Session.Request.Encoding
+    var queryParameters: [String: Any]?
+    var completion: ((Result?, URLResponse?, Bool?, Error?) -> Void)?
+
+    public struct TokenContext {
+        let tokenName: String
+        let tokenPlacement: TokenPlacement
+        let shouldPercentEncodeToken: Bool
+    }
+
+    let tokenContext: TokenContext
+
+    enum TokenPlacement {
+        case body
+        case query
+    }
+
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
         self.scheme = scheme
         self.host = host
         self.path = path
         self.method = method
+        self.queryParameters = queryParameters
         self.bodyParameters = bodyParameters
+        self.bodyEncoding = bodyEncoding
+        self.tokenContext = tokenContext
         self.completion = completion
     }
     
-    override func finish(with error: Error) {
-        completion?(nil, nil, error)
-        completion = nil
+    override public func finish(with error: Error) {
         super.finish(with: error)
+        completion?(nil, nil, nil, error)
+        completion = nil
     }
     
-    override func cancel() {
+    override public func cancel() {
         super.cancel()
         finish(with: AsyncOperationError.cancelled)
     }
     
-    override func execute() {
-        let finish = {
+    override public func execute() {
+        let finish: (Result?, URLResponse?, Bool?, Error?) -> Void  = { (result, response, authorized, error) in
+            self.completion?(result, response, authorized, error)
+            self.completion = nil
             self.finish()
         }
         var components = URLComponents()
@@ -44,33 +68,41 @@ class CSRFTokenOperation: AsyncOperation {
         guard
             let siteURL = components.url
             else {
-                completion?(nil, nil, APIReadingListError.generic)
-                completion = nil
-                finish()
+                finish(nil, nil, nil, CSRFTokenOperationError.failedToRetrieveURLForTokenFetcher)
                 return
         }
         tokenFetcher.fetchToken(ofType: .csrf, siteURL: siteURL, success: { (token) in
-            self.session.jsonDictionaryTask(host: self.host, method: self.method, path: self.path, queryParameters: ["csrf_token": token.token], bodyParameters: self.bodyParameters) { (result , response, error) in
-                if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                    DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(apiError)")
-                    self.completion?(result, nil, apiError)
-                } else {
-                    #if DEBUG
-                    if let error = error {
-                        DDLogDebug("RLAPI FAILED: \(self.method.stringValue) \(self.path) \(error)")
-                    } else {
-                        DDLogDebug("RLAPI: \(self.method.stringValue) \(self.path)")
-                    }
-                    #endif
-                    self.completion?(result, response, error)
-                }
-                self.completion = nil
-                finish()
-                }?.resume()
-        }) { (failure) in
-            self.completion?(nil, nil, failure)
-            self.completion = nil
-            finish()
+            self.addTokenToRequest(token)
+            self.didFetchToken(token, completion: finish)
+        }) { (error) in
+            finish(nil, nil, nil, error)
         }
+    }
+
+    private func addTokenToRequest(_ token: WMFAuthToken) {
+        let tokenValue = token.token
+        let maybePercentEncodedTokenValue = tokenContext.shouldPercentEncodeToken ? tokenValue.wmf_UTF8StringWithPercentEscapes() : tokenValue
+        switch tokenContext.tokenPlacement {
+        case .body:
+            bodyParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+        case .query:
+            queryParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+        }
+    }
+
+    open func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
+        assertionFailure("Subclasses should override")
+    }
+}
+
+public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
+    public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping ([String: Any]?, URLResponse?, Bool?, Error?) -> Void) {
+        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
+    }
+}
+
+public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
+    public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
+        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
     }
 }

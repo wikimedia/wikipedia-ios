@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,10 +38,10 @@
                     <rect key="frame" x="0.0" y="6" width="302" height="32"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N0g-ms-ld2">
-                            <rect key="frame" x="16" y="0.0" width="223" height="32"/>
+                            <rect key="frame" x="16" y="0.0" width="163" height="32"/>
                             <subviews>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-ct-zPs" userLabel="Language One Button" customClass="WMFUnderlineButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="69" height="32"/>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cF-ct-zPs" userLabel="Language One Button" customClass="SearchLanguageButton" customModule="Wikipedia">
+                                    <rect key="frame" x="0.0" y="0.0" width="49" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                     <state key="normal" title="Button">
@@ -53,8 +51,8 @@
                                         <action selector="setCurrentlySelectedLanguageToButtonLanguageWithSender:" destination="-1" eventType="touchUpInside" id="dHX-4X-Zau"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-In-KvF" userLabel="Language Two Button" customClass="WMFUnderlineButton">
-                                    <rect key="frame" x="77" y="0.0" width="69" height="32"/>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMv-In-KvF" userLabel="Language Two Button" customClass="SearchLanguageButton" customModule="Wikipedia">
+                                    <rect key="frame" x="57" y="0.0" width="49" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                     <state key="normal" title="Button">
@@ -64,8 +62,8 @@
                                         <action selector="setCurrentlySelectedLanguageToButtonLanguageWithSender:" destination="-1" eventType="touchUpInside" id="cX3-O2-d7T"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxs-Rv-XxK" userLabel="Language Three Button" customClass="WMFUnderlineButton">
-                                    <rect key="frame" x="154" y="0.0" width="69" height="32"/>
+                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxs-Rv-XxK" userLabel="Language Three Button" customClass="SearchLanguageButton" customModule="Wikipedia">
+                                    <rect key="frame" x="114" y="0.0" width="49" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                     <state key="normal" title="Button">

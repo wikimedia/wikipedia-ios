@@ -32,7 +32,7 @@
     }
 
     UIBarButtonItem *buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(xButtonPressed)];
-    buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
+    buttonX.accessibilityLabel = WMFCommonStrings.accessibilityBackTitle;
     self.navigationItem.leftBarButtonItem = buttonX;
 
     self.rightButton = [[UIBarButtonItem alloc] initWithTitle:[WMFCommonStrings nextTitle]
@@ -45,11 +45,9 @@
 
     [self.editTextView setDelegate:self];
 
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        // Fix for strange ios 7 bug with large pages of text in the edit text view
-        // jumping around if scrolled quickly.
-        self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
-    }
+    // Fix for strange ios 7 bug with large pages of text in the edit text view
+    // jumping around if scrolled quickly.
+    self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
 
     [self loadLatestWikiTextForSectionFromServer];
 
@@ -57,9 +55,7 @@
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
 
-    if (@available(iOS 11.0, *)) {
-        self.editTextView.smartQuotesType = UITextSmartQuotesTypeNo;
-    }
+    self.editTextView.smartQuotesType = UITextSmartQuotesTypeNo;
 
     self.viewKeyboardRect = CGRectNull;
 

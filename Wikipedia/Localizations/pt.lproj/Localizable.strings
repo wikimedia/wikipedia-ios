@@ -12,6 +12,7 @@
 // Author: Mansil
 // Author: MokaAkashiyaPT
 // Author: Nemo bis
+// Author: Ruila
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -62,6 +63,7 @@
 "account-creation-title" = "Criar uma conta nova";
 "action-add-to" = "Adicionar a…";
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
+"action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover para…";
 "action-move-to-reading-list" = "Mover para lista de leitura";
@@ -104,7 +106,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controlos dos temas de leitura";
 "article-unable-to-load-article" = "Não é possível carregar o artigo.";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
-"back" = "Voltar";
 "back-button-accessibility-label" = "Retroceder";
 "back-button-popover-title" = "Tocar para voltar atrás";
 "button-done" = "Concluído";
@@ -119,10 +120,47 @@
 "button-skip" = "Ignorar";
 "cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explore a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"description-add-link-title" = "Adicionar título de descrição";
+"description-add-title" = "Adicionar descrição";
+"description-edit-for-article" = "Título de descrição para $1";
+"description-edit-learn-more" = "Saber mais";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Ao alterar o título de descrição, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
+"description-edit-pencil-introduction" = "Editar introdução";
+"description-edit-pencil-title" = "Editar título de descrição";
+"description-edit-placeholder-title" = "As descrições curtas são melhores";
+"description-edit-publish" = "Publicar descrição";
+"description-edit-title" = "Editar descrição";
+"description-edit-warning" = "Tente manter as descrições breves para que os utilizadores possam entender o assunto do artigo imediatamente";
+"description-help-about-description" = "Os títulos de descrição sumarizam um artigo para ajudar os leitores a entender o assunto imediatamente";
+"description-help-about-title" = "Sobre";
+"description-help-about-wikidata" = "Sobre a wiki Wikidata";
+"description-help-more-info-description" = "As descrições são armazenadas na wiki Wikidata, um projeto da Wikimedia Foundation que fornece uma base de dados secundária gratuita, colaborativa e multilingue, que suporta a Wikipédia e outros projetos.";
+"description-help-more-info-title" = "Mais informações";
+"description-help-tips-description" = "Idealmente, as descrições devem caber numa linha e ter entre duas a doze palavras. Não têm maiúscula inicial a não ser que a primeira palavra seja um nome próprio.";
+"description-help-tips-example-description-one" = "título de descrição para um artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "título de descrição para um artigo sobre o monte Evereste";
+"description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
+"description-help-tips-example-title-two" = "A montanha mais alta da Terra";
+"description-help-tips-for-example" = "Por exemploː";
+"description-help-tips-title" = "Dicas para criar descrições";
+"description-help-title" = "Ajuda do título de descrição";
+"description-help-wikidata-guide" = "Guia Wikidata para escrever descrições";
+"description-published-button-title" = "Concluído";
+"description-published-footer" = "Também pode editar artigos com esta aplicação. Na próxima vez, tente corrigir erros ortográficos e pequenas frases clicando no ícone do lápis";
+"description-published-subtitle" = "Acabou de tornar a Wikipédia melhor para todos";
+"description-published-title" = "Descrição publicadaǃ";
+"description-welcome-concise-sub-title" = "Idealmente uma linha, entre 2 a 12 palavras";
+"description-welcome-concise-title" = "Concisa";
+"description-welcome-descriptions-sub-title" = "Sumariza um artigo para ajudar os leitores a entender o assunto imediatamente";
+"description-welcome-descriptions-title" = "Títulos de descrição";
+"description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
+"description-welcome-start-editing-button" = "Começar a editar";
 "dim-images" = "Atenuar imagens";
 "edit-summary-choice-fixed-grammar" = "Gramática corrigida";
 "edit-summary-choice-fixed-typos" = "Erro ortográfico corrigido";
@@ -136,22 +174,27 @@
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-history-message" = "Registo do que esteve a ler";
 "empty-no-history-title" = "Não há histórico para mostrar";
-"empty-no-reading-lists-message" = "Toque no ‘+’ azul para criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
+"empty-no-reading-lists-message" = "Criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
 "empty-no-saved-pages-in-reading-list-title" = "Não foram guardadas páginas nesta lista";
 "empty-no-saved-pages-message" = "Guarde páginas para lê-las mais tarde, mesmo sem ligação";
 "empty-no-saved-pages-title" = "Ainda não tem páginas guardadas";
 "empty-no-search-results-message" = "Não foram encontrados resultados";
+"error-generic-description" = "Ocorreu um erro inesperado";
+"error-generic-recovery-suggestion" = "Tente novamente mais tarde, por favor";
 "error-unknown" = "Ocorreu um erro desconhecido";
 "explore-another-random" = "Outro artigo aleatório";
 "explore-because-you-read" = "Porque leu";
 "explore-because-you-read-footer" = "Artigos relacionados complementares";
 "explore-continue-reading-heading" = "Continuar a ler";
+"explore-detail-back-button-title" = "Voltar ao feed Explorar";
 "explore-enable-location-title" = "Explorar artigos de temas perto da sua localização atual";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipédia em $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipédia";
+"explore-feed-customize-accessibility-title" = "Personalizar";
+"explore-feed-language-settings" = "Configurações de língua do feed Explorar";
 "explore-feed-preferences-additional-languages-footer-text" = "Podem ser adicionada línguas na página de definições 'Línguas'.";
 "explore-feed-preferences-card-hidden-title" = "Cartão ocultado";
 "explore-feed-preferences-continue-reading-description" = "Hiperligação rápida para regressar à leitura de um artigo aberto";
@@ -205,6 +248,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Ativar Explorar";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Isto irá substituir o separador Definições pelo separador Explorar. Pode aceder a Definições no topo do separador Explorar tocando no ícone da roda dentada";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ativar o separador Explorar?";
+"explore-feed-preferences-undo-customization" = "Desfazer";
 "explore-hide-card-prompt" = "Ocultar este cartão";
 "explore-main-page-description" = "Página principal dos projetos Wikimedia";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -275,7 +319,7 @@
 "home-more-like-footer" = "Mais, como $1";
 "home-nearby-footer" = "Mais locais nas suas redondezas";
 "home-nearby-location-footer" = "Mais, perto de $1";
-"home-news-footer" = "Mais eventos atuais";
+"home-news-footer" = "Mais atualidades";
 "home-reading-list-prompt" = "Os seus artigos guardados já podem ser organizados nas listas de leitura e sincronizados nos dispositivos. Entre para permitir que as suas listas de leitura sejam guardadas nas preferências de utilizador.";
 "home-themes-action-title" = "Gerir preferências";
 "home-themes-prompt" = "Ajuste as suas preferências de leitura, incluindo o tamanho do texto e o tema, a partir da barra de ferramentas do artigo ou nas suas configurações de utilizador, para uma leitura mais confortável.";
@@ -376,6 +420,7 @@
 "places-filter-top-articles" = "Mais lidos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-filter-top-read-articles" = "Artigos mais lidos";
+"places-location-enabled" = "Localização ativada";
 "places-no-saved-articles-have-location" = "Nenhum dos seus artigos guardados tem informação de localização";
 "places-search-articles-that-match" = "$1 que coincidem com \"$2\"";
 "places-search-default-text" = "Procurar lugares";
@@ -395,6 +440,7 @@
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 leitores";
+"reading-list-add-generic-hint-title" = "Adicionar este artigo a uma lista de leitura?";
 "reading-list-add-hint-title" = "Adicionar “$1” à lista de leitura?";
 "reading-list-add-saved-button-title" = "Sim, desejo adicioná-los às minhas listas de leitura";
 "reading-list-add-saved-subtitle" = "Há artigos guardados na sua aplicação Wikipédia. Deseja mantê-los e fundi-los nas listas de leitura que forem sincronizadas com a sua conta?";
@@ -446,6 +492,7 @@
 "reading-list-unable-to-update" = "Ocorreu um erro inesperado ao atualizar a sua lista de leitura. Por favor, tente novamente mais tarde.";
 "reading-list-with-provided-name-not-found" = "Não foi possível encontrar uma lista de leitura com o nome “$1”. Certifique-se de que o nome esteja correto.";
 "reading-lists-article-added-confirmation" = "O artigo foi adicionado a “$1”";
+"reading-lists-article-api-failure" = "Não é possível sincronizar o artigo";
 "reading-lists-article-not-synced" = "Não sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Limite de artigos excedido, não é possível sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Limite de listas excedido, não é possível sincronizar o artigo";
@@ -510,6 +557,7 @@
 "settings-clear-cache-ok" = "Limpar cache";
 "settings-help-and-feedback" = "Ajuda e comentários";
 "settings-language-bar" = "Mostrar línguas na pesquisa";
+"settings-languages-feed-customization" = "Pode gerir que línguas são mostradas no seu feed Explorar personalizando as configurações do mesmo.";
 "settings-my-languages" = "As minhas línguas";
 "settings-notifications" = "Notificações";
 "settings-notifications-info" = "Receba alertas sobre os artigos em tendência e mais lidos da Wikipédia, com o nosso sistema de notificações. Tudo fornecido com respeito pela sua privacidade e atualizado ao minuto.";
@@ -518,7 +566,7 @@
 "settings-notifications-system-turn-on" = "Ativar notificações";
 "settings-notifications-trending" = "Atualidades em tendência";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação. Alterá-la irá alterar também o conteúdo diário (como o \"Artigo em destaque\") apresentado em Explorar.";
+"settings-primary-language-details" = "A primeira língua desta lista é usada como língua principal da aplicação.";
 "settings-search-footer-text" = "Configurar a aplicação para abrir no separador Pesquisar em vez do separador Explorar";
 "settings-search-open-app-on-search" = "Abrir aplicação no separador Pesquisar";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, quando se autenticar e sincronizar, a Wikimedia grave nas suas preferências os artigos guardados e as listas de leitura.";
@@ -537,7 +585,6 @@
 "settings-support" = "Apoie a Wikipédia";
 "settings-title" = "Definições";
 "share-a-fact-made-with" = "Feito com a aplicação Wikipédia";
-"share-a-fact-share-menu-item" = "Partilhar um facto...";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "A criar um cartão \"Partilhar um facto\"...";
 "share-custom-menu-item" = "Partilhar...";

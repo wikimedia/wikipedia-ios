@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ncK-V0-zLz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -328,7 +327,6 @@
                         <outlet property="bottomContainerViewHeightConstraint" destination="2mK-dI-Fex" id="D9z-9q-dp1"/>
                         <outlet property="overallContainerStackView" destination="NFg-Vn-ndK" id="hRs-pK-t3M"/>
                         <outlet property="overallContainerStackViewCenterYConstraint" destination="xJf-C6-csU" id="cbI-zN-Qpc"/>
-                        <outlet property="topContainerView" destination="y48-XV-eDQ" id="ELD-Ac-Pat"/>
                         <outlet property="topContainerViewHeightConstraint" destination="CFH-9F-mJz" id="Nfm-pW-qX7"/>
                     </connections>
                 </viewController>
@@ -396,13 +394,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feb-fU-2ul">
                                         <rect key="frame" x="0.0" y="332" width="300" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi0-7O-Fk0">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi0-7O-Fk0" customClass="AutoLayoutSafeMultiLineButton" customModule="Wikipedia" customModuleProvider="target">
                                                 <rect key="frame" x="14" y="0.0" width="272" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" priority="999" constant="50" id="nLl-WJ-m8O"/>
+                                                    <constraint firstAttribute="height" priority="750" constant="50" id="nLl-WJ-m8O"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <inset key="titleEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="Button">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -566,7 +565,7 @@
                                         </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="😀🎉" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="Sp2-Be-DyJ">
-                                        <rect key="frame" x="59" y="79" width="46" height="21"/>
+                                        <rect key="frame" x="59" y="79.5" width="46" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

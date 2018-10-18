@@ -53,7 +53,6 @@
 "article-languages-yours" = "Jūsų kalbos";
 "article-read-more-title" = "Skaityti daugiau";
 "article-unable-to-load-article" = "Nepavyko įkelti straipsnio.";
-"back" = "Atgal";
 "back-button-accessibility-label" = "Atgal";
 "button-done" = "Atlikta";
 "button-next" = "Kitas";
@@ -242,7 +241,6 @@
 "settings-primary-language" = "Pagrindinis";
 "settings-support" = "Paremti Vikipediją";
 "settings-title" = "Nustatymai";
-"share-a-fact-share-menu-item" = "Dalintis faktu…";
 "share-custom-menu-item" = "Dalintis...";
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";

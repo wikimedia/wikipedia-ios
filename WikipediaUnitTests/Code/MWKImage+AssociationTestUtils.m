@@ -21,6 +21,7 @@
     return [[self alloc] initWithCanonicalPageTitle:imageURL
                                    canonicalFileURL:[NSURL URLWithString:imageURL]
                                    imageDescription:nil
+                              imageDescriptionIsRTL:false
                                             license:nil
                                         filePageURL:nil
                                       imageThumbURL:nil

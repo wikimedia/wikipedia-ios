@@ -26,6 +26,7 @@ extension NewsCollectionViewCell {
             isImageViewHidden = true
         }
         apply(theme: theme)
+        resetContentOffset()
         setNeedsLayout()
     }    
 }

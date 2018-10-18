@@ -7,7 +7,7 @@ public enum ReadingListsAlertActionType {
     
     public func action(with handler: (() -> Void)? = nil) -> UIAlertAction {
         let title: String
-        let style: UIAlertActionStyle
+        let style: UIAlertAction.Style
         switch self {
         case .delete:
             title = CommonStrings.deleteActionTitle
@@ -75,7 +75,7 @@ public class ReadingListsAlertController: NSObject {
         guard Thread.isMainThread else {
             return
         }
-        guard !UserDefaults.wmf_userDefaults().wmf_didShowLimitHitForUnsortedArticlesPanel() else {
+        guard !UserDefaults.wmf.wmf_didShowLimitHitForUnsortedArticlesPanel() else {
             return
         }
         guard readingList.isDefault else {
@@ -89,7 +89,7 @@ public class ReadingListsAlertController: NSObject {
             presenter.present(navigationController, animated: true)
         }
         presenter.wmf_showLimitHitForUnsortedArticlesPanelViewController(theme: theme, primaryButtonTapHandler: primaryButtonHandler) {
-            UserDefaults.wmf_userDefaults().wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
+            UserDefaults.wmf.wmf_setDidShowLimitHitForUnsortedArticlesPanel(true)
         }
     }
 }

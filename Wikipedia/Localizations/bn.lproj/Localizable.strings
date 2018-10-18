@@ -88,7 +88,6 @@
 "article-share" = "শেয়ার করুন";
 "article-unable-to-load-article" = "নিবন্ধ লোড করতে অসমর্থ।";
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
-"back" = "পিছনে";
 "back-button-accessibility-label" = "পিছনে";
 "button-done" = "সম্পন্ন";
 "button-next" = "পরবর্তী";
@@ -142,10 +141,8 @@
 "explore-most-read-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
 "explore-nearby-heading" = "নিকটবর্তী স্থানগুলি";
 "explore-nearby-placeholder-heading" = "স্থান";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়ায়";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়ায়";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-nearby-sub-heading-your-location" = "আপনার অবস্থান";
 "explore-potd-heading" = "আজকের নির্বাচিত ছবি";
 "explore-potd-sub-heading" = "উইকিমিডিয়া কমন্স থেকে";
@@ -261,6 +258,7 @@
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
 "on-this-day-detail-header-date-range" = "$1 - $2 থেকে";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 উইকিপিডিয়া থেকে $1";
 "on-this-day-title" = "আজকের এই দিনে";
 "open-link-cancel" = "বাতিল";
 "page-edit-history" = "সম্পূর্ণ সম্পাদনা ইতিহাস";
@@ -344,11 +342,10 @@
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-primary-language" = "প্রাথমিক";
+// Fuzzy
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
-// Fuzzy
-"share-a-fact-share-menu-item" = "একটি তথ্য শেয়ার করুন";
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
 "share-custom-menu-item" = "বণ্টন...";
 "share-default-format" = "“$2” থেকে “$1”: $3";

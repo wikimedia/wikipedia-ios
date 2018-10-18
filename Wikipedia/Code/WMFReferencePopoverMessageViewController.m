@@ -48,7 +48,7 @@
 }
 
 - (NSString *)referenceHTMLWithSurroundingHTML {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    NSNumber *fontSize = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
 
     NSString *domain = [SessionSingleton sharedInstance].currentArticleSiteURL.wmf_language;
     MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
@@ -100,7 +100,6 @@
 - (CGSize)preferredContentSize {
     // Make the popover's dimensions result from the storyboard constraints, i.e. respect
     // dynamic height for localized strings which end up being long enough to wrap lines, etc.
-    // Works with both iOS 8 and 9.
     return [self.view systemLayoutSizeFittingSize:CGSizeMake(UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric)];
 }
 

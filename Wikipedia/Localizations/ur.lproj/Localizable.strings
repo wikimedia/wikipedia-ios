@@ -91,7 +91,6 @@
 "article-share" = "دوسروں کو بھیجیں";
 "article-unable-to-load-article" = "مضمون کو لوڈ نہیں کیا جا سکا۔";
 "article-unable-to-load-section" = "اس قطعے کو لوڈ نہیں کیا جا سکا۔ مضمون تازہ لوڈ کرکے دیکھیے کہ کیا اس مسئلے کا حل ممکن ہوچکا ہے۔";
-"back" = "واپس جائیں";
 "back-button-accessibility-label" = "واپس";
 "button-done" = "مکمل";
 "button-next" = "اگلا";
@@ -208,7 +207,7 @@
 "in-the-news-sub-title-from-wikipedia" = "ویکیپیڈیا سے";
 "in-the-news-title" = "خبروں میں";
 "info-box-close-text" = "بند کریں";
-"info-box-title" = "فوری حقائق";
+"info-box-title" = "اجمالی معلومات";
 "languages-settings-title" = "زبانیں";
 "languages-title" = "زبان تبدیل کریں";
 "languages-wikipedia" = "ویکیپیڈیا کی زبانیں";
@@ -256,7 +255,7 @@
 "open-link-cancel" = "منسوخ";
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
 "page-history-title" = "مضمون کا تاریخچہ";
-"page-issues" = "صفحہ کے مسائل";
+"page-issues" = "تبصرہ تحریر";
 "page-last-edited" = "$1 دن پہلے ترمیم کیا گیا.";
 "page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";
@@ -305,11 +304,11 @@
 "settings-language-bar" = "تلاش ميں زبانوں کو دکھائیں";
 "settings-my-languages" = "میری زبانیں";
 "settings-primary-language" = "ابتدائی";
+// Fuzzy
 "settings-primary-language-details" = "اس فہرست کی پہلی زبان ایپ کی ابتدائی زبان کے طور پر استعمال کی گئی ہے۔ اس زبان کو بدلنے سے روزانہ کا مواد بدل سکتا ہے (جیسے کہ منتخب مضمون) جو کہ ایکسپلور (Explore) پر دکھایا جاتا ہے۔";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "متائیں";
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";
 "settings-title" = "ترجیحات";
-"share-a-fact-share-menu-item" = "حقیقت دوسروں کو بھیجیں…";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia پر:";
 "share-custom-menu-item" = "دوسروں کو بھیجیں";
 "share-menu-item" = "شیئر…";

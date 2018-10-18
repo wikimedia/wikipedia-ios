@@ -3,16 +3,16 @@
 private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, loggingCode: String)
 
 @objc final class UserHistoryFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    private let targetCountries: [String] = [
+    private let targetCountries: Set<String> = Set<String>(arrayLiteral:
         "US", "DE", "GB", "FR", "IT", "CA", "JP", "AU", "IN", "RU", "NL", "ES", "CH", "SE", "MX",
         "CN", "BR", "AT", "BE", "UA", "NO", "DK", "PL", "HK", "KR", "SA", "CZ", "IR", "IE", "SG",
         "NZ", "AE", "FI", "IL", "TH", "AR", "VN", "TW", "RO", "PH", "MY", "ID", "CL", "CO", "ZA",
         "PT", "HU", "GR", "EG"
-    ]
+    )
     @objc public static let shared = UserHistoryFunnel()
     
     private var isTarget: Bool {
-        guard let countryCode = Locale.current.regionCode else {
+        guard let countryCode = Locale.current.regionCode?.uppercased() else {
             return false
         }
         return targetCountries.contains(countryCode)
@@ -23,7 +23,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     }
     
     private func event() -> Dictionary<String, Any> {
-        let userDefaults = UserDefaults.wmf_userDefaults()
+        let userDefaults = UserDefaults.wmf
         
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.wmf_appTheme.displayName.lowercased()
@@ -81,24 +81,34 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        EventLoggingService.shared.lastLoggedSnapshot = eventData as NSCoding
+        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
+        UserDefaults.wmf.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
-        return EventLoggingService.shared.lastLoggedSnapshot as? Dictionary<String, Any>
+        return EventLoggingService.shared?.lastLoggedSnapshot as? Dictionary<String, Any>
     }
     
     @objc public func logSnapshot() {
-        guard let latestSnapshot = latestSnapshot else {
+        guard EventLoggingService.shared?.isEnabled ?? false else {
             return
         }
+        
         guard isTarget else {
             return
         }
         
+        guard let lastAppVersion = UserDefaults.wmf.wmf_lastAppVersion else {
+            log(event())
+            return
+        }
+        guard let latestSnapshot = latestSnapshot else {
+            return
+        }
+
         let newSnapshot = event()
         
-        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) else {
+        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) || lastAppVersion != WikipediaAppUtils.appVersion() else {
             // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
             return
         }
@@ -110,6 +120,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     @objc public func logStartingSnapshot() {
         guard latestSnapshot == nil else {
             // DDLogDebug("Starting User History snapshot was already recorded; logging new User History snapshot aborted")
+            logSnapshot() // call standard log snapshot in case version changed, should be logged on session start
             return
         }
         guard isTarget else {

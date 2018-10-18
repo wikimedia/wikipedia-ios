@@ -166,7 +166,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         cellLayoutEstimate = estimate
         return estimate
@@ -307,7 +307,7 @@ extension SavedArticlesViewController: ActionDelegate {
     private func delete(articles: [WMFArticle]) {
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, CommonStrings.articleDeletedNotification(articleCount: articlesCount))
+        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         let language = articles.count == 1 ? articles.first?.url?.wmf_language : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }
@@ -405,17 +405,17 @@ extension SavedArticlesViewController {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
         }
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell,
-            let url = articleURL(at: indexPath)
-            else {
+        
+        guard
+            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
+            let articleURL = articleURL(at: indexPath)
+        else {
                 return nil
         }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
         
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
     
@@ -432,18 +432,6 @@ extension SavedArticlesViewController: SavedArticlesCollectionViewCellDelegate {
         let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingListsForArticle(at: tag.indexPath)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
         viewController.apply(theme: theme)
         wmf_push(viewController, animated: true)
-    }
-}
-
-// MARK: - Analytics
-
-extension SavedArticlesViewController: AnalyticsContextProviding, AnalyticsViewNameProviding {
-    var analyticsName: String {
-        return "SavedArticles"
-    }
-    
-    var analyticsContext: String {
-        return analyticsName
     }
 }
 

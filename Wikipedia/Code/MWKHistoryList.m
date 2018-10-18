@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)migrateLegacyDataIfNeeded {
     NSAssert([NSThread isMainThread], @"Legacy migration must happen on the main thread");
 
-    if ([[NSUserDefaults wmf_userDefaults] wmf_didMigrateHistoryList]) {
+    if ([[NSUserDefaults wmf] wmf_didMigrateHistoryList]) {
         return;
     }
 
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     if ([entries count] == 0) {
-        [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
+        [[NSUserDefaults wmf] wmf_setDidMigrateHistoryList:YES];
         return;
     }
 
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [[NSUserDefaults wmf_userDefaults] wmf_setDidMigrateHistoryList:YES];
+    [[NSUserDefaults wmf] wmf_setDidMigrateHistoryList:YES];
 }
 
 #pragma mark - Convienence Methods

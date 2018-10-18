@@ -1,5 +1,7 @@
 // Messages for Simplified Chinese (中文（简体）‎)
 // Exported from translatewiki.net
+// Author: A Chinese Wikipedian
+// Author: Chixvv
 // Author: Davidzdh
 // Author: Endermoon
 // Author: Hudafu
@@ -12,15 +14,18 @@
 // Author: Nemo bis
 // Author: NeverBehave
 // Author: NigelSoft
+// Author: Phenolla
 // Author: Qiyue2001
 // Author: Shizhao
 // Author: Tonylianlong
+// Author: Wxyveronica
 // Author: Yfdyh000
+// Author: 夢蝶葬花
 // Author: 王庭茂
 
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
-"about-content-license-details-share-alike-license" = "知识共享署名-相同方式共享许可协议";
+"about-content-license-details-share-alike-license" = "知识共享-署名-相同方式共享许可协议";
 "about-contributors" = "贡献者";
 "about-libraries" = "使用的库";
 "about-libraries-complete-list" = "完整列表";
@@ -64,6 +69,7 @@
 "account-creation-title" = "创建新账户";
 "action-add-to" = "添加至…";
 "action-add-to-reading-list" = "添加至阅读列表";
+"action-add-to-reading-list-short" = "添加至列表";
 "action-cancel" = "取消";
 "action-move-to" = "移动至…";
 "action-move-to-reading-list" = "移动至阅读列表";
@@ -106,8 +112,8 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
-"back" = "返回";
 "back-button-accessibility-label" = "返回";
+"back-button-popover-title" = "点击返回";
 "button-done" = "完成";
 "button-next" = "下一个";
 "button-ok" = "确定";
@@ -120,10 +126,47 @@
 "button-skip" = "跳过";
 "cancel" = "取消";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "知识共享CC0";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
+"description-add-link-title" = "添加标题描述";
+"description-add-title" = "添加描述";
+"description-edit-for-article" = "$1的标题说明";
+"description-edit-learn-more" = "了解更多";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "通过更改标题描述，我同意$1，并在$2的许可下不可撤销地发布我的稿件。";
+"description-edit-pencil-introduction" = "编辑此介绍";
+"description-edit-pencil-title" = "编辑标题描述";
+"description-edit-placeholder-title" = "最好使用简短的描述";
+"description-edit-publish" = "发布描述";
+"description-edit-title" = "编辑描述";
+"description-edit-warning" = "尽量保持描述简短，这样用户就可以一目了然地理解文章的主题。";
+"description-help-about-description" = "标题描述总结一篇文章，帮助读者一目了然地理解这个主题。";
+"description-help-about-title" = "关于";
+"description-help-about-wikidata" = "关于Wikidata";
+"description-help-more-info-description" = "维基媒体基金会的项目维基数据提供了一个自由的、协作的、多语言的、支持维基百科和其他项目的辅助数据库。";
+"description-help-more-info-title" = "更多信息";
+"description-help-tips-description" = "描述应该理想地拟合在一行上，长度在两到十二个单词之间。除非第一个词是专有名词，否则它们不会大写。";
+"description-help-tips-example-description-one" = "有关蒙娜丽莎条目的标题描述";
+"description-help-tips-example-description-two" = "关于珠峰的文章标题描述";
+"description-help-tips-example-title-one" = "由列奥纳多·达·芬奇绘制";
+"description-help-tips-example-title-two" = "地球第一高峰";
+"description-help-tips-for-example" = "例如：";
+"description-help-tips-title" = "创建描述的技巧";
+"description-help-title" = "标题描述帮助";
+"description-help-wikidata-guide" = "维基数据写作说明指南";
+"description-published-button-title" = "完成";
+"description-published-footer" = "您也可以使用此 App 对条目进行编辑。点击铅笔图标便可以尝试修正笔误以及短句。";
+"description-published-subtitle" = "您可以让维基百科变得更美好";
+"description-published-title" = "描述已发布！";
+"description-welcome-concise-sub-title" = "理想的一行，在两到十二个字之间";
+"description-welcome-concise-title" = "保持简短";
+"description-welcome-descriptions-sub-title" = "总结条目以帮助读者一眼了解主题。";
+"description-welcome-descriptions-title" = "标题描述";
+"description-welcome-promise-title" = "通过开始，我保证不滥用这个特性。";
+"description-welcome-start-editing-button" = "开始编辑";
 "dim-images" = "使图片变暗";
 "edit-summary-choice-fixed-grammar" = "已确定语法";
 "edit-summary-choice-fixed-typos" = "修正笔误";
@@ -137,23 +180,29 @@
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-history-message" = "在此记录您的阅读经历";
 "empty-no-history-title" = "没有要显示的历史";
-"empty-no-reading-lists-message" = "点按蓝色加号以创建要旅行的地点、感兴趣的话题以及更多事物的阅读列表";
+"empty-no-reading-lists-message" = "创建旅行的地点、感兴趣的话题以及更多事物的列表";
 "empty-no-reading-lists-title" = "组织已保存条目与阅读列表";
 "empty-no-saved-pages-in-reading-list-message" = "保存页面至此列表，让页面出现在此";
 "empty-no-saved-pages-in-reading-list-title" = "没有页面保存至此列表";
 "empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
 "empty-no-saved-pages-title" = "尚无保存的页面";
 "empty-no-search-results-message" = "找不到结果";
+"error-generic-description" = "发生意外错误。";
+"error-generic-recovery-suggestion" = "请一会儿再试";
 "error-unknown" = "发生未知错误";
 "explore-another-random" = "其他随机条目";
 "explore-because-you-read" = "因为您阅读";
 "explore-because-you-read-footer" = "额外的相关条目";
 "explore-continue-reading-heading" = "继续阅读";
+"explore-detail-back-button-title" = "回到探索订阅源";
 "explore-enable-location-title" = "浏览您当前位置附近的条目";
 "explore-featured-article-heading" = "典范条目";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "来自$1维基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "来自维基百科";
+"explore-feed-customize-accessibility-title" = "自定义";
+"explore-feed-language-settings" = "探索订阅源语言设置";
 "explore-feed-preferences-additional-languages-footer-text" = "额外语言可添加到“我的语言”设置页面中。";
+"explore-feed-preferences-card-hidden-title" = "卡片已隐藏";
 "explore-feed-preferences-continue-reading-description" = "快速链接以返回阅读打开的条目";
 "explore-feed-preferences-customize-explore-feed" = "自定义探索订阅源";
 "explore-feed-preferences-customize-explore-feed-action-title" = "自定义探索订阅源";
@@ -164,6 +213,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "在所有";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "开";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "在$1";
+"explore-feed-preferences-feed-cards-hidden-title" = "所有%@点卡片已隐藏";
 "explore-feed-preferences-global-card-footer-text" = "此卡片并非语言特定，关闭此卡片将从您的探索订阅源中移除它。";
 "explore-feed-preferences-global-cards-description" = "非语言特定卡片";
 "explore-feed-preferences-global-cards-subtitle" = "非语言特定";
@@ -194,8 +244,17 @@
 "explore-feed-preferences-show-top-read-title" = "显示最多阅读卡片";
 "explore-feed-preferences-top-read-description" = "每日最多阅读条目";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "关闭探索订阅源";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "隐藏所有探索订阅源卡片将关闭探索标签，并将其替换为设置标签";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "关闭探索订阅源么？";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "关闭探索";
+"explore-feed-preferences-turn-off-explore-tab-message" = "探索标签可通过探索订阅源设置重新打开";
+"explore-feed-preferences-turn-off-explore-tab-title" = "关闭探索标签么？";
 "explore-feed-preferences-turn-off-feed-disclosure" = "关闭探索标签将替换探索标签为设置标签。";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "通过选择以显示您在探索标签中打开的探索订阅源卡片";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "打开探索";
+"explore-feed-preferences-turn-on-explore-tab-message" = "这将替换设置标签为探索标签，您可以在探索标签上方通过点按齿轮图标访问设置";
+"explore-feed-preferences-turn-on-explore-tab-title" = "打开探索标签么？";
+"explore-feed-preferences-undo-customization" = "撤销";
 "explore-hide-card-prompt" = "隐藏此卡片";
 "explore-main-page-description" = "维基媒体项目的首页";
 "explore-main-page-heading" = "维基百科今日";
@@ -206,11 +265,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "在维基百科";
 "explore-nearby-heading" = "地点接近";
 "explore-nearby-placeholder-heading" = "地方";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "在$1维基百科";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "在维基百科";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "来自$1维基百科";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "来自维基百科";
 "explore-nearby-sub-heading-your-location" = "您的位置";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "您的位置来自$1维基百科";
 "explore-potd-heading" = "每日图片";
 "explore-potd-sub-heading" = "来自维基共享资源";
 "explore-random-article-heading" = "随机条目";
@@ -332,8 +390,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1个历史事件}}";
 "on-this-day-footer" = "这一天的更多历史事件";
 "on-this-day-footer-with-event-count" = "今天的$1个更多历史活动";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "open-link-cancel" = "取消";
+"original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
 "page-edit-history" = "完整编辑历史";
 "page-history-title" = "条目历史";
 "page-issues" = "页面问题";
@@ -366,6 +426,7 @@
 "places-filter-top-articles" = "最多阅读";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1个条目}}";
 "places-filter-top-read-articles" = "最多阅读条目";
+"places-location-enabled" = "位置已启用";
 "places-no-saved-articles-have-location" = "您保存的条目均没有位置信息";
 "places-search-articles-that-match" = "$1匹配“$2”";
 "places-search-default-text" = "搜索地点";
@@ -385,6 +446,7 @@
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
 "rank-accessibility-label" = "第$1";
 "readers-accessibility-label" = "$1位读者";
+"reading-list-add-generic-hint-title" = "添加此条目至阅读列表么？";
 "reading-list-add-hint-title" = "添加“$1”至阅读列表么？";
 "reading-list-add-saved-button-title" = "是，将他们添加到我的阅读列表";
 "reading-list-add-saved-subtitle" = "这些是保存到您的维基百科应用的条目。您是否希望保留它们，并合并到同步至您账户的阅读列表？";
@@ -436,6 +498,7 @@
 "reading-list-unable-to-update" = "更新您的阅读列表时发生意外错误。请稍后重试。";
 "reading-list-with-provided-name-not-found" = "找不到名为“$1”的阅读列表。请确保您已提供正确名称。";
 "reading-lists-article-added-confirmation" = "条目已添加至“$1”";
+"reading-lists-article-api-failure" = "无法同步条目";
 "reading-lists-article-not-synced" = "未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超过条目限制，无法同步条目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超过列表限制，无法同步条目";
@@ -488,6 +551,7 @@
 "search-recent-clear-confirmation-heading" = "删除全部最近搜索？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-delete-all" = "删除全部";
+"search-recent-empty" = "尚无最近搜索";
 "search-recent-title" = "最近搜索";
 "search-result-redirected-from" = "重定向自：$1";
 "search-title" = "搜索";
@@ -499,6 +563,7 @@
 "settings-clear-cache-ok" = "清空缓存";
 "settings-help-and-feedback" = "帮助和反馈";
 "settings-language-bar" = "在搜索时显示语言";
+"settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
 "settings-notifications" = "通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
@@ -507,7 +572,9 @@
 "settings-notifications-system-turn-on" = "打开通知";
 "settings-notifications-trending" = "趋向当前活动";
 "settings-primary-language" = "首选";
-"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。更改此语言将更改在探索中显示的每日内容（例如典范条目）。";
+"settings-primary-language-details" = "此列表中的第一个语言被用于应用程序的首选语言。";
+"settings-search-footer-text" = "设置应用以打开搜索标签而不是探索标签";
+"settings-search-open-app-on-search" = "在搜索选项卡打开app";
 "settings-storage-and-syncing-enable-sync-footer-text" = "当您登录并同步时，允许维基媒体保存您保存的条目及阅读列表至您的用户参数设置。";
 "settings-storage-and-syncing-enable-sync-title" = "同步保存的条目和列表";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "如果您启用了从此设备同步，那么清空您保存的条目将从您的用户账户中移除它们。您不能撤销这一操作。";
@@ -524,7 +591,6 @@
 "settings-support" = "支持维基百科";
 "settings-title" = "设置";
 "share-a-fact-made-with" = "通过维基百科应用制作";
-"share-a-fact-share-menu-item" = "分享预览…";
 "share-article-name-on-wikipedia" = "“$1”在@Wikipedia：";
 "share-building" = "建立分享预览卡…";
 "share-custom-menu-item" = "分享...";

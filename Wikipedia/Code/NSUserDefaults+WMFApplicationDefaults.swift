@@ -25,7 +25,6 @@ extension UserDefaults {
     
     @objc public func wmf_setArticleFontSizeMultiplier(_ fontSize: NSNumber) {
         self.set(fontSize, forKey: WMFArticleFontSizeMultiplierKey)
-        self.synchronize()
     }
     
     @objc public func wmf_articleFontSizeMultiplier() -> NSNumber {

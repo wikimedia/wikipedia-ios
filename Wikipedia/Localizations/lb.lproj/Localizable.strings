@@ -47,6 +47,7 @@
 "account-creation-title" = "En neie Benotzerkont uleeën";
 "action-add-to" = "Derbäisetzen op...";
 "action-add-to-reading-list" = "Op d'Lieslëscht derbäisetzen";
+"action-add-to-reading-list-short" = "Op d'Lëscht derbäisetzen";
 "action-cancel" = "Ofbriechen";
 "action-move-to" = "Réckelen op...";
 "action-read" = "Liesen";
@@ -75,7 +76,6 @@
 "article-share" = "Deelen";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
-"back" = "Zréck";
 "back-button-accessibility-label" = "Zréck";
 "button-done" = "Fäerdeg";
 "button-next" = "Weider";
@@ -90,9 +90,19 @@
 "cancel" = "Ofbriechen";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zoumaachen";
-"compass-direction" = "ëm $1 Auer";
+"compass-direction" = "um $1 Auer";
 "continue-reading-empty-description" = "Wikipedia fir méi Artikelen entdecken";
 "continue-reading-empty-title" = "Keng rezent geliesen Artikelen";
+"description-add-title" = "Beschreiwung derbäisetzen";
+"description-edit-learn-more" = "Fir méi ze wëssen";
+"description-edit-publish" = "Beschreiwung verëffentlechen";
+"description-edit-title" = "Beschreiwung änneren";
+"description-help-about-title" = "Iwwer";
+"description-help-about-wikidata" = "Iwwer Wikidata";
+"description-help-more-info-title" = "Méi Informatiounen";
+"description-help-tips-for-example" = "Zum Beispill:";
+"description-published-button-title" = "Fäerdeg";
+"description-welcome-concise-title" = "Haalt Iech kuerz";
 "dim-images" = "Biller dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
@@ -111,6 +121,8 @@
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-search-results-message" = "Näischt fonnt";
+"error-generic-description" = "En onerwaarte Feeler ass geschitt";
+"error-generic-recovery-suggestion" = "Probéiert w.e.g. méi spéit nach eng Kéier";
 "error-unknown" = "En onbekannte Feeler ass geschitt";
 "explore-another-random" = "En aneren zoufällegen Artikel";
 "explore-because-you-read" = "Well Dir liest";
@@ -119,6 +131,7 @@
 "explore-featured-article-heading" = "Recommandéierten Artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
+"explore-feed-customize-accessibility-title" = "Upassen";
 "explore-feed-preferences-card-hidden-title" = "Kaart verstoppt";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Aus";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Un";
@@ -128,6 +141,7 @@
 "explore-feed-preferences-global-cards-title" = "Global Kaarten";
 "explore-feed-preferences-hide-card-action-title" = "Dës Kaart verstoppen";
 "explore-feed-preferences-places-description" = "Wikipedia-Artikel an Ärer Géigend";
+"explore-feed-preferences-undo-customization" = "Réckgängeg maachen";
 "explore-hide-card-prompt" = "Dës Kaart verstoppen";
 "explore-main-page-description" = "Haaptsäit vun de wikimedia-Projeten";
 "explore-main-page-heading" = "Haut op Wikipedia";
@@ -290,6 +304,7 @@
 "places-filter-saved-articles" = "Gespäichert Artikelen";
 "places-filter-top-articles" = "Am dackste gelies";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
+"places-filter-top-read-articles" = "Am dackste geliest Artikelen";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
 "places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
@@ -308,6 +323,7 @@
 "preference-title-eventlogging-opt-in" = "Rapporten iwwer d'Benotze schécken";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 Lieser";
+"reading-list-add-generic-hint-title" = "Dësen Artikel op eng Lieslëscht derbäisetzen?";
 "reading-list-add-hint-title" = "\"$1\" op eng Lieslëscht derbäisetzen?";
 "reading-list-add-saved-button-title" = "Jo, setzt s'op meng Lieslëschten derbäi";
 "reading-list-add-saved-title" = "Gespäichert Artikele fonnt";
@@ -385,6 +401,7 @@
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";
 "settings-notifications-trending" = "Aktuell Evenementer";
 "settings-primary-language" = "Primär";
+// Fuzzy
 "settings-primary-language-details" = "Déi éischt Sprooch an dëser Lëscht gëtt als primär Sprooch fir d'App consideréiert. D'Ännere vun dëser Sprooch ännert den deeglechen Inhalt (wéi excellent Artikelen) déi bei 'Entdecken' gewise ginn.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "All gespäichert Artikel läschen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Läschen";
@@ -396,7 +413,6 @@
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
-"share-a-fact-share-menu-item" = "E-Fait-deelen...";
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-custom-menu-item" = "Deelen...";
 "share-default-format" = "\"$1\" vu(n) \"$2\": $3";

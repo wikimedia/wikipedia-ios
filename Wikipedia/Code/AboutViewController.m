@@ -103,7 +103,6 @@ static NSString *const kWMFContributorsKey = @"contributors";
 @property (strong, nonatomic) WKWebView *webView;
 @property (nonatomic, strong) UIBarButtonItem *buttonX;
 @property (nonatomic, strong) UIBarButtonItem *buttonCaretLeft;
-@property (nonatomic, strong) WMFTheme *theme;
 
 @end
 
@@ -112,14 +111,20 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - UIViewController
 
 - (instancetype)initWithTheme:(WMFTheme *)theme {
-    self.theme = theme;
+    self = [super init];
+    if (self) {
+        self.theme = theme;
+    }
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (UIScrollView *)scrollView {
+    return self.webView.scrollView;
+}
 
+- (void)viewDidLoad {
     WKWebView *wv = [[WKWebView alloc] initWithFrame:CGRectZero];
+    [super viewDidLoad];
     [self.view wmf_addSubviewWithConstraintsToEdges:wv];
 
     wv.navigationDelegate = self;
@@ -134,7 +139,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     self.buttonCaretLeft = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft target:self action:@selector(leftButtonPressed)];
 
     self.buttonX.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"menu-cancel-accessibility-label", nil, nil, @"Cancel", @"Accessible label text for toolbar cancel button\n{{Identical|Cancel}}");
-    self.buttonCaretLeft.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"back-button-accessibility-label", nil, nil, @"Back", @"Accessibility label for a button to navigate back.\n{{Identical|Back}}");
+    self.buttonCaretLeft.accessibilityLabel = WMFCommonStrings.accessibilityBackTitle;
 
     [self updateNavigationBar];
 }
@@ -335,8 +340,10 @@ static NSString *const kWMFContributorsKey = @"contributors";
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
-    self.theme = theme;
-
+    [super applyTheme:theme];
+    if (self.viewIfLoaded == nil) {
+        return;
+    }
     self.view.backgroundColor = theme.colors.paperBackground;
 }
 

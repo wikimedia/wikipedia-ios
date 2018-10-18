@@ -13,6 +13,8 @@
 @class WMFArticle;
 @class WMFExploreFeedContentController;
 @class WMFReadingListsController;
+@class WikidataDescriptionEditingController;
+@class RemoteNotificationsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +32,8 @@ extern NSString *MWKCreateImageURLWithPath(NSString *path);
  * added to saved pages, history, etc…
  */
 extern NSString *const WMFArticleUpdatedNotification;
+extern NSString *const WMFArticleDeletedNotification;
+extern NSString *const WMFArticleDeletedNotificationUserInfoArticleKeyKey; // User info key for the article key
 
 @interface MWKDataStore : NSObject
 
@@ -55,6 +59,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
+@property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
+@property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
@@ -74,6 +80,8 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
+
+- (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;

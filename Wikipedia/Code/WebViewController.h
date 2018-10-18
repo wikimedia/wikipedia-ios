@@ -8,6 +8,8 @@ typedef NS_ENUM(NSInteger, WMFArticleFooterMenuItem);
 
 @protocol WMFWebViewControllerDelegate;
 
+extern const CGFloat WebViewControllerHeaderImageHeight;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WebViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate, WMFThemeable>
@@ -20,11 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) WKWebView *webView;
 
 @property (nonatomic) CGFloat contentWidthPercentage;
-@property (nonatomic, readonly) CGFloat marginWidth;
 
-// Header height is necessary because setting the content inset on WKWebView's scrollView causes user interaction in the inset area to be disabled
-// https://bugs.webkit.org/show_bug.cgi?id=134230
-@property (nonatomic, readwrite) CGFloat headerHeight;
+@property (nonatomic, getter=isHeaderFadingEnabled) BOOL headerFadingEnabled;
+
+@property (nonatomic, readonly) CGFloat marginWidth;
 
 @property (nonatomic, readonly) WMFTheme *theme;
 
@@ -60,6 +61,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showFindInPage;
 - (void)hideFindInPageWithCompletion:(nullable dispatch_block_t)completion;
 
+#pragma mark - Header & Footers
+
+@property (nonatomic, strong, nullable) UIView *headerView;
+
 @end
 
 @protocol WMFWebViewControllerDelegate <NSObject>
@@ -81,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)webViewController:(WebViewController *)controller scrollViewShouldScrollToTop:(UIScrollView *)scrollView;
 - (void)webViewController:(WebViewController *)controller didTapFooterMenuItem:(WMFArticleFooterMenuItem)item payload:(NSArray *)payload;
 - (void)webViewController:(WebViewController *)controller didTapFooterReadMoreSaveForLaterForArticleURL:(NSURL *)url didSave:(BOOL)didSave;
+- (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article;
 
 @end
 

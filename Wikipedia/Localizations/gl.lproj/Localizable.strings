@@ -8,6 +8,7 @@
 // Author: Estevoaei
 // Author: Fisterraeomar
 // Author: Macofe
+// Author: Maria zaos
 // Author: Navhy
 // Author: Nemo bis
 // Author: Toliño
@@ -58,6 +59,7 @@
 "account-creation-title" = "Crear unha nova conta";
 "action-add-to" = "Engadir a...";
 "action-add-to-reading-list" = "Engadir á lista de lectura";
+"action-add-to-reading-list-short" = "Engadir á lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover a...";
 "action-move-to-reading-list" = "Mover á lista de lectura";
@@ -76,8 +78,7 @@
 "alert-no-internet" = "Non hai conexión a Internet";
 "announcements-dismiss" = "Descartar";
 "app-store-keywords" = "Wikipedia, Galipedia, referencia, wiki, enciclopedia, info, coñecemento, investigación, información, explorar, aprender";
-// Fuzzy
-"app-store-release-notes" = "Os artigos gardados agora poden organizarse en listas de lectura e sincronizarse entre dispositivos.";
+"app-store-release-notes" = "Canle de exploración completamente configurable e doada de ler. Localización, melloras de rendemento e corrección de erros.";
 "app-store-short-description" = "Descargue a aplicación de Wikipedia para explorar lugares preto de vostede, sincronizar artigos para ler cando non teña conexión e personalizar a súa experiencia de lectura.";
 "app-store-subtitle" = "A enciclopedia libre";
 "appearance-settings-adjust-text-sizing" = "Axustar o tamaño do texto do artigo";
@@ -86,8 +87,7 @@
 "appearance-settings-image-dimming-footer" = "Diminuír a opacidade das imaxes do tema escuro";
 "appearance-settings-reading-themes" = "Temas de lectura";
 "appearance-settings-set-automatic-table-opening" = "Axustes de táboa";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Mova a barra de arriba para cambiar o tamaño do texto do artigo. Use o cambio de tamaño de texto do seu sistema para redimensionar outras áreas de texto da aplicación.";
+"appearance-settings-text-sizing-example-text" = "Mova a barra para cambiar o tamaño do texto do artigo. Use o cambio de tamaño de texto do seu sistema para redimensionar outras áreas de texto da aplicación.";
 "appearance-settings-theme-options" = "Opcións dos temas";
 "article-about-title" = "Acerca deste artigo";
 "article-delete" = "Borrar";
@@ -102,8 +102,8 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controis dos temas de lectura";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
-"back" = "Volver";
 "back-button-accessibility-label" = "Volver";
+"back-button-popover-title" = "Toque para volver atrás";
 "button-done" = "Feito";
 "button-next" = "Seguinte";
 "button-ok" = "Aceptar";
@@ -116,10 +116,28 @@
 "button-skip" = "Omitir";
 "cancel" = "Cancelar";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Pechar";
 "compass-direction" = "ás $1";
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
+"description-add-link-title" = "Engadir unha descrición de título";
+"description-add-title" = "Engadir unha descrición";
+"description-edit-for-article" = "Descrición de título para $1";
+"description-edit-learn-more" = "Máis información";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-pencil-introduction" = "Editar introdución";
+"description-edit-pencil-title" = "Editar descrición de título";
+"description-edit-publish" = "Publicar descrición";
+"description-edit-title" = "Editar descrición";
+"description-help-about-title" = "Acerca de";
+"description-help-about-wikidata" = "Sobre Wikidata";
+"description-help-more-info-title" = "Máis información";
+"description-help-tips-for-example" = "Por exemploː";
+"description-help-tips-title" = "Consellos para crear descricións";
+"description-published-button-title" = "Feito";
+"description-published-title" = "Descrición publicada!";
+"description-welcome-start-editing-button" = "Comezar a editar";
 "dim-images" = "Atenuación de imaxes";
 "edit-summary-choice-fixed-grammar" = "Corrección gramatical";
 "edit-summary-choice-fixed-typos" = "Error ortográfico correxido";
@@ -133,7 +151,7 @@
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "empty-no-history-title" = "Non hai ningún historial para amosar";
-"empty-no-reading-lists-message" = "Prema no «+» azul para crear listas de lectura de lugares a visitar, os seus temas favoritos e moito máis";
+"empty-no-reading-lists-message" = "Crear listas de lugares a visitar, os seus temas favoritos e moito máis";
 "empty-no-reading-lists-title" = "Organizar os artigos gardados mediante listas de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Garde páxinas nesta listaxe pra velas apareceren aquí";
 "empty-no-saved-pages-in-reading-list-title" = "Non foran gardadas páxinas nesta listaxe";
@@ -149,21 +167,61 @@
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Da Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
+"explore-feed-customize-accessibility-title" = "Personalizar";
 "explore-feed-preferences-additional-languages-footer-text" = "Poden engadirse linguas na páxina de configuración \"As miñas linguas\".";
+"explore-feed-preferences-card-hidden-title" = "Tarxeta oculta";
 "explore-feed-preferences-continue-reading-description" = "Ligazón rápida para regresar á lectura dun artigo aberto";
 "explore-feed-preferences-customize-explore-feed" = "Personalizar a canle de exploración";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizar a canle de exploración";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ocultar un tipo de carta impedirá que ese tipo de carta apareza na canle de exploración";
+"explore-feed-preferences-explore-tab" = "Pestana de exploración";
 "explore-feed-preferences-featured-article-description" = "Artigo destacado do día na Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Desactivado";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "En todas";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activado";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Tódalas tarxetas %@ ocultas";
+"explore-feed-preferences-global-card-footer-text" = "Esta tarxeta non depende da lingua, desactivándoa eliminaraa da súa canle de exploración.";
+"explore-feed-preferences-global-cards-description" = "Tarxetas independentes da lingua";
+"explore-feed-preferences-global-cards-subtitle" = "Independente da lingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetas globais";
+"explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarxeta";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Agochar tódalas tarxetas %@";
+"explore-feed-preferences-in-the-news-description" = "Artigos sobre eventos actuais";
+"explore-feed-preferences-languages-footer-text" = "Ocultar tódalas tarxetas da canle de exploración en tódalas súas linguas, desactivará a pestana de exploración.";
+"explore-feed-preferences-on-this-day-description" = "Acontecementos históricos neste día";
 "explore-feed-preferences-places-description" = "Artigos da Wikipedia preto da súa localización";
+"explore-feed-preferences-potd-description" = "Imaxe destacada do día en Commons";
 "explore-feed-preferences-randomizer-description" = "Xerar artigos aleatorios para ler";
 "explore-feed-preferences-related-pages-description" = "Suxestións baseadas no historial de lectura";
+"explore-feed-preferences-show-continue-reading-title" = "Amosar a tarxeta de 'Continuar lendo'";
+"explore-feed-preferences-show-featured-article-footer-text" = "Desactivar a tarxeta do 'Artigo destacado', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-featured-article-title" = "Amosar a tarxeta do 'Artigo destacado'";
+"explore-feed-preferences-show-news-footer-text" = "Desactivar a tarxeta de 'Nas novas', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-news-title" = "Amosar a tarxeta 'Nas novas'";
+"explore-feed-preferences-show-on-this-day-footer-text" = "Desactivando a tarxeta 'Neste día', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-on-this-day-title" = "Amosar a tarxeta 'Neste día'";
+"explore-feed-preferences-show-picture-of-the-day-title" = "Amosar a tarxeta 'Imaxe do día'";
+"explore-feed-preferences-show-places-footer-text" = "Desactivando a tarxeta de 'Lugares', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-places-title" = "Amosar a tarxeta de 'Lugares'";
+"explore-feed-preferences-show-randomizer-footer-text" = "Desactivando a tarxeta de 'Aleatoria', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-randomizer-title" = "Amosar a tarxeta 'Aleatoria'";
+"explore-feed-preferences-show-related-pages-title" = "Amosar a tarxeta 'Porque leu'";
+"explore-feed-preferences-show-top-read-footer-text" = "Desactivando a tarxeta de 'Os máis lidos', desactivará a tarxeta en tódalas linguas dispoñibles.";
+"explore-feed-preferences-show-top-read-title" = "Amosar a tarxeta 'Os máis lidos'";
+"explore-feed-preferences-top-read-description" = "Artigos máis lidos do día";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Desactivar a canle de Exploración";
+"explore-feed-preferences-turn-off-explore-feed-alert-message" = "Ocultar tódalas tarxetas da canle Explorar, desactivará a pestana Explorar e será substituída pola pestana Configuración";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Desactivar a canle de Exploración?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-message" = "A pestana Explorar pode activarse de novo na configuración da canle de exploración";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Desactivar a pestana de Explorar?";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Desactivar a pestana de Explorar subsituirá a pestana Explorar por unha pestana de configuración.";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Ó escoller amosar tarxetas da canle Explorar, está activando a pestana Explorar";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Isto substituirá a pestana de configuración coa pestana Explorar, pode acceder á configuración dende a parte superior da pestana Explorar premendo na icona da roda dentada";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Activar a pestana Explorar?";
+"explore-feed-preferences-undo-customization" = "Desfacer";
 "explore-hide-card-prompt" = "Agochar esta tarxeta";
 "explore-main-page-description" = "Páxina principal dos proxectos Wikimedia";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -177,6 +235,7 @@
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Da Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Da Wikipedia";
 "explore-nearby-sub-heading-your-location" = "A súa localización";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "A súa localización da Wikipedia en $1";
 "explore-potd-heading" = "Imaxe do día";
 "explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Artigo ao chou";
@@ -298,8 +357,10 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecemento histórico|$1 acontecementos históricos}}";
 "on-this-day-footer" = "Máis acontecementos históricos deste día";
 "on-this-day-footer-with-event-count" = "$1 acontecementos históricos máis nesta data";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia en $2";
 "on-this-day-title" = "Neste día";
 "open-link-cancel" = "Cancelar";
+"original-tab-button-popover-description" = "Prema na \"W\" para volver á pestana na que comezou";
 "page-edit-history" = "Historial de edición completo";
 "page-history-title" = "Historial do artigo";
 "page-issues" = "Problemas na páxina";
@@ -314,7 +375,7 @@
 "page-similar-titles" = "Páxinas similares";
 "page-talk-page" = "Ver a páxina de conversa";
 "pictured" = "retratado";
-"places-accessibility-clear-saved-searches" = "Limpar as buscas gardadas";
+"places-accessibility-clear-saved-searches" = "Limpar as procuras gardadas";
 "places-accessibility-group" = "$1 artigos";
 "places-accessibility-recenter-map-on-user-location" = "Volver a centrar na súa localización";
 "places-accessibility-show-as-list" = "Amosar como lista";
@@ -326,18 +387,20 @@
 "places-enable-location-description" = "O acceso á súa localización só está dispoñible cando a aplicación ou unha das súas características está visible na súa pantalla.";
 "places-enable-location-title" = "Explore artigos preto da súa localización activando Acceder á localización";
 "places-filter-articles-action-sheet-title" = "Filtrar artigos";
+"places-filter-button-title" = "Filtrar";
 "places-filter-no-saved-places" = "Non tes lugares gardados";
 "places-filter-saved-articles" = "Artigos gardados";
 "places-filter-top-articles" = "Os artigos máis lidos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artigo|$1 artigos}}";
 "places-filter-top-read-articles" = "Artigos mais lidos";
+"places-location-enabled" = "Localización activada";
 "places-no-saved-articles-have-location" = "Ningún dos seus artigos gardados teñen información de localización";
 "places-search-articles-that-match" = "$1 correspondente a “$2”";
 "places-search-default-text" = "Procurar lugares";
 "places-search-did-you-mean" = "Quixo dicir $1?";
-"places-search-recently-searched-header" = "Buscado recentemente";
+"places-search-recently-searched-header" = "Procurado recentemente";
 "places-search-saved-articles" = "Todos os artigos gardados";
-"places-search-suggested-searches-header" = "Buscas suxeridas";
+"places-search-suggested-searches-header" = "Procuras suxeridas";
 "places-search-this-area" = "Resultados nesta área";
 "places-search-top-articles" = "Todos os artigos mellores";
 "places-search-top-articles-that-match-scope" = "Preto";
@@ -401,6 +464,7 @@
 "reading-list-unable-to-update" = "Houbo un erro inesperado ó actualizar a lista de lectura. Inténteo de novo máis tarde.";
 "reading-list-with-provided-name-not-found" = "Non se atopou a lista de lectura denominada «$1». Asegúrese de que teña o nome correcto.";
 "reading-lists-article-added-confirmation" = "Engadiuse o artigo a «$1»";
+"reading-lists-article-api-failure" = "Imposible sincronizar o artigo";
 "reading-lists-article-not-synced" = "Non sincronizado";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Límite de artigos excedido, non é posible sincronizar o artigo";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Límite de listas excedido, non é posible sincronizar o artigo";
@@ -450,10 +514,11 @@
 "search-field-placeholder-text" = "Procurar na Wikipedia";
 "search-reading-list-placeholder-text" = "Procurar na lista de lectura";
 "search-recent-clear-cancel" = "Cancelar";
-"search-recent-clear-confirmation-heading" = "Borrar tódalas buscas recentes?";
+"search-recent-clear-confirmation-heading" = "Borrar tódalas procuras recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-delete-all" = "Borrar todo";
-"search-recent-title" = "Buscado recentemente";
+"search-recent-empty" = "Non hai procuras recentes aínda";
+"search-recent-title" = "Procurado recentemente";
 "search-result-redirected-from" = "Redirixido de: $1";
 "search-title" = "Procurar";
 "settings-appearance" = "Preferencias de lectura";
@@ -463,7 +528,7 @@
 "settings-clear-cache-cancel" = "Cancelar";
 "settings-clear-cache-ok" = "Borrar caché";
 "settings-help-and-feedback" = "Axuda e comentarios";
-"settings-language-bar" = "Amosar as linguas ó buscar";
+"settings-language-bar" = "Amosar as linguas ó procurar";
 "settings-my-languages" = "As miñas linguas";
 "settings-notifications" = "Notificacións";
 "settings-notifications-info" = "Ter alertas co noso sistema de notificacións sobre tendencias e artigos máis lidos na Wikipedia. Todo respectando a súa privacidade e actualizado coa última información dispoñible.";
@@ -472,7 +537,9 @@
 "settings-notifications-system-turn-on" = "Activar as notificacións";
 "settings-notifications-trending" = "Tendencias dos eventos actuais";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app. Cambiando esta lingua cambiará o contido diario (como os Artigos Destacados) mostrados en Explorar.";
+"settings-primary-language-details" = "A primeira lingua nesta lista úsase como lingua principal para a app.";
+"settings-search-footer-text" = "Configurar a aplicación para abrir na pestana Procurar no canto da pestana Explorar";
+"settings-search-open-app-on-search" = "Abrir aplicación na pestana de procura";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permitir que, cando se autenticar e sincronizar, a Wikimedia garde nas súas preferencias os artigos gardados e as listaxes de lectura.";
 "settings-storage-and-syncing-enable-sync-title" = "Sincronizar os artigos e as listas gardadas";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Ó borrar os seus artigos gardados iso eliminaraos da súa conta de usuario se ten activada a sincronización neste dispositivo. Non pode desfacer esta acción.";
@@ -489,7 +556,6 @@
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
-"share-a-fact-share-menu-item" = "Comparta-un-feito...";
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
 "share-custom-menu-item" = "Compartir...";

@@ -9,7 +9,7 @@ internal struct CellArticle {
 }
 
 public protocol SideScrollingCollectionViewCellDelegate: class {
-    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL)
+    func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath)
 }
 
 
@@ -91,7 +91,11 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
     }
     
-    public let imageViewHeight: CGFloat = 130
+    public var imageViewHeight: CGFloat = 130 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     public let spacing: CGFloat = 6
     
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -100,7 +104,8 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         if !isImageViewHidden {
             if (apply) {
-                imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewHeight)
+                let imageViewWidth = size.width - widthToFit > 50 ? widthToFit : size.width
+                imageView.frame = CGRect(x: round(0.5 * (size.width - imageViewWidth)), y: 0, width: imageViewWidth, height: imageViewHeight)
             }
             origin.y += imageViewHeight
         }
@@ -126,7 +131,7 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
         }
 
         if (apply) {
-            flowLayout?.itemSize = CGSize(width: max(250, round(0.45*size.width)), height: height - 2*collectionViewSpacing)
+            flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: collectionViewSpacing, left: collectionViewSpacing, bottom: collectionViewSpacing, right: collectionViewSpacing)
@@ -138,7 +143,6 @@ public class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtoco
             }
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
-            resetContentOffset()
             deselectSelectedSubItems(animated: false)
         }
 
@@ -176,7 +180,7 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
         guard let articleURL = selectedArticle.articleURL else {
             return
         }
-        selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL:articleURL)
+        selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL: articleURL, at: indexPath)
     }
 }
 
@@ -219,7 +223,6 @@ fileprivate extension ArticleRightAlignedImageCollectionViewCell {
         titleTextStyle = .subheadline
         descriptionTextStyle = .footnote
         imageViewDimension = 40
-        isSaveButtonHidden = true
         layoutMargins = UIEdgeInsets(top: 9, left: 10, bottom: 9, right: 10)
         isImageViewHidden = layoutOnly || cellArticle.imageURL == nil
         
@@ -279,8 +282,6 @@ extension SideScrollingCollectionViewCell: Themeable {
         descriptionLabel.textColor = theme.colors.primaryText
         updateSelectedOrHighlighted()
         collectionView.reloadData()
-        if #available(iOSApplicationExtension 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
     }
 }

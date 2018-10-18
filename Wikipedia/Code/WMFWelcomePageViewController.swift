@@ -14,7 +14,7 @@ public protocol WMFWelcomeNavigationDelegate: class{
 
 class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WMFWelcomeNavigationDelegate {
 
-    fileprivate var theme = Theme.standard
+    private var theme = Theme.standard
     
     @objc var completionBlock: (() -> Void)?
     
@@ -25,7 +25,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
         view.isUserInteractionEnabled = false
         let nextIndex = index + 1
-        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
+        let direction:UIPageViewController.NavigationDirection = UIApplication.shared.wmf_isRTL ? .reverse : .forward
         let nextVC = pageControllers[nextIndex]
         hideButtons(for: nextVC)
         setViewControllers([nextVC], direction: direction, animated: true, completion: {(Bool) in
@@ -45,14 +45,14 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         })
     }
     */
-    fileprivate func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
+    private func containerControllerForWelcomePageType(_ type: WMFWelcomePageType) -> WMFWelcomeContainerViewController {
         let controller = WMFWelcomeContainerViewController.wmf_viewControllerFromWelcomeStoryboard()
         controller.welcomeNavigationDelegate = self
         controller.welcomePageType = type
         return controller
     }
     
-    fileprivate lazy var pageControllers: [UIViewController] = {
+    private lazy var pageControllers: [UIViewController] = {
         var controllers:[UIViewController] = []
         controllers.append(containerControllerForWelcomePageType(.intro))
         controllers.append(containerControllerForWelcomePageType(.exploration))
@@ -61,7 +61,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return controllers
     }()
     
-    fileprivate lazy var pageControl: UIPageControl? = {
+    private lazy var pageControl: UIPageControl? = {
         return view.wmf_firstSubviewOfType(UIPageControl.self)
     }()
 
@@ -76,7 +76,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         dataSource = self
         delegate = self
         
-        let direction:UIPageViewControllerNavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
+        let direction:UIPageViewController.NavigationDirection = UIApplication.shared.wmf_isRTL ? .forward : .reverse
         
         setViewControllers([pageControllers.first!], direction: direction, animated: true, completion: nil)
         
@@ -88,7 +88,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         }
     }
     
-    fileprivate func configureAndAddNextButton(){
+    private func configureAndAddNextButton(){
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
@@ -109,7 +109,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addConstraints([leading, trailing])
     }
 
-    fileprivate func configureAndAddSkipButton(){
+    private func configureAndAddSkipButton(){
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         skipButton.isUserInteractionEnabled = true
@@ -183,38 +183,10 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return index == 0 ? nil : pageControllers[index - 1]
     }
     
-    // MARK: - iOS 9 RTL swiping hack
-    // When *swiping* side-to-side to move between panels on RTL with iOS 9 the dots get out of sync... not sure why. 
-    // This hack sets the correct dot, but first fades the dots out so you don't see it flicker to the wrong dot then the right one.
-    
-    fileprivate func isRTLiOS9() -> Bool {
-        return UIApplication.shared.wmf_isRTL && ProcessInfo().wmf_isOperatingSystemMajorVersionLessThan(10)
-    }
-    
-    func animateIfRightToLeftAndiOS9(_ animations: @escaping () -> Void) {
-        if isRTLiOS9() {
-            UIView.animate(withDuration: 0.05, delay: 0.0, options: .curveEaseOut, animations:animations, completion:nil)
-        }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        animateIfRightToLeftAndiOS9({
-            if let pageControl = self.pageControl {
-                pageControl.alpha = 0.0
-            }
-        })
-    }
-
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
         if completed {
             hideButtons(for: pageControllers[presentationIndex(for: pageViewController)])
         }
-        animateIfRightToLeftAndiOS9({
-            if let pageControl = self.pageControl {
-                pageControl.currentPage = self.presentationIndex(for: pageViewController)
-                pageControl.alpha = 1.0
-            }
-        })
     }
 
     func hideButtons(for vc: UIViewController){

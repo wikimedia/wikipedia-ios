@@ -33,6 +33,7 @@
 "account-creation-missing-fields" = "Vos cal sasir un nom d'utilizaire, un senhal e una confirmacion de vòstre senhal per crear un compte.";
 "account-creation-passwords-mismatched" = "Los senhals son pas identics.";
 "account-creation-saving" = "Enregistrament en cors…";
+"action-add-to-reading-list-short" = "Ajustar a la lista";
 "action-read" = "Legir";
 "action-save" = "Enregistrar";
 "action-share" = "Partejar";
@@ -47,7 +48,6 @@
 "article-read-more-title" = "Ne saber mai";
 "article-share" = "Partejar";
 "article-unable-to-load-article" = "Impossible de cargar l'article.";
-"back" = "Retorn";
 "back-button-accessibility-label" = "Retorn";
 "button-done" = "Acabat";
 "button-next" = "Seguent";
@@ -67,6 +67,7 @@
 "edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-other" = "Autre";
 "empty-no-feed-title" = "Pas de connexion a Internet";
+// Fuzzy
 "empty-no-reading-lists-message" = "Clicatz sul « + » blau per crear de listas de lecturas a prepaus de luòcs a visitar, de subjèctes favorits e de nombrosas autras tematicas";
 "empty-no-search-results-message" = "Cap de resultat pas trobat";
 "explore-another-random" = "Un autre article a l'azard";
@@ -204,8 +205,6 @@
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
-// Fuzzy
-"share-a-fact-share-menu-item" = "Partejar-un-fait";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
 "share-custom-menu-item" = "Partejar…";
 "share-on-twitter-sign-off" = "via @Wikipèdia";

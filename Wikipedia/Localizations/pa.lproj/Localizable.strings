@@ -65,7 +65,6 @@
 "article-read-more-title" = "ਹੋਰ ਪੜ੍ਹੋ";
 "article-unable-to-load-article" = "ਲੇਖ ਨਹੀਂ ਅਾ ਰਿਹਾ";
 "article-unable-to-load-section" = "ੲਿਹ ਭਾਗ ਨਹੀਂ ਆ ਰਿਹਾ। ਸਮੱਸਿਅਾ ਦੇ ਹੱਲ ਲੲੀ ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
-"back" = "ਪਿੱਛੇ";
 "back-button-accessibility-label" = "ਪਿੱਛੇ";
 "button-done" = "ਹੋ ਗਿਆ";
 "button-next" = "ਅੱਗੇ";
@@ -222,11 +221,10 @@
 "settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "settings-primary-language" = "ਮੁੱਢਲਾ";
+// Fuzzy
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
-// Fuzzy
-"share-a-fact-share-menu-item" = "ਤੱਥ ਸਾੰਝਾ ਕਰੋ";
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
 "share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ...";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bowleerin
 // Author: Cathypilot0117
+// Author: Chixvv
 // Author: Cwlin0416
 // Author: Eric850130
 // Author: Hello903hello
@@ -66,6 +67,7 @@
 "account-creation-title" = "建立新帳號";
 "action-add-to" = "新增至…";
 "action-add-to-reading-list" = "新增至閱讀清單";
+"action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
 "action-move-to" = "移動至…";
 "action-move-to-reading-list" = "移動至閱讀清單";
@@ -108,9 +110,8 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "閱讀主題控制";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
-"back" = "返回";
 "back-button-accessibility-label" = "返回";
-"back-button-popover-title" = "返回的分頁";
+"back-button-popover-title" = "點擊返回";
 "button-done" = "已完成";
 "button-next" = "下一步";
 "button-ok" = "確定";
@@ -123,10 +124,47 @@
 "button-skip" = "略過";
 "cancel" = "取消";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "創用CC公眾領域貢獻宣告";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
+"description-add-link-title" = "增加標題描述";
+"description-add-title" = "添加描述";
+"description-edit-for-article" = "$1的標題描述";
+"description-edit-learn-more" = "了解更多";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "透過更改標題描述，我同意$1且依據$2許可協議不撤銷所發表出我的個人貢獻。";
+"description-edit-pencil-introduction" = "編輯簡介";
+"description-edit-pencil-title" = "編輯標題描述";
+"description-edit-placeholder-title" = "簡短的描述是最好的";
+"description-edit-publish" = "發佈描述";
+"description-edit-title" = "編輯描述";
+"description-edit-warning" = "嘗試讓描述保持簡短，以讓使用者能立即了解條目的主題";
+"description-help-about-description" = "標題描述能概括條目，以幫助讀者快速了解內容。";
+"description-help-about-title" = "關於";
+"description-help-about-wikidata" = "關於維基數據";
+"description-help-more-info-description" = "描述會被保管在維基數據，那是維基媒體基金會計畫的另一個專案，是個自由、共同作業、多語言的二級資料庫，支援著維基百科及其它相類專案。";
+"description-help-more-info-title" = "更多資訊";
+"description-help-tips-description" = "描述盡量使用一行文字，且長度介於 2 到 12 個字元之間。另外除非第一個詞為專有名詞，否則不用大寫。";
+"description-help-tips-example-description-one" = "有關蒙娜麗莎條目的標題描述";
+"description-help-tips-example-description-two" = "有關聖母峰條目的標題描述";
+"description-help-tips-example-title-one" = "李奧納多·達文西的繪畫";
+"description-help-tips-example-title-two" = "地球第一高峰";
+"description-help-tips-for-example" = "例如：";
+"description-help-tips-title" = "建立描述的提示";
+"description-help-title" = "標題描述說明";
+"description-help-wikidata-guide" = "關於編寫描述的維基數據指引";
+"description-published-button-title" = "完成";
+"description-published-footer" = "您也可以以此應用程式編輯條目。下次可嘗試透過點選鉛筆圖示來修復錯別字與短句";
+"description-published-subtitle" = "謝謝您！您剛剛已令維基百科變得更完善，所有人都會受惠";
+"description-published-title" = "已發佈描述！";
+"description-welcome-concise-sub-title" = "原則上為一行，介於 2 至 12 個字之間";
+"description-welcome-concise-title" = "保持簡短";
+"description-welcome-descriptions-sub-title" = "將條目概括來幫助讀者快速了解內容。";
+"description-welcome-descriptions-title" = "標題描述";
+"description-welcome-promise-title" = "首先，我保證不會濫用此功能。";
+"description-welcome-start-editing-button" = "開始編輯";
 "dim-images" = "調暗圖片";
 "edit-summary-choice-fixed-grammar" = "修正語法";
 "edit-summary-choice-fixed-typos" = "修正筆誤";
@@ -140,22 +178,27 @@
 "empty-no-feed-title" = "無網路連線";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "empty-no-history-title" = "無歷史可顯示";
-"empty-no-reading-lists-message" = "輕觸藍色的「+」來建立前往旅行的地點、喜愛的主題，以及更多其它事物的閱讀清單";
+"empty-no-reading-lists-message" = "建立前往旅行的地點、喜愛的主題，以及更多其它事物的清單";
 "empty-no-reading-lists-title" = "組織已以閱讀清單儲存條目";
 "empty-no-saved-pages-in-reading-list-message" = "儲存頁面至此清單，以查看在此呈現的頁面";
 "empty-no-saved-pages-in-reading-list-title" = "沒有頁面儲存至此清單";
 "empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
 "empty-no-saved-pages-title" = "尚未儲存頁面";
 "empty-no-search-results-message" = "找不到任何結果";
+"error-generic-description" = "發生意外錯誤";
+"error-generic-recovery-suggestion" = "請稍後重試";
 "error-unknown" = "發生不明錯誤";
 "explore-another-random" = "另一個隨機條目";
 "explore-because-you-read" = "您曾閱讀過的";
 "explore-because-you-read-footer" = "額外相關條目";
 "explore-continue-reading-heading" = "繼續閱讀";
+"explore-detail-back-button-title" = "返回探索摘要";
 "explore-enable-location-title" = "瀏覽接近您目前位置的條目";
 "explore-featured-article-heading" = "典範條目";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "來自$1維基百科";
 "explore-featured-article-sub-heading-from-wikipedia" = "來自維基百科";
+"explore-feed-customize-accessibility-title" = "自訂";
+"explore-feed-language-settings" = "探索摘要語言設定";
 "explore-feed-preferences-additional-languages-footer-text" = "額外的語言可添加在「我的語言」設定頁面。";
 "explore-feed-preferences-card-hidden-title" = "卡片已隱藏";
 "explore-feed-preferences-continue-reading-description" = "返回到閱讀已開啟條目的快速連結";
@@ -209,6 +252,7 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "開啟探索";
 "explore-feed-preferences-turn-on-explore-tab-message" = "這會以探索分頁來取代設定分頁，您可以從探索分頁的頂端使用輕觸齒輪圖示方式來取用設定";
 "explore-feed-preferences-turn-on-explore-tab-title" = "開啟探索分頁？";
+"explore-feed-preferences-undo-customization" = "還原";
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
@@ -359,7 +403,7 @@
 "page-protected-other" = "此頁面已受到以下層級的保護：$1";
 "page-protected-sysop" = "此頁面已受全保護。";
 "page-read-in-other-languages" = "在 $1 種其他語言中可用";
-"page-similar-titles" = "相似頁面";
+"page-similar-titles" = "相似的頁面";
 "page-talk-page" = "檢視討論頁";
 "pictured" = "如圖";
 "places-accessibility-clear-saved-searches" = "清除已儲搜尋";
@@ -380,6 +424,7 @@
 "places-filter-top-articles" = "最多閱讀";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
 "places-filter-top-read-articles" = "被最多閱讀的條目";
+"places-location-enabled" = "位置已啟用";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
 "places-search-default-text" = "搜尋地點";
@@ -399,6 +444,7 @@
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
+"reading-list-add-generic-hint-title" = "新增此條目至閱讀清單？";
 "reading-list-add-hint-title" = "添加「$1」至閱讀清單嗎？";
 "reading-list-add-saved-button-title" = "是的，添加它們至我的閱讀清單";
 "reading-list-add-saved-subtitle" = "這些是已儲存在您維基百科應用程式上的條目，您想要保留它們並與已同步閱讀清單來合併至您的帳號上？";
@@ -450,6 +496,7 @@
 "reading-list-unable-to-update" = "更新您的閱讀清單時發生意外錯誤。請稍後再試。";
 "reading-list-with-provided-name-not-found" = "找不到名為「$1」的閱讀清單。請確定是正確的名稱。";
 "reading-lists-article-added-confirmation" = "條目已添加至「$1」";
+"reading-lists-article-api-failure" = "無法同步條目";
 "reading-lists-article-not-synced" = "尚未同步";
 "reading-lists-article-not-synced-article-limit-exceeded" = "超出條目上限，無法同步條目";
 "reading-lists-article-not-synced-list-limit-exceeded" = "超出清單上限，無法同步條目";
@@ -484,6 +531,14 @@
 "relogin-failed-subtitle" = "您的 session 已過期，或是因為之前的憑證已不再有效。";
 "relogin-failed-title" = "無法再重新建立登入";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
+"reverted-edit-back-to-article-button-title" = "返回條目";
+"reverted-edit-notification-body" = "您在條目$1所做的編輯被$2給回退";
+"reverted-edit-notification-read-more-action-title" = "延伸閱讀";
+"reverted-edit-possible-reasons" = "- 您的貢獻並沒有遵循以下指引之一。$1 \n\n - 您的貢獻內容看起來像是試驗性質的，或是有心破壞";
+"reverted-edit-possible-reasons-subtitle" = "我們知道您已盡力了，但有編者檢閱內容有所疑慮而做出還原。\n\n您的編輯被回退的原因可能是：";
+"reverted-edit-thanks-for-editing-title" = "感謝編輯維基百科！";
+"reverted-edit-title" = "已回退的編輯";
+"reverted-edit-view-guidelines-text" = "檢視指引";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
@@ -514,6 +569,7 @@
 "settings-clear-cache-ok" = "清除快取";
 "settings-help-and-feedback" = "說明與回饋";
 "settings-language-bar" = "搜尋時顯示語言";
+"settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
 "settings-notifications" = "通知";
 "settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被最多閱讀以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
@@ -522,7 +578,7 @@
 "settings-notifications-system-turn-on" = "開啟通知";
 "settings-notifications-trending" = "目前最新事件趨勢";
 "settings-primary-language" = "首選";
-"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。更改語言項目將會一同異動瀏覽時秀出的每日內容（如典範條目）。";
+"settings-primary-language-details" = "此列表中最先顯示出的語言被設為此應用程式的首選語言。";
 "settings-search-footer-text" = "設定應用程式成開啟搜尋分頁來取代探索分頁";
 "settings-search-open-app-on-search" = "在搜尋分頁開啓應用程式";
 "settings-storage-and-syncing-enable-sync-footer-text" = "當您登入並同步時，允許維基媒體儲存您的已儲存條目與清單至您的使用者偏好設定";
@@ -541,7 +597,6 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
-"share-a-fact-share-menu-item" = "分享預覽…";
 "share-article-name-on-wikipedia" = " \"$1\"  在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-custom-menu-item" = "分享...";
@@ -595,7 +650,7 @@
 "welcome-languages-description" = "我們在您的裝置上找到以下語言：";
 "welcome-languages-search-title" = "在近 300 種語言裡搜尋";
 "welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
-"welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在設備上，而不是基於個人訊息或操作。";
+"welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在裝置上，而不是基於個人資訊或活動。";
 "welcome-notifications-tell-me-more-title" = "更多有關通知";
 "welcome-send-data-helps-title" = "協助讓應用程式更好";
 "welcome-send-data-learn-more" = "了解更多關於資料採集";

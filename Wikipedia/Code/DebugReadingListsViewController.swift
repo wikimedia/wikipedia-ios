@@ -1,6 +1,6 @@
 import UIKit
 
-class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
+class DebugReadingListsViewController: UIViewController, UITextFieldDelegate, Themeable {
 
     @IBOutlet weak var listLimitTextField: UITextField!
     @IBOutlet weak var entryLimitTextField: UITextField!
@@ -22,6 +22,8 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
         listLimitTextField.delegate = self
         listLimitTextField.text = "\(moc.wmf_numberValue(forKey: "WMFCountOfListsToCreate")?.int64Value ?? 10)"
         entryLimitTextField.text = "\(moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 100)"
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(close))
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -50,6 +52,14 @@ class DebugReadingListsViewController: UIViewController, UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+
+    @objc private func close() {
+        dismiss(animated: true)
+    }
+
+    func apply(theme: Theme) {
+        view.backgroundColor = theme.colors.paperBackground
     }
 
 }

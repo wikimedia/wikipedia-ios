@@ -16,8 +16,8 @@ import FLAnimatedImage
 
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {
-    @objc open let data:Data?
-    @objc open let MIMEType:String?
+    @objc public let data:Data?
+    @objc public let MIMEType:String?
     
     @objc public init(data data_: Data?, MIMEType type_: String?) {
         data = data_
@@ -41,7 +41,7 @@ open class ImageController : NSObject {
     // MARK: - Initialization
     
     @objc(sharedInstance) public static let shared: ImageController = {
-        let session = URLSession.shared
+        let session = Session.urlSession
         let cache = URLCache.shared
         let fileManager = FileManager.default
         var permanentStorageDirectory = fileManager.wmf_containerURL().appendingPathComponent("Permanent Image Cache", isDirectory: true)
@@ -65,7 +65,7 @@ open class ImageController : NSObject {
     @objc public static func temporaryController() -> ImageController {
         let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let imageControllerDirectory = temporaryDirectory.appendingPathComponent("ImageController-" + UUID().uuidString)
-        let config = URLSessionConfiguration.default
+        let config = Session.defaultConfiguration
         let cache = URLCache(memoryCapacity: 1000000000, diskCapacity: 1000000000, diskPath: imageControllerDirectory.path)
         config.urlCache = cache
         let session = URLSession(configuration: config)
@@ -244,8 +244,7 @@ open class ImageController : NSObject {
         guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) else {
             return
         }
-        let moc = self.managedObjectContext
-        moc.perform {
+        perform { (moc) in
             if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
                 if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
                     group.addToCacheItems(item)
@@ -283,8 +282,7 @@ open class ImageController : NSObject {
                 } catch let error {
                     DDLogError("Error moving cached file: \(error)")
                 }
-                
-                moc.perform {
+                self.perform { (moc) in
                     guard createItem else {
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                             completion.failure(ImageControllerError.fileError)
@@ -337,10 +335,18 @@ open class ImageController : NSObject {
         }
     }
     
-    @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
+    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
+        let task = Background.manager.beginTask()
         let moc = self.managedObjectContext
-        let fm = self.fileManager
         moc.perform {
+            block(moc)
+            Background.manager.endTask(withIdentifier: task)
+        }
+    }
+    
+    @objc public func removePermanentlyCachedImages(groupKey: String, completion: @escaping () -> Void) {
+        let fm = self.fileManager
+        perform { (moc) in
             self.permanentCacheCompletionManager.cancel(group: groupKey)
             guard let group = self.fetchCacheGroup(key: groupKey, moc: moc) else {
                 completion()
@@ -568,10 +574,9 @@ open class ImageController : NSObject {
     }
     
     @objc public func migrateLegacyImageURLs(_ imageURLs: [URL], intoGroup group: String, completion: @escaping () -> Void) {
-        let moc = self.managedObjectContext
         let legacyCacheFolderURL = self.legacyCacheFolderURL
         let legacyCacheFolderPath = legacyCacheFolderURL.path
-        moc.perform {
+        perform { (moc) in
             let group = self.fetchOrCreateCacheGroup(key: group, moc: moc)
             for imageURL in imageURLs {
                 let key = self.cacheKeyForURL(imageURL)

@@ -90,7 +90,6 @@
 "article-read-more-title" = "Διαβάστε περισσότερα";
 "article-share" = "Κοινοποίηση";
 "article-unable-to-load-article" = "Δεν είναι δυνατή η φόρτωση αυτού του άρθρου.";
-"back" = "Πίσω";
 "back-button-accessibility-label" = "Πίσω";
 "button-done" = "Έγινε";
 "button-next" = "Επόμενο";
@@ -129,10 +128,13 @@
 "explore-because-you-read" = "Επειδή διαβάζετε";
 "explore-because-you-read-footer" = "Πρόσθετα σχετικά άρθρα";
 "explore-continue-reading-heading" = "Συνέχεια ανάγνωσης";
+"explore-detail-back-button-title" = "Επιστροφή στη ροή Εξερεύνησης";
 "explore-enable-location-title" = "Εξερευνήστε άρθρα κοντά στην τρέχουσα τοποθεσία σας";
 "explore-featured-article-heading" = "Προβεβλημένο λήμμα";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "explore-featured-article-sub-heading-from-wikipedia" = "Από την Βικιπαίδεια";
+"explore-feed-customize-accessibility-title" = "Προσαρμογή";
+"explore-feed-language-settings" = "Εξερεύνηση ρυθμίσεων γλώσσας ροής";
 "explore-feed-preferences-customize-explore-feed" = "Εξατομικεύστε την ροή Εξερεύνησης";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Εξατομικεύστε την ροή Εξερεύνησης";
 "explore-feed-preferences-featured-article-description" = "Καθημερινό προβεβλημμένο λήμμα στη Βικιπαίδεια";
@@ -160,6 +162,7 @@
 "explore-feed-preferences-top-read-description" = "Καθημερινά πιο αναγνωσμένα λήμματα";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Απενεργοποίηση ροής Εξερεύνησης";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Απενεργοποίηση ροής Εξερεύνησης;";
+"explore-feed-preferences-undo-customization" = "Αναίρεση";
 "explore-hide-card-prompt" = "Απόκρυψη αυτής της κάρτας";
 "explore-main-page-description" = "Κύρια σελίδα εγχειρημάτων του Wikimedia";
 "explore-main-page-heading" = "Σήμερα στη Βικιπαίδεια";
@@ -169,11 +172,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "Στη Βικιπαίδεια";
 "explore-nearby-heading" = "Μέρη κοντά";
 "explore-nearby-placeholder-heading" = "Μέρη";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Στην $1 Βικιπαίδεια";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Στη Βικιπαίδεια";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Από την $1 Βικιπαίδεια";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Από την Βικιπαίδεια";
 "explore-nearby-sub-heading-your-location" = "Η τοποθεσία σας";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Η τοποθεσία σας από $1 Βικιπαίδεια";
 "explore-potd-heading" = "Η εικόνα της ημέρας";
 "explore-potd-sub-heading" = "Από τα Wikimedia Commons";
 "explore-random-article-heading" = "Τυχαίο άρθρο";
@@ -289,6 +291,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ιστορικό γεγονός|$1 ιστορικά γεγονότα}}";
 "on-this-day-footer" = "Περισσότερα ιστορικά γεγονότα αυτής της μέρας";
 "on-this-day-footer-with-event-count" = "$1 Περισσότερα ιστορικά γεγονότα αυτή την ημέρα";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
 "open-link-cancel" = "Ακύρωση";
 "page-edit-history" = "Πλήρες ιστορικό επεξεργασίας";
@@ -318,6 +321,7 @@
 "places-filter-saved-articles" = "Αποθηκευμένα άρθρα";
 "places-filter-top-articles" = "Κορυφαίο διαβασμένο";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 λήμμα|$1 λήμματα}}";
+"places-location-enabled" = "Η τοποθεσία είναι ενεργοποιημένη";
 "places-no-saved-articles-have-location" = "Κανένα από τα αποθηκευμένα λήμματά σας έχουν πληροφορίες τοποθεσίας";
 "places-search-articles-that-match" = "Το $1 αντιστοιχεί στο “$2”";
 "places-search-default-text" = "Αναζήτηση μερών";
@@ -421,7 +425,6 @@
 "settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "settings-title" = "Ρυθμίσεις";
 "share-a-fact-made-with" = "Δημιουργήθηκε με την εφαρμογή Βικιπαίδεια";
-"share-a-fact-share-menu-item" = "Μοιραστείτε ένα γεγονός...";
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
 "share-building" = "Χτίζοντας μια κάρτα κοινοποίησης ενός γεγονότος...";
 "share-custom-menu-item" = "Κοινοποίηση...";

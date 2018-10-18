@@ -287,7 +287,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 }
             }];
     };
-    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.5.0)
             [self migrateLegacyImagesInArticle:article
                                     completion:doneMigration];
@@ -319,7 +319,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         }
         [self cacheImagesForArticleKey:articleKey withURLsInBackground:imageURLsForSaving failure:failure success:success];
     };
-    if (![[NSUserDefaults wmf_userDefaults] wmf_didFinishLegacySavedArticleImageMigration]) {
+    if (![[NSUserDefaults wmf] wmf_didFinishLegacySavedArticleImageMigration]) {
         WMF_TECH_DEBT_TODO(This legacy migration can be removed after enough users upgrade to 5.0 .5)
             [self migrateLegacyImagesInArticle:article
                                     completion:doneMigration];
@@ -446,11 +446,15 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     WMFArticle *article = [self.dataStore fetchArticleWithURL:url];
     [article updatePropertiesForError:error];
     if (error) {
-        article.isDownloaded = NO;
-        if (error.domain == NSCocoaErrorDomain && error.code == NSFileWriteOutOfSpaceError) {
+        if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileWriteOutOfSpaceError) {
             NSDictionary *userInfo = @{WMFArticleSaveToDiskDidFailErrorKey: error, WMFArticleSaveToDiskDidFailArticleURLKey: url};
             [NSNotificationCenter.defaultCenter postNotificationName:WMFArticleSaveToDiskDidFailNotification object:nil userInfo:userInfo];
             [self stop];
+            article.isDownloaded = NO;
+        } else if ([error.domain isEqualToString:WMFNetworkingErrorDomain] && error.code == WMFNetworkingError_APIError && [error.userInfo[NSLocalizedFailureReasonErrorKey] isEqualToString:@"missingtitle"]) {
+            article.isDownloaded = YES; // skip missing titles
+        } else {
+            article.isDownloaded = NO;
         }
     } else {
         article.isDownloaded = YES;

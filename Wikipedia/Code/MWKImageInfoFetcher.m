@@ -2,11 +2,11 @@
 @import WMF.WMFNetworkUtilities;
 @import WMF.AFHTTPSessionManager_WMFConfig;
 @import WMF.MWKArticle;
-@import WMF.AFHTTPSessionManager_WMFDesktopRetry;
 @import WMF.AFHTTPSessionManager_WMFCancelAll;
 @import WMF.UIScreen_WMFImageWidth;
 @import WMF.EXTScope;
 @import WMF.NSURL_WMFLinkParsing;
+@import WMF.Swift;
 #import "MWKImageInfoResponseSerializer.h"
 
 @interface MWKImageInfoFetcher ()
@@ -70,21 +70,6 @@
                      failure:failure];
 }
 
-- (void)fetchPartialInfoForImagesOnPages:(NSArray *)pageTitles
-                             fromSiteURL:(NSURL *)siteURL
-                        metadataLanguage:(nullable NSString *)metadataLanguage
-                                 failure:(WMFErrorHandler)failure
-                                 success:(WMFSuccessIdHandler)success {
-    [self fetchInfoForTitles:pageTitles
-                 fromSiteURL:siteURL
-              thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-             extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-            metadataLanguage:metadataLanguage
-                useGenerator:YES
-                     success:success
-                     failure:failure];
-}
-
 - (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray *)imageTitles
                                              fromSiteURL:(NSURL *)siteURL
                                                  success:(void (^)(NSArray *infoObjects))success
@@ -120,6 +105,7 @@
             @"prop": @"imageinfo",
             @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
             @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+            @"iiextmetadatamultilang": @1,
             @"iiurlwidth": thumbnailWidth } mutableCopy];
 
     if (useGenerator) {
@@ -131,24 +117,24 @@
     }
 
     @weakify(self);
+
     NSURLSessionDataTask *request =
-        [self.manager wmf_GETAndRetryWithURL:siteURL
-            parameters:params
-            retry:nil
-            success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
-                @strongify(self);
-                [self finishWithError:nil fetchedData:galleryItems];
-                if (success) {
-                    success(galleryItems);
-                }
-            }
-            failure:^(NSURLSessionDataTask *operation, NSError *error) {
-                @strongify(self);
-                [self finishWithError:error fetchedData:nil];
-                if (failure) {
-                    failure(error);
-                }
-            }];
+    [self.manager
+     wmf_apiZeroSafePOSTWithURL:siteURL parameters:params success:^(NSURLSessionDataTask *operation, NSArray *galleryItems) {
+         @strongify(self);
+         [self finishWithError:nil fetchedData:galleryItems];
+         if (success) {
+             success(galleryItems);
+         }
+     }
+     failure:^(NSURLSessionDataTask *operation, NSError *error) {
+         @strongify(self);
+         [self finishWithError:error fetchedData:nil];
+         if (failure) {
+             failure(error);
+         }
+     }];
+    
     NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;
 }

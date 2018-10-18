@@ -599,6 +599,15 @@ div.pagelib_collapse_table_container {
 .pagelib_collapse_table_icon {
   box-sizing: border-box;
 }
+
+/* Avoid infobox too narrow issue, see https://phabricator.wikimedia.org/T201381,
+   undoing some of https://gerrit.wikimedia.org/r/c/mediawiki/skins/MinervaNeue/+/428868
+   but only for tables we collapse. */
+.pagelib_collapse_table_container table {
+    display: block;
+    width: 100% !important
+}
+
 .pagelib_dim_images img {
   opacity: 0.65;
 }
@@ -728,8 +737,21 @@ a.pagelib_edit_section_link {
 
 .pagelib_footer_container_heading {
   padding-top: 35px;
-  font-size: 0.95em;
-  line-height: 1.6;
+  font-size: 0.8em;
+  line-height: 0.8em;
+  color: #72777D;
+}
+
+.pagelib_theme_sepia .pagelib_footer_container_heading {
+  color: #646059;
+}
+
+.pagelib_theme_dark .pagelib_footer_container_heading {
+  color: #C8CCD1;
+}
+
+.pagelib_theme_black .pagelib_footer_container_heading {
+  color: #F8F9FA;
 }
 
 #pagelib_footer_container_readmore_pages {

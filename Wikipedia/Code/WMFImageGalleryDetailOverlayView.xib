@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB" customClass="WMFImageGalleryDetailOverlayView">
-            <rect key="frame" x="0.0" y="0.0" width="438" height="262"/>
+            <rect key="frame" x="0.0" y="0.0" width="438" height="137"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" placeholderIntrinsicWidth="388" placeholderIntrinsicHeight="100" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description">
-                    <rect key="frame" x="20" y="112" width="398" height="100"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-lO-dTZ" customClass="WMFImageGalleryBottomGradientView" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="438" height="63"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gallery-line" translatesAutoresizingMaskIntoConstraints="NO" id="zCY-Ru-ZLX">
+                            <rect key="frame" x="200.5" y="52" width="37" height="6"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="zCY-Ru-ZLX" firstAttribute="centerX" secondItem="qPd-lO-dTZ" secondAttribute="centerX" id="P2d-eZ-lD1"/>
+                        <constraint firstAttribute="bottom" secondItem="zCY-Ru-ZLX" secondAttribute="bottom" constant="5" id="hQQ-ZQ-cUY"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Q7c-oN-yBh" appends="YES" id="E7B-hh-2b9"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uty-fY-Zwq" userLabel="Backdrop View">
+                    <rect key="frame" x="0.0" y="63" width="438" height="84"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <textView clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6f-Vm-XuX" userLabel="Image Description" customClass="WMFImageGalleryDescriptionTextView" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="20" y="63" width="398" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="750" constant="30" placeholder="YES" id="rtk-mh-hIm"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="nCy-cX-oYp" appends="YES" id="AdE-uK-pDN"/>
+                    </connections>
+                </textView>
+                <view opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96u-R3-P8F" customClass="WMFImageGalleryDescriptionGradientView" customModule="Wikipedia" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="63" width="438" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" showsTouchWhenHighlighted="YES" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6E-b6-poB">
-                    <rect key="frame" x="20" y="224" width="30" height="26"/>
+                    <rect key="frame" x="20" y="99" width="30" height="26"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="26" id="i4d-bC-Kui"/>
                     </constraints>
@@ -37,10 +69,10 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQe-aq-b55" customClass="WMFLicenseView">
-                    <rect key="frame" x="20" y="224" width="30" height="26"/>
+                    <rect key="frame" x="20" y="99" width="30" height="26"/>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dn-jB-W86">
-                    <rect key="frame" x="392" y="224" width="26" height="26"/>
+                    <rect key="frame" x="392" y="99" width="26" height="26"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="26" id="627-10-9JQ"/>
                         <constraint firstAttribute="height" constant="26" id="roC-kk-GQT"/>
@@ -53,32 +85,56 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="0L5-I0-Yi9"/>
+                <constraint firstItem="96u-R3-P8F" firstAttribute="bottom" secondItem="I6f-Vm-XuX" secondAttribute="bottom" id="08w-7g-Xnf"/>
                 <constraint firstItem="I6f-Vm-XuX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="2k3-u8-8nA"/>
-                <constraint firstItem="2dn-jB-W86" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" constant="12" id="56h-aE-LPJ"/>
+                <constraint firstItem="2dn-jB-W86" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="56h-aE-LPJ"/>
                 <constraint firstAttribute="bottom" secondItem="VQe-aq-b55" secondAttribute="bottom" constant="12" id="5dp-ZE-MgE"/>
-                <constraint firstItem="VQe-aq-b55" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" constant="12" id="E2r-23-E1B"/>
+                <constraint firstItem="96u-R3-P8F" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="top" id="6s7-wa-q2n"/>
+                <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="qPd-lO-dTZ" secondAttribute="bottom" id="Dcg-Jt-Mbc"/>
+                <constraint firstItem="VQe-aq-b55" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="E2r-23-E1B"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="Khe-Sx-wKS"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VQe-aq-b55" secondAttribute="trailing" constant="10" id="MGE-49-XQ0"/>
+                <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="Mnb-t4-tcL"/>
                 <constraint firstAttribute="bottom" secondItem="l6E-b6-poB" secondAttribute="bottom" constant="12" id="PWz-xR-vOr"/>
+                <constraint firstItem="I6f-Vm-XuX" firstAttribute="top" secondItem="uty-fY-Zwq" secondAttribute="top" id="QLQ-lY-ZRu"/>
+                <constraint firstItem="qPd-lO-dTZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VKq-cD-uZj"/>
+                <constraint firstAttribute="trailing" secondItem="qPd-lO-dTZ" secondAttribute="trailing" id="WdX-n4-o9b"/>
+                <constraint firstItem="uty-fY-Zwq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XGM-g6-SGI"/>
                 <constraint firstItem="2dn-jB-W86" firstAttribute="trailing" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="aRE-ep-0ka"/>
                 <constraint firstAttribute="bottom" secondItem="2dn-jB-W86" secondAttribute="bottom" constant="12" id="bhl-iP-XNu"/>
                 <constraint firstItem="VQe-aq-b55" firstAttribute="leading" secondItem="I6f-Vm-XuX" secondAttribute="leading" id="e3T-TX-bvw"/>
-                <constraint firstItem="l6E-b6-poB" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" constant="12" id="eSj-hx-LwA"/>
+                <constraint firstItem="l6E-b6-poB" firstAttribute="top" secondItem="I6f-Vm-XuX" secondAttribute="bottom" priority="999" constant="6" id="eSj-hx-LwA"/>
+                <constraint firstAttribute="trailing" secondItem="96u-R3-P8F" secondAttribute="trailing" id="fTj-F3-AO1"/>
                 <constraint firstItem="l6E-b6-poB" firstAttribute="trailing" secondItem="VQe-aq-b55" secondAttribute="trailing" id="jrk-1u-9Ze"/>
+                <constraint firstAttribute="bottom" secondItem="uty-fY-Zwq" secondAttribute="bottom" constant="-10" id="kxD-7P-NaF"/>
+                <constraint firstItem="96u-R3-P8F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="q9M-3g-zyo"/>
                 <constraint firstAttribute="trailingMargin" secondItem="I6f-Vm-XuX" secondAttribute="trailing" id="tll-y7-tNL"/>
+                <constraint firstItem="qPd-lO-dTZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="uuB-b3-QVZ"/>
+                <constraint firstAttribute="trailing" secondItem="uty-fY-Zwq" secondAttribute="trailing" id="vlt-5s-rBc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="imageDescriptionLabel" destination="I6f-Vm-XuX" id="fUv-oF-GNJ"/>
+                <outlet property="imageDescriptionTextView" destination="I6f-Vm-XuX" id="Ayb-mr-e9F"/>
                 <outlet property="infoButton" destination="2dn-jB-W86" id="85x-w2-2vz"/>
+                <outlet property="lineImageView" destination="zCY-Ru-ZLX" id="OfZ-NF-BsL"/>
                 <outlet property="ownerButton" destination="l6E-b6-poB" id="y4l-ZK-1vr"/>
                 <outlet property="ownerStackView" destination="VQe-aq-b55" id="Smm-Nr-8em"/>
             </connections>
-            <point key="canvasLocation" x="-1703" y="-150"/>
+            <point key="canvasLocation" x="-1703" y="-198.5"/>
         </view>
+        <tapGestureRecognizer id="nCy-cX-oYp">
+            <connections>
+                <action selector="didTapDescriptionTextView" destination="iN0-l3-epB" id="Ce0-Tt-mwT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="Q7c-oN-yBh">
+            <connections>
+                <action selector="didTapBottomGradientView" destination="iN0-l3-epB" id="UKD-vv-d6v"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="gallery-line" width="37" height="6"/>
         <image name="info-white" width="16" height="16"/>
     </resources>
 </document>

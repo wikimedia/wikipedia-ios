@@ -13,15 +13,15 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         return String()
     }
     
-    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+    open func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
         
         var text: String?
 
-        if activityType == UIActivityType.postToTwitter {
+        if activityType == UIActivity.ActivityType.postToTwitter {
             text = WMFLocalizedString("share-on-twitter-sign-off", value:"via @Wikipedia", comment:"Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle")
-        }else if activityType == UIActivityType.postToFacebook ||
-        activityType == UIActivityType.mail ||
-        activityType == UIActivityType.postToFlickr {
+        }else if activityType == UIActivity.ActivityType.postToFacebook ||
+            activityType == UIActivity.ActivityType.mail ||
+            activityType == UIActivity.ActivityType.postToFlickr {
             text = info.filePageURL?.absoluteString
         }else {
             text = nil

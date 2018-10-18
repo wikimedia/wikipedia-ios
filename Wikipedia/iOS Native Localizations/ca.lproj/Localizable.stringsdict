@@ -82,6 +82,22 @@
 			<string>%1$d articles</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>L'article no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
+			<key>other</key>
+			<string>Els articles no poden afegir-se a la llista. Heu arribat al límit de %2$d articles per llista de lectura de %3$@</string>
+		</dict>
+	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -200,6 +216,38 @@
 			<string>Fa %1$d anys</string>
 			<key>zero</key>
 			<string>Enguany</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>En deixar de tenir desat aquest article se suprimirà de totes les llistes de lectura associades</string>
+			<key>other</key>
+			<string>En deixar de tenir desat aquests articles se suprimiran de totes les llistes de lectura associades</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Voleu deixar de tenir desats article?</string>
+			<key>other</key>
+			<string>Voleu deixar de tenir desats articles?</string>
 		</dict>
 	</dict>
 </dict>

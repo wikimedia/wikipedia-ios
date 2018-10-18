@@ -6,6 +6,7 @@ enum ReadingListsDisplayType {
 
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
+    func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)
 }
 
 @objc(WMFReadingListsViewController)
@@ -106,6 +107,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         super.viewDidLoad()
         layoutManager.register(ReadingListsCollectionViewCell.self, forCellWithReuseIdentifier: ReadingListsCollectionViewCell.identifier, addPlaceholder: true)
         emptyViewType = .noReadingLists
+        emptyViewAction = #selector(presentCreateReadingListViewController)
         setupEditController()
         // Remove peek & pop for now
         unregisterForPreviewing()
@@ -154,14 +156,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         createReadingListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem.wmf_buttonType(WMFButtonType.X, target: self, action: #selector(dismissCreateReadingListViewController))
         present(navigationController, animated: true, completion: nil)
     }
-
-    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
-        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
-        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
-        createNewReadingListButtonView?.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
-        createNewReadingListButtonView?.apply(theme: theme)
-        return createNewReadingListButtonView!
-    }()
     
     @objc func presentCreateReadingListViewController() {
         createReadingList(with: articles)
@@ -179,6 +173,14 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
                 CommonStrings.unknownError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         }
     }
+
+    public lazy var createNewReadingListButtonView: CreateNewReadingListButtonView = {
+        let createNewReadingListButtonView = CreateNewReadingListButtonView.wmf_viewFromClassNib()
+        createNewReadingListButtonView?.title = CommonStrings.createNewListTitle
+        createNewReadingListButtonView?.button.addTarget(self, action: #selector(presentCreateReadingListViewController), for: .touchUpInside)
+        createNewReadingListButtonView?.apply(theme: theme)
+        return createNewReadingListButtonView!
+    }()
     
     // MARK: - Cell configuration
     
@@ -213,7 +215,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return estimate
         }
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
@@ -226,12 +228,9 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     override func isEmptyDidChange() {
         editController.isCollectionViewEmpty = isEmpty
-        if isEmpty {
-            collectionView.isHidden = true
-        } else {
-            collectionView.isHidden = false
-        }
+        collectionView.isHidden = isEmpty
         super.isEmptyDidChange()
+        delegate?.readingListsViewControllerDidChangeEmptyState(self, isEmpty: isEmpty)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -294,6 +293,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
+        view.backgroundColor = theme.colors.paperBackground
         createNewReadingListButtonView.apply(theme: theme)
     }
 }
@@ -369,9 +369,7 @@ extension ReadingListsViewController: CollectionViewUpdaterDelegate {
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-
     }
-
 }
 
 // MARK: - ActionDelegate
@@ -442,7 +440,7 @@ extension ReadingListsViewController: ActionDelegate {
         switch action.type {
         case .delete:
             self.deleteReadingLists([readingList])
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
+            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: WMFLocalizedString("reading-list-deleted-accessibility-notification", value: "Reading list deleted", comment: "Notification spoken after user deletes a reading list from the list."))
             return true
         default:
             return false

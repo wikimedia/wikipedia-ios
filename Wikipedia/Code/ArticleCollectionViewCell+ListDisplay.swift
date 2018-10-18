@@ -3,11 +3,7 @@ import Foundation
 extension ArticleCollectionViewCell {
     @objc open func configureForCompactList(at index: Int) {
         layoutMargins = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
-        titleTextStyle = .subheadline
-        descriptionTextStyle = .footnote
-        updateFonts(with: traitCollection)
         imageViewDimension = 40
-        isSaveButtonHidden = true
     }
     
     @objc public var imageURL: URL? {

@@ -6,7 +6,7 @@ import UIKit
 }
 
 @objc(WMFReadingThemesControlsViewController)
-open class ReadingThemesControlsViewController: UIViewController, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+open class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
@@ -71,9 +71,9 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
             slideView.accessibilityLabel = CommonStrings.textSizeSliderAccessibilityLabel
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: NSNotification.Name.UIScreenBrightnessDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.screenBrightnessChangedInApp(notification:)), name: UIScreen.brightnessDidChangeNotification, object: nil)
         
-        preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
     }
     
     deinit {
@@ -89,14 +89,14 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
         button.borderWidth = 2
         button.isEnabled = false
         button.borderColor = theme.colors.link
-        button.accessibilityTraits = UIAccessibilityTraitSelected
+        button.accessibilityTraits = UIAccessibilityTraits.selected
     }
     
     func removeBorderFrom(_ button: UIButton) {
         button.borderWidth = traitCollection.displayScale > 0.0 ? 1.0/traitCollection.displayScale : 0.5
         button.isEnabled = true
         button.borderColor = theme.colors.border
-        button.accessibilityTraits = UIAccessibilityTraitButton
+        button.accessibilityTraits = UIAccessibilityTraits.button
     }
     
     var isTextSizeSliderHidden: Bool {
@@ -105,7 +105,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
             for slideView in textSizeSliderViews {
                 slideView.isHidden = newValue
             }
-            preferredContentSize = stackView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+            preferredContentSize = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         }
         get {
             return textSizeSliderViews.first?.isHidden ?? false
@@ -130,16 +130,8 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
-        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        let currentTheme = UserDefaults.wmf.wmf_appTheme
         apply(theme: currentTheme)
-    }
-    
-    public var analyticsContext: String {
-        return "Article"
-    }
-    
-    public var analyticsContentType: String {
-        return "Article"
     }
     
     @objc func screenBrightnessChangedInApp(notification: Notification){
@@ -151,7 +143,7 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
 
     fileprivate func logBrightnessChange() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(_logBrightnessChange), object: nil)
-        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [.defaultRunLoopMode])
+        self.perform(#selector(_logBrightnessChange), with: nil, afterDelay: 0.3, inModes: [RunLoop.Mode.default])
     }
     
     @IBAction func brightnessSliderValueChanged(_ sender: UISlider) {
@@ -179,11 +171,11 @@ open class ReadingThemesControlsViewController: UIViewController, AnalyticsConte
     }
     
     @IBAction func darkThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.dark.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
 
     @IBAction func blackThemeButtonPressed(_ sender: Any) {
-        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled))
+        userDidSelect(theme: Theme.black.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
     }
 }
 

@@ -19,10 +19,8 @@ open class CollectionViewCell: UICollectionViewCell {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         preservesSuperviewLayoutMargins = false
         contentView.preservesSuperviewLayoutMargins = false
-        if #available(iOSApplicationExtension 11.0, *) {
-            insetsLayoutMarginsFromSafeArea = false
-            contentView.insetsLayoutMarginsFromSafeArea = false
-        }
+        insetsLayoutMarginsFromSafeArea = false
+        contentView.insetsLayoutMarginsFromSafeArea = false
         autoresizesSubviews = false
         contentView.autoresizesSubviews = false
         backgroundView = UIView()
@@ -167,13 +165,13 @@ open class CollectionViewCell: UICollectionViewCell {
         }
         
         var sizeToFit = layoutAttributes.size
-        sizeToFit.height = UIViewNoIntrinsicMetric
+        sizeToFit.height = UIView.noIntrinsicMetric
         var fitSize = self.sizeThatFits(sizeToFit)
         if fitSize == sizeToFit {
             return layoutAttributes
         } else  if let attributes = layoutAttributes.copy() as? UICollectionViewLayoutAttributes {
             fitSize.width = sizeToFit.width
-            if fitSize.height == CGFloat.greatestFiniteMagnitude || fitSize.height == UIViewNoIntrinsicMetric {
+            if fitSize.height == CGFloat.greatestFiniteMagnitude || fitSize.height == UIView.noIntrinsicMetric {
                 fitSize.height = layoutAttributes.size.height
             }
             attributes.frame = CGRect(origin: layoutAttributes.frame.origin, size: fitSize)
@@ -219,7 +217,10 @@ open class CollectionViewCell: UICollectionViewCell {
     }
     public var calculatedLayoutMargins: UIEdgeInsets {
         let margins = self.layoutMargins
-        return UIEdgeInsets(top: margins.top + layoutMarginsAdditions.top + layoutMarginsInteractiveAdditions.top, left:margins.left + layoutMarginsAdditions.left + layoutMarginsInteractiveAdditions.left, bottom: margins.bottom + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom, right:margins.right + layoutMarginsAdditions.right + layoutMarginsInteractiveAdditions.right)
+        return UIEdgeInsets(top:    margins.top     + layoutMarginsAdditions.top    + layoutMarginsInteractiveAdditions.top,
+                            left:   margins.left    + layoutMarginsAdditions.left   + layoutMarginsInteractiveAdditions.left,
+                            bottom: margins.bottom  + layoutMarginsAdditions.bottom + layoutMarginsInteractiveAdditions.bottom,
+                            right:  margins.right   + layoutMarginsAdditions.right  + layoutMarginsInteractiveAdditions.right)
     }
 
 }

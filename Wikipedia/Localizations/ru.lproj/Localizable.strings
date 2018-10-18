@@ -10,6 +10,8 @@
 // Author: Happy13241
 // Author: Helpau
 // Author: Iluvatar
+// Author: Infovarius
+// Author: Iniquity
 // Author: Irus
 // Author: JackLantern
 // Author: Jackie
@@ -81,6 +83,7 @@
 "account-creation-title" = "Создайте новую учётную запись";
 "action-add-to" = "Добавить в…";
 "action-add-to-reading-list" = "Добавить в список для чтения";
+"action-add-to-reading-list-short" = "Добавить в список";
 "action-cancel" = "Отмена";
 "action-move-to" = "Перенести в...";
 "action-move-to-reading-list" = "Перенести в список для чтения";
@@ -123,8 +126,8 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
-"back" = "Назад";
 "back-button-accessibility-label" = "Назад";
+"back-button-popover-title" = "Нажмите, чтоб вернуться назад";
 "button-done" = "Готово";
 "button-next" = "Далее";
 "button-ok" = "OK";
@@ -137,10 +140,47 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтоб найти больше статьей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"description-add-link-title" = "Добавить описание названия";
+"description-add-title" = "Добавить описание";
+"description-edit-for-article" = "Описание названия «$1»";
+"description-edit-learn-more" = "Узнать больше";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Изменяя описание названия, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
+"description-edit-pencil-introduction" = "Редактировать введение";
+"description-edit-pencil-title" = "Редактировать описание названия";
+"description-edit-placeholder-title" = "Краткие описания лучше всего";
+"description-edit-publish" = "Записать описание";
+"description-edit-title" = "Править описание";
+"description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы пользователи могли понимать предмет статьи с одного взгляда";
+"description-help-about-description" = "Краткие описания помогают читателям понять тему статьи с первого взгляда.";
+"description-help-about-title" = "О приложении";
+"description-help-about-wikidata" = "О Викиданных";
+"description-help-more-info-description" = "Описания хранятся в Викиданных (Wikidata) — проекте Фонда Викимедиа, представляющем собой свободную совместно наполняемую  многоязычную основанную на внешних источниках вторичную базу данных для поддержки Википедии и других проектов.";
+"description-help-more-info-title" = "Подробнее";
+"description-help-tips-description" = "Описания по возможности должны вписываться в одну строку и составлять от двух до двенадцати слов. Их следует начинать со строчной (маленькой) буквы, кроме случаев, когда первое слово — имя собственное.";
+"description-help-tips-example-description-one" = "краткое описание статьи о Мона Лизе";
+"description-help-tips-example-description-two" = "краткое описание статьи о горе Эверест";
+"description-help-tips-example-title-one" = "картина Леонардо да Винчи";
+"description-help-tips-example-title-two" = "Самая высокая гора Земли";
+"description-help-tips-for-example" = "Например:";
+"description-help-tips-title" = "Советы по созданию описаний";
+"description-help-title" = "Помощь по описанию названия";
+"description-help-wikidata-guide" = "Руководство Викиданных по созданию описаний.";
+"description-published-button-title" = "Готово";
+"description-published-footer" = "С этим приложением вы также можете редактировать статьи. Затем нажмите на иконку, чтобы исправить опечатки и малые предложения";
+"description-published-subtitle" = "Вы только что сделали Википедию лучше для каждого";
+"description-published-title" = "Описание сохранено!";
+"description-welcome-concise-sub-title" = "По возможности одна строка, от двух до двадцати слов";
+"description-welcome-concise-title" = "Пожалуйста, кратко";
+"description-welcome-descriptions-sub-title" = "Краткие описания помогают читателям понять тему статьи с первого взгляда";
+"description-welcome-descriptions-title" = "Описания названий";
+"description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
+"description-welcome-start-editing-button" = "Начать редактирование";
 "dim-images" = "Делать изображения менее яркими";
 "edit-summary-choice-fixed-grammar" = "Исправлено правописание";
 "edit-summary-choice-fixed-typos" = "Исправлена опечатка";
@@ -154,23 +194,29 @@
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-history-message" = "Отслеживайте здесь прочитанные вами статьи.";
 "empty-no-history-title" = "Нет истории для отображения";
-"empty-no-reading-lists-message" = "Нажмите на синий ‘+’, чтобы создать списки для чтения для мест для путешествий, любимых тем и многого другого.";
+"empty-no-reading-lists-message" = "Создавайте списки статей, например, о местах для путешествий, об интересующих вас темах и о многом другом";
 "empty-no-reading-lists-title" = "Организуйте сохранённые статьи с помощью списков чтения";
 "empty-no-saved-pages-in-reading-list-message" = "Страницы появятся здесь, когда вы их сохраните в списке";
 "empty-no-saved-pages-in-reading-list-title" = "В этом списке нет сохранённых страниц";
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-search-results-message" = "Ничего не найдено";
+"error-generic-description" = "Произошла непредвиденная ошибка";
+"error-generic-recovery-suggestion" = "Пожалуйста, повторите позже";
 "error-unknown" = "Произошла неизвестная ошибка";
 "explore-another-random" = "Другая случайная статья";
 "explore-because-you-read" = "На основе прочитанного";
 "explore-because-you-read-footer" = "Больше статей на основе прочитанного";
 "explore-continue-reading-heading" = "Продолжить чтение";
+"explore-detail-back-button-title" = "Назад к вкладке Обзор";
 "explore-enable-location-title" = "Прочитайте статьи википедии об объектах вблизи текущего местоположения";
 "explore-featured-article-heading" = "Избранная статья";
-"explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "Из Википедии";
+"explore-feed-customize-accessibility-title" = "Настроить";
+"explore-feed-language-settings" = "Языковые настройки Ленты";
 "explore-feed-preferences-additional-languages-footer-text" = "Дополнительные языки могут быть добавлены в разделе настроек \"Мои языки\".";
+"explore-feed-preferences-card-hidden-title" = "Карточка скрыта";
 "explore-feed-preferences-continue-reading-description" = "Быстрая ссылка назад к чтению открытой статьи";
 "explore-feed-preferences-customize-explore-feed" = "Настроить ленту";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Настроить ленту";
@@ -181,6 +227,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "вкл. все";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "вкл.";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "вкл. $1";
+"explore-feed-preferences-feed-cards-hidden-title" = "Все %@ карточек скрыты";
 "explore-feed-preferences-global-card-footer-text" = "Эта карточка не является привязанной к языку, поэтому её выключение приведёт к исключению карточки из ленты во всех языках.";
 "explore-feed-preferences-global-cards-description" = "Карточки не привязанные к языкам.";
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
@@ -221,24 +268,25 @@
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить Ленту";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка \"Настройки\" будет заменена вкладкой \"Лента\". Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Включить Ленту?";
+"explore-feed-preferences-undo-customization" = "Отменить";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
 "explore-main-page-heading" = "Сегодня в Википедии";
 "explore-most-read-footer" = "Все самые читаемые статьи";
-"explore-most-read-generic-heading" = "Наиболее читаемые";
+"explore-most-read-generic-heading" = "Самые читаемые";
 "explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
-"explore-most-read-sub-heading-on-language-wikipedia" = "На $1 Википедии";
-"explore-most-read-sub-heading-on-wikipedia" = "На Википедии";
+"explore-most-read-sub-heading-on-language-wikipedia" = "В Википедии ($1 раздел)";
+"explore-most-read-sub-heading-on-wikipedia" = "В Википедии";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-placeholder-heading" = "Места";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Раздел википедии: $1";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Из википедии";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Раздел Википедии: $1";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "Из Википедии";
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
-"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Местоположение, согласно разделу википедии: $1";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Местоположение, согласно разделу Википедии: $1";
 "explore-potd-heading" = "Изображение дня";
 "explore-potd-sub-heading" = "Из Викисклада";
 "explore-random-article-heading" = "Случайная статья";
-"explore-random-article-sub-heading-from-language-wikipedia" = "Раздел википедии: $1";
+"explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "feed-news-notification-button-text" = "Включить уведомления";
@@ -306,7 +354,7 @@
 "in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
 "in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
 "in-the-news-notification-share-action-title" = "Поделиться...";
-"in-the-news-sub-title-from-language-wikipedia" = "Раздел википедии: $1";
+"in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
 "info-box-close-text" = "Закрыть";
@@ -356,8 +404,10 @@
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-footer-with-event-count" = "$1 больше исторических событий, произошедших в этот день";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в $2 Википедии";
 "on-this-day-title" = "В этот день…";
 "open-link-cancel" = "Отмена";
+"original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-edit-history" = "Полная история редактирования";
 "page-history-title" = "История страницы";
 "page-issues" = "Вопросы по странице";
@@ -390,6 +440,7 @@
 "places-filter-top-articles" = "Самые читаемые";
 "places-filter-top-articles-count" = "$1 {{PLURAL:$1|статья|статей|статьи}}";
 "places-filter-top-read-articles" = "Самые читаемые статьи";
+"places-location-enabled" = "Определение местоположения включено";
 "places-no-saved-articles-have-location" = "Ни в одной из ваших сохранённых статей нет информации о местоположении";
 "places-search-articles-that-match" = "$1 подходит для “$2”";
 "places-search-default-text" = "Места поиска";
@@ -409,6 +460,7 @@
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
 "readers-accessibility-label" = "$1 читателей";
+"reading-list-add-generic-hint-title" = "Добавить эту статью в список для чтения?";
 "reading-list-add-hint-title" = "Добавить “$1” в список для чтения";
 "reading-list-add-saved-button-title" = "Да, добавьте их в мои списки чтения";
 "reading-list-add-saved-subtitle" = "Есть статьи, сохранённые в вашем приложении в Википедии. Хотите сохранить их и объединить с списками чтения, синхронизированными с вашей учётной записью?";
@@ -460,6 +512,7 @@
 "reading-list-unable-to-update" = "При обновлении списка чтения произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.";
 "reading-list-with-provided-name-not-found" = "Список чтения с именем “$1” не найден. Убедитесь, что у вас есть правильное имя.";
 "reading-lists-article-added-confirmation" = "Статья добавлена в «$1»";
+"reading-lists-article-api-failure" = "Не удаётся синхронизировать статью";
 "reading-lists-article-not-synced" = "Не синхронизировано";
 "reading-lists-article-not-synced-article-limit-exceeded" = "Лимит статьи превышен, невозможно синхронизировать статью";
 "reading-lists-article-not-synced-list-limit-exceeded" = "Лимит списка превышен, невозможно синхронизировать список";
@@ -494,6 +547,9 @@
 "relogin-failed-subtitle" = "Ваш сеанс истёк или предыдущие учётные данные уже недействительны.";
 "relogin-failed-title" = "Не удалось восстановить вход в систему";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
+"reverted-edit-back-to-article-button-title" = "Назад к статье";
+"reverted-edit-notification-read-more-action-title" = "Подробнее";
+"reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
 "saved-all-articles-title" = "Все статьи";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
@@ -524,6 +580,7 @@
 "settings-clear-cache-ok" = "Очистить кэш";
 "settings-help-and-feedback" = "Помощь и обратная связь";
 "settings-language-bar" = "Показывать языки при поиске";
+"settings-languages-feed-customization" = "В настройках вы можете указать, какие языки будут показаны в вашей Ленте.";
 "settings-my-languages" = "Мои языки";
 "settings-notifications" = "Уведомления";
 "settings-notifications-info" = "Будьте в курсе трендов и самых читаемых статей Википедии используя push-уведомления. Вся информация предоставляется актуальной и с сохранением конфиденциальности.";
@@ -532,7 +589,9 @@
 "settings-notifications-system-turn-on" = "Включить уведомления";
 "settings-notifications-trending" = "В тренде текущих событий";
 "settings-primary-language" = "Основной";
-"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения. Изменение этого языка приведёт к смене ежедневного содержимого, показываемого в ленте (например, избранных статей).";
+"settings-primary-language-details" = "Первый язык в этом списке используется как основной язык приложения.";
+"settings-search-footer-text" = "Открывать при запуске приложения вкладку \"Поиск\", вместо вкладки \"Лента\"";
+"settings-search-open-app-on-search" = "Открыть приложение на вкладке \"Поиск\"";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Разрешить Wikimedia сохранять статьи и списки чтения в ваших пользовательских настройках.";
 "settings-storage-and-syncing-enable-sync-title" = "Синхронизировать сохранённые статьи и списки";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Удаление сохранённых статей приведёт к удалению их из вашей учётной записи пользователя, если у вас включена синхронизация, а также с этого устройства. Вы не сможете отменить это действие.";
@@ -549,7 +608,6 @@
 "settings-support" = "Поддержать Википедию";
 "settings-title" = "Настройки";
 "share-a-fact-made-with" = "Создано с помощью Википедии";
-"share-a-fact-share-menu-item" = "Поделитесь фактом";
 "share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
 "share-building" = "Сформировать карточку \"Поделись фактом\"...";
 "share-custom-menu-item" = "Поделиться...";
@@ -576,7 +634,7 @@
 "theme-default-display-name" = "По умолчанию";
 "theme-sepia-display-name" = "Сепия";
 "top-read-header-generic" = "Википедия";
-"top-read-header-with-language" = "$1 Википедия";
+"top-read-header-with-language" = "Википедия ($1 раздел)";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";

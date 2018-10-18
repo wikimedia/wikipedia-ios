@@ -57,10 +57,6 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (void)fetchFeedContentForURL:(NSURL *)siteURL date:(NSDate *)date failure:(WMFErrorHandler)failure success:(void (^)(WMFFeedDayResponse *feedDay))success {
-    [self fetchFeedContentForURL:siteURL date:date force:NO failure:failure success:success];
-}
-
 + (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
     NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
 

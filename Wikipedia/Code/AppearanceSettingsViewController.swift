@@ -35,17 +35,13 @@ struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
 }
 
 @objc(WMFAppearanceSettingsViewController)
-open class AppearanceSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AnalyticsContextProviding, AnalyticsContentTypeProviding {
+final class AppearanceSettingsViewController: SubSettingsViewController {
     static let customViewCellReuseIdentifier = "org.wikimedia.custom"
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+
     var sections = [AppearanceSettingsSection]()
-    
-    fileprivate var theme = Theme.standard
-    
+
     @objc static var disclosureText: String {
-        let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        let currentAppTheme = UserDefaults.wmf.wmf_appTheme
         return currentAppTheme.displayName
     }
     
@@ -53,21 +49,13 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    override open func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
-        
         extendedLayoutIncludesOpaqueBars = true
-        
         title = CommonStrings.readingPreferences
-        tableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0);
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
         sections = sectionsForAppearanceSettings()
-        apply(theme: self.theme)
     }
     
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
@@ -90,15 +78,15 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    public override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].items.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.item]
         
         if let customViewItem = item as? AppearanceSettingsCustomViewItem {
@@ -106,11 +94,11 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             let vc = customViewItem.viewController
 
             if let view = vc.view {
-                addChildViewController(vc)
+                addChild(vc)
                 view.frame = cell.contentView.bounds
                 view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 cell.contentView.addSubview(view)
-                vc.didMove(toParentViewController: self)
+                vc.didMove(toParent: self)
             }
             
             if let themeable = vc as? Themeable {
@@ -142,9 +130,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         if item is AppearanceSettingsDimSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
-            cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled
+            cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isImageDimmingEnabled
             
-            let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+            let currentAppTheme = UserDefaults.wmf.wmf_appTheme
             switch currentAppTheme {
             case Theme.blackDimmed:
                 fallthrough
@@ -167,7 +155,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = true
-            cell.disclosureSwitch.isOn = UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled
+            cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleAutomaticTableOpenSwitchValueChange(_:)), for: .valueChanged)
             cell.iconName = "settings-tables-expand"
             cell.iconBackgroundColor = UIColor.wmf_colorWithHex(0x5C97BF)
@@ -191,9 +179,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
             return
         }
         let vc = customViewItem.viewController
-        vc.willMove(toParentViewController: nil)
+        vc.willMove(toParent: nil)
         vc.view.removeFromSuperview()
-        vc.removeFromParentViewController()
+        vc.removeFromParent()
         if let cell = cell as? WMFSettingsTableViewCell {
             cell.disclosureSwitch.removeTarget(nil, action: nil, for: .valueChanged)
         }
@@ -233,7 +221,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let currentAppTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
+        let currentAppTheme = UserDefaults.wmf.wmf_appTheme
         
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
             if currentAppTheme.withDimmingEnabled(false) === checkmarkItem.theme {
@@ -246,17 +234,9 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
         }
     }
     
-    public var analyticsContext: String {
-        return "Settings"
-    }
-    
-    public var analyticsContentType: String {
-        return "Settings"
-    }
-    
     @objc func applyImageDimmingChange(isOn: NSNumber) {
-        let currentTheme = UserDefaults.wmf_userDefaults().wmf_appTheme
-        UserDefaults.wmf_userDefaults().wmf_isImageDimmingEnabled = isOn.boolValue
+        let currentTheme = UserDefaults.wmf.wmf_appTheme
+        UserDefaults.wmf.wmf_isImageDimmingEnabled = isOn.boolValue
         userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
     }
     
@@ -267,7 +247,7 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     }
     
     @objc func applyAutomaticTableOpenChange(isOn: NSNumber) {
-        UserDefaults.wmf_userDefaults().wmf_isAutomaticTableOpeningEnabled = isOn.boolValue
+        UserDefaults.wmf.wmf_isAutomaticTableOpeningEnabled = isOn.boolValue
     }
     
     @objc func handleAutomaticTableOpenSwitchValueChange(_ sender: UISwitch) {
@@ -283,17 +263,16 @@ open class AppearanceSettingsViewController: UIViewController, UITableViewDataSo
     public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footerText
     }
-    
-}
 
-extension AppearanceSettingsViewController: Themeable {
-    public func apply(theme: Theme) {
-        self.theme = theme
-        
+    // MARK: - Themeable
+
+    override public func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
     }
+    
 }

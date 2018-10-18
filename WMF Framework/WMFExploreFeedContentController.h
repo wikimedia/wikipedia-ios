@@ -28,7 +28,6 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 - (void)updateFeedSourcesWithDate:(nullable NSDate *)date userInitiated:(BOOL)wasUserInitiated completion:(nullable dispatch_block_t)completion;
 
 - (void)updateNearbyForce:(BOOL)force completion:(nullable dispatch_block_t)completion;
-- (void)updateBackgroundSourcesWithCompletion:(void (^_Nonnull)(UIBackgroundFetchResult))completionHandler;
 
 // Preferences
 
@@ -39,7 +38,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag that indicates whether all customizable content groups should be visible or hidden for a given siteURL in the feed.
  @param updateFeed A flag that indicates whether feed should be updated after Explore feed preferences are updated.
  */
--(void)toggleContentForSiteURL:(nonnull NSURL *)siteURL isOn:(BOOL)isOn updateFeed:(BOOL)updateFeed;
+-(void)toggleContentForSiteURL:(nonnull NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles a content group of given kind on or off for all preferred languages.

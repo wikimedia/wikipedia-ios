@@ -10,7 +10,7 @@
     case bottom
 }
 
-public let NoIntrinsicSize = CGSize(width: UIViewNoIntrinsicMetric, height: UIViewNoIntrinsicMetric)
+public let NoIntrinsicSize = CGSize(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
 
 extension UIView {
     @objc public func wmf_sizeThatFits(_ size: CGSize) -> CGSize {
@@ -26,13 +26,13 @@ extension UIView {
         let viewWidth: CGFloat
         let widthToFit: CGFloat
 
-        if minimumSize.width != UIViewNoIntrinsicMetric && maximumSize.width != UIViewNoIntrinsicMetric { // max and min defined
+        if minimumSize.width != UIView.noIntrinsicMetric && maximumSize.width != UIView.noIntrinsicMetric { // max and min defined
             viewWidth = max(min(maximumSize.width, viewSize.width), minimumSize.width)
             widthToFit = maximumSize.width
-        } else if minimumSize.width != UIViewNoIntrinsicMetric && maximumSize.width == UIViewNoIntrinsicMetric { // only min defined
+        } else if minimumSize.width != UIView.noIntrinsicMetric && maximumSize.width == UIView.noIntrinsicMetric { // only min defined
             viewWidth = max(minimumSize.width, viewSize.width)
             widthToFit = viewWidth
-        } else if minimumSize.width == UIViewNoIntrinsicMetric && maximumSize.width != UIViewNoIntrinsicMetric { // only max defined
+        } else if minimumSize.width == UIView.noIntrinsicMetric && maximumSize.width != UIView.noIntrinsicMetric { // only max defined
             viewWidth = min(maximumSize.width, viewSize.width)
             widthToFit = maximumSize.width
         } else { // neither defined
@@ -43,13 +43,13 @@ extension UIView {
         let viewHeight: CGFloat
         let heightToFit: CGFloat
      
-        if minimumSize.height != UIViewNoIntrinsicMetric && maximumSize.height != UIViewNoIntrinsicMetric { // max and min defined
+        if minimumSize.height != UIView.noIntrinsicMetric && maximumSize.height != UIView.noIntrinsicMetric { // max and min defined
             viewHeight = max(min(maximumSize.height, viewSize.height), minimumSize.height)
             heightToFit = maximumSize.height
-        } else if minimumSize.height != UIViewNoIntrinsicMetric && maximumSize.height == UIViewNoIntrinsicMetric { // only min defined
+        } else if minimumSize.height != UIView.noIntrinsicMetric && maximumSize.height == UIView.noIntrinsicMetric { // only min defined
             viewHeight = max(minimumSize.height, viewSize.height)
             heightToFit = viewHeight
-        } else if minimumSize.height == UIViewNoIntrinsicMetric && maximumSize.height != UIViewNoIntrinsicMetric { // only max defined
+        } else if minimumSize.height == UIView.noIntrinsicMetric && maximumSize.height != UIView.noIntrinsicMetric { // only max defined
             viewHeight = min(maximumSize.height, viewSize.height)
             heightToFit = maximumSize.height
         } else { // neither defined
@@ -86,58 +86,63 @@ extension UIView {
         return wmf_preferredFrame(at: point, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: .top, apply: apply)
     }
     
-    public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize, minimumSize: CGSize = NoIntrinsicSize, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
-        return wmf_preferredFrame(at: point, maximumSize: maximumSize, horizontalAlignment: horizontalAlignment, apply: apply)
+        return wmf_preferredFrame(at: point, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, apply: apply)
     }
 
-    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, horizontalAlignment: HorizontalAlignment, apply: Bool) -> CGRect {
-        let minimumSize = CGSize(width: minimumWidth, height: UIViewNoIntrinsicMetric)
-        let maximumSize = CGSize(width: maximumWidth, height: UIViewNoIntrinsicMetric)
+    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIView.noIntrinsicMetric, horizontalAlignment: HorizontalAlignment, apply: Bool) -> CGRect {
+        let minimumSize = CGSize(width: minimumWidth, height: UIView.noIntrinsicMetric)
+        let maximumSize = CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric)
         return wmf_preferredFrame(at: point, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, apply: apply)
     }
     
-    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
+    public func wmf_preferredFrame(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIView.noIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, apply: Bool) -> CGRect {
         let horizontalAlignment: HorizontalAlignment = semanticContentAttribute == .forceRightToLeft ? .right : .left
         return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, horizontalAlignment: horizontalAlignment, apply: apply)
     }
     
-    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
+    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIView.noIntrinsicMetric, alignedBy semanticContentAttribute: UISemanticContentAttribute, spacing: CGFloat, apply: Bool) -> CGFloat {
         return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, alignedBy: semanticContentAttribute, apply: apply).layoutHeight(with: spacing)
     }
     
-    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIViewNoIntrinsicMetric, horizontalAlignment: HorizontalAlignment, spacing: CGFloat, apply: Bool) -> CGFloat {
+    public func wmf_preferredHeight(at point: CGPoint, maximumWidth: CGFloat, minimumWidth: CGFloat = UIView.noIntrinsicMetric, horizontalAlignment: HorizontalAlignment, spacing: CGFloat, apply: Bool) -> CGFloat {
         return wmf_preferredFrame(at: point, maximumWidth: maximumWidth, minimumWidth: minimumWidth, horizontalAlignment: horizontalAlignment, apply: apply).layoutHeight(with: spacing)
     }
 }
 
 extension UIButton {
     public override func wmf_sizeThatFits(_ maximumSize: CGSize) -> CGSize {
-        guard let buttonTitleLabel = titleLabel else {
-            return sizeThatFits(maximumSize)
-        }
         var buttonAdjustedSize = maximumSize
         var heightAdjustment = contentEdgeInsets.top + contentEdgeInsets.bottom
         var widthAdjustment = contentEdgeInsets.left + contentEdgeInsets.right
         
+        var imageHeight: CGFloat = 0
         if let image = image(for: .normal) {
-            heightAdjustment += imageEdgeInsets.top + imageEdgeInsets.bottom + image.size.height
             widthAdjustment += imageEdgeInsets.left + imageEdgeInsets.right + image.size.width
+            imageHeight = image.size.height + imageEdgeInsets.top + imageEdgeInsets.bottom + contentEdgeInsets.top + contentEdgeInsets.bottom
         }
         
         heightAdjustment += titleEdgeInsets.top + titleEdgeInsets.bottom
         widthAdjustment += titleEdgeInsets.left + titleEdgeInsets.right
         
-        if buttonAdjustedSize.width != UIViewNoIntrinsicMetric {
+        if buttonAdjustedSize.width != UIView.noIntrinsicMetric {
             buttonAdjustedSize.width = buttonAdjustedSize.width - widthAdjustment
         }
         
-        if buttonAdjustedSize.height != UIViewNoIntrinsicMetric {
+        if buttonAdjustedSize.height != UIView.noIntrinsicMetric {
             buttonAdjustedSize.height = buttonAdjustedSize.height - heightAdjustment
         }
         
-        let buttonLabelSize = buttonTitleLabel.sizeThatFits(buttonAdjustedSize)
-        return CGSize(width: buttonLabelSize.width + widthAdjustment, height: buttonLabelSize.height + heightAdjustment)
+        let buttonLabelSize: CGSize
+        if let titleLabel = titleLabel {
+            buttonLabelSize = titleLabel.sizeThatFits(buttonAdjustedSize)
+        } else {
+            buttonLabelSize = .zero
+        }
+        
+        let maxHeight = max(imageHeight, buttonLabelSize.height + heightAdjustment)
+        return CGSize(width: buttonLabelSize.width + widthAdjustment, height: maxHeight)
     }
 }
 
@@ -145,10 +150,13 @@ extension AlignedImageButton {
     override public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment = .center, verticalAlignment: VerticalAlignment = .center, apply: Bool = false) -> CGRect  {
         let adjustedPoint = CGPoint(x: point.x - leftPadding, y: point.y - verticalPadding)
         var adjustedSize = maximumSize
-        if adjustedSize.width != UIViewNoIntrinsicMetric {
+        if adjustedSize.width != UIView.noIntrinsicMetric {
             adjustedSize.width = adjustedSize.width + leftPadding + rightPadding
         }
-        return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: maximumSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
+        if adjustedSize.height != UIView.noIntrinsicMetric {
+            adjustedSize.height = adjustedSize.height + 2 * verticalPadding
+        }
+        return super.wmf_preferredFrame(at: adjustedPoint, maximumSize: adjustedSize, minimumSize: minimumSize, horizontalAlignment: horizontalAlignment, verticalAlignment: verticalAlignment, apply: apply)
     }
 }
 

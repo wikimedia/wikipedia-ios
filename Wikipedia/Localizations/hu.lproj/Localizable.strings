@@ -95,7 +95,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
 "article-unable-to-load-article" = "Nem sikerült betölteni a szócikket.";
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
-"back" = "Vissza";
 "back-button-accessibility-label" = "Vissza";
 "button-done" = "Kész";
 "button-next" = "Következő";
@@ -374,12 +373,12 @@
 "settings-notifications-system-turn-on" = "Értesítések bekapcsolása";
 "settings-notifications-trending" = "Jelenlegi események";
 "settings-primary-language" = "Elsődleges";
+// Fuzzy
 "settings-primary-language-details" = "A listában szereplő első nyelv az alkalmazás elsődleges nyelve. Ennek megváltoztatása módosítja a napi tartalmat (mint a kiemelt szócikket) a Felfedezés lapon.";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Törlés";
 "settings-support" = "Támogasd a Wikipédiát!";
 "settings-title" = "Beállítások";
 "share-a-fact-made-with" = "A Wikipédia appal készült";
-"share-a-fact-share-menu-item" = "Ossz-meg-egy-tényt…";
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
 "share-custom-menu-item" = "Megosztás…";
 "share-get-directions-in-maps" = "Útvonalterv";

@@ -21,6 +21,7 @@
 // Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
+// Author: Tiberius1701
 // Author: VegaDark
 // Author: Vivaelcelta
 // Author: Wifidel
@@ -35,7 +36,7 @@
 "about-libraries-complete-list" = "Lista completa";
 "about-libraries-license" = "Licencia";
 "about-libraries-licenses-title" = "Nos encanta el software de código abierto $1";
-"about-places-maps-license-details-link-text" = "Por favor vea aquí para los detalles de la licencia";
+"about-places-maps-license-details-link-text" = "Por favor, mira aquí para obtener detalles de la licencia";
 "about-product-of" = "Hecha por la $1 con la ayuda de voluntarios como tú";
 "about-repositories" = "Repositorios";
 "about-repositories-app-source-license" = "Código fuente disponible bajo la $1.";
@@ -71,6 +72,7 @@
 "account-creation-title" = "Crear una cuenta nueva";
 "action-add-to" = "Añadir a…";
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
+"action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
 "action-move-to" = "Mover a…";
 "action-move-to-reading-list" = "Mover a una lista de lectura";
@@ -89,6 +91,7 @@
 "alert-no-internet" = "No hay conexión a internet";
 "announcements-dismiss" = "Descartar";
 "app-store-short-description" = "Descarga la aplicación de Wikipedia para explorar sitios cercanos a ti, sincronizar artículos para leerlos sin conexión y personalizar tu experiencia de lectura.";
+"app-store-subtitle" = "La enciclopedia libre";
 "appearance-settings-adjust-text-sizing" = "Ajustar el tamaño del texto del artículo";
 "appearance-settings-expand-tables" = "Ampliar tablas";
 "appearance-settings-expand-tables-footer" = "Definir que se desplieguen todas las tablas de los artículos de manera predeterminada, incluidas las fichas, las referencias, las notas y los enlaces externos.";
@@ -111,8 +114,8 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
-"back" = "Volver";
 "back-button-accessibility-label" = "Volver";
+"back-button-popover-title" = "Toque aquí para regresar";
 "button-done" = "Hecho";
 "button-next" = "Siguiente";
 "button-ok" = "Aceptar";
@@ -142,7 +145,7 @@
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-history-message" = "Mantener un registro de lo que has leido aquí";
 "empty-no-history-title" = "No hay ningún historial que mostrar";
-"empty-no-reading-lists-message" = "Toca el «+» azul para crear listas de lugares adonde ir, tus temas favoritos y mucho más";
+"empty-no-reading-lists-message" = "Crear listas de lugares a los que viajar, tus temas favoritos y mucho más";
 "empty-no-reading-lists-title" = "Organiza tus artículos guardados mediante listas de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarda páginas en esta lista y aparecerán aquí";
 "empty-no-saved-pages-in-reading-list-title" = "No se guardó ninguna página en esta lista";
@@ -155,13 +158,18 @@
 "explore-continue-reading-heading" = "Continuar leyendo";
 "explore-enable-location-title" = "Explora artículos cercanos a tu ubicación actual";
 "explore-featured-article-heading" = "Artículo destacado";
-"explore-featured-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De Wikipedia";
-"explore-feed-preferences-card-hidden-title" = "Tarjeta escondida";
+"explore-feed-preferences-card-hidden-title" = "Tarjeta oculta";
+"explore-feed-preferences-explore-tab" = "Pestaña Explorar";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
 "explore-feed-preferences-hide-card-action-title" = "Ocultar esta tarjeta";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobre acontecimientos recientes";
-"explore-feed-preferences-turn-off-explore-tab-action-title" = "Apagar Explora";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Desactivar Explorar";
+"explore-feed-preferences-turn-off-explore-tab-title" = "¿Quieres desactivar la pestaña Explorar?";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Activar Explorar";
+"explore-feed-preferences-turn-on-explore-tab-title" = "¿Quieres activar la pestaña Explorar?";
+"explore-feed-preferences-undo-customization" = "Deshacer";
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
@@ -169,17 +177,17 @@
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
-"explore-most-read-sub-heading-on-language-wikipedia" = "En la Wikipedia en $1";
+"explore-most-read-sub-heading-on-language-wikipedia" = "En Wikipedia en $1";
 "explore-most-read-sub-heading-on-wikipedia" = "En Wikipedia";
 "explore-nearby-heading" = "Lugares cercanos a";
 "explore-nearby-placeholder-heading" = "Lugares";
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De la Wikipedia en $1";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "De Wikipedia en $1";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "De Wikipedia";
 "explore-nearby-sub-heading-your-location" = "Tu ubicación";
 "explore-potd-heading" = "Imagen del día";
 "explore-potd-sub-heading" = "De Wikimedia Commons";
 "explore-random-article-heading" = "Artículo aleatorio";
-"explore-random-article-sub-heading-from-language-wikipedia" = "De la Wikipedia en $1";
+"explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "feed-news-notification-button-text" = "Activar las notificaciones";
@@ -233,8 +241,7 @@
 // Fuzzy
 "home-nearby-footer" = "Más de cercanos a tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
-// Fuzzy
-"home-news-footer" = "Más en las noticias";
+"home-news-footer" = "Más acontecimientos actuales";
 "home-themes-action-title" = "Gestionar las preferencias";
 "home-themes-prompt" = "Ajusta tus preferencias de lectura (incluyendo tamaño del texto y tema) en la barra de herramientas del artículo o en tus preferencias de usuario para una experiencia de lectura más cómoda.";
 "home-title" = "Explorar";
@@ -248,7 +255,7 @@
 "in-the-news-notification-read-now-action-title" = "Leer ahora";
 "in-the-news-notification-save-for-later-action-title" = "Guardar para después";
 "in-the-news-notification-share-action-title" = "Compartir...";
-"in-the-news-sub-title-from-language-wikipedia" = "De la Wikipedia en $1";
+"in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
 "info-box-close-text" = "Cerrar";
@@ -324,10 +331,13 @@
 "places-enable-location-action-button-title" = "Activar la ubicación";
 "places-enable-location-description" = "El acceso a tu ubicación sólo está disponible cuando la aplicación o una de sus características es visible en tu pantalla.";
 "places-enable-location-title" = "Explora artículos cerca de tu ubicación habilitando el acceso a la ubicación";
+"places-filter-button-title" = "Filtrar";
 "places-filter-no-saved-places" = "No tienes lugares guardados";
 "places-filter-saved-articles" = "Artículos guardados";
 "places-filter-top-articles" = "Más leídos";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 artículo|$1 artículos}}";
+"places-filter-top-read-articles" = "Artículos más leídos";
+"places-location-enabled" = "Ubicación habilitada";
 "places-no-saved-articles-have-location" = "Ninguno de tus artículos guardados tienen información de ubicación";
 "places-search-articles-that-match" = "$1 que corresponden con «$2»";
 "places-search-default-text" = "Buscar lugares";
@@ -435,6 +445,7 @@
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
+// Fuzzy
 "settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
 "settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
@@ -442,7 +453,6 @@
 "settings-support" = "Apoya a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Creada con la aplicación de Wikipedia";
-"share-a-fact-share-menu-item" = "Comparte un dato…";
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-building" = "Construyendo una tarjeta comparte-un-hecho…";
 "share-custom-menu-item" = "Compartir...";

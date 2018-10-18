@@ -82,7 +82,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "کۆنترۆڵەکانی بەرگەکانی خوێندنەوە";
 "article-unable-to-load-article" = "نەتواندرا وتارەکە بھێندرێت.";
 "article-unable-to-load-section" = "ناتواندرێت ئەم بەشە بیشان بدرێت. ھەوڵ بدە کە وتارەکە دووبارە بکەیتەوە.";
-"back" = "گەڕانەوە";
 "back-button-accessibility-label" = "گەڕانەوە";
 "button-done" = "کرا";
 "button-next" = "دواتر";
@@ -340,11 +339,11 @@
 "settings-notifications-system-turn-on" = "ئاگادارییەکان کار پێ بکە";
 "settings-notifications-trending" = "ڕووداوە بەناوبانگەکانی ئێستا";
 "settings-primary-language" = "سەرەکی";
+// Fuzzy
 "settings-primary-language-details" = "یەکەم زمانی ئەم لیستە وەک زمانی سەرەکی ئەپەکە بەکاردێت. گۆڕینی ئەم زمانە ناوەڕۆکی ڕۆژانەی پەڕەی سەرەکی دەگۆڕێت (وەک وتاری ھەڵبژێردراو، ھەواڵەکان، ھتد...)";
 "settings-support" = "پشتگیریی ویکیپیدیا بکە";
 "settings-title" = "ڕێکخستنەکان";
 "share-a-fact-made-with" = "بە بەرنامەی ویکیپیدیا دروستکراوە";
-"share-a-fact-share-menu-item" = "ڕاستییەک-ھاوبەش-بکە";
 "share-article-name-on-wikipedia" = "«$1» لەسەر @Wikipedia:";
 "share-building" = "کارتێکی ڕاستییەک-ھاوبەش-بکە دروست دەکرێت...";
 "share-custom-menu-item" = "ھاوبەشکردن...";

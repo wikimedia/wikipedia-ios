@@ -72,27 +72,6 @@ typedef NS_OPTIONS(NSInteger, WMFFeedBlacklistOption) {
 - (WMFFeedHeaderType)headerType;
 
 /**
- *  An icon to be displayed in the section's header
- *
- *  @return An image
- */
-@property (nonatomic, readonly, nullable) UIImage *headerIcon;
-
-/**
- *  Color used for icon tint
- *
- *  @return A color
- */
-@property (nonatomic, readonly, nullable) UIColor *headerIconTintColor;
-
-/**
- *  Background color of section's header icon container view
- *
- *  @return A color
- */
-@property (nonatomic, readonly, nullable) UIColor *headerIconBackgroundColor;
-
-/**
  *  The text to be displayed on the first line of the header.
  *  Additional styling will be added before display time.
  *

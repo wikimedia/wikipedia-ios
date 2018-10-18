@@ -1,12 +1,14 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "Wikipedia-Swift.h"
+
 @import WMF.WMFLocalization;
 
 @implementation UIBarButtonItem (WMFButtonConvenience)
 
 + (UIBarButtonItem *)wmf_buttonType:(WMFButtonType)type target:(nullable id)target action:(nullable SEL)action {
-    UIButton *button = [UIButton wmf_buttonType:type target:target action:action];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:button];
-    item.width = button.intrinsicContentSize.width;
+    UIImage *image = [UIImage wmf_imageForType:type];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:target action:action];
+    item.accessibilityLabel = [UIButton wmf_accessibilityLabelForButtonType:type];
     return item;
 }
 

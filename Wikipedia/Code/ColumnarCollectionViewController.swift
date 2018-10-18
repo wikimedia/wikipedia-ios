@@ -1,7 +1,17 @@
 import UIKit
 import WMF
 
-class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching {
+class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLayoutDelegate, UICollectionViewDataSourcePrefetching, CollectionViewFooterDelegate {
+    
+    enum HeaderStyle {
+        case sections
+        case exploreFeedDetail
+    }
+    
+    open var headerStyle: HeaderStyle {
+        return .exploreFeedDetail
+    }
+    
     lazy var layout: ColumnarCollectionViewLayout = {
         return ColumnarCollectionViewLayout()
     }()
@@ -32,7 +42,8 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     override func viewDidLoad() {
         super.viewDidLoad()
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
-        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier, addPlaceholder: true)
+        layoutManager.register(CollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier, addPlaceholder: true)
         collectionView.alwaysBounceVertical = true
         extendedLayoutIncludesOpaqueBars = true
     }
@@ -40,8 +51,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     @objc open func contentSizeCategoryDidChange(_ notification: Notification?) {
         collectionView.reloadData()
     }
-
-    private var isFirstAppearance = true
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,6 +84,18 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             contentSizeCategoryDidChange(nil)
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { (context) in
+            let boundsChange = self.collectionView.bounds
+            guard self.layout.shouldInvalidateLayout(forBoundsChange: boundsChange) else {
+                return
+            }
+            let invalidationContext = self.layout.invalidationContext(forBoundsChange: boundsChange)
+            self.layout.invalidateLayout(with: invalidationContext)
+        })
     }
     
     // MARK: - UIScrollViewDelegate
@@ -148,13 +169,15 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     private var emptyViewFrame: CGRect {
         let insets = scrollView?.contentInset ?? UIEdgeInsets.zero
-        let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
+        let frame = view.bounds.inset(by: insets)
         return frame
     }
+
+    open var emptyViewAction: Selector?
     
     open func isEmptyDidChange() {
         if isEmpty {
-            wmf_showEmptyView(of: emptyViewType, theme: theme, frame: emptyViewFrame)
+            wmf_showEmptyView(of: emptyViewType, action: emptyViewAction, theme: theme, frame: emptyViewFrame)
         } else {
             wmf_hideEmptyView()
         }
@@ -217,32 +240,56 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
         header.style = .detail
         header.apply(theme: theme)
     }
+
+    // MARK: - Footer
+
+    var footerButtonTitle: String?
+
+    open func configure(footer: CollectionViewFooter, forSectionAt sectionIndex: Int, layoutOnly: Bool) {
+        footer.buttonTitle = footerButtonTitle
+        footer.delegate = self
+        footer.apply(theme: theme)
+    }
     
     // MARK - ColumnarCollectionViewLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
-        guard section == 0, headerTitle != nil else {
-            return estimate
+        switch headerStyle {
+        case .exploreFeedDetail:
+            guard section == 0, headerTitle != nil else {
+                return estimate
+            }
+        case .sections:
+            guard self.collectionView(collectionView, numberOfItemsInSection: section) > 0 else {
+                return estimate
+            }
         }
-        let identifier = CollectionViewHeader.identifier
-        let userInfo = "0"
-        if let height = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: "0") {
-            estimate.height = height
-            return estimate
-        }
-        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader else {
             return estimate
         }
         configure(header: placeholder, forSectionAt: section, layoutOnly: true)
-        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, userInfo: userInfo)
         return estimate
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
+        guard footerButtonTitle != nil else {
+            return estimate
+        }
+        guard let placeholder = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooter.identifier) as? CollectionViewFooter else {
+            return estimate
+        }
+        configure(footer: placeholder, forSectionAt: section, layoutOnly: true)
+        estimate.height = placeholder.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
+        estimate.precalculated = true
+        return estimate
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool {
+        return section == collectionView.numberOfSections - 1
     }
     
     open func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
@@ -251,6 +298,45 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+    
+    // MARK - Previewing
+    
+    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
+        let translatedLocation = view.convert(location, to: collectionView)
+        guard
+            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
+            let cell = collectionView.cellForItem(at: indexPath)
+        else {
+                return nil
+        }
+        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
+        return indexPath
+    }
+
+    // MARK: - Event logging utiities
+
+    var percentViewed: Double {
+        guard collectionView.contentSize.height > 0 else {
+            return 0
+        }
+        return Double(((collectionView.contentOffset.y + collectionView.bounds.height) / collectionView.contentSize.height) * 100)
+    }
+    
+    var _maxViewed: Double = 0
+    var maxViewed: Double {
+        return min(max(_maxViewed, percentViewed), 100)
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        _maxViewed = max(_maxViewed, percentViewed)
+    }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+
     }
 }
 
@@ -268,16 +354,22 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
-            assert(false)
-            return UICollectionReusableView()
+        if kind == UICollectionView.elementKindSectionHeader {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
+            guard let header = view as? CollectionViewHeader else {
+                return view
+            }
+            configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
+            return header
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath)
+            guard let footer = view as? CollectionViewFooter else {
+                return view
+            }
+            configure(footer: footer, forSectionAt: indexPath.section, layoutOnly: false)
+            return footer
         }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let header = view as? CollectionViewHeader else {
-            return view
-        }
-        configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
-        return header
+        return UICollectionReusableView()
     }
 }
 
@@ -314,5 +406,32 @@ extension ColumnarCollectionViewController: WMFArticlePreviewingActionsDelegate 
         articleController.wmf_removePeekableChildViewControllers()
         let placesURL = NSUserActivity.wmf_URLForActivity(of: .places, withArticleURL: articleController.articleURL)
         UIApplication.shared.open(placesURL, options: [:], completionHandler: nil)
+    }
+}
+
+extension ColumnarCollectionViewController {
+    func wmf_push(_ viewController: UIViewController, context: FeedFunnelContext?, index: Int?, animated: Bool) {
+        logFeedEventIfNeeded(for: context, index: index, pushedViewController: viewController)
+        wmf_push(viewController, animated: animated)
+    }
+
+    func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {
+        guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
+            return
+        }
+        let isFirstViewControllerExplore = viewControllers.first is ExploreViewController
+        let isPushedFromExplore = viewControllers.count == 1 && isFirstViewControllerExplore
+        let isPushedFromExploreDetail = viewControllers.count == 2 && isFirstViewControllerExplore
+        if isPushedFromExplore {
+            let isArticle = pushedViewController is WMFArticleViewController
+            if isArticle {
+                FeedFunnel.shared.logFeedCardReadingStarted(for: context, index: index)
+            } else {
+                FeedFunnel.shared.logFeedCardOpened(for: context)
+            }
+        } else if isPushedFromExploreDetail {
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
+        }
+
     }
 }

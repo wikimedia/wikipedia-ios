@@ -10,12 +10,17 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     let dataStore: MWKDataStore
     fileprivate let locationManager = WMFLocationManager.fine()
+    private var feedFunnelContext: FeedFunnelContext?
+    private var previewedIndexPath: IndexPath?
 
-    required init(articleURLs: [URL], dataStore: MWKDataStore, theme: Theme) {
+    required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
         self.articleURLs = articleURLs
         self.dataStore = dataStore
         super.init()
         self.theme = theme
+        if contentGroup != nil {
+            self.feedFunnelContext = FeedFunnelContext(contentGroup)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,6 +45,9 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
         super.viewDidDisappear(animated)
         locationManager.delegate = nil
         locationManager.stopMonitoringLocation()
+        if isMovingFromParent, let context = feedFunnelContext {
+            FeedFunnel.shared.logFeedCardClosed(for: context, maxViewed: maxViewed)
+        }
     }
     
     func articleURL(at indexPath: IndexPath) -> URL {
@@ -47,18 +55,25 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
     }
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 100)
+        var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 150)
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: ArticleLocationCollectionViewCell.identifier) as? ArticleLocationCollectionViewCell else {
             return estimate
         }
+        placeholderCell.layoutMargins = layout.itemLayoutMargins
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
-        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false).height
+        estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
         return estimate
     }
     
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
+    }
+
+    // MARK: - CollectionViewFooterDelegate
+
+    override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -136,6 +151,9 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let context = feedFunnelContext {
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: indexPath.item, maxViewed: maxViewed)
+        }
         wmf_pushArticle(with: articleURLs[indexPath.item], dataStore: dataStore, theme: self.theme, animated: true)
     }
 }
@@ -143,26 +161,30 @@ extension ArticleLocationCollectionViewController {
 // MARK: - UIViewControllerPreviewingDelegate
 extension ArticleLocationCollectionViewController {
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath) else {
+        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location) else {
                 return nil
         }
-        previewingContext.sourceRect = cell.convert(cell.bounds, to: collectionView)
-        let url = articleURL(at: indexPath)
-        let articleViewController = WMFArticleViewController(articleURL: url, dataStore: dataStore, theme: self.theme)
+        previewedIndexPath = indexPath
+        let articleURL = self.articleURL(at: indexPath)
+        let articleViewController = WMFArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme)
         articleViewController.articlePreviewingActionsDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: url, dataStore: dataStore, theme: theme)
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        if let context = feedFunnelContext {
+            FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)
+        }
         return articleViewController
     }
     
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        if let context = feedFunnelContext {
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
+        }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
 }
 
 // MARK: - Reading lists event logging
-
 extension ArticleLocationCollectionViewController: EventLoggingEventValuesProviding {
     var eventLoggingCategory: EventLoggingCategory {
         return .places
@@ -170,5 +192,39 @@ extension ArticleLocationCollectionViewController: EventLoggingEventValuesProvid
     
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
+    }
+}
+
+// MARK: - WMFArticlePreviewingActionsDelegate
+extension ArticleLocationCollectionViewController {
+    override func shareArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, shareActivityController: UIActivityViewController) {
+        guard let context = feedFunnelContext else {
+            super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
+            return
+        }
+        super.shareArticlePreviewActionSelected(withArticleController: articleController, shareActivityController: shareActivityController)
+        FeedFunnel.shared.logFeedDetailShareTapped(for: context, index: previewedIndexPath?.item, midnightUTCDate: context.midnightUTCDate)
+    }
+
+    override func readMoreArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController) {
+        guard let context = feedFunnelContext else {
+            super.readMoreArticlePreviewActionSelected(withArticleController: articleController)
+            return
+        }
+        articleController.wmf_removePeekableChildViewControllers()
+        wmf_push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
+    }
+
+    override func saveArticlePreviewActionSelected(withArticleController articleController: WMFArticleViewController, didSave: Bool, articleURL: URL) {
+        guard let context = feedFunnelContext else {
+            super.saveArticlePreviewActionSelected(withArticleController: articleController, didSave: didSave, articleURL: articleURL)
+            return
+        }
+        readingListHintController?.didSave(didSave, articleURL: articleURL, theme: theme)
+        if didSave {
+            ReadingListsFunnel.shared.logSaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+        } else {
+            ReadingListsFunnel.shared.logUnsaveInFeed(context: context, articleURL: articleURL, index: previewedIndexPath?.item)
+        }
     }
 }

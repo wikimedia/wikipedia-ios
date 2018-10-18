@@ -33,22 +33,37 @@ class Language {
 }
 
 class Article {
-  constructor(ismain, title, displayTitle, description, editable, language) {
+  constructor(ismain, title, displayTitle, description, editable, language, addTitleDescriptionString, isTitleDescriptionEditable) {
     this.ismain = ismain
     this.title = title
     this.displayTitle = displayTitle
     this.description = description
     this.editable = editable
     this.language = language
+    this.addTitleDescriptionString = addTitleDescriptionString
+    this.isTitleDescriptionEditable = isTitleDescriptionEditable
   }
-  descriptionParagraph() {
-    if(this.description !== undefined && this.description.length > 0){
-      const p = lazyDocument.createElement('p')
-      p.id = 'entity_description'
-      p.innerHTML = this.description
-      return p
+  descriptionElements() {
+    if (!this.isTitleDescriptionEditable || this.description !== undefined && this.description.length > 0) {
+      return this.existingDescriptionElements()
     }
-    return undefined
+    return this.descriptionAdditionElements()
+  }
+  existingDescriptionElements() {
+    const p = lazyDocument.createElement('p')
+    p.id = 'entity_description'
+    p.innerHTML = this.description
+    return p
+  }
+  descriptionAdditionElements() {
+    const a = lazyDocument.createElement('a')
+    a.href = '#'
+    a.setAttribute('data-action', 'add_title_description')
+    const p = lazyDocument.createElement('p')
+    p.id = 'add_entity_description'
+    p.innerHTML = this.addTitleDescriptionString
+    a.appendChild(p)
+    return a
   }
 }
 
@@ -75,7 +90,7 @@ class Section {
 
   leadSectionHeading() {
     const heading = lazyDocument.createElement('h1')
-    heading.class = 'section_heading'
+    heading.classList.add('section_heading')
     this.addAnchorAsIdToHeading(heading)
     heading.sectionId = this.id
     heading.innerHTML = this.article.displayTitle
@@ -117,7 +132,7 @@ class Section {
 
   description() {
     if(this.isLeadSection()){
-      return this.article.descriptionParagraph()
+      return this.article.descriptionElements()
     }
     return undefined
   }
@@ -143,7 +158,7 @@ class Section {
 
     const block = lazyDocument.createElement('div')
     block.id = `content_block_${this.id}`
-    block.class = 'content_block'
+    block.classList.add('content_block')
     block.innerHTML = this.html()
 
     container.appendChild(block)
@@ -224,6 +239,9 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
 
   lazyImageLoadingTransformer.convertImagesToPlaceholders(fragment)
   lazyImageLoadingTransformer.loadPlaceholders()
+
+  // Fix bug preventing audio from playing on 1st click of play button.
+  fragment.querySelectorAll('audio[preload="none"]').forEach(audio => audio.setAttribute('preload', 'metadata'))
 }
 
 const transformAndAppendSection = (section, mainContentDiv) => {
@@ -268,22 +286,22 @@ const fetchTransformAndAppendSectionsToDocument = (article, articleSectionsURL, 
   performEarlyNonSectionTransforms(article)
   const mainContentDiv = liveDocument.querySelector('div.content')
   fetch(articleSectionsURL)
-  .then(processResponseStatus)
-  .then(extractResponseJSON)
-  .then(extractSectionsJSON)
-  .then(sectionsJSON => {
-    if (sectionsJSON.length > 0) {
-      transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
-    }
-    // Giving the lead section a tiny head-start speeds up its appearance dramatically.
-    const nonLeadDelay = 50
-    setTimeout(() => {
-      transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
-      scrollToSection(hash)
-      successCallback()
-    }, nonLeadDelay)
-  })
-  .catch(error => console.log(`Promise was rejected with error: ${error}`))
+    .then(processResponseStatus)
+    .then(extractResponseJSON)
+    .then(extractSectionsJSON)
+    .then(sectionsJSON => {
+      if (sectionsJSON.length > 0) {
+        transformAndAppendLeadSectionToMainContentDiv(sectionsJSON[0], article, mainContentDiv)
+      }
+      // Giving the lead section a tiny head-start speeds up its appearance dramatically.
+      const nonLeadDelay = 50
+      setTimeout(() => {
+        transformAndAppendNonLeadSectionsToMainContentDiv(sectionsJSON, article, mainContentDiv)
+        scrollToSection(hash)
+        successCallback()
+      }, nonLeadDelay)
+    })
+    .catch(error => console.log(`Promise was rejected with error: ${error}`))
 }
 
 // Object containing the following localized strings key/value pairs: 'tableInfoboxTitle', 'tableOtherTitle', 'tableFooterTitle'

@@ -172,10 +172,21 @@ class ReadingListsAPIController: NSObject {
     fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
         let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, completion: { (result, response, error) in
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false)) { (result, response, _, error) in
+            if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
+                DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+            } else {
+                #if DEBUG
+                if let error = error {
+                    DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                } else {
+                    DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+                }
+                #endif
+            }
             completion(result, response, error)
             self.removePendingTask(for: key)
-        })
+        }
         addPendingTask(op, for: key)
     }
     
@@ -220,7 +231,7 @@ class ReadingListsAPIController: NSObject {
     func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
         post(path: "", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let id = result["id"] as? Int64 else {
+            guard let id = result?["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
                 return
             }
@@ -243,7 +254,7 @@ class ReadingListsAPIController: NSObject {
         }
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
         post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
-            guard let result = result, let batch = result["batch"] as? [[String: Any]] else {
+            guard let batch = result?["batch"] as? [[String: Any]] else {
                 guard lists.count > 1 else {
                     completion([(nil, error ?? APIReadingListError.generic)], nil)
                     return
@@ -317,12 +328,7 @@ class ReadingListsAPIController: NSObject {
                 return
             }
             
-            guard let result = result else {
-                completion(nil, error ?? ReadingListError.unableToAddEntry)
-                return
-            }
-            
-            guard let id = result["id"] as? Int64 else {
+            guard let id = result?["id"] as? Int64 else {
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
@@ -374,7 +380,7 @@ class ReadingListsAPIController: NSObject {
             }
 
             guard let result = result else {
-                completion(nil, error ?? ReadingListError.unableToAddEntry)
+                completion(nil, ReadingListError.unableToAddEntry)
                 return
             }
             

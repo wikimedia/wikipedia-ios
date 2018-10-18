@@ -15,9 +15,9 @@ class WikidataFetcher: NSObject {
         }
         
         var components = URLComponents()
-        components.host = "wikidata.org"
-        components.path = "/w/api.php"
-        components.scheme = "https"
+        components.host = WikidataAPI.host
+        components.path = WikidataAPI.path
+        components.scheme = WikidataAPI.scheme
         let actionQueryItem = URLQueryItem(name: "action", value: "wbgetentities")
         let titlesQueryItem = URLQueryItem(name: "titles", value: title)
         let sitesQueryItem = URLQueryItem(name: "sites", value: "\(language)wiki")
@@ -29,7 +29,7 @@ class WikidataFetcher: NSObject {
             return
         }
     
-        URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+        Session.urlSession.dataTask(with: requestURL, completionHandler: { (data, response, error) in
             guard let data = data else {
                 failure(error ?? WikidataFetcherError.genericError)
                 return

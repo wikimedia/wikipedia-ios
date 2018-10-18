@@ -31,7 +31,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .wmf_blue
             iconBackgroundColor = .wmf_lightBlue
         case .featuredArticle:
-            title = "Featured article"
+            title = CommonStrings.featuredArticleTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-featured-article-description", value: "Daily featured article on Wikipedia", comment: "Description of Featured article section of Explore feed")
             iconName = "featured-mini"
             iconColor = .wmf_yellow
@@ -63,7 +63,7 @@ private class FeedCard: ExploreFeedSettingsItem {
             iconColor = .wmf_purple
             iconBackgroundColor = .wmf_lightPurple
         case .continueReading:
-            title = "Continue reading"
+            title = CommonStrings.continueReadingTitle
             singleLanguageDescription = WMFLocalizedString("explore-feed-preferences-continue-reading-description", value: "Quick link back to reading an open article", comment: "Description of Continue reading section of Explore feed")
             iconName = "today-mini"
             iconColor = .wmf_lightGray
@@ -165,7 +165,6 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.exploreFeedTitle
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: CommonStrings.backTitle, style: .plain, target: nil, action: nil)
         assert(preferredLanguages.count > 0)
         displayType = preferredLanguages.count == 1 ? .singleLanguage : .multipleLanguages
     }
@@ -240,7 +239,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let alertController = UIAlertController(title: CommonStrings.turnOnExploreTabTitle, message: WMFLocalizedString("explore-feed-preferences-turn-on-explore-tab-message", value: "This will replace the Settings tab with the Explore tab, you can access Settings from the top of the Explore tab by tapping on the gear icon", comment: "Message for alert that allows users to turn on the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: CommonStrings.turnOnExploreActionTitle, style: .default, handler: { _ in
             self.dataStore?.feedContentController.toggleAllContentGroupKinds(true) {
-                UserDefaults.wmf_userDefaults().defaultTabType = .explore
+                UserDefaults.wmf.defaultTabType = .explore
             }
         })
         alertController.addAction(turnOnExplore)
@@ -252,7 +251,7 @@ class ExploreFeedSettingsViewController: BaseExploreFeedSettingsViewController {
         let alertController = UIAlertController(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-title", value: "Turn off the Explore tab?", comment: "Title for alert that allows users to turn off the Explore tab"), message: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-message", value: "The Explore tab can be turned back on in Explore feed settings", comment: "Message for alert that allows users to turn off the Explore tab"), preferredStyle: .alert)
         let turnOnExplore = UIAlertAction(title: WMFLocalizedString("explore-feed-preferences-turn-off-explore-tab-action-title", value: "Turn off Explore", comment: "Title for action that allows users to turn off the Explore tab"), style: .destructive, handler: { _ in
             self.dataStore?.feedContentController.toggleAllContentGroupKinds(false) {
-                UserDefaults.wmf_userDefaults().defaultTabType = .settings
+                UserDefaults.wmf.defaultTabType = .settings
             }
         })
         alertController.addAction(turnOnExplore)
@@ -323,7 +322,7 @@ extension ExploreFeedSettingsViewController {
                 assertionFailure("No language for given control tag")
                 return
             }
-            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, updateFeed: true)
+            feedContentController.toggleContent(forSiteURL: language.siteURL, isOn: sender.isOn, waitForCallbackFromCoordinator: true, updateFeed: true)
         }
     }
 }

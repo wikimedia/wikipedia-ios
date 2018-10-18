@@ -183,7 +183,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
     func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?){
         
         if(interactive){
-            UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 animations()
                 }, completion: { (completed: Bool) -> Void in
                     completion?(completed)

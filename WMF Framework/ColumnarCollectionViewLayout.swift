@@ -2,6 +2,7 @@ public protocol ColumnarCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForFooterInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate
+    func collectionView(_ collectionView: UICollectionView, shouldShowFooterForSection section: Int) -> Bool
     func metrics(with boundsSize: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics
 }
 
@@ -27,8 +28,8 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         return ColumnarCollectionViewLayoutInvalidationContext.self
     }
     
-    private var delegate: ColumnarCollectionViewLayoutDelegate {
-        return collectionView!.delegate as! ColumnarCollectionViewLayoutDelegate
+    private var delegate: ColumnarCollectionViewLayoutDelegate? {
+        return collectionView?.delegate as? ColumnarCollectionViewLayoutDelegate
     }
     
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -89,7 +90,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     }
     
     public func layoutHeight(forWidth width: CGFloat) -> CGFloat {
-        guard let collectionView = collectionView, width >= 1 else {
+        guard let collectionView = collectionView, let delegate = delegate, width >= 1 else {
             return 0
         }
         let oldMetrics = metrics
@@ -110,20 +111,18 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
             return
         }
         
-        let readableWidth: CGFloat
-        if #available(iOS 11.0, *) {
-            readableWidth = collectionView.readableContentGuide.layoutFrame.size.width
-        } else {
-            readableWidth = min(maxColumnWidth, collectionView.bounds.size.width - collectionView.layoutMargins.left - collectionView.layoutMargins.right)
+        let size = collectionView.bounds.size
+        guard size.width > 0 && size.height > 0 else {
+            return
         }
+        
+        let readableWidth: CGFloat = collectionView.readableContentGuide.layoutFrame.size.width
         
         if let metrics = metrics, !metrics.readableWidth.isEqual(to: readableWidth) {
             isLayoutValid = false
         }
         
-        let size = collectionView.bounds.size
-        
-        guard !isLayoutValid, size.width > 0, size.height > 0 else {
+        guard let delegate = delegate, !isLayoutValid else {
             return
         }
 
@@ -176,7 +175,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         let context = superContext as? ColumnarCollectionViewLayoutInvalidationContext ?? ColumnarCollectionViewLayoutInvalidationContext()
         context.preferredLayoutAttributes = preferredAttributes
         context.originalLayoutAttributes = originalAttributes
-        if let metrics = metrics, let info = info, let collectionView = collectionView {
+        if let delegate = delegate, let metrics = metrics, let info = info, let collectionView = collectionView {
             info.update(with: metrics, invalidationContext: context, delegate: delegate, collectionView: collectionView)
         }
         return context
@@ -190,8 +189,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
     var disappearingIndexPaths: Set<IndexPath> = []
     override public func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
         super.prepare(forCollectionViewUpdates: updateItems)
-        guard animateItems,
-            let info = info else {
+        guard animateItems, let info = info else {
             appearingIndexPaths.removeAll(keepingCapacity: true)
             disappearingIndexPaths.removeAll(keepingCapacity: true)
             maxNewSection = -1

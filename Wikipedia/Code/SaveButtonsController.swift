@@ -1,8 +1,8 @@
 import UIKit
 
 public protocol SaveButtonsControllerDelegate: class {
-    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle)
-    func willUnsaveArticle(_ article: WMFArticle)
+    func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?)
+    func willUnsaveArticle(_ article: WMFArticle, userInfo: Any?)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
 }
 
@@ -10,6 +10,8 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
     
     var visibleSaveButtons = [Int: Set<SaveButton>]()
     var visibleArticleKeys = [Int: String]()
+    var visibleUserInfo = [Int: Any]()
+    
     let dataStore: MWKDataStore
     let savedPagesFunnel = SavedPagesFunnel()
     var activeSender: SaveButton?
@@ -25,7 +27,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    public func willDisplay(saveButton: SaveButton, for article: WMFArticle) {
+    public func willDisplay(saveButton: SaveButton, for article: WMFArticle, with userInfo: Any? = nil) {
         guard let key = article.key else {
             return
         }
@@ -38,6 +40,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
         visibleArticleKeys[tag] = key
+        visibleUserInfo[tag] = userInfo
     }
     
     public func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
@@ -51,6 +54,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         if saveButtons.count == 0 {
             visibleSaveButtons.removeValue(forKey: tag)
             visibleArticleKeys.removeValue(forKey: tag)
+            visibleUserInfo.removeValue(forKey: tag)
         } else {
             visibleSaveButtons[tag] = saveButtons
         }
@@ -92,7 +96,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         activeSender = sender
         
         if let articleToUnsave = dataStore.savedPageList.entry(forKey: key) {
-            delegate?.willUnsaveArticle(articleToUnsave)
+            delegate?.willUnsaveArticle(articleToUnsave, userInfo: visibleUserInfo[sender.tag])
             return // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
         }
         
@@ -121,8 +125,9 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         guard activeKey == article.key else {
             return
         }
+        let tag = activeKey?.hash ?? 0
         let isSaved = article.savedDate != nil
-        delegate?.didSaveArticle(activeSender, didSave: isSaved, article: article)
+        delegate?.didSaveArticle(activeSender, didSave: isSaved, article: article, userInfo: visibleUserInfo[tag])
         activeKey = nil
     }
 }

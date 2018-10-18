@@ -10,11 +10,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !areRecentSearchesEnabled {
             navigationItem.titleView = UIView()
         }
-        navigationBar.addUnderNavigationBarView(searchBarContainerView)
-        navigationBar.isInteractiveHidingEnabled  = false
-        view.bringSubview(toFront: resultsViewController.view)
-        resultsViewController.view.isHidden = true
+        navigationBar.isTitleShrinkingEnabled = true
         navigationBar.isShadowHidingEnabled = true
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.addUnderNavigationBarView(searchBarContainerView)
+        view.bringSubviewToFront(resultsViewController.view)
+        resultsViewController.view.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -22,18 +23,30 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillAppear(animated)
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
+            navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
             searchBar.becomeFirstResponder()
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        funnel.logSearchStart()
+        funnel.logSearchStart(from: source)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_searchView())
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
         shouldAnimateSearchBar = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -48,6 +61,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     var shouldAnimateSearchBar: Bool = true
     var isAnimatingSearchBarState: Bool = false
+    
     @objc var areRecentSearchesEnabled: Bool = true
     @objc var shouldBecomeFirstResponder: Bool = false
     
@@ -90,7 +104,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 return
         }
         
-        guard (searchTerm as NSString).character(at: 0) != NSAttachmentCharacter else {
+        guard (searchTerm as NSString).character(at: 0) != NSTextAttachment.character else {
             return
         }
         
@@ -109,7 +123,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard searchTerm == self.searchBar.text else {
                     return
                 }
-                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start))
             }
@@ -123,7 +137,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                     let resultsArray = results.results,
                     resultsArray.count > 0
                 else {
-                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, theme: self.theme, frame: self.resultsViewController.view.bounds)
+                    self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
                     return
                 }
                 self.resultsViewController.wmf_hideEmptyView()
@@ -173,21 +187,24 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     private func updateLanguageBarVisibility() {
-        let showLanguageBar = UserDefaults.wmf_userDefaults().wmf_showSearchLanguageBar()
+        let showLanguageBar = UserDefaults.wmf.wmf_showSearchLanguageBar()
         if  showLanguageBar && searchLanguageBarViewController == nil { // check this before accessing the view
             let searchLanguageBarViewController = setupLanguageBarViewController()
-            addChildViewController(searchLanguageBarViewController)
+            addChild(searchLanguageBarViewController)
             searchLanguageBarViewController.view.translatesAutoresizingMaskIntoConstraints = false
             navigationBar.addExtendedNavigationBarView(searchLanguageBarViewController.view)
-            searchLanguageBarViewController.view.alpha = isSearchVisible ? 1 : 0
-            searchLanguageBarViewController.didMove(toParentViewController: self)
+            searchLanguageBarViewController.didMove(toParent: self)
             searchLanguageBarViewController.view.isHidden = false
         } else if !showLanguageBar && searchLanguageBarViewController != nil {
-            searchLanguageBarViewController?.willMove(toParentViewController: nil)
+            searchLanguageBarViewController?.willMove(toParent: nil)
             navigationBar.removeExtendedNavigationBarView()
-            searchLanguageBarViewController?.removeFromParentViewController()
+            searchLanguageBarViewController?.removeFromParent()
             searchLanguageBarViewController = nil
         }
+    }
+    
+    override var headerStyle: ColumnarCollectionViewController.HeaderStyle {
+        return .sections
     }
 
     // MARK - Search
@@ -233,22 +250,60 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return searchBar
     }()
     
-    var searchLanguageBarViewController: SearchLanguagesBarViewController?
-    var isSearchVisible: Bool = false
+    // used to match the transition with explore
     
+    func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
+        navigationBarTopSpacing = incomingNavigationBar.barTopSpacing
+        navigationBar.isTopSpacingHidingEnabled = true
+        navigationBar.barTopSpacing = navigationBarTopSpacing
+        navigationBar.topSpacingPercentHidden = navigationBarTopSpacingPercentHidden
+        navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
+        navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
+        navigationBar.shadowAlpha = navigationBarShadowAlpha
+    }
+    
+    func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
+        navigationBarTopSpacingPercentHidden = outgoingNavigationBar.topSpacingPercentHidden
+        navigationBarShadowAlpha = outgoingNavigationBar.shadowAlpha
+        navigationBarTopSpacing = outgoingNavigationBar.barTopSpacing
+    }
+    
+    private var navigationBarShadowAlpha: CGFloat = 0
+    private var navigationBarTopSpacingPercentHidden: CGFloat = 0
+    private var navigationBarTopSpacing: CGFloat = 0
+
+    var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    private var _isSearchVisible: Bool = false
     func setSearchVisible(_ visible: Bool, animated: Bool) {
-        isSearchVisible = visible
+        _isSearchVisible = visible
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
         let completion = { (finished: Bool) in
             self.resultsViewController.view.isHidden = !visible
             self.isAnimatingSearchBarState = false
+            self.navigationBar.isTitleShrinkingEnabled = true
+            self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
+        }
+        if searchLanguageBarViewController != nil {
+            navigationBar.shadowAlpha = 0
+        }
+        if visible {
+            navigationBarTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
+            navigationBarShadowAlpha = navigationBar.shadowAlpha
+            navigationBarTopSpacing = navigationBar.barTopSpacing
         }
         let animations = {
             self.navigationBar.isBarHidingEnabled = true
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, animated: false)
+            self.navigationBar.isTopSpacingHidingEnabled = true
+            self.navigationBar.isTitleShrinkingEnabled = false
+            self.navigationBar.barTopSpacing = self.navigationBarTopSpacing
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
             self.navigationBar.isBarHidingEnabled = false
+            self.navigationBar.isTopSpacingHidingEnabled = !visible
+            self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
             self.resultsViewController.view.alpha = visible ? 1 : 0
             self.searchBar.setShowsCancelButton(visible, animated: animated)
-            self.searchLanguageBarViewController?.view.alpha = visible ? 1 : 0
+            self.view.layoutIfNeeded()
         }
         guard animated else {
             animations()
@@ -258,6 +313,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         isAnimatingSearchBarState = true
         self.resultsViewController.view.alpha = visible ? 0 : 1
         self.resultsViewController.view.isHidden = false
+        self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
     
@@ -266,9 +322,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.dataStore = dataStore
         resultsViewController.apply(theme: theme)
         resultsViewController.delegate = self
-        addChildViewController(resultsViewController)
+        addChild(resultsViewController)
         view.wmf_addSubviewWithConstraintsToEdges(resultsViewController.view)
-        resultsViewController.didMove(toParentViewController: self)
+        resultsViewController.didMove(toParent: self)
         return resultsViewController
     }()
     
@@ -291,7 +347,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         dataStore.recentSearchList.save()
         reloadRecentSearches()
     }
-
+    
     // MARK - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -301,28 +357,37 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         setSearchVisible(true, animated: shouldAnimateSearchBar)
         return true
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    }
+
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        guard !isAnimatingSearchBarState && shouldAnimateSearchBar else {
+        guard !isAnimatingSearchBarState else {
             return false
         }
-        setSearchVisible(false, animated: shouldAnimateSearchBar)
+        
+        guard shouldAnimateSearchBar else {
+            didClickSearchButton = false
+            return true
+        }
+        
+        if didClickSearchButton {
+            didClickSearchButton = false
+        } else {
+            setSearchVisible(false, animated: shouldAnimateSearchBar)
+        }
+        
         return true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search(for: searchBar.text, suggested: false)
     }
-    
+
+    private var didClickSearchButton = false
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         saveLastSearch()
-        searchBar.resignFirstResponder()
+        didClickSearchButton = true
+        searchBar.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -452,30 +517,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         header.delegate = self
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionElementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewHeader.identifier, for: indexPath)
-        guard let header = view as? CollectionViewHeader else {
-            return view
-        }
-        configure(header: header, forSectionAt: indexPath.section, layoutOnly: false)
-        return header
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
-        guard
-            self.collectionView(collectionView, numberOfItemsInSection: 0) > 0,
-            let header = layoutManager.placeholder(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.identifier) as? CollectionViewHeader
-        else {
-            return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
-        }
-        configure(header: header, forSectionAt: section, layoutOnly: true)
-        let size = header.sizeThatFits(CGSize(width: columnWidth, height: UIViewNoIntrinsicMetric), apply: false)
-        return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: size.height)
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
@@ -484,6 +525,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.text = recentSearch.searchTerm
         searchBar.becomeFirstResponder()
         search()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let recentSearches = recentSearches, recentSearches.countOfEntries() > 0 else {
+            return false
+        }
+        return true
     }
 }
 
@@ -502,15 +550,35 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 }
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
-    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL) {
+    func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath) {
+        funnel.logSearchResultTap(at: indexPath.item)
         saveLastSearch()
-        funnel.logSearchResultTap()
     }
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+        funnel.logSearchLangSwitch(source)
         search()
+    }
+}
+
+// MARK: - Event logging
+extension SearchViewController {
+    private var source: String {
+        guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
+            return "unknown"
+        }
+        let viewControllers = navigationController.viewControllers
+        let viewControllersCount = viewControllers.count
+        if viewControllersCount == 1 {
+            return "search_tab"
+        }
+        let penultimateViewController = viewControllers[viewControllersCount - 2]
+        if let searchSourceProviding = penultimateViewController as? EventLoggingSearchSourceProviding {
+            return searchSourceProviding.searchSource
+        }
+        return "unknown"
     }
 }
 

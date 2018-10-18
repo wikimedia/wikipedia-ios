@@ -7,7 +7,7 @@
 //
 
 #import "RMessageView.h"
-#import "HexColors.h"
+#import "Wikipedia-Swift.h"
 
 static NSString *const RDesignFileName = @"RMessageDefaultDesign";
 
@@ -24,6 +24,8 @@ static NSMutableDictionary *globalDesignDictionary;
 @property (nonatomic, weak) IBOutlet UIView *titleSubtitleContainerView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *button;
+@property (nonatomic, weak) IBOutlet UIStackView *stackView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *titleSubtitleContainerViewCenterYConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *closeImageView;
 
@@ -150,19 +152,17 @@ static NSMutableDictionary *globalDesignDictionary;
  */
 + (BOOL)viewControllerEdgesExtendUnderTopBars:(UIViewController *)viewController
 {
-  BOOL vcAskedToExtendUnderTopBars = NO;
-
   if (viewController.edgesForExtendedLayout == UIRectEdgeTop ||
       viewController.edgesForExtendedLayout == UIRectEdgeAll) {
-    vcAskedToExtendUnderTopBars = YES;
+    /* viewController is asking to extend under top bars */
   } else {
-    vcAskedToExtendUnderTopBars = NO;
+    /* viewController isn't asking to extend under top bars */
     return NO;
   }
 
   /* When a table view controller asks to extend under top bars, if the navigation bar is
    translucent iOS will not extend the edges of the table view controller under the top bars. */
-  if ([viewController isKindOfClass:[UITableViewController class]] && vcAskedToExtendUnderTopBars &&
+  if ([viewController isKindOfClass:[UITableViewController class]] &&
       !viewController.navigationController.navigationBar.translucent) {
     return NO;
   }
@@ -172,20 +172,19 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (UIColor *)colorForString:(NSString *)string
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:1.f];
-  return nil;
+  return [self colorForString:string alpha:1.0];
 }
 
 /**
- Wrapper method to avoid getting a black color when passing a nil string to
- hx_colorWithHexRGBAString
  @param string A hex string representation of a color.
  @return nil or a color.
  */
 - (UIColor *)colorForString:(NSString *)string alpha:(CGFloat)alpha
 {
-  if (string) return [UIColor hx_colorWithHexRGBAString:string alpha:alpha];
-  return nil;
+    if (string == nil) {
+        return nil;
+    }
+    return [[UIColor alloc] initWithHexString:string alpha:alpha];
 }
 
 #pragma mark - Get Image From Resource Bundle
@@ -226,6 +225,7 @@ static NSMutableDictionary *globalDesignDictionary;
   if (self) {
     _delegate = delegate;
     _title = title;
+    _buttonTitle = buttonTitle;
     _subtitle = subtitle;
     _iconImage = iconImage;
     _duration = duration;
@@ -299,6 +299,11 @@ static NSMutableDictionary *globalDesignDictionary;
   [self.subtitleLabel setTextColor:_subtitleTextColor];
 }
 
+- (void)setButtonTitleColor:(UIColor *)buttonTitleColor {
+    _buttonTitleColor = buttonTitleColor;
+    [self.button setTitleColor:_buttonTitleColor forState:UIControlStateNormal];
+}
+
 - (void)setMessageIcon:(UIImage *)messageIcon
 {
   _messageIcon = messageIcon;
@@ -325,25 +330,20 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)updateCurrentIconIfNeeded
 {
-  UIImage *image = nil;
   switch (self.messageType) {
   case RMessageTypeNormal: {
-    image = _messageIcon;
     self.iconImageView.image = _messageIcon;
     break;
   }
   case RMessageTypeError: {
-    image = _errorIcon;
     self.iconImageView.image = _errorIcon;
     break;
   }
   case RMessageTypeSuccess: {
-    image = _successIcon;
     self.iconImageView.image = _successIcon;
     break;
   }
   case RMessageTypeWarning: {
-    image = _warningIcon;
     self.iconImageView.image = _warningIcon;
     break;
   }
@@ -409,6 +409,7 @@ static NSMutableDictionary *globalDesignDictionary;
   [self setupImagesAndBackground];
   [self setupTitleLabel];
   [self setupSubTitleLabel];
+  [self setupButton];
 }
 
 - (void)setupLayout
@@ -571,6 +572,15 @@ static NSMutableDictionary *globalDesignDictionary;
   _subtitleLabel.shadowOffset = CGSizeZero;
   _subtitleLabel.backgroundColor = nil;
 
+    _button.titleLabel.numberOfLines = 0;
+    _button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _button.titleLabel.font = [UIFont systemFontOfSize:12.f];
+    _button.titleLabel.textAlignment = NSTextAlignmentLeft;
+    _button.titleLabel.textColor = [UIColor darkGrayColor];
+    _button.titleLabel.shadowColor = nil;
+    _button.titleLabel.shadowOffset = CGSizeZero;
+    _button.titleLabel.backgroundColor = nil;
+
   _iconImageView.clipsToBounds = NO;
 }
 
@@ -627,6 +637,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 - (void)setupTitleLabel
 {
+  [_titleLabel setHidden:_title == NULL];
   CGFloat titleFontSize = [[_messageViewDesignDictionary valueForKey:@"titleFontSize"] floatValue];
   NSString *titleFontName = [_messageViewDesignDictionary valueForKey:@"titleFontName"];
   if (titleFontName) {
@@ -654,8 +665,22 @@ static NSMutableDictionary *globalDesignDictionary;
   }
 }
 
+-(void)setupButton {
+    if (_buttonTitle) {
+        [_button setHidden:NO];
+        [_button setTitle:_buttonTitle forState:UIControlStateNormal];
+        _stackView.spacing = -5;
+        [_button addTarget:self action:@selector(executeMessageViewButtonCallBack) forControlEvents:UIControlEventTouchUpInside];
+        _button.titleLabel.font = _titleLabel.font;
+    } else {
+        [_button setHidden:YES];
+        _stackView.spacing = 5;
+    }
+}
+
 - (void)setupSubTitleLabel
 {
+  [_subtitleLabel setHidden:_title == NULL];
   id subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subTitleFontSize"];
   if (!subTitleFontSizeValue) {
     subTitleFontSizeValue = [_messageViewDesignDictionary valueForKey:@"subtitleFontSize"];

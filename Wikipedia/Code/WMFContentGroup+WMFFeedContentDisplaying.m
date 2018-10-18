@@ -8,96 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFContentGroup (WMFContentManaging)
 
-#pragma mark - In The News
-
-- (nullable NSString *)headerIconName {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindContinueReading:
-            return @"home-continue-reading-mini";
-        case WMFContentGroupKindMainPage:
-            return @"today-mini";
-        case WMFContentGroupKindRelatedPages:
-            return @"recent-mini";
-        case WMFContentGroupKindLocation:
-            return @"nearby-mini";
-        case WMFContentGroupKindLocationPlaceholder:
-            return @"nearby-mini";
-        case WMFContentGroupKindPictureOfTheDay:
-            return @"potd-mini";
-        case WMFContentGroupKindRandom:
-            return @"random-mini";
-        case WMFContentGroupKindFeaturedArticle:
-            return @"featured-mini";
-        case WMFContentGroupKindTopRead:
-            return @"trending-mini";
-        case WMFContentGroupKindNews:
-            return @"in-the-news-mini";
-        case WMFContentGroupKindOnThisDay:
-            return @"on-this-day-mini";
-        default:
-            break;
-    }
-    return nil;
-}
-
-- (nullable UIImage *)headerIcon {
-    static dispatch_once_t onceToken;
-    static NSMutableDictionary<NSString *, UIImage *> *headerIcons;
-    dispatch_once(&onceToken, ^{
-        headerIcons = [NSMutableDictionary dictionaryWithCapacity:12];
-    });
-    NSString *name = [self headerIconName];
-    if (!name) {
-        return nil;
-    }
-    UIImage *image = headerIcons[name];
-    if (!image) {
-        image = [UIImage imageNamed:name];
-        headerIcons[name] = image;
-    }
-    return image;
-}
-
-- (nullable UIColor *)headerIconTintColor {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindLocationPlaceholder:
-        case WMFContentGroupKindLocation:
-            return [UIColor wmf_green];
-        case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_purple];
-        case WMFContentGroupKindRandom:
-            return [UIColor wmf_red];
-        case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_yellow];
-        case WMFContentGroupKindTopRead:
-            return [UIColor wmf_blue];
-        case WMFContentGroupKindOnThisDay:
-            return [UIColor wmf_blue];
-        default:
-            return [UIColor wmf_lightGray];
-    }
-}
-
-- (nullable UIColor *)headerIconBackgroundColor {
-    switch (self.contentGroupKind) {
-        case WMFContentGroupKindLocationPlaceholder:
-        case WMFContentGroupKindLocation:
-            return [UIColor wmf_lightGreen];
-        case WMFContentGroupKindPictureOfTheDay:
-            return [UIColor wmf_lightPurple];
-        case WMFContentGroupKindRandom:
-            return [UIColor wmf_lightRed];
-        case WMFContentGroupKindFeaturedArticle:
-            return [UIColor wmf_lightYellow];
-        case WMFContentGroupKindOnThisDay:
-            return [UIColor wmf_lightBlue];
-        case WMFContentGroupKindTopRead:
-            return [UIColor wmf_lightBlue];
-        default:
-            return [UIColor wmf_lightestGray];
-    }
-}
-
 - (nullable NSString *)headerTitle {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindContinueReading:
@@ -381,14 +291,8 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"explore-most-read-footer", nil, nil, @"All top read articles", @"Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped.");
         case WMFContentGroupKindNews:
             return WMFLocalizedStringWithDefaultValue(@"home-news-footer", nil, nil, @"More current events", @"Footer for presenting user option to see longer list of news stories.");
-        case WMFContentGroupKindOnThisDay: {
-            unsigned long long countOfEvents = [self.countOfFullContent unsignedLongLongValue];
-            if (countOfEvents > 0) {
-                return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-footer-with-event-count", nil, nil, @"%1$@ more historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), @(countOfEvents)];
-            } else {
-                return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
-            }
-        }
+        case WMFContentGroupKindOnThisDay:
+            return WMFLocalizedStringWithDefaultValue(@"on-this-day-footer", nil, nil, @"More historical events on this day", @"Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events");
         case WMFContentGroupKindUnknown:
         default:
             break;

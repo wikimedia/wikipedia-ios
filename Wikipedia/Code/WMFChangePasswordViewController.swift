@@ -101,23 +101,21 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         enableProgressiveButton(false)
         WMFAlertManager.sharedInstance.dismissAlert()
                 
-        guard let userName = userName else {
+        guard let userName = userName,
+            let password = passwordField.text,
+            let retypePassword = retypeField.text else {
+            assertionFailure("One or more of the required parameters are nil")
             return
         }
-        
-        WMFAuthenticationManager.sharedInstance
-            .login(username: userName,
-                   password: passwordField.text!,
-                   retypePassword: retypeField.text!,
-                   oathToken: nil,
-                   captchaID: nil,
-                   captchaWord: nil,
-                   success: { _ in
-                    let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
-                    WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                    self.dismiss(animated: true, completion: nil)
-                    self.funnel?.logSuccess()
-            }, failure: { error in
+
+        WMFAuthenticationManager.sharedInstance.login(username: userName, password: password, retypePassword: retypePassword, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
+            switch loginResult {
+            case .success(_):
+                let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
+                WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
+                self.dismiss(animated: true, completion: nil)
+                self.funnel?.logSuccess()
+            case .failure(let error):
                 self.enableProgressiveButton(true)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.funnel?.logError(error.localizedDescription)
@@ -127,7 +125,10 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
                         self.retypeField.text = nil
                     }
                 }
-            })
+            default:
+                break
+            }
+        }
     }
     
     

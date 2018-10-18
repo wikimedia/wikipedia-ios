@@ -9,10 +9,10 @@ extension WMFScrollable where Self : UIViewController {
     /// - Parameter notification: A UIKeyboardWillChangeFrame notification. Works for landscape and portrait.
     func wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification notification: Notification) {
         guard
-            notification.name == Notification.Name.UIKeyboardWillChangeFrame,
-            let keyboardScreenRect = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+            notification.name == UIWindow.keyboardWillChangeFrameNotification,
+            let keyboardScreenRect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
             else {
-                assertionFailure("Notification name was expected to be '\(Notification.Name.UIKeyboardWillChangeFrame)' but was '\(notification.name)'")
+                assertionFailure("Notification name was expected to be '\(UIWindow.keyboardWillChangeFrameNotification)' but was '\(notification.name)'")
                 return
         }
         guard scrollView != nil else {
@@ -24,17 +24,17 @@ extension WMFScrollable where Self : UIViewController {
         }
         let keyboardWindowRect = window.convert(keyboardScreenRect, from: nil)
         let intersection = keyboardWindowRect.intersection(window.frame)
-        let contentInsets = UIEdgeInsetsMake(0, 0, intersection.size.height, 0)
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: intersection.size.height, right: 0)
         scrollView.contentInset = contentInsets
     }
     
     func wmf_beginAdjustingScrollViewInsetsForKeyboard() {
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillChangeFrameNotification, object: nil, queue: nil, using: { [weak self] notification in
             self?.wmf_adjustScrollViewInset(forKeyboardWillChangeFrameNotification: notification)
         })
     }
 
     func wmf_endAdjustingScrollViewInsetsForKeyboard() {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
     }
 }

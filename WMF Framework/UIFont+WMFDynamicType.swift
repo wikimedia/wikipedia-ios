@@ -19,27 +19,31 @@ import UIKit
     @objc public static let semiboldFootnote = DynamicTextStyle(.system, .footnote, .semibold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+    public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)
+    
+    public static let callout = DynamicTextStyle(.system, .callout)
     
     public static let title3 = DynamicTextStyle(.system, .title3)
     
     public static let body = DynamicTextStyle(.system, .body)
-    public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
-    
+    @objc  public static let semiboldBody = DynamicTextStyle(.system, .body, .semibold)
+    public static let italicBody = DynamicTextStyle(.system, .body, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
+
     public static let caption1 = DynamicTextStyle(.system, .caption1)
     public static let caption2 = DynamicTextStyle(.system, .caption2)
     public static let semiboldCaption2 = DynamicTextStyle(.system, .caption2, .semibold)
-    public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [.traitItalic])
+    public static let italicCaption2 = DynamicTextStyle(.system, .caption2, .regular, [UIFontDescriptor.SymbolicTraits.traitItalic])
 
     public static let georgiaTitle3 = DynamicTextStyle(.georgia, .title3)
 
     let family: FontFamily
-    let style: UIFontTextStyle
+    let style: UIFont.TextStyle
     let weight: UIFont.Weight
-    let traits: UIFontDescriptorSymbolicTraits
+    let traits: UIFontDescriptor.SymbolicTraits
     
-    init(_ family: FontFamily = .system, _ style: UIFontTextStyle, _ weight: UIFont.Weight = .regular, _ traits: UIFontDescriptorSymbolicTraits = []) {
+    init(_ family: FontFamily = .system, _ style: UIFont.TextStyle, _ weight: UIFont.Weight = .regular, _ traits: UIFontDescriptor.SymbolicTraits = []) {
         self.family = family
         self.weight = weight
         self.traits = traits
@@ -50,11 +54,11 @@ import UIKit
         return DynamicTextStyle(family, style, weight, traits)
     }
     
-    func with(traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+    func with(traits: UIFontDescriptor.SymbolicTraits) -> DynamicTextStyle {
         return DynamicTextStyle(family, style, weight, traits)
     }
     
-    func with(weight: UIFont.Weight, traits: UIFontDescriptorSymbolicTraits) -> DynamicTextStyle {
+    func with(weight: UIFont.Weight, traits: UIFontDescriptor.SymbolicTraits) -> DynamicTextStyle {
         return DynamicTextStyle(family, style, weight, traits)
     }
 }
@@ -70,7 +74,7 @@ fileprivate var fontCache: [String: UIFont] = [:]
 public extension UIFont {
 
     @objc(wmf_fontForDynamicTextStyle:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle) -> UIFont {
-        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UIScreen.main.traitCollection)
+        return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UITraitCollection(preferredContentSizeCategory: .large))
     }
     
     @objc(wmf_fontForDynamicTextStyle:compatibleWithTraitCollection:) public class func wmf_font(_ dynamicTextStyle: DynamicTextStyle, compatibleWithTraitCollection traitCollection: UITraitCollection) -> UIFont {
@@ -81,15 +85,14 @@ public extension UIFont {
         guard fontFamily != .system || weight != .regular || traits != [] else {
             return UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection)
         }
-                
-        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
-
-        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(size)"
+        
+        let cacheKey = "\(fontFamily.rawValue)-\(weight.rawValue)-\(traits.rawValue)-\(style.rawValue)-\(traitCollection.preferredContentSizeCategory.rawValue)"
         if let font = fontCache[cacheKey] {
             return font
         }
         
-        
+        let size: CGFloat = UIFont.preferredFont(forTextStyle: style, compatibleWith: traitCollection).pointSize
+
         var font: UIFont
         switch fontFamily {
         case .georgia:
@@ -115,7 +118,7 @@ public extension UIFont {
         return font
     }
     
-    func with(traits: UIFontDescriptorSymbolicTraits) -> UIFont {
+    func with(traits: UIFontDescriptor.SymbolicTraits) -> UIFont {
         guard let descriptor = self.fontDescriptor.withSymbolicTraits(traits) else {
             return self
         }

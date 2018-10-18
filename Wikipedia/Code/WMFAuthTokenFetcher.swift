@@ -21,9 +21,11 @@ public typealias WMFAuthTokenBlock = (WMFAuthToken) -> Void
 public class WMFAuthToken: NSObject {
     @objc public var token: String
     @objc public var type: WMFAuthTokenType
+    public var isAuthorized: Bool
     @objc init(token:String, type:WMFAuthTokenType) {
         self.token = token
         self.type = type
+        self.isAuthorized = token != "+\\"
     }
 }
 
@@ -44,6 +46,7 @@ public class WMFAuthTokenFetcher: NSObject {
                 return "createaccount"
             }
         }
+
         
         let manager = AFHTTPSessionManager(baseURL: siteURL)
         manager.responseSerializer = WMFApiJsonResponseSerializer.init();
@@ -53,21 +56,21 @@ public class WMFAuthTokenFetcher: NSObject {
             "type": stringForToken(type),
             "format": "json"
         ]
-        _ = manager.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
+        _ = manager.wmf_apiPOST(with: parameters, success: { (_, response) in
             guard
                 let response = response as? [String : AnyObject],
                 let query = response["query"] as? [String: Any],
                 let tokens = query["tokens"] as? [String: Any],
                 let token = tokens[stringForToken(type) + "token"] as? String
-            else {
-                failure(WMFAuthTokenError.cannotExtractToken)
-                return
+                else {
+                    failure(WMFAuthTokenError.cannotExtractToken)
+                    return
             }
             guard token.count > 0 else {
                 failure(WMFAuthTokenError.zeroLengthToken)
                 return
             }
-            success(WMFAuthToken.init(token: token, type: type))
+            success(WMFAuthToken(token: token, type: type))
         }, failure: { (_, error) in
             failure(error)
         })

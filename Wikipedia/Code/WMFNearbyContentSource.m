@@ -72,7 +72,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         if (![WMFLocationManager isAuthorized]) {
             [moc performBlock:^{
                 [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-                if (![[NSUserDefaults wmf_userDefaults] wmf_exploreDidPromptForLocationAuthorization]) {
+                if (![[NSUserDefaults wmf] wmf_exploreDidPromptForLocationAuthorization]) {
                     [self showAuthorizationPlaceholderInManagedObjectContext:moc
                                                                   completion:^{
                                                                       if (completion) {
@@ -135,6 +135,14 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 }
 
 - (void)showAuthorizationPlaceholderInManagedObjectContext:(NSManagedObjectContext *)moc completion:(nonnull dispatch_block_t)completion {
+    NSString *preferredSiteURLString = [[MWKLanguageLinkController.sharedInstance.preferredSiteURLs firstObject] wmf_articleDatabaseKey];
+    NSString *mySiteURLString = self.siteURL.wmf_articleDatabaseKey;
+    if (preferredSiteURLString && mySiteURLString && ![mySiteURLString isEqualToString:preferredSiteURLString]) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
     NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
     NSDate *date = [NSDate date];
@@ -235,7 +243,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
 
 - (nullable WMFContentGroup *)contentGroupCloseToLocation:(CLLocation *)location inManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force {
     CLLocationDistance distanceThreshold = WMFNearbyUpdateDistanceThresholdInMeters;
-    return [moc locationContentGroupWithinMeters:distanceThreshold ofLocation:location];
+    return [moc locationContentGroupWithSiteURL:self.siteURL withinMeters:distanceThreshold ofLocation:location];
 }
 
 #pragma mark - Fetching

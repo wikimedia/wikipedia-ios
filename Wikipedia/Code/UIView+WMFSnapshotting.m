@@ -10,7 +10,7 @@
     return image;
 }
 
-- (nullable  UIImage *)wmf_snapshotImage {
+- (nullable UIImage *)wmf_snapshotImage {
     return [self wmf_snapshotImageAfterScreenUpdates:YES];
 }
 

@@ -71,8 +71,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let height = button.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
         let width = button.widthAnchor.constraint(greaterThanOrEqualToConstant: 32)
         button.addConstraints([height, width])
-        let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor)
-        let trailing = button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+        let top = button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45)
+        let trailing = button.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
         view.addConstraints([top, trailing])
         closeButton = button
         applyThemeToCloseButton()
@@ -105,7 +105,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let leading = button.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         let trailing = button.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         view.addConstraints([top, bottom, leading, trailing])
-        button.accessibilityTraits = UIAccessibilityTraitNone
+        button.isAccessibilityElement = false
         scrollToTopButton = button
     }
     
@@ -115,7 +115,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     }
     
     override var prefersStatusBarHidden: Bool {
-        return navigationMode == .detail
+        guard navigationMode != .detail else {
+            return true
+        }
+        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {
@@ -132,27 +135,38 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         super.viewDidLoad()
 
         apply(theme: theme)
-        automaticallyAdjustsScrollViewInsets = false
-        if #available(iOS 11.0, *) {
-            scrollView?.contentInsetAdjustmentBehavior = .never
-        }
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil, using: { [weak self] notification in
-            if let window = self?.view.window, let endFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+        scrollView?.contentInsetAdjustmentBehavior = .never
+ 
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillChangeFrameNotification, object: nil, queue: nil, using: { [weak self] notification in
+            if let window = self?.view.window, let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 let windowFrame = window.convert(endFrame, from: nil)
                 self?.keyboardFrame = window.convert(windowFrame, to: self?.view)
             }
             self?.updateScrollViewInsets()
         })
-        NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardDidHide, object: nil, queue: nil, using: { [weak self] notification in
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardDidHideNotification, object: nil, queue: nil, using: { [weak self] notification in
             self?.keyboardFrame = nil
             self?.updateScrollViewInsets()
         })
     }
+
+    var isFirstAppearance = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+ 
         guard navigationMode == .bar else {
+            if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
+                var updatedElements: [Any] = [closeButton]
+                let existingElements: [Any] = view.accessibilityElements ?? view.subviews
+                for element in existingElements {
+                    guard element as? UIButton !== closeButton else {
+                        continue
+                    }
+                    updatedElements.append(element)
+                }
+                view.accessibilityElements = updatedElements
+            }
             return
         }
         
@@ -192,14 +206,13 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             if navigationBar.shouldTransformUnderBarViewWithBar {
                 navigationBar.underBarViewPercentHidden = 0
             }
-            updateNavigationBarStatusBarHeight()
         } else {
             if navigationBar.superview != nil {
                 navigationBar.removeFromSuperview()
             }
         }
     }
-    
+ 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateScrollViewInsets()
@@ -207,33 +220,15 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     // MARK - Scroll View Insets
     
-    fileprivate func updateNavigationBarStatusBarHeight() {
-        guard showsNavigationBar else {
-            return
-        }
-        
-        if #available(iOS 11.0, *) {
-        } else {
-            let newHeight = navigationController?.topLayoutGuide.length ?? topLayoutGuide.length
-            if newHeight != navigationBar.statusBarHeight {
-                navigationBar.statusBarHeight = newHeight
-                view.setNeedsLayout()
-            }
-        }
-        
-    }
-    
     override func viewSafeAreaInsetsDidChange() {
-        if #available(iOS 11.0, *) {
-            super.viewSafeAreaInsetsDidChange()
-        }
+        super.viewSafeAreaInsetsDidChange()
         self.updateScrollViewInsets()
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
     
     public final func updateScrollViewInsets() {
-        guard let scrollView = scrollView, !automaticallyAdjustsScrollViewInsets else {
+        guard let scrollView = scrollView, scrollView.contentInsetAdjustmentBehavior == .never else {
             return
         }
         
@@ -251,12 +246,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             top = view.layoutMargins.top
         }
         
-        var safeInsets = UIEdgeInsets.zero
-        if #available(iOS 11.0, *) {
-            safeInsets = view.safeAreaInsets
-        } else {
-            safeInsets = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: min(44, bottomLayoutGuide.length), right: 0) // MIN 44 is a workaround for an iOS 10 only issue where the bottom layout guide is too tall when pushing from explore
-        }
+        let safeInsets = view.safeAreaInsets
         
         var bottom = safeInsets.bottom
         if let keyboardFrame = keyboardFrame {
@@ -270,14 +260,14 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
-        if scrollView.wmf_setContentInsetPreservingTopAndBottomOffset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, withNavigationBar: navigationBar) {
+        if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled) {
             scrollViewInsetsDidChange()
         }
     }
 
     open func scrollViewInsetsDidChange() {
         if showsNavigationBar && ownsNavigationBar {
-            for child in childViewControllers {
+            for child in children {
                 guard let vc = child as? ViewController, !vc.ownsNavigationBar else {
                     continue
                 }
@@ -300,6 +290,10 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     func navigationBarHider(_ hider: NavigationBarHider, didSetNavigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, animated: Bool) {
         //
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.theme.preferredStatusBarStyle
     }
 
     func apply(theme: Theme) {

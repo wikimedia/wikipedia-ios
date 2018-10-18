@@ -18,9 +18,7 @@ extension ImageDimmingExampleViewController: Themeable {
     public func apply(theme: Theme) {
         self.theme = theme
         
-        if #available(iOS 11.0, *) {
-            exampleImage.accessibilityIgnoresInvertColors = true
-        }
+        exampleImage.accessibilityIgnoresInvertColors = true
         
         guard viewIfLoaded != nil else {
             return

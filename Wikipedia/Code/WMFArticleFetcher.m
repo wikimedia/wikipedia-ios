@@ -99,7 +99,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         failure([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
         return nil;
     }
-    
+
     // Force desktop domain if not Zero rated.
     if (![SessionSingleton sharedInstance].zeroConfigurationManager.isZeroRated) {
         useDeskTopURL = YES;
@@ -113,21 +113,21 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     __block id summaryResponse = nil;
     [taskGroup enter];
     [[WMFSession shared] fetchSummaryForArticleURL:articleURL
-                                           priority:priority
-                                                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                                             summaryResponse = summary;
-                                                             [taskGroup leave];
-                                                         }];
-    
-//    __block id mediaResponse = nil;
-//    [taskGroup enter];
-//    [[WMFSession shared] fetchMediaForArticleURL:articleURL
-//                                          priority:priority
-//                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-//                                     mediaResponse = media;
-//                                     [taskGroup leave];
-//                                 }];
-    
+                                          priority:priority
+                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable summary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                     summaryResponse = summary;
+                                     [taskGroup leave];
+                                 }];
+
+    //    __block id mediaResponse = nil;
+    //    [taskGroup enter];
+    //    [[WMFSession shared] fetchMediaForArticleURL:articleURL
+    //                                          priority:priority
+    //                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable media, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+    //                                     mediaResponse = media;
+    //                                     [taskGroup leave];
+    //                                 }];
+
     __block id articleResponse = nil;
     __block NSError *articleError = nil;
     [taskGroup enter];
@@ -162,29 +162,48 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                               if (!articleResponse[@"coordinates"] && summaryResponse[@"coordinates"]) {
                                                   mutableArticleResponse[@"coordinates"] = summaryResponse[@"coordinates"];
                                               }
+
+                                              NSURL *updatedArticleURL = articleURL;
+                                              NSString *redirectedTitle = articleResponse[@"redirected"];
+                                              if (redirectedTitle) {
+                                                  updatedArticleURL = [articleURL wmf_URLWithTitle:redirectedTitle];
+                                              }
+
                                               articleResponse = mutableArticleResponse;
 
-                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:articleURL response:articleResponse];
-                                              [self.dataStore asynchronouslyCacheArticle:mwkArticle toDisk:saveToDisk completion:^(NSError * _Nonnull articleCacheError) {
+                                              NSError *articleSerializationError = nil;
+                                              MWKArticle *mwkArticle = [self serializedArticleWithURL:updatedArticleURL response:articleResponse error:&articleSerializationError];
+
+                                              if (articleSerializationError) {
                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                      NSManagedObjectContext *moc = self.dataStore.viewContext;
-                                                      WMFArticle *article = [moc fetchOrCreateArticleWithURL:articleURL];
-                                                      article.isExcludedFromFeed = mwkArticle.ns != 0 || articleURL.wmf_isMainPage;
-                                                      article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
-                                                      if (summaryResponse) {
-                                                          [article updateWithSummary:summaryResponse];
-                                                      }
-                                                      NSError *saveError = nil;
-                                                      if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                          DDLogError(@"Error saving after updating article: %@", saveError);
-                                                      }
-                                                      if (articleCacheError) {
-                                                          failure(articleCacheError);
-                                                      } else {
-                                                          success(mwkArticle);
-                                                      }
+                                                      failure(articleSerializationError);
                                                   });
-                                              }];
+                                                  return;
+                                              }
+                                              [self.dataStore asynchronouslyCacheArticle:mwkArticle
+                                                                                  toDisk:saveToDisk
+                                                                              completion:^(NSError *_Nonnull articleCacheError) {
+                                                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                      NSManagedObjectContext *moc = self.dataStore.viewContext;
+                                                                                      WMFArticle *article = [moc fetchOrCreateArticleWithURL:updatedArticleURL];
+                                                                                      article.isExcludedFromFeed = mwkArticle.ns != 0 || updatedArticleURL.wmf_isMainPage;
+                                                                                      article.isDownloaded = NO; //isDownloaded == NO so that any new images added to the article will be downloaded by the SavedArticlesFetcher
+                                                                                      article.wikidataID = mwkArticle.wikidataId;
+                                                                                      if (summaryResponse) {
+                                                                                          [article updateWithSummary:summaryResponse];
+                                                                                      }
+                                                                                      article.wikidataDescription = mwkArticle.entityDescription; // summary response not as up-to-date as mediawiki
+                                                                                      NSError *saveError = nil;
+                                                                                      if ([moc hasChanges] && ![moc save:&saveError]) {
+                                                                                          DDLogError(@"Error saving after updating article: %@", saveError);
+                                                                                      }
+                                                                                      if (articleCacheError) {
+                                                                                          failure(articleCacheError);
+                                                                                      } else {
+                                                                                          success(mwkArticle);
+                                                                                      }
+                                                                                  });
+                                                                              }];
                                           } else {
                                               if (!articleError) {
                                                   articleError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{}];
@@ -241,7 +260,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     [self.pageSummarySessionManager wmf_cancelAllTasks];
 }
 
-- (id)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response {
+- (nullable MWKArticle *)serializedArticleWithURL:(NSURL *)url response:(NSDictionary *)response error:(NSError **)error {
     MWKArticle *article = [[MWKArticle alloc] initWithURL:url dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
@@ -252,7 +271,10 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return article;
     } @catch (NSException *e) {
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
-        return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+        if (error) {
+            *error = [NSError wmf_serializeArticleErrorWithReason:[e reason]];
+        }
+        return nil;
     }
 }
 

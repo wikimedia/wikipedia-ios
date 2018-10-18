@@ -29,10 +29,6 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
              ExtMetadataArtistKey];
 }
 
-+ (NSArray *)picOfTheDayExtMetadataKeys {
-    return @[ExtMetadataImageDescriptionKey];
-}
-
 - (id)responseObjectForResponse:(NSURLResponse *)response data:(NSData *)data error:(NSError *__autoreleasing *)error {
     NSDictionary *json = [super responseObjectForResponse:response data:data error:error];
     if (!json) {
@@ -40,6 +36,11 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     }
     NSDictionary *indexedImages = json[@"query"][@"pages"];
     NSMutableArray *itemListBuilder = [NSMutableArray arrayWithCapacity:[[indexedImages allKeys] count]];
+    
+    NSArray<NSString*>* preferredLangCodes = [[[MWKLanguageLinkController sharedInstance] preferredLanguages] wmf_map:^NSString*(MWKLanguageLink* language){
+        return [language languageCode];
+    }];
+    
     [indexedImages enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSDictionary *image, BOOL *stop) {
         NSDictionary *imageInfo = [image[@"imageinfo"] firstObject];
         NSDictionary *extMetadata = imageInfo[@"extmetadata"];
@@ -52,20 +53,66 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                             shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
                                          URL:[NSURL wmf_optionalURLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
 
+        NSString *description = nil;
+        BOOL descriptionIsRTL = NO;
+        NSString *descriptionLangCode = nil;
+        
+        id imageDescriptionValue = extMetadata[ExtMetadataImageDescriptionKey][@"value"];
+        if ([imageDescriptionValue isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *availableDescriptionsByLangCode = imageDescriptionValue;
+            descriptionLangCode = [self descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:availableDescriptionsByLangCode forPreferredLangCodes:preferredLangCodes];
+            if (descriptionLangCode) {
+                description = availableDescriptionsByLangCode[descriptionLangCode];
+                descriptionIsRTL = [[MWLanguageInfo rtlLanguages] containsObject:descriptionLangCode];
+            }
+        } else if ([imageDescriptionValue isKindOfClass:[NSString class]]) {
+            description = imageDescriptionValue;
+        }
+        
+        NSString *artist = nil;
+        id artistValue = extMetadata[ExtMetadataArtistKey][@"value"];
+        if ([artistValue isKindOfClass:[NSDictionary class]]) {
+            artist = artistValue[descriptionLangCode];
+        } else if ([artistValue isKindOfClass:[NSString class]]) {
+            artist = artistValue;
+        }
+        
         MWKImageInfo *item =
             [[MWKImageInfo alloc]
                 initWithCanonicalPageTitle:image[@"title"]
                           canonicalFileURL:[NSURL wmf_optionalURLWithString:imageInfo[@"url"]]
-                          imageDescription:[[extMetadata[ExtMetadataImageDescriptionKey][@"value"] wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                          imageDescription:[[description wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                     imageDescriptionIsRTL:descriptionIsRTL
                                    license:license
                                filePageURL:[NSURL wmf_optionalURLWithString:imageInfo[@"descriptionurl"]]
                              imageThumbURL:[NSURL wmf_optionalURLWithString:imageInfo[@"thumburl"]]
-                                     owner:[[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
+                                     owner:[[artist wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
                                  imageSize:MWKImageInfoSizeFromJSON(imageInfo, @"width", @"height")
                                  thumbSize:MWKImageInfoSizeFromJSON(imageInfo, @"thumbwidth", @"thumbheight")];
         [itemListBuilder addObject:item];
     }];
     return itemListBuilder;
+}
+
+- (NSString *)descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:(NSDictionary *)availableDescriptionsByLangCode forPreferredLangCodes:(NSArray<NSString*>*) preferredLangCodes {
+    // use first of user's preferred lang codes for which we have a translation
+    for (NSString* langCode in preferredLangCodes) {
+        if ([availableDescriptionsByLangCode objectForKey:langCode]) {
+            return langCode;
+        }
+    }
+    // else use "en" description if available
+    if ([availableDescriptionsByLangCode objectForKey:@"en"]) {
+        return @"en";
+    }
+    // else use first description lang code
+    for (NSString* langCode in availableDescriptionsByLangCode.allKeys) {
+        if (![langCode hasPrefix:@"_"]) { // there's a weird "_type" key in the results for some reason
+            return langCode;
+        }
+    }
+    // else no luck
+    return nil;
 }
 
 @end

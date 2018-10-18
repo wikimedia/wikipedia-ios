@@ -17,7 +17,7 @@
 		<key>wmf</key>
 		<string>https://wikimediafoundation.org</string>
 		<key>applemaps</key>
-		<string>https://www.apple.com/legal/internet-services/maps/</string>
+		<string>https://gspe21-ssl.ls.apple.com/html/attribution.html</string>
 	</dict>
 	<key>repositories</key>
 	<dict>
@@ -182,6 +182,7 @@ THE SOFTWARE.</string>
 		<string>Joshua Minor</string>
 		<string>Julien Bodet</string>
 		<string>Kaity Hammerstein</string>
+		<string>Kelly Roach</string>
 		<string>Kenan Wang</string>
 		<string>Kotaro Fujita</string>
 		<string>Kunal Mehta</string>

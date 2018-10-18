@@ -36,9 +36,6 @@
 
 #import "Wikipedia-Swift.h"
 
-const CGFloat WMFArticleViewControllerHeaderImageHeight = 210;
-const CGFloat WMFArticleViewControllerInlineToCContentWidthPercentage = 0.70;
-
 @import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -95,7 +92,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                         WMFReadingListHintPresenter,
                                         EventLoggingEventValuesProviding,
                                         WMFSearchButtonProviding,
-                                        WMFImageScaleTransitionProviding>
+                                        WMFImageScaleTransitionProviding,
+                                        UIGestureRecognizerDelegate,
+                                        EventLoggingSearchSourceProviding,
+                                        DescriptionEditViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle *article;
@@ -121,16 +121,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 // Fetchers
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
-@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
+@property (nonatomic, strong, nullable) WMFReachabilityNotifier *reachabilityNotifier;
 
 // Views
+@property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
 @property (nonatomic, strong) UIImageView *headerImageView;
-@property (nonatomic, strong, readonly) UIView *headerView;
-@property (nonatomic, readwrite) CGFloat headerViewHeight;
-@property (nonatomic, strong, readonly) UIView *headerBorderView;
-@property (nonatomic, strong) NSLayoutConstraint *headerImageLeadingConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *headerImageTrailingConstraint;
-
+@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *saveToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *languagesToolbarItem;
 @property (nonatomic, strong, readwrite) UIBarButtonItem *shareToolbarItem;
@@ -167,8 +163,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @end
 
 @implementation WMFArticleViewController
-@synthesize headerView = _headerView;
-@synthesize headerBorderView = _headerBorderView;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -195,9 +189,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        self.reachabilityManager = [AFNetworkReachabilityManager manager];
-        [self.reachabilityManager startMonitoring];
+        @weakify(self);
+        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
+            if (isReachable) {
+                @strongify(self);
+                [self.reachabilityNotifier stop];
+                @weakify(self);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    @strongify(self);
+                    [self fetchArticleIfNeeded];
+                });
+            }
+        }];
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
@@ -213,8 +216,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)setArticle:(nullable MWKArticle *)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
-    NSAssert([article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]],
-             @"Invalid article set for VC expecting article data for title: %@", self.articleURL);
+    if (![article.url isEqual:[self.articleURL wmf_URLWithFragment:nil]]) {
+        self.articleURL = article.url;
+    }
 
     _shareFunnel = nil;
     NSURL *articleURLToCancel = self.articleURL;
@@ -228,17 +232,15 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.webViewController setArticle:_article articleURL:self.articleURL];
 
     if (self.article) {
-        self.headerImageView.backgroundColor = UIColor.clearColor;
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
         if ([self.article.url wmf_isNonStandardURL]) {
             self.headerImageView.image = nil;
-            [self hideHeaderView];
         } else {
             [self.headerImageView wmf_setImageWithMetadata:_article.leadImage
                                                detectFaces:YES
                                                    failure:WMFIgnoreErrorHandler
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
-                                                       [self showHeaderView];
                                                    }];
             NSURL *articleURL = self.articleURL;
             if (articleURL && self.isAddingArticleToHistoryListEnabled) {
@@ -288,56 +290,23 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     return _shareFunnel;
 }
 
-- (UIView *)headerBorderView {
-    if (!_headerBorderView) {
-        // HAX: Only read the scale at setup
-        _headerBorderView = [[UIView alloc] init];
-        _headerBorderView.backgroundColor = self.theme.colors.border;
-    }
-    return _headerBorderView;
-}
-
 - (UIView *)headerView {
-    if (!_headerView && self.navigationBar.superview != nil) {
+    if (!_headerView) {
+        // HAX: Only read the scale at setup
         CGFloat scale = [[UIScreen mainScreen] scale];
         CGFloat borderHeight = scale > 1 ? 0.5 : 1;
+        CGFloat height = 10;
 
-        self.headerViewHeight = WMFArticleViewControllerHeaderImageHeight + borderHeight;
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, height)];
+        _headerView.clipsToBounds = YES;
 
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.headerViewHeight)];
-        _headerView.backgroundColor = self.theme.colors.midBackground;
-        _headerView.hidden = YES;
+        UIView *headerBorderView = [[UIView alloc] initWithFrame:CGRectMake(0, height - borderHeight, 1, borderHeight)];
+        headerBorderView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+        headerBorderView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 
-        self.headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageView.frame = CGRectMake(0, 0, 1, height - borderHeight);
         [_headerView addSubview:self.headerImageView];
-        self.headerBorderView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_headerView addSubview:self.headerBorderView];
-
-        NSLayoutConstraint *headerBorderHeightConstraint = [self.headerBorderView.heightAnchor constraintEqualToConstant:borderHeight];
-        [self.headerBorderView addConstraint:headerBorderHeightConstraint];
-
-        NSLayoutConstraint *headerImageHeightConstraint = [self.headerImageView.heightAnchor constraintEqualToConstant:WMFArticleViewControllerHeaderImageHeight];
-        [self.headerImageView addConstraint:headerImageHeightConstraint];
-
-        NSLayoutConstraint *headerImageTopConstraint = [self.headerImageView.topAnchor constraintEqualToAnchor:_headerView.topAnchor];
-        self.headerImageLeadingConstraint = [self.headerImageView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
-        self.headerImageTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
-        NSLayoutConstraint *headerImageBottomConstraint = [self.headerImageView.bottomAnchor constraintEqualToAnchor:self.headerBorderView.topAnchor];
-
-        NSLayoutConstraint *headerBorderLeadingConstraint = [self.headerBorderView.leadingAnchor constraintEqualToAnchor:_headerView.leadingAnchor];
-        NSLayoutConstraint *headerBorderTrailingConstraint = [self.headerBorderView.trailingAnchor constraintEqualToAnchor:_headerView.trailingAnchor];
-        NSLayoutConstraint *headerBorderBottomConstraint = [self.headerBorderView.bottomAnchor constraintEqualToAnchor:_headerView.bottomAnchor];
-
-        [_headerView addConstraints:@[headerImageTopConstraint, self.headerImageLeadingConstraint, self.headerImageTrailingConstraint, headerImageBottomConstraint, headerBorderLeadingConstraint, headerBorderTrailingConstraint, headerBorderBottomConstraint]];
-
-        _headerView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.view insertSubview:_headerView belowSubview:self.navigationBar];
-
-        NSLayoutConstraint *headerTopConstraint = [_headerView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
-        NSLayoutConstraint *headerLeadingConstraint = [_headerView.leadingAnchor constraintEqualToAnchor:self.webViewController.view.leadingAnchor];
-        NSLayoutConstraint *headerTrailingConstraint = [_headerView.trailingAnchor constraintEqualToAnchor:self.webViewController.view.trailingAnchor];
-
-        [self.view addConstraints:@[headerTopConstraint, headerLeadingConstraint, headerTrailingConstraint]];
+        [_headerView addSubview:headerBorderView];
     }
     return _headerView;
 }
@@ -345,12 +314,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (UIImageView *)headerImageView {
     if (!_headerImageView) {
         _headerImageView = [[FLAnimatedImageView alloc] initWithFrame:CGRectZero];
-        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerImageView.userInteractionEnabled = YES;
         _headerImageView.clipsToBounds = YES;
-        if (@available(iOS 11.0, *)) {
-            _headerImageView.accessibilityIgnoresInvertColors = YES;
-        }
-        _headerImageView.userInteractionEnabled = YES; // required for tap gesture to work, NO by default on image views
+        _headerImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _headerImageView.accessibilityIgnoresInvertColors = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewDidTap:)];
         [_headerImageView addGestureRecognizer:tap];
     }
@@ -368,6 +335,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (!_webViewController) {
         _webViewController = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate = self;
+        _webViewController.headerView = self.headerView;
     }
     return _webViewController;
 }
@@ -396,36 +364,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)scrollViewInsetsDidChange {
     [super scrollViewInsetsDidChange];
-    [self updateWebViewHeaderHeight];
     [self updateTableOfContentsInsets];
-}
-
-- (void)updateWebViewHeaderHeight {
-    self.webViewController.headerHeight = self.scrollView.scrollIndicatorInsets.top;
 }
 
 - (void)updateTableOfContentsInsets {
     UIScrollView *scrollView = self.tableOfContentsViewController.tableView;
     BOOL wasAtTop = scrollView.contentOffset.y == 0 - scrollView.contentInset.top;
     if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        UIEdgeInsets scrollViewContentInset = self.scrollView.contentInset;
-        scrollViewContentInset.top = self.navigationBar.visibleHeight;
-        UIEdgeInsets scrollViewScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
-        scrollViewScrollIndicatorInsets.top = self.navigationBar.visibleHeight;
-        BOOL didSet = [scrollView wmf_setContentInsetPreservingTopAndBottomOffset:scrollViewContentInset scrollIndicatorInsets:scrollViewScrollIndicatorInsets withNavigationBar:nil];
-        if (didSet) {
-            NSIndexPath *indexPath = [[self.tableOfContentsViewController.tableView indexPathsForSelectedRows] firstObject];
-            if (indexPath && ![[self.tableOfContentsViewController.tableView indexPathsForVisibleRows] containsObject:indexPath]) {
-                [self.tableOfContentsViewController.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:true];
-            }
-        }
-
+        scrollView.contentInset = self.scrollView.contentInset;
+        scrollView.scrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
     } else {
-        CGFloat top = self.navigationController.topLayoutGuide.length;
-        if (@available(iOS 11.0, *)) {
-            top = self.view.safeAreaInsets.top;
-        }
-        CGFloat bottom = self.bottomLayoutGuide.length;
+        CGFloat top = self.view.safeAreaInsets.top;
+        CGFloat bottom = self.view.safeAreaInsets.bottom;
         scrollView.contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
         scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
     }
@@ -677,7 +627,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [self dismissViewControllerAnimated:YES
                              completion:^{
-                                 [self pushArticleViewControllerWithURL:language.articleURL contentType:nil animated:YES];
+                                 [self pushArticleViewControllerWithURL:language.articleURL animated:YES];
                              }];
 }
 
@@ -795,8 +745,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
-    self.ignoresTopContentInset = YES;
-
+    if (@available(iOS 12, *)) {
+        self.subtractTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets = YES;
+    }
     self.savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     [self setUpTitleBarButton];
 
@@ -816,7 +767,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.navigationBar.isExtendedViewHidingEnabled = YES;
     self.navigationBar.isShadowBelowUnderBarView = YES;
     self.navigationBar.isExtendedViewFadingEnabled = NO;
-
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
 }
 
@@ -829,7 +779,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self updateTableOfContentsDisplayModeWithTraitCollection:self.traitCollection];
 
-    BOOL isVisibleInline = [[NSUserDefaults wmf_userDefaults] wmf_isTableOfContentsVisibleInline];
+    BOOL isVisibleInline = [[NSUserDefaults wmf] wmf_isTableOfContentsVisibleInline];
 
     self.tableOfContentsDisplayState = self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline ? isVisibleInline ? WMFTableOfContentsDisplayStateInlineVisible : WMFTableOfContentsDisplayStateInlineHidden : WMFTableOfContentsDisplayStateModalHidden;
 
@@ -848,7 +798,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.reachabilityManager startMonitoring];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
@@ -866,7 +815,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.reachabilityManager stopMonitoring];
+    [self.reachabilityNotifier stop];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -876,8 +825,50 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
     //    }
     [self registerForPreviewingIfAvailable];
-    NSNumber *multiplier = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    NSNumber *multiplier = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
+}
+
+#pragma mark - WMFImageScaleTransitionProviding
+- (void)removeHeaderImageTransitionView {
+    if (!self.headerImageTransitionView) {
+        return;
+    }
+    UIImageView *transitionView = self.headerImageTransitionView;
+    self.headerImageTransitionView = nil;
+    [UIView animateWithDuration:0.2
+        animations:^{
+            self.webViewController.view.alpha = 1;
+        }
+        completion:^(BOOL finished) {
+            [transitionView removeFromSuperview];
+        }];
+}
+
+- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+    if (imageView && imageView.image) {
+        self.webViewController.headerFadingEnabled = NO;
+        self.webViewController.view.alpha = 0;
+
+        self.headerImageTransitionView = [[UIImageView alloc] initWithFrame:self.headerImageView.frame];
+        self.headerImageTransitionView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.headerImageTransitionView.image = imageView.image;
+        self.headerImageTransitionView.layer.contentsRect = imageView.layer.contentsRect;
+        self.headerImageTransitionView.contentMode = imageView.contentMode;
+        self.headerImageTransitionView.clipsToBounds = YES;
+        [self.view insertSubview:self.headerImageTransitionView belowSubview:self.webViewController.view];
+
+        NSLayoutConstraint *headerImageTransitionTopConstraint = [self.headerImageTransitionView.topAnchor constraintEqualToAnchor:self.navigationBar.bottomAnchor];
+        NSLayoutConstraint *headerImageTransitionLeadingConstraint = [self.headerImageTransitionView.leadingAnchor constraintEqualToAnchor:self.headerImageView.leadingAnchor];
+        NSLayoutConstraint *headerImageTransitionTrailingConstraint = [self.headerImageTransitionView.trailingAnchor constraintEqualToAnchor:self.headerImageView.trailingAnchor];
+        NSLayoutConstraint *headerImageTransitionHeightConstraint = [self.headerImageTransitionView.heightAnchor constraintEqualToConstant:WebViewControllerHeaderImageHeight];
+        [self.view addConstraints:@[headerImageTransitionTopConstraint, headerImageTransitionLeadingConstraint, headerImageTransitionTrailingConstraint, headerImageTransitionHeightConstraint]];
+
+        self.headerImageView.image = imageView.image;
+        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
+
+        [self.view layoutIfNeeded];
+    }
 }
 
 #pragma mark - Layout
@@ -919,7 +910,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.webViewController.view.frame = webFrame;
     switch (self.tableOfContentsDisplayState) {
         case WMFTableOfContentsDisplayStateInlineHidden:
-            self.webViewController.contentWidthPercentage = WMFArticleViewControllerInlineToCContentWidthPercentage;
+            self.webViewController.contentWidthPercentage = 0.70;
             break;
         case WMFTableOfContentsDisplayStateInlineVisible:
             self.webViewController.contentWidthPercentage = 0.90;
@@ -929,43 +920,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             break;
     }
 
+    [self.webViewController.view layoutIfNeeded];
+
     [self layoutHeaderImageViewForSize:size];
 }
 
 - (void)layoutHeaderImageViewForSize:(CGSize)size {
+    CGRect headerViewBounds = self.headerView.bounds;
+
+    self.headerView.bounds = headerViewBounds;
     CGSize imageSize = self.headerImageView.image.size;
     BOOL isImageNarrow = imageSize.width / imageSize.height < 2;
     CGFloat marginWidth = 0;
     if (isImageNarrow && self.tableOfContentsDisplayState == WMFTableOfContentsDisplayStateInlineHidden) {
-        marginWidth = self.webViewController.marginWidth;
+        marginWidth = self.webViewController.marginWidth + 16;
     }
-    self.headerImageTrailingConstraint.constant = marginWidth;
-    self.headerImageLeadingConstraint.constant = marginWidth;
-}
-
-- (void)showHeaderView {
-    self.headerView.hidden = NO;
-    self.additionalScrollIndicatorInsets = UIEdgeInsetsMake(self.headerViewHeight, 0, 0, 0);
-    [self.view setNeedsLayout];
-}
-
-- (void)hideHeaderView {
-    self.headerView.hidden = YES;
-    self.additionalScrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.view setNeedsLayout];
-}
-
-#pragma mark - WMFImageScaleTransitionProviding
-
-- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
-    if (imageView) {
-        self.headerImageView.image = imageView.image;
-        self.headerImageView.layer.contentsRect = imageView.layer.contentsRect;
-        if (self.headerImageView.image) {
-            [self showHeaderView];
-        }
-        [self.view layoutIfNeeded];
-    }
+    self.headerImageView.frame = CGRectMake(marginWidth, 0, headerViewBounds.size.width - 2 * marginWidth, WebViewControllerHeaderImageHeight);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -1031,10 +1001,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)setupWebView {
     self.webViewController.edgesForExtendedLayout = UIRectEdgeAll;
     self.webViewController.extendedLayoutIncludesOpaqueBars = YES;
-    self.webViewController.automaticallyAdjustsScrollViewInsets = NO;
-    if (@available(iOS 11.0, *)) {
-        self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
+    self.webViewController.webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     [self addChildViewController:self.webViewController];
     [self.view insertSubview:self.webViewController.view atIndex:0];
     [self.webViewController didMoveToParentViewController:self];
@@ -1049,21 +1016,42 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)updateTableOfContentsLayoutAnimated:(BOOL)animated {
     if (animated) {
-        UIScrollView *scrollView = self.webViewController.webView.scrollView;
-        CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
-        UIColor *previousBackgrondColor = scrollView.backgroundColor;
-        scrollView.backgroundColor = [UIColor whiteColor];
-        [UIView animateWithDuration:0.20
+
+        void (^makeLayoutAdjustments)(void) = ^{
+            UIScrollView *scrollView = self.webViewController.webView.scrollView;
+            CGFloat previousOffsetPercentage = scrollView.contentOffset.y / scrollView.contentSize.height;
+
+            [self layoutForSize:self.view.bounds.size];
+            if (self.sectionToRestoreScrollOffset) {
+                [self.webViewController scrollToSection:self.currentSection animated:NO];
+            } else {
+                scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
+            }
+        };
+
+        // Fade the web view out fully.
+        [UIView animateWithDuration:0.15
+            delay:0.0
+            options:UIViewAnimationOptionBeginFromCurrentState
             animations:^{
-                [self layoutForSize:self.view.bounds.size];
-                if (self.sectionToRestoreScrollOffset) {
-                    [self.webViewController scrollToSection:self.currentSection animated:NO];
-                } else {
-                    scrollView.contentOffset = CGPointMake(0, previousOffsetPercentage * scrollView.contentSize.height);
-                }
+                self.webViewController.view.alpha = 0.0;
             }
             completion:^(BOOL finished) {
-                scrollView.backgroundColor = previousBackgrondColor;
+                // Make layout adjustments. These trigger a web view width change, which triggers an unanimatable (slightly 'jerky') text-reflow, which is why we ensure the web view is faded out for this step.
+                [UIView animateWithDuration:0.15
+                                      delay:0.0
+                                    options:UIViewAnimationOptionBeginFromCurrentState
+                                 animations:makeLayoutAdjustments
+                                 completion:^(BOOL finished) {
+                                     // Then fade the web view back in.
+                                     [UIView animateWithDuration:0.1
+                                                           delay:0.05 // Important! Slight delay ensures text reflow *and* contentOffset changes have completely finished (otherwise you can sometimes get another frame or 2 of flicker).
+                                                         options:UIViewAnimationOptionBeginFromCurrentState
+                                                      animations:^{
+                                                          self.webViewController.view.alpha = 1.0;
+                                                      }
+                                                      completion:NULL];
+                                 }];
             }];
     } else {
         [self layoutForSize:self.view.bounds.size];
@@ -1083,7 +1071,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
-                [[NSUserDefaults wmf_userDefaults] wmf_setTableOfContentsIsVisibleInline:YES];
+                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:YES];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineVisible;
             [self updateTableOfContentsLayoutAnimated:YES];
@@ -1100,7 +1088,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     switch (self.tableOfContentsDisplayMode) {
         case WMFTableOfContentsDisplayModeInline:
             if (sender != self) {
-                [[NSUserDefaults wmf_userDefaults] wmf_setTableOfContentsIsVisibleInline:NO];
+                [[NSUserDefaults wmf] wmf_setTableOfContentsIsVisibleInline:NO];
             }
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateInlineHidden;
             [self updateTableOfContentsLayoutAnimated:YES];
@@ -1217,7 +1205,11 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)articleDidLoad {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.title = self.article.displaytitle.wmf_stringByRemovingHTML;
+        NSString *navigationTitle = self.article.displaytitle.wmf_stringByRemovingHTML;
+        if ([navigationTitle length] > 16) {
+            navigationTitle = nil;
+        }
+        self.navigationItem.title = navigationTitle;
         dispatch_block_t completion = self.articleLoadCompletion;
         if (completion) {
             completion();
@@ -1287,29 +1279,20 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                          tapCallBack:NULL];
                 }
             } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad theme:self.theme frame:self.view.bounds];
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
                 [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                           sticky:NO
                                            dismissPreviousAlerts:NO
                                                      tapCallBack:NULL];
 
                 if ([error wmf_isNetworkConnectionError]) {
-                    @weakify(self);
-                    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-                        switch (status) {
-                            case AFNetworkReachabilityStatusReachableViaWWAN:
-                            case AFNetworkReachabilityStatusReachableViaWiFi: {
-                                @strongify(self);
-                                [self fetchArticleIfNeeded];
-                            } break;
-                            default:
-                                break;
-                        }
-                    }];
+                    [self.reachabilityNotifier start];
                 }
             }
+
             self.articleFetcherPromise = nil;
             [self articleDidLoad];
+            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
         }
         success:^(MWKArticle *_Nonnull article) {
             @strongify(self);
@@ -1383,7 +1366,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     WMFAddToReadingListActivity *addToReadingListActivity = [[WMFAddToReadingListActivity alloc] initWithAction:^{
         WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
         addArticlesToReadingListViewController.eventLogAction = eventLogAction;
-        [presenter presentViewController:addArticlesToReadingListViewController animated:YES completion:NULL];
+        WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+        [navigationController setNavigationBarHidden:YES];
+        [presenter presentViewController:navigationController animated:YES completion:NULL];
         ;
     }];
 
@@ -1441,7 +1426,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
-    [self presentViewController:addArticlesToReadingListViewController animated:YES completion:nil];
+    WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
+    [navigationController setNavigationBarHidden:NO];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - WMFReadingListsAlertControllerDelegate
@@ -1505,7 +1492,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     NSNumber *multiplier = self.fontSizeMultipliers[value];
     [self.webViewController setFontSizeMultiplier:multiplier];
-    [[NSUserDefaults wmf_userDefaults] wmf_setArticleFontSizeMultiplier:multiplier];
+    [[NSUserDefaults wmf] wmf_setArticleFontSizeMultiplier:multiplier];
 }
 
 - (void)themeChangedInArticleControls:(WMFReadingThemesControlsViewController *_Nonnull)controller theme:(WMFTheme *_Nonnull)theme {
@@ -1532,7 +1519,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSUInteger)indexOfCurrentFontSize {
-    NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
+    NSNumber *fontSize = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
 
     NSUInteger index = [[self fontSizeMultipliers] indexOfObject:fontSize];
 
@@ -1555,6 +1542,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {
+    [self removeHeaderImageTransitionView];
+
     [self completeAndHideProgressWithCompletion:^{
         //Without this pause, the motion happens too soon after loading the article
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -1588,16 +1577,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             return;
         }
         NSURL *url = [self.article.url wmf_URLWithFragment:visibleSection.anchor];
-        [[NSUserDefaults wmf_userDefaults] wmf_setOpenArticleURL:url];
+        [[NSUserDefaults wmf] wmf_setOpenArticleURL:url];
     }];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section {
-    [self showEditorForSection:section];
+    [self showEditorForSectionOrTitleDescription:section];
 }
 
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url {
-    [self pushArticleViewControllerWithURL:url contentType:nil animated:YES];
+    [self pushArticleViewControllerWithURL:url animated:YES];
 }
 
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text {
@@ -1640,10 +1629,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
     }
     [self.navigationBarHider scrollViewDidScroll:scrollView];
-    if (self.tableOfContentsDisplayMode == WMFTableOfContentsDisplayModeInline) {
-        [self updateTableOfContentsInsets];
-    }
-    self.headerView.transform = CGAffineTransformMakeTranslation(0, MIN(0, 0 - scrollView.contentOffset.y));
 }
 
 - (void)webViewController:(WebViewController *)controller scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
@@ -1702,6 +1687,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     } else {
         [[ReadingListsFunnel shared] logArticleUnsaveInReadMore:articleURL];
     }
+}
+
+- (void)webViewController:(WebViewController *)controller didTapAddTitleDescriptionForArticle:(MWKArticle *)article {
+    [self showTitleDescriptionEditor];
 }
 
 - (void)showLocation {
@@ -1777,17 +1766,81 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Edit Section
 
-- (void)showEditorForSection:(MWKSection *)section {
+- (void)showEditorForSectionOrTitleDescription:(MWKSection *)section {
     if (self.article.editable) {
-        SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-        sectionEditVC.section = section;
-        sectionEditVC.delegate = self;
-        [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+        if ([self.article isWikidataDescriptionEditable] && [section isLeadSection] && self.article.entityDescription) {
+            [self showEditSectionOrTitleDescriptionDialogForSection:section];
+        } else {
+            [self showEditorForSection:section];
+        }
     } else {
         ProtectedEditAttemptFunnel *funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
         [self showProtectedDialog];
     }
+}
+
+- (void)showEditorForSection:(MWKSection *)section {
+    SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    sectionEditVC.section = section;
+    sectionEditVC.delegate = self;
+    [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
+}
+
+- (void)descriptionEditViewControllerEditSucceeded:(DescriptionEditViewController *)descriptionEditViewController {
+    [self fetchArticle];
+}
+
+- (void)showTitleDescriptionEditor {
+    DescriptionEditViewController *editVC = [DescriptionEditViewController wmf_initialViewControllerFromClassStoryboard];
+    editVC.delegate = self;
+    editVC.article = self.article;
+    [editVC applyTheme:self.theme];
+
+    WMFThemeableNavigationController *navVC = [[WMFThemeableNavigationController alloc] initWithRootViewController:editVC theme:self.theme];
+    navVC.view.opaque = NO;
+    navVC.view.backgroundColor = [UIColor clearColor];
+    navVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+
+    BOOL needsIntro = ![[NSUserDefaults standardUserDefaults] wmf_didShowTitleDescriptionEditingIntro];
+    if (needsIntro) {
+        navVC.view.alpha = 0;
+    }
+    
+    @weakify(self);
+    @weakify(navVC);
+    void (^showIntro)(void)  = ^{
+        @strongify(self);
+        DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
+        [welcomeVC applyTheme:self.theme];
+        [navVC presentViewController:welcomeVC animated:YES completion:^{
+            @strongify(navVC);
+            [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+            navVC.view.alpha = 1;
+        }];
+    };
+    
+    [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
+}
+
+- (void)showEditSectionOrTitleDescriptionDialogForSection:(MWKSection *)section {
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-title", nil, nil, @"Edit title description", @"Title for button used to show title description editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showTitleDescriptionEditor];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"description-edit-pencil-introduction", nil, nil, @"Edit introduction", @"Title for button used to show article lead section editor")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction *_Nonnull action) {
+                                                [self showEditorForSection:section];
+                                            }]];
+
+    [sheet addAction:[UIAlertAction actionWithTitle:[WMFCommonStrings cancelActionTitle] style:UIAlertActionStyleCancel handler:NULL]];
+
+    [self presentViewController:sheet animated:YES completion:NULL];
 }
 
 - (void)showProtectedDialog {
@@ -1949,7 +2002,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         // Show unobscured article view controller when peeking through.
         [viewControllerToCommit wmf_removePeekableChildViewControllers];
-        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit contentType:nil animated:YES];
+        [self pushArticleViewController:(WMFArticleViewController *)viewControllerToCommit animated:YES];
     } else {
         if ([viewControllerToCommit isKindOfClass:[WMFImageGalleryViewController class]]) {
             [(WMFImageGalleryViewController *)viewControllerToCommit setOverlayViewTopBarHidden:NO];
@@ -2061,30 +2114,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - Article Navigation
 
-- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewController:(WMFArticleViewController *)articleViewController animated:(BOOL)animated {
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)pushArticleViewControllerWithURL:(NSURL *)url contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+- (void)pushArticleViewControllerWithURL:(NSURL *)url animated:(BOOL)animated {
     WMFArticleViewController *articleViewController =
         [[WMFArticleViewController alloc] initWithArticleURL:url
                                                    dataStore:self.dataStore
                                                        theme:self.theme];
-    [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
-}
-
-#pragma mark - WMFAnalyticsContextProviding
-
-- (NSString *)analyticsContext {
-    return @"Article";
-}
-
-- (NSString *)analyticsContentType {
-    return @"Article";
-}
-
-- (NSString *)analyticsName {
-    return self.articleURL.host;
+    [self pushArticleViewController:articleViewController animated:animated];
 }
 
 #pragma mark - One-time toolbar item popover tips
@@ -2118,6 +2157,12 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowWIconPopover:YES];
 }
 
+#pragma mark - EventLoggingSearchSourceProviding
+
+- (nonnull NSString *)searchSource {
+    return @"article";
+}
+
 #pragma mark - WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
@@ -2129,13 +2174,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     [[self wmf_emptyView] applyTheme:self.theme];
-    self.headerView.backgroundColor = theme.colors.midBackground;
-    self.headerBorderView.backgroundColor = theme.colors.border;
+    self.headerView.backgroundColor = theme.colors.paperBackground;
     self.view.backgroundColor = theme.colors.paperBackground;
     if (self.headerImageView.image == nil) {
-        self.headerImageView.backgroundColor = UIColor.clearColor;
-    } else {
-        self.headerImageView.backgroundColor = UIColor.whiteColor;
+        self.headerImageView.backgroundColor = self.theme.colors.paperBackground;
     }
     self.headerImageView.alpha = theme.imageOpacity;
     [self.tableOfContentsViewController applyTheme:theme];

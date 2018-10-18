@@ -40,7 +40,6 @@
 "article-read-more-title" = "Даведацца болей";
 "article-unable-to-load-article" = "Немагчыма загрузіць артыкул.";
 "article-unable-to-load-section" = "Немагчыма загрузіць гэтую сэкцыю. Паспрабуйце перазагрузіць артыкул і паглядзіце, ці дапаможа гэта вырашыць праблему.";
-"back" = "Назад";
 "back-button-accessibility-label" = "Назад";
 "button-done" = "Выканана";
 "button-next" = "Далей";
@@ -170,5 +169,4 @@
 "zero-learn-more" = "Аплата за перадачу зьвестак не бярэцца падчас карыстаньня гэтай праграмай для Вікіпэдыі.";
 "zero-learn-more-learn-more" = "Даведацца болей";
 "zero-learn-more-no-thanks" = "Адхіліць";
-// Fuzzy
-"zero-warn-when-leaving" = "Папярэджваць, калі пакідаеце Вікіпэдыя Zero";
+"zero-warn-when-leaving" = "Папярэджваць, калі пакідаеце Zero";

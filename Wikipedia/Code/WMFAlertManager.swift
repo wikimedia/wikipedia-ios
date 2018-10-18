@@ -47,7 +47,12 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
             RMessage.showNotification(in: nil, title: title, subtitle: message, iconImage: UIImage(named:"trending-notification-icon"), type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
         })
     }
-    
+
+    @objc func showAlertWithReadMore(_ title: String?, type: RMessageType, dismissPreviousAlerts: Bool, buttonCallback: (() -> Void)?, tapCallBack: (() -> Void)?) {
+        showAlert(dismissPreviousAlerts) {
+            RMessage.showNotification(in: nil, title: title, subtitle: nil, iconImage: nil, type: type, customTypeName: nil, duration: -1, callback: tapCallBack, buttonTitle: "Read more", buttonCallback: buttonCallback, at: .top, canBeDismissedByUser: true)
+        }
+    }
 
     @objc func showAlert(_ message: String?, sticky: Bool, dismissPreviousAlerts: Bool, tapCallBack: (() -> Void)?) {
         showAlert(message, sticky: sticky, canBeDismissedByUser: true, dismissPreviousAlerts: dismissPreviousAlerts, tapCallBack: tapCallBack)
@@ -116,6 +121,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
         messageView.backgroundColor = theme.colors.popoverBackground
         messageView.closeIconColor = theme.colors.primaryText
         messageView.subtitleTextColor = theme.colors.secondaryText
+        messageView.buttonTitleColor = theme.colors.link
         switch messageView.messageType {
         case .error:
             messageView.titleTextColor = theme.colors.error

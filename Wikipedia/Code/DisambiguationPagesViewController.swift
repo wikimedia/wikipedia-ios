@@ -56,7 +56,7 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
         cell.configureForCompactList(at: indexPath.item)
         let articleURL = self.articleURL(at: indexPath)
         let searchResult = results[indexPath.item]
-        cell.titleLabel.text = articleURL.wmf_title
+        cell.titleLabel.text = articleURL?.wmf_title
         cell.descriptionLabel.text = (searchResult.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL.wmf_language)
         if layoutOnly {
             cell.isImageViewHidden = searchResult.thumbnailURL != nil
@@ -64,11 +64,6 @@ class DisambiguationPagesViewController: ArticleURLListViewController {
             cell.imageURL = searchResult.thumbnailURL
         }
         cell.apply(theme: theme)
-    }
-    
-    
-    override var analyticsName: String {
-        return "Disambiguation"
     }
     
     override var eventLoggingLabel: EventLoggingLabel? {

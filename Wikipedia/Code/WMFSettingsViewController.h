@@ -3,14 +3,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSettingsViewController : UIViewController <WMFThemeable>
+@interface WMFSettingsViewController : WMFViewController <WMFThemeable>
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
 - (void)loadSections;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
-@property (nonatomic) BOOL showCloseButton;
 
 NS_ASSUME_NONNULL_END
 

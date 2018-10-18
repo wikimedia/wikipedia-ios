@@ -56,8 +56,7 @@
         return;
     }
     _currentArticleSiteURL = [currentArticleSiteURL wmf_siteURL];
-    [[NSUserDefaults wmf_userDefaults] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
+    [[NSUserDefaults wmf] setObject:currentArticleSiteURL.wmf_language forKey:@"CurrentArticleDomain"];
 }
 
 #pragma mark - Article
@@ -68,8 +67,7 @@
         return;
     }
     _currentArticleURL = currentArticleURL;
-    [[NSUserDefaults wmf_userDefaults] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
-    [[NSUserDefaults wmf_userDefaults] synchronize];
+    [[NSUserDefaults wmf] setObject:currentArticleURL.wmf_title forKey:@"CurrentArticleTitle"];
 }
 
 - (void)setCurrentArticle:(MWKArticle *)currentArticle {
@@ -91,12 +89,12 @@
 #pragma mark - Last known/loaded
 
 - (NSURL *)lastKnownSite {
-    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleDomain"]];
+    return [NSURL wmf_URLWithDefaultSiteAndlanguage:[[NSUserDefaults wmf] objectForKey:@"CurrentArticleDomain"]];
 }
 
 - (NSURL *)lastLoadedArticleURL {
     NSURL *lastKnownSite = [self lastKnownSite];
-    NSString *titleText = [[NSUserDefaults wmf_userDefaults] objectForKey:@"CurrentArticleTitle"];
+    NSString *titleText = [[NSUserDefaults wmf] objectForKey:@"CurrentArticleTitle"];
     if (!titleText.length) {
         return nil;
     }

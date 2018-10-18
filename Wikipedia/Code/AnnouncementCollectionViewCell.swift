@@ -48,7 +48,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
-        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
         dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
         dismissButton.titleLabel?.textAlignment = .center
@@ -117,7 +117,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.alignment = .center
         let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.paragraphStyle: pStyle, NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
         mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
         captionTextView.attributedText = mutableText
 
@@ -144,7 +144,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
         let buttonMinimumWidth = min(250, widthMinusMargins)

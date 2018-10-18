@@ -90,7 +90,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "विषय नियंत्रण पढ़ रहा";
 "article-unable-to-load-article" = "लेख की लोड करने  में असमर्थ।";
 "article-unable-to-load-section" = "इस भाग को लोड करने में असमर्थ। समस्या फिक्स करने के लिये लेख को रिफ्रेश करने की कोशिश करें।";
-"back" = "वापस";
 "back-button-accessibility-label" = "पीछे";
 "button-done" = "पूर्ण हुआ";
 "button-next" = "अगला";
@@ -365,11 +364,11 @@
 "settings-notifications-system-turn-on" = "नोटिफिकेशन्स चालू करें";
 "settings-notifications-trending" = "रुझानों में हाल की घटनाएं";
 "settings-primary-language" = "प्राथमिक";
+// Fuzzy
 "settings-primary-language-details" = "इस सूची की पहली भाषा को इस एप की प्राथमिक भाषा के रूप में प्रयोग किया जाता है।\nइस भाषा को बदलने पर खोज पर दिखाई जाने वाली दैनिक सामग्री (जैसे निर्वाचित लेख) भी परिवर्तित हो जायेगा।";
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
-"share-a-fact-share-menu-item" = "तथ्य को साझा करें";
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-building" = "तथ्य को साझा कर कार्ड को बनायें";
 "share-custom-menu-item" = "साझा करें...";

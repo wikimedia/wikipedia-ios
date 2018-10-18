@@ -32,7 +32,7 @@ extension OnThisDayCollectionViewCell {
         
         isImageViewHidden = true
         timelineView.shouldAnimateDots = shouldAnimateDots
-
+        resetContentOffset()
         setNeedsLayout()
     }
 }

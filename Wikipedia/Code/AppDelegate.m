@@ -27,7 +27,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
      * @note This must be loaded before application launch so unit tests can run
      */
     NSString *defaultLanguage = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-    [[NSUserDefaults wmf_userDefaults] registerDefaults:@{
+    [[NSUserDefaults wmf] registerDefaults:@{
         @"CurrentArticleDomain": defaultLanguage,
         @"Domain": defaultLanguage,
         WMFZeroWarnWhenLeaving: @YES,
@@ -67,11 +67,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] start];
-#endif
-
     [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
 #if DEBUG
     NSLog(@"\n\nSimulator documents directory:\n\t%@\n\n",
@@ -80,7 +75,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
           [[NSFileManager defaultManager] wmf_containerPath]);
 #endif
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
-    [[NSUserDefaults wmf_userDefaults] wmf_migrateFontSizeMultiplier];
+    [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
     self.appNeedsResume = YES;
@@ -100,7 +95,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
+    [[NSUserDefaults wmf] wmf_setAppBecomeActiveDate:[NSDate date]];
     [self resumeAppIfNecessary];
 }
 
@@ -112,9 +107,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
 - (void)resumeAppIfNecessary {
     if (self.appNeedsResume) {
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-        [[WMFEventLoggingService sharedInstance] start];
-#endif
         [self.appViewController hideSplashScreenAndResumeApp];
         self.appNeedsResume = false;
     }
@@ -126,7 +118,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
     BOOL result = [self.appViewController processUserActivity:userActivity
                                                      animated:NO
                                                    completion:^{
@@ -148,7 +140,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
-    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url];
+    NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
     if (activity) {
         BOOL result = [self.appViewController processUserActivity:activity
                                                          animated:NO
@@ -165,16 +157,13 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [[NSUserDefaults wmf_userDefaults] wmf_setAppResignActiveDate:[NSDate date]];
+    [[NSUserDefaults wmf] wmf_setAppResignActiveDate:[NSDate date]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self updateDynamicIconShortcutItems];
-#if WMF_IS_NEW_EVENT_LOGGING_ENABLED
-    [[WMFEventLoggingService sharedInstance] stop];
-#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

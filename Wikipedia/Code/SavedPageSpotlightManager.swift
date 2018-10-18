@@ -4,7 +4,6 @@ import CoreSpotlight
 import CocoaLumberjackSwift
 
 public extension NSURL {
-    @available(iOS 9.0, *)
     @objc func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
         guard self.wmf_isWikiResource else {
             return nil
@@ -24,7 +23,6 @@ public extension NSURL {
 }
 
 public extension MWKArticle {
-    @available(iOS 9.0, *)
     @objc func searchableItemAttributes() -> CSSearchableItemAttributeSet {
         let castURL = url as NSURL
         let searchableItem = castURL.searchableItemAttributes() ??
@@ -38,8 +36,6 @@ public extension MWKArticle {
         return searchableItem
     }
 }
-
-@available(iOS 9.0, *)
 
 public class WMFSavedPageSpotlightManager: NSObject {
     private let queue = DispatchQueue(label: "org.wikimedia.saved_page_spotlight_manager", qos: DispatchQoS.background, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)

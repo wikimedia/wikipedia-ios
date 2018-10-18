@@ -51,7 +51,7 @@ public class WMFAuthLoginInfoFetcher {
             "amirequestsfor": "login",
             "format": "json"
         ]
-        _ = manager?.wmf_apiPOSTWithParameters(parameters, success: { (_, response) in
+        _ = manager?.wmf_apiPOST(with: parameters, success: { (_, response) in
             
             guard
                 let response = response as? [String : AnyObject],

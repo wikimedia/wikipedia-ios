@@ -4,7 +4,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public let titleLabel = UILabel()
     public let descriptionLabel = UILabel()
     public let imageView = UIImageView()
-    public let saveButton = SaveButton()
     public var extractLabel: UILabel?
     public let actionsView = ActionsView()
     public var alertIcon = UIImageView()
@@ -49,8 +48,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
             return actionsView.actions
         }
     }
-
-    private var kvoButtonTitleContext = 0
     
     open override func setup() {
         titleTextStyle = .georgiaTitle3
@@ -58,29 +55,20 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         imageView.clipsToBounds = true
         statusView.clipsToBounds = true
         
-        if #available(iOSApplicationExtension 11.0, *) {
-            imageView.accessibilityIgnoresInvertColors = true
-        }
+        imageView.accessibilityIgnoresInvertColors = true
         
         titleLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         imageView.isOpaque = true
-        saveButton.isOpaque = true
+      
         
         contentView.addSubview(alertIcon)
         contentView.addSubview(alertLabel)
         contentView.addSubview(statusView)
-        contentView.addSubview(saveButton)
+
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
-
-        saveButton.verticalPadding = 16
-        saveButton.rightPadding = 16
-        saveButton.leftPadding = 12
-        saveButton.saveButtonState = .longSave
-        saveButton.titleLabel?.numberOfLines = 0
-        saveButton.addObserver(self, forKeyPath: "titleLabel.text", options: .new, context: &kvoButtonTitleContext)
         
         super.setup()
     }
@@ -115,20 +103,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         titleLabel.backgroundColor = labelBackgroundColor
         descriptionLabel.backgroundColor = labelBackgroundColor
         extractLabel?.backgroundColor = labelBackgroundColor
-        saveButton.backgroundColor = labelBackgroundColor
-        saveButton.titleLabel?.backgroundColor = labelBackgroundColor
         alertIcon.backgroundColor = labelBackgroundColor
         alertLabel.backgroundColor = labelBackgroundColor
     }
     
-    deinit {
-        saveButton.removeObserver(self, forKeyPath: "titleLabel.text", context: &kvoButtonTitleContext)
-    }
-
     open override func safeAreaInsetsDidChange() {
-        if #available(iOSApplicationExtension 11.0, *) {
-            super.safeAreaInsetsDidChange()
-        }
+        super.safeAreaInsetsDidChange()
         if swipeState == .open {
             swipeTranslation = swipeTranslationWhenOpen
         }
@@ -136,11 +116,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
 
     var actionsViewInsets: UIEdgeInsets {
-        if #available(iOSApplicationExtension 11.0, *) {
-            return safeAreaInsets
-        } else {
-            return UIEdgeInsets.zero
-        }
+        return safeAreaInsets
     }
     
     public final var statusViewDimension: CGFloat = 0 {
@@ -211,15 +187,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
                 }
             }
             
-            if #available(iOSApplicationExtension 11.0, *) {
-                let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
-                batchEditSelectViewWidth -= safeX
-                if !isBatchEditOnRight && isBatchEditingPaneOpen {
-                    batchEditX += safeX
-                }
-                if isBatchEditOnRight && !isBatchEditingPaneOpen {
-                    batchEditX -= batchEditSelectViewWidth
-                }
+            let safeX = isBatchEditOnRight ? safeAreaInsets.right : safeAreaInsets.left
+            batchEditSelectViewWidth -= safeX
+            if !isBatchEditOnRight && isBatchEditingPaneOpen {
+                batchEditX += safeX
+            }
+            if isBatchEditOnRight && !isBatchEditingPaneOpen {
+                batchEditX -= batchEditSelectViewWidth
             }
             
             batchEditSelectView?.frame = CGRect(x: batchEditX, y: 0, width: batchEditSelectViewWidth, height: size.height)
@@ -251,12 +225,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
-    public var isSaveButtonHidden = false {
-        didSet {
-            saveButton.isHidden = isSaveButtonHidden
-            setNeedsLayout()
-        }
-    }
 
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
@@ -265,7 +233,6 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         
         descriptionLabel.font = UIFont.wmf_font(descriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         extractLabel?.font = UIFont.wmf_font(extractTextStyle, compatibleWithTraitCollection: traitCollection)
-        saveButton.titleLabel?.font = UIFont.wmf_font(saveButtonTextStyle, compatibleWithTraitCollection: traitCollection)
         alertLabel.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
@@ -321,21 +288,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
 
         updatedAccessibilityElements.append(LabelGroupAccessibilityElement(view: self, labels: groupedLabels, actions: actions))
         
-        if !isSaveButtonHidden {
-            updatedAccessibilityElements.append(saveButton)
-        }
-        
         accessibilityElements = updatedAccessibilityElements
-    }
-    
-    // MARK - KVO
-    
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &kvoButtonTitleContext {
-            setNeedsLayout()
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
     }
     
     // MARK: - Swipeable

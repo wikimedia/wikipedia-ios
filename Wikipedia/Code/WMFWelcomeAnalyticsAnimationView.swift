@@ -5,7 +5,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var phoneImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-analytics-phone")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 101
         imgView.layer.opacity = 0
         imgView.layer.transform = wmf_lowerTransform
@@ -15,7 +15,7 @@ open class WMFWelcomeAnalyticsAnimationView : WMFWelcomeAnimationView {
     lazy var chartImgView: UIImageView = {
         let imgView = UIImageView(frame: bounds)
         imgView.image = UIImage(named: "ftux-analytics-chart")
-        imgView.contentMode = UIViewContentMode.scaleAspectFit
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
         imgView.layer.zPosition = 102
         imgView.layer.opacity = 0
         

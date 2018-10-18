@@ -1,7 +1,7 @@
 extension WMFFeedDisplayType {
     public func imageWidthCompatibleWithTraitCollection(_ traitCollection: UITraitCollection) -> Int {
         switch self {
-        case .pageWithPreview, .relatedPagesSourceArticle, .random:
+        case .pageWithPreview, .relatedPagesSourceArticle, .random, .continueReading:
             return traitCollection.wmf_leadImageWidth
         default:
             return traitCollection.wmf_nearbyThumbnailWidth
@@ -125,5 +125,20 @@ extension WMFContentGroup {
         default:
             return true
         }
+    }
+    
+    public var previewArticleKeys: Set<String> {
+        guard countOfPreviewItems > 0 else {
+            return []
+        }
+        var articleKeys: Set<String> = []
+        articleKeys.reserveCapacity(countOfPreviewItems)
+        for i in 0...countOfPreviewItems {
+            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_articleDatabaseKey else {
+                continue
+            }
+            articleKeys.insert(key)
+        }
+        return articleKeys
     }
 }

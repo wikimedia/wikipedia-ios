@@ -75,7 +75,6 @@
 "article-toolbar-reading-themes-controls-toolbar-item" = "Asenqed n isental n tɣuri";
 "article-unable-to-load-article" = "Ur izmir ara ad d-isali amagrad.";
 "article-unable-to-load-section" = "Ur izmir ara ad d-isali tigezmi-agi. Ɛreḍ asmiren n umagrad akken ad twaliḍ ma yefra wugur.";
-"back" = "Uɣal";
 "back-button-accessibility-label" = "Uɣal";
 "button-done" = "Immed";
 "button-next" = "Ar zdat";
@@ -328,11 +327,11 @@
 "settings-notifications-system-turn-on" = "Rmed ilɣa";
 "settings-notifications-trending" = "Amek teddunt tidyanin timiranin";
 "settings-primary-language" = "Agejdan";
+// Fuzzy
 "settings-primary-language-details" = "Tutlayt tamezwarut di tebdart-agi ad tettwaseqdec d tutlayt tagejdant n usnas-ik. Asnifel n tutlayt-agi ad ibeddel agbur n wass (am imagraden itran) yettwaseknen di Snirem (Explore).";
 "settings-support" = "Mudd afus i Wikipedia";
 "settings-title" = "Iɣewwaren";
 "share-a-fact-made-with" = "Yettwag s usnas Wikipedia";
-"share-a-fact-share-menu-item" = "Bḍu-tigawt...";
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
 "share-building" = "Rnu takarḍa Bḍu-tigawt...";
 "share-custom-menu-item" = "Bḍu...";

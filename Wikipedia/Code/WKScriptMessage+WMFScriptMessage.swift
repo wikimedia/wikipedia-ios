@@ -6,6 +6,7 @@ import WebKit
     case linkClicked
     case imageClicked
     case referenceClicked
+    case addTitleDescriptionClicked
     case editClicked
     case articleState
     case findInPageMatchesFound
@@ -27,6 +28,8 @@ extension WKScriptMessage {
             return .imageClicked
         case "referenceClicked":
             return .referenceClicked
+        case "addTitleDescriptionClicked":
+            return .addTitleDescriptionClicked
         case "editClicked":
             return .editClicked
         case "articleState":
@@ -75,7 +78,8 @@ extension WKScriptMessage {
         case .articleState,
              .footerLegalLicenseLinkClicked,
              .footerBrowserLinkClicked,
-             .footerContainerAdded:
+             .footerContainerAdded,
+             .addTitleDescriptionClicked:
             if body is String {
                 return body
             }
