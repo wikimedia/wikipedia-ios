@@ -1,5 +1,15 @@
 import Foundation
 
+public enum Domain: String {
+    case wikipedia = "wikipedia.org"
+    case wikidata = "wikidata.org"
+    case wikimedia = "wikimedia.org"
+    
+    var cookie: String {
+        return ".\(rawValue)"
+    }
+}
+
 @objc(WMFSession) public class Session: NSObject {
     public struct Request {
         public enum Method {
@@ -39,7 +49,7 @@ import Foundation
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
-        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: ".wikipedia.org", to: [".wikidata.org", ".mediawiki.org"])
+        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie, to: [Domain.wikidata.cookie, Domain.wikimedia.cookie])
     }
     
     public func removeAllCookies() {
@@ -82,6 +92,23 @@ import Foundation
         queue.maxConcurrentOperationCount = 16
         return queue
     }()
+    
+    public var hasValidLocalCredentials: Bool {
+        guard let storage = defaultURLSession.configuration.httpCookieStorage else {
+            return false
+        }
+        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie)
+        guard cookies.count > 0 else {
+            return false
+        }
+        let now = Date()
+        for cookie in cookies {
+            if let cookieExpirationDate = cookie.expiresDate, cookieExpirationDate < now {
+                return false
+            }
+        }
+        return true
+    }
 
     public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)

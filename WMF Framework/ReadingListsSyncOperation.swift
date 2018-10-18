@@ -64,8 +64,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         var syncState = ReadingListSyncState(rawValue: rawSyncState)
         
         let taskGroup = WMFTaskGroup()
+        
+        let hasValidLocalCredentials = apiController.session.hasValidLocalCredentials
     
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) {
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && hasValidLocalCredentials {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -151,6 +153,11 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             try self.executeLocalOnlySync(on: moc)
             try moc.save()
             self.finish()
+        }
+        
+        guard hasValidLocalCredentials else {
+            try localSyncOnly()
+            return
         }
         
         // local only sync
@@ -389,7 +396,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         let articleURLs = results.compactMap { $0.articleURL(forSiteURL: siteURL) }
                         taskGroup.enter()
                         var summaryResponses: [String: [String: Any]] = [:]
-                        Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
+                        apiController.session.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
                             // workaround this method not being async
                             summaryResponses = actualSummaryResponses
                             taskGroup.leave()
@@ -749,7 +756,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    Session.shared.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
+                    apiController.session.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return
