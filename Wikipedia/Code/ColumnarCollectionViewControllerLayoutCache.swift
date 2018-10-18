@@ -44,21 +44,27 @@ class ColumnarCollectionViewControllerLayoutCache {
         cacheKeysByGroupKey.removeAll(keepingCapacity: true)
     }
     
-    public func invalidateArticleKey(_ articleKey: String?) {
+    @discardableResult public func invalidateArticleKey(_ articleKey: String?) -> Bool {
         guard let articleKey = articleKey else {
-            return
+            return false
         }
+        
         if let cacheKeys = cacheKeysByArticleKey[articleKey] {
             for cacheKey in cacheKeys {
                 cachedHeights.removeValue(forKey: cacheKey)
             }
             cacheKeysByArticleKey.removeValue(forKey: articleKey)
         }
-        if let groupKeys = groupKeysByArticleKey[articleKey] {
-            for groupKey in groupKeys {
-                invalidateGroupKey(groupKey)
-            }
+        
+        guard let groupKeys = groupKeysByArticleKey[articleKey] else {
+            return false
         }
+        
+        for groupKey in groupKeys {
+            invalidateGroupKey(groupKey)
+        }
+        
+        return true
     }
     
     public func invalidateGroupKey(_ groupKey: String?) {
