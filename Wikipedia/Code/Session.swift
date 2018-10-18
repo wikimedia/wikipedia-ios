@@ -93,11 +93,11 @@ public enum Domain: String {
         return queue
     }()
     
-    public var hasValidCentralAuthCookies: Bool {
+    public func hasValidCentralAuthCookies(for domain: Domain) -> Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
         }
-        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie)
+        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain.cookie)
         guard cookies.count > 0 else {
             return false
         }
