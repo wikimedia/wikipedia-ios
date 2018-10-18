@@ -974,7 +974,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             rect = CGRectUnion(rect, reference.rect);
         }
         rect = [self.webView convertRect:rect toView:nil];
-        rect = CGRectOffset(rect, 0, 1);
+
+        CGFloat yOffset = 1;
+        if (@available(iOS 12, *)) {
+            CGFloat topContentInset = self.webView.scrollView.contentInset.top;
+            CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
+            if (topContentInset + yContentOffset != 0) {
+                yOffset = yOffset - topContentInset;
+            }
+        }
+
+        rect = CGRectOffset(rect, 0, yOffset);
         rect = CGRectInset(rect, -1, -3);
         return rect;
     }
