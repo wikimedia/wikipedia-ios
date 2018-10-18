@@ -943,6 +943,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
+
+        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self iOS12yOffsetHack]);
+
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
@@ -974,21 +977,22 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
             rect = CGRectUnion(rect, reference.rect);
         }
         rect = [self.webView convertRect:rect toView:nil];
-
-        CGFloat yOffset = 1;
-        if (@available(iOS 12, *)) {
-            CGFloat topContentInset = self.webView.scrollView.contentInset.top;
-            CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
-            if (topContentInset + yContentOffset != 0) {
-                yOffset = yOffset - topContentInset;
-            }
-        }
-
-        rect = CGRectOffset(rect, 0, yOffset);
+        rect = CGRectOffset(rect, 0, 1);
         rect = CGRectInset(rect, -1, -3);
         return rect;
     }
     return CGRectNull;
+}
+
+- (CGFloat)iOS12yOffsetHack {
+    if (@available(iOS 12, *)) {
+        CGFloat topContentInset = self.webView.scrollView.contentInset.top;
+        CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
+        if (topContentInset + yContentOffset != 0) {
+            return 0 - topContentInset;
+        }
+    }
+    return 0;
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {
