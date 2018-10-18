@@ -612,18 +612,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     var needsReloadVisibleCells = false
     var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-        guard needsReloadVisibleCells else {
-            return
-        }
-        
+    private func reloadVisibleCells() {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
                 continue
             }
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+        guard needsReloadVisibleCells else {
+            return
+        }
+        
+        reloadVisibleCells()
         
         needsReloadVisibleCells = false
         layout.currentSection = nil
@@ -791,10 +794,37 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func articleDidChange(_ note: Notification) {
-        guard let article = note.object as? WMFArticle else {
+        guard
+            let article = note.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectPreviews,
+            let articleKey = article.key
+        else {
             return
         }
-        layoutCache.invalidateArticleKey(article.key)
+        
+        guard layoutCache.invalidateArticleKey(articleKey) else {
+            return
+        }
+        
+        collectionView.collectionViewLayout.invalidateLayout()
+
+        let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
+            guard let contentGroup = group(at: indexPath) else {
+                return false
+            }
+            return contentGroup.previewArticleKeys.contains(articleKey)
+        }
+        
+        guard visibleIndexPathsWithChanges.count > 0 else {
+            return
+        }
+        
+        for indexPath in visibleIndexPathsWithChanges {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
+                continue
+            }
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
     }
     
     @objc func articleDeleted(_ note: Notification) {

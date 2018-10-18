@@ -126,4 +126,19 @@ extension WMFContentGroup {
             return true
         }
     }
+    
+    public var previewArticleKeys: Set<String> {
+        guard countOfPreviewItems > 0 else {
+            return []
+        }
+        var articleKeys: Set<String> = []
+        articleKeys.reserveCapacity(countOfPreviewItems)
+        for i in 0...countOfPreviewItems {
+            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_articleDatabaseKey else {
+                continue
+            }
+            articleKeys.insert(key)
+        }
+        return articleKeys
+    }
 }
