@@ -1707,8 +1707,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)showDisambiguationPages:(NSArray<NSURL *> *)pageURLs {
     WMFDisambiguationPagesViewController *articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithURLs:pageURLs siteURL:self.article.url dataStore:self.dataStore theme:self.theme];
     articleListVC.title = WMFLocalizedStringWithDefaultValue(@"page-similar-titles", nil, nil, @"Similar pages", @"Label for button that shows a list of similar titles (disambiguation) for the current page");
-    articleListVC.navigationItem.leftBarButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(dismissPresentedViewController)];
-    [self presentViewControllerEmbeddedInNavigationController:articleListVC];
+    [self wmf_pushViewController:articleListVC animated:YES];
 }
 
 - (void)dismissPresentedViewController {
