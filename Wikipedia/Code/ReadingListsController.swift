@@ -106,9 +106,7 @@ public typealias ReadingListsController = WMFReadingListsController
 
     internal weak var dataStore: MWKDataStore!
     internal let apiController = ReadingListsAPIController()
-    
-    public weak var authenticationDelegate: AuthenticationDelegate?
-    
+        
     private let operationQueue = OperationQueue()
     
     private var observedOperations: [Operation: NSKeyValueObservation] = [:]
