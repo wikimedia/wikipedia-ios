@@ -196,6 +196,23 @@ public enum Domain: String {
     }
     
     /**
+     Shared response handling for common status codes. Currently logs the user out and removes local credentials if a 401 is received.
+    */
+    private func handleResponse(_ response: URLResponse?) {
+        guard let response = response, let httpResponse = response as? HTTPURLResponse else {
+            return
+        }
+        switch httpResponse.statusCode {
+        case 401:
+            WMFAuthenticationManager.sharedInstance.logout {
+                self.removeAllCookies()
+            }
+        default:
+            break
+        }
+    }
+    
+    /**
      Creates a URLSessionTask that will handle the response by decoding it to the codable type T. If the response isn't 200, or decoding to T fails, it'll attempt to decode the response to codable type E (typically an error response).
      - parameters:
          - host: The host for the request
@@ -213,6 +230,7 @@ public enum Domain: String {
      */
     public func jsonCodableTask<T, E>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
         guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+            self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
                 return
@@ -251,6 +269,7 @@ public enum Domain: String {
 
     public func jsonDecodableTask<T: Decodable>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,_ authorized: Bool?,  _ error: Error?) -> Swift.Void) {
         guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+            self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, authorized, error)
                 return
@@ -276,6 +295,7 @@ public enum Domain: String {
     
     @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
+            self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, error)
                 return
