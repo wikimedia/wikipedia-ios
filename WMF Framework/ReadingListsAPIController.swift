@@ -117,7 +117,7 @@ extension APIReadingListEntry {
 }
 
 class ReadingListsAPIController: NSObject {
-    private let session = Session.shared
+    public let session = Session.shared // eventually doesn't have to be the singleton
     private let basePath = "/api/rest_v1/data/lists/"
     private let host = "en.wikipedia.org"
     private let scheme = "https"
