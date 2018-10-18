@@ -954,6 +954,13 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                 [self.delegate.navigationBar setNavigationBarPercentHidden:0 underBarViewPercentHidden:0 extendedViewPercentHidden:0 topSpacingPercentHidden:0 shadowAlpha:1 animated:YES additionalAnimations:NULL];
             }
             CGFloat delta = self.webView.scrollView.contentOffset.y - newOffsetY;
+            if (@available(iOS 12, *)) {
+                CGFloat topInset = self.webView.scrollView.contentInset.top;
+                CGFloat yOffset = self.webView.scrollView.contentOffset.y;
+                if (topInset + yOffset == 0) {
+                    delta = delta + topInset;
+                }
+            }
             CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
             [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                      animated:YES
@@ -977,6 +984,11 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         CGFloat topInset = self.webView.scrollView.contentInset.top;
 
         rect = CGRectOffset(rect, 0, 1 - topInset);
+        CGFloat yOffset = 1;
+        if (@available(iOS 12, *)) {
+            yOffset = yOffset - topInset;
+        }
+        rect = CGRectOffset(rect, 0, yOffset);
         rect = CGRectInset(rect, -1, -3);
         return rect;
     }
