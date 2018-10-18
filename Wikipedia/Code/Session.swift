@@ -93,7 +93,7 @@ public enum Domain: String {
         return queue
     }()
     
-    public var hasValidLocalCredentials: Bool {
+    public var hasValidCentralAuthCookies: Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
         }
