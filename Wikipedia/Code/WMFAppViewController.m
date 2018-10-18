@@ -246,6 +246,19 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Setup
 
+- (void)setupControllers {
+    self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30];
+    [self.periodicWorkerController add:self.dataStore.readingListsController];
+    [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
+    [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
+    
+    self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
+    [self.backgroundFetcherController add:self.dataStore.readingListsController];
+    [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
+    [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
+    [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
+}
+
 - (void)loadMainUI {
     if ([self uiIsLoaded]) {
         return;
@@ -653,6 +666,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                 [self endMigrationBackgroundTask];
                                 [self checkRemoteAppConfigIfNecessary];
                                 [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                                    [self setupControllers];
                                     [self loadMainUI];
                                     self.migrationComplete = YES;
                                     self.migrationActive = NO;
@@ -794,19 +808,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [[WMFAuthenticationManager sharedInstance]
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
-            if (!self.periodicWorkerController) {
-                self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30];
-                [self.periodicWorkerController add:self.dataStore.readingListsController];
-                [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
-                [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-            }
-            if (!self.backgroundFetcherController) {
-                self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
-                [self.backgroundFetcherController add:self.dataStore.readingListsController];
-                [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
-                [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
-                [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
-            }
             if (!self.reachabilityNotifier) {
                 @weakify(self);
                 self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain
