@@ -121,7 +121,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 // Fetchers
 @property (nonatomic, strong) WMFArticleFetcher *articleFetcher;
 @property (nonatomic, strong, nullable) NSURLSessionTask *articleFetcherPromise;
-@property (nonatomic, strong, nullable) AFNetworkReachabilityManager *reachabilityManager;
+@property (nonatomic, strong, nullable) WMFReachabilityNotifier *reachabilityNotifier;
 
 // Views
 @property (nonatomic, strong, nullable) UIImageView *headerImageTransitionView;
@@ -189,8 +189,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.hidesBottomBarWhenPushed = YES;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
-        self.reachabilityManager = [AFNetworkReachabilityManager manager];
-        [self.reachabilityManager startMonitoring];
+        @weakify(self);
+        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
+            if (isReachable) {
+                @strongify(self);
+                [self.reachabilityNotifier stop];
+                @weakify(self);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    @strongify(self);
+                    [self fetchArticleIfNeeded];
+                });
+            }
+        }];
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
@@ -788,7 +798,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.reachabilityManager startMonitoring];
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
@@ -806,7 +815,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.reachabilityManager stopMonitoring];
+    [self.reachabilityNotifier stop];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
@@ -1277,18 +1286,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                      tapCallBack:NULL];
 
                 if ([error wmf_isNetworkConnectionError]) {
-                    @weakify(self);
-                    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-                        switch (status) {
-                            case AFNetworkReachabilityStatusReachableViaWWAN:
-                            case AFNetworkReachabilityStatusReachableViaWiFi: {
-                                @strongify(self);
-                                [self fetchArticleIfNeeded];
-                            } break;
-                            default:
-                                break;
-                        }
-                    }];
+                    [self.reachabilityNotifier start];
                 }
             }
 

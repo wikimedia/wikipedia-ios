@@ -282,13 +282,23 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         refreshControl.endRefreshing()
     }
     
-    lazy var reachabilityManager: AFNetworkReachabilityManager = {
-        return AFNetworkReachabilityManager(forDomain: WMFDefaultSiteDomain)
+    lazy var reachabilityNotifier: ReachabilityNotifier = {
+        let notifier = ReachabilityNotifier(WMFDefaultSiteDomain) { [weak self] (reachable, flags) in
+            if reachable {
+                DispatchQueue.main.async {
+                    self?.updateFeedSources(userInitiated: false)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showOfflineEmptyViewIfNeeded()
+                }
+            }
+        }
+        return notifier
     }()
     
     private func stopMonitoringReachability() {
-        reachabilityManager.setReachabilityStatusChange(nil)
-        reachabilityManager.stopMonitoring()
+        reachabilityNotifier.stop()
     }
     
     private func startMonitoringReachabilityIfNeeded() {
@@ -296,24 +306,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             stopMonitoringReachability()
             return
         }
-        
-        reachabilityManager.startMonitoring()
-        reachabilityManager.setReachabilityStatusChange { [weak self] (status) in
-            switch status {
-            case .reachableViaWiFi:
-                fallthrough
-            case .reachableViaWWAN:
-                DispatchQueue.main.async {
-                    self?.updateFeedSources(userInitiated: false)
-                }
-            case .notReachable:
-                DispatchQueue.main.async {
-                    self?.showOfflineEmptyViewIfNeeded()
-                }
-            default:
-                break
-            }
-        }
+        reachabilityNotifier.start()
     }
     
     private func showOfflineEmptyViewIfNeeded() {
@@ -330,7 +323,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return
         }
         
-        guard reachabilityManager.networkReachabilityStatus == .notReachable else {
+        guard !reachabilityNotifier.isReachable else {
             return
         }
         
@@ -619,18 +612,21 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     var needsReloadVisibleCells = false
     var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
     
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
-        
-        guard needsReloadVisibleCells else {
-            return
-        }
-        
+    private func reloadVisibleCells() {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
                 continue
             }
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+        guard needsReloadVisibleCells else {
+            return
+        }
+        
+        reloadVisibleCells()
         
         needsReloadVisibleCells = false
         layout.currentSection = nil
@@ -798,10 +794,37 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func articleDidChange(_ note: Notification) {
-        guard let article = note.object as? WMFArticle else {
+        guard
+            let article = note.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectPreviews,
+            let articleKey = article.key
+        else {
             return
         }
-        layoutCache.invalidateArticleKey(article.key)
+        
+        guard layoutCache.invalidateArticleKey(articleKey) else {
+            return
+        }
+        
+        collectionView.collectionViewLayout.invalidateLayout()
+
+        let visibleIndexPathsWithChanges = collectionView.indexPathsForVisibleItems.filter { (indexPath) -> Bool in
+            guard let contentGroup = group(at: indexPath) else {
+                return false
+            }
+            return contentGroup.previewArticleKeys.contains(articleKey)
+        }
+        
+        guard visibleIndexPathsWithChanges.count > 0 else {
+            return
+        }
+        
+        for indexPath in visibleIndexPathsWithChanges {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell else {
+                continue
+            }
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
     }
     
     @objc func articleDeleted(_ note: Notification) {

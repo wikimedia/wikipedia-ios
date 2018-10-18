@@ -17,4 +17,9 @@ extension WMFArticle {
         }
         return wikidataDescription
     }
+    
+    public var hasChangedValuesForCurrentEventThatAffectPreviews: Bool {
+        let previewKeys: Set<String> = ["wikidataDescription", "snippet", "imageURLString"]
+        return hasChangedValuesForCurrentEventForKeys(previewKeys)
+    }
 }

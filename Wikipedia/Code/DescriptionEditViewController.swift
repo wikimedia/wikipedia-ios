@@ -178,12 +178,14 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
 
     private func save() {
+        enableProgressiveButton(false)
         wmf_hideKeyboard()
         
         // Final trim to remove leading and trailing space
         let descriptionToSave = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard let article = article, let dataStore = article.dataStore, let articleURL = article.url else {
+            enableProgressiveButton(true)
             assertionFailure("Expected article, datastore or article url not found")
             return
         }
@@ -191,6 +193,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, for: articleURL) {error in
             let presentingVC = self.presentingViewController
             DispatchQueue.main.async {
+                self.enableProgressiveButton(true)
                 guard let error = error else {
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self)
                     self.dismiss(animated: true) {

@@ -36,6 +36,11 @@
 			<string>sysop</string>
 		</array>
 	</dict>
+	<key>pageprops</key>
+	<dict>
+		<key>wikibase_item</key>
+		<string>Q76</string>
+	</dict>
 	<key>schemaVersion</key>
 	<integer>1</integer>
 	<key>thumbnailURL</key>

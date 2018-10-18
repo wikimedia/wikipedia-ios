@@ -23,7 +23,7 @@ NSString *const WMFExploreFeedPreferencesDidChangeNotification = @"WMFExploreFee
 NSString *const WMFExploreFeedPreferencesDidSaveNotification = @"WMFExploreFeedPreferencesDidSaveNotification";
 NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewExploreFeedPreferencesWereRejectedNotification";
 
-@interface WMFExploreFeedContentController ()
+@interface WMFExploreFeedContentController () <WMFBackgroundFetcher>
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
@@ -805,4 +805,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
+
+- (void)performBackgroundFetch:(void (^)(UIBackgroundFetchResult))completion {
+    [self updateBackgroundSourcesWithCompletion:completion];
+}
+
 @end
