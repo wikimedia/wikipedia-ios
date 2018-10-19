@@ -160,12 +160,20 @@ struct RemoteNotificationsAPIController {
                 if let error = error {
                     completion(error)
                 }
-                guard let result = result, result.succeeded else {
+                guard let result = result else {
+                    assertionFailure("Expected result; make sure MarkReadResult maps the expected result correctly")
+                    completion(MarkReadError.noResult)
+                    return
+                }
+                if let error = result.error {
+                    completion(error)
+                }
+                guard result.succeeded else {
                     assertionFailure()
                     completion(MarkReadError.unknown)
                     return
                 }
-                completion(result.error)
+                completion(nil)
             }
         }
     }
