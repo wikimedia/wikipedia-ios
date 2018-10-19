@@ -131,11 +131,11 @@ struct RemoteNotificationsAPIController {
                     completion(MarkReadError.noResult)
                     return
                 }
-                if !result.succeeded {
-                    completion(MarkReadError.unknown)
-                }
                 if let error = result.error {
                     completion(error)
+                }
+                if !result.succeeded {
+                    completion(MarkReadError.unknown)
                 }
             }
         }) { (errors) in
