@@ -56,11 +56,12 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
 
-        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
+        guard apiController.isAuthenticated else {
             stop()
             completeEarly()
             return
         }
+        
         deadlineController?.performIfBeforeDeadline(completeEarly) { [weak self] in
             guard
                 let modelController = self?.modelController,
