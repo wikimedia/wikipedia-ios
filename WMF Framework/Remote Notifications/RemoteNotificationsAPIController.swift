@@ -122,6 +122,8 @@ struct RemoteNotificationsAPIController {
             assertionFailure()
             return
         }
+        
+        
 
         request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
             if let error = error {
@@ -208,5 +210,11 @@ struct RemoteNotificationsAPIController {
 extension RemoteNotificationsAPIController.ResultError: LocalizedError {
     var errorDescription: String? {
         return info
+    }
+}
+
+extension RemoteNotificationsAPIController {
+    var isAuthenticated: Bool {
+        return session.hasValidCentralAuthCookies(for: .mediawiki)
     }
 }
