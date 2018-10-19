@@ -2,7 +2,6 @@
   
 import UIKit
 import PlaygroundSupport
-import WMF
 
 class MyViewController : UIViewController {
     override func loadView() {

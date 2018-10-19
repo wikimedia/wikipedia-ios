@@ -5,6 +5,6 @@
       location = "group:Wikipedia.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WelcomeAnimationProofing.playground">
+      location = "group:/Users/montehurd/wikipedia-ios/Playgrounds.playground">
    </FileRef>
 </Workspace>
