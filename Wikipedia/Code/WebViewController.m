@@ -990,7 +990,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         CGFloat topContentInset = self.webView.scrollView.contentInset.top;
         CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
         if (topContentInset + yContentOffset != 0) {
-            return 0 - topContentInset;
+            return 0 - topContentInset - MIN(0, yContentOffset);
         }
     }
     return 0;
