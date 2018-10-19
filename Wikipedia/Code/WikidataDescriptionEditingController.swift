@@ -102,6 +102,6 @@ enum WikidataPublishingError: LocalizedError {
 
 public extension MWKArticle {
     @objc var isWikidataDescriptionEditable: Bool {
-        return wikidataId != nil && descriptionSource != .local
+        return wikidataId != nil && descriptionSource == .central
     }
 }
