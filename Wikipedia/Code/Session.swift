@@ -3,7 +3,7 @@ import Foundation
 public enum Domain: String {
     case wikipedia = "wikipedia.org"
     case wikidata = "wikidata.org"
-    case wikimedia = "wikimedia.org"
+    case mediawiki = "mediawiki.org"
     
     var cookie: String {
         return ".\(rawValue)"
@@ -49,7 +49,7 @@ public enum Domain: String {
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
-        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie, to: [Domain.wikidata.cookie, Domain.wikimedia.cookie])
+        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie, to: [Domain.wikidata.cookie, Domain.mediawiki.cookie])
     }
     
     public func removeAllCookies() {
