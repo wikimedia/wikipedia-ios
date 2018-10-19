@@ -532,6 +532,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  } else if (newOffsetY > (self.delegate.navigationBar.frame.size.height - self.delegate.navigationBar.safeAreaInsets.top)) {
                                                      [self.delegate.navigationBar setNavigationBarPercentHidden:1 underBarViewPercentHidden:1 extendedViewPercentHidden:1 topSpacingPercentHidden:1 shadowAlpha:1 animated:YES additionalAnimations:NULL];
                                                  }
+                                                 newOffsetY += [self iOS12yOffsetHack];
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                                                           animated:YES
