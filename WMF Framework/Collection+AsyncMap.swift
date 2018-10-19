@@ -23,6 +23,7 @@ extension Collection {
             group.enter()
             block(object, { result in
                 guard let result = result else {
+                    group.leave()
                     return
                 }
                 results.append(result)
