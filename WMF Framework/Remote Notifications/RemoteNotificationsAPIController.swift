@@ -132,6 +132,7 @@ struct RemoteNotificationsAPIController {
                         markAsReadError = error
                     }
                     guard let result = result else {
+                        assertionFailure("Expected result; make sure MarkReadResult maps the expected result correctly")
                         failed += 1
                         markAsReadError = MarkReadError.noResult
                         group.leave()
