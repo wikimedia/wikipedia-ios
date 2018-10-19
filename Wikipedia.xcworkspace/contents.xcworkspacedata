@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Wikipedia.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:WelcomeAnimationProofing.playground">
+   </FileRef>
 </Workspace>
