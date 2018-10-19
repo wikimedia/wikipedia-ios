@@ -125,16 +125,15 @@ struct RemoteNotificationsAPIController {
             for notifications in split {
                 group.enter()
                 request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
-                    group.leave()
                     if let error = error {
                         markAsReadError = error
                     }
-                    guard let result = result, result.succeeded else {
+                    if let result = result, !result.succeeded {
                         assertionFailure()
                         markAsReadError = MarkReadError.unknown
-                        return
                     }
-                    markAsReadError = result.error
+                    markAsReadError = result?.error
+                    group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.global(qos: .default)) {
