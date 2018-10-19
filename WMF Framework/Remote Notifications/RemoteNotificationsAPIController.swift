@@ -91,6 +91,7 @@ struct RemoteNotificationsAPIController {
     enum MarkReadError: LocalizedError {
         case noResult
         case unknown
+        case multiple([Error])
     }
 
     private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
@@ -118,44 +119,9 @@ struct RemoteNotificationsAPIController {
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let notifications = Array(notifications)
+        let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
-        if notifications.count > maxNumberOfNotificationsPerRequest {
-            let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
-            let group = DispatchGroup()
-            var markAsReadError: Error? = nil
-            var failed = 0
-            for notifications in split {
-                group.enter()
-                request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
-                    if let error = error {
-                        failed += 1
-                        markAsReadError = error
-                    }
-                    guard let result = result else {
-                        assertionFailure("Expected result; make sure MarkReadResult maps the expected result correctly")
-                        failed += 1
-                        markAsReadError = MarkReadError.noResult
-                        group.leave()
-                        return
-                    }
-                    if !result.succeeded {
-                        failed += 1
-                        markAsReadError = MarkReadError.unknown
-                    }
-                    if let error = result.error {
-                        failed += 1
-                        markAsReadError = error
-                    }
-                    group.leave()
-                }
-            }
-            group.notify(queue: DispatchQueue.global(qos: .default)) {
-                if failed > 1 {
-                    DDLogError("\(failed) of \(split.count) mark as read requests failed")
-                }
-                completion(markAsReadError)
-            }
-        } else {
+        split.asyncMap({ (notifications, completion: @escaping (Error) -> Void) in
             request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
                 if let error = error {
                     completion(error)
@@ -165,15 +131,19 @@ struct RemoteNotificationsAPIController {
                     completion(MarkReadError.noResult)
                     return
                 }
+                if !result.succeeded {
+                    completion(MarkReadError.unknown)
+                }
                 if let error = result.error {
                     completion(error)
                 }
-                guard result.succeeded else {
-                    assertionFailure()
-                    completion(MarkReadError.unknown)
-                    return
-                }
+            }
+        }) { (errors) in
+            if errors.isEmpty {
                 completion(nil)
+            } else {
+                DDLogError("\(errors.count) of \(split.count) mark as read requests failed")
+                completion(MarkReadError.multiple(errors))
             }
         }
     }
