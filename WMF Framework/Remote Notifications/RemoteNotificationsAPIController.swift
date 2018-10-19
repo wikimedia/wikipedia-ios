@@ -121,10 +121,11 @@ struct RemoteNotificationsAPIController {
         let notifications = Array(notifications)
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
-        split.asyncMap({ (notifications, completion: @escaping (Error) -> Void) in
+        split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
             request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
                 if let error = error {
                     completion(error)
+                    return
                 }
                 guard let result = result else {
                     assertionFailure("Expected result; make sure MarkReadResult maps the expected result correctly")
@@ -133,10 +134,13 @@ struct RemoteNotificationsAPIController {
                 }
                 if let error = result.error {
                     completion(error)
+                    return
                 }
                 if !result.succeeded {
                     completion(MarkReadError.unknown)
+                    return
                 }
+                completion(nil)
             }
         }) { (errors) in
             if errors.isEmpty {
