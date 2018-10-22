@@ -182,7 +182,6 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         wmf_hideKeyboard()
         
         guard
-            let descriptionToSave = descriptionTextView.normalizedWhitespaceText(),
             let article = article,
             let dataStore = article.dataStore,
             let articleURL = article.url
@@ -190,6 +189,16 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
             enableProgressiveButton(true)
             assertionFailure("Expected article, datastore or article url not found")
             return
+        }
+
+        guard
+            let descriptionToSave = descriptionTextView.normalizedWhitespaceText(),
+            descriptionToSave.count > 0
+            else {
+                descriptionTextView.text = nil
+                // manually call `textViewDidChange` since it's not called when UITextView text is changed programmatically
+                textViewDidChange(descriptionTextView)
+                return
         }
         
         dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, for: articleURL) {error in
@@ -217,12 +226,10 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        guard let description = descriptionTextView.text else{
-            enableProgressiveButton(false)
-            return
-        }
-        enableProgressiveButton(description.count > 0)
+        let hasText = descriptionTextView.text.count > 0
+        enableProgressiveButton(hasText)
         updateWarningLabelsForDescriptionCount()
+        isPlaceholderLabelHidden = hasText
     }
     
     func apply(theme: Theme) {
