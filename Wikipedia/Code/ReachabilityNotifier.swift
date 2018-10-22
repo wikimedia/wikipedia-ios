@@ -75,8 +75,9 @@ import Foundation
             let reachabilityNotifier = Unmanaged<ReachabilityNotifier>.fromOpaque(info).takeUnretainedValue()
             reachabilityNotifier.semaphore.wait()
             reachabilityNotifier._flags = flags
-            reachabilityNotifier.callback(flags.contains(.reachable), flags)
+            let callback = reachabilityNotifier.callback
             reachabilityNotifier.semaphore.signal()
+            callback(flags.contains(.reachable), flags)
         }, &context)
         self.reachability = reachability
     }
