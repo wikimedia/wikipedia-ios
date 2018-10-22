@@ -128,7 +128,7 @@
 "description-edit-for-article" = "Опис наслова за страницу $1";
 "description-edit-learn-more" = "Сазнајте више";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Променом описа наслова, слажем се са $1 и неопозиво доприносим под лиценцом $2.";
+"description-edit-license" = "Променом описа наслова, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
 "description-edit-pencil-title" = "Додај опис наслова";
 "description-edit-placeholder-title" = "Кратки описи су најбољи";
@@ -656,7 +656,7 @@
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Чувањем промена, слажете се са $1 и прихватате објављивање свог доприноса под лиценцама $2 и $3.";
-"wikitext-upload-save-terms-name" = "условима коришћења";
+"wikitext-upload-save-terms-name" = "услове коришћења";
 "zero-charged-verbiage" = "Википедија нула је искључена";
 "zero-charged-verbiage-extended" = "Учитавањем других чланака можете сносити трошкове. Сачувани чланци за читање офлајн не користе податке и бесплатни су.";
 "zero-free-verbiage" = "Бесплатан приступ Википедији преко вашег мобилног оператера (пренос података се не наплаћује)";

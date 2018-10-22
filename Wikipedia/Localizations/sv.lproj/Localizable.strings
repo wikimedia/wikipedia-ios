@@ -528,6 +528,14 @@
 "relogin-failed-subtitle" = "Din session kan ha löpt ut eller så är tidigare inloggningsuppgifter inte längre giltiga.";
 "relogin-failed-title" = "Kunde inte återupprätta inloggning";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
+"reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
+"reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";
+"reverted-edit-notification-read-more-action-title" = "Läs mer";
+"reverted-edit-possible-reasons" = "- Ditt bidrag följde inte en av riktlinjerna. $1 \n\n - Ditt bidrag såg ut som ett experiment eller vandalism";
+"reverted-edit-possible-reasons-subtitle" = "Vi vet att du försökte ditt bästa men en av granskarna hade en invändning.\n\nMöjliga anledningar till att din redigering gjordes om inkluderar:";
+"reverted-edit-thanks-for-editing-title" = "Tack för att du redigerar på Wikipedia!";
+"reverted-edit-title" = "Återställd redigering";
+"reverted-edit-view-guidelines-text" = "Visa riktlinjerna";
 "saved-all-articles-title" = "Alla artiklar";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
