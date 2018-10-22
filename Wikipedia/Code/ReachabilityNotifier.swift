@@ -2,7 +2,11 @@ import Foundation
 
 @objc(WMFReachabilityNotifier) public class ReachabilityNotifier: NSObject {
     private let host: String
+    
+    // `queue.sync {}` is used throughout to ensure `queue` never captures `self`
+    // capturing `self` in a block on `queue` could cause a deadlock on deinit
     private let queue: DispatchQueue
+    
     private let callback: (Bool, SCNetworkReachabilityFlags) -> Void
 
     private var reachability: SCNetworkReachability?
@@ -17,7 +21,7 @@ import Foundation
     
     deinit {
         queue.sync {
-            self._stop()
+            _stop()
         }
     }
     
@@ -38,14 +42,14 @@ import Foundation
     }
     
     @objc public func start() {
-        queue.async {
-            self._start()
+        queue.sync {
+            _start()
         }
     }
     
     @objc public func stop() {
-        queue.async {
-            self._stop()
+        queue.sync {
+            _stop()
         }
     }
     
