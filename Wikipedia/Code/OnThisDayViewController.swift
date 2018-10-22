@@ -59,6 +59,11 @@ class OnThisDayViewController: ColumnarCollectionViewController, ReadingListHint
         readingListHintController = ReadingListHintController(dataStore: dataStore, presenter: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scrollToInitialEvent()
+    }
+    
     func scrollToInitialEvent() {
         guard let event = initialEvent, let eventIndex = events.index(of: event), events.indices.contains(eventIndex) else {
             return
