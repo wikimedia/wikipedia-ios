@@ -192,11 +192,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         @weakify(self);
         self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
             if (isReachable) {
-                @strongify(self);
-                [self.reachabilityNotifier stop];
-                @weakify(self);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @strongify(self);
+                    [self.reachabilityNotifier stop];
                     [self fetchArticleIfNeeded];
                 });
             }

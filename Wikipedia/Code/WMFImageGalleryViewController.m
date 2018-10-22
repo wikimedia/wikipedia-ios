@@ -413,7 +413,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView*)self.overlayView.captionView;
+    UIView *maybeDetailOverlayView = self.overlayView.captionView;
+    if (![maybeDetailOverlayView isKindOfClass:[WMFImageGalleryDetailOverlayView class]]) {
+        return;
+    }
+    WMFImageGalleryDetailOverlayView *detailOverlayView = (WMFImageGalleryDetailOverlayView *)maybeDetailOverlayView;
     detailOverlayView.maximumDescriptionHeight = size.height;
 }
 
