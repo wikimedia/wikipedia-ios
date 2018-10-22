@@ -107,6 +107,19 @@
 "close-button-accessibility-label" = "بند";
 "compass-direction" = "$1 بجے پر";
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
+"description-edit-learn-more" = "مزید پڑھیے";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-pencil-introduction" = "تعاوف میں ترمیم کریں";
+"description-edit-pencil-title" = "لیبل میں ترمیم کریں";
+"description-edit-placeholder-title" = "انتہائی مختصر وضاحت ہی بہتر ہے";
+"description-edit-publish" = "وضاحت شائع کریں";
+"description-edit-title" = "وضاحت میں ترمیم کریں";
+"description-help-about-description" = "عنوانات (مضامین) کی مختصر ترین وضاحتیں، قارئین کو مضمون کے موضوع کو ایک ہی نظر میں، سمجھنے میں معاون ہوتی ہیں۔";
+"description-help-about-title" = "ہمارے بارے میں";
+"description-help-about-wikidata" = "ویکی ڈیٹا سے متعلق";
+"description-help-more-info-title" = "مزید معلومات";
+"description-help-tips-for-example" = "بطور مثال:";
+"description-published-button-title" = "تکمیل";
 "dim-images" = "تصاویر کو کم روشن کریں";
 "edit-summary-choice-fixed-grammar" = "درستی قواعد";
 "edit-summary-choice-fixed-typos" = "درستی املا";
@@ -130,10 +143,15 @@
 "explore-featured-article-heading" = "منتخب مضمون";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ویکیپیڈیا سے";
 "explore-featured-article-sub-heading-from-wikipedia" = "ویکیپیڈیا سے";
+"explore-feed-preferences-card-hidden-title" = "کارڈ پوشیدہ کریں";
 "explore-feed-preferences-featured-article-description" = "ویکیپیڈیا پر آج کا منتخب مضمون";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "بند";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "سب آن کریں";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "آن";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "$1 زبانیں";
+"explore-feed-preferences-feed-cards-hidden-title" = "تمام %@ کارڈ پوشیدہ";
+"explore-feed-preferences-undo-customization" = "واپس";
+"explore-hide-card-prompt" = "یہ کارڈ پوشیدہ کریں";
 "explore-main-page-description" = "ویکیمیڈیا منصوبوں کا صفحہ اول";
 "explore-main-page-heading" = "ویکیپیڈیا پر آج";
 "explore-most-read-footer" = "سب سے زیادہ پڑھے جانے والے مضامین";
@@ -143,11 +161,10 @@
 "explore-most-read-sub-heading-on-wikipedia" = "ویکیپیڈیا سے";
 "explore-nearby-heading" = "قریبی مقامات";
 "explore-nearby-placeholder-heading" = "مقامات";
-// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ویکیپیڈیا سے";
-// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ویکیپیڈیا سے";
 "explore-nearby-sub-heading-your-location" = "آپ کا مقام";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 ویکیپیڈیا سے آپ کا مقام";
 "explore-potd-heading" = "آج کی تصویر";
 "explore-potd-sub-heading" = "ویکیمیڈیا کامنز سے";
 "explore-random-article-heading" = "تصادفی مضمون";
@@ -155,6 +172,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "ویکیپیڈیا سے";
 "explore-randomizer" = "جستہ جستہ صفحات";
 "feed-news-notification-button-text" = "اطلاع ناموں کو فعال کریں";
+"field-alert-captcha-invalid" = "غیر موافق کیپچا";
 "field-alert-password-confirm-mismatch" = "دونوں پاس ورڈ یکساں نہیں ہیں";
 "field-alert-password-invalid" = "نادرست پاس ورڈ";
 "field-alert-token-invalid" = "نادرست کوڈ";
@@ -173,11 +191,15 @@
 "field-password-confirm-title" = "پاس ورڈ کی تصدیق کریں";
 "field-password-placeholder" = "پاس ورڈ درج کریں";
 "field-password-title" = "پاس ورڈ";
+"field-token-title" = "توثیقی کوڈ";
 "field-username-placeholder" = "صارف نام درج کریں";
 "field-username-title" = "صارف نام";
 "find-in-page-button-label" = "صفحہ میں تلاش کریں";
 "find-in-page-number-matches" = "$1 / $2";
 "forgot-password-button-title" = "دوبارہ مرتب کریں";
+"forgot-password-title" = "پاسورڈ تبدیل کریں";
+"forgot-password-username-or-email-title" = "یا";
+"gfdl" = "جی ایف ڈی ایل";
 "history-clear-all" = "واضح";
 "history-clear-cancel" = "منسوخ";
 "history-clear-confirmation-heading" = "کیا آپ تمام حالیہ مواد کو حذف کرنا چاہتے ہیں؟";
@@ -200,6 +222,7 @@
 "icon-shortcut-random-title" = "تصادفی مضمون";
 "icon-shortcut-search-title" = "ویکیپیڈیا میں تلاش";
 "image-gallery-unknown-owner" = "نامعلوم تخلیق کار۔";
+"in-the-news-currently-trending" = "حالیہ رجحان";
 "in-the-news-notification-read-now-action-title" = "ابھی پڑھیں";
 "in-the-news-notification-save-for-later-action-title" = "بعد کے لیے محفوظ کریں";
 "in-the-news-notification-share-action-title" = "شیئر۔۔۔";
@@ -251,6 +274,8 @@
 "number-thousands" = "$1 ہزار";
 "on-this-day-detail-header-date-range" = "$1 سے $2 تک";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاریخی واقعہ|$1 تاریخی واقعات}}";
+"on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
+"on-this-day-footer-with-event-count" = "اس دن کے مزید $1 تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
 "open-link-cancel" = "منسوخ";
 "page-edit-history" = "مکمل ترمیمی تاریخچہ";
@@ -266,7 +291,12 @@
 "page-similar-titles" = "یکساں صفحات";
 "page-talk-page" = "تبادلۂ خیال صفحہ دیکھیں";
 "pictured" = "تصویر";
+"places-accessibility-clear-saved-searches" = "محقوظ شدہ تلاش مضامین صاف کر دیں";
 "places-accessibility-group" = "$1 مضامین";
+"places-accessibility-recenter-map-on-user-location" = "اپنے مقام کو مرتکز کریں";
+"places-accessibility-show-as-list" = "بطور فہرست دکھائیں";
+"places-accessibility-show-as-map" = "بطور نقشہ دکھائیں";
+"places-accessibility-show-more" = "مزید مضامین دکھائیں";
 "places-filter-button-title" = "فلٹر";
 "places-filter-saved-articles" = "محفوظ شدہ مضامین";
 "places-filter-top-articles" = "سب سے زیادہ پڑھا گیا";
@@ -274,6 +304,9 @@
 "places-search-did-you-mean" = "کیا آپ کی مراد $1 ہے؟";
 "places-search-recently-searched-header" = "حالیہ تلاش شدہ";
 "places-search-saved-articles" = "تمام محفوظ شدہ مضامین";
+"places-search-your-current-location" = "آپ کا موجودہ مقام";
+"places-title" = "مقامات";
+"places-unknown-distance" = "نامعلوم فاصلہ";
 "potd-description-prefix" = "$1 کے لیے آج کی تصویر";
 "potd-empty-error-description" = "$1 کے لیے آج کی تصویر اخذ نہیں کی جاسکی";
 "preference-summary-eventlogging-opt-in" = "ویکیمیڈیا کو اجازت دیں کہ وہ آپ کے اس ایپ کے استعمال کی معلومات حاصل کرے تاکہ اس ایپ کو مزید بہتر بنایا جا سکے۔";
@@ -288,6 +321,9 @@
 "reading-list-login-button-title" = "اپنے محفوظ کردہ مضامین کو یکجا کرنے کے لیے لاگ ان کریں";
 "reading-list-login-or-create-account-button-title" = "لاگ ان کریں یا کھاتہ بنائیں";
 "reading-list-login-or-create-account-title" = "محفوظ کردہ مضامین کو یکجا کرنے لیے لاگ ان کریں";
+"reading-themes-controls-accessibility-black-theme-button" = "سیاہ تھیم";
+"reading-themes-controls-accessibility-light-theme-button" = "ہلکا تھیم";
+"reference-title" = "$1 حوالہ";
 "request-feedback-on-error" = "ایپ کو ایک مسئلہ کا سامناہےجس کے بارے میں ہمارے تخلیق کار مزید جاننا پسند کریں گے۔ براہ مہربانی ہمیں مسئلہ کی تفصیلات کے ساتھ ایمیل بھیجنے کے لیے یہاں چھوئیں۔";
 "saved-pages-image-download-error" = "محفوظ صفحات کے لیے تصاویر کو کامیابی سے ڈاؤنلوڈ نہیں کیا جاسکا۔";
 "saved-title" = "محفوظ";
