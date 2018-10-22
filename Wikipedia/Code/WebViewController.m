@@ -532,6 +532,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                                  } else if (newOffsetY > (self.delegate.navigationBar.frame.size.height - self.delegate.navigationBar.safeAreaInsets.top)) {
                                                      [self.delegate.navigationBar setNavigationBarPercentHidden:1 underBarViewPercentHidden:1 extendedViewPercentHidden:1 topSpacingPercentHidden:1 shadowAlpha:1 animated:YES additionalAnimations:NULL];
                                                  }
+                                                 newOffsetY += [self iOS12yOffsetHack];
                                                  CGPoint centeredOffset = CGPointMake(self.webView.scrollView.contentOffset.x, newOffsetY);
                                                  [self.webView.scrollView wmf_safeSetContentOffset:centeredOffset
                                                                                           animated:YES
@@ -943,6 +944,9 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     CGRect windowCoordsRefGroupRect = [self windowCoordsReferenceGroupRect];
     UIView *firstPanel = [controller firstPanelView];
     if (!CGRectIsEmpty(windowCoordsRefGroupRect) && firstPanel && controller.backgroundView) {
+
+        windowCoordsRefGroupRect = CGRectOffset(windowCoordsRefGroupRect, 0, [self iOS12yOffsetHack]);
+
         CGRect panelRectInWindowCoords = [firstPanel convertRect:firstPanel.bounds toView:nil];
         CGRect refGroupRectInWindowCoords = [controller.backgroundView convertRect:windowCoordsRefGroupRect toView:nil];
         if (CGRectIntersectsRect(windowCoordsRefGroupRect, panelRectInWindowCoords)) {
@@ -979,6 +983,17 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         return rect;
     }
     return CGRectNull;
+}
+
+- (CGFloat)iOS12yOffsetHack {
+    if (@available(iOS 12, *)) {
+        CGFloat topContentInset = self.webView.scrollView.contentInset.top;
+        CGFloat yContentOffset = self.webView.scrollView.contentOffset.y;
+        if (topContentInset + yContentOffset != 0) {
+            return 0 - topContentInset - MIN(0, yContentOffset);
+        }
+    }
+    return 0;
 }
 
 - (void)showReferencePopoverMessageViewControllerWithGroup:(NSArray<WMFReference *> *)referenceGroup selectedIndex:(NSInteger)selectedIndex {

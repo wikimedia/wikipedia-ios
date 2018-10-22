@@ -56,30 +56,32 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
 
-        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
+        guard apiController.isAuthenticated else {
             stop()
             completeEarly()
             return
         }
-        deadlineController?.performIfBeforeDeadline(completeEarly) { [weak self] in
-            guard
-                let modelController = self?.modelController,
-                let apiController = self?.apiController,
-                let operationQueue = self?.operationQueue else {
-                    completeEarly()
-                    return
-            }
-            let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
-            let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
-            let completionOperation = BlockOperation(block: completion)
-
-            fetchOperation.addDependency(markAsReadOperation)
-            completionOperation.addDependency(fetchOperation)
-
-            operationQueue.addOperation(markAsReadOperation)
-            operationQueue.addOperation(fetchOperation)
-            operationQueue.addOperation(completionOperation)
+        
+        guard deadlineController?.isBeforeDeadline ?? false else {
+            completeEarly()
+            return
         }
+    
+        guard let modelController = self.modelController else {
+                completeEarly()
+                return
+        }
+        
+        let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
+        let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
+        let completionOperation = BlockOperation(block: completion)
+        
+        fetchOperation.addDependency(markAsReadOperation)
+        completionOperation.addDependency(fetchOperation)
+        
+        operationQueue.addOperation(markAsReadOperation)
+        operationQueue.addOperation(fetchOperation)
+        operationQueue.addOperation(completionOperation)
     }
 
     // MARK: Notifications
@@ -141,16 +143,11 @@ final class RemoteNotificationsOperationsDeadlineController {
         }
     }
 
-    public func performIfBeforeDeadline(_ eventHandler: @escaping () -> Void, completion: () -> Void) {
+    public var isBeforeDeadline: Bool {
         guard let startTime = startTime else {
-            completion()
-            return
+            return false
         }
-        guard now - startTime < deadline else {
-            completion()
-            return
-        }
-        eventHandler()
+        return now - startTime < deadline
     }
 
     private var startTime: CFAbsoluteTime? {
