@@ -239,7 +239,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private func group(at indexPath: IndexPath) -> WMFContentGroup? {
-        return fetchedResultsController?.object(at: indexPath)
+        guard let frc = fetchedResultsController, frc.isValidIndexPath(indexPath) else {
+            return nil
+        }
+        return frc.object(at: indexPath)
     }
     
     private func groupKey(at indexPath: IndexPath) -> String? {
