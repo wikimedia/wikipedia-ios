@@ -156,12 +156,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc private func logFeedImpression() {
-        guard let fetchedResultsController = fetchedResultsController else {
-            return
-        }
-        for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
-            let group = fetchedResultsController.object(at: indexPath)
-            guard group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let group = group(at: indexPath), group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
