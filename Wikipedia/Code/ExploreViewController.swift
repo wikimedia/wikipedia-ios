@@ -156,12 +156,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
 
     @objc private func logFeedImpression() {
-        guard let fetchedResultsController = fetchedResultsController else {
-            return
-        }
-        for indexPath in collectionView.indexPathsForVisibleItems where fetchedResultsController.isValidIndexPath(indexPath) {
-            let group = fetchedResultsController.object(at: indexPath)
-            guard group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let group = group(at: indexPath), group.undoType == .none, let itemFrame = collectionView.layoutAttributesForItem(at: indexPath)?.frame else {
                 continue
             }
             let visibleRectOrigin = CGPoint(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y + navigationBar.visibleHeight)
@@ -239,7 +235,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     private func group(at indexPath: IndexPath) -> WMFContentGroup? {
-        return fetchedResultsController?.object(at: indexPath)
+        guard let frc = fetchedResultsController, frc.isValidIndexPath(indexPath) else {
+            return nil
+        }
+        return frc.object(at: indexPath)
     }
     
     private func groupKey(at indexPath: IndexPath) -> String? {
