@@ -116,9 +116,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     private func logEvent(_ event: NSDictionary) {
         let now = NSDate()
-        
-        let moc = self.managedObjectContext
-        moc.perform {
+        perform { moc in
             let record = NSEntityDescription.insertNewObject(forEntityName: "WMFEventRecord", into: self.managedObjectContext) as! EventRecord
             record.event = event
             record.recorded = now
@@ -126,7 +124,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             
             DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
             
-            self.save()
+            self.save(moc)
         }
     }
     
@@ -135,6 +133,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         let operation = AsyncBlockOperation { (operation) in
             let moc = self.managedObjectContext
             moc.perform {
+
                 let pruneFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
                 pruneFetch.returnsObjectsAsFaults = false
                 
@@ -200,9 +199,31 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         operationQueue.addOperation(completion)
     }
     
+    private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
+        let moc = self.managedObjectContext
+        moc.perform {
+            let task = Background.manager.beginTask()
+            defer {
+                Background.manager.endTask(task)
+            }
+            block(moc)
+        }
+    }
+    
+    private func performAndWait(_ block: (_ moc: NSManagedObjectContext) -> Void) {
+        let moc = self.managedObjectContext
+        moc.performAndWait {
+            let task = Background.manager.beginTask()
+            defer {
+                Background.manager.endTask(task)
+            }
+            block(moc)
+        }
+    }
+    
     private func asyncSave() {
-        self.managedObjectContext.perform {
-            self.save()
+        perform { (moc) in
+            self.save(moc)
         }
     }
     
@@ -236,7 +257,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         
         
         taskGroup.waitInBackground {
-            self.managedObjectContext.perform {
+            self.perform { moc in
                 let postDate = NSDate()
                 for moid in completedRecordIDs {
                     let mo = try? self.managedObjectContext.existingObject(with: moid)
@@ -255,11 +276,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 }
                 if (completedRecordIDs.count == eventRecords.count) {
                     self.managedObjectContext.wmf_setValue(NSNumber(value: CFAbsoluteTimeGetCurrent()), forKey: Key.lastSuccessfulPost)
-                    self.save()
+                    self.save(moc)
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
                     self.tryPostEvents()
                 } else {
-                    self.save()
+                    self.save(moc)
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
                 }
                 completion()
@@ -317,12 +338,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     // mark stored values
     
-    private func save() {
-        guard managedObjectContext.hasChanges else {
+    private func save(_ moc: NSManagedObjectContext) {
+        guard moc.hasChanges else {
             return
         }
         do {
-            try managedObjectContext.save()
+            try moc.save()
         } catch let error {
             DDLogError("Error saving EventLoggingService managedObjectContext: \(error)")
         }
@@ -341,7 +362,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             return value
         }
         
-        managedObjectContext.performAndWait {
+        performAndWait { moc in
             value = managedObjectContext.wmf_keyValue(forKey: key)?.value
             if value != nil {
                 libraryValueCache[key] = value
@@ -353,7 +374,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 libraryValueCache[key] = legacyValue
                 managedObjectContext.wmf_setValue(legacyValue, forKey: key)
                 UserDefaults.wmf.removeObject(forKey: key)
-                save()
+                save(moc)
             }
         }
     
@@ -366,9 +387,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             semaphore.signal()
         }
         libraryValueCache[key] = value
-        managedObjectContext.perform {
+        perform { moc in
             self.managedObjectContext.wmf_setValue(value, forKey: key)
-            self.save()
+            self.save(moc)
         }
     }
     
