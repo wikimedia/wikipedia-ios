@@ -3363,7 +3363,6 @@
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
 		83222DB01F8E554800338BE5 /* WMFContent+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataProperties.m"; sourceTree = "<group>"; };
 		832289DA1F7291BA0081A5FB /* SizeThatFitsReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeThatFitsReusableView.swift; sourceTree = "<group>"; };
-		8324682F20E10F0A0061393D /* ImageScaleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScaleTransition.swift; sourceTree = "<group>"; };
 		8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MediaWikiAcceptLanguageMapping.json; sourceTree = "<group>"; };
 		833D4FFA20A9E20800B44E7C /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		834CC34A21075B7600F62818 /* UITabBar+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Theme.swift"; sourceTree = "<group>"; };
@@ -6077,14 +6076,6 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
-		83C3177520FE25AC007E2998 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				8324682F20E10F0A0061393D /* ImageScaleTransition.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		B011FA471D470F4700AD7C5E /* FindInPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7411,7 +7402,6 @@
 				B0606EAF20AA6FF0006EC6B9 /* WikipediaUITests */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
-				83C3177520FE25AC007E2998 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
