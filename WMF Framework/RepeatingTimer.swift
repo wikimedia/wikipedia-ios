@@ -5,8 +5,10 @@ public class RepeatingTimer {
 
     public init(_ interval: TimeInterval, afterDelay delayInSeconds: TimeInterval = 0, on queue: DispatchQueue = DispatchQueue.global(qos: .background), _ handler: @escaping () -> Void) {
         let delay = DispatchTimeInterval.nanoseconds(Int(delayInSeconds * TimeInterval(NSEC_PER_SEC)))
+        let leeway = DispatchTimeInterval.nanoseconds(Int(0.1 * interval * TimeInterval(NSEC_PER_SEC)))
+        let repeating = DispatchTimeInterval.nanoseconds(Int(interval * TimeInterval(NSEC_PER_SEC)))
         self.source = DispatchSource.makeTimerSource(queue: queue)
-        self.source.schedule(deadline: DispatchTime.now() + delay, repeating: DispatchTimeInterval.nanoseconds(Int(interval * TimeInterval(NSEC_PER_SEC))))
+        self.source.schedule(deadline: DispatchTime.now() + delay, repeating: repeating, leeway: leeway)
         self.source.setEventHandler(handler: handler)
         self.source.resume()
     }
