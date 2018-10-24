@@ -4,20 +4,35 @@ import Foundation
 // Ensures background time is given to complete tasks that lock files
 
 class Background {
-    struct Identifier {
+    struct ExpiringTaskIdentifier {
         fileprivate let uuid: UUID
         init() {
             uuid = UUID()
         }
     }
     
+    struct SynchronousTaskIdentifier {
+        fileprivate let activityObject: NSObjectProtocol
+        init(_ activityObject: NSObjectProtocol) {
+            self.activityObject = activityObject
+        }
+    }
+    
     static let manager = Background()
     
-    private let queue = DispatchQueue(label: "Background.manager." + UUID().uuidString)
+    public func beginTask(_ reason: String = UUID().uuidString) -> SynchronousTaskIdentifier {
+        return SynchronousTaskIdentifier(ProcessInfo.processInfo.beginActivity(options: .background, reason: reason))
+    }
     
+    public func endTask(_ task: SynchronousTaskIdentifier) {
+        ProcessInfo.processInfo.endActivity(task.activityObject)
+    }
+    
+    private let queue = DispatchQueue(label: "Background.manager." + UUID().uuidString)
     private var groups: [UUID: DispatchGroup] = [:]
-    public func beginTask(withName taskName: String? = nil, expirationHandler handler: (() -> Void)? = nil) -> Identifier {
-        let identifier = Identifier()
+    
+    public func beginExpiringTask(withName taskName: String? = nil, expirationHandler handler: (() -> Void)? = nil) -> ExpiringTaskIdentifier {
+        let identifier = ExpiringTaskIdentifier()
         let uuid = identifier.uuid
         let group = DispatchGroup()
         group.enter()
@@ -28,7 +43,7 @@ class Background {
         ProcessInfo.processInfo.performExpiringActivity(withReason: taskName ?? uuid.uuidString) { (expired) in
             guard !expired else {
                 handler?()
-                self.endTask(withIdentifier: identifier)
+                self.endExpiringTask(identifier)
                 return
             }
             group.wait() // since performExpiringActivity assumes this is a synchronous task, block until our async task completes as recommended in https://forums.developer.apple.com/thread/105855
@@ -37,7 +52,7 @@ class Background {
         return identifier
     }
     
-    public func endTask(withIdentifier identifier: Identifier) {
+    public func endExpiringTask(_ identifier: ExpiringTaskIdentifier) {
         queue.async {
             self.groups[identifier.uuid]?.leave()
             self.groups.removeValue(forKey: identifier.uuid)
