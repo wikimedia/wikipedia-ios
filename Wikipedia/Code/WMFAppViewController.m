@@ -247,7 +247,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 #pragma mark - Setup
 
 - (void)setupControllers {
-    self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30];
+    self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:15 leeway:15];
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];

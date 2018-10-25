@@ -2,7 +2,10 @@ import Foundation
 
 @objc(WMFReachabilityNotifier) public class ReachabilityNotifier: NSObject {
     private let host: String
+
     private let queue: DispatchQueue
+    private let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
+    
     private let callback: (Bool, SCNetworkReachabilityFlags) -> Void
 
     private var reachability: SCNetworkReachability?
@@ -16,37 +19,43 @@ import Foundation
     }
     
     deinit {
-        queue.sync {
-            self._stop()
+        semaphore.wait()
+        defer {
+            semaphore.signal()
         }
+        _stop()
     }
     
     @objc public var flags: SCNetworkReachabilityFlags {
-        var currentFlags: SCNetworkReachabilityFlags = []
-        queue.sync {
-            currentFlags = _flags
+        semaphore.wait()
+        defer {
+            semaphore.signal()
         }
-        return currentFlags
+        return _flags
     }
     
     @objc public var isReachable: Bool {
-        var currentReachable: Bool = false
-        queue.sync {
-            currentReachable = _isReachable
+        semaphore.wait()
+        defer {
+            semaphore.signal()
         }
-        return currentReachable
+        return _isReachable
     }
     
     @objc public func start() {
-        queue.async {
-            self._start()
+        semaphore.wait()
+        defer {
+            semaphore.signal()
         }
+        _start()
     }
     
     @objc public func stop() {
-        queue.async {
-            self._stop()
+        semaphore.wait()
+        defer {
+            semaphore.signal()
         }
+        _stop()
     }
     
     private func _start() {
@@ -64,8 +73,11 @@ import Foundation
                 return
             }
             let reachabilityNotifier = Unmanaged<ReachabilityNotifier>.fromOpaque(info).takeUnretainedValue()
+            reachabilityNotifier.semaphore.wait()
             reachabilityNotifier._flags = flags
-            reachabilityNotifier.callback(flags.contains(.reachable), flags)
+            let callback = reachabilityNotifier.callback
+            reachabilityNotifier.semaphore.signal()
+            callback(flags.contains(.reachable), flags)
         }, &context)
         self.reachability = reachability
     }

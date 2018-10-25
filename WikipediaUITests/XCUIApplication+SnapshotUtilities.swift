@@ -150,7 +150,7 @@ private enum ElementPropertyType: String {
     case `self`
     
     func predicate(for text: String) -> NSPredicate {
-        return NSPredicate(format: "\(rawValue) == %@", text)
+        return NSPredicate(format: "\(rawValue) ==[cd] %@", text)
     }
     func wildcardPredicate(for text: String) -> NSPredicate {
         var mutableText = text

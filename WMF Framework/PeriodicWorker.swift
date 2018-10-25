@@ -6,16 +6,20 @@ import Foundation
 
 @objc(WMFPeriodicWorkerController) public class PeriodicWorkerController: NSObject {
     let interval: TimeInterval
+    let initialDelay: TimeInterval
+    let leeway: TimeInterval
     
     lazy var workTimer: RepeatingTimer = {
         assert(Thread.isMainThread)
-        return RepeatingTimer(interval, { [weak self] in
+        return RepeatingTimer(interval, afterDelay: initialDelay, leeway: leeway) { [weak self] in
             self?.doPeriodicWork()
-        })
+        }
     }()
     
-    @objc(initWithInterval:) public required init(_ interval: TimeInterval) {
+    @objc(initWithInterval:initialDelay:leeway:) public required init(_ interval: TimeInterval, initialDelay: TimeInterval, leeway: TimeInterval) {
         self.interval = interval
+        self.initialDelay = initialDelay
+        self.leeway = leeway
     }
     
     var workers = PointerArray<PeriodicWorker>()
