@@ -1,5 +1,25 @@
 import Foundation
 
+public extension Sequence {
+    func asyncMapToDictionary<K,V>( block: (Element, @escaping (K, V) -> Void) -> Void, queue: DispatchQueue = DispatchQueue.global(qos: .default), completion:  @escaping ([K: V]) -> Void) {
+        let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
+        var results = Dictionary<K,V>(minimumCapacity: underestimatedCount)
+        for object in self {
+            group.enter()
+            block(object, { (key, value) in
+                semaphore.wait()
+                results[key] = value
+                semaphore.signal()
+                group.leave()
+            })
+        }
+        group.notify(queue: queue) {
+            completion(results)
+        }
+    }
+}
+
 public extension Collection {
     func asyncMap<R>(_ block: (Element, @escaping (R) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
