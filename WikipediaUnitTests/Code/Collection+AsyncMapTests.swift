@@ -58,4 +58,29 @@ class CollectionAsyncMapTests: XCTestCase {
         inputItems.asyncCompactMap(asyncItemTransformer, completion: completionHandler)
         wait(for:[expectation], timeout: 4, enforceOrder: true)
     }
+
+    func testAsyncForEachPerformsBlockForEachItem() {
+        let expectation = XCTestExpectation(description: "block performed for each object")
+        
+        let inputItems = ["THIS", "THAT", "OTHER"]
+        
+        // use Sets because `asyncForEach` does no mapping, so order isn't important
+        let expectedResults = Set(arrayLiteral: "THIS", "OTHER", "THAT")
+        var results:Set<String> = []
+
+        let asyncItemBlock = { (item: String, completion: @escaping () -> Void) in
+            // fake out a process which takes 'item' and asynchronously performs a block with it
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) { // use random delay to more closely simulate read async usage
+                results.insert(item)
+                completion()
+            }
+        }
+        
+        let completionHandler: () -> Void = {
+            XCTAssertEqual(results, expectedResults)
+            expectation.fulfill()
+        }
+        inputItems.asyncForEach(asyncItemBlock, completion: completionHandler)
+        wait(for:[expectation], timeout: 4, enforceOrder: true)
+    }
 }
