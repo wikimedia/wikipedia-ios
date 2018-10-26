@@ -26,9 +26,8 @@ class CollectionAsyncMapTests: XCTestCase {
         }
 
         let completionHandler: ([String]) -> Void = { results in
-            if results == expectedOutputItems {
-                expectation.fulfill()
-            }
+            XCTAssertEqual(results, expectedOutputItems)
+            expectation.fulfill()
         }
         inputItems.asyncMap(asyncItemTransformer, completion: completionHandler)
         wait(for:[expectation], timeout: 4, enforceOrder: true)
@@ -53,9 +52,8 @@ class CollectionAsyncMapTests: XCTestCase {
         }
         
         let completionHandler: ([String]) -> Void = { results in
-            if results == expectedOutputItems {
-                expectation.fulfill()
-            }
+            XCTAssertEqual(results, expectedOutputItems)
+            expectation.fulfill()
         }
         inputItems.asyncCompactMap(asyncItemTransformer, completion: completionHandler)
         wait(for:[expectation], timeout: 4, enforceOrder: true)
