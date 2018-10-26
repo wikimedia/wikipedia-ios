@@ -67,7 +67,7 @@ enum WikidataPublishingError: LocalizedError {
     ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
     private func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
-        guard source != .local else {
+        guard language != "en" else {
             completion(WikidataPublishingError.notEditable)
             return
         }
@@ -102,6 +102,6 @@ enum WikidataPublishingError: LocalizedError {
 
 public extension MWKArticle {
     @objc var isWikidataDescriptionEditable: Bool {
-        return wikidataId != nil && descriptionSource != .local
+        return url.wmf_language != "en"
     }
 }
