@@ -533,6 +533,8 @@
 "reverted-edit-back-to-article-button-title" = "문서로 돌아가기";
 "reverted-edit-notification-body" = "$1 문서에 한 편집은 $2님에 의해 되돌려졌습니다";
 "reverted-edit-notification-read-more-action-title" = "더 읽어보기";
+"reverted-edit-possible-reasons" = "- 기여가 지침 중 하나를 따르지 않았습니다. $1 \n\n - 기여는 실험적이거나 문서 훼손처럼 보입니다";
+"reverted-edit-possible-reasons-subtitle" = "저희는 당신이 최선의 노력을 다해주신 것을 알고 있습니다만, 검토자들 중 한 명이 걱정하는 부분이 있습니다.\n\n당신의 편집이 되돌려진 잠재적인 이유는 다음과 같습니다:";
 "reverted-edit-thanks-for-editing-title" = "위키백과를 편집해 주셔서 감사합니다!";
 "reverted-edit-title" = "되돌려진 편집";
 "reverted-edit-view-guidelines-text" = "지침 보기";

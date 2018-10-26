@@ -129,8 +129,7 @@
 "explore-nearby-placeholder-heading" = "Місця";
 // Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "У Вікіпедії мовою «$1»";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "У Вікіпедії";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "З Вікіпедії";
 "explore-nearby-sub-heading-your-location" = "Ваше місце розташування";
 "explore-potd-heading" = "Зображення дня";
 "explore-random-article-heading" = "Випадкова стаття";
@@ -182,8 +181,7 @@
 "home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
 "home-more-like-footer" = "Більше схоже на $1";
-// Fuzzy
-"home-nearby-footer" = "Більше про те, що неподалік від вас";
+"home-nearby-footer" = "Більше місць поблизу";
 "home-nearby-location-footer" = "Більше поблизу $1";
 "home-themes-action-title" = "Керування налаштуваннями";
 "home-title" = "Досліджуйте";
