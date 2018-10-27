@@ -1015,8 +1015,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self switchToSearchAnimated:NO];
-        [self.searchViewController makeSearchBarBecomeFirstResponder];
+        if (self.visibleArticleViewController) {
+            [self showSearchInCurrentNavigationController];
+        }else{
+            [self switchToSearchAnimated:NO];
+            [self.searchViewController makeSearchBarBecomeFirstResponder];
+        }
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
