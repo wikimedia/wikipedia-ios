@@ -1015,7 +1015,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.unprocessedShortcutItem = nil;
 
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
-        [self switchToSearch:NO];
+        [self switchToSearchAnimated:NO];
         [self.searchViewController makeSearchBarBecomeFirstResponder];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
         [self showRandomArticleAnimated:NO];
@@ -1148,7 +1148,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self showSearchInCurrentNavigationController];
             break;
         case WMFUserActivityTypeSearchResults:
-            [self switchToSearch:YES];
+            [self switchToSearchAnimated:YES];
             [self.searchViewController setSearchTerm:[activity wmf_searchTerm]];
             [self.searchViewController search];
             break;
@@ -1456,7 +1456,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Show Search
 
-- (void)switchToSearch:(BOOL)animated {
+- (void)switchToSearchAnimated:(BOOL)animated {
     [self dismissPresentedViewControllers];
     if (self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
