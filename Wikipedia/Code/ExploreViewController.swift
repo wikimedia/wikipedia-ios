@@ -702,6 +702,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             wmf_push(viewControllerToCommit, context: previewed.context, index: previewed.indexPath?.item, animated: true)
         }
     }
+
+    // MARK:
+
+    var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
 
 // MARK - Analytics
@@ -730,8 +734,15 @@ extension ExploreViewController {
 
 extension ExploreViewController: SaveButtonsControllerDelegate {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?) {
-        readingListHintController.didSave(didSave, article: article, theme: theme)
-        logArticleSavedStateChange(didSave, saveButton: saveButton, article: article, userInfo: userInfo)
+        let notifyReadingListHintControllerAndLogEvent = {
+            self.readingListHintController.didSave(didSave, article: article, theme: self.theme)
+            self.logArticleSavedStateChange(didSave, saveButton: saveButton, article: article, userInfo: userInfo)
+        }
+        if isPresentingAddArticlesToReadingListVC() {
+            addArticlesToReadingListVCDidDisappear = notifyReadingListHintControllerAndLogEvent
+        } else {
+            notifyReadingListHintControllerAndLogEvent()
+        }
     }
     
     func willUnsaveArticle(_ article: WMFArticle, userInfo: Any?) {
@@ -745,9 +756,30 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
     
     func showAddArticlesToReadingListViewController(for article: WMFArticle) {
         let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: [article], moveFromReadingList: nil, theme: theme)
+        addArticlesToReadingListViewController.delegate = self
         let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: self.theme)
         navigationController.isNavigationBarHidden = true
         present(navigationController, animated: true)
+    }
+
+    private func isPresentingAddArticlesToReadingListVC() -> Bool {
+        guard let navigationController = presentedViewController as? UINavigationController else {
+            return false
+        }
+        return navigationController.viewControllers.contains { $0 is AddArticlesToReadingListViewController }
+    }
+}
+
+extension ExploreViewController: AddArticlesToReadingListDelegate {
+    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    }
+
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+        addArticlesToReadingListVCDidDisappear?()
+        addArticlesToReadingListVCDidDisappear = nil
+    }
+
+    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
     }
 }
 
