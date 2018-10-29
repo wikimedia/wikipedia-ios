@@ -356,29 +356,11 @@ public enum Domain: String {
     }
     
     public func fetchArticleSummaryResponsesForArticles(withURLs articleURLs: [URL], priority: Float = URLSessionTask.defaultPriority, completion: @escaping ([String: [String: Any]]) -> Void) {
-        let queue = DispatchQueue(label: "ArticleSummaryFetch-" + UUID().uuidString)
-        let taskGroup = WMFTaskGroup()
-        var summaryResponses: [String: [String: Any]] = [:]
-        for articleURL in articleURLs {
-            guard let key = articleURL.wmf_articleDatabaseKey else {
-                continue
-            }
-            taskGroup.enter()
+        articleURLs.asyncMapToDictionary(block: { (articleURL, asyncMapCompletion) in
             fetchSummary(for: articleURL, priority: priority, completionHandler: { (responseObject, response, error) in
-                guard let responseObject = responseObject else {
-                    taskGroup.leave()
-                    return
-                }
-                queue.async {
-                    summaryResponses[key] = responseObject
-                    taskGroup.leave()
-                }
+                asyncMapCompletion(articleURL.wmf_articleDatabaseKey, responseObject)
             })
-        }
-        
-        taskGroup.waitInBackgroundAndNotify(on: queue) {
-            completion(summaryResponses)
-        }
+        }, completion: completion)
     }
     
     @objc public var shouldSendUsageReports: Bool = false {
