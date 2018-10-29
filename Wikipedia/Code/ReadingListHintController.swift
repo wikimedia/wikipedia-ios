@@ -145,7 +145,7 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         })
     }
     
-    @objc func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
+    func didSave(_ didSave: Bool, article: WMFArticle, theme: Theme) {
         guard presenter?.presentedViewController == nil else {
             return
         }
