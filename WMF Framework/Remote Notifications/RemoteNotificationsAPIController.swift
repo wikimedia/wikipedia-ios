@@ -89,7 +89,9 @@ struct RemoteNotificationsAPIController {
     }
 
     enum MarkReadError: LocalizedError {
+        case noResult
         case unknown
+        case multiple([Error])
     }
 
     private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
@@ -116,23 +118,37 @@ struct RemoteNotificationsAPIController {
 
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
+        let notifications = Array(notifications)
+        let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
-        guard notifications.count <= maxNumberOfNotificationsPerRequest else {
-            // TODO: Split requests? 50 is the limit.
-            assertionFailure()
-            return
-        }
-
-        request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
-            if let error = error {
-                completion(error)
+        split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
+            request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, _, error) in
+                if let error = error {
+                    completion(error)
+                    return
+                }
+                guard let result = result else {
+                    assertionFailure("Expected result; make sure MarkReadResult maps the expected result correctly")
+                    completion(MarkReadError.noResult)
+                    return
+                }
+                if let error = result.error {
+                    completion(error)
+                    return
+                }
+                if !result.succeeded {
+                    completion(MarkReadError.unknown)
+                    return
+                }
+                completion(nil)
             }
-            guard let result = result, result.succeeded else {
-                assertionFailure()
-                completion(MarkReadError.unknown)
-                return
+        }) { (errors) in
+            if errors.isEmpty {
+                completion(nil)
+            } else {
+                DDLogError("\(errors.count) of \(split.count) mark as read requests failed")
+                completion(MarkReadError.multiple(errors))
             }
-            completion(result.error)
         }
     }
 
@@ -186,7 +202,7 @@ struct RemoteNotificationsAPIController {
             return dictionary
         }
 
-        static func markAsRead(notifications: Set<RemoteNotification>) -> Parameters? {
+        static func markAsRead(notifications: [RemoteNotification]) -> Parameters? {
             let IDs = notifications.compactMap { $0.id }
             let wikis = notifications.compactMap { $0.wiki }
             guard let listOfIDs = WMFJoinedPropertyParameters(IDs) else {
@@ -208,5 +224,11 @@ struct RemoteNotificationsAPIController {
 extension RemoteNotificationsAPIController.ResultError: LocalizedError {
     var errorDescription: String? {
         return info
+    }
+}
+
+extension RemoteNotificationsAPIController {
+    var isAuthenticated: Bool {
+        return session.hasValidCentralAuthCookies(for: .mediawiki)
     }
 }

@@ -2,14 +2,33 @@ import UIKit
 
 class ArticleURLListViewController: ArticleCollectionViewController, ArticleURLProvider {
     let articleURLs: [URL]
+    private let articleKeys: Set<String>
     private var updater: ArticleURLProviderEditControllerUpdater?
 
     required init(articleURLs: [URL], dataStore: MWKDataStore, contentGroup: WMFContentGroup? = nil, theme: Theme) {
         self.articleURLs = articleURLs
+        self.articleKeys = Set<String>(articleURLs.compactMap { $0.wmf_articleDatabaseKey } )
         super.init()
         feedFunnelContext = FeedFunnelContext(contentGroup)
         self.theme = theme
         self.dataStore = dataStore
+        NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func articleDidChange(_ note: Notification) {
+        guard
+            let article = note.object as? WMFArticle,
+            article.hasChangedValuesForCurrentEventThatAffectPreviews,
+            let articleKey = article.key,
+            articleKeys.contains(articleKey)
+            else {
+                return
+        }
+        collectionView.reloadData()
     }
     
     required init?(coder aDecoder: NSCoder) {

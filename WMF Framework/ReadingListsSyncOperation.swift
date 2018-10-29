@@ -65,28 +65,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let authenticationDelegate = readingListsController.authenticationDelegate
-        let isUserLoggedInLocally = authenticationDelegate?.isUserLoggedInLocally() ?? false
-        let isUserLoggedInRemotely = authenticationDelegate?.isUserLoggedInRemotely() ?? false
-        let isUserLoggedIn = isUserLoggedInLocally && isUserLoggedInRemotely
-        
-        let reLogin = {
-            guard let authenticationDelegate = authenticationDelegate else {
-                assertionFailure("authenticationDelegate is nil")
-                return
-            }
-            taskGroup.enter()
-            authenticationDelegate.attemptLogin(completion: { (_) in
-                taskGroup.leave()
-            })
-            taskGroup.wait()
-        }
-        
-        if isUserLoggedInLocally && !isUserLoggedInRemotely {
-            reLogin()
-        }
+        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: .wikipedia)
     
-        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable), isUserLoggedIn {
+        if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && hasValidLocalCredentials {
             var disableReadingListsError: Error? = nil
             taskGroup.enter()
             apiController.teardownReadingLists(completion: { (error) in
@@ -174,7 +155,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             self.finish()
         }
         
-        guard isUserLoggedIn else {
+        guard hasValidLocalCredentials else {
             try localSyncOnly()
             return
         }
@@ -415,7 +396,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         let articleURLs = results.compactMap { $0.articleURL(forSiteURL: siteURL) }
                         taskGroup.enter()
                         var summaryResponses: [String: [String: Any]] = [:]
-                        Session.shared.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
+                        apiController.session.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
                             // workaround this method not being async
                             summaryResponses = actualSummaryResponses
                             taskGroup.leave()
@@ -775,7 +756,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
-                    Session.shared.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
+                    apiController.session.fetchSummary(for: articleURL, completionHandler: { (result, response, error) in
                         guard let result = result else {
                             group.leave()
                             return

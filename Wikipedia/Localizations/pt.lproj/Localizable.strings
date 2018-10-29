@@ -527,6 +527,14 @@
 "relogin-failed-subtitle" = "A sua sessão pode ter expirado ou as credenciais de autenticação anteriores já não são válidas.";
 "relogin-failed-title" = "Não foi possível reestabelecer o início de sessão";
 "request-feedback-on-error" = "A aplicação encontrou um problema sobre o qual os nossos programadores gostariam de saber mais. Por favor, toque aqui para nos enviar um correio eletrónico com os detalhes do erro.";
+"reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
+"reverted-edit-notification-body" = "A sua edição do artigo $1 foi revertida por $2";
+"reverted-edit-notification-read-more-action-title" = "Ler mais";
+"reverted-edit-possible-reasons" = "- A sua contribuição não seguiu uma das diretrizes. $1 \n\n - A sua contribuição parecia uma experiência ou vandalismo";
+"reverted-edit-possible-reasons-subtitle" = "Sabemos que tentou fazer o seu melhor, mas um dos revisores mostrou preocupação.\n\nEntre as possíveis razões pelas quais a sua edição foi revertida incluem-se:";
+"reverted-edit-thanks-for-editing-title" = "Obrigado por editar a Wikipédia!";
+"reverted-edit-title" = "Edição revertida";
+"reverted-edit-view-guidelines-text" = "Ver diretrizes";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Falha ao descarregar as imagens desta página guardada.";

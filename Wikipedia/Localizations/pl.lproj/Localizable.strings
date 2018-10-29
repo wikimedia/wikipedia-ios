@@ -129,6 +129,7 @@
 "empty-no-history-title" = "Nie ma historii do pokazania";
 "empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
 "empty-no-search-results-message" = "Nie znaleziono";
+"error-generic-description" = "Wystąpił nieoczekiwany błąd";
 "error-unknown" = "Wystąpił nieznany błąd";
 "explore-another-random" = "Inny losowy artykuł";
 "explore-because-you-read-footer" = "Dodatkowe artykuły powiązane";
@@ -326,6 +327,8 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Ostatnio|$1 godzinę temu|$1 godziny temu|$1 godzin temu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Przed chwilą|$1 minutę temu|$1 minuty temu|$1 minut temu}}";
 "relogin-failed-retry-login-button-title" = "Spróbuj zalogować się ponownie";
+"reverted-edit-back-to-article-button-title" = "Wróć do artykułu";
+"reverted-edit-notification-read-more-action-title" = "Czytaj więcej";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-pages-progress-syncing" = "Trwa pobieranie artykułu...";
 "saved-search-default-text" = "Szukaj";

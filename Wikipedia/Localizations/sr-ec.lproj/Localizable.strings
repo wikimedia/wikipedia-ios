@@ -128,7 +128,7 @@
 "description-edit-for-article" = "Опис наслова за страницу $1";
 "description-edit-learn-more" = "Сазнајте више";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Променом описа наслова, слажем се са $1 и неопозиво доприносим под лиценцом $2.";
+"description-edit-license" = "Променом описа наслова, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
 "description-edit-pencil-title" = "Додај опис наслова";
 "description-edit-placeholder-title" = "Кратки описи су најбољи";
@@ -525,6 +525,14 @@
 "relogin-failed-subtitle" = "Ваша сесија је истекла или ранији акредитиви за пријављивање више не важе.";
 "relogin-failed-title" = "Није могуће поново успоставити пријаву";
 "request-feedback-on-error" = "Апликација је наишла на проблем о ком би наши програмери желели да знају више. Додирните овде да бисте нам послали имејл са детаљима о грешци.";
+"reverted-edit-back-to-article-button-title" = "Назад на чланак";
+"reverted-edit-notification-body" = "Измена коју сте направили на чланку $1 је враћена од стране $2";
+"reverted-edit-notification-read-more-action-title" = "Прочитајте више";
+"reverted-edit-possible-reasons" = "- Ваш допринос није пратио једну од смерница. $1\n\n - Ваш допринос је изгледао као експеримент или вандализам";
+"reverted-edit-possible-reasons-subtitle" = "Знамо да сте дали све од себе, али један од прегледача има примедбу.\n\nМогући разлози због чега је ваша измена поништена:";
+"reverted-edit-thanks-for-editing-title" = "Хвала вам што уређујете Википедију!";
+"reverted-edit-title" = "Враћена измена";
+"reverted-edit-view-guidelines-text" = "Прикажи смернице";
 "saved-all-articles-title" = "Сви чланци";
 "saved-default-reading-list-tag" = "Ова листа не може да се избрише";
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
@@ -645,7 +653,7 @@
 "wikitext-download-failed" = "Није могуће добавити најновију измену.";
 "wikitext-download-success" = "Садржај је учитан.";
 "wikitext-downloading" = "Учитавам садржај…";
-"wikitext-preview-changes" = "Преузимам преглед ваших промена…";
+"wikitext-preview-changes" = "Преузимање прегледа ваших промена…";
 "wikitext-preview-changes-none" = "Нема промена за преглед.";
 "wikitext-preview-link-preview-description" = "Овај линк води до „$1”";
 "wikitext-preview-link-preview-title" = "Преглед линка";
@@ -656,7 +664,7 @@
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане IP адреси вашег уређаја. Ако се пријавите, имаћете више приватности.";
 "wikitext-upload-save-sign-in" = "Пријава";
 "wikitext-upload-save-terms-cc-by-sa-and-gfdl" = "Чувањем промена, слажете се са $1 и прихватате објављивање свог доприноса под лиценцама $2 и $3.";
-"wikitext-upload-save-terms-name" = "условима коришћења";
+"wikitext-upload-save-terms-name" = "услове коришћења";
 "zero-charged-verbiage" = "Википедија нула је искључена";
 "zero-charged-verbiage-extended" = "Учитавањем других чланака можете сносити трошкове. Сачувани чланци за читање офлајн не користе податке и бесплатни су.";
 "zero-free-verbiage" = "Бесплатан приступ Википедији преко вашег мобилног оператера (пренос података се не наплаћује)";

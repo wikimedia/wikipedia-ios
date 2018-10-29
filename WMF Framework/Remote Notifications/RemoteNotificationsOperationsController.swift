@@ -1,12 +1,9 @@
-class RemoteNotificationsOperationsController {
+class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
-
-    private let syncRepeatingTime: Int = 15
-    private let timer: WMFDispatchSourceTimer
-
     private let operationQueue: OperationQueue
+
     private var isLocked: Bool = false {
         didSet {
             if isLocked {
@@ -24,10 +21,11 @@ class RemoteNotificationsOperationsController {
             DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
             isLocked = true
         }
-        timer = WMFDispatchSourceTimer(repeating: syncRepeatingTime)
 
         operationQueue = OperationQueue()
         operationQueue.maxConcurrentOperationCount = 1
+
+        super.init()
 
         NotificationCenter.default.addObserver(self, selector: #selector(didMakeAuthorizedWikidataDescriptionEdit), name: WikidataDescriptionEditingController.DidMakeAuthorizedWikidataDescriptionEditNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
@@ -37,45 +35,54 @@ class RemoteNotificationsOperationsController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    public func start() {
-        guard !isLocked else {
-            return
-        }
-        operationQueue.cancelAllOperations()
-        timer.start { [weak self] in
-            self?.sync()
-        }
-    }
-
     public func stop() {
-        timer.suspend()
         operationQueue.cancelAllOperations()
     }
 
-    @objc private func sync() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(sync), object: nil)
-        guard operationQueue.operationCount == 0 else {
-            return
+    @objc private func sync(_ completion: @escaping () -> Void) {
+        let completeEarly = {
+            self.operationQueue.addOperation(completion)
         }
-        guard WMFAuthenticationManager.sharedInstance.isLoggedIn else {
-            stop()
-            return
-        }
-        deadlineController?.performIfBeforeDeadline { [weak self] in
-            guard
-                let modelController = self?.modelController,
-                let apiController = self?.apiController,
-                let operationQueue = self?.operationQueue else {
-                    return
-            }
-            let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
-            let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
-            fetchOperation.addDependency(markAsReadOperation)
-            operationQueue.addOperation(markAsReadOperation)
-            operationQueue.addOperation(fetchOperation)
-        }
-    }
 
+        guard !isLocked else {
+            completeEarly()
+            return
+        }
+
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(sync), object: nil)
+
+        guard operationQueue.operationCount == 0 else {
+            completeEarly()
+            return
+        }
+
+        guard apiController.isAuthenticated else {
+            stop()
+            completeEarly()
+            return
+        }
+        
+        guard deadlineController?.isBeforeDeadline ?? false else {
+            completeEarly()
+            return
+        }
+    
+        guard let modelController = self.modelController else {
+                completeEarly()
+                return
+        }
+        
+        let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
+        let fetchOperation = RemoteNotificationsFetchOperation(with: apiController, modelController: modelController)
+        let completionOperation = BlockOperation(block: completion)
+        
+        fetchOperation.addDependency(markAsReadOperation)
+        completionOperation.addDependency(fetchOperation)
+        
+        operationQueue.addOperation(markAsReadOperation)
+        operationQueue.addOperation(fetchOperation)
+        operationQueue.addOperation(completionOperation)
+    }
 
     // MARK: Notifications
 
@@ -89,6 +96,20 @@ class RemoteNotificationsOperationsController {
             isLocked = true
         } else {
             isLocked = false
+        }
+    }
+}
+
+extension RemoteNotificationsOperationsController: PeriodicWorker {
+    func doPeriodicWork(_ completion: @escaping () -> Void) {
+        sync(completion)
+    }
+}
+
+extension RemoteNotificationsOperationsController: BackgroundFetcher {
+    func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        doPeriodicWork {
+            completion(.noData)
         }
     }
 }
@@ -122,15 +143,11 @@ final class RemoteNotificationsOperationsDeadlineController {
         }
     }
 
-    public func performIfBeforeDeadline(_ eventHandler: @escaping () -> Void) {
-        if let startTime = startTime {
-            guard now - startTime < deadline else {
-                return
-            }
-        } else {
-            startTime = now
+    public var isBeforeDeadline: Bool {
+        guard let startTime = startTime else {
+            return false
         }
-        eventHandler()
+        return now - startTime < deadline
     }
 
     private var startTime: CFAbsoluteTime? {

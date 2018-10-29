@@ -26,7 +26,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let userDefaults = UserDefaults.wmf
         
         let fontSize = userDefaults.wmf_articleFontSizeMultiplier().intValue
-        let theme = userDefaults.wmf_appTheme.displayName.lowercased()
+        let theme = userDefaults.wmf_appTheme.analyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
         let isNewsNotificationEnabled = userDefaults.wmf_inTheNewsNotificationsEnabled()
         let appOpensOnSearchTab = userDefaults.wmf_openAppOnSearchTab
@@ -81,16 +81,16 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard let eventData = eventData as? [String: Any] else {
             return
         }
-        EventLoggingService.shared.lastLoggedSnapshot = eventData as NSCoding
+        EventLoggingService.shared?.lastLoggedSnapshot = eventData as NSCoding
         UserDefaults.wmf.wmf_lastAppVersion = WikipediaAppUtils.appVersion()
     }
     
     private var latestSnapshot: Dictionary<String, Any>? {
-        return EventLoggingService.shared.lastLoggedSnapshot as? Dictionary<String, Any>
+        return EventLoggingService.shared?.lastLoggedSnapshot as? Dictionary<String, Any>
     }
     
     @objc public func logSnapshot() {
-        guard EventLoggingService.shared.isEnabled else {
+        guard EventLoggingService.shared?.isEnabled ?? false else {
             return
         }
         

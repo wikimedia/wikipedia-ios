@@ -531,6 +531,14 @@
 "relogin-failed-subtitle" = "您的 session 已過期，或是因為之前的憑證已不再有效。";
 "relogin-failed-title" = "無法再重新建立登入";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
+"reverted-edit-back-to-article-button-title" = "返回條目";
+"reverted-edit-notification-body" = "您在條目$1所做的編輯被$2給回退";
+"reverted-edit-notification-read-more-action-title" = "延伸閱讀";
+"reverted-edit-possible-reasons" = "- 您的貢獻並沒有遵循以下指引之一。$1 \n\n - 您的貢獻內容看起來像是試驗性質的，或是有心破壞";
+"reverted-edit-possible-reasons-subtitle" = "我們知道您已盡力了，但有編者檢閱內容有所疑慮而做出還原。\n\n您的編輯被回退的原因可能是：";
+"reverted-edit-thanks-for-editing-title" = "感謝編輯維基百科！";
+"reverted-edit-title" = "已回退的編輯";
+"reverted-edit-view-guidelines-text" = "檢視指引";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";

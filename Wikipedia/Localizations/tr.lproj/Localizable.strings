@@ -211,6 +211,8 @@
 "explore-feed-preferences-card-hidden-title" = "Kart gizlendi";
 "explore-feed-preferences-continue-reading-description" = "Açık bir makaleyi okumak için hızlı bağlantı";
 "explore-feed-preferences-customize-explore-feed" = "Keşfetme menüsünü özelleştirme";
+"explore-feed-preferences-customize-explore-feed-action-title" = "Keşif özet akışını özelleştirme";
+"explore-feed-preferences-customize-explore-feed-footer-text" = "Bir kart tipini gizlemek, bu kart türünün Keşfet akışınızda görünmesini engeller.";
 "explore-feed-preferences-explore-tab" = "Arama sekmesi";
 "explore-feed-preferences-featured-article-description" = "Vikipedi'de günlük özellikli makale";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Kapalı";
@@ -225,7 +227,29 @@
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tüm %@ kartlarını gizle";
 "explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
+"explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
+"explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
+"explore-feed-preferences-places-description" = "Bulunduğunuz yere yakın Vikipedi maddeleri";
+"explore-feed-preferences-potd-description" = "Commons'ta günün seçkin resmi";
+"explore-feed-preferences-randomizer-description" = "Okumak için rastgele madde oluştur";
+"explore-feed-preferences-related-pages-description" = "Okuma geçmişine dayalı öneriler";
+"explore-feed-preferences-show-featured-article-footer-text" = "Seçkin madde kartının kapatılması, kartı tüm mevcut dillerde kapatır.";
+"explore-feed-preferences-show-featured-article-title" = "Seçkin madde kartını göster";
+"explore-feed-preferences-show-news-footer-text" = "Haberler kartının kapatılması, tüm mevcut dillerde kartı kapatır.";
+"explore-feed-preferences-show-news-title" = "Haberler kartını göster";
+"explore-feed-preferences-show-on-this-day-footer-text" = "Tarihte bugün kartının kapatılması tüm mevcut dillerde kartı kapatır.";
+"explore-feed-preferences-show-on-this-day-title" = "Tarihte bugün kartını göster";
+"explore-feed-preferences-show-picture-of-the-day-title" = "Günün resmi kartını göster";
+"explore-feed-preferences-show-places-footer-text" = "Yerler kartının kapatılması, tüm mevcut dillerde kartı kapatır.";
+"explore-feed-preferences-show-places-title" = "Yerler kartını göster";
+"explore-feed-preferences-show-randomizer-footer-text" = "Rastgele kartının kapatılması, kartı tüm mevcut dillerde kapatır.";
+"explore-feed-preferences-show-randomizer-title" = "Rastgele kartını göster";
+"explore-feed-preferences-top-read-description" = "Günün en çok okunan maddeleri";
+"explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Keşfet akışını kapat";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "Keşfet akışı kapatılsın mı?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Arama sekmesini kapat";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Keşfet sekmesi, Keşfet akış ayarlarında tekrar etkinleştirilebilir";
+"explore-feed-preferences-turn-on-explore-feed-alert-message" = "Keşfet akış kartlarını gösteri seçerek Keşfet sekmesini aktif hâle getirmektesiniz";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Arama sekmesini aç";
 "explore-feed-preferences-undo-customization" = "Geri al";
 "explore-hide-card-prompt" = "Bu kartı gizle";
@@ -443,6 +467,7 @@
 "reading-list-new-list-name-placeholder" = "okuma listesi başlığı";
 "reading-list-sync-disabled-panel-title" = "Sync devre dışı";
 "reading-list-sync-enable-button-title" = "Senkronizasyonu etkinleştir";
+"reading-lists-article-added-confirmation" = "Madde \"$1\"'e eklendi.";
 "reading-lists-article-not-synced" = "Senkronize edilmedi";
 "reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
@@ -461,6 +486,11 @@
 "relogin-failed-retry-login-button-title" = "Tekrar giriş yapmayı deneyin";
 "relogin-failed-stay-logged-out-button-title" = "Çıkış yapmamı sağla";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
+"reverted-edit-back-to-article-button-title" = "Maddeye dön";
+"reverted-edit-notification-read-more-action-title" = "Devamını oku";
+"reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
+"reverted-edit-thanks-for-editing-title" = "Vikipedi'yi düzenlediğiniz için teşekkürler!";
+"reverted-edit-title" = "Geri alınan düzenleme";
 "saved-all-articles-title" = "Tüm maddeler";
 "saved-default-reading-list-tag" = "Bu liste silinemedi";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
@@ -488,6 +518,7 @@
 "settings-clear-cache-ok" = "Önbelleği temizle";
 "settings-help-and-feedback" = "Yardım ve geri bildirim";
 "settings-language-bar" = "Aramada dilleri göster";
+"settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
 "settings-notifications" = "Bildirimler";
 "settings-notifications-info" = "Anlık bildirimlerimizle, gündemde olan ve en çok okunan Vikipedi makalelerinden haberdar olun. Hepsi, gizliliğe ve güncel verilere bağlı olarak sunulmaktadır.";
@@ -496,8 +527,7 @@
 "settings-notifications-system-turn-on" = "Bildirimleri aç";
 "settings-notifications-trending" = "Gündemdeki güncel olaylar";
 "settings-primary-language" = "Birincil";
-// Fuzzy
-"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir.";
+"settings-primary-language-details" = "Bu listedeki ilk dil, uygulamanın birincil dili olarak kullanılır. Bu dil değiştirildiğinde, Keşfet'te göysterilen günlük içerik (Seçkin Madde gibi) de değişecektir. Bu dili değiştirmek, Keşfet'te gösterilen günlük içeriği (Öne Çıkan İçerik gibi) değiştirecektir.";
 "settings-search-open-app-on-search" = "Arama sekmesinde uygulamayı aç";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Kaydedilen tüm maddeler silinsin mi?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Sil";
