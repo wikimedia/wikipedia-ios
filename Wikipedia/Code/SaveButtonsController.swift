@@ -68,6 +68,10 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         guard let key = visibleArticleKeys[saveButton.tag], let article = dataStore.fetchArticle(withKey: key) else {
             return false
         }
+
+        activeKey = key
+        activeSender = saveButton
+
         delegate?.showAddArticlesToReadingListViewController(for: article)
         return true
     }
