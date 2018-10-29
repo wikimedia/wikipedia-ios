@@ -250,10 +250,19 @@ platform :ios do
     )
   end
   
+  lane :get_latest_tag_with_prefix do |options|
+    prefix = options[:prefix] || "betas/"
+    `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
+  end
+  
+  lane :get_latest_build_for_stage do |options|
+    stage = options[:stage] || "beta"
+    prefix = "#{stage}s/"
+    get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
+  end
+  
   lane :get_latest_alpha_or_beta_build_number do |options|
-    latest_alpha_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia.tfalpha")
-    latest_beta_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia")
-    [latest_alpha_build_number.to_i, latest_beta_build_number.to_i].max
+    [get_latest_build_for_stage(stage: "beta"), get_latest_build_for_stage(stage: "alpha")].max
   end
 
   desc "updates version, builds, and pushes to TestFlight"
