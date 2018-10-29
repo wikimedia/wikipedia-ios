@@ -801,6 +801,7 @@
 		B0BCF0BC202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0BCF0BD202537D800986F72 /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BCF0B8202537D800986F72 /* Panels.swift */; };
 		B0BDA58220B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */; };
+		B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0C6BE401E4068C60033BD6E /* WMFLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */; };
 		B0C6BE421E413B3F0033BD6E /* WMFAccountCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */; };
@@ -3551,6 +3552,7 @@
 		B0BCF0AA2023AC7700986F72 /* ScrollableEducationPanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollableEducationPanelViewController.swift; sourceTree = "<group>"; };
 		B0BCF0B8202537D800986F72 /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
 		B0BDA58120B09A090098DB65 /* XCUIApplication+SnapshotUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCUIApplication+SnapshotUtilities.swift"; sourceTree = "<group>"; };
+		B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+AsyncMapTests.swift"; sourceTree = "<group>"; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0C6BE3F1E4068C60033BD6E /* WMFLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLoginViewController.swift; path = Wikipedia/Code/WMFLoginViewController.swift; sourceTree = SOURCE_ROOT; };
 		B0C6BE411E413B3F0033BD6E /* WMFAccountCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAccountCreationViewController.swift; path = Wikipedia/Code/WMFAccountCreationViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -7316,6 +7318,7 @@
 				830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */,
 				B09BE6A21FB4D697007F52E3 /* WMFArticleSectionLoadingJSPerformanceTests.swift */,
 				B09AD9C91FE071E90034DA09 /* WMFArticleElementTests.swift */,
+				B0C06B9E218240CA00E481CC /* Collection+AsyncMapTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -9903,6 +9906,7 @@
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
+				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
 				B0E808D31C0D17A60065EBC0 /* MWKHistoryEntry+MWKRandom.m in Sources */,
 				BC62AE621C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m in Sources */,
 				B0E808EC1C0D18070065EBC0 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,

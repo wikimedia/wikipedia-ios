@@ -1,37 +1,37 @@
 import Foundation
 
-extension Collection {
+public extension Collection {
     func asyncMap<R>(_ block: (Element, @escaping (R) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
-        var results: [R] = []
-        for object in self {
+        var results = [R?](repeating: nil, count: count)
+        for (index, object) in self.enumerated() {
             group.enter()
             block(object, { result in
-                results.append(result)
+                results[index] = result
                 group.leave()
             })
         }
         group.notify(queue: DispatchQueue.global(qos: .default)) {
-            completion(results)
+            completion(results as! [R])
         }
     }
 
     func asyncCompactMap<R>(_ block: (Element, @escaping (R?) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
-        var results: [R] = []
-        for object in self {
+        var results = [R?](repeating: nil, count: count)
+        for (index, object) in self.enumerated() {
             group.enter()
             block(object, { result in
                 guard let result = result else {
                     group.leave()
                     return
                 }
-                results.append(result)
+                results[index] = result
                 group.leave()
             })
         }
         group.notify(queue: DispatchQueue.global(qos: .default)) {
-            completion(results)
+            completion(results.compactMap{$0})
         }
     }
     
