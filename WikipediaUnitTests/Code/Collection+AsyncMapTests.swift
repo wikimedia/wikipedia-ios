@@ -19,7 +19,7 @@ class CollectionAsyncMapTests: XCTestCase {
         
         let asyncItemTransformer = { (item: String, completion: @escaping (String) -> Void) in
             // fake out a process which takes 'item' and asynchronously gets a result for it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
                 let resultForItem = "\(item) result"
                 completion(resultForItem)
             }
@@ -30,7 +30,7 @@ class CollectionAsyncMapTests: XCTestCase {
             expectation.fulfill()
         }
         inputItems.asyncMap(asyncItemTransformer, completion: completionHandler)
-        wait(for:[expectation], timeout: 4, enforceOrder: true)
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
 
     func testAsyncCompactMapResultsAreMappedToCorrectItemsEvenIfReceivedOutOfOrder() {
@@ -41,7 +41,7 @@ class CollectionAsyncMapTests: XCTestCase {
         
         let asyncItemTransformer = { (item: String, completion: @escaping (String?) -> Void) in
             // fake out a process which takes 'item' and asynchronously gets a result for it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to ensure results map to correct items even if results are received out of (collection) order
                 guard item != "MAP_TO_NIL" else { // fake out getting nil for some items
                     completion(nil)
                     return
@@ -56,7 +56,7 @@ class CollectionAsyncMapTests: XCTestCase {
             expectation.fulfill()
         }
         inputItems.asyncCompactMap(asyncItemTransformer, completion: completionHandler)
-        wait(for:[expectation], timeout: 4, enforceOrder: true)
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
 
     func testAsyncForEachPerformsBlockForEachItem() {
@@ -70,7 +70,7 @@ class CollectionAsyncMapTests: XCTestCase {
 
         let asyncItemBlock = { (item: String, completion: @escaping () -> Void) in
             // fake out a process which takes 'item' and asynchronously performs a block with it
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) { // use random delay to more closely simulate read async usage
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to more closely simulate read async usage
                 results.insert(item)
                 completion()
             }
@@ -81,6 +81,6 @@ class CollectionAsyncMapTests: XCTestCase {
             expectation.fulfill()
         }
         inputItems.asyncForEach(asyncItemBlock, completion: completionHandler)
-        wait(for:[expectation], timeout: 4, enforceOrder: true)
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
 }
