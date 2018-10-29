@@ -1,12 +1,12 @@
 import UIKit
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool)
+    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
 }
 
 extension AddArticlesToReadingListDelegate where Self: EditableCollection {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
+    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         editController.close()
     }
     
@@ -42,7 +42,7 @@ class AddArticlesToReadingListViewController: ViewController {
     
     @objc private func closeButtonPressed() {
         dismiss(animated: true, completion: nil)
-        delegate?.addArticlesToReadingList(self, willBeDismissed: true)
+        delegate?.addArticlesToReadingListWillBeDismissed(self)
     }
     
     @objc private func createNewReadingListButtonPressed() {

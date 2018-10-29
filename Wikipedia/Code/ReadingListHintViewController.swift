@@ -159,8 +159,9 @@ extension ReadingListHintViewController: AddArticlesToReadingListDelegate {
         delegate?.readingListHint(self, shouldBeHidden: false)
     }
     
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
-        delegate?.readingListHint(self, shouldBeHidden: willBeDismissed)
+    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+        delegate?.readingListHint(self, shouldBeHidden: true)
+    }
     }
 }
 
