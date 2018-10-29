@@ -2,6 +2,7 @@ import UIKit
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
 }
 
@@ -12,6 +13,10 @@ extension AddArticlesToReadingListDelegate where Self: EditableCollection {
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         editController.close()
+    }
+
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+
     }
 }
 
@@ -43,6 +48,11 @@ class AddArticlesToReadingListViewController: ViewController {
     @objc private func dismissAnimated() {
         dismiss(animated: true)
         delegate?.addArticlesToReadingListWillBeDismissed(self)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        delegate?.addArticlesToReadingListDidDisappear(self)
     }
     
     @objc private func createNewReadingListButtonPressed() {
