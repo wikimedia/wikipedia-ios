@@ -1,17 +1,22 @@
 import UIKit
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool)
+    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
 }
 
 extension AddArticlesToReadingListDelegate where Self: EditableCollection {
-    func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, willBeDismissed: Bool) {
+    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         editController.close()
     }
     
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList) {
         editController.close()
+    }
+
+    func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+
     }
 }
 
@@ -41,8 +46,13 @@ class AddArticlesToReadingListViewController: ViewController {
     }
     
     @objc private func closeButtonPressed() {
-        dismiss(animated: true, completion: nil)
-        delegate?.addArticlesToReadingList(self, willBeDismissed: true)
+        dismiss(animated: true)
+        delegate?.addArticlesToReadingListWillBeClosed(self)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        delegate?.addArticlesToReadingListDidDisappear(self)
     }
     
     @objc private func createNewReadingListButtonPressed() {
@@ -99,7 +109,7 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true)
         }
         eventLogAction?()
     }
