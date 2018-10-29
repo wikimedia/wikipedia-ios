@@ -107,6 +107,7 @@
 "close-button-accessibility-label" = "بند";
 "compass-direction" = "$1 بجے پر";
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
+"description-add-link-title" = "عنوان کی وضاحت درج کریں";
 "description-edit-learn-more" = "مزید پڑھیے";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "تعاوف میں ترمیم کریں";
