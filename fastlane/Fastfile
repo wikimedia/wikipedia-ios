@@ -271,6 +271,7 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
+    wait_for_build_processing = options[:wait_for_build_processing] || true
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number_from_options(options)
@@ -291,10 +292,11 @@ platform :ios do
       product_name: product_name,
       project: "Wikipedia"
     )
-
+    
+    
     pilot(
       ipa: ipa_path,
-      skip_waiting_for_build_processing: true,
+      skip_waiting_for_build_processing: !wait_for_build_processing,
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
@@ -306,13 +308,16 @@ platform :ios do
       build_number: build_number
     )
     
-    dsyms(
-      app_identifier: app_identifier,
-      version: version,
-      build_number: build_number,
-      ipa_path: ipa_path,
-      hockey_app_id: hockey_app_id
-    )
+    if wait_for_build_processing #dsyms are only available if we wait
+      dsyms(
+        app_identifier: app_identifier,
+        version: version,
+        build_number: build_number,
+        ipa_path: ipa_path,
+        hockey_app_id: hockey_app_id
+      )
+    end
+    
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
