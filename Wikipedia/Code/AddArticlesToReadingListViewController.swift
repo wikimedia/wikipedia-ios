@@ -74,6 +74,7 @@ class AddArticlesToReadingListViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(readingListsViewController.view)
         readingListsViewController.didMove(toParent: self)
         readingListsViewController.delegate = self
+        scrollView = readingListsViewController.scrollView
         apply(theme: theme)
     }
 
