@@ -1,13 +1,13 @@
 import UIKit
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
-    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
+    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController)
     func addArticlesToReadingList(_ addArticlesToReadingList: AddArticlesToReadingListViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
 }
 
 extension AddArticlesToReadingListDelegate where Self: EditableCollection {
-    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
         editController.close()
     }
     
@@ -45,9 +45,9 @@ class AddArticlesToReadingListViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func dismissAnimated() {
+    @objc private func closeButtonPressed() {
         dismiss(animated: true)
-        delegate?.addArticlesToReadingListWillBeDismissed(self)
+        delegate?.addArticlesToReadingListWillBeClosed(self)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -73,7 +73,7 @@ class AddArticlesToReadingListViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(dismissAnimated))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "close"), style: .plain, target: self, action: #selector(closeButtonPressed))
         let title = moveFromReadingList != nil ? WMFLocalizedString("move-articles-to-reading-list", value:"Move {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of moving articles to a reading list - %1$@ is replaced with the number of articles to move") : WMFLocalizedString("add-articles-to-reading-list", value:"Add {{PLURAL:%1$d|%1$d article|%1$d articles}} to reading list", comment:"Title for the view in charge of adding articles to a reading list - %1$@ is replaced with the number of articles to add")
         navigationItem.title = String.localizedStringWithFormat(title, articles.count)
         navigationBar.displayType = .modal
@@ -109,7 +109,7 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-            self.dismissAnimated()
+            self.dismiss(animated: true)
         }
         eventLogAction?()
     }

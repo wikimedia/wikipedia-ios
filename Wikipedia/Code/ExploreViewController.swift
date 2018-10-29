@@ -771,7 +771,7 @@ extension ExploreViewController: SaveButtonsControllerDelegate {
 }
 
 extension ExploreViewController: AddArticlesToReadingListDelegate {
-    func addArticlesToReadingListWillBeDismissed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
+    func addArticlesToReadingListWillBeClosed(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
     }
 
     func addArticlesToReadingListDidDisappear(_ addArticlesToReadingList: AddArticlesToReadingListViewController) {
