@@ -93,7 +93,7 @@ class CollectionAsyncMapTests: XCTestCase {
         let expectedOutput = ["A":"a", "B":"b", "C":"c", "D":"d", "E":"e", "F":"f", "G":"g", "H":"h"]
         
         input.asyncMapToDictionary(block: { (input, completion) in
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) {
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
                 completion(input, input.lowercased())
             }
         }, queue: DispatchQueue.main) { (output) in
@@ -102,7 +102,7 @@ class CollectionAsyncMapTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for:[expectation], timeout: 10, enforceOrder: true)
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
     
     
@@ -121,7 +121,7 @@ class CollectionAsyncMapTests: XCTestCase {
         }
         
         input.asyncMapToDictionary(block: { (input, completion) in
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .seconds(Int.random(in: 0 ... 3))) {
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
                 completion(input, transform(input))
             }
         }, queue: DispatchQueue.main) { (output) in
@@ -130,6 +130,6 @@ class CollectionAsyncMapTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for:[expectation], timeout: 10, enforceOrder: true)
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
 }
