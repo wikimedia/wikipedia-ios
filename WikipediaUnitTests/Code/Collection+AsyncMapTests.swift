@@ -71,10 +71,10 @@ class CollectionAsyncMapTests: XCTestCase {
         let asyncItemBlock = { (item: String, completion: @escaping () -> Void) in
             // fake out a process which takes 'item' and asynchronously performs a block with it
             DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to more closely simulate read async usage
-                completion()
                 semaphore.wait()
                 results.insert(item)
                 semaphore.signal()
+                completion()
             }
         }
         
