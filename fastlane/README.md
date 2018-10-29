@@ -116,6 +116,16 @@ updates version, builds, and pushes beta cluster to TestFlight
 fastlane ios push_beta_app
 ```
 updates version, builds, and pushes beta cluster to TestFlight
+### ios get_latest_tag_with_prefix
+```
+fastlane ios get_latest_tag_with_prefix
+```
+
+### ios get_latest_build_for_stage
+```
+fastlane ios get_latest_build_for_stage
+```
+
 ### ios get_latest_alpha_or_beta_build_number
 ```
 fastlane ios get_latest_alpha_or_beta_build_number
