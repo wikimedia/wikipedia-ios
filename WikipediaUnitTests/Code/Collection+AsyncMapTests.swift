@@ -85,4 +85,51 @@ class CollectionAsyncMapTests: XCTestCase {
         inputItems.asyncForEach(asyncItemBlock, completion: completionHandler)
         wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
+    
+    func testAsyncMapToDictionary() {
+        let expectation = XCTestExpectation(description: "wait for notification")
+        
+        let input = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        let expectedOutput = ["A":"a", "B":"b", "C":"c", "D":"d", "E":"e", "F":"f", "G":"g", "H":"h"]
+        
+        input.asyncMapToDictionary(block: { (input, completion) in
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                completion(input, input.lowercased())
+            }
+        }, queue: DispatchQueue.main) { (output) in
+            XCTAssert(Thread.isMainThread)
+            XCTAssertEqual(output, expectedOutput, "Result of asyncMapToDictionary not the same as the expected")
+            expectation.fulfill()
+        }
+        
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
+    }
+    
+    
+    func testAsyncMapToDictionaryWithLargeInput() {
+        let expectation = XCTestExpectation(description: "wait for notification")
+        
+        let count = 10000
+        var input = [Int]()
+        input.reserveCapacity(count)
+        var expectedOutput = [Int:Int]()
+        expectedOutput.reserveCapacity(count)
+        let transform = { (i: Int) in return i * i }
+        for i in 1...count {
+            input.append(i)
+            expectedOutput[i] = transform(i)
+        }
+        
+        input.asyncMapToDictionary(block: { (input, completion) in
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) {
+                completion(input, transform(input))
+            }
+        }, queue: DispatchQueue.main) { (output) in
+            XCTAssert(Thread.isMainThread)
+            XCTAssertEqual(output, expectedOutput, "Result of asyncMapToDictionary not the same as the expected")
+            expectation.fulfill()
+        }
+        
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
+    }
 }

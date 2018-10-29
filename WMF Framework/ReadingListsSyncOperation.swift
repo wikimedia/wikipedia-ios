@@ -733,6 +733,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             return
         }
         let group = WMFTaskGroup()
+        let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
@@ -761,7 +762,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             group.leave()
                             return
                         }
+                        semaphore.wait()
                         articleSummariesByArticleKey[articleKey] = result
+                        semaphore.signal()
                         group.leave()
                     })
                     entryCount += 1
