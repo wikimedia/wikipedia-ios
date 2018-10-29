@@ -67,11 +67,13 @@ class CollectionAsyncMapTests: XCTestCase {
         // use Sets because `asyncForEach` does no mapping, so order isn't important
         let expectedResults = Set(arrayLiteral: "THIS", "OTHER", "THAT")
         var results:Set<String> = []
-
+        let semaphore = DispatchSemaphore(value: 1)
         let asyncItemBlock = { (item: String, completion: @escaping () -> Void) in
             // fake out a process which takes 'item' and asynchronously performs a block with it
             DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0 ... 500))) { // use random delay to more closely simulate read async usage
+                semaphore.wait()
                 results.insert(item)
+                semaphore.signal()
                 completion()
             }
         }
