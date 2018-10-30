@@ -31,7 +31,7 @@ then
 		cp -R "$CARTHAGE_CACHE" "$CARTHAGE"
 	else
 		brew upgrade carthage 2> /dev/null
-		carthage bootstrap --platform iOS --cache-builds 2> /dev/null
+		carthage bootstrap --platform iOS --cache-builds #2> /dev/null
 		mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
