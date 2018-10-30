@@ -284,8 +284,9 @@ extension SavedArticlesViewController: ActionDelegate {
             let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(navigationController, animated: true)
-            completion(true)
+            present(navigationController, animated: true) {
+                completion(true)
+            }
         case .unsave:
             let alertController = ReadingListsAlertController()
             let delete = ReadingListsAlertActionType.delete.action {
