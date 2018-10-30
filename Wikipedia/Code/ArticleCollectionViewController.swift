@@ -209,9 +209,8 @@ extension ArticleCollectionViewController {
 
 extension ArticleCollectionViewController: ActionDelegate {
     
-    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         assert(false, "Subclassers should override this function")
-        return false
     }
     
     func willPerformAction(_ action: Action) -> Bool {
