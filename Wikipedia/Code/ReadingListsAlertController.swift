@@ -40,10 +40,24 @@ public class ReadingListsAlertController: NSObject {
         let message = CommonStrings.unsaveArticleAndRemoveFromListsMessage(articleCount: 1)
         presenter.present(alert(with: title, message: message, actions: [ReadingListsAlertActionType.cancel.action(), unsave]), animated: true)
     }
+
+    private func shouldPresentAlertForArticles(_ articles: [WMFArticle]) -> Bool {
+        guard articles.filter ({ $0.isOnlyInDefaultList }).count != articles.count else {
+            return false
+        }
+        return true
+    }
+
+    private func shouldPresentAlertForReadingLists(_ readingLists: [ReadingList]) -> Bool {
+        guard Int(readingLists.compactMap({ $0.countOfEntries }).reduce(0, +)) > 0 else {
+            return false
+        }
+        return true
+    }
     
     func showAlertIfNeeded(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: ((Bool) -> Void)? = nil) {
         let articlesCount = articles.count
-        guard articles.filter ({ $0.isOnlyInDefaultList }).count != articlesCount else {
+        guard shouldPresentAlertForArticles(articles) else {
             completion?(false)
             return
         }
@@ -54,9 +68,9 @@ public class ReadingListsAlertController: NSObject {
         }
     }
     
-    func showAlert(presenter: UIViewController, for readingLists: [ReadingList], with actions: [UIAlertAction], completion: ((Bool) -> Void)? = nil) {
+    func showAlertIfNeeded(presenter: UIViewController, for readingLists: [ReadingList], with actions: [UIAlertAction], completion: ((Bool) -> Void)? = nil) {
         let readingListsCount = readingLists.count
-        guard Int(readingLists.compactMap({ $0.countOfEntries }).reduce(0, +)) > 0 else {
+        guard shouldPresentAlertForReadingLists(readingLists) else {
             completion?(false)
             return
         }
