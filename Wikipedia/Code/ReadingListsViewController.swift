@@ -408,31 +408,40 @@ extension ReadingListsViewController: ActionDelegate {
         }
     }
     
-    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
-            return false
+            completion(false)
+            return
         }
         
         let readingLists: [ReadingList] = selectedIndexPaths.compactMap({ readingList(at: $0) })
         
         switch action.type {
-        case .update:
-            return true
         case .delete:
             let alertController = ReadingListsAlertController()
+            let deleteReadingLists = {
+                self.deleteReadingLists(readingLists)
+                completion(true)
+            }
             let delete = ReadingListsAlertActionType.delete.action {
                 self.deleteReadingLists(readingLists)
+                completion(true)
             }
-            var didPerform = false
-            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
-                self.deleteReadingLists(readingLists)
-                didPerform = true
-                return didPerform
+            let cancel = ReadingListsAlertActionType.cancel.action {
+                completion(true)
+            }
+            let actions = [cancel, delete]
+            alertController.showAlertIfNeeded(presenter: self, for: readingLists, with: actions) { showed in
+                if showed {
+                    // let user decide via alert actions
+                } else {
+                    deleteReadingLists()
+                }
             }
         default:
+            completion(false)
             break
         }
-        return false
     }
     
     func didPerformAction(_ action: Action) -> Bool {

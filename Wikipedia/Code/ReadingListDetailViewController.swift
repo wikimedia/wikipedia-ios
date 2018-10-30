@@ -291,8 +291,7 @@ extension ReadingListDetailViewController: ActionDelegate {
     func willPerformAction(_ action: Action) -> Bool {
         return self.editController.didPerformAction(action)
     }
-    
-    
+
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.isClosed else {
             return
@@ -308,9 +307,10 @@ extension ReadingListDetailViewController: ActionDelegate {
         let _ = editController.isClosed
     }
     
-    internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+    internal func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
-            return false
+            completion(false)
+            return
         }
         
         let entries = selectedIndexPaths.compactMap({ entry(at: $0) })
@@ -322,23 +322,25 @@ extension ReadingListDetailViewController: ActionDelegate {
             let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(navigationController, animated: true)
-            return true
+            present(navigationController, animated: true) {
+                completion(true)
+            }
         case .remove:
             delete(entries)
-            return true
+            completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
             let navigationController = WMFThemeableNavigationController(rootViewController: addArticlesToReadingListViewController, theme: theme)
             navigationController.isNavigationBarHidden = true
             addArticlesToReadingListViewController.delegate = self
-            present(navigationController, animated: true)
-            return true
+            present(navigationController, animated: true) {
+                completion(true)
+            }
         default:
             assert(false, "Unhandled action type")
+            completion(false)
             break
         }
-        return false
     }
     
     private func delete(at indexPath: IndexPath) {
