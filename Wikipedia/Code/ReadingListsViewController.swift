@@ -128,12 +128,12 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        editController.close()
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         collectionViewUpdater = nil
         fetchedResultsController = nil
+        editController.close()
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {

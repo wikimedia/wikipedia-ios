@@ -61,15 +61,11 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        editController.close()
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         collectionViewUpdater = nil
         fetchedResultsController = nil
+        editController.close()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
