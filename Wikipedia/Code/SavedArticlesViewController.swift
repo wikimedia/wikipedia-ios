@@ -327,9 +327,13 @@ extension SavedArticlesViewController: ActionDelegate {
         let alertController = ReadingListsAlertController()
         let unsave = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
         let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
-        return alertController.showAlert(presenter: self, for: [article], with: [cancel, unsave], completion: nil) {
-            return self.editController.didPerformAction(action)
+        let actions = [cancel, unsave]
+        alertController.showAlertIfNeeded(presenter: self, for: [article], with: actions) { showed in
+            if !showed {
+                let _ = self.editController.didPerformAction(action)
+            }
         }
+        return true
     }
     
     func didPerformAction(_ action: Action) -> Bool {
