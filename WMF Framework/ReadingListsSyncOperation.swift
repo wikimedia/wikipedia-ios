@@ -65,7 +65,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: .wikipedia)
+        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: Configuration.current.wikipediaCookieDomain)
     
         if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && hasValidLocalCredentials {
             var disableReadingListsError: Error? = nil

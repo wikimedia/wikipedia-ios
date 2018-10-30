@@ -2,6 +2,7 @@
 #import <WMF/MWKTitle.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMFComparison.h>
+#import <WMF/WMF-Swift.h>
 
 static NSString *const MWKSiteSchemaVersionKey = @"siteSchemaVersion";
 
@@ -39,7 +40,7 @@ typedef NS_ENUM(NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 - (instancetype)initWithLanguage:(NSString *)language {
-    return [self initWithDomain:WMFDefaultSiteDomain language:language];
+    return [self initWithDomain:WMFConfiguration.current.defaultSiteDomain language:language];
 }
 
 + (instancetype)siteWithLanguage:(NSString *)language {
@@ -55,7 +56,7 @@ typedef NS_ENUM(NSUInteger, MWKSiteNSCodingSchemaVersion) {
 }
 
 + (instancetype)siteWithLocale:(NSLocale *)locale {
-    return [self siteWithDomain:WMFDefaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+    return [self siteWithDomain:WMFConfiguration.current.defaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
