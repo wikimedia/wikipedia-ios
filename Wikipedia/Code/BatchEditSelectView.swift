@@ -118,7 +118,7 @@ public class BatchEditToolbarAction: UIAccessibilityCustomAction {
     public init(title: String, type: BatchEditToolbarActionType, target: Any?) {
         self.title = title
         self.type = type
-        super.init(name: title, target: target, selector: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:)))
+        super.init(name: title, target: target, selector: #selector(ActionDelegate.didPerformBatchEditToolbarAction(_:completion:)))
     }
 }
 

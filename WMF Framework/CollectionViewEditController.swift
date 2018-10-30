@@ -613,9 +613,10 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc public func didPerformBatchEditToolbarAction(with sender: UIBarButtonItem) {
-        let didPerformAction = delegate?.didPerformBatchEditToolbarAction?(batchEditToolbarActions[sender.tag]) ?? false
-        if didPerformAction {
-            editingState = .closed
+        delegate?.didPerformBatchEditToolbarAction?(batchEditToolbarActions[sender.tag]) { didPerform in
+            if didPerform {
+                self.editingState = .closed
+            }
         }
     }
     
