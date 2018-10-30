@@ -296,7 +296,7 @@ extension SavedArticlesViewController: ActionDelegate {
             let cancel = ReadingListsAlertActionType.cancel.action {
                 completion(true)
             }
-            alertController.showAlert(presenter: self, for: articles, with: [cancel, delete]) { didShowAlert in
+            alertController.showAlertIfNeeded(presenter: self, for: articles, with: [cancel, delete]) { didShowAlert in
                 if didShowAlert {
                     // let user decide via alert actions
                 } else {

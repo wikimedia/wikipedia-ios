@@ -41,7 +41,7 @@ public class ReadingListsAlertController: NSObject {
         presenter.present(alert(with: title, message: message, actions: [ReadingListsAlertActionType.cancel.action(), unsave]), animated: true)
     }
     
-    func showAlert(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: ((Bool) -> Void)? = nil) {
+    func showAlertIfNeeded(presenter: UIViewController, for articles: [WMFArticle], with actions: [UIAlertAction], completion: ((Bool) -> Void)? = nil) {
         let articlesCount = articles.count
         guard articles.filter ({ $0.isOnlyInDefaultList }).count != articlesCount else {
             completion?(false)
