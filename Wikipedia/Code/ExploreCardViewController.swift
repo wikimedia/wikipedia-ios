@@ -483,9 +483,13 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         let alertController = ReadingListsAlertController()
         let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
         let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
-        return alertController.showAlert(presenter: self, for: [article], with: [cancel, delete], completion: nil) {
-            return self.editController.didPerformAction(action)
+        let actions = [cancel, delete]
+        alertController.showAlertIfNeeded(presenter: self, for: [article], with: actions) { showed in
+            if !showed {
+                let _ = self.editController.didPerformAction(action)
+            }
         }
+        return true
     }
 
     func availableActions(at indexPath: IndexPath) -> [Action] {
