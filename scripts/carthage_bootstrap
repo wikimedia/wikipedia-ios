@@ -20,6 +20,7 @@ then
 	echo "Removing prebuilt dependencies..."
 	rm -rf "$CARTHAGE"
 	rm -rf "$CARTHAGE_CACHE"
+	rm -rf ~/Library/Caches/org.carthage.CarthageKit
 fi
 
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"

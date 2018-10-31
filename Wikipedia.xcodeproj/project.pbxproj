@@ -8429,7 +8429,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXLegacyTarget section */
-		838160062189BF2900D3B4CE /* Clean Build Dependencies */ = {
+		838160062189BF2900D3B4CE /* Clean and build dependencies */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = deps;
 			buildConfigurationList = 838160172189BF2900D3B4CE /* Build configuration list for PBXLegacyTarget "Clean Dependencies" */;
@@ -8439,9 +8439,9 @@
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = "Clean Build Dependencies";
+			name = "Clean and build dependencies";
 			passBuildSettingsInEnvironment = 1;
-			productName = "Clean Build Dependencies";
+			productName = "Clean and build dependencies";
 		};
 /* End PBXLegacyTarget section */
 
