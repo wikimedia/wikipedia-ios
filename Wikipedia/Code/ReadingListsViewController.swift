@@ -432,9 +432,7 @@ extension ReadingListsViewController: ActionDelegate {
             }
             let actions = [cancel, delete]
             alertController.showAlertIfNeeded(presenter: self, for: readingLists, with: actions) { showed in
-                if showed {
-                    // let user decide via alert actions
-                } else {
+                if !showed {
                     deleteReadingLists()
                 }
             }
