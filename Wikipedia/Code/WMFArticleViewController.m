@@ -190,7 +190,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
         @weakify(self);
-        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
+        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFConfiguration.current.defaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
             if (isReachable) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @strongify(self);

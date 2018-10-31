@@ -282,7 +282,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     lazy var reachabilityNotifier: ReachabilityNotifier = {
-        let notifier = ReachabilityNotifier(WMFDefaultSiteDomain) { [weak self] (reachable, flags) in
+        let notifier = ReachabilityNotifier(Configuration.current.defaultSiteDomain) { [weak self] (reachable, flags) in
             if reachable {
                 DispatchQueue.main.async {
                     self?.updateFeedSources(userInitiated: false)

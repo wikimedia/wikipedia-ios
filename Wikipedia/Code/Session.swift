@@ -1,15 +1,5 @@
 import Foundation
 
-public enum Domain: String {
-    case wikipedia = "wikipedia.org"
-    case wikidata = "wikidata.org"
-    case mediawiki = "mediawiki.org"
-    
-    var cookie: String {
-        return ".\(rawValue)"
-    }
-}
-
 @objc(WMFSession) public class Session: NSObject {
     public struct Request {
         public enum Method {
@@ -49,7 +39,7 @@ public enum Domain: String {
     
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
-        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: Domain.wikipedia.cookie, to: [Domain.wikidata.cookie, Domain.mediawiki.cookie])
+        defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
     }
     
     public func removeAllCookies() {
@@ -73,7 +63,13 @@ public enum Domain: String {
         return URLSession(configuration: Session.defaultConfiguration)
     }()
     
-    @objc public static let shared = Session()
+    private let configuration: Configuration
+    
+    public required init(configuration: Configuration) {
+        self.configuration = configuration
+    }
+    
+    @objc public static let shared = Session(configuration: Configuration.current)
     
     public let defaultURLSession = Session.urlSession
     
@@ -93,11 +89,11 @@ public enum Domain: String {
         return queue
     }()
     
-    public func hasValidCentralAuthCookies(for domain: Domain) -> Bool {
+    public func hasValidCentralAuthCookies(for domain: String) -> Bool {
         guard let storage = defaultURLSession.configuration.httpCookieStorage else {
             return false
         }
-        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain.cookie)
+        let cookies = storage.cookiesWithNamePrefix("centralauth_", for: domain)
         guard cookies.count > 0 else {
             return false
         }
@@ -313,18 +309,19 @@ public enum Domain: String {
         })
     }
     
-    public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
+            // don't call the completion as this is just a method to get the task
             return nil
         }
-        
+        let api = configuration.mobileAppsServicesAPIForHost(siteURL.host)
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", path, encodedTitle])
-        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
+        let pathComponents = api.basePathComponents + [path, encodedTitle]
+        let percentEncodedPath = NSString.path(withComponents: pathComponents)
+        var components = api.hostComponents
         components.percentEncodedPath = percentEncodedPath
         guard let summaryURL = components.url else {
+            // don't call the completion as this is just a method to get the task
             return nil
         }
         
