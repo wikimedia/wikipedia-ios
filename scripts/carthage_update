@@ -17,6 +17,9 @@ fi
 export CARTHAGE="$SRCROOT/Carthage"
 rm -rf "$CARTHAGE"
 carthage update --platform iOS --cache-builds "$@"
+if [ $? -ne 0 ]; then
+	exit $?
+fi
 export CARTHAGE_SHA=`$SRCROOT/scripts/carthage_sha`
 echo "CARTHAGE_SHA is $CARTHAGE_SHA"
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
