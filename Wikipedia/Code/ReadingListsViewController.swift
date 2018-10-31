@@ -428,7 +428,7 @@ extension ReadingListsViewController: ActionDelegate {
                 completion(true)
             }
             let cancel = ReadingListsAlertActionType.cancel.action {
-                completion(true)
+                completion(false)
             }
             let actions = [cancel, delete]
             alertController.showAlertIfNeeded(presenter: self, for: readingLists, with: actions) { showed in

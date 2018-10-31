@@ -290,7 +290,7 @@ extension SavedArticlesViewController: ActionDelegate {
                 completion(true)
             }
             let cancel = ReadingListsAlertActionType.cancel.action {
-                completion(true)
+                completion(false)
             }
             alertController.showAlertIfNeeded(presenter: self, for: articles, with: [cancel, delete]) { showed in
                 if !showed {
