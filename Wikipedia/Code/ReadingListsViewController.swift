@@ -128,12 +128,12 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         editController.isShowingDefaultCellOnly = isShowingDefaultReadingListOnly
         super.viewWillAppear(animated)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        editController.close()
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         collectionViewUpdater = nil
         fetchedResultsController = nil
+        editController.close()
     }
     
     func readingList(at indexPath: IndexPath) -> ReadingList? {
@@ -383,11 +383,14 @@ extension ReadingListsViewController: ActionDelegate {
             return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListsAlertController()
-        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let cancel = ReadingListsAlertActionType.cancel.action()
         let delete = ReadingListsAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
-        return alertController.showAlert(presenter: self, for: [readingList], with: [cancel, delete], completion: nil) {
-            return self.editController.didPerformAction(action)
+        alertController.showAlertIfNeeded(presenter: self, for: [readingList], with: [cancel, delete]) { showed in
+            if !showed {
+                let _ = self.editController.didPerformAction(action)
+            }
         }
+        return true
     }
     
     private func deleteReadingLists(_ readingLists: [ReadingList]) {
@@ -405,31 +408,38 @@ extension ReadingListsViewController: ActionDelegate {
         }
     }
     
-    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction) -> Bool {
+    func didPerformBatchEditToolbarAction(_ action: BatchEditToolbarAction, completion: @escaping (Bool) -> Void) {
         guard let selectedIndexPaths = collectionView.indexPathsForSelectedItems else {
-            return false
+            completion(false)
+            return
         }
         
         let readingLists: [ReadingList] = selectedIndexPaths.compactMap({ readingList(at: $0) })
         
         switch action.type {
-        case .update:
-            return true
         case .delete:
             let alertController = ReadingListsAlertController()
+            let deleteReadingLists = {
+                self.deleteReadingLists(readingLists)
+                completion(true)
+            }
             let delete = ReadingListsAlertActionType.delete.action {
                 self.deleteReadingLists(readingLists)
+                completion(true)
             }
-            var didPerform = false
-            return alertController.showAlert(presenter: self, for: readingLists, with: [ReadingListsAlertActionType.cancel.action(), delete], completion: { didPerform = true }) {
-                self.deleteReadingLists(readingLists)
-                didPerform = true
-                return didPerform
+            let cancel = ReadingListsAlertActionType.cancel.action {
+                completion(false)
+            }
+            let actions = [cancel, delete]
+            alertController.showAlertIfNeeded(presenter: self, for: readingLists, with: actions) { showed in
+                if !showed {
+                    deleteReadingLists()
+                }
             }
         default:
+            completion(false)
             break
         }
-        return false
     }
     
     func didPerformAction(_ action: Action) -> Bool {

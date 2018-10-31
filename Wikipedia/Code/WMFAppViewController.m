@@ -810,7 +810,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self checkRemoteAppConfigIfNecessary];
             if (!self.reachabilityNotifier) {
                 @weakify(self);
-                self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFDefaultSiteDomain
+                self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFConfiguration.current.defaultSiteDomain
                                                                                  callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
                                                                                      @strongify(self);
                                                                                      @weakify(self);

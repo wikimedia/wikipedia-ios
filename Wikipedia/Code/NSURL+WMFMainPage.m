@@ -1,6 +1,7 @@
 #import <WMF/NSURL+WMFMainPage.h>
 #import <WMF/WMFAssetsFile.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/WMF-Swift.h>
 
 @implementation NSURL (WMFMainPage)
 
@@ -17,7 +18,7 @@
     if (!titleText) {
         return nil;
     }
-    return [NSURL wmf_URLWithDomain:WMFDefaultSiteDomain language:language title:titleText fragment:nil];
+    return [NSURL wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain language:language title:titleText fragment:nil];
 }
 
 - (BOOL)wmf_isMainPage {
