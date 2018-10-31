@@ -39,19 +39,19 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
     return featurelessFaceOptions;
 }
 
-- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
-    [self wmf_detectFeaturesInImage:image
+- (NSOperation *)wmf_detectFeaturelessFacesInImage:(UIImage *)image withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    return [self wmf_detectFeaturesInImage:image
                             options:[CIDetector wmf_featurelessFaceOptions]
-                            onQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
                             failure:failure
                             success:success];
 }
 
-- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options onQueue:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
-    dispatch_async(queue, ^{
+- (NSOperation *)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
+    NSOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
         id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
         success(features);
-    });
+    }];
+    return blockOperation;
 }
 
 @end
