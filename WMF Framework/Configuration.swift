@@ -96,8 +96,11 @@ public class Configuration: NSObject {
         guard url?.path.contains(Path.wikiResource) ?? false else {
             return false
         }
+        guard let host = url?.host else { // relative paths should work
+            return true
+        }
         for domain in wikiResourceDomains {
-            if url?.host?.isDomainOrSubDomainOf(domain) ?? false {
+            if host.isDomainOrSubDomainOf(domain) {
                 return true
             }
         }
