@@ -314,7 +314,7 @@ import Foundation
             // don't call the completion as this is just a method to get the task
             return nil
         }
-        let api = configuration.mobileAppsServicesAPIForSiteURL(siteURL)
+        let api = configuration.mobileAppsServicesAPIForHost(siteURL.host)
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
         let pathComponents = api.basePathComponents + [path, encodedTitle]
         let percentEncodedPath = NSString.path(withComponents: pathComponents)

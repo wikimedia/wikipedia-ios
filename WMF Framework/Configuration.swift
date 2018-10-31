@@ -62,10 +62,10 @@ public class Configuration: NSObject {
         self.wikiResourceDomains = [defaultSiteDomain, Domain.mediawiki] + otherDomains
     }
     
-    func mobileAppsServicesAPIForSiteURL(_ siteURL: URL) -> API {
+    func mobileAppsServicesAPIForHost(_ host: String? = nil) -> API {
         switch Stage.current {
         case .local:
-            let host = siteURL.host ?? Domain.englishWikipedia
+            let host = host ?? Domain.englishWikipedia
             let baseComponents = ["/", host, "v1"]
             var components = URLComponents()
             components.scheme = Scheme.http
@@ -74,7 +74,7 @@ public class Configuration: NSObject {
             return API(hostComponents: components, basePathComponents: baseComponents)
         default:
             var components = URLComponents()
-            components.host = siteURL.host ?? defaultSiteDomain
+            components.host = host ?? Domain.englishWikipedia
             components.scheme = Scheme.https
             return API(hostComponents: components, basePathComponents: Path.mobileAppsServicesAPIComponents)
         }
