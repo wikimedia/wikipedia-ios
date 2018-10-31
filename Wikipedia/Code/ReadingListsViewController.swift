@@ -383,7 +383,7 @@ extension ReadingListsViewController: ActionDelegate {
             return self.editController.didPerformAction(action)
         }
         let alertController = ReadingListsAlertController()
-        let cancel = ReadingListsAlertActionType.cancel.action { self.editController.close() }
+        let cancel = ReadingListsAlertActionType.cancel.action()
         let delete = ReadingListsAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
         alertController.showAlertIfNeeded(presenter: self, for: [readingList], with: [cancel, delete]) { showed in
             if !showed {
