@@ -99,7 +99,7 @@ We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manage
 
 #### Carthage Troubleshooting
 
-Remove the `Carthage` and `Carthage Cache` folders inside of the repo directory. Also remove the  `org.carthage.CarthageKit` and `Carthage` folders from `~/Library/Caches/`. Then, run `make deps` or build in Xcode.
+In Xcode, select the `Clean and build dependencies` target and run it. Make sure this succeeds before running the `Wikipedia` target again. This will run the setup script, remove any cached dependencies, and run carthage bootstrap again.
 
 ### Manually imported dependencies
 
