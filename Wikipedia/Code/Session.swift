@@ -309,18 +309,19 @@ import Foundation
         })
     }
     
-    public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+    @discardableResult public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let siteURL = articleURL.wmf_site, let title = articleURL.wmf_titleWithUnderscores else {
+            // don't call the completion as this is just a method to get the task
             return nil
         }
-        
+        let api = configuration.mobileAppsServicesAPIForSiteURL(siteURL)
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
-        let percentEncodedPath = NSString.path(withComponents: ["/api", "rest_v1", path, encodedTitle])
-        guard var components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
+        let pathComponents = api.basePathComponents + [path, encodedTitle]
+        let percentEncodedPath = NSString.path(withComponents: pathComponents)
+        var components = api.hostComponents
         components.percentEncodedPath = percentEncodedPath
         guard let summaryURL = components.url else {
+            // don't call the completion as this is just a method to get the task
             return nil
         }
         

@@ -1,8 +1,5 @@
 import Foundation
 
-
-
-
 @objc(WMFConfiguration)
 public class Configuration: NSObject {
     enum Stage {
@@ -21,21 +18,31 @@ public class Configuration: NSObject {
         }()
     }
     
+    struct Scheme {
+        static let http = "http"
+        static let https = "https"
+    }
+    
     struct Domain {
         static let wikipedia = "wikipedia.org"
         static let wikidata = "wikidata.org"
         static let mediawiki = "mediawiki.org"
         static let wmflabs = "wikipedia.beta.wmflabs.org"
         static let localhost = "localhost"
+        static let englishWikipedia = "en.wikipedia.org"
     }
     
     struct Path {
         static let wikiResource = "/wiki/"
+        static let mobileAppsServicesAPIComponents = ["/api", "rest_v1"]
+    }
+    
+    public struct API {
+        let hostComponents: URLComponents
+        let basePathComponents: [String]
     }
    
     @objc public let defaultSiteDomain: String
-
-    @objc public let mobileAppsServicesDomain: String
     
     public let mediaWikiCookieDomain: String
     public let wikipediaCookieDomain: String
@@ -45,23 +52,38 @@ public class Configuration: NSObject {
     
     public let wikiResourceDomains: [String]
     
-    required init(defaultSiteDomain: String, mobileAppsServicesDomain: String? = nil, otherDomains: [String] = []) {
+    required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
-        self.mobileAppsServicesDomain = mobileAppsServicesDomain ?? defaultSiteDomain
-
         self.mediaWikiCookieDomain = Domain.mediawiki.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
         self.wikidataCookieDomain = Domain.wikipedia.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain]
-        
         self.wikiResourceDomains = [defaultSiteDomain, Domain.mediawiki] + otherDomains
+    }
+    
+    func mobileAppsServicesAPIForSiteURL(_ siteURL: URL) -> API {
+        switch Stage.current {
+        case .local:
+            let host = siteURL.host ?? Domain.englishWikipedia
+            let baseComponents = ["/", host, "v1"]
+            var components = URLComponents()
+            components.scheme = Scheme.http
+            components.host = Domain.localhost
+            components.port = 6927
+            return API(hostComponents: components, basePathComponents: baseComponents)
+        default:
+            var components = URLComponents()
+            components.host = siteURL.host ?? defaultSiteDomain
+            components.scheme = Scheme.https
+            return API(hostComponents: components, basePathComponents: Path.mobileAppsServicesAPIComponents)
+        }
     }
     
     @objc public static let current: Configuration = {
         switch Stage.current {
         case .local:
-            return Configuration(defaultSiteDomain: Domain.wikipedia, mobileAppsServicesDomain: Domain.localhost)
+            return Configuration(defaultSiteDomain: Domain.wikipedia)
         case .labs:
             return Configuration(defaultSiteDomain: Domain.wmflabs, otherDomains: [Domain.wikipedia])
         case .production:
@@ -70,7 +92,6 @@ public class Configuration: NSObject {
         }
     }()
     
-        
     @objc public func isWikiResource(_ url: URL?) -> Bool {
         guard url?.path.contains(Path.wikiResource) ?? false else {
             return false
