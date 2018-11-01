@@ -1,0 +1,1 @@
+Potpuno prilagodljiv i čitljiviji fid „Istraži“. Poboljšanja lokalizacije, performansi i ispravke grešaka.
