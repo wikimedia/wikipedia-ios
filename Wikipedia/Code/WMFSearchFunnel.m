@@ -54,48 +54,56 @@ static NSString *const kTimestampKey = @"event_dt";
 
 - (void)logSearchStartFrom:(nonnull NSString *)source {
     self.searchSessionToken = nil;
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"start", kSourceKey: source}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchAutoSwitch {
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"autoswitch"}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchDidYouMean {
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"didyoumean"}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchResultTapAt:(NSInteger)position {
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"click", kPositionKey: [NSNumber numberWithInteger:position]}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchCancel {
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"cancel"}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchLangSwitch:(nonnull NSString *)source {
-    NSDictionary *standardized = [self standardizedEvent:@{kActionKey: @"langswitch"}];
-    [self log:standardized language:[self searchLanguage]];
-}
-
-- (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime {
-    NSDictionary *event = @{ kActionKey: @"results",
-                             kSearchTypeKey: [[self class] stringForSearchType:type],
-                             kSearchResultsCount: @(count),
-                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)) };
+    NSDictionary *event = @{kActionKey: @"start", kSourceKey: source};
     NSDictionary *standardized = [self standardizedEvent:event];
     [self log:standardized language:[self searchLanguage]];
 }
 
-- (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime {
+- (void)logSearchAutoSwitch:(nonnull NSString *)source {
+    NSDictionary *event = @{kActionKey: @"autoswitch", kSourceKey: source};
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logSearchDidYouMean:(nonnull NSString *)source {
+    NSDictionary *event = @{kActionKey: @"didyoumean", kSourceKey: source};
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logSearchResultTapAt:(NSInteger)position source:(nonnull NSString *)source {
+    NSDictionary *event = @{kActionKey: @"click", kPositionKey: [NSNumber numberWithInteger:position], kSourceKey: source};
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logSearchCancel:(nonnull NSString *)source {
+    NSDictionary *event = @{kActionKey: @"cancel", kSourceKey: source};
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logSearchLangSwitch:(nonnull NSString *)source {
+    NSDictionary *event = @{kActionKey: @"langswitch", kSourceKey: source};
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logSearchResultsWithTypeOfSearch:(WMFSearchType)type resultCount:(NSUInteger)count elapsedTime:(NSTimeInterval)searchTime source:(nonnull NSString *)source {
+    NSDictionary *event = @{ kActionKey: @"results",
+                             kSearchTypeKey: [[self class] stringForSearchType:type],
+                             kSearchResultsCount: @(count),
+                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)),
+                             kSourceKey: source };
+    NSDictionary *standardized = [self standardizedEvent:event];
+    [self log:standardized language:[self searchLanguage]];
+}
+
+- (void)logShowSearchErrorWithTypeOfSearch:(WMFSearchType)type elapsedTime:(NSTimeInterval)searchTime source:(nonnull NSString *)source {
     NSDictionary *event = @{ kActionKey: @"error",
                              kSearchTypeKey: [[self class] stringForSearchType:type],
-                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)) };
+                             kSearchTimeKey: @((NSInteger)(searchTime * 1000)),
+                             kSourceKey: source };
     NSDictionary *standardizedEvent = [self standardizedEvent:event];
     [self log:standardizedEvent language:[self searchLanguage]];
 }
