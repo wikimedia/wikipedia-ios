@@ -41,6 +41,7 @@ static NSString *const kTimestampKey = @"event_dt";
     dict[kAppInstallIdKey] = self.appInstallID;
     dict[kSearchSessionTokenKey] = self.searchSessionToken;
     dict[kTimestampKey] = [self timestamp];
+    dict[kSourceKey] = dict[kSourceKey] ?: @"unknown";
     return [dict copy];
 }
 
