@@ -65,7 +65,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         let taskGroup = WMFTaskGroup()
         
-        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: .wikipedia)
+        let hasValidLocalCredentials = apiController.session.hasValidCentralAuthCookies(for: Configuration.current.wikipediaCookieDomain)
     
         if syncEndpointsAreAvailable && syncState.contains(.needsRemoteDisable) && hasValidLocalCredentials {
             var disableReadingListsError: Error? = nil
@@ -733,6 +733,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             return
         }
         let group = WMFTaskGroup()
+        let semaphore = DispatchSemaphore(value: 1)
         var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
         var requestedArticleKeys: Set<String> = []
         var articleSummariesByArticleKey: [String: [String: Any]] = [:]
@@ -761,7 +762,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             group.leave()
                             return
                         }
+                        semaphore.wait()
                         articleSummariesByArticleKey[articleKey] = result
+                        semaphore.signal()
                         group.leave()
                     })
                     entryCount += 1

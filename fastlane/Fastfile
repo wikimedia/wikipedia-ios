@@ -199,9 +199,9 @@ platform :ios do
     scheme_name = options[:scheme] || product_name
     app_see_api_key = ENV['WMF_APP_SEE_API_KEY'] || ''
     
-    sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
+    sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -allowProvisioningUpdates WMF_APP_SEE_API_KEY=#{app_see_api_key} archive"
     sh "open \"#{build_dir}/#{product_name}.xcarchive\"" #import the build to xcode
-    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
+    sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\" -allowProvisioningUpdates"
     #sh "zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM"
     #sh "mv #{build_dir}/#{product_name}.xcarchive/dSYMs/#{product_name}.app.dSYM.zip #{build_dir}/#{product_name}.app.dSYM.zip"
   end
@@ -250,10 +250,19 @@ platform :ios do
     )
   end
   
+  lane :get_latest_tag_with_prefix do |options|
+    prefix = options[:prefix] || "betas/"
+    `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
+  end
+  
+  lane :get_latest_build_for_stage do |options|
+    stage = options[:stage] || "beta"
+    prefix = "#{stage}s/"
+    get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
+  end
+  
   lane :get_latest_alpha_or_beta_build_number do |options|
-    latest_alpha_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia.tfalpha")
-    latest_beta_build_number = latest_testflight_build_number(app_identifier:  "org.wikimedia.wikipedia")
-    [latest_alpha_build_number.to_i, latest_beta_build_number.to_i].max
+    [get_latest_build_for_stage(stage: "beta"), get_latest_build_for_stage(stage: "alpha")].max
   end
 
   desc "updates version, builds, and pushes to TestFlight"
@@ -262,6 +271,7 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     hockey_app_id = options[:hockey_app_id] || "5d80da08a6761e5c6456736af7ebad88"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
+    wait_for_build_processing = options[:wait_for_build_processing] || true
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
     version = get_version_number_from_options(options)
@@ -282,10 +292,11 @@ platform :ios do
       product_name: product_name,
       project: "Wikipedia"
     )
-
+    
+    
     pilot(
       ipa: ipa_path,
-      skip_waiting_for_build_processing: false,
+      skip_waiting_for_build_processing: !wait_for_build_processing,
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
@@ -297,13 +308,16 @@ platform :ios do
       build_number: build_number
     )
     
-    dsyms(
-      app_identifier: app_identifier,
-      version: version,
-      build_number: build_number,
-      ipa_path: ipa_path,
-      hockey_app_id: hockey_app_id
-    )
+    if wait_for_build_processing #dsyms are only available if we wait
+      dsyms(
+        app_identifier: app_identifier,
+        version: version,
+        build_number: build_number,
+        ipa_path: ipa_path,
+        hockey_app_id: hockey_app_id
+      )
+    end
+    
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"

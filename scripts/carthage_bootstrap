@@ -20,6 +20,7 @@ then
 	echo "Removing prebuilt dependencies..."
 	rm -rf "$CARTHAGE"
 	rm -rf "$CARTHAGE_CACHE"
+	rm -rf ~/Library/Caches/org.carthage.CarthageKit
 fi
 
 echo $CARTHAGE_SHA > "$SRCROOT/Cartfile.hash"
@@ -31,7 +32,10 @@ then
 		cp -R "$CARTHAGE_CACHE" "$CARTHAGE"
 	else
 		brew upgrade carthage 2> /dev/null
-		carthage bootstrap --platform iOS --cache-builds 2> /dev/null
+		carthage bootstrap --platform iOS --cache-builds #2> /dev/null
+		if [ $? -ne 0 ]; then
+			exit $?
+		fi
 		mv "$SRCROOT/Cartfile.hash" "$CARTHAGE/Cartfile.hash"
 		if [ -d "$CARTHAGE" ] && [ ! -d "$CARTHAGE_CACHE" ]
 		then
