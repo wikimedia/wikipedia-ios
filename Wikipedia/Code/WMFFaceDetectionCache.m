@@ -6,6 +6,8 @@
 @interface WMFFaceDetectionCache ()
 
 @property (nonatomic, strong) NSCache *faceDetectionBoundsKeyedByURL;
+@property (nonatomic, strong) NSOperationQueue *faceDetectionQueue;
+@property (nonatomic, strong) NSMutableDictionary *faceDetectionOperationsKeyedByURL;
 
 @end
 
@@ -15,6 +17,9 @@
     self = [super init];
     if (self) {
         self.faceDetectionBoundsKeyedByURL = [[NSCache alloc] init];
+        self.faceDetectionQueue = [[NSOperationQueue alloc] init];
+        self.faceDetectionQueue.maxConcurrentOperationCount = 1;
+        self.faceDetectionOperationsKeyedByURL = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -37,28 +42,50 @@
 }
 
 - (void)detectFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU URL:(NSURL *)url failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
+    if (!url) {
+        failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorUnknown userInfo:nil]);
+        return;
+    }
     NSArray *savedBounds = [self faceDetectionBoundsForURL:url];
     if (savedBounds) {
         success([savedBounds firstObject]);
     } else {
-        [self getFaceBoundsInImage:image
-                             onGPU:onGPU
-                           failure:failure
-                           success:^(NSArray *faceBounds) {
-                               [self cacheFaceDetectionBounds:faceBounds forURL:url];
-                               success([faceBounds firstObject]);
-                           }];
+        CIDetector *detector = onGPU ? [CIDetector wmf_sharedGPUFaceDetector] : [CIDetector wmf_sharedCPUFaceDetector];
+        NSOperation *op = [detector wmf_detectFeaturelessFacesInImage:image withFailure:^(NSError * _Nonnull error) {
+            @synchronized (self) {
+                [self.faceDetectionOperationsKeyedByURL removeObjectForKey:url];
+            }
+            failure(error);
+        } success:^(id  _Nonnull features) {
+            NSArray<NSValue *> *faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
+            @synchronized (self) {
+                [self.faceDetectionOperationsKeyedByURL removeObjectForKey:url];
+                [self cacheFaceDetectionBounds:faceBounds forURL:url];
+            }
+            success([faceBounds firstObject]);
+        }];
+        if (!op) {
+            failure([NSError errorWithDomain:WMFFaceDetectionErrorDomain code:WMFFaceDectionErrorUnknown userInfo:nil]);
+            return;
+        }
+        @synchronized (self) {
+            [self.faceDetectionOperationsKeyedByURL setObject:op forKey:url];
+        }
+        [self.faceDetectionQueue addOperation:op];
     }
 }
 
-- (void)getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
-    CIDetector *detector = onGPU ? [CIDetector wmf_sharedGPUFaceDetector] : [CIDetector wmf_sharedCPUFaceDetector];
-    [detector wmf_detectFeaturelessFacesInImage:image
-                                    withFailure:failure
-                                        success:^(NSArray *features) {
-                                            NSArray<NSValue *> *faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
-                                            success(faceBounds);
-                                        }];
+- (void)cancelFaceDetectionForURL:(NSURL *)url {
+    if (!url) {
+        return;
+    }
+    @synchronized (self) {
+        NSOperation *op = [self.faceDetectionOperationsKeyedByURL objectForKey:url];
+        if (op) {
+            [op cancel];
+            [self.faceDetectionOperationsKeyedByURL removeObjectForKey:url];
+        }
+    }
 }
 
 #pragma mark - Cache methods
