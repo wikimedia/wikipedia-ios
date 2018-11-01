@@ -21,10 +21,7 @@ typedef NS_ENUM(NSInteger, WMFFaceDectionError) {
 /**
  * Asynchronously detect faces in `image`, without doing extra processing for smiles or eyes.
  */
-- (void)wmf_detectFeaturelessFacesInImage:(UIImage *)image withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
-
-/// Perform `featuresInImage:options:` on a background queue
-- (void)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options onQueue:(dispatch_queue_t)queue failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
+- (NSOperation *)wmf_detectFeaturelessFacesInImage:(UIImage *)image withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success;
 
 @end
 

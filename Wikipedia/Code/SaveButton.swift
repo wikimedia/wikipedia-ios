@@ -50,6 +50,7 @@ import UIKit
             accessibilityCustomActions = [addToReadingListAction]
             setTitle(saveTitle, for: .normal)
             setImage(saveImage, for: .normal)
+            adjustsImageWhenHighlighted = false
         }
     }
     

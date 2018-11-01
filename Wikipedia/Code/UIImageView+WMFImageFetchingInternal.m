@@ -11,6 +11,8 @@ static const char *const MWKURLAssociationKey = "MWKURL";
 
 static const char *const MWKURLToCancelAssociationKey = "MWKURLToCancel";
 
+static const char *const MWKFaceDetectionURLToCancelAssociationKey = "MWKFaceDetectionURLToCancel";
+
 static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
 static const char *const MWKImageAssociationKey = "MWKImage";
@@ -57,6 +59,14 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
     objc_setAssociatedObject(self, MWKURLToCancelAssociationKey, imageURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (NSURL *__nullable)wmf_faceDetectionImageURLToCancel {
+    return objc_getAssociatedObject(self, MWKFaceDetectionURLToCancelAssociationKey);
+}
+
+- (void)wmf_setFaceDetectionImageURLToCancel:(nullable NSURL *)imageURL {
+    objc_setAssociatedObject(self, MWKFaceDetectionURLToCancelAssociationKey, imageURL, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (NSString *__nullable)wmf_imageTokenToCancel {
     return objc_getAssociatedObject(self, MWKTokenToCancelAssociationKey);
 }
@@ -76,15 +86,17 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (BOOL)wmf_imageRequiresFaceDetection {
-    return [[[self class] faceDetectionCache] imageAtURLRequiresFaceDetection:[self imageURLForFaceDetection]];
+    return [[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:[self imageURLForFaceDetection]];
 }
 
 - (NSValue *)wmf_faceBoundsInImage:(UIImage *)image {
-    return [[[self class] faceDetectionCache] faceBoundsForURL:[self imageURLForFaceDetection]];
+    return [[UIImageView faceDetectionCache] faceBoundsForURL:[self imageURLForFaceDetection]];
 }
 
 - (void)wmf_getFaceBoundsInImage:(UIImage *)image onGPU:(BOOL)onGPU failure:(WMFErrorHandler)failure success:(WMFSuccessNSValueHandler)success {
-    [[[self class] faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:[self imageURLForFaceDetection] failure:failure success:success];
+    NSURL *faceDetectionURL = [self imageURLForFaceDetection];
+    self.wmf_faceDetectionImageURLToCancel = faceDetectionURL;
+    [[UIImageView faceDetectionCache] detectFaceBoundsInImage:image onGPU:onGPU URL:faceDetectionURL failure:failure success:success];
 }
 
 #pragma mark - Set Image
@@ -231,10 +243,12 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageController"
 
 - (void)wmf_cancelImageDownload {
     [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel] token:[self wmf_imageTokenToCancel]];
+    [[UIImageView faceDetectionCache] cancelFaceDetectionForURL:[self wmf_faceDetectionImageURLToCancel]];
     self.wmf_imageURL = nil;
     self.wmf_imageMetadata = nil;
     self.wmf_imageURLToCancel = nil;
     self.wmf_imageTokenToCancel = nil;
+    self.wmf_faceDetectionImageURLToCancel = nil;
 }
 
 @end
