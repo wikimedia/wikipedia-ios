@@ -12,10 +12,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Dodaj %1$d članka na listu za čitanje</string>
 			<key>one</key>
-			<string>%1$d maddeyi okuma listesine ekleyin</string>
+			<string>Dodaj %1$d članak na listu za čitanje</string>
 			<key>other</key>
-			<string>%1$d maddeyi okuma listesine ekleyin</string>
+			<string>Dodaj %1$d članaka na listu za čitanje</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +31,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artice silindi</string>
+			<string>Članak je izbrisan</string>
 			<key>other</key>
-			<string>madde silindi</string>
+			<string>Članci su izbrisani</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -44,10 +46,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>Premesti %1$d članka na listu za čitanje</string>
 			<key>one</key>
-			<string>%1$d maddeyi okuma listesine taşıyın</string>
+			<string>Premesti %1$d članak na listu za čitanje</string>
 			<key>other</key>
-			<string>%1$d maddeyi okuma listesine taşıyın</string>
+			<string>Premesti %1$d članaka na listu za čitanje</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
@@ -60,10 +64,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d istorijska događaja</string>
 			<key>one</key>
-			<string>%1$d tarihi olay</string>
+			<string>%1$d istorijski događaj</string>
 			<key>other</key>
-			<string>%1$d tarihi olay</string>
+			<string>%1$d istorijskih događaja</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -76,10 +82,28 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d članka</string>
 			<key>one</key>
-			<string>%1$d madde</string>
+			<string>%1$d članak</string>
 			<key>other</key>
-			<string>%1$d madde</string>
+			<string>%1$d članaka</string>
+		</dict>
+	</dict>
+	<key>reading-list-entry-limit-reached</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Članak se ne može dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
+			<key>other</key>
+			<string>Članci se ne mogu dodati na listu. Dostigli ste ograničenje od %2$d članaka po listi za čitanje za %3$@.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -92,10 +116,12 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>%1$d liste za čitanje</string>
 			<key>one</key>
-			<string>%1$d okuma listesi</string>
+			<string>%1$d lista za čitanje</string>
 			<key>other</key>
-			<string>%1$d okuma listesi</string>
+			<string>%1$d lista za čitanje</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
@@ -109,9 +135,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Bu eylem geri alınamaz. bu listeye kaydedilen maddeler kaydedilmez.</string>
+			<string>Ova radnja je nepovratna. Svi članci sačuvani samo na ovoj listi će biti uklonjeni iz sačuvanih.</string>
 			<key>other</key>
-			<string>Bu eylem geri alınamaz. bu listelere kaydedilen maddeler kaydedilmez.</string>
+			<string>Ova radnja je nepovratna. Svi članci sačuvani samo na ovim listama će biti uklonjeni iz sačuvanih.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -125,9 +151,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Listeyi sil?</string>
+			<string>Izbrisati spisak?</string>
 			<key>other</key>
-			<string>Listeleri sil?</string>
+			<string>Izbrisati spiskove?</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
@@ -141,11 +167,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Dün</string>
+			<string>juče</string>
 			<key>other</key>
-			<string>%1$d gün önce</string>
+			<string>pre %1$d dana</string>
 			<key>zero</key>
-			<string>Bugün</string>
+			<string>danas</string>
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
@@ -158,12 +184,14 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>pre %1$d sata</string>
 			<key>one</key>
-			<string>%1$d saat önce</string>
+			<string>pre %1$d sat</string>
 			<key>other</key>
-			<string>%1$d saat önce</string>
+			<string>pre %1$d sati</string>
 			<key>zero</key>
-			<string>Bu saat içinde</string>
+			<string>nedavno</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -177,11 +205,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d dakika önce</string>
+			<string>pre jedan minut</string>
 			<key>other</key>
-			<string>%1$d dakika önce</string>
+			<string>pre %1$d minuta</string>
 			<key>zero</key>
-			<string>Az önce</string>
+			<string>upravo sad</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
@@ -194,12 +222,46 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>few</key>
+			<string>pre %1$d godine</string>
 			<key>one</key>
-			<string>Geçen yıl</string>
+			<string>prošle godine</string>
 			<key>other</key>
-			<string>%1$d yıl önce</string>
+			<string>pre %1$d godina</string>
 			<key>zero</key>
-			<string>Bu yıl</string>
+			<string>ove godine</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ovaj članak će biti izbrisan sa svih povezanih lista za čitanje</string>
+			<key>other</key>
+			<string>Ovi članci će biti izbrisani sa svih povezanih lista za čitanje</string>
+		</dict>
+	</dict>
+	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ukloniti članak iz sačuvanih?</string>
+			<key>other</key>
+			<string>Ukloniti članke iz sačuvanih?</string>
 		</dict>
 	</dict>
 </dict>
