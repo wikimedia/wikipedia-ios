@@ -235,6 +235,10 @@ open class ImageController : NSObject {
         }
     }
     
+    @objc public func cancelPermanentCacheRequests() {
+        permanentCacheCompletionManager.cancelAll()
+    }
+    
     @objc public func permanentlyCache(url: URL, groupKey: String, priority: Float = URLSessionTask.lowPriority, failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
         let key = self.cacheKeyForURL(url)
         let variant = self.variantForURL(url)
