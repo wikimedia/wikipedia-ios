@@ -125,7 +125,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 }
                 self.resultsViewController.wmf_showEmptyView(of: WMFEmptyViewType.noSearchResults, action: nil, theme: self.theme, frame: self.resultsViewController.view.bounds)
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-                self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start))
+                self.funnel.logShowSearchError(withTypeOf: type, elapsedTime: Date().timeIntervalSince(start), source: self.source)
             }
         }
         
@@ -147,7 +147,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
                 guard !suggested else {
                     return
                 }
-                self.funnel.logSearchResults(withTypeOf: type, resultCount: UInt(resultsArray.count), elapsedTime: Date().timeIntervalSince(start))
+                self.funnel.logSearchResults(withTypeOf: type, resultCount: UInt(resultsArray.count), elapsedTime: Date().timeIntervalSince(start), source: self.source)
 
             }
         }
@@ -551,7 +551,7 @@ extension SearchViewController: CollectionViewHeaderDelegate {
 
 extension SearchViewController: ArticleCollectionViewControllerDelegate {
     func articleCollectionViewController(_ articleCollectionViewController: ArticleCollectionViewController, didSelectArticleWithURL: URL, at indexPath: IndexPath) {
-        funnel.logSearchResultTap(at: indexPath.item)
+        funnel.logSearchResultTap(at: indexPath.item, source: source)
         saveLastSearch()
     }
 }
