@@ -36,7 +36,11 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil
+    @objc dynamic private(set) var loggedInUsername: String? = nil {
+        didSet {
+            UserDefaults.wmf.didShowLoggedOutPanel = false
+        }
+    }
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
