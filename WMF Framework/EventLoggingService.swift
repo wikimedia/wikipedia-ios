@@ -131,9 +131,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     private func tryPostEvents(_ completion: (() -> Void)? = nil) {
         let operation = AsyncBlockOperation { (operation) in
-            let moc = self.managedObjectContext
-            moc.perform {
-
+            self.perform { moc in
                 let pruneFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
                 pruneFetch.returnsObjectsAsFaults = false
                 
