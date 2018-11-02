@@ -256,7 +256,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-    
+
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
     [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
@@ -1022,7 +1022,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         if (self.visibleArticleViewController) {
             [self showSearchInCurrentNavigationController];
-        }else{
+        } else {
             [self switchToSearchAnimated:NO];
             [self.searchViewController makeSearchBarBecomeFirstResponder];
         }
