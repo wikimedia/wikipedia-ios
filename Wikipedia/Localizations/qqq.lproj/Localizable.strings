@@ -325,6 +325,10 @@
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "license-footer-text" = "Marker at page end for who last modified the page when anonymous. $1 is a relative date such as '2 months ago' or 'today'.";
+"logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
+"logged-out-log-back-in-button-title" = "Title for button allowing user to log back in to their account";
+"logged-out-subtitle" = "Subtitle for letting user know there was a problem authenticating their account.";
+"logged-out-title" = "Title for education panel letting user know they have been logged out.";
 "login-forgot-password" = "Button text for loading the password reminder interface";
 "login-join-wikipedia" = "Join Wikipedia text to be used as part of a create account button";
 "login-no-account" = "Text for create account button. $1 is the message {{msg-wikimedia|login-account-join-wikipedia}}";

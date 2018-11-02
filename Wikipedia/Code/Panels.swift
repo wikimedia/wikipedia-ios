@@ -90,6 +90,17 @@ class EnableLocationPanelViewController : ScrollableEducationPanelViewController
     }
 }
 
+class LoggedOutPanelViewController: ScrollableEducationPanelViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        image = UIImage(named: "logged-out-warning")
+        heading = WMFLocalizedString("logged-out-title", value: "You have been logged out", comment: "Title for education panel letting user know they have been logged out.")
+        subheading = WMFLocalizedString("logged-out-subtitle", value: "There was a problem authenticating your account. In order to sync your reading lists and edit under your user name please log back in.", comment: "Subtitle for letting user know there was a problem authenticating their account.")
+        primaryButtonTitle = WMFLocalizedString("logged-out-log-back-in-button-title", value: "Log back in to your account", comment: "Title for button allowing user to log back in to their account")
+        secondaryButtonTitle = WMFLocalizedString("logged-out-continue-without-logging-in-button-title", value: "Continue without logging in", comment: "Title for button allowing user to continue without logging back in to their account")
+    }
+}
+
 class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
