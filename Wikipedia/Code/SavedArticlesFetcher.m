@@ -121,6 +121,14 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 #pragma mark - Observing
 
 - (void)articleWasUpdated:(NSNotification *)note {
+    id object = [note object];
+    if (![object isKindOfClass:[WMFArticle class]]) {
+        return;
+    }
+    WMFArticle *article = object;
+    if (![article hasChangedValuesForCurrentEventThatAffectSavedArticlesFetch]) {
+        return;
+    }
     [self update];
 }
 
