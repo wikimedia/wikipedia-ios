@@ -598,9 +598,6 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     
     private var isBatchEditToolbarHidden: Bool = true {
         didSet {
-            guard collectionView.window != nil else {
-                return
-            }
             self.navigationDelegate?.didSetBatchEditToolbarHidden(batchEditToolbarViewController, isHidden: self.isBatchEditToolbarHidden, with: self.batchEditToolbarItems)
         }
     }
