@@ -287,6 +287,35 @@ extension UIViewController {
         present(panelVC, animated: true, completion: nil)
     }
 
+    @objc func wmf_showLoggedOutPanel(theme: Theme) {
+        guard !UserDefaults.wmf.didShowLoggedOutPanel else {
+            return
+        }
+        let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true) {
+                self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: nil, loginDismissedCompletion: nil)
+            }
+        }
+        let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
+            self.presentedViewController?.dismiss(animated: true)
+        }
+        let panelVC = LoggedOutPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: theme)
+
+        viewControllerForPanelPresentation?.present(panelVC, animated: true) {
+            UserDefaults.wmf.didShowLoggedOutPanel = true
+        }
+    }
+
+    private var viewControllerForPanelPresentation: UIViewController? {
+        guard view.window == nil else {
+            return self
+        }
+        if presentedViewController is UINavigationController {
+            return presentedViewController
+        }
+        return nil
+    }
+
     @objc func wmf_showLoginOrCreateAccountToSyncSavedArticlesToReadingListPanel(theme: Theme, dismissHandler: ScrollableEducationPanelDismissHandler? = nil, loginSuccessCompletion: (() -> Void)? = nil, loginDismissedCompletion: (() -> Void)? = nil) {
         LoginFunnel.shared.logLoginImpressionInSyncPopover()
         
