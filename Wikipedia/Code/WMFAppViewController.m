@@ -217,6 +217,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[RemoteNotificationsModelControllerNotification modelDidChange]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sessionWasDeauthenticated:)
+                                                 name:[WMFSession wasDeauthenticatedNotification]
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -2025,6 +2030,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
     [self showArticleForURL:articleURL animated:YES];
+}
+
+#pragma mark - Logged out notification
+
+- (void)sessionWasDeauthenticated:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self wmf_showLoggedOutPanelWithTheme:self.theme];
+    });
 }
 
 #pragma mark - Perma Random Mode
