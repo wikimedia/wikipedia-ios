@@ -202,6 +202,7 @@ import Foundation
         case 401:
             WMFAuthenticationManager.sharedInstance.logout {
                 self.removeAllCookies()
+                NotificationCenter.default.post(name: Session.wasDeauthenticatedNotification, object: nil)
             }
         default:
             break
@@ -369,4 +370,10 @@ import Foundation
         }
     }
     
+}
+
+// MARK: - Notifications
+
+extension Session {
+    @objc public static let wasDeauthenticatedNotification = Notification.Name("WMFSessionWasDeauthenticated")
 }
