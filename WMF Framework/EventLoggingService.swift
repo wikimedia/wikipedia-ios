@@ -131,9 +131,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     @objc
     private func tryPostEvents(_ completion: (() -> Void)? = nil) {
         let operation = AsyncBlockOperation { (operation) in
-            let moc = self.managedObjectContext
-            moc.perform {
-
+            self.perform { moc in
                 let pruneFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFEventRecord")
                 pruneFetch.returnsObjectsAsFaults = false
                 
@@ -202,10 +200,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
         let moc = self.managedObjectContext
         moc.perform {
-            let task = Background.manager.beginTask()
-            defer {
-                Background.manager.endTask(task)
-            }
             block(moc)
         }
     }
@@ -213,10 +207,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private func performAndWait(_ block: (_ moc: NSManagedObjectContext) -> Void) {
         let moc = self.managedObjectContext
         moc.performAndWait {
-            let task = Background.manager.beginTask()
-            defer {
-                Background.manager.endTask(task)
-            }
             block(moc)
         }
     }

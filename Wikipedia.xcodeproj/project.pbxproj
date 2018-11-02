@@ -522,7 +522,6 @@
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
-		83DAC3442146E82600CEE256 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAC3432146E82600CEE256 /* Background.swift */; };
 		83E52BB41F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
 		83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E52BB21F681F940045E776 /* ShareAFactViewController.swift */; };
@@ -1797,6 +1796,7 @@
 		D87E54011D6CC709005134EF /* WMFMantleJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */; };
 		D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */; };
 		D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */; };
+		D880652F218C732800BF7B91 /* WorkerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D880652E218C732800BF7B91 /* WorkerController.swift */; };
 		D881B10F1E32686100D33F62 /* ArticleLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8987E071E325EC500E75DA6 /* ArticleLocationController.swift */; };
 		D881B1101E326ABA00D33F62 /* WMFKeyValue+CoreDataProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = D8987E021E325C7A00E75DA6 /* WMFKeyValue+CoreDataProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D881B1111E326ABE00D33F62 /* WMFKeyValue+CoreDataClass.h in Headers */ = {isa = PBXBuildFile; fileRef = D8987E001E325C7900E75DA6 /* WMFKeyValue+CoreDataClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3396,7 +3396,6 @@
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
-		83DAC3432146E82600CEE256 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
 		83E52BB31F681F940045E776 /* ShareAFactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareAFactViewController.xib; sourceTree = "<group>"; };
 		83E52BBE1F682E3E0045E776 /* LicenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseView.swift; sourceTree = "<group>"; };
@@ -4535,6 +4534,7 @@
 		D87914DC1DFA04E10012C5DA /* NSUserDefaults+WMFApplicationDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+WMFApplicationDefaults.swift"; sourceTree = "<group>"; };
 		D87F1D3C1EC0ACC400575CF8 /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		D8800CB01E2FF5B70035D2DB /* QuadKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadKeyTests.swift; sourceTree = "<group>"; };
+		D880652E218C732800BF7B91 /* WorkerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerController.swift; sourceTree = "<group>"; };
 		D881B1121E32874500D33F62 /* WMFArticle+QuadKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFArticle+QuadKey.swift"; path = "WMF Framework/WMFArticle+QuadKey.swift"; sourceTree = SOURCE_ROOT; };
 		D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleFullWidthImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D88B929B1F02AD0F00F5DD40 /* WikipediaBetaClusterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaBetaClusterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -7680,8 +7680,9 @@
 				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
 				D8F36EFC1EEAEAF20087D4DD /* WMFQuoteMacros.h */,
 				D81E5F891E5F949B00E1A80C /* WMFAssertions.h */,
-				D8E892242176124F00587F61 /* PeriodicWorker.swift */,
 				D826C518217673C50012F940 /* PointerArray.swift */,
+				D880652E218C732800BF7B91 /* WorkerController.swift */,
+				D8E892242176124F00587F61 /* PeriodicWorker.swift */,
 				D826C51621766F1A0012F940 /* BackgroundFetcher.swift */,
 				D826C51421766E570012F940 /* Collection+AsyncMap.swift */,
 				D8AAF6B71FE93DE9005760E6 /* UIScrollView+Limits.swift */,
@@ -7771,7 +7772,6 @@
 				D844D96F1D6CB2600042D692 /* Info.plist */,
 				7A255D3D215162AF0081A068 /* Remote Notifications */,
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
-				83DAC3432146E82600CEE256 /* Background.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -8438,7 +8438,7 @@
 		838160062189BF2900D3B4CE /* Clean and build dependencies */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = deps;
-			buildConfigurationList = 838160172189BF2900D3B4CE /* Build configuration list for PBXLegacyTarget "Clean Dependencies" */;
+			buildConfigurationList = 838160172189BF2900D3B4CE /* Build configuration list for PBXLegacyTarget "Clean and build dependencies" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
@@ -9054,7 +9054,7 @@
 				D844D96B1D6CB2600042D692 /* WMF */,
 				D870215F1EBA63EE000D02D6 /* localization */,
 				B0606EAD20AA6FF0006EC6B9 /* WikipediaUITests */,
-				838160062189BF2900D3B4CE /* Clean Dependencies */,
+				838160062189BF2900D3B4CE /* Clean and build dependencies */,
 			);
 		};
 /* End PBXProject section */
@@ -10886,7 +10886,6 @@
 				D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */,
 				D8FA18F41E1BDA35009675C3 /* UIImage+WMFNormalization.m in Sources */,
 				D8CD97651E83FAB400ECCA9D /* Cache.xcdatamodeld in Sources */,
-				83DAC3442146E82600CEE256 /* Background.swift in Sources */,
 				831C15C62099EB3A001B04BF /* WMFArticle+Errors.swift in Sources */,
 				7A0F2589217221D10028871B /* RepeatingTimer.swift in Sources */,
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
@@ -10953,6 +10952,7 @@
 				D844485F1DDCE4E500425630 /* WMFContentGroup+Extensions.m in Sources */,
 				7A3AD05C20ADB1F500C92E04 /* WMFKeychainCredentials.swift in Sources */,
 				D844D99A1D6CB5F00042D692 /* NSString+WMFPageUtilities.m in Sources */,
+				D880652F218C732800BF7B91 /* WorkerController.swift in Sources */,
 				0E728D1F1DAEE2B50074EB4B /* WMFFeedArticlePreview.m in Sources */,
 				D83FA6B61D74CDE6008CAB00 /* EventLoggingFunnel.m in Sources */,
 				D8FA18D11E1BD891009675C3 /* WMFMath.m in Sources */,
@@ -18916,6 +18916,13 @@
 			};
 			name = Alpha;
 		};
+		D880652D218C6EFA00BF7B91 /* LocalDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Clean and build dependencies";
+			};
+			name = LocalDebug;
+		};
 		D88B92A21F02AD0F00F5DD40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -22603,7 +22610,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		838160172189BF2900D3B4CE /* Build configuration list for PBXLegacyTarget "Clean Dependencies" */ = {
+		838160172189BF2900D3B4CE /* Build configuration list for PBXLegacyTarget "Clean and build dependencies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				838160072189BF2900D3B4CE /* Debug */,
@@ -22622,6 +22629,7 @@
 				838160142189BF2900D3B4CE /* BetaCluster */,
 				838160152189BF2900D3B4CE /* Test */,
 				838160162189BF2900D3B4CE /* Alpha */,
+				D880652D218C6EFA00BF7B91 /* LocalDebug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
