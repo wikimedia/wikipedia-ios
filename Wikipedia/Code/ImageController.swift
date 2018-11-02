@@ -283,7 +283,6 @@ open class ImageController : NSObject {
                     DDLogError("Error moving cached file: \(error)")
                 }
                 self.perform { (moc) in
-                    let task = Background.manager.beginTask()
                     guard createItem else {
                         self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                             completion.failure(ImageControllerError.fileError)
@@ -298,7 +297,6 @@ open class ImageController : NSObject {
                     }
                     group.addToCacheItems(item)
                     self.save(moc: moc)
-                    Background.manager.endTask(task)
                     self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                         completion.success()
                     })
@@ -340,9 +338,7 @@ open class ImageController : NSObject {
     private func perform(_ block: @escaping (_ moc: NSManagedObjectContext) -> Void) {
         let moc = self.managedObjectContext
         moc.perform {
-            let task = Background.manager.beginTask()
             block(moc)
-            Background.manager.endTask(task)
         }
     }
     
