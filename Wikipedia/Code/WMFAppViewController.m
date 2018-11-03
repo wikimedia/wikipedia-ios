@@ -2032,7 +2032,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showArticleForURL:articleURL animated:YES];
 }
 
-#pragma mark - Logged out notification
+#pragma mark - Session was deauthenticated
 
 - (void)sessionWasDeauthenticated:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
