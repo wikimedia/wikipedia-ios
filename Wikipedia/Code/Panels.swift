@@ -277,7 +277,7 @@ extension UIViewController {
         let stayLoggedOutTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true, completion: {
                 self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .logout, theme: theme) {
-                    WMFAuthenticationManager.sharedInstance.logout()
+                    WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .user)
                 }
             })
         }

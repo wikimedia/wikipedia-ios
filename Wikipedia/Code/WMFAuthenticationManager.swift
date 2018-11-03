@@ -188,7 +188,7 @@ public class WMFAuthenticationManager: NSObject {
                         return
                     }
                     self.loggedInUsername = nil
-                    self.logout()
+                    self.logout(initiatedBy: .app)
                     completion(.failure(error))
                 default:
                     break
@@ -218,9 +218,11 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(completion: @escaping () -> Void = {}){
+    @objc(logoutInitiatedBy:completion:)
+    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        
+        UserDefaults.wmf.setLastLogoutInitiator(logoutInitiator)
+
         _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
             DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
             // It's best to call "action=logout" API *before* clearing local login settings...
@@ -235,7 +237,8 @@ public class WMFAuthenticationManager: NSObject {
     }
 }
 
-// MARK: @objc Wikipedia login
+// MARK: @objc
+
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let completion: AuthenticationResultHandler = { result in
@@ -256,5 +259,11 @@ extension WMFAuthenticationManager {
             }
         }
         loginWithSavedCredentials(completion: completion)
+    }
+
+    @objc public enum LogoutInitiator: Int {
+        case user
+        case app
+        case server
     }
 }

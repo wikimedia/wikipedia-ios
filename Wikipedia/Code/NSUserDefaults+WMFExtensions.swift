@@ -45,6 +45,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
         @objc static let didShowLoggedOutPanel = "WMFDidShowLoggedOutPanelKey"
+        static let lastLogoutInitiator = "WMFLastLogoutInitiatorKey"
     }
 
     @objc public static let wmf: UserDefaults = {
@@ -475,5 +476,15 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         set {
             set(didShowLoggedOutPanel, forKey: UserDefaults.Key.didShowLoggedOutPanel)
         }
+    }
+
+    @nonobjc public func setLastLogoutInitiator(_ newValue: WMFAuthenticationManager.LogoutInitiator?) {
+        let rawValue = newValue?.rawValue
+        set(rawValue, forKey: UserDefaults.Key.lastLogoutInitiator)
+    }
+
+    @nonobjc public func getLastLogoutInitiator() -> WMFAuthenticationManager.LogoutInitiator? {
+        let rawValue = integer(forKey: UserDefaults.Key.lastLogoutInitiator)
+        return WMFAuthenticationManager.LogoutInitiator(rawValue: rawValue)
     }
 }

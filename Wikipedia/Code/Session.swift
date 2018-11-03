@@ -200,7 +200,7 @@ import Foundation
         }
         switch httpResponse.statusCode {
         case 401:
-            WMFAuthenticationManager.sharedInstance.logout {
+            WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .server) {
                 self.removeAllCookies()
                 NotificationCenter.default.post(name: Session.wasDeauthenticatedNotification, object: nil)
             }
