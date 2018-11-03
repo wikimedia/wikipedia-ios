@@ -288,9 +288,15 @@ extension UIViewController {
     }
 
     @objc func wmf_showLoggedOutPanel(theme: Theme) {
-        guard !UserDefaults.wmf.didShowLoggedOutPanel else {
+        let defaults = UserDefaults.wmf
+        guard !defaults.didShowLoggedOutPanel else {
             return
         }
+        let lastLogoutInitiator = defaults.getLastLogoutInitiator()
+        guard lastLogoutInitiator != .user else {
+            return
+        }
+
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true) {
                 self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: nil, loginDismissedCompletion: nil)
