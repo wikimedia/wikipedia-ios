@@ -4,7 +4,7 @@ import Foundation
     func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void)
 }
 
-@objc(WMFBackgroundFetcherController) public class BackgroundFetcherController: NSObject {
+@objc(WMFBackgroundFetcherController) public class BackgroundFetcherController: WorkerController {
     var fetchers = PointerArray<BackgroundFetcher>()
     
     @objc public func add(_ worker: BackgroundFetcher) {
@@ -12,6 +12,8 @@ import Foundation
     }
     
     @objc public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
+        let identifier = UUID().uuidString
+        delegate?.workerControllerWillStart(self, workWithIdentifier: identifier)
         fetchers.allObjects.asyncMap({ (fetcher, completion) in
             fetcher.performBackgroundFetch(completion)
         }) { (results) in
@@ -28,6 +30,7 @@ import Foundation
                 }
             }
             completion(combinedResult)
+            self.delegate?.workerControllerDidEnd(self, workWithIdentifier: identifier)
         }
     }
 }

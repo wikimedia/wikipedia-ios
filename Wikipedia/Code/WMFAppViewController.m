@@ -68,7 +68,7 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -96,9 +96,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 @property (nonatomic, strong) NSUserActivity *unprocessedUserActivity;
 @property (nonatomic, strong) UIApplicationShortcutItem *unprocessedShortcutItem;
 
-@property (nonatomic) UIBackgroundTaskIdentifier housekeepingBackgroundTaskIdentifier;
-@property (nonatomic) UIBackgroundTaskIdentifier migrationBackgroundTaskIdentifier;
-@property (nonatomic) UIBackgroundTaskIdentifier feedContentFetchBackgroundTaskIdentifier;
+@property (nonatomic, strong) NSMutableDictionary *backgroundTasks;
 
 @property (nonatomic, strong) WMFNotificationsController *notificationsController;
 
@@ -146,8 +144,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [super viewDidLoad];
     self.theme = [[NSUserDefaults wmf] wmf_appTheme];
 
-    self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
-    self.migrationBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(isZeroRatedChanged:)
                                                  name:WMFZeroRatingChanged
@@ -253,11 +251,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)setupControllers {
     self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:15 leeway:15];
+    self.periodicWorkerController.delegate = self;
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
+    self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
     [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
@@ -549,6 +549,56 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Background Tasks
 
+- (UIBackgroundTaskIdentifier)backgroundTaskIdentifierForKey:(NSString *)key {
+    if (!key) {
+        return UIBackgroundTaskInvalid;
+    }
+    @synchronized (self.backgroundTasks) {
+        NSNumber *identifierNumber = self.backgroundTasks[key];
+        if (!identifierNumber) {
+            return UIBackgroundTaskInvalid;
+        }
+        return [identifierNumber unsignedIntegerValue];
+    }
+}
+
+- (void)setBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier forKey:(NSString *)key {
+    if (!key) {
+        return;
+    }
+    @synchronized (self.backgroundTasks) {
+        if (identifier == UIBackgroundTaskInvalid) {
+            [self.backgroundTasks removeObjectForKey:key];
+            return;
+        }
+        self.backgroundTasks[key] = @(identifier);
+    }
+}
+
+- (UIBackgroundTaskIdentifier)housekeepingBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"housekeeping"];
+}
+
+- (void)setHousekeepingBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"housekeeping"];
+}
+
+- (UIBackgroundTaskIdentifier)migrationBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"migration"];
+}
+
+- (void)setMigrationBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"migration"];
+}
+
+- (UIBackgroundTaskIdentifier)feedContentFetchBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"feed"];
+}
+
+- (void)setFeedContentFetchBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"feed"];
+}
+
 - (void)startHousekeepingBackgroundTask {
     if (self.housekeepingBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
@@ -563,7 +613,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (self.housekeepingBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
     }
-
     UIBackgroundTaskIdentifier backgroundTaskToStop = self.housekeepingBackgroundTaskIdentifier;
     self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
@@ -1850,6 +1899,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
+}
+
+#pragma mark - WMFWorkerControllerDelegate
+
+- (void)workerControllerWillStart:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
+    UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name expirationHandler:^{
+        DDLogWarn(@"Ending background task with name: %@", name);
+        [workerController cancelWorkWithIdentifier:identifier];
+    }];
+    [self setBackgroundTaskIdentifier:backgroundTaskIdentifier forKey:identifier];
+}
+
+- (void)workerControllerDidEnd:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
+    UIBackgroundTaskIdentifier backgroundTaskIdentifier = [self backgroundTaskIdentifierForKey:identifier];
+    if (backgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+        return;
+    }
+    [UIApplication.sharedApplication endBackgroundTask:backgroundTaskIdentifier];
 }
 
 #pragma mark - Article save to disk did fail

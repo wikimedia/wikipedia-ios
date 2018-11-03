@@ -94,6 +94,14 @@ internal class ImageControllerCompletionManager<T> {
         }
     }
     
+    func cancelAll() {
+        queue.async {
+            for group in self.tasks.keys {
+                self.cancel(group: group)
+            }
+        }
+    }
+    
     func complete(_ group: String, identifier: String, enumerator: @escaping (T) -> Void) {
         queue.async {
             guard let completionsForKey = self.completions[identifier] else {
