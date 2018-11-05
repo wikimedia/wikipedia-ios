@@ -44,7 +44,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
-        @objc static let didShowLoggedOutPanel = "WMFDidShowLoggedOutPanelKey"
+        @objc static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
         static let lastLogoutInitiator = "WMFLastLogoutInitiatorKey"
     }
 
@@ -469,12 +469,12 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
     }
 
-    public var didShowLoggedOutPanel: Bool {
+    public var isUserUnawareOfLogout: Bool {
         get {
-            return bool(forKey: UserDefaults.Key.didShowLoggedOutPanel)
+            return bool(forKey: UserDefaults.Key.isUserUnawareOfLogout)
         }
         set {
-            set(didShowLoggedOutPanel, forKey: UserDefaults.Key.didShowLoggedOutPanel)
+            set(newValue, forKey: UserDefaults.Key.isUserUnawareOfLogout)
         }
     }
 
