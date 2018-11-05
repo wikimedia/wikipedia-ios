@@ -887,7 +887,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             if ([error.domain isEqualToString:NSURLErrorDomain]) {
                 return;
             }
-            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
+            [self showLoggedOutPanelIfNeeded];
         }];
 
     [self.dataStore.feedContentController startContentSources];
