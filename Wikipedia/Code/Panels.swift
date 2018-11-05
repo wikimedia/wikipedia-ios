@@ -316,10 +316,11 @@ extension UIViewController {
             UserDefaults.wmf.wmf_setDidShowLoginToSyncSavedArticlesToReadingListPanel(true)
         })
     }
-    
-    @objc func wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: @escaping (() -> Swift.Void) = {}) {
+
+    @objc(wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:theme:completion:)
+    func wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy keepSavedArticlesTrigger: KeepSavedArticlesTrigger, theme: Theme, completion: (() -> Swift.Void)? = nil) {
         guard self.hasSavedArticles() else {
-            completion()
+            completion?()
             return
         }
         
@@ -332,7 +333,7 @@ extension UIViewController {
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
         let dismissHandler: ScrollableEducationPanelDismissHandler = {
-            completion()
+            completion?()
         }
         
         let panelVC = KeepSavedArticlesOnDevicePanelViewController(triggeredBy: keepSavedArticlesTrigger, showCloseButton: false, primaryButtonTapHandler: keepSavedArticlesOnDeviceTapHandler, secondaryButtonTapHandler: deleteSavedArticlesFromDeviceTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: false, theme: theme)
