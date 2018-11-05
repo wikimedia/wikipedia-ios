@@ -28,6 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, setter=wmf_setImageURLToCancel:) NSURL *wmf_imageURLToCancel;
 
 /**
+ *  The image URL associated with the current face detection
+ *
+ */
+@property (nonatomic, strong, nullable, setter=wmf_setFaceDetectionImageURLToCancel:) NSURL *wmf_faceDetectionImageURLToCancel;
+
+/**
  *  The cancellation token associated with the currently loading image
  *
  */

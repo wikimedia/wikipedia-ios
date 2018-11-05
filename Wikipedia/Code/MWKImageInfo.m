@@ -119,7 +119,8 @@ NSString *const MWKImageInfoThumbSize = @"thumbSize";
         return self.imageThumbURL;
     }
 
-    if (width <= targetWidth) {
+    BOOL isCanonicalFileSvg = [self.canonicalFileURL.pathExtension isEqualToString:@"svg"];
+    if (width <= targetWidth && !isCanonicalFileSvg) {
         return self.canonicalFileURL;
     }
 

@@ -4,7 +4,7 @@ import Foundation
     func doPeriodicWork(_ completion: @escaping () -> Void)
 }
 
-@objc(WMFPeriodicWorkerController) public class PeriodicWorkerController: NSObject {
+@objc(WMFPeriodicWorkerController) public class PeriodicWorkerController: WorkerController {
     let interval: TimeInterval
     let initialDelay: TimeInterval
     let leeway: TimeInterval
@@ -37,10 +37,13 @@ import Foundation
     }
     
     @objc public func doPeriodicWork(_ completion: (() -> Void)? = nil) {
+        let identifier = UUID().uuidString
+        delegate?.workerControllerWillStart(self, workWithIdentifier: identifier)
         workers.allObjects.asyncForEach({ (worker, completion) in
             worker.doPeriodicWork(completion)
         }) { () in
             completion?()
+            self.delegate?.workerControllerDidEnd(self, workWithIdentifier: identifier)
         }
     }
 }
