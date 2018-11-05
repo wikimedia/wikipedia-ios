@@ -416,8 +416,10 @@
 "relogin-failed-title" = "Kan ikke genetablere log ind";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
+"reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";
 "reverted-edit-notification-read-more-action-title" = "Læs mere";
 "reverted-edit-thanks-for-editing-title" = "Tak fordi du redigerer Wikipedia!";
+"reverted-edit-title" = "Omgjort redigering";
 "reverted-edit-view-guidelines-text" = "Vis retningslinjer";
 "saved-all-articles-title" = "Alle artikler";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";

@@ -9,6 +9,7 @@
 // Author: Irus
 // Author: Javiersanp
 // Author: Josecurioso
+// Author: Juan Cuartas
 // Author: Koavf
 // Author: Luisangelrg
 // Author: Luzcaru
@@ -132,6 +133,8 @@
 "compass-direction" = "a las $1 en punto";
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
+"description-edit-title" = "Editar descripción";
+"description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
 "dim-images" = "Atenuación de imágenes";
 "edit-summary-choice-fixed-grammar" = "Gramática corregida";
 "edit-summary-choice-fixed-typos" = "Error ortográfico corregido";

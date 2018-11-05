@@ -499,6 +499,8 @@
 "relogin-failed-subtitle" = "A súa sesión poida que expirara ou as credenciais de autenticación anteriores xa non son válidas.";
 "relogin-failed-title" = "Non foi posible reestablecer o inicio de sesión";
 "request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
+"reverted-edit-notification-read-more-action-title" = "Ler máis";
+"reverted-edit-thanks-for-editing-title" = "Grazas por editar a Wikipediaǃ";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista non pode ser eliminada";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
