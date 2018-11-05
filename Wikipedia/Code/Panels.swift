@@ -101,17 +101,6 @@ class LoggedOutPanelViewController: ScrollableEducationPanelViewController {
     }
 }
 
-class ReLoginFailedPanelViewController : ScrollableEducationPanelViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        image = UIImage(named: "relogin-failed")
-        heading = WMFLocalizedString("relogin-failed-title", value:"Unable to re-establish log in", comment:"Title for letting user know they are no longer logged in.")
-        subheading = WMFLocalizedString("relogin-failed-subtitle", value:"Your session may have expired or previous log in credentials are no longer valid.", comment:"Subtitle for letting user know they are no longer logged in.")
-        primaryButtonTitle = WMFLocalizedString("relogin-failed-retry-login-button-title", value:"Try to log in again", comment:"Title for button to let user attempt to log in again.")
-        secondaryButtonTitle = WMFLocalizedString("relogin-failed-stay-logged-out-button-title", value:"Keep me logged out", comment:"Title for button for user to choose to remain logged out.")
-    }
-}
-
 class LoginOrCreateAccountToSyncSavedArticlesToReadingListPanelViewController : ScrollableEducationPanelViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -262,29 +251,6 @@ extension UIViewController {
         loginVC.loginDismissedCompletion = loginDismissedCompletion
         loginVC.apply(theme: theme)
         present(WMFThemeableNavigationController(rootViewController: loginVC, theme: theme), animated: true)
-    }
-    
-    @objc func wmf_showReloginFailedPanelIfNecessary(theme: Theme) {
-        guard WMFAuthenticationManager.sharedInstance.hasKeychainCredentials else {
-            return
-        }
-        
-        let tryLoginAgainTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showLoginViewController(theme: theme)
-            })
-        }
-        let stayLoggedOutTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
-            self.presentedViewController?.dismiss(animated: true, completion: {
-                self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .logout, theme: theme) {
-                    WMFAuthenticationManager.sharedInstance.logout(initiatedBy: .user)
-                }
-            })
-        }
-        
-        let panelVC = ReLoginFailedPanelViewController(showCloseButton: false, primaryButtonTapHandler: tryLoginAgainTapHandler, secondaryButtonTapHandler: stayLoggedOutTapHandler, dismissHandler: nil, theme: theme)
-
-        present(panelVC, animated: true, completion: nil)
     }
 
     @objc func wmf_showLoggedOutPanel(theme: Theme, dismissHandler: @escaping ScrollableEducationPanelDismissHandler) {
