@@ -1624,9 +1624,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)isZeroRatedChanged:(NSNotification *)note {
     WMFZeroConfigurationManager *zeroConfigurationManager = [note object];
     if (zeroConfigurationManager.isZeroRated) {
-        [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showFirstTimeZeroOnAlertIfNeeded:zeroConfigurationManager.zeroConfiguration];
+        });
     } else {
-        [self showZeroOffAlert];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showZeroOffAlert];
+        });
     }
 }
 
