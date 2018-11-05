@@ -129,12 +129,16 @@
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "description-add-link-title" = "Lisää otsikkokuvaus";
 "description-add-title" = "Lisää kuvaus";
+"description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-title" = "Muokkaa otsikkokuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
+"description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
+"description-published-title" = "Kuvaus julkaistu!";
+"description-welcome-concise-title" = "Pidä se lyhyenä";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "dim-images" = "Dim kuvat";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
@@ -488,6 +492,8 @@
 "relogin-failed-subtitle" = "Istuntosi saattaa olla vanhentunut tai aiemmat kirjautumistiedot eivät ole enää voimassa.";
 "relogin-failed-title" = "Kykenemätön palauttaa sisäänkirjautumista";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
+"reverted-edit-notification-read-more-action-title" = "Lue lisää";
+"reverted-edit-thanks-for-editing-title" = "Kiitos Wikipedian muokkaamisesta!";
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";

@@ -233,6 +233,7 @@
 "explore-feed-preferences-potd-description" = "Commons'ta günün seçkin resmi";
 "explore-feed-preferences-randomizer-description" = "Okumak için rastgele madde oluştur";
 "explore-feed-preferences-related-pages-description" = "Okuma geçmişine dayalı öneriler";
+"explore-feed-preferences-show-continue-reading-title" = "Devam Et okuma kartını göster";
 "explore-feed-preferences-show-featured-article-footer-text" = "Seçkin madde kartının kapatılması, kartı tüm mevcut dillerde kapatır.";
 "explore-feed-preferences-show-featured-article-title" = "Seçkin madde kartını göster";
 "explore-feed-preferences-show-news-footer-text" = "Haberler kartının kapatılması, tüm mevcut dillerde kartı kapatır.";
@@ -244,6 +245,7 @@
 "explore-feed-preferences-show-places-title" = "Yerler kartını göster";
 "explore-feed-preferences-show-randomizer-footer-text" = "Rastgele kartının kapatılması, kartı tüm mevcut dillerde kapatır.";
 "explore-feed-preferences-show-randomizer-title" = "Rastgele kartını göster";
+"explore-feed-preferences-show-related-pages-title" = "Kart okuduğunuz için göster";
 "explore-feed-preferences-top-read-description" = "Günün en çok okunan maddeleri";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Keşfet akışını kapat";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Keşfet akışı kapatılsın mı?";
@@ -467,6 +469,8 @@
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
 "reading-list-keep-title" = "Kaydedilen maddeleri cihazda sakla?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Makaleleri sırala";
+"reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
+"reading-list-login-or-create-account-title" = "Kayıtlı makaleleri senkronize etmek için giriş yapın";
 "reading-list-login-title" = "Kayıtlı maddeleri senkronize et?";
 "reading-list-name-user-created-annotation" = "\n_[kullanıcı oluşturuldu]";
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
