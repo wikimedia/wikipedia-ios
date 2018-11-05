@@ -2107,8 +2107,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
+    [self showLoggedOutPanelIfNeeded];
+}
+
+- (void)showLoggedOutPanelIfNeeded {
+    WMFAuthenticationManager *authenticationManager = WMFAuthenticationManager.sharedInstance;
+    BOOL isUserUnawareOfLogout = authenticationManager.isUserUnawareOfLogout;
+    if (!isUserUnawareOfLogout) {
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self wmf_showLoggedOutPanelWithTheme:self.theme];
+        [self wmf_showLoggedOutPanelWithTheme:self.theme dismissHandler:^{
+            [authenticationManager userDidAcknowledgeUnintentionalLogout];
+        }];
     });
 }
 
