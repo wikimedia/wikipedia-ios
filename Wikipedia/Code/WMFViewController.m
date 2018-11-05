@@ -4,6 +4,8 @@
 
 static const NSTimeInterval WMFToolbarAnimationDuration = 0.3;
 static const CGFloat WMFSecondToolbarSpacing = 8;
+static const CGFloat WMFToolbarHeight = 44;
+static const CGFloat WMFToolbarConstrainedHeight = 32;
 
 @interface WMFViewController () <WMFEmptyViewContainer>
 @property (nonatomic, strong) WMFNavigationBar *navigationBar;
@@ -11,10 +13,12 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
 @property (nonatomic) BOOL showsNavigationBar;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UIToolbar *secondToolbar;
-@property (nonatomic, strong) NSLayoutConstraint *secondToolbarVisibleConstraint;
-@property (nonatomic, strong) NSLayoutConstraint *secondToolbarHiddenConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *toolbarVisibleConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *toolbarHiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *toolbarHeightConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *secondToolbarVisibleConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *secondToolbarHiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *secondToolbarHeightConstraint;
 @end
 
 @implementation WMFViewController
@@ -95,6 +99,8 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
 
 - (void)viewSafeAreaInsetsDidChange {
     [super viewSafeAreaInsetsDidChange];
+    self.toolbarHeightConstraint.constant = self.view.safeAreaInsets.top == 0 ? WMFToolbarConstrainedHeight : WMFToolbarHeight;
+    // self.secondToolbarHeightConstraint.constant = self.toolbarHeightConstraint.constant; // random button doesn't fit in 32 at the moment
     [self updateScrollViewInsets];
 }
 
@@ -103,10 +109,12 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [self.navigationBar layoutIfNeeded];
-        [self updateScrollViewInsets];
-    } completion:NULL];
+    [coordinator
+        animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+            [self.navigationBar layoutIfNeeded];
+            [self updateScrollViewInsets];
+        }
+                        completion:NULL];
 }
 
 - (void)updateScrollViewInsets {
@@ -117,7 +125,7 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
     if (!scrollView) {
         return;
     }
-    
+
     CGRect frame = CGRectZero;
     if (self.showsNavigationBar) {
         frame = self.navigationBar.frame;
@@ -126,7 +134,7 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
     }
 
     CGFloat top = CGRectGetMaxY(frame);
-    
+
     UIEdgeInsets safeInsets = self.view.safeAreaInsets;
     CGFloat bottom = safeInsets.bottom;
     if (!self.isToolbarHidden) {
@@ -134,13 +142,13 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
     }
 
     UIEdgeInsets scrollIndicatorInsets;
-    
+
     if (self.isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) {
         scrollIndicatorInsets = UIEdgeInsetsMake(top - safeInsets.top, safeInsets.left, bottom - safeInsets.bottom, safeInsets.right);
     } else {
         scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
     }
-   
+
     if (scrollView.refreshControl.isRefreshing) {
         top += scrollView.refreshControl.frame.size.height;
     }
@@ -203,16 +211,20 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
     self.toolbar = [[UIToolbar alloc] init];
     self.toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.toolbar];
+    self.toolbarHeightConstraint = [self.toolbar.heightAnchor constraintEqualToConstant:WMFToolbarHeight];
+    [self.toolbar addConstraint:self.toolbarHeightConstraint];
     self.toolbarVisibleConstraint = [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.toolbar.bottomAnchor];
     self.toolbarHiddenConstraint = [self.view.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
     [self.toolbarVisibleConstraint setActive:NO];
     NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.toolbar.leadingAnchor];
     NSLayoutConstraint *trailingConstraint = [self.toolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
     [self.view addConstraints:@[self.toolbarVisibleConstraint, self.toolbarHiddenConstraint, leadingConstraint, trailingConstraint]];
-    
+
     self.secondToolbar = [[UIToolbar alloc] init];
     self.secondToolbar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view insertSubview:self.secondToolbar belowSubview:self.toolbar];
+    self.secondToolbarHeightConstraint = [self.secondToolbar.heightAnchor constraintEqualToConstant:WMFToolbarHeight];
+    [self.secondToolbar addConstraint:self.secondToolbarHeightConstraint];
     self.secondToolbarVisibleConstraint = [self.secondToolbar.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor constant:0 - WMFSecondToolbarSpacing];
     self.secondToolbarHiddenConstraint = [self.secondToolbar.topAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
     [self.secondToolbarVisibleConstraint setActive:NO];
@@ -220,7 +232,7 @@ static const CGFloat WMFSecondToolbarSpacing = 8;
     NSLayoutConstraint *secondTrailingConstraint = [self.secondToolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
     [self.view addConstraints:@[self.secondToolbarHiddenConstraint, self.secondToolbarVisibleConstraint, secondLeadingConstraint, secondTrailingConstraint]];
 }
-        
+
 - (BOOL)isToolbarHidden {
     return self.toolbarHiddenConstraint.isActive;
 }
