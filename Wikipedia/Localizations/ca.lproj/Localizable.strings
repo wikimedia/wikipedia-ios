@@ -528,6 +528,14 @@
 "relogin-failed-subtitle" = "La sessió pot haver expirat o les credencials d'una sessió anterior ja no són vàlides.";
 "relogin-failed-title" = "No s'ha pogut restablir l'inici de sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
+"reverted-edit-back-to-article-button-title" = "Torna a l'article";
+"reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";
+"reverted-edit-notification-read-more-action-title" = "Més informació";
+"reverted-edit-possible-reasons" = "- La contribució que heu fet no segueix alguna de les recomanacions. $1 \n\n- La contribució semblava que fos un experiment o un vandalisme";
+"reverted-edit-possible-reasons-subtitle" = "Sabem que heu provat de fer-ho el millor possible, però un dels revisors n'ha discrepat.\n\nAlguns dels motius pels quals la vostra modificació va ser revertida:";
+"reverted-edit-thanks-for-editing-title" = "Gràcies per editar a la Viquipèdia!";
+"reverted-edit-title" = "Modificació revertida";
+"reverted-edit-view-guidelines-text" = "Mostra les recomanacions";
 "saved-all-articles-title" = "Tots els articles";
 "saved-default-reading-list-tag" = "No es pot eliminar la llista";
 "saved-pages-image-download-error" = "Error en descarregar les imatges d'aquesta pàgina desada.";
