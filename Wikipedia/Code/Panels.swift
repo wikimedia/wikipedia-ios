@@ -287,16 +287,7 @@ extension UIViewController {
         present(panelVC, animated: true, completion: nil)
     }
 
-    @objc func wmf_showLoggedOutPanel(theme: Theme) {
-        let defaults = UserDefaults.wmf
-        guard !defaults.didShowLoggedOutPanel else {
-            return
-        }
-        let lastLogoutInitiator = defaults.getLastLogoutInitiator()
-        guard lastLogoutInitiator != .user else {
-            return
-        }
-
+    @objc func wmf_showLoggedOutPanel(theme: Theme, dismissHandler: @escaping ScrollableEducationPanelDismissHandler) {
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true) {
                 self.wmf_showLoginViewController(theme: theme, loginSuccessCompletion: nil, loginDismissedCompletion: nil)
@@ -305,11 +296,9 @@ extension UIViewController {
         let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler = { _ in
             self.presentedViewController?.dismiss(animated: true)
         }
-        let panelVC = LoggedOutPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: theme)
+        let panelVC = LoggedOutPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, theme: theme)
 
-        viewControllerForPanelPresentation?.present(panelVC, animated: true) {
-            UserDefaults.wmf.didShowLoggedOutPanel = true
-        }
+        viewControllerForPanelPresentation?.present(panelVC, animated: true)
     }
 
     private var viewControllerForPanelPresentation: UIViewController? {
