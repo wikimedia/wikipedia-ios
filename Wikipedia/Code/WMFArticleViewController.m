@@ -155,6 +155,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
+@property (nonatomic, getter=isWaitingUntilViewDidAppearToShowToolbar) BOOL waitingUntilViewDidAppearToShowToolbar;
+
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
@@ -510,9 +512,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     NSArray<UIBarButtonItem *> *toolbarItems = [self articleToolBarItems];
 
-    if (![self.toolbarItems isEqualToArray:toolbarItems]) {
+    if (![self.toolbar.items isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
-        [self setToolbarItems:toolbarItems animated:NO];
+        [self.toolbar setItems:toolbarItems animated:NO];
     }
 }
 
@@ -754,7 +756,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-
+    
     [self hideProgressViewAnimated:NO];
 
     self.eventLoggingCategory = EventLoggingCategoryArticle;
@@ -766,6 +768,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.navigationBar.isShadowBelowUnderBarView = YES;
     self.navigationBar.isExtendedViewFadingEnabled = NO;
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
+    [self setToolbarHidden:NO animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -843,7 +846,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }];
 }
 
-- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+- (void)prepareViewsForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
     if (imageView && imageView.image) {
         self.webViewController.headerFadingEnabled = NO;
         self.webViewController.view.alpha = 0;

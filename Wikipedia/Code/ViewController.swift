@@ -154,7 +154,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
- 
+        
         guard navigationMode == .bar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]

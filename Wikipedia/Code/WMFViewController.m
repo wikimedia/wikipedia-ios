@@ -2,10 +2,19 @@
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFEmptyView.h"
 
+static const NSTimeInterval WMFToolbarAnimationDuration = 0.3;
+static const CGFloat WMFSecondToolbarSpacing = 8;
+
 @interface WMFViewController () <WMFEmptyViewContainer>
 @property (nonatomic, strong) WMFNavigationBar *navigationBar;
 @property (nonatomic, strong) WMFNavigationBarHider *navigationBarHider;
 @property (nonatomic) BOOL showsNavigationBar;
+@property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic, strong) UIToolbar *secondToolbar;
+@property (nonatomic, strong) NSLayoutConstraint *secondToolbarVisibleConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *secondToolbarHiddenConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *toolbarVisibleConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *toolbarHiddenConstraint;
 @end
 
 @implementation WMFViewController
@@ -42,6 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    [self setupToolbars];
     [self applyTheme:self.theme];
 }
 
@@ -115,14 +125,18 @@
         frame = [self.navigationController.view convertRect:self.navigationController.navigationBar.frame toView:self.view];
     }
 
-    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
     CGFloat top = CGRectGetMaxY(frame);
+    
+    UIEdgeInsets safeInsets = self.view.safeAreaInsets;
     CGFloat bottom = safeInsets.bottom;
+    if (!self.isToolbarHidden) {
+        bottom += CGRectGetHeight(self.toolbar.frame);
+    }
 
     UIEdgeInsets scrollIndicatorInsets;
     
     if (self.isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) {
-         scrollIndicatorInsets = UIEdgeInsetsMake(top - safeInsets.top, safeInsets.left, bottom - safeInsets.bottom, safeInsets.right);
+        scrollIndicatorInsets = UIEdgeInsetsMake(top - safeInsets.top, safeInsets.left, bottom - safeInsets.bottom, safeInsets.right);
     } else {
         scrollIndicatorInsets = UIEdgeInsetsMake(top, safeInsets.left, bottom, safeInsets.right);
     }
@@ -161,6 +175,11 @@
         return;
     }
     [self.navigationBar applyTheme:theme];
+    [self.toolbar setBackgroundImage:theme.navigationBarBackgroundImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    self.toolbar.translucent = NO;
+    //[self.toolbar setShadowImage:theme.navigationBarShadowImage forToolbarPosition:UIBarPositionAny];
+    [self.secondToolbar setBackgroundImage:theme.clearImage forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.secondToolbar setShadowImage:theme.clearImage forToolbarPosition:UIBarPositionAny];
 }
 
 #pragma mark - WMFNavigationBarHiderDelegate
@@ -175,6 +194,76 @@
         [self.view insertSubview:emptyView belowSubview:self.navigationBar];
     } else {
         [self.view addSubview:emptyView];
+    }
+}
+
+#pragma mark - Toolbars
+
+- (void)setupToolbars {
+    self.toolbar = [[UIToolbar alloc] init];
+    self.toolbar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.toolbar];
+    self.toolbarVisibleConstraint = [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.toolbar.bottomAnchor];
+    self.toolbarHiddenConstraint = [self.view.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
+    [self.toolbarVisibleConstraint setActive:NO];
+    NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.toolbar.leadingAnchor];
+    NSLayoutConstraint *trailingConstraint = [self.toolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+    [self.view addConstraints:@[self.toolbarVisibleConstraint, self.toolbarHiddenConstraint, leadingConstraint, trailingConstraint]];
+    
+    self.secondToolbar = [[UIToolbar alloc] init];
+    self.secondToolbar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view insertSubview:self.secondToolbar belowSubview:self.toolbar];
+    self.secondToolbarVisibleConstraint = [self.secondToolbar.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor constant:0 - WMFSecondToolbarSpacing];
+    self.secondToolbarHiddenConstraint = [self.secondToolbar.topAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
+    [self.secondToolbarVisibleConstraint setActive:NO];
+    NSLayoutConstraint *secondLeadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.secondToolbar.leadingAnchor];
+    NSLayoutConstraint *secondTrailingConstraint = [self.secondToolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
+    [self.view addConstraints:@[self.secondToolbarHiddenConstraint, self.secondToolbarVisibleConstraint, secondLeadingConstraint, secondTrailingConstraint]];
+}
+        
+- (BOOL)isToolbarHidden {
+    return self.toolbarHiddenConstraint.isActive;
+}
+
+- (void)setToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
+    dispatch_block_t animations = ^{
+        [self.toolbarVisibleConstraint setActive:!hidden];
+        [self.toolbarHiddenConstraint setActive:hidden];
+        [self.view layoutIfNeeded];
+    };
+    if (animated) {
+        [UIView animateWithDuration:WMFToolbarAnimationDuration animations:animations];
+    } else {
+        animations();
+    }
+}
+
+- (BOOL)isSecondToolbarHidden {
+    return self.secondToolbarHiddenConstraint.isActive;
+}
+
+- (void)setSecondToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
+    dispatch_block_t animations = ^{
+        [self.secondToolbarVisibleConstraint setActive:!hidden];
+        [self.secondToolbarHiddenConstraint setActive:hidden];
+        [self.view layoutIfNeeded];
+    };
+    if (animated) {
+        [UIView animateWithDuration:WMFToolbarAnimationDuration animations:animations];
+    } else {
+        animations();
+    }
+}
+
+- (void)setAdditionalSecondToolbarSpacing:(CGFloat)spacing animated:(BOOL)animated {
+    dispatch_block_t animations = ^{
+        self.secondToolbarVisibleConstraint.constant = 0 - WMFSecondToolbarSpacing - spacing;
+        [self.view layoutIfNeeded];
+    };
+    if (animated) {
+        [UIView animateWithDuration:WMFToolbarAnimationDuration animations:animations];
+    } else {
+        animations();
     }
 }
 

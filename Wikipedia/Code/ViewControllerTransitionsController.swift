@@ -70,7 +70,9 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             return nil
         }
         
-        return DetailTransition(detailSourceViewController: source)
+        let incomingImageScaleTransitionProvider = actualToVC as? ImageScaleTransitionProviding
+        let outgoingImageScaleTransitionProvider = actualFromVC as? ImageScaleTransitionProviding
+        return DetailTransition(detailSourceViewController: source, incomingImageScaleTransitionProvider: incomingImageScaleTransitionProvider, outgoingImageScaleTransitionProvider: outgoingImageScaleTransitionProvider)
     }
     
     @objc func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {

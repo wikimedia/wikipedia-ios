@@ -7,8 +7,10 @@ protocol DetailTransitionSourceProviding {
 @objc(WMFImageScaleTransitionProviding)
 protocol ImageScaleTransitionProviding {
     var imageScaleTransitionView: UIImageView? { get }
-    @objc(prepareForIncomingImageScaleTransitionWithImageView:)
-    func prepareForIncomingImageScaleTransition(with imageView: UIImageView?)
+    @objc optional func prepareForIncomingImageScaleTransition() // before views load
+    @objc(prepareViewsForIncomingImageScaleTransitionWithImageView:)
+    optional func prepareViewsForIncomingImageScaleTransition(with imageView: UIImageView?) // after views load
+    @objc optional func prepareForOutgoingImageScaleTransition()
 }
 
 class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
@@ -19,8 +21,10 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
         return detailSourceViewController.theme
     }
     
-    required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController) {
+    required init(detailSourceViewController: DetailTransitionSourceProviding & ViewController, incomingImageScaleTransitionProvider: ImageScaleTransitionProviding?, outgoingImageScaleTransitionProvider: ImageScaleTransitionProviding?) {
         self.detailSourceViewController = detailSourceViewController
+        incomingImageScaleTransitionProvider?.prepareForIncomingImageScaleTransition?()
+        outgoingImageScaleTransitionProvider?.prepareForOutgoingImageScaleTransition?()
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -56,7 +60,7 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             toImageView = toISTP.imageScaleTransitionView
             isImageScaleTransitioning = fromImageView != nil && toImageView != nil && fromImageView?.image != nil
             if isImageScaleTransitioning {
-                toISTP.prepareForIncomingImageScaleTransition(with: fromImageView)
+                toISTP.prepareViewsForIncomingImageScaleTransition?(with: fromImageView)
             }
         } else {
             fromImageView = nil

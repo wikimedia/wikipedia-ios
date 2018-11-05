@@ -371,10 +371,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     var imageScaleTransitionView: UIImageView?
     
-    func prepareForIncomingImageScaleTransition(with imageView: UIImageView?) {
-        
-    }
-    
     // MARK - DetailTransitionSourceProviding
     
     var detailTransitionSourceRect: CGRect?

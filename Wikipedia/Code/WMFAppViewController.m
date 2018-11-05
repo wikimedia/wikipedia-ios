@@ -20,7 +20,6 @@
 #import "WMFFirstRandomViewController.h"
 #import "WMFRandomArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
 
@@ -28,7 +27,6 @@
 
 #import "UIViewController+WMFOpenExternalUrl.h"
 
-#import "WMFArticleNavigationController.h"
 #import "WMFSearchButton.h"
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
@@ -601,7 +599,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)launchAppInWindow:(UIWindow *)window waitToResumeApp:(BOOL)waitToResumeApp {
     self.waitingToResumeApp = waitToResumeApp;
 
-    WMFArticleNavigationController *articleNavigationController = [[WMFArticleNavigationController alloc] initWithRootViewController:self];
+    WMFThemeableNavigationController *articleNavigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:self];
     articleNavigationController.delegate = self;
     articleNavigationController.interactivePopGestureRecognizer.delegate = self;
     articleNavigationController.extendedLayoutIncludesOpaqueBars = YES;
@@ -1542,9 +1540,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             } break;
         }
     }
-    if ([viewController isKindOfClass:[WMFArticleNavigationController class]]) {
-        [(WMFArticleNavigationController *)viewController popToRootViewControllerAnimated:NO];
-    }
     return YES;
 }
 
@@ -1569,7 +1564,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated {
     navigationController.interactivePopGestureRecognizer.delegate = self;
-    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
     if ([viewController conformsToProtocol:@protocol(WMFSearchButtonProviding)] && viewController.navigationItem.rightBarButtonItem == nil) {
         WMFSearchButton *searchButton = [[WMFSearchButton alloc] initWithTarget:self action:@selector(showSearchInCurrentNavigationController)];
         viewController.navigationItem.rightBarButtonItem = searchButton;
