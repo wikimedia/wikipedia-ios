@@ -507,10 +507,6 @@
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with appropriate plural for number of hours ago.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with appropriate plural for number of minutes ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with appropriate plural for number of years ago.";
-"relogin-failed-retry-login-button-title" = "Title for button to let user attempt to log in again.";
-"relogin-failed-stay-logged-out-button-title" = "Title for button for user to choose to remain logged out.";
-"relogin-failed-subtitle" = "Subtitle for letting user know they are no longer logged in.";
-"relogin-failed-title" = "Title for letting user know they are no longer logged in.";
 "request-feedback-on-error" = "Displayed to beta users when they encounter an error we'd like feedback on";
 "reverted-edit-back-to-article-button-title" = "Title for button that allows the user to go back to the article they edited";
 "reverted-edit-notification-body" = "Title for notification telling user that the edit they made was reverted. $1 is replaced with the title of the affected article, $2 is replaced with the username of the person who reverted the edit.";
