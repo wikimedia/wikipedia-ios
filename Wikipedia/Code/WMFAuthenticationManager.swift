@@ -36,11 +36,7 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  The current logged in user. If nil, no user is logged in
      */
-    @objc dynamic private(set) var loggedInUsername: String? = nil {
-        didSet {
-            UserDefaults.wmf.didShowLoggedOutPanel = false
-        }
-    }
+    @objc dynamic private(set) var loggedInUsername: String? = nil
     
     /**
      *  Returns YES if a user is logged in, NO otherwise
@@ -220,11 +216,14 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
-        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         UserDefaults.wmf.setLastLogoutInitiator(logoutInitiator)
+        if logoutInitiator == .app || logoutInitiator == .server {
+            isUserUnawareOfLogout = true
+        }
         let postDidLogOutNotification = {
             NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         }
+        logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
         _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
             DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
             // It's best to call "action=logout" API *before* clearing local login settings...
@@ -276,4 +275,17 @@ extension WMFAuthenticationManager {
     }
 
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
+
+    @objc public func userDidAcknowledgeUnintentionalLogout() {
+        isUserUnawareOfLogout = false
+    }
+
+    @objc public var isUserUnawareOfLogout: Bool {
+        get {
+            return UserDefaults.wmf.isUserUnawareOfLogout
+        }
+        set {
+            UserDefaults.wmf.isUserUnawareOfLogout = newValue
+        }
+    }
 }
