@@ -17,18 +17,32 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     
     
     private func searchAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let actualFromVC: UIViewController?
+        if let fromTab = fromVC as? UITabBarController {
+            actualFromVC = fromTab.selectedViewController ?? fromVC
+        } else {
+            actualFromVC = fromVC
+        }
+        
+        let actualToVC: UIViewController?
+        if let toTab = toVC as? UITabBarController {
+            actualToVC = toTab.selectedViewController ?? toVC
+        } else {
+            actualToVC = toVC
+        }
+        
         guard
-            let exploreVC = fromVC as? ExploreViewController ?? toVC as? ExploreViewController,
+            let exploreVC = actualFromVC as? ExploreViewController ?? actualToVC as? ExploreViewController,
             exploreVC.wantsCustomSearchTransition
             else {
-                let searchVC = toVC as? SearchViewController ?? fromVC as? SearchViewController
+                let searchVC = actualToVC as? SearchViewController ?? actualFromVC as? SearchViewController
                 searchVC?.shouldAnimateSearchBar = false // disable search bar animation on standard push
                 return nil
         }
         
-        if let searchVC = toVC as? SearchViewController {
+        if let searchVC = actualToVC as? SearchViewController {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: true)
-        } else if let searchVC = fromVC as? SearchViewController  {
+        } else if let searchVC = actualFromVC as? SearchViewController  {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: false)
         }
         
@@ -37,7 +51,21 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
 
     
     private func detailAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let source = fromVC as? (DetailTransitionSourceProviding & ViewController) ?? toVC as? (DetailTransitionSourceProviding & ViewController)
+        let actualFromVC: UIViewController?
+        if let fromTab = fromVC as? UITabBarController {
+            actualFromVC = fromTab.selectedViewController ?? fromVC
+        } else {
+            actualFromVC = fromVC
+        }
+        
+        let actualToVC: UIViewController?
+        if let toTab = toVC as? UITabBarController {
+            actualToVC = toTab.selectedViewController ?? toVC
+        } else {
+            actualToVC = toVC
+        }
+        
+        guard let source = actualFromVC as? (DetailTransitionSourceProviding & ViewController) ?? actualToVC as? (DetailTransitionSourceProviding & ViewController)
         else {
             return nil
         }

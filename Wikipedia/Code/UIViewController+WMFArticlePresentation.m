@@ -32,28 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleWithURL:url dataStore:dataStore theme:theme restoreScrollPosition:NO animated:animated];
 }
 
-- (nullable UINavigationController *)wmf_tabBarControllerSelectedNavigationController {
-    UITabBarController *tab = nil;
-    if ([self isKindOfClass:[UITabBarController class]]) {
-        tab = (UITabBarController *)self;
-    } else if (self.tabBarController) {
-        tab = self.tabBarController;
-    } else {
-        NSAssert(false, @"Unexpected view controller hierarchy - missing UITabBarController");
-    }
-
-    UIViewController *selectedVC = [tab selectedViewController];
-
-    UINavigationController *nav = nil;
-    if ([selectedVC isKindOfClass:[UINavigationController class]]) {
-        nav = (UINavigationController *)selectedVC;
-    } else {
-        NSAssert(false, @"Unexpected view controller hierarchy - missing UINavigationController");
-    }
-
-    return nav;
-}
-
 - (void)wmf_pushArticleViewController:(WMFArticleViewController *)viewController animated:(BOOL)animated {
     if (self.parentViewController != nil && self.parentViewController.navigationController) {
         [self.parentViewController wmf_pushArticleViewController:viewController animated:animated];
@@ -65,18 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
                                                      }];
     } else if (self.navigationController != nil) {
         [self.navigationController pushViewController:viewController animated:animated];
-    } else {
-        UINavigationController *nav = [self wmf_tabBarControllerSelectedNavigationController];
-        [nav pushViewController:viewController animated:animated];
     }
 }
 
 - (void)wmf_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (self.navigationController != nil) {
         [self.navigationController pushViewController:viewController animated:animated];
-    } else if ([self isKindOfClass:[UITabBarController class]]) { // WMFAppViewController
-        UINavigationController *nav = [self wmf_tabBarControllerSelectedNavigationController];
-        [nav pushViewController:viewController animated:animated];
     } else if (self.presentingViewController != nil) {
         UIViewController *presentingViewController = self.presentingViewController;
         [presentingViewController dismissViewControllerAnimated:YES
@@ -85,12 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                      }];
     } else if (self.parentViewController != nil) {
         [self.parentViewController wmf_pushViewController:viewController animated:animated];
-    } else {
-        UINavigationController *nav = [self wmf_tabBarControllerSelectedNavigationController];
-        if (!nav) {
-            NSAssert(false, @"Unexpected view controller hierarchy");
-        }
-        [nav pushViewController:viewController animated:animated];
     }
 }
 
