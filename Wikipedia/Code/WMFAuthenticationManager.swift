@@ -245,7 +245,12 @@ public class WMFAuthenticationManager: NSObject {
 extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
         let completion: AuthenticationResultHandler = { result in
-            completion()
+            switch result {
+            case .failure(let error):
+                failure(error)
+            default:
+                completion()
+            }
         }
         attemptLogin(completion: completion)
     }
