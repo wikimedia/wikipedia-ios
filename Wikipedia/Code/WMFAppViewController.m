@@ -216,8 +216,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sessionWasDeauthenticated:)
-                                                 name:[WMFSession wasDeauthenticatedNotification]
+                                             selector:@selector(userWasLoggedOut:)
+                                                 name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
 
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
@@ -2100,9 +2100,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showArticleForURL:articleURL animated:YES];
 }
 
-#pragma mark - Session was deauthenticated
+#pragma mark - User was logged out
 
-- (void)sessionWasDeauthenticated:(NSNotification *)note {
+- (void)userWasLoggedOut:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self wmf_showLoggedOutPanelWithTheme:self.theme];
     });
