@@ -36,6 +36,6 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         let clear = opaque.withAlphaComponent(0)
         topGradientView.setStart(opaque, end: clear)
         bottomGradientView.setStart(clear, end: opaque)
-        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
     }
 }

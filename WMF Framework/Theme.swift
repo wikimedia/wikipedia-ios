@@ -168,6 +168,9 @@ public class Colors: NSObject {
     @objc public let border: UIColor
     @objc public let shadow: UIColor
     @objc public let cardBackground: UIColor
+    @objc public var selectedCardBackground: UIColor {
+        return midBackground
+    }
     @objc public let cardBorder: UIColor
     @objc public let cardShadow: UIColor
     @objc public let cardButtonBackground: UIColor
