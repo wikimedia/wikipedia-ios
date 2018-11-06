@@ -1806,8 +1806,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     self.view.backgroundColor = theme.colors.baseBackground;
     self.view.tintColor = theme.colors.link;
 
-    [self.searchViewController applyTheme:theme];
     [self.settingsViewController applyTheme:theme];
+    [self.exploreViewController applyTheme:theme];
+    [self.placesViewController applyTheme:theme];
+    [self.savedViewController applyTheme:theme];
+    [self.recentArticlesViewController applyTheme:theme];
+    [self.searchViewController applyTheme:theme];
 
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
