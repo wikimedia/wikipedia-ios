@@ -36,10 +36,10 @@
  */
 typedef NS_ENUM(NSUInteger, WMFAppTabType) {
     WMFAppTabTypeMain = 0,
-    WMFAppTabTypePlaces,
-    WMFAppTabTypeSaved,
-    WMFAppTabTypeRecent,
-    WMFAppTabTypeSearch
+    WMFAppTabTypePlaces = 1,
+    WMFAppTabTypeSaved = 2,
+    WMFAppTabTypeRecent = 3,
+    WMFAppTabTypeSearch = 4
 };
 
 /**
@@ -271,13 +271,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-
-    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
-    if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
-        [self setSelectedIndex:WMFAppTabTypeSearch];
-    } else if (self.selectedIndex != WMFAppTabTypeMain) {
-        [self setSelectedIndex:WMFAppTabTypeMain];
-    }
 }
 
 - (void)configureTabController {
@@ -297,6 +290,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self savedViewController], [self recentArticlesViewController], [self searchViewController]];
 
     [self setViewControllers:viewControllers animated:NO];
+
+    BOOL shouldOpenAppOnSearchTab = [NSUserDefaults wmf].wmf_openAppOnSearchTab;
+    if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
+        [self setSelectedIndex:WMFAppTabTypeSearch];
+    } else if (self.selectedIndex != WMFAppTabTypeMain) {
+        [self setSelectedIndex:WMFAppTabTypeMain];
+    }
 }
 
 #pragma mark - Notifications
@@ -459,7 +459,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)updateDefaultTab {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.settingsNavigationController popToRootViewControllerAnimated:NO];
         dispatch_block_t update = ^{
             [self setSelectedIndex:WMFAppTabTypeSearch];
             [self.navigationController popToRootViewControllerAnimated:NO];
@@ -1792,8 +1791,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (navC) {
         [navigationControllers addObject:navC];
     }
-    if (self.settingsNavigationController) {
-        [navigationControllers addObject:self.settingsNavigationController];
+    if (_settingsNavigationController) {
+        [navigationControllers addObject:_settingsNavigationController];
     }
     return navigationControllers;
 }
@@ -1972,7 +1971,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.settingsNavigationController pushViewController:subViewController animated:NO];
     }
 
-    [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
+    switch ([NSUserDefaults wmf].defaultTabType) {
+        case WMFAppDefaultTabTypeSettings:
+            [self setSelectedIndex:WMFAppTabTypeMain];
+            [self wmf_pushViewController:subViewController animated:animated];
+            break;
+        default:
+            [self presentViewController:self.settingsNavigationController animated:animated completion:nil];
+            break;
+    }
 }
 
 - (void)showSettingsAnimated:(BOOL)animated {
