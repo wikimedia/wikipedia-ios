@@ -243,7 +243,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-    
+
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
@@ -256,11 +256,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if ([self uiIsLoaded]) {
         return;
     }
-    
+
     [self configureTabController];
 
     self.tabBar.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
+
     [self applyTheme:self.theme];
 
     self.transitionsController = [WMFViewControllerTransitionsController new];
@@ -282,9 +282,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)configureTabController {
     self.delegate = self;
-    
+
     UIViewController *mainViewController = nil;
-    
+
     switch ([NSUserDefaults wmf].defaultTabType) {
         case WMFAppDefaultTabTypeSettings:
             mainViewController = self.settingsViewController;
@@ -293,9 +293,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             mainViewController = self.exploreViewController;
             break;
     }
-    
+
     NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self savedViewController], [self recentArticlesViewController], [self searchViewController]];
-    
+
     [self setViewControllers:viewControllers animated:NO];
 }
 
@@ -492,7 +492,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (!key) {
         return UIBackgroundTaskInvalid;
     }
-    @synchronized (self.backgroundTasks) {
+    @synchronized(self.backgroundTasks) {
         NSNumber *identifierNumber = self.backgroundTasks[key];
         if (!identifierNumber) {
             return UIBackgroundTaskInvalid;
@@ -505,7 +505,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if (!key) {
         return;
     }
-    @synchronized (self.backgroundTasks) {
+    @synchronized(self.backgroundTasks) {
         if (identifier == UIBackgroundTaskInvalid) {
             [self.backgroundTasks removeObjectForKey:key];
             return;
@@ -1015,7 +1015,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         if (self.visibleArticleViewController) {
             [self showSearchInCurrentNavigationController];
-        }else{
+        } else {
             [self switchToSearchAnimated:NO];
             [self.searchViewController makeSearchBarBecomeFirstResponder];
         }
@@ -1481,7 +1481,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.presentedViewController) {
         [self dismissViewControllerAnimated:NO completion:NULL];
     }
-    
+
     if (self.navigationController.presentedViewController) {
         [self.navigationController dismissViewControllerAnimated:NO completion:NULL];
     }
@@ -1849,10 +1849,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)workerControllerWillStart:(WMFWorkerController *)workerController workWithIdentifier:(NSString *)identifier {
     NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
-    UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name expirationHandler:^{
-        DDLogWarn(@"Ending background task with name: %@", name);
-        [workerController cancelWorkWithIdentifier:identifier];
-    }];
+    UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name
+                                                                                                     expirationHandler:^{
+                                                                                                         DDLogWarn(@"Ending background task with name: %@", name);
+                                                                                                         [workerController cancelWorkWithIdentifier:identifier];
+                                                                                                     }];
     [self setBackgroundTaskIdentifier:backgroundTaskIdentifier forKey:identifier];
 }
 
@@ -1904,12 +1905,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self dismissReadingThemesPopoverIfActive];
 
-
     UINavigationController *nc = (UINavigationController *)self.navigationController;
     if (!nc) {
         return;
     }
-    
+
     NSArray *vcs = nc.viewControllers;
     NSMutableArray *mutableVCs = [vcs mutableCopy];
     SearchViewController *searchVC = nil;
@@ -1945,6 +1945,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
+        _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;
 }
