@@ -208,6 +208,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                  name:[RemoteNotificationsModelControllerNotification modelDidChange]
                                                object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedOut:)
+                                                 name:[WMFAuthenticationManager didLogOutNotification]
+                                               object:nil];
+
     self.readingListsAlertController = [[WMFReadingListsAlertController alloc] init];
 }
 
@@ -825,12 +830,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self.savedArticlesFetcher start];
             [self.reachabilityNotifier start];
             self.resumeComplete = YES;
-        }
-        failure:^(NSError *error) {
-            if ([error.domain isEqualToString:NSURLErrorDomain]) {
-                return;
-            }
-            [self wmf_showReloginFailedPanelIfNecessaryWithTheme:self.theme];
+            [self showLoggedOutPanelIfNeeded];
         }];
 
     [self.dataStore.feedContentController startContentSources];
@@ -2050,6 +2050,25 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
     [self showArticleForURL:articleURL animated:YES];
+}
+
+#pragma mark - User was logged out
+
+- (void)userWasLoggedOut:(NSNotification *)note {
+    [self showLoggedOutPanelIfNeeded];
+}
+
+- (void)showLoggedOutPanelIfNeeded {
+    WMFAuthenticationManager *authenticationManager = WMFAuthenticationManager.sharedInstance;
+    BOOL isUserUnawareOfLogout = authenticationManager.isUserUnawareOfLogout;
+    if (!isUserUnawareOfLogout) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self wmf_showLoggedOutPanelWithTheme:self.theme dismissHandler:^{
+            [authenticationManager userDidAcknowledgeUnintentionalLogout];
+        }];
+    });
 }
 
 #pragma mark - Perma Random Mode
