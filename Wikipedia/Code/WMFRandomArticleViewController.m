@@ -59,7 +59,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
     UIBarButtonItem *rightFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
-    self.secondToolbar.items = @[leftFlexibleSpace, [WMFRandomArticleViewController diceButtonItem], rightFlexibleSpace];
+    [self.secondToolbar setItems:@[leftFlexibleSpace, [WMFRandomArticleViewController diceButtonItem], rightFlexibleSpace] animated:NO];
 }
 
 - (void)setupEmptyFadeView {
@@ -79,7 +79,13 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [super viewDidAppear:animated];
     self.viewAppeared = YES;
 
-    [self setupSecondToolbar];
+    if (self.secondToolbar.items.count == 0) {
+        [UIView performWithoutAnimation:^{
+            [self setupSecondToolbar];
+            [self setSecondToolbarHidden:YES animated:NO];
+        }];
+        [self setSecondToolbarHidden:NO animated:YES];
+    }
 
 #if WMF_TWEAKS_ENABLED
     if (!self.permaRandomMode) {
@@ -102,7 +108,6 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self configureViewsForRandomArticleLoading:NO animated:NO];
-    self.secondToolbar.items = @[];
 }
 
 - (void)configureViewsForRandomArticleLoading:(BOOL)isRandomArticleLoading animated:(BOOL)animated {
@@ -135,6 +140,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = NO;
 #endif
+            self.secondToolbar.items = @[];
             [self wmf_pushArticleViewController:randomArticleVC
                                        animated:YES];
         }];
