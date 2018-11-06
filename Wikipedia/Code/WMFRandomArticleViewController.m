@@ -118,7 +118,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         }
         success:^(MWKSearchResult *result) {
             NSURL *articleURL = [result articleURLForSiteURL:siteURL];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme diceButtonItem:nil]; // pass self.diceButtonItem instead if using a shared toolbar
+            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme diceButtonItem:self.diceButtonItem];
 #if WMF_TWEAKS_ENABLED
             randomArticleVC.permaRandomMode = NO;
 #endif
