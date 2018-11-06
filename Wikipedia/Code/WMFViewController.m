@@ -97,9 +97,13 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     [self updateScrollViewInsets];
 }
 
+- (CGFloat)toolbarHeightForCurrentSafeAreaInsets {
+    return self.view.safeAreaInsets.top == 0 ? WMFToolbarConstrainedHeight : WMFToolbarHeight;
+}
+
 - (void)viewSafeAreaInsetsDidChange {
     [super viewSafeAreaInsetsDidChange];
-    self.toolbarHeightConstraint.constant = self.view.safeAreaInsets.top == 0 ? WMFToolbarConstrainedHeight : WMFToolbarHeight;
+    self.toolbarHeightConstraint.constant = [self toolbarHeightForCurrentSafeAreaInsets];
     // self.secondToolbarHeightConstraint.constant = self.toolbarHeightConstraint.constant; // random button doesn't fit in 32 at the moment
     [self updateScrollViewInsets];
 }
@@ -211,7 +215,7 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     self.toolbar = [[UIToolbar alloc] init];
     self.toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.toolbar];
-    self.toolbarHeightConstraint = [self.toolbar.heightAnchor constraintEqualToConstant:WMFToolbarHeight];
+    self.toolbarHeightConstraint = [self.toolbar.heightAnchor constraintEqualToConstant:[self toolbarHeightForCurrentSafeAreaInsets]];
     [self.toolbar addConstraint:self.toolbarHeightConstraint];
     self.toolbarVisibleConstraint = [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.toolbar.bottomAnchor];
     self.toolbarHiddenConstraint = [self.view.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
