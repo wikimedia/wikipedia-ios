@@ -452,7 +452,28 @@ public typealias ReadingListsController = WMFReadingListsController
             NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey: NSNumber(value: wasSyncDisabledOnDevice)])
         }
     }
-    
+
+    public func eraseAllSavedArticlesAndReadingLists() {
+        assert(Thread.isMainThread)
+
+        let oldSyncState = syncState
+        var newSyncState = oldSyncState
+
+        newSyncState.insert(.needsLocalClear)
+
+        if isSyncEnabled {
+            newSyncState.insert(.needsUpdate)
+        }
+
+        newSyncState.remove(.needsSync)
+
+        guard newSyncState != oldSyncState else {
+            return
+        }
+        syncState = newSyncState
+        sync()
+    }
+
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         let oldSyncState = self.syncState
