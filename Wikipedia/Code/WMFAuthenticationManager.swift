@@ -184,7 +184,7 @@ public class WMFAuthenticationManager: NSObject {
                         return
                     }
                     self.loggedInUsername = nil
-                    self.logout()
+                    self.logout(initiatedBy: .app)
                     completion(.failure(error))
                 default:
                     break
@@ -214,26 +214,35 @@ public class WMFAuthenticationManager: NSObject {
     /**
      *  Logs out any authenticated user and clears out any associated cookies
      */
-    @objc public func logout(completion: @escaping () -> Void = {}){
+    @objc(logoutInitiatedBy:completion:)
+    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
+        if logoutInitiator == .app || logoutInitiator == .server {
+            isUserUnawareOfLogout = true
+        }
+        let postDidLogOutNotification = {
+            NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
+        }
         logoutManager = AFHTTPSessionManager(baseURL: loginSiteURL)
-        
         _ = logoutManager?.wmf_apiPOST(with: ["action": "logout", "format": "json"], success: { (_, response) in
             DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
             // It's best to call "action=logout" API *before* clearing local login settings...
             self.resetLocalUserLoginSettings()
             completion()
+            postDidLogOutNotification()
         }, failure: { (_, error) in
             // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
             DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
             self.resetLocalUserLoginSettings()
             completion()
+            postDidLogOutNotification()
         })
     }
 }
 
-// MARK: @objc Wikipedia login
+// MARK: @objc login
+
 extension WMFAuthenticationManager {
-    @objc public func attemptLogin(completion: @escaping () -> Void = {}, failure: @escaping (_ error: Error) -> Void = {_ in }) {
+    @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
         let completion: AuthenticationResultHandler = { result in
             completion()
         }
@@ -252,5 +261,30 @@ extension WMFAuthenticationManager {
             }
         }
         loginWithSavedCredentials(completion: completion)
+    }
+}
+
+// MARK: @objc logout
+
+extension WMFAuthenticationManager {
+    @objc public enum LogoutInitiator: Int {
+        case user
+        case app
+        case server
+    }
+
+    @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
+
+    @objc public func userDidAcknowledgeUnintentionalLogout() {
+        isUserUnawareOfLogout = false
+    }
+
+    @objc public var isUserUnawareOfLogout: Bool {
+        get {
+            return UserDefaults.wmf.isUserUnawareOfLogout
+        }
+        set {
+            UserDefaults.wmf.isUserUnawareOfLogout = newValue
+        }
     }
 }

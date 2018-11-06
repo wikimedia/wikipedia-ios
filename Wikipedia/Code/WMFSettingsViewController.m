@@ -363,10 +363,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)logout {
-    [self wmf_showKeepSavedArticlesOnDevicePanelIfNecessaryWithTriggeredBy:KeepSavedArticlesTriggerLogout
+    [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
                                                                      theme:self.theme
                                                                 completion:^{
-                                                                    [[WMFAuthenticationManager sharedInstance] logoutWithCompletion:^{
+                                                                    [[WMFAuthenticationManager sharedInstance] logoutInitiatedBy:LogoutInitiatorUser completion:^{
                                                                         [[LoginFunnel shared] logLogoutInSettings];
                                                                     }];
                                                                 }];

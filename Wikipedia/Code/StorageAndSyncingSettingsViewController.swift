@@ -312,7 +312,7 @@ extension StorageAndSyncingSettingsViewController: WMFSettingsTableViewCellDeleg
                 }
             }
             if !isSwitchOn {
-                self.wmf_showKeepSavedArticlesOnDevicePanelIfNecessary(triggeredBy: .syncDisabled, theme: self.theme) {
+                self.wmf_showKeepSavedArticlesOnDevicePanelIfNeeded(triggeredBy: .syncDisabled, theme: self.theme) {
                     setSyncEnabled()
                 }
             } else {
