@@ -52,14 +52,21 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
         hintVC.apply(theme: theme)
         
         containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        presenter?.view.addSubview(containerView)
+        
+        var additionalBottomSpacing: CGFloat = 0
+        
+        if let wmfVCPresenter = presenter as? WMFViewController { // not ideal, violates encapsulation
+            wmfVCPresenter.view.insertSubview(containerView, belowSubview: wmfVCPresenter.toolbar)
+            additionalBottomSpacing = wmfVCPresenter.toolbar.frame.size.height
+        } else {
+            presenter?.view.addSubview(containerView)
+        }
         
         if let presenter = presenter {
             let safeBottomAnchor = presenter.view.safeAreaLayoutGuide.bottomAnchor
 
             // `containerBottomConstraint` is activated when the hint is visible
-            containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor)
+            containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: safeBottomAnchor, constant: 0 - additionalBottomSpacing)
             containerBottomConstraint?.isActive = false
 
             // `containerTopConstraint` is activated when the hint is hidden
@@ -96,9 +103,8 @@ public class ReadingListHintController: NSObject, ReadingListHintViewControllerD
     private var task: DispatchWorkItem?
     
     private func updateRandom(_ hintHidden: Bool) {
-        if let navigationController = (presenter as? WMFRandomArticleViewController)?.navigationController as? WMFArticleNavigationController {
-            navigationController.readingListHintHeight = containerView.frame.size.height
-            navigationController.readingListHintHidden = hintHidden
+        if let vc = presenter as? WMFRandomArticleViewController {
+            vc.setAdditionalSecondToolbarSpacing(hintHidden ? 0 : containerView.frame.height, animated: true)
         }
     }
     

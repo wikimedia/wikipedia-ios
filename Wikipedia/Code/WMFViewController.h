@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic, readonly) UIToolbar *toolbar;
+@property (nonatomic, readonly) UIToolbar *secondToolbar;
+@property (nonatomic, readonly, getter=isSecondToolbarHidden) BOOL secondToolbarHidden;
+
 @property (nonatomic, readonly) BOOL showsNavigationBar;
 
 @property (nonatomic, readwrite, getter=isSubtractingTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets) BOOL subtractTopAndBottomSafeAreaInsetsFromScrollIndicatorInsets; // WKWebView workaround
@@ -27,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollViewInsetsDidChange;
 
 - (void)scrollToTop;
+
+- (void)setToolbarHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)setSecondToolbarHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)setAdditionalSecondToolbarSpacing:(CGFloat)spacing animated:(BOOL)animated;
 
 @end
 

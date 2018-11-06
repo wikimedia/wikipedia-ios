@@ -3,9 +3,7 @@
 #import <WMF/MWKSearchResult.h>
 #import "Wikipedia-Swift.h"
 #import "WMFRandomDiceButton.h"
-#import "WMFArticleNavigationController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFArticleNavigationController.h"
 #if WMF_TWEAKS_ENABLED
 #import <WMF/MWKDataStore.h>
 #import <WMF/MWKSavedPageList.h>
@@ -38,6 +36,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
     [self setupSecondToolbar];
     [self setupEmptyFadeView];
     [self applyTheme:self.theme];
+    [self setRandomButtonHidden:NO animated:NO];
 }
 
 - (void)setupSecondToolbar {
@@ -50,7 +49,7 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 
     UIBarButtonItem *rightFlexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
 
-    self.secondToolbarItems = @[leftFlexibleSpace, self.diceButtonItem, rightFlexibleSpace];
+    self.secondToolbar.items = @[leftFlexibleSpace, self.diceButtonItem, rightFlexibleSpace];
 }
 
 - (void)setupEmptyFadeView {
@@ -129,12 +128,8 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 }
 
 - (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
-    WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
-    if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
-        return;
-    }
-    if (articleNavgiationController.secondToolbarHidden != randomButtonHidden) {
-        [articleNavgiationController setSecondToolbarHidden:randomButtonHidden animated:animated];
+    if (self.isSecondToolbarHidden != randomButtonHidden) {
+        [self setSecondToolbarHidden:randomButtonHidden animated:animated];
     }
 }
 
@@ -147,21 +142,16 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
         return;
     }
 
-    WMFArticleNavigationController *articleNavgiationController = (WMFArticleNavigationController *)self.navigationController;
-    if (![articleNavgiationController isKindOfClass:[WMFArticleNavigationController class]]) {
-        return;
-    }
-
     BOOL shouldHideRandomButton = YES;
     CGFloat newContentOffsetY = scrollView.contentOffset.y;
 
-    if (articleNavgiationController.secondToolbarHidden) {
+    if (self.isSecondToolbarHidden) {
         BOOL shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.tracking && scrollView.decelerating && newContentOffsetY < self.previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height));
         shouldHideRandomButton = !shouldShowRandomButton;
     } else if (scrollView.tracking || scrollView.decelerating) {
         shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > self.previousContentOffsetY;
     } else {
-        shouldHideRandomButton = articleNavgiationController.secondToolbarHidden;
+        shouldHideRandomButton = self.isSecondToolbarHidden;
     }
 
     [self setRandomButtonHidden:shouldHideRandomButton animated:YES];

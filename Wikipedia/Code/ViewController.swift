@@ -154,7 +154,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
- 
+        
         guard navigationMode == .bar else {
             if let closeButton = closeButton, view.accessibilityElements?.first as? UIButton !== closeButton {
                 var updatedElements: [Any] = [closeButton]
@@ -176,7 +176,7 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
             navigationBar = parentVC.navigationBar
         }  else if let navigationController = navigationController {
             ownsNavigationBar = true
-            showsNavigationBar = parent == navigationController && navigationController.isNavigationBarHidden
+            showsNavigationBar = (parent is UITabBarController || parent == navigationController) && navigationController.isNavigationBarHidden
             navigationBar.updateNavigationItems()
         } else {
             showsNavigationBar = false
