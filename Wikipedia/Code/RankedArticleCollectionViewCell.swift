@@ -33,6 +33,6 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
 public class RankedArticleExploreCollectionViewCell: RankedArticleCollectionViewCell {
     override open func apply(theme: Theme) {
         super.apply(theme: theme)
-        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
     }
 }
