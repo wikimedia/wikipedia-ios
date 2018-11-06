@@ -184,7 +184,8 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         guard
             let article = article,
             let dataStore = article.dataStore,
-            let articleURL = article.url
+            let wikidataID = article.wikidataId,
+            let language = article.url.wmf_language
         else {
             enableProgressiveButton(true)
             assertionFailure("Expected article, datastore or article url not found")
@@ -201,7 +202,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
                 return
         }
         
-        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, for: articleURL) {error in
+        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: article.descriptionSource, forWikidataID: wikidataID, language: language) { error in
             let presentingVC = self.presentingViewController
             DispatchQueue.main.async {
                 self.enableProgressiveButton(true)
