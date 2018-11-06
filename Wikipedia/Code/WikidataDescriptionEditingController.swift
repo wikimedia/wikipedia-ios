@@ -48,12 +48,13 @@ enum WikidataPublishingError: LocalizedError {
     }
 
     public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
-        guard let title = articleURL.wmf_title,
-        let language = articleURL.wmf_language,
+        guard let language = articleURL.wmf_language,
+        let title = (articleURL.wmf_title as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: language),
         let wiki = articleURL.wmf_wiki else {
             completion(WikidataPublishingError.invalidArticleURL)
             return
         }
+        
         publish(newWikidataDescription: newWikidataDescription, from: source, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
     }
 
