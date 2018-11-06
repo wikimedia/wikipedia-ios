@@ -29,13 +29,22 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
         bottomGradientView.startPoint = CGPoint(x: 0.5, y: 0)
         bottomGradientView.endPoint = CGPoint(x: 0.5, y: 0.8)
     }
-
-    public override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        let opaque = theme.colors.cardBackground
+    
+    private func updateGradients() {
+        let opaque = isSelectedOrHighlighted ? theme.colors.selectedCardBackground : theme.colors.cardBackground
         let clear = opaque.withAlphaComponent(0)
         topGradientView.setStart(opaque, end: clear)
         bottomGradientView.setStart(clear, end: opaque)
-        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
+    }
+    
+    public override func updateSelectedOrHighlighted() {
+        super.updateSelectedOrHighlighted()
+        updateGradients()
+    }
+    
+    public override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        updateGradients()
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
     }
 }

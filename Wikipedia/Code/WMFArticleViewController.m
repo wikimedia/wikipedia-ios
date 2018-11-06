@@ -1727,7 +1727,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSURL *)articleTalkPageURL {
-    return [self.articleURL wmf_URLWithTitle:[@"Talk:" stringByAppendingString:self.articleURL.wmf_title]];
+    NSString *title = self.articleURL.wmf_title;
+    NSArray *components = [title componentsSeparatedByString:@":"];
+    if ([components count] == 0) {
+        return self.articleURL;
+    }
+    NSString *prefix = nil;
+    if ([components count] > 1) {
+        prefix = [@[components[0], @"talk:"] componentsJoinedByString:@" "];
+    } else {
+        prefix = @"Talk:";
+    }
+    return [self.articleURL wmf_URLWithTitle:[prefix stringByAppendingString:[components lastObject]]];
 }
 
 - (void)showLanguages {

@@ -48,7 +48,7 @@ extension URL {
     }
 
     public var wmf_wiki: String? {
-        return wmf_language?.appending("wiki")
+        return wmf_language?.replacingOccurrences(of: "-", with: "_").appending("wiki")
     }
     
     fileprivate func wmf_URLForSharing(with wprov: String) -> URL {
