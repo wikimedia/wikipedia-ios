@@ -38,7 +38,7 @@
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
-#import "WMFArticleNavigationController.h"
+#import "WMFThemeableNavigationController.h"
 #import "PreviewAndSaveViewController.h"
 #import "WMFFirstRandomViewController.h"
 
