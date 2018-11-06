@@ -47,26 +47,17 @@ enum WikidataPublishingError: LocalizedError {
         self.session = session
     }
 
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, for articleURL: URL, completion: @escaping (Error?) -> Void) {
-        guard let title = articleURL.wmf_title,
-        let language = articleURL.wmf_language,
-        let wiki = articleURL.wmf_wiki else {
-            completion(WikidataPublishingError.invalidArticleURL)
-            return
-        }
-        publish(newWikidataDescription: newWikidataDescription, from: source, forPageWithTitle: title, language: language, wiki: wiki, completion: completion)
-    }
+
 
     /// Publish new wikidata description.
     ///
     /// - Parameters:
     ///   - newWikidataDescription: new wikidata description to be published, e.g., "Capital of England and the United Kingdom".
     ///   - source: description source; none, central or local.
-    ///   - title: title of the page to be updated with new wikidata description, e.g., "London".
+    ///   - wikidataID: id for the Wikidata entity including the prefix
     ///   - language: language code of the page's wiki, e.g., "en".
-    ///   - wiki: wiki of the page to be updated, e.g., "enwiki"
     ///   - completion: completion block called when operation is completed.
-    private func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forPageWithTitle title: String, language: String, wiki: String, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, language: String, completion: @escaping (Error?) -> Void) {
         guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return
@@ -93,8 +84,7 @@ enum WikidataPublishingError: LocalizedError {
                                "formatversion": "2"]
         let bodyParameters = ["language": language,
                               "uselang": language,
-                              "site": wiki,
-                              "title": title,
+                              "id": wikidataID,
                               "value": newWikidataDescription]
         let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
     }
