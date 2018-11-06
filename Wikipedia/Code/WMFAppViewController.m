@@ -884,9 +884,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             self.resumeComplete = YES;
         }
         failure:^(NSError *error) {
-            if ([error.domain isEqualToString:NSURLErrorDomain]) {
-                return;
-            }
             [self showLoggedOutPanelIfNeeded];
         }];
 
