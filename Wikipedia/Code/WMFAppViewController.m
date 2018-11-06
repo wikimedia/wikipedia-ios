@@ -882,8 +882,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self.savedArticlesFetcher start];
             [self.reachabilityNotifier start];
             self.resumeComplete = YES;
-        }
-        failure:^(NSError *error) {
             [self showLoggedOutPanelIfNeeded];
         }];
 
