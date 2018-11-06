@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                      }];
     } else if (self.navigationController != nil) {
         [self.navigationController pushViewController:viewController animated:animated];
+    } else if ([self isKindOfClass:[UINavigationController class]]) {
+        [(UINavigationController *)self pushViewController:viewController animated:animated];
     }
 }
 
@@ -57,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                      }];
     } else if (self.parentViewController != nil) {
         [self.parentViewController wmf_pushViewController:viewController animated:animated];
+    } else if ([self isKindOfClass:[UINavigationController class]]) {
+        [(UINavigationController *)self pushViewController:viewController animated:animated];
     }
 }
 
