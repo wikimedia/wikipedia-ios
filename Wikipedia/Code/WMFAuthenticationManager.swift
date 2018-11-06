@@ -216,7 +216,6 @@ public class WMFAuthenticationManager: NSObject {
      */
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
-        UserDefaults.wmf.setLastLogoutInitiator(logoutInitiator)
         if logoutInitiator == .app || logoutInitiator == .server {
             isUserUnawareOfLogout = true
         }
