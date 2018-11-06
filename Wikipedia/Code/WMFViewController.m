@@ -216,25 +216,31 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     self.toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.toolbar];
     self.toolbarHeightConstraint = [self.toolbar.heightAnchor constraintEqualToConstant:[self toolbarHeightForCurrentSafeAreaInsets]];
-    [self.toolbar addConstraint:self.toolbarHeightConstraint];
     self.toolbarVisibleConstraint = [self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.toolbar.bottomAnchor];
     self.toolbarHiddenConstraint = [self.view.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
-    [self.toolbarVisibleConstraint setActive:NO];
     NSLayoutConstraint *leadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.toolbar.leadingAnchor];
     NSLayoutConstraint *trailingConstraint = [self.toolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
-    [self.view addConstraints:@[self.toolbarVisibleConstraint, self.toolbarHiddenConstraint, leadingConstraint, trailingConstraint]];
 
     self.secondToolbar = [[UIToolbar alloc] init];
     self.secondToolbar.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view insertSubview:self.secondToolbar belowSubview:self.toolbar];
     self.secondToolbarHeightConstraint = [self.secondToolbar.heightAnchor constraintEqualToConstant:WMFToolbarHeight];
-    [self.secondToolbar addConstraint:self.secondToolbarHeightConstraint];
     self.secondToolbarVisibleConstraint = [self.secondToolbar.bottomAnchor constraintEqualToAnchor:self.toolbar.topAnchor constant:0 - WMFSecondToolbarSpacing];
     self.secondToolbarHiddenConstraint = [self.secondToolbar.topAnchor constraintEqualToAnchor:self.toolbar.topAnchor];
-    [self.secondToolbarVisibleConstraint setActive:NO];
     NSLayoutConstraint *secondLeadingConstraint = [self.view.leadingAnchor constraintEqualToAnchor:self.secondToolbar.leadingAnchor];
     NSLayoutConstraint *secondTrailingConstraint = [self.secondToolbar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor];
-    [self.view addConstraints:@[self.secondToolbarHiddenConstraint, self.secondToolbarVisibleConstraint, secondLeadingConstraint, secondTrailingConstraint]];
+
+#if DEBUG
+    NSString *className = NSStringFromClass([self class]);
+    self.toolbarHeightConstraint.identifier = [@[className, @"toolbarHeight"] componentsJoinedByString:@"-"];
+    self.toolbarVisibleConstraint.identifier = [@[className, @"toolbarVisible"] componentsJoinedByString:@"-"];
+    self.toolbarHiddenConstraint.identifier = [@[className, @"toolbarHidden"] componentsJoinedByString:@"-"];
+    self.secondToolbarHeightConstraint.identifier = [@[className, @"secondToolbarHeight"] componentsJoinedByString:@"-"];
+    self.secondToolbarVisibleConstraint.identifier = [@[className, @"secondToolbarVisible"] componentsJoinedByString:@"-"];
+    self.secondToolbarHiddenConstraint.identifier = [@[className, @"secondToolbarHidden"] componentsJoinedByString:@"-"];
+#endif
+
+    [NSLayoutConstraint activateConstraints:@[self.toolbarHeightConstraint, self.secondToolbarHeightConstraint, self.toolbarHiddenConstraint, leadingConstraint, trailingConstraint, self.secondToolbarHiddenConstraint, secondLeadingConstraint, secondTrailingConstraint]];
 }
 
 - (BOOL)isToolbarHidden {
@@ -243,8 +249,13 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 
 - (void)setToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
     dispatch_block_t animations = ^{
-        [self.toolbarVisibleConstraint setActive:!hidden];
-        [self.toolbarHiddenConstraint setActive:hidden];
+        if (hidden) {
+            [NSLayoutConstraint activateConstraints:@[self.toolbarHiddenConstraint]];
+            [NSLayoutConstraint deactivateConstraints:@[self.toolbarVisibleConstraint]];
+        } else {
+            [NSLayoutConstraint activateConstraints:@[self.toolbarVisibleConstraint]];
+            [NSLayoutConstraint deactivateConstraints:@[self.toolbarHiddenConstraint]];
+        }
         [self.view layoutIfNeeded];
     };
     if (animated) {
@@ -260,8 +271,13 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 
 - (void)setSecondToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
     dispatch_block_t animations = ^{
-        [self.secondToolbarVisibleConstraint setActive:!hidden];
-        [self.secondToolbarHiddenConstraint setActive:hidden];
+        if (hidden) {
+            [NSLayoutConstraint activateConstraints:@[self.secondToolbarHiddenConstraint]];
+            [NSLayoutConstraint deactivateConstraints:@[self.secondToolbarVisibleConstraint]];
+        } else {
+            [NSLayoutConstraint activateConstraints:@[self.secondToolbarVisibleConstraint]];
+            [NSLayoutConstraint deactivateConstraints:@[self.secondToolbarHiddenConstraint]];
+        }
         [self.view layoutIfNeeded];
     };
     if (animated) {
