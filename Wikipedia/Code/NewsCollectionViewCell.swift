@@ -39,6 +39,6 @@ public class NewsCollectionViewCell: SideScrollingCollectionViewCell {
 public class NewsExploreCollectionViewCell: NewsCollectionViewCell {
     public override func apply(theme: Theme) {
         super.apply(theme: theme)
-        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.cardBackground)
+        setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
     }
 }
