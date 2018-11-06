@@ -459,13 +459,20 @@ public typealias ReadingListsController = WMFReadingListsController
         let oldSyncState = syncState
         var newSyncState = oldSyncState
 
-        newSyncState.insert(.needsLocalClear)
-
         if isSyncEnabled {
-            newSyncState.insert(.needsUpdate)
+            // Since there is no batch delete on the server,
+            // we remove local and remote reading lists
+            // by disabling and then enabling the service.
+            // Otherwise, we'd have to delete everything via single requests.
+            newSyncState.insert(.needsRemoteDisable)
+            newSyncState.insert(.needsRemoteEnable)
+            newSyncState.insert(.needsSync)
+        } else {
+            newSyncState.insert(.needsLocalClear)
+            newSyncState.remove(.needsSync)
         }
 
-        newSyncState.remove(.needsSync)
+        newSyncState.remove(.needsUpdate)
 
         guard newSyncState != oldSyncState else {
             return
