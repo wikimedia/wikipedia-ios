@@ -250,11 +250,11 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 - (void)setToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
     dispatch_block_t animations = ^{
         if (hidden) {
-            [NSLayoutConstraint activateConstraints:@[self.toolbarHiddenConstraint]];
             [NSLayoutConstraint deactivateConstraints:@[self.toolbarVisibleConstraint]];
+            [NSLayoutConstraint activateConstraints:@[self.toolbarHiddenConstraint]];
         } else {
-            [NSLayoutConstraint activateConstraints:@[self.toolbarVisibleConstraint]];
             [NSLayoutConstraint deactivateConstraints:@[self.toolbarHiddenConstraint]];
+            [NSLayoutConstraint activateConstraints:@[self.toolbarVisibleConstraint]];
         }
         [self.view layoutIfNeeded];
     };
@@ -272,11 +272,11 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
 - (void)setSecondToolbarHidden:(BOOL)hidden animated:(BOOL)animated {
     dispatch_block_t animations = ^{
         if (hidden) {
-            [NSLayoutConstraint activateConstraints:@[self.secondToolbarHiddenConstraint]];
             [NSLayoutConstraint deactivateConstraints:@[self.secondToolbarVisibleConstraint]];
+            [NSLayoutConstraint activateConstraints:@[self.secondToolbarHiddenConstraint]];
         } else {
-            [NSLayoutConstraint activateConstraints:@[self.secondToolbarVisibleConstraint]];
             [NSLayoutConstraint deactivateConstraints:@[self.secondToolbarHiddenConstraint]];
+            [NSLayoutConstraint activateConstraints:@[self.secondToolbarVisibleConstraint]];
         }
         [self.view layoutIfNeeded];
     };
