@@ -56,7 +56,7 @@ public class Configuration: NSObject {
         self.defaultSiteDomain = defaultSiteDomain
         self.mediaWikiCookieDomain = Domain.mediawiki.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
-        self.wikidataCookieDomain = Domain.wikipedia.withDotPrefix
+        self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain, Domain.mediawiki] + otherDomains
