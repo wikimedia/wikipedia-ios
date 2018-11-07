@@ -248,6 +248,7 @@ class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextV
         warningLabel.textColor = theme.colors.descriptionWarning
         warningCharacterCountLabel.textColor = theme.colors.descriptionWarning
         publishDescriptionButton.apply(theme: theme)
+        descriptionTextView.keyboardAppearance = theme.keyboardAppearance
     }
 }
 
