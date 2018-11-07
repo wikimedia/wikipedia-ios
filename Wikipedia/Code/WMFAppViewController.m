@@ -309,7 +309,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
 }
 
-- (void)performTasksThatShouldOccurAferBecomeActiveAndResume {
+- (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
     [[SessionsFunnel shared] logSessionStart];
     [UserHistoryFunnel.shared logSnapshot];
     [self checkRemoteAppConfigIfNecessary];
@@ -331,7 +331,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self migrateIfNecessary];
 
     if (self.isResumeComplete) {
-        [self performTasksThatShouldOccurAferBecomeActiveAndResume];
+        [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
     }
 
 #if WMF_TWEAKS_ENABLED
@@ -812,7 +812,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                  }];
             }
             self.resumeComplete = YES;
-            [self performTasksThatShouldOccurAferBecomeActiveAndResume];
+            [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
             [self showLoggedOutPanelIfNeeded];
         }];
 
