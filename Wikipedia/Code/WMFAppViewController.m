@@ -307,27 +307,31 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
+    // Don't access anything that can't be accessed in the background without starting a background task. For example, don't use anything in the shared app container like all of the Core Data persistent stores
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
+}
 
+// When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
+- (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
     [[SessionsFunnel shared] logSessionStart];
     [UserHistoryFunnel.shared logSnapshot];
-
-    // Retry migration if it was terminated by a background task ending
-    [self migrateIfNecessary];
-
-    if (self.isResumeComplete) {
-        [self checkRemoteAppConfigIfNecessary];
-        [self.periodicWorkerController start];
-        [self.savedArticlesFetcher start];
-    }
+    [self checkRemoteAppConfigIfNecessary];
+    [self.periodicWorkerController start];
+    [self.savedArticlesFetcher start];
+    self.notificationsController.applicationActive = YES;
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
-    self.notificationsController.applicationActive = YES;
+    // Retry migration if it was terminated by a background task ending
+    [self migrateIfNecessary];
 
     if (![self uiIsLoaded]) {
         return;
+    }
+
+    if (self.isResumeComplete) {
+        [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
     }
 
 #if WMF_TWEAKS_ENABLED
@@ -338,8 +342,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
-    self.notificationsController.applicationActive = NO;
-
     if (![self uiIsLoaded]) {
         return;
     }
@@ -481,7 +483,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.isMigrationComplete) {
+        if (!self.isMigrationComplete || !self.backgroundFetcherController) {
             completion(UIBackgroundFetchResultNoData);
             return;
         }
@@ -665,21 +667,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                         }
                         [self.dataStore performLibraryUpdates:^{
                             dispatch_async(dispatch_get_main_queue(), ^{
+                                self.migrationComplete = YES;
+                                self.migrationActive = NO;
                                 [self endMigrationBackgroundTask];
                                 [self checkRemoteAppConfigIfNecessary];
-                                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                                    [self setupControllers];
-                                    [self loadMainUI];
-                                    self.migrationComplete = YES;
-                                    self.migrationActive = NO;
-                                    [[SessionsFunnel shared] logSessionStart];
-                                    [[UserHistoryFunnel shared] logStartingSnapshot];
-                                    if (!self.isWaitingToResumeApp) {
-                                        [self resumeApp:^{
-                                            [self hideSplashViewAnimated:!didShowOnboarding];
-                                        }];
-                                    }
-                                }];
+                                [self setupControllers];
+                                if (!self.isWaitingToResumeApp) {
+                                    [self resumeApp:NULL];
+                                }
                             });
                         }];
                     }];
@@ -751,56 +746,46 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)hideSplashScreenAndResumeApp {
     self.waitingToResumeApp = NO;
     if (self.isMigrationComplete) {
-        [self resumeApp:^{
-            [self hideSplashViewAnimated:true];
-        }];
+        [self resumeApp:NULL];
     }
 }
 
+// resumeApp: should be called once and only once for every launch from a fully terminated state.
+// It should only be called when the app is active and being shown to the user
 - (void)resumeApp:(dispatch_block_t)completion {
-    if (self.isPresentingOnboarding) {
-        if (completion) {
-            completion();
+    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+        [self loadMainUI];
+        [self hideSplashViewAnimated:!didShowOnboarding];
+        dispatch_block_t done = ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self finishResumingApp];
+                if (completion) {
+                    completion();
+                }
+            });
+        };
+
+        if (self.notificationUserInfoToShow) {
+            [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+            self.notificationUserInfoToShow = nil;
+            done();
+        } else if (self.unprocessedUserActivity) {
+            [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
+        } else if (self.unprocessedShortcutItem) {
+            [self processShortcutItem:self.unprocessedShortcutItem
+                           completion:^(BOOL didProcess) {
+                               done();
+                           }];
+        } else if ([self shouldShowLastReadArticleOnLaunch]) {
+            [self showLastReadArticleAnimated:NO];
+            done();
+        } else if ([self shouldShowExploreScreenOnLaunch]) {
+            [self showExplore];
+            done();
+        } else {
+            done();
         }
-        return;
-    }
-
-    if (![self uiIsLoaded]) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    dispatch_block_t done = ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self finishResumingApp];
-            if (completion) {
-                completion();
-            }
-        });
-    };
-
-    if (self.notificationUserInfoToShow) {
-        [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
-        self.notificationUserInfoToShow = nil;
-        done();
-    } else if (self.unprocessedUserActivity) {
-        [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
-    } else if (self.unprocessedShortcutItem) {
-        [self processShortcutItem:self.unprocessedShortcutItem
-                       completion:^(BOOL didProcess) {
-                           done();
-                       }];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:NO];
-        done();
-    } else if ([self shouldShowExploreScreenOnLaunch]) {
-        [self showExplore];
-        done();
-    } else {
-        done();
-    }
+    }];
 }
 
 - (void)finishResumingApp {
@@ -826,10 +811,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                      });
                                                                                  }];
             }
-            [self.periodicWorkerController start];
-            [self.savedArticlesFetcher start];
-            [self.reachabilityNotifier start];
             self.resumeComplete = YES;
+            [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
             [self showLoggedOutPanelIfNeeded];
         }];
 
@@ -906,6 +889,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
+    self.notificationsController.applicationActive = NO;
     [self.reachabilityNotifier stop];
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
@@ -2070,9 +2054,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self wmf_showLoggedOutPanelWithTheme:self.theme dismissHandler:^{
-            [authenticationManager userDidAcknowledgeUnintentionalLogout];
-        }];
+        [self wmf_showLoggedOutPanelWithTheme:self.theme
+                               dismissHandler:^{
+                                   [authenticationManager userDidAcknowledgeUnintentionalLogout];
+                               }];
     });
 }
 
