@@ -307,27 +307,30 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
+}
+- (void)performTasksCommonToDidBecomeActiveAndResume {
+    [[SessionsFunnel shared] logSessionStart];
+    [UserHistoryFunnel.shared logSnapshot];
+    [self checkRemoteAppConfigIfNecessary];
+    [self.periodicWorkerController start];
+    [self.savedArticlesFetcher start];
+}
+
+- (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    if (![self uiIsLoaded]) {
+        return;
+    }
+
     self.unprocessedUserActivity = nil;
     self.unprocessedShortcutItem = nil;
 
-    [[SessionsFunnel shared] logSessionStart];
-    [UserHistoryFunnel.shared logSnapshot];
+    self.notificationsController.applicationActive = YES;
 
     // Retry migration if it was terminated by a background task ending
     [self migrateIfNecessary];
 
     if (self.isResumeComplete) {
-        [self checkRemoteAppConfigIfNecessary];
-        [self.periodicWorkerController start];
-        [self.savedArticlesFetcher start];
-    }
-}
-
-- (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
-    self.notificationsController.applicationActive = YES;
-
-    if (![self uiIsLoaded]) {
-        return;
+        [self performTasksCommonToDidBecomeActiveAndResume];
     }
 
 #if WMF_TWEAKS_ENABLED
@@ -481,7 +484,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.isMigrationComplete) {
+        if (!self.isMigrationComplete || !self.backgroundFetcherController) {
             completion(UIBackgroundFetchResultNoData);
             return;
         }
@@ -665,21 +668,14 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                         }
                         [self.dataStore performLibraryUpdates:^{
                             dispatch_async(dispatch_get_main_queue(), ^{
+                                self.migrationComplete = YES;
+                                self.migrationActive = NO;
                                 [self endMigrationBackgroundTask];
                                 [self checkRemoteAppConfigIfNecessary];
-                                [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                                    [self setupControllers];
-                                    [self loadMainUI];
-                                    self.migrationComplete = YES;
-                                    self.migrationActive = NO;
-                                    [[SessionsFunnel shared] logSessionStart];
-                                    [[UserHistoryFunnel shared] logStartingSnapshot];
-                                    if (!self.isWaitingToResumeApp) {
-                                        [self resumeApp:^{
-                                            [self hideSplashViewAnimated:!didShowOnboarding];
-                                        }];
-                                    }
-                                }];
+                                [self setupControllers];
+                                if (!self.isWaitingToResumeApp) {
+                                    [self resumeApp:NULL];
+                                }
                             });
                         }];
                     }];
@@ -751,56 +747,44 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)hideSplashScreenAndResumeApp {
     self.waitingToResumeApp = NO;
     if (self.isMigrationComplete) {
-        [self resumeApp:^{
-            [self hideSplashViewAnimated:true];
-        }];
+        [self resumeApp:NULL];
     }
 }
 
 - (void)resumeApp:(dispatch_block_t)completion {
-    if (self.isPresentingOnboarding) {
-        if (completion) {
-            completion();
+    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+        [self loadMainUI];
+        [self hideSplashViewAnimated:!didShowOnboarding];
+        dispatch_block_t done = ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self finishResumingApp];
+                if (completion) {
+                    completion();
+                }
+            });
+        };
+
+        if (self.notificationUserInfoToShow) {
+            [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+            self.notificationUserInfoToShow = nil;
+            done();
+        } else if (self.unprocessedUserActivity) {
+            [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
+        } else if (self.unprocessedShortcutItem) {
+            [self processShortcutItem:self.unprocessedShortcutItem
+                           completion:^(BOOL didProcess) {
+                               done();
+                           }];
+        } else if ([self shouldShowLastReadArticleOnLaunch]) {
+            [self showLastReadArticleAnimated:NO];
+            done();
+        } else if ([self shouldShowExploreScreenOnLaunch]) {
+            [self showExplore];
+            done();
+        } else {
+            done();
         }
-        return;
-    }
-
-    if (![self uiIsLoaded]) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    dispatch_block_t done = ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self finishResumingApp];
-            if (completion) {
-                completion();
-            }
-        });
-    };
-
-    if (self.notificationUserInfoToShow) {
-        [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
-        self.notificationUserInfoToShow = nil;
-        done();
-    } else if (self.unprocessedUserActivity) {
-        [self processUserActivity:self.unprocessedUserActivity animated:NO completion:done];
-    } else if (self.unprocessedShortcutItem) {
-        [self processShortcutItem:self.unprocessedShortcutItem
-                       completion:^(BOOL didProcess) {
-                           done();
-                       }];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        [self showLastReadArticleAnimated:NO];
-        done();
-    } else if ([self shouldShowExploreScreenOnLaunch]) {
-        [self showExplore];
-        done();
-    } else {
-        done();
-    }
+    }];
 }
 
 - (void)finishResumingApp {
@@ -826,10 +810,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                      });
                                                                                  }];
             }
-            [self.periodicWorkerController start];
-            [self.savedArticlesFetcher start];
-            [self.reachabilityNotifier start];
             self.resumeComplete = YES;
+            [self performTasksCommonToDidBecomeActiveAndResume];
             [self showLoggedOutPanelIfNeeded];
         }];
 
@@ -2069,9 +2051,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self wmf_showLoggedOutPanelWithTheme:self.theme dismissHandler:^{
-            [authenticationManager userDidAcknowledgeUnintentionalLogout];
-        }];
+        [self wmf_showLoggedOutPanelWithTheme:self.theme
+                               dismissHandler:^{
+                                   [authenticationManager userDidAcknowledgeUnintentionalLogout];
+                               }];
     });
 }
 
