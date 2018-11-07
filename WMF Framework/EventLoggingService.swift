@@ -18,7 +18,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     private var sendOnWWANThreshold: TimeInterval = 24 * 60 * 60
-    private var postBatchSize = 10
+    private var postBatchSize = 32
     private var postTimeout: TimeInterval = 60*2 // 2 minutes
     private var postInterval: TimeInterval = 60*10 // 10 minutes
     
