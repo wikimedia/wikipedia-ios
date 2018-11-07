@@ -308,6 +308,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
     // Don't access anything that can't be accessed in the background without starting a background task. For example, don't use anything in the shared app container like all of the Core Data persistent stores
+    self.unprocessedUserActivity = nil;
+    self.unprocessedShortcutItem = nil;
 }
 
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
@@ -317,20 +319,16 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
+    self.notificationsController.applicationActive = YES;
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
+    // Retry migration if it was terminated by a background task ending
+    [self migrateIfNecessary];
+
     if (![self uiIsLoaded]) {
         return;
     }
-
-    self.unprocessedUserActivity = nil;
-    self.unprocessedShortcutItem = nil;
-
-    self.notificationsController.applicationActive = YES;
-
-    // Retry migration if it was terminated by a background task ending
-    [self migrateIfNecessary];
 
     if (self.isResumeComplete) {
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
@@ -344,8 +342,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
-    self.notificationsController.applicationActive = NO;
-
     if (![self uiIsLoaded]) {
         return;
     }
@@ -893,6 +889,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[NSUserDefaults wmf] wmf_setDidShowSyncDisabledPanel:NO];
 
+    self.notificationsController.applicationActive = NO;
     [self.reachabilityNotifier stop];
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
