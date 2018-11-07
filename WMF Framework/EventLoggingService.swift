@@ -268,12 +268,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     self.managedObjectContext.wmf_setValue(NSNumber(value: CFAbsoluteTimeGetCurrent()), forKey: Key.lastSuccessfulPost)
                     self.save(moc)
                     DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
-                    self.tryPostEvents(completion)
+                    self.tryPostEvents()
                 } else {
                     self.save(moc)
                     DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
-                    completion()
                 }
+                completion()
             }
         }
     }
