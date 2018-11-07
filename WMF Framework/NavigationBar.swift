@@ -6,10 +6,10 @@
 @objc(WMFNavigationBar)
 public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelegate {
     fileprivate let statusBarUnderlay: UIView =  UIView()
-    private let titleBar: UIToolbar = UIToolbar()
-    private let bar: UINavigationBar = UINavigationBar()
-    private let underBarView: UIView = UIView() // this is always visible below the navigation bar
-    private let extendedView: UIView = UIView()
+    fileprivate let titleBar: UIToolbar = UIToolbar()
+    fileprivate let bar: UINavigationBar = UINavigationBar()
+    fileprivate let underBarView: UIView = UIView() // this is always visible below the navigation bar
+    fileprivate let extendedView: UIView = UIView()
     fileprivate let shadow: UIView = UIView()
     fileprivate let progressView: UIProgressView = UIProgressView()
     fileprivate let backgroundView: UIView = UIView()
