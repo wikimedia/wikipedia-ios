@@ -1456,6 +1456,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     if (self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
     }
+    [self.navigationController popToRootViewControllerAnimated:animated];
 }
 
 #pragma mark - App Shortcuts
