@@ -307,8 +307,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 #pragma mark - Notifications
 
 - (void)appWillEnterForegroundWithNotification:(NSNotification *)note {
+    // Don't access anything that can't be accessed in the background without starting a background task. For example, don't use anything in the shared app container like all of the Core Data persistent stores
 }
 
+// When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
     [[SessionsFunnel shared] logSessionStart];
     [UserHistoryFunnel.shared logSnapshot];
@@ -752,6 +754,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
 }
 
+// resumeApp: should be called once and only once for every launch from a fully terminated state.
+// It should only be called when the app is active and being shown to the user
 - (void)resumeApp:(dispatch_block_t)completion {
     [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
         [self loadMainUI];
