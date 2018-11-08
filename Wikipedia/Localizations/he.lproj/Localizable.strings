@@ -493,10 +493,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=השנה|בשנה שעברה|לפני שנתיים|לפני $1 שנה|לפני $1 שנים}}";
-"relogin-failed-retry-login-button-title" = "נא לנסות להיכנס לחשבון מחדש";
-"relogin-failed-stay-logged-out-button-title" = "להשאיר אותי מחוץ לחשבון";
-"relogin-failed-subtitle" = "הכניסה שלך פקעה, או שהרישום הקודם באישורים אינו תקין יותר.";
-"relogin-failed-title" = "לא ניתן להיכנס לחשבון מחדש";
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "saved-all-articles-title" = "כל הערכים";
 "saved-default-reading-list-tag" = "אין אפשרות למחוק רשימה זו";

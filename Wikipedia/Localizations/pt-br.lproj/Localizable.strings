@@ -356,6 +356,10 @@
 "languages-wikipedia" = "Idiomas de Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Conteúdo disponibilizado nos termos da $1, salvo indicação contrária.";
+"logged-out-continue-without-logging-in-button-title" = "Continuar sem entrar";
+"logged-out-log-back-in-button-title" = "Entre novamente na sua conta";
+"logged-out-subtitle" = "Houve um problema ao autenticar sua conta. Para sincronizar suas listas de leitura e editar com o seu nome de usuário, faça o login novamente.";
+"logged-out-title" = "Você foi desconectado";
 "login-forgot-password" = "Esqueceu sua senha?";
 "login-join-wikipedia" = "Junte-se à Wikipédia.";
 "login-no-account" = "Não tem uma conta? $1";
@@ -534,10 +538,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|$1 minuto atrás|$1 minutos atrás}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este ano|Ano passado|$1 anos atrás}}";
-"relogin-failed-retry-login-button-title" = "Tente iniciar sessão novamente";
-"relogin-failed-stay-logged-out-button-title" = "Mantenha-me desconectado";
-"relogin-failed-subtitle" = "Sua sessão pode ter expirado ou as credenciais de login anteriores não são mais válidas.";
-"relogin-failed-title" = "Não é possível restabelecer log in";
 "request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
 "reverted-edit-notification-body" = "A edição que você fez do artigo $1 foi revertida por $2";

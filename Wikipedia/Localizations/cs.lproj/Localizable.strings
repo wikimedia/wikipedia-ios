@@ -529,10 +529,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Před $1 hodinou|Před $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Právě teď|Před $1 minutou|Před $1 minutami}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Loni|Před $1 roky}}";
-"relogin-failed-retry-login-button-title" = "Pokusit se přihlásit znovu";
-"relogin-failed-stay-logged-out-button-title" = "Ponechat můj účet odhlášen";
-"relogin-failed-subtitle" = "Vaše relace možná vypršela nebo předchozí záznam v pověření již není platný.";
-"relogin-failed-title" = "Znemožnit opětovné vytvoření záznamu";
 "request-feedback-on-error" = "V aplikaci došlo k problému, o kterém by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
 "reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";

@@ -301,7 +301,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nedávno|Pred $1 hodinou|Pred $1 hodinami}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Práve teraz|Pred $1 minútou|Pred $1 minútami}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tento rok|Minulý rok|Pred $1 rokmi}}";
-"relogin-failed-retry-login-button-title" = "Prihlásiť sa znova";
 "request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";

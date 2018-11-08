@@ -480,10 +480,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Năm nay|Năm ngoái|Cách đây $1 năm}}";
-"relogin-failed-retry-login-button-title" = "Thử đăng nhập lại";
-"relogin-failed-stay-logged-out-button-title" = "Giữ trạng thái đăng xuất";
-"relogin-failed-subtitle" = "Phiên của bạn hết hạn hoặc định danh đăng nhập về trước không còn hợp lệ.";
-"relogin-failed-title" = "Không thể duy trì đăng nhập";
 "request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "saved-all-articles-title" = "Tất cả các bài";
 "saved-default-reading-list-tag" = "Không thể xóa danh sách này";
