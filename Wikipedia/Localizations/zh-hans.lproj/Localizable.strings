@@ -528,10 +528,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1小时前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=刚刚|$1分钟前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1年前}}";
-"relogin-failed-retry-login-button-title" = "尝试重新登录";
-"relogin-failed-stay-logged-out-button-title" = "保持我的退出状态";
-"relogin-failed-subtitle" = "您的会话可能已过期，或之前的凭据日志不再有效。";
-"relogin-failed-title" = "无法重新登录";
 "request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "saved-all-articles-title" = "所有条目";
 "saved-default-reading-list-tag" = "此列表不能删除";

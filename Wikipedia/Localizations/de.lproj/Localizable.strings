@@ -337,6 +337,10 @@
 "languages-wikipedia" = "Wikipedia-Sprachen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Der Inhalt ist verfügbar unter $1, sofern nicht anders angegeben.";
+"logged-out-continue-without-logging-in-button-title" = "Mit der Anmeldung fortfahren";
+"logged-out-log-back-in-button-title" = "Melde dich wieder bei deinem Benutzerkonto an";
+"logged-out-subtitle" = "Bei der Authentifizierung deines Benutzerkontos gab es ein Problem. Um deine Leselisten zu synchronisieren und um unter deinem Benutzernamen zu bearbeiten, melde dich erneut an.";
+"logged-out-title" = "Du hast dich abgemeldet";
 "login-forgot-password" = "Passwort vergessen?";
 "login-join-wikipedia" = "Wikipedia beitreten.";
 "login-no-account" = "Hast du kein Benutzerkonto? $1";
@@ -515,10 +519,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|Letztes Jahr|Vor $1 Jahren}}";
-"relogin-failed-retry-login-button-title" = "Erneute Anmeldung versuchen";
-"relogin-failed-stay-logged-out-button-title" = "Abgemeldet bleiben";
-"relogin-failed-subtitle" = "Deine Sitzung könnte abgelaufen sein oder frühere Anmeldeinformationen sind nicht mehr gültig.";
-"relogin-failed-title" = "Fehler bei der erneuten Herstellung der Anmeldung";
 "request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
 "reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";

@@ -364,6 +364,9 @@
 "languages-wikipedia" = "Языки Википедии";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
+"logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
+"logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
+"logged-out-title" = "Вы вышли";
 "login-forgot-password" = "Забыли пароль?";
 "login-join-wikipedia" = "Присоединяйтесь к Википедии.";
 "login-no-account" = "Нет учётной записи? $1";
@@ -542,10 +545,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=этот год|1=прошлый год|$1 года назад|$1 лет назад}}";
-"relogin-failed-retry-login-button-title" = "Попробуйте войти ещё раз";
-"relogin-failed-stay-logged-out-button-title" = "Оставаться меня вышли из";
-"relogin-failed-subtitle" = "Ваш сеанс истёк или предыдущие учётные данные уже недействительны.";
-"relogin-failed-title" = "Не удалось восстановить вход в систему";
 "request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";

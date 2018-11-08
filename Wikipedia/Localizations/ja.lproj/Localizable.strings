@@ -515,10 +515,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 1時間前|$1 時間前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|昨年| $1年前}}";
-"relogin-failed-retry-login-button-title" = "もう一度ログインを試す";
-"relogin-failed-stay-logged-out-button-title" = "ログアウトしたままにする";
-"relogin-failed-subtitle" = "セッションが期限切れになったか、以前入力したログイン情報がすでに無効になっています。";
-"relogin-failed-title" = "ログインをやり直すことができません";
 "request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "saved-all-articles-title" = "すべての記事";
 "saved-default-reading-list-tag" = "このリストは削除できません";

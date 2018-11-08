@@ -348,6 +348,10 @@
 "languages-wikipedia" = "維基百科語言";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "除非另有註明，否則頁面內容均以 $1 條款授權";
+"logged-out-continue-without-logging-in-button-title" = "以不登入來繼續";
+"logged-out-log-back-in-button-title" = "重新登入您的帳號";
+"logged-out-subtitle" = "在驗證您的帳號時發生一些問題。要同步您的閱讀清單，和以您的使用者名稱名義來編輯，請重新登入。";
+"logged-out-title" = "您已經被登出";
 "login-forgot-password" = "忘記您的密碼？";
 "login-join-wikipedia" = "加入維基百科。";
 "login-no-account" = "還沒有帳號？$1";
@@ -526,10 +530,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$1 個小時前|$1 個小時前}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=剛剛|$1 分鐘前|$1 分鐘前}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=今年|去年|$1 年前}}";
-"relogin-failed-retry-login-button-title" = "嘗試再次登入";
-"relogin-failed-stay-logged-out-button-title" = "保持我的登出狀態";
-"relogin-failed-subtitle" = "您的 session 已過期，或是因為之前的憑證已不再有效。";
-"relogin-failed-title" = "無法再重新建立登入";
 "request-feedback-on-error" = "此應用程式已發生了問題，我們的開發人員想要瞭解更多有關於此的資料。請輕觸這裡向我們傳送一份含有錯誤詳細資料的電子信件。";
 "reverted-edit-back-to-article-button-title" = "返回條目";
 "reverted-edit-notification-body" = "您在條目$1所做的編輯被$2給回退";
