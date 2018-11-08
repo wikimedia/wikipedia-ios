@@ -155,6 +155,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @property (assign, getter=shouldShareArticleOnLoad) BOOL shareArticleOnLoad;
 
+@property (nonatomic, getter=isWaitingUntilViewDidAppearToShowToolbar) BOOL waitingUntilViewDidAppearToShowToolbar;
+
 @property (nonatomic, strong, readwrite) WMFReadingListHintController *readingListHintController;
 
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
@@ -510,9 +512,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     NSArray<UIBarButtonItem *> *toolbarItems = [self articleToolBarItems];
 
-    if (![self.toolbarItems isEqualToArray:toolbarItems]) {
+    if (![self.toolbar.items isEqualToArray:toolbarItems]) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
-        [self setToolbarItems:toolbarItems animated:NO];
+        [self.toolbar setItems:toolbarItems animated:NO];
     }
 }
 
@@ -754,7 +756,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-
+    
     [self hideProgressViewAnimated:NO];
 
     self.eventLoggingCategory = EventLoggingCategoryArticle;
@@ -766,6 +768,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.navigationBar.isShadowBelowUnderBarView = YES;
     self.navigationBar.isExtendedViewFadingEnabled = NO;
     [super viewDidLoad]; // intentionally at the bottom of the method for theme application
+    [self setToolbarHidden:NO animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -843,7 +846,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         }];
 }
 
-- (void)prepareForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
+- (void)prepareViewsForIncomingImageScaleTransitionWithImageView:(nullable UIImageView *)imageView {
     if (imageView && imageView.image) {
         self.webViewController.headerFadingEnabled = NO;
         self.webViewController.view.alpha = 0;
@@ -1423,6 +1426,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         return;
     }
     WMFArticle *article = [self.dataStore fetchArticleWithURL:self.articleURL];
+    if (!article) {
+        return;
+    }
     WMFAddArticlesToReadingListViewController *addArticlesToReadingListViewController = [[WMFAddArticlesToReadingListViewController alloc] initWith:self.dataStore articles:@[article] moveFromReadingList:nil theme:self.theme];
     WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:addArticlesToReadingListViewController theme:self.theme];
     [navigationController setNavigationBarHidden:NO];
@@ -1724,7 +1730,18 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (NSURL *)articleTalkPageURL {
-    return [self.articleURL wmf_URLWithTitle:[@"Talk:" stringByAppendingString:self.articleURL.wmf_title]];
+    NSString *title = self.articleURL.wmf_title;
+    NSArray *components = [title componentsSeparatedByString:@":"];
+    if ([components count] == 0) {
+        return self.articleURL;
+    }
+    NSString *prefix = nil;
+    if ([components count] > 1) {
+        prefix = [@[components[0], @"talk:"] componentsJoinedByString:@" "];
+    } else {
+        prefix = @"Talk:";
+    }
+    return [self.articleURL wmf_URLWithTitle:[prefix stringByAppendingString:[components lastObject]]];
 }
 
 - (void)showLanguages {
