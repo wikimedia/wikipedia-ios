@@ -70,7 +70,7 @@ const removeSearchTermHighlights = () => {
   recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
 }
 
-const rectContainsRect = (a, b) => a.left <= b.right && b.left <= a.right && a.top <= b.bottom && b.top <= a.bottom
+const rectIntersectsRect = (a, b) => a.left <= b.right && b.left <= a.right && a.top <= b.bottom && b.top <= a.bottom
 
 const shouldReportMatch = matchSpan => {
   const parentRect = matchSpan.parentElement.getBoundingClientRect()
@@ -82,9 +82,9 @@ const shouldReportMatch = matchSpan => {
   
   // Text node elements with 'text-overflow: ellipsis;' can truncate text. So we need a way to
   // detect if a match is in elided text - i.e. after the ellipsis and thus not visible. We can
-  // check if the match span's rect is contained by its parent element's rect - if so it's
-  // visible, otherwise we don't need to report the match.
-  return rectContainsRect(parentRect, matchSpan.getBoundingClientRect())
+  // check if the match span's rect intersects its parent element's rect - if so it's visible,
+  // otherwise we don't need to report the match.
+  return rectIntersectsRect(parentRect, matchSpan.getBoundingClientRect())
 }
 
 const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
