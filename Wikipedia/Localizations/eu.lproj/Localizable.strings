@@ -460,10 +460,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
 "relative-date-years-ago" = "{{PLURALA:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
-"relogin-failed-retry-login-button-title" = "Saiatu berriz saioa hasten";
-"relogin-failed-stay-logged-out-button-title" = "Kanpoan manten nazazu";
-"relogin-failed-subtitle" = "Saio iraunpena eten da edo aurreko saioaren kredentzialak ez dira jada baliozkoak.";
-"relogin-failed-title" = "Hasiera saioa ezin da berrezarri";
 "request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";

@@ -513,10 +513,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Tadi|$1 minit yang lalu|$1 minit yang lalu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|Tahun lepas|$1 tahun lepas}}";
-"relogin-failed-retry-login-button-title" = "Cuba log masuk sekali lagi";
-"relogin-failed-stay-logged-out-button-title" = "Biar saya kekal log keluar";
-"relogin-failed-subtitle" = "Sesi anda mungkin telah tamat tempoh atau log masuk terdahulu tidak lagi sah.";
-"relogin-failed-title" = "Tidak dapat membuat semula log masuk";
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
 "reverted-edit-notification-body" = "Penyuntingan yang anda buat dari rencana $1 telah dikembalikan oleh $2";

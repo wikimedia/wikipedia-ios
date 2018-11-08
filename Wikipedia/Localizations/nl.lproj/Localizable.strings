@@ -458,8 +458,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
-"relogin-failed-retry-login-button-title" = "Probeer om opnieuw aan te melden";
-"relogin-failed-stay-logged-out-button-title" = "Afgemeld blijven";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
 "saved-all-articles-title" = "Alle pagina's";

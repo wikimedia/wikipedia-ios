@@ -333,6 +333,10 @@
 "languages-wikipedia" = "Јазици на Википедија";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содржината е достапна под условите на $1 освен ако не е поинаку наведено.";
+"logged-out-continue-without-logging-in-button-title" = "Продолжи без најава";
+"logged-out-log-back-in-button-title" = "Назад на најава со сметката";
+"logged-out-subtitle" = "Се јави проблем при заверката на вашата сметка. Ќе треба повторно да се најавите за може да се усогласат списоците за читање и да уредувате под вашето корисничко име.";
+"logged-out-title" = "Одјавени сте";
 "login-forgot-password" = "Ја заборавивте лозинката?";
 "login-join-wikipedia" = "Придружете ѝ се на Википедија.";
 "login-no-account" = "Немате корисничка сметка? $1.";
@@ -511,10 +515,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Годинава|Лани|Пред $1 години}}";
-"relogin-failed-retry-login-button-title" = "Обидете се со најавата повторно";
-"relogin-failed-stay-logged-out-button-title" = "Задржи ме најавен";
-"relogin-failed-subtitle" = "Седницата може да е истечена или претходните најавни податоци повеќе не се важечки.";
-"relogin-failed-title" = "Не можам да ја востановам најавата";
 "request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "reverted-edit-back-to-article-button-title" = "Назад на статијата";
 "reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";

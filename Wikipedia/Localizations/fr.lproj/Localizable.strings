@@ -353,6 +353,10 @@
 "languages-wikipedia" = "Langues de Wikipédia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Le contenu est disponible sous $1 sauf spécification contraire.";
+"logged-out-continue-without-logging-in-button-title" = "Continuer sans se connecter";
+"logged-out-log-back-in-button-title" = "Se reconnecter à votre compte";
+"logged-out-subtitle" = "Il y a eu un problème d’authentification de votre compte. Pour pouvoir synchroniser vos listes de lecture et modifier sous votre nom d’utilisateur, veuillez vous reconnecter.";
+"logged-out-title" = "Vous avez été déconnecté";
 "login-forgot-password" = "Mot de passe oublié ?";
 "login-join-wikipedia" = "Rejoindre Wikipédia.";
 "login-no-account" = "Vous n’avez pas de compte ? $1";
@@ -531,10 +535,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Récemment|Il y a $1 heure|Il y a $1 heures}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Il y a un instant|Il y a $1 minute |Il y a $1 minutes}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Cette année|L’année passée|Il y a $1 ans}}";
-"relogin-failed-retry-login-button-title" = "Essayer de vous reconnecter";
-"relogin-failed-stay-logged-out-button-title" = "Me garder hors connexion";
-"relogin-failed-subtitle" = "Votre session a peut-être expiré, ou les références de la connexion précédente ne sont plus valides.";
-"relogin-failed-title" = "Impossible de rétablir la connexion";
 "request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "reverted-edit-back-to-article-button-title" = "Retour à l'article";
 "reverted-edit-notification-body" = "La modification que vous avez apportée à l'article $1 a été annulée par $2";

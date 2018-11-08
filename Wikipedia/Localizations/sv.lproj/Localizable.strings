@@ -345,6 +345,10 @@
 "languages-wikipedia" = "Wikipediaspråk";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Innehållet är tillgängligt under $1 om ingenting annat anges.";
+"logged-out-continue-without-logging-in-button-title" = "Fortsätt utan att logga in";
+"logged-out-log-back-in-button-title" = "Logga in på ditt konto igen";
+"logged-out-subtitle" = "Ett problem uppstod när ditt konto autentiserades. Du måste logga in igen för att synkronisera dina läslistor och redigera under ditt användarnamn.";
+"logged-out-title" = "Du har loggats ut";
 "login-forgot-password" = "Glömt ditt lösenord?";
 "login-join-wikipedia" = "Registrera på Wikipedia.";
 "login-no-account" = "Har du inget konto? $1";
@@ -523,10 +527,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nyligen|$1 timme sedan|$1 timmar sedan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Precis nu|$1 minut sedan|$1 minuter sedan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Detta år|Senaste året|$1 år sedan}}";
-"relogin-failed-retry-login-button-title" = "Försök att logga in igen";
-"relogin-failed-stay-logged-out-button-title" = "Håll mig utloggad";
-"relogin-failed-subtitle" = "Din session kan ha löpt ut eller så är tidigare inloggningsuppgifter inte längre giltiga.";
-"relogin-failed-title" = "Kunde inte återupprätta inloggning";
 "request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
 "reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";
