@@ -385,9 +385,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=πρόσφατα|$1 ώρα πριν|$1 ώρες πριν}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=μόλις τώρα|$1 λεπτό πριν|$1 λεπτά πριν}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Αυτό το έτος|το προηγούμενο έτος|$1 χρόνια πριν}}";
-"relogin-failed-retry-login-button-title" = "Προσπαθήστε να συνδεθείτε ξανά";
-"relogin-failed-stay-logged-out-button-title" = "Κράτα με αποσυνδεδεμένο";
-"relogin-failed-subtitle" = "Η συνεδρία σας ενδέχεται να έχει λήξει ή τα προηγούμενα διαπιστευτήρια σύνδεσης δεν ισχύουν πλέον.";
 "saved-all-articles-title" = "Όλα τα άρθρα";
 "saved-default-reading-list-tag" = "Η λίστα δεν μπορεί να διαγραφεί";
 "saved-pages-image-download-error" = "Αποτυχία στην λήψη εικόνων για αυτή την αποθηκευμένη σελίδα.";

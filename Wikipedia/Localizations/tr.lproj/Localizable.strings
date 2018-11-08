@@ -517,10 +517,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Bu saat içinde|$1 saat önce|$1 saat önce}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Az önce|$1 dakika önce|$1 dakika önce}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
-"relogin-failed-retry-login-button-title" = "Tekrar giriş yapmayı deneyin";
-"relogin-failed-stay-logged-out-button-title" = "Çıkış yapmamı sağla";
-"relogin-failed-subtitle" = "Oturumunuzun süresi dolmuş olabilir veya önceki giriş bilgileriniz değişmiş olabilir.";
-"relogin-failed-title" = "Yeniden giriş yapılamıyor";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "reverted-edit-back-to-article-button-title" = "Maddeye dön";
 "reverted-edit-notification-read-more-action-title" = "Devamını oku";

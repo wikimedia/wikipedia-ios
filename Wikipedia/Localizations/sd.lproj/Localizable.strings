@@ -432,8 +432,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ھاڻي|$1 ڪلاڪ اڳ|$1 ڪلاڪَ اڳ}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=بلڪل ھاڻي|$1 منٽ اڳ|$1 منٽَ اڳ}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ھن سال|گذريل سال|$1 سالَ اڳ}}";
-"relogin-failed-retry-login-button-title" = "ٻيھر داخل ٿيڻ جي ڪوشش ڪريو";
-"relogin-failed-stay-logged-out-button-title" = "مون کي خارج ٿيل رکو";
 "request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "saved-all-articles-title" = "سڀ مضمون";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";

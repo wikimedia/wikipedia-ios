@@ -408,10 +408,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Fyrir stuttu|Fyrir $1 klukkutíma síðan|Fyrir $1 klukkutímum síðan}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Rétt í þessu|Fyrir $1 mínútu síðan|Fyrir $1 mínútum síðan}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Á þessu ári|Á síðasta ári|Fyrir $1 ári síðan}}";
-"relogin-failed-retry-login-button-title" = "Reyna að skrá inn aftur";
-"relogin-failed-stay-logged-out-button-title" = "Halda skráðum út";
-"relogin-failed-subtitle" = "Setan þín gæti hafa runnið út á tímamörkum eða að fyrri innskráningarauðkenni séu ekki lengur gild.";
-"relogin-failed-title" = "Gat ekki endurheimt innskráningu";
 "request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "saved-all-articles-title" = "Allar greinar";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";

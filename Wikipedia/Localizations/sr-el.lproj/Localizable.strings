@@ -507,10 +507,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=nedavno|pre $1 sat|pre $1 sata|pre $1 sati}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=upravo sad|pre jedan minut|pre $1 minuta}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ove godine|prošle godine|pre $1 godine|pre $1 godina}}";
-"relogin-failed-retry-login-button-title" = "Pokušajte ponovo da se prijavite";
-"relogin-failed-stay-logged-out-button-title" = "Ostavi me odjavljenog";
-"relogin-failed-subtitle" = "Vaša sesija je istekla ili raniji akreditivi za prijavljivanje više ne važe.";
-"relogin-failed-title" = "Nije moguće ponovo uspostaviti prijavu";
 "request-feedback-on-error" = "Aplikacija je naišla na problem o kom bi naši programeri želeli da znaju više. Dodirnite ovde da biste nam poslali imejl sa detaljima o grešci.";
 "reverted-edit-back-to-article-button-title" = "Nazad na članak";
 "reverted-edit-notification-body" = "Izmena koju ste napravili na članku $1 je vraćena od strane $2";

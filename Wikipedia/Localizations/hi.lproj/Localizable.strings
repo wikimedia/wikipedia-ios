@@ -327,10 +327,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=हाल ही में|$1 घंटे पहले|$1 घंटे पहले}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=इस वर्ष|पिछला वर्ष|$1 वर्ष पहले}}";
-"relogin-failed-retry-login-button-title" = "पुनः लॉग इन करने का प्रयास करें";
-"relogin-failed-stay-logged-out-button-title" = "मुझे लॉग आउट रखें";
-"relogin-failed-subtitle" = "आपका सत्र समाप्त हो चूका है या पिछले लॉग इन क्रेडेंशियल्स अब मान्य नहीं हैं";
-"relogin-failed-title" = "लॉग इन को पुन: स्थापित करने में असमर्थ";
 "request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
 // Fuzzy

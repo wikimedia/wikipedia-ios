@@ -523,10 +523,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentment|Fa $1 hora|Fa $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Ara mateix|Fa $1 minut|Fa $1 minuts}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Enguany|L'any passat|Fa $1 anys}}";
-"relogin-failed-retry-login-button-title" = "Proveu de tornar a iniciar una sessió";
-"relogin-failed-stay-logged-out-button-title" = "Manteniu-me fora de la sessió";
-"relogin-failed-subtitle" = "La sessió pot haver expirat o les credencials d'una sessió anterior ja no són vàlides.";
-"relogin-failed-title" = "No s'ha pogut restablir l'inici de sessió";
 "request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
 "reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";

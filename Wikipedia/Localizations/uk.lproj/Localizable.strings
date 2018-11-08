@@ -13,6 +13,7 @@
 // Author: SimondR
 // Author: Sir-nik
 // Author: Visem
+// Author: Vlad5250
 // Author: Ата
 // Author: Дар'я Козлова
 
@@ -202,6 +203,10 @@
 "languages-wikipedia" = "Мови Вікіпедії";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Вміст доступний на умовах $1, якщо не вказано інше.";
+"logged-out-continue-without-logging-in-button-title" = "Продовжити без входу";
+"logged-out-log-back-in-button-title" = "Назад до входу з обліковим записом";
+"logged-out-subtitle" = "Відбулася помилка при аутентифікації вашого облікового запису. Вам потрібно повторно увійти, щоб можливо було узгодити списки для читання і редагувати під вашим ім'ям користувача.";
+"logged-out-title" = "Ви вийшли із системи";
 "login-forgot-password" = "Забули свій пароль?";
 "login-join-wikipedia" = "Приєднуйтесь до Вікіпедії.";
 "login-no-account" = "Не маєте облікового запису? $1";
