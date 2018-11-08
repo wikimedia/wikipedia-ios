@@ -99,15 +99,10 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     // MARK: - Sorting
 
     var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
-        get {
-            guard let sortOrder = readingList?.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
-                return ([], nil)
-            }
-            return (sortAction.sortDescriptors, sortAction.alertAction)
+        guard let sortOrder = readingList?.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+            return ([], nil)
         }
-        set {
-
-        }
+        return (sortAction.sortDescriptors, sortAction.alertAction)
     }
     
     var defaultSortAction: SortAction? {
@@ -126,7 +121,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
                     DDLogError("Error updating sort order: \(error)")
                 }
             }
-            self.updateSort(with: sortDescriptors, alertAction: alertAction)
+            self.reset()
         }
 
         let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: handler)
