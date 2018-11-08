@@ -335,7 +335,7 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   // matches in first-to-last order. We can work around this by adding the "id"
   // and building our results array *after* the recursion is done, thanks to
   // "getElementsByClassName".
-  const matchIDsToReport = Array.from(document.getElementsByClassName('findInPageMatch'))
+  const orderedMatchIDsToReport = Array.from(document.getElementsByClassName('findInPageMatch'))
     .filter(shouldReportMatch) // Easier and faster to filter these here rather than in the recursion (as it's currently structured).
     .map((el, i) => {
       const matchSpanId = 'findInPageMatchID|' + i
@@ -343,7 +343,7 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
       return matchSpanId
     })
 
-  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(matchIDsToReport)
+  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(orderedMatchIDsToReport)
 }
 
 const useFocusStyleForHighlightedSearchTermWithId = id => {
