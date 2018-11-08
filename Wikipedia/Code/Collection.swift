@@ -10,8 +10,6 @@ protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
     var basePredicate: NSPredicate { get }
     var baseSortDescriptors: [NSSortDescriptor] { get }
     func setupFetchedResultsController()
-    func setupCollectionViewUpdater()
-    func fetch()
 }
 
 extension UpdatableCollection {
