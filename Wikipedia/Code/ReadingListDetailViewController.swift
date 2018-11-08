@@ -252,7 +252,7 @@ class ReadingListDetailViewController: ColumnarCollectionViewController, Editabl
     }()
     
     lazy var sortAlert: UIAlertController = {
-        return alert(title: WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles."), message: nil)
+        return alert(title: CommonStrings.sortAlertTitle, message: nil)
     }()
     
     // MARK: - ColumnarCollectionViewLayoutDelegate

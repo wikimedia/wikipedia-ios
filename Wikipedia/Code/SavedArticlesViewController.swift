@@ -130,7 +130,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }()
     
     lazy var sortAlert: UIAlertController = {
-        return alert(title: "Sort saved articles", message: nil)
+        return alert(title: CommonStrings.sortAlertTitle, message: nil)
     }()
     
     // MARK: - Filtering
