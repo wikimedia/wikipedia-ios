@@ -1,1 +1,0 @@
-Flux complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections de bogues.
