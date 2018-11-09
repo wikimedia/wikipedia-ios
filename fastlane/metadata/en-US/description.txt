@@ -40,4 +40,4 @@ Code at GitHub open source repository:
 https://github.com/wikimedia/apps-ios-wikipedia
  
 About the Wikimedia Foundation 
-The Wikimedia Foundation is a nonprofit organization that supports and operates Wikipedia and the other Wikimedia projects. The Wikimedia Foundation is a charitable organization funded mainly through donations. For more information, please visit our website: https://wikimediafoundation.org/.
+The Wikimedia Foundation is a nonprofit organization that supports and operates Wikipedia and the other Wikimedia projects. The Wikimedia Foundation is a charitable organization funded mainly through donations. For more information, please visit our website: https://wikimediafoundation.org/wiki/Home.
