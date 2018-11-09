@@ -328,6 +328,11 @@ platform :ios do
 
   end
 
+  desc "Upload metadata"
+  lane :metadata do 
+    deliver
+  end
+  
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :submit_release do
     build = ENV['BUILD']
