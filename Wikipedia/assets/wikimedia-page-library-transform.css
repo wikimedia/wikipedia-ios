@@ -719,6 +719,59 @@ a.pagelib_edit_section_link {
     display: none;
 }
 
+/* Wikidata description styling */
+#pagelib_edit_section_title_description {
+    font-size: 14px;
+    line-height: 22px;
+    color: #777D84;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    padding-bottom: 0px;
+}
+
+#pagelib_edit_section_add_title_description {
+    font-size: 14px;
+    font-style: italic;
+    display: inline;
+}
+
+#pagelib_edit_section_add_title_description:before {
+    content: "";
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAMCAYAAAADFL+5AAAAAXNSR0IArs4c6QAAADFJREFUOBFjNE47859hAAHTANoNtnrUAQMdA6P2D3wIMFK7HDg7y4SRFG+NZsMBDwEAJj8Gc0QaQK8AAAAASUVORK5CYII=');
+    background-repeat: no-repeat;
+    width: 1.8em;
+    height: 0.75em;
+    background-size: 1.0em 0.375em;
+    display: inline-block;
+    background-position: left center;
+}
+
+[dir="rtl"] #pagelib_edit_section_add_title_description:before {
+    transform: scaleX(-1);
+}
+
+/* Horizontal divider between title/description and lead section text */
+#pagelib_edit_section_divider {
+    border: 1px solid #ccc;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    width: 60px;
+    margin-left: 0px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+    #pagelib_edit_section_divider {
+        border-width: 0.5px;
+    }
+}
+
+[dir="ltr"] #pagelib_edit_section_divider {
+    margin-left: 0px;
+}
+
+[dir="rtl"] #pagelib_edit_section_divider {
+    margin-right: 0px;
+}
 .pagelib_footer_container {
   background-color: #eaecf0;
 }

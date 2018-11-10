@@ -43,28 +43,6 @@ class Article {
     this.addTitleDescriptionString = addTitleDescriptionString
     this.isTitleDescriptionEditable = isTitleDescriptionEditable
   }
-  descriptionElements() {
-    if (!this.isTitleDescriptionEditable || this.description !== undefined && this.description.length > 0) {
-      return this.existingDescriptionElements()
-    }
-    return this.descriptionAdditionElements()
-  }
-  existingDescriptionElements() {
-    const p = lazyDocument.createElement('p')
-    p.id = 'entity_description'
-    p.innerHTML = this.description
-    return p
-  }
-  descriptionAdditionElements() {
-    const a = lazyDocument.createElement('a')
-    a.href = '#'
-    a.setAttribute('data-action', 'add_title_description')
-    const p = lazyDocument.createElement('p')
-    p.id = 'add_entity_description'
-    p.innerHTML = this.addTitleDescriptionString
-    a.appendChild(p)
-    return a
-  }
 }
 
 class Section {
@@ -77,24 +55,8 @@ class Section {
     this.article = article
   }
 
-  addAnchorAsIdToHeading(heading) {
-    if (this.anchor === undefined || this.anchor.length === 0) {
-      return
-    }
-
-    // TODO: consider renaming this 'id' to 'anchor' for clarity - would need to update native
-    // code as well - used when TOC sections made to jump to sections.
-    // If we make this change this method should probably be renamed to 'addAnchorToHeading'.
-    heading.id = this.anchor
-  }
-
   leadSectionHeading() {
-    const heading = lazyDocument.createElement('h1')
-    heading.classList.add('section_heading')
-    this.addAnchorAsIdToHeading(heading)
-    heading.sectionId = this.id
-    heading.innerHTML = this.article.displayTitle
-    return heading
+    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, this.anchor)
   }
 
   nonLeadSectionHeading() {
@@ -102,9 +64,7 @@ class Section {
     // because it provides a heading correctly aligned with the edit pencil. (Lead section edit
     // pencils are added in `applyTransformationsToFragment` because they need to be added after
     // the `moveLeadIntroductionUp` has finished.)
-    const heading = requirements.editTransform.newEditSectionHeader(lazyDocument, this.id, this.level, this.line)
-    this.addAnchorAsIdToHeading(heading)
-    return heading
+    return requirements.editTransform.newEditSectionHeader(lazyDocument, this.id, this.level, this.line, true, this.anchor)
   }
 
   heading() {
@@ -130,30 +90,12 @@ class Section {
     return this.text
   }
 
-  description() {
-    if(this.isLeadSection()){
-      return this.article.descriptionElements()
-    }
-    return undefined
-  }
-
   containerDiv() {
     const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
 
     if(!this.article.ismain){
       container.appendChild(this.heading())
-
-      const description = this.description()
-      if(description){
-        container.appendChild(description)
-      }
-
-      if(this.isLeadSection()){
-        const hr = lazyDocument.createElement('hr')
-        hr.id = 'content_block_0_hr'
-        container.appendChild(hr)
-      }
     }
 
     const block = lazyDocument.createElement('div')
