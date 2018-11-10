@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FundraisingViewController" customModule="Wikipedia" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="466"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To all our readers in the U.S.," textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ox-Cs-ZeI">
+                    <rect key="frame" x="49.5" y="16" width="228.5" height="20.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ⓘ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kr1-3q-Hko">
+                    <rect key="frame" x="16" y="16" width="17.5" height="20.5"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" red="0.58081901069999997" green="0.088427625600000004" blue="0.31863921880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOn-Tx-hgB">
+                    <rect key="frame" x="16" y="52.5" width="316" height="350.5"/>
+                    <mutableString key="text">It's a little awkward, so we'll get straight to the point: This Friday we humbly ask you to protect Wikipedia's independence. We depend on donations averaging about $16.36, but 99% of our readers don't give. If everyone reading this gave $3, we could keep Wikipedia thriving for years to come. The price of your Friday coffee is all we need.
+
+Wikipedia is a place to learn, not a place for advertising. It unites all of us who love knowledge: contributors, readers and the donors who keep us thriving. Please take a minute to help us keep Wikipedia growing. Thank you.</mutableString>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="BOn-Tx-hgB" firstAttribute="top" secondItem="7ox-Cs-ZeI" secondAttribute="bottom" constant="16" id="5ht-xx-R2K"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BOn-Tx-hgB" secondAttribute="trailing" constant="16" id="Doh-6m-yY2"/>
+                <constraint firstItem="7ox-Cs-ZeI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="EPb-WR-HGV"/>
+                <constraint firstItem="Kr1-3q-Hko" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="XH3-XB-jQW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BOn-Tx-hgB" secondAttribute="bottom" constant="16" id="Zvd-d1-XqB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7ox-Cs-ZeI" secondAttribute="trailing" constant="16" id="fJJ-QV-3OS"/>
+                <constraint firstItem="7ox-Cs-ZeI" firstAttribute="leading" secondItem="Kr1-3q-Hko" secondAttribute="trailing" constant="16" id="jIs-ci-JA8"/>
+                <constraint firstItem="Kr1-3q-Hko" firstAttribute="centerY" secondItem="7ox-Cs-ZeI" secondAttribute="centerY" id="o2n-Yr-7nE"/>
+                <constraint firstItem="BOn-Tx-hgB" firstAttribute="leading" secondItem="Kr1-3q-Hko" secondAttribute="leading" id="uQd-EB-uaA"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="139.19999999999999" y="62.068965517241381"/>
+        </view>
+    </objects>
+</document>

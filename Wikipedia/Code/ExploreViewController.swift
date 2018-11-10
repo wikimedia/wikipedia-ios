@@ -465,23 +465,43 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         cardVC.didMove(toParent: self)
         return cardVC
     }
+    
+    func createNewFundraisingVCFor(_ cell: ExploreCardCollectionViewCell) -> FundraisingViewController {
+        let cardVC = FundraisingViewController()
+        cardVC.view.autoresizingMask = []
+        addChild(cardVC)
+        cell.cardContent = cardVC
+        cardVC.didMove(toParent: self)
+        return cardVC
+    }
 
     func configure(cell: ExploreCardCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
         guard let group = group(at: indexPath) else {
             return
         }
-        cardVC.contentGroup = group
+        
+        let fundraisingVC = cell.cardContent as? FundraisingViewController ?? createNewFundraisingVCFor(cell)
         cell.title = group.headerTitle
         cell.subtitle = group.headerSubTitle
-        cell.footerTitle = cardVC.footerText
-        cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
-        cell.undoType = group.undoType
+        cell.isCustomizationButtonHidden = true
+        cell.undoType = .none
         cell.apply(theme: theme)
         cell.delegate = self
-        if group.undoType == .contentGroupKind {
-            indexPathsForCollapsedCellsThatCanReappear.insert(indexPath)
-        }
+        
+        
+        
+//        let cardVC = cell.cardContent as? ExploreCardViewController ?? createNewCardVCFor(cell)
+//        cardVC.contentGroup = group
+//        cell.title = group.headerTitle
+//        cell.subtitle = group.headerSubTitle
+//        cell.footerTitle = cardVC.footerText
+//        cell.isCustomizationButtonHidden = !(group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal)
+//        cell.undoType = group.undoType
+//        cell.apply(theme: theme)
+//        cell.delegate = self
+//        if group.undoType == .contentGroupKind {
+//            indexPathsForCollapsedCellsThatCanReappear.insert(indexPath)
+//        }
     }
     
     override func apply(theme: Theme) {

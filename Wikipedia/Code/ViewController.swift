@@ -1,8 +1,7 @@
 import UIKit
 import WMF
 
-class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDelegate {
-    var theme: Theme = Theme.standard
+class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -134,7 +133,6 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        apply(theme: theme)
         scrollView?.contentInsetAdjustmentBehavior = .never
  
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillChangeFrameNotification, object: nil, queue: nil, using: { [weak self] notification in
@@ -296,8 +294,8 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         return self.theme.preferredStatusBarStyle
     }
 
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         guard viewIfLoaded != nil else {
             return
         }
