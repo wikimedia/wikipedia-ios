@@ -74,6 +74,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         captionHTML = nil
         messageHTML = nil
         isImageViewHidden = true
+        isUrgent = false
     }
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
