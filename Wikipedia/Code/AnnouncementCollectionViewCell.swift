@@ -46,13 +46,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         actionButton.titleLabel?.numberOfLines = 0
-        actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
         dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
         dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
-        dismissButton.titleLabel?.textAlignment = .center
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
         super.setup()
@@ -108,7 +106,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        pStyle.alignment = .center
         let color = captionTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
@@ -133,7 +130,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        pStyle.alignment = .center
         pStyle.lineHeightMultiple = 1.5
         let color = messageTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
@@ -214,23 +210,22 @@ extension AnnouncementCollectionViewCell: Themeable {
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
+        actionButton.setTitleColor(theme.colors.link, for: .normal)
+        actionButton.backgroundColor = theme.colors.cardButtonBackground
         if isUrgent {
-            actionButton.setTitleColor(theme.colors.filledButtonText, for: .normal)
-            actionButton.backgroundColor = theme.colors.link
+            messageUnderlineColor = theme.colors.error
             layer.borderWidth = 3
             layer.borderColor = theme.colors.error.cgColor
             layer.cornerRadius = Theme.exploreCardCornerRadius
         } else {
-            actionButton.setTitleColor(theme.colors.link, for: .normal)
-            actionButton.backgroundColor = theme.colors.cardButtonBackground
             layer.borderWidth = 0
             layer.cornerRadius = 0
+            messageUnderlineColor = nil
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.textColor = theme.colors.secondaryText
         captionTextView.backgroundColor = .clear
-        messageUnderlineColor = isUrgent ? theme.colors.error : nil
         updateCaptionTextViewWithAttributedCaption()
         updateMessageTextViewWithAttributedMessage()
     }
