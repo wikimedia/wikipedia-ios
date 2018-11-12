@@ -10,10 +10,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public weak var delegate: AnnouncementCollectionViewCellDelegate?
     
     public let imageView = UIImageView()
-    public let messageLabel = UILabel()
+    private let messageLabel = UILabel()
     public let actionButton = UIButton()
     public let dismissButton = UIButton()
-    public let captionTextView = UITextView()
+    private let captionTextView = UITextView()
     public let captionSeparatorView = UIView()
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
@@ -71,14 +71,13 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         super.reset()
         imageViewDimension = 150
         updateFonts(with: traitCollection)
-        caption = nil
-        messageLabel.text = nil
+        captionHTML = nil
+        messageHTML = nil
         isImageViewHidden = true
     }
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        messageLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         actionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         dismissButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
@@ -100,33 +99,51 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     }
 
     fileprivate func updateCaptionTextViewWithAttributedCaption() {
-        guard let text = caption else {
+        guard let html = captionHTML else {
             isCaptionHidden = true
             return
         }
-
-        let mutableText = NSMutableAttributedString(attributedString: text)
-        guard mutableText.length > 0 else {
-            isCaptionHidden = true
-            return
-        }
-
+        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
         pStyle.alignment = .center
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
-        mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
-        captionTextView.attributedText = mutableText
-
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        captionTextView.attributedText = attributedText
         isCaptionHidden = false
     }
-
-    public var caption: NSAttributedString? {
+    
+    public var captionHTML: String? {
         didSet {
             updateCaptionTextViewWithAttributedCaption()
+        }
+    }
+    
+    public var isUrgent: Bool = false
+    private var messageUnderlineColor: UIColor?
+    private func updateMessageLabelWithAttributedMessage() {
+        guard let html = messageHTML else {
+            messageLabel.attributedText = nil
+            return
+        }
+        let attributedText = html.byAttributingHTML(with: .subheadline, matching: traitCollection, underlineColor: messageUnderlineColor)
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineBreakMode = .byWordWrapping
+        pStyle.baseWritingDirection = .natural
+        pStyle.alignment = .center
+        pStyle.lineHeightMultiple = 1.5
+        let color = messageLabel.textColor ?? UIColor.black
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        messageLabel.attributedText = attributedText
+        isCaptionHidden = false
+    }
+    
+    public var messageHTML: String? {
+        didSet {
+            updateMessageLabelWithAttributedMessage()
         }
     }
     
@@ -169,6 +186,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
                 captionTextView.frame = captionFrame
             }
             origin.y += captionFrame.height
+            origin.y += captionSpacing
         } else {
             origin.y += layoutMargins.bottom
         }
@@ -193,13 +211,19 @@ extension AnnouncementCollectionViewCell: Themeable {
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
-        actionButton.setTitleColor(theme.colors.link, for: .normal)
-        actionButton.layer.borderColor = theme.colors.link.cgColor
+        if isUrgent {
+            actionButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+            actionButton.backgroundColor = theme.colors.link
+        } else {
+            actionButton.setTitleColor(theme.colors.link, for: .normal)
+            actionButton.backgroundColor = theme.colors.cardButtonBackground
+        }
         actionButton.layer.cornerRadius = 5
-        actionButton.backgroundColor = theme.colors.cardButtonBackground
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.textColor = theme.colors.secondaryText
-        captionTextView.backgroundColor = theme.colors.paperBackground
+        captionTextView.backgroundColor = .clear
+        messageUnderlineColor = isUrgent ? theme.colors.error : nil
         updateCaptionTextViewWithAttributedCaption()
+        updateMessageLabelWithAttributedMessage()
     }
 }

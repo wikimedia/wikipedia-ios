@@ -313,26 +313,26 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             } else {
                 cell.isImageViewHidden = true
             }
-            cell.messageLabel.text = announcement.text
+            cell.messageHTML = announcement.text
             cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
-            cell.caption = announcement.caption
+            cell.captionHTML = announcement.captionHTML
         case .notification:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
+            cell.messageHTML = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
             cell.actionButton.setTitle(WMFLocalizedString("feed-news-notification-button-text", value: "Turn on notifications", comment: "Text for button to turn on trending news notifications"), for:.normal)
         case .theme:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-themes")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
+            cell.messageHTML = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
             cell.actionButton.setTitle(WMFLocalizedString("home-themes-action-title", value: "Manage preferences", comment: "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences."), for:.normal)
         case .readingList:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-reading-list")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
+            cell.messageHTML = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
             cell.actionButton.setTitle(CommonStrings.readingListLoginButtonTitle, for:.normal)
         default:
             break

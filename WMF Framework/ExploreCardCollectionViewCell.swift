@@ -284,6 +284,12 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         }
     }
     
+    public var isUrgent: Bool = false {
+        didSet {
+            cardBorderWidth = 3
+        }
+    }
+    
     public override func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         titleLabel.backgroundColor = labelBackgroundColor
@@ -298,7 +304,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         contentView.tintColor = theme.colors.link
         let backgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.paperBackground
         let selectedBackgroundColor = isCollapsed ? theme.colors.cardButtonBackground : theme.colors.midBackground
-        let cardBackgroundViewBorderColor = isCollapsed ? backgroundColor.cgColor : theme.colors.cardBorder.cgColor
+        let cardBackgroundViewBorderColor = isUrgent ? theme.colors.error.cgColor : isCollapsed ? backgroundColor.cgColor : theme.colors.cardBorder.cgColor
         cardBackgroundView.layer.borderColor = cardBackgroundViewBorderColor
         setBackgroundColors(.clear, selected: selectedBackgroundColor)
         titleLabel.textColor = theme.colors.primaryText
@@ -313,7 +319,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardShadowColor = theme.colors.cardShadow
         cardContent?.apply(theme: theme)
         let displayScale = max(1, traitCollection.displayScale)
-        cardBorderWidth = CGFloat(theme.cardBorderWidthInPixels) / displayScale
+        cardBorderWidth = isUrgent ? 3 : CGFloat(theme.cardBorderWidthInPixels) / displayScale
     }
     
     @objc func customizationButtonPressed() {
