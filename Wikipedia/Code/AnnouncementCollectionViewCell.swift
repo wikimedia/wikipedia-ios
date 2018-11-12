@@ -150,7 +150,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let widthMinusMargins = layoutWidth(for: size)
         let displayScale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 2.0
-        var origin = CGPoint(x: layoutMargins.left, y: 0)
+        var origin = CGPoint(x: layoutMargins.left + layoutMarginsAdditions.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
@@ -172,7 +172,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         if !isCaptionHidden {
             origin.y += dismissButtonSpacing
-            let separatorFrame = CGRect(x: 0, y: origin.y, width: size.width, height: 1.0 / displayScale)
+            let separatorFrame = CGRect(x: origin.x, y: origin.y, width: widthMinusMargins, height: 1.0 / displayScale)
             if (apply) {
                 captionSeparatorView.frame = separatorFrame
             }
@@ -214,9 +214,14 @@ extension AnnouncementCollectionViewCell: Themeable {
         if isUrgent {
             actionButton.setTitleColor(theme.colors.paperBackground, for: .normal)
             actionButton.backgroundColor = theme.colors.link
+            contentView.layer.borderWidth = 3
+            contentView.layer.borderColor = theme.colors.error.cgColor
+            contentView.layer.cornerRadius = Theme.exploreCardCornerRadius
         } else {
             actionButton.setTitleColor(theme.colors.link, for: .normal)
             actionButton.backgroundColor = theme.colors.cardButtonBackground
+            contentView.layer.borderWidth = 0
+            contentView.layer.cornerRadius = 0
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
