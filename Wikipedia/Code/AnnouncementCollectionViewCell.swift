@@ -212,16 +212,16 @@ extension AnnouncementCollectionViewCell: Themeable {
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
         if isUrgent {
-            actionButton.setTitleColor(theme.colors.paperBackground, for: .normal)
+            actionButton.setTitleColor(theme.colors.filledButtonText, for: .normal)
             actionButton.backgroundColor = theme.colors.link
-            contentView.layer.borderWidth = 3
-            contentView.layer.borderColor = theme.colors.error.cgColor
-            contentView.layer.cornerRadius = Theme.exploreCardCornerRadius
+            layer.borderWidth = 3
+            layer.borderColor = theme.colors.error.cgColor
+            layer.cornerRadius = Theme.exploreCardCornerRadius
         } else {
             actionButton.setTitleColor(theme.colors.link, for: .normal)
             actionButton.backgroundColor = theme.colors.cardButtonBackground
-            contentView.layer.borderWidth = 0
-            contentView.layer.cornerRadius = 0
+            layer.borderWidth = 0
+            layer.cornerRadius = 0
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
