@@ -103,11 +103,8 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             return
         }
         let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.lineBreakMode = .byWordWrapping
-        pStyle.baseWritingDirection = .natural
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
@@ -121,19 +118,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     public var isUrgent: Bool = false
     private var messageUnderlineColor: UIColor?
-    private var messageLineHeightMultiple: CGFloat = 1
     private func updateMessageTextViewWithAttributedMessage() {
         guard let html = messageHTML else {
             messageTextView.attributedText = nil
             return
         }
         let attributedText = html.byAttributingHTML(with: .subheadline, matching: traitCollection, underlineColor: messageUnderlineColor)
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.lineBreakMode = .byWordWrapping
-        pStyle.baseWritingDirection = .natural
-        pStyle.lineHeightMultiple = messageLineHeightMultiple
         let color = messageTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         messageTextView.attributedText = attributedText
     }
@@ -215,7 +207,6 @@ extension AnnouncementCollectionViewCell: Themeable {
         actionButton.backgroundColor = theme.colors.cardButtonBackground
         if isUrgent {
             messageUnderlineColor = theme.colors.error
-            messageLineHeightMultiple = 1.5
             layer.borderWidth = 3
             layer.borderColor = theme.colors.error.cgColor
             layer.cornerRadius = Theme.exploreCardCornerRadius
@@ -223,7 +214,6 @@ extension AnnouncementCollectionViewCell: Themeable {
             layer.borderWidth = 0
             layer.cornerRadius = 0
             messageUnderlineColor = nil
-            messageLineHeightMultiple = 1
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
