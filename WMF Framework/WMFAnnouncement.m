@@ -23,7 +23,7 @@
 }
 
 + (NSInteger)version {
-    return 2;
+    return 3;
 }
 
 + (NSValueTransformer *)actionURLJSONTransformer {
@@ -40,7 +40,7 @@
         }];
 }
 
-+ (NSValueTransformer *)articleURLJSONTransformer {
++ (NSValueTransformer *)imageURLJSONTransformer {
     return [MTLValueTransformer
             transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
                                                   BOOL *success,
@@ -48,10 +48,14 @@
             NSString *urlString = value[@"image"] ?: value[@"image_url"];
             return [NSURL wmf_optionalURLWithString:urlString];
         }
-        reverseBlock:^NSString *(NSURL *URL,
+        reverseBlock:^NSDictionary *(NSURL *URL,
                                  BOOL *success,
                                  NSError *__autoreleasing *error) {
-            return [URL absoluteString];
+            NSString *urlString = [URL absoluteString];
+            if (!urlString) {
+                return @{};
+            }
+            return @{@"image_url": urlString};
         }];
 }
 
