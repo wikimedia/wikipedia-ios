@@ -10,7 +10,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public weak var delegate: AnnouncementCollectionViewCellDelegate?
     
     public let imageView = UIImageView()
-    private let messageLabel = UILabel()
+    private let messageTextView = UITextView()
     public let actionButton = UIButton()
     public let dismissButton = UIButton()
     private let captionTextView = UITextView()
@@ -30,9 +30,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         imageView.clipsToBounds = true
         addSubview(imageView)
         
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        addSubview(messageLabel)
+        messageTextView.isEditable = false
+        messageTextView.delegate = self
+        addSubview(messageTextView)
         
         addSubview(actionButton)
         
@@ -41,6 +41,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         addSubview(captionSeparatorView)
         
         captionTextView.isEditable = false
+        captionTextView.delegate = self
         addSubview(captionTextView)
         
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
@@ -54,7 +55,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         dismissButton.titleLabel?.textAlignment = .center
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
-        captionTextView.delegate = self
         super.setup()
     }
     
@@ -124,9 +124,9 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     public var isUrgent: Bool = false
     private var messageUnderlineColor: UIColor?
-    private func updateMessageLabelWithAttributedMessage() {
+    private func updateMessageTextViewWithAttributedMessage() {
         guard let html = messageHTML else {
-            messageLabel.attributedText = nil
+            messageTextView.attributedText = nil
             return
         }
         let attributedText = html.byAttributingHTML(with: .subheadline, matching: traitCollection, underlineColor: messageUnderlineColor)
@@ -135,15 +135,15 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.baseWritingDirection = .natural
         pStyle.alignment = .center
         pStyle.lineHeightMultiple = 1.5
-        let color = messageLabel.textColor ?? UIColor.black
+        let color = messageTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
-        messageLabel.attributedText = attributedText
+        messageTextView.attributedText = attributedText
     }
     
     public var messageHTML: String? {
         didSet {
-            updateMessageLabelWithAttributedMessage()
+            updateMessageTextViewWithAttributedMessage()
         }
     }
     
@@ -161,7 +161,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageTextSize = messageTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
+        let messageFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: messageTextSize.height))
+        if (apply) {
+            messageTextView.frame = messageFrame
+        }
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
         let buttonMinimumWidth = min(250, widthMinusMargins)
@@ -205,7 +209,7 @@ extension AnnouncementCollectionViewCell: Themeable {
     @objc(applyTheme:)
     public func apply(theme: Theme) {
         setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
-        messageLabel.textColor = theme.colors.primaryText
+        messageTextView.textColor = theme.colors.primaryText
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
@@ -227,6 +231,6 @@ extension AnnouncementCollectionViewCell: Themeable {
         captionTextView.backgroundColor = .clear
         messageUnderlineColor = isUrgent ? theme.colors.error : nil
         updateCaptionTextViewWithAttributedCaption()
-        updateMessageLabelWithAttributedMessage()
+        updateMessageTextViewWithAttributedMessage()
     }
 }
