@@ -210,6 +210,7 @@ extension AnnouncementCollectionViewCell: Themeable {
     public func apply(theme: Theme) {
         setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
         messageTextView.textColor = theme.colors.primaryText
+        messageTextView.backgroundColor = .clear
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
