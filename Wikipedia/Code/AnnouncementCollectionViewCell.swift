@@ -102,7 +102,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             isCaptionHidden = true
             return
         }
-        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
+        let attributedText = html.byAttributingHTML(with: .footnote, boldWeight: .bold, matching: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
