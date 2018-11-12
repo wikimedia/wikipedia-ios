@@ -178,9 +178,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             }
             origin.y += separatorFrame.height
             origin.y += captionSpacing
-            // set width first to get proper content size
-            captionTextView.frame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: 32))
-            let captionTextViewSize = captionTextView.contentSize
+            let captionTextViewSize = captionTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
             let captionFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: captionTextViewSize.height))
             if (apply) {
                 captionTextView.frame = captionFrame
