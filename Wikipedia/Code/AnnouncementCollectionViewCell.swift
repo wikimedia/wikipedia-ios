@@ -121,6 +121,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     
     public var isUrgent: Bool = false
     private var messageUnderlineColor: UIColor?
+    private var messageLineHeightMultiple: CGFloat = 1
     private func updateMessageTextViewWithAttributedMessage() {
         guard let html = messageHTML else {
             messageTextView.attributedText = nil
@@ -130,7 +131,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        pStyle.lineHeightMultiple = 1.5
+        pStyle.lineHeightMultiple = messageLineHeightMultiple
         let color = messageTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
@@ -214,6 +215,7 @@ extension AnnouncementCollectionViewCell: Themeable {
         actionButton.backgroundColor = theme.colors.cardButtonBackground
         if isUrgent {
             messageUnderlineColor = theme.colors.error
+            messageLineHeightMultiple = 1.5
             layer.borderWidth = 3
             layer.borderColor = theme.colors.error.cgColor
             layer.cornerRadius = Theme.exploreCardCornerRadius
@@ -221,6 +223,7 @@ extension AnnouncementCollectionViewCell: Themeable {
             layer.borderWidth = 0
             layer.cornerRadius = 0
             messageUnderlineColor = nil
+            messageLineHeightMultiple = 1
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
