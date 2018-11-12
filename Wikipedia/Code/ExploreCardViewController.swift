@@ -428,6 +428,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? CollectionViewCell else {
             return estimate
         }
+        placeholderCell.prepareForReuse()
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
         let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: groupKey, articleKey: articleKey, userInfo: userInfo)
