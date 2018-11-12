@@ -213,7 +213,7 @@ public typealias ReadingListsController = WMFReadingListsController
     func listExists(with name: String, in moc: NSManagedObjectContext) throws -> Bool {
         let name = name.precomposedStringWithCanonicalMapping
         let existingOrDefaultListRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        existingOrDefaultListRequest.predicate = NSPredicate(format: "canonicalName MATCHES %@ or isDefault == YES", name)
+        existingOrDefaultListRequest.predicate = NSPredicate(format: "(canonicalName MATCHES %@ OR isDefault == YES) AND isDeletedLocally == NO", name)
         existingOrDefaultListRequest.fetchLimit = 2
         let lists = try moc.fetch(existingOrDefaultListRequest)
         return lists.first(where: { $0.name == name }) != nil
@@ -452,7 +452,35 @@ public typealias ReadingListsController = WMFReadingListsController
             NotificationCenter.default.post(name: ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountNotification, object: nil, userInfo: [ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledKey: NSNumber(value: wasSyncEnabledForAccount), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncEnabledOnDeviceKey: NSNumber(value: wasSyncEnabledOnDevice), ReadingListsController.readingListsServerDidConfirmSyncWasEnabledForAccountWasSyncDisabledOnDeviceKey: NSNumber(value: wasSyncDisabledOnDevice)])
         }
     }
-    
+
+    public func eraseAllSavedArticlesAndReadingLists() {
+        assert(Thread.isMainThread)
+
+        let oldSyncState = syncState
+        var newSyncState = oldSyncState
+
+        if isSyncEnabled {
+            // Since there is no batch delete on the server,
+            // we remove local and remote reading lists
+            // by disabling and then enabling the service.
+            // Otherwise, we'd have to delete everything via single requests.
+            newSyncState.insert(.needsRemoteDisable)
+            newSyncState.insert(.needsRemoteEnable)
+            newSyncState.insert(.needsSync)
+        } else {
+            newSyncState.insert(.needsLocalClear)
+            newSyncState.remove(.needsSync)
+        }
+
+        newSyncState.remove(.needsUpdate)
+
+        guard newSyncState != oldSyncState else {
+            return
+        }
+        syncState = newSyncState
+        sync()
+    }
+
     @objc public func setSyncEnabled(_ isSyncEnabled: Bool, shouldDeleteLocalLists: Bool, shouldDeleteRemoteLists: Bool) {
         
         let oldSyncState = self.syncState
