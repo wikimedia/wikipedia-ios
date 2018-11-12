@@ -102,7 +102,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             isCaptionHidden = true
             return
         }
-        let attributedText = html.byAttributingHTML(with: .footnote, boldWeight: .bold, matching: traitCollection)
+        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
@@ -123,7 +123,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             messageTextView.attributedText = nil
             return
         }
-        let attributedText = html.byAttributingHTML(with: .subheadline, matching: traitCollection, underlineColor: messageUnderlineColor)
+        let attributedText = html.byAttributingHTML(with: .subheadline, boldWeight: .bold, matching: traitCollection, underlineColor: messageUnderlineColor)
         let color = messageTextView.textColor ?? UIColor.black
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
