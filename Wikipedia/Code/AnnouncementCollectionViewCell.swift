@@ -138,7 +138,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         messageLabel.attributedText = attributedText
-        isCaptionHidden = false
     }
     
     public var messageHTML: String? {
