@@ -13,7 +13,7 @@ struct ExploreSaveButtonUserInfo {
     let midnightUTCDate: Date?
 }
 
-class ExploreCardViewController: ThemeableViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
+class ExploreCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, CardContent, ColumnarCollectionViewLayoutDelegate, ArticleURLProvider {
     
     weak var delegate: (ExploreCardViewControllerDelegate & UIViewController)?
     
@@ -48,6 +48,8 @@ class ExploreCardViewController: ThemeableViewController, UICollectionViewDataSo
     }
     
     var updater: ArticleURLProviderEditControllerUpdater?
+    
+    var theme: Theme = Theme.standard
     
     var dataStore: MWKDataStore!
     
@@ -468,16 +470,6 @@ class ExploreCardViewController: ThemeableViewController, UICollectionViewDataSo
         
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
     }
-    
-    // MARK - Theme
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-        guard viewIfLoaded != nil else {
-            return
-        }
-        collectionView.backgroundColor = theme.colors.cardBackground
-        view.backgroundColor = theme.colors.cardBackground
-    }
 }
 
 extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
@@ -669,6 +661,17 @@ extension ExploreCardViewController: WMFLocationManagerDelegate {
             cell.updateForLocationEnabled()
         }
         dataStore.feedContentController.updateNearbyForce(false, completion: nil)
+    }
+}
+
+extension ExploreCardViewController: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        guard viewIfLoaded != nil else {
+            return
+        }
+        collectionView.backgroundColor = theme.colors.cardBackground
+        view.backgroundColor = theme.colors.cardBackground
     }
 }
 

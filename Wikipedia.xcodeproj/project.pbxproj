@@ -1447,21 +1447,6 @@
 		D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D81446041E70C2430078D71E /* WMFMapsActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B389CFCD1E6F238300483C06 /* WMFMapsActivity.swift */; };
 		D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81446051E71771B0078D71E /* WMFBlocksKit.swift */; };
-		D815754A2196F13D008F200D /* FundraisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575482196F13D008F200D /* FundraisingViewController.swift */; };
-		D815754B2196F13D008F200D /* FundraisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575482196F13D008F200D /* FundraisingViewController.swift */; };
-		D815754C2196F13D008F200D /* FundraisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575482196F13D008F200D /* FundraisingViewController.swift */; };
-		D815754D2196F13D008F200D /* FundraisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575482196F13D008F200D /* FundraisingViewController.swift */; };
-		D815754E2196F13D008F200D /* FundraisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575482196F13D008F200D /* FundraisingViewController.swift */; };
-		D815754F2196F13D008F200D /* FundraisingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81575492196F13D008F200D /* FundraisingViewController.xib */; };
-		D81575502196F13D008F200D /* FundraisingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81575492196F13D008F200D /* FundraisingViewController.xib */; };
-		D81575512196F13D008F200D /* FundraisingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81575492196F13D008F200D /* FundraisingViewController.xib */; };
-		D81575522196F13D008F200D /* FundraisingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81575492196F13D008F200D /* FundraisingViewController.xib */; };
-		D81575532196F13D008F200D /* FundraisingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D81575492196F13D008F200D /* FundraisingViewController.xib */; };
-		D81575552196F263008F200D /* ThemeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575542196F263008F200D /* ThemeableViewController.swift */; };
-		D81575562196F263008F200D /* ThemeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575542196F263008F200D /* ThemeableViewController.swift */; };
-		D81575572196F263008F200D /* ThemeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575542196F263008F200D /* ThemeableViewController.swift */; };
-		D81575582196F263008F200D /* ThemeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575542196F263008F200D /* ThemeableViewController.swift */; };
-		D81575592196F263008F200D /* ThemeableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81575542196F263008F200D /* ThemeableViewController.swift */; };
 		D8181FA52188DC1400FDEC59 /* String+Domains.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8181FA42188DC1400FDEC59 /* String+Domains.swift */; };
 		D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
 		D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */; };
@@ -4348,9 +4333,6 @@
 		D813FD9F1EC3419400FA4690 /* ArticleRightAlignedImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleRightAlignedImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleRightAlignedImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D813FDA41EC34B2600FA4690 /* WMFArticle+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Extensions.swift"; sourceTree = "<group>"; };
 		D81446051E71771B0078D71E /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBlocksKit.swift; path = Wikipedia/Code/WMFBlocksKit.swift; sourceTree = SOURCE_ROOT; };
-		D81575482196F13D008F200D /* FundraisingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundraisingViewController.swift; sourceTree = "<group>"; };
-		D81575492196F13D008F200D /* FundraisingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FundraisingViewController.xib; sourceTree = "<group>"; };
-		D81575542196F263008F200D /* ThemeableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeableViewController.swift; sourceTree = "<group>"; };
 		D8181FA42188DC1400FDEC59 /* String+Domains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Domains.swift"; path = "WMF Framework/String+Domains.swift"; sourceTree = SOURCE_ROOT; };
 		D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnarCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
@@ -5795,8 +5777,6 @@
 				8351CE7720D4424100E32FC1 /* CollectionViewHeader.swift */,
 				83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */,
 				D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */,
-				D81575482196F13D008F200D /* FundraisingViewController.swift */,
-				D81575492196F13D008F200D /* FundraisingViewController.xib */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
 				0E52FD631DA4008A00587426 /* Content Display */,
 				B0B4235F1EF9D65F00D3DC4C /* On This Day */,
@@ -7499,10 +7479,9 @@
 			isa = PBXGroup;
 			children = (
 				83023C1720E6581A00EC7592 /* Transitions */,
+				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B1668A1FD97FE000097D8B /* WMFViewController.h */,
 				D8B1668B1FD97FE000097D8B /* WMFViewController.m */,
-				D81575542196F263008F200D /* ThemeableViewController.swift */,
-				D8703DBE1EE84533001A4BAB /* PreviewingViewController.swift */,
 				D8B166841FD97A0500097D8B /* ViewController.swift */,
 				D818D3801ED7254D0076110D /* ColumnarCollectionViewController.swift */,
 				8367A27E20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift */,
@@ -9164,7 +9143,6 @@
 				B0E804111C0CDE480065EBC0 /* PageHistoryViewController.storyboard in Resources */,
 				B0845E1C2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED11F615E5B007D1A05 /* ShareViewController.xib in Resources */,
-				D815754F2196F13D008F200D /* FundraisingViewController.xib in Resources */,
 				0EE2438F1DC988AA00066CBD /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				B0E804161C0CDE480065EBC0 /* WebViewController.storyboard in Resources */,
 				D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */,
@@ -9192,7 +9170,6 @@
 				83836ED51F615E5B007D1A05 /* ShareViewController.xib in Resources */,
 				D80ED3D71EE57F4800CE8C50 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
 				D80ED3D81EE57F4800CE8C50 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
-				D81575532196F13D008F200D /* FundraisingViewController.xib in Resources */,
 				D80ED3D91EE57F4800CE8C50 /* NotificationBackgroundErrorIcon.png in Resources */,
 				D80ED3DA1EE57F4800CE8C50 /* WMFLanguageCell.xib in Resources */,
 				D80ED3DD1EE57F4800CE8C50 /* InfoPlist.strings in Resources */,
@@ -9395,7 +9372,6 @@
 				D8A42C0E1E815A9C00D8E281 /* PageHistoryViewController.storyboard in Resources */,
 				B0845E1F2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED41F615E5B007D1A05 /* ShareViewController.xib in Resources */,
-				D81575522196F13D008F200D /* FundraisingViewController.xib in Resources */,
 				D8A42C101E815A9C00D8E281 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8A42C121E815A9C00D8E281 /* WebViewController.storyboard in Resources */,
 				D8A42C131E815A9C00D8E281 /* NotificationButtonBackground.png in Resources */,
@@ -9489,7 +9465,6 @@
 				D8CE26951E698E2400DAE2E0 /* PageHistoryViewController.storyboard in Resources */,
 				B0845E1D2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED21F615E5B007D1A05 /* ShareViewController.xib in Resources */,
-				D81575502196F13D008F200D /* FundraisingViewController.xib in Resources */,
 				D8CE26971E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8CE26991E698E2400DAE2E0 /* WebViewController.storyboard in Resources */,
 				D8CE269A1E698E2400DAE2E0 /* NotificationButtonBackground.png in Resources */,
@@ -9583,7 +9558,6 @@
 				D8EC3F951E9BDA35006712EB /* PageHistoryViewController.storyboard in Resources */,
 				B0845E1E2061B44A00CDD98E /* SavedProgressViewController.storyboard in Resources */,
 				83836ED31F615E5B007D1A05 /* ShareViewController.xib in Resources */,
-				D81575512196F13D008F200D /* FundraisingViewController.xib in Resources */,
 				D8EC3F971E9BDA35006712EB /* WMFTableHeaderFooterLabelView.xib in Resources */,
 				D8EC3F991E9BDA35006712EB /* WebViewController.storyboard in Resources */,
 				D8EC3F9A1E9BDA35006712EB /* NotificationButtonBackground.png in Resources */,
@@ -10138,7 +10112,6 @@
 				B09B03ED1CE0FB4200009083 /* PageHistorySection.swift in Sources */,
 				D8B166851FD97A0500097D8B /* ViewController.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
-				D81575552196F263008F200D /* ThemeableViewController.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0DF6F811CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -10303,7 +10276,6 @@
 				D8A6BAEF1E4C9C0700A981C8 /* ArticlePlaceView.swift in Sources */,
 				83836ECC1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				B0C6BE4A1E42D19D0033BD6E /* WMFCaptchaViewController.swift in Sources */,
-				D815754A2196F13D008F200D /* FundraisingViewController.swift in Sources */,
 				7A6ED51220ADBF950001849F /* ReadingListsFunnel.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */,
@@ -10415,7 +10387,6 @@
 				B0524AF52144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				D80ED2B51EE57F4800CE8C50 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				D80ED2B61EE57F4800CE8C50 /* PageHistoryViewController.m in Sources */,
-				D81575592196F263008F200D /* ThemeableViewController.swift in Sources */,
 				D80ED2B71EE57F4800CE8C50 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0524B69214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				B0016CC721362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -10429,7 +10400,6 @@
 				D80ED2BE1EE57F4800CE8C50 /* MenuLabel.m in Sources */,
 				D80ED2C11EE57F4800CE8C50 /* WMFArticleRevisionFetcher.m in Sources */,
 				D80ED2C21EE57F4800CE8C50 /* WMFArticleLanguagesSectionHeader.m in Sources */,
-				D815754E2196F13D008F200D /* FundraisingViewController.swift in Sources */,
 				83CA612E20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
 				D80ED2C31EE57F4800CE8C50 /* PreviewLicenseView.m in Sources */,
 				D80ED2C41EE57F4800CE8C50 /* WMFFixtureRecording.m in Sources */,
@@ -11145,7 +11115,6 @@
 				B0F9299E1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8B166881FD97A0500097D8B /* ViewController.swift in Sources */,
 				D8A42AC41E815A9C00D8E281 /* WMFTableOfContentsViewController.swift in Sources */,
-				D81575582196F263008F200D /* ThemeableViewController.swift in Sources */,
 				D8A42AC61E815A9C00D8E281 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0C7A07B1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8A42AC71E815A9C00D8E281 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -11310,7 +11279,6 @@
 				D8A42B7B1E815A9C00D8E281 /* WMFArticleRevision.m in Sources */,
 				D8A42B7C1E815A9C00D8E281 /* ArticlePlaceView.swift in Sources */,
 				D8A42B7D1E815A9C00D8E281 /* WMFCaptchaViewController.swift in Sources */,
-				D815754D2196F13D008F200D /* FundraisingViewController.swift in Sources */,
 				D8A42B7E1E815A9C00D8E281 /* DDLog+WMFLogger.m in Sources */,
 				D8A42B801E815A9C00D8E281 /* WMFReference.swift in Sources */,
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
@@ -11422,7 +11390,6 @@
 				B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				D8CE25241E698E2400DAE2E0 /* (null) in Sources */,
-				D81575562196F263008F200D /* ThemeableViewController.swift in Sources */,
 				D818D3821ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				B0524B66214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				B0016CC421362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -11436,7 +11403,6 @@
 				D8CE252A1E698E2400DAE2E0 /* WMFArticleRequestSerializer.m in Sources */,
 				D8CE252B1E698E2400DAE2E0 /* MenuLabel.m in Sources */,
 				83CA612B20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
-				D815754B2196F13D008F200D /* FundraisingViewController.swift in Sources */,
 				D8CE252E1E698E2400DAE2E0 /* WMFArticleRevisionFetcher.m in Sources */,
 				D8CE252F1E698E2400DAE2E0 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8CE25301E698E2400DAE2E0 /* PreviewLicenseView.m in Sources */,
@@ -11752,7 +11718,6 @@
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
 				D8EC3E171E9BDA35006712EB /* MWKTitleLanguageController.m in Sources */,
-				D81575572196F263008F200D /* ThemeableViewController.swift in Sources */,
 				B0016CC521362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				B0524B67214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,
@@ -11766,7 +11731,6 @@
 				D8EC3E1D1E9BDA35006712EB /* WMFTitleInsetRespectingButton.m in Sources */,
 				D8EC3E1E1E9BDA35006712EB /* WMFChangePasswordViewController.swift in Sources */,
 				D8B166871FD97A0500097D8B /* ViewController.swift in Sources */,
-				D815754C2196F13D008F200D /* FundraisingViewController.swift in Sources */,
 				B0421AA4206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				7A6ED51E20ADBF950001849F /* LoginFunnel.swift in Sources */,
 				D8EC3E211E9BDA35006712EB /* WMFArticleRequestSerializer.m in Sources */,

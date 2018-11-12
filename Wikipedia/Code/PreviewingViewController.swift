@@ -1,6 +1,6 @@
 import UIKit
 
-class PreviewingViewController: ThemeableViewController {
+class PreviewingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForPreviewingIfAvailable()
