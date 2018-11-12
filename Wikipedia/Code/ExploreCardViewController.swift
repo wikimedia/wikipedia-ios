@@ -409,11 +409,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
-        let article: WMFArticle? = self.article(at: indexPath)
+        let articleKey: String? = self.article(at: indexPath)?.key
+        let groupKey: String? = contentGroup?.key
         if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
             key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
-            key = article?.key
+            key = articleKey ?? groupKey
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
@@ -425,7 +426,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
         let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: contentGroup?.key, articleKey: article?.key, userInfo: userInfo)
+        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: groupKey, articleKey: articleKey, userInfo: userInfo)
         estimate.height = height
         estimate.precalculated = true
         return estimate
