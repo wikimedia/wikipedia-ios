@@ -293,11 +293,11 @@
     return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold underlineColor:(nullable UIColor *)underlineColor {
-    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont withAdditionalBoldingForMatchingSubstring:stringToBold boldLinks:NO underlineColor:underlineColor];
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold {
+    return [self wmf_attributedStringFromHTMLWithFont:font boldFont:boldFont italicFont:italicFont boldItalicFont:boldItalicFont withAdditionalBoldingForMatchingSubstring:stringToBold boldLinks:NO additionalTagAttributes:nil];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold boldLinks:(BOOL)shouldBoldLinks underlineColor:(nullable UIColor *)underlineColor {
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold boldLinks:(BOOL)shouldBoldLinks additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
     boldFont = boldFont ?: font;
     italicFont = italicFont ?: font;
     boldItalicFont = boldItalicFont ?: font;
@@ -382,17 +382,22 @@
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
         }
         
-        if ([tagsForRange containsObject:@"u"]) {
-            [attributedString addAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlineStyleSingle) range:range];
-            if (underlineColor) {
-                [attributedString addAttribute:NSUnderlineColorAttributeName value:underlineColor range:range];
-            }
-        }
-        
         NSURL *linkURL = [linksForRange anyObject];
         if (linkURL) {
             [attributedString addAttribute:NSLinkAttributeName value:linkURL range:range];
         }
+    
+        for (NSString *tag in additionalTagAttributes.allKeys) {
+            if (![tagsForRange containsObject:tag]) {
+                continue;
+            }
+            NSDictionary<NSAttributedStringKey, id> *attributes = additionalTagAttributes[tag];
+            if (attributes.count == 0) {
+                continue;
+            }
+            [attributedString addAttributes:attributes range:range];
+        }
+        
     }];
 
     return attributedString;

@@ -117,16 +117,22 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     }
     
     public var isUrgent: Bool = false
-    private var messageUnderlineColor: UIColor?
+    private var messageUnderlineColor: UIColor = UIColor.black
+    private var messageEmphasisColor: UIColor = UIColor.black
     private func updateMessageTextViewWithAttributedMessage() {
         guard let html = messageHTML else {
             messageTextView.attributedText = nil
             return
         }
-        let attributedText = html.byAttributingHTML(with: .subheadline, boldWeight: .bold, matching: traitCollection, underlineColor: messageUnderlineColor)
-        let color = messageTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
-        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        let attributedText = html.byAttributingHTML(with: .subheadline, boldWeight: .bold, matching: traitCollection, additionalTagAttributes: [
+            "u": [
+                NSAttributedString.Key.underlineColor: messageUnderlineColor,
+                NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
+            ],
+            "em": [
+                NSAttributedString.Key.foregroundColor: messageEmphasisColor
+            ]
+        ])
         messageTextView.attributedText = attributedText
     }
     
@@ -207,13 +213,15 @@ extension AnnouncementCollectionViewCell: Themeable {
         actionButton.backgroundColor = theme.colors.cardButtonBackground
         if isUrgent {
             messageUnderlineColor = theme.colors.error
+            messageEmphasisColor = theme.colors.error
             layer.borderWidth = 3
             layer.borderColor = theme.colors.error.cgColor
             layer.cornerRadius = Theme.exploreCardCornerRadius
         } else {
             layer.borderWidth = 0
             layer.cornerRadius = 0
-            messageUnderlineColor = nil
+            messageUnderlineColor = messageTextView.textColor ?? theme.colors.primaryText
+            messageEmphasisColor = messageTextView.textColor ?? theme.colors.primaryText
         }
         actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
