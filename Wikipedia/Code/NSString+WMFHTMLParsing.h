@@ -53,9 +53,33 @@ NS_ASSUME_NONNULL_BEGIN
  *  Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType}
  *  It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
  */
+
+/**
+ *  Converts HTML string with <i></i> and <b></b> tags to NSAttributedString with the specified italic and bold fonts. Optionally bolds an additional string based on matching.
+ *  @discussion Please don't remove this and convert to alloc/init'ing the attributed string with @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} It's slower and was the source of crashes in the past. https://developer.apple.com/documentation/foundation/nsattributedstring/1524613-initwithdata
+ *
+ * @param font           Base font for the returned attributed string
+ * @param boldFont       Bold font for the returned attribued string
+ * @param italicFont     Italic font for the returned attributed string
+ * @param boldItalicFont Bold & italic font for the returned attributed string
+ * @param stringToBold   String to match for additional bolding
+ * @param tagMapping     Lowercase string tag name to another lowercase string tag name - converts tags, for example, @{@"a":@"b"} will turn <a></a> tags to <b></b> tags
+ * @param additionalTagAttributes Additional text attributes for given tags - lowercase tag name to attribute key/value pairs
+ * @return attributed string
+ */
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font
+                                                           boldFont:(nullable UIFont *)boldFont
+                                                         italicFont:(nullable UIFont *)italicFont
+                                                     boldItalicFont:(nullable UIFont *)boldItalicFont
+                          withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold
+                                                         tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
+                                            additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
+
+/*
+ * Convienence method for the method above.
+ */
 - (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold;
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont withAdditionalBoldingForMatchingSubstring:(nullable NSString *)stringToBold boldLinks:(BOOL)boldLinks additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
 
 @end
 

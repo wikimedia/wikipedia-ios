@@ -124,12 +124,16 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             messageTextView.attributedText = nil
             return
         }
-        let attributedText = html.byAttributingHTML(with: .subheadline, boldWeight: .bold, matching: traitCollection, additionalTagAttributes: [
+        let attributedText = html.byAttributingHTML(with: .subheadline,
+                                                    boldWeight: .bold,
+                                                    matching: traitCollection,
+                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
+                                                    additionalTagAttributes: [
             "u": [
                 NSAttributedString.Key.underlineColor: messageUnderlineColor,
                 NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
             ],
-            "em": [
+            "strong": [
                 NSAttributedString.Key.foregroundColor: messageEmphasisColor
             ]
         ])
