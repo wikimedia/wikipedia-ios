@@ -344,6 +344,7 @@
 "license-footer-text" = "Садржај је доступан под лиценцом $1, осим ако је другачије наведено.";
 "logged-out-continue-without-logging-in-button-title" = "Настави без пријаве";
 "logged-out-log-back-in-button-title" = "Поново ме пријави на налог";
+"logged-out-subtitle" = "Дошло је до грешке при потврди идентитета. Како бисте синхронизовали листе за читање и уређивали под корисничким именом, поново се пријавите.";
 "logged-out-title" = "Одјављени сте";
 "login-forgot-password" = "Заборавили сте лозинку?";
 "login-join-wikipedia" = "Придружите се Википедији.";
