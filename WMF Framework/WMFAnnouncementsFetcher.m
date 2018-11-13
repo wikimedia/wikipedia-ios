@@ -40,7 +40,7 @@
         return;
     }
 
-    NSURL *url = [siteURL wmf_URLWithPath:@"/api/rest_v1/feed/announcements" isMobile:NO];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@"/feed/announcements"];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil
