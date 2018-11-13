@@ -351,6 +351,9 @@
 "languages-wikipedia" = "Jazyk Wikipedie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
+"logged-out-continue-without-logging-in-button-title" = "Dokončit bez přihlášení";
+"logged-out-log-back-in-button-title" = "Přihlásit se zpět do Vašeho účtu";
+"logged-out-title" = "Byli jste odhlášeni";
 "login-forgot-password" = "Zapomněli jste heslo?";
 "login-join-wikipedia" = "Připojte se k Wikipedii.";
 "login-no-account" = "Nemáte účet? $1";

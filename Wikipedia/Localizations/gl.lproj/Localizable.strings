@@ -340,6 +340,10 @@
 "languages-wikipedia" = "Linguas de Wikipedia";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "O contido está dispoñible baixo a $1, salvo que se indique o contrario.";
+"logged-out-continue-without-logging-in-button-title" = "Continuar sen comezar sesión";
+"logged-out-log-back-in-button-title" = "Entrar de novo na súa conta";
+"logged-out-subtitle" = "Houbo un problema autenticando a súa conta. Para sincronizar as súas listas de lectura e editar co seu nome de usuario, por favor, conéctese de novo ó seu usuario.";
+"logged-out-title" = "Vostede foi desconectado";
 "login-forgot-password" = "Esqueceu o contrasinal?";
 "login-join-wikipedia" = "Unirse a Wikipedia.";
 "login-no-account" = "Non ten unha conta? $1.";
