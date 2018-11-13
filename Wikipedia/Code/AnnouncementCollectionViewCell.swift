@@ -30,6 +30,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         imageView.clipsToBounds = true
         addSubview(imageView)
         
+        messageTextView.isScrollEnabled = false
         messageTextView.isEditable = false
         messageTextView.delegate = self
         addSubview(messageTextView)
@@ -40,6 +41,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         addSubview(captionSeparatorView)
         
+        captionTextView.isScrollEnabled = false
         captionTextView.isEditable = false
         captionTextView.delegate = self
         addSubview(captionTextView)
@@ -103,8 +105,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             return
         }
         let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineBreakMode = .byWordWrapping
+        pStyle.baseWritingDirection = .natural
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
@@ -119,6 +124,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public var isUrgent: Bool = false
     private var messageUnderlineColor: UIColor = UIColor.black
     private var messageEmphasisColor: UIColor = UIColor.black
+    private var messageLineHeightMultiple: CGFloat = 1
     private func updateMessageTextViewWithAttributedMessage() {
         guard let html = messageHTML else {
             messageTextView.attributedText = nil
@@ -137,6 +143,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
                 NSAttributedString.Key.foregroundColor: messageEmphasisColor
             ]
         ])
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineHeightMultiple = messageLineHeightMultiple
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         messageTextView.attributedText = attributedText
     }
     
@@ -215,6 +225,7 @@ extension AnnouncementCollectionViewCell: Themeable {
         imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
         actionButton.backgroundColor = theme.colors.cardButtonBackground
+        messageLineHeightMultiple = 1.25
         if isUrgent {
             messageUnderlineColor = theme.colors.error
             messageEmphasisColor = theme.colors.error
