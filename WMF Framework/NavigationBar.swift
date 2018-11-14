@@ -328,7 +328,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public var visibleHeight: CGFloat = 0
-    
+    @objc public var hiddenHeight: CGFloat = 0
+
     public var shadowAlpha: CGFloat {
         get {
             return shadow.alpha
@@ -475,6 +476,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let extendedViewTransformHeight = extendedViewHeight * extendedViewPercentHidden
         let underBarTransformHeight = underBarViewHeight * underBarViewPercentHidden
         
+        hiddenHeight = barTransformHeight + extendedViewTransformHeight + underBarTransformHeight
+
         let barTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight)
         let barScaleTransform = CGAffineTransform(scaleX: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden, y: 1.0 - navigationBarPercentHidden * navigationBarPercentHidden)
         
@@ -494,7 +497,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.bar.alpha = min(backgroundAlpha, (1.0 - 2.0 * navigationBarPercentHidden).wmf_normalizedPercentage)
         self.titleBar.alpha = self.bar.alpha
         
-        let totalTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - extendedViewTransformHeight - underBarTransformHeight)
+        let totalTransform = CGAffineTransform(translationX: 0, y: 0 - hiddenHeight)
         self.backgroundView.transform = totalTransform
         
         let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
