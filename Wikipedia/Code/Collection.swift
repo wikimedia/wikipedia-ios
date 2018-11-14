@@ -10,8 +10,6 @@ protocol UpdatableCollection: Collection, CollectionViewUpdaterDelegate {
     var basePredicate: NSPredicate { get }
     var baseSortDescriptors: [NSSortDescriptor] { get }
     func setupFetchedResultsController()
-    func setupCollectionViewUpdater()
-    func fetch()
 }
 
 extension UpdatableCollection {
@@ -25,6 +23,12 @@ extension UpdatableCollection {
     
     func fetch() {
         collectionViewUpdater?.performFetch()
+    }
+
+    func reset() {
+        setupFetchedResultsController()
+        setupCollectionViewUpdater()
+        fetch()
     }
 }
 
@@ -57,9 +61,7 @@ extension SearchableCollection where Self: EditableCollection {
         }
         searchString = newSearchString.isEmpty ? nil : newSearchString
         editController.close()
-        setupFetchedResultsController()
-        setupCollectionViewUpdater()
-        fetch()
+        reset()
     }
 }
 
@@ -89,7 +91,7 @@ struct SortAction {
 }
 
 protocol SortableCollection: UpdatableCollection {
-    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) { get set }
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) { get }
     var defaultSortAction: SortAction? { get }
     var defaultSortDescriptors: [NSSortDescriptor] { get }
     var sortActions: [SortActionType: SortAction] { get }
@@ -106,13 +108,6 @@ extension SortableCollection where Self: UIViewController {
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alert.addAction(cancel)
         return alert
-    }
-    
-    func updateSort(with newDescriptors: [NSSortDescriptor], alertAction: UIAlertAction) {
-        sort = (descriptors: newDescriptors, alertAction: alertAction)
-        setupFetchedResultsController()
-        setupCollectionViewUpdater()
-        fetch()
     }
     
     func updateSortActionCheckmark() {
