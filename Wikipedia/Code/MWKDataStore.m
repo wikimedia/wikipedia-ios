@@ -862,7 +862,7 @@ static uint64_t bundleHash() {
                     [newContentGroup updateKey];
                     [newContentGroup updateContentType];
                     [newContentGroup updateDailySortPriorityWithSiteURLSortOrder:nil];
-                    [newContentGroup updateVisibility];
+                    [newContentGroup updateVisibilityForUserIsLoggedIn:NO];
 
                     //New key differs from old key, so use the calculated key on newContentGroup rather than the old key
                     NSFetchRequest *request = [WMFContentGroup fetchRequest];
