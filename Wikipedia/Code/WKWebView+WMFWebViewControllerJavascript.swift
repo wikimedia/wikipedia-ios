@@ -206,7 +206,7 @@ extension WKWebView {
         let apiURLString = apiURL.absoluteString
         let title = (article.url as NSURL).wmf_title ?? ""
 
-        let sectionsLoadedCallbackJS = """
+        let articleContentLoadedCallbackJS = """
         () => {
             const footer = new window.wmf.footers.Footer(
                 '\(title.wmf_stringBySanitizingForJavaScript())',
@@ -231,7 +231,7 @@ extension WKWebView {
                 \(articleJS(for: article, title: title)),
                 '\(apiURLString.wmf_stringBySanitizingForJavaScript())',
                 '\((fragment ?? "").wmf_stringBySanitizingForJavaScript())',
-                \(sectionsLoadedCallbackJS)
+                \(articleContentLoadedCallbackJS)
             )
             """) { (result, error) in
             guard let error = error else {
