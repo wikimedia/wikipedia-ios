@@ -8,7 +8,8 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     var fetchedResultsController: NSFetchedResultsController<WMFArticle>?
     var collectionViewUpdater: CollectionViewUpdater<WMFArticle>?
     var editController: CollectionViewEditController!
-    
+    private var readingList: ReadingList?
+
     var basePredicate: NSPredicate {
         return NSPredicate(format: "savedDate != NULL")
     }
@@ -46,6 +47,7 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        readingList = fetchDefaultReadingListWithSortOrder()
         // setup FRC before calling super so that the data is available before the superclass checks for the empty state
         setupFetchedResultsController()
         setupCollectionViewUpdater()
@@ -72,6 +74,20 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
         super.traitCollectionDidChange(previousTraitCollection)
         cellLayoutEstimate = nil
     }
+
+    // MARK: Fetching default reading list with sort order
+
+    private func fetchDefaultReadingListWithSortOrder() -> ReadingList? {
+        let fetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        fetchRequest.propertiesToFetch = ["sortOrder"]
+        fetchRequest.predicate = NSPredicate(format: "isDefault == YES")
+        guard let readingLists = try? dataStore.viewContext.fetch(fetchRequest) else {
+            assertionFailure("Failed to fetch default reading list with sort order")
+            return nil
+        }
+        return readingLists.first
+    }
     
     // MARK: - Empty state
     
@@ -81,25 +97,40 @@ class SavedArticlesViewController: ColumnarCollectionViewController, EditableCol
     }
     
     // MARK: - Sorting
-    
-    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) = (descriptors: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], alertAction: nil)
+
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+        guard let sortOrder = readingList?.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+            return ([], nil)
+        }
+        return (sortAction.sortDescriptors, sortAction.alertAction)
+    }
     
     var defaultSortAction: SortAction? {
         return sortActions[.byRecentlyAdded]
     }
 
     lazy var sortActions: [SortActionType: SortAction] = {
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: { (sortDescriptors, alertAction, _) in
-            self.updateSort(with: sortDescriptors, alertAction: alertAction)
-        })
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: { (sortDescriptors, alertAction, _) in
-            self.updateSort(with: sortDescriptors, alertAction: alertAction)
-        })
+        let moc = dataStore.viewContext
+
+        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (sortDescriptors: [NSSortDescriptor], alertAction: UIAlertAction, rawValue: Int) in
+            self.readingList?.sortOrder = NSNumber(value: rawValue)
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error {
+                    DDLogError("Error updating sort order: \(error)")
+                }
+            }
+            self.reset()
+        }
+
+        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: handler)
+        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: handler)
         return [title.type: title, recentlyAdded.type: recentlyAdded]
     }()
     
     lazy var sortAlert: UIAlertController = {
-        return alert(title: "Sort saved articles", message: nil)
+        return alert(title: CommonStrings.sortAlertTitle, message: nil)
     }()
     
     // MARK: - Filtering
