@@ -320,6 +320,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.messageHTML = announcement.text
             cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
             cell.captionHTML = announcement.captionHTML
+            cell.dismissButtonTitle = announcement.negativeText
+            if let imageViewHeight = announcement.imageHeight?.doubleValue, imageViewHeight > 0 {
+                cell.imageViewDimension = CGFloat(imageViewHeight)
+            }
         case .notification:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
@@ -557,7 +561,7 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        contentGroup?.updateVisibility()
+        contentGroup?.updateVisibilityForUserIsLogged(in: Session.shared.isAuthenticated)
         do {
             try dataStore.save()
         } catch let error {

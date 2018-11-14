@@ -40,6 +40,9 @@ import Foundation
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = nil
+        }
     }
     
     public func removeAllCookies() {
@@ -50,6 +53,9 @@ import Foundation
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
+        }
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = nil
         }
     }
     
@@ -104,6 +110,23 @@ import Foundation
             }
         }
         return true
+    }
+
+    private var cacheQueue = DispatchQueue(label: "session-cache-queue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    private var _isAuthenticated: Bool?
+    @objc public var isAuthenticated: Bool {
+        var read: Bool?
+        cacheQueue.sync {
+            read = _isAuthenticated
+        }
+        if let auth = read {
+            return auth
+        }
+        let hasValid = hasValidCentralAuthCookies(for: configuration.centralAuthCookieSourceDomain)
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = hasValid
+        }
+        return hasValid
     }
     
     public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {

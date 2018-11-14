@@ -18,12 +18,17 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @[@"image", @"image_url"]
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @[@"image", @"image_url"],
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageHeight): @"image_height",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, negativeText): @"negative_text",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, loggedIn): @"logged_in",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, readingListSyncEnabled): @"reading_list_sync_enabled",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta"
     };
 }
 
 + (NSInteger)version {
-    return 3;
+    return 4;
 }
 
 + (NSValueTransformer *)actionURLJSONTransformer {
