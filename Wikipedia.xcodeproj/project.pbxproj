@@ -1759,6 +1759,7 @@
 		D85F000E1DF0C55E00A56797 /* Nocilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F000C1DF0C55E00A56797 /* Nocilla.framework */; };
 		D85F00111DF0C57700A56797 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F00101DF0C57700A56797 /* OCHamcrest.framework */; };
 		D85F00131DF0C59300A56797 /* OCMockito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85F00121DF0C59300A56797 /* OCMockito.framework */; };
+		D85F56A2219C45C900AF3E13 /* URLComponents+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */; };
 		D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9E1FBB10240045C8BC /* ReadingList+CoreDataClass.swift */; };
 		D8619BA51FBB10240045C8BC /* ReadingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */; };
 		D8619BA61FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */; };
@@ -4491,6 +4492,7 @@
 		D85F000C1DF0C55E00A56797 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/iOS/Nocilla.framework; sourceTree = SOURCE_ROOT; };
 		D85F00101DF0C57700A56797 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = Carthage/Build/iOS/OCHamcrest.framework; sourceTree = SOURCE_ROOT; };
 		D85F00121DF0C59300A56797 /* OCMockito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockito.framework; path = Carthage/Build/iOS/OCMockito.framework; sourceTree = SOURCE_ROOT; };
+		D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "URLComponents+Extensions.swift"; path = "WMF Framework/URLComponents+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		D8619B9E1FBB10240045C8BC /* ReadingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D8619B9F1FBB10240045C8BC /* ReadingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D8619BA01FBB10240045C8BC /* ReadingListEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReadingListEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -7989,6 +7991,7 @@
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
 				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
+				D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */,
 			);
 			name = Controllers;
 			path = ../Wikipedia/Code;
@@ -10748,6 +10751,7 @@
 				D8AC391E1D6F2328007E3C14 /* UIScreen+WMFImageWidth.m in Sources */,
 				D84C35F51F323CE800895FA1 /* SaveButton.swift in Sources */,
 				D84C36171F32402000895FA1 /* AnnouncementCollectionViewCell.swift in Sources */,
+				D85F56A2219C45C900AF3E13 /* URLComponents+Extensions.swift in Sources */,
 				D84448291DDB632100425630 /* WMFArticle+CoreDataClass.m in Sources */,
 				7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */,
 				833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */,

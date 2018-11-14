@@ -43,7 +43,7 @@
     stubRequest(@"GET", self.feedURL.absoluteString).andReturn(200).withHeaders(@{@"Content-Type": @"application/json"}).withBody(feedJSONData);
 
     NSData *pageViewJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"PageViews" ofType:@"json"];
-    NSRegularExpression *anyPageViewRequest = [NSRegularExpression regularExpressionWithPattern:@"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/.*" options:0 error:nil];
+    NSRegularExpression *anyPageViewRequest = [NSRegularExpression regularExpressionWithPattern:@".*v1/metrics/pageviews/per-article/en.wikipedia.org/all-access/.*" options:0 error:nil];
     stubRequest(@"GET", anyPageViewRequest)
         .andReturn(200)
         .withHeaders(@{@"Content-Type": @"application/json"})

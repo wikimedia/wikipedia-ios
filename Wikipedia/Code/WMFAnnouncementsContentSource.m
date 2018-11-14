@@ -75,6 +75,7 @@
 
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
     [moc performBlock:^{
+        BOOL isLoggedIn = WMFSession.shared.isAuthenticated;
         [announcements enumerateObjectsUsingBlock:^(WMFAnnouncement *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
 
             NSURL *URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:obj.identifier];
@@ -86,7 +87,7 @@
                                                 customizationBlock:^(WMFContentGroup *_Nonnull group) {
                                                     group.contentPreview = obj;
                                                 }];
-            [group updateVisibility];
+            [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
         }];
 
         if (completion) {
@@ -122,10 +123,10 @@
     if ([[NSUserDefaults wmf] wmf_appResignActiveDate] == nil) {
         return;
     }
-
+    BOOL isLoggedIn = WMFSession.shared.isAuthenticated;
     [moc enumerateContentGroupsOfKind:WMFContentGroupKindAnnouncement
                             withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
-                                [group updateVisibility];
+                                [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
                             }];
 }
 

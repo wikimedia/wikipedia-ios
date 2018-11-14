@@ -8,9 +8,13 @@ struct RemoteNotificationsAPIController {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
-        static let scheme = "https"
-        static let host = "www.mediawiki.org"
-        static let path = "/w/api.php"
+        static let components: URLComponents = {
+            var components = URLComponents()
+            components.scheme = "https"
+            components.host = "www.mediawiki.org"
+            components.path = "/w/api.php"
+            return components
+        }()
     }
 
     // MARK: Decodable: NotificationsResult
@@ -153,10 +157,12 @@ struct RemoteNotificationsAPIController {
     }
 
     private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Bool?, Error?) -> Void) {
+        var components = NotificationsAPI.components
+        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         if method == .get {
-            let _ = session.jsonDecodableTask(host: NotificationsAPI.host, scheme: NotificationsAPI.scheme, method: .get, path: NotificationsAPI.path, queryParameters: queryParameters, completionHandler: completion)
+            let _ = session.jsonDecodableTask(components: components, method: .get, completionHandler: completion)
         } else {
-            let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: NotificationsAPI.scheme, host: NotificationsAPI.host, path: NotificationsAPI.path, method: method, queryParameters: queryParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: completion)
+            let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: method, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: completion)
         }
     }
 
