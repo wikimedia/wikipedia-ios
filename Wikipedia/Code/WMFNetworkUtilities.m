@@ -28,10 +28,6 @@ NSError *WMFErrorForApiErrorObject(NSDictionary *apiError) {
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
 
-NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion) {
-    return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v%lu", (unsigned long)restAPIVersion];
-}
-
 void wmf_postNetworkRequestBeganNotification(NSURLRequest *request) {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     if (request) {

@@ -40,6 +40,11 @@ public class Configuration: NSObject {
     public struct API {
         let hostComponents: URLComponents
         let basePathComponents: [String]
+        func components(byAppending pathComponents: [String]) -> URLComponents {
+            var components = hostComponents
+            components.path = (basePathComponents + pathComponents).joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+            return components
+        }
     }
    
     @objc public let defaultSiteDomain: String
@@ -83,9 +88,7 @@ public class Configuration: NSObject {
     @objc(mobileAppsServicesAPIURLForHost:withPath:)
     public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, with path: String = "/") -> URL? {
         let api = mobileAppsServicesAPIForHost(host)
-        var components = api.hostComponents
-        components.path = NSString.path(withComponents: api.basePathComponents + [path])
-        return components.url
+        return api.components(byAppending: [path]).url
     }
     
     @objc public static let current: Configuration = {
