@@ -9,6 +9,7 @@
 #import <WMF/WMFNetworkUtilities.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
+#import <WMF/WMF-Swift.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,10 +60,13 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 
 + (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
     NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
-
-    NSString *path = [NSString stringWithFormat:@"/api/rest_v1/feed/featured/%@", datePath];
-
-    return [siteURL wmf_URLWithPath:path isMobile:NO];
+    NSArray<NSString *> *path = nil;
+    if (datePath) {
+        path = @[@"feed", @"featured", datePath];
+    } else {
+        path = @[@"feed", @"featured"];
+    }
+    return [[WMFConfiguration current] mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:path];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -153,15 +157,21 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
         failure(error);
         return;
     }
+    
+    NSString *domainPathComponent = [NSString stringWithFormat:@"%@.%@", language, domain];
+    NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
+    NSURL *requestURL = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
 
-    NSString *path = [NSString stringWithFormat:@"/metrics/pageviews/per-article/%@.%@/all-access/user/%@/daily/%@/%@",
-                                                language, domain, title, startDateString, endDateString];
-
-    NSString *requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingString:path];
-
+    if (!requestURL) {
+        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:@{ WMFFailingRequestParametersUserInfoKey: @{@"path": path, @"titleURL": titleURL} }];
+        failure(error);
+        return;
+    }
+    
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
 
-    [self.unserializedOperationManager GET:requestURLString
+    [self.unserializedOperationManager GET:[requestURL absoluteString]
         parameters:nil
         progress:NULL
         success:^(NSURLSessionDataTask *operation, NSDictionary *responseObject) {

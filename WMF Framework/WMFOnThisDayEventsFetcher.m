@@ -49,7 +49,10 @@
         return;
     }
 
-    NSURL *url = [siteURL wmf_URLWithPath:[NSString stringWithFormat:@"/api/rest_v1/feed/onthisday/events/%lu/%lu", (unsigned long)month, (unsigned long)day] isMobile:NO];
+    NSString *monthString = [NSString stringWithFormat:@"%lu", (unsigned long)month];
+    NSString *dayString = [NSString stringWithFormat:@"%lu", (unsigned long)day];
+    NSArray<NSString *> *path = @[@"feed", @"onthisday", @"events", monthString, dayString];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:path];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil
