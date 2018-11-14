@@ -19,7 +19,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
     private let cardBackgroundView = UIView()
-    private let cardCornerRadius = CGFloat(10)
+    private let cardCornerRadius = Theme.exploreCardCornerRadius
     private let cardShadowRadius = CGFloat(10)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
 
