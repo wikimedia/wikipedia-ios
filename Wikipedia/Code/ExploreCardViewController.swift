@@ -320,6 +320,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.messageHTML = announcement.text
             cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
             cell.captionHTML = announcement.captionHTML
+            cell.dismissButtonTitle = announcement.negativeText
+            if let imageViewHeight = announcement.imageHeight?.doubleValue, imageViewHeight > 0 {
+                cell.imageViewDimension = CGFloat(imageViewHeight)
+            }
         case .notification:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
