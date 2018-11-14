@@ -34,7 +34,7 @@ public class Configuration: NSObject {
     
     struct Path {
         static let wikiResource = "/wiki/"
-        static let mobileAppsServicesAPIComponents = ["/api", "rest_v1"]
+        static let mobileAppsServicesAPIComponents = ["", "api", "rest_v1"] // "" to get a leading /
     }
     
     public struct API {
@@ -71,7 +71,7 @@ public class Configuration: NSObject {
         switch Stage.current {
         case .local:
             let host = host ?? Domain.englishWikipedia
-            let baseComponents = ["/", host, "v1"]
+            let baseComponents = ["", host, "v1"] // "" to get a leading /
             var components = URLComponents()
             components.scheme = Scheme.http
             components.host = Domain.localhost
