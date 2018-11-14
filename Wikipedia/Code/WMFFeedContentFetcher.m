@@ -66,7 +66,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[WMFConfiguration current] mobileAppsServicesAPIURLForHost:siteURL.host withPath:path];
+    return [[WMFConfiguration current] mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:path];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -160,7 +160,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     
     NSString *domainPathComponent = [NSString stringWithFormat:@"%@.%@", language, domain];
     NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
-    NSURL *requestURL = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:titleURL.wmf_siteURL.host withPath:path];
+    NSURL *requestURL = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
 
     if (!requestURL) {
         NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters

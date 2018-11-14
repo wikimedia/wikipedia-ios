@@ -85,10 +85,10 @@ public class Configuration: NSObject {
         }
     }
     
-    @objc(mobileAppsServicesAPIURLForHost:withPath:)
-    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, with path: [String] = [""]) -> URL? {
+    @objc(mobileAppsServicesAPIURLForHost:appendingPathComponents:)
+    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URL? {
         let api = mobileAppsServicesAPIForHost(host)
-        return api.components(byAppending: path).url
+        return api.components(byAppending: pathComponents).url
     }
     
     @objc public static let current: Configuration = {

@@ -40,7 +40,7 @@
         return;
     }
 
-    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@[@"feed", @"announcements"]];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil

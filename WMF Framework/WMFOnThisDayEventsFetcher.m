@@ -52,7 +52,7 @@
     NSString *monthString = [NSString stringWithFormat:@"%lu", (unsigned long)month];
     NSString *dayString = [NSString stringWithFormat:@"%lu", (unsigned long)day];
     NSArray<NSString *> *path = @[@"feed", @"onthisday", @"events", monthString, dayString];
-    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:path];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:path];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil
