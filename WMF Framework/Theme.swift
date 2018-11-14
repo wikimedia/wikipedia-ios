@@ -317,6 +317,8 @@ public class Theme: NSObject {
     public lazy var tabBarSelectedTitleTextAttributes: [NSAttributedString.Key: Any] = {
         return [.foregroundColor: colors.link, .font: Theme.tabBarItemFont]
     }()
+    
+    public static let exploreCardCornerRadius: CGFloat = 10
         
     static func roundedRectImage(with color: UIColor, cornerRadius: CGFloat, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImage? {
         let minDimension = 2 * cornerRadius + 1

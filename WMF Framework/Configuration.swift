@@ -80,6 +80,14 @@ public class Configuration: NSObject {
         }
     }
     
+    @objc(mobileAppsServicesAPIURLForHost:withPath:)
+    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, with path: String = "/") -> URL? {
+        let api = mobileAppsServicesAPIForHost(host)
+        var components = api.hostComponents
+        components.path = NSString.path(withComponents: api.basePathComponents + [path])
+        return components.url
+    }
+    
     @objc public static let current: Configuration = {
         switch Stage.current {
         case .local:

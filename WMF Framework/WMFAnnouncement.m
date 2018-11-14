@@ -18,9 +18,12 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionTitle): @"action.title",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, actionURL): @"action.url",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, captionHTML): @"caption_HTML",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, caption): @"caption_HTML",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @"image_url",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, imageURL): @[@"image", @"image_url"]
     };
+}
+
++ (NSInteger)version {
+    return 3;
 }
 
 + (NSValueTransformer *)actionURLJSONTransformer {
@@ -39,15 +42,20 @@
 
 + (NSValueTransformer *)imageURLJSONTransformer {
     return [MTLValueTransformer
-        transformerUsingForwardBlock:^NSURL *(NSString *urlString,
-                                              BOOL *success,
-                                              NSError *__autoreleasing *error) {
+            transformerUsingForwardBlock:^NSURL *(NSDictionary *value,
+                                                  BOOL *success,
+                                                  NSError *__autoreleasing *error) {
+            NSString *urlString = value[@"image"] ?: value[@"image_url"];
             return [NSURL wmf_optionalURLWithString:urlString];
         }
-        reverseBlock:^NSString *(NSURL *URL,
+        reverseBlock:^NSDictionary *(NSURL *URL,
                                  BOOL *success,
                                  NSError *__autoreleasing *error) {
-            return [URL absoluteString];
+            NSString *urlString = [URL absoluteString];
+            if (!urlString) {
+                return @{};
+            }
+            return @{@"image_url": urlString};
         }];
 }
 
@@ -62,17 +70,6 @@
     return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
         NSDate *date = [[NSDateFormatter wmf_iso8601Formatter] dateFromString:value];
         return date;
-    }];
-}
-
-+ (NSValueTransformer *)captionJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *value, BOOL *success, NSError *__autoreleasing *error) {
-        //HACK: Fix padding around the caption
-        if (value) {
-            value = [@[value, @"\n"] componentsJoinedByString:@""];
-        }
-
-        return [value wmf_attributedStringWithLinksFromHTMLTags];
     }];
 }
 
