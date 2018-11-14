@@ -8,14 +8,11 @@ struct RemoteNotificationsAPIController {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
-        static let scheme = "https"
-        static let host = "www.mediawiki.org"
-        static let path = "/w/api.php"
         static let components: URLComponents = {
             var components = URLComponents()
-            components.scheme = scheme
-            components.host = host
-            components.path = path
+            components.scheme = "https"
+            components.host = "www.mediawiki.org"
+            components.path = "/w/api.php"
             return components
         }()
     }
