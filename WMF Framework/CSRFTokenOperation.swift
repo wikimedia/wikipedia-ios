@@ -8,20 +8,16 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
     let session: Session
     private let tokenFetcher: WMFAuthTokenFetcher
     
-    let scheme: String
-    let host: String
-    let path: String
+    var components: URLComponents
     
     let method: Session.Request.Method
     var bodyParameters: [String: Any]?
     let bodyEncoding: Session.Request.Encoding
-    var queryParameters: [String: Any]?
     var completion: ((Result?, URLResponse?, Bool?, Error?) -> Void)?
 
     public struct TokenContext {
         let tokenName: String
         let tokenPlacement: TokenPlacement
-        let shouldPercentEncodeToken: Bool
     }
 
     let tokenContext: TokenContext
@@ -31,14 +27,11 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
         case query
     }
 
-    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
+    required init(session: Session, tokenFetcher: WMFAuthTokenFetcher, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: TokenContext, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
         self.session = session
         self.tokenFetcher = tokenFetcher
-        self.scheme = scheme
-        self.host = host
-        self.path = path
+        self.components = components
         self.method = method
-        self.queryParameters = queryParameters
         self.bodyParameters = bodyParameters
         self.bodyEncoding = bodyEncoding
         self.tokenContext = tokenContext
@@ -62,9 +55,6 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
             self.completion = nil
             self.finish()
         }
-        var components = URLComponents()
-        components.host = host
-        components.scheme = scheme
         guard
             let siteURL = components.url
             else {
@@ -81,12 +71,11 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
 
     private func addTokenToRequest(_ token: WMFAuthToken) {
         let tokenValue = token.token
-        let maybePercentEncodedTokenValue = tokenContext.shouldPercentEncodeToken ? tokenValue.wmf_UTF8StringWithPercentEscapes() : tokenValue
         switch tokenContext.tokenPlacement {
         case .body:
-            bodyParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+            bodyParameters?[tokenContext.tokenName] = tokenValue.wmf_UTF8StringWithPercentEscapes()
         case .query:
-            queryParameters?[tokenContext.tokenName] = maybePercentEncodedTokenValue
+            components.appendQueryParametersToPercentEncodedQuery([tokenContext.tokenName: tokenValue])
         }
     }
 
@@ -97,12 +86,12 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
 
 public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
     public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping ([String: Any]?, URLResponse?, Bool?, Error?) -> Void) {
-        self.session.jsonDictionaryTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
+        self.session.jsonDictionaryTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
     }
 }
 
 public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
     public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
-        self.session.jsonDecodableTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
+        self.session.jsonDecodableTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
     }
 }

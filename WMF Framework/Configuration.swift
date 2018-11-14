@@ -34,12 +34,17 @@ public class Configuration: NSObject {
     
     struct Path {
         static let wikiResource = "/wiki/"
-        static let mobileAppsServicesAPIComponents = ["/api", "rest_v1"]
+        static let mobileAppsServicesAPIComponents = ["", "api", "rest_v1"] // "" to get a leading /
     }
     
     public struct API {
         let hostComponents: URLComponents
         let basePathComponents: [String]
+        func components(byAppending pathComponents: [String]) -> URLComponents {
+            var components = hostComponents
+            components.path = (basePathComponents + pathComponents).joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+            return components
+        }
     }
    
     @objc public let defaultSiteDomain: String
@@ -66,7 +71,7 @@ public class Configuration: NSObject {
         switch Stage.current {
         case .local:
             let host = host ?? Domain.englishWikipedia
-            let baseComponents = ["/", host, "v1"]
+            let baseComponents = ["", host, "v1"] // "" to get a leading /
             var components = URLComponents()
             components.scheme = Scheme.http
             components.host = Domain.localhost
@@ -80,12 +85,10 @@ public class Configuration: NSObject {
         }
     }
     
-    @objc(mobileAppsServicesAPIURLForHost:withPath:)
-    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, with path: String = "/") -> URL? {
+    @objc(mobileAppsServicesAPIURLForHost:appendingPathComponents:)
+    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URL? {
         let api = mobileAppsServicesAPIForHost(host)
-        var components = api.hostComponents
-        components.path = NSString.path(withComponents: api.basePathComponents + [path])
-        return components.url
+        return api.components(byAppending: pathComponents).url
     }
     
     @objc public static let current: Configuration = {
