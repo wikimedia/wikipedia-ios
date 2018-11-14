@@ -52,7 +52,6 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
 
         dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
-        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
         super.setup()
@@ -75,6 +74,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         messageHTML = nil
         isImageViewHidden = true
         isUrgent = false
+        dismissButtonTitle = nil
     }
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
@@ -153,6 +153,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public var messageHTML: String? {
         didSet {
             updateMessageTextViewWithAttributedMessage()
+        }
+    }
+    
+    public var dismissButtonTitle: String? {
+        didSet {
+            let newTitle = dismissButtonTitle ?? CommonStrings.dismissButtonTitle
+            dismissButton.setTitle(newTitle, for: .normal)
+            setNeedsLayout()
         }
     }
     
