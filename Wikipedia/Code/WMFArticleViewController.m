@@ -1571,8 +1571,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 - (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
     dispatch_block_t completion = self.articleContentLoadCompletion;
     if (completion) {
-        completion();
-        self.articleContentLoadCompletion = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion();
+            self.articleContentLoadCompletion = nil;
+        });
     }
 }
 
