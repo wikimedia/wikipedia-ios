@@ -432,7 +432,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     var extendedViewHeight: CGFloat {
         return extendedView.frame.size.height
     }
-    
+
+    @objc var backgroundViewY: CGFloat {
+        return backgroundView.frame.origin.y
+    }
+
     var topSpacingHideableHeight: CGFloat {
         return isTopSpacingHidingEnabled ? barTopSpacing : 0
     }
