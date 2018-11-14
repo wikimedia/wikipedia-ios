@@ -333,6 +333,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                          completion:^(BOOL done){
 
                          }];
+    } else if ([messageString isEqualToString:@"articleContentLoaded"]) {
+        [self.delegate webViewController:self didLoadArticleContent:self.article];
     }
 }
 
