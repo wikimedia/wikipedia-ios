@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) NSURL *actionURL;
 
 @property (nonatomic, strong, readonly, nullable) NSString *captionHTML;
-@property (nonatomic, strong, readonly, nullable) NSAttributedString *caption;
 
 @end
 
