@@ -40,6 +40,9 @@ import Foundation
     public func cloneCentralAuthCookies() {
         // centralauth_ cookies work for any central auth domain - this call copies the centralauth_* cookies from .wikipedia.org to an explicit list of domains. This is  hardcoded because we only want to copy ".wikipedia.org" cookies regardless of WMFDefaultSiteDomain
         defaultURLSession.configuration.httpCookieStorage?.copyCookiesWithNamePrefix("centralauth_", for: configuration.centralAuthCookieSourceDomain, to: configuration.centralAuthCookieTargetDomains)
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = nil
+        }
     }
     
     public func removeAllCookies() {
@@ -50,6 +53,9 @@ import Foundation
         //  - "HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)" does NOT seem to work.
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
+        }
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = nil
         }
     }
     
@@ -106,38 +112,30 @@ import Foundation
         return true
     }
 
-    public func mediaWikiAPITask(host: String, scheme: String = "https", method: Session.Request.Method = .get, queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        return jsonDictionaryTask(host: host, scheme: scheme, method: method, path: WMFAPIPath, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, completionHandler: completionHandler)
+    private var cacheQueue = DispatchQueue(label: "session-cache-queue", qos: .default, attributes: [.concurrent], autoreleaseFrequency: .workItem, target: nil)
+    private var _isAuthenticated: Bool?
+    @objc public var isAuthenticated: Bool {
+        var read: Bool?
+        cacheQueue.sync {
+            read = _isAuthenticated
+        }
+        if let auth = read {
+            return auth
+        }
+        let hasValid = hasValidCentralAuthCookies(for: configuration.centralAuthCookieSourceDomain)
+        cacheQueue.async(flags: .barrier) {
+            self._isAuthenticated = hasValid
+        }
+        return hasValid
     }
     
-    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, scheme: String, host: String, path: String, method: Session.Request.Method, queryParameters: [String: Any]? = [:], bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, scheme: scheme, host: host, path: path, method: method, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
+    public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {
+        let op = operationType.init(session: self, tokenFetcher: tokenFetcher, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
         queue.addOperation(op)
         return op
     }
 
-    public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
-        var components = URLComponents()
-        components.host = host
-        components.scheme = scheme
-        components.path = path
-        
-        if let queryParameters = queryParameters {
-            var query = ""
-            for (name, value) in queryParameters {
-                guard
-                    let encodedName = name.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed),
-                    let encodedValue = String(describing: value).addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlQueryAllowed) else {
-                        continue
-                }
-                if query != "" {
-                    query.append("&")
-                }
-                
-                query.append("\(encodedName)=\(encodedValue)")
-            }
-            components.percentEncodedQuery = query
-        }
+    public func request(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
         
         guard let requestURL = components.url else {
             return nil
@@ -175,8 +173,8 @@ import Foundation
         return request
     }
     
-    public func jsonDictionaryTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+    public func jsonDictionaryTask(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Bool?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let request = request(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
         return jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
@@ -184,8 +182,8 @@ import Foundation
         })
     }
     
-    public func dataTask(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
-        guard let request = request(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
+    public func dataTask(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
+        guard let request = request(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding) else {
             return nil
         }
         return defaultURLSession.dataTask(with: request, completionHandler: completionHandler)
@@ -224,8 +222,8 @@ import Foundation
          - response: The URLResponse
          - error: Any network or parsing error
      */
-    public func jsonCodableTask<T, E>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
-        guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    public func jsonCodableTask<T, E>(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, completionHandler: @escaping (_ result: T?, _ errorResult: E?, _ response: URLResponse?, _ error: Error?) -> Swift.Void) -> URLSessionDataTask? where T : Decodable, E : Decodable {
+        guard let task = dataTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, nil, response, error)
@@ -263,8 +261,8 @@ import Foundation
         return task
     }
 
-    public func jsonDecodableTask<T: Decodable>(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,_ authorized: Bool?,  _ error: Error?) -> Swift.Void) {
-        guard let task = dataTask(host: host, scheme: scheme, method: method, path: path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
+    public func jsonDecodableTask<T: Decodable>(components: URLComponents, method: Session.Request.Method = .get, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, authorized: Bool? = nil, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,_ authorized: Bool?,  _ error: Error?) -> Swift.Void) {
+        guard let task = dataTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
                 completionHandler(nil, response, authorized, error)

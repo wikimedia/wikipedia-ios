@@ -481,7 +481,7 @@
     self.wasDismissed = YES;
 }
 
-- (void)updateVisibility {
+- (void)updateVisibilityForUserIsLoggedIn:(BOOL)isLoggedIn {
     if (self.wasDismissed) {
         if (self.isVisible) {
             self.isVisible = NO;
@@ -492,12 +492,31 @@
     if (self.contentType != WMFContentTypeAnnouncement) {
         return;
     }
-
-    WMFAnnouncement *announcement = (WMFAnnouncement *)self.contentPreview;
-    if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+    
+    dispatch_block_t markInvisible = ^{
         if (self.isVisible) {
             self.isVisible = NO;
         }
+    };
+
+    WMFAnnouncement *announcement = (WMFAnnouncement *)self.contentPreview;
+    if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+        markInvisible();
+        return;
+    }
+    
+    if (announcement.beta.boolValue) { // ignore beta announcements
+        markInvisible();
+        return;
+    }
+    
+    if (announcement.loggedIn && announcement.loggedIn.boolValue != isLoggedIn) {
+        markInvisible();
+        return;
+    }
+    
+    if (announcement.readingListSyncEnabled) { // ignore reading list announcements, regardless of true or false
+        markInvisible();
         return;
     }
 
