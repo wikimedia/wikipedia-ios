@@ -302,7 +302,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         switch displayType {
         case .announcement:
-            guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement else {
+            guard
+                let contentGroup = contentGroup,
+                let announcement = contentGroup.contentPreview as? WMFAnnouncement
+            else {
                 return
             }
             if let imageURL = announcement.imageURL {
@@ -313,26 +316,31 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             } else {
                 cell.isImageViewHidden = true
             }
-            cell.messageLabel.text = announcement.text
+            cell.isUrgent = announcement.type == "fundraising"
+            cell.messageHTML = announcement.text
             cell.actionButton.setTitle(announcement.actionTitle, for: .normal)
-            cell.caption = announcement.caption
+            cell.captionHTML = announcement.captionHTML
+            cell.dismissButtonTitle = announcement.negativeText
+            if let imageViewHeight = announcement.imageHeight?.doubleValue, imageViewHeight > 0 {
+                cell.imageViewDimension = CGFloat(imageViewHeight)
+            }
         case .notification:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
+            cell.messageHTML = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
             cell.actionButton.setTitle(WMFLocalizedString("feed-news-notification-button-text", value: "Turn on notifications", comment: "Text for button to turn on trending news notifications"), for:.normal)
         case .theme:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-themes")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
+            cell.messageHTML = WMFLocalizedString("home-themes-prompt", value: "Adjust your Reading preferences including text size and theme from the article tool bar or in your user settings for a more comfortable reading experience.", comment: "Description on feed card that describes how to adjust reading preferences.");
             cell.actionButton.setTitle(WMFLocalizedString("home-themes-action-title", value: "Manage preferences", comment: "Action on the feed card that describes the theme feature. Takes the user to manage theme preferences."), for:.normal)
         case .readingList:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-reading-list")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageLabel.text = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
+            cell.messageHTML = WMFLocalizedString("home-reading-list-prompt", value: "Your saved articles can now be organized into reading lists and synced across devices. Log in to allow your reading lists to be saved to your user preferences.", comment: "Description on feed card that describes reading lists.");
             cell.actionButton.setTitle(CommonStrings.readingListLoginButtonTitle, for:.normal)
         default:
             break
@@ -409,11 +417,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
-        let article: WMFArticle? = self.article(at: indexPath)
+        let articleKey: String? = self.article(at: indexPath)?.key
+        let groupKey: String? = contentGroup?.key
         if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
             key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
-            key = article?.key
+            key = articleKey ?? groupKey
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
@@ -425,7 +434,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
         configure(cell: placeholderCell, forItemAt: indexPath, with: displayType, layoutOnly: true)
         let height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
-        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: contentGroup?.key, articleKey: article?.key, userInfo: userInfo)
+        delegate?.layoutCache.setHeight(height, forCellWithIdentifier: reuseIdentifier, columnWidth: columnWidth, groupKey: groupKey, articleKey: articleKey, userInfo: userInfo)
         estimate.height = height
         estimate.precalculated = true
         return estimate
@@ -552,7 +561,7 @@ extension ExploreCardViewController: SideScrollingCollectionViewCellDelegate {
 extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
     func dismissAnnouncementCell(_ cell: AnnouncementCollectionViewCell) {
         contentGroup?.markDismissed()
-        contentGroup?.updateVisibility()
+        contentGroup?.updateVisibilityForUserIsLogged(in: Session.shared.isAuthenticated)
         do {
             try dataStore.save()
         } catch let error {
