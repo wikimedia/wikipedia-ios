@@ -234,6 +234,7 @@
 "languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
+"logged-out-continue-without-logging-in-button-title" = "Virufueren ouni anzeloggen";
 "logged-out-title" = "Dir sidd elo ausgeloggt";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
 "login-join-wikipedia" = "Bei Wikipedia matmaachen.";
