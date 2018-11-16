@@ -107,9 +107,8 @@ enum WikidataPublishingError: LocalizedError {
     private func normalizedLanguage(from language: String) -> String {
         guard
             let match = languageRegex?.firstMatch(in: language, options: [], range: NSRange(location: 0, length: language.count)),
-            let range = Range(match.range, in: language)
-            else {
-                return language
+            let range = Range(match.range, in: language) else {
+            return language
         }
         return String(language[range])
     }
