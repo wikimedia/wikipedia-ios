@@ -265,6 +265,11 @@
 		7A741DD1207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD2207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
 		7A741DD3207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */; };
+		7A7857F1219F1CED00ED1579 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7857F0219F1CED00ED1579 /* EditToolbar.swift */; };
+		7A7857F2219F1CED00ED1579 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7857F0219F1CED00ED1579 /* EditToolbar.swift */; };
+		7A7857F3219F1CED00ED1579 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7857F0219F1CED00ED1579 /* EditToolbar.swift */; };
+		7A7857F4219F1CED00ED1579 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7857F0219F1CED00ED1579 /* EditToolbar.swift */; };
+		7A7857F5219F1CED00ED1579 /* EditToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7857F0219F1CED00ED1579 /* EditToolbar.swift */; };
 		7A79CCF2200C2C850099B01F /* BatchEditToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */; };
 		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
 		7A96C4BA2155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B82155413E00E8E0C1 /* RemoteNotification+CoreDataProperties.swift */; };
@@ -3312,6 +3317,7 @@
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
+		7A7857F0219F1CED00ED1579 /* EditToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbar.swift; sourceTree = "<group>"; };
 		7A79A39220A24A7C00F9BDF9 /* EventLoggingStandardEventProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLoggingStandardEventProviding.swift; sourceTree = "<group>"; };
 		7A79CCE6200C29A10099B01F /* BatchEditToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchEditToolbarViewController.swift; sourceTree = "<group>"; };
 		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -6018,6 +6024,14 @@
 			name = "Remote Notifications";
 			sourceTree = "<group>";
 		};
+		7A7857E3219F196C00ED1579 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				7A7857F0219F1CED00ED1579 /* EditToolbar.swift */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		7A976F81207BAC2100F7EFE6 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
@@ -6816,6 +6830,7 @@
 		BC45D5A11C33042B007C72F3 /* Editing */ = {
 			isa = PBXGroup;
 			children = (
+				7A7857E3219F196C00ED1579 /* Tools */,
 				044BD6B218849AD000FFE4BE /* SectionEditor */,
 				041C55CF1950B260006CE0EF /* EditSummary */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
@@ -10068,6 +10083,7 @@
 				7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				8351CE7820D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				D89DAE1B1D6CC6410089F7E1 /* MWKTitleLanguageController.m in Sources */,
+				7A7857F1219F1CED00ED1579 /* EditToolbar.swift in Sources */,
 				B0E803911C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m in Sources */,
 				D818D3811ED7254D0076110D /* ColumnarCollectionViewController.swift in Sources */,
 				83E776A320FFA4D700E26A47 /* DetailTransition.swift in Sources */,
@@ -10584,6 +10600,7 @@
 				7A2432C21FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
+				7A7857F5219F1CED00ED1579 /* EditToolbar.swift in Sources */,
 				7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFProxyServer.m in Sources */,
 				D80ED37E1EE57F4800CE8C50 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11072,6 +11089,7 @@
 				8351CE7B20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				D8A42A901E815A9C00D8E281 /* WMFSearchFetcher.m in Sources */,
 				7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
+				7A7857F4219F1CED00ED1579 /* EditToolbar.swift in Sources */,
 				D8A42A921E815A9C00D8E281 /* LoggingDefaults.swift in Sources */,
 				83E776A620FFA4D700E26A47 /* DetailTransition.swift in Sources */,
 				D8A42A971E815A9C00D8E281 /* MWKTitleLanguageController.m in Sources */,
@@ -11588,6 +11606,7 @@
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
+				7A7857F2219F1CED00ED1579 /* EditToolbar.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
@@ -11916,6 +11935,7 @@
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
+				7A7857F3219F1CED00ED1579 /* EditToolbar.swift in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8EC3EE31E9BDA35006712EB /* WMFHelpViewController.m in Sources */,

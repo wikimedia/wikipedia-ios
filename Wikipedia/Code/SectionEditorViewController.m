@@ -11,12 +11,13 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
+@property (strong, nonatomic) WMFEditToolbar *editToolbar;
 @property (strong, nonatomic) WMFTheme *theme;
 
 @end
@@ -59,6 +60,10 @@
 
     self.viewKeyboardRect = CGRectNull;
 
+    CGRect editingToolbarFrame = CGRectMake(0, 0, self.view.bounds.size.width, 44);
+    self.editToolbar = [[WMFEditToolbar alloc] initWithFrame:editingToolbarFrame];
+    self.editToolbar.itemDelegate = self;
+
     [self applyTheme:self.theme];
 
     // "loginWithSavedCredentials..." should help ensure the user will only appear to be logged in when
@@ -73,6 +78,10 @@
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
         }];
+}
+
+- (UIView *)inputAccessoryView {
+    return self.editToolbar;
 }
 
 - (void)xButtonPressed {
@@ -303,6 +312,12 @@
 - (BOOL)accessibilityPerformEscape {
     [self.navigationController popViewControllerAnimated:YES];
     return YES;
+}
+
+#pragma mark WMFEditToolbarDelegate
+
+- (void)editToolbarDidPressMoreItem:(WMFEditToolbar *)editToolbar item:(UIBarButtonItem *)item {
+    NSLog(@"");
 }
 
 #pragma mark WMFThemeable
