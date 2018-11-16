@@ -287,13 +287,6 @@
 "history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-delete-all" = "Yes, delete all";
 "history-title" = "History";
-"hockeyapp-alert-always-send" = "Always send";
-"hockeyapp-alert-do-not-send" = "Do not send";
-"hockeyapp-alert-privacy" = "$1 privacy";
-"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so the Wikimedia Foundation can review your crash?";
-"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so the Wikimedia Foundation can review your crash? Please describe what happened when the crash occurred:";
-"hockeyapp-alert-send-report" = "Send report";
-"hockeyapp-alert-title" = "Sorry, app crashed last time";
 "home-button-explore-accessibility-label" = "Wikipedia, return to Explore";
 "home-button-history-accessibility-label" = "Wikipedia, return to History";
 "home-button-saved-accessibility-label" = "Wikipedia, return to Saved";
@@ -339,7 +332,6 @@
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Developer settings";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy and Terms";
