@@ -55,8 +55,6 @@ enum WikidataPublishingError: LocalizedError {
         self.session = session
     }
 
-
-
     /// Publish new wikidata description.
     ///
     /// - Parameters:
@@ -87,17 +85,24 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
+        let normalizedLanguage = normalizedLanguages[language] ?? language
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
                                "formatversion": "2"]
-        let bodyParameters = ["language": language,
-                              "uselang": language,
+        let bodyParameters = ["language": normalizedLanguage,
+                              "uselang": normalizedLanguage,
                               "id": wikidataID,
                               "value": newWikidataDescription]
         var components = WikidataAPI.components
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
     }
+
+    private let normalizedLanguages: [String: String] = [
+        "zh-yue": "yue",
+        "zh-min-nan": "nan",
+        "zh-classical": "lzh"
+    ]
 }
 
 public extension MWKArticle {
