@@ -87,16 +87,31 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
+        let normalizedLang = normalizedLanguage(from: language)
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
                                "formatversion": "2"]
-        let bodyParameters = ["language": language,
-                              "uselang": language,
+        let bodyParameters = ["language": normalizedLang,
+                              "uselang": normalizedLang,
                               "id": wikidataID,
                               "value": newWikidataDescription]
         var components = WikidataAPI.components
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
         let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
+    }
+
+    private lazy var languageRegex: NSRegularExpression? = {
+        return try? NSRegularExpression(pattern: "(?<=-).*", options: .caseInsensitive)
+    }()
+
+    private func normalizedLanguage(from language: String) -> String {
+        guard
+            let match = languageRegex?.firstMatch(in: language, options: [], range: NSRange(location: 0, length: language.count)),
+            let range = Range(match.range, in: language)
+            else {
+                return language
+        }
+        return String(language[range])
     }
 }
 
