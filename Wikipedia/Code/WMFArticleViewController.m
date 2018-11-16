@@ -162,6 +162,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 
+@property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
+
 @end
 
 @implementation WMFArticleViewController
@@ -1566,6 +1568,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
+- (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
+    dispatch_block_t completion = self.articleContentLoadCompletion;
+    if (completion) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion();
+            self.articleContentLoadCompletion = nil;
+        });
+    }
+}
+
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
     if (self.navigationController.topViewController != self || !self.isSavingOpenArticleTitleEnabled) {
         return;
@@ -1869,6 +1881,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
+        __weak typeof(self) weakSelf = self;
+        self.articleContentLoadCompletion = ^{
+            [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+        };
         [self fetchArticle];
     }
 }
