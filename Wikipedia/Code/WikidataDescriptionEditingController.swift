@@ -101,8 +101,7 @@ enum WikidataPublishingError: LocalizedError {
     private let normalizedLanguages: [String: String] = [
         "zh-yue": "yue",
         "zh-min-nan": "nan",
-        "zh-classical": "lzh",
-        "fiu-vro": "vro"
+        "zh-classical": "lzh"
     ]
 }
 
