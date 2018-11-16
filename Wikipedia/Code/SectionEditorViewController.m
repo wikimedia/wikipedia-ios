@@ -11,13 +11,14 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarItemDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFEditToolbar *editToolbar;
+@property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
 @property (strong, nonatomic) WMFTheme *theme;
 
 @end
@@ -60,9 +61,7 @@
 
     self.viewKeyboardRect = CGRectNull;
 
-    CGRect editingToolbarFrame = CGRectMake(0, 0, self.view.bounds.size.width, 44);
-    self.editToolbar = [[WMFEditToolbar alloc] initWithFrame:editingToolbarFrame];
-    self.editToolbar.itemDelegate = self;
+    self.editToolbarAccessoryView = [[[NSBundle mainBundle] loadNibNamed:@"EditToolbarAccessoryView" owner:nil options:nil] firstObject];
 
     [self applyTheme:self.theme];
 
@@ -81,7 +80,7 @@
 }
 
 - (UIView *)inputAccessoryView {
-    return self.editToolbar;
+    return self.editToolbarAccessoryView;
 }
 
 - (void)xButtonPressed {

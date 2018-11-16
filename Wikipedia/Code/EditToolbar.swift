@@ -1,6 +1,6 @@
 import UIKit
 
-@objc(WMFEditToolbarDelegate)
+@objc(WMFEditToolbarItemDelegate)
 protocol EditToolbarItemDelegate: class {
     func editToolbarDidPressBoldItem(_ editToolbar: UIToolbar, item: UIBarButtonItem)
     func editToolbarDidPressItalicItem(_ editToolbar: UIToolbar, item: UIBarButtonItem)
@@ -9,12 +9,12 @@ protocol EditToolbarItemDelegate: class {
 }
 
 @objc(WMFEditToolbar)
-class EditToolbar: UIToolbar {
+public class EditToolbar: UIToolbar {
 
     @objc weak var itemDelegate: EditToolbarItemDelegate?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override public func awakeFromNib() {
+        super.awakeFromNib()
         items = [
             UIBarButtonItem(title: "B", style: .plain, target: self, action: #selector(boldButtonPressed(_:))),
             UIBarButtonItem(title: "I", style: .plain, target: self, action: #selector(italicButtonPressed(_:))),
@@ -44,9 +44,5 @@ class EditToolbar: UIToolbar {
 
     @objc private func moreButtonPressed(_ sender: UIBarButtonItem) {
         itemDelegate?.editToolbarDidPressMoreItem(self, item: sender)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
