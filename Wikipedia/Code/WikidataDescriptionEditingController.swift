@@ -55,8 +55,6 @@ enum WikidataPublishingError: LocalizedError {
         self.session = session
     }
 
-
-
     /// Publish new wikidata description.
     ///
     /// - Parameters:
@@ -87,12 +85,12 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
-        let normalizedLang = normalizedLanguage(from: language)
+        let normalizedLanguage = normalizedLanguages[language] ?? language
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
                                "formatversion": "2"]
-        let bodyParameters = ["language": normalizedLang,
-                              "uselang": normalizedLang,
+        let bodyParameters = ["language": normalizedLanguage,
+                              "uselang": normalizedLanguage,
                               "id": wikidataID,
                               "value": newWikidataDescription]
         var components = WikidataAPI.components
@@ -100,18 +98,12 @@ enum WikidataPublishingError: LocalizedError {
         let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
     }
 
-    private lazy var languageRegex: NSRegularExpression? = {
-        return try? NSRegularExpression(pattern: "(?<=-).*", options: .caseInsensitive)
-    }()
-
-    private func normalizedLanguage(from language: String) -> String {
-        guard
-            let match = languageRegex?.firstMatch(in: language, options: [], range: NSRange(location: 0, length: language.count)),
-            let range = Range(match.range, in: language) else {
-            return language
-        }
-        return String(language[range])
-    }
+    private var normalizedLanguages: [String: String] = [
+        "zh-yue": "yue",
+        "zh-min-nan": "nan",
+        "zh-classical": "lzh",
+        "fiu-vro": "vro"
+    ]
 }
 
 public extension MWKArticle {
