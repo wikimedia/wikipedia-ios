@@ -6,7 +6,6 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFGradientView.h"
-#import "BITHockeyManager+WMFExtensions.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "UIScrollView+ScrollSubviewToLocation.h"
