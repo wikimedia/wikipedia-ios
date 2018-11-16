@@ -55,8 +55,20 @@ class Section {
     this.article = article
   }
 
+  addAnchorAsIdToHeading(heading) {
+    if (this.anchor === undefined || this.anchor.length === 0) {
+      return
+    }
+    // TODO: consider renaming this 'id' to 'anchor' for clarity - would need to update native
+    // code as well - used when TOC sections made to jump to sections.
+    // If we make this change this method should probably be renamed to 'addAnchorToHeading'.
+    heading.id = this.anchor
+  }
+
   leadSectionHeading() {
-    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, this.anchor)
+    const hasTitlePronunciationURL = false
+    // TODO: determine this ^ either via examining lead section html or later via PCS article media data parameter.
+    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, hasTitlePronunciationURL)
   }
 
   nonLeadSectionHeading() {
@@ -64,7 +76,9 @@ class Section {
     // because it provides a heading correctly aligned with the edit pencil. (Lead section edit
     // pencils are added in `applyTransformationsToFragment` because they need to be added after
     // the `moveLeadIntroductionUp` has finished.)
-    return requirements.editTransform.newEditSectionHeader(lazyDocument, this.id, this.level, this.line, true, this.anchor)
+    const heading = requirements.editTransform.newEditSectionHeader(lazyDocument, this.id, this.level, this.line, true)
+    this.addAnchorAsIdToHeading(heading)
+    return heading
   }
 
   heading() {
@@ -154,6 +168,7 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     firstContentBlock.insertBefore(leadSectionEditButton, firstContentBlock.firstChild)
   }
   fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'})
+  fragment.querySelectorAll('a#pagelib_edit_section_title_pronunciation').forEach(anchor => {anchor.href = 'WMFTitlePronunciation'})
 
   const tableFooterDivClickCallback = container => {
     if(requirements.location.isElementTopOnscreen(container)){

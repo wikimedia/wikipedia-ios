@@ -160,6 +160,13 @@ const handleClickEvent = event => {
     return
   }
 
+  if (anchorForTarget.getAttribute( 'data-action' ) === 'title_pronunciation'){
+    // TODO: decide whether to kick this out to native land to play pronunciation media file or handling playback via JS.
+    // window.webkit.messageHandlers.addTitleDescriptionClicked.postMessage('title_pronunciation')
+    console.log('Play media soon!')
+    return
+  }
+
   // Handle add title description link.
   if (anchorForTarget.getAttribute( 'data-action' ) === 'add_title_description'){
     window.webkit.messageHandlers.addTitleDescriptionClicked.postMessage('add_title_description')
