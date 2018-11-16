@@ -200,7 +200,7 @@ struct RemoteNotificationsAPIController {
                     "notlimit": limit.value,
                     "notfilter": filter.rawValue]
 
-            let wikis = subdomains.compactMap { "\($0)wiki" }
+            let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
             if let listOfWikis = WMFJoinedPropertyParameters(wikis) {
                 dictionary["notwikis"] = listOfWikis
             }
