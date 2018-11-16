@@ -98,7 +98,7 @@ enum WikidataPublishingError: LocalizedError {
         let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
     }
 
-    private var normalizedLanguages: [String: String] = [
+    private let normalizedLanguages: [String: String] = [
         "zh-yue": "yue",
         "zh-min-nan": "nan",
         "zh-classical": "lzh",
