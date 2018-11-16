@@ -2,7 +2,6 @@
 @import UserNotifications;
 @import WMF.NSUserActivity_WMFExtensions;
 @import WMF.NSFileManager_WMFGroup;
-#import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "Wikipedia-Swift.h"
@@ -76,7 +75,6 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 #endif
     [NSUserDefaults wmf_migrateToWMFGroupUserDefaultsIfNecessary];
     [[NSUserDefaults wmf] wmf_migrateFontSizeMultiplier];
-    [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];

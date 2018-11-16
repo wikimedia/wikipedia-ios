@@ -341,7 +341,15 @@ func exportLocalizationsFromSourceCode(_ path: String) {
     }
 }
 
-let locales = Set<String>(Locale.availableIdentifiers)
+let locales: Set<String> =  {
+    var identifiers = Locale.availableIdentifiers
+    if let filenames = try? FileManager.default.contentsOfDirectory(atPath: "\(path)/Wikipedia/iOS Native Localizations") {
+        let additional = filenames.compactMap { $0.components(separatedBy: ".").first?.lowercased() }
+        identifiers += additional
+    }
+    return Set<String>(identifiers)
+}()
+
 func localeIsAvailable(_ locale: String) -> Bool {
     let prefix = locale.components(separatedBy: "-").first ?? locale
     return locales.contains(prefix)
