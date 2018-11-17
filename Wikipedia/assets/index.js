@@ -489,7 +489,6 @@ const lazyImageLoadingTransformer = new requirements.lazyLoadTransformer(window,
 const liveDocument = document
 
 const maybeWidenImage = require('wikimedia-page-library').WidenImage.maybeWidenImage
-const enableTitlePronunciationIcon = false
 
 class Language {
   constructor(code, dir, isRTL) {
@@ -520,7 +519,6 @@ class Section {
     this.id = id
     this.text = text
     this.article = article
-    this.pronunciationAnchor = null
   }
 
   addAnchorAsIdToHeading(heading) {
@@ -534,20 +532,9 @@ class Section {
   }
 
   leadSectionHeading() {
-    const hasTitlePronunciationAnchor = (enableTitlePronunciationIcon && this.pronunciationAnchor != null)
-    const header = requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, hasTitlePronunciationAnchor)
-
-    if (enableTitlePronunciationIcon) {
-      const headerAudioIcon = header.querySelector('#pagelib_edit_section_title_pronunciation')
-      if (headerAudioIcon) {
-        headerAudioIcon.addEventListener('click', event => {
-          event.preventDefault()
-          this.pronunciationAnchor.click()
-        }, false)
-      }
-    }
-
-    return header
+    const hasTitlePronunciationURL = false
+    // TODO: determine this ^ either via examining lead section html or later via PCS article media data parameter.
+    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, hasTitlePronunciationURL)
   }
 
   nonLeadSectionHeading() {
@@ -587,17 +574,14 @@ class Section {
     const container = lazyDocument.createElement('div')
     container.id = `section_heading_and_content_block_${this.id}`
 
+    if(!this.article.ismain){
+      container.appendChild(this.heading())
+    }
+
     const block = lazyDocument.createElement('div')
     block.id = `content_block_${this.id}`
     block.classList.add('content_block')
     block.innerHTML = this.html()
-
-    if (!this.article.ismain) {
-      if (enableTitlePronunciationIcon && this.isLeadSection()) {
-        this.pronunciationAnchor = block.querySelector('span[class*=haudio] a[title$=ogg]')
-      }
-      container.appendChild(this.heading())
-    }
 
     container.appendChild(block)
 
