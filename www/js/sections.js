@@ -66,9 +66,7 @@ class Section {
   }
 
   leadSectionHeading() {
-    const hasTitlePronunciationURL = false
-    // TODO: determine this ^ either via examining lead section html or later via PCS article media data parameter.
-    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, hasTitlePronunciationURL)
+    return requirements.editTransform.newEditLeadSectionHeader(lazyDocument, this.article.displayTitle, this.article.description, this.article.addTitleDescriptionString, this.article.isTitleDescriptionEditable, false, false)
   }
 
   nonLeadSectionHeading() {
@@ -168,7 +166,6 @@ const applyTransformationsToFragment = (fragment, article, isLead) => {
     firstContentBlock.insertBefore(leadSectionEditButton, firstContentBlock.firstChild)
   }
   fragment.querySelectorAll('a.pagelib_edit_section_link').forEach(anchor => {anchor.href = 'WMFEditPencil'})
-  fragment.querySelectorAll('a#pagelib_edit_section_title_pronunciation').forEach(anchor => {anchor.href = 'WMFTitlePronunciation'})
 
   const tableFooterDivClickCallback = container => {
     if(requirements.location.isElementTopOnscreen(container)){
