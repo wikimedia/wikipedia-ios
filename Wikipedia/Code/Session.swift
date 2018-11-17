@@ -315,7 +315,7 @@ import Foundation
         let api = configuration.mobileAppsServicesAPIForHost(siteURL.host)
         let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_urlPathComponentAllowed) ?? title
         let pathComponents = api.basePathComponents + [path, encodedTitle]
-        let percentEncodedPath = NSString.path(withComponents: pathComponents)
+        let percentEncodedPath = pathComponents.joined(separator: "/") // NSString.path(with: components) removes the leading slash
         var components = api.hostComponents
         components.percentEncodedPath = percentEncodedPath
         guard let summaryURL = components.url else {
