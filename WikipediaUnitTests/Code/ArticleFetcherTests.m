@@ -60,15 +60,13 @@
         .withBody(json);
 
     NSRegularExpression *anySummaryRequest =
-        [NSRegularExpression regularExpressionWithPattern:
-                                 [NSString stringWithFormat:@"%@/api/rest_v1/page/summary/.*", [siteURL absoluteString]]
+        [NSRegularExpression regularExpressionWithPattern:@".*v1/page/summary/.*"
                                                   options:0
                                                     error:nil];
     stubRequest(@"GET", anySummaryRequest).andReturn(200);
 
     NSRegularExpression *anyMediaRequest =
-        [NSRegularExpression regularExpressionWithPattern:
-                                 [NSString stringWithFormat:@"%@/api/rest_v1/page/media/.*", [siteURL absoluteString]]
+        [NSRegularExpression regularExpressionWithPattern:@".*v1/page/media/.*"
                                                   options:0
                                                     error:nil];
     stubRequest(@"GET", anyMediaRequest).andReturn(200);

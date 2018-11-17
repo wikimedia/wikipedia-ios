@@ -40,7 +40,7 @@
         return;
     }
 
-    NSURL *url = [siteURL wmf_URLWithPath:@"/api/rest_v1/feed/announcements" isMobile:NO];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]];
 
     [self.operationManager GET:[url absoluteString]
         parameters:nil
@@ -100,7 +100,7 @@
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
-        if ([obj.platforms containsObject:@"iOSApp"]) {
+        if ([obj.platforms containsObject:@"iOSAppV2"]) {
             return YES;
         } else {
             return NO;

@@ -132,6 +132,7 @@
 "description-published-button-title" = "Udført";
 "description-published-title" = "Beskrivelse offentliggjort!";
 "description-welcome-concise-title" = "Gør det kort";
+"description-welcome-descriptions-title" = "Titelbeskrivelser";
 "dim-images" = "Mørklæg billeder";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
 "edit-summary-choice-fixed-typos" = "Rettede slåfejl";
@@ -261,6 +262,9 @@
 "languages-wikipedia" = "Wikipediasprog";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Indholdet er udgivet under $1 medmindre andet er angivet.";
+"logged-out-continue-without-logging-in-button-title" = "Fortsæt uden at logge på";
+"logged-out-log-back-in-button-title" = "Log ind på din konto igen";
+"logged-out-title" = "Du er blevet logget af";
 "login-forgot-password" = "Glemt din adgangskode?";
 "login-join-wikipedia" = "Deltag i Wikipedia.";
 "login-no-account" = "Har du ikke en konto? $1";
@@ -361,6 +365,7 @@
 "reading-list-api-error-list-limit" = "Denne liste er ikke synkroniseret, da du har nået begrænsningen for antallet af synkroniserede lister.";
 "reading-list-create-new-list-button-title" = "Opret læseliste";
 "reading-list-create-new-list-description" = "Beskrivelse";
+"reading-list-create-new-list-reading-list-name" = "Navn på læseliste";
 "reading-list-create-new-list-title" = "Opret en ny liste";
 "reading-list-deleted-accessibility-notification" = "Læseliste slettet";
 "reading-list-do-not-keep-button-title" = "Nej, slet artikler fra enhed";
@@ -399,6 +404,7 @@
 "reading-lists-default-list-title" = "Gemt";
 "reading-lists-delete-reading-list-alert-message" = "Denne handling kan ikke fortrydes. Enhver artikle gemt kun i {{PLURAL:$1|denne liste|disse lister}} vil ikke blive gemt.";
 "reading-lists-delete-reading-list-alert-title" = "Slet {{PLURAL:$1|liste|lister}}?";
+"reading-lists-sort-saved-articles" = "Sorter gemte artikler";
 "reading-themes-controls-accessibility-black-theme-button" = "Sort tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Lysstyrkeskyder";
 "reading-themes-controls-accessibility-dark-theme-button" = "Mørk tema";
@@ -410,10 +416,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=For nyligt|$1 time siden|$1 timer siden}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Lige nu|$1 minut siden|$1 minutter siden}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dette år|Sidste år|$1 år siden}}";
-"relogin-failed-retry-login-button-title" = "Prøv at logge ind igen";
-"relogin-failed-stay-logged-out-button-title" = "Hold mig logget ind";
-"relogin-failed-subtitle" = "Din session kan være udløbet eller tidligere log i akkreditiver er ikke længere gyldig.";
-"relogin-failed-title" = "Kan ikke genetablere log ind";
 "request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
 "reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";
@@ -459,14 +461,14 @@
 "settings-primary-language" = "Primær";
 // Fuzzy
 "settings-primary-language-details" = "Det første sprog i denne liste bruges som appens primære sprog. Ændres sprog ændres dagligt indhold (såsom Fremhævet artikel) som vises i Udforsk.";
-// Fuzzy
-"settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Tillad at Wikimedia gemmer dine gemte artikler og læselister til dine brugerpræferencer, når du logger ind for at synkronisere.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkroniser gemte artikler og lister";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Ryd alle gemte artikler?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Slet";
 // Fuzzy
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Slet dine gemte artikler og fjern dem fra din brugerkonto, hvis du også har synkronisering aktiveret og fra denne enhed.\n\nSletning af dine gemte artikler vil frigøre omkring 364,4 MB plads.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Slet gemte artikler";
+"settings-storage-and-syncing-full-sync" = "Dine læselister vil blive synkroniseret i baggrunden";
 // Fuzzy
 "settings-storage-and-syncing-server-sync-footer-text" = "Anmod om en synkronisering fra serveren for en opdatering til dine synkroniserede artikler og læselister";
 // Fuzzy

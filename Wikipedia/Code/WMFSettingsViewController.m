@@ -12,7 +12,6 @@
 #import <WMF/MWKLanguageLink.h>
 
 // Frameworks
-#import <HockeySDK/HockeySDK.h>
 #if WMF_TWEAKS_ENABLED
 #import <Tweaks/FBTweakViewController.h>
 #import <Tweaks/FBTweakStore.h>
@@ -266,9 +265,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ClearCache:
             [self showClearCacheActionSheet];
             break;
-        case WMFSettingsMenuItemType_DebugCrash:
-            [[self class] generateTestCrash];
-            break;
         case WMFSettingsMenuItemType_DevSettings: {
 #if WMF_TWEAKS_ENABLED
             FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
@@ -441,17 +437,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #endif
 }
 
-#pragma mark - Debugging
-
-+ (void)generateTestCrash {
-    if ([[BITHockeyManager sharedHockeyManager] crashManager]) {
-        DDLogWarn(@"Generating test crash!");
-        __builtin_trap();
-    } else {
-        DDLogError(@"Crash manager was not setup!");
-    }
-}
-
 #if WMF_TWEAKS_ENABLED
 - (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
     [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
@@ -569,7 +554,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (nullable WMFSettingsTableViewSection *)section_6 {
 #if WMF_TWEAKS_ENABLED
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DebugCrash],
         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
     ]
                                                                                   headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-debug", nil, nil, @"Debug", @"Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}")

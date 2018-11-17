@@ -206,16 +206,6 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_DebugCrash: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-debug-crash", nil, nil, @"Crash", @"Title for button that forces the application to crash.\n{{Identical|Crash}}")
-                                                 iconName:@"settings-crash"
-                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_None
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
-        }
         case WMFSettingsMenuItemType_DevSettings: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

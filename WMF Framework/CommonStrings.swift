@@ -86,7 +86,9 @@ public class CommonStrings: NSObject {
 
     @objc public static let updateActionTitle = WMFLocalizedStringWithDefaultValue("action-update", nil, nil, "Update", "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedStringWithDefaultValue("action-cancel", nil, nil, "Cancel", "Title of the cancel action.")
-     @objc public static let sortActionTitle = WMFLocalizedStringWithDefaultValue("action-sort", nil, nil, "Sort", "Title of the sort action.")
+    @objc public static let sortActionTitle = WMFLocalizedStringWithDefaultValue("action-sort", nil, nil, "Sort", "Title of the sort action.")
+
+    @objc public static let sortAlertTitle = WMFLocalizedString("reading-lists-sort-saved-articles", value: "Sort saved articles", comment: "Title of the alert that allows sorting saved articles.")
 
     @objc public static let nextTitle = WMFLocalizedStringWithDefaultValue("button-next", nil, nil, "Next", "Button text for next button used in various places.\n{{Identical|Next}}")
     @objc public static let skipTitle = WMFLocalizedStringWithDefaultValue("button-skip", nil, nil, "Skip", "Button text for skip button used in various places.")

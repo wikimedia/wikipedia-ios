@@ -18,7 +18,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var pruningAge: TimeInterval = 60*60*24*30 // 30 days
     private var sendOnWWANThreshold: TimeInterval = 24 * 60 * 60
-    private var postBatchSize = 10
+    private var postBatchSize = 32
     private var postTimeout: TimeInterval = 60*2 // 2 minutes
     private var postInterval: TimeInterval = 60*10 // 10 minutes
     
@@ -266,13 +266,11 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 }
                 if (completedRecordIDs.count == eventRecords.count) {
                     self.managedObjectContext.wmf_setValue(NSNumber(value: CFAbsoluteTimeGetCurrent()), forKey: Key.lastSuccessfulPost)
-                    self.save(moc)
-                    DDLogDebug("EventLoggingService: All records succeeded, attempting to post more")
-                    self.tryPostEvents()
+                    DDLogDebug("EventLoggingService: All records succeeded")
                 } else {
-                    self.save(moc)
-                    DDLogDebug("EventLoggingService: Some records failed, waiting to post more")
+                    DDLogDebug("EventLoggingService: Some records failed")
                 }
+                self.save(moc)
                 completion()
             }
         }

@@ -393,8 +393,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မကြာသေးခင်|$1 နာရီအကြာက|$1 နာရီအကြာက}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|ယခင်နှစ်|$1 နှစ်အကြာက}}";
-"relogin-failed-retry-login-button-title" = "အကောင့်ဝင်ရန် ထပ်စမ်းကြည့်ပါ";
-"relogin-failed-stay-logged-out-button-title" = "အကောင့်မှ ထွက်ထားမည်";
 "saved-all-articles-title" = "ဆောင်းပါးများ အားလုံး";
 "saved-default-reading-list-tag" = "ဤစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
 "saved-pages-image-download-error" = "ဤသိမ်းထားသောစာမျက်နှာအတွက် ရုပ်ပုံများ ဒေါင်းလုတ်ဆွဲရာတွင် မအောင်မြင်ပါ။";

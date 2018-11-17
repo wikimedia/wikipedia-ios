@@ -10,10 +10,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     public weak var delegate: AnnouncementCollectionViewCellDelegate?
     
     public let imageView = UIImageView()
-    public let messageLabel = UILabel()
+    private let messageTextView = UITextView()
     public let actionButton = UIButton()
     public let dismissButton = UIButton()
-    public let captionTextView = UITextView()
+    private let captionTextView = UITextView()
     public let captionSeparatorView = UIView()
     public let messageSpacing: CGFloat = 20
     public let buttonMargin: CGFloat = 40
@@ -30,9 +30,10 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         imageView.clipsToBounds = true
         addSubview(imageView)
         
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        addSubview(messageLabel)
+        messageTextView.isScrollEnabled = false
+        messageTextView.isEditable = false
+        messageTextView.delegate = self
+        addSubview(messageTextView)
         
         addSubview(actionButton)
         
@@ -40,21 +41,19 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         addSubview(captionSeparatorView)
         
+        captionTextView.isScrollEnabled = false
         captionTextView.isEditable = false
+        captionTextView.delegate = self
         addSubview(captionTextView)
         
         actionButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         actionButton.titleLabel?.numberOfLines = 0
-        actionButton.titleLabel?.textAlignment = .center
         actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
 
         dismissButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 8, right: 15)
         dismissButton.titleLabel?.numberOfLines = 0
-        dismissButton.setTitle(CommonStrings.dismissButtonTitle, for: .normal)
-        dismissButton.titleLabel?.textAlignment = .center
         dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
         
-        captionTextView.delegate = self
         super.setup()
     }
     
@@ -69,16 +68,18 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        imageView.wmf_reset()
         imageViewDimension = 150
         updateFonts(with: traitCollection)
-        caption = nil
-        messageLabel.text = nil
+        captionHTML = nil
+        messageHTML = nil
         isImageViewHidden = true
+        isUrgent = false
+        dismissButtonTitle = nil
     }
     
     open override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        messageLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         actionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         dismissButton.titleLabel?.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         updateCaptionTextViewWithAttributedCaption()
@@ -100,40 +101,74 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     }
 
     fileprivate func updateCaptionTextViewWithAttributedCaption() {
-        guard let text = caption else {
+        guard let html = captionHTML else {
             isCaptionHidden = true
             return
         }
-
-        let mutableText = NSMutableAttributedString(attributedString: text)
-        guard mutableText.length > 0 else {
-            isCaptionHidden = true
-            return
-        }
-
+        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        pStyle.alignment = .center
-        let font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
-        mutableText.addAttributes(attributes, range: NSMakeRange(0, mutableText.length))
-        captionTextView.attributedText = mutableText
-
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        captionTextView.attributedText = attributedText
         isCaptionHidden = false
     }
-
-    public var caption: NSAttributedString? {
+    
+    public var captionHTML: String? {
         didSet {
             updateCaptionTextViewWithAttributedCaption()
+        }
+    }
+    
+    public var isUrgent: Bool = false
+    private var messageUnderlineColor: UIColor = UIColor.black
+    private var messageEmphasisColor: UIColor = UIColor.black
+    private var messageLineHeightMultiple: CGFloat = 1
+    private func updateMessageTextViewWithAttributedMessage() {
+        guard let html = messageHTML else {
+            messageTextView.attributedText = nil
+            return
+        }
+        let attributedText = html.byAttributingHTML(with: .subheadline,
+                                                    boldWeight: .bold,
+                                                    matching: traitCollection,
+                                                    tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
+                                                    additionalTagAttributes: [
+            "u": [
+                NSAttributedString.Key.underlineColor: messageUnderlineColor,
+                NSAttributedString.Key.underlineStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)
+            ],
+            "strong": [
+                NSAttributedString.Key.foregroundColor: messageEmphasisColor
+            ]
+        ])
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.lineHeightMultiple = messageLineHeightMultiple
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
+        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        messageTextView.attributedText = attributedText
+    }
+    
+    public var messageHTML: String? {
+        didSet {
+            updateMessageTextViewWithAttributedMessage()
+        }
+    }
+    
+    public var dismissButtonTitle: String? {
+        didSet {
+            let newTitle = dismissButtonTitle ?? CommonStrings.dismissButtonTitle
+            dismissButton.setTitle(newTitle, for: .normal)
+            setNeedsLayout()
         }
     }
     
     open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let widthMinusMargins = layoutWidth(for: size)
         let displayScale = traitCollection.displayScale > 0 ? traitCollection.displayScale : 2.0
-        var origin = CGPoint(x: layoutMargins.left, y: 0)
+        var origin = CGPoint(x: layoutMargins.left + layoutMarginsAdditions.left, y: 0)
         
         if !isImageViewHidden {
             if (apply) {
@@ -144,7 +179,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         origin.y += messageSpacing
         
-        let messageFrame = messageLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, minimumWidth: widthMinusMargins, alignedBy: semanticContentAttribute, apply: apply)
+        let messageTextSize = messageTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
+        let messageFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: messageTextSize.height))
+        if (apply) {
+            messageTextView.frame = messageFrame
+        }
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
         
         let buttonMinimumWidth = min(250, widthMinusMargins)
@@ -155,20 +194,19 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         if !isCaptionHidden {
             origin.y += dismissButtonSpacing
-            let separatorFrame = CGRect(x: 0, y: origin.y, width: size.width, height: 1.0 / displayScale)
+            let separatorFrame = CGRect(x: origin.x, y: origin.y, width: widthMinusMargins, height: 1.0 / displayScale)
             if (apply) {
                 captionSeparatorView.frame = separatorFrame
             }
             origin.y += separatorFrame.height
             origin.y += captionSpacing
-            // set width first to get proper content size
-            captionTextView.frame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: 32))
-            let captionTextViewSize = captionTextView.contentSize
+            let captionTextViewSize = captionTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
             let captionFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: captionTextViewSize.height))
             if (apply) {
                 captionTextView.frame = captionFrame
             }
             origin.y += captionFrame.height
+            origin.y += captionSpacing
         } else {
             origin.y += layoutMargins.bottom
         }
@@ -189,17 +227,31 @@ extension AnnouncementCollectionViewCell: Themeable {
     @objc(applyTheme:)
     public func apply(theme: Theme) {
         setBackgroundColors(theme.colors.cardBackground, selected: theme.colors.selectedCardBackground)
-        messageLabel.textColor = theme.colors.primaryText
+        messageTextView.textColor = theme.colors.primaryText
+        messageTextView.backgroundColor = .clear
         dismissButton.setTitleColor(theme.colors.secondaryText, for: .normal)
         imageView.backgroundColor = theme.colors.midBackground
         imageView.alpha = theme.imageOpacity
         actionButton.setTitleColor(theme.colors.link, for: .normal)
-        actionButton.layer.borderColor = theme.colors.link.cgColor
-        actionButton.layer.cornerRadius = 5
         actionButton.backgroundColor = theme.colors.cardButtonBackground
+        messageLineHeightMultiple = 1.25
+        if isUrgent {
+            messageUnderlineColor = theme.colors.error
+            messageEmphasisColor = theme.colors.error
+            layer.borderWidth = 3
+            layer.borderColor = theme.colors.error.cgColor
+            layer.cornerRadius = Theme.exploreCardCornerRadius
+        } else {
+            layer.borderWidth = 0
+            layer.cornerRadius = 0
+            messageUnderlineColor = messageTextView.textColor ?? theme.colors.primaryText
+            messageEmphasisColor = messageTextView.textColor ?? theme.colors.primaryText
+        }
+        actionButton.layer.cornerRadius = 5
         captionSeparatorView.backgroundColor = theme.colors.border
         captionTextView.textColor = theme.colors.secondaryText
-        captionTextView.backgroundColor = theme.colors.paperBackground
+        captionTextView.backgroundColor = .clear
         updateCaptionTextViewWithAttributedCaption()
+        updateMessageTextViewWithAttributedMessage()
     }
 }
