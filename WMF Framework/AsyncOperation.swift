@@ -12,7 +12,7 @@ enum AsyncOperationError: Error {
 
     fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
-    @objc public enum State: Int {
+    public enum State: Int {
         case ready
         case executing
         case finished
@@ -31,9 +31,9 @@ enum AsyncOperationError: Error {
     
     public var error: Error?
     
-    fileprivate var _state = AsyncOperation.State.ready
+    private var _state = AsyncOperation.State.ready
     
-    @objc public var state: AsyncOperation.State {
+    public var state: AsyncOperation.State {
         get {
             semaphore.wait()
             let state = _state
