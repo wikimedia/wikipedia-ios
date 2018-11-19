@@ -35,6 +35,7 @@ public class Configuration: NSObject {
     struct Path {
         static let wikiResource = "/wiki/"
         static let mobileAppsServicesAPIComponents = ["/api", "rest_v1"]
+        static let mediawikiAPIComponents = ["/w", "/api.php"]
     }
     
     public struct API {
@@ -113,6 +114,17 @@ public class Configuration: NSObject {
             }
         }
         return false
+    }
+
+    @objc(mediawikiAPIURLForHost:)
+    public func mediawikiAPIURLForHost(_ host: String? = nil) -> URL? {
+        var components = URLComponents()
+        components.host = host ?? Domain.englishWikipedia
+        components.scheme = Scheme.https
+        let api = API(hostComponents: components, basePathComponents: Path.mediawikiAPIComponents)
+        var apiComponents = api.hostComponents
+        apiComponents.path = NSString.path(withComponents: api.basePathComponents)
+        return apiComponents.url
     }
     
 }
