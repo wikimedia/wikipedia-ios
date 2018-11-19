@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-
 - (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion {
     NSParameterAssert(siteURL);
     if (siteURL == nil) {
@@ -39,43 +38,47 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL *url = [WMFConfiguration.current mediawikiAPIURLForHost:siteURL.host];
     NSDictionary *params = [[self class] params];
 
-    [self.session getJSONDictionaryFromURL:url withQueryParameters:params bodyParameters:nil ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            completion(error, nil);
-            return;
-        }
+    [self.session getJSONDictionaryFromURL:url
+                       withQueryParameters:params
+                            bodyParameters:nil
+                               ignoreCache:YES
+                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                             if (error) {
+                                 completion(error, nil);
+                                 return;
+                             }
 
-        if (response.statusCode == 304) {
-            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
-            completion(error, nil);
-            return;
-        }
+                             if (response.statusCode == 304) {
+                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+                                 completion(error, nil);
+                                 return;
+                             }
 
-        NSDictionary *randomPages = result[@"query"][@"pages"];
-        if (![randomPages isKindOfClass:[NSDictionary class]]) {
-            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-            completion(error, nil);
-            return;
-        }
+                             NSDictionary *pagesGroupedById = result[@"query"][@"pages"];
+                             if (![pagesGroupedById isKindOfClass:[NSDictionary class]]) {
+                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+                                 completion(error, nil);
+                                 return;
+                             }
 
-        NSArray *randomJSONs = randomPages.allValues;
-        if (![randomJSONs isKindOfClass:[NSArray class]]) {
-            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-            completion(error, nil);
-            return;
-        }
+                             NSArray *pages = pagesGroupedById.allValues;
+                             if (![pages isKindOfClass:[NSArray class]]) {
+                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+                                 completion(error, nil);
+                                 return;
+                             }
 
-        NSError *mantleError = nil;
-        NSArray<MWKSearchResult *> *randomResults = [MTLJSONAdapter modelsOfClass:[MWKSearchResult class] fromJSONArray:randomJSONs error:&mantleError];
-        if (mantleError){
-            completion(mantleError, nil);
-            return;
-        }
+                             NSError *mantleError = nil;
+                             NSArray<MWKSearchResult *> *randomResults = [MTLJSONAdapter modelsOfClass:[MWKSearchResult class] fromJSONArray:pages error:&mantleError];
+                             if (mantleError) {
+                                 completion(mantleError, nil);
+                                 return;
+                             }
 
-        MWKSearchResult *article = [self getBestRandomResultFromResults:randomResults];
+                             MWKSearchResult *article = [self getBestRandomResultFromResults:randomResults];
 
-        completion(nil, article);
-    }];
+                             completion(nil, article);
+                         }];
 }
 
 - (MWKSearchResult *)getBestRandomResultFromResults:(NSArray *)results {
