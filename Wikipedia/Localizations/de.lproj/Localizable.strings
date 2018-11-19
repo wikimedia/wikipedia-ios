@@ -299,13 +299,6 @@
 "history-clear-confirmation-heading" = "Bist du sicher, dass du alle deine letzten Objekte löschen möchtest?";
 "history-clear-delete-all" = "Ja, alle löschen";
 "history-title" = "Verlauf";
-"hockeyapp-alert-always-send" = "Immer senden";
-"hockeyapp-alert-do-not-send" = "Nicht senden";
-"hockeyapp-alert-privacy" = "$1-Datenschutz";
-"hockeyapp-alert-question" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann?";
-"hockeyapp-alert-question-with-response-field" = "Möchtest du einen Absturzbericht an $1 senden, so dass die Wikimedia Foundation deinen Absturz überprüfen kann? Bitte beschreibe, was passiert ist, als der Absturz aufgetreten ist:";
-"hockeyapp-alert-send-report" = "Bericht senden";
-"hockeyapp-alert-title" = "Leider ist die App beim letzten Mal abgestürzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zurück zu Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zurück zu Verlauf";
 "home-button-saved-accessibility-label" = "Wikipedia, zurück zu Gespeichert";
@@ -351,7 +344,6 @@
 "main-menu-account-logout-are-you-sure" = "Bist du sicher, dass du dich abmelden möchtest?";
 "main-menu-account-logout-cancel" = "Abbrechen";
 "main-menu-account-title-logged-in" = "Angemeldet als $1";
-"main-menu-debug-crash" = "Absturz";
 "main-menu-debug-tweaks" = "Entwicklereinstellungen";
 "main-menu-heading-debug" = "Fehlerbehebung";
 "main-menu-heading-legal" = "Datenschutz und Bedingungen";

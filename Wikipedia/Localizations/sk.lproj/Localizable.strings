@@ -190,11 +190,6 @@
 "history-clear-confirmation-heading" = "Naozaj chcete vymazať vašu nedávnu históriu prehliadania?";
 "history-clear-delete-all" = "Áno, vymazať všetko";
 "history-title" = "História";
-"hockeyapp-alert-always-send" = "Vždy odoslať";
-"hockeyapp-alert-do-not-send" = "Neodoslať";
-"hockeyapp-alert-privacy" = "$1 súkromie";
-"hockeyapp-alert-send-report" = "Odoslať správu";
-"hockeyapp-alert-title" = "Ospravedlňujeme sa za nedávne zlyhanie aplikácie";
 "home-more-like-footer" = "Viac článkov ako $1";
 "icon-shortcut-continue-reading-title" = "Pokračovať v čítaní";
 "icon-shortcut-nearby-title" = "Články v okolí";
@@ -223,7 +218,6 @@
 "main-menu-account-logout-are-you-sure" = "Ste si istý, že sa chcete odhlásiť?";
 "main-menu-account-logout-cancel" = "Zrušiť";
 "main-menu-account-title-logged-in" = "Prihlásený ako $1";
-"main-menu-debug-crash" = "Spôsobiť pád aplikácie";
 "main-menu-debug-tweaks" = "Nastavenia pre vývojárov";
 "main-menu-heading-debug" = "Ladiť";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";

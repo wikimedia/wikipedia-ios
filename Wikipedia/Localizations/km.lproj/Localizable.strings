@@ -174,13 +174,6 @@
 "history-clear-confirmation-heading" = "តើអ្នកពិតជាងចង់លុបចោលរបស់ថ្មីៗទាំងអស់ឬ?";
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "history-title" = "ប្រវត្តិ";
-"hockeyapp-alert-always-send" = "ផ្ញើជានិច្ច";
-"hockeyapp-alert-do-not-send" = "កុំផ្ញើ";
-"hockeyapp-alert-privacy" = "គោលការណ៍ភាពឯកជនរបស់$1";
-"hockeyapp-alert-question" = "តើអ្នកពិតជាចង់ផ្ញើរបាយការណ៍គាំងទៅ$1 ដើម្បីអោយមូលនិធីវិគីមេឌាពិនិត្យទេ?";
-"hockeyapp-alert-question-with-response-field" = "តើអ្នកពិតជាចង់ផ្ញើរបាយការណ៍គាំងទៅ$1 ដើម្បីអោយមូលនិធីវិគីមេឌាពិនិត្យទេ? សូមរៀបរាប់ពីអ្វីដែលកើតឡើងពេលគាំង៖";
-"hockeyapp-alert-send-report" = "ផ្ញើរបាយការណ៍";
-"hockeyapp-alert-title" = "សូមអភ័យទោសដែលកម្មវីធីបានគាំងពេលមុន";
 "home-button-explore-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ រុករក";
 "home-button-history-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ ប្រវត្តិ";
 "home-button-saved-accessibility-label" = "វិគីភីឌា ត្រឡប់ទៅ អត្ថបទរក្សាទុក";
@@ -219,7 +212,6 @@
 "main-menu-account-logout-are-you-sure" = "តើអ្នកពិតជាងចង់កត់ឈ្មោះចេញមែនទេ?";
 "main-menu-account-logout-cancel" = "បោះបង់";
 "main-menu-account-title-logged-in" = "កត់ឈ្មោះចូលជា $1";
-"main-menu-debug-crash" = "គាំង";
 "main-menu-heading-legal" = "ភាពឯកជននិងលក្ខខណ្ឌប្រើប្រាស់";
 "main-menu-heading-zero" = "វិគីភីឌាសូន្យ";
 "main-menu-nearby" = "ជិតខាង";

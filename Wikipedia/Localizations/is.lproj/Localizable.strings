@@ -194,13 +194,6 @@
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
 "history-clear-delete-all" = "Eyða öllu";
 "history-title" = "Ferilskrá";
-"hockeyapp-alert-always-send" = "Alltaf senda";
-"hockeyapp-alert-do-not-send" = "Ekki senda";
-"hockeyapp-alert-privacy" = "$1 friðhelgi";
-"hockeyapp-alert-question" = "Viltu senda tilkynningu um hrunið til $1 þannig að Wikimedia geti skoðað hvað fór úrskeiðis?";
-"hockeyapp-alert-question-with-response-field" = "Viltu senda tilkynningu um hrunið til $1 þannig að Wikimedia geti skoðað hvað fór úrskeiðis? Endilega lýstu því sem var í gangi þegar hrunið átti sér stað:";
-"hockeyapp-alert-send-report" = "Senda villuskýrslu";
-"hockeyapp-alert-title" = "Því miður, appið hrundi síðast";
 "home-button-explore-accessibility-label" = "Wikipedia, fara aftur á 'Uppgötva'";
 "home-button-history-accessibility-label" = "Wikipedia, fara aftur á 'Ferilskrá'";
 "home-button-saved-accessibility-label" = "Wikipedia, fara aftur á 'Vistað'";
@@ -243,7 +236,6 @@
 "main-menu-account-logout-are-you-sure" = "Ertu viss að þú viljir skrá þig út?";
 "main-menu-account-logout-cancel" = "Hætta við";
 "main-menu-account-title-logged-in" = "Innskráð(ur) sem: $1";
-"main-menu-debug-crash" = "Hrun";
 "main-menu-debug-tweaks" = "Stillingar fyrir forritara";
 "main-menu-heading-debug" = "Aflúsa";
 "main-menu-heading-legal" = "Gagnaleynd og skilmálar";

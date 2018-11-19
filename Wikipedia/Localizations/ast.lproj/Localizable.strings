@@ -238,13 +238,6 @@
 "history-clear-confirmation-heading" = "¿Seguro que quies desaniciar tolos elementos recientes?";
 "history-clear-delete-all" = "Si, desaniciar too";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Unviar siempre";
-"hockeyapp-alert-do-not-send" = "Nun unviar";
-"hockeyapp-alert-privacy" = "Intimidá de $1";
-"hockeyapp-alert-question" = "¿Quedríes unviar un informe de fallu a $1 pa que la Fundación Wikimedia pueda revisalu?";
-"hockeyapp-alert-question-with-response-field" = "¿Quedríes unviar un informe de fallu a $1 pa que la Fundación Wikimedia pueda revisalu? Por favor, describe qué pasó cuando asocedió'l fallu:";
-"hockeyapp-alert-send-report" = "Unviar informe";
-"hockeyapp-alert-title" = "Sentímoslo, l'aplicación falló la última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, volver a Esplorar";
 "home-button-history-accessibility-label" = "Wikipedia, volver a Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardaos";
@@ -286,7 +279,6 @@
 "main-menu-account-logout-are-you-sure" = "¿Seguro que quies zarrar sesión?";
 "main-menu-account-logout-cancel" = "Encaboxar";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1";
-"main-menu-debug-crash" = "Colgar";
 "main-menu-debug-tweaks" = "Configuración de desendolcador";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
