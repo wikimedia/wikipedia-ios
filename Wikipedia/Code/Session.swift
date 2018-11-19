@@ -289,7 +289,7 @@ import Foundation
         queue.addOperation(op)
     }
     
-    @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @discardableResult @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
@@ -307,6 +307,15 @@ import Foundation
                 completionHandler(nil, response, error)
             }
         })
+    }
+    
+    @objc(getJSONDictionaryFromURL:completionHandler:) public func getJSONDictionary(from url: URL?, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+        guard let url = url else {
+            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+            return
+        }
+        let request = URLRequest(url: url)
+        jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
     }
     
     @discardableResult public func apiTask(with articleURL: URL, path: String, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
