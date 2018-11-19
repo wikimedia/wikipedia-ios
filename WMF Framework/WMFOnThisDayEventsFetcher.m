@@ -43,11 +43,18 @@
             failure(error);
             return;
         }
+        
+        if (response.statusCode == 304) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
+            return;
+        }
+        
         NSArray *eventJSONs = result[@"events"];
         if (![eventJSONs isKindOfClass:[NSArray class]]) {
             failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
             return;
         }
+        
         NSError *mantleError = nil;
         NSArray<WMFFeedOnThisDayEvent *> *events = [MTLJSONAdapter modelsOfClass:[WMFFeedOnThisDayEvent class] fromJSONArray:eventJSONs error:&mantleError];
         if (mantleError) {
