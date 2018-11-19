@@ -130,20 +130,22 @@ static const CGFloat WMFRandomAnimationDurationFade = 0.5;
 - (void)loadAndShowAnotherRandomArticle:(id)sender {
     [self configureViewsForRandomArticleLoading:YES animated:YES];
     NSURL *siteURL = self.articleURL.wmf_siteURL;
-    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL
-        failure:^(NSError *error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        success:^(MWKSearchResult *result) {
-            NSURL *articleURL = [result articleURLForSiteURL:siteURL];
-            WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
+    [self.randomArticleFetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, MWKSearchResult * _Nullable result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error || !result) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            } else {
+                NSURL *articleURL = [result articleURLForSiteURL:siteURL];
+                WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
-            randomArticleVC.permaRandomMode = NO;
+                randomArticleVC.permaRandomMode = NO;
 #endif
-            self.secondToolbar.items = @[];
-            [self wmf_pushArticleViewController:randomArticleVC
-                                       animated:YES];
-        }];
+                self.secondToolbar.items = @[];
+                [self wmf_pushArticleViewController:randomArticleVC
+                                           animated:YES];
+            }
+        });
+    }];
 }
 
 - (void)setRandomButtonHidden:(BOOL)randomButtonHidden animated:(BOOL)animated {
