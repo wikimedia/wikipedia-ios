@@ -514,15 +514,11 @@ public typealias ReadingListsController = WMFReadingListsController
                 newValue.insert(.needsSync)
                 self.syncState = newValue
             }
-            let sync = ReadingListsSyncOperation(readingListsController: self)
-            addOperation(sync)
-            if let completion = completion {
-                let completionBlockOp = BlockOperation(block: {
+            _sync({
+                if let completion = completion {
                     DispatchQueue.main.async(execute: completion)
-                });
-                completionBlockOp.addDependency(sync)
-                operationQueue.addOperation(completionBlockOp)
-            }
+                }
+            })
         #endif
     }
     
