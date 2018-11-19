@@ -307,13 +307,6 @@
 "history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
 "history-clear-delete-all" = "Ja, radera alla";
 "history-title" = "Historik";
-"hockeyapp-alert-always-send" = "Skicka alltid";
-"hockeyapp-alert-do-not-send" = "Skicka inte";
-"hockeyapp-alert-privacy" = "$1s sekretess";
-"hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia Foundation kan undersöka din krasch?";
-"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia Foundation kan undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
-"hockeyapp-alert-send-report" = "Skicka rapporten";
-"hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
 "home-button-explore-accessibility-label" = "Wikipedia, tillbaka till Utforska";
 "home-button-history-accessibility-label" = "Wikipedia, tillbaka till Historik";
 "home-button-saved-accessibility-label" = "Wikipedia, tillbaka till Sparade";
@@ -359,7 +352,6 @@
 "main-menu-account-logout-are-you-sure" = "Är du säker på att du vill logga ut?";
 "main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Inloggad som $1";
-"main-menu-debug-crash" = "Krasch";
 "main-menu-debug-tweaks" = "Utvecklarinställningar";
 "main-menu-heading-debug" = "Felsökning";
 "main-menu-heading-legal" = "Integritet och villkor";

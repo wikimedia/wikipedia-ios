@@ -304,13 +304,6 @@
 "history-clear-confirmation-heading" = "Желите ли заиста да избришете све недавне ставке?";
 "history-clear-delete-all" = "Да, избриши све";
 "history-title" = "Историја";
-"hockeyapp-alert-always-send" = "Увек шаљи";
-"hockeyapp-alert-do-not-send" = "Не шаљи";
-"hockeyapp-alert-privacy" = "Политика приватности $1-а";
-"hockeyapp-alert-question" = "Желите ли да пошаљете извештај о отказивању $1-у како би Задужбина Викимедија испитала ваш случај?";
-"hockeyapp-alert-question-with-response-field" = "Желите ли да пошаљете извештај о отказивању $1-у како би Задужбина Викимедија испитала ваш случај? Опишите шта се десило када је дошло до отказивања:";
-"hockeyapp-alert-send-report" = "Пошаљи извештај";
-"hockeyapp-alert-title" = "Апликација је отказала прошли пут";
 "home-button-explore-accessibility-label" = "Википедија, назад на „Истражи”";
 "home-button-history-accessibility-label" = "Википедија, назад на историју";
 "home-button-saved-accessibility-label" = "Википедија, назад на сачуване";
@@ -356,7 +349,6 @@
 "main-menu-account-logout-are-you-sure" = "Желите ли заиста да се одјавите?";
 "main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Пријављени сте као $1";
-"main-menu-debug-crash" = "Отказивање";
 "main-menu-debug-tweaks" = "Подешавања за програмера";
 "main-menu-heading-debug" = "Исправке";
 "main-menu-heading-legal" = "Приватност и услови";

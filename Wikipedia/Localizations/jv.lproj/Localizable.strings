@@ -191,13 +191,6 @@
 "history-clear-confirmation-heading" = "Panjenengan yakin arep mbusak kabèh barang anyar?";
 "history-clear-delete-all" = "Ha'a, busak kabèh";
 "history-title" = "Sajarah";
-"hockeyapp-alert-always-send" = "Tansah ngirim";
-"hockeyapp-alert-do-not-send" = "Aja ngirim";
-"hockeyapp-alert-privacy" = "Priangga $1";
-"hockeyapp-alert-question" = "Panjenengan apa arep ngirim lapuran kasangsaran nyang $1 pamrihé Yeyasan Wikimédia bisa mriksa kasangsarané?";
-"hockeyapp-alert-question-with-response-field" = "Panjenengan apa arep ngirim lapuran kasengsaran nyang $1 pamrihé Yeyasan Wikimédia bisa mriksa masalahé? Mangga wedharaké apa sing kadadèn nalika kasangsarané dumadi:";
-"hockeyapp-alert-send-report" = "Kirim lapuran";
-"hockeyapp-alert-title" = "Nyuwun pangapura, aplikasiné kena masalah dhèk pungkasan";
 "home-button-explore-accessibility-label" = "Wikipédia, bali ing Dlajah";
 "home-button-history-accessibility-label" = "Wikipédia, bali nyang Sajarah";
 "home-button-saved-accessibility-label" = "Wikipédia, bali menyang Kasimpen";
@@ -235,7 +228,6 @@
 "main-menu-account-logout-are-you-sure" = "Apa panjenengan yakin arep metu?";
 "main-menu-account-logout-cancel" = "Wurung";
 "main-menu-account-title-logged-in" = "Mlebu log minangka $1";
-"main-menu-debug-crash" = "Rusak";
 "main-menu-debug-tweaks" = "Setèlan pangembang";
 "main-menu-heading-debug" = "Dhebug";
 "main-menu-heading-legal" = "Priangga lan Paugeran";
