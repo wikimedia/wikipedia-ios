@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) WMFNavigationBar *navigationBar;
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article;
+- (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article;
 - (void)webViewController:(WebViewController *)controller didTapEditForSection:(MWKSection *)section;
 - (void)webViewController:(WebViewController *)controller didTapOnLinkForArticleURL:(NSURL *)url;
 - (void)webViewController:(WebViewController *)controller didSelectText:(NSString *)text;

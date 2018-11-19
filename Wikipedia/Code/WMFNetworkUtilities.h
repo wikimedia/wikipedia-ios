@@ -20,15 +20,6 @@ extern NSString *WMFJoinedPropertyParameters(NSArray *props);
 
 extern NSError *WMFErrorForApiErrorObject(NSDictionary *apiError);
 
-/**
- *  Create a URL string for a specific REST API version endpoint.
- *
- *  @param restAPIVersion The verison of the REST API to use (e.g. `1` for "rest_v1").
- *
- *  @return The URL string for the "wikimedia.org" REST API endpoint verison.
- */
-extern NSString *WMFWikimediaRestAPIURLStringWithVersion(NSUInteger restAPIVersion);
-
 #import <WMF/FetcherBase.h>
 
 extern void wmf_postNetworkRequestBeganNotification(NSURLRequest *request);

@@ -2,7 +2,15 @@ public struct WikidataAPI {
     public static let host = "www.wikidata.org"
     public static let path = "/w/api.php"
     public static let scheme = "https"
-
+    
+    public static let components: URLComponents = {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = scheme
+        components.path = path
+        return components
+    }()
+    
     public static var urlWithoutAPIPath: URL? {
         var components = URLComponents()
         components.scheme = scheme
@@ -47,8 +55,6 @@ enum WikidataPublishingError: LocalizedError {
         self.session = session
     }
 
-
-
     /// Publish new wikidata description.
     ///
     /// - Parameters:
@@ -79,15 +85,24 @@ enum WikidataPublishingError: LocalizedError {
                 }
             }
         }
+        let normalizedLanguage = normalizedLanguages[language] ?? language
         let queryParameters = ["action": "wbsetdescription",
                                "format": "json",
                                "formatversion": "2"]
-        let bodyParameters = ["language": language,
-                              "uselang": language,
+        let bodyParameters = ["language": normalizedLanguage,
+                              "uselang": normalizedLanguage,
                               "id": wikidataID,
                               "value": newWikidataDescription]
-        let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, scheme: WikidataAPI.scheme, host: WikidataAPI.host, path: WikidataAPI.path, method: .post, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body, shouldPercentEncodeToken: true), completion: requestWithCSRFCompletion)
+        var components = WikidataAPI.components
+        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
+        let _ = session.requestWithCSRF(type: CSRFTokenJSONDecodableOperation.self, components: components, method: .post, bodyParameters: bodyParameters, bodyEncoding: .form, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "token", tokenPlacement: .body), completion: requestWithCSRFCompletion)
     }
+
+    private let normalizedLanguages: [String: String] = [
+        "zh-yue": "yue",
+        "zh-min-nan": "nan",
+        "zh-classical": "lzh"
+    ]
 }
 
 public extension MWKArticle {

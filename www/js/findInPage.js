@@ -1,8 +1,6 @@
 // Based on the excellent blog post:
 // http://www.icab.de/blog/2010/01/12/search-and-highlight-text-in-uiwebview/
 
-let FindInPageResultCount = 0
-let FindInPageResultMatches = []
 let FindInPagePreviousFocusMatchSpanId = null
 
 const recursivelyHighlightSearchTermInTextNodesStartingWithElement = (element, searchTerm) => {
@@ -25,7 +23,6 @@ const recursivelyHighlightSearchTermInTextNodesStartingWithElement = (element, s
         element.parentNode.insertBefore(span, next)
         element.parentNode.insertBefore(text, next)
         element = text
-        FindInPageResultCount++
       }
     } else if (element.nodeType == 1) {     // Element node
       if (element.style.display != 'none' && element.nodeName.toLowerCase() != 'select') {
@@ -69,16 +66,31 @@ const deFocusPreviouslyFocusedSpan = () => {
 }
 
 const removeSearchTermHighlights = () => {
-  FindInPageResultCount = 0
-  FindInPageResultMatches = []
   deFocusPreviouslyFocusedSpan()
   recursivelyRemoveSearchTermHighlightsStartingWithElement(document.body)
+}
+
+const rectIntersectsRect = (a, b) => a.left <= b.right && b.left <= a.right && a.top <= b.bottom && b.top <= a.bottom
+
+const shouldReportMatch = matchSpan => {
+  const parentRect = matchSpan.parentElement.getBoundingClientRect()
+
+  // Detect if element is hidden because its *parent* is hidden.  
+  if (parentRect.width == 0 || parentRect.height == 0) {
+    return false
+  }
+  
+  // Text node elements with 'text-overflow: ellipsis;' can truncate text. So we need a way to
+  // detect if a match is in elided text - i.e. after the ellipsis and thus not visible. We can
+  // check if the match span's rect intersects its parent element's rect - if so it's visible,
+  // otherwise we don't need to report the match.
+  return rectIntersectsRect(parentRect, matchSpan.getBoundingClientRect())
 }
 
 const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   removeSearchTermHighlights()
   if (searchTerm.trim().length === 0){
-    window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
+    window.webkit.messageHandlers.findInPageMatchesFound.postMessage([])
     return
   }
   searchTerm = searchTerm.trim()
@@ -89,16 +101,15 @@ const findAndHighlightAllMatchesForSearchTerm = searchTerm => {
   // matches in first-to-last order. We can work around this by adding the "id"
   // and building our results array *after* the recursion is done, thanks to
   // "getElementsByClassName".
-  const orderedMatchElements = document.getElementsByClassName('findInPageMatch')
-  FindInPageResultMatches.length = orderedMatchElements.length
-  for (let i = 0; i < orderedMatchElements.length; i++) {
-    const matchSpanId = 'findInPageMatchID|' + i
-    orderedMatchElements[i].setAttribute('id', matchSpanId)
-    // For now our results message to native land will be just an array of match span ids.
-    FindInPageResultMatches[i] = matchSpanId
-  }
+  const orderedMatchIDsToReport = Array.from(document.getElementsByClassName('findInPageMatch'))
+    .filter(shouldReportMatch) // Easier and faster to filter these here rather than in the recursion (as it's currently structured).
+    .map((el, i) => {
+      const matchSpanId = 'findInPageMatchID|' + i
+      el.setAttribute('id', matchSpanId)
+      return matchSpanId
+    })
 
-  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(FindInPageResultMatches)
+  window.webkit.messageHandlers.findInPageMatchesFound.postMessage(orderedMatchIDsToReport)
 }
 
 const useFocusStyleForHighlightedSearchTermWithId = id => {

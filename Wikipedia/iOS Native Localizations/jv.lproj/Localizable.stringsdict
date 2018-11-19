@@ -2,7 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>places-filter-saved-articles-count</key>
+	<key>article-deleted-accessibility-notification</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>artikel kabusak</string>
+			<key>other</key>
+			<string>artikel kabusak</string>
+		</dict>
+	</dict>
+	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v0@</string>
@@ -13,7 +29,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>tinemu %1$d papan</string>
+			<string>%1$d prastawa historis</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>
@@ -43,7 +59,7 @@
 			<key>one</key>
 			<string>Wingi</string>
 			<key>other</key>
-			<string>%1$d dina kepungkur</string>
+			<string>%1$d dina kapungkur</string>
 			<key>zero</key>
 			<string>Dina iki</string>
 		</dict>
@@ -58,12 +74,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d jam kepungkur</string>
 			<key>other</key>
-			<string>%1$d jam kepungkur</string>
+			<string>%1$d jam kapungkur</string>
 			<key>zero</key>
-			<string>Bubar</string>
+			<string>Mentas waé</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
@@ -76,12 +90,28 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d menit kepungkur</string>
 			<key>other</key>
-			<string>%1$d menit kepungkur</string>
+			<string>%1$d menit kapungkur</string>
 			<key>zero</key>
-			<string>Mung saiki</string>
+			<string>Mentas waé</string>
+		</dict>
+	</dict>
+	<key>relative-date-years-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v0@</string>
+		<key>v0</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Taun wingi</string>
+			<key>other</key>
+			<string>%1$d taun kapungkur</string>
+			<key>zero</key>
+			<string>Taun iki</string>
 		</dict>
 	</dict>
 </dict>

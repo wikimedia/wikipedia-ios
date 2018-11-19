@@ -234,6 +234,8 @@
 "languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
+"logged-out-continue-without-logging-in-button-title" = "Virufueren ouni anzeloggen";
+"logged-out-title" = "Dir sidd elo ausgeloggt";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
 "login-join-wikipedia" = "Bei Wikipedia matmaachen.";
 "login-no-account" = "Hutt Dir kee Benotzerkont? $1";
@@ -364,6 +366,8 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
+"reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
+"reverted-edit-notification-read-more-action-title" = "Liest méi";
 "saved-all-articles-title" = "All Artikelen";
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";

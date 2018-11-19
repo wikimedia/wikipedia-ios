@@ -144,17 +144,12 @@ class StorageAndSyncingSettingsViewController: SubSettingsViewController {
         let alert = UIAlertController(title: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-title", value: "Erase all saved articles?", comment: "Title of the alert shown before erasing all saved article."), message: WMFLocalizedString("settings-storage-and-syncing-erase-saved-articles-alert-message", value: "Erasing your saved articles will remove them from your user account if you have syncing turned on as well as from this device. You cannot undo this action.", comment: "Message for the alert shown before erasing all saved articles."), preferredStyle: .alert)
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         let erase = UIAlertAction(title: CommonStrings.eraseAllSavedArticles, style: .destructive) { (_) in
-            guard let isSyncEnabled = self.dataStore?.readingListsController.isSyncEnabled else {
+            guard let dataStore = self.dataStore else {
                 assertionFailure("dataStore is nil")
                 return
             }
-            self.dataStore?.clearCachesForUnsavedArticles()
-            if isSyncEnabled {
-                self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
-            } else {
-                self.dataStore?.readingListsController.setSyncEnabled(true, shouldDeleteLocalLists: true, shouldDeleteRemoteLists: true)
-                self.dataStore?.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
-            }
+            dataStore.clearCachesForUnsavedArticles()
+            dataStore.readingListsController.eraseAllSavedArticlesAndReadingLists()
             self.tableView.reloadData()
         }
         alert.addAction(cancel)

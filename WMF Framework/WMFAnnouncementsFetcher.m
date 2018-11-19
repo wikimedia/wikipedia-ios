@@ -27,7 +27,7 @@
         return;
     }
 
-    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@"/feed/announcements"];
+    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]];
     
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
