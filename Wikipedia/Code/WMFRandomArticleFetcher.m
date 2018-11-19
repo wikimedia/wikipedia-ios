@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) WMFSession *session;
 
 @end
 
@@ -21,37 +21,61 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages" emptyValueForJSONKeypathAllowed:NO];
-        self.operationManager = manager;
+        self.session = [WMFSession shared];
     }
     return self;
 }
 
-- (void)dealloc {
-    [self.operationManager invalidateSessionCancelingTasks:YES];
-}
 
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
-}
+- (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion {
+    NSParameterAssert(siteURL);
+    if (siteURL == nil) {
+        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:nil];
+        completion(error, nil);
+        return;
+    }
 
-- (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFMWKSearchResultHandler)success {
+    NSURL *url = [WMFConfiguration.current mediawikiAPIURLForHost:siteURL.host];
     NSDictionary *params = [[self class] params];
 
-    [self.operationManager wmf_apiZeroSafeGETWithURL:siteURL
-        parameters:params
-        success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-
-            MWKSearchResult *article = [self getBestRandomResultFromResults:responseObject];
-
-            success(article);
+    [self.session getJSONDictionaryFromURL:url withQueryParameters:params bodyParameters:nil ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            completion(error, nil);
+            return;
         }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            failure(error);
-        }];
+
+        if (response.statusCode == 304) {
+            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+            completion(error, nil);
+            return;
+        }
+
+        NSDictionary *randomPages = result[@"query"][@"pages"];
+        if (![randomPages isKindOfClass:[NSDictionary class]]) {
+            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            completion(error, nil);
+            return;
+        }
+
+        NSArray *randomJSONs = randomPages.allValues;
+        if (![randomJSONs isKindOfClass:[NSArray class]]) {
+            NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            completion(error, nil);
+            return;
+        }
+
+        NSError *mantleError = nil;
+        NSArray<MWKSearchResult *> *randomResults = [MTLJSONAdapter modelsOfClass:[MWKSearchResult class] fromJSONArray:randomJSONs error:&mantleError];
+        if (mantleError){
+            completion(mantleError, nil);
+            return;
+        }
+
+        MWKSearchResult *article = [self getBestRandomResultFromResults:randomResults];
+
+        completion(nil, article);
+    }];
 }
 
 - (MWKSearchResult *)getBestRandomResultFromResults:(NSArray *)results {
