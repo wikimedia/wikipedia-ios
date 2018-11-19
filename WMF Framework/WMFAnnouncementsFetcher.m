@@ -4,7 +4,7 @@
 
 @interface WMFAnnouncementsFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) WMFSession *session;
 
 @end
 
@@ -13,22 +13,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createIgnoreCacheManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFAnnouncement class] fromKeypath:@"announce" emptyValueForJSONKeypathAllowed:NO];
-        NSMutableIndexSet *set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
-        [set removeIndex:304];
-        manager.responseSerializer.acceptableStatusCodes = set;
-        self.operationManager = manager;
+        self.session = [WMFSession shared];
     }
     return self;
-}
-
-- (void)dealloc {
-    [self.operationManager invalidateSessionCancelingTasks:YES];
-}
-
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 - (void)fetchAnnouncementsForURL:(NSURL *)siteURL force:(BOOL)force failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFAnnouncement *> *announcements))success {
@@ -41,31 +28,48 @@
     }
 
     NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@"/feed/announcements"];
-
-    [self.operationManager GET:[url absoluteString]
-        parameters:nil
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, NSArray<WMFAnnouncement *> *responseObject) {
-            if (![responseObject isKindOfClass:[NSArray class]]) {
-                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                          userInfo:nil]);
-                return;
-            }
-
-            WMFAnnouncement *announcement = responseObject.firstObject;
-            if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                          userInfo:nil]);
-                return;
-            }
-
-            NSString *geoIPCookie = [self geoIPCookieString];
-            NSString *setCookieHeader = [(NSHTTPURLResponse *)operation.response allHeaderFields][@"Set-Cookie"];
-            success([self filterAnnouncementsForiOSPlatform:[self filterAnnouncements:responseObject withCurrentCountryInIPHeader:setCookieHeader geoIPCookieValue:geoIPCookie]]);
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+    
+    [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
             failure(error);
-        }];
+            return;
+        }
+        
+        if (response.statusCode == 304) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
+            return;
+        }
+        
+        NSArray *announcementJSONs = [result objectForKey:@"announce"];
+        if (![announcementJSONs isKindOfClass:[NSArray class]]) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                      userInfo:nil]);
+            return;
+        }
+        
+        NSError *mantleError = nil;
+        NSArray<WMFAnnouncement *> *announcements = [MTLJSONAdapter modelsOfClass:[WMFAnnouncement class] fromJSONArray:announcementJSONs error:&mantleError];
+        if (mantleError){
+            failure(mantleError);
+            return;
+        }
+        
+        WMFAnnouncement *announcement = announcements.firstObject;
+        if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
+                                      userInfo:nil]);
+            return;
+        }
+
+        NSString *geoIPCookie = [self geoIPCookieString];
+        NSString *setCookieHeader = nil;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            setCookieHeader = [(NSHTTPURLResponse *)response allHeaderFields][@"Set-Cookie"];
+        }
+        NSArray<WMFAnnouncement *> *announcementsFilteredByCountry = [self filterAnnouncements:announcements withCurrentCountryInIPHeader:setCookieHeader geoIPCookieValue:geoIPCookie];
+        NSArray<WMFAnnouncement *> *filteredAnnouncements = [self filterAnnouncementsForiOSPlatform:announcementsFilteredByCountry];
+        success(filteredAnnouncements);
+    }];
 }
 
 - (NSArray<WMFAnnouncement *> *)filterAnnouncements:(NSArray<WMFAnnouncement *> *)announcements withCurrentCountryInIPHeader:(NSString *)header geoIPCookieValue:(NSString *)cookieValue {

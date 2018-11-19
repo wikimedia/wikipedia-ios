@@ -68,19 +68,14 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     }
 
     NSURL *url = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
-    [self.session getJSONDictionaryFromURL:url completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
         }
         
-        NSHTTPURLResponse *httpResponse = nil;
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            httpResponse = (NSHTTPURLResponse *)response;
-        }
-        
-        if (!force && httpResponse.statusCode == 304) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeCancelled userInfo:nil]);
+        if (!force && response.statusCode == 304) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil]);
             return;
         }
         
@@ -97,7 +92,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                                       userInfo:nil]);
             
         } else {
-            NSDictionary *headers = [httpResponse allHeaderFields];
+            NSDictionary *headers = [response allHeaderFields];
             NSString *cacheControlHeader = headers[@"Cache-Control"];
             NSInteger maxAge = WMFFeedContentFetcherMinimumMaxAge;
             NSRegularExpression *regex = [WMFFeedContentFetcher cacheControlRegex];
@@ -152,7 +147,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSURL *url = [NSURL URLWithString:requestURLString];
 
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    [self.session getJSONDictionaryFromURL:url completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;

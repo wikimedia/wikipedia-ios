@@ -180,7 +180,7 @@ import Foundation
             return nil
         }
         return jsonDictionaryTask(with: request, completionHandler: { (result, response, error) in
-            completionHandler(result, response as? HTTPURLResponse, authorized, error)
+            completionHandler(result, response, authorized, error)
         })
     }
     
@@ -289,32 +289,35 @@ import Foundation
         queue.addOperation(op)
     }
     
-    @discardableResult @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    @discardableResult @objc public func jsonDictionaryTask(with request: URLRequest, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
         return defaultURLSession.dataTask(with: request, completionHandler: { (data, response, error) in
             self.handleResponse(response)
             guard let data = data else {
-                completionHandler(nil, response, error)
+                completionHandler(nil, response as? HTTPURLResponse, error)
                 return
             }
             do {
                 guard data.count > 0, let responseObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                    completionHandler(nil, response, nil)
+                    completionHandler(nil, response as? HTTPURLResponse, nil)
                     return
                 }
-                completionHandler(responseObject, response, nil)
+                completionHandler(responseObject, response as? HTTPURLResponse, nil)
             } catch let error {
                 DDLogError("Error parsing JSON: \(error)")
-                completionHandler(nil, response, error)
+                completionHandler(nil, response as? HTTPURLResponse, error)
             }
         })
     }
     
-    @objc(getJSONDictionaryFromURL:completionHandler:) public func getJSONDictionary(from url: URL?, completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) {
+    @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:) public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
         guard let url = url else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
             return
         }
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        if ignoreCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+        }
         jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
     }
     
