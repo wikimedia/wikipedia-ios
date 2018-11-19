@@ -277,13 +277,6 @@
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
 "history-clear-delete-all" = "כן, למחוק הכול";
 "history-title" = "היסטוריה";
-"hockeyapp-alert-always-send" = "לשלוח תמיד";
-"hockeyapp-alert-do-not-send" = "לא לשלוח";
-"hockeyapp-alert-privacy" = "פרטיות של $1";
-"hockeyapp-alert-question" = "האם לשלוח דיווח קריסה אל $1 כדי שקרן ויקימדיה תוכל לתקן את הקריסה שלך?";
-"hockeyapp-alert-question-with-response-field" = "האם לשלוח דיווח קריסה אל $1 כדי שקרן ויקימדיה תוכל לבדוק את הקריסה שלך? נא לתאר מה קרה בזמן שאירעה הקריסה:";
-"hockeyapp-alert-send-report" = "שליחת דיווח";
-"hockeyapp-alert-title" = "סליחה, היישום קרס בפעם הקודמת";
 "home-button-explore-accessibility-label" = "ויקיפדיה, חזרה ל\"לחקור\"";
 "home-button-history-accessibility-label" = "ויקיפדיה, חזרה ל\"היסטוריה\"";
 "home-button-saved-accessibility-label" = "ויקיפדיה, חזרה ל\"נשמר\"";
@@ -325,7 +318,6 @@
 "main-menu-account-logout-are-you-sure" = "האם ברצונך לצאת?";
 "main-menu-account-logout-cancel" = "ביטול";
 "main-menu-account-title-logged-in" = "נכנסת בתור $1";
-"main-menu-debug-crash" = "הקרסה";
 "main-menu-debug-tweaks" = "הגדרות מפתח";
 "main-menu-heading-debug" = "תיקון שגיאות";
 "main-menu-heading-legal" = "פרטיות ותנאי שימוש";

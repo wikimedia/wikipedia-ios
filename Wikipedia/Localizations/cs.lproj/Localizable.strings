@@ -313,13 +313,6 @@
 "history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
-"hockeyapp-alert-always-send" = "Vždy posílat";
-"hockeyapp-alert-do-not-send" = "Neposílat";
-"hockeyapp-alert-privacy" = "$1 soukromí";
-"hockeyapp-alert-question" = "Chcete odeslat hlášení o chybě pomocí $1, aby Nadace Wikimedia mohla zkontrolovat Vaši chybu?";
-"hockeyapp-alert-question-with-response-field" = "Chcete odeslat hlášení o pádu aplikace pomocí $1, aby Nadace Wikimedia mohla chybu opravit? Prosíme, popište nám chybu:";
-"hockeyapp-alert-send-report" = "Poslat zprávu";
-"hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na Prozkoumat";
 "home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
@@ -365,7 +358,6 @@
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
 "main-menu-account-logout-cancel" = "Storno";
 "main-menu-account-title-logged-in" = "Přihlášen jako: $1";
-"main-menu-debug-crash" = "Spadnout";
 "main-menu-debug-tweaks" = "Nastavení pro vývojáře";
 "main-menu-heading-debug" = "Debugovat";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";

@@ -93,15 +93,6 @@
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
 "history-clear-delete-all" = "Da, șterge tot";
 "history-title" = "Istoric";
-"hockeyapp-alert-always-send" = "Trimite întotdeauna";
-"hockeyapp-alert-do-not-send" = "Nu trimite";
-"hockeyapp-alert-privacy" = "Confidențialitate $1";
-// Fuzzy
-"hockeyapp-alert-question" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema?";
-// Fuzzy
-"hockeyapp-alert-question-with-response-field" = "Ați dori să trimiteți un raport de blocare a aplicației către $1, astfel încât Wikimedia să studieze problema? Vă rugăm să descrieți împrejurarea în care s-a produs blocarea:";
-"hockeyapp-alert-send-report" = "Trimite raportul";
-"hockeyapp-alert-title" = "Ne pare rău, aplicația s-a blocat ultima dată";
 "home-more-like-footer" = "Mai multe precum $1";
 // Fuzzy
 "home-nearby-footer" = "Mai multe articole din apropierea dumneavoastră";
@@ -125,7 +116,6 @@
 "main-menu-account-logout-are-you-sure" = "Sigur doriți să închideți sesiunea?";
 "main-menu-account-logout-cancel" = "Revocare";
 "main-menu-account-title-logged-in" = "Autentificat ca $1";
-"main-menu-debug-crash" = "Blochează aplicația";
 "main-menu-debug-tweaks" = "Setări pentru dezvoltatori";
 "main-menu-heading-debug" = "Depanare";
 "main-menu-heading-legal" = "Confidențialitate și Termeni";

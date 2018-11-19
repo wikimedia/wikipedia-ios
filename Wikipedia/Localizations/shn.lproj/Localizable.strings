@@ -145,13 +145,6 @@
 "history-clear-confirmation-heading" = "ၸဝ်ႈၵဝ်ႇတေၶႂ်ႈမွတ်ႇပႅတ်ႈတင်းသဵင်ႈၼႆ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
 "history-clear-delete-all" = "ၸႂ်ႈယဝ်ႉ၊ မွတ်ႇပႅတ်ႈသဵင်ႈသဵင်ႈ";
 "history-title" = "ပိုၼ်း";
-"hockeyapp-alert-always-send" = "သူင်ႇတႃႇသေႇ";
-"hockeyapp-alert-do-not-send" = "ယႃႇပေသူင်ႇ";
-"hockeyapp-alert-privacy" = "လွင်ႈႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ် $1";
-"hockeyapp-alert-question" = "ၸွင်ႇၸဝ်ႈၵဝ်ႇၶႂ်ႈသူင်ႇ လွင်ႈတၢင်ႇလၢတ်ႈ ဢၼ်လူႉလဵဝ်ၸူး $1 တႃႇ ၾွင်ႇတေးသျိၼ်း ဝီႇၶီႇၽီးတီးယႃး တေၸၢင်ႈ ၶိုၼ်းလိုမ်ႉတူၺ်းပၼ် လွင်ႈလူႉလႅဝ်ၸဝ်ႈၵဝ်ႇ?";
-"hockeyapp-alert-question-with-response-field" = "ၸွင်ႇၸဝ်ႈၵဝ်ႇၶႂ်ႈသူင်ႇ လွင်ႈတၢင်ႇလၢတ်ႈ ဢၼ်လူႉလဵဝ်ၸူး $1 တႃႇ ၾွင်ႇတေးသျိၼ်း ဝီႇၶီႇၽီးတီးယႃး တေၸၢင်ႈ ၶိုၼ်းလိုမ်ႉတူၺ်းပၼ် လွင်ႈလူႉလႅဝ်ၸဝ်ႈၵဝ်ႇ? ၶႅၼ်းတေႃႈ သပ်းလႅင်းၼႄဝႃႈ ၽွင်းပဵၼ်လွင်ႈလူႉလႅဝ်ၼၼ်ႉ မၼ်းဢွၵ်ႇပဵၼ်ၸိူင်ႉႁိုဝ်ဢၼ်ဝႃႈၼၼ်ႉ:";
-"hockeyapp-alert-send-report" = "သူင်ႇၶေႃႈတၢင်ႇလၢတ်ႈ";
-"hockeyapp-alert-title" = "ၵဵင်ၸႂ်ယူႇ၊ မိူဝ်ႈပွၵ်ႈလိုၼ်းသုတ်းၼၼ်ႉ ဢႅပ်ႉလႆႈ လႆႈၵွႆဝႆႉ";
 "home-button-explore-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းတႃႇ ပိုတ်ႇႁႃ";
 "home-button-history-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းၸူး ပိုၼ်းလင်";
 "home-button-saved-accessibility-label" = "ဝီႇၶီႇၽီးတီးယႃး၊ ပွၵ်ႈၶိုၼ်းတႃႇ သိမ်းဝႆႉ";
@@ -188,7 +181,6 @@
 "main-menu-account-logout-are-you-sure" = "ၸဝ်ႈၵဝ်ႇတေလွၵ်ႉဢွၵ်ႉၼႆ လပ်ႉလွင်းယဝ်ႉႁႃႉ?";
 "main-menu-account-logout-cancel" = "ဢမ်ႇႁဵတ်း";
 "main-menu-account-title-logged-in" = "ၶဝ်ႈလွၵ်ႉဢိၼ်ႇဝႆႉၼင်ႇ $1";
-"main-menu-debug-crash" = "လွင်ႈလူႉလႅဝ်";
 "main-menu-debug-tweaks" = "ၵၢၼ်တင်ႈ ၽူႈၶူင်သၢင်ႈ";
 "main-menu-heading-debug" = "မႄးၶိုၼ်း";
 "main-menu-heading-legal" = "လွင်ႈႁူမ်ႇလူမ်ႈသုၼ်ႇတူဝ်လႄႈ ၶေႃႈမၼ်ႈၸႂ်";

@@ -185,13 +185,6 @@
 "history-clear-confirmation-heading" = "Er du sikker på at du vil tømme loggen din?";
 "history-clear-delete-all" = "Ja, slett alt";
 "history-title" = "Historikk";
-"hockeyapp-alert-always-send" = "Alltid send";
-"hockeyapp-alert-do-not-send" = "Ikke send";
-"hockeyapp-alert-privacy" = "$1 personvern";
-"hockeyapp-alert-question" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia Foundation kan undersøke hva som skjedde?";
-"hockeyapp-alert-question-with-response-field" = "Ønsker du å sende en krasjrapport til $1 slik at Wikimedia Foundation kan undersøke hva som skjedde? Beskriv hva som skjedde da appen krasjet:";
-"hockeyapp-alert-send-report" = "Send rapport";
-"hockeyapp-alert-title" = "Beklager, app-en krasjet forrige gang";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbake til Utforsk";
 "home-button-history-accessibility-label" = "Wikipedia, vend tilbake til Historikk";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbake til Lagret";
@@ -231,7 +224,6 @@
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du vil logge ut?";
 "main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Innlogget som $1";
-"main-menu-debug-crash" = "Kræsj";
 "main-menu-debug-tweaks" = "Utviklers innstillinger";
 "main-menu-heading-debug" = "Feilsøking";
 "main-menu-heading-legal" = "Personvern og vilkår";

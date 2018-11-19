@@ -309,13 +309,6 @@
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
 "history-clear-delete-all" = "예, 모두 삭제합니다";
 "history-title" = "역사";
-"hockeyapp-alert-always-send" = "항상 보내기";
-"hockeyapp-alert-do-not-send" = "보내지 않기";
-"hockeyapp-alert-privacy" = "$1 개인정보";
-"hockeyapp-alert-question" = "위키미디어 재단이 충돌을 살펴볼 수 있도록 충돌 보고서를 $1으로 보내주시겠습니까?";
-"hockeyapp-alert-question-with-response-field" = "위키미디어 재단이 충돌을 살펴볼 수 있도록 충돌 보고서를 $1으로 보내주시겠습니까? 충돌이 발생했을 때 무엇이 일어났는지 설명해 주세요:";
-"hockeyapp-alert-send-report" = "보고서 보내기";
-"hockeyapp-alert-title" = "죄송합니다, 지난 번에 앱이 충돌했습니다";
 "home-button-explore-accessibility-label" = "위키백과, 탐색으로 돌아가기";
 "home-button-history-accessibility-label" = "위키백과, \"역사\"로 돌아가기";
 "home-button-saved-accessibility-label" = "위키백과, \"저장되었습니다\"로 돌아가기";
@@ -361,7 +354,6 @@
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
 "main-menu-account-logout-cancel" = "취소";
 "main-menu-account-title-logged-in" = "$1님으로 로그인됨";
-"main-menu-debug-crash" = "충돌";
 "main-menu-debug-tweaks" = "개발자용 설정";
 "main-menu-heading-debug" = "디버그";
 "main-menu-heading-legal" = "개인정보 보호 및 약관";

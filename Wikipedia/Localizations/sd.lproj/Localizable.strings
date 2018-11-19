@@ -263,13 +263,6 @@
 "history-clear-confirmation-heading" = "ڇا توھان کي پڪ آھي تہ توھان سڀ تازيون شيون ڊاھڻ چاھيو ٿا'";
 "history-clear-delete-all" = "ھا، سڀ ختم ڪريو";
 "history-title" = "سوانح";
-"hockeyapp-alert-always-send" = "هميشه اماڻيو";
-"hockeyapp-alert-do-not-send" = "نه موڪليو";
-"hockeyapp-alert-privacy" = "$1 ذاتيات";
-"hockeyapp-alert-question" = "ڇا توهان $1 ڏانھن حادثي جي رپورٽ موڪلڻ چاهيندئو تہ جيئن وڪيميڊيا فائونڊيشن حادثي تي نظرثاني ڪري سگھي؟";
-"hockeyapp-alert-question-with-response-field" = "ڇا توھان $1 ڏانھن ڪريش رپورٽ موڪلڻ چاھيندئو تہ جيئن وڪيميڊيا فائونڊيشن توھان جي ڪريش جو جائزو وٺي سگھي؟ براءِ مھرباني بيان ڪريو تہ جنھن وقت ڪريش ٿيو ان وقت ڇا ٿيو:";
-"hockeyapp-alert-send-report" = "رپورٽ موڪليو";
-"hockeyapp-alert-title" = "معاف ڪجو، پوئين ڀيري ايپ حادثاتاً خراب ٿي وئي";
 "home-button-explore-accessibility-label" = "وڪيپيڊيا، ايڪسپلور ڏانھن ورو";
 "home-button-history-accessibility-label" = "وڪيپيڊيا، سوانح ڏانھن ورو";
 "home-button-saved-accessibility-label" = "وڪيپيڊيا، سانڍيل ڏانھن ورو";
@@ -309,7 +302,6 @@
 "main-menu-account-logout-are-you-sure" = "ڇا توھان کي پڪ آھي تہ توھان خارج ٿيڻ ٿا چاھيو؟";
 "main-menu-account-logout-cancel" = "رد";
 "main-menu-account-title-logged-in" = "بطور $1 داخل ٿيل";
-"main-menu-debug-crash" = "حادثو";
 "main-menu-debug-tweaks" = "ترقي ڏيندڙ جون ترتيبون";
 "main-menu-heading-debug" = "ڊي بگ";
 "main-menu-heading-legal" = "ذاتيات ۽ شرط";
