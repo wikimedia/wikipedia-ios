@@ -318,15 +318,16 @@ import Foundation
         })
     }
     
-    @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:) public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
-        guard let url = url else {
-            completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
+    @objc(getJSONDictionaryFromURL:withQueryParameters:bodyParameters:ignoreCache:completionHandler:)
+    public func getJSONDictionary(from url: URL?, with queryParameters: [String: Any]? = nil, bodyParameters: [String: Any]? = nil, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
+        guard
+            let url = url,
+            let request = requestWithURL(url: url, queryParameters: queryParameters, bodyParameters: bodyParameters, ignoreCache: ignoreCache)
+            else {
+                completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
+                return
         }
-        var request = URLRequest(url: url)
-        if ignoreCache {
-            request.cachePolicy = .reloadIgnoringLocalCacheData
-        }
+
         jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
     }
     
