@@ -44,7 +44,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                      resultLimit:(NSUInteger)resultLimit
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
-    return [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
+    [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -54,7 +54,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:1000 identifier:@""];
-    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
+    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -64,7 +64,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                      resultLimit:(NSUInteger)resultLimit
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
-    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:sortStyle resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
+    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:sortStyle resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -74,7 +74,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                    useDesktopURL:(BOOL)useDeskTopURL
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
-    return [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
+    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
