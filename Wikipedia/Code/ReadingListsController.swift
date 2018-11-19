@@ -521,7 +521,7 @@ public typealias ReadingListsController = WMFReadingListsController
                     DispatchQueue.main.async(execute: completion)
                 });
                 completionBlockOp.addDependency(sync)
-                operationQueue.addOperation(completion)
+                operationQueue.addOperation(completionBlockOp)
             }
         #endif
     }
@@ -532,7 +532,7 @@ public typealias ReadingListsController = WMFReadingListsController
         if let completion = completion {
             let completionBlockOp = BlockOperation(block: completion)
             completionBlockOp.addDependency(sync)
-            operationQueue.addOperation(completion)
+            operationQueue.addOperation(completionBlockOp)
         }
     }
     
