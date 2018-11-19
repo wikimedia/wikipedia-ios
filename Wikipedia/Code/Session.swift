@@ -116,7 +116,13 @@ import Foundation
         return op
     }
 
-    public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
+    public func requestWithURL(url: URL, method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, ignoreCache: Bool = false) -> URLRequest? {
+        guard let host = url.host, let scheme = url.scheme else {
+            return nil
+        }
+        return request(host: host, scheme: scheme, method: method, path: url.path, queryParameters: queryParameters, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, ignoreCache: ignoreCache)
+    }
+
     public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, ignoreCache: Bool = false) -> URLRequest? {
         var components = URLComponents()
         components.host = host
