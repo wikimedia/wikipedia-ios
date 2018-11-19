@@ -287,13 +287,6 @@
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab\n{{Identical|History}}";
-"hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
-"hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
-"hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-"hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-"hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
-"hockeyapp-alert-send-report" = "Alert dialog button text for crash reporting to be sent";
-"hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
 "home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
@@ -339,7 +332,6 @@
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-cancel" = "Button text for hiding the log out menu.\n{{Identical|Cancel}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";
-"main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
 "main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
 "main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode.\n{{Identical|Debug}}";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
