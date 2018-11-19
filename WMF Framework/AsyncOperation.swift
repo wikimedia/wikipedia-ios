@@ -10,13 +10,23 @@ enum AsyncOperationError: Error {
     
     // MARK: - Operation State
 
-    static fileprivate let stateKeyPath = "state" // For KVO
     fileprivate let semaphore = DispatchSemaphore(value: 1) // Ensures `state` is thread-safe
     
     @objc public enum State: Int {
         case ready
         case executing
         case finished
+        
+        var affectedKeyPath: KeyPath<AsyncOperation, Bool> {
+            switch self {
+            case .ready:
+                return \.isReady
+            case .executing:
+                return \.isExecuting
+            case .finished:
+                return \.isFinished
+            }
+        }
     }
     
     public var error: Error?
@@ -33,29 +43,19 @@ enum AsyncOperationError: Error {
             return state
         }
         set {
-            willChangeValue(forKey: AsyncOperation.stateKeyPath)
+            willChangeValue(for: \.state)
+            let affectedKeyPaths = [_state.affectedKeyPath, newValue.affectedKeyPath]
+            for keyPath in affectedKeyPaths {
+                willChangeValue(for: keyPath)
+            }
             semaphore.wait()
             _state = newValue
             semaphore.signal()
-            didChangeValue(forKey: AsyncOperation.stateKeyPath)
+            didChangeValue(for: \.state)
+            for keyPath in affectedKeyPaths {
+                didChangeValue(for: keyPath)
+            }
         }
-    }
-    
-    // MARK: - KVO
-    // Ensure changes to `state` also signal changes to isReady, isExecuting, & isFinished
-    
-    static fileprivate let keyPathsAffectingOperationKVO: Set<String> = [AsyncOperation.stateKeyPath]
-    
-    @objc private dynamic class func keyPathsForValuesAffectingIsReady() -> Set<String> {
-        return AsyncOperation.keyPathsAffectingOperationKVO
-    }
-    
-    @objc private dynamic class func keyPathsForValuesAffectingIsExecuting() -> Set<String> {
-        return AsyncOperation.keyPathsAffectingOperationKVO
-    }
-    
-    @objc private dynamic class func keyPathsForValuesAffectingIsFinished() -> Set<String> {
-        return AsyncOperation.keyPathsAffectingOperationKVO
     }
     
     // MARK: - Operation subclass requirements
