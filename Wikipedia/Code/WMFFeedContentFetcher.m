@@ -68,7 +68,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     }
 
     NSURL *url = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
-    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url withQueryParameters:nil bodyParameters:nil ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
@@ -147,7 +147,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSURL *url = [NSURL URLWithString:requestURLString];
 
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url withQueryParameters:nil bodyParameters:nil ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;

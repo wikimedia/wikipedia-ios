@@ -29,7 +29,7 @@
 
     NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@"/feed/announcements"];
     
-    [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url withQueryParameters:nil bodyParameters:nil ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
