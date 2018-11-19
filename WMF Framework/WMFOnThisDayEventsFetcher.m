@@ -4,7 +4,7 @@
 
 @interface WMFOnThisDayEventsFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) WMFSession *session;
 
 @end
 
@@ -13,22 +13,9 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createIgnoreCacheManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFFeedOnThisDayEvent class] fromKeypath:@"events" emptyValueForJSONKeypathAllowed:NO];
-        NSMutableIndexSet *set = [manager.responseSerializer.acceptableStatusCodes mutableCopy];
-        [set removeIndex:304];
-        manager.responseSerializer.acceptableStatusCodes = set;
-        self.operationManager = manager;
+        self.session = [WMFSession shared];
     }
     return self;
-}
-
-- (void)dealloc {
-    [self.operationManager invalidateSessionCancelingTasks:YES];
-}
-
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 + (NSSet<NSString *> *)supportedLanguages {
@@ -51,28 +38,31 @@
 
     NSURL *url = [siteURL wmf_URLWithPath:[NSString stringWithFormat:@"/api/rest_v1/feed/onthisday/events/%lu/%lu", (unsigned long)month, (unsigned long)day] isMobile:NO];
 
-    [self.operationManager GET:[url absoluteString]
-        parameters:nil
-        progress:NULL
-        success:^(NSURLSessionDataTask *operation, NSArray<WMFFeedOnThisDayEvent *> *responseObject) {
-            if (![responseObject isKindOfClass:[NSArray class]]) {
-                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                          userInfo:nil]);
-                return;
-            }
-
-            WMFFeedOnThisDayEvent *event = responseObject.firstObject;
-            if (![event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-                failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                          userInfo:nil]);
-                return;
-            }
-
-            success(responseObject);
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
+    [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
             failure(error);
-        }];
+            return;
+        }
+        NSArray *eventJSONs = result[@"events"];
+        if (![eventJSONs isKindOfClass:[NSArray class]]) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+            return;
+        }
+        NSError *mantleError = nil;
+        NSArray<WMFFeedOnThisDayEvent *> *events = [MTLJSONAdapter modelsOfClass:[WMFFeedOnThisDayEvent class] fromJSONArray:eventJSONs error:&mantleError];
+        if (mantleError) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+            return;
+        }
+        
+        WMFFeedOnThisDayEvent *event = events.firstObject;
+        if (![event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
+            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+            return;
+        }
+        
+        success(events);
+    }];
 }
 
 @end
