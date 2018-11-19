@@ -117,6 +117,7 @@ import Foundation
     }
 
     public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json) -> URLRequest? {
+    public func request(host: String, scheme: String = "https", method: Session.Request.Method = .get, path: String = "/", queryParameters: [String: Any]? = nil, bodyParameters: Any? = nil, bodyEncoding: Session.Request.Encoding = .json, ignoreCache: Bool = false) -> URLRequest? {
         var components = URLComponents()
         components.host = host
         components.scheme = scheme
@@ -167,9 +168,11 @@ import Foundation
                         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
                     }
                 }
-                
             }
-            
+        }
+
+        if ignoreCache {
+            request.cachePolicy = .reloadIgnoringLocalCacheData
         }
         
         return request
