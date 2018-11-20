@@ -112,20 +112,6 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                                  return;
                              }
 
-                             NSDictionary *pagesGroupedById = result[@"query"][@"pages"];
-                             if (![pagesGroupedById isKindOfClass:[NSDictionary class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-                                 failure(error);
-                                 return;
-                             }
-
-                             NSArray *pages = pagesGroupedById.allValues;
-                             if (![pages isKindOfClass:[NSArray class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-                                 failure(error);
-                                 return;
-                             }
-
                              NSError *serializerError = nil;
                              NSArray<MWKLocationSearchResult *> *results = [WMFLegacySerializer modelsOfClass:[MWKLocationSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
                              if (serializerError) {

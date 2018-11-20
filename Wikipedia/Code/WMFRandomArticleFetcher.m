@@ -1,12 +1,12 @@
 #import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFApiJsonResponseSerializer.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLegacySerializer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -52,24 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
                                  return;
                              }
 
-                             NSDictionary *pagesGroupedById = result[@"query"][@"pages"];
-                             if (![pagesGroupedById isKindOfClass:[NSDictionary class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-                                 completion(error, nil);
-                                 return;
-                             }
-
-                             NSArray *pages = pagesGroupedById.allValues;
-                             if (![pages isKindOfClass:[NSArray class]]) {
-                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-                                 completion(error, nil);
-                                 return;
-                             }
-
-                             NSError *mantleError = nil;
-                             NSArray<MWKSearchResult *> *randomResults = [MTLJSONAdapter modelsOfClass:[MWKSearchResult class] fromJSONArray:pages error:&mantleError];
-                             if (mantleError) {
-                                 completion(mantleError, nil);
+                             NSError *serializerError = nil;
+                             NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+                             if (serializerError) {
+                                 completion(serializerError, nil);
                                  return;
                              }
 
