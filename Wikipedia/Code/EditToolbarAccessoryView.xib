@@ -16,34 +16,44 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqm-kB-QdE">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="en8-Lh-EYg" userLabel="Content View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
-                        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGy-58-5v3" customClass="WMFEditToolbar">
-                            <rect key="frame" x="0.0" y="8" width="375" height="44"/>
+                        <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGy-58-5v3" customClass="WMFEditToolbar">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <viewLayoutGuide key="safeArea" id="ecW-bP-ws3"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="81z-rb-LEh"/>
+                            </constraints>
                             <items>
-                                <barButtonItem title="Item" id="bc7-Lw-4JC"/>
+                                <barButtonItem title="A" id="bc7-Lw-4JC"/>
                             </items>
+                            <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </toolbar>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="leading" secondItem="hqm-kB-QdE" secondAttribute="leading" id="HYz-xC-mz0"/>
-                        <constraint firstAttribute="trailing" secondItem="XGy-58-5v3" secondAttribute="trailing" id="JBQ-Rl-8qJ"/>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="height" secondItem="hqm-kB-QdE" secondAttribute="height" id="naI-Ej-wjJ"/>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="bottomMargin" secondItem="74X-9a-bIi" secondAttribute="bottom" id="o4x-at-ZVc"/>
+                        <constraint firstItem="XGy-58-5v3" firstAttribute="trailing" secondItem="en8-Lh-EYg" secondAttribute="trailing" id="fvp-Tr-eLB"/>
+                        <constraint firstItem="XGy-58-5v3" firstAttribute="bottom" secondItem="Ejg-1I-4Wg" secondAttribute="bottom" id="ga4-xi-PYn"/>
+                        <constraint firstItem="XGy-58-5v3" firstAttribute="leading" secondItem="en8-Lh-EYg" secondAttribute="leading" id="u8D-tm-mXG"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="74X-9a-bIi"/>
+                    <viewLayoutGuide key="safeArea" id="Ejg-1I-4Wg"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="hqm-kB-QdE" secondAttribute="trailing" id="Hul-zn-pzU"/>
-                <constraint firstItem="hqm-kB-QdE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pbl-Zj-uRv"/>
-                <constraint firstAttribute="bottom" secondItem="hqm-kB-QdE" secondAttribute="bottom" id="qh5-FB-0Wv"/>
-                <constraint firstItem="hqm-kB-QdE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yQl-MB-OD0"/>
+                <constraint firstItem="en8-Lh-EYg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CBg-Hd-L4r"/>
+                <constraint firstAttribute="bottom" secondItem="en8-Lh-EYg" secondAttribute="bottom" id="I11-7J-31K"/>
+                <constraint firstAttribute="trailing" secondItem="en8-Lh-EYg" secondAttribute="trailing" id="pL3-fC-QLl"/>
+                <constraint firstItem="en8-Lh-EYg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qJ1-0W-8aR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
