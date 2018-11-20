@@ -62,6 +62,7 @@
     self.viewKeyboardRect = CGRectNull;
 
     self.editToolbarAccessoryView = [[[NSBundle mainBundle] loadNibNamed:@"EditToolbarAccessoryView" owner:nil options:nil] firstObject];
+    self.editToolbarAccessoryView.editToolbar.itemDelegate = self;
 
     [self applyTheme:self.theme];
 
@@ -77,6 +78,12 @@
         failure:^(NSError *_Nonnull error) {
             DDLogDebug(@"\n\nloginWithSavedCredentials failed with error '%@'.\n\n", error);
         }];
+
+    [self becomeFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 - (UIView *)inputAccessoryView {
