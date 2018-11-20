@@ -47,9 +47,10 @@ extension WKWebView {
         let headTagAddition = stringToInjectIntoHeadTag(fontSize: UserDefaults.wmf.wmf_articleFontSizeMultiplier(), baseURL: baseURL, theme: theme)
         
         var siteCSSLink = ""
-        if let baseSite = baseURL.wmf_site?.absoluteString {
+        if let host = baseURL.wmf_site?.host,
+            let cssURLString = Configuration.current.mobileAppsServicesAPIURLComponentsForHost(host, appending: ["data", "css", "mobile", "site"]).url?.absoluteString {
             siteCSSLink = """
-            <link href="\(baseSite)/api/rest_v1/data/css/mobile/site" rel="stylesheet" type="text/css"></link>
+            <link href="\(cssURLString)" rel="stylesheet" type="text/css"></link>
             """
         }
         

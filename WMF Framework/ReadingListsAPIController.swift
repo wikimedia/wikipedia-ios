@@ -118,9 +118,8 @@ extension APIReadingListEntry {
 
 class ReadingListsAPIController: NSObject {
     public let session = Session.shared // eventually doesn't have to be the singleton
-    private let basePath = "/api/rest_v1/data/lists/"
-    private let host = "en.wikipedia.org"
-    private let scheme = "https"
+    private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
+    private let basePathComponents = ["data", "lists"]
     
     private var pendingTasks: [String: Any] = [:]
     private let pendingTaskQueue = DispatchQueue(label: "org.wikimedia.readinglist.pendingtasks", qos: DispatchQoS.default, attributes: [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
@@ -152,10 +151,11 @@ class ReadingListsAPIController: NSObject {
         }
     }
 
-    fileprivate func get<T>(path: String, queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
+    fileprivate func get<T>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let key = UUID().uuidString
-        let fullPath = basePath.appending(path)
-        guard let task = session.jsonCodableTask(host: host, method: .get, path: fullPath, queryParameters: queryParameters, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+        let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
+        guard
+            let task = session.jsonCodableTask(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
@@ -169,10 +169,10 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(task, for: key)
     }
     
-    fileprivate func requestWithCSRF(path: String, method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         let key = UUID().uuidString
-        let fullPath = basePath.appending(path)
-        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, scheme: scheme, host: host, path: fullPath, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query, shouldPercentEncodeToken: false)) { (result, response, _, error) in
+        let components = api.components(byAppending: basePathComponents + path)
+        let op = session.requestWithCSRF(type: CSRFTokenJSONDictionaryOperation.self, components: components, method: method, bodyParameters: bodyParameters, tokenContext: CSRFTokenOperation.TokenContext(tokenName: "csrf_token", tokenPlacement: .query)) { (result, response, _, error) in
             if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
                 DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
             } else {
@@ -190,21 +190,21 @@ class ReadingListsAPIController: NSObject {
         addPendingTask(op, for: key)
     }
     
-    fileprivate func post(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func post(path: [String], bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .post, bodyParameters: bodyParameters, completion: completion)
     }
     
-    fileprivate func delete(path: String, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func delete(path: [String], completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .delete, completion: completion)
     }
     
-    fileprivate func put(path: String, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
+    fileprivate func put(path: [String], bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
         requestWithCSRF(path: path, method: .put, bodyParameters: bodyParameters, completion: completion)
     }
     
     @objc func setupReadingLists(completion: @escaping (Error?) -> Void) {
         let requestType = APIReadingListRequestType.setup
-        post(path: requestType.rawValue) { (result, response, error) in
+        post(path: [requestType.rawValue]) { (result, response, error) in
             self.lastRequestType = requestType
             completion(error)
         }
@@ -212,7 +212,7 @@ class ReadingListsAPIController: NSObject {
     
     @objc func teardownReadingLists(completion: @escaping (Error?) -> Void) {
         let requestType = APIReadingListRequestType.teardown
-        post(path: requestType.rawValue) { (result, response, error) in
+        post(path: [requestType.rawValue]) { (result, response, error) in
             self.lastRequestType = requestType
             completion(error)
         }
@@ -230,7 +230,8 @@ class ReadingListsAPIController: NSObject {
      */
     func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
-        post(path: "", bodyParameters: bodyParams) { (result, response, error) in
+        // empty string path is required to add the the trailing slash, server 404s otherwise
+        post(path: [""], bodyParameters: bodyParams) { (result, response, error) in
             guard let id = result?["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
                 return
@@ -253,7 +254,7 @@ class ReadingListsAPIController: NSObject {
             return
         }
         let bodyParams = ["batch": lists.map { ["name": $0.name.precomposedStringWithCanonicalMapping, "description": $0.description ?? ""] } ]
-        post(path: "batch", bodyParameters: bodyParams) { (result, response, error) in
+        post(path: ["batch"], bodyParameters: bodyParams) { (result, response, error) in
             guard let batch = result?["batch"] as? [[String: Any]] else {
                 guard lists.count > 1 else {
                     completion([(nil, error ?? APIReadingListError.generic)], nil)
@@ -307,7 +308,8 @@ class ReadingListsAPIController: NSObject {
         let title = title.precomposedStringWithCanonicalMapping
         let project = project.precomposedStringWithCanonicalMapping
         let bodyParams = ["project": project, "title": title]
-        post(path: "\(listID)/entries/", bodyParameters: bodyParams) { (result, response, error) in
+        // "" for trailing slash is required, server 404s otherwise
+        post(path: ["\(listID)", "entries", ""], bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
                 switch apiError {
                 case .duplicateEntry:
@@ -352,7 +354,7 @@ class ReadingListsAPIController: NSObject {
             return
         }
         let bodyParams = ["batch": entries.map { ["project": $0.project.precomposedStringWithCanonicalMapping, "title": $0.title.precomposedStringWithCanonicalMapping] } ]
-        post(path: "\(listID)/entries/batch", bodyParameters: bodyParams) { (result, response, error) in
+        post(path: ["\(listID)", "entries", "batch"], bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError, apiError != .listDeleted {
                 guard entries.count > 1 else {
                     completion([(nil, apiError)], nil)
@@ -412,7 +414,7 @@ class ReadingListsAPIController: NSObject {
      */
     func removeEntry(withEntryID entryID: Int64, fromListWithListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
 
-        delete(path: "\(listID)/entries/\(entryID)") { (result, response, error) in
+        delete(path: ["\(listID)", "entries", "\(entryID)"]) { (result, response, error) in
             guard error == nil else {
                 completion(error ?? ReadingListError.unableToRemoveEntry)
                 return
@@ -429,7 +431,7 @@ class ReadingListsAPIController: NSObject {
          - error: Any error preventing list deletion
      */
     func deleteList(withListID listID: Int64, completion: @escaping (_ error: Error?) -> Swift.Void ) {
-        delete(path: "\(listID)") { (result, response, error) in
+        delete(path: ["\(listID)"]) { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return
@@ -448,7 +450,7 @@ class ReadingListsAPIController: NSObject {
         - error: Any error preventing list update
      */
     func updateList(withListID listID: Int64, name: String, description: String?, completion: @escaping (_ error: Error?) -> Swift.Void ) {
-        put(path: "\(listID)", bodyParameters: ["name": name, "description": description ?? ""]) { (result, response, error) in
+        put(path: ["\(listID)"], bodyParameters: ["name": name, "description": description ?? ""]) { (result, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion(error ?? ReadingListError.unableToDeleteList)
                 return
@@ -476,7 +478,7 @@ class ReadingListsAPIController: NSObject {
         if let next = next {
             queryParameters = ["next": next]
         }
-        get(path: "changes/since/\(since)", queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
+        get(path: ["changes", "since", "\(since)"], queryParameters: queryParameters) { (result: APIReadingListChanges?, response, error) in
             guard let result = result, let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 completion([], [], nil, error ?? ReadingListError.generic)
                 return
@@ -516,7 +518,8 @@ class ReadingListsAPIController: NSObject {
         if let next = next {
             queryParameters = ["next": next]
         }
-        get(path: "", queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
+        // empty string path is required to add the the trailing slash, server 404s otherwise
+        get(path: [""], queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
             guard let apiListsResponse = apiListsResponse else {
                 completion([], nil, error)
                 return
@@ -537,7 +540,8 @@ class ReadingListsAPIController: NSObject {
         if let next = next {
             queryParameters = ["next": next]
         }
-        get(path: "\(readingListID)/entries/", queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
+        // "" for trailing slash is required, server 404s otherwise
+        get(path: ["\(readingListID)", "entries", ""], queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
             guard let apiEntriesResponse = apiEntriesResponse else {
                 completion([], error)
                 return

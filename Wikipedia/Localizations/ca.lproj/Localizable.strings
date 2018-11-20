@@ -307,13 +307,6 @@
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Envia sempre";
-"hockeyapp-alert-do-not-send" = "No enviïs";
-"hockeyapp-alert-privacy" = "Privadesa de $1";
-"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi?";
-"hockeyapp-alert-question-with-response-field" = "Voleu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi? Descriviu què ha passat quan s'ha produït la fallada:";
-"hockeyapp-alert-send-report" = "Envia l'informe";
-"hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
@@ -345,6 +338,10 @@
 "languages-wikipedia" = "Llengües de la Viquipèdia";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Contingut disponible sota $1 a menys que s'indiqui el contrari.";
+"logged-out-continue-without-logging-in-button-title" = "Continua sense iniciar una sessió";
+"logged-out-log-back-in-button-title" = "Torna a iniciar la sessió amb el vostre compte";
+"logged-out-subtitle" = "S'ha produït un problema en autenticar el vostre compte. Per tal de sincronitzar les vostres llistes de lectura i editar amb el vostre nom d'usuari, torneu a iniciar una sessió.";
+"logged-out-title" = "S'ha finalitzat la sessió";
 "login-forgot-password" = "Heu perdut la contrasenya?";
 "login-join-wikipedia" = "Uniu-vos a Viquipèdia";
 "login-no-account" = "No teniu un compte? $1";
@@ -355,7 +352,6 @@
 "main-menu-account-logout-are-you-sure" = "Esteu segur que voleu finalitzar la sessió?";
 "main-menu-account-logout-cancel" = "Cancel·la";
 "main-menu-account-title-logged-in" = "Sessió iniciada com a $1";
-"main-menu-debug-crash" = "Fallada";
 "main-menu-debug-tweaks" = "Paràmetres de desenvolupament";
 "main-menu-heading-debug" = "Depuració";
 "main-menu-heading-legal" = "Privadesa i condicions";

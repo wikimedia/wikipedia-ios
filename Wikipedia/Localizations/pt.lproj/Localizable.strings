@@ -306,13 +306,6 @@
 "history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus elementos recentes?";
 "history-clear-delete-all" = "Sim, eliminar todos";
 "history-title" = "Histórico";
-"hockeyapp-alert-always-send" = "Enviar sempre";
-"hockeyapp-alert-do-not-send" = "Não enviar";
-"hockeyapp-alert-privacy" = "Privacidade de $1";
-"hockeyapp-alert-question" = "Deseja enviar um relatório da falha para $1 para que a Wikimedia Foundation possa estudar o seu problema?";
-"hockeyapp-alert-question-with-response-field" = "Deseja enviar um relatório da falha para $1 para que a Wikimedia Foundation possa estudar o seu problema? Descreva a situação em que ocorreu o encerramento inesperado:";
-"hockeyapp-alert-send-report" = "Enviar relatório";
-"hockeyapp-alert-title" = "Desculpe, a aplicação encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipédia, voltar a Explorar";
 "home-button-history-accessibility-label" = "Wikipédia, voltar ao Histórico";
 "home-button-saved-accessibility-label" = "Wikipédia, voltar aos Guardados";
@@ -358,7 +351,6 @@
 "main-menu-account-logout-are-you-sure" = "Tem a certeza de que pretende encerrar a sessão?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sessão iniciada como $1";
-"main-menu-debug-crash" = "Forçar encerramento";
 "main-menu-debug-tweaks" = "Definições de programação";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Condições";

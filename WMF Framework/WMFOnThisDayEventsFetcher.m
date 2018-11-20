@@ -1,6 +1,7 @@
 #import "WMFOnThisDayEventsFetcher.h"
 #import "WMFFeedOnThisDayEvent.h"
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLegacySerializer.h>
 
 @interface WMFOnThisDayEventsFetcher ()
 
@@ -36,9 +37,11 @@
         return;
     }
 
-    NSURL *url = [siteURL wmf_URLWithPath:[NSString stringWithFormat:@"/api/rest_v1/feed/onthisday/events/%lu/%lu", (unsigned long)month, (unsigned long)day] isMobile:NO];
-
-    [self.session getJSONDictionaryFromURL:url withQueryParameters:nil bodyParameters:nil ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSString *monthString = [NSString stringWithFormat:@"%lu", (unsigned long)month];
+    NSString *dayString = [NSString stringWithFormat:@"%lu", (unsigned long)day];
+    NSArray<NSString *> *path = @[@"feed", @"onthisday", @"events", monthString, dayString];
+    NSURLComponents *components = [WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path];
+    [self.session getJSONDictionaryFromURL:components.URL ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
@@ -49,22 +52,10 @@
             return;
         }
         
-        NSArray *eventJSONs = result[@"events"];
-        if (![eventJSONs isKindOfClass:[NSArray class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
-            return;
-        }
-        
-        NSError *mantleError = nil;
-        NSArray<WMFFeedOnThisDayEvent *> *events = [MTLJSONAdapter modelsOfClass:[WMFFeedOnThisDayEvent class] fromJSONArray:eventJSONs error:&mantleError];
-        if (mantleError) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
-            return;
-        }
-        
-        WMFFeedOnThisDayEvent *event = events.firstObject;
-        if (![event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+        NSError *serializerError = nil;
+        NSArray *events = [WMFLegacySerializer modelsOfClass:[WMFFeedOnThisDayEvent class] fromArrayForKeyPath:@"events" inJSONDictionary:result error:&serializerError];
+        if (serializerError) {
+            failure(serializerError);
             return;
         }
         

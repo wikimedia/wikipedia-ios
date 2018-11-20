@@ -173,13 +173,6 @@
 "history-clear-confirmation-heading" = "Соторутааҥыны барытын сотоору гынаҕын дуо?";
 "history-clear-delete-all" = "Оннук, барытын сот";
 "history-title" = "Устуоруйата";
-"hockeyapp-alert-always-send" = "Куруук ыытар буол";
-"hockeyapp-alert-do-not-send" = "Ыытыма";
-"hockeyapp-alert-privacy" = "Бүк охсунуу $1";
-"hockeyapp-alert-question" = "Моһуогуруу төрүөтүн Бикимиэдьийэ Пуондата чинчийэрин курдук, отчуоту манна $1 ыытыаххын баҕараҕын дуо?";
-"hockeyapp-alert-question-with-response-field" = "Моһуогуруу төрүөтүн Бикимиэдьийэ Пуондата чинчийэрин курдук, отчуоту манна $1 ыытыаххын баҕараҕын дуо? Моһуокка туох тиэрдибитин сабаҕалыыргын манна суруй дуу:";
-"hockeyapp-alert-send-report" = "Отчуоту ыыт";
-"hockeyapp-alert-title" = "Хомойуох иһин, ааспыкка дьибилгэт моһуогура сылдьыбыт";
 "home-button-explore-accessibility-label" = "Бикипиэдьийэ, Устуоруйатыгар төнүн";
 "home-button-history-accessibility-label" = "Бикипиэдьийэ, Устуоруйаҕа төнүн";
 "home-button-saved-accessibility-label" = "Бикипиэдьийэ, бигэргэтиигэ төнүн.";
@@ -215,7 +208,6 @@
 "main-menu-account-logout-are-you-sure" = "Кырдьык тахсаары гынаҕын дуо?";
 "main-menu-account-logout-cancel" = "Салҕаама";
 "main-menu-account-title-logged-in" = "Киирбит аатыҥ $1";
-"main-menu-debug-crash" = "Охтуу";
 "main-menu-debug-tweaks" = "Оҥорооччу туруоруулара";
 "main-menu-heading-debug" = "Нарылааһын";
 "main-menu-heading-legal" = "Бүк охсунуу";

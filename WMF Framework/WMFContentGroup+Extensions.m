@@ -376,7 +376,7 @@
         return nil;
     }
     NSURLComponents *components = [NSURLComponents componentsWithURL:[self baseURL] resolvingAgainstBaseURL:NO];
-    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLPathComponentAllowedCharacterSet]];
+    NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_URLArticleTitlePathComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/related-pages", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
     return components.URL;
@@ -481,7 +481,7 @@
     self.wasDismissed = YES;
 }
 
-- (void)updateVisibility {
+- (void)updateVisibilityForUserIsLoggedIn:(BOOL)isLoggedIn {
     if (self.wasDismissed) {
         if (self.isVisible) {
             self.isVisible = NO;
@@ -510,7 +510,7 @@
         return;
     }
     
-    if (announcement.loggedIn) { // ignore logged in announcements, regardless of true or false
+    if (announcement.loggedIn && announcement.loggedIn.boolValue != isLoggedIn) {
         markInvisible();
         return;
     }

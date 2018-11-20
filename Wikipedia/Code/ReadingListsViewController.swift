@@ -56,14 +56,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: dataStore.viewContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
-    func setupCollectionViewUpdater() {
-        guard let fetchedResultsController = fetchedResultsController else {
-            return
-        }
-        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-        collectionViewUpdater?.delegate = self
-    }
-    
     var isShowingDefaultReadingListOnly: Bool {
         guard readingListsController.isDefaultListEnabled else {
             return false

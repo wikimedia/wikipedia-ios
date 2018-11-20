@@ -68,6 +68,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     // This method is called to reset the cell to the default configuration. It is called on initial setup and prepareForReuse. Subclassers should call super.
     override open func reset() {
         super.reset()
+        imageView.wmf_reset()
         imageViewDimension = 150
         updateFonts(with: traitCollection)
         captionHTML = nil

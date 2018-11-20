@@ -224,13 +224,6 @@
 "history-clear-confirmation-heading" = "Er du sikker på at du ønsker at slette alle dine seneste emner?";
 "history-clear-delete-all" = "Ja, slet alt";
 "history-title" = "Historik";
-"hockeyapp-alert-always-send" = "Send altid";
-"hockeyapp-alert-do-not-send" = "Send ikke";
-"hockeyapp-alert-privacy" = "$1 privatliv";
-"hockeyapp-alert-question" = "Ønsker du at sende en nedbrudsrapport til $1 så Wikimedia Foundation kan undersøge dit nedbrud?";
-"hockeyapp-alert-question-with-response-field" = "Ønsker du at sende en nedbrudsrapport til $1 så Wikimedia Foundation kan undersøge dit nedbrud? Beskriv venligst hvad der skete da nedbruddet indtraf:";
-"hockeyapp-alert-send-report" = "Send rapport";
-"hockeyapp-alert-title" = "Beklager, appen brød ned sidste gang";
 "home-button-explore-accessibility-label" = "Wikipedia, vend tilbage til Udforsk";
 "home-button-history-accessibility-label" = "Wikipedia, vend tilbage til Historik";
 "home-button-saved-accessibility-label" = "Wikipedia, vend tilbage til Gemt";
@@ -275,7 +268,6 @@
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
 "main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Indstillinger for udvikler";
 "main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-heading-legal" = "Privatliv og vilkår";

@@ -86,13 +86,19 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
 
-    NSURL *url = useDeskTopURL ? [NSURL wmf_desktopAPIURLForURL:siteURL] : [NSURL wmf_mobileAPIURLForURL:siteURL];
+    NSURL *url;
 
     NSDictionary *params = [self params:region searchTerm:searchTerm resultLimit:resultLimit sortStyle:sortStyle];
 
+    if (useDeskTopURL) {
+        url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+    } else {
+        url =[[WMFConfiguration.current mobileMediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+    }
+
+    assert(url);
+
     [self.session getJSONDictionaryFromURL:url
-                       withQueryParameters:params
-                            bodyParameters:nil
                                ignoreCache:YES
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                              if (error) {

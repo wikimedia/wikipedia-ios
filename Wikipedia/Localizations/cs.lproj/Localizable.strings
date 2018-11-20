@@ -231,7 +231,7 @@
 "explore-feed-preferences-show-continue-reading-title" = "Zobrazit kartu Pokračovat ve čtení";
 "explore-feed-preferences-show-featured-article-footer-text" = "Vypnutím karty Doporučené články ji vypnete ve všech dostupných jazycích.";
 "explore-feed-preferences-show-featured-article-title" = "Zobrazit kartu Doporuručený článek";
-"explore-feed-preferences-show-news-footer-text" = "Vypnutím karty Aktuální události ji vypnete ve všech dostupných jazycích.";
+"explore-feed-preferences-show-news-footer-text" = "Vypnutím karty Aktuality ji vypnete ve všech dostupných jazycích.";
 "explore-feed-preferences-show-news-title" = "Zobrazit kartu Aktuální události";
 "explore-feed-preferences-show-on-this-day-footer-text" = "Vypnutím karty V tento den ji vypnete ve všech dostupných jazycích.";
 "explore-feed-preferences-show-on-this-day-title" = "Zobrazit kartu V tento den";
@@ -277,7 +277,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedie";
 "explore-randomizer" = "Náhodný článek";
 "feed-news-notification-button-text" = "Zapnout oznámení";
-"feed-news-notification-text" = "Posílat oznámení, která mají být oznámeny Wikipedií, když články jsou trendy ve zprávách.";
+"feed-news-notification-text" = "Posílat oznámení, která mají být oznámeny Wikipedií, když články jsou trendy v aktualitách.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Hesla se neshodují";
 "field-alert-password-invalid" = "Nesprávné heslo";
@@ -313,13 +313,6 @@
 "history-clear-confirmation-heading" = "Jste si jistý že chcete smazat všechny vaše poslední položky?";
 "history-clear-delete-all" = "Smazat vše";
 "history-title" = "Historie";
-"hockeyapp-alert-always-send" = "Vždy posílat";
-"hockeyapp-alert-do-not-send" = "Neposílat";
-"hockeyapp-alert-privacy" = "$1 soukromí";
-"hockeyapp-alert-question" = "Chcete odeslat hlášení o chybě pomocí $1, aby Nadace Wikimedia mohla zkontrolovat Vaši chybu?";
-"hockeyapp-alert-question-with-response-field" = "Chcete odeslat hlášení o pádu aplikace pomocí $1, aby Nadace Wikimedia mohla chybu opravit? Prosíme, popište nám chybu:";
-"hockeyapp-alert-send-report" = "Poslat zprávu";
-"hockeyapp-alert-title" = "Omlouváme se, aplikace minule spadla";
 "home-button-explore-accessibility-label" = "Wikipedie, zpět na Prozkoumat";
 "home-button-history-accessibility-label" = "Wikipedie, zpět do Historie";
 "home-button-saved-accessibility-label" = "Wikipedie, zpět na Uložené";
@@ -351,6 +344,10 @@
 "languages-wikipedia" = "Jazyk Wikipedie";
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "Obsah je dostupný pod $1, pokud není uvedeno jinak.";
+"logged-out-continue-without-logging-in-button-title" = "Dokončit bez přihlášení";
+"logged-out-log-back-in-button-title" = "Přihlásit se zpět do Vašeho účtu";
+"logged-out-subtitle" = "Při ověřování účtu došlo k chybě. Chcete-li synchronizovat seznamy k přečtení a editovat pod svým uživatelským jménem, ​​přihlaste se znovu.";
+"logged-out-title" = "Byli jste odhlášeni";
 "login-forgot-password" = "Zapomněli jste heslo?";
 "login-join-wikipedia" = "Připojte se k Wikipedii.";
 "login-no-account" = "Nemáte účet? $1";
@@ -361,7 +358,6 @@
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
 "main-menu-account-logout-cancel" = "Storno";
 "main-menu-account-title-logged-in" = "Přihlášen jako: $1";
-"main-menu-debug-crash" = "Spadnout";
 "main-menu-debug-tweaks" = "Nastavení pro vývojáře";
 "main-menu-heading-debug" = "Debugovat";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";

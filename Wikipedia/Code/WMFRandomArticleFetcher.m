@@ -35,12 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    NSURL *url = [WMFConfiguration.current mediawikiAPIURLForHost:siteURL.host];
     NSDictionary *params = [[self class] params];
+    NSURLComponents *components = [WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
 
-    [self.session getJSONDictionaryFromURL:url
-                       withQueryParameters:params
-                            bodyParameters:nil
+    [self.session getJSONDictionaryFromURL:components.URL
                                ignoreCache:YES
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
                              if (error) {

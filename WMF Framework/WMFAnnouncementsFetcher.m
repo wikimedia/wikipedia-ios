@@ -1,6 +1,7 @@
 #import "WMFAnnouncementsFetcher.h"
 #import "WMFAnnouncement.h"
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLegacySerializer.h>
 
 @interface WMFAnnouncementsFetcher ()
 
@@ -27,9 +28,9 @@
         return;
     }
 
-    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:siteURL.host withPath:@"/feed/announcements"];
+    NSURL *url = [[WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
     
-    [self.session getJSONDictionaryFromURL:url withQueryParameters:nil bodyParameters:nil ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
@@ -40,24 +41,10 @@
             return;
         }
         
-        NSArray *announcementJSONs = [result objectForKey:@"announce"];
-        if (![announcementJSONs isKindOfClass:[NSArray class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                      userInfo:nil]);
-            return;
-        }
-        
-        NSError *mantleError = nil;
-        NSArray<WMFAnnouncement *> *announcements = [MTLJSONAdapter modelsOfClass:[WMFAnnouncement class] fromJSONArray:announcementJSONs error:&mantleError];
-        if (mantleError){
-            failure(mantleError);
-            return;
-        }
-        
-        WMFAnnouncement *announcement = announcements.firstObject;
-        if (![announcement isKindOfClass:[WMFAnnouncement class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType
-                                      userInfo:nil]);
+        NSError *serializerError = nil;
+        NSArray *announcements = [WMFLegacySerializer modelsOfClass:[WMFAnnouncement class] fromArrayForKeyPath:@"announce" inJSONDictionary:result error:&serializerError];
+        if (serializerError) {
+            failure(serializerError);
             return;
         }
 

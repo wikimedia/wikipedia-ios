@@ -326,13 +326,6 @@
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
 "history-clear-delete-all" = "Да, удалить всё";
 "history-title" = "История";
-"hockeyapp-alert-always-send" = "Всегда отправлять";
-"hockeyapp-alert-do-not-send" = "Не отправлять";
-"hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
-"hockeyapp-alert-question" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»?";
-"hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";
-"hockeyapp-alert-send-report" = "Отправить отчёт";
-"hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
 "home-button-explore-accessibility-label" = "Вернуться к ленте";
 "home-button-history-accessibility-label" = "Википедия, вернуться к Истории";
 "home-button-saved-accessibility-label" = "Википедии, вернуться к Сохраненным";
@@ -365,6 +358,7 @@
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "logged-out-continue-without-logging-in-button-title" = "Продолжить без входа";
+"logged-out-log-back-in-button-title" = "Войдите повторно в свою учётную запись";
 "logged-out-subtitle" = "Произошла ошибка при аутентификации вашей учётной записи. Вам нужно повторно войти, чтобы была возможность синхронизировать списки для чтения и редактировать под вашим именем участника.";
 "logged-out-title" = "Вы вышли";
 "login-forgot-password" = "Забыли пароль?";
@@ -377,7 +371,6 @@
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-cancel" = "Отмена";
 "main-menu-account-title-logged-in" = "Вошёл как $1";
-"main-menu-debug-crash" = "Падение";
 "main-menu-debug-tweaks" = "Настройки для разработчиков";
 "main-menu-heading-debug" = "Отладка";
 "main-menu-heading-legal" = "Конфиденциальность и условия";

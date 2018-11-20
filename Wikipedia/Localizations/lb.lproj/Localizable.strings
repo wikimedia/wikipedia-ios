@@ -198,13 +198,6 @@
 "history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
-"hockeyapp-alert-always-send" = "Ëmmer schécken";
-"hockeyapp-alert-do-not-send" = "Net schécken";
-"hockeyapp-alert-privacy" = "$1-Dateschutz";
-"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt d'Wikimedia Foundation Äre Crash ënnersiche kann?";
-"hockeyapp-alert-question-with-response-field" = "Wëllt Dir e Rapport vum Crash u(n) $1 schécke fir datt d'Wikimedia Foundation Äre Crash nokucke kann? Beschreift w.e.g. wat geschitt ass wéi de Crash geschitt ass:";
-"hockeyapp-alert-send-report" = "Rapport schécken";
-"hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
@@ -234,6 +227,8 @@
 "languages-wikipedia" = "Wikipedia-Sproochen";
 "license-footer-name" = "CC-BY-SA 3.0";
 "license-footer-text" = "Den Inhalt ass ënner der $1 disponibel wann et net anescht uginn ass.";
+"logged-out-continue-without-logging-in-button-title" = "Virufueren ouni anzeloggen";
+"logged-out-title" = "Dir sidd elo ausgeloggt";
 "login-forgot-password" = "Hutt Dir Äert Passwuert vergiess?";
 "login-join-wikipedia" = "Bei Wikipedia matmaachen.";
 "login-no-account" = "Hutt Dir kee Benotzerkont? $1";
@@ -244,7 +239,6 @@
 "main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Astellunge fir Entwéckler";
 "main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";
@@ -364,6 +358,8 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
 "request-feedback-on-error" = "Bei der App ass e Feeler geschitt iwwer deen eis Entwéckler méi wësse wëllen. Klickt w.e.g. hei fir eis eng E-Mail mat den Detailer vum Feeler ze schécken.";
+"reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
+"reverted-edit-notification-read-more-action-title" = "Liest méi";
 "saved-all-articles-title" = "All Artikelen";
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";

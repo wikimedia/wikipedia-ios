@@ -162,6 +162,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, readwrite) EventLoggingCategory eventLoggingCategory;
 @property (nonatomic, readwrite) EventLoggingLabel eventLoggingLabel;
 
+@property (nullable, nonatomic, readwrite) dispatch_block_t articleContentLoadCompletion;
+
 @end
 
 @implementation WMFArticleViewController
@@ -192,15 +194,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.extendedLayoutIncludesOpaqueBars = YES;
         @weakify(self);
-        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFConfiguration.current.defaultSiteDomain callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
-            if (isReachable) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    @strongify(self);
-                    [self.reachabilityNotifier stop];
-                    [self fetchArticleIfNeeded];
-                });
-            }
-        }];
+        self.reachabilityNotifier = [[WMFReachabilityNotifier alloc] initWithHost:WMFConfiguration.current.defaultSiteDomain
+                                                                         callback:^(BOOL isReachable, SCNetworkReachabilityFlags flags) {
+                                                                             if (isReachable) {
+                                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                     @strongify(self);
+                                                                                     [self.reachabilityNotifier stop];
+                                                                                     [self fetchArticleIfNeeded];
+                                                                                 });
+                                                                             }
+                                                                         }];
         self.savingOpenArticleTitleEnabled = YES;
         self.addingArticleToHistoryListEnabled = YES;
         self.peekingAllowed = YES;
@@ -242,12 +245,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
                                                    success:^{
                                                        [self layoutHeaderImageViewForSize:self.view.bounds.size];
                                                    }];
-            NSURL *articleURL = self.articleURL;
-            if (articleURL && self.isAddingArticleToHistoryListEnabled) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.dataStore.historyList addPageToHistoryWithURL:articleURL];
-                });
-            }
         }
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
@@ -756,7 +753,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     self.tableOfContentsSeparatorView = [[UIView alloc] init];
     [self setupWebView];
-    
+
     [self hideProgressViewAnimated:NO];
 
     self.eventLoggingCategory = EventLoggingCategoryArticle;
@@ -1216,6 +1213,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
             completion();
             self.articleLoadCompletion = nil;
         }
+        if (self.articleURL && self.isAddingArticleToHistoryListEnabled) {
+            [self.dataStore.historyList addPageToHistoryWithURL:self.articleURL];
+        }
     });
 }
 
@@ -1566,6 +1566,16 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self saveOpenArticleTitleWithCurrentlyOnscreenFragment];
 }
 
+- (void)webViewController:(WebViewController *)controller didLoadArticleContent:(MWKArticle *)article {
+    dispatch_block_t completion = self.articleContentLoadCompletion;
+    if (completion) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion();
+            self.articleContentLoadCompletion = nil;
+        });
+    }
+}
+
 - (void)saveOpenArticleTitleWithCurrentlyOnscreenFragment {
     if (self.navigationController.topViewController != self || !self.isSavingOpenArticleTitleEnabled) {
         return;
@@ -1820,20 +1830,22 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (needsIntro) {
         navVC.view.alpha = 0;
     }
-    
+
     @weakify(self);
     @weakify(navVC);
-    void (^showIntro)(void)  = ^{
+    void (^showIntro)(void) = ^{
         @strongify(self);
         DescriptionWelcomeInitialViewController *welcomeVC = [DescriptionWelcomeInitialViewController wmf_viewControllerFromDescriptionWelcomeStoryboard];
         [welcomeVC applyTheme:self.theme];
-        [navVC presentViewController:welcomeVC animated:YES completion:^{
-            @strongify(navVC);
-            [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
-            navVC.view.alpha = 1;
-        }];
+        [navVC presentViewController:welcomeVC
+                            animated:YES
+                          completion:^{
+                              @strongify(navVC);
+                              [[NSUserDefaults standardUserDefaults] wmf_setDidShowTitleDescriptionEditingIntro:YES];
+                              navVC.view.alpha = 1;
+                          }];
     };
-    
+
     [self presentViewController:navVC animated:!needsIntro completion:(needsIntro ? showIntro : nil)];
 }
 
@@ -1869,6 +1881,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
+        __weak typeof(self) weakSelf = self;
+        self.articleContentLoadCompletion = ^{
+            [weakSelf.webViewController scrollToSection:sectionEditorViewController.section animated:YES];
+        };
         [self fetchArticle];
     }
 }
