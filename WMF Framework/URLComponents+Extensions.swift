@@ -46,4 +46,17 @@ extension URLComponents {
         }
         percentEncodedQuery = percentEncodedQueryStringFrom(queryParameters)
     }
+    
+    mutating func replacePercentEncodedPathWithPathComponents(_ pathComponents: [String]?) {
+        guard let pathComponents = pathComponents else {
+            percentEncodedPath = "/"
+            return
+        }
+        let characterSet = NSCharacterSet.wmf_URLPathComponentAllowed() ?? CharacterSet.urlPathAllowed
+        let encodedPathComponents = ([""] + pathComponents).compactMap { (component) -> String? in
+            assert(!component.contains("/"))
+            return component.addingPercentEncoding(withAllowedCharacters: characterSet)
+        }
+        percentEncodedPath = encodedPathComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+    }
 }

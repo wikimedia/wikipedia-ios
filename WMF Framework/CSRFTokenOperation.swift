@@ -86,12 +86,12 @@ public class CSRFTokenOperation<Result>: AsyncOperation {
 
 public class CSRFTokenJSONDictionaryOperation: CSRFTokenOperation<[String: Any]> {
     public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping ([String: Any]?, URLResponse?, Bool?, Error?) -> Void) {
-        self.session.jsonDictionaryTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
+        self.session.jsonDictionaryTask(with: components.url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)?.resume()
     }
 }
 
 public class CSRFTokenJSONDecodableOperation<Result: Decodable>: CSRFTokenOperation<Result> {
     public override func didFetchToken(_ token: WMFAuthToken, completion: @escaping (Result?, URLResponse?, Bool?, Error?) -> Void) {
-        self.session.jsonDecodableTask(components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
+        self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, authorized: token.isAuthorized, completionHandler: completion)
     }
 }

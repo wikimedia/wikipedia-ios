@@ -1595,22 +1595,12 @@ static uint64_t bundleHash() {
     };
 
     __block NSError *updateError = nil;
-    NSError *invalidRequestParametersError = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil];
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURL *siteInfoURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/api.php?action=query&format=json&meta=siteinfo"];
-    NSURLRequest *siteInfoRequest = [NSURLRequest requestWithURL:siteInfoURL];
-
+    NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:@{@"action": @"query", @"format": @"json", @"meta": @"siteinfo"}];
     [taskGroup enter];
-    if (!siteInfoURL || !siteInfoRequest) {
-        updateError = invalidRequestParametersError;
-        [taskGroup leave];
-        return;
-    }
-
-    [[[WMFSession shared] jsonDictionaryTaskWith:siteInfoRequest
-                               completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+    [[WMFSession shared] getJSONDictionaryFromURL:components.URL ignoreCache:YES completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        if (error) {
                                            updateError = error;
@@ -1622,20 +1612,11 @@ static uint64_t bundleHash() {
                                        [self updateReadingListsLimits:readingListsConfig];
                                        [taskGroup leave];
                                    });
-                               }] resume];
+                               }];
     // Remote config
     NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:remoteConfigURL];
-
     [taskGroup enter];
-    if (!remoteConfigURL || !request) {
-        updateError = invalidRequestParametersError;
-        [taskGroup leave];
-        return;
-    }
-
-    [[[WMFSession shared] jsonDictionaryTaskWith:request
-                               completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+    [[WMFSession shared] getJSONDictionaryFromURL:remoteConfigURL ignoreCache:YES completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        if (error) {
                                            updateError = error;
@@ -1645,7 +1626,7 @@ static uint64_t bundleHash() {
                                        [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
                                        [taskGroup leave];
                                    });
-                               }] resume];
+                               }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);

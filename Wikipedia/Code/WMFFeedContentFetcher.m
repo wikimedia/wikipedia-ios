@@ -32,14 +32,21 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
 }
 
 + (NSURL *)feedContentURLForSiteURL:(NSURL *)siteURL onDate:(NSDate *)date {
-    NSString *datePath = [[NSDateFormatter wmf_yearMonthDayPathDateFormatter] stringFromDate:date];
+    NSString *yearString = nil;
+    NSString *monthString = nil;
+    NSString *dayString = nil;
+    if (date) {
+        yearString = [[NSDateFormatter wmf_yearFormatter] stringFromDate:date];
+        monthString = [[NSDateFormatter wmf_monthFormatter] stringFromDate:date];
+        dayString = [[NSDateFormatter wmf_dayFormatter] stringFromDate:date];
+    }
     NSArray<NSString *> *path = nil;
-    if (datePath) {
-        path = @[@"feed", @"featured", datePath];
+    if (yearString && monthString && dayString) {
+        path = @[@"feed", @"featured", yearString, monthString, dayString];
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[WMFConfiguration current] mobileAppsServicesAPIURLForHost:siteURL.host appendingPathComponents:path];
+    return [[[WMFConfiguration current] mobileAppsServicesAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -70,8 +77,8 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
         return;
     }
 
-    NSURL *url = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
-    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURL *feedURL = [[self class] feedContentURLForSiteURL:siteURL onDate:date];
+    [self.session getJSONDictionaryFromURL:feedURL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable jsonDictionary, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
@@ -144,9 +151,9 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     
     NSString *domainPathComponent = [NSString stringWithFormat:@"%@.%@", language, domain];
     NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
-    NSURL *url = [WMFConfiguration.current mobileAppsServicesAPIURLForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
+    NSURLComponents *components = [WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-    [self.session getJSONDictionaryFromURL:url ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
+    [self.session getJSONDictionaryFromURL:components.URL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
             return;
