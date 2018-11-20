@@ -306,7 +306,6 @@ import Foundation
             }
         })
     }
-    
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
     public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
@@ -321,7 +320,6 @@ import Foundation
         if ignoreCache {
             request.cachePolicy = .reloadIgnoringLocalCacheData
         }
-
         jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
     }
     

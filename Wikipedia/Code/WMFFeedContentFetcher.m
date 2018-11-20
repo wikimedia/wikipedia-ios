@@ -153,7 +153,6 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSArray<NSString *> *path = @[@"metrics", @"pageviews", @"per-article", domainPathComponent, @"all-access", @"user", title, @"daily", startDateString, endDateString];
     NSURLComponents *components = [WMFConfiguration.current mobileAppsServicesAPIURLComponentsForHost:titleURL.wmf_siteURL.host appendingPathComponents:path];
     NSCalendar *calendar = [NSCalendar wmf_utcGregorianCalendar];
-
     [self.session getJSONDictionaryFromURL:components.URL ignoreCache:NO completionHandler:^(NSDictionary<NSString *,id> * _Nullable responseObject, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
