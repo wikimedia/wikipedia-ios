@@ -330,8 +330,10 @@ import Foundation
             // don't call the completion as this is just a method to get the task
             return nil
         }
-        let api = configuration.mobileAppsServicesAPIURLComponentsBuilderForHost(siteURL.host)
-        guard let summaryURL = api.components(byAppending: api.basePathComponents + path + [title]).url else {
+        let builder = configuration.mobileAppsServicesAPIURLComponentsBuilderForHost(siteURL.host)
+        let encodedTitle = title.addingPercentEncoding(withAllowedCharacters: CharacterSet.wmf_articleTitlePathComponentAllowed) ?? title
+        let components = builder.components(byAppending: path + [encodedTitle])
+        guard let summaryURL = components.url else {
             // don't call the completion as this is just a method to get the task
             return nil
         }

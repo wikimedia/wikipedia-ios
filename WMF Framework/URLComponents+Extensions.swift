@@ -52,11 +52,12 @@ extension URLComponents {
             percentEncodedPath = "/"
             return
         }
-        let characterSet = NSCharacterSet.wmf_URLPathComponentAllowed() ?? CharacterSet.urlPathAllowed
-        let encodedPathComponents = ([""] + pathComponents).compactMap { (component) -> String? in
+        let fullComponents = [""] + pathComponents
+        #if DEBUG
+        for component in fullComponents {
             assert(!component.contains("/"))
-            return component.addingPercentEncoding(withAllowedCharacters: characterSet)
         }
-        percentEncodedPath = encodedPathComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+        #endif
+        percentEncodedPath = fullComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
     }
 }
