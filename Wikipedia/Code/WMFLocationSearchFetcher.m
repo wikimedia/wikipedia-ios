@@ -3,13 +3,10 @@
 #import <WMF/WMFLocalization.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
+#import <WMF/WMFLegacySerializer.h>
 
 //Networking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/WMFSearchResponseSerializer.h>
-@import Mantle;
-#import <WMF/WMFBaseRequestSerializer.h>
 
 //Models
 #import <WMF/WMFLocationSearchResults.h>
@@ -93,7 +90,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
     if (useDeskTopURL) {
         url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
     } else {
-        url =[[WMFConfiguration.current mobileMediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+        url = [[WMFConfiguration.current mobileMediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
     }
 
     assert(url);
@@ -129,10 +126,10 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                                  return;
                              }
 
-                             NSError *mantleError = nil;
-                             NSArray<MWKLocationSearchResult *> *results = [MTLJSONAdapter modelsOfClass:[MWKLocationSearchResult class] fromJSONArray:pages error:&mantleError];
-                             if (mantleError) {
-                                 failure(mantleError);
+                             NSError *serializerError = nil;
+                             NSArray<MWKLocationSearchResult *> *results = [WMFLegacySerializer modelsOfClass:[MWKLocationSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+                             if (serializerError) {
+                                 failure(serializerError);
                                  return;
                              }
                              WMFLocationSearchResults *locationSearchResults = [[WMFLocationSearchResults alloc] initWithSearchSiteURL:siteURL region:region searchTerm:searchTerm results:results];
