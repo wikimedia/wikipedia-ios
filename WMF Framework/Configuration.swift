@@ -96,13 +96,11 @@ public class Configuration: NSObject {
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
 
-    func mobileMediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        var components = URLComponents()
-        components.host = host ?? Domain.englishWikipedia
-        components.scheme = Scheme.https
-        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
+    @objc(mobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
+    public func mobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
+        return builder.components(byAppending: pathComponents)
     }
-    
     
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
     public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
