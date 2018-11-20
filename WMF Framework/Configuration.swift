@@ -95,14 +95,6 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
-
-    func mobileMediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        var components = URLComponents()
-        components.host = host ?? Domain.englishWikipedia
-        components.scheme = Scheme.https
-        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
-    }
-    
     
     @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
     public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
