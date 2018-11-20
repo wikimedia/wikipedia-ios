@@ -1,6 +1,7 @@
 #import "WMFOnThisDayEventsFetcher.h"
 #import "WMFFeedOnThisDayEvent.h"
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLegacySerializer.h>
 
 @interface WMFOnThisDayEventsFetcher ()
 
@@ -52,22 +53,10 @@
             return;
         }
         
-        NSArray *eventJSONs = result[@"events"];
-        if (![eventJSONs isKindOfClass:[NSArray class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
-            return;
-        }
-        
-        NSError *mantleError = nil;
-        NSArray<WMFFeedOnThisDayEvent *> *events = [MTLJSONAdapter modelsOfClass:[WMFFeedOnThisDayEvent class] fromJSONArray:eventJSONs error:&mantleError];
-        if (mantleError) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
-            return;
-        }
-        
-        WMFFeedOnThisDayEvent *event = events.firstObject;
-        if (![event isKindOfClass:[WMFFeedOnThisDayEvent class]]) {
-            failure([NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
+        NSError *serializerError = nil;
+        NSArray *events = [WMFLegacySerializer modelsOfClass:[WMFFeedOnThisDayEvent class] fromArrayForKeyPath:@"events" inJSONDictionary:result error:&serializerError];
+        if (serializerError) {
+            failure(serializerError);
             return;
         }
         
