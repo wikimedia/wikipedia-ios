@@ -22,7 +22,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
     WMFErrorTypeUnexpectedResponseType,
     WMFErrorTypeInvalidRequestParameters,
     WMFErrorTypeFetchAlreadyInProgress,
-    WMFErrorTypeCancelled
+    WMFErrorTypeCancelled,
+    WMFErrorTypeNoNewData
 };
 
 @interface NSError (WMFExtensions)

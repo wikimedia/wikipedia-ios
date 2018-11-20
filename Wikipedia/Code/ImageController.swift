@@ -245,71 +245,74 @@ open class ImageController : NSObject {
         let identifier = self.identifierForKey(key, variant: variant)
         let completion = ImageControllerPermanentCacheCompletion(success: success, failure: failure)
         let token = UUID().uuidString
-        guard permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) else {
-            return
-        }
-        perform { (moc) in
-            if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
-                if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
-                    group.addToCacheItems(item)
-                }
-                self.save(moc: moc)
-                self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
-                    completion.success()
-                })
+        permanentCacheCompletionManager.add(completion, priority: priority, forGroup: groupKey, identifier: identifier, token: token) { (isFirst) in
+            guard isFirst else {
                 return
             }
-            let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
-            let task = self.session.downloadTask(with: schemedURL, completionHandler: { (fileURL, response, error) in
-                guard !self.isCancellationError(error) else {
-                    return
-                }
-                guard let fileURL = fileURL, let response = response else {
-                    let err = error ?? ImageControllerError.invalidResponse
-                    self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
-                        completion.failure(err)
-                    })
-                    return
-                }
-                let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
-                var createItem = false
-                do {
-                    try self.fileManager.moveItem(at: fileURL, to: permanentCacheFileURL)
-                    self.updateCachedFileMimeTypeAtPath(permanentCacheFileURL.path, toMIMEType: response.mimeType)
-                    createItem = true
-                } catch let error as NSError {
-                    if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
-                        createItem = true
-                    } else {
-                        DDLogError("Error moving cached file: \(error)")
+            self.perform { (moc) in
+                if let item = self.fetchCacheItem(key: key, variant: variant, moc: moc) {
+                    if let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) {
+                        group.addToCacheItems(item)
                     }
-                } catch let error {
-                    DDLogError("Error moving cached file: \(error)")
-                }
-                self.perform { (moc) in
-                    guard createItem else {
-                        self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
-                            completion.failure(ImageControllerError.fileError)
-                        })
-                        return
-                    }
-                    guard let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc), let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) else {
-                        self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
-                            completion.failure(ImageControllerError.dbError)
-                        })
-                        return
-                    }
-                    group.addToCacheItems(item)
                     self.save(moc: moc)
                     self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
                         completion.success()
                     })
+                    return
                 }
-            })
-            task.priority = priority
-            self.permanentCacheCompletionManager.add(task, forGroup: groupKey, identifier: identifier)
-            task.resume()
+                let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
+                let task = self.session.downloadTask(with: schemedURL, completionHandler: { (fileURL, response, error) in
+                    guard !self.isCancellationError(error) else {
+                        return
+                    }
+                    guard let fileURL = fileURL, let response = response else {
+                        let err = error ?? ImageControllerError.invalidResponse
+                        self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                            completion.failure(err)
+                        })
+                        return
+                    }
+                    let permanentCacheFileURL = self.permanentCacheFileURL(key: key, variant: variant)
+                    var createItem = false
+                    do {
+                        try self.fileManager.moveItem(at: fileURL, to: permanentCacheFileURL)
+                        self.updateCachedFileMimeTypeAtPath(permanentCacheFileURL.path, toMIMEType: response.mimeType)
+                        createItem = true
+                    } catch let error as NSError {
+                        if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
+                            createItem = true
+                        } else {
+                            DDLogError("Error moving cached file: \(error)")
+                        }
+                    } catch let error {
+                        DDLogError("Error moving cached file: \(error)")
+                    }
+                    self.perform { (moc) in
+                        guard createItem else {
+                            self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                                completion.failure(ImageControllerError.fileError)
+                            })
+                            return
+                        }
+                        guard let item = self.fetchOrCreateCacheItem(key: key, variant: variant, moc: moc), let group = self.fetchOrCreateCacheGroup(key: groupKey, moc: moc) else {
+                            self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                                completion.failure(ImageControllerError.dbError)
+                            })
+                            return
+                        }
+                        group.addToCacheItems(item)
+                        self.save(moc: moc)
+                        self.permanentCacheCompletionManager.complete(groupKey, identifier: identifier, enumerator: { (completion) in
+                            completion.success()
+                        })
+                    }
+                })
+                task.priority = priority
+                self.permanentCacheCompletionManager.add(task, forGroup: groupKey, identifier: identifier)
+                task.resume()
+            }
         }
+        
     }
     
     @objc public func permanentlyCacheInBackground(urls: [URL], groupKey: String,  failure: @escaping (Error) -> Void, success: @escaping () -> Void) {
@@ -484,29 +487,30 @@ open class ImageController : NSObject {
         let token = UUID().uuidString
         let identifier = identifierForURL(url)
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        guard dataCompletionManager.add(completion, priority: priority, forIdentifier: identifier, token: token) else {
-            //DDLogDebug("unable to add completion: %@", url)
-            return nil
-        }
-        let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
-        //DDLogDebug("fetching: \(url) \(token)")
-        let task = session.dataTask(with: schemedURL) { (data, response, error) in
-            guard !self.isCancellationError(error) else {
-                //DDLogDebug("cancelled: \(url) \(token)")
+        dataCompletionManager.add(completion, priority: priority, forIdentifier: identifier, token: token) { (isFirst) in
+            guard isFirst else {
                 return
             }
-            self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
-                //DDLogDebug("complete: \(url) \(token)")
-                guard let data = data, let response = response else {
-                    completion.failure(error ?? ImageControllerError.invalidResponse)
+            let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
+            //DDLogDebug("fetching: \(url) \(token)")
+            let task = self.session.dataTask(with: schemedURL) { (data, response, error) in
+                guard !self.isCancellationError(error) else {
+                    //DDLogDebug("cancelled: \(url) \(token)")
                     return
                 }
-                completion.success(data, response)
-            })
+                self.dataCompletionManager.complete(identifier, enumerator: { (completion) in
+                    //DDLogDebug("complete: \(url) \(token)")
+                    guard let data = data, let response = response else {
+                        completion.failure(error ?? ImageControllerError.invalidResponse)
+                        return
+                    }
+                    completion.success(data, response)
+                })
+            }
+            task.priority = priority
+            self.dataCompletionManager.add(task, forIdentifier: identifier)
+            task.resume()
         }
-        task.priority = priority
-        dataCompletionManager.add(task, forIdentifier: identifier)
-        task.resume()
         return token
     }
     
