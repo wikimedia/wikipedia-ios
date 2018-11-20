@@ -7,7 +7,7 @@
     static NSCharacterSet *wmf_URLPathComponentAllowedCharacterSet;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *pathAllowedCharacterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
-        [pathAllowedCharacterSet removeCharactersInString:@"/."];
+        [pathAllowedCharacterSet removeCharactersInString:@"/"];
         wmf_URLPathComponentAllowedCharacterSet = [pathAllowedCharacterSet copy];
     });
     return wmf_URLPathComponentAllowedCharacterSet;
