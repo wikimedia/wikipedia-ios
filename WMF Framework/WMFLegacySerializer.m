@@ -7,11 +7,17 @@
 
 + (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error {
     NSArray *maybeJSONDictionaries = [JSONDictionary valueForKeyPath:keyPath];
+
     if (![maybeJSONDictionaries isKindOfClass:[NSArray class]]) {
-        if (error) {
-            *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+        if ([maybeJSONDictionaries isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *nestedJSONDictionary = (NSDictionary *)[JSONDictionary valueForKeyPath:keyPath];
+            maybeJSONDictionaries = nestedJSONDictionary.allValues;
+        } else {
+            if (error) {
+                *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+            }
+            return nil;
         }
-        return nil;
     }
     
     NSArray *JSONDictionaries = [maybeJSONDictionaries wmf_select:^BOOL(id _Nonnull maybeJSONDictionary) {
