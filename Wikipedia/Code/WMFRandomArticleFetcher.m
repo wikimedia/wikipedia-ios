@@ -1,7 +1,5 @@
 #import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/WMFApiJsonResponseSerializer.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/MWKSearchResult.h>
