@@ -7,24 +7,24 @@ styles with only the things which need tweaking.
 
 /* baseline body */
 .pagelib_theme_dark body {
-  color: #f8f9fa;
-  background: #2e3136;
+  color: #d7d7d8;
+  background: #4a4a4c;
 }
 .pagelib_theme_sepia body {
-  color: #222;
-  background: #f8f1e3;
+  color: #4a331f;
+  background: #f7f1e4;
 }
 .pagelib_theme_black body {
-  color: #f8f9fa;
-  background: #000;
+  color: #b0b0b0;
+  background: #121212;
 }
 
 /* baseline anchor */
 .pagelib_theme_dark a, .pagelib_theme_black a {
-  color: #69f;
+  color: #77c5f5;
 }
 .pagelib_theme_sepia a {
-  color: #36c;
+  color: #c89832;
 }
 
 /* external anchor */
