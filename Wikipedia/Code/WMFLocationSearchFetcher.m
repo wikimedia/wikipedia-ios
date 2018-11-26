@@ -16,8 +16,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
-
 #pragma mark - Fetcher Implementation
 
 @interface WMFLocationSearchFetcher ()
@@ -41,17 +39,8 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                      resultLimit:(NSUInteger)resultLimit
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
-    [self fetchArticlesWithSiteURL:siteURL location:location resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
-}
-
-- (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
-                        location:(CLLocation *)location
-                     resultLimit:(NSUInteger)resultLimit
-                   useDesktopURL:(BOOL)useDeskTopURL
-                      completion:(void (^)(WMFLocationSearchResults *results))completion
-                         failure:(void (^)(NSError *error))failure {
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:1000 identifier:@""];
-    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
+     [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -61,46 +50,22 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                      resultLimit:(NSUInteger)resultLimit
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
-    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:sortStyle resultLimit:resultLimit useDesktopURL:NO completion:completion failure:failure];
-}
-
-- (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
-                        inRegion:(CLCircularRegion *)region
-              matchingSearchTerm:(nullable NSString *)searchTerm
-                     resultLimit:(NSUInteger)resultLimit
-                   useDesktopURL:(BOOL)useDeskTopURL
-                      completion:(void (^)(WMFLocationSearchResults *results))completion
-                         failure:(void (^)(NSError *error))failure {
-    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:searchTerm sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit useDesktopURL:useDeskTopURL completion:completion failure:failure];
-}
-
-- (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
-                        inRegion:(CLCircularRegion *)region
-              matchingSearchTerm:(nullable NSString *)searchTerm
-                       sortStyle:(WMFLocationSearchSortStyle)sortStyle
-                     resultLimit:(NSUInteger)resultLimit
-                   useDesktopURL:(BOOL)useDeskTopURL
-                      completion:(void (^)(WMFLocationSearchResults *results))completion
-                         failure:(void (^)(NSError *error))failure {
-
-    NSURL *url;
 
     NSDictionary *params = [self params:region searchTerm:searchTerm resultLimit:resultLimit sortStyle:sortStyle];
 
-    if (useDeskTopURL) {
-        url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
-    } else {
-        url = [[WMFConfiguration.current mobileMediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
-    }
+    NSURL *url = [[WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
 
     assert(url);
 
     [self.session getJSONDictionaryFromURL:url
                                ignoreCache:YES
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+
+                             NSError *noResultsError = [NSError errorWithDomain:@"org.wikimedia.location.search" code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
+
                              if (error) {
                                  if (![[error domain] isEqualToString:NSURLErrorDomain]) {
-                                     error = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
+                                     error = noResultsError;
                                  }
                                  failure(error);
                                  return;
@@ -112,8 +77,25 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
                                  return;
                              }
 
+                             NSDictionary *pages = [result valueForKeyPath:@"query.pages"];
+
+                             if (!pages) {
+                                 failure(noResultsError);
+                                 return;
+                             }
+
+                             if (![pages isKindOfClass:[NSDictionary class]]) {
+                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
+                                 failure(error);
+                                 return;
+                             }
+
+                             NSArray *JSONDictionaries = [pages.allValues wmf_select:^BOOL(id _Nonnull maybeJSONDictionary) {
+                                 return [maybeJSONDictionary isKindOfClass:[NSDictionary class]];
+                             }];
+
                              NSError *serializerError = nil;
-                             NSArray<MWKLocationSearchResult *> *results = [WMFLegacySerializer modelsOfClass:[MWKLocationSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+                             NSArray<MWKLocationSearchResult *> *results = [MTLJSONAdapter modelsOfClass:[MWKLocationSearchResult class] fromJSONArray:JSONDictionaries error:&serializerError];
                              if (serializerError) {
                                  failure(serializerError);
                                  return;

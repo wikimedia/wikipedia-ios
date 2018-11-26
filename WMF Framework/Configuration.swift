@@ -108,17 +108,6 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
 
-    @objc(mobileMediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mobileMediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
-        var components = builder.components(queryParameters: queryParameters)
-        let separator = "."
-        var hostComponents = components.host?.components(separatedBy: separator)
-        hostComponents?.insert("m", at: 1)
-        components.host = hostComponents?.joined(separator: separator)
-        return components
-    }
-
     @objc public static let current: Configuration = {
         switch Stage.current {
         case .local:
