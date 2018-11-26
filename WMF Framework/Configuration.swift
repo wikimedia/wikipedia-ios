@@ -95,7 +95,7 @@ public class Configuration: NSObject {
         components.scheme = Scheme.https
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
-    
+
     @objc(mobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
     public func mobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
         let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
