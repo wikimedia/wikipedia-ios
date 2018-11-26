@@ -7,6 +7,7 @@
 
 + (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error {
     NSArray *maybeJSONDictionaries = [JSONDictionary valueForKeyPath:keyPath];
+
     if (![maybeJSONDictionaries isKindOfClass:[NSArray class]]) {
         if (error) {
             *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];

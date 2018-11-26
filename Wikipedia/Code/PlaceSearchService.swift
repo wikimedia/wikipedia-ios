@@ -54,6 +54,7 @@ class PlaceSearchService
         let sortStyle = search.sortStyle
 
         let done = {
+            let completionResult: PlaceSearchResult
             if var actualResult = result {
                 if let searchResult = search.searchResult {
                     var foundResult = false
@@ -69,9 +70,12 @@ class PlaceSearchService
                         actualResult = PlaceSearchResult(locationResults: locationResults, fetchRequest: actualResult.fetchRequest)
                     }
                 }
-                completion(actualResult)
+                completionResult = actualResult
             } else {
-                completion(PlaceSearchResult(error: nil))
+                completionResult = PlaceSearchResult(error: nil)
+            }
+            DispatchQueue.main.async {
+                completion(completionResult)
             }
         }
         
@@ -102,7 +106,6 @@ class PlaceSearchService
                     result = PlaceSearchResult(locationResults: searchResults.results, fetchRequest: nil)
                     done()
                 }) { (error) in
-
                     result = PlaceSearchResult(error: error)
                     done()
                 }
