@@ -29,7 +29,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/NSIndexSet+BKReduce.h>
 #import <WMF/NSMutableDictionary+WMFMaybeSet.h>
 #import <WMF/WMFGeometry.h>
-#import <WMF/NSURL+WMFProxyServer.h>
+#import <WMF/NSURL+WMFSchemeHandler.h>
 #import <WMF/NSURL+WMFQueryParameters.h>
 #import <WMF/NSFileManager+WMFExtendedFileAttributes.h>
 #import <WMF/WMFTaskGroup.h>

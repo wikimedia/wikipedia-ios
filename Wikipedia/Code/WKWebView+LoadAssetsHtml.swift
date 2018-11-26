@@ -9,7 +9,7 @@ extension WKWebView {
     @objc func loadHTMLFromAssetsFile(_ fileName: String?, scrolledToFragment fragment: String?) {
         guard
             let fileName = fileName,
-            let requestURL = WMFURLSchemeHandler.shared().proxyURL(forRelativeFilePath: fileName, fragment: fragment ?? "top")
+            let requestURL = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: fileName, fragment: fragment ?? "top")
         else {
             DDLogError("attempted to load nil fileName or requestURL");
             return
@@ -54,7 +54,7 @@ extension WKWebView {
         let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
-        guard let requestURL = WMFURLSchemeHandler.shared().proxyURL(forRelativeFilePath: requestPath, fragment: fragment ?? "top") else {
+        guard let requestURL = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: requestPath, fragment: fragment ?? "top") else {
             return
         }
         WMFURLSchemeHandler.shared().setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath, request: requestURL)

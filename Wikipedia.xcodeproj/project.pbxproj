@@ -2754,8 +2754,8 @@
 		D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */; };
 		D8FA18BD1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18BE1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */; };
-		D8FA18BF1E1BD891009675C3 /* NSURL+WMFProxyServer.h in Headers */ = {isa = PBXBuildFile; fileRef = B01662AB1D1B668C006F4544 /* NSURL+WMFProxyServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8FA18C01E1BD891009675C3 /* NSURL+WMFProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */; };
+		D8FA18BF1E1BD891009675C3 /* NSURL+WMFSchemeHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = B01662AB1D1B668C006F4544 /* NSURL+WMFSchemeHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8FA18C01E1BD891009675C3 /* NSURL+WMFSchemeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AC1D1B668C006F4544 /* NSURL+WMFSchemeHandler.m */; };
 		D8FA18C11E1BD891009675C3 /* NSURL+WMFQueryParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA18C21E1BD891009675C3 /* NSURL+WMFQueryParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */; };
 		D8FA18C51E1BD891009675C3 /* NSArray+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */; };
@@ -3400,8 +3400,8 @@
 		B01490A01DB96BD6007F5391 /* WMFReferencePanels.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFReferencePanels.storyboard; path = Wikipedia/Code/WMFReferencePanels.storyboard; sourceTree = SOURCE_ROOT; };
 		B01490A21DB96E5F007F5391 /* WMFReferencePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFReferencePageViewController.swift; path = Wikipedia/Code/WMFReferencePageViewController.swift; sourceTree = SOURCE_ROOT; };
 		B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFReferencePanelViewController.swift; path = Wikipedia/Code/WMFReferencePanelViewController.swift; sourceTree = SOURCE_ROOT; };
-		B01662AB1D1B668C006F4544 /* NSURL+WMFProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFProxyServer.h"; path = "Wikipedia/Code/NSURL+WMFProxyServer.h"; sourceTree = SOURCE_ROOT; };
-		B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFProxyServer.m"; path = "Wikipedia/Code/NSURL+WMFProxyServer.m"; sourceTree = SOURCE_ROOT; };
+		B01662AB1D1B668C006F4544 /* NSURL+WMFSchemeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFSchemeHandler.h"; path = "Wikipedia/Code/NSURL+WMFSchemeHandler.h"; sourceTree = SOURCE_ROOT; };
+		B01662AC1D1B668C006F4544 /* NSURL+WMFSchemeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFSchemeHandler.m"; path = "Wikipedia/Code/NSURL+WMFSchemeHandler.m"; sourceTree = SOURCE_ROOT; };
 		B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+WMFQueryParameters.h"; path = "Wikipedia/Code/NSURL+WMFQueryParameters.h"; sourceTree = SOURCE_ROOT; };
 		B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFQueryParameters.m"; path = "Wikipedia/Code/NSURL+WMFQueryParameters.m"; sourceTree = SOURCE_ROOT; };
 		B01662B11D1B8A40006F4544 /* NSURL+WMFQueryParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFQueryParametersTests.m"; sourceTree = "<group>"; };
@@ -8110,8 +8110,8 @@
 				D8EEA0F91D6E21A400D88143 /* NSFileManager+WMFGroup.m */,
 				D81082F61D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.h */,
 				D81082F71D0983AE0070DAC3 /* NSFileManager+WMFExtendedFileAttributes.m */,
-				B01662AB1D1B668C006F4544 /* NSURL+WMFProxyServer.h */,
-				B01662AC1D1B668C006F4544 /* NSURL+WMFProxyServer.m */,
+				B01662AB1D1B668C006F4544 /* NSURL+WMFSchemeHandler.h */,
+				B01662AC1D1B668C006F4544 /* NSURL+WMFSchemeHandler.m */,
 				B01662AE1D1B8997006F4544 /* NSURL+WMFQueryParameters.h */,
 				B01662AF1D1B8997006F4544 /* NSURL+WMFQueryParameters.m */,
 				B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */,
@@ -8238,7 +8238,7 @@
 				D8FA18E91E1BD8B9009675C3 /* WMFComparison.h in Headers */,
 				0E728D3E1DAEEC310074EB4B /* WMFRelatedSearchResults.h in Headers */,
 				83222DB21F8E554800338BE5 /* WMFContent+CoreDataClass.h in Headers */,
-				D8FA18BF1E1BD891009675C3 /* NSURL+WMFProxyServer.h in Headers */,
+				D8FA18BF1E1BD891009675C3 /* NSURL+WMFSchemeHandler.h in Headers */,
 				D82F601C1D6CE10400388574 /* FetcherBase.h in Headers */,
 				83BF87D01FA7463300EAF3DD /* WMFFIFOCache.h in Headers */,
 				D801C93C1EB9404A001FA294 /* WMFLocalization.h in Headers */,
@@ -10896,7 +10896,7 @@
 				D81446081E7178A20078D71E /* WMFBlocksKit.swift in Sources */,
 				8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */,
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
-				D8FA18C01E1BD891009675C3 /* NSURL+WMFProxyServer.m in Sources */,
+				D8FA18C01E1BD891009675C3 /* NSURL+WMFSchemeHandler.m in Sources */,
 				D844D9F31D6CC0220042D692 /* MWKLicense.m in Sources */,
 				D85BD2471F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.m in Sources */,
 				836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */,
