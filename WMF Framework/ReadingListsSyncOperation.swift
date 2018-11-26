@@ -382,10 +382,10 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 var results: [MWKSearchResult] = []
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
-                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, failure: { (failure) in
-                        taskGroup.leave()
-                    }, success: { (searchResult) in
-                        results.append(searchResult)
+                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result) in
+                        if let result = result {
+                            results.append(result)
+                        }
                         taskGroup.leave()
                     })
                     if i % 16 == 0 || i == countOfEntriesToCreate {
