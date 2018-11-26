@@ -24,13 +24,13 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 @implementation WMFURLSchemeHandler
 
-+ (WMFURLSchemeHandler *)sharedProxyServer {
++ (WMFURLSchemeHandler *)shared {
     static dispatch_once_t onceToken;
-    static WMFURLSchemeHandler *sharedProxyServer;
+    static WMFURLSchemeHandler *shared;
     dispatch_once(&onceToken, ^{
-        sharedProxyServer = [[WMFURLSchemeHandler alloc] init];
+        shared = [[WMFURLSchemeHandler alloc] init];
     });
-    return sharedProxyServer;
+    return shared;
 }
 
 - (instancetype)init {

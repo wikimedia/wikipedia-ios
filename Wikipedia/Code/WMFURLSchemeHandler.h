@@ -1,16 +1,15 @@
 @import Foundation;
+@import WebKit;
 
 @class MWKArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFProxyServer : NSObject
+@interface WMFURLSchemeHandler : NSObject <WKURLSchemeHandler>
 
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
-- (void)start;
-
-+ (WMFProxyServer *)sharedProxyServer;
++ (WMFURLSchemeHandler *)shared;
 
 - (nullable NSString *)localFilePathForRelativeFilePath:(NSString *)relativeFilePath; //path for writing files to the file proxy's server
 
@@ -21,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth; //replaces image URLs in an HTML string with URLs that will be routed through this proxy
 
-- (void)setResponseData:(nullable NSData *)data withContentType:(nullable NSString *)contentType forPath:(NSString *)path;
+- (void)setResponseData:(nullable NSData *)data withContentType:(nullable NSString *)contentType forPath:(NSString *)path requestURL:(NSURL *)requestURL;
 
 - (void)cacheSectionDataForArticle:(MWKArticle *)article;
 

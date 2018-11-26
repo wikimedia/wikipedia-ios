@@ -194,8 +194,8 @@ extension WKWebView {
         guard
             let url = article.url,
             let host = url.host,
-            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: host),
-            let apiURL = WMFProxyServer.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let proxyURL = WMFURLSchemeHandler.shared().proxyURL(forWikipediaAPIHost: host),
+            let apiURL = WMFURLSchemeHandler.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
                 assertionFailure("Expected url, proxyURL and encodedTitle")
                 return

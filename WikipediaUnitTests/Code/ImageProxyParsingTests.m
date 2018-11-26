@@ -1,8 +1,8 @@
 #import <XCTest/XCTest.h>
-#import "WMFProxyServer.h"
+#import "WMFURLSchemeHandler.h"
 #import "MWKTestCase.h"
 
-@interface WMFProxyServer (Testing)
+@interface WMFURLSchemeHandler (Testing)
 - (NSURL *)baseURL;
 @end
 
@@ -10,7 +10,7 @@
 @property (nonatomic, copy) NSString *baseURLString;
 @property (nonatomic, copy) NSString *proxyOriginalSrcPrefix;
 @property (nonatomic, copy) NSString *galleryAttribute;
-@property (nonatomic, strong) WMFProxyServer *proxyServer;
+@property (nonatomic, strong) WMFURLSchemeHandler *proxyServer;
 @property (nonatomic) NSUInteger imageSize;
 @end
 
@@ -19,7 +19,7 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    self.proxyServer = [WMFProxyServer sharedProxyServer];
+    self.proxyServer = [WMFURLSchemeHandler shared];
     self.baseURLString = self.proxyServer.baseURL.absoluteString;
     self.proxyOriginalSrcPrefix = [NSString stringWithFormat:@"%@/imageProxy?originalSrc=", self.baseURLString];
     self.imageSize = 640;
