@@ -647,7 +647,7 @@
 "wikitext-downloading" = "Учитавам садржај…";
 "wikitext-preview-changes" = "Преузимање прегледа ваших промена…";
 "wikitext-preview-changes-none" = "Нема промена за преглед.";
-"wikitext-preview-link-preview-description" = "Овај линк води до „$1”";
+"wikitext-preview-link-preview-description" = "Ова веза води ка „$1”";
 "wikitext-preview-link-preview-title" = "Преглед линка";
 "wikitext-upload-captcha-error" = "Грешка при CAPTCHA верификацији.";
 "wikitext-upload-captcha-needed" = "Потребна је CAPTCHA верификација.";

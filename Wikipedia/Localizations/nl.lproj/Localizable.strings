@@ -16,6 +16,7 @@
 // Author: Patio
 // Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
+// Author: Romaine
 // Author: SPQRobin
 // Author: Siebrand
 // Author: Sjoerddebruin
@@ -89,6 +90,7 @@
 "announcements-dismiss" = "Sluiten";
 "app-store-keywords" = "Wikipedia, referentie, wiki, encyclopedie, info, kennis, onderzoek, informatie, ontdekken, leren";
 "app-store-release-notes" = "Volledig aanpasbaar verkennen-tabblad welke tevens makkelijker te verkennen is. Lokalisatie, prestatieverbeteringen en foutoplossingen.";
+"app-store-short-description" = "Download de Wikipedia-app om plaatsen in uw nabijheid te ontdekken, synchroniseer artikelen om offline te lezen en pas uw leeservaring aan.";
 "app-store-subtitle" = "De vrije encyclopedie";
 "appearance-settings-adjust-text-sizing" = "Artikeltekstgrootte aanpassen";
 "appearance-settings-expand-tables" = "Tabellen uitklappen";
@@ -96,6 +98,7 @@
 "appearance-settings-image-dimming-footer" = "Verlaag de opaciteit van afbeeldingen in het donkere thema";
 "appearance-settings-reading-themes" = "Leesthema's";
 "appearance-settings-set-automatic-table-opening" = "Tabelinstellingen";
+"appearance-settings-text-sizing-example-text" = "Versleep de schuifregelaar om de tekstgrootte van het artikel te wijzigen. Gebruik de tekstgrootte van uw systeem om het formaat van andere tekstgebieden in de app te wijzigen.";
 "appearance-settings-theme-options" = "Thema-opties";
 "article-about-title" = "Over deze pagina";
 "article-delete" = "Verwijder";
@@ -105,7 +108,9 @@
 "article-languages-others" = "Andere talen";
 "article-languages-yours" = "Uw talen";
 "article-read-more-title" = "Meer lezen";
+"article-save-error-not-enough-space" = "U hebt onvoldoende ruimte op uw apparaat om dit artikel op te slaan";
 "article-share" = "Deel";
+"article-toolbar-reading-themes-controls-toolbar-item" = "Thema's bekijken";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "back-button-accessibility-label" = "Terug";
@@ -122,26 +127,46 @@
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
 "description-add-link-title" = "Titelbeschrijving toevoegen";
 "description-add-title" = "Beschrijving toevoegen";
+"description-edit-for-article" = "Titelbeschrijving voor $1";
 "description-edit-learn-more" = "Meer leren";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Door de titelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de licentie $2.";
+"description-edit-pencil-introduction" = "Bewerk inleiding";
+"description-edit-pencil-title" = "Titelbeschrijving bewerken";
+"description-edit-placeholder-title" = "Korte beschrijvingen zijn het beste";
 "description-edit-publish" = "Beschrijving publiceren";
 "description-edit-title" = "Beschrijving bewerken";
+"description-edit-warning" = "Probeer beschrijvingen kort te houden, zodat gebruikers het onderwerp van het artikel in één oogopslag kunnen begrijpen";
+"description-help-about-description" = "Titelbeschrijvingen vatten een artikel samen om lezers in een oogopslag het onderwerp te laten begrijpen.";
 "description-help-about-title" = "Over";
 "description-help-about-wikidata" = "Over Wikidata";
+"description-help-more-info-description" = "Beschrijvingen worden opgeslagen en onderhouden op Wikidata, een project van de Wikimedia Foundation dat een gratis, collaboratieve, meertalige secundaire database biedt die Wikipedia en andere projecten ondersteunt.";
 "description-help-more-info-title" = "Meer informatie";
+"description-help-tips-description" = "Beschrijvingen moeten idealiter op één regel passen en zijn tussen de twee en twaalf woorden lang. Ze worden niet met een hoofdletter geschreven tenzij het eerste woord een eigennaam is.";
+"description-help-tips-example-description-one" = "titelbeschrijving voor een pagina over de Mona Lisa";
+"description-help-tips-example-description-two" = "titelbeschrijving voor een pagina over de Mount Everest";
 "description-help-tips-example-title-one" = "schilderij van Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "de hoogste berg op aarde";
 "description-help-tips-for-example" = "Bijvoorbeeld:";
+"description-help-tips-title" = "Tips voor het aanmaken van beschrijvingen";
+"description-help-title" = "Hulp bij titelbeschrijvingen";
+"description-help-wikidata-guide" = "Wikidata-gids voor het schrijven van beschrijvingen";
 "description-published-button-title" = "Klaar";
+"description-published-footer" = "U kunt ook artikelen bewerken binnen de app. Probeer spelfouten en korte zinnen te repareren door de volgende keer te klikken op het pen-icoontje";
 "description-published-subtitle" = "U hebt Wikipedia zojuist voor iedereen beter gemaakt";
 "description-published-title" = "Beschrijving gepubliceerd!";
+"description-welcome-concise-sub-title" = "Idealiter één regel, tussen de twee en twaalf woorden";
 "description-welcome-concise-title" = "Houd het kort";
+"description-welcome-descriptions-sub-title" = "Titelbeschrijvingen vatten een pagina samen om de lezers te helpen met het begrijpen van een pagina in een oogwenk.";
+"description-welcome-descriptions-title" = "Titelbeschrijvingen";
+"description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "dim-images" = "Afbeeldingen dimmen";
 "edit-summary-choice-fixed-grammar" = "Grammatica gecorrigeerd";
@@ -228,6 +253,7 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "Het uitschakelen van het tabblad verkennen zal deze vervangen door een tabblad met instellingen.";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Door het inschakelen van kaarten schakelt u het tabblad verkennen in.";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "Verkennen inschakelen";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Dit zal het tabblad Instellingen vervangen door het tabblad Ontdekken, u kunt Instellingen openen vanaf de bovenkant van het tabblad Ontdekken door op het tandwielpictogram te klikken";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Het tabblad verkennen inschakelen?";
 "explore-feed-preferences-undo-customization" = "Ongedaan maken";
 "explore-hide-card-prompt" = "Deze kaart verbergen";
@@ -251,8 +277,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
-// Fuzzy
-"feed-news-notification-text" = "U kunt nu meldingen ontvangen over Wikipedia-pagina's die nu in het nieuws zijn.";
+"feed-news-notification-text" = "Schakel meldingen in om geïnformeerd te worden door Wikipedia wanneer artikelen trending zijn in het nieuws.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Wachtwoorden komen niet overeen";
 "field-alert-password-invalid" = "Ongeldig wachtwoord";
@@ -295,7 +320,9 @@
 "home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-location-footer" = "Meer in de buurt van $1";
 "home-news-footer" = "Meer in het nieuws";
+"home-reading-list-prompt" = "Uw opgeslagen artikelen kunnen nu in leeslijsten worden georganiseerd en op verschillende apparaten worden gesynchroniseerd. Log in om toe te staan dat uw leeslijsten worden opgeslagen in uw gebruikersvoorkeuren.";
 "home-themes-action-title" = "Voorkeuren beheren";
+"home-themes-prompt" = "Pas uw leesvoorkeuren aan, inclusief de tekstgrootte en het thema in de artikelwerkbalk of in uw gebruikersinstellingen voor een comfortabelere leeservaring.";
 "home-title" = "Verkennen";
 "home-title-accessibility-label" = "Wikipedia, scroll naar boven om te verkennen";
 "icon-shortcut-continue-reading-title" = "Verder lezen";
@@ -318,6 +345,8 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "license-footer-text" = "De inhoud is beschikbaar onder de $1 tenzij anders aangegeven.";
 "logged-out-continue-without-logging-in-button-title" = "Doorgaan zonder aan te melden";
+"logged-out-log-back-in-button-title" = "Opnieuw aanmelden bij uw account";
+"logged-out-subtitle" = "Er is een probleem opgetreden bij het verifiëren van uw account. Als u uw leeslijsten wilt synchroniseren en wilt bewerken onder uw gebruikersnaam, meldt u zich opnieuw aan.";
 "logged-out-title" = "U bent afgemeld.";
 "login-forgot-password" = "Wachtwoord vergeten?";
 "login-join-wikipedia" = "Vervoeg Wikipedia.";
@@ -417,7 +446,11 @@
 "reading-list-add-generic-hint-title" = "Deze pagina aan uw leeslijst toevoegen?";
 "reading-list-add-hint-title" = "“$1” toevoegen aan een leeslijst?";
 "reading-list-add-saved-button-title" = "Ja, voeg deze toe aan mijn leeslijsten";
+"reading-list-add-saved-subtitle" = "Er zijn artikelen opgeslagen in je Wikipedia-app. Wilt u ze bewaren en samenvoegen met leeslijsten die zijn gesynchroniseerd met uw account?";
 "reading-list-add-saved-title" = "Opgeslagen pagina's gevonden";
+"reading-list-api-error-entry-limit" = "Dit item wordt niet gesynchroniseerd omdat u de limiet heeft bereikt voor het aantal items in deze lijst.";
+"reading-list-api-error-generic" = "Er is een onverwachte fout opgetreden bij het synchroniseren van uw leeslijsten.";
+"reading-list-api-error-list-limit" = "Deze lijst wordt niet gesynchroniseerd omdat u de limiet voor het aantal gesynchroniseerde lijsten heeft bereikt.";
 "reading-list-create-new-list-button-title" = "Leeslijst aanmaken";
 "reading-list-create-new-list-description" = "Beschrijving";
 "reading-list-create-new-list-reading-list-name" = "Naam leeslijst";
@@ -428,20 +461,39 @@
 "reading-list-entry-limit-exceeded-title" = "Maximum aantal artikelen $1 per registratie bereikt.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|Artikel kan|Artikelen kunnen}} niet meer bij deze lijst. Maximum aantal leeslijsten $2 per leeslijst voor $3 bereikt.";
 "reading-list-exists-with-same-name" = "Leeslijstnaam bestaat al";
+"reading-list-generic-error" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijsten.";
 "reading-list-keep-button-title" = "Ja, bewaar de artikelen op dit apparaat";
+"reading-list-keep-subtitle" = "Er zijn artikelen gesynchroniseerd naar uw Wikipedia-account. Wilt u ze op dit apparaat houden nadat u zich hebt afgemeld?";
+"reading-list-keep-sync-disabled-additional-subtitle" = "Als u synchronisatie uitschakelt, worden deze artikelen uit uw account verwijderd. Als u ze van uw apparaat verwijdert, kunnen ze niet meer worden hersteld door de synchronisatie in de toekomst opnieuw in te schakelen.";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "Nee, verwijder artikelen van mijn apparaat en mijn Wikipedia-account";
 "reading-list-keep-title" = "Opgeslagen pagina's op dit apparaat behouden?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Artikelen sorteren";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Er is een limiet van 5000 ongesorteerde artikelen. Sorteer uw bestaande artikelen in lijsten om door te gaan met het synchroniseren van ongesorteerde artikelen.";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Limiet bereikt voor ongesorteerde artikelen";
 "reading-list-list-limit-exceeded-message" = "Deze leeslijst en erin opgeslagen artikelen worden niet gesynchroniseerd, verlaag alstublieft het lijstenaantal tot $1 om lijstsynchronisatie te hervatten.";
 "reading-list-list-limit-exceeded-title" = "Maximum aantal leeslijsten $1 per registratie bereikt.";
 "reading-list-list-limit-reached" = "Maximum aantal leeslijsten $1 per registratie bereikt";
+"reading-list-login-button-title" = "Log in om uw opgeslagen artikelen te synchroniseren";
+"reading-list-login-or-create-account-button-title" = "Aanmelden of een nieuw account aanmaken";
+"reading-list-login-or-create-account-title" = "Log in om opgeslagen artikelen te synchroniseren";
+"reading-list-login-subtitle" = "Log in of maak een account aan zodat uw opgeslagen artikelen en leeslijsten op verschillende apparaten kunnen worden gesynchroniseerd en kunnen worden opgeslagen in uw gebruikersvoorkeuren.";
 "reading-list-login-title" = "Uw opgeslagen pagina's synchroniseren?";
 "reading-list-name-user-created-annotation" = "_[aangemaakt door gebruiker]";
 "reading-list-new-list-description-placeholder" = "optionele korte beschrijving";
 "reading-list-new-list-name-placeholder" = "titel van leeslijst";
+"reading-list-sync-disabled-panel-message" = "Synchronisatie van leeslijsten is uitgeschakeld voor uw Wikipedia-account op een ander apparaat. U kunt synchronisatie weer inschakelen door uw instellingen bij te werken.";
 "reading-list-sync-disabled-panel-title" = "Synchronisatie uitgeschakeld";
 "reading-list-sync-enable-button-title" = "Synchronisatie inschakelen";
+"reading-list-sync-enable-subtitle" = "Uw opgeslagen artikelen en leeslijsten kunnen nu worden opgeslagen op uw Wikipedia-account en gesynchroniseerd met Wikipedia-apps.";
 "reading-list-sync-enable-title" = "Leeslijstsynchronisatie inschakelen?";
+"reading-list-sync-enabled-panel-message" = "Synchronisatie van leeslijsten is ingeschakeld voor dit account. Als u wilt stoppen met synchroniseren, kunt u synchronisatie uitschakelen voor dit account door uw instellingen bij te werken.";
 "reading-list-sync-enabled-panel-title" = "Synchronisatie is ingeschakeld voor dit account";
+"reading-list-unable-to-add-entry" = "Er is een onverwachte fout opgetreden bij het toevoegen van een item aan uw leeslijst. Probeer het later opnieuw.";
+"reading-list-unable-to-create" = "Er is een onverwachte fout opgetreden bij het aanmaken van uw leeslijst. Probeer het later opnieuw.";
+"reading-list-unable-to-delete" = "Er is een onverwachte fout opgetreden bij het verwijderen van uw leeslijst. Probeer het later opnieuw.";
+"reading-list-unable-to-remove-entry" = "Er is een onverwachte fout opgetreden bij het verwijderen van een item uit uw leeslijst. Probeer het later opnieuw.";
+"reading-list-unable-to-update" = "Er is een onverwachte fout opgetreden bij het bijwerken van uw leeslijst. Probeer het later opnieuw.";
+"reading-list-with-provided-name-not-found" = "Een leeslijst met de naam \"$1\" werd niet gevonden. Zorg ervoor dat u de juiste naam heeft.";
 "reading-lists-article-added-confirmation" = "Artikel toegevoegd aan “$1”";
 "reading-lists-article-api-failure" = "Niet mogelijk om pagina te synchroniseren";
 "reading-lists-article-not-synced" = "Niet gesynchroniseerd";
@@ -455,9 +507,13 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 leeslijst|$1 leeslijsten}}";
 "reading-lists-default-list-description" = "Standaardlijst voor uw opgeslagen pagina's";
 "reading-lists-default-list-title" = "Opgeslagen";
+"reading-lists-delete-reading-list-alert-message" = "Deze actie kan niet ongedaan gemaakt worden. Alle artikelen die alleen zijn opgeslagen in {{PLURAL:$1|deze lijst|deze lijsten}} zijn niet opgeslagen.";
 "reading-lists-delete-reading-list-alert-title" = "Deze {{PLURAL:$1|lijst|lijsten}} verwijderen?";
+"reading-lists-large-sync-completed" = "$1 artikelen en $2 leeslijsten gesynchroniseerd van uw account";
 "reading-lists-list-not-synced-limit-exceeded" = "Lijst niet gesynchroniseerd, maximum overschreden";
 "reading-lists-sort-saved-articles" = "Opgeslagen pagina's sorteren";
+"reading-lists-split-notification" = "Er is een limiet van $1 artikelen per leeslijst. Bestaande lijsten met meer artikelen dan deze limiet zijn opgesplitst in meerdere lijsten.";
+"reading-lists-sync-error-no-internet-connection" = "Synchronisatie wordt hervat wanneer een internetverbinding beschikbaar is";
 "reading-themes-controls-accessibility-black-theme-button" = "Zwart thema";
 "reading-themes-controls-accessibility-brightness-slider" = "Helderheidschuiver";
 "reading-themes-controls-accessibility-dark-theme-button" = "Donker thema";
@@ -471,8 +527,13 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dit jaar|Laatste jaar|$1 jaren geleden}}";
 "request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
+"reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";
 "reverted-edit-notification-read-more-action-title" = "Meer lezen";
+"reverted-edit-possible-reasons" = "- Uw bijdrage voldeed niet aan een van de richtlijnen $1\n\n- Uw bijdrage leek op een experiment of vandalisme.";
+"reverted-edit-possible-reasons-subtitle" = "We weten dat u uw best heeft gedaan, maar een van de reviewers maakt zich zorgen.\n\nMogelijke redenen waarom uw bewerking is teruggedraaid, zijn onder meer:";
 "reverted-edit-thanks-for-editing-title" = "Bedankt voor het bewerken van Wikipedia!";
+"reverted-edit-title" = "Teruggedraaide bewerking";
+"reverted-edit-view-guidelines-text" = "Bekijk de richtlijnen";
 "saved-all-articles-title" = "Alle pagina's";
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
@@ -480,6 +541,8 @@
 "saved-reading-lists-title" = "Leeslijsten";
 "saved-search-default-text" = "Zoeken";
 "saved-title" = "Opgeslagen";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "Het wissen van {{PLURAL:$1|dit artikel wist dit artikel|deze artikelen wist deze artikelen}} van alle bijbehorende leeslijsten";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "Wis opgeslagen {{PLURAL:$1|artikel|artikelen}}?";
 "search-button-accessibility-label" = "Zoeken in Wikipedia";
 "search-clear-title" = "Wissen";
 "search-did-you-mean" = "Bedoelde u $1?";
@@ -501,6 +564,7 @@
 "settings-clear-cache-ok" = "Cache wissen";
 "settings-help-and-feedback" = "Hulp en feedback";
 "settings-language-bar" = "Talen weergeven bij zoeken";
+"settings-languages-feed-customization" = "U kunt beheren welke talen worden weergegeven in uw Explore-feed door uw instellingen voor Explore-feeds aan te passen.";
 "settings-my-languages" = "Mijn talen";
 "settings-notifications" = "Meldingen";
 "settings-notifications-info" = "Word op de hoogte gesteld van actuele en populaire pagina's op Wikipedia met onze pushberichten. Allemaal geleverd met respect voor privacy en tot op de minuut vernieuwde gegevens.";
@@ -512,10 +576,17 @@
 "settings-primary-language-details" = "De eerste taal in deze lijst wordt gebruikt als standaardtaal voor de app.";
 "settings-search-footer-text" = "Stelt de app zo in dat het zoektabblad geopend wordt in plaatst van het verkennen-tabblad.";
 "settings-search-open-app-on-search" = "App op zoektabblad openen";
+"settings-storage-and-syncing-enable-sync-footer-text" = "Sta het toe dat Wikimedia uw opgeslagen artikelen en leeslijsten opslaat naar uw gebruikersvoorkeuren wanneer u inlogt en synchroniseert.";
 "settings-storage-and-syncing-enable-sync-title" = "Opgeslagen pagina's en lijsten synchroniseren";
+"settings-storage-and-syncing-erase-saved-articles-alert-message" = "Als u uw opgeslagen artikelen wist, worden ze uit uw gebruikersaccount verwijderd indien u synchroniseren ook vanaf dit apparaat heeft ingeschakeld. U kunt deze actie niet ongedaan maken.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Alle opgeslagen artikelen wissen?";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "Wissen";
+"settings-storage-and-syncing-erase-saved-articles-footer-text" = "Als u uw opgeslagen artikelen wist, worden ze uit uw gebruikersaccount verwijderd als u synchroniseren ook vanaf dit apparaat heeft ingeschakeld.\n\nAls u uw opgeslagen artikelen wist, krijgt u ongeveer $1 ruimte vrij.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Opgeslagen pagina's wissen";
+"settings-storage-and-syncing-full-sync" = "Uw leeslijsten worden op de achtergrond gesynchroniseerd";
+"settings-storage-and-syncing-server-sync-footer-text" = "Vraag een update voor uw gesynchroniseerde artikelen en leeslijsten.";
+"settings-storage-and-syncing-server-sync-title" = "Update gesynchroniseerde leeslijsten";
+"settings-storage-and-syncing-show-default-reading-list-footer-text" = "Toon de opgeslagen leeslijsten als een afzonderlijke lijst in uw leeslijstenweergave. Deze lijst wordt weergegeven op Android-apparaten.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Opgeslagen pagina's-lijst weergeven";
 "settings-storage-and-syncing-title" = "Pagina-opslag en -synchronisatie";
 "settings-support" = "Wikipedia steunen";
@@ -557,13 +628,17 @@
 "view-in-browser-footer-link" = "Artikel in browser bekijken";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
+"welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";
 "welcome-exploration-on-this-day-title" = "Op deze dag";
+"welcome-exploration-places-description" = "Ontdek bezienswaardigheden bij u in de buurt of zoek naar plaatsen in de hele wereld";
 "welcome-exploration-places-title" = "Plaatsen-tabblad";
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia wordt gezamenlijk geschreven door vrijwilligers en bestaat uit meer dan 40 miljoen artikelen in bijna 300 talen.";
 "welcome-intro-free-encyclopedia-more" = "Lees meer over Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Over Wikipedia";
+"welcome-intro-free-encyclopedia-more-description" = "Wikipedia is een wereldwijd project om een vrije encyclopedie te bouwen in alle talen van de wereld. Virtueel kan iedereen met internettoegang vrijelijk deelnemen en bijdragen in neutrale informatie die van bron voorzien is.";
 "welcome-intro-free-encyclopedia-title" = "De vrije encyclopedie";
 "welcome-languages-add-button" = "Een andere taal toevoegen";
 "welcome-languages-add-or-edit-button" = "Voorkeurstalen toevoegen of bewerken";
