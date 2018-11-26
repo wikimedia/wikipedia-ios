@@ -1,7 +1,6 @@
 #import <WMF/WMFRelatedSearchFetcher.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
 
-//AFNetworking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 #import <WMF/AFHTTPSessionManager+WMFConfig.h>
 #import <WMF/WMFMantleJSONResponseSerializer.h>

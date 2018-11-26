@@ -95,6 +95,7 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/WMFZeroConfigurationFetcher.h>
 #import <WMF/MWKSectionMetaData.h>
 #import <WMF/MWKLanguageLink.h>
+#import <WMF/WMFLegacySerializer.h>
 
 #import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageFilter.h>

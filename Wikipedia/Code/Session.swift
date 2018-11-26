@@ -308,19 +308,21 @@ import Foundation
     }
 
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
-    public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
+    @discardableResult public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         guard let url = url else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
+            return nil
         }
         guard var request = self.request(with: url, method: .get) else {
             completionHandler(nil, nil, NSError.wmf_error(with: .invalidRequestParameters))
-            return
+            return nil
         }
         if ignoreCache {
             request.cachePolicy = .reloadIgnoringLocalCacheData
         }
-        jsonDictionaryTask(with: request, completionHandler: completionHandler).resume()
+        let op = jsonDictionaryTask(with: request, completionHandler: completionHandler)
+        op.resume()
+        return op
     }
     
     @discardableResult public func apiTask(with articleURL: URL, path: [String], completionHandler: @escaping ([String: Any]?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {

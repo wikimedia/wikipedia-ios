@@ -1248,60 +1248,66 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
         saveToDisk:NO
         priority:NSURLSessionTaskPriorityHigh
         progress:^(CGFloat progress) {
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+            });
         }
         failure:^(NSError *_Nonnull error) {
-            @strongify(self);
-            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-            [self endRefreshing];
-            [self hideProgressViewAnimated:YES];
-            [self.delegate articleControllerDidLoadArticle:self];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+                [self endRefreshing];
+                [self hideProgressViewAnimated:YES];
+                [self.delegate articleControllerDidLoadArticle:self];
 
-            MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
-            if (cachedFallback) {
-                self.article = cachedFallback;
-                if (![error wmf_isNetworkConnectionError]) {
-                    // don't show offline banner for cached articles
-                    [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                              sticky:NO
-                                               dismissPreviousAlerts:NO
-                                                         tapCallBack:NULL];
-                }
-            } else if ([error wmf_isWMFErrorMissingTitle]) {
-                NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
-                if (specialPageActivity) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
-                    [self.navigationController popViewControllerAnimated:NO];
-                    return;
+                MWKArticle *cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+                if (cachedFallback) {
+                    self.article = cachedFallback;
+                    if (![error wmf_isNetworkConnectionError]) {
+                        // don't show offline banner for cached articles
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                  sticky:NO
+                                                   dismissPreviousAlerts:NO
+                                                             tapCallBack:NULL];
+                    }
+                } else if ([error wmf_isWMFErrorMissingTitle]) {
+                    NSUserActivity *specialPageActivity = [NSUserActivity wmf_specialPageActivityWithURL:self.articleURL];
+                    if (specialPageActivity) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNavigateToActivityNotification object:specialPageActivity];
+                        [self.navigationController popViewControllerAnimated:NO];
+                        return;
+                    } else {
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                                  sticky:NO
+                                                   dismissPreviousAlerts:NO
+                                                             tapCallBack:NULL];
+                    }
                 } else {
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
                     [[WMFAlertManager sharedInstance] showErrorAlert:error
                                                               sticky:NO
                                                dismissPreviousAlerts:NO
                                                          tapCallBack:NULL];
-                }
-            } else {
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad action:nil theme:self.theme frame:self.view.bounds];
-                [[WMFAlertManager sharedInstance] showErrorAlert:error
-                                                          sticky:NO
-                                           dismissPreviousAlerts:NO
-                                                     tapCallBack:NULL];
 
-                if ([error wmf_isNetworkConnectionError]) {
-                    [self.reachabilityNotifier start];
+                    if ([error wmf_isNetworkConnectionError]) {
+                        [self.reachabilityNotifier start];
+                    }
                 }
-            }
 
-            self.articleFetcherPromise = nil;
-            [self articleDidLoad];
-            [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+                [self removeHeaderImageTransitionView]; // remove here on failure, on web view callback on success
+            });
         }
         success:^(MWKArticle *_Nonnull article) {
-            @strongify(self);
-            [self endRefreshing];
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-            self.article = article;
-            self.articleFetcherPromise = nil;
-            [self articleDidLoad];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                [self endRefreshing];
+                [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+                self.article = article;
+                self.articleFetcherPromise = nil;
+                [self articleDidLoad];
+            });
         }];
 }
 
