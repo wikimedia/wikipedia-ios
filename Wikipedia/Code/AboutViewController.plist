@@ -9,7 +9,7 @@
 		<key>mit</key>
 		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/develop/LICENSE.txt</string>
 		<key>tsg</key>
-		<string>http://specialistsguild.org</string>
+		<string>https://tsgteam.org</string>
 		<key>feedback</key>
 		<string>mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:$1</string>
 		<key>twn</key>
