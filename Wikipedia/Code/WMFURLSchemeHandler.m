@@ -53,7 +53,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 #pragma mark - Task handling
 
-- (BOOL)isTaskActive:(id <WKURLSchemeTask>)task {
+- (BOOL)isTaskActive:(id<WKURLSchemeTask>)task {
     __block BOOL isActive = NO;
     if (!task) {
         return isActive;
@@ -64,7 +64,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     return isActive;
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withResponse:(nullable NSHTTPURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSHTTPURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
     if (![self isTaskActive:task]) {
         return;
     }
@@ -80,11 +80,11 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
         [task didFinish];
     } else {
-        [task didFinish];
+        [task didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]];
     }
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data requestURL:(NSURL *)requestURL error:(NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data requestURL:(NSURL *)requestURL error:(NSError *)error {
     if (error) {
         [self finishTask:task withResponse:nil data:nil error:error];
         return;
@@ -98,24 +98,24 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     [self finishTask:task withResponse:response data:data];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withResponse:(NSHTTPURLResponse *)response data:(nullable NSData *)data {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(NSHTTPURLResponse *)response data:(nullable NSData *)data {
     [self finishTask:task withResponse:response data:data error:nil];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withCachedResponse:(NSCachedURLResponse *)cachedResponse {
+- (void)finishTask:(id<WKURLSchemeTask>)task withCachedResponse:(NSCachedURLResponse *)cachedResponse {
     NSHTTPURLResponse *response = nil;
     if ([cachedResponse.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        response = (NSHTTPURLResponse *) cachedResponse.response;
+        response = (NSHTTPURLResponse *)cachedResponse.response;
     }
     [self finishTask:task withResponse:response data:cachedResponse.data];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withError:(NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withError:(NSError *)error {
     [self finishTask:task withResponse:nil data:nil error:error];
 }
 
-- (void)finishTaskWith404:(id <WKURLSchemeTask>)task requestURL:(NSURL *)requestURL {
-     [self finishTask:task withResponse:[[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:404 HTTPVersion:nil headerFields:nil] data:nil error:nil];
+- (void)finishTaskWith404:(id<WKURLSchemeTask>)task requestURL:(NSURL *)requestURL {
+    [self finishTask:task withResponse:[[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:404 HTTPVersion:nil headerFields:nil] data:nil error:nil];
 }
 
 #pragma mark - Specific Handlers
@@ -125,9 +125,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWithRequest:request
-                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                            [self finishTask:task withProxiedResponse:response data:data requestURL:URL error:error];
-                                        }];
+                                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                               [self finishTask:task withProxiedResponse:response data:data requestURL:URL error:error];
+                                                           }];
     APIRequestTask.priority = NSURLSessionTaskPriorityLow;
     [APIRequestTask resume];
 }
@@ -178,9 +178,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         NSURLSessionDataTask *downloadImgTask = [self.session dataTaskWithRequest:request
-                                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                                                    [self finishTask:task withProxiedResponse:response data:data requestURL:requestURL error:error];
-                                                                                }];
+                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                    [self finishTask:task withProxiedResponse:response data:data requestURL:requestURL error:error];
+                                                                }];
         downloadImgTask.priority = NSURLSessionTaskPriorityLow;
         [downloadImgTask resume];
     }
@@ -196,7 +196,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment {
-    if (relativeFilePath == nil ) {
+    if (relativeFilePath == nil) {
         return nil;
     }
 
@@ -367,24 +367,22 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
         return;
     }
-    
+
     dispatch_block_t notFound = ^{
         [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
     };
-    
+
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:requestURL resolvingAgainstBaseURL:NO];
     NSString *path = URLComponents.path;
     NSArray *components = [path pathComponents];
-    
-    
+
     if (components.count < 2) { //ensure components exist and there are at least three
         notFound();
         return;
     }
-    
 
     NSString *baseComponent = components[1];
-    
+
     if ([baseComponent isEqualToString:WMFAppSchemeFileBasePath]) {
         NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(2, components.count - 2)];
         NSString *relativePath = [NSString pathWithComponents:localPathComponents];
@@ -401,17 +399,17 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             notFound();
             return;
         }
-        
+
         if ([originalSrc hasPrefix:@"//"]) {
             originalSrc = [@"https:" stringByAppendingString:originalSrc];
         }
-        
+
         NSURL *imgURL = [NSURL URLWithString:originalSrc];
         if (!imgURL) {
             notFound();
             return;
         }
-        
+
         [self handleImageRequestForURL:imgURL requestURL:requestURL task:urlSchemeTask];
     } else if ([baseComponent isEqualToString:WMFSchemeHandlerArticleSectionDataBasePath]) {
         NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFSchemeHandlerArticleKeyQueryItem];
@@ -467,7 +465,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     } else if ([baseComponent isEqualToString:WMFAppSchemeAPIBasePath]) {
         NSAssert(components.count == 5, @"Expected 5 components when using WMFAppSchemeAPIBasePath");
         if (components.count == 5) {
-            
+
             // APIURL is APIProxyURL with components[3] as the host, components[4..5] as the path.
             NSURLComponents *APIProxyURLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
             APIProxyURLComponents.path = [NSString pathWithComponents:@[@"/", components[3], components[4]]];
@@ -481,7 +479,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     } else {
         notFound();
     }
-    
 }
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
