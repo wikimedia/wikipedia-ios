@@ -64,7 +64,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     return isActive;
 }
 
-- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSHTTPURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
     if (![self isTaskActive:task]) {
         return;
     }
@@ -98,16 +98,12 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     [self finishTask:task withResponse:response data:data];
 }
 
-- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(NSHTTPURLResponse *)response data:(nullable NSData *)data {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(NSURLResponse *)response data:(nullable NSData *)data {
     [self finishTask:task withResponse:response data:data error:nil];
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withCachedResponse:(NSCachedURLResponse *)cachedResponse {
-    NSHTTPURLResponse *response = nil;
-    if ([cachedResponse.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        response = (NSHTTPURLResponse *)cachedResponse.response;
-    }
-    [self finishTask:task withResponse:response data:cachedResponse.data];
+    [self finishTask:task withResponse:cachedResponse.response data:cachedResponse.data];
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withError:(NSError *)error {
