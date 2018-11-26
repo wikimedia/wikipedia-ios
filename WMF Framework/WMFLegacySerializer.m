@@ -9,15 +9,10 @@
     NSArray *maybeJSONDictionaries = [JSONDictionary valueForKeyPath:keyPath];
 
     if (![maybeJSONDictionaries isKindOfClass:[NSArray class]]) {
-        if ([maybeJSONDictionaries isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *nestedJSONDictionary = (NSDictionary *)[JSONDictionary valueForKeyPath:keyPath];
-            maybeJSONDictionaries = nestedJSONDictionary.allValues;
-        } else {
-            if (error) {
-                *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-            }
-            return nil;
+        if (error) {
+            *error = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
         }
+        return nil;
     }
     
     NSArray *JSONDictionaries = [maybeJSONDictionaries wmf_select:^BOOL(id _Nonnull maybeJSONDictionary) {
