@@ -57,7 +57,7 @@ extension WKWebView {
         guard let requestURL = WMFURLSchemeHandler.shared().proxyURL(forRelativeFilePath: requestPath, fragment: fragment ?? "top") else {
             return
         }
-        WMFURLSchemeHandler.shared().setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html", forPath: requestPath, request: requestURL)
+        WMFURLSchemeHandler.shared().setResponseData(templateAndContent.data(using: String.Encoding.utf8), withContentType: "text/html; charset=utf-8", forPath: requestPath, request: requestURL)
         loadHTMLFromAssetsFile(requestPath, scrolledToFragment: fragment)
     }
     

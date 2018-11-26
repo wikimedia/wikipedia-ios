@@ -145,7 +145,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         if ([localFileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
             NSData *data = [NSData dataWithContentsOfURL:localFileURL];
             NSMutableDictionary<NSString *, NSString *> *headerFields = [NSMutableDictionary dictionaryWithCapacity:1];
-            NSDictionary *types = @{@"css": @"text/css", @"html": @"text/html", @"js": @"application/javascript"};
+            NSDictionary *types = @{@"css": @"text/css; charset=utf-8", @"html": @"text/html; charset=utf-8", @"js": @"application/javascript; charset=utf-8"};
             NSString *pathExtension = [localFileURL pathExtension];
             if (pathExtension) {
                 [headerFields setValue:types[pathExtension] forKey:@"Content-Type"];
@@ -465,7 +465,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             notFound();
             return;
         }
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:200 HTTPVersion:nil headerFields:@{@"Content-Type": @"application/json"}];
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:200 HTTPVersion:nil headerFields:@{@"Content-Type": @"application/json; charset=utf-8"}];
         [self finishTask:urlSchemeTask withResponse:response data:JSONData];
     } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
         NSAssert(components.count == 5, @"Expected 5 components when using WMFProxyAPIBasePath");
