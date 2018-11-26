@@ -1,5 +1,5 @@
 #import "WMFURLSchemeHandler.h"
-#import <WMF/NSURL+WMFProxyServer.h>
+#import <WMF/NSURL+WMFSchemeHandler.h>
 #import "Wikipedia-Swift.h"
 #import <WMF/WMFImageTag.h>
 #import <WMF/WMFImageTag+TargetImageWidthURL.h>
@@ -7,9 +7,10 @@
 #import <WMF/WMFFIFOCache.h>
 #import "MWKArticle.h"
 
-NSString *const WMFProxyServerArticleSectionDataBasePath = @"articleSectionData";
-NSString *const WMFProxyServerArticleKeyQueryItem = @"articleKey";
-NSString *const WMFProxyServerImageWidthQueryItem = @"imageWidth";
+NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
+NSString *const WMFSchemeHandlerArticleSectionDataBasePath = @"articleSectionData";
+NSString *const WMFSchemeHandlerArticleKeyQueryItem = @"articleKey";
+NSString *const WMFSchemeHandlerImageWidthQueryItem = @"imageWidth";
 
 static const NSInteger WMFCachedResponseCountLimit = 6;
 
@@ -24,13 +25,13 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 @implementation WMFURLSchemeHandler
 
-+ (WMFURLSchemeHandler *)sharedProxyServer {
++ (WMFURLSchemeHandler *)shared {
     static dispatch_once_t onceToken;
-    static WMFURLSchemeHandler *sharedProxyServer;
+    static WMFURLSchemeHandler *shared;
     dispatch_once(&onceToken, ^{
-        sharedProxyServer = [[WMFURLSchemeHandler alloc] init];
+        shared = [[WMFURLSchemeHandler alloc] init];
     });
-    return sharedProxyServer;
+    return shared;
 }
 
 - (instancetype)init {
@@ -52,7 +53,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 #pragma mark - Task handling
 
-- (BOOL)isTaskActive:(id <WKURLSchemeTask>)task {
+- (BOOL)isTaskActive:(id<WKURLSchemeTask>)task {
     __block BOOL isActive = NO;
     if (!task) {
         return isActive;
@@ -63,7 +64,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     return isActive;
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withResponse:(nullable NSHTTPURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(nullable NSURLResponse *)response data:(nullable NSData *)data error:(nullable NSError *)error {
     if (![self isTaskActive:task]) {
         return;
     }
@@ -79,11 +80,11 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
         [task didFinish];
     } else {
-        [task didFinish];
+        [task didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]];
     }
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data requestURL:(NSURL *)requestURL error:(NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data requestURL:(NSURL *)requestURL error:(NSError *)error {
     if (error) {
         [self finishTask:task withResponse:nil data:nil error:error];
         return;
@@ -97,24 +98,20 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     [self finishTask:task withResponse:response data:data];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withResponse:(NSHTTPURLResponse *)response data:(nullable NSData *)data {
+- (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(NSURLResponse *)response data:(nullable NSData *)data {
     [self finishTask:task withResponse:response data:data error:nil];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withCachedResponse:(NSCachedURLResponse *)cachedResponse {
-    NSHTTPURLResponse *response = nil;
-    if ([cachedResponse.response isKindOfClass:[NSHTTPURLResponse class]]) {
-        response = (NSHTTPURLResponse *) cachedResponse.response;
-    }
-    [self finishTask:task withResponse:response data:cachedResponse.data];
+- (void)finishTask:(id<WKURLSchemeTask>)task withCachedResponse:(NSCachedURLResponse *)cachedResponse {
+    [self finishTask:task withResponse:cachedResponse.response data:cachedResponse.data];
 }
 
-- (void)finishTask:(id <WKURLSchemeTask>)task withError:(NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withError:(NSError *)error {
     [self finishTask:task withResponse:nil data:nil error:error];
 }
 
-- (void)finishTaskWith404:(id <WKURLSchemeTask>)task requestURL:(NSURL *)requestURL {
-     [self finishTask:task withResponse:[[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:404 HTTPVersion:nil headerFields:nil] data:nil error:nil];
+- (void)finishTaskWith404:(id<WKURLSchemeTask>)task requestURL:(NSURL *)requestURL {
+    [self finishTask:task withResponse:[[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:404 HTTPVersion:nil headerFields:nil] data:nil error:nil];
 }
 
 #pragma mark - Specific Handlers
@@ -124,9 +121,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWithRequest:request
-                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                            [self finishTask:task withProxiedResponse:response data:data requestURL:URL error:error];
-                                        }];
+                                                           completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                               [self finishTask:task withProxiedResponse:response data:data requestURL:URL error:error];
+                                                           }];
     APIRequestTask.priority = NSURLSessionTaskPriorityLow;
     [APIRequestTask resume];
 }
@@ -145,7 +142,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         if ([localFileURL getResourceValue:&isRegularFile forKey:NSURLIsRegularFileKey error:&fileReadError] && [isRegularFile boolValue]) {
             NSData *data = [NSData dataWithContentsOfURL:localFileURL];
             NSMutableDictionary<NSString *, NSString *> *headerFields = [NSMutableDictionary dictionaryWithCapacity:1];
-            NSDictionary *types = @{@"css": @"text/css", @"html": @"text/html", @"js": @"application/javascript"};
+            NSDictionary *types = @{@"css": @"text/css; charset=utf-8", @"html": @"text/html; charset=utf-8", @"js": @"application/javascript; charset=utf-8"};
             NSString *pathExtension = [localFileURL pathExtension];
             if (pathExtension) {
                 [headerFields setValue:types[pathExtension] forKey:@"Content-Type"];
@@ -177,9 +174,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         NSURLSessionDataTask *downloadImgTask = [self.session dataTaskWithRequest:request
-                                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                                                    [self finishTask:task withProxiedResponse:response data:data requestURL:requestURL error:error];
-                                                                                }];
+                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                    [self finishTask:task withProxiedResponse:response data:data requestURL:requestURL error:error];
+                                                                }];
         downloadImgTask.priority = NSURLSessionTaskPriorityLow;
         [downloadImgTask resume];
     }
@@ -189,30 +186,26 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 - (NSURLComponents *)baseURLComponents {
     NSURLComponents *components = [[NSURLComponents alloc] init];
-    components.scheme = @"wmfapp";
-    components.host = @"localhost";
+    components.scheme = WMFURLSchemeHandlerScheme;
+    components.host = @"host";
     return components;
 }
 
-- (NSURL *)proxyURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment {
-    if (relativeFilePath == nil ) {
+- (NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment {
+    if (relativeFilePath == nil) {
         return nil;
     }
 
     NSURLComponents *components = [self baseURLComponents];
-    components.path = [NSString pathWithComponents:@[@"/", WMFProxyFileBasePath, relativeFilePath]];
+    components.path = [NSString pathWithComponents:@[@"/", WMFAppSchemeFileBasePath, relativeFilePath]];
     components.fragment = fragment;
     return components.URL;
 }
 
-- (NSURL *)proxyURLForWikipediaAPIHost:(NSString *)host {
+- (NSURL *)appSchemeURLForWikipediaAPIHost:(NSString *)host {
     NSURLComponents *components = [self baseURLComponents];
-    components.path = [NSString pathWithComponents:@[@"/", WMFProxyAPIBasePath, host]];
+    components.path = [NSString pathWithComponents:@[@"/", WMFAppSchemeAPIBasePath, host]];
     return components.URL;
-}
-
-- (NSString *)localFilePathForRelativeFilePath:(NSString *)relativeFilePath {
-    return [self.hostedFolderPath stringByAppendingPathComponent:relativeFilePath];
 }
 
 #pragma - Article Section Data URLs
@@ -223,10 +216,10 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         return nil;
     }
     NSURLComponents *components = [self baseURLComponents];
-    components.path = [NSString pathWithComponents:@[@"/", WMFProxyServerArticleSectionDataBasePath]];
-    NSURLQueryItem *articleKeyQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerArticleKeyQueryItem value:key];
+    components.path = [NSString pathWithComponents:@[@"/", WMFSchemeHandlerArticleSectionDataBasePath]];
+    NSURLQueryItem *articleKeyQueryItem = [NSURLQueryItem queryItemWithName:WMFSchemeHandlerArticleKeyQueryItem value:key];
     NSString *imageWidthString = [NSString stringWithFormat:@"%lli", (long long)targetImageWidth];
-    NSURLQueryItem *imageWidthQueryItem = [NSURLQueryItem queryItemWithName:WMFProxyServerImageWidthQueryItem value:imageWidthString];
+    NSURLQueryItem *imageWidthQueryItem = [NSURLQueryItem queryItemWithName:WMFSchemeHandlerImageWidthQueryItem value:imageWidthString];
     if (!articleKeyQueryItem || !imageWidthString) {
         return nil;
     }
@@ -238,17 +231,17 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 #pragma - Image Proxy URLs
 
-- (NSURL *)proxyURLForImageURLString:(NSString *)imageURLString {
+- (NSURL *)appSchemeURLForImageURLString:(NSString *)imageURLString {
     NSURLComponents *components = [self baseURLComponents];
-    components.path = [NSString pathWithComponents:@[@"/", WMFProxyImageBasePath]];
-    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:WMFProxyImageOriginalSrcKey value:imageURLString];
+    components.path = [NSString pathWithComponents:@[@"/", WMFAppSchemeImageBasePath]];
+    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:WMFAppSchemeImageOriginalSrcKey value:imageURLString];
     if (queryItem) {
         components.queryItems = @[queryItem];
     }
     return components.URL;
 }
 
-- (NSString *)stringByReplacingImageURLsWithProxyURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
+- (NSString *)stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
 
     //defensively copy
     HTMLString = [HTMLString copy];
@@ -295,7 +288,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
 
         if (src) {
-            NSString *srcWithProxy = [self proxyURLForImageURLString:src].absoluteString;
+            NSString *srcWithProxy = [self appSchemeURLForImageURLString:src].absoluteString;
             if (srcWithProxy) {
                 NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
                 imageTag.src = newSrcAttribute;
@@ -370,32 +363,30 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
         return;
     }
-    
+
     dispatch_block_t notFound = ^{
         [urlSchemeTask didFailWithError:[NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters userInfo:nil]];
     };
-    
+
     NSURLComponents *URLComponents = [NSURLComponents componentsWithURL:requestURL resolvingAgainstBaseURL:NO];
     NSString *path = URLComponents.path;
     NSArray *components = [path pathComponents];
-    
-    
+
     if (components.count < 2) { //ensure components exist and there are at least three
         notFound();
         return;
     }
-    
 
     NSString *baseComponent = components[1];
-    
-    if ([baseComponent isEqualToString:WMFProxyFileBasePath]) {
+
+    if ([baseComponent isEqualToString:WMFAppSchemeFileBasePath]) {
         NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(2, components.count - 2)];
         NSString *relativePath = [NSString pathWithComponents:localPathComponents];
         [self handleFileRequestForRelativePath:relativePath requestURL:requestURL task:urlSchemeTask];
-    } else if ([baseComponent isEqualToString:WMFProxyImageBasePath]) {
+    } else if ([baseComponent isEqualToString:WMFAppSchemeImageBasePath]) {
         NSString *originalSrc = nil;
         for (NSURLQueryItem *item in URLComponents.queryItems) {
-            if ([item.name isEqualToString:WMFProxyImageOriginalSrcKey]) {
+            if ([item.name isEqualToString:WMFAppSchemeImageOriginalSrcKey]) {
                 originalSrc = item.value;
                 break;
             }
@@ -404,20 +395,20 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             notFound();
             return;
         }
-        
+
         if ([originalSrc hasPrefix:@"//"]) {
             originalSrc = [@"https:" stringByAppendingString:originalSrc];
         }
-        
+
         NSURL *imgURL = [NSURL URLWithString:originalSrc];
         if (!imgURL) {
             notFound();
             return;
         }
-        
+
         [self handleImageRequestForURL:imgURL requestURL:requestURL task:urlSchemeTask];
-    } else if ([baseComponent isEqualToString:WMFProxyServerArticleSectionDataBasePath]) {
-        NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFProxyServerArticleKeyQueryItem];
+    } else if ([baseComponent isEqualToString:WMFSchemeHandlerArticleSectionDataBasePath]) {
+        NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFSchemeHandlerArticleKeyQueryItem];
         if (!articleKey) {
             notFound();
             return;
@@ -427,7 +418,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             notFound();
             return;
         }
-        NSString *imageWidthString = [request.URL wmf_valueForQueryKey:WMFProxyServerImageWidthQueryItem];
+        NSString *imageWidthString = [request.URL wmf_valueForQueryKey:WMFSchemeHandlerImageWidthQueryItem];
         if (!imageWidthString) {
             notFound();
             return;
@@ -442,7 +433,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         NSMutableArray *sectionJSONs = [NSMutableArray arrayWithCapacity:count];
         NSURL *baseURL = article.url;
         for (MWKSection *section in sections) {
-            NSString *sectionHTML = [self stringByReplacingImageURLsWithProxyURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
+            NSString *sectionHTML = [self stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:section.text withBaseURL:baseURL targetImageWidth:imageWidth];
             if (!sectionHTML) {
                 continue;
             }
@@ -465,12 +456,12 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
             notFound();
             return;
         }
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:200 HTTPVersion:nil headerFields:@{@"Content-Type": @"application/json"}];
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:200 HTTPVersion:nil headerFields:@{@"Content-Type": @"application/json; charset=utf-8"}];
         [self finishTask:urlSchemeTask withResponse:response data:JSONData];
-    } else if ([baseComponent isEqualToString:WMFProxyAPIBasePath]) {
-        NSAssert(components.count == 5, @"Expected 5 components when using WMFProxyAPIBasePath");
+    } else if ([baseComponent isEqualToString:WMFAppSchemeAPIBasePath]) {
+        NSAssert(components.count == 5, @"Expected 5 components when using WMFAppSchemeAPIBasePath");
         if (components.count == 5) {
-            
+
             // APIURL is APIProxyURL with components[3] as the host, components[4..5] as the path.
             NSURLComponents *APIProxyURLComponents = [NSURLComponents componentsWithURL:request.URL resolvingAgainstBaseURL:NO];
             APIProxyURLComponents.path = [NSString pathWithComponents:@[@"/", components[3], components[4]]];
@@ -484,7 +475,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     } else {
         notFound();
     }
-    
 }
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
