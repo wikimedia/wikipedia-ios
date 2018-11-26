@@ -25,6 +25,7 @@
 // Author: Suyama
 // Author: Takot
 // Author: Thibaut120094
+// Author: Wat
 // Author: Wicklo
 // Author: WwLMvmT
 // Author: Yusuke1109
@@ -195,6 +196,7 @@
 "empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧することができます";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
+"error-generic-description" = "予期しないエラーが発生しました。";
 "error-unknown" = "不明なエラーが発生しました";
 "explore-another-random" = "おまかせで別の記事";
 "explore-because-you-read" = "こんな記事も読まれています";
@@ -208,6 +210,7 @@
 "explore-feed-preferences-additional-languages-footer-text" = "言語は「お使いになる言語」設定から追加できます。";
 "explore-feed-preferences-card-hidden-title" = "非表示にしたカード";
 "explore-feed-preferences-continue-reading-description" = "読んでいた記事にすぐ戻れるリンク";
+"explore-feed-preferences-explore-tab" = "「探してみよう」タブ";
 "explore-feed-preferences-featured-article-description" = "ウィキペディアの今日の秀逸な記事";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "オフ";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "すべてオンにする";
@@ -241,6 +244,10 @@
 "explore-feed-preferences-show-top-read-footer-text" = "よく読まれている記事カードをオフにすると、全言語版でこのカードがオフになります。";
 "explore-feed-preferences-show-top-read-title" = "よく読まれている記事カードを表示";
 "explore-feed-preferences-top-read-description" = "今日の最も読まれた記事";
+"explore-feed-preferences-turn-off-explore-feed-alert-title" = "「探してみよう」フィードをオフにしますか？";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "オフにする";
+"explore-feed-preferences-turn-off-explore-tab-title" = "「探してみよう」タブをオフにしますか？";
+"explore-feed-preferences-turn-off-feed-disclosure" = "「探してみよう」タブをオフにすると、設定タブに入れ替わります。";
 "explore-feed-preferences-undo-customization" = "取り消す";
 "explore-hide-card-prompt" = "カードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
