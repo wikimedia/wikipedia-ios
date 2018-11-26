@@ -2,15 +2,15 @@
 
 @implementation NSCharacterSet (WMFLinkParsing)
 
-+ (NSCharacterSet *)wmf_URLPathComponentAllowedCharacterSet {
++ (NSCharacterSet *)wmf_URLArticleTitlePathComponentAllowedCharacterSet {
     static dispatch_once_t onceToken;
-    static NSCharacterSet *wmf_URLPathComponentAllowedCharacterSet;
+    static NSCharacterSet *wmf_URLArticleTitleAllowedCharacterSet;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *pathAllowedCharacterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
         [pathAllowedCharacterSet removeCharactersInString:@"/."];
-        wmf_URLPathComponentAllowedCharacterSet = [pathAllowedCharacterSet copy];
+        wmf_URLArticleTitleAllowedCharacterSet = [pathAllowedCharacterSet copy];
     });
-    return wmf_URLPathComponentAllowedCharacterSet;
+    return wmf_URLArticleTitleAllowedCharacterSet;
 }
 
 + (NSCharacterSet *)wmf_URLQueryAllowedCharacterSet {

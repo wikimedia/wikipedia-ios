@@ -17,14 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
     return manager;
 }
 
-+ (instancetype)wmf_createIgnoreCacheManager {
-    NSURLSessionConfiguration *config = [WMFSession defaultConfiguration];
-    config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
-    manager.requestSerializer = [WMFBaseRequestSerializer serializer];
-    return manager;
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
