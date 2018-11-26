@@ -313,13 +313,6 @@
 "history-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع عناصرك الأخيرة؟";
 "history-clear-delete-all" = "نعم، احذف الكل";
 "history-title" = "التاريخ";
-"hockeyapp-alert-always-send" = "أرسل دائما";
-"hockeyapp-alert-do-not-send" = "لا ترسل";
-"hockeyapp-alert-privacy" = "$1 الخصوصية";
-"hockeyapp-alert-question" = "هل تود أن ترسل تقرير بالعطب إلى $1 حتى يمكن لمؤسسة ويكيميديا أن تراجع سبب العطب؟";
-"hockeyapp-alert-question-with-response-field" = "هل ترغب في إرسال تقرير عطب إلى $1 حتى يمكن لمؤسسة ويكيميديا مراجعة سبب العطب؟ يرجى وصف ما حدث حينما حدث هذا العطب.";
-"hockeyapp-alert-send-report" = "أرسل التقرير";
-"hockeyapp-alert-title" = "عذرا، تعطل التطبيق في آخر مرة";
 "home-button-explore-accessibility-label" = "ويكيبيديا، ارجع إلى استكشف";
 "home-button-history-accessibility-label" = "ويكيبيديا، ارجع إلى التاريخ";
 "home-button-saved-accessibility-label" = "ويكيبيديا، ارجع إلى المحفوظة";
@@ -365,7 +358,6 @@
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
-"main-menu-debug-crash" = "تحطم";
 "main-menu-debug-tweaks" = "إعدادات المطور";
 "main-menu-heading-debug" = "تصحيح";
 "main-menu-heading-legal" = "الشروط والخصوصية";

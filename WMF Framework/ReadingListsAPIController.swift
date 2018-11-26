@@ -118,7 +118,7 @@ extension APIReadingListEntry {
 
 class ReadingListsAPIController: NSObject {
     public let session = Session.shared // eventually doesn't have to be the singleton
-    private let api = Configuration.current.mobileAppsServicesAPIForHost("en.wikipedia.org")
+    private let api = Configuration.current.mobileAppsServicesAPIURLComponentsBuilderForHost("en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
     
     private var pendingTasks: [String: Any] = [:]
@@ -153,10 +153,9 @@ class ReadingListsAPIController: NSObject {
 
     fileprivate func get<T>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) where T : Codable {
         let key = UUID().uuidString
-        var components = api.components(byAppending: basePathComponents + path)
-        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
+        let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
-            let task = session.jsonCodableTask(components: components, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
+            let task = session.jsonCodableTask(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
                 completionHandler(nil, nil, error)
             } else {
@@ -309,8 +308,8 @@ class ReadingListsAPIController: NSObject {
         let title = title.precomposedStringWithCanonicalMapping
         let project = project.precomposedStringWithCanonicalMapping
         let bodyParams = ["project": project, "title": title]
-        // trailing slash is required, server 404s otherwise
-        post(path: ["\(listID)", "entries/"], bodyParameters: bodyParams) { (result, response, error) in
+        // "" for trailing slash is required, server 404s otherwise
+        post(path: ["\(listID)", "entries", ""], bodyParameters: bodyParams) { (result, response, error) in
             if let apiError = error as? APIReadingListError {
                 switch apiError {
                 case .duplicateEntry:
@@ -541,8 +540,8 @@ class ReadingListsAPIController: NSObject {
         if let next = next {
             queryParameters = ["next": next]
         }
-        // trailing slash is required, server 404s otherwise
-        get(path: ["\(readingListID)", "entries/"], queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
+        // "" for trailing slash is required, server 404s otherwise
+        get(path: ["\(readingListID)", "entries", ""], queryParameters: queryParameters) { (apiEntriesResponse: APIReadingListEntries?, response, error) in
             guard let apiEntriesResponse = apiEntriesResponse else {
                 completion([], error)
                 return

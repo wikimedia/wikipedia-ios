@@ -216,13 +216,6 @@
 "history-clear-confirmation-heading" = "Biztosan törölni akarod az összes korábbi elemet?";
 "history-clear-delete-all" = "Igen, összes törlése";
 "history-title" = "Előzmények";
-"hockeyapp-alert-always-send" = "Mindig küld";
-"hockeyapp-alert-do-not-send" = "Nem küld";
-"hockeyapp-alert-privacy" = "$1 adatvédelmi irányelvei";
-"hockeyapp-alert-question" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia Alapítvány megvizsgálhassa?";
-"hockeyapp-alert-question-with-response-field" = "Szeretnél küldeni egy összeomlási jelentést a(z) $1 harmadik félnek, hogy a Wikimédia Alapítvány megvizsgálhassa? Kérjük, írd le, mi történt az összeomláskor:";
-"hockeyapp-alert-send-report" = "Jelentés küldése";
-"hockeyapp-alert-title" = "Sajnáljuk, az alkalmazás összeomlott legutóbb";
 "home-button-explore-accessibility-label" = "Wikipédia, visszatérés a Felfedezéshez";
 "home-button-history-accessibility-label" = "Wikipédia, visszatérés az Előzményekhez";
 "home-button-saved-accessibility-label" = "Wikipédia, visszatérés a mentett lapokhoz";
@@ -265,7 +258,6 @@
 "main-menu-account-logout-are-you-sure" = "Biztosan ki akarsz lépni?";
 "main-menu-account-logout-cancel" = "Mégse";
 "main-menu-account-title-logged-in" = "Bejelentkezve $1 néven";
-"main-menu-debug-crash" = "Összeomlás";
 "main-menu-debug-tweaks" = "Fejlesztői beállítások";
 "main-menu-heading-debug" = "Hibakeresés";
 "main-menu-heading-legal" = "Jogi információk";

@@ -198,13 +198,6 @@
 "history-clear-confirmation-heading" = "Sidd Dir sécher datt Dir All Är rezent Elementer läsche wëllt?";
 "history-clear-delete-all" = "Jo, all läschen";
 "history-title" = "Versiounen";
-"hockeyapp-alert-always-send" = "Ëmmer schécken";
-"hockeyapp-alert-do-not-send" = "Net schécken";
-"hockeyapp-alert-privacy" = "$1-Dateschutz";
-"hockeyapp-alert-question" = "Wëllt Dir e Rapport vum Crash u $1 schécken fir datt d'Wikimedia Foundation Äre Crash ënnersiche kann?";
-"hockeyapp-alert-question-with-response-field" = "Wëllt Dir e Rapport vum Crash u(n) $1 schécke fir datt d'Wikimedia Foundation Äre Crash nokucke kann? Beschreift w.e.g. wat geschitt ass wéi de Crash geschitt ass:";
-"hockeyapp-alert-send-report" = "Rapport schécken";
-"hockeyapp-alert-title" = "Leider ass d'App déi leschte Kéier ofgestierzt";
 "home-button-explore-accessibility-label" = "Wikipedia, zréck bei d'Entdecken";
 "home-button-history-accessibility-label" = "Wikipedia, zréck op d'Versiounen";
 "home-button-saved-accessibility-label" = "Wikipedia, zréck op Gespäichert";
@@ -246,7 +239,6 @@
 "main-menu-account-logout-are-you-sure" = "Sidd Dir sécher datt Dir Iech wëllt ausloggen?";
 "main-menu-account-logout-cancel" = "Ofbriechen";
 "main-menu-account-title-logged-in" = "Ageloggt als $1";
-"main-menu-debug-crash" = "Crash";
 "main-menu-debug-tweaks" = "Astellunge fir Entwéckler";
 "main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";

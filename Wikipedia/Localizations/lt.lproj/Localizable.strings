@@ -124,11 +124,6 @@
 "history-clear-confirmation-heading" = "Ar tikrai norite ištrinti visus naujus elementus?";
 "history-clear-delete-all" = "Taip, ištrinti viską";
 "history-title" = "Istorija";
-"hockeyapp-alert-always-send" = "Visada siųsti";
-"hockeyapp-alert-do-not-send" = "Nesiųsti";
-"hockeyapp-alert-privacy" = "$1 privatumas";
-"hockeyapp-alert-send-report" = "Siųsti ataskaitą";
-"hockeyapp-alert-title" = "Atsiprašome, programėlė praeitą kartą užlūžo";
 "home-button-history-accessibility-label" = "Vikipedija, grįžti į Istoriją";
 "home-button-saved-accessibility-label" = "Vikipedija, grįžti į Išsaugota";
 "home-more-like-footer" = "Daugiau kaip $1";
@@ -157,7 +152,6 @@
 "main-menu-account-logout-are-you-sure" = "Ar tikrai norite atsijungti?";
 "main-menu-account-logout-cancel" = "Atšaukti";
 "main-menu-account-title-logged-in" = "Prisijungta kaip $1";
-"main-menu-debug-crash" = "Užlūžo";
 "main-menu-debug-tweaks" = "Kūrėjo nustatymai";
 "main-menu-heading-debug" = "Derinti";
 "main-menu-heading-legal" = "Privatumas ir sąlygos";

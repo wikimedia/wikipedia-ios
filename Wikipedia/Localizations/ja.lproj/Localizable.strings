@@ -299,13 +299,6 @@
 "history-clear-confirmation-heading" = "最近の項目をすべて削除しても構いませんか?";
 "history-clear-delete-all" = "すべて削除";
 "history-title" = "履歴";
-"hockeyapp-alert-always-send" = "常に送信";
-"hockeyapp-alert-do-not-send" = "送信しない";
-"hockeyapp-alert-privacy" = "$1 のプライバシーについて";
-"hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをウィキメディア財団がレビューできるようになります。";
-"hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをウィキメディア財団がレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";
-"hockeyapp-alert-send-report" = "レポートを送信";
-"hockeyapp-alert-title" = "申し訳ありません、前回アプリがクラッシュしました";
 "home-button-explore-accessibility-label" = "ウィキペディア、探してみように戻る";
 "home-button-history-accessibility-label" = "ウィキペディア、履歴に戻る";
 "home-button-saved-accessibility-label" = "ウィキペディア、保存済み記事に戻る";
@@ -347,7 +340,6 @@
 "main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
-"main-menu-debug-crash" = "強制終了";
 "main-menu-debug-tweaks" = "開発者向けの設定";
 "main-menu-heading-debug" = "デバッグ";
 "main-menu-heading-legal" = "プライバシーと利用規約";

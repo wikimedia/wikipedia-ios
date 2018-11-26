@@ -168,13 +168,6 @@
 "history-clear-confirmation-heading" = "Anjeun yakin hayang mupus sakabéh poin kiwari anjeun?";
 "history-clear-delete-all" = "Nya, hapus sadayana";
 "history-title" = "Jujutan";
-"hockeyapp-alert-always-send" = "Kirim terus";
-"hockeyapp-alert-do-not-send" = "Ulah ngirim";
-"hockeyapp-alert-privacy" = "Privasi $1";
-"hockeyapp-alert-question" = "Anjeun rék ngirim laporan kasalahan ka $1 sangkan Wikimédia Foundation bisa mariksa kasalahan anjeun?";
-"hockeyapp-alert-question-with-response-field" = "Anjeun rék ngirimkeun laporan kasalahan ka $1 sangkan Wikimedia Foundation bisa mariksa kasalahan anjeun? Pék émbarkeun naon nu kajadian nalika kajadianna kasalahan:";
-"hockeyapp-alert-send-report" = "Kirim laporan";
-"hockeyapp-alert-title" = "Hampura, aplikasi ruksak ku sorangan bieu téh";
 "home-button-explore-accessibility-label" = "Wikipédia, balik deui ka kaca Langlangan";
 "home-button-history-accessibility-label" = "Wikipédia, balik deui kana Jujutan";
 "home-button-saved-accessibility-label" = "Wikipédia, balik deui ka nu Kasimpen";
@@ -214,7 +207,6 @@
 "main-menu-account-logout-are-you-sure" = "Anjeun yakin rék kaluar log?";
 "main-menu-account-logout-cancel" = "Bolay";
 "main-menu-account-title-logged-in" = "Geus asup log minangka $1";
-"main-menu-debug-crash" = "Ruksak";
 "main-menu-debug-tweaks" = "Pangaturan pangembang";
 "main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privasi jeung Katangtuan";

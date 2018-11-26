@@ -26,23 +26,27 @@ public class Configuration: NSObject {
     struct Domain {
         static let wikipedia = "wikipedia.org"
         static let wikidata = "wikidata.org"
-        static let mediawiki = "mediawiki.org"
+        static let mediaWiki = "mediawiki.org"
         static let wmflabs = "wikipedia.beta.wmflabs.org"
         static let localhost = "localhost"
         static let englishWikipedia = "en.wikipedia.org"
+        static let metaWiki = "meta.wikimedia.org"
     }
     
     struct Path {
         static let wikiResource = "/wiki/"
-        static let mobileAppsServicesAPIComponents = ["", "api", "rest_v1"] // "" to get a leading /
+        static let mobileAppsServicesAPIComponents = ["api", "rest_v1"]
+        static let mediaWikiAPIComponents = ["w", "api.php"]
     }
     
-    public struct API {
+    public struct APIURLComponentsBuilder {
         let hostComponents: URLComponents
         let basePathComponents: [String]
-        func components(byAppending pathComponents: [String]) -> URLComponents {
+        
+        func components(byAppending pathComponents: [String] = [], queryParameters: [String: Any]? = nil) -> URLComponents {
             var components = hostComponents
-            components.path = (basePathComponents + pathComponents).joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
+            components.replacePercentEncodedPathWithPathComponents(basePathComponents + pathComponents)
+            components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
             return components
         }
     }
@@ -59,38 +63,51 @@ public class Configuration: NSObject {
     
     required init(defaultSiteDomain: String, otherDomains: [String] = []) {
         self.defaultSiteDomain = defaultSiteDomain
-        self.mediaWikiCookieDomain = Domain.mediawiki.withDotPrefix
+        self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
         self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
         self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain]
-        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediawiki] + otherDomains
+        self.wikiResourceDomains = [defaultSiteDomain, Domain.mediaWiki] + otherDomains
     }
     
-    func mobileAppsServicesAPIForHost(_ host: String? = nil) -> API {
+    func mobileAppsServicesAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
         switch Stage.current {
         case .local:
             let host = host ?? Domain.englishWikipedia
-            let baseComponents = ["", host, "v1"] // "" to get a leading /
+            let baseComponents = [host, "v1"] // "" to get a leading /
             var components = URLComponents()
             components.scheme = Scheme.http
             components.host = Domain.localhost
             components.port = 6927
-            return API(hostComponents: components, basePathComponents: baseComponents)
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
         default:
             var components = URLComponents()
             components.host = host ?? Domain.englishWikipedia
             components.scheme = Scheme.https
-            return API(hostComponents: components, basePathComponents: Path.mobileAppsServicesAPIComponents)
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mobileAppsServicesAPIComponents)
         }
     }
     
-    @objc(mobileAppsServicesAPIURLForHost:appendingPathComponents:)
-    public func mobileAppsServicesAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URL? {
-        let api = mobileAppsServicesAPIForHost(host)
-        return api.components(byAppending: pathComponents).url
+    func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
+        var components = URLComponents()
+        components.host = host ?? Domain.englishWikipedia
+        components.scheme = Scheme.https
+        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
     }
     
+    @objc(mobileAppsServicesAPIURLComponentsForHost:appendingPathComponents:)
+    public func mobileAppsServicesAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
+        let builder = mobileAppsServicesAPIURLComponentsBuilderForHost(host)
+        return builder.components(byAppending: pathComponents)
+    }
+    
+    @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
+    public func mediaWikiAPIURForHost(_ host: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        return builder.components(queryParameters: queryParameters)
+    }
+
     @objc public static let current: Configuration = {
         switch Stage.current {
         case .local:
