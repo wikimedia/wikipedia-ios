@@ -8,7 +8,6 @@
 //Plan to refactor settings into an another object, then we can remove this.
 #import <WMF/SessionSingleton.h>
 
-//AFNetworking
 #import <WMF/MWNetworkActivityIndicatorManager.h>
 
 // Revisions
