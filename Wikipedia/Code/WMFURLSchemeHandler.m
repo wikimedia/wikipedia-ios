@@ -7,6 +7,7 @@
 #import <WMF/WMFFIFOCache.h>
 #import "MWKArticle.h"
 
+NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
 NSString *const WMFProxyServerArticleSectionDataBasePath = @"articleSectionData";
 NSString *const WMFProxyServerArticleKeyQueryItem = @"articleKey";
 NSString *const WMFProxyServerImageWidthQueryItem = @"imageWidth";
@@ -189,8 +190,8 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 - (NSURLComponents *)baseURLComponents {
     NSURLComponents *components = [[NSURLComponents alloc] init];
-    components.scheme = @"wmfapp";
-    components.host = @"localhost";
+    components.scheme = WMFURLSchemeHandlerScheme;
+    components.host = @"host";
     return components;
 }
 

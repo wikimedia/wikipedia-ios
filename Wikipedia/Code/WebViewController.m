@@ -622,7 +622,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
-    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:@"wmfapp"];
+    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:WMFURLSchemeHandlerScheme];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
