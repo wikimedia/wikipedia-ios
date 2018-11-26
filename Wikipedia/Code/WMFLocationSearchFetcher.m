@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
+
 @implementation WMFLocationSearchFetcher
 
 - (instancetype)init {
@@ -40,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
                       completion:(void (^)(WMFLocationSearchResults *results))completion
                          failure:(void (^)(NSError *error))failure {
     CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:1000 identifier:@""];
-     [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit completion:completion failure:failure];
+    [self fetchArticlesWithSiteURL:siteURL inRegion:region matchingSearchTerm:nil sortStyle:WMFLocationSearchSortStyleNone resultLimit:resultLimit completion:completion failure:failure];
 }
 
 - (void)fetchArticlesWithSiteURL:(NSURL *)siteURL
@@ -60,8 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.session getJSONDictionaryFromURL:url
                                ignoreCache:YES
                          completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
-
-                             NSError *noResultsError = [NSError errorWithDomain:@"org.wikimedia.location.search" code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
+                             NSError *noResultsError = [NSError errorWithDomain:WMFLocationSearchErrorDomain code:WMFLocationSearchErrorCodeNoResults userInfo:@{NSLocalizedDescriptionKey: WMFLocalizedStringWithDefaultValue(@"empty-no-search-results-message", nil, nil, @"No results found", @"Shown when there are no search results")}];
 
                              if (error) {
                                  if (![[error domain] isEqualToString:NSURLErrorDomain]) {
