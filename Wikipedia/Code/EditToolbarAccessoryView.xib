@@ -19,33 +19,49 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="en8-Lh-EYg" userLabel="Content View">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
-                        <toolbar opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGy-58-5v3" customClass="WMFEditToolbar">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
+                            <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik">
+                                    <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                                </stackView>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="44" id="81z-rb-LEh"/>
+                                <constraint firstAttribute="bottom" secondItem="ajR-7a-Sik" secondAttribute="bottom" id="24Z-8o-CkO"/>
+                                <constraint firstAttribute="trailing" secondItem="ajR-7a-Sik" secondAttribute="trailing" id="J5g-me-4g4"/>
+                                <constraint firstItem="ajR-7a-Sik" firstAttribute="top" secondItem="vhM-bx-p7p" secondAttribute="top" id="dzU-Tm-IPJ"/>
+                                <constraint firstItem="ajR-7a-Sik" firstAttribute="leading" secondItem="vhM-bx-p7p" secondAttribute="leading" id="tfq-kw-aLq"/>
+                                <constraint firstAttribute="height" constant="44" id="uUe-NX-pgk"/>
                             </constraints>
-                            <items>
-                                <barButtonItem title="A" id="bc7-Lw-4JC"/>
-                            </items>
-                            <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
                             </userDefinedRuntimeAttributes>
-                        </toolbar>
+                        </view>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25k-rm-GLR">
+                            <rect key="frame" x="339" y="10" width="28" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="28" id="FXM-NJ-7Zk"/>
+                                <constraint firstAttribute="height" constant="24" id="rje-us-hjK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" image="chevron-btn-right"/>
+                            <connections>
+                                <action selector="slideToRevealMoreActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="386-6f-DSc"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="trailing" secondItem="en8-Lh-EYg" secondAttribute="trailing" id="fvp-Tr-eLB"/>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="bottom" secondItem="Ejg-1I-4Wg" secondAttribute="bottom" id="ga4-xi-PYn"/>
-                        <constraint firstItem="XGy-58-5v3" firstAttribute="leading" secondItem="en8-Lh-EYg" secondAttribute="leading" id="u8D-tm-mXG"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="top" secondItem="en8-Lh-EYg" secondAttribute="top" id="Fau-kU-Joo"/>
+                        <constraint firstItem="25k-rm-GLR" firstAttribute="centerY" secondItem="vhM-bx-p7p" secondAttribute="centerY" id="G2e-GN-cd5"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="25k-rm-GLR" secondAttribute="trailing" id="J8O-hU-YG9"/>
+                        <constraint firstAttribute="height" priority="999" constant="44" id="Tsw-bQ-u9m"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="bottom" secondItem="ILl-o6-Fsg" secondAttribute="bottom" id="myo-fF-FF5"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="leading" secondItem="en8-Lh-EYg" secondAttribute="leading" id="pHM-7H-VVk"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="trailing" secondItem="25k-rm-GLR" secondAttribute="leading" id="tJh-nc-a1X"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="Ejg-1I-4Wg"/>
+                    <viewLayoutGuide key="safeArea" id="ILl-o6-Fsg"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,9 +73,13 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="editToolbar" destination="XGy-58-5v3" id="Igo-Qj-0y9"/>
+                <outlet property="chevronButton" destination="25k-rm-GLR" id="2zq-aJ-pCp"/>
+                <outlet property="stackView" destination="ajR-7a-Sik" id="xc8-7a-mMJ"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
     </objects>
+    <resources>
+        <image name="chevron-btn-right" width="700" height="600"/>
+    </resources>
 </document>
