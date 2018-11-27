@@ -180,7 +180,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     return components;
 }
 
-- (NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment {
+- (NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(nullable NSString *)fragment {
     if (relativeFilePath == nil) {
         return nil;
     }
