@@ -67,9 +67,10 @@
     // "loginWithSavedCredentials..." should help ensure the user will only appear to be logged in when
     // they reach the 'publish' screen if they actually still are logged in. (It uses the "currentlyLoggedInUserFetcher"
     // to try to ensure this.)
-    [[WMFAuthenticationManager sharedInstance] loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
-        DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
-    }
+    [[WMFAuthenticationManager sharedInstance]
+        loginWithSavedCredentialsWithSuccess:^(WMFAccountLoginResult *_Nonnull success) {
+            DDLogDebug(@"\n\nSuccessfully logged in with saved credentials for user '%@'.\n\n", success.username);
+        }
         userAlreadyLoggedInHandler:^(WMFCurrentlyLoggedInUser *_Nonnull currentLoggedInHandler) {
             DDLogDebug(@"\n\nUser '%@' is already logged in.\n\n", currentLoggedInHandler.name);
         }
@@ -302,13 +303,6 @@
             [textView scrollRectToVisible:cursorRectInTextView animated:YES];
         }
     }
-}
-
-#pragma mark Memory
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark Accessibility
