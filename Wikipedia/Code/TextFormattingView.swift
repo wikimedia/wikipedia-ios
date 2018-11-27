@@ -1,28 +1,27 @@
 import UIKit
 
-@objc(WMFTextFormattingViewControllerDelegate)
-protocol TextFormattingViewControllerDelegate: class {
-    func textFormattingViewControllerDidTapCloseButton(_ textFormattingViewController: TextFormattingViewController, button: UIButton)
+@objc(WMFTextFormattingViewDelegate)
+protocol TextFormattingViewDelegate: class {
+    func textFormattingViewDidTapCloseButton(_ textFormattingView: TextFormattingView, button: UIButton)
 }
 
-@objc(WMFTextFormattingViewController)
-class TextFormattingViewController: UIViewController {
-    @objc weak var delegate: TextFormattingViewControllerDelegate?
-
-    private var theme = Theme.standard
+@objc(WMFTextFormattingView)
+class TextFormattingView: UIView {
+    @objc weak var delegate: TextFormattingViewDelegate?
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-
-    // buttons
-
     @IBOutlet weak var styleTitleLabel: UILabel!
     @IBOutlet weak var styleDisclosureButton: AlignedImageButton!
-
     @IBOutlet weak var textSizeTitleLabel: UILabel!
     @IBOutlet weak var textSizeDisclosureButton: AlignedImageButton!
-
     @IBOutlet weak var clearButton: UIButton!
+
+    @objc static func loadFromNib() -> TextFormattingView {
+        let nib = UINib(nibName: "TextFormattingView", bundle: Bundle.main)
+        let view = nib.instantiate(withOwner: nil, options: nil).first as! TextFormattingView
+        return view
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -39,16 +38,13 @@ class TextFormattingViewController: UIViewController {
     }
 
     @IBAction private func close(_ sender: UIButton) {
-        delegate?.textFormattingViewControllerDidTapCloseButton(self, button: sender)
+        delegate?.textFormattingViewDidTapCloseButton(self, button: sender)
     }
+
 }
 
-extension TextFormattingViewController: Themeable {
+extension TextFormattingView: Themeable {
     func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            self.theme = theme
-            return
-        }
         titleLabel.textColor = theme.colors.primaryText
         styleTitleLabel.textColor = theme.colors.primaryText
         textSizeTitleLabel.textColor = theme.colors.primaryText
@@ -57,6 +53,5 @@ extension TextFormattingViewController: Themeable {
         textSizeDisclosureButton.titleLabel?.textColor = theme.colors.primaryText
 
         styleDisclosureButton.tintColor = UIColor.red
-
     }
 }
