@@ -164,9 +164,9 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
         NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request
-                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                                    [self finishTask:task withProxiedResponse:response data:data error:error];
-                                                                }];
+                                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                 [self finishTask:task withProxiedResponse:response data:data error:error];
+                                                             }];
         [downloadTask resume];
     }
 }
@@ -219,7 +219,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 #pragma - Image Proxy URLs
-
 
 - (NSString *)stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
 
@@ -429,15 +428,11 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
         notFound();
     } else {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:requestURL resolvingAgainstBaseURL:NO];
-        components.scheme = @"https";
-        
-        NSURL *proxiedURL = components.URL;
+        NSURL *proxiedURL = [requestURL wmf_originalURLFromAppSchemeURL];
         if (!proxiedURL) {
             notFound();
             return;
         }
-        
         NSMutableURLRequest *mutableRequest = [request mutableCopy];
         mutableRequest.URL = proxiedURL;
         [self handleProxiedRequest:mutableRequest task:urlSchemeTask];
