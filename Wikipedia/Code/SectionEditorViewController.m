@@ -89,7 +89,12 @@
 }
 
 - (UIView *)inputAccessoryView {
-    return self.editTextView.inputView ? nil : self.editToolbarAccessoryView;
+    if (self.editTextView.inputView) {
+        return nil;
+    } else {
+        [self.editToolbarAccessoryView applyTheme:self.theme];
+        return self.editToolbarAccessoryView;
+    }
 }
 
 - (void)xButtonPressed {
@@ -330,7 +335,13 @@
 #pragma mark TextFormattingView visibility
 
 - (void)setTextFormattingViewHidden:(BOOL)hidden {
-    UIView *inputView = hidden ? nil : self.textFormattingView;
+    UIView *inputView;
+
+    if (!hidden) {
+        [self.textFormattingView applyTheme:self.theme];
+        inputView = self.textFormattingView;
+    }
+
     self.editTextView.inputView = inputView;
 
     [self setCursorPositionIfNeeded];
