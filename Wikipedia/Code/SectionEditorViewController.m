@@ -318,12 +318,6 @@
     return YES;
 }
 
-#pragma mark WMFEditToolbarDelegate
-
-- (void)editToolbarDidPressMoreItem:(WMFEditToolbar *)editToolbar item:(UIBarButtonItem *)item {
-    NSLog(@"");
-}
-
 #pragma mark WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
