@@ -61,6 +61,7 @@
     self.viewKeyboardRect = CGRectNull;
 
     self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
+    self.editToolbarAccessoryView.buttonDelegate = self;
 
     [self applyTheme:self.theme];
 
@@ -312,6 +313,11 @@
     return YES;
 }
 
+#pragma mark WMFEditToolbarAccessoryViewButtonDelegate
+
+- (void)editToolbarAccessoryViewDidTapTextFormattingButton:(WMFEditToolbarAccessoryView *)editToolbarAccessoryView button:(UIButton *)button {
+    [self setTextViewFormattingContainerHidden:NO];
+}
 #pragma mark WMFThemeable
 
 - (void)applyTheme:(WMFTheme *)theme {
