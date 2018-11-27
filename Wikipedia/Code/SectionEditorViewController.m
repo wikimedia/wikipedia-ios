@@ -330,18 +330,33 @@
 #pragma mark TextFormattingView visibility
 
 - (void)setTextFormattingViewHidden:(BOOL)hidden {
-    UIResponder *responder = self.isFirstResponder ? self : self.editTextView;
-    if (hidden) {
-        self.editTextView.inputView = nil;
-    } else {
-        self.editTextView.inputView = self.textFormattingView;
-    }
-    [self resetResponder:responder];
+    UIView *inputView = hidden ? nil : self.textFormattingView;
+    self.editTextView.inputView = inputView;
+
+    [self setCursorPositionIfNeeded];
+
+    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.3
+                                                                                  curve:UIViewAnimationCurveEaseInOut
+                                                                             animations:^{
+                                                                                 [self.view endEditing:YES];
+                                                                             }];
+
+    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
+        [self.editTextView becomeFirstResponder];
+    }];
+
+    [animator startAnimation];
 }
 
-- (void)resetResponder:(UIResponder *)responder {
-    [responder resignFirstResponder];
-    [responder becomeFirstResponder];
+- (void)setCursorPositionIfNeeded {
+    BOOL shouldSetCursor = self.editTextView.selectedTextRange.empty;
+
+    if (!shouldSetCursor) {
+        return;
+    }
+
+    UITextPosition *newPosition = self.editTextView.beginningOfDocument;
+    self.editTextView.selectedTextRange = [self.editTextView textRangeFromPosition:newPosition toPosition:newPosition];
 }
 
 #pragma mark WMFThemeable
