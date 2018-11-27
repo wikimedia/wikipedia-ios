@@ -60,7 +60,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="chevron-btn-right"/>
                             <connections>
-                                <action selector="slideToRevealMoreActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="386-6f-DSc"/>
+                                <action selector="revealMoreActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="LON-QE-uG1"/>
                             </connections>
                         </button>
                     </subviews>

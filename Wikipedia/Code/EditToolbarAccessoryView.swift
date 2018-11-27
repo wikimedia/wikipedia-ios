@@ -98,34 +98,63 @@ class EditToolbarAccessoryView: UIView {
     @objc private func addOrderedList(_ sender: UIBarButtonItem) {
     }
 
-    @IBAction private func slideToRevealMoreActions(_ sender: UIButton) {
+    private enum ActionsType: CGFloat {
+        case `default`
+        case secondary
+
+        init(rawValue: RawValue) {
+            if rawValue == 0 {
+                self = .secondary
+            } else {
+                self = .default
+            }
+        }
+    }
+
+    @IBAction private func revealMoreActions(_ sender: UIButton) {
         let offsetX = scrollView.contentOffset.x
+        let actionsType = ActionsType(rawValue: offsetX)
+        revealMoreActions(ofType: actionsType, with: sender, animated: true)
+    }
+
+    private func revealMoreActions(ofType actionsType: ActionsType, with sender: UIButton, animated: Bool) {
         let transform = CGAffineTransform.identity
-        let buttonAnimation: () -> Void
+        let buttonTransform: () -> Void
         let newOffsetX: CGFloat
 
-        if offsetX == 0 {
-            buttonAnimation = {
+        switch actionsType {
+        case .default:
+            buttonTransform = {
+                sender.transform = transform
+            }
+            newOffsetX = 0
+        case .secondary:
+            buttonTransform = {
                 sender.transform = transform.rotated(by: 180 * CGFloat.pi)
                 sender.transform = transform.rotated(by: -1 * CGFloat.pi)
             }
             newOffsetX = stackView.bounds.width / 2
-        } else {
-            buttonAnimation = {
-                sender.transform = transform
-            }
-            newOffsetX = 0
         }
 
-        let scrollViewAnimation = {
+        let scrollViewContentOffsetChange = {
             self.scrollView.setContentOffset(CGPoint(x: newOffsetX , y: 0), animated: false)
         }
 
-        let buttonAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7, animations: buttonAnimation)
-        let stackViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: scrollViewAnimation)
+        if animated {
+            let buttonAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7, animations: buttonTransform)
+            let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: scrollViewContentOffsetChange)
 
-        buttonAnimator.startAnimation()
-        stackViewAnimator.startAnimation()
+            buttonAnimator.startAnimation()
+            scrollViewAnimator.startAnimation()
+        } else {
+            buttonTransform()
+            scrollViewContentOffsetChange()
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        revealMoreActions(ofType: .default, with: chevronButton, animated: false)
     }
 
     // MARK: Setting items
@@ -134,6 +163,8 @@ class EditToolbarAccessoryView: UIView {
         stackView.arrangedSubviews.forEach { $0.isHidden = true }
         views.forEach { self.stackView.addArrangedSubview($0) }
     }
+
+    // MARK: Size
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height + 1)
