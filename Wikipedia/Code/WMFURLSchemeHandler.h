@@ -5,7 +5,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const WMFURLSchemeHandlerScheme;
 
 @interface WMFURLSchemeHandler : NSObject <WKURLSchemeHandler>
 
