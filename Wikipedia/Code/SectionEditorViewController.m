@@ -11,13 +11,12 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarItemDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewButtonDelegate, WMFTextFormattingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
-@property (strong, nonatomic) WMFEditToolbar *editToolbar;
 @property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
 @property (strong, nonatomic) WMFTheme *theme;
 
