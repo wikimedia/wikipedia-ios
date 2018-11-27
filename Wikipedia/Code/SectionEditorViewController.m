@@ -349,7 +349,7 @@
 }
 
 - (void)setCursorPositionIfNeeded {
-    BOOL shouldSetCursor = self.editTextView.selectedTextRange.empty;
+    BOOL shouldSetCursor = !self.editTextView.isFirstResponder;
 
     if (!shouldSetCursor) {
         return;
