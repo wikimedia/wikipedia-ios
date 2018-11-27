@@ -35,6 +35,12 @@ public class AlignedImageButton: UIButton {
             adjustInsets()
         }
     }
+
+    @IBInspectable open var imageVerticalInset: CGFloat = 0 {
+        didSet {
+            adjustInsets()
+        }
+    }
     
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -71,7 +77,7 @@ public class AlignedImageButton: UIButton {
     
     fileprivate func adjustInsets() {
         let inset = semanticContentAttribute == .forceRightToLeft ? -0.5 * horizontalSpacing : 0.5 * horizontalSpacing
-        imageEdgeInsets = UIEdgeInsets(top: 0, left: -inset, bottom: 0, right: inset)
+        imageEdgeInsets = UIEdgeInsets(top: imageVerticalInset, left: -inset, bottom: imageVerticalInset, right: inset)
         titleEdgeInsets = UIEdgeInsets(top: verticalPadding, left: inset, bottom: verticalPadding, right: -inset)
         contentEdgeInsets = UIEdgeInsets(top: verticalPadding, left: abs(inset) + leftPadding, bottom: verticalPadding, right: abs(inset) + rightPadding)
     }
