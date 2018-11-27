@@ -1,5 +1,5 @@
 #import "MWKLanguageLinkFetcher.h"
-@import AFNetworking.AFHTTPSessionManager;
+@import WMF.AFNetworking;
 @import WMF.MWNetworkActivityIndicatorManager;
 @import WMF.WMFNetworkUtilities;
 @import WMF.MWKLanguageLinkResponseSerializer;

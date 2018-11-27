@@ -1,6 +1,5 @@
 #import "WikiTextSectionUploader.h"
 #import "NSObject+WMFExtras.h"
-@import AFNetworking;
 @import WMF;
 
 @interface WikiTextSectionUploader ()
