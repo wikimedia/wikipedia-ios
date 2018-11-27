@@ -171,13 +171,6 @@
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете видалити усі Ваші недавні елементи?";
 "history-clear-delete-all" = "Так, видалити усі";
 "history-title" = "Історія";
-"hockeyapp-alert-always-send" = "Завжди надсилати";
-"hockeyapp-alert-do-not-send" = "Не надсилати";
-"hockeyapp-alert-privacy" = "Приватність $1";
-"hockeyapp-alert-question" = "Хочете надіслати звіт до $1, щоб у Фонді Вікімедіа могли дослідити Ваш випадок «падіння»?";
-"hockeyapp-alert-question-with-response-field" = "Хочете надіслати звіт до $1, щоб у Фонді Вікімедіа могли дослідити Ваш випадок «падіння»? Будь ласка, опишіть, що сталося:";
-"hockeyapp-alert-send-report" = "Надіслати звіт";
-"hockeyapp-alert-title" = "Перепрошуємо, минулого разу програма «впала»";
 "home-button-explore-accessibility-label" = "Вікіпедія, повернутися до розділу Досліджуйте";
 "home-button-history-accessibility-label" = "Вікіпедія, повернутися до Історії";
 "home-button-saved-accessibility-label" = "Вікіпедія, повернутися до Збереженого";
@@ -217,7 +210,6 @@
 "main-menu-account-logout-are-you-sure" = "Ви впевнені, що хочете вийти?";
 "main-menu-account-logout-cancel" = "Скасувати";
 "main-menu-account-title-logged-in" = "Увійшов в систему як $1";
-"main-menu-debug-crash" = "Падіння";
 "main-menu-debug-tweaks" = "Налаштування для розробників";
 "main-menu-heading-debug" = "Налагодження";
 "main-menu-heading-legal" = "Приватність та умови";

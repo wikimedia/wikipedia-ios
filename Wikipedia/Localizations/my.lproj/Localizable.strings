@@ -221,11 +221,6 @@
 "history-clear-confirmation-heading" = "မကြာမီကစာရင်းများအား ဖျက်ပစ်ရန် သေချာပါသလား?";
 "history-clear-delete-all" = "မှန်သည်၊ အားလုံးဖျက်ပါ";
 "history-title" = "ရာဇဝင်";
-"hockeyapp-alert-always-send" = "အမြဲတမ်းပို့ရန်";
-"hockeyapp-alert-do-not-send" = "မပို့ပါနှင့်";
-"hockeyapp-alert-privacy" = "$1 ပုဂ္ဂိုလ်ရေးလုံခြုံမှု";
-"hockeyapp-alert-send-report" = "အစီရင်ခံချက် ပို့ရန်";
-"hockeyapp-alert-title" = "စိတ်မကောင်းပါ။ နောက်ဆုံးအကြိမ်က app သည် crash ဖြစ်ခဲ့သည်။";
 "home-button-explore-accessibility-label" = "ဝီကီပီးဒီးယား၊ စူးစမ်းရေးသို့ ပြန်သွားရန်";
 "home-button-history-accessibility-label" = "ဝီကီပီးဒီးယား၊ ရာဇဝင်သို့ ပြန်သွားရန်";
 "home-button-saved-accessibility-label" = "ဝီကီပီးဒီးယား၊ သိမ်းဆည်းရာသို့ ပြန်သွားရန်";

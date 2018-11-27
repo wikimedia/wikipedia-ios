@@ -264,13 +264,6 @@
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
 "history-clear-delete-all" = "Có, xóa toàn bộ";
 "history-title" = "Lịch sử";
-"hockeyapp-alert-always-send" = "Luôn gửi";
-"hockeyapp-alert-do-not-send" = "Đừng gửi";
-"hockeyapp-alert-privacy" = "Quyền riêng tư $1";
-"hockeyapp-alert-question" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để Quỹ Wikimedia có thể xem lại sự cố của bạn?";
-"hockeyapp-alert-question-with-response-field" = "Bạn có muốn gửi bản báo cáo sự cố cho $1 để Quỹ Wikimedia sửa lỗi này? Vui lòng miêu tả những gì đã xảy ra vào lúc sự cố:";
-"hockeyapp-alert-send-report" = "Gửi báo cáo";
-"hockeyapp-alert-title" = "Rất tiếc, ứng dụng gặp sự cố lần vừa rồi";
 "home-button-explore-accessibility-label" = "Wikipedia, quay về Thám hiểm";
 "home-button-history-accessibility-label" = "Wikipedia, quay về Lịch sử";
 "home-button-saved-accessibility-label" = "Wikipedia, quay về Đã lưu";
@@ -312,7 +305,6 @@
 "main-menu-account-logout-are-you-sure" = "Bạn có chắc chắn muốn đăng xuất?";
 "main-menu-account-logout-cancel" = "Hủy bỏ";
 "main-menu-account-title-logged-in" = "Đã đăng nhập là $1.";
-"main-menu-debug-crash" = "Gây Sự cố";
 "main-menu-debug-tweaks" = "Tùy chọn cho nhà phát triển";
 "main-menu-heading-debug" = "Gỡ lỗi";
 "main-menu-heading-legal" = "Thông tin pháp luật";

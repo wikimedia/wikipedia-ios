@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:URL];
 
-    if (!article.displayTitle) {
+    if (!article.displayTitleHTML) {
         return;
     }
 

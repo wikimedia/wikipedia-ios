@@ -36,6 +36,7 @@
 "about-libraries-complete-list" = "فهرست کامل";
 "about-libraries-license" = "اجازه‌نامه";
 "about-libraries-licenses-title" = "ما عاشق نرم‌افزار متن باز $1 هستیم";
+"about-places-maps-license" = "مجوز نقشهٔ مکان‌ها";
 "about-product-of" = "شاید $1 با کمک داوطلبانی مانند شما";
 "about-repositories" = "مخازن";
 "about-repositories-app-source-license" = "سورس کد تحت $1 در دسترس است.";
@@ -238,13 +239,6 @@
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همه موارد اخیر را حذف کنید؟";
 "history-clear-delete-all" = "بله، حذف همه";
 "history-title" = "تاریخچه";
-"hockeyapp-alert-always-send" = "همیشه ارسال کن";
-"hockeyapp-alert-do-not-send" = "ارسال نکن";
-"hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
-"hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بنیاد ویکی‌مدیا بتواند آن‌را بررسی کند؟";
-"hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا بنیاد ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";
-"hockeyapp-alert-send-report" = "ارسال گزارش";
-"hockeyapp-alert-title" = "متاسفیم، نرم‌افزار در بار پیشین از کار افتاد";
 "home-button-explore-accessibility-label" = "ویکی‌پدیا، بازگشت به کاوش";
 "home-button-history-accessibility-label" = "ویکی‌پدیا، بازگشت به تاریخچه";
 "home-button-saved-accessibility-label" = "ویکی‌پدیا، بازگشت به ذخیره‌شده";
@@ -286,7 +280,6 @@
 "main-menu-account-logout-are-you-sure" = "آیا مطمئن هستید که می‌خواهید خارج شوید؟";
 "main-menu-account-logout-cancel" = "لغو";
 "main-menu-account-title-logged-in" = "ورود به عنوان $1";
-"main-menu-debug-crash" = "از کار افتادن";
 "main-menu-debug-tweaks" = "تنظیمات توسعه دهنده";
 "main-menu-heading-debug" = "اشکال‌زدائی";
 "main-menu-heading-legal" = "سیاست‌ها و محرمانگی";

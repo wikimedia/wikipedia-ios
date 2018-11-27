@@ -318,13 +318,6 @@
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
 "history-clear-delete-all" = "Evet, tümünü sil";
 "history-title" = "Geçmiş";
-"hockeyapp-alert-always-send" = "Her zaman gönder";
-"hockeyapp-alert-do-not-send" = "Gönderme";
-"hockeyapp-alert-privacy" = "$1 gizliliği";
-"hockeyapp-alert-question" = "Wikimedia Vakfı'nın kilitlenmenizi inceleyebilmesi için $1'e kilitlenme raporu göndermek ister misiniz?";
-"hockeyapp-alert-question-with-response-field" = "Wikimedia Vakfı'nın kilitlenmenizi inceleyebilmesi için $1'e kilitlenme raporu göndermek ister misiniz? Lütfen kilitlenme gerçekleştiği sırada ne olduğunu anlatın:";
-"hockeyapp-alert-send-report" = "Rapor gönder";
-"hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
 "home-button-explore-accessibility-label" = "Vikipedi, Keşfet'e dön";
 "home-button-history-accessibility-label" = "Vikipedi, Geçmiş'e dön";
 "home-button-saved-accessibility-label" = "Vikipedi, Kaydedilenler'e dön";
@@ -370,7 +363,6 @@
 "main-menu-account-logout-are-you-sure" = "Oturumu kapatmak istediğinizden emin misiniz?";
 "main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
-"main-menu-debug-crash" = "Çökme";
 "main-menu-debug-tweaks" = "Geliştirici ayarları";
 "main-menu-heading-debug" = "Hata ayıklama";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";

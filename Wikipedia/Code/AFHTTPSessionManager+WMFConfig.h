@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)wmf_createDefaultManager;
 
-+ (instancetype)wmf_createIgnoreCacheManager;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
+    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:WMFURLSchemeHandlerScheme];
     return configuration;
 }
 

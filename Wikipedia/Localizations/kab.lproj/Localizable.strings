@@ -165,13 +165,6 @@
 "history-clear-confirmation-heading" = "Tebɣiḍ ad tekkseḍ akk iferdisen n melmi kan?";
 "history-clear-delete-all" = "Ih, kkes akk";
 "history-title" = "Amazray";
-"hockeyapp-alert-always-send" = "Azen yal tikelt";
-"hockeyapp-alert-do-not-send" = "Ur ttazen ara";
-"hockeyapp-alert-privacy" = "Tabaḍnit n $1";
-"hockeyapp-alert-question" = "Tebɣiḍ ad tazneḍ aneqqis n uɣelly ar $1 akken tasbeddit Wikimedia ad tezmir ad walli aneqqis-ik?";
-"hockeyapp-alert-question-with-response-field" = "Tebɣiḍ ad tazneḍ aneqqis n uɣelluy ar $1 akken tasbeddit Wikipedia ad tt-walit? Ma ulac aɣilif, mudd-d aglam n wayen yeḍran ticki yeḍra-d uɣelluy.";
-"hockeyapp-alert-send-report" = "Azen aneqqis";
-"hockeyapp-alert-title" = "Suref-aɣ, asnas yeɣli tagara-agi";
 "home-button-explore-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-history-accessibility-label" = "Wikipedia, uɣal ar umazray";
 "home-button-saved-accessibility-label" = "Wikipedia, uɣal ar Yettwasekles";
@@ -211,7 +204,6 @@
 "main-menu-account-logout-are-you-sure" = "Tebɣiḍ ad teffɣed?";
 "main-menu-account-logout-cancel" = "Sefsex";
 "main-menu-account-title-logged-in" = "Yeqqen s yisem $1";
-"main-menu-debug-crash" = "Ɣli";
 "main-menu-debug-tweaks" = "Iɣewwaṛen n uneflay";
 "main-menu-heading-debug" = "Tamseɣtayt";
 "main-menu-heading-legal" = "Tabaḍnit d tiwtilin";

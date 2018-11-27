@@ -67,44 +67,43 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         @weakify(self)
-            [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL
-                failure:^(NSError *error) {
+        [self.fetcher fetchRandomArticleWithSiteURL:self.siteURL completion:^(NSError * _Nullable error, MWKSearchResult * _Nullable result) {
+            if (error || !result) {
+                if (completion) {
+                    completion();
+                }
+            } else {
+                @strongify(self);
+                if (!self) {
                     if (completion) {
                         completion();
                     }
+                    return;
                 }
-                success:^(MWKSearchResult *result) {
-                    @strongify(self);
-                    if (!self) {
-                        if (completion) {
-                            completion();
-                        }
-                        return;
-                    }
 
-                    NSURL *articleURL = [result articleURLForSiteURL:siteURL];
-                    if (!articleURL) {
-                        if (completion) {
-                            completion();
-                        }
-                        return;
+                NSURL *articleURL = [result articleURLForSiteURL:siteURL];
+                if (!articleURL) {
+                    if (completion) {
+                        completion();
                     }
-                    [moc performBlock:^{
-                        [moc fetchOrCreateGroupForURL:contentGroupURL
-                                               ofKind:WMFContentGroupKindRandom
-                                              forDate:date
-                                          withSiteURL:siteURL
-                                    associatedContent:nil
-                                   customizationBlock:^(WMFContentGroup *_Nonnull group) {
-                                       group.contentPreview = articleURL;
-                                   }];
-                        [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
-                        if (completion) {
-                            completion();
-                        }
-                    }];
-
+                    return;
+                }
+                [moc performBlock:^{
+                    [moc fetchOrCreateGroupForURL:contentGroupURL
+                                           ofKind:WMFContentGroupKindRandom
+                                          forDate:date
+                                      withSiteURL:siteURL
+                                associatedContent:nil
+                               customizationBlock:^(WMFContentGroup *_Nonnull group) {
+                                   group.contentPreview = articleURL;
+                               }];
+                    [moc fetchOrCreateArticleWithURL:articleURL updatedWithSearchResult:result];
+                    if (completion) {
+                        completion();
+                    }
                 }];
+            }
+        }];
     }];
 }
 

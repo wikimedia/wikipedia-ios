@@ -318,13 +318,6 @@
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
 "history-clear-delete-all" = "Sim, apagar tudo";
 "history-title" = "Histórico";
-"hockeyapp-alert-always-send" = "Sempre enviar";
-"hockeyapp-alert-do-not-send" = "Não enviar";
-"hockeyapp-alert-privacy" = "$1 privacidade";
-"hockeyapp-alert-question" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema?";
-"hockeyapp-alert-question-with-response-field" = "Gostaria de enviar um relatório da falha para $1 para que a Fundação Wikimedia possa resolver o seu problema? Por favor, descreva o que ocorreu quando o erro aconteceu:";
-"hockeyapp-alert-send-report" = "Enviar relatório";
-"hockeyapp-alert-title" = "Desculpe, o aplicativo encerrou inesperadamente da última vez";
 "home-button-explore-accessibility-label" = "Wikipedia, retornar a Explorar";
 "home-button-history-accessibility-label" = "Wikipedia, voltar para História";
 "home-button-saved-accessibility-label" = "Wikipédia, Retornar para Savado";
@@ -370,7 +363,6 @@
 "main-menu-account-logout-are-you-sure" = "Você tem certeza que quer sair?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Autenticado como $1";
-"main-menu-debug-crash" = "Falha";
 "main-menu-debug-tweaks" = "Configurações de desenvolvedor";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Termos";

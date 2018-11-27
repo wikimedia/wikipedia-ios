@@ -275,7 +275,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
                                        NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
 
-                                       selectedImageURL = [selectedImageURL wmf_imageProxyOriginalSrcURL];
+                                       selectedImageURL = [selectedImageURL wmf_imageAppSchemeOriginalSrcURL];
 
                                        [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
                                    }];
@@ -622,7 +622,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         self.wkUserContentControllerTestingConfigurationBlock(userContentController);
     }
 #endif
-
+    [configuration setURLSchemeHandler:[WMFURLSchemeHandler shared] forURLScheme:WMFURLSchemeHandlerScheme];
     configuration.userContentController = userContentController;
     configuration.applicationNameForUserAgent = @"WikipediaApp";
     return configuration;
@@ -874,8 +874,8 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
     self.headerHeightConstraint.constant = headerHeight;
     CGFloat marginWidth = [self marginWidthForSize:self.view.bounds.size];
 
-    WMFProxyServer *proxy = [WMFProxyServer sharedProxyServer];
-    [proxy cacheSectionDataForArticle:self.article];
+    WMFURLSchemeHandler *handler = [WMFURLSchemeHandler shared];
+    [handler cacheSectionDataForArticle:self.article];
 
     [self.webView loadHTML:@"" baseURL:self.article.url withAssetsFile:@"index.html" scrolledToFragment:self.articleURL.fragment padding:UIEdgeInsetsMake(headerHeight, marginWidth, 0, marginWidth) theme:self.theme];
 

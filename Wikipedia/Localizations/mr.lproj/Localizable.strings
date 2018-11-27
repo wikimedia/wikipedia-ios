@@ -95,11 +95,6 @@
 "history-clear-confirmation-heading" = "आपण हे निश्चित करता काय कि आपणास आपल्या अलीकडील सर्व बाबी वगळायच्या आहेत?";
 "history-clear-delete-all" = "होय, सर्व वगळा";
 "history-title" = "इतिहास";
-"hockeyapp-alert-always-send" = "नेहमीच पाठवा";
-"hockeyapp-alert-do-not-send" = "पाठवू नका";
-"hockeyapp-alert-privacy" = "$1 गुप्तता";
-"hockeyapp-alert-send-report" = "अहवाल पाठवा";
-"hockeyapp-alert-title" = "माफ करा, मागील वेळी अॲप क्रॲश झाले होते";
 "home-more-like-footer" = "अधिक $1 सारखे";
 // Fuzzy
 "home-nearby-footer" = "आपल्या जवळपासच्या ठिकाणांबाबत अधिक";
@@ -126,7 +121,6 @@
 "main-menu-account-logout-are-you-sure" = "आपण निश्चित करता काय कि आपणास निर्गमित व्हायचे आहे?";
 "main-menu-account-logout-cancel" = "रद्द करा";
 "main-menu-account-title-logged-in" = "सनोंद प्रवेशित $1 म्हणून";
-"main-menu-debug-crash" = "नेस्तनाबूत";
 "main-menu-debug-tweaks" = "विकसकाच्या स्थापण्या";
 "main-menu-heading-debug" = "गणकदोष काढा";
 "main-menu-heading-legal" = "गुप्तता व अटी";

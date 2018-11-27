@@ -156,13 +156,6 @@
 "history-clear-confirmation-heading" = "Jeste li sigurni da želite obrisati sve nedavne stavke?";
 "history-clear-delete-all" = "Da, obriši sve";
 "history-title" = "Historija";
-"hockeyapp-alert-always-send" = "Uvijek pošalji";
-"hockeyapp-alert-do-not-send" = "Ne šalji";
-"hockeyapp-alert-privacy" = "Politika privatnosti $1a";
-"hockeyapp-alert-question" = "Želite li $1u poslati izvještaj o rušenju aplikacije da bi Zadužbina Wikimedia mogla ispitati problem?";
-"hockeyapp-alert-question-with-response-field" = "Želite li $1u poslati izvještaj o rušenju da Zadužbina Wikimedia može ispitati problem? Opišite šta se dogodilo kad se aplikacija srušila:";
-"hockeyapp-alert-send-report" = "Pošalji izvještaj";
-"hockeyapp-alert-title" = "Izvinjavamo se, aplikacija se srušila prethodni put";
 "home-button-explore-accessibility-label" = "Wikipedia, nazad na ekran Istraži";
 "home-button-history-accessibility-label" = "Wikipedia, nazad na ekran Historija";
 "home-button-saved-accessibility-label" = "Wikipedia, nazad na ekran Sačuvano";
@@ -199,7 +192,6 @@
 "main-menu-account-logout-are-you-sure" = "Jeste li sigurni da se želite odjaviti?";
 "main-menu-account-logout-cancel" = "Odustani";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kao $1";
-"main-menu-debug-crash" = "Sruši se";
 "main-menu-debug-tweaks" = "Postavke za programere";
 "main-menu-heading-debug" = "Ispravke";
 "main-menu-heading-legal" = "Privatnost i uslovi";

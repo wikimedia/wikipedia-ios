@@ -39,11 +39,11 @@
     [super viewDidAppear:animated];
     NSURL *siteURL = self.siteURL;
     WMFRandomArticleFetcher *fetcher = [[WMFRandomArticleFetcher alloc] init];
-    [fetcher fetchRandomArticleWithSiteURL:siteURL
-        failure:^(NSError *error) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        success:^(MWKSearchResult *result) {
+    [fetcher fetchRandomArticleWithSiteURL:siteURL completion:^(NSError * _Nullable error, MWKSearchResult * _Nullable result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (error || !result) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            } else {}
             NSURL *titleURL = [result articleURLForSiteURL:siteURL];
             WMFRandomArticleViewController *randomArticleVC = [[WMFRandomArticleViewController alloc] initWithArticleURL:titleURL dataStore:self.dataStore theme:self.theme];
 #if WMF_TWEAKS_ENABLED
@@ -52,7 +52,8 @@
             NSMutableArray *viewControllers = [self.navigationController.viewControllers mutableCopy];
             [viewControllers replaceObjectAtIndex:viewControllers.count - 1 withObject:randomArticleVC];
             [self.navigationController setViewControllers:viewControllers];
-        }];
+        });
+    }];
 }
 
 - (void)applyTheme:(WMFTheme *)theme {

@@ -226,15 +226,39 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
-+ (instancetype)wmf_yearMonthDayPathDateFormatter {
++ (instancetype)wmf_yearFormatter {
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateFormat = @"yyyy'/'MM'/'dd";
+        _dateFormatter.dateFormat = @"yyyy";
         _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
     });
     return _dateFormatter;
 }
+
++ (instancetype)wmf_monthFormatter {
+    static NSDateFormatter *_dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateFormat = @"MM";
+        _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+    });
+    return _dateFormatter;
+}
+
+
++ (instancetype)wmf_dayFormatter {
+    static NSDateFormatter *_dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateFormat = @"dd";
+        _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+    });
+    return _dateFormatter;
+}
+
 
 @end

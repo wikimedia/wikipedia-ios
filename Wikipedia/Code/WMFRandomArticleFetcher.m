@@ -1,18 +1,16 @@
 #import <WMF/WMFRandomArticleFetcher.h>
 #import <WMF/MWNetworkActivityIndicatorManager.h>
-#import <WMF/AFHTTPSessionManager+WMFConfig.h>
-#import <WMF/WMFApiJsonResponseSerializer.h>
-#import <WMF/WMFMantleJSONResponseSerializer.h>
 #import <WMF/WMFNumberOfExtractCharacters.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 #import <WMF/MWKSearchResult.h>
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLegacySerializer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
 
-@property (nonatomic, strong) AFHTTPSessionManager *operationManager;
+@property (nonatomic, strong) WMFSession *session;
 
 @end
 
@@ -21,37 +19,48 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager wmf_createDefaultManager];
-        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages" emptyValueForJSONKeypathAllowed:NO];
-        self.operationManager = manager;
+        self.session = [WMFSession shared];
     }
     return self;
 }
 
-- (void)dealloc {
-    [self.operationManager invalidateSessionCancelingTasks:YES];
-}
+- (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL completion:(void (^)(NSError *_Nullable error, MWKSearchResult *_Nullable result))completion {
+    NSParameterAssert(siteURL);
+    if (siteURL == nil) {
+        NSError *error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:nil];
+        completion(error, nil);
+        return;
+    }
 
-- (BOOL)isFetching {
-    return [[self.operationManager operationQueue] operationCount] > 0;
-}
-
-- (void)fetchRandomArticleWithSiteURL:(NSURL *)siteURL failure:(nonnull WMFErrorHandler)failure success:(nonnull WMFMWKSearchResultHandler)success {
     NSDictionary *params = [[self class] params];
+    NSURLComponents *components = [WMFConfiguration.current mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params];
 
-    [self.operationManager wmf_apiZeroSafeGETWithURL:siteURL
-        parameters:params
-        success:^(NSURLSessionDataTask *operation, NSArray *responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+    [self.session getJSONDictionaryFromURL:components.URL
+                               ignoreCache:YES
+                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
+                             if (error) {
+                                 completion(error, nil);
+                                 return;
+                             }
 
-            MWKSearchResult *article = [self getBestRandomResultFromResults:responseObject];
+                             if (response.statusCode == 304) {
+                                 NSError *error = [NSError wmf_errorWithType:WMFErrorTypeNoNewData userInfo:nil];
+                                 completion(error, nil);
+                                 return;
+                             }
 
-            success(article);
-        }
-        failure:^(NSURLSessionDataTask *operation, NSError *error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            failure(error);
-        }];
+                             NSError *serializerError = nil;
+                             NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+                             if (serializerError) {
+                                 completion(serializerError, nil);
+                                 return;
+                             }
+
+                             MWKSearchResult *article = [self getBestRandomResultFromResults:randomResults];
+
+                             completion(nil, article);
+                         }];
 }
 
 - (MWKSearchResult *)getBestRandomResultFromResults:(NSArray *)results {

@@ -307,13 +307,6 @@
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
 "history-clear-delete-all" = "Sí, esborra-ho tot";
 "history-title" = "Historial";
-"hockeyapp-alert-always-send" = "Envia sempre";
-"hockeyapp-alert-do-not-send" = "No enviïs";
-"hockeyapp-alert-privacy" = "Privadesa de $1";
-"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi?";
-"hockeyapp-alert-question-with-response-field" = "Voleu enviar un informe de fallada a $1 perquè la Fundació Wikimedia el revisi? Descriviu què ha passat quan s'ha produït la fallada:";
-"hockeyapp-alert-send-report" = "Envia l'informe";
-"hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "home-button-explore-accessibility-label" = "Viquipèdia, torna a Exploreu";
 "home-button-history-accessibility-label" = "Viquipèdia, torna a l'historial";
 "home-button-saved-accessibility-label" = "Viquipèdia, torna a Desats";
@@ -359,7 +352,6 @@
 "main-menu-account-logout-are-you-sure" = "Esteu segur que voleu finalitzar la sessió?";
 "main-menu-account-logout-cancel" = "Cancel·la";
 "main-menu-account-title-logged-in" = "Sessió iniciada com a $1";
-"main-menu-debug-crash" = "Fallada";
 "main-menu-debug-tweaks" = "Paràmetres de desenvolupament";
 "main-menu-heading-debug" = "Depuració";
 "main-menu-heading-legal" = "Privadesa i condicions";
