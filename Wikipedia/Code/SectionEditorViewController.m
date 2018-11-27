@@ -318,18 +318,18 @@
 #pragma mark WMFEditToolbarAccessoryViewButtonDelegate
 
 - (void)editToolbarAccessoryViewDidTapTextFormattingButton:(WMFEditToolbarAccessoryView *)editToolbarAccessoryView button:(UIButton *)button {
-    [self setTextViewFormattingContainerHidden:NO];
+    [self setTextFormattingViewHidden:NO];
 }
 
 #pragma mark WMFTextFormattingViewDelegate
 
 - (void)textFormattingViewDidTapCloseButton:(WMFTextFormattingView *)textFormattingView button:(UIButton *)button {
-    [self setTextViewFormattingContainerHidden:YES];
+    [self setTextFormattingViewHidden:YES];
 }
 
-#pragma mark TextViewFormattingContainer
+#pragma mark TextFormattingView visibility
 
-- (void)setTextViewFormattingContainerHidden:(BOOL)hidden {
+- (void)setTextFormattingViewHidden:(BOOL)hidden {
     UIResponder *responder = self.isFirstResponder ? self : self.editTextView;
     if (hidden) {
         self.editTextView.inputView = nil;
