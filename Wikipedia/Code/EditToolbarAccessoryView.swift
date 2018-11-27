@@ -14,6 +14,8 @@ protocol EditToolbarAccessoryViewDelegate: class {
 class EditToolbarAccessoryView: UIView {
     @objc weak var delegate: EditToolbarAccessoryViewDelegate?
 
+    @IBOutlet weak var scrollView: UIScrollView!
+
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
 
@@ -27,10 +29,7 @@ class EditToolbarAccessoryView: UIView {
         super.awakeFromNib()
         addTopShadow()
         defaultViews.forEach { self.stackView.addArrangedSubview($0) }
-        secondaryViews.forEach {
-            $0.isHidden = true
-            self.stackView.addArrangedSubview($0)
-        }
+        secondaryViews.forEach { self.stackView.addArrangedSubview($0) }
         chevronButton.imageView?.contentMode = .scaleAspectFit
     }
 
@@ -108,31 +107,29 @@ class EditToolbarAccessoryView: UIView {
         let type = ChevronButtonType(rawValue: sender.tag)
         let transform = CGAffineTransform.identity
         let buttonAnimation: () -> Void
-        let stackViewAnimation: () -> Void
+        let newOffsetX: CGFloat
 
         if type == .default {
             buttonAnimation = {
                 sender.transform = transform.rotated(by: 180 * CGFloat.pi)
                 sender.transform = transform.rotated(by: -1 * CGFloat.pi)
             }
-            stackViewAnimation = {
-                self.defaultViews.forEach { $0.isHidden = true }
-                self.secondaryViews.forEach { $0.isHidden = false }
-            }
+            newOffsetX = stackView.bounds.width / 2
             sender.tag = 1
         } else {
             buttonAnimation = {
                 sender.transform = transform
             }
-            stackViewAnimation = {
-                self.secondaryViews.forEach { $0.isHidden = true }
-                self.defaultViews.forEach { $0.isHidden = false }
-            }
+            newOffsetX = 0
             sender.tag = 0
         }
 
+        let scrollViewAnimation = {
+            self.scrollView.setContentOffset(CGPoint(x: newOffsetX , y: 0), animated: false)
+        }
+
         let buttonAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7, animations: buttonAnimation)
-        let stackViewAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .linear, animations: stackViewAnimation)
+        let stackViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: scrollViewAnimation)
 
         buttonAnimator.startAnimation()
         stackViewAnimator.startAnimation()
