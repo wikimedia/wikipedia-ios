@@ -56,6 +56,11 @@ class TextFormattingView: UIView {
         layer.shadowRadius = 10
         layer.shadowOpacity = 1.0
     }
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: bounds.width, height: bounds.height + 1)
+    }
+
 }
 
 extension TextFormattingView: Themeable {
