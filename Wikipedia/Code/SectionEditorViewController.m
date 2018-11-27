@@ -60,8 +60,7 @@
 
     self.viewKeyboardRect = CGRectNull;
 
-    self.editToolbarAccessoryView = [[[NSBundle mainBundle] loadNibNamed:@"EditToolbarAccessoryView" owner:nil options:nil] firstObject];
-    self.editToolbarAccessoryView.editToolbar.itemDelegate = self;
+    self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
 
     [self applyTheme:self.theme];
 
