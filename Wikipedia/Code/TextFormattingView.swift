@@ -17,10 +17,18 @@ class TextFormattingView: UIView {
     @IBOutlet weak var textSizeDisclosureButton: AlignedImageButton!
     @IBOutlet weak var clearButton: UIButton!
 
+    @IBOutlet var separators: [UIView] = []
+
     @objc static func loadFromNib() -> TextFormattingView {
         let nib = UINib(nibName: "TextFormattingView", bundle: Bundle.main)
         let view = nib.instantiate(withOwner: nil, options: nil).first as! TextFormattingView
         return view
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateFonts()
+        addTopShadow()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -41,6 +49,13 @@ class TextFormattingView: UIView {
         delegate?.textFormattingViewDidTapCloseButton(self, button: sender)
     }
 
+    // MARK: Shadow
+
+    private func addTopShadow() {
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1.0
+    }
 }
 
 extension TextFormattingView: Themeable {
@@ -52,6 +67,10 @@ extension TextFormattingView: Themeable {
         styleDisclosureButton.titleLabel?.textColor = theme.colors.primaryText
         textSizeDisclosureButton.titleLabel?.textColor = theme.colors.primaryText
 
-        styleDisclosureButton.tintColor = UIColor.red
+        clearButton.tintColor = theme.colors.error
+
+        separators.forEach { $0.backgroundColor = theme.colors.border }
+
+        layer.shadowColor = theme.colors.shadow.cgColor
     }
 }
