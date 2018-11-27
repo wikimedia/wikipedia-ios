@@ -98,30 +98,23 @@ class EditToolbarAccessoryView: UIView {
     @objc private func addOrderedList(_ sender: UIBarButtonItem) {
     }
 
-    private enum ChevronButtonType: Int {
-        case `default`
-        case secondary
-    }
-
-    @IBAction func slideToRevealMoreActions(_ sender: UIButton) {
-        let type = ChevronButtonType(rawValue: sender.tag)
+    @IBAction private func slideToRevealMoreActions(_ sender: UIButton) {
+        let offsetX = scrollView.contentOffset.x
         let transform = CGAffineTransform.identity
         let buttonAnimation: () -> Void
         let newOffsetX: CGFloat
 
-        if type == .default {
+        if offsetX == 0 {
             buttonAnimation = {
                 sender.transform = transform.rotated(by: 180 * CGFloat.pi)
                 sender.transform = transform.rotated(by: -1 * CGFloat.pi)
             }
             newOffsetX = stackView.bounds.width / 2
-            sender.tag = 1
         } else {
             buttonAnimation = {
                 sender.transform = transform
             }
             newOffsetX = 0
-            sender.tag = 0
         }
 
         let scrollViewAnimation = {
