@@ -3,6 +3,11 @@ import UIKit
 @objc(WMFAlignedImageButton)
 public class AlignedImageButton: UIButton {
 
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        imageView?.contentMode = contentMode
+    }
+
     /// Spacing between the image and title
     @IBInspectable open var horizontalSpacing: CGFloat = 8 {
         didSet {
