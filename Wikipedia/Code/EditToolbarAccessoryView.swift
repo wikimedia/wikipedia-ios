@@ -25,7 +25,7 @@ class EditToolbarAccessoryView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addTopShadow(with: Theme.standard)
+        addTopShadow()
         defaultViews.forEach { self.stackView.addArrangedSubview($0) }
         secondaryViews.forEach {
             $0.isHidden = true
@@ -151,14 +151,16 @@ class EditToolbarAccessoryView: UIView {
 
     // MARK: Shadow
 
-    private func addTopShadow(with theme: Theme) {
+    private func addTopShadow() {
         layer.shadowOffset = CGSize(width: 0, height: -2)
         layer.shadowRadius = 10
-        layer.shadowColor = theme.colors.shadow.cgColor
         layer.shadowOpacity = 1.0
     }
 
 }
 
+extension EditToolbarAccessoryView: Themeable {
+    func apply(theme: Theme) {
+        layer.shadowColor = theme.colors.shadow.cgColor
     }
 }
