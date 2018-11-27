@@ -1,7 +1,7 @@
 import UIKit
 
-@objc(WMFEditToolbarAccessoryViewButtonDelegate)
-protocol EditToolbarAccessoryViewButtonDelegate: class {
+@objc(WMFEditToolbarAccessoryViewDelegate)
+protocol EditToolbarAccessoryViewDelegate: class {
     func editToolbarAccessoryViewDidTapTextFormattingButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
     func editToolbarAccessoryViewDidTapHeaderFormattingButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
     func editToolbarAccessoryViewDidTapAddCitationButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
@@ -12,7 +12,7 @@ protocol EditToolbarAccessoryViewButtonDelegate: class {
 
 @objc(WMFEditToolbarAccessoryView)
 class EditToolbarAccessoryView: UIView {
-    @objc weak var buttonDelegate: EditToolbarAccessoryViewButtonDelegate?
+    @objc weak var delegate: EditToolbarAccessoryViewDelegate?
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
@@ -81,7 +81,7 @@ class EditToolbarAccessoryView: UIView {
     // MARK: Button actions
 
     @objc private func formatText(_ sender: UIButton) {
-        buttonDelegate?.editToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.editToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
     }
 
     @objc private func formatHeader(_ sender: UIBarButtonItem) {

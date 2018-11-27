@@ -11,7 +11,7 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewButtonDelegate, WMFTextFormattingViewDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFTextFormattingViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
@@ -62,7 +62,7 @@
     self.viewKeyboardRect = CGRectNull;
 
     self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
-    self.editToolbarAccessoryView.buttonDelegate = self;
+    self.editToolbarAccessoryView.delegate = self;
 
     self.textFormattingView = [WMFTextFormattingView loadFromNib];
     self.textFormattingView.delegate = self;
@@ -320,7 +320,7 @@
     return YES;
 }
 
-#pragma mark WMFEditToolbarAccessoryViewButtonDelegate
+#pragma mark WMFEditToolbarAccessoryViewDelegate
 
 - (void)editToolbarAccessoryViewDidTapTextFormattingButton:(WMFEditToolbarAccessoryView *)editToolbarAccessoryView button:(UIButton *)button {
     [self setTextFormattingViewHidden:NO];
