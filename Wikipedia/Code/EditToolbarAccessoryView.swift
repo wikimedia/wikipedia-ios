@@ -182,6 +182,7 @@ class EditToolbarAccessoryView: UIView {
 
 extension EditToolbarAccessoryView: Themeable {
     func apply(theme: Theme) {
+        backgroundColor = theme.colors.midBackground
         layer.shadowColor = theme.colors.shadow.cgColor
     }
 }

@@ -198,7 +198,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-hB-IaI" customClass="WMFAlignedImageButton">
+                                        <button contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcd-hB-IaI" customClass="WMFAlignedImageButton">
                                             <rect key="frame" x="262" y="0.0" width="83" height="30"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <state key="normal" title="Paragraph" image="chevron-right">
@@ -243,7 +243,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9o-oD-0bH" customClass="WMFAlignedImageButton">
+                                        <button contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9o-oD-0bH" customClass="WMFAlignedImageButton">
                                             <rect key="frame" x="283" y="0.0" width="62" height="30"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <state key="normal" title="Normal" image="chevron-right">
@@ -307,9 +307,9 @@
             <connections>
                 <outlet property="clearButton" destination="cav-7T-oPR" id="S9t-Vm-lP0"/>
                 <outlet property="closeButton" destination="kMw-Wk-gYf" id="gxK-Be-e7B"/>
-                <outlet property="styleDisclosureButton" destination="hcd-hB-IaI" id="dH5-c3-HuK"/>
+                <outlet property="styleDisclosureButton" destination="hcd-hB-IaI" id="SFW-Lu-sF4"/>
                 <outlet property="styleTitleLabel" destination="riZ-ZR-aB4" id="Kwb-tC-9m5"/>
-                <outlet property="textSizeDisclosureButton" destination="c9o-oD-0bH" id="h9j-Vx-Zr6"/>
+                <outlet property="textSizeDisclosureButton" destination="c9o-oD-0bH" id="WQX-OX-A1v"/>
                 <outlet property="textSizeTitleLabel" destination="nFx-Ix-teN" id="qJk-ld-yza"/>
                 <outlet property="titleLabel" destination="mts-I7-Cwa" id="O4q-2E-DGs"/>
                 <outletCollection property="separators" destination="qtO-np-34M" collectionClass="NSMutableArray" id="GIb-lr-lno"/>

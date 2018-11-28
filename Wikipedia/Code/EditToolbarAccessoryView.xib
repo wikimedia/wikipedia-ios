@@ -30,7 +30,6 @@
                                             <gestureRecognizers/>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="ajR-7a-Sik" secondAttribute="bottom" id="24Z-8o-CkO"/>
                                         <constraint firstAttribute="trailing" secondItem="ajR-7a-Sik" secondAttribute="trailing" id="J5g-me-4g4"/>
@@ -64,7 +63,6 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ILl-o6-Fsg" firstAttribute="bottom" secondItem="ZnR-ux-s6T" secondAttribute="bottom" id="01O-VZ-INN"/>
                         <constraint firstItem="ZnR-ux-s6T" firstAttribute="top" secondItem="en8-Lh-EYg" secondAttribute="top" id="3RE-uu-Ul3"/>

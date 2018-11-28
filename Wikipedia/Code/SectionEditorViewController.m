@@ -382,6 +382,7 @@
     self.editTextView.backgroundColor = theme.colors.paperBackground;
     self.editTextView.textColor = theme.colors.primaryText;
     self.view.backgroundColor = theme.colors.paperBackground;
+    self.editTextView.keyboardAppearance = theme.keyboardAppearance;
 }
 
 @end

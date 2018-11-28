@@ -65,12 +65,14 @@ class TextFormattingView: UIView {
 
 extension TextFormattingView: Themeable {
     func apply(theme: Theme) {
+        backgroundColor = theme.colors.midBackground
+
         titleLabel.textColor = theme.colors.primaryText
         styleTitleLabel.textColor = theme.colors.primaryText
         textSizeTitleLabel.textColor = theme.colors.primaryText
 
-        styleDisclosureButton.titleLabel?.textColor = theme.colors.primaryText
-        textSizeDisclosureButton.titleLabel?.textColor = theme.colors.primaryText
+        styleDisclosureButton.setTitleColor(theme.colors.primaryText, for: .normal)
+        textSizeDisclosureButton.setTitleColor(theme.colors.primaryText, for: .normal)
 
         clearButton.tintColor = theme.colors.error
 
