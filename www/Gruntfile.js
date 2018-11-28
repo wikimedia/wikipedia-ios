@@ -82,6 +82,12 @@ module.exports = function (grunt) {
           {
             src: 'node_modules/wikimedia-page-library/build/wikimedia-page-library-transform.css.map',
             dest: `${distFolder}wikimedia-page-library-transform.css.map`
+          },
+          {
+            expand: true,
+            cwd: '../Carthage/Checkouts/mediawiki-extensions-CodeMirror/resources/',
+            src: ['**'],
+            dest: `${distFolder}codemirror/resources/`
           }
         ]
       }
