@@ -9,3 +9,5 @@ github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0
 github "luisobo/Nocilla"
 github "facebook/ios-snapshot-test-case" ~> 2.1.4
+
+github "wikimedia/mediawiki-extensions-CodeMirror" "wmf/1.33.0-wmf.6"
