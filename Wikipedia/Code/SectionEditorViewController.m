@@ -335,6 +335,8 @@
 #pragma mark TextFormattingView visibility
 
 - (void)setTextFormattingViewHidden:(BOOL)hidden {
+    UIResponder *responder = self.isFirstResponder ? self : self.editTextView;
+
     UIView *inputView;
 
     if (!hidden) {
@@ -349,7 +351,7 @@
     UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.3
                                                                                   curve:UIViewAnimationCurveEaseInOut
                                                                              animations:^{
-                                                                                 [self.view endEditing:YES];
+                                                                                 [responder resignFirstResponder];
                                                                              }];
 
     [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
