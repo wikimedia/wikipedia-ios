@@ -197,11 +197,6 @@
 		7A331CC821AD885C0051FC6B /* TextFormattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A331CC421AD885C0051FC6B /* TextFormattingView.swift */; };
 		7A331CC921AD885C0051FC6B /* TextFormattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A331CC421AD885C0051FC6B /* TextFormattingView.swift */; };
 		7A331CCA21AD885C0051FC6B /* TextFormattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A331CC421AD885C0051FC6B /* TextFormattingView.swift */; };
-		7A331CCB21AD885C0051FC6B /* TextFormattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A331CC521AD885C0051FC6B /* TextFormattingView.xib */; };
-		7A331CCC21AD885C0051FC6B /* TextFormattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A331CC521AD885C0051FC6B /* TextFormattingView.xib */; };
-		7A331CCD21AD885C0051FC6B /* TextFormattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A331CC521AD885C0051FC6B /* TextFormattingView.xib */; };
-		7A331CCE21AD885C0051FC6B /* TextFormattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A331CC521AD885C0051FC6B /* TextFormattingView.xib */; };
-		7A331CCF21AD885C0051FC6B /* TextFormattingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A331CC521AD885C0051FC6B /* TextFormattingView.xib */; };
 		7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB881FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
 		7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */; };
@@ -372,6 +367,26 @@
 		7AFA21C220110D7900E957E7 /* ReadingListHintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */; };
 		7AFA21C320110D7900E957E7 /* ReadingListHintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */; };
 		7AFA21C420110D7900E957E7 /* ReadingListHintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */; };
+		7AFA785921AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */; };
+		7AFA785A21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */; };
+		7AFA785B21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */; };
+		7AFA785C21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */; };
+		7AFA785D21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */; };
+		7AFA785E21AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */; };
+		7AFA785F21AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */; };
+		7AFA786021AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */; };
+		7AFA786121AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */; };
+		7AFA786221AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */; };
+		7AFA786521AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */; };
+		7AFA786621AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */; };
+		7AFA786721AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */; };
+		7AFA786821AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */; };
+		7AFA786921AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */; };
+		7AFA786A21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */; };
+		7AFA786B21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */; };
+		7AFA786C21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */; };
+		7AFA786D21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */; };
+		7AFA786E21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */; };
 		7AFEB1BC1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
 		7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */; };
@@ -3305,7 +3320,6 @@
 		7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSavedArticlesView.swift; sourceTree = "<group>"; };
 		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
 		7A331CC421AD885C0051FC6B /* TextFormattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingView.swift; sourceTree = "<group>"; };
-		7A331CC521AD885C0051FC6B /* TextFormattingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingView.xib; sourceTree = "<group>"; };
 		7A35CB861FD82B6300AAF3B7 /* ReadingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailViewController.swift; sourceTree = "<group>"; };
 		7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WMFCaptcha.swift; path = "../../WMF Framework/WMFCaptcha.swift"; sourceTree = "<group>"; };
 		7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Equality.swift"; sourceTree = "<group>"; };
@@ -3347,6 +3361,10 @@
 		7AF8B7402102297A009772CC /* SearchSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsViewController.swift; sourceTree = "<group>"; };
 		7AFA21B920110D7900E957E7 /* ReadingListHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListHintViewController.swift; sourceTree = "<group>"; };
 		7AFA21BA20110D7900E957E7 /* ReadingListHintViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListHintViewController.xib; sourceTree = "<group>"; };
+		7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingViewController.swift; sourceTree = "<group>"; };
+		7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingViewController.xib; sourceTree = "<group>"; };
+		7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleViewController.swift; sourceTree = "<group>"; };
+		7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextStyleViewController.xib; sourceTree = "<group>"; };
 		7AFEB1BB1FA236A100B8DF32 /* UIViewController+Peekable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Peekable.swift"; sourceTree = "<group>"; };
 		7AFEB3F41FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewCell.swift; sourceTree = "<group>"; };
 		830177F91FBF3E490005681C /* ReadingListsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReadingListsAPIController.swift; path = "WMF Framework/ReadingListsAPIController.swift"; sourceTree = SOURCE_ROOT; };
@@ -6064,7 +6082,10 @@
 				7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */,
 				7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */,
 				7A331CC421AD885C0051FC6B /* TextFormattingView.swift */,
-				7A331CC521AD885C0051FC6B /* TextFormattingView.xib */,
+				7AFA785721AF017F000BD6D0 /* TextFormattingViewController.swift */,
+				7AFA786321AF0A79000BD6D0 /* TextStyleViewController.swift */,
+				7AFA786421AF0A79000BD6D0 /* TextStyleViewController.xib */,
+				7AFA785821AF017F000BD6D0 /* TextFormattingViewController.xib */,
 			);
 			name = Toolbar;
 			sourceTree = "<group>";
@@ -9071,6 +9092,7 @@
 			files = (
 				B0E8040C1C0CDE480065EBC0 /* WMFCaptchaViewController.storyboard in Resources */,
 				BA4524291F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
+				7AFA786A21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */,
 				D8E27BB41F82B5DB00F9D2B3 /* RMessageView.xib in Resources */,
 				B0E8040D1C0CDE480065EBC0 /* EditSummaryViewController.storyboard in Resources */,
 				B0E806961C0CEA7B0065EBC0 /* AboutViewController.plist in Resources */,
@@ -9082,7 +9104,6 @@
 				7A9A611821124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EB212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D8D92B5D1DF22E1700B95311 /* NotificationBackgroundErrorIcon@2x.png in Resources */,
-				7A331CCB21AD885C0051FC6B /* TextFormattingView.xib in Resources */,
 				B0866F471CCAEBE40088A789 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
 				B0B4236D1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8D92B5C1DF22E1700B95311 /* NotificationBackgroundErrorIcon.png in Resources */,
@@ -9139,6 +9160,7 @@
 				D82E958A1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
 				7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
+				7AFA785E21AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */,
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
@@ -9213,13 +9235,13 @@
 				7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
 				7AEC9862219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
-				7A331CCF21AD885C0051FC6B /* TextFormattingView.xib in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
 				D80ED3F61EE57F4800CE8C50 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				D80ED3F71EE57F4800CE8C50 /* WMFChangePasswordViewController.storyboard in Resources */,
 				D80ED3F91EE57F4800CE8C50 /* NotificationBackgroundError.png in Resources */,
 				D80ED3FA1EE57F4800CE8C50 /* WMFReferencePanels.storyboard in Resources */,
 				D80ED3FB1EE57F4800CE8C50 /* Places.storyboard in Resources */,
+				7AFA786E21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */,
 				83023C0F20E51DDF00EC7592 /* SearchLanguagesBarViewController.xib in Resources */,
 				D80ED3FD1EE57F4800CE8C50 /* WMFAccountCreationViewController.storyboard in Resources */,
 				D80ED3FE1EE57F4800CE8C50 /* NotificationBackgroundSuccessIcon.png in Resources */,
@@ -9253,6 +9275,7 @@
 				B0524AFA2144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D80ED4231EE57F4800CE8C50 /* ReadingThemesControlsViewController.xib in Resources */,
 				B0524B0721484FB400D8FD8D /* DescriptionWelcome.storyboard in Resources */,
+				7AFA786221AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */,
 				D80ED4241EE57F4800CE8C50 /* NotificationButtonBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9304,6 +9327,7 @@
 			files = (
 				D8A42BB61E815A9C00D8E281 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8A42BBA1E815A9C00D8E281 /* EditSummaryViewController.storyboard in Resources */,
+				7AFA786D21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */,
 				D8E27BB71F82B5DC00F9D2B3 /* RMessageView.xib in Resources */,
 				D8A42BBB1E815A9C00D8E281 /* AboutViewController.plist in Resources */,
 				D8A42BBC1E815A9C00D8E281 /* NotificationBackgroundMessage.png in Resources */,
@@ -9315,7 +9339,6 @@
 				7A9A611B21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EE212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D8A42BC51E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
-				7A331CCE21AD885C0051FC6B /* TextFormattingView.xib in Resources */,
 				B0B423701EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8A42BC61E815A9C00D8E281 /* NotificationBackgroundErrorIcon.png in Resources */,
 				D8A42BC71E815A9C00D8E281 /* WMFLanguageCell.xib in Resources */,
@@ -9372,6 +9395,7 @@
 				D82E958D1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				D8A42C001E815A9C00D8E281 /* PreviewLicenseView.xib in Resources */,
 				7A2FE5592051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
+				7AFA786121AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */,
 				D8A42C011E815A9C00D8E281 /* NotificationBackgroundError@2x.png in Resources */,
 				D8A42C041E815A9C00D8E281 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3361FCD057200393471 /* Saved.storyboard in Resources */,
@@ -9399,6 +9423,7 @@
 			files = (
 				D8CE263D1E698E2400DAE2E0 /* WMFCaptchaViewController.storyboard in Resources */,
 				D8CE26411E698E2400DAE2E0 /* EditSummaryViewController.storyboard in Resources */,
+				7AFA786B21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */,
 				D8E27BB51F82B5DB00F9D2B3 /* RMessageView.xib in Resources */,
 				D8CE26421E698E2400DAE2E0 /* AboutViewController.plist in Resources */,
 				D8CE26431E698E2400DAE2E0 /* NotificationBackgroundMessage.png in Resources */,
@@ -9410,7 +9435,6 @@
 				7A9A611921124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4EC212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D8CE264C1E698E2400DAE2E0 /* WMFArticleLanguagesSectionFooter.xib in Resources */,
-				7A331CCC21AD885C0051FC6B /* TextFormattingView.xib in Resources */,
 				B0B4236E1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8CE264D1E698E2400DAE2E0 /* NotificationBackgroundErrorIcon.png in Resources */,
 				D8CE264E1E698E2400DAE2E0 /* WMFLanguageCell.xib in Resources */,
@@ -9467,6 +9491,7 @@
 				D82E958B1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				D8CE26871E698E2400DAE2E0 /* PreviewLicenseView.xib in Resources */,
 				7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
+				7AFA785F21AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */,
 				D8CE26881E698E2400DAE2E0 /* NotificationBackgroundError@2x.png in Resources */,
 				D8CE268B1E698E2400DAE2E0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3341FCD057200393471 /* Saved.storyboard in Resources */,
@@ -9494,6 +9519,7 @@
 			files = (
 				D8EC3F3D1E9BDA35006712EB /* WMFCaptchaViewController.storyboard in Resources */,
 				D8EC3F411E9BDA35006712EB /* EditSummaryViewController.storyboard in Resources */,
+				7AFA786C21AF0A79000BD6D0 /* TextStyleViewController.xib in Resources */,
 				D8E27BB61F82B5DC00F9D2B3 /* RMessageView.xib in Resources */,
 				D8EC3F421E9BDA35006712EB /* AboutViewController.plist in Resources */,
 				D8EC3F431E9BDA35006712EB /* NotificationBackgroundMessage.png in Resources */,
@@ -9505,7 +9531,6 @@
 				7A9A611A21124CF500403154 /* CreateNewReadingListButtonView.xib in Resources */,
 				7A16C4ED212D941C00F0D5EC /* SubSettingsViewController.xib in Resources */,
 				D8EC3F4C1E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.xib in Resources */,
-				7A331CCD21AD885C0051FC6B /* TextFormattingView.xib in Resources */,
 				B0B4236F1EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib in Resources */,
 				D8EC3F4D1E9BDA35006712EB /* NotificationBackgroundErrorIcon.png in Resources */,
 				D8EC3F4E1E9BDA35006712EB /* WMFLanguageCell.xib in Resources */,
@@ -9562,6 +9587,7 @@
 				D82E958C1F16502E007BD960 /* WMFLanguagesViewController.xib in Resources */,
 				D8EC3F871E9BDA35006712EB /* PreviewLicenseView.xib in Resources */,
 				7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */,
+				7AFA786021AF017F000BD6D0 /* TextFormattingViewController.xib in Resources */,
 				D8EC3F881E9BDA35006712EB /* NotificationBackgroundError@2x.png in Resources */,
 				D8EC3F8B1E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3351FCD057200393471 /* Saved.storyboard in Resources */,
@@ -10241,6 +10267,7 @@
 				7A6ED50D20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				B031032D1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
+				7AFA785921AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B04C444B1E56966B00C6DFB0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8940CEF1DB56C8A00E17F9E /* NewsViewController.swift in Sources */,
@@ -10254,6 +10281,7 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
+				7AFA786521AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0BCF0AB2023AC7700986F72 /* ScrollableEducationPanelViewController.swift in Sources */,
@@ -10375,6 +10403,7 @@
 				D80ED2961EE57F4800CE8C50 /* PlaceSearchService.swift in Sources */,
 				D80ED2971EE57F4800CE8C50 /* NotificationSettingsViewController.swift in Sources */,
 				D80ED2981EE57F4800CE8C50 /* PlaceSearchSuggestionController.swift in Sources */,
+				7AFA785D21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */,
 				D80ED29B1EE57F4800CE8C50 /* WMFPageHistoryRevision.m in Sources */,
 				D80ED29C1EE57F4800CE8C50 /* WKScriptMessage+WMFScriptMessage.swift in Sources */,
 				D80ED2A21EE57F4800CE8C50 /* WMFEmptyView.m in Sources */,
@@ -10465,6 +10494,7 @@
 				D80ED3051EE57F4800CE8C50 /* WMFSuggestedPagesFunnel.m in Sources */,
 				7A2FE56020517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				D80ED3061EE57F4800CE8C50 /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
+				7AFA786921AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */,
 				83023C1520E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51A20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D80ED3071EE57F4800CE8C50 /* WMFWelcomeContainerViewController.swift in Sources */,
@@ -11248,6 +11278,7 @@
 				D8421B56203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
 				D8A42B4D1E815A9C00D8E281 /* WMFArticleFetcher.m in Sources */,
+				7AFA785C21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */,
 				D8A42B4E1E815A9C00D8E281 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8A42B4F1E815A9C00D8E281 /* NewsViewController.swift in Sources */,
 				D8A42B501E815A9C00D8E281 /* main.m in Sources */,
@@ -11261,6 +11292,7 @@
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
 				B03F8A8C205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */,
 				D8A42B601E815A9C00D8E281 /* WMFHelpViewController.m in Sources */,
+				7AFA786821AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */,
 				7A28126620D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				D8A42B611E815A9C00D8E281 /* NSString+FormattedAttributedString.m in Sources */,
 				83FBE9781F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
@@ -11382,6 +11414,7 @@
 				D8CE25051E698E2400DAE2E0 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
+				7AFA785A21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */,
 				D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */,
@@ -11472,6 +11505,7 @@
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				7AFA786621AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */,
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
@@ -11711,6 +11745,7 @@
 				D8EC3DF81E9BDA35006712EB /* PreviewHtmlFetcher.m in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
+				7AFA785B21AF017F000BD6D0 /* TextFormattingViewController.swift in Sources */,
 				837227C220AF6AC700BDACD7 /* EditSummaryViewController.swift in Sources */,
 				D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */,
 				D8EC3DFE1E9BDA35006712EB /* PlaceSearch.swift in Sources */,
@@ -11801,6 +11836,7 @@
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
 				D818D38D1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
+				7AFA786721AF0A79000BD6D0 /* TextStyleViewController.swift in Sources */,
 				D8EC3E5F1E9BDA35006712EB /* NSObject+WMFExtras.m in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,

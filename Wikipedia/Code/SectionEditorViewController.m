@@ -11,14 +11,14 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFTextFormattingViewDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFTextFormattingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
-@property (strong, nonatomic) WMFTextFormattingView *textFormattingView;
+@property (strong, nonatomic) WMFTextFormattingViewController *textFormattingViewController;
 @property (strong, nonatomic) WMFTheme *theme;
 
 @end
@@ -64,8 +64,8 @@
     self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
     self.editToolbarAccessoryView.delegate = self;
 
-    self.textFormattingView = [WMFTextFormattingView loadFromNib];
-    self.textFormattingView.delegate = self;
+    self.textFormattingViewController = [WMFTextFormattingViewController loadFromNib];
+    self.textFormattingViewController.delegate = self;
 
     [self applyTheme:self.theme];
 
@@ -326,9 +326,9 @@
     [self setTextFormattingViewHidden:NO];
 }
 
-#pragma mark WMFTextFormattingViewDelegate
+#pragma mark WMFTextFormattingViewControllerDelegate
 
-- (void)textFormattingViewDidTapCloseButton:(WMFTextFormattingView *)textFormattingView button:(UIButton *)button {
+- (void)textFormattingViewControllerDidTapCloseButton:(WMFTextFormattingView *)textFormattingView button:(UIButton *)button {
     [self setTextFormattingViewHidden:YES];
 }
 
@@ -340,8 +340,8 @@
     UIView *inputView;
 
     if (!hidden) {
-        [self.textFormattingView applyTheme:self.theme];
-        inputView = self.textFormattingView;
+        [self.textFormattingViewController applyTheme:self.theme];
+        inputView = self.textFormattingViewController.view;
     }
 
     self.editTextView.inputView = inputView;

@@ -19,12 +19,6 @@ class TextFormattingView: UIView {
 
     @IBOutlet var separators: [UIView] = []
 
-    @objc static func loadFromNib() -> TextFormattingView {
-        let nib = UINib(nibName: "TextFormattingView", bundle: Bundle.main)
-        let view = nib.instantiate(withOwner: nil, options: nil).first as! TextFormattingView
-        return view
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
         updateFonts()
@@ -43,10 +37,6 @@ class TextFormattingView: UIView {
         textSizeTitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         textSizeDisclosureButton.titleLabel?.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         clearButton.titleLabel?.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-    }
-
-    @IBAction private func close(_ sender: UIButton) {
-        delegate?.textFormattingViewDidTapCloseButton(self, button: sender)
     }
 
     // MARK: Shadow
