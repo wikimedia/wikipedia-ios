@@ -1,0 +1,21 @@
+@import 'mediawiki.mixins';
+
+.CodeMirror {
+	line-height: 1.5em;
+	padding: 0.1em;
+}
+
+.wikiEditor-ui .CodeMirror {
+	clear: both;
+}
+
+.CodeMirror pre,
+.CodeMirror-lines {
+	padding: 0;
+}
+
+.wikiEditor-ui-toolbar,
+.oo-ui-popupWidget.ve-init-mw-switchPopupWidget {
+	// Increase z-index to above scrollbar
+	z-index: 7;
+}
