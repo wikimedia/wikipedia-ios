@@ -88,6 +88,12 @@ module.exports = function (grunt) {
             cwd: '../Carthage/Checkouts/mediawiki-extensions-CodeMirror/resources/',
             src: ['**'],
             dest: `${distFolder}mediawiki-extensions-CodeMirror/resources/`
+          },
+          {
+            expand: true,
+            cwd: 'codemirror/',
+            src: ['**'],
+            dest: `${distFolder}mediawiki-extensions-CodeMirror/`
           }
         ]
       }

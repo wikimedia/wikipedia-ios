@@ -1,0 +1,110 @@
+
+<!doctype html>
+<meta charset=utf8>
+<title>CM demo</title>
+<meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+<script src="resources/lib/codemirror/lib/codemirror.js"></script>
+<link rel=stylesheet href="resources/lib/codemirror/lib/codemirror.css">
+<script src="resources/mode/mediawiki/mediawiki.js"></script>
+<link rel=stylesheet href="resources/mode/mediawiki/mediawiki.css">
+
+<style>
+  
+  body {
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+  }
+  
+  .CodeMirror {
+    height: 97vh;
+    width: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid silver;
+  }
+  
+  textarea#editor {
+    display: block;
+    height: 97vh;
+    width: 100%;
+  }
+  
+</style>
+
+<body>
+  
+  <form onsubmit="return false;">
+    <input type=submit value="Submit!">
+    -----
+    <input type=submit value="codemirror" onclick="showCodemirror()">
+    <input type=submit value="wikitext" onclick="showWikitext()">
+    -----
+    <input type=submit value="setwikitext" onclick="setWikitext()">
+    <input type=submit value="getwikitext" onclick="getWikitext()">
+    
+    <textarea id=editor></textarea>
+  </form>
+
+
+  <!--TODO: load config by lang as needed-->
+  <script>
+  let config
+  </script>
+  <script src="codemirror-config.js" ></script>
+
+
+  <script>
+
+    const EditorType = {
+      notset: 0,
+      codemirror: 1,
+      wikitext: 2
+    }
+    
+    let editor
+    let editorTextArea = document.getElementById("editor")
+    let currentEditorType = EditorType.notset
+
+    const showWikitext = () => {
+      editor.toTextArea()
+      editorTextArea.style.display = 'block'
+      currentEditorType = EditorType.wikitext
+    }
+
+    const showCodemirror = () => {
+      if (currentEditorType == EditorType.codemirror) {
+        return
+      }
+      
+      editorTextArea.style.display = 'hidden'
+      
+      editor = CodeMirror.fromTextArea(editorTextArea, {
+        mwConfig: config,
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: "text/mediawiki",
+        matchBrackets: true,
+        extraKeys: {
+          // t.b.d.
+        }, 
+        inputStyle: 'contenteditable',
+        spellcheck: false,
+        viewportMargin: Infinity
+      })
+
+      currentEditorType = EditorType.codemirror
+    }
+
+    const setWikitext = () => {
+      editor.setValue("Some '''sample''' wikitext")
+    }
+
+    const getWikitext = () => {
+      console.log(editor.getValue())
+    }
+
+    showCodemirror()
+
+  </script>
+</body>
