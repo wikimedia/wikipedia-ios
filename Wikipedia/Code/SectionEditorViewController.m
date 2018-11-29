@@ -11,19 +11,21 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFTextFormattingViewControllerDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITextView *editTextView;
+@property (weak, nonatomic) IBOutlet WMFEditTextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
-@property (strong, nonatomic) WMFTextFormattingViewController *textFormattingViewController;
+@property (strong, nonatomic) UINavigationController *textFormattingNavigationController;
 @property (strong, nonatomic) WMFTheme *theme;
 
 @end
 
 @implementation SectionEditorViewController
+
+@synthesize shouldShowCustomInputViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,10 +48,7 @@
     self.unmodifiedWikiText = nil;
 
     [self.editTextView setDelegate:self];
-
-    // Fix for strange ios 7 bug with large pages of text in the edit text view
-    // jumping around if scrolled quickly.
-    // self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
+    [self.editTextView setDataSource:self];
 
     [self loadLatestWikiTextForSectionFromServer];
 
@@ -63,9 +62,6 @@
 
     self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
     self.editToolbarAccessoryView.delegate = self;
-
-    self.textFormattingViewController = [WMFTextFormattingViewController loadFromNib];
-    self.textFormattingViewController.delegate = self;
 
     [self applyTheme:self.theme];
 
@@ -89,7 +85,7 @@
 }
 
 - (UIView *)inputAccessoryView {
-    if (self.editTextView.inputView) {
+    if (shouldShowCustomInputViewController) {
         return nil;
     } else {
         [self.editToolbarAccessoryView applyTheme:self.theme];
@@ -326,26 +322,12 @@
     [self setTextFormattingViewHidden:NO];
 }
 
-#pragma mark WMFTextFormattingViewControllerDelegate
-
-- (void)textFormattingViewControllerDidTapCloseButton:(WMFTextFormattingView *)textFormattingView button:(UIButton *)button {
-    [self setTextFormattingViewHidden:YES];
-}
-
 #pragma mark TextFormattingView visibility
 
 - (void)setTextFormattingViewHidden:(BOOL)hidden {
     UIResponder *responder = self.isFirstResponder ? self : self.editTextView;
 
-    UIView *inputView;
-
-    if (!hidden) {
-        [self.textFormattingViewController applyTheme:self.theme];
-        inputView = self.textFormattingViewController.view;
-    }
-
-    self.editTextView.inputView = inputView;
-
+    shouldShowCustomInputViewController = !hidden;
     [self setCursorPositionIfNeeded];
 
     UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.3
