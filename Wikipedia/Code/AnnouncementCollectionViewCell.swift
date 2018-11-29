@@ -104,12 +104,11 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
             isCaptionHidden = true
             return
         }
-        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection)
+        let attributedText = html.byAttributingHTML(with: .footnote, matching: traitCollection, color: captionTextView.textColor)
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
-        let color = captionTextView.textColor ?? UIColor.black
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle, NSAttributedString.Key.foregroundColor: color]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
         attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
@@ -133,6 +132,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let attributedText = html.byAttributingHTML(with: .subheadline,
                                                     boldWeight: .bold,
                                                     matching: traitCollection,
+                                                    color: messageTextView.textColor,
                                                     tagMapping: ["em": "i"], // em tags are generally italicized by default, match this behavior
                                                     additionalTagAttributes: [
             "u": [
