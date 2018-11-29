@@ -1393,8 +1393,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    NSTimeInterval duration = animated ? 0.3 : 0.0;
+    NSTimeInterval duration = animated ? 0.15 : 0.0;
     [UIView animateWithDuration:duration
+        delay:0
+        options:UIViewAnimationOptionAllowUserInteraction
         animations:^{
             self.splashView.alpha = 0.0;
         }
