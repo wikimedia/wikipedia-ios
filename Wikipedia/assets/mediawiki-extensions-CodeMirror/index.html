@@ -79,7 +79,6 @@
       
       editorTextArea.style.display = 'hidden'
       
-      let enableContentEditable = true
       editor = CodeMirror.fromTextArea(editorTextArea, {
         mwConfig: config,
         lineWrapping: true,
@@ -87,14 +86,10 @@
         mode: "text/mediawiki",
         matchBrackets: true,
         extraKeys: {
-                  Tab: false,
-                  'Shift-Tab': false,
-                  // T174514: Move the cursor at the beginning/end of the current wrapped line
-                  Home: 'goLineLeft',
-                  End: 'goLineRight'
+          // t.b.d.
         }, 
-        inputStyle: enableContentEditable ? 'contenteditable' : 'textarea',
-        spellcheck: enableContentEditable,
+        inputStyle: 'contenteditable',
+        spellcheck: false,
         viewportMargin: Infinity
       })
 
