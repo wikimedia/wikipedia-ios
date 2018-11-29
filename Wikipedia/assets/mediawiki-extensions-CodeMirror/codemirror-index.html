@@ -53,13 +53,15 @@
     let editorTextArea = document.getElementById("editor")
     let currentEditorType = EditorType.notset
 
-    window.showWikitext = () => {
+const wmf = {}
+
+    wmf.showWikitext = () => {
       editor.toTextArea()
       editorTextArea.style.display = 'block'
       currentEditorType = EditorType.wikitext
     }
 
-    window.showCodemirror = () => {
+    wmf.showCodemirror = () => {
       if (currentEditorType == EditorType.codemirror) {
         return
       }
@@ -83,15 +85,18 @@
       currentEditorType = EditorType.codemirror
     }
 
-    window.getWikitext = () => {
+    wmf.getWikitext = () => {
       return editor.getValue()
     }
 
-    window.showCodemirror()
+    wmf.showCodemirror()
 
-    window.setWikitext = (wikitext) => {
+    wmf.setWikitext = (wikitext) => {
       editor.setValue(wikitext)
     }
+
+window.wmf = wmf
+
 
   </script>
 </body>
