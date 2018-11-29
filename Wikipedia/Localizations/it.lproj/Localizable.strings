@@ -100,7 +100,6 @@
 "article-languages-yours" = "Le tue lingue";
 "article-read-more-title" = "Leggi altro";
 "article-share" = "Condividi";
-"article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "back-button-accessibility-label" = "Indietro";
 "button-done" = "Fatto";
@@ -167,7 +166,6 @@
 "explore-feed-preferences-undo-customization" = "Annulla";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";
 "explore-main-page-heading" = "Oggi su Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Tutte le voci più lette";
 "explore-most-read-generic-heading" = "Più letti";
 "explore-most-read-more-list-title-for-date" = "Voci migliori il $1";

@@ -124,7 +124,6 @@
 "article-save-error-not-enough-space" = "Не хватает места на вашем устройстве, чтобы сохранить эту статью";
 "article-share" = "Поделиться";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Настройки темы для чтения";
-"article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Нажмите, чтоб вернуться назад";

@@ -95,7 +95,6 @@
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
-"article-unable-to-load-article" = "Nem sikerült betölteni a szócikket.";
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
 "back-button-popover-title" = "A visszalépéshez bökj ide";

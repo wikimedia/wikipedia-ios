@@ -7,6 +7,7 @@
 // Author: Fitoschido
 // Author: Indiralena
 // Author: Irus
+// Author: JO777
 // Author: Javiersanp
 // Author: Josecurioso
 // Author: Juan Cuartas
@@ -99,8 +100,7 @@
 "appearance-settings-image-dimming-footer" = "Reducir lo opacidad de las imágenes en el tema oscuro.";
 "appearance-settings-reading-themes" = "Temas de lecturas";
 "appearance-settings-set-automatic-table-opening" = "Configuración de tablas";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Arraste el control deslizante hacia arriba para cambiar el tamaño del texto del artículo. Utilice el tamaño de texto de su sistema para redimensionar otras áreas del texto en la aplicación.";
+"appearance-settings-text-sizing-example-text" = "Arrastra el control deslizante para cambiar el tamaño del texto del artículo. Utiliza el tamaño de texto de tu sistema para redimensionar otras áreas de texto en la aplicación.";
 "appearance-settings-theme-options" = "Opciones de temas";
 "article-about-title" = "Acerca de este artículo";
 "article-delete" = "Borrar";
@@ -113,7 +113,6 @@
 "article-save-error-not-enough-space" = "No hay espacio suficiente en el dispositivo para guardar este artículo";
 "article-share" = "Compartir";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controles de los temas de lectura";
-"article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "back-button-accessibility-label" = "Volver";
 "back-button-popover-title" = "Toque aquí para regresar";
@@ -176,7 +175,6 @@
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
-// Fuzzy
 "explore-most-read-footer" = "Todos los artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
@@ -234,8 +232,7 @@
 "home-button-history-accessibility-label" = "Wikipedia, volver al Historial";
 "home-button-saved-accessibility-label" = "Wikipedia, volver a Guardados";
 "home-more-like-footer" = "Más como $1";
-// Fuzzy
-"home-nearby-footer" = "Más de cercanos a tu ubicación";
+"home-nearby-footer" = "Más lugares cerca de tu ubicación";
 "home-nearby-location-footer" = "Más cercanos a $1";
 "home-news-footer" = "Más acontecimientos actuales";
 "home-themes-action-title" = "Gestionar las preferencias";
@@ -438,8 +435,7 @@
 "settings-notifications-system-turn-on" = "Activar las notificaciones";
 "settings-notifications-trending" = "Eventos actuales en tendencia";
 "settings-primary-language" = "Primario";
-// Fuzzy
-"settings-primary-language-details" = "El primer idioma de esta lista se emplea como el idioma principal de la aplicación. Al cambiarlo, cambiarás también el contenido diario (por ejemplo, el \"Artículo del día\") mostrado en Explorar.";
+"settings-primary-language-details" = "El primer idioma de esta lista es usado como el idioma principal de la aplicación.";
 "settings-search-open-app-on-search" = "Abrir aplicación en la pestaña de búsqueda";
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-storage-and-syncing-title" = "Almacenar y sincronizar artículos";
