@@ -1,7 +1,6 @@
 
 <!doctype html>
 <meta charset=utf8>
-<title>CM demo</title>
 <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 <script src="resources/lib/codemirror/lib/codemirror.js"></script>
 <link rel=stylesheet href="resources/lib/codemirror/lib/codemirror.css">
@@ -11,40 +10,28 @@
 <style>
   
   body {
-    height: 100vh;
-    overflow: hidden;
     margin: 0;
   }
   
-  .CodeMirror {
-    height: 97vh;
+  .CodeMirror, textarea#editor {
+    height: 100vh;
     width: 100%;
-    overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    border: 1px solid silver;
+    box-sizing: border-box;
   }
   
   textarea#editor {
-    display: block;
-    height: 97vh;
-    width: 100%;
+    padding: 4px 0px 4px 31px;
+    border: none;
+    font-family: monospace;
+    font-size: 13px;
   }
   
 </style>
 
 <body>
   
-  <form onsubmit="return false;">
-    <input type=submit value="Submit!">
-    -----
-    <input type=submit value="codemirror" onclick="showCodemirror()">
-    <input type=submit value="wikitext" onclick="showWikitext()">
-    -----
-    <input type=submit value="setwikitext" onclick="setWikitext()">
-    <input type=submit value="getwikitext" onclick="getWikitext()">
-    
-    <textarea id=editor></textarea>
-  </form>
+  <textarea id=editor></textarea>
 
 
   <!--TODO: load config by lang as needed-->
@@ -66,13 +53,13 @@
     let editorTextArea = document.getElementById("editor")
     let currentEditorType = EditorType.notset
 
-    const showWikitext = () => {
+    window.showWikitext = () => {
       editor.toTextArea()
       editorTextArea.style.display = 'block'
       currentEditorType = EditorType.wikitext
     }
 
-    const showCodemirror = () => {
+    window.showCodemirror = () => {
       if (currentEditorType == EditorType.codemirror) {
         return
       }
@@ -96,15 +83,15 @@
       currentEditorType = EditorType.codemirror
     }
 
-    const setWikitext = () => {
-      editor.setValue("Some '''sample''' wikitext")
+    window.getWikitext = () => {
+      return editor.getValue()
     }
 
-    const getWikitext = () => {
-      console.log(editor.getValue())
-    }
+    window.showCodemirror()
 
-    showCodemirror()
+    window.setWikitext = (wikitext) => {
+      editor.setValue(wikitext)
+    }
 
   </script>
 </body>
