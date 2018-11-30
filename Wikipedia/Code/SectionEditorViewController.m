@@ -11,7 +11,7 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource, WMFTextFormattingTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet WMFEditTextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
@@ -323,7 +323,7 @@
     [self setTextFormattingViewHidden:NO];
 }
 
-#pragma mark WMFEditTextViewInputViewControllerDelegate
+#pragma mark WMFTextFormattingTableViewControllerDelegate
 
 -(void)textFormattingTableViewControllerDidTapCloseButton:(WMFTextFormattingTableViewController *)textFormattingTableViewController {
     [self setTextFormattingViewHidden:YES];
