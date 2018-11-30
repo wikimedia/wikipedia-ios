@@ -36,16 +36,16 @@ class SectionEditorWebView: WKWebView {
         }
     }
     
-    @objc func setWikitext(_ wikitext: String) {
+    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
         // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
         let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
-        evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (result, error) in
-            guard let error = error else {
+        evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
+            guard let completionHandler = completionHandler else {
                 return
             }
-            DDLogError("Error: \(error)")
+            completionHandler(error)
         }
     }
 

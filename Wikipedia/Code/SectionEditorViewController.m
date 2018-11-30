@@ -177,7 +177,12 @@
 
                 [self.webView setUseRichEditor:YES];
                 [self.webView update];
-                [self.webView setWikitext:revision];
+                [self.webView setWikitext:revision completionHandler:^(NSError *_Nullable error) {
+                    if (error) {
+                        DDLogError(@"Error getting wikitext: %@", error);
+                        return;
+                    }
+                }];
 
             } break;
             case FETCH_FINAL_STATUS_CANCELLED: {
