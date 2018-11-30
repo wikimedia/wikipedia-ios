@@ -14,7 +14,7 @@
         <scene sceneID="MLr-G1-YZx">
             <objects>
                 <viewController storyboardIdentifier="TextFormattingInputViewController" id="rO7-JZ-2MQ" customClass="WMFTextFormattingInputViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CrV-ni-bka">
+                    <view key="view" contentMode="scaleToFill" id="CrV-ni-bka" customClass="TextFormattingInputView" customModule="Wikipedia" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -40,6 +40,7 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="375" height="300"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
                 </viewController>
@@ -51,7 +52,7 @@
         <scene sceneID="d7L-A6-e56">
             <objects>
                 <tableViewController id="TTT-UR-cQr" customClass="WMFTextFormattingTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="45" sectionHeaderHeight="1" sectionFooterHeight="1" id="Wo1-Zn-ue4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="45" estimatedRowHeight="45" sectionHeaderHeight="1" sectionFooterHeight="1" id="Wo1-Zn-ue4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

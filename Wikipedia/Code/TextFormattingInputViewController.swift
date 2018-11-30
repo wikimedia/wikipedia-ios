@@ -1,3 +1,9 @@
+class TextFormattingInputView: UIView {
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: bounds.width, height: 290)
+    }
+}
+
 @objc(WMFTextFormattingInputViewController)
 class TextFormattingInputViewController: UIInputViewController {
     weak var delegate: TextFormattingTableViewControllerDelegate?
@@ -28,6 +34,7 @@ class TextFormattingInputViewController: UIInputViewController {
         }
         textFormattingTableViewController.delegate = delegate
     }
+    
 }
 
 extension TextFormattingInputViewController: Themeable {
