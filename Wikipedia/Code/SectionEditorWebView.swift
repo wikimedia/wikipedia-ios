@@ -13,12 +13,32 @@ import WMF
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebView {
+private class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessageHandler {
+    override init() {
+        super.init()
+        setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+        
+        let contentController = WKUserContentController()
+        contentController.add(self, name: "cursorActivity")
+        userContentController = contentController
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        print("\n\n=================")
+        print("\nJavaScript is sending a message: \(message.body)\n")
+        print("\nJavaScript is sending a message.name: \(message.name)\n")
+    }
+}
 
+class SectionEditorWebView: WKWebView {
+    // TODO: add delegate prop to 'SectionEditorWebView' for codemirror cursor and other events, relay this delegate to 'SectionEditorWebViewConfiguration' so
+    // it can invoke the various delegate methods when it receives respective JS messages.
     init() {
-        let config = WKWebViewConfiguration.init()
-        config.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
-        super.init(frame: .zero, configuration: config)
+        super.init(frame: .zero, configuration: SectionEditorWebViewConfiguration.init())
     }
     
     required init?(coder: NSCoder) {

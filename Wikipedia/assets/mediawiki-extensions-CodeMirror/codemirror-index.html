@@ -74,10 +74,39 @@
       currentEditorType = EditorType.wikitext
     }
 
+    const sendCursorActivityMessages = (doc) => {
+      let cursorHead = doc.getCursor('head')
+      let cursorFrom = doc.getCursor('from')
+      let cursorTo = doc.getCursor('to')
+      let cursorAnchor = doc.getCursor('anchor')
+      
+      const msg = (cursor) => {
+        return {
+          'line': cursor.line,
+          'ch': cursor.ch,
+          'tokenType': doc.getTokenTypeAt(cursor)
+        }
+      }
+      
+// TODO: decide whether to interpret token info etc here before messaging native land...
+// if so, don't send all the getCursor details, but rather an interpretation of what state
+// should be reported - i.e. if the cursor selection extends over text which has bold AND
+// unbold parts, don't report that the bold button should show as enabled. Each button type 
+// will own such state heuristics.
+
+      window.webkit.messageHandlers.cursorActivity.postMessage({
+        'head': msg(cursorHead),
+        'from': msg(cursorFrom),
+        'to': msg(cursorTo),
+        'anchor': msg(cursorAnchor)
+      })
+    }
+
     const showCodemirror = () => {
       editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
       editorTextArea.style.display = 'hidden'
       currentEditorType = EditorType.codemirror
+      editor.on('cursorActivity', sendCursorActivityMessages)
     }
     
     const wmf = {}
