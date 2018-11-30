@@ -86,7 +86,12 @@
     }
 
     wmf.getWikitext = () => {
-      return editor.getValue()
+      switch(currentEditorType) {
+        case EditorType.codemirror:
+          return editor.getValue()  
+        case EditorType.wikitext:
+          return editorTextArea.value
+      }
     }
 
     wmf.showCodemirror()
