@@ -175,9 +175,7 @@
                 self.editTextView.attributedText = [self getAttributedString:revision];
                 //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
 
-                [self.webView setUseRichEditor:YES];
-                [self.webView update];
-                [self.webView setWikitext:revision completionHandler:^(NSError *_Nullable error) {
+                [self.webView setupWithWikitext:revision useRichEditor:YES completionHandler:^(NSError *_Nullable error) {
                     if (error) {
                         DDLogError(@"Error getting wikitext: %@", error);
                         return;
@@ -321,19 +319,15 @@
 }
 
 #pragma mark Memory
-/*
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
-// Toggle between codemirror and plain wikitext editing
-    [self.webView setUseRichEditor:!self.webView.useRichEditor];
-    [self.webView update];
+    // [self.webView toggleRichEditor];
 
-// Move code mirror cursor down
-//    [self.webView execCodeMirrorCommandWithType:CodeMirrorExecCommandTypeCursorDown completionHandler:nil];
-
+    // Move code mirror cursor down
+    // [self.webView execCodeMirrorCommandWithType:CodeMirrorExecCommandTypeCursorDown completionHandler:nil];
 }
-*/
 
 - (void)webView:(SectionEditorWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     [self loadLatestWikiTextForSectionFromServer];
