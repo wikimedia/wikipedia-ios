@@ -91,7 +91,7 @@
 // TODO: decide whether to interpret token info etc here before messaging native land...
 // if so, don't send all the getCursor details, but rather an interpretation of what state
 // should be reported - i.e. if the cursor selection extends over text which has bold AND
-// unbold parts, don't report that the bold button should show as enabled. Each button type 
+// unbold parts, report that the bold button should show as disabled. Each button type 
 // will own such state heuristics.
 
       window.webkit.messageHandlers.cursorActivity.postMessage({
