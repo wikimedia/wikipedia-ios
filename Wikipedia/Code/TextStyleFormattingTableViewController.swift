@@ -24,6 +24,7 @@ class TextStyleFormattingTableViewController: UITableViewController {
     private func configuredCell(_ cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell {
         let isFirst = indexPath.item == 0
         if isFirst {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -34,14 +35,17 @@ class TextStyleFormattingTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.indexPathsForSelectedRows?.forEach { selectedIndexPath in
+            let cell = tableView.cellForRow(at: selectedIndexPath)
+            cell?.accessoryType = .none
+        }
+        return indexPath
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-    }
-
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .none
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
