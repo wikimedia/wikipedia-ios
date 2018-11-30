@@ -7,11 +7,13 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "Wikipedia-Swift.h"
 
+@import WebKit;
+
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WKNavigationDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
@@ -19,13 +21,19 @@
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFTheme *theme;
 
+@property (strong, nonatomic) SectionEditorWebView *webView;
+
 @end
 
 @implementation SectionEditorViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    self.webView = [[SectionEditorWebView alloc] init];
+    [self.view wmf_addSubviewWithConstraintsToEdges:self.webView];
+    self.webView.navigationDelegate = self;
+    [self.webView loadHTMLFromAssetsFile:@"mediawiki-extensions-CodeMirror/codemirror-index.html" scrolledToFragment:nil];
 
     if (!self.theme) {
         self.theme = [WMFTheme standard];
@@ -49,7 +57,7 @@
     // jumping around if scrolled quickly.
     self.editTextView.layoutManager.allowsNonContiguousLayout = NO;
 
-    [self loadLatestWikiTextForSectionFromServer];
+    //    [self loadLatestWikiTextForSectionFromServer];
 
     if ([self.editTextView respondsToSelector:@selector(keyboardDismissMode)]) {
         self.editTextView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
@@ -95,6 +103,11 @@
 }
 
 - (BOOL)changesMade {
+
+    // TODO: wire up to new bits when we remove native text view.
+    // also when keyboard shows need to make it so can still scroll to bottom of new web view
+    return YES;
+
     if (!self.unmodifiedWikiText) {
         return NO;
     }
@@ -161,6 +174,11 @@
                 self.unmodifiedWikiText = revision;
                 self.editTextView.attributedText = [self getAttributedString:revision];
                 //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
+
+                [self.webView setUseRichEditor:YES];
+                [self.webView update];
+                [self.webView setWikitext:revision];
+
             } break;
             case FETCH_FINAL_STATUS_CANCELLED: {
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
@@ -201,14 +219,20 @@
 }
 
 - (void)preview {
-    PreviewAndSaveViewController *previewVC = [PreviewAndSaveViewController wmf_initialViewControllerFromClassStoryboard];
-    previewVC.section = self.section;
-    previewVC.wikiText = self.editTextView.text;
-    previewVC.funnel = self.funnel;
-    previewVC.savedPagesFunnel = self.savedPagesFunnel;
-    previewVC.delegate = self;
-    [previewVC applyTheme:self.theme];
-    [self.navigationController pushViewController:previewVC animated:YES];
+    [self.webView getWikitextWithCompletionHandler:^(NSString *wikitext, NSError *_Nullable error) {
+        if (error) {
+            DDLogError(@"Error getting wikitext: %@", error);
+            return;
+        }
+        PreviewAndSaveViewController *previewVC = [PreviewAndSaveViewController wmf_initialViewControllerFromClassStoryboard];
+        previewVC.section = self.section;
+        previewVC.wikiText = wikitext; // self.editTextView.text;
+        previewVC.funnel = self.funnel;
+        previewVC.savedPagesFunnel = self.savedPagesFunnel;
+        previewVC.delegate = self;
+        [previewVC applyTheme:self.theme];
+        [self.navigationController pushViewController:previewVC animated:YES];
+    }];
 }
 
 - (void)previewViewControllerDidSave:(PreviewAndSaveViewController *)previewViewController {
@@ -292,10 +316,22 @@
 }
 
 #pragma mark Memory
-
+/*
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+// Toggle between codemirror and plain wikitext editing
+    [self.webView setUseRichEditor:!self.webView.useRichEditor];
+    [self.webView update];
+
+// Move code mirror cursor down
+//    [self.webView execCodeMirrorCommandWithType:CodeMirrorExecCommandTypeCursorDown completionHandler:nil];
+
+}
+*/
+
+- (void)webView:(SectionEditorWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+    [self loadLatestWikiTextForSectionFromServer];
 }
 
 #pragma mark Accessibility
