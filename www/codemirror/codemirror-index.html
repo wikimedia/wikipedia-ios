@@ -43,48 +43,47 @@
 
   <script>
 
+    let editor
+    let editorTextArea = document.getElementById("editor")
+    
+    let codeMirrorSettings = {
+      mwConfig: config,
+      lineWrapping: true,
+      lineNumbers: true,
+      mode: "text/mediawiki",
+      matchBrackets: true,
+      extraKeys: {
+        // t.b.d.
+      }, 
+      inputStyle: 'contenteditable',
+      spellcheck: false,
+      viewportMargin: Infinity
+    }
+
     const EditorType = {
       notset: 0,
       codemirror: 1,
       wikitext: 2
     }
-    
-    let editor
-    let editorTextArea = document.getElementById("editor")
+
     let currentEditorType = EditorType.notset
 
-    const wmf = {}
-
-    wmf.showWikitext = () => {
+    const showWikitext = () => {
       editor.toTextArea()
       editorTextArea.style.display = 'block'
       currentEditorType = EditorType.wikitext
     }
 
-    wmf.showCodemirror = () => {
-      if (currentEditorType == EditorType.codemirror) {
-        return
-      }
-      
+    const showCodemirror = () => {
+      editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
       editorTextArea.style.display = 'hidden'
-      
-      editor = CodeMirror.fromTextArea(editorTextArea, {
-        mwConfig: config,
-        lineWrapping: true,
-        lineNumbers: true,
-        mode: "text/mediawiki",
-        matchBrackets: true,
-        extraKeys: {
-          // t.b.d.
-        }, 
-        inputStyle: 'contenteditable',
-        spellcheck: false,
-        viewportMargin: Infinity
-      })
-
       currentEditorType = EditorType.codemirror
     }
-
+    
+    const wmf = {}
+    
+    wmf.EditorType = EditorType
+    
     wmf.getWikitext = () => {
       switch(currentEditorType) {
         case EditorType.codemirror:
@@ -94,10 +93,32 @@
       }
     }
 
-    wmf.showCodemirror()
-
     wmf.setWikitext = (wikitext) => {
-      editor.setValue(wikitext)
+      switch(currentEditorType) {
+        case EditorType.codemirror:
+          editor.setValue(wikitext)
+          break
+        case EditorType.notset:
+        case EditorType.wikitext:
+          editorTextArea.value = wikitext
+          break
+      }
+    }
+
+    wmf.setCurrentEditorType = (type) => {
+      currentEditorType = type
+    }
+
+    wmf.update = () => {
+      switch(currentEditorType) {
+        case EditorType.codemirror:
+          showCodemirror()
+          break
+        case EditorType.notset:
+        case EditorType.wikitext:
+          showWikitext()
+          break
+      }
     }
 
     wmf.ExecCommandType = {
