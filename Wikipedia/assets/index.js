@@ -312,11 +312,11 @@ const rectIntersectsRect = (a, b) => a.left <= b.right && b.left <= a.right && a
 const shouldReportMatch = matchSpan => {
   const parentRect = matchSpan.parentElement.getBoundingClientRect()
 
-  // Detect if element is hidden because its *parent* is hidden.  
+  // Detect if element is hidden because its *parent* is hidden.
   if (parentRect.width == 0 || parentRect.height == 0) {
     return false
   }
-  
+
   // Text node elements with 'text-overflow: ellipsis;' can truncate text. So we need a way to
   // detect if a match is in elided text - i.e. after the ellipsis and thus not visible. We can
   // check if the match span's rect intersects its parent element's rect - if so it's visible,
