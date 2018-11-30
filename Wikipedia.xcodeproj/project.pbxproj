@@ -165,6 +165,11 @@
 		7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
 		7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */; };
+		7A27E85221B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
+		7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
+		7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
+		7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
+		7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126420D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
 		7A28126520D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */; };
@@ -3310,6 +3315,7 @@
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
+		7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFormattingTableViewController.swift; sourceTree = "<group>"; };
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
@@ -6019,6 +6025,17 @@
 			path = "Remote Notifications";
 			sourceTree = "<group>";
 		};
+		7A27E85021B1971D001B2D21 /* Text Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				7A6F55FE21AF508B0076D184 /* TextFormatting.storyboard */,
+				7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */,
+				7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */,
+				7AFC79F721B0367700BB0C50 /* TextFormattingTableViewController.swift */,
+			);
+			name = "Text Formatting";
+			sourceTree = "<group>";
+		};
 		7A60E9D0215D41FA00F2D325 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -6038,6 +6055,7 @@
 		7A7857E3219F196C00ED1579 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7A27E85021B1971D001B2D21 /* Text Formatting */,
 				7AEC9863219F5D9C00BEF62B /* Toolbar */,
 			);
 			name = Tools;
@@ -6081,9 +6099,6 @@
 			children = (
 				7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */,
 				7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */,
-				7A6F55FE21AF508B0076D184 /* TextFormatting.storyboard */,
-				7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */,
-				7AFC79F721B0367700BB0C50 /* TextFormattingTableViewController.swift */,
 			);
 			name = Toolbar;
 			sourceTree = "<group>";
@@ -10266,6 +10281,7 @@
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* WMFSearchButton.m in Sources */,
+				7A27E85221B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7A6ED50D20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				B031032D1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				D8703DBF1EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
@@ -10572,6 +10588,7 @@
 				D80ED3581EE57F4800CE8C50 /* EditFunnel.m in Sources */,
 				7A0DE50420CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D80ED3591EE57F4800CE8C50 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
+				7A27E85621B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D80ED35A1EE57F4800CE8C50 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				7AF49F84204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				D80ED35D1EE57F4800CE8C50 /* PageHistoryResultCell.m in Sources */,
@@ -11283,6 +11300,7 @@
 				B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				BA7683C71F30D87D00A487AA /* ProminentSwitch.swift in Sources */,
 				D8A42B4B1E815A9C00D8E281 /* WMFLanguageCell.m in Sources */,
+				7A27E85521B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				D8421B56203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				D8A42B4C1E815A9C00D8E281 /* WMFSearchButton.m in Sources */,
 				D8A42B4D1E815A9C00D8E281 /* WMFArticleFetcher.m in Sources */,
@@ -11589,6 +11607,7 @@
 				D8CE25BC1E698E2400DAE2E0 /* WikiTextSectionUploader.m in Sources */,
 				7A0DE50120CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D8CE25BD1E698E2400DAE2E0 /* AbuseFilterAlert.m in Sources */,
+				7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				B010E1A91E723E3600CFE1CD /* WMFAuthLinkLabel.swift in Sources */,
 				7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				D8CE25BE1E698E2400DAE2E0 /* EditFunnel.m in Sources */,
@@ -11920,6 +11939,7 @@
 				7A0DE50220CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				D8EC3EBA1E9BDA35006712EB /* AbuseFilterAlert.m in Sources */,
 				D8EC3EBB1E9BDA35006712EB /* WMFAuthLinkLabel.swift in Sources */,
+				7A27E85421B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */,
 				BAA0D91E1F4F165A00091284 /* PageIssuesTableViewController.swift in Sources */,
 				D8EC3EBC1E9BDA35006712EB /* EditFunnel.m in Sources */,
