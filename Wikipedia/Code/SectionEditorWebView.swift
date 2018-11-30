@@ -10,6 +10,9 @@ import WMF
     case redo
 }
 
+typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
+typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
+
 class SectionEditorWebView: WKWebView {
 
     init() {
@@ -24,7 +27,7 @@ class SectionEditorWebView: WKWebView {
 
     @objc var useRichEditor: Bool = true
 
-    private func update(completionHandler: ((Error?) -> Void)? = nil) {
+    private func update(completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
         evaluateJavaScript("""
             window.wmf.setCurrentEditorType(window.wmf.EditorType.\(useRichEditor ? "codemirror" : "wikitext"));
             window.wmf.update();
@@ -36,7 +39,7 @@ class SectionEditorWebView: WKWebView {
         }
     }
     
-    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+    @objc func setWikitext(_ wikitext: String, completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
         // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
@@ -49,7 +52,7 @@ class SectionEditorWebView: WKWebView {
         }
     }
 
-    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    @objc func getWikitext(completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
         evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
     
@@ -72,7 +75,7 @@ class SectionEditorWebView: WKWebView {
     }
     
     // Method for relaying various commands to codemirror - i.e. 'execCodeMirrorCommand(type: .cursorUp)'
-    @objc func execCodeMirrorCommand(type: CodeMirrorExecCommandType, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+    @objc func execCodeMirrorCommand(type: CodeMirrorExecCommandType, completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
         evaluateJavaScript("window.wmf.execCommand(window.wmf.ExecCommandType.\(string(for: type)));", completionHandler: completionHandler)
     }
 
@@ -88,7 +91,7 @@ class SectionEditorWebView: WKWebView {
     }
 
     // Convenience kickoff method for initial setting of wikitext & codemirror setup.
-    @objc func setup(wikitext: String, useRichEditor: Bool, completionHandler: ((Error?) -> Void)? = nil) {
+    @objc func setup(wikitext: String, useRichEditor: Bool, completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
         self.useRichEditor = useRichEditor
         update() { (error) in
             guard let error = error else {
