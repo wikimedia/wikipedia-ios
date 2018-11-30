@@ -28,38 +28,8 @@ class EditToolbarAccessoryView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         addTopShadow()
-        defaultViews.forEach { self.stackView.addArrangedSubview($0) }
-        secondaryViews.forEach { self.stackView.addArrangedSubview($0) }
         chevronButton.imageView?.contentMode = .scaleAspectFit
     }
-
-    // MARK: Default actions
-
-    private lazy var defaultViews: [UIView] = {
-        return [
-            button(withTitle: "A", action: #selector(formatText(_:))),
-            button(withTitle: "H", action: #selector(formatHeader(_:))),
-            button(withTitle: "C", action: #selector(addCitation(_:))),
-            button(withTitle: "L", action: #selector(addLink(_:))),
-            button(withTitle: "+", action: #selector(addUnorderedList(_:))), // todo selector
-            button(withTitle: "*", action: #selector(addUnorderedList(_:))),
-            button(withTitle: "1)", action: #selector(addOrderedList(_:)))
-        ]
-    }()
-
-    // MARK: Secondary actions
-
-    private lazy var secondaryViews: [UIView] = {
-        return [
-            button(withTitle: "🥗", action: #selector(formatText(_:))),
-            button(withTitle: "🤣", action: #selector(formatText(_:))),
-            button(withTitle: "🍕", action: #selector(formatText(_:))),
-            button(withTitle: "😉", action: #selector(formatText(_:))),
-            button(withTitle: "🤡", action: #selector(formatText(_:))),
-            button(withTitle: "🤗", action: #selector(formatText(_:))),
-            button(withTitle: "🚌", action: #selector(formatText(_:)))
-        ]
-    }()
 
     private func button(withTitle title: String, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
@@ -79,7 +49,7 @@ class EditToolbarAccessoryView: UIView {
 
     // MARK: Button actions
 
-    @objc private func formatText(_ sender: UIButton) {
+    @IBAction private func formatText(_ sender: UIButton) {
         delegate?.editToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
     }
 
@@ -155,13 +125,6 @@ class EditToolbarAccessoryView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         revealMoreActions(ofType: .default, with: chevronButton, animated: false)
-    }
-
-    // MARK: Setting items
-
-    private func setViews(_ views: [UIView], animated: Bool) {
-        stackView.arrangedSubviews.forEach { $0.isHidden = true }
-        views.forEach { self.stackView.addArrangedSubview($0) }
     }
 
     // MARK: Size
