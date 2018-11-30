@@ -24,15 +24,15 @@ class SectionEditorWebView: WKWebView {
 
     @objc var useRichEditor: Bool = true
 
-    private func update() {
+    private func update(completionHandler: ((Error?) -> Void)? = nil) {
         evaluateJavaScript("""
             window.wmf.setCurrentEditorType(window.wmf.EditorType.\(useRichEditor ? "codemirror" : "wikitext"));
             window.wmf.update();
         """) { (_, error) in
-            guard let error = error else {
+            guard let completionHandler = completionHandler else {
                 return
             }
-            DDLogError("Error: \(error)")
+            completionHandler(error)
         }
     }
     
@@ -79,13 +79,23 @@ class SectionEditorWebView: WKWebView {
     // Toggle between codemirror and plain wikitext editing
     @objc func toggleRichEditor() {
         useRichEditor = !useRichEditor
-        update()
+        update() { (error) in
+            guard let error = error else {
+                return
+            }
+            DDLogError("Error toggling editor: \(error)")
+        }
     }
 
     // Convenience kickoff method for initial setting of wikitext & codemirror setup.
     @objc func setup(wikitext: String, useRichEditor: Bool, completionHandler: ((Error?) -> Void)? = nil) {
         self.useRichEditor = useRichEditor
-        update()
-        setWikitext(wikitext, completionHandler: completionHandler)
+        update() { (error) in
+            guard let error = error else {
+                self.setWikitext(wikitext, completionHandler: completionHandler)
+                return
+            }
+            DDLogError("Error setting up editor: \(error)")
+        }
     }
 }
