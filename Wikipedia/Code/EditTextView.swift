@@ -8,6 +8,7 @@ protocol EditTextViewDataSource: class {
 @objc(WMFEditTextView)
 class EditTextView: UITextView {
     @objc weak var dataSource: EditTextViewDataSource?
+    @objc weak var inputViewControllerDelegate: TextFormattingTableViewControllerDelegate?
 
     override var inputViewController: UIInputViewController? {
         guard
@@ -15,6 +16,8 @@ class EditTextView: UITextView {
             dataSource.shouldShowCustomInputViewController else {
             return nil
         }
-        return TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+        let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+        textFormattingInputViewController.delegate = inputViewControllerDelegate
+        return textFormattingInputViewController
     }
 }

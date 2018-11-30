@@ -1,5 +1,7 @@
 @objc(WMFTextFormattingInputViewController)
 class TextFormattingInputViewController: UIInputViewController {
+    weak var delegate: TextFormattingTableViewControllerDelegate?
+
     private var theme = Theme.standard
 
     override func viewDidLoad() {
@@ -12,6 +14,19 @@ class TextFormattingInputViewController: UIInputViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: -2)
         view.layer.shadowRadius = 10
         view.layer.shadowOpacity = 1.0
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let id = segue.identifier, id == "EmbedNavigationControllerForTextFormattingTableView" else {
+            return
+        }
+        guard let navigationController = segue.destination as? UINavigationController else {
+            return
+        }
+        guard let textFormattingTableViewController = navigationController.topViewController as? TextFormattingTableViewController else {
+            return
+        }
+        textFormattingTableViewController.delegate = delegate
     }
 }
 

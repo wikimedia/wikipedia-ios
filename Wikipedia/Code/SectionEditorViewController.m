@@ -49,6 +49,7 @@
 
     [self.editTextView setDelegate:self];
     [self.editTextView setDataSource:self];
+    [self.editTextView setInputViewControllerDelegate:self];
 
     [self loadLatestWikiTextForSectionFromServer];
 
@@ -320,6 +321,12 @@
 
 - (void)editToolbarAccessoryViewDidTapTextFormattingButton:(WMFEditToolbarAccessoryView *)editToolbarAccessoryView button:(UIButton *)button {
     [self setTextFormattingViewHidden:NO];
+}
+
+#pragma mark WMFEditTextViewInputViewControllerDelegate
+
+-(void)textFormattingTableViewControllerDidTapCloseButton:(WMFTextFormattingTableViewController *)textFormattingTableViewController {
+    [self setTextFormattingViewHidden:YES];
 }
 
 #pragma mark TextFormattingView visibility

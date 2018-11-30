@@ -1,4 +1,12 @@
+@objc(WMFTextFormattingTableViewControllerDelegate)
+protocol TextFormattingTableViewControllerDelegate: class {
+    func textFormattingTableViewControllerDidTapCloseButton(_ textFormattingTableViewController: TextFormattingTableViewController)
+}
+
+@objc(WMFTextFormattingTableViewController)
 class TextFormattingTableViewController: UITableViewController {
+    weak var delegate: TextFormattingTableViewControllerDelegate?
+
     private var theme = Theme.standard
 
     @IBOutlet weak var clearButton: UIButton!
@@ -35,6 +43,10 @@ class TextFormattingTableViewController: UITableViewController {
 
     private func updateLabels() {
         titleLabel.sizeToFit()
+    }
+
+    @IBAction private func close(_ sender: UIBarButtonItem) {
+        delegate?.textFormattingTableViewControllerDidTapCloseButton(self)
     }
 
 }
