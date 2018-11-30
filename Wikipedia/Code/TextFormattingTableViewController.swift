@@ -57,9 +57,9 @@ extension TextFormattingTableViewController: Themeable {
             self.theme = theme
             return
         }
-        navigationItem.titleView?.backgroundColor = theme.colors.baseBackground
+        navigationItem.titleView?.backgroundColor = theme.colors.paperBackground
         navigationController?.navigationBar.tintColor = theme.colors.chromeText
-        tableView.backgroundColor = theme.colors.baseBackground
+        tableView.backgroundColor = theme.colors.paperBackground
         tableView.separatorColor = theme.colors.border
         titleLabel.textColor = theme.colors.primaryText
         clearButton.titleLabel?.textColor = theme.colors.error

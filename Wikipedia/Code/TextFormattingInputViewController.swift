@@ -1,6 +1,6 @@
 class TextFormattingInputView: UIView {
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: bounds.width, height: 290)
+        return CGSize(width: bounds.width, height: 300)
     }
 }
 
@@ -43,6 +43,7 @@ extension TextFormattingInputViewController: Themeable {
             self.theme = theme
             return
         }
+        view.backgroundColor = theme.colors.paperBackground
         view.layer.shadowColor = theme.colors.shadow.cgColor
     }
 }

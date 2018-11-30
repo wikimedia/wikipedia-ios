@@ -23,12 +23,14 @@ class TextStyleFormattingTableViewController: UITableViewController {
 
     private func configuredCell(_ cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell {
         let isFirst = indexPath.item == 0
+
         if isFirst {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
+
         let style = styles[indexPath.item]
         cell.textLabel?.text = style.name
         cell.textLabel?.font = style.font
