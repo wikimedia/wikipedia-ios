@@ -95,6 +95,19 @@
       editor.setValue(wikitext)
     }
 
+    wmf.ExecCommandType = {
+      cursorUp: 'goLineUp',
+      cursorDown: 'goLineDown',
+      cursorLeft: 'goCharLeft',
+      cursorRight: 'goCharRight',
+      undo: 'undo',
+      redo: 'redo'
+    }
+
+    wmf.execCommand = (execCommandType) => {
+      editor.execCommand(execCommandType)
+    }
+
     window.wmf = wmf
 
   </script>
