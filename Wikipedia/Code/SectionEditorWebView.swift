@@ -53,7 +53,7 @@ class SectionEditorWebView: WKWebView {
         evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
     
-    // Won't need this when we don't need @objc for `execCodeMirrorCommand`.
+    // Won't need this when we don't need @objc for `execCodeMirrorCommand` - i.e. 'CodeMirrorExecCommandType' could just be string enum.
     private func string(for type: CodeMirrorExecCommandType) -> String {
         switch type {
         case .cursorUp:
