@@ -19,16 +19,7 @@ If you have any questions or comments, you can join the #wikimedia-mobile channe
 ### Minimum Requirements
 * [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) - The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple Developer account.
 
-**Run `scripts/setup` before building & running in Xcode to install all of the required dependencies. This may take a while as it will also compile any code dependencies.**
-
-`scripts/setup` will install:
-
-* [Homebrew](https://brew.sh)
-* [Carthage](https://github.com/Carthage/Carthage)
-* [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
-* A pre-commit hook that runs clang-format on any changed files
-
-At this point, you should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A) or messaging us on IRC in #wikimedia-ios on Freenode.
+You should be able to open `Wikipedia.xcodeproject` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a [bug report]( https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?title=[BUG]&projects=wikipedia-ios-app-product-backlog,ios-app-bugs&description=%3D%3D%3D+How+many+times+were+you+able+to+reproduce+it?%0D%0A%0D%0A%3D%3D%3D+Steps+to+reproduce%0D%0A%23+%0D%0A%23+%0D%0A%23+%0D%0A%0D%0A%3D%3D%3D+Expected+results%0D%0A%0D%0A%3D%3D%3D+Actual+results%0D%0A%0D%0A%3D%3D%3D+Screenshots%0D%0A%0D%0A%3D%3D%3D+Environments+observed%0D%0A**App+version%3A+**+%0D%0A**OS+versions%3A**+%0D%0A**Device+model%3A**+%0D%0A**Device+language%3A**+%0D%0A%0D%0A%3D%3D%3D+Regression?+%0D%0A%0D%0A+Tag++task+with+%23Regression+%0A) or messaging us on IRC in #wikimedia-ios on Freenode.
 
 ## Development
 
@@ -97,15 +88,7 @@ Certain development and maintenance tasks will require the installation of speci
  
 `brew install carthage`
 
-We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. It is required to build the project. After installing carthage, (or running `scripts/setup`) you should be able to build & run in Xcode. `scripts/carthage_bootstrap` is run as a build step by Xcode. Your first build will take a while as the dependencies are built. Subsequent builds will re-use the prebuilt dependencies.
-
-#### Carthage Troubleshooting
-
-In Xcode, select the `Clean and build dependencies` target and run it. Make sure this succeeds before running the `Wikipedia` target again. This will run the setup script, remove any cached dependencies, and run carthage bootstrap again.
-
-### Manually imported dependencies
-
-HockeySDK is manually imported from their binary release. New binary releases of HockeySDK can be downloaded from https://www.hockeyapp.net/releases/ and copied over the existing version in the `Wikipedia/Frameworks` folder. We use the release in the `HockeySDKCrashOnly` folder.
+We use [Carthage](https://github.com/Carthage/Carthage) as our dependency manager. We check in prebuiult dependencies to simplify the initial build and run experience. After you add, remove, or upgrade a dependency, you should run `scripts/carthage_update` to update the built dependencies.
 
 ### Clang-Format
  

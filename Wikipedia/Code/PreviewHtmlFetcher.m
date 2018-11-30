@@ -1,5 +1,5 @@
 #import "PreviewHtmlFetcher.h"
-@import AFNetworking;
+@import WMF.AFNetworking;
 #import "NSObject+WMFExtras.h"
 @import WMF.SessionSingleton;
 @import WMF.MWNetworkActivityIndicatorManager;

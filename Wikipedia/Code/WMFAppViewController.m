@@ -1176,11 +1176,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #pragma mark - Utilities
 
-- (void)selectDefaultTabAndDismissPresentedViewControllers {
-    [self dismissPresentedViewControllers];
-    [self setSelectedIndex:WMFAppTabTypeMain];
-}
-
 - (WMFArticleViewController *)showArticleForURL:(NSURL *)articleURL animated:(BOOL)animated {
     return [self showArticleForURL:articleURL
                           animated:animated
@@ -1200,8 +1195,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         completion();
         return visibleArticleViewController;
     }
-    [self selectDefaultTabAndDismissPresentedViewControllers];
-    return [self.exploreViewController wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
+    [self dismissPresentedViewControllers];
+    return [self wmf_pushArticleWithURL:articleURL dataStore:self.session.dataStore theme:self.theme restoreScrollPosition:YES animated:animated articleLoadCompletion:completion];
 }
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
@@ -1393,8 +1388,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)hideSplashViewAnimated:(BOOL)animated {
-    NSTimeInterval duration = animated ? 0.3 : 0.0;
+    NSTimeInterval duration = animated ? 0.15 : 0.0;
     [UIView animateWithDuration:duration
+        delay:0
+        options:UIViewAnimationOptionAllowUserInteraction
         animations:^{
             self.splashView.alpha = 0.0;
         }
@@ -1723,7 +1720,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self showArticleForURL:articleURL animated:NO];
         return;
     }
-    [self selectDefaultTabAndDismissPresentedViewControllers];
+    [self dismissPresentedViewControllers];
 
     if (!feedNewsStory) {
         return;
@@ -1734,7 +1731,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         return;
     }
 
-    [self setSelectedIndex:WMFAppTabTypeMain];
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self.navigationController pushViewController:vc animated:NO];
 }
