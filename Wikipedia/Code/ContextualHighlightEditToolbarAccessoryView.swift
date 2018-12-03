@@ -1,5 +1,5 @@
 @objc(WMFContextualHighlightEditToolbarAccessoryView)
-class ContextualHighlightEditToolbarAccessoryView: UIView {
+class ContextualHighlightEditToolbarAccessoryView: EditToolbarAccessoryView {
     @IBOutlet var separatorViews: [UIView] = []
 
     // MARK: Initialization

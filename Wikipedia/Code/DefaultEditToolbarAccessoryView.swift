@@ -11,7 +11,7 @@ protocol DefaultEditToolbarAccessoryViewDelegate: class {
 }
 
 @objc(WMFDefaultEditToolbarAccessoryView)
-class DefaultEditToolbarAccessoryView: UIView {
+class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
     @objc weak var delegate: DefaultEditToolbarAccessoryViewDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
