@@ -29,11 +29,11 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik">
                                             <rect key="frame" x="0.0" y="0.0" width="646" height="44"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64">
+                                                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64">
                                                     <rect key="frame" x="0.0" y="0.0" width="319" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Default Stack View">
-                                                            <rect key="frame" x="8" y="0.0" width="303" height="44"/>
+                                                            <rect key="frame" x="16" y="0.0" width="287" height="44"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Hsj-J7-D6l">
                                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
@@ -52,7 +52,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxZ-pF-FjT" userLabel="Separator View">
-                                                                    <rect key="frame" x="82" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="78" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -71,7 +71,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="xTU-Nh-ZGS">
-                                                                    <rect key="frame" x="106.5" y="0.0" width="90" height="44"/>
+                                                                    <rect key="frame" x="98.5" y="0.0" width="90" height="44"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
@@ -88,7 +88,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-15-pdj" userLabel="Separator View">
-                                                                    <rect key="frame" x="218.5" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="206.5" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-lo-H48">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -107,7 +107,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="PJH-xK-dK6">
-                                                                    <rect key="frame" x="243" y="0.0" width="60" height="44"/>
+                                                                    <rect key="frame" x="227" y="0.0" width="60" height="44"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
@@ -123,10 +123,10 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="g2p-oh-oje" secondAttribute="trailing" id="F9b-D8-U5d"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="g2p-oh-oje" secondAttribute="trailing" constant="8" id="F9b-D8-U5d"/>
                                                         <constraint firstItem="g2p-oh-oje" firstAttribute="top" secondItem="BWO-2h-I64" secondAttribute="top" id="Thd-My-zCm"/>
                                                         <constraint firstAttribute="bottom" secondItem="g2p-oh-oje" secondAttribute="bottom" id="gr8-Ry-dCX"/>
-                                                        <constraint firstItem="g2p-oh-oje" firstAttribute="leading" secondItem="BWO-2h-I64" secondAttribute="leadingMargin" id="jca-4R-uZt"/>
+                                                        <constraint firstItem="g2p-oh-oje" firstAttribute="leading" secondItem="BWO-2h-I64" secondAttribute="leadingMargin" constant="8" id="jca-4R-uZt"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51i-1d-Lli">
