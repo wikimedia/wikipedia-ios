@@ -17,6 +17,7 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
+    @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
 
     @objc static func loadFromNib() -> DefaultEditToolbarAccessoryView {
         let nib = UINib(nibName: "DefaultEditToolbarAccessoryView", bundle: Bundle.main)
@@ -79,13 +80,17 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
         }
     }
 
-    @IBAction private func revealMoreActions(_ sender: UIButton) {
+    @IBAction private func revealMoreActionsViaTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        revealMoreActions(nil)
+    }
+
+    @IBAction private func revealMoreActions(_ sender: UIButton?) {
         let offsetX = scrollView.contentOffset.x
         let actionsType = ActionsType(rawValue: offsetX)
         revealMoreActions(ofType: actionsType, with: sender, animated: true)
     }
 
-    private func revealMoreActions(ofType actionsType: ActionsType, with sender: UIButton, animated: Bool) {
+    private func revealMoreActions(ofType actionsType: ActionsType, with sender: UIButton?, animated: Bool) {
         let transform = CGAffineTransform.identity
         let buttonTransform: () -> Void
         let newOffsetX: CGFloat
@@ -93,13 +98,13 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
         switch actionsType {
         case .default:
             buttonTransform = {
-                sender.transform = transform
+                sender?.transform = transform
             }
             newOffsetX = 0
         case .secondary:
             buttonTransform = {
-                sender.transform = transform.rotated(by: 180 * CGFloat.pi)
-                sender.transform = transform.rotated(by: -1 * CGFloat.pi)
+                sender?.transform = transform.rotated(by: 180 * CGFloat.pi)
+                sender?.transform = transform.rotated(by: -1 * CGFloat.pi)
             }
             newOffsetX = stackView.bounds.width / 2
         }
