@@ -15,9 +15,9 @@ class EditToolbarAccessoryView: UIView {
     @objc weak var delegate: EditToolbarAccessoryViewDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
-
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
+    @IBOutlet var separatorViews: [UIView] = []
 
     @objc static func loadFromNib() -> EditToolbarAccessoryView {
         let nib = UINib(nibName: "EditToolbarAccessoryView", bundle: Bundle.main)
@@ -147,5 +147,6 @@ extension EditToolbarAccessoryView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.midBackground
         layer.shadowColor = theme.colors.shadow.cgColor
+        separatorViews.forEach { $0.backgroundColor = theme.colors.border }
     }
 }
