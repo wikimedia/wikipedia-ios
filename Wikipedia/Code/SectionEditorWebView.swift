@@ -1,6 +1,10 @@
 import WebKit
 import WMF
 
+protocol SelectionChangedDelegate: NSObjectProtocol {
+    func highlightTheseButtons(name: String, body: Any)
+}
+
 @objc enum CodeMirrorExecCommandType: Int {
     case cursorUp
     case cursorDown
@@ -14,12 +18,16 @@ typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
 private class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessageHandler {
+
+    public weak var selectionChangedDelegate: SelectionChangedDelegate?
+
     override init() {
         super.init()
         setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
         
         let contentController = WKUserContentController()
-        contentController.add(self, name: "cursorActivity")
+        // contentController.add(self, name: "cursorActivity")
+        contentController.add(self, name: "highlightTheseButtons")
         userContentController = contentController
     }
     
@@ -28,17 +36,36 @@ private class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScrip
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("\n\n=================")
-        print("\nJavaScript is sending a message: \(message.body)\n")
-        print("\nJavaScript is sending a message.name: \(message.name)\n")
+        selectionChangedDelegate?.highlightTheseButtons(name: message.name, body: message.body)
     }
 }
 
-class SectionEditorWebView: WKWebView {
+class SectionEditorWebView: WKWebView, SelectionChangedDelegate {
+    
+    func highlightTheseButtons(name: String, body: Any) {
+        print("\n\nReceived SelectionChangedDelegate highlightTheseButtons message:")
+        print("NAME: \(name)")
+        print("BODY: \(body)")
+    }
+    
+    public weak var selectionChangedDelegate: SelectionChangedDelegate? {
+        didSet {
+            config.selectionChangedDelegate = selectionChangedDelegate
+        }
+    }
+    private var config: SectionEditorWebViewConfiguration
+
     // TODO: add delegate prop to 'SectionEditorWebView' for codemirror cursor and other events, relay this delegate to 'SectionEditorWebViewConfiguration' so
     // it can invoke the various delegate methods when it receives respective JS messages.
     init() {
-        super.init(frame: .zero, configuration: SectionEditorWebViewConfiguration.init())
+        //let webViewConfig = SectionEditorWebViewConfiguration.init()
+        config = SectionEditorWebViewConfiguration.init()
+        super.init(frame: .zero, configuration: config)
+        
+        //TESTING: Temporarily set the webview to be the selection changed delegate
+        defer {
+            self.selectionChangedDelegate = self
+        }
     }
     
     required init?(coder: NSCoder) {
