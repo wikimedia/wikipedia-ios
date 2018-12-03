@@ -33,6 +33,7 @@ class TextFormattingInputViewController: UIInputViewController {
             return
         }
         textFormattingTableViewController.delegate = delegate
+        textFormattingTableViewController.apply(theme: theme)
     }
     
 }

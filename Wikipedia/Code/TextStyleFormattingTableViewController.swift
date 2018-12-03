@@ -1,5 +1,5 @@
 class TextStyleFormattingTableViewController: UITableViewController {
-    private let reuseIdentifier = "TextStyleFormattingTableViewCell"
+    private var theme = Theme.standard
 
     private struct Style {
         let name: String
@@ -17,12 +17,14 @@ class TextStyleFormattingTableViewController: UITableViewController {
     }()
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormattingTableViewCell.identifier, for: indexPath) as? TextFormattingTableViewCell else {
+            return UITableViewCell()
+        }
         return configuredCell(cell, at: indexPath)
     }
 
-    private func configuredCell(_ cell: UITableViewCell, at indexPath: IndexPath) -> UITableViewCell {
-        let isFirst = indexPath.item == 0
+    private func configuredCell(_ cell: TextFormattingTableViewCell, at indexPath: IndexPath) -> UITableViewCell {
+        let isFirst = indexPath.row == 0
 
         if isFirst {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
@@ -31,9 +33,12 @@ class TextStyleFormattingTableViewController: UITableViewController {
             cell.accessoryType = .none
         }
 
-        let style = styles[indexPath.item]
+        let style = styles[indexPath.row]
         cell.textLabel?.text = style.name
         cell.textLabel?.font = style.font
+
+        cell.apply(theme: theme)
+
         return cell
     }
 
@@ -56,5 +61,14 @@ class TextStyleFormattingTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return styles.count
+    }
+}
+
+extension TextStyleFormattingTableViewController: Themeable {
+    func apply(theme: Theme) {
+        guard viewIfLoaded != nil else {
+            self.theme = theme
+            return
+        }
     }
 }
