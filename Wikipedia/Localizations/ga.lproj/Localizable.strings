@@ -120,7 +120,7 @@
 "description-welcome-concise-title" = "Coinnigh gairid é";
 "description-welcome-descriptions-sub-title" = "Coimrítear alt chun cabhrú le léitheoirí an t-ábhar a thuiscint ar an bpointe";
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
-"description-welcome-start-editing-button" = "Cuir tús le heagarthóireacht";
+"description-welcome-start-editing-button" = "Cuir in eagar";
 "dim-images" = "Maolaigh íomhánna";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
@@ -472,7 +472,7 @@
 "view-in-browser-footer-link" = "Féach ar alt i mbrabhsálaí";
 "welcome-exploration-explore-feed-description" = "Ábhar léimh molta agus ailt laethúla ónár gcomhphobal";
 "welcome-exploration-explore-feed-title" = "Fotha Taiscéal";
-"welcome-exploration-on-this-day-description" = "Téigh siar sna blianta le foghlaim cad a tharla ar an lá seo sa stair";
+"welcome-exploration-on-this-day-description" = "Taisteal siar sna blianta le foghlaim cad a tharla ar an lá seo sa stair";
 "welcome-exploration-on-this-day-title" = "Ar an lá seo";
 "welcome-exploration-places-description" = "Tar ar sainchomharthaí in aice leat nó cuardaigh ar thóir áiteanna ar fud an domhain";
 "welcome-exploration-places-title" = "Táb Áiteanna";
