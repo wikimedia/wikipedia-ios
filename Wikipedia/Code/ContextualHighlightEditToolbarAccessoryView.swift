@@ -10,6 +10,17 @@ class ContextualHighlightEditToolbarAccessoryView: UIView {
         return view
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        addTopShadow()
+    }
+
+    private func addTopShadow() {
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 10
+        layer.shadowOpacity = 1.0
+    }
+
     // MARK: Size
 
     override var intrinsicContentSize: CGSize {

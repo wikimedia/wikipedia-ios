@@ -400,16 +400,16 @@
 		7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */; };
 		7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */; };
 		7AEBAD492102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */; };
-		7AEC9859219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */; };
-		7AEC985A219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */; };
-		7AEC985B219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */; };
-		7AEC985C219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */; };
-		7AEC985D219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */; };
-		7AEC985E219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */; };
-		7AEC985F219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */; };
-		7AEC9860219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */; };
-		7AEC9861219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */; };
-		7AEC9862219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */; };
+		7AEC9859219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */; };
+		7AEC985A219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */; };
+		7AEC985B219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */; };
+		7AEC985C219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */; };
+		7AEC985D219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */; };
+		7AEC985E219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */; };
+		7AEC985F219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */; };
+		7AEC9860219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */; };
+		7AEC9861219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */; };
+		7AEC9862219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */; };
 		7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3AD05620ADAFEF00C92E04 /* WMFCaptcha.swift */; };
 		7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */; };
 		7AF49F80204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
@@ -3423,8 +3423,8 @@
 		7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingButtonView.xib; sourceTree = "<group>"; };
 		7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikidataDescriptionEditingController.swift; path = Wikipedia/Code/WikidataDescriptionEditingController.swift; sourceTree = SOURCE_ROOT; };
 		7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+IndexPathValidation.swift"; sourceTree = "<group>"; };
-		7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToolbarAccessoryView.swift; sourceTree = "<group>"; };
-		7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditToolbarAccessoryView.xib; sourceTree = "<group>"; };
+		7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEditToolbarAccessoryView.swift; sourceTree = "<group>"; };
+		7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DefaultEditToolbarAccessoryView.xib; sourceTree = "<group>"; };
 		7AEF527220ADF07100DDF791 /* KeychainCredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialsManager.swift; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
@@ -6188,8 +6188,8 @@
 		7AEC9863219F5D9C00BEF62B /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
-				7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */,
-				7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */,
+				7AEC9857219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift */,
+				7AEC9858219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib */,
 				7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */,
 				7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */,
 			);
@@ -9318,7 +9318,7 @@
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
 				B09B03F61CE0FB7700009083 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */,
-				7AEC985E219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
+				7AEC985E219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9378,7 +9378,7 @@
 				D80ED3F01EE57F4800CE8C50 /* BulletedLabel.xib in Resources */,
 				D80ED3F31EE57F4800CE8C50 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
-				7AEC9862219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
+				7AEC9862219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */,
 				D80ED3F41EE57F4800CE8C50 /* NotificationBackgroundWarning@2x.png in Resources */,
 				D80ED3F51EE57F4800CE8C50 /* LibrariesUsed.storyboard in Resources */,
 				D80ED3F61EE57F4800CE8C50 /* NotificationBackgroundSuccess@2x.png in Resources */,
@@ -9559,7 +9559,7 @@
 				D8A42C161E815A9C00D8E281 /* Images.xcassets in Resources */,
 				D8A42C171E815A9C00D8E281 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8A42C181E815A9C00D8E281 /* NotificationButtonBackground@2x.png in Resources */,
-				7AEC9861219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
+				7AEC9861219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9658,7 +9658,7 @@
 				D8CE269D1E698E2400DAE2E0 /* Images.xcassets in Resources */,
 				D8CE269E1E698E2400DAE2E0 /* ReadingThemesControlsViewController.xib in Resources */,
 				D8CE269F1E698E2400DAE2E0 /* NotificationButtonBackground@2x.png in Resources */,
-				7AEC985F219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
+				7AEC985F219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9757,7 +9757,7 @@
 				D8EC3F9D1E9BDA35006712EB /* Images.xcassets in Resources */,
 				D8EC3F9E1E9BDA35006712EB /* ReadingThemesControlsViewController.xib in Resources */,
 				D8EC3F9F1E9BDA35006712EB /* NotificationButtonBackground@2x.png in Resources */,
-				7AEC9860219F529000BEF62B /* EditToolbarAccessoryView.xib in Resources */,
+				7AEC9860219F529000BEF62B /* DefaultEditToolbarAccessoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10205,7 +10205,7 @@
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
 				8382F8C720D844C600AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				B37B38F01E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift in Sources */,
-				7AEC9859219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */,
+				7AEC9859219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */,
 				D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */,
 				B0524B47214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
 				B3F21D0F1EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
@@ -10516,7 +10516,7 @@
 				D80ED2801EE57F4800CE8C50 /* UIButton+WMFButton.m in Sources */,
 				D80ED2811EE57F4800CE8C50 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D82E956E1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
-				7AEC985D219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */,
+				7AEC985D219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */,
 				BA45241C1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				D80ED2841EE57F4800CE8C50 /* WMFReferencePageBackgroundView.swift in Sources */,
 				D80ED2861EE57F4800CE8C50 /* UIApplication+RTL.swift in Sources */,
@@ -11238,7 +11238,7 @@
 				8382F8CA20D844C800AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				B0B423641EF9D6A400D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D8A42A771E815A9C00D8E281 /* WMFTableHeaderFooterLabelView.m in Sources */,
-				7AEC985C219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */,
+				7AEC985C219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */,
 				D8A42A781E815A9C00D8E281 /* PreviewHtmlFetcher.m in Sources */,
 				B0524B4A214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
 				7A6ED51620ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
@@ -11549,7 +11549,7 @@
 				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher.swift in Sources */,
 				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* WMFTableOfContentsAnimator.swift in Sources */,
-				7AEC985A219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */,
+				7AEC985A219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */,
 				D82E956B1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
 				D8CE24F61E698E2400DAE2E0 /* WMFReferencePageBackgroundView.swift in Sources */,
 				B04C809B1EA6E2A100EDD2DE /* WKWebView+WMFWebViewControllerJavascript.swift in Sources */,
@@ -11888,7 +11888,7 @@
 				D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */,
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
-				7AEC985B219F529000BEF62B /* EditToolbarAccessoryView.swift in Sources */,
+				7AEC985B219F529000BEF62B /* DefaultEditToolbarAccessoryView.swift in Sources */,
 				D8EC3DEA1E9BDA35006712EB /* WMFTableOfContentsAnimator.swift in Sources */,
 				B0432346210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				BA45241A1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,

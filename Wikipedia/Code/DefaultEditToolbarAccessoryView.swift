@@ -1,27 +1,27 @@
 import UIKit
 
-@objc(WMFEditToolbarAccessoryViewDelegate)
-protocol EditToolbarAccessoryViewDelegate: class {
-    func editToolbarAccessoryViewDidTapTextFormattingButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
-    func editToolbarAccessoryViewDidTapHeaderFormattingButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
-    func editToolbarAccessoryViewDidTapAddCitationButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
-    func editToolbarAccessoryViewDidTapAddLinkButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
-    func editToolbarAccessoryViewDidTapUnorderedListButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
-    func editToolbarAccessoryViewDidTapOrderedListButton(_ editToolbarAccessoryView: EditToolbarAccessoryView, button: UIButton)
+@objc(WMFDefaultEditToolbarAccessoryViewDelegate)
+protocol DefaultEditToolbarAccessoryViewDelegate: class {
+    func defaultEditToolbarAccessoryViewDidTapTextFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+    func defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+    func defaultEditToolbarAccessoryViewDidTapAddCitationButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+    func defaultEditToolbarAccessoryViewDidTapAddLinkButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+    func defaultEditToolbarAccessoryViewDidTapUnorderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+    func defaultEditToolbarAccessoryViewDidTapOrderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
 }
 
-@objc(WMFEditToolbarAccessoryView)
-class EditToolbarAccessoryView: UIView {
-    @objc weak var delegate: EditToolbarAccessoryViewDelegate?
+@objc(WMFDefaultEditToolbarAccessoryView)
+class DefaultEditToolbarAccessoryView: UIView {
+    @objc weak var delegate: DefaultEditToolbarAccessoryViewDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
     @IBOutlet var separatorViews: [UIView] = []
 
-    @objc static func loadFromNib() -> EditToolbarAccessoryView {
-        let nib = UINib(nibName: "EditToolbarAccessoryView", bundle: Bundle.main)
-        let view = nib.instantiate(withOwner: nil, options: nil).first as! EditToolbarAccessoryView
+    @objc static func loadFromNib() -> DefaultEditToolbarAccessoryView {
+        let nib = UINib(nibName: "DefaultEditToolbarAccessoryView", bundle: Bundle.main)
+        let view = nib.instantiate(withOwner: nil, options: nil).first as! DefaultEditToolbarAccessoryView
         return view
     }
 
@@ -50,7 +50,7 @@ class EditToolbarAccessoryView: UIView {
     // MARK: Button actions
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.editToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.defaultEditToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
     }
 
     @objc private func formatHeader(_ sender: UIBarButtonItem) {
@@ -143,7 +143,7 @@ class EditToolbarAccessoryView: UIView {
 
 }
 
-extension EditToolbarAccessoryView: Themeable {
+extension DefaultEditToolbarAccessoryView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.midBackground
         layer.shadowColor = theme.colors.shadow.cgColor

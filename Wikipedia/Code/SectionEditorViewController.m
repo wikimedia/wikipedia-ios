@@ -11,13 +11,13 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource, WMFTextFormattingTableViewControllerDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFDefaultEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource, WMFTextFormattingTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet WMFEditTextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
-@property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
+@property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbarAccessoryView;
 @property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbarAccessoryView;
 @property (strong, nonatomic) UIView<WMFThemeable> *preferredAccessoryView;
 @property (strong, nonatomic) UINavigationController *textFormattingNavigationController;
@@ -63,8 +63,8 @@
 
     self.viewKeyboardRect = CGRectNull;
 
-    self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
-    self.editToolbarAccessoryView.delegate = self;
+    self.defaultEditToolbarAccessoryView = [WMFDefaultEditToolbarAccessoryView loadFromNib];
+    self.defaultEditToolbarAccessoryView.delegate = self;
 
     self.contextualHighlightEditToolbarAccessoryView = [WMFContextualHighlightEditToolbarAccessoryView loadFromNib];
 
@@ -123,7 +123,7 @@
     if (selectedText && selectedText.length > 0) {
         self.preferredAccessoryView = self.contextualHighlightEditToolbarAccessoryView;
     } else {
-        self.preferredAccessoryView = self.editToolbarAccessoryView;
+        self.preferredAccessoryView = self.defaultEditToolbarAccessoryView;
     }
 }
 
@@ -337,9 +337,9 @@
     return YES;
 }
 
-#pragma mark WMFEditToolbarAccessoryViewDelegate
+#pragma mark WMFDefaultEditToolbarAccessoryViewDelegate
 
-- (void)editToolbarAccessoryViewDidTapTextFormattingButton:(WMFEditToolbarAccessoryView *)editToolbarAccessoryView button:(UIButton *)button {
+- (void)defaultEditToolbarAccessoryViewDidTapTextFormattingButton:(WMFDefaultEditToolbarAccessoryView *)defaultEditToolbarAccessoryView button:(UIButton *)button {
     [self setTextFormattingViewHidden:NO];
 }
 
