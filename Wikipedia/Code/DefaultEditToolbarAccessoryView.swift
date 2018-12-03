@@ -17,7 +17,6 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
-    @IBOutlet var separatorViews: [UIView] = []
 
     @objc static func loadFromNib() -> DefaultEditToolbarAccessoryView {
         let nib = UINib(nibName: "DefaultEditToolbarAccessoryView", bundle: Bundle.main)
@@ -27,7 +26,6 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addTopShadow()
         chevronButton.imageView?.contentMode = .scaleAspectFit
     }
 
@@ -127,26 +125,11 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
         revealMoreActions(ofType: .default, with: chevronButton, animated: false)
     }
 
-    // MARK: Size
-
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: bounds.width, height: bounds.height + 1)
-    }
-
-    // MARK: Shadow
-
-    private func addTopShadow() {
-        layer.shadowOffset = CGSize(width: 0, height: -2)
-        layer.shadowRadius = 10
-        layer.shadowOpacity = 1.0
-    }
-
 }
 
-extension DefaultEditToolbarAccessoryView: Themeable {
-    func apply(theme: Theme) {
-        backgroundColor = theme.colors.midBackground
-        layer.shadowColor = theme.colors.shadow.cgColor
-        separatorViews.forEach { $0.backgroundColor = theme.colors.border }
+extension DefaultEditToolbarAccessoryView {
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        //
     }
 }

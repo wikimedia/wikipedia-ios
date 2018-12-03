@@ -117,7 +117,6 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="cO2-kj-WCI" firstAttribute="leading" secondItem="Euq-9x-ZtU" secondAttribute="leadingMargin" id="1CB-nW-wGA"/>
                                 <constraint firstItem="7it-ZC-Hfg" firstAttribute="centerY" secondItem="Euq-9x-ZtU" secondAttribute="centerY" id="1yG-D5-gGe"/>
@@ -129,7 +128,6 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailingMargin" secondItem="Euq-9x-ZtU" secondAttribute="trailing" id="4oK-8Z-JCS"/>
                         <constraint firstItem="Euq-9x-ZtU" firstAttribute="top" secondItem="3hx-Fi-vCv" secondAttribute="top" id="HWL-Hy-dro"/>
