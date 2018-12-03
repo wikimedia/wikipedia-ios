@@ -18,6 +18,8 @@
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFEditToolbarAccessoryView *editToolbarAccessoryView;
+@property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbarAccessoryView;
+@property (strong, nonatomic) UIView<WMFThemeable> *preferredAccessoryView;
 @property (strong, nonatomic) UINavigationController *textFormattingNavigationController;
 @property (strong, nonatomic) WMFTheme *theme;
 
@@ -64,6 +66,8 @@
     self.editToolbarAccessoryView = [WMFEditToolbarAccessoryView loadFromNib];
     self.editToolbarAccessoryView.delegate = self;
 
+    self.contextualHighlightEditToolbarAccessoryView = [WMFContextualHighlightEditToolbarAccessoryView loadFromNib];
+
     [self applyTheme:self.theme];
 
     // "loginWithSavedCredentials..." should help ensure the user will only appear to be logged in when
@@ -89,8 +93,8 @@
     if (shouldShowCustomInputViewController) {
         return nil;
     } else {
-        [self.editToolbarAccessoryView applyTheme:self.theme];
-        return self.editToolbarAccessoryView;
+        [self.preferredAccessoryView applyTheme:self.theme];
+        return self.preferredAccessoryView;
     }
 }
 
@@ -111,6 +115,22 @@
     [self highlightProgressiveButton:[self changesMade]];
 
     [self scrollTextViewSoCursorNotUnderKeyboard:textView];
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    NSString *selectedText = [textView textInRange:textView.selectedTextRange];
+    NSLog(@"here: %@", selectedText);
+    if (selectedText && selectedText.length > 0) {
+        self.preferredAccessoryView = self.contextualHighlightEditToolbarAccessoryView;
+    } else {
+        self.preferredAccessoryView = self.editToolbarAccessoryView;
+    }
+}
+
+- (void)setPreferredAccessoryView:(UIView<WMFThemeable> *)preferredAccessoryView {
+    _preferredAccessoryView = preferredAccessoryView;
+    [self.editTextView reloadInputViews];
+    [self reloadInputViews];
 }
 
 - (BOOL)changesMade {

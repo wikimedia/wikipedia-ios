@@ -164,6 +164,16 @@
 		7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432C71FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */; };
 		7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2432EC1FCF469100FB4BA5 /* SetupView.swift */; };
+		7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */; };
+		7A25367821B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */; };
+		7A25367921B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */; };
+		7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */; };
+		7A25367B21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */; };
+		7A25367C21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */; };
+		7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */; };
+		7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */; };
+		7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */; };
+		7A25368021B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */; };
 		7A255D40215164430081A068 /* RemoteNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7A255D3E215164430081A068 /* RemoteNotifications.xcdatamodeld */; };
 		7A27E85221B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
 		7A27E85321B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */; };
@@ -3358,6 +3368,8 @@
 		7A2432BC1FCF401900FB4BA5 /* CreateReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReadingListViewController.swift; sourceTree = "<group>"; };
 		7A2432BD1FCF401900FB4BA5 /* CreateReadingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateReadingListViewController.xib; sourceTree = "<group>"; };
 		7A2432EC1FCF469100FB4BA5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextualHighlightEditToolbarAccessoryView.swift; sourceTree = "<group>"; };
+		7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextualHighlightEditToolbarAccessoryView.xib; sourceTree = "<group>"; };
 		7A255D3F215164430081A068 /* RemoteNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteNotifications.xcdatamodel; sourceTree = "<group>"; };
 		7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFunnel.swift; sourceTree = "<group>"; };
 		7A27E85121B19767001B2D21 /* TextStyleFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyleFormattingTableViewController.swift; sourceTree = "<group>"; };
@@ -6178,6 +6190,8 @@
 			children = (
 				7AEC9857219F529000BEF62B /* EditToolbarAccessoryView.swift */,
 				7AEC9858219F529000BEF62B /* EditToolbarAccessoryView.xib */,
+				7A25367521B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift */,
+				7A25367621B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib */,
 			);
 			name = Toolbar;
 			sourceTree = "<group>";
@@ -9256,6 +9270,7 @@
 				B016DCEB1D497C74005BABA1 /* WMFFindInPageKeyboardBar.xib in Resources */,
 				7ADF498C21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8D92B651DF22E1700B95311 /* NotificationBackgroundWarning@2x.png in Resources */,
+				7A25367C21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */,
 				B0EFCD681EBEC2F6008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				D8D92B611DF22E1700B95311 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				B0524AF62144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9336,6 +9351,7 @@
 				D80ED3E21EE57F4800CE8C50 /* PlacesSearchSuggestionTableViewCell.xib in Resources */,
 				D8421B5C203CC8420040F50B /* DebugReadingListsViewController.xib in Resources */,
 				D80ED3E31EE57F4800CE8C50 /* WikiFont-Glyphs.ttf in Resources */,
+				7A25368021B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */,
 				7AE1FE3A21B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D80ED3E41EE57F4800CE8C50 /* WMFTableOfContentsCell.xib in Resources */,
 				83E52BBD1F681F940045E776 /* ShareAFactViewController.xib in Resources */,
@@ -9495,6 +9511,7 @@
 				D8A42BDD1E815A9C00D8E281 /* BulletedLabel.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8A42BE21E815A9C00D8E281 /* WMFFindInPageKeyboardBar.xib in Resources */,
+				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */,
 				D8A42BE41E815A9C00D8E281 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6B1EBEC2FA008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF92144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9593,6 +9610,7 @@
 				D8CE26641E698E2400DAE2E0 /* BulletedLabel.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8CE26691E698E2400DAE2E0 /* WMFFindInPageKeyboardBar.xib in Resources */,
+				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -9691,6 +9709,7 @@
 				D8EC3F641E9BDA35006712EB /* BulletedLabel.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				D8EC3F691E9BDA35006712EB /* WMFFindInPageKeyboardBar.xib in Resources */,
+				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.xib in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
@@ -10446,6 +10465,7 @@
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				B027447B1E62471D00E7B248 /* WMFScrollable.swift in Sources */,
+				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -10568,6 +10588,7 @@
 				D80ED2CD1EE57F4800CE8C50 /* MWKSearchRedirectMapping.m in Sources */,
 				D80ED2CE1EE57F4800CE8C50 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				D80ED2D11EE57F4800CE8C50 /* RoundedCornerView.swift in Sources */,
+				7A25367B21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */,
 				7A16C4EA212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				D80ED2D21EE57F4800CE8C50 /* MWKImageInfoResponseSerializer.m in Sources */,
 				8382F8D120D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
@@ -11477,6 +11498,7 @@
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
+				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */,
 				D8A42B8C1E815A9C00D8E281 /* WMFImageInfoController.m in Sources */,
 				7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -11599,6 +11621,7 @@
 				D8CE25371E698E2400DAE2E0 /* SavedPagesFunnel.m in Sources */,
 				D8CE25391E698E2400DAE2E0 /* WMFChange.m in Sources */,
 				D8CE253B1E698E2400DAE2E0 /* MWKSearchRedirectMapping.m in Sources */,
+				7A25367821B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */,
 				7A16C4E7212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
 				8382F8CE20D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				D8CE253C1E698E2400DAE2E0 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
@@ -11937,6 +11960,7 @@
 				D8EC3E2C1E9BDA35006712EB /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				D8EC3E2E1E9BDA35006712EB /* SavedPagesFunnel.m in Sources */,
 				7A16C4E8212D941C00F0D5EC /* SubSettingsViewController.swift in Sources */,
+				7A25367921B5AA4F00F841A1 /* ContextualHighlightEditToolbarAccessoryView.swift in Sources */,
 				7A203F0D1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8EC3E301E9BDA35006712EB /* WMFChange.m in Sources */,
 				D8EC3E321E9BDA35006712EB /* MWKSearchRedirectMapping.m in Sources */,
