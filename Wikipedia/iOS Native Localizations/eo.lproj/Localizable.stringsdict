@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Aldoni %1$d article al legolisto</string>
+			<string>Aldoni %1$d artikolon al legolisto</string>
 			<key>other</key>
-			<string>Aldoni %1$d articles al legolisto</string>
+			<string>Aldoni %1$d artikolojn al legolisto</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>article forigita</string>
+			<string>artikolo forigita</string>
 			<key>other</key>
-			<string>articles forigita</string>
+			<string>artikoloj forigitaj</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -45,9 +45,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Movi %1$d article al legolisto</string>
+			<string>Movi %1$d artikolon al legolisto</string>
 			<key>other</key>
-			<string>Movi %1$d articles al legolisto</string>
+			<string>Movi %1$d artikolojn al legolisto</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>
