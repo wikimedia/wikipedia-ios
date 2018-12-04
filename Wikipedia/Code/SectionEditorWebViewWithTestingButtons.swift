@@ -177,15 +177,15 @@ extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionC
         anchorButton.isSelected = true
     }
     
-    func highlightIndentButton() {
+    func highlightIndentButton(depth: Int) {
         indentButton.isSelected = true
     }
     
-    func highlightSignatureButton() {
+    func highlightSignatureButton(depth: Int) {
         signatureButton.isSelected = true
     }
     
-    func highlightListButton(ordered: Bool) {
+    func highlightListButton(ordered: Bool, depth: Int) {
         if ordered {
             orderedListButton.isSelected = true
         } else {

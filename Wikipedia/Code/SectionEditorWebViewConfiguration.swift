@@ -7,9 +7,9 @@ protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
     func highlightReferenceButton()
     func highlightTemplateButton()
     func highlightAnchorButton()
-    func highlightIndentButton()
-    func highlightSignatureButton()
-    func highlightListButton(ordered: Bool)
+    func highlightIndentButton(depth: Int)
+    func highlightSignatureButton(depth: Int)
+    func highlightListButton(ordered: Bool, depth: Int)
     func highlightHeadingButton(depth: Int)
 }
 
@@ -77,19 +77,20 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                     guard let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool else {
                         break
                     }
-                    selectionChangedDelegate?.highlightListButton(ordered: ordered)
+                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
+                    selectionChangedDelegate?.highlightListButton(ordered: ordered, depth: depth)
                     break
                 case ButtonConstants.heading.rawValue:
-                    guard let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int else {
-                        break
-                    }
+                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                     selectionChangedDelegate?.highlightHeadingButton(depth: depth)
                     break
                 case ButtonConstants.indent.rawValue:
-                    selectionChangedDelegate?.highlightIndentButton()
+                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
+                    selectionChangedDelegate?.highlightIndentButton(depth: depth)
                     break
                 case ButtonConstants.signature.rawValue:
-                    selectionChangedDelegate?.highlightSignatureButton()
+                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
+                    selectionChangedDelegate?.highlightSignatureButton(depth: depth)
                     break
                 case ButtonConstants.link.rawValue:
                     selectionChangedDelegate?.highlightAnchorButton()
