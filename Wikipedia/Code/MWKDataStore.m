@@ -613,10 +613,25 @@ static uint64_t bundleHash() {
             return;
         }
     }
+
+    if (currentLibraryVersion < 7) {
+        NSError *fileProtectionError = nil;
+        if ([self.containerURL setResourceValue:NSURLFileProtectionCompleteUntilFirstUserAuthentication forKey:NSURLFileProtectionKey error:&fileProtectionError]) {
+            [moc wmf_setValue:@(7) forKey:WMFLibraryVersionKey];
+            NSError *migrationSaveError = nil;
+            if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
+                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                return;
+            }
+        } else {
+            DDLogError(@"Error enabling file protection: %@", fileProtectionError);
+            return;
+        }
+    }
 }
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion {
-    static const NSInteger libraryVersion = 6;
+    static const NSInteger libraryVersion = 7;
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     NSInteger currentLibraryVersion = [libraryVersionNumber integerValue];
     if (currentLibraryVersion >= libraryVersion) {
@@ -1600,33 +1615,37 @@ static uint64_t bundleHash() {
     // Site info
     NSURLComponents *components = [[WMFConfiguration current] mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:@{@"action": @"query", @"format": @"json", @"meta": @"siteinfo"}];
     [taskGroup enter];
-    [[WMFSession shared] getJSONDictionaryFromURL:components.URL ignoreCache:YES completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                       if (error) {
-                                           updateError = error;
-                                           [taskGroup leave];
-                                           return;
-                                       }
-                                       NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
-                                       NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
-                                       [self updateReadingListsLimits:readingListsConfig];
-                                       [taskGroup leave];
-                                   });
-                               }];
+    [[WMFSession shared] getJSONDictionaryFromURL:components.URL
+                                      ignoreCache:YES
+                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        if (error) {
+                                            updateError = error;
+                                            [taskGroup leave];
+                                            return;
+                                        }
+                                        NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
+                                        NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
+                                        [self updateReadingListsLimits:readingListsConfig];
+                                        [taskGroup leave];
+                                    });
+                                }];
     // Remote config
     NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
     [taskGroup enter];
-    [[WMFSession shared] getJSONDictionaryFromURL:remoteConfigURL ignoreCache:YES completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                       if (error) {
-                                           updateError = error;
-                                           [taskGroup leave];
-                                           return;
-                                       }
-                                       [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                       [taskGroup leave];
-                                   });
-                               }];
+    [[WMFSession shared] getJSONDictionaryFromURL:remoteConfigURL
+                                      ignoreCache:YES
+                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        if (error) {
+                                            updateError = error;
+                                            [taskGroup leave];
+                                            return;
+                                        }
+                                        [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                        [taskGroup leave];
+                                    });
+                                }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);

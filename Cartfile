@@ -1,8 +1,6 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "CocoaLumberjack/CocoaLumberjack" ~> 3.4.2
-github "swisspol/GCDWebServer" ~> 3.3
 github "wikimedia/NYTPhotoViewer" "wmf"
-github "wikimedia/AFNetworking" ~> 3.2.1
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
 binary "https://www.mapbox.com/ios-sdk/Mapbox-iOS-SDK.json" ~> 3.5

@@ -1,5 +1,5 @@
 #import <XCTest/XCTest.h>
-#import <AFNetworking/AFURLResponseSerialization.h>
+#import <WMF/AFNetworking.h>
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
 
