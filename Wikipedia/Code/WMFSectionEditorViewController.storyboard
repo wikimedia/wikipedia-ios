@@ -12,7 +12,7 @@
         <!--Section Editor View Controller-->
         <scene sceneID="BWG-Ga-8hx">
             <objects>
-                <viewController restorationIdentifier="SectionEditorViewController" storyboardIdentifier="SectionEditorViewController" hidesBottomBarWhenPushed="YES" id="5er-xi-5lN" customClass="SectionEditorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WMFSectionEditorViewController" hidesBottomBarWhenPushed="YES" id="5er-xi-5lN" customClass="WMFSectionEditorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Uij-Jt-RyQ"/>
                         <viewControllerLayoutGuide type="bottom" id="itb-4E-TzB"/>
@@ -38,7 +38,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <outlet property="editTextView" destination="ohj-LA-82c" id="uOG-V5-Eqx"/>
+                        <outlet property="textView" destination="ohj-LA-82c" id="kik-gc-asY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-rf-Gnw" userLabel="First Responder" sceneMemberID="firstResponder"/>

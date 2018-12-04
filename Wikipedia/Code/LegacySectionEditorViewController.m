@@ -1,4 +1,4 @@
-#import "SectionEditorViewController.h"
+#import "LegacySectionEditorViewController.h"
 @import WMF.MWLanguageInfo;
 @import WMF.AFHTTPSessionManager_WMFCancelAll;
 #import "WikiTextSectionFetcher.h"
@@ -11,7 +11,7 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
-@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFDefaultEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource, WMFTextFormattingTableViewControllerDelegate>
+@interface LegacySectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WMFDefaultEditToolbarAccessoryViewDelegate, WMFEditTextViewDataSource, WMFTextFormattingTableViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet WMFEditTextView *editTextView;
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation SectionEditorViewController
+@implementation LegacySectionEditorViewController
 
 @synthesize shouldShowCustomInputViewController;
 
