@@ -75,3 +75,11 @@ class EditTextView: UITextView {
 
     }
 }
+
+extension EditTextView: Themeable {
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        textColor = theme.colors.primaryText
+        keyboardAppearance = theme.keyboardAppearance
+    }
+}
