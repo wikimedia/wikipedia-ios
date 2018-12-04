@@ -23,9 +23,6 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="translatesAutoresizingMaskIntoConstraints" value="NO"/>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="r9F-TK-BhX" kind="embed" identifier="EmbedNavigationControllerForTextFormattingTableView" id="YC3-od-Aaz"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,6 +40,9 @@
                     <value key="contentSizeForViewInPopover" type="size" width="375" height="300"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
+                    <connections>
+                        <outlet property="containerView" destination="h6a-ie-td2" id="4Rx-ox-jeG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gOU-Za-bdW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -51,9 +51,9 @@
         <!--Text Formatting Table View Controller-->
         <scene sceneID="d7L-A6-e56">
             <objects>
-                <tableViewController id="TTT-UR-cQr" customClass="TextFormattingTableViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TextFormattingTableViewController" id="TTT-UR-cQr" customClass="TextFormattingTableViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="45" estimatedRowHeight="45" sectionHeaderHeight="1" sectionFooterHeight="1" id="Wo1-Zn-ue4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="256"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -107,17 +107,18 @@
                         </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <size key="freeformSize" width="375" height="300"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgL-rE-SKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="764" y="676"/>
+            <point key="canvasLocation" x="849" y="549"/>
         </scene>
         <!--Text Style Formatting Table View Controller-->
         <scene sceneID="vw1-rY-03d">
             <objects>
                 <tableViewController storyboardIdentifier="TextStyleFormattingTableViewController" id="c6k-HI-Rwr" userLabel="Text Style Formatting Table View Controller" customClass="TextStyleFormattingTableViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Qjc-KZ-bns">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -146,26 +147,12 @@
                             <outlet property="delegate" destination="c6k-HI-Rwr" id="vSG-Ht-wte"/>
                         </connections>
                     </tableView>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <size key="freeformSize" width="375" height="300"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLI-Ce-t8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1761" y="520"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c6o-co-Zik">
-            <objects>
-                <navigationController id="r9F-TK-BhX" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="vxc-4E-gJq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="TTT-UR-cQr" kind="relationship" relationship="rootViewController" id="uhv-gd-Stq"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ih5-wu-uvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-98" y="676"/>
+            <point key="canvasLocation" x="849" y="899"/>
         </scene>
     </scenes>
     <resources>

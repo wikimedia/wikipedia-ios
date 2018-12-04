@@ -1,7 +1,7 @@
 import UIKit
 
 protocol EditTextViewInputViewControllerDelegate: class {
-    var preferredInputViewType: TextFormattingInputViewType? { get set }
+    var preferredInputViewType: TextFormattingInputViewController.InputViewType? { get set }
 }
 
 class EditTextView: UITextView {
@@ -51,6 +51,7 @@ class EditTextView: UITextView {
         }
         let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
         textFormattingInputViewController.delegate = textFormattingDelegate
+        textFormattingInputViewController.inputViewType = preferredInputViewType
         return textFormattingInputViewController
     }
 

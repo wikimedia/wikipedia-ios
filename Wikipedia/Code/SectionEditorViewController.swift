@@ -16,7 +16,7 @@ class SectionEditorViewController: UIViewController {
     private let defaultEditToolbar = DefaultEditToolbarAccessoryView.wmf_viewFromClassNib()!
     private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarAccessoryView.wmf_viewFromClassNib()!
 
-    var preferredInputViewType: TextFormattingInputViewType?
+    var preferredInputViewType: TextFormattingInputViewController.InputViewType?
 
     private var preferredAccessoryView: (UIView & Themeable)? {
         didSet {
@@ -58,7 +58,7 @@ class SectionEditorViewController: UIViewController {
 
     private var isCustomInputViewHidden: Bool = true
 
-    func setCustomInputViewHidden(type: TextFormattingInputViewType? = nil, hidden: Bool) {
+    func setCustomInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
         let responder = isFirstResponder ? self : textView
 
         setCursorPositionIfNeeded()
