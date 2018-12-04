@@ -1,14 +1,12 @@
 import UIKit
 
-@objc(WMFEditTextViewDataSource)
-protocol EditTextViewDataSource: class {
-    var shouldShowCustomInputViewController: Bool { get set }
+protocol EditTextViewInputViewControllerDelegate: class {
+    var inputViewControllerShouldShow: Bool { get }
 }
 
-@objc(WMFEditTextView)
 class EditTextView: UITextView {
-    @objc weak var dataSource: EditTextViewDataSource?
-    @objc weak var inputViewControllerDelegate: TextFormattingTableViewControllerDelegate?
+    weak var inputViewControllerDelegate: EditTextViewInputViewControllerDelegate?
+    weak var textFormattingDelegate: TextFormattingTableViewControllerDelegate?
 
     private lazy var editMenuItems: [UIMenuItem] = {
         let addCitation = UIMenuItem(title: "+", action: #selector(addCitation(_:)))
@@ -46,12 +44,13 @@ class EditTextView: UITextView {
 
     override var inputViewController: UIInputViewController? {
         guard
-            let dataSource = dataSource,
-            dataSource.shouldShowCustomInputViewController else {
+            let delegate = inputViewControllerDelegate,
+            delegate.inputViewControllerShouldShow
+        else {
             return nil
         }
         let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-        textFormattingInputViewController.delegate = inputViewControllerDelegate
+        textFormattingInputViewController.delegate = textFormattingDelegate
         return textFormattingInputViewController
     }
 

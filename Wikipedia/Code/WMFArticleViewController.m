@@ -1877,7 +1877,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 #pragma mark - WMFSectionEditorViewControllerDelegate
 
-- (void)sectionEditorDidFinishEditing:(LegacySectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
+- (void)sectionEditorDidFinishEditing:(WMFSectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {

@@ -13,8 +13,8 @@ class SectionEditorViewController: UIViewController {
     private var viewKeyboardRect = CGRect.null
     private var rightButton: UIBarButtonItem?
 
-    private let defaultEditToolbar = DefaultEditToolbarAccessoryView.loadFromNib()
-    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarAccessoryView.loadFromNib()
+    private let defaultEditToolbar = DefaultEditToolbarAccessoryView.wmf_viewFromClassNib()!
+    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarAccessoryView.wmf_viewFromClassNib()!
 
     private var preferredAccessoryView: (UIView & Themeable)? {
         didSet {
@@ -87,6 +87,7 @@ class SectionEditorViewController: UIViewController {
         navigationItem.rightBarButtonItem = progressButton
 
         configureTextView()
+        configureAccessoryViews()
         loadWikitext()
 
         apply(theme: theme)
@@ -118,8 +119,8 @@ class SectionEditorViewController: UIViewController {
 
     private func configureTextView() {
         textView.delegate = self
-        //textView.dataSource = self
         textView.inputViewControllerDelegate = self
+        textView.textFormattingDelegate = self
         textView.keyboardDismissMode = .interactive
         textView.smartQuotesType = .no
     }
@@ -305,11 +306,11 @@ extension SectionEditorViewController: UITextViewDelegate {
 
 // MARK: - EditTextViewDataSource
 
-//extension SectionEditorViewController: EditTextViewDataSource {
-//    var shouldShowCustomInputViewController: Bool {
-//        return false
-//    }
-//}
+extension SectionEditorViewController: EditTextViewInputViewControllerDelegate {
+    var inputViewControllerShouldShow: Bool {
+        return !isCustomInputViewControllerHidden
+    }
+}
 
 // MARK: - TextFormattingTableViewControllerDelegate
 
