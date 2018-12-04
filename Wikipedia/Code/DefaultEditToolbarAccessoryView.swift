@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(WMFDefaultEditToolbarAccessoryViewDelegate)
 protocol DefaultEditToolbarAccessoryViewDelegate: class {
     func defaultEditToolbarAccessoryViewDidTapTextFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
     func defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
@@ -10,20 +9,13 @@ protocol DefaultEditToolbarAccessoryViewDelegate: class {
     func defaultEditToolbarAccessoryViewDidTapOrderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
 }
 
-@objc(WMFDefaultEditToolbarAccessoryView)
 class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
-    @objc weak var delegate: DefaultEditToolbarAccessoryViewDelegate?
+    weak var delegate: DefaultEditToolbarAccessoryViewDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
     @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
-
-    @objc static func loadFromNib() -> DefaultEditToolbarAccessoryView {
-        let nib = UINib(nibName: "DefaultEditToolbarAccessoryView", bundle: Bundle.main)
-        let view = nib.instantiate(withOwner: nil, options: nil).first as! DefaultEditToolbarAccessoryView
-        return view
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

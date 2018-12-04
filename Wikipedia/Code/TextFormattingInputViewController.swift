@@ -4,7 +4,6 @@ class TextFormattingInputView: UIView {
     }
 }
 
-@objc(WMFTextFormattingInputViewController)
 class TextFormattingInputViewController: UIInputViewController {
     weak var delegate: TextFormattingTableViewControllerDelegate?
 
