@@ -98,12 +98,8 @@
                             <outlet property="delegate" destination="TTT-UR-cQr" id="Ogl-5E-QMF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="KMV-ct-pSN">
-                        <barButtonItem key="rightBarButtonItem" image="close" id="Bxe-3j-e6q">
-                            <connections>
-                                <action selector="close:" destination="TTT-UR-cQr" id="hFx-pm-Rtc"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" id="Sd6-LB-Tbc">
+                        <barButtonItem key="backBarButtonItem" title="Hey there" id="Z2N-Gr-GI8"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
@@ -154,7 +150,4 @@
             <point key="canvasLocation" x="1354" y="112"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="close" width="18" height="18"/>
-    </resources>
 </document>

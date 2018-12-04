@@ -16,6 +16,10 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return nil
     }
 
+    open var shouldSetCustomTitleLabel: Bool {
+        return true
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = titleLabelText
@@ -23,14 +27,27 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return label
     }()
 
+    private lazy var closeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem.init(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        leftAlignTitleItem()
+        if shouldSetCustomTitleLabel {
+            leftAlignTitleItem()
+        }
+        setCloseButton()
+        navigationItem.backBarButtonItem?.title = titleLabelText
         apply(theme: theme)
     }
 
     private func leftAlignTitleItem() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+    }
+
+    private func setCloseButton() {
+        navigationItem.rightBarButtonItem = closeButton
     }
 
     private func updateTitleLabel() {
@@ -43,7 +60,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         updateTitleLabel()
     }
 
-    @IBAction private func close(_ sender: UIBarButtonItem) {
+    @objc private func close(_ sender: UIBarButtonItem) {
         delegate?.textFormattingProvidingDidTapCloseButton(self)
     }
 }
