@@ -20,7 +20,6 @@
 @property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbarAccessoryView;
 @property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbarAccessoryView;
 @property (strong, nonatomic) UIView<WMFThemeable> *preferredAccessoryView;
-@property (strong, nonatomic) UINavigationController *textFormattingNavigationController;
 @property (strong, nonatomic) WMFTheme *theme;
 
 @end
@@ -345,7 +344,7 @@
 
 #pragma mark WMFTextFormattingTableViewControllerDelegate
 
--(void)textFormattingTableViewControllerDidTapCloseButton:(WMFTextFormattingTableViewController *)textFormattingTableViewController {
+- (void)textFormattingTableViewControllerDidTapCloseButton:(WMFTextFormattingTableViewController *)textFormattingTableViewController {
     [self setTextFormattingViewHidden:YES];
 }
 
