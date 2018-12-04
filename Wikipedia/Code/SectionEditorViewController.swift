@@ -315,10 +315,10 @@ extension SectionEditorViewController: EditTextViewInputViewControllerDelegate {
 
 }
 
-// MARK: - TextFormattingTableViewControllerDelegate
+// MARK: - TextFormattingDelegate
 
-extension SectionEditorViewController: TextFormattingTableViewControllerDelegate {
-    func textFormattingTableViewControllerDidTapCloseButton(_ textFormattingTableViewController: TextFormattingTableViewController) {
+extension SectionEditorViewController: TextFormattingDelegate {
+    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding) {
         setCustomInputViewHidden(hidden: true)
     }
 }

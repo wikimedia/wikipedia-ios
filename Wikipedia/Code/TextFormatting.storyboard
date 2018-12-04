@@ -111,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CgL-rE-SKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="549"/>
+            <point key="canvasLocation" x="641" y="112"/>
         </scene>
         <!--Text Style Formatting Table View Controller-->
         <scene sceneID="vw1-rY-03d">
@@ -152,7 +152,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLI-Ce-t8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="899"/>
+            <point key="canvasLocation" x="1354" y="112"/>
         </scene>
     </scenes>
     <resources>

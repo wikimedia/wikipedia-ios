@@ -6,7 +6,7 @@ protocol EditTextViewInputViewControllerDelegate: class {
 
 class EditTextView: UITextView {
     weak var inputViewControllerDelegate: EditTextViewInputViewControllerDelegate?
-    weak var textFormattingDelegate: TextFormattingTableViewControllerDelegate?
+    weak var textFormattingDelegate: TextFormattingDelegate?
 
     private lazy var editMenuItems: [UIMenuItem] = {
         let addCitation = UIMenuItem(title: "+", action: #selector(addCitation(_:)))

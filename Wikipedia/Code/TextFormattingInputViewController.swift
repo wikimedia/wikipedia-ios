@@ -7,7 +7,7 @@ class TextFormattingInputView: UIView {
 class TextFormattingInputViewController: UIInputViewController {
     @IBOutlet weak var containerView: UIView!
 
-    weak var delegate: TextFormattingTableViewControllerDelegate?
+    weak var delegate: TextFormattingDelegate?
 
     enum InputViewType {
         case textFormatting
@@ -19,7 +19,7 @@ class TextFormattingInputViewController: UIInputViewController {
     private var theme = Theme.standard
 
     private lazy var embeddedNavigationController: UINavigationController = {
-        let rootViewControllerType: (UIViewController & Themeable).Type
+        let rootViewControllerType: (UIViewController & Themeable & TextFormattingProviding).Type
 
         if inputViewType == .textFormatting {
             rootViewControllerType = TextFormattingTableViewController.self
@@ -28,9 +28,10 @@ class TextFormattingInputViewController: UIInputViewController {
         }
 
         let storyboardName = "TextFormatting"
-        let rootViewController = rootViewControllerType.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        var rootViewController = rootViewControllerType.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        rootViewController.delegate = delegate
         rootViewController.apply(theme: theme)
-        
+
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.navigationBar.isTranslucent = false
 

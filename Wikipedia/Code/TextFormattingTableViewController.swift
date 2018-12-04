@@ -1,9 +1,13 @@
-protocol TextFormattingTableViewControllerDelegate: class {
-    func textFormattingTableViewControllerDidTapCloseButton(_ textFormattingTableViewController: TextFormattingTableViewController)
+protocol TextFormattingProviding where Self: UIViewController {
+    var delegate: TextFormattingDelegate? { get set }
 }
 
-class TextFormattingTableViewController: UITableViewController {
-    weak var delegate: TextFormattingTableViewControllerDelegate?
+protocol TextFormattingDelegate: class {
+    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding)
+}
+
+class TextFormattingTableViewController: UITableViewController, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
 
     private var theme = Theme.standard
 
@@ -97,7 +101,7 @@ class TextFormattingTableViewController: UITableViewController {
     }
 
     @IBAction private func close(_ sender: UIBarButtonItem) {
-        delegate?.textFormattingTableViewControllerDidTapCloseButton(self)
+        delegate?.textFormattingProvidingDidTapCloseButton(self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
