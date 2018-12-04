@@ -48,6 +48,9 @@
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-pz-I3S">
                                                                             <rect key="frame" x="30" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="𝐇"/>
+                                                                            <connections>
+                                                                                <action selector="formatHeader:" destination="iN0-l3-epB" eventType="touchUpInside" id="8vd-hd-cef"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
