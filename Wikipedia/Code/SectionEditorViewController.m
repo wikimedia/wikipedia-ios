@@ -21,7 +21,7 @@
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
 @property (strong, nonatomic) WMFTheme *theme;
 
-@property (strong, nonatomic) SectionEditorWebView *webView;
+@property (strong, nonatomic) SectionEditorWebViewWithTestingButtons *webView;
 
 @end
 
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.webView = [[SectionEditorWebView alloc] init];
+    self.webView = [[SectionEditorWebViewWithTestingButtons alloc] init];
     [self.view wmf_addSubviewWithConstraintsToEdges:self.webView];
     self.webView.navigationDelegate = self;
     [self.webView loadHTMLFromAssetsFile:@"mediawiki-extensions-CodeMirror/codemirror-index.html" scrolledToFragment:nil];
@@ -329,7 +329,7 @@
     // [self.webView execCodeMirrorCommandWithType:CodeMirrorExecCommandTypeCursorDown completionHandler:nil];
 }
 
-- (void)webView:(SectionEditorWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
+- (void)webView:(SectionEditorWebViewWithTestingButtons *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     [self loadLatestWikiTextForSectionFromServer];
 }
 
