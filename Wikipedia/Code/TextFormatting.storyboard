@@ -99,7 +99,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Sd6-LB-Tbc">
-                        <barButtonItem key="backBarButtonItem" title="Hey there" id="Z2N-Gr-GI8"/>
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Z2N-Gr-GI8"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>

@@ -17,8 +17,6 @@ class TextFormattingCustomViewTableViewCell: TextFormattingTableViewCell {
             leadingConstraint
         ])
 
-        bringSubviewToFront(topSeparator)
-        
         self.customView = customView
     }
 
