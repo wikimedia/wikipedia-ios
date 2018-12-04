@@ -1,4 +1,4 @@
-#import <AFNetworking/AFNetworking.h>
+#import <WMF/AFNetworking.h>
 
 @interface QueuesSingleton : NSObject
 

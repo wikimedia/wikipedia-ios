@@ -4,7 +4,6 @@
 @import WMF;
 
 // Networking
-@import AFNetworking;
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 

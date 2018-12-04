@@ -18,9 +18,11 @@ class FeaturedArticleWidget: UIViewController, NCWidgetProviding {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
         view.addGestureRecognizer(tapGR)
 
+        collapsedArticleView.preservesSuperviewLayoutMargins = true
         collapsedArticleView.frame = view.bounds
         view.addSubview(collapsedArticleView)
 
+        expandedArticleView.preservesSuperviewLayoutMargins = true
         expandedArticleView.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         expandedArticleView.frame = view.bounds
         view.addSubview(expandedArticleView)

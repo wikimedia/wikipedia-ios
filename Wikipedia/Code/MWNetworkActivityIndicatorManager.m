@@ -24,24 +24,26 @@ static MWNetworkActivityIndicatorManager *sharedManager;
     _count = MAX(count, 0);
 #if WMF_APP_EXTENSION
 #else
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_count > 0 ? YES : NO];
+   BOOL shouldBeVisible = _count > 0;
+   UIApplication *app = [UIApplication sharedApplication];
+   if (shouldBeVisible != app.isNetworkActivityIndicatorVisible) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+         [app setNetworkActivityIndicatorVisible:shouldBeVisible];
+      });
+   }
 #endif
 }
 
 - (void)push {
-    dispatch_async(dispatch_get_main_queue(), ^() {
-        @synchronized(self) {
-            self.count += 1;
-        }
-    });
+   @synchronized(self) {
+      self.count += 1;
+   }
 }
 
 - (void)pop {
-    dispatch_async(dispatch_get_main_queue(), ^() {
-        @synchronized(self) {
-            self.count -= 1;
-        }
-    });
+   @synchronized(self) {
+      self.count += 1;
+   }
 }
 
 @end

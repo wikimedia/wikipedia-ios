@@ -1,0 +1,6 @@
+framework module Nocilla {
+  umbrella header "Nocilla.h"
+
+  export *
+  module * { export * }
+}

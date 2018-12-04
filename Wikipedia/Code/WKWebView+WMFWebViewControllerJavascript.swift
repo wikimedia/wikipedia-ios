@@ -194,15 +194,15 @@ extension WKWebView {
         guard
             let url = article.url,
             let host = url.host,
-            let proxyURL = WMFProxyServer.shared().proxyURL(forWikipediaAPIHost: host),
-            let apiURL = WMFProxyServer.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
+            let appSchemeURL = WMFURLSchemeHandler.shared().appSchemeURL(forWikipediaAPIHost: host),
+            let apiURL = WMFURLSchemeHandler.shared().articleSectionDataURLForArticle(with: url, targetImageWidth: self.traitCollection.wmf_articleImageWidth)
             else {
-                assertionFailure("Expected url, proxyURL and encodedTitle")
+                assertionFailure("Expected url, appSchemeURL and encodedTitle")
                 return
         }
 
         // https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
-        let proxyURLString = proxyURL.absoluteString
+        let appSchemeURLString = appSchemeURL.absoluteString
         let apiURLString = apiURL.absoluteString
         let title = (article.url as NSURL).wmf_title ?? ""
 
@@ -214,7 +214,7 @@ extension WKWebView {
                 \(article.hasReadMore.toString()),
                 3,
                 \(FooterLocalizedStrings.init(for: article).toJSON()),
-                '\(proxyURLString.wmf_stringBySanitizingForJavaScript())'
+                '\(appSchemeURLString.wmf_stringBySanitizingForJavaScript())'
             )
             footer.add()
             window.webkit.messageHandlers.articleState.postMessage('articleContentLoaded')

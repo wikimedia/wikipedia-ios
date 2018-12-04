@@ -2,7 +2,7 @@
 #import "WMFAsyncTestCase.h"
 #import "MWKLanguageLinkFetcher.h"
 #import "WMFNetworkUtilities.h"
-#import <AFNetworking/AFHTTPSessionManager.h>
+#import <WMF/AFNetworking.h>
 
 @interface MWKLanguageLinkFetcherTests : WMFAsyncTestCase
 @property (nonatomic, strong) MWKLanguageLinkFetcher *fetcher;

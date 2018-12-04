@@ -110,11 +110,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         
         let start = Date()
         
-        AFNetworkActivityIndicatorManager.shared().incrementActivityCount()
+        MWNetworkActivityIndicatorManager.shared()?.push()
         fakeProgressController.start()
         
         let commonCompletion = {
-            AFNetworkActivityIndicatorManager.shared().decrementActivityCount()
+            MWNetworkActivityIndicatorManager.shared()?.pop()
         }
         let failure = { (error: Error, type: WMFSearchType) in
             DispatchQueue.main.async {

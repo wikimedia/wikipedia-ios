@@ -128,7 +128,7 @@ import Foundation
         }
         return hasValid
     }
-    
+
     public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Bool?, Error?) -> Void) -> Operation {
         let op = operationType.init(session: self, tokenFetcher: tokenFetcher, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
         queue.addOperation(op)
@@ -161,9 +161,7 @@ import Foundation
                         request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
                     }
                 }
-                
             }
-            
         }
         
         return request
@@ -308,7 +306,7 @@ import Foundation
             }
         })
     }
-    
+
     @objc(getJSONDictionaryFromURL:ignoreCache:completionHandler:)
     public func getJSONDictionary(from url: URL?, ignoreCache: Bool, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) {
         guard let url = url else {

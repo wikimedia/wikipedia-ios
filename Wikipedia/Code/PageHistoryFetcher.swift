@@ -1,5 +1,4 @@
 import Foundation
-import AFNetworking
 import Mantle
 import WMF
 
