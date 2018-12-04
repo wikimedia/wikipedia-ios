@@ -1,9 +1,7 @@
-@objc(WMFTextFormattingTableViewControllerDelegate)
 protocol TextFormattingTableViewControllerDelegate: class {
     func textFormattingTableViewControllerDidTapCloseButton(_ textFormattingTableViewController: TextFormattingTableViewController)
 }
 
-@objc(WMFTextFormattingTableViewController)
 class TextFormattingTableViewController: UITableViewController {
     weak var delegate: TextFormattingTableViewControllerDelegate?
 
