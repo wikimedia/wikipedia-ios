@@ -16,6 +16,8 @@ class SectionEditorViewController: UIViewController {
     private let defaultEditToolbar = DefaultEditToolbarAccessoryView.wmf_viewFromClassNib()!
     private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarAccessoryView.wmf_viewFromClassNib()!
 
+    var preferredInputViewType: TextFormattingInputViewType?
+
     private var preferredAccessoryView: (UIView & Themeable)? {
         didSet {
             reloadInputViews()
@@ -54,26 +56,29 @@ class SectionEditorViewController: UIViewController {
         return true
     }
 
-    private var isCustomInputViewControllerHidden: Bool = true {
-        didSet {
-            let responder = isFirstResponder ? self : textView
+    private var isCustomInputViewHidden: Bool = true
 
-            setCursorPositionIfNeeded()
+    func setCustomInputViewHidden(type: TextFormattingInputViewType? = nil, hidden: Bool) {
+        let responder = isFirstResponder ? self : textView
 
-            let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
-                responder?.resignFirstResponder()
-            }
+        setCursorPositionIfNeeded()
 
-            animator.addCompletion { (_) in
-                self.textView.becomeFirstResponder()
-            }
-
-            animator.startAnimation()
+        let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
+            responder?.resignFirstResponder()
         }
+
+        animator.addCompletion { (_) in
+            self.textView.becomeFirstResponder()
+        }
+
+        animator.startAnimation()
+
+        isCustomInputViewHidden = hidden
+        preferredInputViewType = type
     }
 
     override var inputAccessoryView: UIView? {
-        guard isCustomInputViewControllerHidden else {
+        guard isCustomInputViewHidden else {
             return nil
         }
         preferredAccessoryView?.apply(theme: theme)
@@ -307,16 +312,14 @@ extension SectionEditorViewController: UITextViewDelegate {
 // MARK: - EditTextViewDataSource
 
 extension SectionEditorViewController: EditTextViewInputViewControllerDelegate {
-    var inputViewControllerShouldShow: Bool {
-        return !isCustomInputViewControllerHidden
-    }
+
 }
 
 // MARK: - TextFormattingTableViewControllerDelegate
 
 extension SectionEditorViewController: TextFormattingTableViewControllerDelegate {
     func textFormattingTableViewControllerDidTapCloseButton(_ textFormattingTableViewController: TextFormattingTableViewController) {
-        isCustomInputViewControllerHidden = true
+        setCustomInputViewHidden(hidden: true)
     }
 }
 
@@ -324,11 +327,11 @@ extension SectionEditorViewController: TextFormattingTableViewControllerDelegate
 
 extension SectionEditorViewController: DefaultEditToolbarAccessoryViewDelegate {
     func defaultEditToolbarAccessoryViewDidTapTextFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
-        isCustomInputViewControllerHidden = false
+        setCustomInputViewHidden(type: .textFormatting, hidden: false)
     }
 
     func defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
-        //
+        setCustomInputViewHidden(type: .textStyle, hidden: false)
     }
 
     func defaultEditToolbarAccessoryViewDidTapAddCitationButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {

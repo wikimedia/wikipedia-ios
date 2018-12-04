@@ -1,3 +1,8 @@
+enum TextFormattingInputViewType {
+    case textFormatting
+    case textStyle
+}
+
 class TextFormattingInputView: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: 300)

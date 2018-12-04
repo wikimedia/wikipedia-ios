@@ -1,7 +1,7 @@
 import UIKit
 
 protocol EditTextViewInputViewControllerDelegate: class {
-    var inputViewControllerShouldShow: Bool { get }
+    var preferredInputViewType: TextFormattingInputViewType? { get set }
 }
 
 class EditTextView: UITextView {
@@ -45,7 +45,7 @@ class EditTextView: UITextView {
     override var inputViewController: UIInputViewController? {
         guard
             let delegate = inputViewControllerDelegate,
-            delegate.inputViewControllerShouldShow
+            let preferredInputViewType = delegate.preferredInputViewType
         else {
             return nil
         }
