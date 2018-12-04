@@ -99,7 +99,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="KMV-ct-pSN">
-                        <barButtonItem key="backBarButtonItem" title="Text formatting" id="Hfw-qO-A65"/>
                         <barButtonItem key="rightBarButtonItem" image="close" id="Bxe-3j-e6q">
                             <connections>
                                 <action selector="close:" destination="TTT-UR-cQr" id="hFx-pm-Rtc"/>

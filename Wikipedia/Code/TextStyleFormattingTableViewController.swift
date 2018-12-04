@@ -1,5 +1,14 @@
-class TextStyleFormattingTableViewController: UITableViewController {
+class TextStyleFormattingTableViewController: UITableViewController, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
+    
     private var theme = Theme.standard
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Text formatting"
+        label.sizeToFit()
+        return label
+    }()
 
     private struct Style {
         let name: String
@@ -15,6 +24,29 @@ class TextStyleFormattingTableViewController: UITableViewController {
 
         return [paragraph, heading, subheading1, subheading2, subheading3]
     }()
+
+    private var isRootViewController: Bool {
+        guard let navigationController = navigationController else {
+            assertionFailure("View controller expected to be embedded inside a navigation controller")
+            return false
+        }
+        let viewControllers = navigationController.viewControllers
+        guard viewControllers.count > 0, let first = viewControllers.first else {
+            return false
+        }
+       return viewControllers.count == 1 && first is TextStyleFormattingTableViewController
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if isRootViewController {
+            leftAlignTitleItem()
+        }
+    }
+
+    private func leftAlignTitleItem() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormattingTableViewCell.identifier, for: indexPath) as? TextFormattingTableViewCell else {

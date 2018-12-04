@@ -343,6 +343,11 @@
 		7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
 		7A9A612221124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */; };
+		7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AA96D5D21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
+		7AA96D6021B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */; };
 		7ABAD6B420338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
 		7ABAD6B520338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
 		7ABAD6B620338CFB006A364C /* ReadingListDetailUnderBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */; };
@@ -3420,6 +3425,7 @@
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7A9A611721124CF500403154 /* CreateNewReadingListButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewReadingListButtonView.xib; sourceTree = "<group>"; };
 		7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewReadingListButtonView.swift; sourceTree = "<group>"; };
+		7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProvidingTableViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -7523,6 +7529,7 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
+				7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,
@@ -10373,6 +10380,7 @@
 				D84692E01D5E1E3F000A7058 /* WMFTableOfContentsHeader.swift in Sources */,
 				B0E8054B1C0CE0DC0065EBC0 /* UILabel+WMFStyling.m in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
+				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0E804C11C0CE0B40065EBC0 /* MWKLicense+ToGlyph.m in Sources */,
 				B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */,
@@ -10599,6 +10607,7 @@
 				D80ED2C61EE57F4800CE8C50 /* UIView+WMFShadow.m in Sources */,
 				B0B423651EF9D6A400D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D80ED2C81EE57F4800CE8C50 /* WMFTwoFactorPasswordViewController.swift in Sources */,
+				7AA96D6021B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D80ED2CA1EE57F4800CE8C50 /* SavedPagesFunnel.m in Sources */,
 				7A203F0F1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D80ED2CC1EE57F4800CE8C50 /* WMFChange.m in Sources */,
@@ -11410,6 +11419,7 @@
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				D8A42B201E815A9C00D8E281 /* MWKLicense+ToGlyph.m in Sources */,
+				7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D8A42B211E815A9C00D8E281 /* PreviewWebViewContainer.m in Sources */,
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
 				D8A42B251E815A9C00D8E281 /* AppDelegate.m in Sources */,
@@ -11636,6 +11646,7 @@
 				D8CE25321E698E2400DAE2E0 /* UIView+WMFRoundCorners.m in Sources */,
 				D8CE25331E698E2400DAE2E0 /* UIView+WMFShadow.m in Sources */,
 				D8CE25351E698E2400DAE2E0 /* WMFTwoFactorPasswordViewController.swift in Sources */,
+				7AA96D5D21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				B0B423621EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D818D3871ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				7A203F0C1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
@@ -11977,6 +11988,7 @@
 				D8EC3E261E9BDA35006712EB /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				7A29A5CA1F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D8EC3E271E9BDA35006712EB /* PreviewLicenseView.m in Sources */,
+				7AA96D5E21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D8EC3E281E9BDA35006712EB /* WMFFixtureRecording.m in Sources */,
 				D8EC3E291E9BDA35006712EB /* UIView+WMFRoundCorners.m in Sources */,
 				D8EC3E2A1E9BDA35006712EB /* UIView+WMFShadow.m in Sources */,

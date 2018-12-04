@@ -1,22 +1,8 @@
-protocol TextFormattingProviding where Self: UIViewController {
-    var delegate: TextFormattingDelegate? { get set }
-}
+class TextFormattingTableViewController: TextFormattingProvidingTableViewController {
 
-protocol TextFormattingDelegate: class {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding)
-}
-
-class TextFormattingTableViewController: UITableViewController, TextFormattingProviding {
-    weak var delegate: TextFormattingDelegate?
-
-    private var theme = Theme.standard
-
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Text formatting"
-        label.sizeToFit()
-        return label
-    }()
+    override var titleLabelText: String? {
+        return "Text formatting"
+    }
 
     private struct Content {
         let type: ContentType
@@ -79,30 +65,6 @@ class TextFormattingTableViewController: UITableViewController, TextFormattingPr
 
         return [toolbar, groupedToolbar, textStyle, textSize, button]
     }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        leftAlignTitleItem()
-        apply(theme: theme)
-    }
-
-    private func leftAlignTitleItem() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        updateTitleLabel()
-    }
-
-    private func updateTitleLabel() {
-        titleLabel.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.sizeToFit()
-    }
-
-    @IBAction private func close(_ sender: UIBarButtonItem) {
-        delegate?.textFormattingProvidingDidTapCloseButton(self)
-    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -181,16 +143,4 @@ extension TextFormattingTableViewController: TextFormattingGroupedToolbarViewDel
 
 extension TextFormattingTableViewController: TextFormattingButtonViewDelegate {
 
-}
-
-extension TextFormattingTableViewController: Themeable {
-    func apply(theme: Theme) {
-        guard viewIfLoaded != nil else {
-            self.theme = theme
-            return
-        }
-        navigationController?.navigationBar.tintColor = theme.colors.chromeText
-        navigationController?.navigationBar.shadowImage = theme.navigationBarShadowImage
-        tableView.backgroundColor = theme.colors.paperBackground
-    }
 }
