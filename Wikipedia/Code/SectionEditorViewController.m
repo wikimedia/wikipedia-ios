@@ -17,8 +17,8 @@
 @property (strong, nonatomic) NSString *unmodifiedWikiText;
 @property (nonatomic) CGRect viewKeyboardRect;
 @property (strong, nonatomic) UIBarButtonItem *rightButton;
-@property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbarAccessoryView;
-@property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbarAccessoryView;
+@property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbar;
+@property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbar;
 @property (strong, nonatomic) UIView<WMFThemeable> *preferredAccessoryView;
 @property (strong, nonatomic) WMFTheme *theme;
 
@@ -62,10 +62,10 @@
 
     self.viewKeyboardRect = CGRectNull;
 
-    self.defaultEditToolbarAccessoryView = [WMFDefaultEditToolbarAccessoryView loadFromNib];
-    self.defaultEditToolbarAccessoryView.delegate = self;
+    self.defaultEditToolbar = [WMFDefaultEditToolbarAccessoryView loadFromNib];
+    self.defaultEditToolbar.delegate = self;
 
-    self.contextualHighlightEditToolbarAccessoryView = [WMFContextualHighlightEditToolbarAccessoryView loadFromNib];
+    self.contextualHighlightEditToolbar = [WMFContextualHighlightEditToolbarAccessoryView loadFromNib];
 
     [self applyTheme:self.theme];
 
@@ -120,9 +120,9 @@
     NSString *selectedText = [textView textInRange:textView.selectedTextRange];
     NSLog(@"here: %@", selectedText);
     if (selectedText && selectedText.length > 0) {
-        self.preferredAccessoryView = self.contextualHighlightEditToolbarAccessoryView;
+        self.preferredAccessoryView = self.contextualHighlightEditToolbar;
     } else {
-        self.preferredAccessoryView = self.defaultEditToolbarAccessoryView;
+        self.preferredAccessoryView = self.defaultEditToolbar;
     }
 }
 
