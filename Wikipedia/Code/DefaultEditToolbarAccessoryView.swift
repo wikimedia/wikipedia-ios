@@ -44,19 +44,20 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
         delegate?.defaultEditToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
     }
 
-    @objc private func formatHeader(_ sender: UIBarButtonItem) {
+    @IBAction private func formatHeader(_ sender: UIButton) {
+        delegate?.defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(self, button: sender)
     }
 
-    @objc private func addCitation(_ sender: UIBarButtonItem) {
+    @objc private func addCitation(_ sender: UIButton) {
     }
 
-    @objc private func addLink(_ sender: UIBarButtonItem) {
+    @objc private func addLink(_ sender: UIButton) {
     }
 
-    @objc private func addUnorderedList(_ sender: UIBarButtonItem) {
+    @objc private func addUnorderedList(_ sender: UIButton) {
     }
 
-    @objc private func addOrderedList(_ sender: UIBarButtonItem) {
+    @objc private func addOrderedList(_ sender: UIButton) {
     }
 
     private enum ActionsType: CGFloat {
