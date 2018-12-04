@@ -71,25 +71,22 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                 guard let button = buttonDict[MessageConstants.button.rawValue] as? String else {
                     continue
                 }
-                
+                let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
+
                 switch button {
                 case ButtonConstants.li.rawValue:
                     guard let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool else {
                         break
                     }
-                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                     selectionChangedDelegate?.highlightListButton(ordered: ordered, depth: depth)
                     break
                 case ButtonConstants.heading.rawValue:
-                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                     selectionChangedDelegate?.highlightHeadingButton(depth: depth)
                     break
                 case ButtonConstants.indent.rawValue:
-                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                     selectionChangedDelegate?.highlightIndentButton(depth: depth)
                     break
                 case ButtonConstants.signature.rawValue:
-                    let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                     selectionChangedDelegate?.highlightSignatureButton(depth: depth)
                     break
                 case ButtonConstants.link.rawValue:
