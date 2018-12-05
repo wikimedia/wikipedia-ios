@@ -36,29 +36,23 @@ extension SectionEditorWebView {
     
     
     @objc func undo() {
-        print("11")
         evaluateJavaScript("window.wmf.commands.undo();", completionHandler: nil)
     }
     @objc func redo() {
-        print("12")
         evaluateJavaScript("window.wmf.commands.redo();", completionHandler: nil)
     }
 
     
     @objc func moveCursorDown() {
-        print("13")
         evaluateJavaScript("window.wmf.commands.cursorDown();", completionHandler: nil)
     }
     @objc func moveCursorUp() {
-        print("14")
         evaluateJavaScript("window.wmf.commands.cursorUp();", completionHandler: nil)
     }
     @objc func moveCursorLeft() {
-        print("15")
         evaluateJavaScript("window.wmf.commands.cursorLeft();", completionHandler: nil)
     }
     @objc func moveCursorRight() {
-        print("16")
         evaluateJavaScript("window.wmf.commands.cursorRight();", completionHandler: nil)
     }
 
