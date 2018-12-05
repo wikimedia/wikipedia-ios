@@ -116,6 +116,13 @@
         }
       }
 
+      const historySize = doc.historySize()
+      if (historySize.undo > 0) {
+        result.push(buttonPayload('undo'))
+      }
+      if (historySize.redo > 0) {
+        result.push(buttonPayload('redo'))
+      }
 
       // returns zero if `string` is not comprised only of `char`.
       // else returns length of `string`
