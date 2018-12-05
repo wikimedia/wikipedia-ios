@@ -14,6 +14,7 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         let selectedText = NSAttributedString.init(string: text, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)])
         button.setAttributedTitle(defaultText, for: .normal)
         button.setAttributedTitle(selectedText, for: .selected)
+        button.setBackgroundImage(UIImage.wmf_image(from: .darkGray), for: .highlighted)
         button.backgroundColor = .lightGray
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
