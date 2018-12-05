@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (WMFURLSchemeHandler *)shared;
 
-- (nullable NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(nullable NSString *)fragment; //returns the app scheme url for a given relative path
+- (nullable NSURL *)appSchemeURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment; //returns the app scheme url for a given relative path
 
 // Details: https://github.com/wikimedia/wikipedia-ios/pull/1334/commits/f2b2228e2c0fd852479464ec84e38183d1cf2922
 - (nullable NSURL *)appSchemeURLForWikipediaAPIHost:(NSString *)host;

@@ -35,8 +35,8 @@ extension WKWebView {
             return
         }
 
-        assert(fileContents.split(separator: "@").count == (11 + 1), """
-                HTML template file does not have required number of percent-ampersand occurences (11).
+        assert(fileContents.split(separator: "@").count == (6 + 1), """
+                HTML template file does not have required number of percent-ampersand occurences (5).
                 Number of percent-ampersands must match number of values passed to 'stringWithFormat:'
         """)
         
@@ -50,12 +50,8 @@ extension WKWebView {
             """
         }
         
-        let schemeHandler = WMFURLSchemeHandler.shared()
-        guard let baseFileURL = schemeHandler.appSchemeURL(forRelativeFilePath: "/", fragment: nil) else {
-            return
-        }
-        // index.html and preview.html have "%@" subsitition markers. Replace these with actual content.
-        let templateAndContent = String(format: fileContents, baseURL.absoluteString, baseFileURL.absoluteString, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
+        // index.html and preview.html have 6 "%@" subsitition markers. Replace these with actual content.
+        let templateAndContent = String(format: fileContents, siteCSSLink, headTagAddition, padding.top as NSNumber, padding.left as NSNumber, padding.right as NSNumber, string ?? "")
         
         let requestPath = "\(articleDatabaseKey.hash)-\(fileName)"
         guard let requestURL = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: requestPath, fragment: fragment ?? "top") else {
