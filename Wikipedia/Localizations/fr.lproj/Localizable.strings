@@ -113,7 +113,6 @@
 "article-save-error-not-enough-space" = "Vous n'avez pas suffisamment d'espace sur votre appareil pour sauvegarder cet article";
 "article-share" = "Partager";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Contrôles des thèmes de lecture";
-"article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "back-button-accessibility-label" = "Retour";
 "back-button-popover-title" = "Cliquez pour revenir en arrière";

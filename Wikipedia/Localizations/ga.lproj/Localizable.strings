@@ -64,6 +64,7 @@
 "app-store-subtitle" = "An chiclipéid shaor";
 "appearance-settings-expand-tables" = "Fairsingigh táblaí";
 "appearance-settings-reading-themes" = "Téamaí léitheoireachta";
+"appearance-settings-text-sizing-example-text" = "Tarraing an barra sleamhnáin le clómhéid téacs na n-alt a athrú. Athraigh do clómhéid córais chun an clómhéid a athrú don téacs eile san aip.";
 "article-about-title" = "Maidir leis an alt seo";
 "article-delete" = "Scrios";
 "article-deleted-accessibility-notification" = "Scriosadh $1 {{PLURAL:$1|alt amháin|alt}}";
@@ -73,9 +74,9 @@
 "article-languages-yours" = "Do chuid teangacha";
 "article-read-more-title" = "Léigh a thuilleadh";
 "article-share" = "Comhroinn";
-"article-unable-to-load-article" = "Ní féidir an t-alt a lódáil.";
 "back-button-accessibility-label" = "Siar";
 "back-button-popover-title" = "Tapáil le gabháil siar";
+"button-done" = "Déanta";
 "button-next" = "Ar aghaidh";
 "button-publish" = "Foilsigh";
 "button-read-now" = "Léigh anois";
@@ -100,7 +101,9 @@
 "description-edit-title" = "Cuir sainchuntas in eagar";
 "description-help-about-title" = "Maidir leis";
 "description-help-about-wikidata" = "Maidir le Wikidata";
+"description-help-more-info-description" = "Stóráltar agus cothabháltar sainchuntais ar Wikidata, tionscadal de chuid na Fondúireachta Wikimedia a chuireann bunachar sonraí saor in aisce comhoibríoch ilteangach tánaisteach ar fáil mar thacaíocht do Vicipéid agus do thionscadail eile.";
 "description-help-more-info-title" = "Tuilleadh eolais";
+"description-help-tips-description" = "Ba chóir do shainchuntais a oiriúnú ar líne amháin dá bhféadfaí é, idir aon fhocal amháin agus dhá fhocal déag. Ní chuirtear ceannlitreacha orthu, ch amháin ar an gcéad fhocal má tá ainmfhocal dílis i gceist.";
 "description-help-tips-example-description-one" = "sainchuntas teidil ar alt faoin Mona Lisa";
 "description-help-tips-example-description-two" = "sainchuntas teidil ar alt faoi Sliabh Everest";
 "description-help-tips-example-title-one" = "pictiúr de chuid Leonardo da Vinci";
@@ -110,18 +113,20 @@
 "description-help-title" = "Cabhair le haghaidh sainchuntais theideal";
 "description-help-wikidata-guide" = "Treoirleabhar Wikidata ar sainchuntais a scríobh";
 "description-published-button-title" = "Críochnaithe";
-"description-published-footer" = "Is féidir ailt a chur in eagar lastigh den aip seo chomhm maith. Bain triail as botúin chló agus abairtí gearra a chur i gceart le cliceáil ar iocón an phinn luaidhe a úsáid an chéad uair eile";
+"description-published-footer" = "Is féidir ailt a chur in eagar laistigh den aip seo, leis. Bain triail as earráidí cló agus abairtí gearra a dheisiú le cliceáil ar an deilbhín peann luaidhe an chéad uair eile";
 "description-published-subtitle" = "Tá tú díreach tar éis Vicipéid a fheabhsú do gach duine";
 "description-published-title" = "Foilsíodh sainchuntas!";
 "description-welcome-concise-sub-title" = "Da bhféadfaí é, líne amháin idir dhá fhocal agus dhá fhocal déag";
 "description-welcome-concise-title" = "Coinnigh gairid é";
 "description-welcome-descriptions-sub-title" = "Coimrítear alt chun cabhrú le léitheoirí an t-ábhar a thuiscint ar an bpointe";
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
-"description-welcome-start-editing-button" = "Cuir tús le heagarthóireacht";
+"description-welcome-start-editing-button" = "Cuir in eagar";
+"dim-images" = "Maolaigh íomhánna";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
 "edit-summary-choice-fixed-typos" = "Réitíodh botún cló";
 "edit-summary-choice-linked-words" = "Cuireadh naisc leis";
 "edit-summary-choice-other" = "Eile";
+"edit-summary-field-placeholder-text" = "Modhanna eile mar a fheabhsaigh tú an t-alt";
 "edit-summary-title" = "Conas mar a fheabhsaigh tú an t-alt?";
 "empty-no-article-message" = "Tá brón orainn, níorbh fhéidir an t-alt a lódáil";
 "empty-no-feed-message" = "Féadfaidh tú do chuid alt molta a fhéachaint nuair a bheidh idirlíon agat";
@@ -343,6 +348,7 @@
 "readers-accessibility-label" = "$1 léitheoir";
 "reading-list-add-generic-hint-title" = "Cuir an t-alt seo ar liosta léitheoireachta?";
 "reading-list-add-hint-title" = "Cuir “$1” ar liosta léitheoireachta?";
+"reading-list-add-saved-button-title" = "Ba mhaith, cuir ar mo liostaí léitheoireachta iad";
 "reading-list-add-saved-title" = "Aimsíodh ailt sábháilte";
 "reading-list-create-new-list-button-title" = "Cruthaigh liosta léitheoireachta";
 "reading-list-create-new-list-description" = "Sainchuntas";
@@ -352,6 +358,7 @@
 "reading-list-exists-with-same-name" = "Ainm an liosta léitheoireachta á úsáid cheana féin";
 "reading-list-keep-title" = "Coinnigh ailt sábháilte ar ghléas?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Sórtáil ailt";
+"reading-list-limit-hit-for-unsorted-articles-subtitle" = "Is é 5000 an uasteorainn d'ailt neamhshórtáilte. Sórtáil ar liostaí na hailt atá roghnaithe agat cheana féin, chun go leanfar sioncronú na n-alt neamhshórtáilte.";
 "reading-list-login-button-title" = "Logáil isteach le do chuid alt sábháilte a shioncronú";
 "reading-list-login-or-create-account-button-title" = "Logáil isteach nó cruthaigh cuntas";
 "reading-list-login-or-create-account-title" = "Logáil isteach le hailt sábháilte a shioncronú";
@@ -465,7 +472,7 @@
 "view-in-browser-footer-link" = "Féach ar alt i mbrabhsálaí";
 "welcome-exploration-explore-feed-description" = "Ábhar léimh molta agus ailt laethúla ónár gcomhphobal";
 "welcome-exploration-explore-feed-title" = "Fotha Taiscéal";
-"welcome-exploration-on-this-day-description" = "Téigh siar sna blianta le foghlaim cad a tharla ar an lá seo sa stair";
+"welcome-exploration-on-this-day-description" = "Taisteal siar sna blianta le foghlaim cad a tharla ar an lá seo sa stair";
 "welcome-exploration-on-this-day-title" = "Ar an lá seo";
 "welcome-exploration-places-description" = "Tar ar sainchomharthaí in aice leat nó cuardaigh ar thóir áiteanna ar fud an domhain";
 "welcome-exploration-places-title" = "Táb Áiteanna";
@@ -485,6 +492,7 @@
 "welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";
 "welcome-send-data-helps-title" = "Tabhair cabhair dúin an aip a fheabhsú";
 "welcome-send-data-learn-more" = "Foghlaim tuilleadh maidir le sonraí a bhailítear";
+"welcome-send-data-sub-title" = "Cuidigh leis an aip a fheabhsú tríd an bhFondúireacht Wikimedia a chur ar an eolas ar conas mar a úsáideann tú é. Is anaithnid na sonraí a bhailítear.";
 "welcome-volunteer-send-usage-reports" = "Seol tuairiscí úsáide";
 "wikitext-download-success" = "Lódáladh inneachar.";
 "wikitext-downloading" = "Ag lódáil inneachair...";
