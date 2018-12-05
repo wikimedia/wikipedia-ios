@@ -141,6 +141,11 @@ updates version, builds, and pushes to TestFlight
 fastlane ios test_and_push_beta
 ```
 Runs tests, version, tag, and push to the beta branch
+### ios upload_app_store_metadata
+```
+fastlane ios upload_app_store_metadata
+```
+Upload app store metadata
 ### ios submit_release
 ```
 fastlane ios submit_release
