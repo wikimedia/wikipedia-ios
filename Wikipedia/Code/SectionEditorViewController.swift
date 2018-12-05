@@ -18,10 +18,17 @@ class SectionEditorViewController: UIViewController {
 
     var preferredInputViewType: TextFormattingInputViewController.InputViewType?
 
+    private var previousPreferredAccessoryView: (UIView & Themeable)?
     private var preferredAccessoryView: (UIView & Themeable)? {
         didSet {
-            reloadInputViews()
-            textView.reloadInputViews()
+            previousPreferredAccessoryView = oldValue
+
+            preferredAccessoryView?.apply(theme: theme)
+            textView.inputAccessoryView = preferredAccessoryView
+
+            if preferredAccessoryView != nil && oldValue != nil {
+                textView.reloadInputViews()
+            }
         }
     }
 
@@ -52,19 +59,21 @@ class SectionEditorViewController: UIViewController {
         return !(unmodifiedWikiText == textView.text)
     }
 
-    override var canBecomeFirstResponder: Bool {
-        return true
+    private var isCustomInputViewHidden: Bool = true {
+        didSet {
+            if isCustomInputViewHidden {
+                preferredAccessoryView = previousPreferredAccessoryView
+            } else {
+                preferredAccessoryView = nil
+            }
+        }
     }
 
-    private var isCustomInputViewHidden: Bool = true
-
     func setCustomInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
-        let responder = isFirstResponder ? self : textView
-
-        setCursorPositionIfNeeded()
+        isCustomInputViewHidden = hidden
 
         let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
-            responder?.resignFirstResponder()
+            self.textView.resignFirstResponder()
         }
 
         animator.addCompletion { (_) in
@@ -73,16 +82,7 @@ class SectionEditorViewController: UIViewController {
 
         animator.startAnimation()
 
-        isCustomInputViewHidden = hidden
         preferredInputViewType = type
-    }
-
-    override var inputAccessoryView: UIView? {
-        guard isCustomInputViewHidden else {
-            return nil
-        }
-        preferredAccessoryView?.apply(theme: theme)
-        return preferredAccessoryView
     }
 
     override func viewDidLoad() {
@@ -107,10 +107,8 @@ class SectionEditorViewController: UIViewController {
         registerForKeyboardNotifications()
         enableProgressButton(changesMade)
 
-        // Needed to keep keyboard on screen when cancelling out of preview.
-        if changesMade {
-            textView.becomeFirstResponder()
-        }
+        textView.becomeFirstResponder()
+        preferredAccessoryView = defaultEditToolbar
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -132,17 +130,6 @@ class SectionEditorViewController: UIViewController {
 
     private func configureAccessoryViews() {
         defaultEditToolbar.delegate = self
-    }
-
-    private func setCursorPositionIfNeeded() {
-        let shouldSetCursor = !textView.isFirstResponder
-
-        guard shouldSetCursor else {
-            return
-        }
-
-        let newPosition = textView.beginningOfDocument
-        textView.selectedTextRange = textView.textRange(from: newPosition, to: newPosition)
     }
 
     private func loadWikitext() {
