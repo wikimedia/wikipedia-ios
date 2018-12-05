@@ -7,6 +7,8 @@
 # Since this file is eval'd, we need to add this file's directory to $LOAD_PATH
 $:.unshift File.dirname(__FILE__)
 
+require 'open-uri'
+
 automatic_release false
 
 copyright "#{Time.now.year} Wikimedia Foundation"
