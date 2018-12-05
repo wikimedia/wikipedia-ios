@@ -35,20 +35,6 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
         return [paragraph, heading, subheading1, subheading2, subheading3]
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let leadingContentInset: CGFloat
-
-        if isRootViewController {
-            leadingContentInset = 8
-        } else {
-            leadingContentInset = 0
-        }
-        // TODO: RTL
-        tableView.contentInset = UIEdgeInsets(top: 0, left: leadingContentInset, bottom: 0, right: 0)
-    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormattingTableViewCell.identifier, for: indexPath) as? TextFormattingTableViewCell else {
             return UITableViewCell()

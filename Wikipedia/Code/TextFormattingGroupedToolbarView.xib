@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3dV-SU-XLo">
-                    <rect key="frame" x="16" y="0.0" width="343" height="45"/>
+                    <rect key="frame" x="10" y="0.0" width="355" height="45"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="YBs-xI-rce" userLabel="Indentation Stack View">
                             <rect key="frame" x="0.0" y="0.0" width="60" height="45"/>
@@ -33,14 +33,14 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-Bt-bK5" userLabel="Separator">
-                            <rect key="frame" x="76.5" y="0.0" width="1" height="45"/>
+                            <rect key="frame" x="78.5" y="0.0" width="1" height="45"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="Ce7-e5-DuF"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ooB-ON-AdU" userLabel="List Stack View">
-                            <rect key="frame" x="94.5" y="0.0" width="60" height="45"/>
+                            <rect key="frame" x="98.5" y="0.0" width="60" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g">
                                     <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
@@ -53,14 +53,14 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBt-uX-0EY" userLabel="Separator">
-                            <rect key="frame" x="171" y="0.0" width="1" height="45"/>
+                            <rect key="frame" x="177" y="0.0" width="1" height="45"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="Czb-Hd-I9e"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Ncz-dW-KBH">
-                            <rect key="frame" x="188.5" y="0.0" width="60" height="45"/>
+                            <rect key="frame" x="196.5" y="0.0" width="60" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b9-qs-xai">
                                     <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
@@ -73,14 +73,14 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xaa-ak-V1F" userLabel="Separator">
-                            <rect key="frame" x="265.5" y="0.0" width="1" height="45"/>
+                            <rect key="frame" x="275.5" y="0.0" width="1" height="45"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="0tP-Om-ymc"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-AT-OdF" userLabel="Text Decoration Stack View">
-                            <rect key="frame" x="283" y="0.0" width="60" height="45"/>
+                            <rect key="frame" x="295" y="0.0" width="60" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SR0-aa-rb8">
                                     <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
@@ -99,8 +99,8 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="3dV-SU-XLo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AhT-ca-Nvc"/>
-                <constraint firstAttribute="trailingMargin" secondItem="3dV-SU-XLo" secondAttribute="trailing" id="JBx-Dm-Ake"/>
-                <constraint firstItem="3dV-SU-XLo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="f5I-Sl-gux"/>
+                <constraint firstAttribute="trailing" secondItem="3dV-SU-XLo" secondAttribute="trailing" constant="10" id="JBx-Dm-Ake"/>
+                <constraint firstItem="3dV-SU-XLo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="f5I-Sl-gux"/>
                 <constraint firstAttribute="bottom" secondItem="3dV-SU-XLo" secondAttribute="bottom" id="yDz-rC-ghi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

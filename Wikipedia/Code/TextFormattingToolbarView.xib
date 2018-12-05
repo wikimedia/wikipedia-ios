@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,42 +15,41 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Fhk-Dl-iSo">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Fhk-Dl-iSo">
+                    <rect key="frame" x="16" y="0.0" width="343" height="45"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9va-UE-Cjg">
-                            <rect key="frame" x="0.0" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="45"/>
                             <state key="normal" title="𝐁"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-b0-I9N">
-                            <rect key="frame" x="62.5" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="62.5" y="0.0" width="30" height="45"/>
                             <state key="normal" title="𝐼"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tha-bd-cfK">
-                            <rect key="frame" x="125" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="125" y="0.0" width="30" height="45"/>
                             <state key="normal" title="🔖"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDq-hb-02O">
-                            <rect key="frame" x="187.5" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="187" y="0.0" width="31" height="45"/>
                             <state key="normal" title="〔〕"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEU-F8-gGT">
-                            <rect key="frame" x="250" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="250.5" y="0.0" width="30" height="45"/>
                             <state key="normal" title="❕"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyH-tA-Dma">
-                            <rect key="frame" x="312.5" y="0.0" width="62.5" height="45"/>
+                            <rect key="frame" x="313" y="0.0" width="30" height="45"/>
                             <state key="normal" title="🔗"/>
                         </button>
                     </subviews>
-                    <viewLayoutGuide key="safeArea" id="RYz-Mb-TgQ"/>
                 </stackView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Fhk-Dl-iSo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="eW9-ER-BAQ"/>
-                <constraint firstItem="Fhk-Dl-iSo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="oaW-jl-KZe"/>
-                <constraint firstAttribute="trailing" secondItem="Fhk-Dl-iSo" secondAttribute="trailing" id="xwv-f1-oio"/>
+                <constraint firstItem="Fhk-Dl-iSo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="oaW-jl-KZe"/>
+                <constraint firstAttribute="trailingMargin" secondItem="Fhk-Dl-iSo" secondAttribute="trailing" id="xwv-f1-oio"/>
                 <constraint firstAttribute="bottom" secondItem="Fhk-Dl-iSo" secondAttribute="bottom" id="yL3-hk-bUS"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
