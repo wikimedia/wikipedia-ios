@@ -442,11 +442,7 @@ func importLocalizationsFromTWN(_ path: String) {
                     } catch { }
                 }
                 
-                // If we have a localized app name for "Wikipedia", write a fastlane "name.txt" to a folder for its locale.
-                let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
-                if let infoPlist = NSDictionary(contentsOfFile: infoPlistPath), let localizedAppName = infoPlist["CFBundleDisplayName"] as? String, localizedAppName.count > 0, localizedAppName != "Wikipedia" {
-                    try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: localizedAppName, locale: locale)
-                }
+             
 
             } else {
                 englishPluralDictionary = stringsDict
@@ -472,6 +468,12 @@ func importLocalizationsFromTWN(_ path: String) {
                     // If we have localized app store keywords, write a fastlane "keywords.txt" to a folder for its locale.
                     if let localizedKeywords = strings["app-store-keywords"] as? String {
                         try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "keywords.txt", contents: localizedKeywords, locale: metadataLocale)
+                    }
+                    
+                    // If we have a localized app name for "Wikipedia", write a fastlane "name.txt" to a folder for its locale.
+                    let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
+                    if let infoPlist = NSDictionary(contentsOfFile: infoPlistPath), let localizedAppName = infoPlist["CFBundleDisplayName"] as? String, localizedAppName.count > 0, localizedAppName != "Wikipedia" {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: localizedAppName, locale: metadataLocale)
                     }
                 }
               
