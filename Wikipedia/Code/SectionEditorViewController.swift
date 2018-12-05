@@ -32,6 +32,14 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
+//    override var inputAccessoryView: UIView? {
+//        return defaultEditToolbar
+//    }
+//
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
+
     private var theme = Theme.standard
 
     struct Constants {
@@ -125,6 +133,7 @@ class SectionEditorViewController: UIViewController {
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
+        webView.configureCustomInputAccessoryView()
 //        textView.delegate = self
 //        textView.inputViewControllerDelegate = self
 //        textView.textFormattingDelegate = self

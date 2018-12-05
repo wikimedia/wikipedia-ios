@@ -5,11 +5,6 @@ typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
 class SectionEditorWebView: WKWebView {
-    public weak var selectionChangedDelegate: SectionEditorWebViewSelectionChangedDelegate? {
-        didSet {
-            config.selectionChangedDelegate = selectionChangedDelegate
-        }
-    }
     
     private var config: SectionEditorWebViewConfiguration
     private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
@@ -18,6 +13,7 @@ class SectionEditorWebView: WKWebView {
         config = SectionEditorWebViewConfiguration()
         super.init(frame: .zero, configuration: SectionEditorWebViewConfiguration())
         loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
+        config.selectionChangedDelegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -77,4 +73,132 @@ class SectionEditorWebView: WKWebView {
             DDLogError("Error setting up editor: \(error)")
         }
     }
+
+    // MARK: Accessory views
+
+    private let defaultEditToolbar = DefaultEditToolbarView.wmf_viewFromClassNib()!
+    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()!
+
+    func gestCustomInputAccessoryView() -> UIView? {
+        return defaultEditToolbar
+    }
+
+    override var inputView: UIView? {
+        return nil
+    }
+
+    override var inputAccessoryViewController: UIInputViewController? {
+        let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+        //        textFormattingInputViewController.delegate = textFormattingDelegate
+        //        textFormattingInputViewController.inputViewType = preferredInputViewType
+        return nil
+    }
+
+    override var inputViewController: UIInputViewController? {
+        let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+//        textFormattingInputViewController.delegate = textFormattingDelegate
+//        textFormattingInputViewController.inputViewType = preferredInputViewType
+        return nil
+    }
+
+    func configureCustomInputAccessoryView() {
+        setCustomInputAccessoryView(defaultEditToolbar)
+    }
+
+    // MARK: Swizzling input accessory view
+
+    static var customInputAccessoryViewKey = 0
+
+    private lazy var setCustomInputAccessoryView: (UIView) -> Void = { customInputAccessoryView in
+        objc_setAssociatedObject(self, &SectionEditorWebView.customInputAccessoryViewKey, customInputAccessoryView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        guard let wkContent = self.scrollView.subviews.first(where:  { String(describing: type(of: $0)).hasPrefix("WKContent") }) else {
+            assertionFailure("Couldn't find WKContent among scrollView's subviews")
+            return
+        }
+
+        guard wkContent.superclass != nil else {
+            assertionFailure("WKContent has no superclass")
+            return
+        }
+
+        let newClassName = "_CustomInputAccessoryView"
+        guard let newClass = NSClassFromString(newClassName) ?? objc_allocateClassPair(object_getClass(wkContent), newClassName, 0) else {
+            assertionFailure("Couldn't create a new class for a custom input accessory view")
+            return
+        }
+
+        guard let getter = class_getInstanceMethod(SectionEditorWebView.self, #selector(getter: SectionEditorWebView.customInputAccessoryView)) else {
+            assertionFailure("Couldn't get instance method")
+            return
+        }
+
+        class_addMethod(newClass, #selector(getter: SectionEditorWebView.inputAccessoryView), method_getImplementation(getter), method_getTypeEncoding(getter))
+        objc_registerClassPair(newClass)
+        object_setClass(wkContent, newClass)
+    }
+
+    @objc private var customInputAccessoryView: UIView? {
+        var view: UIView? = self
+        while (view != nil) && !(view is WKWebView) {
+            view = view?.superview
+        }
+        guard let webView = view else {
+            return nil
+        }
+        let customInputAccessory = objc_getAssociatedObject(webView, &SectionEditorWebView.customInputAccessoryViewKey)
+        return customInputAccessory as? UIView
+    }
+}
+
+extension SectionEditorWebView: SectionEditorWebViewSelectionChangedDelegate {
+    func turnOffAllButtonHighlights() {
+        //
+    }
+
+    func highlightBoldButton() {
+        //
+    }
+
+    func highlightItalicButton() {
+        //
+    }
+
+    func highlightReferenceButton() {
+        //
+    }
+
+    func highlightTemplateButton() {
+        //
+    }
+
+    func highlightAnchorButton() {
+        //
+    }
+
+    func highlightIndentButton(depth: Int) {
+        //
+    }
+
+    func highlightSignatureButton(depth: Int) {
+        //
+    }
+
+    func highlightListButton(ordered: Bool, depth: Int) {
+        //
+    }
+
+    func highlightHeadingButton(depth: Int) {
+        //
+    }
+
+    func highlightUndoButton() {
+        //
+    }
+
+    func highlightRedoButton() {
+        //
+    }
+
+
 }
