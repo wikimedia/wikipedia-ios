@@ -26,93 +26,151 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
     private lazy var anchorButton: UIButton = {
         let button = testButton(text: "A")
         button.frame = CGRect.init(x: 0, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleAnchorSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var boldButton: UIButton = {
         let button = testButton(text: "B")
         button.frame = CGRect.init(x: 30, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleBoldSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var italicButton: UIButton = {
         let button = testButton(text: "I")
         button.frame = CGRect.init(x: 60, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleItalicSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var unorderedListButton: UIButton = {
         let button = testButton(text: "UL")
         button.frame = CGRect.init(x: 90, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleListSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var orderedListButton: UIButton = {
         let button = testButton(text: "OL")
         button.frame = CGRect.init(x: 120, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleListSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h1Button: UIButton = {
         let button = testButton(text: "H1")
         button.frame = CGRect.init(x: 150, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h2Button: UIButton = {
         let button = testButton(text: "H2")
         button.frame = CGRect.init(x: 180, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h3Button: UIButton = {
         let button = testButton(text: "H3")
         button.frame = CGRect.init(x: 210, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h4Button: UIButton = {
         let button = testButton(text: "H4")
         button.frame = CGRect.init(x: 240, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h5Button: UIButton = {
         let button = testButton(text: "H5")
         button.frame = CGRect.init(x: 270, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var h6Button: UIButton = {
         let button = testButton(text: "H6")
         button.frame = CGRect.init(x: 300, y: 0, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleHeadingSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var referenceButton: UIButton = {
         let button = testButton(text: "Reference")
         button.frame = CGRect.init(x: 0, y: buttonHeight, width: 80, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleReferenceSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var templateButton: UIButton = {
         let button = testButton(text: "Template")
         button.frame = CGRect.init(x: 80, y: buttonHeight, width: 80, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleTemplateSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var indentButton: UIButton = {
         let button = testButton(text: "Indent")
         button.frame = CGRect.init(x: 160, y: buttonHeight, width: 60, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleIndentSelection), for: .touchUpInside)
         return button
     }()
     
     private lazy var signatureButton: UIButton = {
         let button = testButton(text: "Signature")
         button.frame = CGRect.init(x: 220, y: buttonHeight, width: 80, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleSignatureSelection), for: .touchUpInside)
         return button
     }()
 
+    private lazy var cursorLeftButton: UIButton = {
+        let button = testButton(text: "←")
+        button.frame = CGRect.init(x: 0, y: buttonHeight * 2, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(moveCursorLeft), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var cursorRightButton: UIButton = {
+        let button = testButton(text: "→")
+        button.frame = CGRect.init(x: 30, y: buttonHeight * 2, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(moveCursorRight), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var cursorUpButton: UIButton = {
+        let button = testButton(text: "↑")
+        button.frame = CGRect.init(x: 60, y: buttonHeight * 2, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(moveCursorUp), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var cursorDownButton: UIButton = {
+        let button = testButton(text: "↓")
+        button.frame = CGRect.init(x: 90, y: buttonHeight * 2, width: 30, height: buttonHeight)
+        button.addTarget(self, action: #selector(moveCursorDown), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var undoButton: UIButton = {
+        let button = testButton(text: "Undo")
+        button.frame = CGRect.init(x: 120, y: buttonHeight * 2, width: 60, height: buttonHeight)
+        button.addTarget(self, action: #selector(undo), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var redoButton: UIButton = {
+        let button = testButton(text: "Redo")
+        button.frame = CGRect.init(x: 180, y: buttonHeight * 2, width: 60, height: buttonHeight)
+        button.addTarget(self, action: #selector(redo), for: .touchUpInside)
+        return button
+    }()
+
+    
     override init() {
         super.init()
         
@@ -135,6 +193,12 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         self.addSubview(templateButton)
         self.addSubview(indentButton)
         self.addSubview(signatureButton)
+        self.addSubview(cursorLeftButton)
+        self.addSubview(cursorRightButton)
+        self.addSubview(cursorUpButton)
+        self.addSubview(cursorDownButton)
+        self.addSubview(undoButton)
+        self.addSubview(redoButton)
     }
 }
 
@@ -155,6 +219,8 @@ extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionC
         referenceButton.isSelected = false
         indentButton.isSelected = false
         signatureButton.isSelected = false
+        undoButton.isSelected = false
+        redoButton.isSelected = false
     }
     
     func highlightBoldButton() {
@@ -210,5 +276,13 @@ extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionC
         default:
             break
         }
+    }
+    
+    func highlightUndoButton() {
+        undoButton.isSelected = true
+    }
+
+    func highlightRedoButton() {
+        redoButton.isSelected = true
     }
 }
