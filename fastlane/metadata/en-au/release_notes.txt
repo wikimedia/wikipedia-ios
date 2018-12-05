@@ -1,1 +1,0 @@
-Fully customizable and easier to read Explore feed. Localization, performance improvements and bug fixes.

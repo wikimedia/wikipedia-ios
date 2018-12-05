@@ -381,7 +381,7 @@ func importLocalizationsFromTWN(_ path: String) {
             "da": ["da"],
             "de": ["de-de"],
             "el": ["el"],
-            "en": ["en-au", "en-ca", "en-gb"],
+            //"en": ["en-au", "en-ca", "en-gb"],
             "es": ["es-mx", "es-es"],
             "fi": ["fi"],
             "fr": ["fr-ca", "fr-fr"],
