@@ -1,16 +1,16 @@
 import UIKit
 
-protocol DefaultEditToolbarAccessoryViewDelegate: class {
-    func defaultEditToolbarAccessoryViewDidTapTextFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
-    func defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
-    func defaultEditToolbarAccessoryViewDidTapAddCitationButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
-    func defaultEditToolbarAccessoryViewDidTapAddLinkButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
-    func defaultEditToolbarAccessoryViewDidTapUnorderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
-    func defaultEditToolbarAccessoryViewDidTapOrderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton)
+protocol DefaultEditToolbarViewDelegate: class {
+    func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func defaultEditToolbarViewDidTapAddCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func defaultEditToolbarViewDidTapAddLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
 }
 
-class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
-    weak var delegate: DefaultEditToolbarAccessoryViewDelegate?
+class DefaultEditToolbarView: EditToolbarView {
+    weak var delegate: DefaultEditToolbarViewDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
@@ -41,11 +41,11 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
     // MARK: Button actions
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.defaultEditToolbarAccessoryViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.defaultEditToolbarViewDidTapTextFormattingButton(self, button: sender)
     }
 
     @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(self, button: sender)
+        delegate?.defaultEditToolbarViewDidTapHeaderFormattingButton(self, button: sender)
     }
 
     @objc private func addCitation(_ sender: UIButton) {
@@ -125,7 +125,7 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
 
 }
 
-extension DefaultEditToolbarAccessoryView {
+extension DefaultEditToolbarView {
     override func apply(theme: Theme) {
         super.apply(theme: theme)
         //

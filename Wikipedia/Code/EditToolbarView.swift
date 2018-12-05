@@ -1,4 +1,4 @@
-class EditToolbarAccessoryView: UIView {
+class EditToolbarView: UIView {
     @IBOutlet var separatorViews: [UIView] = []
 
     override func awakeFromNib() {
@@ -19,7 +19,7 @@ class EditToolbarAccessoryView: UIView {
     }
 }
 
-extension EditToolbarAccessoryView: Themeable {
+extension EditToolbarView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.midBackground
         layer.shadowColor = theme.colors.shadow.cgColor

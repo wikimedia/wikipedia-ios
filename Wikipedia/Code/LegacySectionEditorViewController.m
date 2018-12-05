@@ -17,7 +17,7 @@
 //@property (strong, nonatomic) NSString *unmodifiedWikiText;
 //@property (nonatomic) CGRect viewKeyboardRect;
 //@property (strong, nonatomic) UIBarButtonItem *rightButton;
-//@property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbarAccessoryView;
+//@property (strong, nonatomic) WMFDefaultEditToolbarAccessoryView *defaultEditToolbarView;
 //@property (strong, nonatomic) WMFContextualHighlightEditToolbarAccessoryView *contextualHighlightEditToolbarAccessoryView;
 //@property (strong, nonatomic) UIView<WMFThemeable> *preferredAccessoryView;
 //@property (strong, nonatomic) UINavigationController *textFormattingNavigationController;
@@ -63,8 +63,8 @@
 //
 //    self.viewKeyboardRect = CGRectNull;
 //
-//    self.defaultEditToolbarAccessoryView = [WMFDefaultEditToolbarAccessoryView loadFromNib];
-//    self.defaultEditToolbarAccessoryView.delegate = self;
+//    self.defaultEditToolbarView = [WMFDefaultEditToolbarAccessoryView loadFromNib];
+//    self.defaultEditToolbarView.delegate = self;
 //
 //    self.contextualHighlightEditToolbarAccessoryView = [WMFContextualHighlightEditToolbarAccessoryView loadFromNib];
 //
@@ -123,7 +123,7 @@
 //    if (selectedText && selectedText.length > 0) {
 //        self.preferredAccessoryView = self.contextualHighlightEditToolbarAccessoryView;
 //    } else {
-//        self.preferredAccessoryView = self.defaultEditToolbarAccessoryView;
+//        self.preferredAccessoryView = self.defaultEditToolbarView;
 //    }
 //}
 //
@@ -339,7 +339,7 @@
 //
 //#pragma mark WMFDefaultEditToolbarAccessoryViewDelegate
 //
-//- (void)defaultEditToolbarAccessoryViewDidTapTextFormattingButton:(WMFDefaultEditToolbarAccessoryView *)defaultEditToolbarAccessoryView button:(UIButton *)button {
+//- (void)defaultEditToolbarViewDidTapTextFormattingButton:(WMFDefaultEditToolbarAccessoryView *)defaultEditToolbarView button:(UIButton *)button {
 //    [self setTextFormattingViewHidden:NO];
 //}
 //

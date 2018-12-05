@@ -13,8 +13,8 @@ class SectionEditorViewController: UIViewController {
     private var viewKeyboardRect = CGRect.null
     private var rightButton: UIBarButtonItem?
 
-    private let defaultEditToolbar = DefaultEditToolbarAccessoryView.wmf_viewFromClassNib()!
-    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarAccessoryView.wmf_viewFromClassNib()!
+    private let defaultEditToolbar = DefaultEditToolbarView.wmf_viewFromClassNib()!
+    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()!
 
     var preferredInputViewType: TextFormattingInputViewController.InputViewType?
 
@@ -310,30 +310,30 @@ extension SectionEditorViewController: TextFormattingDelegate {
     }
 }
 
-// MARK: - DefaultEditToolbarAccessoryViewDelegate
+// MARK: - DefaultEditToolbarViewDelegate
 
-extension SectionEditorViewController: DefaultEditToolbarAccessoryViewDelegate {
-    func defaultEditToolbarAccessoryViewDidTapTextFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+extension SectionEditorViewController: DefaultEditToolbarViewDelegate {
+    func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         setCustomInputViewHidden(type: .textFormatting, hidden: false)
     }
 
-    func defaultEditToolbarAccessoryViewDidTapHeaderFormattingButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+    func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         setCustomInputViewHidden(type: .textStyle, hidden: false)
     }
 
-    func defaultEditToolbarAccessoryViewDidTapAddCitationButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+    func defaultEditToolbarViewDidTapAddCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         //
     }
 
-    func defaultEditToolbarAccessoryViewDidTapAddLinkButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+    func defaultEditToolbarViewDidTapAddLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         //
     }
 
-    func defaultEditToolbarAccessoryViewDidTapUnorderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+    func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         //
     }
 
-    func defaultEditToolbarAccessoryViewDidTapOrderedListButton(_ defaultEditToolbarAccessoryView: DefaultEditToolbarAccessoryView, button: UIButton) {
+    func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         //
     }
 }
