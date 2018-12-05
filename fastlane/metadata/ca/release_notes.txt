@@ -1,1 +1,0 @@
-Canal d'exploració plenament configurable i fàcil de llegir. Localització, millores de rendiment i correccions d'errades.
