@@ -8,8 +8,8 @@ private enum CodeMirrorCommandType: String {
     case signature
     case list
     case heading
-    case increaseDepth
-    case decreaseDepth
+    case increaseIndentDepth
+    case decreaseIndentDepth
     case undo
     case redo
     case cursorDown
@@ -20,37 +20,37 @@ private enum CodeMirrorCommandType: String {
 
 extension SectionEditorWebView {
     @objc func toggleBoldSelection() {
-        print("0")
+        execCommand(for: .bold)
     }
     @objc func toggleItalicSelection() {
-        print("1")
+        execCommand(for: .italic)
     }
     @objc func toggleReferenceSelection() {
-        print("2")
+        execCommand(for: .reference)
     }
     @objc func toggleTemplateSelection() {
-        print("3")
+        execCommand(for: .template)
     }
     @objc func toggleAnchorSelection() {
-        print("4")
+        execCommand(for: .anchor)
     }
     @objc func toggleIndentSelection() {
-        print("5")
+        execCommand(for: .indent)
     }
     @objc func toggleSignatureSelection() {
-        print("6")
+        execCommand(for: .signature)
     }
     @objc func toggleListSelection() {
-        print("7")
+        execCommand(for: .list)
     }
     @objc func toggleHeadingSelection() {
-        print("8")
+        execCommand(for: .heading)
     }
     @objc func increaseIndentDepth() {
-        print("9")
+        execCommand(for: .increaseIndentDepth)
     }
     @objc func decreaseIndentDepth() {
-        print("10")
+        execCommand(for: .decreaseIndentDepth)
     }
     
     

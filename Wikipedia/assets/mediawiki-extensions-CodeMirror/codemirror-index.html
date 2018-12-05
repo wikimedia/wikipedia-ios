@@ -244,7 +244,40 @@
       cursorUp: () => editor.execCommand('goLineUp'),
       cursorDown: () => editor.execCommand('goLineDown'),
       cursorLeft: () => editor.execCommand('goCharLeft'),
-      cursorRight: () => editor.execCommand('goCharRight')      
+      cursorRight: () => editor.execCommand('goCharRight'),
+      bold: () => {
+        console.log('bold')
+      },
+      italic: () => {
+        console.log('italic')        
+      },
+      reference: () => {
+        console.log('reference')
+      },
+      template: () => {
+        console.log('template')
+      },
+      anchor: () => {
+        console.log('anchor')
+      },
+      indent: () => {
+        console.log('indent')
+      },
+      signature: () => {
+        console.log('signature')
+      },
+      list: () => {
+        console.log('list')
+      },
+      heading: () => {
+        console.log('heading')
+      },
+      increaseIndentDepth: () => {
+        console.log('increaseIndentDepth')
+      },
+      decreaseIndentDepth: () => {
+        console.log('decreaseIndentDepth')
+      }
     }
     
     window.wmf = wmf
