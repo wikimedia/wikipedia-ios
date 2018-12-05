@@ -95,7 +95,6 @@
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
-"article-unable-to-load-article" = "Nem sikerült betölteni a szócikket.";
 "article-unable-to-load-section" = "A szakasz betöltése sikertelen. Próbáld meg újratölteni a cikket, hátha megoldja a problémát.";
 "back-button-accessibility-label" = "Vissza";
 "back-button-popover-title" = "A visszalépéshez bökj ide";
@@ -133,6 +132,7 @@
 "description-help-tips-title" = "Tippek a leírások készítéséhez";
 "description-published-button-title" = "Kész";
 "description-published-title" = "Leírás közzétéve!";
+"description-welcome-concise-title" = "Fogalmazz tömören";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
 "dim-images" = "Képek sötétítése";
 "edit-summary-choice-fixed-grammar" = "Nyelvtani javítás";
@@ -162,6 +162,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-feed-customize-accessibility-title" = "Testreszabás";
 "explore-feed-preferences-hide-card-action-title" = "Kártya elrejtése";
+"explore-feed-preferences-in-the-news-description" = "Szócikkek aktuális eseményekről";
 "explore-feed-preferences-places-description" = "Wikipédia szócikkek a közeledben";
 "explore-feed-preferences-potd-description" = "A nap kiemelt képe a Wikimédia Commonsról";
 "explore-feed-preferences-undo-customization" = "Visszavonás";
@@ -177,7 +178,10 @@
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "A Wikipédiáról";
 "explore-nearby-sub-heading-your-location" = "Helyed";
 "explore-potd-heading" = "A nap képe";
+"explore-potd-sub-heading" = "A Wikimédia Commonsról";
 "explore-random-article-heading" = "Lap találomra";
+"explore-random-article-sub-heading-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
+"explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
 "feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";

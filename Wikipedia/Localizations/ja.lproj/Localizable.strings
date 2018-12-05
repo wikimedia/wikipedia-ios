@@ -119,7 +119,6 @@
 "article-save-error-not-enough-space" = "デバイスの空き容量不足でこの記事を保存できません";
 "article-share" = "共有";
 "article-toolbar-reading-themes-controls-toolbar-item" = "テーマのコントロールを読み込む";
-"article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-unable-to-load-section" = "この節を読み込むことができません。記事を更新してみて、問題が解決するかどうか確かめてみてください。";
 "back-button-accessibility-label" = "戻る";
 "back-button-popover-title" = "ここをタップすると戻ります";
