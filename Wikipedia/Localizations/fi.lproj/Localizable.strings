@@ -88,7 +88,7 @@
 "app-store-short-description" = "Lataa Wikipedia-sovellus tutkiaksesi ympärilläsi olevia paikkoja, synkronoidaksesi artikkeleita lukeaksesi niitä offline-tilassa ja mukauttaaksesi lukukokemustasi.";
 "app-store-subtitle" = "Vapaa tietosanakirja";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
-"appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-expand-tables" = "Laajenna taulukot";
 "appearance-settings-expand-tables-footer" = "Aseta kaikki taulukot kaikissa artikkeleissa aukeamaan oletuksena, mukaanlukien Pikafaktoja, Viitteet, Ilmoitukset ja Ulkoiset linkit.";
 "appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteemat";
@@ -106,7 +106,6 @@
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
-"article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
