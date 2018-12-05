@@ -110,7 +110,6 @@
 "article-save-error-not-enough-space" = "您的设备没有足够空间保存此条目";
 "article-share" = "分享";
 "article-toolbar-reading-themes-controls-toolbar-item" = "阅读主题控制";
-"article-unable-to-load-article" = "无法加载条目。";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "back-button-accessibility-label" = "返回";
 "back-button-popover-title" = "点击返回";

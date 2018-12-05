@@ -105,7 +105,6 @@
 "article-save-error-not-enough-space" = "No teniu prou espai al dispositiu per desar l'article.";
 "article-share" = "Comparteix";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Controls dels temes de lectura";
-"article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "back-button-accessibility-label" = "Enrere";
 "back-button-popover-title" = "Feu un toc per anar enrere";
