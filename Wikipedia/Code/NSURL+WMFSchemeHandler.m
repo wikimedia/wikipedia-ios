@@ -1,19 +1,25 @@
 #import <WMF/NSURL+WMFSchemeHandler.h>
 #import <WMF/NSURL+WMFQueryParameters.h>
 
-NSString *const WMFAppSchemeImageOriginalSrcKey = @"originalSrc";
-NSString *const WMFAppSchemeImageBasePath = @"imageProxy";
+NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
+NSString *const WMFSchemeHandlerArticleSectionDataBasePath = @"articleSectionData";
+NSString *const WMFSchemeHandlerArticleKeyQueryItem = @"articleKey";
+NSString *const WMFSchemeHandlerImageWidthQueryItem = @"imageWidth";
 NSString *const WMFAppSchemeFileBasePath = @"fileProxy";
 NSString *const WMFAppSchemeAPIBasePath = @"APIProxy";
 
 @implementation NSURL (WMFSchemeHandler)
 
-- (nullable NSURL *)wmf_imageAppSchemeOriginalSrcURL {
-    return [NSURL URLWithString:[self wmf_valueForQueryKey:WMFAppSchemeImageOriginalSrcKey]];
+- (nullable NSURL *)wmf_originalURLFromAppSchemeURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
+    components.scheme = @"https";
+    return [components URL];
 }
 
-- (NSURL *)wmf_imageAppSchemeURLWithOriginalSrc:(NSString *)originalSrc {
-    return [self wmf_urlWithValue:originalSrc forQueryKey:WMFAppSchemeImageOriginalSrcKey];
++ (NSURL *)wmf_appSchemeURLForURLString:(NSString *)URLString {
+    NSURLComponents *components = [NSURLComponents componentsWithString:URLString];
+    components.scheme = WMFURLSchemeHandlerScheme;
+    return components.URL;
 }
 
 @end
