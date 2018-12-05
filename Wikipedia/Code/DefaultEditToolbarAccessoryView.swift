@@ -108,7 +108,7 @@ class DefaultEditToolbarAccessoryView: EditToolbarAccessoryView {
 
         if animated {
             let buttonAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7, animations: buttonTransform)
-            let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: scrollViewContentOffsetChange)
+            let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: scrollViewContentOffsetChange)
 
             buttonAnimator.startAnimation()
             scrollViewAnimator.startAnimation()
