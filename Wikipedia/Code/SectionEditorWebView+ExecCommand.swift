@@ -1,3 +1,22 @@
+private enum CodeMirrorCommandType: String {
+    case bold
+    case italic
+    case reference
+    case template
+    case anchor
+    case indent
+    case signature
+    case list
+    case heading
+    case increaseDepth
+    case decreaseDepth
+    case undo
+    case redo
+    case cursorDown
+    case cursorUp
+    case cursorLeft
+    case cursorRight
+}
 
 extension SectionEditorWebView {
     @objc func toggleBoldSelection() {
@@ -36,25 +55,31 @@ extension SectionEditorWebView {
     
     
     @objc func undo() {
-        evaluateJavaScript("window.wmf.commands.undo();", completionHandler: nil)
+        execCommand(for: .undo)
     }
     @objc func redo() {
-        evaluateJavaScript("window.wmf.commands.redo();", completionHandler: nil)
+        execCommand(for: .redo)
     }
 
     
     @objc func moveCursorDown() {
-        evaluateJavaScript("window.wmf.commands.cursorDown();", completionHandler: nil)
+        execCommand(for: .cursorDown)
     }
     @objc func moveCursorUp() {
-        evaluateJavaScript("window.wmf.commands.cursorUp();", completionHandler: nil)
+        execCommand(for: .cursorUp)
     }
     @objc func moveCursorLeft() {
-        evaluateJavaScript("window.wmf.commands.cursorLeft();", completionHandler: nil)
+        execCommand(for: .cursorLeft)
     }
     @objc func moveCursorRight() {
-        evaluateJavaScript("window.wmf.commands.cursorRight();", completionHandler: nil)
+        execCommand(for: .cursorRight)
     }
 
     
+    private func commandJS(for commandType: CodeMirrorCommandType) -> String {
+        return "window.wmf.commands.\(commandType.rawValue)();"
+    }
+    private func execCommand(for commandType: CodeMirrorCommandType) {
+        evaluateJavaScript(commandJS(for: commandType), completionHandler: nil)
+    }
 }
