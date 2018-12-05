@@ -77,9 +77,11 @@ extension SectionEditorWebView {
     
     @objc func undo() {
         print("11")
+        evaluateJavaScript("window.wmf.commands.undo();", completionHandler: nil)
     }
     @objc func redo() {
         print("12")
+        evaluateJavaScript("window.wmf.commands.redo();", completionHandler: nil)
     }
 
     

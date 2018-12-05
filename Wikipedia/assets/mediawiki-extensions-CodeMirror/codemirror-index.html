@@ -293,6 +293,11 @@
       editor.execCommand(execCommandType)
     }
 
+    wmf.commands = {
+      undo: () => {editor.undo()},
+      redo: () => {editor.redo()}
+    }
+    
     window.wmf = wmf
 
   </script>
