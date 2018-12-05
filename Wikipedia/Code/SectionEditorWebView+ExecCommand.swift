@@ -1,43 +1,3 @@
-@objc enum CodeMirrorExecCommandType: Int {
-    case cursorUp
-    case cursorDown
-    case cursorLeft
-    case cursorRight
-    case undo
-    case redo
-}
-
-extension SectionEditorWebView {
-    // Won't need this when we don't need @objc for `execCodeMirrorCommand` - i.e. 'CodeMirrorExecCommandType' could just be string enum.
-    private func string(for type: CodeMirrorExecCommandType) -> String {
-        switch type {
-        case .cursorUp:
-            return "cursorUp"
-        case .cursorDown:
-            return "cursorDown"
-        case .cursorLeft:
-            return "cursorLeft"
-        case .cursorRight:
-            return "cursorRight"
-        case .undo:
-            return "undo"
-        case .redo:
-            return "redo"
-        }
-    }
-    
-    // Method for relaying various commands to codemirror - i.e. 'execCodeMirrorCommand(type: .cursorUp)'
-    @objc func execCodeMirrorCommand(type: CodeMirrorExecCommandType, completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
-        evaluateJavaScript("window.wmf.execCommand(window.wmf.ExecCommandType.\(string(for: type)));", completionHandler: completionHandler)
-    }
-}
-
-
-
-/*
-TODO:
-- use separate methods instead of the exec command approach above
-*/
 
 extension SectionEditorWebView {
     @objc func toggleBoldSelection() {
@@ -87,15 +47,19 @@ extension SectionEditorWebView {
     
     @objc func moveCursorDown() {
         print("13")
+        evaluateJavaScript("window.wmf.commands.cursorDown();", completionHandler: nil)
     }
     @objc func moveCursorUp() {
         print("14")
+        evaluateJavaScript("window.wmf.commands.cursorUp();", completionHandler: nil)
     }
     @objc func moveCursorLeft() {
         print("15")
+        evaluateJavaScript("window.wmf.commands.cursorLeft();", completionHandler: nil)
     }
     @objc func moveCursorRight() {
         print("16")
+        evaluateJavaScript("window.wmf.commands.cursorRight();", completionHandler: nil)
     }
 
     

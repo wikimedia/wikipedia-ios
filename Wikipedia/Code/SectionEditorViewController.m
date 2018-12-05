@@ -322,11 +322,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
     // [self.webView toggleRichEditor];
-
-    // Move code mirror cursor down
-    // [self.webView execCodeMirrorCommandWithType:CodeMirrorExecCommandTypeCursorDown completionHandler:nil];
 }
 
 - (void)webView:(SectionEditorWebViewWithTestingButtons *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {

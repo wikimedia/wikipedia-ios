@@ -280,22 +280,13 @@
       }
     }
 
-    wmf.ExecCommandType = {
-      cursorUp: 'goLineUp',
-      cursorDown: 'goLineDown',
-      cursorLeft: 'goCharLeft',
-      cursorRight: 'goCharRight',
-      undo: 'undo',
-      redo: 'redo'
-    }
-
-    wmf.execCommand = (execCommandType) => {
-      editor.execCommand(execCommandType)
-    }
-
     wmf.commands = {
-      undo: () => {editor.undo()},
-      redo: () => {editor.redo()}
+      undo: () => editor.undo(),
+      redo: () => editor.redo(),
+      cursorUp: () => editor.execCommand('goLineUp'),
+      cursorDown: () => editor.execCommand('goLineDown'),
+      cursorLeft: () => editor.execCommand('goCharLeft'),
+      cursorRight: () => editor.execCommand('goCharRight')      
     }
     
     window.wmf = wmf
