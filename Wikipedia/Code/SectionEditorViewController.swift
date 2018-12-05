@@ -7,7 +7,7 @@ protocol SectionEditorViewControllerDelegate: class {
 class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
-    @IBOutlet private weak var textView: EditTextView!
+    private var webView: SectionEditorWebView!
 
     private var unmodifiedWikiText: String?
     private var viewKeyboardRect = CGRect.null
@@ -24,10 +24,10 @@ class SectionEditorViewController: UIViewController {
             previousPreferredAccessoryView = oldValue
 
             preferredAccessoryView?.apply(theme: theme)
-            textView.inputAccessoryView = preferredAccessoryView
+            //webView.inputAccessoryView = preferredAccessoryView
 
             if preferredAccessoryView != nil && oldValue != nil {
-                textView.reloadInputViews()
+                webView.reloadInputViews()
             }
         }
     }
@@ -56,7 +56,8 @@ class SectionEditorViewController: UIViewController {
         guard let unmodifiedWikiText = unmodifiedWikiText else {
             return false
         }
-        return !(unmodifiedWikiText == textView.text)
+        return false
+        //return !(unmodifiedWikiText == textView.text)
     }
 
     private var isCustomInputViewHidden: Bool = true {
@@ -73,11 +74,11 @@ class SectionEditorViewController: UIViewController {
         isCustomInputViewHidden = hidden
 
         let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
-            self.textView.resignFirstResponder()
+            self.webView.resignFirstResponder()
         }
 
         animator.addCompletion { (_) in
-            self.textView.becomeFirstResponder()
+            self.webView.becomeFirstResponder()
         }
 
         animator.startAnimation()
@@ -91,9 +92,8 @@ class SectionEditorViewController: UIViewController {
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = progressButton
 
-        configureTextView()
+        configureWebView()
         configureAccessoryViews()
-        loadWikitext()
 
         apply(theme: theme)
 
@@ -107,7 +107,7 @@ class SectionEditorViewController: UIViewController {
         registerForKeyboardNotifications()
         enableProgressButton(changesMade)
 
-        textView.becomeFirstResponder()
+        webView.becomeFirstResponder()
         preferredAccessoryView = defaultEditToolbar
     }
 
@@ -120,12 +120,16 @@ class SectionEditorViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    private func configureTextView() {
-        textView.delegate = self
-        textView.inputViewControllerDelegate = self
-        textView.textFormattingDelegate = self
-        textView.keyboardDismissMode = .interactive
-        textView.smartQuotesType = .no
+    private func configureWebView() {
+        webView = SectionEditorWebView()
+        webView.navigationDelegate = self
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        view.wmf_addSubviewWithConstraintsToEdges(webView)
+//        textView.delegate = self
+//        textView.inputViewControllerDelegate = self
+//        textView.textFormattingDelegate = self
+//        textView.keyboardDismissMode = .interactive
+//        textView.smartQuotesType = .no
     }
 
     private func configureAccessoryViews() {
@@ -155,7 +159,7 @@ class SectionEditorViewController: UIViewController {
                 return
             }
             preview.section = section
-            preview.wikiText = textView.text
+            //preview.wikiText = textView.text
             preview.delegate = self
             // set funnels
             // apply theme
@@ -245,11 +249,11 @@ class SectionEditorViewController: UIViewController {
 
         // Mark the text view as needing a layout update so the inset changes above will
         // be taken in to account when the cursor is scrolled onscreen.
-        textView.setNeedsLayout()
-        textView.layoutIfNeeded()
+        webView.setNeedsLayout()
+        webView.layoutIfNeeded()
 
         // Scroll cursor onscreen if needed.
-        scrollTextViewSoCursorNotUnderKeyboard(textView)
+        //scrollTextViewSoCursorNotUnderKeyboard(textView)
     }
 
     @objc private func keyboardWillHide(_ notification: NSNotification) {
@@ -257,10 +261,10 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func setTextViewContentInset(_ contentInset: UIEdgeInsets) {
-        textView.contentInset = contentInset
-        textView.scrollIndicatorInsets = contentInset
-
-        viewKeyboardRect = CGRect.null
+//        webView.contentInset = contentInset
+//        webView.scrollIndicatorInsets = contentInset
+//
+//        viewKeyboardRect = CGRect.null
     }
 
     // MARK: - Accessibility
@@ -268,6 +272,14 @@ class SectionEditorViewController: UIViewController {
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension SectionEditorViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        loadWikitext()
     }
 }
 
@@ -385,7 +397,15 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             }
 
             unmodifiedWikiText = revision
-            textView.attributedText = attributedString(from: revision)
+            //textView.attributedText = attributedString(from: revision)
+
+            self.webView.setup(wikitext: revision, useRichEditor: true) { (error) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                } else {
+
+                }
+            }
         case .FETCH_FINAL_STATUS_CANCELLED:
             fallthrough
         case .FETCH_FINAL_STATUS_FAILED:
@@ -401,6 +421,6 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        textView.apply(theme: theme)
+        //textView.apply(theme: theme)
     }
 }

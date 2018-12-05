@@ -1805,7 +1805,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showEditorForSection:(MWKSection *)section {
-    WMFSectionEditorViewController *sectionEditVC = [WMFSectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
