@@ -461,9 +461,10 @@ func importLocalizationsFromTWN(_ path: String) {
                     }
                     
                     // If we have localized app store release notes, write a fastlane "release_notes.txt" to a folder for its locale.
-                    if let localizedReleaseNotes = strings["app-store-release-notes"] as? String {
-                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "release_notes.txt", contents: localizedReleaseNotes, locale: metadataLocale)
-                    }
+                    // Skipping release notes as they're out of date
+//                    if let localizedReleaseNotes = strings["app-store-release-notes"] as? String {
+//                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "release_notes.txt", contents: localizedReleaseNotes, locale: metadataLocale)
+//                    }
                     
                     // If we have localized app store keywords, write a fastlane "keywords.txt" to a folder for its locale.
                     if let localizedKeywords = strings["app-store-keywords"] as? String {
@@ -474,6 +475,8 @@ func importLocalizationsFromTWN(_ path: String) {
                     let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
                     if let infoPlist = NSDictionary(contentsOfFile: infoPlistPath), let localizedAppName = infoPlist["CFBundleDisplayName"] as? String, localizedAppName.count > 0, localizedAppName != "Wikipedia" {
                         try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: localizedAppName, locale: metadataLocale)
+                    } else {
+                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: "Wikipedia", locale: metadataLocale)
                     }
                 }
               
