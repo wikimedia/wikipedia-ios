@@ -74,6 +74,35 @@
       currentEditorType = EditorType.wikitext
     }
 
+    const rangesIntersect = (range1, range2) => {
+      if (range1.start > range2.start + (range2.end - range2.start)) return false
+      if (range2.start > range1.start + (range1.end - range1.start)) return false
+      return true
+    }
+
+    // For now only supports single line selection ranges.
+    const getSelectionRange = (doc) => {
+      const fromCursor = doc.getCursor('from')
+      const toCursor = doc.getCursor('to')
+      return {
+        start: fromCursor.ch,
+        end: toCursor.ch,
+        isSingleLine: (fromCursor.line === toCursor.line),
+        line: fromCursor.line
+      }
+    }
+    
+    const tokensIntersectingSelection = (doc) => {
+      const selectionRange = getSelectionRange(doc)
+      if (!selectionRange.isSingleLine) {
+        return []
+      }
+      return doc.getLineTokens(selectionRange.line, true)
+        .filter(token => {
+          return rangesIntersect(selectionRange, token)
+        })
+    }
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
 
@@ -89,6 +118,16 @@
       const buttonPayload = (buttonName, buttonInfoDict) => {
         return {button: buttonName, info: buttonInfoDict}
       } 
+
+      /*
+      const intersectingTokens = tokensIntersectingSelection(doc)
+      result.push(buttonPayload('debug', {
+          selectionRangeTokenText: intersectingTokens.map(token => token.string).join(''),
+          selectionRangeTokenTypes: intersectingTokens.map(token => token.type).join(' '),
+          selectionRange: getSelectionRange(doc)
+        }
+      ))
+      */
 
       /*
       if (tokenType) {
@@ -238,6 +277,7 @@
       }
     }
 
+    // const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     wmf.commands = {
       undo: () => editor.undo(),
       redo: () => editor.redo(),
@@ -246,10 +286,20 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-        console.log('bold')
+        //const isBold = isButtonSelected('bold')
+        // if (!isBold) {
+          // editor.replaceSelection(`''' '''`)
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // const cursor = editor.getCursor()
+          // editor.extendSelection(cursor, {line: cursor.line, ch: cursor.ch + 1})
+        // } else {
+        // }
       },
       italic: () => {
-        console.log('italic')        
+        console.log('italic')
       },
       reference: () => {
         console.log('reference')
