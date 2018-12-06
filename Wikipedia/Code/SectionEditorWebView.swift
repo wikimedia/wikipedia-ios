@@ -216,7 +216,7 @@ class SectionEditorWebView: WKWebView {
         return view
     }
 
-    // MARK: -
+    // MARK: - Showing input view
 
     func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
         if hidden {
