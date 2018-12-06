@@ -30,7 +30,7 @@ class SectionEditorViewController: UIViewController {
         guard let unmodifiedWikiText = unmodifiedWikiText else {
             return false
         }
-        return false
+        return true
         //return !(unmodifiedWikiText == textView.text)
     }
 
@@ -39,6 +39,7 @@ class SectionEditorViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = closeButton
         navigationItem.rightBarButtonItem = progressButton
+        enableProgressButton(false)
 
         configureWebView()
 
@@ -89,15 +90,22 @@ class SectionEditorViewController: UIViewController {
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
-            guard let preview = PreviewAndSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
-                return
+            webView.getWikitext { (result, error) in
+                if let error = error {
+                    assertionFailure(error.localizedDescription)
+                    return
+                } else if let wikitext = result as? String {
+                    guard let preview = PreviewAndSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
+                        return
+                    }
+                    preview.section = self.section
+                    preview.wikiText = wikitext
+                    preview.delegate = self
+                    // set funnels
+                    // apply theme
+                    self.navigationController?.pushViewController(preview, animated: true)
+                }
             }
-            preview.section = section
-            //preview.wikiText = textView.text
-            preview.delegate = self
-            // set funnels
-            // apply theme
-            navigationController?.pushViewController(preview, animated: true)
         } else {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
@@ -253,6 +261,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 } else {
                     DispatchQueue.main.async {
                         self.webView.becomeFirstResponder()
+                        self.enableProgressButton(self.changesMade)
                     }
                 }
             }
