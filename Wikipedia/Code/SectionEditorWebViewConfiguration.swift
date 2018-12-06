@@ -36,6 +36,7 @@ private enum ButtonConstants: String {
     case template
     case undo
     case redo
+    case debug
 }
 
 private enum ButtonInfoConstants: String {
@@ -113,6 +114,9 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                     break
                 case ButtonConstants.redo.rawValue:
                     selectionChangedDelegate?.highlightRedoButton()
+                    break
+                case ButtonConstants.debug.rawValue:
+                    print("\n\n\(buttonInfoDict ?? ["" : ""])")
                     break
                 default:
                     break
