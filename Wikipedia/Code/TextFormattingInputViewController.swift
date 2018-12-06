@@ -5,8 +5,8 @@ class TextFormattingInputView: UIView {
 }
 
 class TextFormattingInputViewController: UIInputViewController {
+    private let storyboardName = "TextFormatting"
     @IBOutlet weak var containerView: UIView!
-
     weak var delegate: TextFormattingDelegate?
 
     enum InputViewType {
@@ -14,22 +14,49 @@ class TextFormattingInputViewController: UIInputViewController {
         case textStyle
     }
 
-    var inputViewType = InputViewType.textFormatting
+    private lazy var textStyleFormattingTableViewController: TextStyleFormattingTableViewController = {
+        let viewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        viewController.delegate = delegate
+        return viewController
+    }()
+
+    private lazy var textFormattingTableViewController: TextFormattingTableViewController = {
+        let viewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        viewController.delegate = delegate
+        return viewController
+    }()
+
+    var inputViewType = InputViewType.textFormatting {
+        didSet {
+            guard viewIfLoaded != nil else {
+                return
+            }
+            guard inputViewType != oldValue else {
+                return
+            }
+            let viewController: UIViewController & Themeable
+            switch inputViewType {
+            case .textFormatting:
+                viewController = textFormattingTableViewController
+            case .textStyle:
+                viewController = textStyleFormattingTableViewController
+            }
+            viewController.apply(theme: theme)
+            embeddedNavigationController.viewControllers = [viewController]
+        }
+    }
 
     private var theme = Theme.standard
 
     private lazy var embeddedNavigationController: UINavigationController = {
-        let rootViewControllerType: (UIViewController & Themeable & TextFormattingProviding).Type
+        var rootViewController: (UIViewController & Themeable)
 
         if inputViewType == .textFormatting {
-            rootViewControllerType = TextFormattingTableViewController.self
+            rootViewController = textFormattingTableViewController
         } else {
-            rootViewControllerType = TextStyleFormattingTableViewController.self
+            rootViewController = textStyleFormattingTableViewController
         }
 
-        let storyboardName = "TextFormatting"
-        var rootViewController = rootViewControllerType.wmf_viewControllerFromStoryboardNamed(storyboardName)
-        rootViewController.delegate = delegate
         rootViewController.apply(theme: theme)
 
         let navigationController = UINavigationController(rootViewController: rootViewController)
@@ -48,6 +75,7 @@ class TextFormattingInputViewController: UIInputViewController {
     private func embedNavigationController() {
         addChild(embeddedNavigationController)
         embeddedNavigationController.view.frame = containerView.frame
+        assert(containerView.subviews.isEmpty)
         containerView.addSubview(embeddedNavigationController.view)
         embeddedNavigationController.didMove(toParent: self)
     }
