@@ -1,5 +1,4 @@
 import WebKit
-import WMF
 
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
