@@ -1,8 +1,6 @@
 import WebKit
 import WMF
 
-var shouldSwizzle = true
-
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
