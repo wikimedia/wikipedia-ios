@@ -129,9 +129,6 @@ class SectionEditorWebView: WKWebView {
 
     // TODO: Dispatch once
     private lazy var setInputAccessoryViews: Void = {
-        guard shouldSwizzle else {
-            return
-        }
         objc_setAssociatedObject(self, &InputAccessoryViewKey.Default, defaultEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         objc_setAssociatedObject(self, &InputAccessoryViewKey.Highlight, contextualHighlightEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
