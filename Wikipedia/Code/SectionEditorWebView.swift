@@ -6,14 +6,13 @@ typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
 class SectionEditorWebView: WKWebView {
     
-    private var config: SectionEditorWebViewConfiguration
+    private let config = SectionEditorWebViewConfiguration()
     private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
 
     init() {
-        config = SectionEditorWebViewConfiguration()
-        super.init(frame: .zero, configuration: SectionEditorWebViewConfiguration())
-        loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
+        super.init(frame: .zero, configuration: config)
         config.selectionChangedDelegate = self
+        loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
         scrollView.keyboardDismissMode = .interactive
         setEditMenuItems()
     }
