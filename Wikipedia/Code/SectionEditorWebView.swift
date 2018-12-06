@@ -1,6 +1,8 @@
 import WebKit
 import WMF
 
+var shouldSwizzle = true
+
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
@@ -126,7 +128,11 @@ class SectionEditorWebView: WKWebView {
         case highlight
     }
 
+    // TODO: Dispatch once
     private lazy var setInputAccessoryViews: Void = {
+        guard shouldSwizzle else {
+            return
+        }
         objc_setAssociatedObject(self, &InputAccessoryViewKey.Default, defaultEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         objc_setAssociatedObject(self, &InputAccessoryViewKey.Highlight, contextualHighlightEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
@@ -157,6 +163,7 @@ class SectionEditorWebView: WKWebView {
         class_addMethod(newClass, originalSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))
         objc_registerClassPair(newClass)
         object_setClass(wkContent, newClass)
+        shouldSwizzle = false
     }()
 
     private func associateViewWithSelf(_ view: UIView, using key: inout Int) {
