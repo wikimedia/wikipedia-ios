@@ -162,12 +162,7 @@ class SectionEditorWebView: WKWebView {
         class_addMethod(newClass, originalSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))
         objc_registerClassPair(newClass)
         object_setClass(wkContent, newClass)
-        shouldSwizzle = false
     }()
-
-    private func associateViewWithSelf(_ view: UIView, using key: inout Int) {
-        objc_setAssociatedObject(self, &key, view, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
 
     @objc private var customInputAccessoryView: UIView? {
         var trueSelf: UIView? = self
