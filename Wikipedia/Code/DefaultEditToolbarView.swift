@@ -74,16 +74,16 @@ class DefaultEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func revealMoreActionsViaTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        revealMoreActions(nil)
+        revealMoreActions(chevronButton)
     }
 
-    @IBAction private func revealMoreActions(_ sender: UIButton?) {
+    @IBAction private func revealMoreActions(_ sender: UIButton) {
         let offsetX = scrollView.contentOffset.x
         let actionsType = ActionsType(rawValue: offsetX)
         revealMoreActions(ofType: actionsType, with: sender, animated: true)
     }
 
-    private func revealMoreActions(ofType actionsType: ActionsType, with sender: UIButton?, animated: Bool) {
+    private func revealMoreActions(ofType actionsType: ActionsType, with sender: UIButton, animated: Bool) {
         let transform = CGAffineTransform.identity
         let buttonTransform: () -> Void
         let newOffsetX: CGFloat
@@ -91,13 +91,13 @@ class DefaultEditToolbarView: EditToolbarView {
         switch actionsType {
         case .default:
             buttonTransform = {
-                sender?.transform = transform
+                sender.transform = transform
             }
             newOffsetX = 0
         case .secondary:
             buttonTransform = {
-                sender?.transform = transform.rotated(by: 180 * CGFloat.pi)
-                sender?.transform = transform.rotated(by: -1 * CGFloat.pi)
+                sender.transform = transform.rotated(by: 180 * CGFloat.pi)
+                sender.transform = transform.rotated(by: -1 * CGFloat.pi)
             }
             newOffsetX = stackView.bounds.width / 2
         }
@@ -107,8 +107,8 @@ class DefaultEditToolbarView: EditToolbarView {
         }
 
         if animated {
-            let buttonAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7, animations: buttonTransform)
-            let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: scrollViewContentOffsetChange)
+            let buttonAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7, animations: buttonTransform)
+            let scrollViewAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: scrollViewContentOffsetChange)
 
             buttonAnimator.startAnimation()
             scrollViewAnimator.startAnimation()
