@@ -13,41 +13,7 @@ class SectionEditorViewController: UIViewController {
     private var viewKeyboardRect = CGRect.null
     private var rightButton: UIBarButtonItem?
 
-    private let defaultEditToolbar = DefaultEditToolbarView.wmf_viewFromClassNib()!
-    private let contextualHighlightEditToolbar = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()!
-
-    var preferredInputViewType: TextFormattingInputViewController.InputViewType?
-
-    private var previousPreferredAccessoryView: (UIView & Themeable)?
-    private var preferredAccessoryView: (UIView & Themeable)? {
-        didSet {
-            previousPreferredAccessoryView = oldValue
-
-            preferredAccessoryView?.apply(theme: theme)
-            //webView.inputAccessoryView = preferredAccessoryView
-
-            if preferredAccessoryView != nil && oldValue != nil {
-                webView.reloadInputViews()
-            }
-        }
-    }
-
-//    override var inputAccessoryView: UIView? {
-//        return defaultEditToolbar
-//    }
-//
-//    override var canBecomeFirstResponder: Bool {
-//        return true
-//    }
-
     private var theme = Theme.standard
-
-    struct Constants {
-        struct TextView {
-            static let font = UIFont.systemFont(ofSize: 16.0)
-            static let lineHeight: CGFloat = 25.0
-        }
-    }
 
     private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
@@ -68,32 +34,6 @@ class SectionEditorViewController: UIViewController {
         //return !(unmodifiedWikiText == textView.text)
     }
 
-    private var isCustomInputViewHidden: Bool = true {
-        didSet {
-            if isCustomInputViewHidden {
-                preferredAccessoryView = previousPreferredAccessoryView
-            } else {
-                preferredAccessoryView = nil
-            }
-        }
-    }
-
-    func setCustomInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
-        isCustomInputViewHidden = hidden
-
-        let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
-            self.webView.resignFirstResponder()
-        }
-
-        animator.addCompletion { (_) in
-            self.webView.becomeFirstResponder()
-        }
-
-        animator.startAnimation()
-
-        preferredInputViewType = type
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -101,22 +41,16 @@ class SectionEditorViewController: UIViewController {
         navigationItem.rightBarButtonItem = progressButton
 
         configureWebView()
-        configureAccessoryViews()
 
         apply(theme: theme)
 
-        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in
-            //
-        }
+        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         registerForKeyboardNotifications()
         enableProgressButton(changesMade)
-
-        webView.becomeFirstResponder()
-        preferredAccessoryView = defaultEditToolbar
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -133,16 +67,7 @@ class SectionEditorViewController: UIViewController {
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
-        webView.configureCustomInputAccessoryView()
-//        textView.delegate = self
-//        textView.inputViewControllerDelegate = self
-//        textView.textFormattingDelegate = self
-//        textView.keyboardDismissMode = .interactive
-//        textView.smartQuotesType = .no
-    }
-
-    private func configureAccessoryViews() {
-        defaultEditToolbar.delegate = self
+        webView.configureInputAccessoryViews()
     }
 
     private func loadWikitext() {
@@ -177,24 +102,6 @@ class SectionEditorViewController: UIViewController {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
-    }
-
-    private func attributedString(from string: String) -> NSAttributedString {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.maximumLineHeight = 25
-        paragraphStyle.minimumLineHeight = 25
-
-        paragraphStyle.headIndent = 10
-        paragraphStyle.firstLineHeadIndent = 10
-        paragraphStyle.tailIndent = -10
-
-        let attributes = [
-            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-            NSAttributedString.Key.font: Constants.TextView.font,
-            NSAttributedString.Key.foregroundColor: theme.colors.primaryText
-        ]
-
-        return NSAttributedString(string: string, attributes: attributes)
     }
 
     private func enableProgressButton(_ enabled: Bool) {
@@ -270,10 +177,10 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func setTextViewContentInset(_ contentInset: UIEdgeInsets) {
-//        webView.contentInset = contentInset
-//        webView.scrollIndicatorInsets = contentInset
-//
-//        viewKeyboardRect = CGRect.null
+        webView.scrollView.contentInset = contentInset
+        webView.scrollView.scrollIndicatorInsets = contentInset
+
+        viewKeyboardRect = CGRect.null
     }
 
     // MARK: - Accessibility
@@ -289,73 +196,6 @@ class SectionEditorViewController: UIViewController {
 extension SectionEditorViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         loadWikitext()
-    }
-}
-
-// MARK: - UITextViewDelegate
-
-extension SectionEditorViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        enableProgressButton(changesMade)
-        scrollTextViewSoCursorNotUnderKeyboard(textView)
-    }
-
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        guard let selectedTextRange = textView.selectedTextRange else {
-            preferredAccessoryView = defaultEditToolbar
-            return
-        }
-        guard let selectedText = textView.text(in: selectedTextRange) else {
-            preferredAccessoryView = defaultEditToolbar
-            return
-        }
-        guard selectedText.wmf_hasNonWhitespaceText else {
-            preferredAccessoryView = defaultEditToolbar
-            return
-        }
-        preferredAccessoryView = contextualHighlightEditToolbar
-    }
-}
-
-// MARK: - EditTextViewDataSource
-
-extension SectionEditorViewController: EditTextViewInputViewControllerDelegate {
-
-}
-
-// MARK: - TextFormattingDelegate
-
-extension SectionEditorViewController: TextFormattingDelegate {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding) {
-        setCustomInputViewHidden(hidden: true)
-    }
-}
-
-// MARK: - DefaultEditToolbarViewDelegate
-
-extension SectionEditorViewController: DefaultEditToolbarViewDelegate {
-    func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        setCustomInputViewHidden(type: .textFormatting, hidden: false)
-    }
-
-    func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        setCustomInputViewHidden(type: .textStyle, hidden: false)
-    }
-
-    func defaultEditToolbarViewDidTapAddCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
-    }
-
-    func defaultEditToolbarViewDidTapAddLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
-    }
-
-    func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
-    }
-
-    func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
     }
 }
 
@@ -406,13 +246,14 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             }
 
             unmodifiedWikiText = revision
-            //textView.attributedText = attributedString(from: revision)
 
             self.webView.setup(wikitext: revision, useRichEditor: true) { (error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                 } else {
-
+                    DispatchQueue.main.async {
+                        self.webView.becomeFirstResponder()
+                    }
                 }
             }
         case .FETCH_FINAL_STATUS_CANCELLED:
@@ -430,6 +271,5 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
-        //textView.apply(theme: theme)
     }
 }
