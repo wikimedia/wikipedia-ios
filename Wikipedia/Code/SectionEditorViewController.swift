@@ -56,6 +56,7 @@ class SectionEditorViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         enableProgressButton(false)
+        UIMenuController.shared.menuItems = webView.originalMenuItems
         super.viewWillDisappear(animated)
     }
 
