@@ -321,8 +321,11 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
 }
 
 extension SectionEditorWebView: TextFormattingDelegate {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding) {
+    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem) {
         setInputViewHidden(hidden: true)
+    }
+    func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleBoldSelection()
     }
 }
 
