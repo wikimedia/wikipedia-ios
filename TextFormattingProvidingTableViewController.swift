@@ -3,7 +3,8 @@ protocol TextFormattingProviding where Self: UIViewController {
 }
 
 protocol TextFormattingDelegate: class {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding)
+    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem)
+    func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
 }
 
 class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
@@ -61,7 +62,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.textFormattingProvidingDidTapCloseButton(self)
+        delegate?.textFormattingProvidingDidTapCloseButton(self, button: sender)
     }
 }
 
