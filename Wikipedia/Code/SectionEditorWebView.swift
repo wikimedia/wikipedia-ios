@@ -307,20 +307,36 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
         setInputViewHidden(type: .textStyle, hidden: false)
     }
 
-    func defaultEditToolbarViewDidTapAddCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
+    func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        // TODO
     }
 
-    func defaultEditToolbarViewDidTapAddLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
+    func defaultEditToolbarViewDidTapLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        // TODO
     }
 
     func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
+        // TODO
     }
 
     func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        //
+        // TODO
+    }
+
+    func defaultEditToolbarViewDidTapCursorUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        moveCursorUp()
+    }
+
+    func defaultEditToolbarViewDidTapCursorDownButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        moveCursorDown()
+    }
+
+    func defaultEditToolbarViewDidTapCursorLeftButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        moveCursorLeft()
+    }
+
+    func defaultEditToolbarViewDidTapCursorRightButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        moveCursorRight()
     }
 }
 
