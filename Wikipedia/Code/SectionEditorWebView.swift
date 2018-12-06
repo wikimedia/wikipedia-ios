@@ -94,12 +94,16 @@ class SectionEditorWebView: WKWebView {
 
     private var inputViewType: TextFormattingInputViewController.InputViewType?
 
+    private lazy var textFormattingInputViewController: TextFormattingInputViewController = {
+        let viewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+        viewController.delegate = self
+        return viewController
+    }()
+
     override var inputViewController: UIInputViewController? {
         guard let inputViewType = inputViewType else {
             return nil
         }
-        let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-        textFormattingInputViewController.delegate = self
         textFormattingInputViewController.inputViewType = inputViewType
         return textFormattingInputViewController
     }
