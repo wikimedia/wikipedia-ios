@@ -189,48 +189,6 @@
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
 
-
-/*
-    const sendCursorActivityMessages = (doc) => {
-      let cursorHead = doc.getCursor('head')
-      let cursorFrom = doc.getCursor('from')
-      let cursorTo = doc.getCursor('to')
-      let cursorAnchor = doc.getCursor('anchor')
-      
-      const tokenInfo = (token) => {
-        return {
-          'start': token.start,
-          'end': token.end,
-          'string': token.string,
-          'type': token.type
-        }
-      }
-      
-      const msg = (cursor) => {
-        return {
-          'line': cursor.line,
-          'ch': cursor.ch,
-          'tokenType': doc.getTokenTypeAt(cursor),
-          'tokenInfo': tokenInfo(doc.getTokenAt(cursor))
-        }
-      }
-      
-// TODO: decide whether to interpret token info etc here before messaging native land...
-// if so, don't send all the getCursor details, but rather an interpretation of what state
-// should be reported - i.e. if the cursor selection extends over text which has bold AND
-// unbold parts, report that the bold button should show as disabled. Each button type 
-// will own such state heuristics.
-
-      window.webkit.messageHandlers.cursorActivity.postMessage({
-        'head': msg(cursorHead),
-        'from': msg(cursorFrom),
-        'to': msg(cursorTo),
-        'anchor': msg(cursorAnchor),
-        'selections': doc.getSelection()
-      })
-    }
-*/
-
     const showCodemirror = () => {
       editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
       editorTextArea.style.display = 'hidden'
@@ -286,7 +244,40 @@
       cursorUp: () => editor.execCommand('goLineUp'),
       cursorDown: () => editor.execCommand('goLineDown'),
       cursorLeft: () => editor.execCommand('goCharLeft'),
-      cursorRight: () => editor.execCommand('goCharRight')      
+      cursorRight: () => editor.execCommand('goCharRight'),
+      bold: () => {
+        console.log('bold')
+      },
+      italic: () => {
+        console.log('italic')        
+      },
+      reference: () => {
+        console.log('reference')
+      },
+      template: () => {
+        console.log('template')
+      },
+      anchor: () => {
+        console.log('anchor')
+      },
+      indent: () => {
+        console.log('indent')
+      },
+      signature: () => {
+        console.log('signature')
+      },
+      list: () => {
+        console.log('list')
+      },
+      heading: () => {
+        console.log('heading')
+      },
+      increaseIndentDepth: () => {
+        console.log('increaseIndentDepth')
+      },
+      decreaseIndentDepth: () => {
+        console.log('decreaseIndentDepth')
+      }
     }
     
     window.wmf = wmf

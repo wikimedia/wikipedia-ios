@@ -1,60 +1,85 @@
+private enum CodeMirrorCommandType: String {
+    case bold
+    case italic
+    case reference
+    case template
+    case anchor
+    case indent
+    case signature
+    case list
+    case heading
+    case increaseIndentDepth
+    case decreaseIndentDepth
+    case undo
+    case redo
+    case cursorDown
+    case cursorUp
+    case cursorLeft
+    case cursorRight
+}
 
 extension SectionEditorWebView {
     @objc func toggleBoldSelection() {
-        print("0")
+        execCommand(for: .bold)
     }
     @objc func toggleItalicSelection() {
-        print("1")
+        execCommand(for: .italic)
     }
     @objc func toggleReferenceSelection() {
-        print("2")
+        execCommand(for: .reference)
     }
     @objc func toggleTemplateSelection() {
-        print("3")
+        execCommand(for: .template)
     }
     @objc func toggleAnchorSelection() {
-        print("4")
+        execCommand(for: .anchor)
     }
     @objc func toggleIndentSelection() {
-        print("5")
+        execCommand(for: .indent)
     }
     @objc func toggleSignatureSelection() {
-        print("6")
+        execCommand(for: .signature)
     }
     @objc func toggleListSelection() {
-        print("7")
+        execCommand(for: .list)
     }
     @objc func toggleHeadingSelection() {
-        print("8")
+        execCommand(for: .heading)
     }
     @objc func increaseIndentDepth() {
-        print("9")
+        execCommand(for: .increaseIndentDepth)
     }
     @objc func decreaseIndentDepth() {
-        print("10")
+        execCommand(for: .decreaseIndentDepth)
     }
     
     
     @objc func undo() {
-        evaluateJavaScript("window.wmf.commands.undo();", completionHandler: nil)
+        execCommand(for: .undo)
     }
     @objc func redo() {
-        evaluateJavaScript("window.wmf.commands.redo();", completionHandler: nil)
+        execCommand(for: .redo)
     }
 
     
     @objc func moveCursorDown() {
-        evaluateJavaScript("window.wmf.commands.cursorDown();", completionHandler: nil)
+        execCommand(for: .cursorDown)
     }
     @objc func moveCursorUp() {
-        evaluateJavaScript("window.wmf.commands.cursorUp();", completionHandler: nil)
+        execCommand(for: .cursorUp)
     }
     @objc func moveCursorLeft() {
-        evaluateJavaScript("window.wmf.commands.cursorLeft();", completionHandler: nil)
+        execCommand(for: .cursorLeft)
     }
     @objc func moveCursorRight() {
-        evaluateJavaScript("window.wmf.commands.cursorRight();", completionHandler: nil)
+        execCommand(for: .cursorRight)
     }
 
     
+    private func commandJS(for commandType: CodeMirrorCommandType) -> String {
+        return "window.wmf.commands.\(commandType.rawValue)();"
+    }
+    private func execCommand(for commandType: CodeMirrorCommandType) {
+        evaluateJavaScript(commandJS(for: commandType), completionHandler: nil)
+    }
 }
