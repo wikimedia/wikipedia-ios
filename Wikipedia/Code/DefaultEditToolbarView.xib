@@ -170,24 +170,36 @@
                                                                         <constraint firstAttribute="bottom" secondItem="D7Q-C7-3b0" secondAttribute="bottom" constant="10" id="zCS-Dl-bNZ"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0NA-pB-D8W">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0NA-pB-D8W" userLabel="Cursor Movement Stack View">
                                                                     <rect key="frame" x="83.5" y="0.0" width="120" height="44"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcH-OJ-MDT">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="⬆️"/>
+                                                                            <connections>
+                                                                                <action selector="moveCursorUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="SvW-C1-J2E"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-3b-3SP">
                                                                             <rect key="frame" x="30" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="⬇️"/>
+                                                                            <connections>
+                                                                                <action selector="moveCursorDown:" destination="iN0-l3-epB" eventType="touchUpInside" id="i1T-s3-dx4"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3W-Xz-reX">
                                                                             <rect key="frame" x="60" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="⬅️"/>
+                                                                            <connections>
+                                                                                <action selector="moveCursorLeft:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZI-Dx-nTQ"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Yo-A6r">
                                                                             <rect key="frame" x="90" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="➡️"/>
+                                                                            <connections>
+                                                                                <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="cxG-ce-e4c"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
