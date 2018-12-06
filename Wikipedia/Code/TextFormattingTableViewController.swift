@@ -135,7 +135,9 @@ private extension UITableView {
 }
 
 extension TextFormattingTableViewController: TextFormattingToolbarViewDelegate {
-
+    func textFormattingToolbarViewDidTapBoldButton(_ textFormattingToolbarView: TextFormattingToolbarView, button: UIButton) {
+        delegate?.textFormattingProvidingDidTapBoldButton(self, button: button)
+    }
 }
 
 extension TextFormattingTableViewController: TextFormattingGroupedToolbarViewDelegate {
