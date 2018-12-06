@@ -143,7 +143,12 @@ class SectionEditorWebView: WKWebView {
         }
 
         let newClassName = "_CustomInputAccessoryView"
-        guard let newClass = NSClassFromString(newClassName) ?? objc_allocateClassPair(object_getClass(wkContent), newClassName, 0) else {
+        if let newClass = NSClassFromString(newClassName) {
+            object_setClass(wkContent, newClass)
+            return
+        }
+
+        guard let newClass = objc_allocateClassPair(object_getClass(wkContent), newClassName, 0) else {
             assertionFailure("Couldn't create a new class for a custom input accessory view")
             return
         }
