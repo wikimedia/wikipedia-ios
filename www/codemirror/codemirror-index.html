@@ -102,6 +102,21 @@
       return {button: buttonName, info: buttonInfoDict}
     } 
 
+    // returns zero if `string` is not comprised only of `char`.
+    // else returns length of `string`
+    const charCountInString = (string, char) => {
+      const matches = string.match(`^${char}+$`)
+      return (matches === null) ? 0 : string.length
+    }
+
+    const numberFromPrefixedKey = (array, prefix) => {
+      const s = array.find(s => s.startsWith(prefix))
+      if (!s) {
+        return null
+      }
+      return parseInt(s.substring(prefix.length))
+    }
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const multipleCharactersSelected = selection.length > 0
@@ -109,15 +124,19 @@
       const lineTokens = doc.getLineTokens(selectionRange.line, true)
       
 
-      /*
-      - loop through lineTokens here
-      - if a 'mw-section-header' token is encountered, find the first token whose starts/ends connects to it 
-        then add the type 'mw-section-header-text' to it
-      - in theory then below we won't need the 1st char token hack! (can just do includes('mw-section-header-text'))
-      - may be able to back-fill other 1st char token hacked tags too!!
-      */
-
-
+      // The wikitext parser doesn't add a class for heading contents, so supplement classes here.
+      // TODO: move this supplementation out to separate method since we'll probably want to do 
+      // same for the items on `messageForSymbol` (make them all range aware).
+      const headingTokenIndex = lineTokens.findIndex(token => {
+        return (token.type === null) ? false : token.type.split(' ').includes('mw-section-header')
+      })
+      if (headingTokenIndex > -1) {
+        const headingToken = lineTokens[headingTokenIndex]
+        const nextToken = lineTokens[headingTokenIndex + 1]
+        if (headingToken.end === nextToken.start) {
+          nextToken.type = `mw-section-header-text mw-section-header-depth-${nextToken.start}`
+        }
+      }
       
       
       // For now only supports single line selection ranges.
@@ -149,6 +168,11 @@
       if (typesArray.includes('mw-comment')) {
         result.push(buttonPayload('comment'))
       }
+      
+      if (typesArray.includes('mw-section-header-text')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
+        result.push(buttonPayload('heading', {depth: depth}))
+      }
 
       result.push(buttonPayload('debug', {
          tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
@@ -166,21 +190,8 @@
         result.push(buttonPayload('redo'))
       }
 
-      // returns zero if `string` is not comprised only of `char`.
-      // else returns length of `string`
-      const charCountInString = (string, char) => {
-        const matches = string.match(`^${char}+$`)
-        return (matches === null) ? 0 : string.length
-      }
-
       // determine message to send for headings, list items, indents and signatures
       const messageForSymbol = (symbol) => {
-        // '=' 1-6
-        const equalsCount = charCountInString(symbol, '=')
-        if (equalsCount > 0 && equalsCount < 7) {
-          return buttonPayload('heading', {depth: equalsCount})
-          //return {item: 'heading', depth: equalsCount}
-        }
 
         // '*' 1-n
         const starCount = charCountInString(symbol, "\\*")
