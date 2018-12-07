@@ -131,9 +131,13 @@
       return lineTokens
     }
 
+    const tokenIncludesType = (token, type) => {
+      return (token.type === null) ? false : token.type.split(' ').includes(type)
+    }
+
     const indexOfFirstLineTokenWithType = (lineTokens, type) => {
       return lineTokens.findIndex(token => {
-        return (token.type === null) ? false : token.type.split(' ').includes(type)
+        return tokenIncludesType(token, type)
       })
     }
 
@@ -201,30 +205,11 @@
       const supplementToken = (token) => {
         addTypeToToken(token, `mw-signature-depth-${token.end - token.start}`)
       }
-
       lineTokens
         .filter(token => {
-          return token.type === null ? false : token.type.includes('mw-signature')
+          return tokenIncludesType(token, 'mw-signature')
         })
         .forEach(supplementToken)
-      
-      // 
-      // 
-      // 
-      // 
-      // const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-signature')
-      // if (soughtTokenIndex < 0) {
-      //   return
-      // }      
-      // const soughtToken = lineTokens[soughtTokenIndex]
-      // const supplementToken = (token, index) => {
-      //   if (index > 0) {
-      //     addTypeToToken(token, `mw-signature-contents`)
-      //   }
-      //   addTypeToToken(token, `mw-signature-depth-${soughtToken.end}`)
-      // }
-      // lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
-      //   .forEach(supplementToken)
     }
 
     const selectedButtons = (doc) => {  

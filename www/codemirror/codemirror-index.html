@@ -131,9 +131,13 @@
       return lineTokens
     }
 
+    const tokenIncludesType = (token, type) => {
+      return (token.type === null) ? false : token.type.split(' ').includes(type)
+    }
+
     const indexOfFirstLineTokenWithType = (lineTokens, type) => {
       return lineTokens.findIndex(token => {
-        return (token.type === null) ? false : token.type.split(' ').includes(type)
+        return tokenIncludesType(token, type)
       })
     }
 
@@ -203,7 +207,7 @@
       }
       lineTokens
         .filter(token => {
-          return token.type === null ? false : token.type.includes('mw-signature')
+          return tokenIncludesType(token, 'mw-signature')
         })
         .forEach(supplementToken)
     }
