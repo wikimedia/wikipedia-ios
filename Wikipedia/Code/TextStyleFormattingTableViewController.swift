@@ -1,11 +1,3 @@
-enum TextStyleType: Int {
-    case paragraph
-    case heading
-    case subheading1
-    case subheading2
-    case subheading3
-}
-
 class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewController {
 
     override var titleLabelText: String? {
@@ -34,15 +26,6 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
         let font: UIFont
     }
 
-    var selectedStyleType: TextStyleType = .paragraph {
-        didSet {
-            guard navigationController != nil else {
-                return
-            }
-            tableView.reloadData()
-        }
-    }
-
     private lazy var styles: [Style] = {
         let paragraph = Style(type: .paragraph, name: "Paragraph", font: UIFont.wmf_font(.subheadline))
         let heading = Style(type: .heading, name: "Heading", font: UIFont.wmf_font(.title2))
@@ -53,6 +36,13 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
         return [paragraph, heading, subheading1, subheading2, subheading3]
     }()
 
+    override func styleTypeDidChange() {
+        guard navigationController != nil else {
+            return
+        }
+        tableView.reloadData()
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormattingTableViewCell.identifier, for: indexPath) as? TextFormattingTableViewCell else {
             return UITableViewCell()
@@ -62,7 +52,7 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
 
     private func configuredCell(_ cell: TextFormattingTableViewCell, at indexPath: IndexPath) -> UITableViewCell {
         let style = styles[indexPath.row]
-        if style.type == selectedStyleType {
+        if style.type == selectedTextStyleType {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             cell.accessoryType = .checkmark
         } else {

@@ -1,5 +1,6 @@
 protocol TextFormattingProviding where Self: UIViewController {
     var delegate: TextFormattingDelegate? { get set }
+    var selectedTextStyleType: TextStyleType { get set }
 }
 
 protocol TextFormattingDelegate: class {
@@ -7,8 +8,15 @@ protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
 }
 
-class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
+enum TextStyleType: Int {
+    case paragraph
+    case heading
+    case subheading1
+    case subheading2
+    case subheading3
+}
 
+class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
     weak var delegate: TextFormattingDelegate?
 
     var theme = Theme.standard
@@ -32,6 +40,16 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         let button = UIBarButtonItem.init(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
         return button
     }()
+
+    var selectedTextStyleType: TextStyleType = .paragraph {
+        didSet {
+            styleTypeDidChange()
+        }
+    }
+
+    open func styleTypeDidChange() {
+
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
