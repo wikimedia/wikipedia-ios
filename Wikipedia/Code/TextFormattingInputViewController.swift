@@ -32,9 +32,6 @@ class TextFormattingInputViewController: UIInputViewController {
             guard viewIfLoaded != nil else {
                 return
             }
-            guard inputViewType != oldValue else {
-                return
-            }
             let viewController = rootViewController(for: inputViewType)
             embeddedNavigationController.viewControllers = [viewController]
         }
