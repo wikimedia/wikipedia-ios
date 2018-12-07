@@ -116,7 +116,7 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                     selectionChangedDelegate?.highlightRedoButton()
                     break
                 case ButtonConstants.debug.rawValue:
-                    print("\n\n\(buttonInfoDict ?? ["" : ""])")
+                    print("\n\n\n\(buttonInfoDict ?? ["" : ""])")
                     break
                 default:
                     break

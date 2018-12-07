@@ -103,58 +103,50 @@
         })
     }
 
+    const buttonPayload = (buttonName, buttonInfoDict) => {
+      return {button: buttonName, info: buttonInfoDict}
+    } 
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
-
-      // TODO: fix button determination logic below to work when range of text selected
-      if (selection.length > 0) {
-        return
-      }
-      
-      const cursorHead = doc.getCursor('head')
-      const tokenType = doc.getTokenTypeAt(cursorHead)
-      let result = []
-
-      const buttonPayload = (buttonName, buttonInfoDict) => {
-        return {button: buttonName, info: buttonInfoDict}
-      } 
-
-      /*
+      const multipleCharactersSelected = selection.length > 0
       const intersectingTokens = tokensIntersectingSelection(doc)
+      const typesArray = intersectingTokens.map(token => token.type)
+        .join(' ')
+        .split(' ')
+        .filter(s => {
+          return s.trim().length > 0
+        })
+      
+      let result = []
+      
+      if (typesArray.includes('strong')) {
+        result.push(buttonPayload('bold'))
+      }
+      if (typesArray.includes('em')) {
+        result.push(buttonPayload('italic'))
+      }
+      if (typesArray.includes('mw-link-ground')) {
+        result.push(buttonPayload('link'))
+      }
+      if (typesArray.includes('mw-tag-ref') ||  typesArray.includes('mw-ext-ref')) {
+        result.push(buttonPayload('reference'))
+      }
+      if (typesArray.includes('mw-template-ground')) {
+        result.push(buttonPayload('template'))
+      }
+      if (typesArray.includes('mw-comment')) {
+        result.push(buttonPayload('comment'))
+      }
+
       result.push(buttonPayload('debug', {
-          selectionRangeTokenText: intersectingTokens.map(token => token.string).join(''),
-          selectionRangeTokenTypes: intersectingTokens.map(token => token.type).join(' '),
-          selectionRange: getSelectionRange(doc)
-        }
+         tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
+         tokensIntersectingSelectionTypesArray: typesArray,
+         selectionRange: getSelectionRange(doc),
+         getSelectionText: selection
+       }
       ))
-      */
-
-      /*
-      if (tokenType) {
-        result.push(tokenType)
-      }
-      */
-      if (tokenType) {
-        if (tokenType.includes(' strong') || tokenType === 'mw-apostrophes-bold') {
-          result.push(buttonPayload('bold'))
-        }
-        if (tokenType.includes(' em') || tokenType === 'mw-apostrophes-italic') {
-          result.push(buttonPayload('italic'))
-        }
-        if (tokenType.includes('mw-link-')) {
-          result.push(buttonPayload('link'))
-        }
-        if (tokenType.includes('mw-tag-ref') ||  tokenType.includes('mw-ext-ref')) {
-          result.push(buttonPayload('reference'))
-        }
-        if (tokenType.includes('mw-template-')) {
-          result.push(buttonPayload('template'))
-        }
-        if (tokenType.includes('mw-comment')) {
-          result.push(buttonPayload('comment'))
-        }
-      }
-
+     
       const historySize = doc.historySize()
       if (historySize.undo > 0) {
         result.push(buttonPayload('undo'))
@@ -210,7 +202,7 @@
         return null
       }
 
-      const firstTokenOfLine = doc.getTokenAt({line: cursorHead.line, ch: 1})
+      const firstTokenOfLine = doc.getTokenAt({line: doc.getCursor().line, ch: 1})
       if (firstTokenOfLine) {
         const msg = messageForSymbol(firstTokenOfLine.string)
         if (msg) {
