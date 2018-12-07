@@ -8,10 +8,11 @@ class TextFormattingInputViewController: UIInputViewController {
     private let storyboardName = "TextFormatting"
     @IBOutlet weak var containerView: UIView!
     weak var delegate: TextFormattingDelegate?
+    private var theme = Theme.standard
 
-    enum InputViewType {
+    enum InputViewType: Equatable {
         case textFormatting
-        case textStyle
+        case textStyle(TextStyleType)
     }
 
     private lazy var textStyleFormattingTableViewController: TextStyleFormattingTableViewController = {
@@ -34,32 +35,29 @@ class TextFormattingInputViewController: UIInputViewController {
             guard inputViewType != oldValue else {
                 return
             }
-            let viewController: UIViewController & Themeable
-            switch inputViewType {
-            case .textFormatting:
-                viewController = textFormattingTableViewController
-            case .textStyle:
-                viewController = textStyleFormattingTableViewController
-            }
-            viewController.apply(theme: theme)
+            let viewController = rootViewController(for: inputViewType)
             embeddedNavigationController.viewControllers = [viewController]
         }
     }
 
-    private var theme = Theme.standard
+    private func rootViewController(for type: InputViewType) -> UIViewController {
+        let viewController: UIViewController & Themeable
 
-    private lazy var embeddedNavigationController: UINavigationController = {
-        var rootViewController: (UIViewController & Themeable)
-
-        if inputViewType == .textFormatting {
-            rootViewController = textFormattingTableViewController
-        } else {
-            rootViewController = textStyleFormattingTableViewController
+        switch inputViewType {
+        case .textFormatting:
+            viewController = textFormattingTableViewController
+        case .textStyle(let selectedStyleType):
+            textStyleFormattingTableViewController.selectedStyleType = selectedStyleType
+            viewController = textStyleFormattingTableViewController
         }
 
-        rootViewController.apply(theme: theme)
+        viewController.apply(theme: theme)
+        return viewController
+    }
 
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+    private lazy var embeddedNavigationController: UINavigationController = {
+        let viewController = rootViewController(for: inputViewType)
+        let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.isTranslucent = false
 
         return navigationController

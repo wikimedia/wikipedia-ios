@@ -307,7 +307,33 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        setInputViewHidden(type: .textStyle, hidden: false)
+        // gets all selected buttons
+        // checks if there are any headings selected
+        // if so, lets TextStyleFormattingTableViewController know which heading is selected
+        // (so that it can be selected in the view)
+        getSelectedButtons { (results, error) in
+            var textStyleRawValue = 0
+            defer {
+                let textStyleType = TextStyleType(rawValue: textStyleRawValue) ?? .paragraph
+                self.setInputViewHidden(type: .textStyle(textStyleType), hidden: false)
+            }
+            guard let results = results as? [[String: Any]] else {
+                assertionFailure()
+                return
+            }
+            for result in results {
+                guard let button = result["button"] as? String, button == "heading" else {
+                    continue
+                }
+                guard
+                    let info = result["info"] as? [String: Any],
+                    let depth = info["depth"] as? Int
+                else {
+                    return
+                }
+                textStyleRawValue = depth
+            }
+        }
     }
 
     func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {

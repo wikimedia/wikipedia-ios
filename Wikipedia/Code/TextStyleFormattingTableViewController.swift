@@ -1,3 +1,11 @@
+enum TextStyleType: Int {
+    case paragraph
+    case heading
+    case subheading1
+    case subheading2
+    case subheading3
+}
+
 class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewController {
 
     override var titleLabelText: String? {
@@ -21,16 +29,26 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
     }
 
     private struct Style {
+        let type: TextStyleType
         let name: String
         let font: UIFont
     }
 
+    var selectedStyleType: TextStyleType = .paragraph {
+        didSet {
+            guard navigationController != nil else {
+                return
+            }
+            tableView.reloadData()
+        }
+    }
+
     private lazy var styles: [Style] = {
-        let paragraph = Style(name: "Paragraph", font: UIFont.wmf_font(.subheadline))
-        let heading = Style(name: "Heading", font: UIFont.wmf_font(.title2))
-        let subheading1 = Style(name: "Sub-heading 1", font: UIFont.wmf_font(.semiboldBody))
-        let subheading2 = Style(name: "Sub-heading 2", font: UIFont.wmf_font(.semiboldSubheadline))
-        let subheading3 = Style(name: "Sub-heading 3", font: UIFont.wmf_font(.semiboldFootnote))
+        let paragraph = Style(type: .paragraph, name: "Paragraph", font: UIFont.wmf_font(.subheadline))
+        let heading = Style(type: .heading, name: "Heading", font: UIFont.wmf_font(.title2))
+        let subheading1 = Style(type: .subheading1, name: "Sub-heading 1", font: UIFont.wmf_font(.semiboldBody))
+        let subheading2 = Style(type: .subheading2, name: "Sub-heading 2", font: UIFont.wmf_font(.semiboldSubheadline))
+        let subheading3 = Style(type: .subheading3, name: "Sub-heading 3", font: UIFont.wmf_font(.semiboldFootnote))
 
         return [paragraph, heading, subheading1, subheading2, subheading3]
     }()
@@ -43,16 +61,13 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
     }
 
     private func configuredCell(_ cell: TextFormattingTableViewCell, at indexPath: IndexPath) -> UITableViewCell {
-        let isFirst = indexPath.row == 0
-
-        if isFirst {
+        let style = styles[indexPath.row]
+        if style.type == selectedStyleType {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
-
-        let style = styles[indexPath.row]
         cell.textLabel?.text = style.name
         cell.textLabel?.font = style.font
         cell.layoutMargins = UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 0)
