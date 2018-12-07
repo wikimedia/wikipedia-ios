@@ -80,7 +80,6 @@
       return true
     }
 
-    // For now only supports single line selection ranges.
     const getSelectionRange = (doc) => {
       const fromCursor = doc.getCursor('from')
       const toCursor = doc.getCursor('to')
@@ -92,12 +91,8 @@
       }
     }
     
-    const tokensIntersectingSelection = (doc) => {
-      const selectionRange = getSelectionRange(doc)
-      if (!selectionRange.isSingleLine) {
-        return []
-      }
-      return doc.getLineTokens(selectionRange.line, true)
+    const tokensIntersectingSelection = (selectionRange, lineTokens) => {
+      return lineTokens
         .filter(token => {
           return rangesIntersect(selectionRange, token)
         })
@@ -110,7 +105,25 @@
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const multipleCharactersSelected = selection.length > 0
-      const intersectingTokens = tokensIntersectingSelection(doc)
+      const selectionRange = getSelectionRange(doc)
+      const lineTokens = doc.getLineTokens(selectionRange.line, true)
+      
+
+      /*
+      - loop through all tokens on the *line* here
+      - if a 'mw-section-header' token is encountered, find the first token whose starts/ends connects to it 
+        and add the type 'mw-section-header-text' to it
+      - in theory then below we won't need the 1st char token hack! (can just do 'includes' method!)
+      - may be able to back-fill other 1st char token hacked tags too!!
+      */
+const tt = lineTokens[0].type
+lineTokens[0].type = `${tt} fartbox`
+
+
+      
+      
+      // For now only supports single line selection ranges.
+      const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
       const typesArray = intersectingTokens.map(token => token.type)
         .join(' ')
         .split(' ')
