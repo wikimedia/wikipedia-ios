@@ -55,6 +55,51 @@ class SectionEditorWebView: WKWebView {
     func getSelectedButtons(completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
         evaluateJavaScript("window.wmf.getSelectedButtons(editor);", completionHandler: completionHandler)
     }
+
+    private struct CursorPosition {
+        let line: Int
+        let character: Int
+
+        var payload: String {
+            return "{line: \(line), ch: \(character)}"
+        }
+    }
+
+    private var cursorPosition: CursorPosition?
+
+    private func getCursorPosition(completionHandler: @escaping (CursorPosition?) -> Void) {
+        evaluateJavaScript("window.wmf.getCursorPosition(editor)") { (result, error) in
+            guard let result = result as? [String: Any] else {
+                completionHandler(nil)
+                return
+            }
+            guard let line = result["line"] as? Int else {
+                assertionFailure("Missing line")
+                completionHandler(nil)
+                return
+            }
+            guard let character = result["ch"] as? Int else {
+                assertionFailure("Missing character")
+                completionHandler(nil)
+                return
+            }
+            let cursorPosition = CursorPosition(line: line, character: character)
+            completionHandler(cursorPosition)
+        }
+    }
+
+    private func saveCursorPosition() {
+        getCursorPosition { (cursorPosition) in
+            self.cursorPosition = cursorPosition
+        }
+    }
+
+    private func setCursorPosition() {
+        guard let cursorPosition = cursorPosition else {
+            return
+        }
+        evaluateJavaScript("window.wmf.setCursorPosition(editor, \(cursorPosition.payload.wmf_stringBySanitizingForJavaScript()))", completionHandler: nil)
+    }
     
     // Toggle between codemirror and plain wikitext editing
     @objc func toggleRichEditor() {
@@ -222,6 +267,9 @@ class SectionEditorWebView: WKWebView {
     // MARK: - Showing input view
 
     func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
+        // save cursor position cause we're about to lose it
+        saveCursorPosition()
+
         if hidden {
             inputAccessoryViewType = previousInputAccessoryViewType
         } else {
@@ -234,6 +282,8 @@ class SectionEditorWebView: WKWebView {
 
         animator.addCompletion { (_) in
             self.becomeFirstResponder()
+            // set cursor position to last saved position
+            self.setCursorPosition()
         }
 
         inputViewType = type
