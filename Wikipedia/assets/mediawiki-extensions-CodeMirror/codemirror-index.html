@@ -125,6 +125,7 @@
 
       enrichHeadingTokens(lineTokens)      
       enrichListTokens(lineTokens)
+      // TODO: add enrichments for indent and signature so we can get rid of remaining '1st token of line' hacks
       
       return lineTokens
     }
@@ -161,21 +162,22 @@
       }
     }
 
+    const lineTokensFromTokenAtIndex = (lineTokens, index) => {
+      return lineTokens.filter((token, thisIndex) => thisIndex >= index)
+    }
+    
     const enrichListTokens = (lineTokens) => {
-      const listTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
-      if (listTokenIndex < 0) {
+      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
+      if (soughtTokenIndex < 0) {
         return
+      }      
+      const soughtToken = lineTokens[soughtTokenIndex]
+      const supplementToken = (token) => {
+        addTypeToToken(token, `mw-list-depth-${soughtToken.end}`)
+        addTypeToToken(token, soughtToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
       }
-      const listToken = lineTokens[listTokenIndex]
-      const tokensAfterListToken = lineTokens
-        .filter((token, index) => index >= listTokenIndex)
-        .forEach((token, index) => {
-          if (index > listTokenIndex) {
-            addTypeToToken(token, 'mw-list-contents')            
-          }
-          addTypeToToken(token, `mw-list-depth-${listToken.end}`)
-          addTypeToToken(token, listToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
-        })
+      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+        .forEach(supplementToken)
     }
 
     const selectedButtons = (doc) => {  
@@ -213,23 +215,15 @@
       if (typesArray.includes('mw-comment')) {
         result.push(buttonPayload('comment'))
       }
-      
       if (typesArray.includes('mw-section-header-text')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
         result.push(buttonPayload('heading', {depth: depth}))
       }
-
-
-
       if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
         const ordered = typesArray.includes('mw-list-ordered')
         result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
       }
-
-
-
-
 
       result.push(buttonPayload('debug', {
          tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
