@@ -123,16 +123,21 @@
     const enrichedLineTokens = (doc, line) => {
       const lineTokens = doc.getLineTokens(line, true)
 
-      enrichHeadingTokens(lineTokens)
+      enrichHeadingTokens(lineTokens)      
+      enrichListTokens(lineTokens)
       
       return lineTokens
     }
 
+    const indexOfFirstLineTokenWithType = (lineTokens, type) => {
+      return lineTokens.findIndex(token => {
+        return (token.type === null) ? false : token.type.split(' ').includes(type)
+      })
+    }
+
     // Adds missing classes to heading contents.
     const enrichHeadingTokens = (lineTokens) => {
-      const headingTokenIndex = lineTokens.findIndex(token => {
-        return (token.type === null) ? false : token.type.split(' ').includes('mw-section-header')
-      })
+      const headingTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header')
       const headingContentsTokenIndex = headingTokenIndex + 1
       const headingContentsTokenExists = headingContentsTokenIndex <= (lineTokens.length - 1)
       if (headingTokenIndex < 0 || !headingContentsTokenExists) {
@@ -141,8 +146,36 @@
       const headingToken = lineTokens[headingTokenIndex]
       const headingContentsToken = lineTokens[headingContentsTokenIndex]
       if (headingToken.end === headingContentsToken.start) {
-        headingContentsToken.type = `mw-section-header-text mw-section-header-depth-${headingContentsToken.start}`
+        addTypeToToken(headingContentsToken, 'mw-section-header-text')
+        addTypeToToken(headingContentsToken, `mw-section-header-depth-${headingContentsToken.start}`)
       }
+    }
+
+    const addTypeToToken = (token, type) => {
+      if (token.type === null) {
+        token.type = type
+      } else {
+        let types = token.type.split(' ')
+        types.push(type)
+        token.type = types.join(' ')
+      }
+    }
+
+    const enrichListTokens = (lineTokens) => {
+      const listTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
+      if (listTokenIndex < 0) {
+        return
+      }
+      const listToken = lineTokens[listTokenIndex]
+      const tokensAfterListToken = lineTokens
+        .filter((token, index) => index >= listTokenIndex)
+        .forEach((token, index) => {
+          if (index > listTokenIndex) {
+            addTypeToToken(token, 'mw-list-contents')            
+          }
+          addTypeToToken(token, `mw-list-depth-${listToken.end}`)
+          addTypeToToken(token, listToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
+        })
     }
 
     const selectedButtons = (doc) => {  
@@ -171,7 +204,7 @@
       if (typesArray.includes('mw-link-ground')) {
         result.push(buttonPayload('link'))
       }
-      if (typesArray.includes('mw-tag-ref') ||  typesArray.includes('mw-ext-ref')) {
+      if (typesArray.includes('mw-tag-ref') || typesArray.includes('mw-ext-ref')) {
         result.push(buttonPayload('reference'))
       }
       if (typesArray.includes('mw-template-ground')) {
@@ -185,6 +218,18 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
         result.push(buttonPayload('heading', {depth: depth}))
       }
+
+
+
+      if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
+        const ordered = typesArray.includes('mw-list-ordered')
+        result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
+      }
+
+
+
+
 
       result.push(buttonPayload('debug', {
          tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
@@ -206,18 +251,18 @@
       const messageForSymbol = (symbol) => {
 
         // '*' 1-n
-        const starCount = charCountInString(symbol, "\\*")
-        if (starCount > 0) {
-          return buttonPayload('li', {depth: starCount, ordered: false})
-          //return {item: 'ul li', depth: starCount}
-        }
-
-        // '#' 1-n
-        const hashCount = charCountInString(symbol, '#')
-        if (hashCount > 0) {
-          return buttonPayload('li', {depth: hashCount, ordered: true})
-          //return {item: 'ol li', depth: hashCount}
-        }
+        // const starCount = charCountInString(symbol, "\\*")
+        // if (starCount > 0) {
+        //   return buttonPayload('li', {depth: starCount, ordered: false})
+        //   //return {item: 'ul li', depth: starCount}
+        // }
+        // 
+        // // '#' 1-n
+        // const hashCount = charCountInString(symbol, '#')
+        // if (hashCount > 0) {
+        //   return buttonPayload('li', {depth: hashCount, ordered: true})
+        //   //return {item: 'ol li', depth: hashCount}
+        // }
         
         // ':' 1-n
         const colonCount = charCountInString(symbol, ':')
