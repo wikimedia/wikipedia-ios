@@ -1,5 +1,4 @@
 import WebKit
-import WMF
 
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
@@ -462,6 +461,10 @@ extension SectionEditorWebView: TextFormattingDelegate {
 }
 
 extension SectionEditorWebView: SectionEditorWebViewSelectionChangedDelegate {
+    func highlightCommentButton() {
+        //
+    }
+
     func turnOffAllButtonHighlights() {
         //
     }

@@ -74,48 +74,171 @@
       currentEditorType = EditorType.wikitext
     }
 
-    const selectedButtons = (doc) => {  
-      const selection = doc.getSelection()
+    const rangesIntersect = (range1, range2) => {
+      if (range1.start > range2.start + (range2.end - range2.start)) return false
+      if (range2.start > range1.start + (range1.end - range1.start)) return false
+      return true
+    }
 
-      // TODO: fix button determination logic below to work when range of text selected
-      if (selection.length > 0) {
+    const getSelectionRange = (doc) => {
+      const fromCursor = doc.getCursor('from')
+      const toCursor = doc.getCursor('to')
+      return {
+        start: fromCursor.ch,
+        end: toCursor.ch,
+        isSingleLine: (fromCursor.line === toCursor.line),
+        line: fromCursor.line
+      }
+    }
+    
+    const tokensIntersectingSelection = (selectionRange, lineTokens) => {
+      return lineTokens
+        .filter(token => {
+          return rangesIntersect(selectionRange, token)
+        })
+    }
+
+    const buttonPayload = (buttonName, buttonInfoDict) => {
+      return {button: buttonName, info: buttonInfoDict}
+    } 
+
+    // returns zero if `string` is not comprised only of `char`.
+    // else returns length of `string`
+    const charCountInString = (string, char) => {
+      const matches = string.match(`^${char}+$`)
+      return (matches === null) ? 0 : string.length
+    }
+
+    const numberFromPrefixedKey = (array, prefix) => {
+      const s = array.find(s => s.startsWith(prefix))
+      if (!s) {
+        return null
+      }
+      return parseInt(s.substring(prefix.length))
+    }
+
+    // The wikitext parser doesn't add a useful classes for some wikitext constructs, so supplement 
+    // these here. Makes it easier to determine when the cursor sits in such wikitext (or it's
+    // selected) with the same mechanism (token 'type' inspection).
+    const enrichedLineTokens = (doc, line) => {
+      const lineTokens = doc.getLineTokens(line, true)
+
+      enrichHeadingTokens(lineTokens)      
+      enrichListTokens(lineTokens)
+      
+      return lineTokens
+    }
+
+    const indexOfFirstLineTokenWithType = (lineTokens, type) => {
+      return lineTokens.findIndex(token => {
+        return (token.type === null) ? false : token.type.split(' ').includes(type)
+      })
+    }
+
+    // Adds missing classes to heading contents.
+    const enrichHeadingTokens = (lineTokens) => {
+      const headingTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header')
+      const headingContentsTokenIndex = headingTokenIndex + 1
+      const headingContentsTokenExists = headingContentsTokenIndex <= (lineTokens.length - 1)
+      if (headingTokenIndex < 0 || !headingContentsTokenExists) {
         return
       }
+      const headingToken = lineTokens[headingTokenIndex]
+      const headingContentsToken = lineTokens[headingContentsTokenIndex]
+      if (headingToken.end === headingContentsToken.start) {
+        addTypeToToken(headingContentsToken, 'mw-section-header-text')
+        addTypeToToken(headingContentsToken, `mw-section-header-depth-${headingContentsToken.start}`)
+      }
+    }
+
+    const addTypeToToken = (token, type) => {
+      if (token.type === null) {
+        token.type = type
+      } else {
+        let types = token.type.split(' ')
+        types.push(type)
+        token.type = types.join(' ')
+      }
+    }
+
+    const enrichListTokens = (lineTokens) => {
+      const listTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
+      if (listTokenIndex < 0) {
+        return
+      }
+      const listToken = lineTokens[listTokenIndex]
+      const tokensAfterListToken = lineTokens
+        .filter((token, index) => index >= listTokenIndex)
+        .forEach((token, index) => {
+          if (index > listTokenIndex) {
+            addTypeToToken(token, 'mw-list-contents')            
+          }
+          addTypeToToken(token, `mw-list-depth-${listToken.end}`)
+          addTypeToToken(token, listToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
+        })
+    }
+
+    const selectedButtons = (doc) => {  
+      const selection = doc.getSelection()
+      const multipleCharactersSelected = selection.length > 0
+      const selectionRange = getSelectionRange(doc)
+      const lineTokens = enrichedLineTokens(doc, selectionRange.line)
       
-      const cursorHead = doc.getCursor('head')
-      const tokenType = doc.getTokenTypeAt(cursorHead)
+      // For now only supports single line selection ranges.
+      const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
+      const typesArray = intersectingTokens.map(token => token.type)
+        .join(' ')
+        .split(' ')
+        .filter(s => {
+          return s.trim().length > 0
+        })
+      
       let result = []
-
-      const buttonPayload = (buttonName, buttonInfoDict) => {
-        return {button: buttonName, info: buttonInfoDict}
-      } 
-
-      /*
-      if (tokenType) {
-        result.push(tokenType)
+      
+      if (typesArray.includes('strong')) {
+        result.push(buttonPayload('bold'))
       }
-      */
-      if (tokenType) {
-        if (tokenType.includes(' strong') || tokenType === 'mw-apostrophes-bold') {
-          result.push(buttonPayload('bold'))
-        }
-        if (tokenType.includes(' em') || tokenType === 'mw-apostrophes-italic') {
-          result.push(buttonPayload('italic'))
-        }
-        if (tokenType.includes('mw-link-')) {
-          result.push(buttonPayload('link'))
-        }
-        if (tokenType.includes('mw-tag-ref') ||  tokenType.includes('mw-ext-ref')) {
-          result.push(buttonPayload('reference'))
-        }
-        if (tokenType.includes('mw-template-')) {
-          result.push(buttonPayload('template'))
-        }
-        if (tokenType.includes('mw-comment')) {
-          result.push(buttonPayload('comment'))
-        }
+      if (typesArray.includes('em')) {
+        result.push(buttonPayload('italic'))
+      }
+      if (typesArray.includes('mw-link-ground')) {
+        result.push(buttonPayload('link'))
+      }
+      if (typesArray.includes('mw-tag-ref') || typesArray.includes('mw-ext-ref')) {
+        result.push(buttonPayload('reference'))
+      }
+      if (typesArray.includes('mw-template-ground')) {
+        result.push(buttonPayload('template'))
+      }
+      if (typesArray.includes('mw-comment')) {
+        result.push(buttonPayload('comment'))
+      }
+      
+      if (typesArray.includes('mw-section-header-text')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
+        result.push(buttonPayload('heading', {depth: depth}))
       }
 
+
+
+      if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
+        const ordered = typesArray.includes('mw-list-ordered')
+        result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
+      }
+
+
+
+
+
+      result.push(buttonPayload('debug', {
+         tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
+         tokensIntersectingSelectionTypesArray: typesArray,
+         selectionRange: getSelectionRange(doc),
+         getSelectionText: selection
+       }
+      ))
+     
       const historySize = doc.historySize()
       if (historySize.undo > 0) {
         result.push(buttonPayload('undo'))
@@ -124,35 +247,22 @@
         result.push(buttonPayload('redo'))
       }
 
-      // returns zero if `string` is not comprised only of `char`.
-      // else returns length of `string`
-      const charCountInString = (string, char) => {
-        const matches = string.match(`^${char}+$`)
-        return (matches === null) ? 0 : string.length
-      }
-
       // determine message to send for headings, list items, indents and signatures
       const messageForSymbol = (symbol) => {
-        // '=' 1-6
-        const equalsCount = charCountInString(symbol, '=')
-        if (equalsCount > 0 && equalsCount < 7) {
-          return buttonPayload('heading', {depth: equalsCount})
-          //return {item: 'heading', depth: equalsCount}
-        }
 
         // '*' 1-n
-        const starCount = charCountInString(symbol, "\\*")
-        if (starCount > 0) {
-          return buttonPayload('li', {depth: starCount, ordered: false})
-          //return {item: 'ul li', depth: starCount}
-        }
-
-        // '#' 1-n
-        const hashCount = charCountInString(symbol, '#')
-        if (hashCount > 0) {
-          return buttonPayload('li', {depth: hashCount, ordered: true})
-          //return {item: 'ol li', depth: hashCount}
-        }
+        // const starCount = charCountInString(symbol, "\\*")
+        // if (starCount > 0) {
+        //   return buttonPayload('li', {depth: starCount, ordered: false})
+        //   //return {item: 'ul li', depth: starCount}
+        // }
+        // 
+        // // '#' 1-n
+        // const hashCount = charCountInString(symbol, '#')
+        // if (hashCount > 0) {
+        //   return buttonPayload('li', {depth: hashCount, ordered: true})
+        //   //return {item: 'ol li', depth: hashCount}
+        // }
         
         // ':' 1-n
         const colonCount = charCountInString(symbol, ':')
@@ -171,7 +281,7 @@
         return null
       }
 
-      const firstTokenOfLine = doc.getTokenAt({line: cursorHead.line, ch: 1})
+      const firstTokenOfLine = doc.getTokenAt({line: doc.getCursor().line, ch: 1})
       if (firstTokenOfLine) {
         const msg = messageForSymbol(firstTokenOfLine.string)
         if (msg) {
@@ -238,6 +348,7 @@
       }
     }
 
+    // const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     wmf.commands = {
       undo: () => editor.undo(),
       redo: () => editor.redo(),
@@ -246,10 +357,20 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-        console.log('bold')
+        //const isBold = isButtonSelected('bold')
+        // if (!isBold) {
+          // editor.replaceSelection(`''' '''`)
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // editor.execCommand('goCharLeft')
+          // const cursor = editor.getCursor()
+          // editor.extendSelection(cursor, {line: cursor.line, ch: cursor.ch + 1})
+        // } else {
+        // }
       },
       italic: () => {
-        console.log('italic')        
+        console.log('italic')
       },
       reference: () => {
         console.log('reference')

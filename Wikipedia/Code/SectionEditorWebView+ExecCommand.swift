@@ -16,6 +16,7 @@ private enum CodeMirrorCommandType: String {
     case cursorUp
     case cursorLeft
     case cursorRight
+    case comment
 }
 
 extension SectionEditorWebView {
@@ -75,6 +76,9 @@ extension SectionEditorWebView {
         execCommand(for: .cursorRight)
     }
 
+    @objc func toggleComment() {
+        execCommand(for: .comment)
+    }
     
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {
         return "window.wmf.commands.\(commandType.rawValue)();"

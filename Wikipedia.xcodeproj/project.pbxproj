@@ -755,11 +755,6 @@
 		B03E467521B5FCE200A61AE5 /* SectionEditorWebViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */; };
 		B03E467621B5FCE200A61AE5 /* SectionEditorWebViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */; };
 		B03E467721B5FCE200A61AE5 /* SectionEditorWebViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */; };
-		B03E467921B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */; };
-		B03E467A21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */; };
-		B03E467B21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */; };
-		B03E467C21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */; };
-		B03E467D21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */; };
 		B03F8A89205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
 		B03F8A8A205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
 		B03F8A8B205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */; };
@@ -3588,7 +3583,6 @@
 		B0379A2A1D8B756C00D973CF /* WMFReferencePopoverMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFReferencePopoverMessageViewController.m; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.m; sourceTree = SOURCE_ROOT; };
 		B0379A361D8B9D2400D973CF /* WMFReferencePopoverMessageViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFReferencePopoverMessageViewController.storyboard; path = Wikipedia/Code/WMFReferencePopoverMessageViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionEditorWebViewConfiguration.swift; sourceTree = "<group>"; };
-		B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionEditorWebViewWithTestingButtons.swift; sourceTree = "<group>"; };
 		B03F8A88205B06F6005EA736 /* SavedArticlesFetcherProgressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcherProgressManager.swift; sourceTree = "<group>"; };
 		B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayExploreCollectionViewCell.swift; path = Wikipedia/Code/OnThisDayExploreCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B040343D1F0592F7001B837B /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; path = "Wikipedia/Code/OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift"; sourceTree = SOURCE_ROOT; };
@@ -5197,7 +5191,6 @@
 				B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */,
 				B00F3F9221B0CC10002EDF29 /* SectionEditorWebView.swift */,
 				B00B98D721B6096C00BF8985 /* SectionEditorWebView+ExecCommand.swift */,
-				B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */,
 				B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */,
 			);
 			name = SectionEditor;
@@ -10272,7 +10265,6 @@
 				B0E803E61C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A4D227D21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B75214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
-				B03E467921B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */,
 				0ED2E9FA1CB2B3B300D1C844 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
@@ -10805,7 +10797,6 @@
 				83927D851F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				D80ED3751EE57F4800CE8C50 /* WMFFirstRandomViewController.m in Sources */,
 				7A6ED51520ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
-				B03E467D21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */,
 				D80ED3771EE57F4800CE8C50 /* ArticlePopoverViewController.swift in Sources */,
 				D80ED3781EE57F4800CE8C50 /* WMFLogFormatter.m in Sources */,
 				B03103311F677BEE00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
@@ -11319,7 +11310,6 @@
 				D8A42A981E815A9C00D8E281 /* UIView+WMFSnapshotting.m in Sources */,
 				7A4D228021B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B78214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
-				B03E467C21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */,
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
@@ -11852,7 +11842,6 @@
 				83927D821F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */,
 				D8CE25DE1E698E2400DAE2E0 /* TableOfContentsReadMoreItem.swift in Sources */,
-				B03E467A21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */,
 				7A6ED51820ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8CE25DF1E698E2400DAE2E0 /* WMFFirstRandomViewController.m in Sources */,
 				D8CE25E11E698E2400DAE2E0 /* ArticlePopoverViewController.swift in Sources */,
@@ -12198,7 +12187,6 @@
 				D8EC3ED61E9BDA35006712EB /* WMFRandomDiceButton.m in Sources */,
 				B031032F1F677BED00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				D858C7B8210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
-				B03E467B21B5FDB800A61AE5 /* SectionEditorWebViewWithTestingButtons.swift in Sources */,
 				7A6ED51420ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				D8EC3EDC1E9BDA35006712EB /* TableOfContentsReadMoreItem.swift in Sources */,
 				D8EC3EDD1E9BDA35006712EB /* WMFFirstRandomViewController.m in Sources */,
