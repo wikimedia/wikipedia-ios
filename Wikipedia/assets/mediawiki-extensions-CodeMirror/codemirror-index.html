@@ -125,6 +125,7 @@
 
       enrichHeadingTokens(lineTokens)      
       enrichListTokens(lineTokens)
+      enrichIndentTokens(lineTokens)
       // TODO: add enrichments for indent and signature so we can get rid of remaining '1st token of line' hacks
       
       return lineTokens
@@ -180,6 +181,22 @@
         .forEach(supplementToken)
     }
 
+    const enrichIndentTokens = (lineTokens) => {
+      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-indenting')
+      if (soughtTokenIndex < 0) {
+        return
+      }      
+      const soughtToken = lineTokens[soughtTokenIndex]
+      const supplementToken = (token, index) => {
+        if (index > 0) {
+          addTypeToToken(token, `mw-indenting`)
+        }
+        addTypeToToken(token, `mw-indenting-depth-${soughtToken.end}`)
+      }
+      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+        .forEach(supplementToken)
+    }
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const multipleCharactersSelected = selection.length > 0
@@ -224,6 +241,10 @@
         const ordered = typesArray.includes('mw-list-ordered')
         result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
       }
+      if (typesArray.includes('mw-indenting')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
+        result.push(buttonPayload('indent', {depth: depth}))
+      }
 
       result.push(buttonPayload('debug', {
          tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
@@ -258,12 +279,12 @@
         //   //return {item: 'ol li', depth: hashCount}
         // }
         
-        // ':' 1-n
-        const colonCount = charCountInString(symbol, ':')
-        if (colonCount > 0) {
-          return buttonPayload('indent', {depth: colonCount})
-          //return {item: 'indent', depth: colonCount}
-        }
+        // // ':' 1-n
+        // const colonCount = charCountInString(symbol, ':')
+        // if (colonCount > 0) {
+        //   return buttonPayload('indent', {depth: colonCount})
+        //   //return {item: 'indent', depth: colonCount}
+        // }
         
         // '~' 3-4 (FIX: should probably work if there's leading spaces on the line -  would need to see if string has leading whitespace and look at token just after that whitespace...)
         const tildeCount = charCountInString(symbol, '~')
