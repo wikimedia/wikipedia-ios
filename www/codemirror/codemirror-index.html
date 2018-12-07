@@ -117,27 +117,39 @@
       return parseInt(s.substring(prefix.length))
     }
 
+    // The wikitext parser doesn't add a useful classes for some wikitext constructs, so supplement 
+    // these here. Makes it easier to determine when the cursor sits in such wikitext (or it's
+    // selected) with the same mechanism (token 'type' inspection).
+    const enrichedLineTokens = (doc, line) => {
+      const lineTokens = doc.getLineTokens(line, true)
+
+      enrichHeadingTokens(lineTokens)
+      
+      return lineTokens
+    }
+
+    // Adds missing classes to heading contents.
+    const enrichHeadingTokens = (lineTokens) => {
+      const headingTokenIndex = lineTokens.findIndex(token => {
+        return (token.type === null) ? false : token.type.split(' ').includes('mw-section-header')
+      })
+      const headingContentsTokenIndex = headingTokenIndex + 1
+      const headingContentsTokenExists = headingContentsTokenIndex <= (lineTokens.length - 1)
+      if (headingTokenIndex < 0 || !headingContentsTokenExists) {
+        return
+      }
+      const headingToken = lineTokens[headingTokenIndex]
+      const headingContentsToken = lineTokens[headingContentsTokenIndex]
+      if (headingToken.end === headingContentsToken.start) {
+        headingContentsToken.type = `mw-section-header-text mw-section-header-depth-${headingContentsToken.start}`
+      }
+    }
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const multipleCharactersSelected = selection.length > 0
       const selectionRange = getSelectionRange(doc)
-      const lineTokens = doc.getLineTokens(selectionRange.line, true)
-      
-
-      // The wikitext parser doesn't add a class for heading contents, so supplement classes here.
-      // TODO: move this supplementation out to separate method since we'll probably want to do 
-      // same for the items on `messageForSymbol` (make them all range aware).
-      const headingTokenIndex = lineTokens.findIndex(token => {
-        return (token.type === null) ? false : token.type.split(' ').includes('mw-section-header')
-      })
-      if (headingTokenIndex > -1) {
-        const headingToken = lineTokens[headingTokenIndex]
-        const nextToken = lineTokens[headingTokenIndex + 1]
-        if (headingToken.end === nextToken.start) {
-          nextToken.type = `mw-section-header-text mw-section-header-depth-${nextToken.start}`
-        }
-      }
-      
+      const lineTokens = enrichedLineTokens(doc, selectionRange.line)
       
       // For now only supports single line selection ranges.
       const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
