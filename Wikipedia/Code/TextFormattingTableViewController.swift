@@ -40,7 +40,20 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         }
     }
 
-    private lazy var items: [Item] = {
+    // MARK: - Items
+    // Some are lazy, some need to be updated so they can't all be in a lazy array
+
+    private var textStyle: Item {
+        let showTextStyleFormattingTableViewController = {
+            let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+            textStyleFormattingTableViewController.delegate = self.delegate
+            textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
+            self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
+        }
+        return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
+    }
+
+    private lazy var staticItems: [Item] = {
         let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
         textFormattingToolbarView?.delegate = delegate
         let toolbar = Item(with: Content(type: .customView, customView: textFormattingToolbarView))
@@ -48,14 +61,6 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
         textFormattingGroupedToolbarView?.delegate = delegate
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
-
-        let showTextStyleFormattingTableViewController = {
-            let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-            textStyleFormattingTableViewController.delegate = self.delegate
-            textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
-            self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
-        }
-        let textStyle = Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
 
         let textSize = Item(with: Content(type: .detail, title: "Text size", detailText: "Normal"))
 
@@ -65,8 +70,14 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         textFormattingButtonView?.delegate = delegate
         let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
 
-        return [toolbar, groupedToolbar, textStyle, textSize, button]
+        return [toolbar, groupedToolbar, textSize, button]
     }()
+
+    private var items: [Item] {
+        var itemsThatDoNotNeedUpdating = staticItems
+        itemsThatDoNotNeedUpdating.insert(textStyle, at: 2)
+        return staticItems
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
