@@ -28,6 +28,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-b0-I9N">
                             <rect key="frame" x="62.5" y="0.0" width="30" height="45"/>
                             <state key="normal" title="𝐼"/>
+                            <connections>
+                                <action selector="toggleItalicsWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="wvq-1R-lLP"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tha-bd-cfK">
                             <rect key="frame" x="125" y="0.0" width="30" height="45"/>

@@ -1,12 +1,12 @@
-protocol TextFormattingToolbarViewDelegate: class {
-    func textFormattingToolbarViewDidTapBoldButton(_ textFormattingToolbarView: TextFormattingToolbarView, button: UIButton)
-}
-
-class TextFormattingToolbarView: UIView {
-    weak var delegate: TextFormattingToolbarViewDelegate?
+class TextFormattingToolbarView: UIView, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
 
     @IBAction private func toggleBold(_ sender: UIButton) {
-        delegate?.textFormattingToolbarViewDidTapBoldButton(self, button: sender)
+        delegate?.textFormattingProvidingDidTapBoldButton(self, button: sender)
+    }
+
+    @IBAction private func toggleItalics(sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapItalicsButton(self, button: sender)
     }
 }
 

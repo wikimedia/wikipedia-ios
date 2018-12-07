@@ -1,9 +1,5 @@
-protocol TextFormattingGroupedToolbarViewDelegate: class {
-
-}
-
-class TextFormattingGroupedToolbarView: UIView {
-    weak var delegate: TextFormattingGroupedToolbarViewDelegate?
+class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
 }
 
 extension TextFormattingGroupedToolbarView: Themeable {

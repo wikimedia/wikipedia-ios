@@ -1,11 +1,11 @@
-protocol TextFormattingProviding where Self: UIViewController {
+protocol TextFormattingProviding: class {
     var delegate: TextFormattingDelegate? { get set }
-    var selectedTextStyleType: TextStyleType { get set }
 }
 
 protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem)
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
 }
 
 enum TextStyleType: Int {

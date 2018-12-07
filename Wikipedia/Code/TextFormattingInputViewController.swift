@@ -38,7 +38,7 @@ class TextFormattingInputViewController: UIInputViewController {
     }
 
     private func rootViewController(for type: InputViewType) -> UIViewController {
-        var viewController: UIViewController & Themeable & TextFormattingProviding
+        var viewController: TextFormattingProvidingTableViewController
         var selectedTextStyleType: TextStyleType
 
         switch type {

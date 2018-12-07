@@ -385,6 +385,10 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
 }
 
 extension SectionEditorWebView: TextFormattingDelegate {
+    func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleItalicSelection()
+    }
+
     func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem) {
         setInputViewHidden(hidden: true)
     }

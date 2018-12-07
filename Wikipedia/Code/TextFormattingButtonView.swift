@@ -1,9 +1,5 @@
-protocol TextFormattingButtonViewDelegate: class {
-
-}
-
-class TextFormattingButtonView: UIView {
-    weak var delegate: TextFormattingButtonViewDelegate?
+class TextFormattingButtonView: UIView, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
 
     @IBOutlet private weak var button: UIButton!
 

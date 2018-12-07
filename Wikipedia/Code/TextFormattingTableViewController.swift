@@ -42,11 +42,11 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
     private lazy var items: [Item] = {
         let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
-        textFormattingToolbarView?.delegate = self
+        textFormattingToolbarView?.delegate = delegate
         let toolbar = Item(with: Content(type: .customView, customView: textFormattingToolbarView))
 
         let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
-        textFormattingGroupedToolbarView?.delegate = self
+        textFormattingGroupedToolbarView?.delegate = delegate
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
 
         let showTextStyleFormattingTableViewController = {
@@ -62,7 +62,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
         textFormattingButtonView?.buttonTitle = "Clear formatting"
         textFormattingButtonView?.buttonTitleColor = theme.colors.error
-        textFormattingButtonView?.delegate = self
+        textFormattingButtonView?.delegate = delegate
         let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
 
         return [toolbar, groupedToolbar, textStyle, textSize, button]
@@ -133,18 +133,4 @@ private extension UITableView {
         }
         return cell
     }
-}
-
-extension TextFormattingTableViewController: TextFormattingToolbarViewDelegate {
-    func textFormattingToolbarViewDidTapBoldButton(_ textFormattingToolbarView: TextFormattingToolbarView, button: UIButton) {
-        delegate?.textFormattingProvidingDidTapBoldButton(self, button: button)
-    }
-}
-
-extension TextFormattingTableViewController: TextFormattingGroupedToolbarViewDelegate {
-
-}
-
-extension TextFormattingTableViewController: TextFormattingButtonViewDelegate {
-
 }
