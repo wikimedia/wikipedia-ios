@@ -30,28 +30,28 @@
                                     <rect key="frame" x="8" y="0.0" width="313" height="44"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bid-Pt-mUe">
-                                            <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="99" height="44"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXv-8j-9yj">
                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                     <state key="normal" title="𝗕"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRa-Hw-fTT">
-                                                    <rect key="frame" x="30" y="0.0" width="30" height="44"/>
-                                                    <state key="normal" title="𝐼"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRa-Hw-fTT">
+                                                    <rect key="frame" x="30" y="0.0" width="9" height="44"/>
+                                                    <state key="normal" image="text-formatting-italics"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-6l-4YM">
-                                                    <rect key="frame" x="60" y="0.0" width="30" height="44"/>
+                                                    <rect key="frame" x="39" y="0.0" width="30" height="44"/>
                                                     <state key="normal" title="𝐇"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3I-Xa-dyz">
-                                                    <rect key="frame" x="90" y="0.0" width="30" height="44"/>
+                                                    <rect key="frame" x="69" y="0.0" width="30" height="44"/>
                                                     <state key="normal" title="⃠"/>
                                                 </button>
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDq-jx-cUC" userLabel="Separator View">
-                                            <rect key="frame" x="137" y="0.0" width="3" height="44"/>
+                                            <rect key="frame" x="121" y="0.0" width="3" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y41-nM-tJB">
                                                     <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -70,7 +70,7 @@
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvP-Ab-8mF">
-                                            <rect key="frame" x="156.5" y="0.0" width="60" height="44"/>
+                                            <rect key="frame" x="146" y="0.0" width="60" height="44"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUd-rt-UEE">
                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
@@ -83,7 +83,7 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIb-q6-29d" userLabel="Separator View">
-                                            <rect key="frame" x="233.5" y="0.0" width="3" height="44"/>
+                                            <rect key="frame" x="228" y="0.0" width="3" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-ps-pge">
                                                     <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -152,4 +152,7 @@
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
     </objects>
+    <resources>
+        <image name="text-formatting-italics" width="9" height="18"/>
+    </resources>
 </document>
