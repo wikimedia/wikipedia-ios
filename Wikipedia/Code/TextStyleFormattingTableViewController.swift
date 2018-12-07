@@ -27,21 +27,23 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
     }
 
     private lazy var styles: [Style] = {
-        let paragraph = Style(type: .paragraph, name: "Paragraph", font: UIFont.wmf_font(.subheadline))
-        let heading = Style(type: .heading, name: "Heading", font: UIFont.wmf_font(.title2))
-        let subheading1 = Style(type: .subheading1, name: "Sub-heading 1", font: UIFont.wmf_font(.semiboldBody))
-        let subheading2 = Style(type: .subheading2, name: "Sub-heading 2", font: UIFont.wmf_font(.semiboldSubheadline))
-        let subheading3 = Style(type: .subheading3, name: "Sub-heading 3", font: UIFont.wmf_font(.semiboldFootnote))
+        let paragraphType = TextStyleType.paragraph
+        let paragraph = Style(type: paragraphType, name: paragraphType.name, font: UIFont.wmf_font(.subheadline))
+
+        let headingType = TextStyleType.heading
+        let heading = Style(type: headingType, name: headingType.name, font: UIFont.wmf_font(.title2))
+
+        let subheading1Type = TextStyleType.subheading1
+        let subheading1 = Style(type: subheading1Type, name: subheading1Type.name, font: UIFont.wmf_font(.semiboldBody))
+
+        let subheading2Type = TextStyleType.subheading2
+        let subheading2 = Style(type: subheading2Type, name: subheading2Type.name, font: UIFont.wmf_font(.semiboldSubheadline))
+
+        let subheading3Type = TextStyleType.subheading3
+        let subheading3 = Style(type: subheading3Type, name: subheading3Type.name, font: UIFont.wmf_font(.semiboldFootnote))
 
         return [paragraph, heading, subheading1, subheading2, subheading3]
     }()
-
-    override func styleTypeDidChange() {
-        guard navigationController != nil else {
-            return
-        }
-        tableView.reloadData()
-    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFormattingTableViewCell.identifier, for: indexPath) as? TextFormattingTableViewCell else {

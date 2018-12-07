@@ -303,7 +303,9 @@ class SectionEditorWebView: WKWebView {
 
 extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
     func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        setInputViewHidden(type: .textFormatting, hidden: false)
+        getSelectedTextStyleType { (textStyleType) in
+            self.setInputViewHidden(type: .textFormatting(textStyleType ?? .paragraph), hidden: false)
+        }
     }
 
     // gets all selected buttons
@@ -345,8 +347,7 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
 
     func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         getSelectedTextStyleType { (textStyleType) in
-            self.textFormattingInputViewController.selectedTextStyleType = textStyleType ?? .paragraph
-            self.setInputViewHidden(type: .textStyle, hidden: false)
+            self.setInputViewHidden(type: .textStyle(textStyleType ?? .paragraph), hidden: false)
         }
     }
 

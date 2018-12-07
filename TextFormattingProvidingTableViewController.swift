@@ -14,6 +14,21 @@ enum TextStyleType: Int {
     case subheading1
     case subheading2
     case subheading3
+
+    var name: String {
+        switch self {
+        case .paragraph:
+            return "Paragraph"
+        case .heading:
+            return "Heading"
+        case .subheading1:
+            return "Sub-heading 1"
+        case .subheading2:
+            return "Sub-heading 2"
+        case .subheading3:
+            return "Sub-heading 3"
+        }
+    }
 }
 
 class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
@@ -41,14 +56,13 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return button
     }()
 
-    var selectedTextStyleType: TextStyleType = .paragraph {
+    final var selectedTextStyleType: TextStyleType = .paragraph {
         didSet {
-            styleTypeDidChange()
+            guard navigationController != nil else {
+                return
+            }
+            tableView.reloadData()
         }
-    }
-
-    open func styleTypeDidChange() {
-
     }
 
     override func viewDidLoad() {

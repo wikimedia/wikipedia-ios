@@ -52,9 +52,10 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         let showTextStyleFormattingTableViewController = {
             let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
             textStyleFormattingTableViewController.delegate = self.delegate
+            textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
             self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
         }
-        let textStyle = Item(with: Content(type: .detail, title: "Style", detailText: "Paragraph"), onSelection: showTextStyleFormattingTableViewController)
+        let textStyle = Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
 
         let textSize = Item(with: Content(type: .detail, title: "Text size", detailText: "Normal"))
 
