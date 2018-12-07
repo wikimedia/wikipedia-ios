@@ -74,9 +74,9 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     }()
 
     private var items: [Item] {
-        var itemsThatDoNotNeedUpdating = staticItems
-        itemsThatDoNotNeedUpdating.insert(textStyle, at: 2)
-        return staticItems
+        var allItems = staticItems
+        allItems.insert(textStyle, at: 2)
+        return allItems
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
