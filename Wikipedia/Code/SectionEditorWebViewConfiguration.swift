@@ -13,6 +13,7 @@ protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
     func highlightHeadingButton(depth: Int)
     func highlightUndoButton()
     func highlightRedoButton()
+    func highlightCommentButton()
 }
 
 private enum MessageNameConstants: String {
@@ -37,6 +38,7 @@ private enum ButtonConstants: String {
     case undo
     case redo
     case debug
+    case comment
 }
 
 private enum ButtonInfoConstants: String {
@@ -114,6 +116,9 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                     break
                 case ButtonConstants.redo.rawValue:
                     selectionChangedDelegate?.highlightRedoButton()
+                    break
+                case ButtonConstants.comment.rawValue:
+                    selectionChangedDelegate?.highlightCommentButton()
                     break
                 case ButtonConstants.debug.rawValue:
                     print("\n\n\n\(buttonInfoDict ?? ["" : ""])")

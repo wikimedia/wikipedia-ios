@@ -171,6 +171,13 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         return button
     }()
 
+    private lazy var commentButton: UIButton = {
+        let button = testButton(text: "Comment")
+        button.frame = CGRect.init(x: 240, y: buttonHeight * 2, width: 80, height: buttonHeight)
+        button.addTarget(self, action: #selector(toggleComment), for: .touchUpInside)
+        return button
+    }()
+
     
     override init() {
         super.init()
@@ -200,6 +207,7 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         self.addSubview(cursorDownButton)
         self.addSubview(undoButton)
         self.addSubview(redoButton)
+        self.addSubview(commentButton)
     }
 }
 
@@ -222,6 +230,7 @@ extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionC
         signatureButton.isSelected = false
         undoButton.isSelected = false
         redoButton.isSelected = false
+        commentButton.isSelected = false
     }
     
     func highlightBoldButton() {
@@ -285,5 +294,9 @@ extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionC
 
     func highlightRedoButton() {
         redoButton.isSelected = true
+    }
+
+    func highlightCommentButton() {
+        commentButton.isSelected = true
     }
 }
