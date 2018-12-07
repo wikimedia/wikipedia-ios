@@ -126,7 +126,7 @@
       enrichHeadingTokens(lineTokens)      
       enrichListTokens(lineTokens)
       enrichIndentTokens(lineTokens)
-      // TODO: add enrichments for indent and signature so we can get rid of remaining '1st token of line' hacks
+      enrichSignatureTokens(lineTokens)
       
       return lineTokens
     }
@@ -189,12 +189,42 @@
       const soughtToken = lineTokens[soughtTokenIndex]
       const supplementToken = (token, index) => {
         if (index > 0) {
-          addTypeToToken(token, `mw-indenting`)
+          addTypeToToken(token, `mw-indenting-contents`)
         }
         addTypeToToken(token, `mw-indenting-depth-${soughtToken.end}`)
       }
       lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
         .forEach(supplementToken)
+    }
+
+    const enrichSignatureTokens = (lineTokens) => {
+      const supplementToken = (token) => {
+        addTypeToToken(token, `mw-signature-depth-${token.end - token.start}`)
+      }
+
+      lineTokens
+        .filter(token => {
+          return token.type === null ? false : token.type.includes('mw-signature')
+        })
+        .forEach(supplementToken)
+      
+      // 
+      // 
+      // 
+      // 
+      // const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-signature')
+      // if (soughtTokenIndex < 0) {
+      //   return
+      // }      
+      // const soughtToken = lineTokens[soughtTokenIndex]
+      // const supplementToken = (token, index) => {
+      //   if (index > 0) {
+      //     addTypeToToken(token, `mw-signature-contents`)
+      //   }
+      //   addTypeToToken(token, `mw-signature-depth-${soughtToken.end}`)
+      // }
+      // lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+      //   .forEach(supplementToken)
     }
 
     const selectedButtons = (doc) => {  
@@ -241,9 +271,13 @@
         const ordered = typesArray.includes('mw-list-ordered')
         result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
       }
-      if (typesArray.includes('mw-indenting')) {
+      if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
         result.push(buttonPayload('indent', {depth: depth}))
+      }
+      if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
+        result.push(buttonPayload('signature', {depth: depth}))
       }
 
       result.push(buttonPayload('debug', {
@@ -287,11 +321,11 @@
         // }
         
         // '~' 3-4 (FIX: should probably work if there's leading spaces on the line -  would need to see if string has leading whitespace and look at token just after that whitespace...)
-        const tildeCount = charCountInString(symbol, '~')
-        if (tildeCount === 3 || tildeCount === 4) {
-          return buttonPayload('signature', {depth: tildeCount})
-          //return {item: 'signature', depth: tildeCount}
-        }
+        // const tildeCount = charCountInString(symbol, '~')
+        // if (tildeCount === 3 || tildeCount === 4) {
+        //   return buttonPayload('signature', {depth: tildeCount})
+        //   //return {item: 'signature', depth: tildeCount}
+        // }
 
         return null
       }
