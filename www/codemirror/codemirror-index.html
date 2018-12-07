@@ -125,6 +125,7 @@
 
       enrichHeadingTokens(lineTokens)      
       enrichListTokens(lineTokens)
+      // TODO: add enrichments for indent and signature so we can get rid of remaining '1st token of line' hacks
       
       return lineTokens
     }
@@ -213,12 +214,10 @@
       if (typesArray.includes('mw-comment')) {
         result.push(buttonPayload('comment'))
       }
-      
       if (typesArray.includes('mw-section-header-text')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
         result.push(buttonPayload('heading', {depth: depth}))
       }
-
       if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
         const ordered = typesArray.includes('mw-list-ordered')
