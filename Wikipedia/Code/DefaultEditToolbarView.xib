@@ -79,10 +79,16 @@
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="🔖"/>
+                                                                            <connections>
+                                                                                <action selector="toggleCitation:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWg-r0-cOq"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC">
                                                                             <rect key="frame" x="30" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="🔗"/>
+                                                                            <connections>
+                                                                                <action selector="toggleLink:" destination="iN0-l3-epB" eventType="touchUpInside" id="sdE-HW-jkI"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0O-Fb-X42">
                                                                             <rect key="frame" x="60" y="0.0" width="30" height="44"/>
@@ -115,10 +121,16 @@
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="∙"/>
+                                                                            <connections>
+                                                                                <action selector="toggleUnorderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="vwl-ZD-BZN"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN">
                                                                             <rect key="frame" x="30" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="1️⃣"/>
+                                                                            <connections>
+                                                                                <action selector="toggleOrderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="MzF-6t-DLw"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
@@ -138,16 +150,22 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
                                                             <rect key="frame" x="8" y="0.0" width="311" height="44"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="24Y-WO-ZuZ">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="24Y-WO-ZuZ" userLabel="Indentation Stack View">
                                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="44"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-Up-JEt">
                                                                             <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="⏪"/>
+                                                                            <connections>
+                                                                                <action selector="decreaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="bGk-wN-Y56"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t">
                                                                             <rect key="frame" x="30" y="0.0" width="30" height="44"/>
                                                                             <state key="normal" title="⏩"/>
+                                                                            <connections>
+                                                                                <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
@@ -247,7 +265,10 @@
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq">
                                                                     <rect key="frame" x="281" y="0.0" width="30" height="44"/>
-                                                                    <state key="normal" title="🤔"/>
+                                                                    <state key="normal" title="···"/>
+                                                                    <connections>
+                                                                        <action selector="showMore:" destination="iN0-l3-epB" eventType="touchUpInside" id="1aE-ci-HUe"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>

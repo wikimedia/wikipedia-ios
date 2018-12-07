@@ -352,19 +352,27 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        // TODO
+        toggleReferenceSelection() // ?
     }
 
     func defaultEditToolbarViewDidTapLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        // TODO
+        toggleAnchorSelection() // ?
     }
 
     func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        // TODO
+        toggleListSelection() // ?
     }
 
     func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        // TODO
+        toggleListSelection() // ?
+    }
+
+    func defaultEditToolbarViewDidTapDecreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        decreaseIndentDepth()
+    }
+
+    func defaultEditToolbarViewDidTapIncreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        increaseIndentDepth()
     }
 
     func defaultEditToolbarViewDidTapCursorUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
@@ -381,6 +389,12 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
 
     func defaultEditToolbarViewDidTapCursorRightButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
         moveCursorRight()
+    }
+
+    func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        getSelectedTextStyleType { (textStyleType) in
+            self.setInputViewHidden(type: .textFormatting(textStyleType ?? .paragraph), hidden: false)
+        }
     }
 }
 
