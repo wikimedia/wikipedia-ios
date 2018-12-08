@@ -316,7 +316,6 @@
       editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
       editorTextArea.style.display = 'hidden'
       currentEditorType = EditorType.codemirror
-      //editor.on('cursorActivity', sendCursorActivityMessages)
       editor.on('cursorActivity', emitSelectedButtons)
       editor.on('blur', () => {
         saveCursorState()
