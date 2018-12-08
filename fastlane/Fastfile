@@ -328,6 +328,11 @@ platform :ios do
 
   end
 
+  desc "Upload app store metadata"
+  lane :upload_app_store_metadata do 
+    deliver(skip_binary_upload: true, skip_screenshots: true)
+  end
+  
   desc "Runs tests, version, tag, and push to the beta branch"
   lane :submit_release do
     build = ENV['BUILD']

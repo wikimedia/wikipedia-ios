@@ -1,16 +1,11 @@
 #import "WMFURLSchemeHandler.h"
-#import <WMF/NSURL+WMFSchemeHandler.h>
 #import "Wikipedia-Swift.h"
 #import <WMF/WMFImageTag.h>
 #import <WMF/WMFImageTag+TargetImageWidthURL.h>
 #import <WMF/NSString+WMFHTMLParsing.h>
 #import <WMF/WMFFIFOCache.h>
+#import <WMF/NSURL+WMFSchemeHandler.h>
 #import "MWKArticle.h"
-
-NSString *const WMFURLSchemeHandlerScheme = @"wmfapp";
-NSString *const WMFSchemeHandlerArticleSectionDataBasePath = @"articleSectionData";
-NSString *const WMFSchemeHandlerArticleKeyQueryItem = @"articleKey";
-NSString *const WMFSchemeHandlerImageWidthQueryItem = @"imageWidth";
 
 static const NSInteger WMFCachedResponseCountLimit = 6;
 
@@ -84,7 +79,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }
 }
 
-- (void)finishTask:(id<WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data requestURL:(NSURL *)requestURL error:(NSError *)error {
+- (void)finishTask:(id<WKURLSchemeTask>)task withProxiedResponse:(NSURLResponse *)proxiedResponse data:(nullable NSData *)data error:(NSError *)error {
     if (error) {
         [self finishTask:task withResponse:nil data:nil error:error];
         return;
@@ -93,9 +88,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         [self finishTask:task withResponse:nil data:nil error:[NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]];
         return;
     }
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)proxiedResponse;
-    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:requestURL statusCode:httpResponse.statusCode HTTPVersion:nil headerFields:httpResponse.allHeaderFields];
-    [self finishTask:task withResponse:response data:data];
+    [self finishTask:task withResponse:proxiedResponse data:data];
 }
 
 - (void)finishTask:(id<WKURLSchemeTask>)task withResponse:(NSURLResponse *)response data:(nullable NSData *)data {
@@ -122,7 +115,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSURLSessionDataTask *APIRequestTask = [self.session dataTaskWithRequest:request
                                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                               [self finishTask:task withProxiedResponse:response data:data requestURL:URL error:error];
+                                                               [self finishTask:task withProxiedResponse:response data:data error:error];
                                                            }];
     APIRequestTask.priority = NSURLSessionTaskPriorityLow;
     [APIRequestTask resume];
@@ -158,27 +151,23 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
     }
 }
 
-- (void)handleImageRequestForURL:(NSURL *)imgURL requestURL:(NSURL *)requestURL task:(id<WKURLSchemeTask>)task {
-    NSAssert(imgURL, @"imageProxy URL should not be nil");
+- (void)handleProxiedRequest:(NSURLRequest *)request task:(id<WKURLSchemeTask>)task {
+    NSAssert(request, @"proxied request should not be nil");
     NSURLCache *URLCache = [NSURLCache sharedURLCache];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imgURL];
-    [request setValue:[WikipediaAppUtils versionedUserAgent] forHTTPHeaderField:@"User-Agent"];
     NSCachedURLResponse *cachedResponse = [URLCache cachedResponseForRequest:request];
-
     if (cachedResponse.response && cachedResponse.data) {
         NSString *mimeType = cachedResponse.response.MIMEType;
         if (mimeType == nil) {
-            mimeType = [imgURL wmf_mimeTypeForExtension];
+            mimeType = [[request URL] wmf_mimeTypeForExtension];
         }
-        NSAssert(mimeType != nil, @"MIME type not found for URL %@", imgURL);
+        NSAssert(mimeType != nil, @"MIME type not found for URL %@", request);
         [self finishTask:task withCachedResponse:cachedResponse];
     } else {
-        NSURLSessionDataTask *downloadImgTask = [self.session dataTaskWithRequest:request
-                                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                                    [self finishTask:task withProxiedResponse:response data:data requestURL:requestURL error:error];
-                                                                }];
-        downloadImgTask.priority = NSURLSessionTaskPriorityLow;
-        [downloadImgTask resume];
+        NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request
+                                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                 [self finishTask:task withProxiedResponse:response data:data error:error];
+                                                             }];
+        [downloadTask resume];
     }
 }
 
@@ -231,16 +220,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 
 #pragma - Image Proxy URLs
 
-- (NSURL *)appSchemeURLForImageURLString:(NSString *)imageURLString {
-    NSURLComponents *components = [self baseURLComponents];
-    components.path = [NSString pathWithComponents:@[@"/", WMFAppSchemeImageBasePath]];
-    NSURLQueryItem *queryItem = [NSURLQueryItem queryItemWithName:WMFAppSchemeImageOriginalSrcKey value:imageURLString];
-    if (queryItem) {
-        components.queryItems = @[queryItem];
-    }
-    return components.URL;
-}
-
 - (NSString *)stringByReplacingImageURLsWithAppSchemeURLsInHTMLString:(NSString *)HTMLString withBaseURL:(nullable NSURL *)baseURL targetImageWidth:(NSUInteger)targetImageWidth {
 
     //defensively copy
@@ -288,7 +267,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
 
         if (src) {
-            NSString *srcWithProxy = [self appSchemeURLForImageURLString:src].absoluteString;
+            NSString *srcWithProxy = [NSURL wmf_appSchemeURLForURLString:src].absoluteString;
             if (srcWithProxy) {
                 NSString *newSrcAttribute = [@[@"src=\"", srcWithProxy, @"\""] componentsJoinedByString:@""];
                 imageTag.src = newSrcAttribute;
@@ -383,30 +362,6 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(2, components.count - 2)];
         NSString *relativePath = [NSString pathWithComponents:localPathComponents];
         [self handleFileRequestForRelativePath:relativePath requestURL:requestURL task:urlSchemeTask];
-    } else if ([baseComponent isEqualToString:WMFAppSchemeImageBasePath]) {
-        NSString *originalSrc = nil;
-        for (NSURLQueryItem *item in URLComponents.queryItems) {
-            if ([item.name isEqualToString:WMFAppSchemeImageOriginalSrcKey]) {
-                originalSrc = item.value;
-                break;
-            }
-        }
-        if (!originalSrc) {
-            notFound();
-            return;
-        }
-
-        if ([originalSrc hasPrefix:@"//"]) {
-            originalSrc = [@"https:" stringByAppendingString:originalSrc];
-        }
-
-        NSURL *imgURL = [NSURL URLWithString:originalSrc];
-        if (!imgURL) {
-            notFound();
-            return;
-        }
-
-        [self handleImageRequestForURL:imgURL requestURL:requestURL task:urlSchemeTask];
     } else if ([baseComponent isEqualToString:WMFSchemeHandlerArticleSectionDataBasePath]) {
         NSString *articleKey = [request.URL wmf_valueForQueryKey:WMFSchemeHandlerArticleKeyQueryItem];
         if (!articleKey) {
@@ -473,7 +428,14 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         }
         notFound();
     } else {
-        notFound();
+        NSURL *proxiedURL = [requestURL wmf_originalURLFromAppSchemeURL];
+        if (!proxiedURL) {
+            notFound();
+            return;
+        }
+        NSMutableURLRequest *mutableRequest = [request mutableCopy];
+        mutableRequest.URL = proxiedURL;
+        [self handleProxiedRequest:mutableRequest task:urlSchemeTask];
     }
 }
 
