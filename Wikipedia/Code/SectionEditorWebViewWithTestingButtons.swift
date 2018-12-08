@@ -178,7 +178,15 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         return button
     }()
 
-    
+    private lazy var testTextView: UITextView = {
+        let textView = UITextView()
+        textView.frame = CGRect.init(x: 0, y: buttonHeight * 3, width: 300, height: buttonHeight * 2)
+        textView.layer.borderColor = UIColor.black.cgColor
+        textView.layer.borderWidth = 1
+        textView.text = "Tap to test taking first responder from web view."
+        return textView
+    }()
+
     override init() {
         super.init()
         
@@ -208,6 +216,18 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         self.addSubview(undoButton)
         self.addSubview(redoButton)
         self.addSubview(commentButton)
+        self.addSubview(testTextView)
+    }
+    
+    override var canBecomeFirstResponder: Bool { return true }
+    override func becomeFirstResponder() -> Bool {
+        print("webview did becomeFirstResponder")
+        return super.becomeFirstResponder()
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        print("webview did resignFirstResponder")
+        return super.resignFirstResponder()
     }
 }
 
