@@ -162,7 +162,7 @@
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t">
                                                                             <rect key="frame" x="33" y="0.0" width="18" height="44"/>
-                                                                            <state key="normal" image="increase-indent"/>
+                                                                            <state key="normal" image="text-formatting-increase-indent"/>
                                                                             <connections>
                                                                                 <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
                                                                             </connections>
@@ -367,12 +367,12 @@
         <image name="directionRight" width="11" height="18"/>
         <image name="directionUp" width="19" height="12"/>
         <image name="dots" width="19" height="4"/>
-        <image name="increase-indent" width="18" height="17"/>
         <image name="text-formatting" width="27" height="18"/>
         <image name="text-formatting-add" width="18" height="18"/>
         <image name="text-formatting-add-citation" width="14" height="18"/>
         <image name="text-formatting-decrease-indent" width="18" height="16"/>
         <image name="text-formatting-find-in-page" width="16" height="20"/>
+        <image name="text-formatting-increase-indent" width="18" height="17"/>
         <image name="text-formatting-link" width="18" height="9"/>
         <image name="text-formatting-ordered-list" width="18" height="18"/>
         <image name="text-formatting-style" width="30" height="18"/>
