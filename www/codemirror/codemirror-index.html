@@ -125,14 +125,19 @@
 
       enrichHeadingTokens(lineTokens)      
       enrichListTokens(lineTokens)
-      // TODO: add enrichments for indent and signature so we can get rid of remaining '1st token of line' hacks
+      enrichIndentTokens(lineTokens)
+      enrichSignatureTokens(lineTokens)
       
       return lineTokens
     }
 
+    const tokenIncludesType = (token, type) => {
+      return (token.type === null) ? false : token.type.split(' ').includes(type)
+    }
+
     const indexOfFirstLineTokenWithType = (lineTokens, type) => {
       return lineTokens.findIndex(token => {
-        return (token.type === null) ? false : token.type.split(' ').includes(type)
+        return tokenIncludesType(token, type)
       })
     }
 
@@ -162,21 +167,49 @@
       }
     }
 
+    const lineTokensFromTokenAtIndex = (lineTokens, index) => {
+      return lineTokens.filter((token, thisIndex) => thisIndex >= index)
+    }
+    
     const enrichListTokens = (lineTokens) => {
-      const listTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
-      if (listTokenIndex < 0) {
+      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
+      if (soughtTokenIndex < 0) {
         return
+      }      
+      const soughtToken = lineTokens[soughtTokenIndex]
+      const supplementToken = (token) => {
+        addTypeToToken(token, `mw-list-depth-${soughtToken.end}`)
+        addTypeToToken(token, soughtToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
       }
-      const listToken = lineTokens[listTokenIndex]
-      const tokensAfterListToken = lineTokens
-        .filter((token, index) => index >= listTokenIndex)
-        .forEach((token, index) => {
-          if (index > listTokenIndex) {
-            addTypeToToken(token, 'mw-list-contents')            
-          }
-          addTypeToToken(token, `mw-list-depth-${listToken.end}`)
-          addTypeToToken(token, listToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
+      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+        .forEach(supplementToken)
+    }
+
+    const enrichIndentTokens = (lineTokens) => {
+      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-indenting')
+      if (soughtTokenIndex < 0) {
+        return
+      }      
+      const soughtToken = lineTokens[soughtTokenIndex]
+      const supplementToken = (token, index) => {
+        if (index > 0) {
+          addTypeToToken(token, `mw-indenting-contents`)
+        }
+        addTypeToToken(token, `mw-indenting-depth-${soughtToken.end}`)
+      }
+      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
+        .forEach(supplementToken)
+    }
+
+    const enrichSignatureTokens = (lineTokens) => {
+      const supplementToken = (token) => {
+        addTypeToToken(token, `mw-signature-depth-${token.end - token.start}`)
+      }
+      lineTokens
+        .filter(token => {
+          return tokenIncludesType(token, 'mw-signature')
         })
+        .forEach(supplementToken)
     }
 
     const selectedButtons = (doc) => {  
@@ -223,6 +256,14 @@
         const ordered = typesArray.includes('mw-list-ordered')
         result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
       }
+      if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
+        result.push(buttonPayload('indent', {depth: depth}))
+      }
+      if (typesArray.includes('mw-signature')/* || typesArray.includes('mw-signature-contents')*/) {
+        const depth = numberFromPrefixedKey(typesArray, 'mw-signature-depth-')
+        result.push(buttonPayload('signature', {depth: depth}))
+      }
 
       result.push(buttonPayload('debug', {
          tokensIntersectingSelectionStrings: intersectingTokens.map(token => token.string).join(''),
@@ -239,49 +280,6 @@
       if (historySize.redo > 0) {
         result.push(buttonPayload('redo'))
       }
-
-      // determine message to send for headings, list items, indents and signatures
-      const messageForSymbol = (symbol) => {
-
-        // '*' 1-n
-        // const starCount = charCountInString(symbol, "\\*")
-        // if (starCount > 0) {
-        //   return buttonPayload('li', {depth: starCount, ordered: false})
-        //   //return {item: 'ul li', depth: starCount}
-        // }
-        // 
-        // // '#' 1-n
-        // const hashCount = charCountInString(symbol, '#')
-        // if (hashCount > 0) {
-        //   return buttonPayload('li', {depth: hashCount, ordered: true})
-        //   //return {item: 'ol li', depth: hashCount}
-        // }
-        
-        // ':' 1-n
-        const colonCount = charCountInString(symbol, ':')
-        if (colonCount > 0) {
-          return buttonPayload('indent', {depth: colonCount})
-          //return {item: 'indent', depth: colonCount}
-        }
-        
-        // '~' 3-4 (FIX: should probably work if there's leading spaces on the line -  would need to see if string has leading whitespace and look at token just after that whitespace...)
-        const tildeCount = charCountInString(symbol, '~')
-        if (tildeCount === 3 || tildeCount === 4) {
-          return buttonPayload('signature', {depth: tildeCount})
-          //return {item: 'signature', depth: tildeCount}
-        }
-
-        return null
-      }
-
-      const firstTokenOfLine = doc.getTokenAt({line: doc.getCursor().line, ch: 1})
-      if (firstTokenOfLine) {
-        const msg = messageForSymbol(firstTokenOfLine.string)
-        if (msg) {
-          result.push(msg)
-        }
-        // result.push(`symbol = '${symbol}'`)
-      }
         
       return result
     }
@@ -292,12 +290,41 @@
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
 
+
+    let savedCursorState = null
+    
+    const clearSavedCursorState = () => {
+      savedCursorState = null
+    }
+    
+    const saveCursorState = () => {
+      savedCursorState = {
+        anchor: editor.getCursor('anchor'),
+        head: editor.getCursor('head')
+      }
+    }
+
+    const restoreCursorState = () => {
+      if (savedCursorState.anchor !== null && savedCursorState.head !== null) { 
+        editor.setSelection(savedCursorState.anchor, savedCursorState.head)
+      }
+     clearSavedCursorState()
+    }
+
+
     const showCodemirror = () => {
       editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
       editorTextArea.style.display = 'hidden'
       currentEditorType = EditorType.codemirror
-      //editor.on('cursorActivity', sendCursorActivityMessages)
       editor.on('cursorActivity', emitSelectedButtons)
+      editor.on('blur', () => {
+        saveCursorState()
+      })
+      editor.on('focus', () => {
+        setTimeout(()=> {
+          restoreCursorState()      
+        }, 10)
+      })
     }
     
     const wmf = {}
@@ -330,6 +357,7 @@
     }
 
     wmf.update = () => {
+      clearSavedCursorState()
       switch(currentEditorType) {
         case EditorType.codemirror:
           showCodemirror()

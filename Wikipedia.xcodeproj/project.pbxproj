@@ -6164,6 +6164,7 @@
 		7A82899621B34BAC005D7EC1 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */,
 				7A4D227B21B1CD8600D889BD /* TextFormattingTableViewCell.swift */,
 				7A82898A21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift */,
 				7A82896621B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift */,
@@ -7543,7 +7544,6 @@
 		D499142C181D51DE00E6073C = {
 			isa = PBXGroup;
 			children = (
-				7AA96D5B21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift */,
 				D499143E181D51DE00E6073C /* Wikipedia */,
 				D801C8501EB8E131001FA294 /* Localizations */,
 				BC8309941A7BF935003FC5C7 /* Tests */,

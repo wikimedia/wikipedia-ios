@@ -328,11 +328,11 @@ class SectionEditorWebView: WKWebView {
     }
 
     @objc private func toggleBoldface(menuItem: UIMenuItem) {
-        toggleBoldSelection()
+        toggleBoldSelection(menuItem)
     }
 
     @objc private func toggleItalics(menuItem: UIMenuItem) {
-        toggleItalicSelection()
+        toggleItalicSelection(menuItem)
     }
 
     // Keep original menu items
@@ -401,43 +401,43 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleReferenceSelection() // ?
+        toggleReferenceSelection(button) // ?
     }
 
     func defaultEditToolbarViewDidTapLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleAnchorSelection() // ?
+        toggleAnchorSelection(button) // ?
     }
 
     func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection() // ?
+        toggleListSelection(button) // ?
     }
 
     func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection() // ?
+        toggleListSelection(button) // ?
     }
 
     func defaultEditToolbarViewDidTapDecreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        decreaseIndentDepth()
+        decreaseIndentDepth(button)
     }
 
     func defaultEditToolbarViewDidTapIncreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        increaseIndentDepth()
+        increaseIndentDepth(button)
     }
 
     func defaultEditToolbarViewDidTapCursorUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorUp()
+        moveCursorUp(button)
     }
 
     func defaultEditToolbarViewDidTapCursorDownButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorDown()
+        moveCursorDown(button)
     }
 
     func defaultEditToolbarViewDidTapCursorLeftButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorLeft()
+        moveCursorLeft(button)
     }
 
     func defaultEditToolbarViewDidTapCursorRightButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorRight()
+        moveCursorRight(button)
     }
 
     func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
@@ -449,14 +449,14 @@ extension SectionEditorWebView: DefaultEditToolbarViewDelegate {
 
 extension SectionEditorWebView: TextFormattingDelegate {
     func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
-        toggleItalicSelection()
+        toggleItalicSelection(button)
     }
 
     func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem) {
         setInputViewHidden(hidden: true)
     }
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
-        toggleBoldSelection()
+        toggleBoldSelection(button)
     }
 }
 
