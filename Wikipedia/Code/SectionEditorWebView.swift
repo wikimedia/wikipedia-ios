@@ -293,9 +293,9 @@ class SectionEditorWebView: WKWebView {
     // MARK: Menu items
 
     lazy var menuItems: [UIMenuItem] = {
-        let addCitation = UIMenuItem(title: "+", action: #selector(toggleCitation(menuItem:)))
-        let addLink = UIMenuItem(title: "🔗", action: #selector(toggleLink(menuItem:)))
-        let addCurlyBrackets = UIMenuItem(title: "{}", action: #selector(toggleCurlyBrackets(menuItem:)))
+        let addCitation = UIMenuItem(title: "Add Citation", action: #selector(toggleCitation(menuItem:)))
+        let addLink = UIMenuItem(title: "Add Link", action: #selector(toggleLink(menuItem:)))
+        let addCurlyBrackets = UIMenuItem(title: "｛ ｝", action: #selector(toggleCurlyBrackets(menuItem:)))
         let makeBold = UIMenuItem(title: "𝗕", action: #selector(toggleBoldface(menuItem:)))
         let makeItalic = UIMenuItem(title: "𝐼", action: #selector(toggleItalics(menuItem:)))
         return [addCitation, addLink, addCurlyBrackets, makeBold, makeItalic]
