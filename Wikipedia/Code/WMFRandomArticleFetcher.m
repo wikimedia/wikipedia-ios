@@ -51,7 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
                              }
 
                              NSError *serializerError = nil;
-                             NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
+                             
+                             NSArray<MWKSearchResult *> *randomResults = [WMFLegacySerializer modelsOfClass:[MWKSearchResult class] fromAllValuesOfDictionaryForKeyPath:@"query.pages" inJSONDictionary:result error:&serializerError];
                              if (serializerError) {
                                  completion(serializerError, nil);
                                  return;
