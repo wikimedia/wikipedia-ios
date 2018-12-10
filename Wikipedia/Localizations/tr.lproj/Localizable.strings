@@ -474,8 +474,13 @@
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Makaleleri sırala";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
+"reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
+"reading-list-list-limit-exceeded-title" = "Hesap başına $1 okuma listesi sınırını aştınız.";
+"reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
+"reading-list-login-button-title" = "Kayıtlı maddelerinizi senkronize etmek için giriş yapın";
 "reading-list-login-or-create-account-button-title" = "Giriş yap veya hesap oluştur";
 "reading-list-login-or-create-account-title" = "Kayıtlı makaleleri senkronize etmek için giriş yapın";
+"reading-list-login-subtitle" = "Kayıtlı maddelerinizin ve okuma listelerinizin cihazlarda senkronize edilmesine ve kullanıcı tercihlerinize kaydedilmesine izin vermek için giriş yapın veya bir hesap oluşturun.";
 "reading-list-login-title" = "Kayıtlı maddeleri senkronize et?";
 "reading-list-name-user-created-annotation" = "\n_[kullanıcı oluşturuldu]";
 "reading-list-new-list-description-placeholder" = "isteğe bağlı kısa açıklama";
@@ -508,8 +513,10 @@
 "reading-lists-default-list-title" = "Kaydedildi";
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} sil?";
+"reading-lists-large-sync-completed" = "Hesabınızdan senkronize edilen $1 madde ve $2 okuma listesi";
 "reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";
+"reading-lists-split-notification" = "Okuma listesi başına $1 madde sınırı vardır. Bu sınırı aşan mevcut listeler birden fazla listeye ayrılmıştır.";
 "reading-lists-sync-error-no-internet-connection" = "İnternet bağlantısı mevcut olduğunda senkronizasyon devam edecek";
 "reading-themes-controls-accessibility-black-theme-button" = "Siyah tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Parlaklık çubuğu";
@@ -524,6 +531,7 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Bu yıl|Geçen yıl|$1 yıl önce}}";
 "request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "reverted-edit-back-to-article-button-title" = "Maddeye dön";
+"reverted-edit-notification-body" = "$1 maddesinde yaptığınız düzenleme $2 tarafından geri alındı.";
 "reverted-edit-notification-read-more-action-title" = "Devamını oku";
 "reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
 "reverted-edit-possible-reasons-subtitle" = "Elinizden geleni yaptığınızı biliyoruz ama inceleyenlerden biri, bir sıkıntı gördü.\n\n\nDeğişikliğiniz geri alınmasının muhtemel sebepleri şunlar olabilir:";
@@ -537,6 +545,8 @@
 "saved-reading-lists-title" = "Okuma listeleri";
 "saved-search-default-text" = "Ara";
 "saved-title" = "Kaydedilenler";
+"saved-unsave-article-and-remove-from-reading-lists-message" = "{{PLURAL:$1|Bu maddeyi|Bu maddeleri}} iptal etmek, ilgili tüm okuma listelerinden kaldırır";
+"saved-unsave-article-and-remove-from-reading-lists-title" = "{{PLURAL:$1|Maddeyi|Maddeleri}} iptal et?";
 "search-button-accessibility-label" = "Vikipedi'de Ara";
 "search-clear-title" = "Temizle";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
