@@ -323,6 +323,7 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // [self.webView toggleRichEditor];
+    // [self.webView becomeFirstResponder];
 }
 
 - (void)webView:(SectionEditorWebViewWithTestingButtons *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
