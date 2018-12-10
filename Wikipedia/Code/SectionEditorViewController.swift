@@ -7,9 +7,8 @@ protocol SectionEditorViewControllerDelegate: class {
 class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
-    private var webView: SectionEditorWebView!
+    private var webView: SectionEditorWebViewWithEditToolbar!
 
-    private var unmodifiedWikiText: String?
     private var viewKeyboardRect = CGRect.null
     private var rightButton: UIBarButtonItem?
 
@@ -27,11 +26,7 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private var changesMade: Bool {
-        guard let unmodifiedWikiText = unmodifiedWikiText else {
-            return false
-        }
         return true
-        //return !(unmodifiedWikiText == textView.text)
     }
 
     override func viewDidLoad() {
@@ -65,7 +60,7 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureWebView() {
-        webView = SectionEditorWebView()
+        webView = SectionEditorWebViewWithEditToolbar()
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
@@ -253,8 +248,6 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             } else {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
-
-            unmodifiedWikiText = revision
 
             self.webView.setup(wikitext: revision, useRichEditor: true) { (error) in
                 if let error = error {

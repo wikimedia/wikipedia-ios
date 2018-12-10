@@ -1,0 +1,3 @@
+class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
+
+}
