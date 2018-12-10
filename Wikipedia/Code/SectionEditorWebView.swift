@@ -73,4 +73,11 @@ class SectionEditorWebView: WKWebView {
             DDLogError("Error setting up editor: \(error)")
         }
     }
+
+    override var canBecomeFirstResponder: Bool { return true }
+    override func becomeFirstResponder() -> Bool {
+        let result = super.becomeFirstResponder()
+        focus(self)
+        return result
+    }
 }

@@ -218,17 +218,6 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
         self.addSubview(commentButton)
         self.addSubview(testTextView)
     }
-    
-    override var canBecomeFirstResponder: Bool { return true }
-    override func becomeFirstResponder() -> Bool {
-        print("webview did becomeFirstResponder")
-        return super.becomeFirstResponder()
-    }
-    
-    override func resignFirstResponder() -> Bool {
-        print("webview did resignFirstResponder")
-        return super.resignFirstResponder()
-    }
 }
 
 extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionChangedDelegate {
