@@ -463,17 +463,19 @@ func importLocalizationsFromTWN(_ path: String) {
                 for metadataLocale in metadataLocales {
                     let folderURL = fileURLForFastlaneMetadataFolder(for: metadataLocale)
                     try fm.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
-
+                    
                     let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
                     let infoPlist = NSDictionary(contentsOfFile: infoPlistPath)
                     
-                    try? writeFastlaneMetadata(infoPlist?["CFBundleDisplayName"], to: "name.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)
-                    try? writeFastlaneMetadata(strings["app-store-subtitle"], to: "subtitle.txt", for: metadataLocale)
-                    // Skipping release notes as they're out of date
-                    // try? writeFastlaneMetadata(strings["app-store-release-notes"], to: "release_notes.txt", for: metadataLocale)
                     try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)
                     try? writeFastlaneMetadata(strings["app-store-keywords"], to: "keywords.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(nil, to: "marketing_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
+                    try? writeFastlaneMetadata(infoPlist?["CFBundleDisplayName"], to: "name.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(nil, to: "privacy_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
+                    try? writeFastlaneMetadata(nil, to: "promotional_text.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
+                    try? writeFastlaneMetadata(nil, to: "release_notes.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
+                    try? writeFastlaneMetadata(strings["app-store-subtitle"], to: "subtitle.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(nil, to: "support_url.txt", for: metadataLocale) // use nil to copy from en-US. all fields need to be specified.
                 }
             
             } else {
