@@ -48,10 +48,6 @@ class SectionEditorWebView: WKWebView {
     @objc func getWikitext(completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
         evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
-
-    func getSelectedButtons(completionHandler: (SectionEditorWebViewCompletionWithResultBlock)? = nil) {
-        evaluateJavaScript("window.wmf.getSelectedButtons(editor);", completionHandler: completionHandler)
-    }
     
     // Toggle between codemirror and plain wikitext editing
     @objc func toggleRichEditor() {

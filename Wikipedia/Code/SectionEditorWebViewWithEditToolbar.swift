@@ -232,52 +232,11 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
 extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
     func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        getSelectedTextStyleType { (textStyleType) in
-            self.setInputViewHidden(type: .textFormatting(textStyleType ?? .paragraph), hidden: false)
-        }
-    }
-
-    // gets all selected buttons
-    // checks if there are any headings selected
-    // if so, lets TextStyleFormattingTableViewController know which heading is selected
-    // (so that it can be selected in the view)
-    // multiple text styles not handled
-    // should moved out of here probably
-    private func getSelectedTextStyleType(_ completion: @escaping (TextStyleType?) -> Void) {
-        getSelectedButtons { (results, error) in
-            var textStyleRawValue: Int?
-            defer {
-                if let rawValue = textStyleRawValue {
-                    let textStyleType = TextStyleType(rawValue: rawValue)
-                    completion(textStyleType)
-                } else {
-                    completion(nil)
-                }
-            }
-            guard let results = results as? [[String: Any]] else {
-                return
-            }
-            for result in results {
-                guard let button = result["button"] as? String, button == "heading" else {
-                    continue
-                }
-                guard
-                    let info = result["info"] as? [String: Any],
-                    let depth = info["depth"] as? Int
-                    else {
-                        return
-                }
-                textStyleRawValue = depth
-                // TODO: multiple text styles
-                break
-            }
-        }
+        self.setInputViewHidden(type: .textFormatting, hidden: false)
     }
 
     func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        getSelectedTextStyleType { (textStyleType) in
-            self.setInputViewHidden(type: .textStyle(textStyleType ?? .paragraph), hidden: false)
-        }
+        setInputViewHidden(type: .textStyle, hidden: false)
     }
 
     func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
@@ -321,9 +280,7 @@ extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        getSelectedTextStyleType { (textStyleType) in
-            self.setInputViewHidden(type: .textFormatting(textStyleType ?? .paragraph), hidden: false)
-        }
+        setInputViewHidden(type: .textFormatting, hidden: false)
     }
 }
 
@@ -382,7 +339,8 @@ extension SectionEditorWebViewWithEditToolbar: SectionEditorWebViewSelectionChan
     }
 
     func highlightHeadingButton(depth: Int) {
-        //
+        let textStyleType = TextStyleType(rawValue: depth)
+        textFormattingInputViewController.selectedTextStyleType = textStyleType
     }
 
     func highlightUndoButton() {

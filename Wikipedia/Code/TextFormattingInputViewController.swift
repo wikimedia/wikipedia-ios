@@ -9,10 +9,11 @@ class TextFormattingInputViewController: UIInputViewController {
     @IBOutlet weak var containerView: UIView!
     weak var delegate: TextFormattingDelegate?
     private var theme = Theme.standard
+    var selectedTextStyleType: TextStyleType?
 
     enum InputViewType {
-        case textFormatting(TextStyleType)
-        case textStyle(TextStyleType)
+        case textFormatting
+        case textStyle
     }
 
     private lazy var textStyleFormattingTableViewController: TextStyleFormattingTableViewController = {
@@ -27,7 +28,7 @@ class TextFormattingInputViewController: UIInputViewController {
         return viewController
     }()
 
-    var inputViewType = InputViewType.textFormatting(.paragraph) {
+    var inputViewType = InputViewType.textFormatting {
         didSet {
             guard viewIfLoaded != nil else {
                 return
@@ -39,18 +40,15 @@ class TextFormattingInputViewController: UIInputViewController {
 
     private func rootViewController(for type: InputViewType) -> UIViewController {
         var viewController: TextFormattingProvidingTableViewController
-        var selectedTextStyleType: TextStyleType
 
         switch type {
-        case .textFormatting(let textStyleType):
+        case .textFormatting:
             viewController = textFormattingTableViewController
-            selectedTextStyleType = textStyleType
-        case .textStyle(let textStyleType):
+        case .textStyle:
             viewController = textStyleFormattingTableViewController
-            selectedTextStyleType = textStyleType
         }
 
-        viewController.selectedTextStyleType = selectedTextStyleType
+        viewController.selectedTextStyleType = selectedTextStyleType ?? .paragraph
         viewController.apply(theme: theme)
         return viewController
     }
