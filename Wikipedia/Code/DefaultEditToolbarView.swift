@@ -108,11 +108,19 @@ class DefaultEditToolbarView: EditToolbarView {
         case `default`
         case secondary
 
-        init(rawValue: RawValue) {
+        static func visible(rawValue: RawValue) -> ActionsType {
             if rawValue == 0 {
-                self = .secondary
+                return .default
             } else {
-                self = .default
+                return .secondary
+            }
+        }
+
+        static func next(rawValue: RawValue) -> ActionsType {
+            if rawValue == 0 {
+                return .secondary
+            } else {
+                return .default
             }
         }
     }
@@ -123,7 +131,7 @@ class DefaultEditToolbarView: EditToolbarView {
 
     @IBAction private func revealMoreActions(_ sender: UIButton) {
         let offsetX = scrollView.contentOffset.x
-        let actionsType = ActionsType(rawValue: offsetX)
+        let actionsType = ActionsType.next(rawValue: offsetX)
         revealMoreActions(ofType: actionsType, with: sender, animated: true)
     }
 
@@ -161,12 +169,6 @@ class DefaultEditToolbarView: EditToolbarView {
             scrollViewContentOffsetChange()
         }
     }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        revealMoreActions(ofType: .default, with: chevronButton, animated: false)
-    }
-
 }
 
 extension DefaultEditToolbarView {

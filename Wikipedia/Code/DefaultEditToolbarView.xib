@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -21,21 +21,21 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnR-ux-s6T">
-                            <rect key="frame" x="0.0" y="0.0" width="319" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="180" height="44"/>
                             <subviews>
-                                <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="654" height="44"/>
+                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="44" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="44"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik">
-                                            <rect key="frame" x="0.0" y="0.0" width="646" height="44"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik" userLabel="Main Stack View">
+                                            <rect key="frame" x="0.0" y="0.0" width="368" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64" userLabel="Default View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="319" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Default Stack View">
-                                                            <rect key="frame" x="16" y="0.0" width="295" height="44"/>
+                                                            <rect key="frame" x="16" y="0.0" width="156" height="44"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t52-tF-NuA">
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t52-tF-NuA">
                                                                     <rect key="frame" x="0.0" y="0.0" width="27" height="44"/>
                                                                     <state key="normal" image="text-formatting"/>
                                                                     <connections>
@@ -43,14 +43,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-pz-I3S">
-                                                                    <rect key="frame" x="45.5" y="0.0" width="30" height="44"/>
+                                                                    <rect key="frame" x="28" y="0.0" width="30" height="44"/>
                                                                     <state key="normal" image="text-formatting-style"/>
                                                                     <connections>
                                                                         <action selector="formatHeader:" destination="iN0-l3-epB" eventType="touchUpInside" id="8vd-hd-cef"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxZ-pF-FjT" userLabel="Separator View">
-                                                                    <rect key="frame" x="93.5" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="58.666666666666671" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -68,26 +68,26 @@
                                                                         <constraint firstItem="jlu-Wy-agF" firstAttribute="centerX" secondItem="jxZ-pF-FjT" secondAttribute="centerX" id="lYh-a4-Yck"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb">
-                                                                    <rect key="frame" x="115" y="0.0" width="14" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb">
+                                                                    <rect key="frame" x="62.666666666666671" y="0.0" width="14" height="44"/>
                                                                     <state key="normal" image="text-formatting-add-citation"/>
                                                                     <connections>
                                                                         <action selector="toggleCitation:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWg-r0-cOq"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC">
-                                                                    <rect key="frame" x="147" y="0.0" width="18" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC">
+                                                                    <rect key="frame" x="77.666666666666671" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-link"/>
                                                                     <connections>
                                                                         <action selector="toggleLink:" destination="iN0-l3-epB" eventType="touchUpInside" id="sdE-HW-jkI"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0O-Fb-X42">
-                                                                    <rect key="frame" x="183.5" y="0.0" width="18" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0O-Fb-X42">
+                                                                    <rect key="frame" x="96.333333333333329" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-add"/>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-15-pdj" userLabel="Separator View">
-                                                                    <rect key="frame" x="219.5" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="115.33333333333334" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-lo-H48">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -105,15 +105,15 @@
                                                                         <constraint firstItem="0eV-lo-H48" firstAttribute="centerY" secondItem="YgV-15-pdj" secondAttribute="centerY" id="qff-e0-ZOI"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL">
-                                                                    <rect key="frame" x="241" y="0.0" width="18" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL">
+                                                                    <rect key="frame" x="119" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-unordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleUnorderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="vwl-ZD-BZN"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN">
-                                                                    <rect key="frame" x="277" y="0.0" width="18" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN">
+                                                                    <rect key="frame" x="138" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-ordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleOrderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="MzF-6t-DLw"/>
@@ -130,10 +130,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51i-1d-Lli" userLabel="Secondary View">
-                                                    <rect key="frame" x="327" y="0.0" width="319" height="44"/>
+                                                    <rect key="frame" x="188" y="0.0" width="180" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
-                                                            <rect key="frame" x="16" y="0.0" width="295" height="44"/>
+                                                            <rect key="frame" x="16" y="0.0" width="156" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-Up-JEt">
                                                                     <rect key="frame" x="0.0" y="0.0" width="18" height="44"/>
@@ -143,14 +143,14 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t">
-                                                                    <rect key="frame" x="33.5" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="19.666666666666657" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-increase-indent"/>
                                                                     <connections>
                                                                         <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WtX-zz-09w" userLabel="Separator View">
-                                                                    <rect key="frame" x="67" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="39.333333333333343" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7Q-C7-3b0">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -169,35 +169,35 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcH-OJ-MDT">
-                                                                    <rect key="frame" x="85.5" y="0.0" width="19" height="44"/>
+                                                                    <rect key="frame" x="43.666666666666657" y="0.0" width="19" height="44"/>
                                                                     <state key="normal" image="directionUp"/>
                                                                     <connections>
                                                                         <action selector="moveCursorUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="SvW-C1-J2E"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-3b-3SP">
-                                                                    <rect key="frame" x="120" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="64.333333333333314" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="directionDown"/>
                                                                     <connections>
                                                                         <action selector="moveCursorDown:" destination="iN0-l3-epB" eventType="touchUpInside" id="i1T-s3-dx4"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3W-Xz-reX">
-                                                                    <rect key="frame" x="153.5" y="0.0" width="12" height="44"/>
+                                                                    <rect key="frame" x="84" y="0.0" width="12" height="44"/>
                                                                     <state key="normal" image="directionLeft"/>
                                                                     <connections>
                                                                         <action selector="moveCursorLeft:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZI-Dx-nTQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Yo-A6r">
-                                                                    <rect key="frame" x="181" y="0.0" width="11" height="44"/>
+                                                                    <rect key="frame" x="97.666666666666686" y="0.0" width="11" height="44"/>
                                                                     <state key="normal" image="directionRight"/>
                                                                     <connections>
                                                                         <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="cxG-ce-e4c"/>
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3j-O5-HIZ" userLabel="Separator View">
-                                                                    <rect key="frame" x="207.5" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="110.33333333333331" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pmA-uF-QYP">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -216,11 +216,11 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shm-Nc-NEF">
-                                                                    <rect key="frame" x="226" y="0.0" width="16" height="44"/>
+                                                                    <rect key="frame" x="114.66666666666669" y="0.0" width="16" height="44"/>
                                                                     <state key="normal" image="text-formatting-find-in-page"/>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AT0-4z-mXe" userLabel="Separator View">
-                                                                    <rect key="frame" x="257.5" y="0.0" width="3" height="44"/>
+                                                                    <rect key="frame" x="132.33333333333331" y="0.0" width="3" height="44"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OD4-kS-im6">
                                                                             <rect key="frame" x="1" y="10" width="1" height="24"/>
@@ -238,8 +238,8 @@
                                                                         <constraint firstAttribute="bottom" secondItem="OD4-kS-im6" secondAttribute="bottom" constant="10" id="vhG-TA-dpC"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq">
-                                                                    <rect key="frame" x="276" y="0.0" width="19" height="44"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq">
+                                                                    <rect key="frame" x="137" y="0.0" width="19" height="44"/>
                                                                     <state key="normal" image="dots"/>
                                                                     <connections>
                                                                         <action selector="showMore:" destination="iN0-l3-epB" eventType="touchUpInside" id="1aE-ci-HUe"/>
@@ -254,9 +254,16 @@
                                                         <constraint firstItem="1bz-lo-Qsh" firstAttribute="top" secondItem="51i-1d-Lli" secondAttribute="top" id="XrA-Pr-gEr"/>
                                                         <constraint firstAttribute="bottom" secondItem="1bz-lo-Qsh" secondAttribute="bottom" id="cHy-g6-O3B"/>
                                                     </constraints>
+                                                    <variation key="heightClass=compact-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="X6D-nk-Fmx"/>
+                                                        </mask>
+                                                    </variation>
                                                 </view>
                                             </subviews>
                                             <gestureRecognizers/>
+                                            <variation key="heightClass=compact-widthClass=compact" distribution="fillEqually" spacing="20"/>
+                                            <variation key="heightClass=compact-widthClass=regular" distribution="fillEqually" spacing="20"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>
@@ -280,17 +287,46 @@
                                 <constraint firstAttribute="trailing" secondItem="vhM-bx-p7p" secondAttribute="trailing" id="qOK-en-LNn"/>
                                 <constraint firstItem="51i-1d-Lli" firstAttribute="width" secondItem="ZnR-ux-s6T" secondAttribute="width" id="yH6-Nh-KTL"/>
                             </constraints>
+                            <variation key="heightClass=compact-widthClass=compact">
+                                <mask key="constraints">
+                                    <exclude reference="UqM-eZ-wld"/>
+                                    <include reference="qOK-en-LNn"/>
+                                    <exclude reference="yH6-Nh-KTL"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular">
+                                <mask key="constraints">
+                                    <exclude reference="UqM-eZ-wld"/>
+                                    <exclude reference="yH6-Nh-KTL"/>
+                                </mask>
+                            </variation>
                             <connections>
                                 <outletCollection property="gestureRecognizers" destination="Bdo-0K-LyG" appends="YES" id="CGQ-uC-X4T"/>
                             </connections>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25k-rm-GLR">
-                            <rect key="frame" x="327" y="10" width="32" height="24"/>
+                            <rect key="frame" x="188" y="10" width="167" height="24"/>
                             <constraints>
+                                <constraint firstAttribute="width" id="chZ-0u-nI7"/>
                                 <constraint firstAttribute="height" constant="24" id="rje-us-hjK"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="chevron-btn-right"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="chZ-0u-nI7"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=compact" hidden="YES">
+                                <mask key="constraints">
+                                    <include reference="chZ-0u-nI7"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=compact-widthClass=regular" hidden="YES">
+                                <mask key="constraints">
+                                    <include reference="chZ-0u-nI7"/>
+                                </mask>
+                            </variation>
                             <connections>
                                 <action selector="revealMoreActions:" destination="iN0-l3-epB" eventType="touchUpInside" id="LON-QE-uG1"/>
                             </connections>
@@ -302,16 +338,38 @@
                         <constraint firstItem="ZnR-ux-s6T" firstAttribute="top" secondItem="en8-Lh-EYg" secondAttribute="top" id="3RE-uu-Ul3"/>
                         <constraint firstItem="ZnR-ux-s6T" firstAttribute="leading" secondItem="en8-Lh-EYg" secondAttribute="leading" id="8Ur-42-9gS"/>
                         <constraint firstAttribute="trailingMargin" secondItem="25k-rm-GLR" secondAttribute="trailing" id="J8O-hU-YG9"/>
+                        <constraint firstAttribute="trailing" secondItem="ZnR-ux-s6T" secondAttribute="trailing" id="Zlo-fb-zDB"/>
+                        <constraint firstItem="vhM-bx-p7p" firstAttribute="width" secondItem="en8-Lh-EYg" secondAttribute="width" id="gEH-3O-D4m"/>
                         <constraint firstItem="25k-rm-GLR" firstAttribute="leading" secondItem="ZnR-ux-s6T" secondAttribute="trailing" constant="8" symbolic="YES" id="shr-1D-h3f"/>
                         <constraint firstItem="ZnR-ux-s6T" firstAttribute="centerY" secondItem="25k-rm-GLR" secondAttribute="centerY" id="uwV-Q3-cpg"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="ILl-o6-Fsg"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Zlo-fb-zDB"/>
+                            <exclude reference="gEH-3O-D4m"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="Zlo-fb-zDB"/>
+                            <include reference="gEH-3O-D4m"/>
+                            <exclude reference="shr-1D-h3f"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=compact-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="Zlo-fb-zDB"/>
+                            <include reference="gEH-3O-D4m"/>
+                            <exclude reference="shr-1D-h3f"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="en8-Lh-EYg" secondAttribute="bottom" id="I11-7J-31K"/>
-                <constraint firstItem="en8-Lh-EYg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cgS-Fu-uNn"/>
+                <constraint firstItem="en8-Lh-EYg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="999" id="cgS-Fu-uNn"/>
                 <constraint firstAttribute="trailing" secondItem="en8-Lh-EYg" secondAttribute="trailing" id="pL3-fC-QLl"/>
                 <constraint firstItem="en8-Lh-EYg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qJ1-0W-8aR"/>
             </constraints>
