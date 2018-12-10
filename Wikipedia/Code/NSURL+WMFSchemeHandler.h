@@ -3,42 +3,39 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Image tag src urls are modified to point to the app scheme handler so we can intercept image requests.
- * WKWebView requests are out of process so other methods - NSURLProtocol etc - do not work.
+ * URLs are modified to point to the app scheme handler so we can intercept requests.
+ *
  *
  * For example, the following image url:
  *      //upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Backbeat_chop.png/300px-Backbeat_chop.png
  *
  * ...is rewritten to the following format:
- *      wmfapp://host/imageProxy?originalSrc=//upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Backbeat_chop.png/300px-Backbeat_chop.png
+ *      wmfapp://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Backbeat_chop.png/300px-Backbeat_chop.png
  *
- * Note that the original image url is added as the value for the "originalSrc" query parameter.
- *
- * WMFAppSchemeImageOriginalSrcKey controls the "originalSrc" string in the example above.
- *
- * WMFAppSchemeImageBasePath controls the "imageProxy" string in the example above.
  **/
 
-extern NSString *const WMFAppSchemeImageOriginalSrcKey;
-extern NSString *const WMFAppSchemeImageBasePath;
+extern NSString *const WMFURLSchemeHandlerScheme;
 extern NSString *const WMFAppSchemeFileBasePath;
 extern NSString *const WMFAppSchemeAPIBasePath;
+extern NSString *const WMFSchemeHandlerArticleSectionDataBasePath;
+extern NSString *const WMFSchemeHandlerArticleKeyQueryItem;
+extern NSString *const WMFSchemeHandlerImageWidthQueryItem;
 
 @interface NSURL (WMFSchemeHandler)
 
 /**
- * Image app scheme urls will have an WMFAppSchemeImageOriginalSrcKey key.
+ * App scheme urls will have an WMFURLSchemeHandlerScheme scheme.
  *
- * @return  Returns the original non-app scheme src url. Returns nil if no WMFAppSchemeImageOriginalSrcKey value is found in the underlying NSURL.
+ * @return  Returns the original non-app scheme src url. Returns nil if unable to convert.
  **/
-- (nullable NSURL *)wmf_imageAppSchemeOriginalSrcURL;
+- (nullable NSURL *)wmf_originalURLFromAppSchemeURL;
 
 /**
- * Adds a WMFAppSchemeImageOriginalSrcKey key to the underlying NSURL set to the value passed to the WMFAppSchemeImageOriginalSrcKey parameter.
+ * Changes the scheme to WMFURLSchemeHandlerScheme.
  *
- * @return  Returns image app scheme url.
+ * @return  Returns app scheme url.
  **/
-- (NSURL *)wmf_imageAppSchemeURLWithOriginalSrc:(NSString *)originalSrc;
++ (NSURL *)wmf_appSchemeURLForURLString:(NSString *)URLString;
 
 @end
 

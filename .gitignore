@@ -45,6 +45,7 @@ fastlane/report.xml
 fastlane/Error*.png
 fastlane/metadata/trade_representative_contact_information
 fastlane/metadata/review_information
+fastlane/Preview.html
 
 *.mobileprovision
 

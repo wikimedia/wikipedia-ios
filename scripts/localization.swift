@@ -267,11 +267,25 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
 }
 
 // See "Localized Metadata" section here: https://docs.fastlane.tools/actions/deliver/
-func writeFastlaneAppStoreLocalizedMetadataFile(fileName: String, contents: String, locale: String, path: String) throws {
-    let pathForFastlaneMetadataForLocale = "\(path)/fastlane/metadata/\(locale)"
-    try FileManager.default.createDirectory(atPath: pathForFastlaneMetadataForLocale, withIntermediateDirectories: true, attributes: nil)
-    let descriptionFileURL = URL(fileURLWithPath:"\(pathForFastlaneMetadataForLocale)/\(fileName)",  isDirectory: false)
-    try contents.write(to: descriptionFileURL, atomically: true, encoding: .utf8)
+func fileURLForFastlaneMetadataFolder(for locale: String) -> URL {
+    return URL(fileURLWithPath:"\(path)/fastlane/metadata/\(locale)")
+}
+
+func fileURLForFastlaneMetadataFile(_ file: String, for locale: String) -> URL {
+    return fileURLForFastlaneMetadataFolder(for: locale).appendingPathComponent(file)
+}
+
+let defaultAppStoreMetadataLocale = "en-us"
+func writeFastlaneMetadata(_ metadata: Any?, to filename: String, for locale: String) throws {
+    let metadataFileURL = fileURLForFastlaneMetadataFile(filename, for: locale)
+    guard let metadata = metadata as? String, metadata.count > 0 else {
+        let defaultDescriptionFileURL = fileURLForFastlaneMetadataFile(filename, for: defaultAppStoreMetadataLocale)
+        let fm = FileManager.default
+        try fm.removeItem(at: metadataFileURL)
+        try fm.copyItem(at: defaultDescriptionFileURL, to: metadataFileURL)
+        return
+    }
+    try metadata.write(to: metadataFileURL, atomically: true, encoding: .utf8)
 }
 
 func writeTWNStrings(fromDictionary dictionary: [String: String], toFile: String, escaped: Bool) throws {
@@ -373,6 +387,30 @@ func importLocalizationsFromTWN(_ path: String) {
     do {
         let keysByLanguage = ["pl": ["one", "few"], "sr": ["one", "few", "many"], "ru": ["one", "few", "many"]]
         let defaultKeys = ["one"]
+        let appStoreMetadataLocales: [String: [String]] = [
+            "da": ["da"],
+            "de": ["de-de"],
+            "el": ["el"],
+            //"en": ["en-au", "en-ca", "en-gb"],
+            "es": ["es-mx", "es-es"],
+            "fi": ["fi"],
+            "fr": ["fr-ca", "fr-fr"],
+            "id": ["id"],
+            "it": ["it"],
+            "ja": ["ja"],
+            "ko": ["ko"],
+            "ms": ["ms"],
+            "nl": ["nl-nl"],
+            "no": ["no"],
+            "pt": ["pt-br", "pt-pt"],
+            "ru": ["ru"],
+            "sv": ["sv"],
+            "th": ["th"],
+            "tr": ["tr"],
+            "vi": ["vi"],
+            "zh-hans": ["zh-hans"],
+            "zh-hant": ["zh-hant"]
+        ]
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
         var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
         var englishPluralDictionary: NSMutableDictionary?
@@ -408,42 +446,41 @@ func importLocalizationsFromTWN(_ path: String) {
             if locale != "en" { // only write the english plurals, skip the main file
                 if strings.count > 0 {
                     try writeStrings(fromDictionary: strings, toFile: stringsFilePath)
-                    
-                    // If we have a localized app store description, write a fastlane "description.txt" to a folder for its locale.
-                    if let localizedDescription = strings["app-store-short-description"] as? String {
-                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "description.txt", contents: localizedDescription, locale: locale, path: path)
-                    }
-                    
-                    // If we have a localized app store subtitle, write a fastlane "subtitle.txt" to a folder for its locale.
-                    if let localizedSubtitle = strings["app-store-subtitle"] as? String {
-                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "subtitle.txt", contents: localizedSubtitle, locale: locale, path: path)
-                    }
-
-                    // If we have localized app store release notes, write a fastlane "release_notes.txt" to a folder for its locale.
-                    if let localizedReleaseNotes = strings["app-store-release-notes"] as? String {
-                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "release_notes.txt", contents: localizedReleaseNotes, locale: locale, path: path)
-                    }
-                    
-                    // If we have localized app store keywords, write a fastlane "keywords.txt" to a folder for its locale.
-                    if let localizedKeywords = strings["app-store-keywords"] as? String {
-                        try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "keywords.txt", contents: localizedKeywords, locale: locale, path: path)
-                    }
-                    
                 } else {
                     do {
                         try fm.removeItem(atPath: stringsFilePath)
                     } catch { }
                 }
                 
-                // If we have a localized app name for "Wikipedia", write a fastlane "name.txt" to a folder for its locale.
-                let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
-                if let infoPlist = NSDictionary(contentsOfFile: infoPlistPath), let localizedAppName = infoPlist["CFBundleDisplayName"] as? String, localizedAppName.count > 0, localizedAppName != "Wikipedia" {
-                    try writeFastlaneAppStoreLocalizedMetadataFile(fileName: "name.txt", contents: localizedAppName, locale: locale, path: path)
-                }
+             
 
             } else {
                 englishPluralDictionary = stringsDict
             }
+            
+           
+            if let metadataLocales = appStoreMetadataLocales[locale] {
+                for metadataLocale in metadataLocales {
+                    let folderURL = fileURLForFastlaneMetadataFolder(for: metadataLocale)
+                    try fm.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil)
+
+                    let infoPlistPath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/InfoPlist.strings"
+                    let infoPlist = NSDictionary(contentsOfFile: infoPlistPath)
+                    
+                    try? writeFastlaneMetadata(infoPlist?["CFBundleDisplayName"], to: "name.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(strings["app-store-subtitle"], to: "subtitle.txt", for: metadataLocale)
+                    // Skipping release notes as they're out of date
+                    // try? writeFastlaneMetadata(strings["app-store-release-notes"], to: "release_notes.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(strings["app-store-short-description"], to: "description.txt", for: metadataLocale)
+                    try? writeFastlaneMetadata(strings["app-store-keywords"], to: "keywords.txt", for: metadataLocale)
+                }
+            
+            } else {
+                let folderURL = fileURLForFastlaneMetadataFolder(for: locale)
+                try? fm.removeItem(at: folderURL)
+            }
+            
             
             let stringsDictFilePath = "\(path)/Wikipedia/iOS Native Localizations/\(locale).lproj/Localizable.stringsdict"
             
