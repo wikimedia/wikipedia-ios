@@ -132,4 +132,28 @@ class CollectionAsyncMapTests: XCTestCase {
         
         wait(for:[expectation], timeout: 5, enforceOrder: true)
     }
+    
+    func testLargeAsyncMap() {
+        let randomDelayBlock: (String, @escaping (String) -> Void) -> Void = { (string, completion) in
+            let randomMillisecondDelay = DispatchTimeInterval.milliseconds(Int.random(in: 1...10))
+            let time = DispatchTime.now() + randomMillisecondDelay
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: time) {
+                completion(string.uppercased())
+            }
+            
+        }
+        let count = 1000
+        var identifiers: [String] = []
+        identifiers.reserveCapacity(count)
+        for _ in 1...count {
+            identifiers.append(UUID().uuidString)
+        }
+        let expectation = XCTestExpectation(description: "wait for completion")
+        identifiers.asyncMap(randomDelayBlock) { (processedIdentifiers) in
+            XCTAssert(processedIdentifiers.count == identifiers.count)
+            expectation.fulfill()
+        }
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
+    }
+    
 }
