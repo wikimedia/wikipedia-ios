@@ -25,6 +25,7 @@ class SectionEditorViewController: UIViewController {
         return button
     }()
 
+    // TODO
     private var changesMade: Bool {
         return true
     }
@@ -45,7 +46,6 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        registerForKeyboardNotifications()
         enableProgressButton(changesMade)
     }
 
@@ -53,10 +53,6 @@ class SectionEditorViewController: UIViewController {
         enableProgressButton(false)
         UIMenuController.shared.menuItems = webView.originalMenuItems
         super.viewWillDisappear(animated)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     private func configureWebView() {
@@ -97,94 +93,19 @@ class SectionEditorViewController: UIViewController {
                     preview.section = self.section
                     preview.wikiText = wikitext
                     preview.delegate = self
-                    // set funnels
-                    // apply theme
+                    // TODO: Set funnels
+                    // TODO: Apply theme
                     self.navigationController?.pushViewController(preview, animated: true)
                 }
             }
         } else {
-            let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed", comment: "Alert text shown if no changes were made to be previewed.")
+            let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
     }
 
     private func enableProgressButton(_ enabled: Bool) {
         progressButton.isEnabled = enabled
-    }
-
-    private func scrollTextViewSoCursorNotUnderKeyboard(_ textView: UITextView) {
-        guard
-            !viewKeyboardRect.isNull,
-            let textPosition = textView.selectedTextRange?.start
-        else {
-            return
-        }
-
-        let cursorRectInTextView = textView.caretRect(for: textPosition)
-        let cursorRectInView = textView.convert(cursorRectInTextView, to: view)
-
-        guard viewKeyboardRect.intersects(cursorRectInView) else {
-            return
-        }
-
-        // Margin here is the amount the cursor will be scrolled above the top of the keyboard.
-        let margin: CGFloat = -20
-        let newCursorRect = cursorRectInTextView.insetBy(dx: 0, dy: margin)
-
-        textView.scrollRectToVisible(newCursorRect, animated: true)
-    }
-
-    // MARK: - Keyboard
-
-    // Ensure the edit text view can scroll whatever text it is displaying all the
-    // way so the bottom of the text can be scrolled to the top of the screen.
-    // More info here:
-    // https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
-
-    private func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(_:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc private func keyboardDidShow(_ notification: NSNotification) {
-        guard let info = notification.userInfo else {
-            return
-        }
-
-        guard let keyboardFrameEnd = info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-
-        let windowKeyboardRect = keyboardFrameEnd.cgRectValue
-        guard let viewKeyboardRect = view.window?.convert(windowKeyboardRect, to: view) else {
-            return
-        }
-
-        self.viewKeyboardRect = viewKeyboardRect
-
-        // This makes it so you can always scroll to the bottom of the text view's text
-        // even if the keyboard is onscreen.
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: viewKeyboardRect.size.height, right: 0)
-        setTextViewContentInset(contentInset)
-
-        // Mark the text view as needing a layout update so the inset changes above will
-        // be taken in to account when the cursor is scrolled onscreen.
-        webView.setNeedsLayout()
-        webView.layoutIfNeeded()
-
-        // Scroll cursor onscreen if needed.
-        //scrollTextViewSoCursorNotUnderKeyboard(textView)
-    }
-
-    @objc private func keyboardWillHide(_ notification: NSNotification) {
-        setTextViewContentInset(UIEdgeInsets.zero)
-    }
-
-    private func setTextViewContentInset(_ contentInset: UIEdgeInsets) {
-        webView.scrollView.contentInset = contentInset
-        webView.scrollView.scrollIndicatorInsets = contentInset
-
-        viewKeyboardRect = CGRect.null
     }
 
     // MARK: - Accessibility
@@ -255,7 +176,8 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 } else {
                     DispatchQueue.main.async {
                         self.webView.becomeFirstResponder()
-                        self.enableProgressButton(self.changesMade)
+                        // TODO: Remove
+                        self.enableProgressButton(true)
                     }
                 }
             }
@@ -275,4 +197,11 @@ extension SectionEditorViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
     }
+}
+
+// MARK: - Old localized strings
+
+extension SectionEditorViewController {
+    // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
+    // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
 }
