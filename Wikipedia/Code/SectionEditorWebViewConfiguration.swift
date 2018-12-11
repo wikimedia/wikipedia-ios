@@ -1,7 +1,10 @@
 import WebKit
 
 protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
-    func turnOffAllButtonHighlights()
+    // Inside 'selectionChanged' the delegate should de-select all buttons.
+    func selectionChanged(isRangeSelected: Bool)
+
+    // Inside these the delegate should enable the respective button.
     func highlightBoldButton()
     func highlightItalicButton()
     func highlightReferenceButton()
@@ -17,6 +20,7 @@ protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
 }
 
 private enum MessageNameConstants: String {
+    case selectionChanged
     case highlightTheseButtons
 }
 
@@ -55,6 +59,7 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
         setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
         
         let contentController = WKUserContentController()
+        contentController.add(self, name: MessageNameConstants.selectionChanged.rawValue)
         contentController.add(self, name: MessageNameConstants.highlightTheseButtons.rawValue)
         userContentController = contentController
     }
@@ -64,11 +69,19 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        // First disable all buttons...
-        selectionChangedDelegate?.turnOffAllButtonHighlights()
-        
-        // Now enable just the buttons which need to be (based on messages received from JS land)...
-        callButtonEnableHighlightMethods(name: message.name, body: message.body)
+        switch message.name {
+        case MessageNameConstants.selectionChanged.rawValue:
+            guard let isRangeSelected = message.body as? Bool else {
+                DDLogError("Unable to interpret Bool message.")
+                selectionChangedDelegate?.selectionChanged(isRangeSelected: false)
+                break
+            }
+            selectionChangedDelegate?.selectionChanged(isRangeSelected: isRangeSelected)
+        case MessageNameConstants.highlightTheseButtons.rawValue:
+            callButtonEnableHighlightMethods(name: message.name, body: message.body)
+        default:
+            DDLogError("Unhandled JS message.")
+        }
     }
     
     private func callButtonEnableHighlightMethods(name: String, body: Any) {

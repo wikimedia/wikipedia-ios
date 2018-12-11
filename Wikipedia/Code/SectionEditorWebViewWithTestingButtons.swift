@@ -221,7 +221,7 @@ class SectionEditorWebViewWithTestingButtons: SectionEditorWebView {
 }
 
 extension SectionEditorWebViewWithTestingButtons: SectionEditorWebViewSelectionChangedDelegate {
-    func turnOffAllButtonHighlights() {
+    func selectionChanged(isRangeSelected: Bool) {
         anchorButton.isSelected = false
         boldButton.isSelected = false
         italicButton.isSelected = false
