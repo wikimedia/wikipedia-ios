@@ -621,17 +621,19 @@ div.pagelib_collapse_table_container {
 }
 
 #pagelib_edit_section_title_pronunciation {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSJhdXRvIiBoZWlnaHQ9ImF1dG8iIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTMgOXY2aDRsNSA1VjRMNyA5SDN6bTEzLjUgM2MwLTEuNzctMS4wMi0zLjI5LTIuNS00LjAzdjguMDVjMS40OC0uNzMgMi41LTIuMjUgMi41LTQuMDJ6TTE0IDMuMjN2Mi4wNmMyLjg5Ljg2IDUgMy41NCA1IDYuNzFzLTIuMTEgNS44NS01IDYuNzF2Mi4wNmM0LjAxLS45MSA3LTQuNDkgNy04Ljc3cy0yLjk5LTcuODYtNy04Ljc3eiIgZmlsbD0iIzAwMCI+PC9wYXRoPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiPjwvcGF0aD48L3N2Zz4=");
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAdhwAAHYcBj+XxZQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAI4SURBVGiB7Zm/ThRRFIc/SZYYCleRhGBlCEFjoq0J/kEDlRieAAqfwvbUxsYnUKMvIUowsEgwVNhAqEysLIwW0gA7FpMJcDhn7+7s/DPMl2xx795z8/1m9t7JnYWampqa88Yz4GrZEv0QAYfAMjBfsksQMfoi9dkEHhfo1DVCLKjRASKgDbwCBouSCyEcy2la2CEiYJ0KrA/htJTFTeAN8ZXXIbaAZt6SHmIIdeIusGvUtICLuVk6iCESCgBwBfhg1L3MxdJBDIFuAwA0gCVVdwRMZy1qIfjyVoALzjxNYEfVfuswPhOEzvJWgFVg0pnvPvGVP1k/l6nxCYSwvPcc+AM8dOZ9reo/pxXsRi5tgCSEdSduc3p7bQPXqhgg2S4t1tS4RU9yoLdMmXMPmDX6l1R7xpug7AAAC0bfqmrf8IqrEGDK6Puu2qNpJi5iDUTAvjFmSI3560lW4Q5YIbVX2yuuQoAfRt+Iav/0iqsQ4IvRd121Kx3gvdGnn9K7aSYuYhHr7TJBn9qsrbb0AL+BCeP7O6q+DYylCRBCSB/gF/b+D/BW1a9kKa0Reg+wDIw78z3g7Dn5SabGBkJvATwuc/ZAs03OB5qE5/QXYBD4qOqOiO9IYQjpAgwDn4y6F7lYBhBDpBNTwJ5Rs0YJr1UShHCAW8A77BdbX4FLuVsGEPwA69g/teTBNlyMYphkYWss8eTlbqMwuy4Ro0/LbwCPilPqnwg4IN42n5bskor//i+mmpqammP+AebGbBiuYyfiAAAAAElFTkSuQmCC");
   background-repeat: no-repeat;
   background-position: center;
-  padding-left: 0.4em;
-  padding-right: 0.4em;
   opacity: .54;
-  margin-left: 0.35em;
-  margin-right: 0.35em;
+  margin: auto 0.35em 0.1em 0.35em;
+  display: inline-block;
+  background-size: contain;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
 }
 
-[dir="rtl"] #pagelib_edit_section_title_pronunciation {
+html[dir="rtl"] #pagelib_edit_section_title_pronunciation {
   -webkit-transform: scaleX( -1 );
   transform: scaleX( -1 );
 }
@@ -765,17 +767,16 @@ a.pagelib_edit_section_link {
     background-position: left center;
 }
 
-[dir="rtl"] #pagelib_edit_section_add_title_description:before {
+html[dir="rtl"] #pagelib_edit_section_add_title_description:before {
+    -webkit-transform: scaleX( -1 );
     transform: scaleX(-1);
 }
 
 /* Horizontal divider between title/description and lead section text */
 #pagelib_edit_section_divider {
     border: 1px solid #ccc;
-    margin-top: 12px;
-    margin-bottom: 16px;
+    margin: 12px 0px 16px 0px;
     width: 60px;
-    margin-left: 0px;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2) {
@@ -784,13 +785,6 @@ a.pagelib_edit_section_link {
     }
 }
 
-[dir="ltr"] #pagelib_edit_section_divider {
-    margin-left: 0px;
-}
-
-[dir="rtl"] #pagelib_edit_section_divider {
-    margin-right: 0px;
-}
 .pagelib_footer_container {
   background-color: #eaecf0;
 }
