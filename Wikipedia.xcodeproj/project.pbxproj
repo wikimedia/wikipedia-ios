@@ -295,11 +295,6 @@
 		7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
 		7A6F560821AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
 		7A6F560921AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
-		7A6F560B21AF53480076D184 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560A21AF53480076D184 /* EditTextView.swift */; };
-		7A6F560C21AF53480076D184 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560A21AF53480076D184 /* EditTextView.swift */; };
-		7A6F560D21AF53480076D184 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560A21AF53480076D184 /* EditTextView.swift */; };
-		7A6F560E21AF53480076D184 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560A21AF53480076D184 /* EditTextView.swift */; };
-		7A6F560F21AF53480076D184 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560A21AF53480076D184 /* EditTextView.swift */; };
 		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
@@ -3426,7 +3421,6 @@
 		7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Chunked.swift"; path = "../Wikipedia/Code/Array+Chunked.swift"; sourceTree = "<group>"; };
 		7A6F55FE21AF508B0076D184 /* TextFormatting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextFormatting.storyboard; sourceTree = "<group>"; };
 		7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingInputViewController.swift; sourceTree = "<group>"; };
-		7A6F560A21AF53480076D184 /* EditTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextView.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
@@ -5192,7 +5186,6 @@
 			isa = PBXGroup;
 			children = (
 				7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */,
-				7A6F560A21AF53480076D184 /* EditTextView.swift */,
 				B0E806F71C0CEBC70065EBC0 /* LegacySectionEditorViewController.h */,
 				B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */,
 				B00F3F9221B0CC10002EDF29 /* SectionEditorWebView.swift */,
@@ -10222,7 +10215,6 @@
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
 				7A20AE082057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				7A29A5CE1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				7A6F560B21AF53480076D184 /* EditTextView.swift in Sources */,
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -10685,7 +10677,6 @@
 				7A6ED51A20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D80ED3071EE57F4800CE8C50 /* WMFWelcomeContainerViewController.swift in Sources */,
 				D80ED3081EE57F4800CE8C50 /* WMFAccountCreator.swift in Sources */,
-				7A6F560F21AF53480076D184 /* EditTextView.swift in Sources */,
 				7AFC79FC21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				B0C7A0821F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				D80ED3091EE57F4800CE8C50 /* UIViewController+WMFHideKeyboard.swift in Sources */,
@@ -11269,7 +11260,6 @@
 				D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */,
 				7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */,
-				7A6F560E21AF53480076D184 /* EditTextView.swift in Sources */,
 				D8A42A691E815A9C00D8E281 /* UIButton+WMFButton.m in Sources */,
 				D8A42A6A1E815A9C00D8E281 /* WMFTableOfContentsAnimator.swift in Sources */,
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -11732,7 +11722,6 @@
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				B0C7A0831F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
-				7A6F560C21AF53480076D184 /* EditTextView.swift in Sources */,
 				7AFC79F921B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+WMFWelcomeFadeInAndUp.swift in Sources */,
@@ -12078,7 +12067,6 @@
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				B0C7A07F1F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
-				7A6F560D21AF53480076D184 /* EditTextView.swift in Sources */,
 				7AFC79FA21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				D8EC3E621E9BDA35006712EB /* WMFSuggestedPagesFunnel.m in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
