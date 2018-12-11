@@ -1941,7 +1941,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         _settingsNavigationController = navController;
     }
 
-    if (_settingsNavigationController.viewControllers.count == 0) {
+    if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
         _settingsNavigationController.viewControllers = @[self.settingsViewController];
     }
 
