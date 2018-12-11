@@ -73,6 +73,7 @@ class SectionEditorWebView: WKWebView {
         }
     }
 
+    // TODO: Becoming/resigning is jenky
     override var canBecomeFirstResponder: Bool { return true }
     @discardableResult override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
