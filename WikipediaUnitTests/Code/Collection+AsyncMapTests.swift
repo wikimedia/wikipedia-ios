@@ -138,7 +138,7 @@ class CollectionAsyncMapTests: XCTestCase {
             let randomMillisecondDelay = DispatchTimeInterval.milliseconds(Int.random(in: 1...10))
             let time = DispatchTime.now() + randomMillisecondDelay
             DispatchQueue.global(qos: .default).asyncAfter(deadline: time) {
-                completion(string.uppercased())
+                completion(string)
             }
             
         }
@@ -150,7 +150,30 @@ class CollectionAsyncMapTests: XCTestCase {
         }
         let expectation = XCTestExpectation(description: "wait for completion")
         identifiers.asyncMap(randomDelayBlock) { (processedIdentifiers) in
-            XCTAssert(processedIdentifiers.count == identifiers.count)
+            XCTAssert(processedIdentifiers == identifiers)
+            expectation.fulfill()
+        }
+        wait(for:[expectation], timeout: 5, enforceOrder: true)
+    }
+    
+    func testLargeAsyncCompactMap() {
+        let randomDelayBlock: (String, @escaping (String?) -> Void) -> Void = { (string, completion) in
+            let randomMillisecondDelay = DispatchTimeInterval.milliseconds(Int.random(in: 1...10))
+            let time = DispatchTime.now() + randomMillisecondDelay
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: time) {
+                completion(string.hasPrefix("A") ? nil : string)
+            }
+            
+        }
+        let count = 1000
+        var identifiers: [String] = []
+        identifiers.reserveCapacity(count)
+        for _ in 1...count {
+            identifiers.append(UUID().uuidString)
+        }
+        let expectation = XCTestExpectation(description: "wait for completion")
+        identifiers.asyncCompactMap(randomDelayBlock) { (processedIdentifiers) in
+            XCTAssert(processedIdentifiers.filter { $0.hasPrefix("A") }.count == 0)
             expectation.fulfill()
         }
         wait(for:[expectation], timeout: 5, enforceOrder: true)
