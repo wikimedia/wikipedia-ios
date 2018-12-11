@@ -81,7 +81,6 @@ class TextFormattingInputViewController: UIInputViewController {
         view.layer.shadowRadius = 10
         view.layer.shadowOpacity = 1.0
     }
-    
 }
 
 extension TextFormattingInputViewController: Themeable {
