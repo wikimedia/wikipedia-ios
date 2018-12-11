@@ -1,1 +1,1 @@
-Nguồn cấp Thám hiểm có thể tùy biến hoàn toàn và đọc dễ dàng hơn. Địa phương hóa, tối ưu hóa, và sửa lỗi.
+Minor bug fix.

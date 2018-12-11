@@ -4,6 +4,7 @@
 // Author: Chmee2
 // Author: Clon
 // Author: Cvanca
+// Author: Danny B.
 // Author: Dvorapa
 // Author: Evica
 // Author: Fitoschido
@@ -111,7 +112,6 @@
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Ovládací prvky pro čtení motivů";
-"article-unable-to-load-article" = "Není možné načíst článek.";
 "article-unable-to-load-section" = "Nelze načíst tento oddíl. Zkuste aktualizovat stránku, v některých případech to může pomoci.";
 "back-button-accessibility-label" = "Zpět";
 "back-button-popover-title" = "Klepnutím se vrátíte zpět";
@@ -379,7 +379,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Jste přihlášeni pomocí dočasného hesla. Chcete-li dokončit přihlášení, zadejte prosím nové heslo.";
 "new-password-title" = "Zadejte své heslo";
-"no-email-account-alert" = "Prosím, přidejte na vaše zařízení e-mailový účet a zkuste to znovu.";
+"no-email-account-alert" = "Prosím, přidejte do Vašeho zařízení e-mailový účet a zkuste to znovu.";
 "number-billions" = "$1 miliard";
 "number-millions" = "$1 milionů";
 "number-thousands" = "$1 tisíc";
@@ -561,7 +561,7 @@
 "settings-clear-cache-are-you-sure-message" = "Vymazání dat uložených v mezipaměti (cache) uvolní přibližně $1 místa. Vaše uložené stránky nebudou smazány.";
 "settings-clear-cache-are-you-sure-title" = "Vymazat data v mezipaměti?";
 "settings-clear-cache-cancel" = "Storno";
-"settings-clear-cache-ok" = "Vymazat cache";
+"settings-clear-cache-ok" = "Vyprázdnit cache";
 "settings-help-and-feedback" = "Pomoc a zpětná vazba";
 "settings-language-bar" = "Ukazovat jazyky při vyhledávání";
 "settings-languages-feed-customization" = "Můžete spravovat, které jazyky se zobrazují v Prozkoumat, přizpůsobením nastavení zdroje procházení.";

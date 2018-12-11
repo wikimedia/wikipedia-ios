@@ -102,7 +102,6 @@
 "article-save-error-not-enough-space" = "Немате довољно простора на уређају да бисте сачували овај чланак";
 "article-share" = "Дели";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Подешавања тема за читање";
-"article-unable-to-load-article" = "Није могуће учитати чланак.";
 "article-unable-to-load-section" = "Није могуће учитати овај одељак. Проверите да ли ће поновно учитавање чланка решити проблем.";
 "back-button-accessibility-label" = "Назад";
 "back-button-popover-title" = "Додирните да бисте се вратили";

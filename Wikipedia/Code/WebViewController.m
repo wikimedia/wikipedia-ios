@@ -275,7 +275,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 
                                        NSURL *selectedImageURL = [NSURL URLWithString:selectedImageSrcURLString];
 
-                                       selectedImageURL = [selectedImageURL wmf_imageAppSchemeOriginalSrcURL];
+                                       selectedImageURL = [selectedImageURL wmf_originalURLFromAppSchemeURL];
 
                                        [self.delegate webViewController:self didTapImageWithSourceURL:selectedImageURL];
                                    }];

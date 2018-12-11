@@ -94,7 +94,6 @@
 "article-read-more-title" = "Læs mere";
 "article-share" = "Del";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
-"article-unable-to-load-article" = "Kunne ikke indlæse denne artikel.";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";
 "back-button-accessibility-label" = "Tilbage";
 "back-button-popover-title" = "Tryk for at gå tilbage";
@@ -162,6 +161,7 @@
 "explore-featured-article-heading" = "Fremhævet artikel";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
+"explore-feed-preferences-card-hidden-title" = "Kort skjult";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle %@ kort";
@@ -348,6 +348,7 @@
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";
 "readers-accessibility-label" = "$1 læsere";
+"reading-list-add-generic-hint-title" = "Tilføj denne artikel til en læseliste?";
 "reading-list-add-hint-title" = "Tilføj »$1« til læselisten?";
 "reading-list-add-saved-button-title" = "Ja, tilføj dem til mine læselister";
 "reading-list-add-saved-subtitle" = "Der er artikler gemt i dit Wikipediaprogram. Ønsker du at bevare dem og sammenføje dem med læselister synkroniseret til din konto?";
@@ -391,6 +392,7 @@
 "reading-lists-article-added-confirmation" = "Artikel tilføjet til »$1«";
 "reading-lists-article-api-failure" = "Artiklen kunne ikke synkroniseres";
 "reading-lists-article-not-synced" = "Ikke synkroniseret";
+"reading-lists-article-queued-to-be-downloaded" = "Artiklen er sat i kør for download";
 "reading-lists-count" = "{{PLURAL:$1|$1 læseliste|$1 læselister}}";
 "reading-lists-default-list-description" = "Standardliste for dine gemte artikler";
 "reading-lists-default-list-title" = "Gemt";
@@ -432,6 +434,7 @@
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-delete-all" = "Slet";
+"search-recent-empty" = "Endnu ingen seneste søgninger";
 "search-recent-title" = "Seneste søgte";
 "search-result-redirected-from" = "Omdirigeret fra: $1";
 "search-title" = "Søg";

@@ -88,7 +88,7 @@
 "app-store-short-description" = "Lataa Wikipedia-sovellus tutkiaksesi ympärilläsi olevia paikkoja, synkronoidaksesi artikkeleita lukeaksesi niitä offline-tilassa ja mukauttaaksesi lukukokemustasi.";
 "app-store-subtitle" = "Vapaa tietosanakirja";
 "appearance-settings-adjust-text-sizing" = "Säädä artikkelien tekstin kokoa";
-"appearance-settings-expand-tables" = "Laajenna taulukoita";
+"appearance-settings-expand-tables" = "Laajenna taulukot";
 "appearance-settings-expand-tables-footer" = "Aseta kaikki taulukot kaikissa artikkeleissa aukeamaan oletuksena, mukaanlukien Pikafaktoja, Viitteet, Ilmoitukset ja Ulkoiset linkit.";
 "appearance-settings-image-dimming-footer" = "Pienennä kuvien sameutta tummassa teemassa";
 "appearance-settings-reading-themes" = "Lukuteemat";
@@ -106,7 +106,6 @@
 "article-save-error-not-enough-space" = "Sinulla ei ole tarpeeksi tilaa laitteessasi tallentaaksesi tämän artikkelin";
 "article-share" = "Jaa";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Lukuteemojen ohjaimet";
-"article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "back-button-accessibility-label" = "Takaisin";
 "back-button-popover-title" = "Napauta palataksesi";
@@ -129,8 +128,10 @@
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "description-add-link-title" = "Lisää otsikkokuvaus";
 "description-add-title" = "Lisää kuvaus";
+"description-edit-for-article" = "Otsikkokuvaus artikkelille $1";
 "description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "Muuttamalla otsikkokuvausta, hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-title" = "Muokkaa otsikkokuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
@@ -142,9 +143,11 @@
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkiksi:";
 "description-published-button-title" = "Valmis";
+"description-published-subtitle" = "Olet juuri tehnyt Wikipediasta paremman kaikille";
 "description-published-title" = "Kuvaus julkaistu!";
 "description-welcome-concise-title" = "Pidä se lyhyenä";
 "description-welcome-descriptions-title" = "Otsikkokuvaukset";
+"description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "dim-images" = "Dim kuvat";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
@@ -166,6 +169,7 @@
 "empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
+"error-generic-description" = "Odottamaton virhe tapahtui";
 "error-generic-recovery-suggestion" = "Yritä myöhemmin uudelleen";
 "error-unknown" = "Tapahtui tuntematon virhe";
 "explore-another-random" = "Toinen satunnainen sivu";
@@ -180,6 +184,7 @@
 "explore-feed-customize-accessibility-title" = "Mukauta";
 "explore-feed-language-settings" = "Tutki-syötteen kieliasetukset";
 "explore-feed-preferences-additional-languages-footer-text" = "Lisäkieliä voi lisätä asetusten 'Omat kielet' -sivulta.";
+"explore-feed-preferences-card-hidden-title" = "Kortti piilotettu";
 "explore-feed-preferences-continue-reading-description" = "Pikalinkki takaisin avoimeen artikkeliin";
 "explore-feed-preferences-customize-explore-feed" = "Mukauta Tutki-syötettä";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Mukauta Tutki-syötettä";
@@ -190,6 +195,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Kaikilla";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Käytössä";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1 kielellä";
+"explore-feed-preferences-feed-cards-hidden-title" = "Kaikki %@ korttia piilotettu";
 "explore-feed-preferences-global-card-footer-text" = "Tämä kortti ei ole kielikohtainen, ja sen poistaminen käytöstä poistaa sen Tutki-syötteestäsi.";
 "explore-feed-preferences-global-cards-description" = "Ei-kielikohtaiset tietyt kortit";
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
@@ -221,8 +227,11 @@
 "explore-feed-preferences-top-read-description" = "Päivittäin eniten luetut artikkelit";
 "explore-feed-preferences-turn-off-explore-feed-alert-action-title" = "Poista Tutki-syöte käytöstä";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Poistetaanko Tutki-syöte käytöstä?";
+"explore-feed-preferences-turn-off-explore-tab-action-title" = "Poista Tutki-välilehti käytöstä";
 "explore-feed-preferences-turn-off-explore-tab-message" = "Tutki-välilehti voidaan ottaa uudelleen käyttöön Tutki-syötteen asetuksissa";
+"explore-feed-preferences-turn-off-explore-tab-title" = "Poista Tutki-välilehti käytöstä";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Tutki-välilehden poistaminen käytöstä korvaa sen Asetukset-välilehdellä.";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Ota Tutki-välilehti käyttöön";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Ota käyttöön Tutki-välilehti?";
 "explore-feed-preferences-undo-customization" = "Kumoa";
 "explore-hide-card-prompt" = "Piilota tämä kortti";
@@ -358,6 +367,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediasta";
 "on-this-day-title" = "Tänä päivänä";
 "open-link-cancel" = "Peruuta";
+"original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
 "page-edit-history" = "Täysi muokkaushistoria";
 "page-history-title" = "Artikkelin historia";
 "page-issues" = "Sivun ongelmat";
@@ -494,9 +504,12 @@
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tänä vuonna|Viime vuonna|$1 vuotta sitten}}";
 "request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";
+"reverted-edit-notification-body" = "$2 palautti artikkeliin $1 tekemäsi muutoksen";
 "reverted-edit-notification-read-more-action-title" = "Lue lisää";
+"reverted-edit-possible-reasons" = "- Muutoksesi ei noudata yhtä suuntaviivoista. $1 \n\n - Muutoksesi näyttää kokeilulta tai vandalismilta";
 "reverted-edit-thanks-for-editing-title" = "Kiitos Wikipedian muokkaamisesta!";
 "reverted-edit-title" = "Kumottu muokkaus";
+"reverted-edit-view-guidelines-text" = "Näytä suuntaviivat";
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
@@ -536,6 +549,7 @@
 "settings-notifications-trending" = "Nousussa olevat ajankohtaiset tapahtumat";
 "settings-primary-language" = "Ensisijainen";
 "settings-primary-language-details" = "Tämän listan ensimmäinen kieli on sovelluksen oletuskieli.";
+"settings-search-footer-text" = "Aseta sovellus avaamaan Haku-välilehti Tutki-välilehden sijaan";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Salli Wikimedian tallentaa tallennetut artikkelisi ja lukulistasi käyttäjäasetuksiisi kun kirjaudut ja synkronoit.";
 "settings-storage-and-syncing-enable-sync-title" = "Synkronoi tallennetut artikkelit ja luettelot";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Tallennettujen artikkeleiden tyhjentäminen poistaa ne tililtäsi, jos sinulla on synkronointi käytössä tällä laitteella. Tätä toimintoa ei voi kumota.";

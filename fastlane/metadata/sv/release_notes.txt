@@ -1,1 +1,1 @@
-Helt anpassningsbart och mer lättläst utforskarflöde. Lokalisering, prestandaförbättringar och buggfixar.
+Minor bug fix.

@@ -101,7 +101,6 @@
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
 "article-toolbar-reading-themes-controls-toolbar-item" = "בקרי ערכות נושא לקריאה";
-"article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "back-button-accessibility-label" = "חזרה";
 "back-button-popover-title" = "יש ללחוץ כדי לחזור";
@@ -134,6 +133,8 @@
 "description-edit-publish" = "פרסום התיאור";
 "description-edit-title" = "עריכת תיאור";
 "description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט אחד";
+"description-help-about-description" = "תיאורי הכותרת מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
+"description-help-about-title" = "אודות";
 "dim-images" = "עמעום תמונות";
 "edit-summary-choice-fixed-grammar" = "תיקנתי דקדוק";
 "edit-summary-choice-fixed-typos" = "תיקנתי טעות הקלדה";

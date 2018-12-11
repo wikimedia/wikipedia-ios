@@ -1,1 +1,0 @@
-Vollständig anpassbarer und leichter zu lesender Entdecken-Feed. Lokalisierung, Verbesserungen an der Leistung und Fehlerbehebungen.
