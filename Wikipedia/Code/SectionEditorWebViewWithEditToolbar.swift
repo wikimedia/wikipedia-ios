@@ -298,6 +298,10 @@ extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
 }
 
 extension SectionEditorWebViewWithEditToolbar: SectionEditorWebViewSelectionChangedDelegate {
+    func selectionChanged(isRangeSelected: Bool) {
+        //
+    }
+    
     func highlightCommentButton() {
         //
     }
