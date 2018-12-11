@@ -28,11 +28,14 @@ public extension Sequence {
 public extension Collection {
     func asyncMap<R>(_ block: (Element, @escaping (R) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
         var results = [R?](repeating: nil, count: count)
         for (index, object) in self.enumerated() {
             group.enter()
             block(object, { result in
+                semaphore.wait()
                 results[index] = result
+                semaphore.signal()
                 group.leave()
             })
         }
@@ -43,6 +46,7 @@ public extension Collection {
 
     func asyncCompactMap<R>(_ block: (Element, @escaping (R?) -> Void) -> Void, completion:  @escaping ([R]) -> Void) {
         let group = DispatchGroup()
+        let semaphore = DispatchSemaphore(value: 1)
         var results = [R?](repeating: nil, count: count)
         for (index, object) in self.enumerated() {
             group.enter()
@@ -51,7 +55,9 @@ public extension Collection {
                     group.leave()
                     return
                 }
+                semaphore.wait()
                 results[index] = result
+                semaphore.signal()
                 group.leave()
             })
         }
