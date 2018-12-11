@@ -1077,7 +1077,6 @@
 		B0E806E31C0CEB930065EBC0 /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806DE1C0CEB930065EBC0 /* PreviewLicenseView.m */; };
 		B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */; };
 		B0E806E51C0CEB930065EBC0 /* PreviewWebViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806E11C0CEB930065EBC0 /* PreviewWebViewContainer.m */; };
-		B0E806F91C0CEBC70065EBC0 /* LegacySectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */; };
 		B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807101C0CEBF00065EBC0 /* WebViewController.m */; };
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */; };
@@ -1420,7 +1419,6 @@
 		D80ED3601EE57F4800CE8C50 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
 		D80ED3611EE57F4800CE8C50 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D80ED3621EE57F4800CE8C50 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
-		D80ED3631EE57F4800CE8C50 /* LegacySectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */; };
 		D80ED3651EE57F4800CE8C50 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D80ED3661EE57F4800CE8C50 /* ArticleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */; };
 		D80ED3671EE57F4800CE8C50 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */; };
@@ -2085,7 +2083,6 @@
 		D8A42B421E815A9C00D8E281 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
 		D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D8A42B441E815A9C00D8E281 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
-		D8A42B451E815A9C00D8E281 /* LegacySectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */; };
 		D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */; };
 		D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
@@ -2388,7 +2385,6 @@
 		D8CE25C71E698E2400DAE2E0 /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
 		D8CE25C81E698E2400DAE2E0 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D8CE25C91E698E2400DAE2E0 /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
-		D8CE25CA1E698E2400DAE2E0 /* LegacySectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */; };
 		D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */; };
 		D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
@@ -2717,7 +2713,6 @@
 		D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23E4E41C22429100B5AFDE /* WMFRevisionQueryResults.m */; };
 		D8EC3EC61E9BDA35006712EB /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
 		D8EC3EC71E9BDA35006712EB /* UIView+RemoveConstraints.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8051A1C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m */; };
-		D8EC3EC81E9BDA35006712EB /* LegacySectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */; };
 		D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805181C0CE0DC0065EBC0 /* UIView+IBExtras.swift */; };
 		D8EC3ECC1E9BDA35006712EB /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */; };
 		D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B30D01DB817660012281F /* UIViewController+WMFWelcomeStoryboard.swift */; };
@@ -3957,8 +3952,6 @@
 		B0E806DF1C0CEB930065EBC0 /* PreviewLicenseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreviewLicenseView.xib; path = Wikipedia/Code/PreviewLicenseView.xib; sourceTree = SOURCE_ROOT; };
 		B0E806E01C0CEB930065EBC0 /* PreviewWebViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreviewWebViewContainer.h; path = Wikipedia/Code/PreviewWebViewContainer.h; sourceTree = SOURCE_ROOT; };
 		B0E806E11C0CEB930065EBC0 /* PreviewWebViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreviewWebViewContainer.m; path = Wikipedia/Code/PreviewWebViewContainer.m; sourceTree = SOURCE_ROOT; };
-		B0E806F71C0CEBC70065EBC0 /* LegacySectionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LegacySectionEditorViewController.h; path = Wikipedia/Code/LegacySectionEditorViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LegacySectionEditorViewController.m; path = Wikipedia/Code/LegacySectionEditorViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = Wikipedia/Code/WMFSharing.h; sourceTree = SOURCE_ROOT; };
 		B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController_Private.h; path = Wikipedia/Code/WebViewController_Private.h; sourceTree = SOURCE_ROOT; };
 		B0E8070F1C0CEBF00065EBC0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Wikipedia/Code/WebViewController.h; sourceTree = SOURCE_ROOT; };
@@ -5186,8 +5179,6 @@
 			isa = PBXGroup;
 			children = (
 				7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */,
-				B0E806F71C0CEBC70065EBC0 /* LegacySectionEditorViewController.h */,
-				B0E806F81C0CEBC70065EBC0 /* LegacySectionEditorViewController.m */,
 				B00F3F9221B0CC10002EDF29 /* SectionEditorWebView.swift */,
 				7A196F5921BF199500D9E4B5 /* SectionEditorWebViewWithEditToolbar.swift */,
 				B00B98D721B6096C00BF8985 /* SectionEditorWebView+ExecCommand.swift */,
@@ -10424,7 +10415,6 @@
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */,
 				B08624341F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
-				B0E806F91C0CEBC70065EBC0 /* LegacySectionEditorViewController.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				D818D3861ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
@@ -10767,7 +10757,6 @@
 				7ADF497F21B45CEE009EA338 /* TextFormattingToolbarView.swift in Sources */,
 				830ECAD31FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				D80ED3621EE57F4800CE8C50 /* UIView+RemoveConstraints.m in Sources */,
-				D80ED3631EE57F4800CE8C50 /* LegacySectionEditorViewController.m in Sources */,
 				B0370E1A1FA404B1002CCC82 /* WKWebView+LoadAssetsHtml.swift in Sources */,
 				7A998AC51FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D80ED3651EE57F4800CE8C50 /* UIView+IBExtras.swift in Sources */,
@@ -11467,7 +11456,6 @@
 				D8A42B431E815A9C00D8E281 /* WMFAppViewController.m in Sources */,
 				D8C4D3DB1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				D8A42B441E815A9C00D8E281 /* UIView+RemoveConstraints.m in Sources */,
-				D8A42B451E815A9C00D8E281 /* LegacySectionEditorViewController.m in Sources */,
 				B0845E1420618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D818D38E1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
@@ -11822,7 +11810,6 @@
 				D8CE25C91E698E2400DAE2E0 /* UIView+RemoveConstraints.m in Sources */,
 				7AFEB1BD1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				B0ACB13421265B9C0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
-				D8CE25CA1E698E2400DAE2E0 /* LegacySectionEditorViewController.m in Sources */,
 				D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */,
 				B0524B20214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				D8A3C4E82113901600F6F2F5 /* ArticleURLProviderEditControllerUpdater.swift in Sources */,
@@ -12165,7 +12152,6 @@
 				8382F8C920D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				D8EC3EC71E9BDA35006712EB /* UIView+RemoveConstraints.m in Sources */,
 				7AFEB1BE1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
-				D8EC3EC81E9BDA35006712EB /* LegacySectionEditorViewController.m in Sources */,
 				B0ACB13521265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */,
 				8382F8DB20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,

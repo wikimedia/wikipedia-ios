@@ -6,7 +6,6 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "LegacySectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "PageHistoryViewController.h"
