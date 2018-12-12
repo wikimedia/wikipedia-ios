@@ -216,19 +216,15 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             inputAccessoryViewType = nil
         }
 
-        dispatchOnMainQueueAfterDelayInSeconds(0.1) {
-        //let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
-            self.resignFirstResponder()
-        //}
+        // TODO: figure out how to animate this better. See gif here https://wikimedia.slack.com/archives/D7HH4J9CZ/p1544568250021700 to see how the toolbar is appearing too soon.
+        dispatchOnMainQueue() { // Prevents flicker.
+            UIView.performWithoutAnimation {
+                self.resignFirstResponder()
+                self.becomeFirstResponder()
+            }
         }
 
-        //animator.addCompletion { (_) in
-            self.becomeFirstResponder()
-        //}
-
         inputViewType = type
-
-        //animator.startAnimation()
     }
 }
 
