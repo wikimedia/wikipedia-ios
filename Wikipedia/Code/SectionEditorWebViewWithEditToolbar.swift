@@ -216,17 +216,19 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             inputAccessoryViewType = nil
         }
 
-        let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
+        dispatchOnMainQueueAfterDelayInSeconds(0.1) {
+        //let animator = UIViewPropertyAnimator.init(duration: 0.3, curve: .easeInOut) {
             self.resignFirstResponder()
+        //}
         }
 
-        animator.addCompletion { (_) in
+        //animator.addCompletion { (_) in
             self.becomeFirstResponder()
-        }
+        //}
 
         inputViewType = type
 
-        animator.startAnimation()
+        //animator.startAnimation()
     }
 }
 
