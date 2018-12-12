@@ -330,6 +330,10 @@
           restoreCursorState()      
         }, 10)
       })
+      editor.on('scrollCursorIntoView', (cm, ev) => {
+        ev.preventDefault()
+        return false
+      })
     }
     
     const wmf = {}
