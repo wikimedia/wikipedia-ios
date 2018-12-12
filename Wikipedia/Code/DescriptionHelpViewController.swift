@@ -63,7 +63,7 @@ class DescriptionHelpViewController: ViewController {
         exampleTwoDescriptionLabel.text = WMFLocalizedString("description-help-tips-example-description-two", value:"title description for an article about Mount Everest", comment:"Second example description text")
         
         moreInfoTitleLabel.text = WMFLocalizedString("description-help-more-info-title", value:"More information", comment:"Title descriptions more info heading text")
-        moreInfoDescriptionLabel.text = WMFLocalizedString("description-help-more-info-description", value:"Descriptions are stored and maintained on Wikidata,  a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.", comment:"Title descriptions more info details text")
+        moreInfoDescriptionLabel.text = WMFLocalizedString("description-help-more-info-description", value:"Descriptions are stored and maintained on Wikidata, a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.", comment:"Title descriptions more info details text")
 
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")

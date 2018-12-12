@@ -120,7 +120,7 @@
 "description-help-about-description" = "Title descriptions summarize an article to help readers understand the subject at a glance.";
 "description-help-about-title" = "About";
 "description-help-about-wikidata" = "About Wikidata";
-"description-help-more-info-description" = "Descriptions are stored and maintained on Wikidata,  a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.";
+"description-help-more-info-description" = "Descriptions are stored and maintained on Wikidata, a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.";
 "description-help-more-info-title" = "More information";
 "description-help-tips-description" = "Descriptions should ideally fit on one line, and are between two to twelve words long. They are not capitalized unless the first word is a proper noun.";
 "description-help-tips-example-description-one" = "title description for an article about the Mona Lisa";
