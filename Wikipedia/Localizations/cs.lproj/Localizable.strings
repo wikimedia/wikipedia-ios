@@ -159,7 +159,7 @@
 "description-help-title" = "Nápověda pro popisy článků";
 "description-help-wikidata-guide" = "Wikidata průvodce pro psaní popisů";
 "description-published-button-title" = "Hotovo";
-"description-published-footer" = "Můžete také editovat články pomocí této aplikacr. Zluste opravit typografii a krátké věty klepnutím na ikonu tužky";
+"description-published-footer" = "Můžete také editovat články pomocí této aplikace. Zkuste opravit typografii a krátké věty klepnutím na ikonu tužky";
 "description-published-subtitle" = "Právě jste vytvořili lepší Wikipedii pro každého";
 "description-published-title" = "Popis byl zveřejněn!";
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
@@ -215,7 +215,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ je skrytých";
-"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutí této karty bude odstraněno z vaší karty Prozkoumat.";
+"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutí této karty bude odstraněna z vaší karty Prozkoumat.";
 "explore-feed-preferences-global-cards-description" = "Nejazyčné specifické karty";
 "explore-feed-preferences-global-cards-subtitle" = "Ne specifický jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
@@ -252,7 +252,7 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "Vypnout kartu Prozkoumat?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Vypnutím karty Prozkoumat ji nahradíte za kartu Nastavení.";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Vybráním možnosti Prozkoumat karty zapnete kartu Prozkoumat";
-"explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout Prozkoumat";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout kartu Prozkoumat";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Tímto nahradíte kartu Nastavení za kartu Prozkoumat. Klepnutím na ikonu ozubeného kola můžete přistupovat k nastavení v horní části karty Prozkoumat";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Zapnout kartu Prozkoumat?";
 "explore-feed-preferences-undo-customization" = "Zpět";
