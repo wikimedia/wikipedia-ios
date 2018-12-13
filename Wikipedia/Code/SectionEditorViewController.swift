@@ -9,7 +9,6 @@ class SectionEditorViewController: UIViewController {
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
 
-    private var viewKeyboardRect = CGRect.null
     private var rightButton: UIBarButtonItem?
 
     private var theme = Theme.standard
