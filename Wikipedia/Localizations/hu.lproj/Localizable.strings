@@ -115,8 +115,10 @@
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
+"description-add-link-title" = "Adj meg egy címleírást";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-learn-more" = "Tudj meg többet";
+"description-edit-length-warning" = "$1/$2";
 "description-edit-publish" = "Leírás közzététele";
 "description-edit-title" = "Leírás szerkesztése";
 "description-help-about-title" = "Névjegy";
