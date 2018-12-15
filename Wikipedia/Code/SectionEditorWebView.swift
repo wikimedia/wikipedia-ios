@@ -8,11 +8,18 @@ class SectionEditorWebView: WKWebView {
     let config = SectionEditorWebViewConfiguration()
     private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
 
+    // WKWebView version of same property from UIWebView
+    var keyboardDisplayRequiresUserAction: Bool = true {
+        didSet {
+            updateKeyboardDisplayRequiresUserAction(keyboardDisplayRequiresUserAction)
+        }
+    }
+    
     init() {
         super.init(frame: .zero, configuration: config)
         loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
         scrollView.keyboardDismissMode = .interactive
-        setKeyboardRequiresUserInteraction(false)
+        keyboardDisplayRequiresUserAction = false
     }
 
     required init?(coder: NSCoder) {
@@ -85,7 +92,7 @@ class SectionEditorWebView: WKWebView {
 fileprivate typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
 fileprivate typealias BlockType =  @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
 fileprivate extension SectionEditorWebView {
-    func setKeyboardRequiresUserInteraction(_ value: Bool) {
+    func updateKeyboardDisplayRequiresUserAction(_ value: Bool) {
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
             DDLogError("Could not get class")
             return
