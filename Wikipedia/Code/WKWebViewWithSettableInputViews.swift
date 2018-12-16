@@ -6,6 +6,7 @@ class WKWebViewWithSettableInputViews: WKWebView {
     
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
+        setKeyboardRequiresUserInteraction(false)
         overrideNestedContentViewGetters()
     }
     
@@ -92,5 +93,27 @@ class WKWebViewWithSettableInputViews: WKWebView {
 
         objc_registerClassPair(newContentViewClass)
         object_setClass(contentView, newContentViewClass)
+    }
+}
+
+fileprivate typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
+fileprivate typealias BlockType =  @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
+fileprivate extension WKWebViewWithSettableInputViews {
+    func setKeyboardRequiresUserInteraction(_ value: Bool) {
+        guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
+            DDLogError("Could not get class")
+            return
+        }
+        let sel = sel_getUid("_startAssistingNode:userIsInteracting:blurPreviousNode:changingActivityState:userObject:")
+        guard let method = class_getInstanceMethod(WKContentView, sel) else {
+            DDLogError("Could not get method")
+            return
+        }
+        let originalImp = method_getImplementation(method)
+        let original = unsafeBitCast(originalImp, to: ClosureType.self)
+        let block: BlockType = { (me, arg0, arg1, arg2, arg3, arg4) in
+            original(me, sel, arg0, !value, arg2, arg3, arg4)
+        }
+        method_setImplementation(method, imp_implementationWithBlock(block))
     }
 }
