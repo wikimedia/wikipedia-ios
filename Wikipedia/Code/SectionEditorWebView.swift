@@ -3,7 +3,7 @@ import WebKit
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebView {
+class SectionEditorWebView: WKWebViewWithSettableInputViews {
     
     let config = SectionEditorWebViewConfiguration()
     private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
