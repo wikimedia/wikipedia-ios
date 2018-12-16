@@ -13,6 +13,26 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f)
 
+@interface UIColor (RandomColor)
+
++ (UIColor *)randomColorWithAlpha:(CGFloat)alpha;
+
+@end
+
+@implementation UIColor (RandomColor)
+
++ (UIColor *)randomColorWithAlpha:(CGFloat)alpha {
+    float (^color)(void) = ^float() {
+        return (float)arc4random_uniform(100) / 100.0f;
+    };
+    return [UIColor colorWithRed:color()
+                           green:color()
+                            blue:color()
+                           alpha:alpha];
+}
+
+@end
+
 @interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate, WKNavigationDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
@@ -31,6 +51,15 @@
     [super viewDidLoad];
 
     self.webView = [[SectionEditorWebViewWithTestingButtons alloc] init];
+
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    v.backgroundColor = [UIColor redColor];
+    self.webView.inputAccessoryView = v;
+
+    UIView *v2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
+    v2.backgroundColor = [UIColor yellowColor];
+    self.webView.inputView = v2;
+
     [self.view wmf_addSubviewWithConstraintsToEdges:self.webView];
     self.webView.navigationDelegate = self;
     [self.webView loadHTMLFromAssetsFile:@"mediawiki-extensions-CodeMirror/codemirror-index.html" scrolledToFragment:nil];
@@ -324,6 +353,46 @@
     [super didReceiveMemoryWarning];
     // [self.webView toggleRichEditor];
     // [self.webView becomeFirstResponder];
+
+    BOOL shouldShowInputView = (NSInteger)arc4random_uniform(2) == 1;
+    BOOL shouldShowInputAccessoryView = (NSInteger)arc4random_uniform(2) == 1;
+
+    BOOL shouldChangeInputView = (NSInteger)arc4random_uniform(2) == 1;
+    BOOL shouldChangeInputAccessoryView = (NSInteger)arc4random_uniform(2) == 1;
+
+    if (shouldShowInputView) {
+        if (shouldChangeInputView) {
+            UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
+            v.backgroundColor = [UIColor randomColorWithAlpha:1.0];
+            self.webView.inputView = v;
+        } else {
+            if (self.webView.inputView == nil) {
+                UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 200)];
+                v.backgroundColor = [UIColor randomColorWithAlpha:1.0];
+                self.webView.inputView = v;
+            }
+        }
+    } else {
+        self.webView.inputView = nil;
+    }
+
+    if (shouldShowInputAccessoryView) {
+        if (shouldChangeInputAccessoryView) {
+            UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+            v.backgroundColor = [UIColor randomColorWithAlpha:1.0];
+            self.webView.inputAccessoryView = v;
+        } else {
+            if (self.webView.inputAccessoryView == nil) {
+                UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+                v.backgroundColor = [UIColor randomColorWithAlpha:1.0];
+                self.webView.inputAccessoryView = v;
+            }
+        }
+    } else {
+        self.webView.inputAccessoryView = nil;
+    }
+
+    [self.webView reloadInputViews];
 }
 
 - (void)webView:(SectionEditorWebViewWithTestingButtons *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
