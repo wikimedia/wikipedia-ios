@@ -66,6 +66,12 @@ class WKWebViewWithSettableInputViews: WKWebView {
             assertionFailure("Couldn't find content view")
             return
         }
+        
+        if let existingClass = NSClassFromString("WKContentView_withCustomInputViewGetterRelays") {
+            object_setClass(contentView, existingClass)
+            return
+        }
+        
         guard let newContentViewClass = objc_allocateClassPair(object_getClass(contentView), "WKContentView_withCustomInputViewGetterRelays", 0) else {
             assertionFailure("Couldn't get class")
             return
