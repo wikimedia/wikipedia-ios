@@ -8,4 +8,9 @@ extension UIView {
         }
         return nil
     }
+    
+    func wmf_firstSuperviewOfType<T>(_ type: T.Type) -> T? {
+        return superview as? T ?? superview.flatMap { $0.wmf_firstSuperviewOfType(type) }
+    }
+
 }
