@@ -4,6 +4,7 @@
 // Author: Chmee2
 // Author: Clon
 // Author: Cvanca
+// Author: Danny B.
 // Author: Dvorapa
 // Author: Evica
 // Author: Fitoschido
@@ -158,7 +159,7 @@
 "description-help-title" = "Nápověda pro popisy článků";
 "description-help-wikidata-guide" = "Wikidata průvodce pro psaní popisů";
 "description-published-button-title" = "Hotovo";
-"description-published-footer" = "Můžete také editovat články pomocí této aplikacr. Zluste opravit typografii a krátké věty klepnutím na ikonu tužky";
+"description-published-footer" = "Můžete také editovat články pomocí této aplikace. Zkuste opravit typografii a krátké věty klepnutím na ikonu tužky";
 "description-published-subtitle" = "Právě jste vytvořili lepší Wikipedii pro každého";
 "description-published-title" = "Popis byl zveřejněn!";
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
@@ -214,7 +215,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ je skrytých";
-"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutí této karty bude odstraněno z vaší karty Prozkoumat.";
+"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutí této karty bude odstraněna z vaší karty Prozkoumat.";
 "explore-feed-preferences-global-cards-description" = "Nejazyčné specifické karty";
 "explore-feed-preferences-global-cards-subtitle" = "Ne specifický jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
@@ -251,7 +252,7 @@
 "explore-feed-preferences-turn-off-explore-tab-title" = "Vypnout kartu Prozkoumat?";
 "explore-feed-preferences-turn-off-feed-disclosure" = "Vypnutím karty Prozkoumat ji nahradíte za kartu Nastavení.";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Vybráním možnosti Prozkoumat karty zapnete kartu Prozkoumat";
-"explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout Prozkoumat";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Zapnout kartu Prozkoumat";
 "explore-feed-preferences-turn-on-explore-tab-message" = "Tímto nahradíte kartu Nastavení za kartu Prozkoumat. Klepnutím na ikonu ozubeného kola můžete přistupovat k nastavení v horní části karty Prozkoumat";
 "explore-feed-preferences-turn-on-explore-tab-title" = "Zapnout kartu Prozkoumat?";
 "explore-feed-preferences-undo-customization" = "Zpět";
@@ -378,7 +379,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Jste přihlášeni pomocí dočasného hesla. Chcete-li dokončit přihlášení, zadejte prosím nové heslo.";
 "new-password-title" = "Zadejte své heslo";
-"no-email-account-alert" = "Prosím, přidejte na vaše zařízení e-mailový účet a zkuste to znovu.";
+"no-email-account-alert" = "Prosím, přidejte do Vašeho zařízení e-mailový účet a zkuste to znovu.";
 "number-billions" = "$1 miliard";
 "number-millions" = "$1 milionů";
 "number-thousands" = "$1 tisíc";
@@ -560,7 +561,7 @@
 "settings-clear-cache-are-you-sure-message" = "Vymazání dat uložených v mezipaměti (cache) uvolní přibližně $1 místa. Vaše uložené stránky nebudou smazány.";
 "settings-clear-cache-are-you-sure-title" = "Vymazat data v mezipaměti?";
 "settings-clear-cache-cancel" = "Storno";
-"settings-clear-cache-ok" = "Vymazat cache";
+"settings-clear-cache-ok" = "Vyprázdnit cache";
 "settings-help-and-feedback" = "Pomoc a zpětná vazba";
 "settings-language-bar" = "Ukazovat jazyky při vyhledávání";
 "settings-languages-feed-customization" = "Můžete spravovat, které jazyky se zobrazují v Prozkoumat, přizpůsobením nastavení zdroje procházení.";

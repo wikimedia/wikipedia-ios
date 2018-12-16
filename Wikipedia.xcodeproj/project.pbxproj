@@ -9628,7 +9628,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "cp -f -R \"${BUILT_PRODUCTS_DIR}/${APPLICATION_NAME}/localization\" \"${SRCROOT}/scripts\"\n";
+			shellScript = "cp -f `readlink ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}` \"${SRCROOT}/scripts/${PRODUCT_NAME}\"\n";
 		};
 		D80ED42B1EE57F4800CE8C50 /* Embed Frameworks from Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
