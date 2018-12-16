@@ -103,19 +103,15 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     // MARK: Swizzling input accessory view
 
     func configureInputAccessoryViews() {
-        _ = setInputAccessoryViews
+        inputAccessoryViewType = .default
     }
 
     private var previousInputAccessoryViewType: InputAccessoryViewType?
     private var inputAccessoryViewType: InputAccessoryViewType? = .default {
         didSet {
             previousInputAccessoryViewType = oldValue
+            inputAccessoryView = preferredInputAccessoryView()
         }
-    }
-
-    private struct InputAccessoryViewKey {
-        static var Default = "wmf_AssociatedDefaultEditToolbarView"
-        static var Highlight = "wmf_AssociatedHighlightEditToolbarView"
     }
 
     private enum InputAccessoryViewType {
@@ -123,63 +119,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         case highlight
     }
 
-    private lazy var setInputAccessoryViews: Void = {
-        objc_setAssociatedObject(self, &InputAccessoryViewKey.Default, defaultEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        objc_setAssociatedObject(self, &InputAccessoryViewKey.Highlight, contextualHighlightEditToolbarView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
-        guard let wkContent = self.scrollView.subviews.first(where:  { String(describing: type(of: $0)).hasPrefix("WKContent") }) else {
-            assertionFailure("Couldn't find WKContent among scrollView's subviews")
-            return
-        }
-
-        guard wkContent.superclass != nil else {
-            assertionFailure("WKContent has no superclass")
-            return
-        }
-
-        let newClassName = "_CustomInputAccessoryView"
-        if let newClass = NSClassFromString(newClassName) {
-            object_setClass(wkContent, newClass)
-            return
-        }
-
-        guard let newClass = objc_allocateClassPair(object_getClass(wkContent), newClassName, 0) else {
-            assertionFailure("Couldn't create a new class for a custom input accessory view")
-            return
-        }
-
-        let newSelector = #selector(getter: SectionEditorWebViewWithEditToolbar.customInputAccessoryView)
-        guard let newMethod = class_getInstanceMethod(SectionEditorWebViewWithEditToolbar.self, newSelector) else {
-            assertionFailure("Couldn't get instance method for \(newSelector)")
-            return
-        }
-
-        let originalSelector = #selector(getter: SectionEditorWebViewWithEditToolbar.inputAccessoryView)
-
-        class_addMethod(newClass, originalSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))
-        objc_registerClassPair(newClass)
-        object_setClass(wkContent, newClass)
-    }()
-
-    @objc private var customInputAccessoryView: UIView? {
-        var trueSelf: UIView? = self
-        while (trueSelf != nil) && !(trueSelf is WKWebView) {
-            trueSelf = trueSelf?.superview
-        }
-        guard let webView = trueSelf as? SectionEditorWebViewWithEditToolbar else {
-            return nil
-        }
-
-        guard let preferredInputAccessoryView = preferredInputAccessoryView(associatedWith: webView) else {
-            return nil
-        }
-
-        preferredInputAccessoryView.apply(theme: Theme.standard)
-        return preferredInputAccessoryView
-    }
-
-    private func preferredInputAccessoryView(associatedWith webView: SectionEditorWebViewWithEditToolbar) -> (UIView & Themeable)? {
-        guard let inputAccessoryViewType = webView.inputAccessoryViewType else {
+    private func preferredInputAccessoryView() -> (UIView & Themeable)? {
+        guard let inputAccessoryViewType = inputAccessoryViewType else {
             return nil
         }
 
@@ -187,24 +128,17 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
         switch inputAccessoryViewType {
         case .default:
-            maybeView = objc_getAssociatedObject(webView, &InputAccessoryViewKey.Default)
+            maybeView = defaultEditToolbarView
         case .highlight:
-            maybeView = objc_getAssociatedObject(webView, &InputAccessoryViewKey.Highlight)
+            maybeView = contextualHighlightEditToolbarView
         }
 
         guard let preferredInputAccessoryView = maybeView as? UIView & Themeable else {
-            assertionFailure("Couldn't get object associated with \(webView)")
+            assertionFailure("Couldn't get preferredInputAccessoryView")
             return nil
         }
 
         return preferredInputAccessoryView
-    }
-
-    private func themeableView(associatedWith object: Any, key: inout String) -> (UIView & Themeable)? {
-        guard let view = objc_getAssociatedObject(object, key) as? (UIView & Themeable) else {
-            return nil
-        }
-        return view
     }
 
     // MARK: - Showing input view
@@ -216,21 +150,15 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             inputAccessoryViewType = nil
         }
 
-        // TODO: figure out how to animate this better. See gif here https://wikimedia.slack.com/archives/D7HH4J9CZ/p1544568250021700 to see how the toolbar is appearing too soon.
-        dispatchOnMainQueue() { // Prevents flicker.
-            UIView.performWithoutAnimation {
-                self.resignFirstResponder()
-                self.becomeFirstResponder()
-            }
-        }
-
         inputViewType = type
+        
+        reloadInputViews()
     }
 }
 
 extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
     func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        self.setInputViewHidden(type: .textFormatting, hidden: false)
+        setInputViewHidden(type: .textFormatting, hidden: false)
     }
 
     func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
