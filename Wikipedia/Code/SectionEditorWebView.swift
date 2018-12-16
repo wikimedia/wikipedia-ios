@@ -3,7 +3,7 @@ import WebKit
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebView {
+class SectionEditorWebView: WKWebViewWithSettableInputViews {
     public weak var selectionChangedDelegate: SectionEditorWebViewSelectionChangedDelegate? {
         didSet {
             config.selectionChangedDelegate = selectionChangedDelegate
