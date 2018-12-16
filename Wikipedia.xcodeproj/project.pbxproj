@@ -785,6 +785,11 @@
 		B0ACB13621265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0ACB13721265B9E0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACB13221265B930078C136 /* WMFImageGalleryDescriptionTextView.swift */; };
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
+		B0B3FF6E21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */; };
+		B0B3FF6F21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */; };
+		B0B3FF7021C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */; };
+		B0B3FF7121C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */; };
+		B0B3FF7221C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */; };
 		B0B423471EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */; };
 		B0B4234C1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */; };
@@ -3540,6 +3545,7 @@
 		B0B0CADA1D234927009CE8ED /* WMFImageTagList+ImageURLs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFImageTagList+ImageURLs.h"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.h"; sourceTree = SOURCE_ROOT; };
 		B0B0CADB1D234927009CE8ED /* WMFImageTagList+ImageURLs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFImageTagList+ImageURLs.m"; path = "Wikipedia/Code/WMFImageTagList+ImageURLs.m"; sourceTree = SOURCE_ROOT; };
 		B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsMenuItem.m; path = Wikipedia/Code/WMFSettingsMenuItem.m; sourceTree = SOURCE_ROOT; };
+		B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WKWebViewWithSettableInputViews.swift; sourceTree = "<group>"; };
 		B0B423451EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeedOnThisDayEvent.h; sourceTree = "<group>"; };
 		B0B423461EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeedOnThisDayEvent.m; sourceTree = "<group>"; };
 		B0B4234A1EF2055200D3DC4C /* WMFOnThisDayEventsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOnThisDayEventsFetcher.h; sourceTree = "<group>"; };
@@ -5075,6 +5081,7 @@
 				B0E806F71C0CEBC70065EBC0 /* SectionEditorViewController.h */,
 				B0E806F81C0CEBC70065EBC0 /* SectionEditorViewController.m */,
 				B00F3F9221B0CC10002EDF29 /* SectionEditorWebView.swift */,
+				B0B3FF6D21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift */,
 				B00B98D721B6096C00BF8985 /* SectionEditorWebView+ExecCommand.swift */,
 				B03E467821B5FDB700A61AE5 /* SectionEditorWebViewWithTestingButtons.swift */,
 				B03E467221B5FCE100A61AE5 /* SectionEditorWebViewConfiguration.swift */,
@@ -10032,6 +10039,7 @@
 				B00F3F9321B0CC10002EDF29 /* SectionEditorWebView.swift in Sources */,
 				7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
+				B0B3FF6E21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
@@ -10584,6 +10592,7 @@
 				830D71D31F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				D80ED3811EE57F4800CE8C50 /* WMFImageGalleryViewController.m in Sources */,
 				B0845E1520618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
+				B0B3FF7221C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0CD9DF21F70997500051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				B0F9299D1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D80ED3851EE57F4800CE8C50 /* WMFAccountCreationViewController.swift in Sources */,
@@ -11049,6 +11058,7 @@
 				B00F3F9621B0CC10002EDF29 /* SectionEditorWebView.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				8350FC4F20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
+				B0B3FF7121C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */,
 				D8A42A761E815A9C00D8E281 /* NSDate+WMFPOTDTitle.m in Sources */,
 				8382F8CA20D844C800AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
@@ -11601,6 +11611,7 @@
 				D8CE25E61E698E2400DAE2E0 /* WMFURLSchemeHandler.m in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				830D71D01F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
+				B0B3FF6F21C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0845E1220618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				D8CE25EC1E698E2400DAE2E0 /* WMFImageGalleryViewController.m in Sources */,
 				B0CD9DDD1F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -11932,6 +11943,7 @@
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
 				D8EC3EE51E9BDA35006712EB /* WMFURLSchemeHandler.m in Sources */,
+				B0B3FF7021C63B9800BBB5C8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0845E1320618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0F9299C1F84789D002A0788 /* WMFWelcomeInitialViewController.swift in Sources */,
 				D8EC3EE91E9BDA35006712EB /* WMFForgotPasswordViewController.swift in Sources */,
