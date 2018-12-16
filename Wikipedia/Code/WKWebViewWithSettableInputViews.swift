@@ -96,10 +96,10 @@ class WKWebViewWithSettableInputViews: WKWebView {
     }
 }
 
-fileprivate typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
-fileprivate typealias BlockType =  @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
-fileprivate extension WKWebViewWithSettableInputViews {
-    func setKeyboardRequiresUserInteraction(_ value: Bool) {
+private typealias ClosureType =  @convention(c) (Any, Selector, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
+private typealias BlockType =  @convention(block) (Any, UnsafeRawPointer, Bool, Bool, Bool, Any?) -> Void
+private extension WKWebViewWithSettableInputViews {
+    private func setKeyboardRequiresUserInteraction(_ value: Bool) {
         guard let WKContentView: AnyClass = NSClassFromString("WKContentView") else {
             DDLogError("Could not get class")
             return
