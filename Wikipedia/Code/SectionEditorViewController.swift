@@ -195,6 +195,7 @@ extension SectionEditorViewController: Themeable {
             return
         }
         view.backgroundColor = theme.colors.paperBackground
+        webView.apply(theme: theme)
     }
 }
 

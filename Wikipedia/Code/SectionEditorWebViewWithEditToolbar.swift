@@ -9,6 +9,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    private var theme = Theme.standard
+
     // MARK: Menu items
 
     lazy var menuItems: [UIMenuItem] = {
@@ -153,6 +155,15 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         inputViewType = type
         
         reloadInputViews()
+    }
+}
+
+extension SectionEditorWebViewWithEditToolbar: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+
+        //TODO: apply theme to `inputView` and `inputAccessoryView`
+
     }
 }
 
