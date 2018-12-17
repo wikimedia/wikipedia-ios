@@ -136,12 +136,14 @@
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
+"description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
 "description-help-more-info-title" = "Lisää tietoa";
 "description-help-tips-example-title-one" = "Leonardo da Vincin maalaus";
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkiksi:";
+"description-help-tips-title" = "Vinkkejä kuvauksen luomiseen";
 "description-published-button-title" = "Valmis";
 "description-published-subtitle" = "Olet juuri tehnyt Wikipediasta paremman kaikille";
 "description-published-title" = "Kuvaus julkaistu!";

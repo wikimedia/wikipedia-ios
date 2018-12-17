@@ -13,6 +13,7 @@
 // Author: Giuseppe Forte
 // Author: Greis
 // Author: JackLantern
+// Author: Lorelai87
 // Author: Macofe
 // Author: Martinligabue
 // Author: Nastoshka
@@ -126,6 +127,7 @@
 "description-edit-placeholder-title" = "Descrizioni brevi sono le migliori";
 "description-edit-publish" = "Pubblica descrizione";
 "description-edit-title" = "Modifica descrizione";
+"description-help-more-info-description" = "Le descrizioni sono archiviate e mantenute su Wikidata, un progetto della Fondazione Wikimedia che fornisce un database secondario, libero, collaborativo e multilingue per il supporto di Wikipedia e altri progetti.";
 "description-help-more-info-title" = "Ulteriori informazioni";
 "description-help-tips-example-description-two" = "descrizione del titolo per un articolo sul Monte Everest";
 "description-help-tips-example-title-one" = "dipinto da Leonardo da Vinci";
