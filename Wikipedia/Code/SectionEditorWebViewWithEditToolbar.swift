@@ -161,9 +161,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 extension SectionEditorWebViewWithEditToolbar: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
-
-        //TODO: apply theme to `inputView` and `inputAccessoryView`
-
+        (inputAccessoryView as? Themeable)?.apply(theme: theme)
+        (inputView as? Themeable)?.apply(theme: theme)
     }
 }
 
