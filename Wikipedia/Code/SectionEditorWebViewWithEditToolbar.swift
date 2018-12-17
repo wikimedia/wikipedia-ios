@@ -27,6 +27,7 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             #selector(WKWebView.cut(_:)),
             #selector(WKWebView.copy(_:)),
             #selector(WKWebView.paste(_:)),
+            #selector(WKWebView.select(_:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleBoldface(menuItem:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleItalics(menuItem:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleCitation(menuItem:)),
