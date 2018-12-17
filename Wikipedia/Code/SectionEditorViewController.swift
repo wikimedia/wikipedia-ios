@@ -175,6 +175,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 } else {
                     DispatchQueue.main.async {
                         self.webView.becomeFirstResponder()
+                        self.webView.focus(self)
                         // TODO: Remove
                         self.enableProgressButton(true)
                     }

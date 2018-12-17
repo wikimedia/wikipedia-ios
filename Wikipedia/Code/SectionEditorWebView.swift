@@ -57,12 +57,4 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
             DDLogError("Error setting up editor: \(error)")
         }
     }
-
-    // TODO: Becoming/resigning is jenky
-    override var canBecomeFirstResponder: Bool { return true }
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        let result = super.becomeFirstResponder()
-        focus(self)
-        return result
-    }
 }
