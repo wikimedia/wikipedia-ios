@@ -268,40 +268,11 @@
       // native land should assume only these buttons should appear selected
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
-
-
-    let savedCursorState = null
     
-    const clearSavedCursorState = () => {
-      savedCursorState = null
-    }
-    
-    const saveCursorState = () => {
-      savedCursorState = {
-        anchor: editor.getCursor('anchor'),
-        head: editor.getCursor('head')
-      }
-    }
-
-    const restoreCursorState = () => {
-      if (savedCursorState.anchor !== null && savedCursorState.head !== null) { 
-        editor.setSelection(savedCursorState.anchor, savedCursorState.head)
-      }
-     clearSavedCursorState()
-    }
-
 
     const setupCodemirror = () => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
-      editor.on('blur', () => {
-        saveCursorState()
-      })
-      editor.on('focus', () => {
-        setTimeout(()=> {
-          restoreCursorState()      
-        }, 10)
-      })
     }
     
     const wmf = {}
