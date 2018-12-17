@@ -261,6 +261,9 @@ extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
 
 extension SectionEditorWebViewWithEditToolbar: SectionEditorWebViewSelectionChangedDelegate {
     func selectionChanged(isRangeSelected: Bool) {
+        guard inputViewController == nil else {
+            return
+        }
         if isRangeSelected {
             inputAccessoryViewType = .highlight
         } else {
