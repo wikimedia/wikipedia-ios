@@ -17,6 +17,7 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
+    
     private var previousCountOfEntries: Int64 = 0
     private var isEntriesLimitReached: Bool = false {
         didSet {
@@ -25,6 +26,12 @@ public class ReadingList: NSManagedObject {
             }
             let userInfo: [String: Any] = [ReadingList.entriesLimitReachedReadingListKey: self]
             NotificationCenter.default.post(name: ReadingList.entriesLimitReachedNotification, object: nil, userInfo: userInfo)
+        }
+    }
+    
+    public func entry(for article: WMFArticle) -> ReadingListEntry? {
+        return entries?.first {
+            $0.isDeletedLocally == false && $0.articleKey == article.key
         }
     }
     
