@@ -80,7 +80,7 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
     private lazy var contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView = {
         let view = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()!
-        // view.delegate = self
+         view.delegate = self
         return view
     }()
 
@@ -226,6 +226,16 @@ extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+        setInputViewHidden(type: .textFormatting, hidden: false)
+    }
+}
+
+extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarViewDelegate {
+    func contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        setInputViewHidden(type: .textStyle, hidden: false)
+    }
+
+    func contextualHighlightEditToolbarViewDidTapTextFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
         setInputViewHidden(type: .textFormatting, hidden: false)
     }
 }
