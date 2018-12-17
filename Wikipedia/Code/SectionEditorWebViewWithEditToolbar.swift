@@ -102,7 +102,21 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         return textFormattingInputViewController
     }
 
-    // MARK: Swizzling input accessory view
+    // MARK: - Showing input view
+
+    func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
+        if hidden {
+            inputAccessoryViewType = previousInputAccessoryViewType
+        } else {
+            inputAccessoryViewType = nil
+        }
+
+        inputViewType = type
+
+        reloadInputViews()
+    }
+
+    // MARK: Input accessory view
 
     func configureInputAccessoryViews() {
         inputAccessoryViewType = .default
@@ -147,20 +161,6 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         }
 
         return preferredInputAccessoryView
-    }
-
-    // MARK: - Showing input view
-
-    func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
-        if hidden {
-            inputAccessoryViewType = previousInputAccessoryViewType
-        } else {
-            inputAccessoryViewType = nil
-        }
-
-        inputViewType = type
-        
-        reloadInputViews()
     }
 }
 
