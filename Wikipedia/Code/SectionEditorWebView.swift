@@ -18,12 +18,9 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc var useRichEditor: Bool = true
-
-    private func update(completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
+    private func performSetupJS(completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
         evaluateJavaScript("""
-            window.wmf.setCurrentEditorType(window.wmf.EditorType.\(useRichEditor ? "codemirror" : "wikitext"));
-            window.wmf.update();
+            window.wmf.setup();
         """) { (_, error) in
             guard let completionHandler = completionHandler else {
                 return
@@ -49,21 +46,10 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
         evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
     
-    // Toggle between codemirror and plain wikitext editing
-    @objc func toggleRichEditor() {
-        useRichEditor = !useRichEditor
-        update() { error in
-            guard let error = error else {
-                return
-            }
-            DDLogError("Error toggling editor: \(error)")
-        }
-    }
 
     // Convenience kickoff method for initial setting of wikitext & codemirror setup.
-    @objc func setup(wikitext: String, useRichEditor: Bool, completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
-        self.useRichEditor = useRichEditor
-        update() { error in
+    @objc func setup(wikitext: String, completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
+        performSetupJS() { error in
             guard let error = error else {
                 self.setWikitext(wikitext, completionHandler: completionHandler)
                 return

@@ -169,7 +169,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
 
-            self.webView.setup(wikitext: revision, useRichEditor: true) { (error) in
+            self.webView.setup(wikitext: revision) { (error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                 } else {

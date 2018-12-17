@@ -19,6 +19,7 @@ private enum CodeMirrorCommandType: String {
     case comment
     case focus
     case selectAll
+    case highlighting
 }
 
 extension SectionEditorWebView {
@@ -90,6 +91,10 @@ extension SectionEditorWebView {
         execCommand(for: .selectAll)
     }
     
+    @objc func toggleSyntaxHighlighting(_ sender: Any) {
+        execCommand(for: .highlighting)
+    }
+
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {
         return "window.wmf.commands.\(commandType.rawValue)();"
     }

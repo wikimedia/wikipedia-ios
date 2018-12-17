@@ -12,24 +12,15 @@
     body {
       margin: 0;
     }
-    .CodeMirror, textarea#editor {
+    .CodeMirror {
       height: 100%;
       width: 100%;
       box-sizing: border-box;
-    }
-    textarea#editor {
-      padding: 4px;
-      border: none;
-      font-family: monospace;
-      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
-  
-  <textarea id=editor></textarea>
-
 
   <!--TODO: load config by lang as needed-->
   <script>
@@ -41,7 +32,6 @@
   <script>
 
     let editor
-    let editorTextArea = document.getElementById("editor")
     
     let codeMirrorSettings = {
       mwConfig: config,
@@ -55,20 +45,6 @@
       inputStyle: 'contenteditable',
       spellcheck: false,
       viewportMargin: Infinity
-    }
-
-    const EditorType = {
-      notset: 0,
-      codemirror: 1,
-      wikitext: 2
-    }
-
-    let currentEditorType = EditorType.notset
-
-    const showWikitext = () => {
-      editor.toTextArea()
-      editorTextArea.style.display = 'block'
-      currentEditorType = EditorType.wikitext
     }
 
     const rangesIntersect = (range1, range2) => {
@@ -315,10 +291,8 @@
     }
 
 
-    const showCodemirror = () => {
-      editor = CodeMirror.fromTextArea(editorTextArea, codeMirrorSettings)
-      editorTextArea.style.display = 'hidden'
-      currentEditorType = EditorType.codemirror
+    const setupCodemirror = () => {
+      editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
       editor.on('blur', () => {
         saveCursorState()
@@ -336,45 +310,10 @@
     
     const wmf = {}
     
-    wmf.EditorType = EditorType
     
-    wmf.getWikitext = () => {
-      switch(currentEditorType) {
-        case EditorType.codemirror:
-          return editor.getValue()  
-        case EditorType.wikitext:
-          return editorTextArea.value
-      }
-    }
-
-    wmf.setWikitext = (wikitext) => {
-      switch(currentEditorType) {
-        case EditorType.codemirror:
-          editor.setValue(wikitext)
-          break
-        case EditorType.notset:
-        case EditorType.wikitext:
-          editorTextArea.value = wikitext
-          break
-      }
-    }
-
-    wmf.setCurrentEditorType = (type) => {
-      currentEditorType = type
-    }
-
-    wmf.update = () => {
-      clearSavedCursorState()
-      switch(currentEditorType) {
-        case EditorType.codemirror:
-          showCodemirror()
-          break
-        case EditorType.notset:
-        case EditorType.wikitext:
-          showWikitext()
-          break
-      }
-    }
+    wmf.getWikitext = () => editor.getValue()
+    wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
+    wmf.setup = () => setupCodemirror()
 
     // const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     wmf.commands = {
@@ -430,7 +369,11 @@
       decreaseIndentDepth: () => {
         console.log('decreaseIndentDepth')
       },
-      selectAll: () => editor.execCommand('selectAll')
+      selectAll: () => editor.execCommand('selectAll'),
+      highlighting: () => {
+        editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)
+        editor.refresh()
+      }
     }
     
     window.wmf = wmf
