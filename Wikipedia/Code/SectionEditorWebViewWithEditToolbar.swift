@@ -111,13 +111,13 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     // MARK: - Showing input view
 
     func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
+        inputViewType = type
+
         if hidden {
             inputAccessoryViewType = previousInputAccessoryViewType
         } else {
             inputAccessoryViewType = nil
         }
-
-        inputViewType = type
 
         reloadInputViews()
     }
