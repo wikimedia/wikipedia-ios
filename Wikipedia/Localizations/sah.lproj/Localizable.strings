@@ -51,6 +51,7 @@
 "account-creation-title" = "Саҥа ааты бэлиэтээ";
 "action-add-to" = "Манна эп...";
 "action-add-to-reading-list" = "Ааҕар испииһэккэ киллэр";
+"action-add-to-reading-list-short" = "Испииһэккэ киллэр";
 "action-cancel" = "Салҕаама";
 "action-move-to" = "Манна көһөр...";
 "action-move-to-reading-list" = "Ааҕар испииһэккэ көһөр";
@@ -65,10 +66,14 @@
 "action-unsave" = "Оннунан хаалбата";
 "action-unsaved-accessibility-notification" = "Ыстатыйа испииһэктэн сотулунна";
 "action-update" = "Саҥардыы";
+"add-articles-to-reading-list" = "$1 ыстатыйаны ааҕыы испииһэгэр киллэр";
 "alert-no-internet" = "Интэриниэт ситимэ суох";
 "announcements-dismiss" = "Сап";
+"app-store-keywords" = "Бикипиэдьийэ, ыстатыйа, биики, энциклопедия, билии, аах, бил, билис, көр, быһаарыы";
+"app-store-subtitle" = "Аһаҕас энциклопедия";
 "appearance-settings-adjust-text-sizing" = "Ыстатыйа тиэкиһин кээмэйин уларытар";
 "appearance-settings-image-dimming-footer" = "Ойуу курдат көстөрүн хараҥа тиэмэҕэ кыччатар";
+"appearance-settings-set-automatic-table-opening" = "Таабыл нарылааһына";
 "appearance-settings-theme-options" = "Тиэмэ туруоруулара";
 "article-about-title" = "Бу ыстатыйа туһунан";
 "article-delete" = "Сот";
@@ -98,6 +103,11 @@
 "compass-direction" = "$1 чааска";
 "continue-reading-empty-description" = "Бикипиэдьийэни чинчийэн өссө элбэх сэргиир ыстатыйаҕын бул";
 "continue-reading-empty-title" = "Соторутааҕыта ааҕыллыбыт суох";
+"description-add-link-title" = "Аатын быһаар";
+"description-add-title" = "Быһааран суруй";
+"description-edit-for-article" = "Аатын быһаарыыта «$1»";
+"description-edit-learn-more" = "Бу туһунан сиһилии";
+"description-edit-length-warning" = "$1 / $2";
 "dim-images" = "Ойууну мынаарыт";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";
 "edit-summary-choice-fixed-typos" = "Алҕас суруллубут буукубаны көннөрдүм";

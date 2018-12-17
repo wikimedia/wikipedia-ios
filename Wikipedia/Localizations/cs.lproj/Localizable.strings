@@ -215,7 +215,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Zapnout";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "V $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Všech %@ je skrytých";
-"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutí této karty bude odstraněna z vaší karty Prozkoumat.";
+"explore-feed-preferences-global-card-footer-text" = "Tato karta není specifická pro jazyk, vypnutím této karty bude odstraněna z vaší karty Prozkoumat.";
 "explore-feed-preferences-global-cards-description" = "Nejazyčné specifické karty";
 "explore-feed-preferences-global-cards-subtitle" = "Ne specifický jazyk";
 "explore-feed-preferences-global-cards-title" = "Globální karty";
@@ -379,7 +379,7 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Jste přihlášeni pomocí dočasného hesla. Chcete-li dokončit přihlášení, zadejte prosím nové heslo.";
 "new-password-title" = "Zadejte své heslo";
-"no-email-account-alert" = "Prosím, přidejte do Vašeho zařízení e-mailový účet a zkuste to znovu.";
+"no-email-account-alert" = "Prosím, přidejte do svého zařízení e-mailový účet a zkuste to znovu.";
 "number-billions" = "$1 miliard";
 "number-millions" = "$1 milionů";
 "number-thousands" = "$1 tisíc";
