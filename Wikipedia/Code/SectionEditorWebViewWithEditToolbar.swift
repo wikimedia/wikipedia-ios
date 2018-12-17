@@ -113,12 +113,18 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         didSet {
             previousInputAccessoryViewType = oldValue
             inputAccessoryView = preferredInputAccessoryView()
+            reloadInputViews()
         }
     }
 
     private enum InputAccessoryViewType {
         case `default`
         case highlight
+    }
+
+    override func reloadInputViews() {
+        themeInputViews(theme: theme)
+        super.reloadInputViews()
     }
 
     private func preferredInputAccessoryView() -> (UIView & Themeable)? {
@@ -161,6 +167,10 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 extension SectionEditorWebViewWithEditToolbar: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
+        themeInputViews(theme: theme)
+    }
+
+    private func themeInputViews(theme: Theme) {
         (inputAccessoryView as? Themeable)?.apply(theme: theme)
         (inputView as? Themeable)?.apply(theme: theme)
     }
