@@ -18,6 +18,7 @@ private enum CodeMirrorCommandType: String {
     case cursorRight
     case comment
     case focus
+    case selectAll
 }
 
 extension SectionEditorWebView {
@@ -83,6 +84,10 @@ extension SectionEditorWebView {
     
     @objc func focus(_ sender: Any) {
         execCommand(for: .focus)
+    }
+
+    func selectAllText(_ sender: Any) {
+        execCommand(for: .selectAll)
     }
     
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {

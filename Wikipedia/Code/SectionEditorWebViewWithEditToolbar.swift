@@ -27,6 +27,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             #selector(WKWebView.cut(_:)),
             #selector(WKWebView.copy(_:)),
             #selector(WKWebView.paste(_:)),
+            #selector(WKWebView.select(_:)),
+            #selector(WKWebView.selectAll(_:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleBoldface(menuItem:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleItalics(menuItem:)),
             #selector(SectionEditorWebViewWithEditToolbar.toggleCitation(menuItem:)),
@@ -68,6 +70,10 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return availableMenuActions.contains(action)
+    }
+
+    override func selectAll(_ sender: Any?) {
+        selectAllText(sender)
     }
 
     // MARK: Accessory views
