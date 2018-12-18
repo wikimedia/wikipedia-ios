@@ -4,10 +4,9 @@ typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
 class SectionEditorWebView: WKWebViewWithSettableInputViews {
-    
     let config = SectionEditorWebViewConfiguration()
     private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
-
+    
     init() {
         super.init(frame: .zero, configuration: config)
         loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
@@ -28,7 +27,7 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
             completionHandler(error)
         }
     }
-    
+
     @objc func setWikitext(_ wikitext: String, completionHandler: (SectionEditorWebViewCompletionBlock)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
         // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.

@@ -87,7 +87,7 @@ extension SectionEditorWebView {
         execCommand(for: .focus)
     }
 
-    func selectAllText(_ sender: Any) {
+    func selectAllText(_ sender: Any?) {
         execCommand(for: .selectAll)
     }
     

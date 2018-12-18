@@ -5,147 +5,11 @@
   <meta charset=utf8>
   <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <script src="resources/lib/codemirror/lib/codemirror.js"></script>
-  <link rel=stylesheet href="resources/lib/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="resources/lib/codemirror/lib/codemirror.css">
   <script src="resources/mode/mediawiki/mediawiki.js"></script>
-  <link rel=stylesheet href="resources/mode/mediawiki/mediawiki.css">
-  <style>
-    body {
-      margin: 0;
-    }
-    
-    .CodeMirror {
-      height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-      font-family: -apple-system, sans-serif;
-      line-height: 1.75em;
-    }
-    
-    .cm-mw-template {
-      color: #000;
-    }
-
-    .cm-mw-matching { 
-      background-color: #ff9500;
-    }
-    
-    .cm-mw-skipformatting {
-      color: #d6e0f5;
-    }
-
-    .cm-mw-comment {
-      color: #72777d;
-    }
-    
-    .cm-mw-template-name,
-    .cm-mw-template-argument-name,
-    .cm-mw-template-delimiter,
-    .cm-mw-template-bracket  {
-      color: #97498f;
-      font-weight: normal;
-    }
-    
-    .cm-mw-templatevariable,
-    .cm-mw-templatevariable-name,
-    .cm-mw-templatevariable-bracket,
-    .cm-mw-templatevariable-delimiter { 
-      color: #ff9500; 
-      font-weight: normal; 
-    }
-    
-    .cm-mw-parserfunction-name,
-    .cm-mw-parserfunction-bracket,
-    .cm-mw-parserfunction-delimiter { 
-      color: #b32424;
-    }
-    
-    .cm-mw-table-bracket,
-    .cm-mw-table-delimiter,
-    .cm-mw-table-definition { 
-      color: #e6275d; 
-      font-weight: normal; 
-    }
-    
-    .cm-mw-table-caption { 
-      font-weight: normal; 
-    }
-    
-    .cm-mw-list,
-    .cm-mw-doubleUnderscore, 
-    .cm-mw-signature, 
-    .cm-mw-hr,
-    .cm-mw-indenting,
-    .cm-mw-apostrophes-bold, 
-    .cm-mw-apostrophes-italic,
-    .cm-mw-section-header {
-      color: #ff9500;
-      font-weight: normal;
-    }
-  
-    .cm-mw-link,
-    .cm-mw-link-pagename,
-    .cm-mw-link-tosection,
-    .cm-mw-link-bracket,
-    .cm-mw-link-delimiter,
-    .cm-mw-extlink,
-    .cm-mw-free-extlink,
-    .cm-mw-extlink-protocol,
-    .cm-mw-free-extlink-protocol,
-    .cm-mw-extlink-bracket,
-    .cm-mw-doubleUnderscore,
-    .cm-mw-signature,
-    .cm-mw-hr {
-      color: #36c;
-      font-weight: normal;
-    }
-    
-    .cm-mw-mnemonic,
-    .cm-mw-exttag-name,
-    .cm-mw-exttag-bracket,
-    .cm-mw-exttag-attribute,
-    .cm-mw-htmltag-name,
-    .cm-mw-htmltag-bracket,
-    .cm-mw-htmltag-attribute {
-      color: #00af89;
-      font-weight: normal;
-    }
-    
-    .cm-mw-template2-ground,
-    .cm-mw-template3-ground,
-    .cm-mw-template-ext-ground,
-    .cm-mw-template-ext2-ground,
-    .cm-mw-template-ext3-ground,
-    .cm-mw-template-link-ground,
-    .cm-mw-template-ext-link-ground,
-    .cm-mw-template-ext2-link-ground,
-    .cm-mw-template-ext3-link-ground,
-    .cm-mw-template2-ext-ground,
-    .cm-mw-template2-ext2-ground,
-    .cm-mw-template2-ext3-ground,
-    .cm-mw-template2-link-ground,
-    .cm-mw-template2-ext-link-ground,
-    .cm-mw-template2-ext2-link-ground,
-    .cm-mw-template2-ext3-link-ground,
-    .cm-mw-template3-ext-ground,
-    .cm-mw-template3-ext2-ground,
-    .cm-mw-template3-ext3-ground,
-    .cm-mw-template3-link-ground,
-    .cm-mw-template3-ext-link-ground,
-    .cm-mw-template3-ext2-link-ground,
-    .cm-mw-template3-ext3-link-ground,
-    .cm-mw-ext-ground,
-    .cm-mw-ext2-ground,
-    .cm-mw-ext3-ground,
-    .cm-mw-ext-link-ground,
-    .cm-mw-ext2-link-ground,
-    .cm-mw-ext3-link-ground,
-    .cm-mw-link-ground {
-      background-image: none;
-      background-color: none;
-    }
-
-  
-  </style>
+  <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-common.css">
+  <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
 </head>
 
 <body>
@@ -397,7 +261,10 @@
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
     
-
+    const editorDidRedraw = (doc) => {
+      window.webkit.messageHandlers.event.postMessage('windowDidLoad')
+    }
+    
     const setupCodemirror = () => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)

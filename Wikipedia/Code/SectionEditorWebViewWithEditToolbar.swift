@@ -1,5 +1,8 @@
 class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
-    override init() {
+    var theme: Theme
+    
+    init(theme: Theme) {
+        self.theme = theme
         super.init()
         config.selectionChangedDelegate = self
         setEditMenuItems()
@@ -8,8 +11,6 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private var theme = Theme.standard
 
     // MARK: Menu items
 
@@ -173,6 +174,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 extension SectionEditorWebViewWithEditToolbar: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
+        scrollView.backgroundColor = theme.colors.baseBackground
+        backgroundColor = theme.colors.baseBackground
         themeInputViews(theme: theme)
     }
 

@@ -5,19 +5,11 @@
   <meta charset=utf8>
   <meta name="viewport" id="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <script src="resources/lib/codemirror/lib/codemirror.js"></script>
-  <link rel=stylesheet href="resources/lib/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="resources/lib/codemirror/lib/codemirror.css">
   <script src="resources/mode/mediawiki/mediawiki.js"></script>
-  <link rel=stylesheet href="resources/mode/mediawiki/mediawiki.css">
-  <style>
-    body {
-      margin: 0;
-    }
-    .CodeMirror {
-      height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
+  <link rel="stylesheet" type="text/css" href="codemirror-common.css">
+  <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
 </head>
 
 <body>
@@ -269,7 +261,10 @@
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
     
-
+    const editorDidRedraw = (doc) => {
+      window.webkit.messageHandlers.event.postMessage('windowDidLoad')
+    }
+    
     const setupCodemirror = () => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
