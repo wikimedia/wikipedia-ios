@@ -7,7 +7,16 @@ class TextFormattingInputView: UIView {
 class TextFormattingInputViewController: UIInputViewController {
     private let storyboardName = "TextFormatting"
     @IBOutlet weak var containerView: UIView!
-    weak var delegate: TextFormattingDelegate?
+
+    private var textStyleFormattingTableViewController: TextStyleFormattingTableViewController
+    private var textFormattingTableViewController: TextFormattingTableViewController
+
+    weak var delegate: TextFormattingDelegate? {
+        didSet{
+            textStyleFormattingTableViewController.delegate = delegate
+            textFormattingTableViewController.delegate = delegate
+        }
+    }
     private var theme = Theme.standard
     var selectedTextStyleType: TextStyleType?
 
@@ -15,18 +24,13 @@ class TextFormattingInputViewController: UIInputViewController {
         case textFormatting
         case textStyle
     }
-
-    private lazy var textStyleFormattingTableViewController: TextStyleFormattingTableViewController = {
-        let viewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
-        viewController.delegate = delegate
-        return viewController
-    }()
-
-    private lazy var textFormattingTableViewController: TextFormattingTableViewController = {
-        let viewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
-        viewController.delegate = delegate
-        return viewController
-    }()
+    
+    required init?(coder: NSCoder) {
+        textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        
+        textFormattingTableViewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
+        super.init(coder: coder)
+    }
 
     var inputViewType = InputViewType.textFormatting {
         didSet {

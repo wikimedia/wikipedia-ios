@@ -3,9 +3,11 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     
     init(theme: Theme) {
         self.theme = theme
+        textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
         super.init()
         config.selectionChangedDelegate = self
         setEditMenuItems()
+        textFormattingInputViewController.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -95,11 +97,7 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
     private var inputViewType: TextFormattingInputViewController.InputViewType?
 
-    private lazy var textFormattingInputViewController: TextFormattingInputViewController = {
-        let viewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-        viewController.delegate = self
-        return viewController
-    }()
+    private var textFormattingInputViewController: TextFormattingInputViewController
 
     override var inputViewController: UIInputViewController? {
         guard let inputViewType = inputViewType else {
