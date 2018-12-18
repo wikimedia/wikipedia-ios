@@ -53,21 +53,26 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
 
-    private lazy var staticItems: [Item] = {
-        let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
+    private let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
+    private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
+    private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         textFormattingToolbarView?.delegate = delegate
+        textFormattingGroupedToolbarView?.delegate = delegate
+        textFormattingButtonView?.buttonTitle = "Clear formatting"
+        textFormattingButtonView?.buttonTitleColor = theme.colors.error
+        textFormattingButtonView?.delegate = delegate
+    }
+    
+    private lazy var staticItems: [Item] = {
         let toolbar = Item(with: Content(type: .customView, customView: textFormattingToolbarView))
 
-        let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
-        textFormattingGroupedToolbarView?.delegate = delegate
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
 
         let textSize = Item(with: Content(type: .detail, title: "Text size", detailText: "Normal"))
 
-        let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
-        textFormattingButtonView?.buttonTitle = "Clear formatting"
-        textFormattingButtonView?.buttonTitleColor = theme.colors.error
-        textFormattingButtonView?.delegate = delegate
         let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
 
         return [toolbar, groupedToolbar, textSize, button]
