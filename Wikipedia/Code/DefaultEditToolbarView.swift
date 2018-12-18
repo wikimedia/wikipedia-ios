@@ -27,7 +27,6 @@ class DefaultEditToolbarView: EditToolbarView {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
-    @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -123,10 +122,6 @@ class DefaultEditToolbarView: EditToolbarView {
                 return .default
             }
         }
-    }
-
-    @IBAction private func revealMoreActionsViaTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        revealMoreActions(chevronButton)
     }
 
     @IBAction private func revealMoreActions(_ sender: UIButton) {
