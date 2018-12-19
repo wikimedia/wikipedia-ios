@@ -36,7 +36,15 @@ class DefaultEditToolbarView: EditToolbarView {
     @IBOutlet weak var addButton: TextFormattingButton!
     @IBOutlet weak var unorderedListButton: TextFormattingButton!
     @IBOutlet weak var orderedListButton: TextFormattingButton!
-    
+    @IBOutlet weak var indentDecreaseButton: TextFormattingButton!
+    @IBOutlet weak var indentIncreaseButton: TextFormattingButton!
+    @IBOutlet weak var moveUpButton: TextFormattingButton!
+    @IBOutlet weak var moveDownButton: TextFormattingButton!
+    @IBOutlet weak var moveLeftButton: TextFormattingButton!
+    @IBOutlet weak var moveRightButton: TextFormattingButton!
+    @IBOutlet weak var findButton: TextFormattingButton!
+    @IBOutlet weak var dotsButton: TextFormattingButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
