@@ -11,7 +11,7 @@ extension SectionEditorWebViewConfiguration {
 }
 
 struct ButtonNeedsToBeSelectedMessage {
-    let button: ButtonConstants
+    let type: EditButtonType
     let ordered: Bool
     let depth: Int
 }
@@ -40,7 +40,7 @@ private enum MessageConstants: String {
     case info
 }
 
-enum ButtonConstants: String {
+enum EditButtonType: String {
     case li
     case heading
     case indent
@@ -135,8 +135,8 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                 }
                 let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                 let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool ?? false
-                if let buttonType = ButtonConstants(rawValue: button) {
-                    post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage(button: buttonType, ordered: ordered, depth: depth))
+                if let buttonType = EditButtonType(rawValue: button) {
+                    post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage(type: buttonType, ordered: ordered, depth: depth))
                 }
             }
         }

@@ -23,8 +23,8 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
         }
     }
     
-    private func select(button: ButtonConstants) {
-        switch (button) {
+    private func selectButton(type: EditButtonType) {
+        switch (type) {
         case .bold:
             boldButton.isSelected = true
         case .italic:
@@ -36,7 +36,7 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
         case .link:
             linkButton.isSelected = true
         default:
-            print("button not yet handled: \(button)")
+            print("button type not yet handled: \(type)")
         }
     }
     
@@ -52,7 +52,7 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
             if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.select(button: message.button)
+                self?.selectButton(type: message.type)
                 // print("buttonNeedsToBeSelectedMessage = \(message)")
             }
         }
