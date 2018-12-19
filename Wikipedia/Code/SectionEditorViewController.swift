@@ -82,16 +82,16 @@ class SectionEditorViewController: UIViewController {
             undoButton
         ]
 
-        enableProgressButton(false)
+        progressButton.isEnabled = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        enableProgressButton(changesMade)
+        progressButton.isEnabled = changesMade
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        enableProgressButton(false)
+        progressButton.isEnabled = false
         UIMenuController.shared.menuItems = webView.originalMenuItems
         super.viewWillDisappear(animated)
     }
@@ -118,6 +118,20 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
+    // MARK: - Navigation actions
+
+    @objc private func close(_ sender: UIBarButtonItem) {
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+    }
+
+    @objc private func redo(_ sender: UIBarButtonItem) {
+
+    }
+
+    @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
+
+    }
+
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
             webView.getWikitext { (result, error) in
@@ -140,24 +154,6 @@ class SectionEditorViewController: UIViewController {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
-    }
-
-    // MARK: - Navigation actions
-
-    @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
-    }
-
-    @objc private func redo(_ sender: UIBarButtonItem) {
-
-    }
-
-    @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-
-    }
-
-    private func enableProgressButton(_ enabled: Bool) {
-        progressButton.isEnabled = enabled
     }
 
     // MARK: - Accessibility
@@ -229,7 +225,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                     DispatchQueue.main.async {
                         self.webView.focus(self)
                         // TODO: Remove
-                        self.enableProgressButton(true)
+                        self.progressButton.isEnabled = true
                     }
                 }
             }
