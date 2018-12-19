@@ -60,6 +60,12 @@ class SectionEditorViewController: UIViewController {
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(buttonSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func configureNavigationButtonItems() {
@@ -161,6 +167,12 @@ class SectionEditorViewController: UIViewController {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
+    }
+
+    // MARK: - Notifications
+
+    @objc private func buttonSelectionDidChange(_ notification: Notification) {
+
     }
 
     // MARK: - Accessibility
