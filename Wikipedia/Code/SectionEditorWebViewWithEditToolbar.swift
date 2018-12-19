@@ -5,7 +5,6 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         self.theme = theme
         textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
         super.init()
-        config.selectionChangedDelegate = self
         setEditMenuItems()
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
@@ -249,71 +248,5 @@ extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
     }
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
         toggleBoldSelection(button)
-    }
-}
-
-extension SectionEditorWebViewWithEditToolbar: SectionEditorWebViewSelectionChangedDelegate {
-    func selectionChanged(isRangeSelected: Bool) {
-        guard inputViewController == nil else {
-            return
-        }
-        if isRangeSelected {
-            inputAccessoryViewType = .highlight
-        } else {
-            inputAccessoryViewType = .default
-        }
-    }
-    
-    func highlightCommentButton() {
-        //
-    }
-
-    func turnOffAllButtonHighlights() {
-        //
-    }
-
-    func highlightBoldButton() {
-        //
-    }
-
-    func highlightItalicButton() {
-        //
-    }
-
-    func highlightReferenceButton() {
-        //
-    }
-
-    func highlightTemplateButton() {
-        //
-    }
-
-    func highlightAnchorButton() {
-        //
-    }
-
-    func highlightIndentButton(depth: Int) {
-        //
-    }
-
-    func highlightSignatureButton(depth: Int) {
-        //
-    }
-
-    func highlightListButton(ordered: Bool, depth: Int) {
-        //
-    }
-
-    func highlightHeadingButton(depth: Int) {
-        let textStyleType = TextStyleType(rawValue: depth)
-        textFormattingInputViewController.selectedTextStyleType = textStyleType
-    }
-
-    func highlightUndoButton() {
-        //
-    }
-
-    func highlightRedoButton() {
-        //
     }
 }

@@ -20,25 +20,6 @@ struct SelectionChangedMessage {
     let selectionIsRange: Bool
 }
 
-protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
-    // Inside 'selectionChanged' the delegate should de-select all buttons.
-    func selectionChanged(isRangeSelected: Bool)
-
-    // Inside these the delegate should enable the respective button.
-    func highlightBoldButton()
-    func highlightItalicButton()
-    func highlightReferenceButton()
-    func highlightTemplateButton()
-    func highlightAnchorButton()
-    func highlightIndentButton(depth: Int)
-    func highlightSignatureButton(depth: Int)
-    func highlightListButton(ordered: Bool, depth: Int)
-    func highlightHeadingButton(depth: Int)
-    func highlightUndoButton()
-    func highlightRedoButton()
-    func highlightCommentButton()
-}
-
 enum SectionEditorWebViewEventType: String {
     case atDocumentEnd
     case atDocumentStart
@@ -82,7 +63,6 @@ private enum ButtonInfoConstants: String {
 
 class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessageHandler {
 
-    public weak var selectionChangedDelegate: SectionEditorWebViewSelectionChangedDelegate?
     public weak var eventDelegate: SectionEditorWebViewEventDelegate?
 
     override init() {
@@ -123,16 +103,10 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
         case MessageNameConstants.selectionChanged.rawValue:
             guard let isRangeSelected = message.body as? Bool else {
                 DDLogError("Unable to interpret Bool message.")
-                selectionChangedDelegate?.selectionChanged(isRangeSelected: false)
-                
-post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: false))
-                
+                post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: false))
                 break
             }
-            selectionChangedDelegate?.selectionChanged(isRangeSelected: isRangeSelected)
-
-post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: isRangeSelected))
-
+            post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: isRangeSelected))
         case MessageNameConstants.highlightTheseButtons.rawValue:
             callButtonEnableHighlightMethods(name: message.name, body: message.body)
         case MessageNameConstants.event.rawValue:
@@ -161,59 +135,8 @@ post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: isRangeS
                 }
                 let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
                 let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool ?? false
-
-if let buttonType = ButtonConstants(rawValue: button) {
-    post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage(button: buttonType, ordered: ordered, depth: depth))
-}
-continue
-                
-
-                
-                switch button {
-                case ButtonConstants.li.rawValue:
-                    guard let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool else {
-                        break
-                    }
-                    selectionChangedDelegate?.highlightListButton(ordered: ordered, depth: depth)
-                    break
-                case ButtonConstants.heading.rawValue:
-                    selectionChangedDelegate?.highlightHeadingButton(depth: depth)
-                    break
-                case ButtonConstants.indent.rawValue:
-                    selectionChangedDelegate?.highlightIndentButton(depth: depth)
-                    break
-                case ButtonConstants.signature.rawValue:
-                    selectionChangedDelegate?.highlightSignatureButton(depth: depth)
-                    break
-                case ButtonConstants.link.rawValue:
-                    selectionChangedDelegate?.highlightAnchorButton()
-                    break
-                case ButtonConstants.bold.rawValue:
-                    selectionChangedDelegate?.highlightBoldButton()
-                    break
-                case ButtonConstants.italic.rawValue:
-                    selectionChangedDelegate?.highlightItalicButton()
-                    break
-                case ButtonConstants.reference.rawValue:
-                    selectionChangedDelegate?.highlightReferenceButton()
-                    break
-                case ButtonConstants.template.rawValue:
-                    selectionChangedDelegate?.highlightTemplateButton()
-                    break
-                case ButtonConstants.undo.rawValue:
-                    selectionChangedDelegate?.highlightUndoButton()
-                    break
-                case ButtonConstants.redo.rawValue:
-                    selectionChangedDelegate?.highlightRedoButton()
-                    break
-                case ButtonConstants.comment.rawValue:
-                    selectionChangedDelegate?.highlightCommentButton()
-                    break
-                case ButtonConstants.debug.rawValue:
-                    print("\n\n\n\(buttonInfoDict ?? ["" : ""])")
-                    break
-                default:
-                    break
+                if let buttonType = ButtonConstants(rawValue: button) {
+                    post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage(button: buttonType, ordered: ordered, depth: depth))
                 }
             }
         }
