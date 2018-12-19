@@ -8,6 +8,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         config.selectionChangedDelegate = self
         setEditMenuItems()
         textFormattingInputViewController.delegate = self
+        defaultEditToolbarView?.delegate = self
+        contextualHighlightEditToolbarView?.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -80,18 +82,8 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     }
 
     // MARK: Accessory views
-
-    private lazy var defaultEditToolbarView: DefaultEditToolbarView = {
-        let view = DefaultEditToolbarView.wmf_viewFromClassNib()!
-        view.delegate = self
-        return view
-    }()
-
-    private lazy var contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView = {
-        let view = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()!
-         view.delegate = self
-        return view
-    }()
+    private var defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
+    private var contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
 
     // MARK: Input view
 
