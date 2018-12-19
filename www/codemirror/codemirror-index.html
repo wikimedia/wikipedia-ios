@@ -270,6 +270,18 @@
       editor.on('cursorActivity', sendNativeMessages)
     }
     
+    const wrapSelectionWith = (markup) => {
+      editor.replaceSelection(markup + editor.getSelection() + markup, 'around')
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const markupLength = markup.length
+        const selection = selections[0]
+        const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + markupLength, sticky: selection.anchor.sticky}
+        const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
+        editor.setSelection(anchor, head)
+      }
+    }
+    
     const wmf = {}
     
     
@@ -289,14 +301,7 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-        editor.replaceSelection("'''" + editor.getSelection() + "'''", 'around')
-        const selections = editor.listSelections()
-        if (selections.length > 0) {
-          const selection = selections[0]
-          const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + 3, sticky: selection.anchor.sticky}
-          const head = {line: selection.head.line, ch: selection.head.ch - 3, sticky: selection.head.sticky}
-          editor.setSelection(anchor, head)
-        }
+       wrapSelectionWith("'''")
         //const isBold = isButtonSelected('bold')
         // if (!isBold) {
           // editor.replaceSelection(`''' '''`)
@@ -310,7 +315,7 @@
         // }
       },
       italic: () => {
-        console.log('italic')
+        wrapSelectionWith("''")
       },
       reference: () => {
         console.log('reference')
