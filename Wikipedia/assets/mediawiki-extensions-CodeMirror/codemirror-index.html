@@ -271,7 +271,11 @@
     }
     
     const wrapSelectionWith = (markup) => {
-      editor.replaceSelection(markup + editor.getSelection() + markup, 'around')
+      var selectedText = editor.getSelection()
+      if (!selectedText || selectedText.length == 0) {
+        selectedText = " "
+      }
+      editor.replaceSelection(markup + selectedText + markup, 'around')
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const markupLength = markup.length
