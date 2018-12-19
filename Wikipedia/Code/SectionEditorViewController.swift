@@ -12,20 +12,34 @@ class SectionEditorViewController: UIViewController {
 
     private var theme = Theme.standard
 
-    // MARK: - Navigation button items
+    // MARK: - Bar buttons
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
-        button.accessibilityLabel = CommonStrings.accessibilityBackTitle
+    private class BarButtonItem: UIBarButtonItem, Themeable {
+        var tintColorKeyPath: KeyPath<Theme, UIColor>?
+        
+        func apply(theme: Theme) {
+            if let tintColorKeyPath = tintColorKeyPath {
+                tintColor = theme[keyPath: tintColorKeyPath]
+            }
+        }
+    }
+
+    private lazy var progressButton: BarButtonItem = {
+        let button = BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
+        button.tintColorKeyPath = \Theme.colors.link
         return button
     }()
 
-    private lazy var progressButton: UIBarButtonItem = {
-        return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
+    private lazy var redoButton: BarButtonItem = {
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)))
+        button.tintColorKeyPath = \Theme.colors.primaryText
+        return button
     }()
 
-    private lazy var appearanceButton: UIBarButtonItem = {
-        return UIBarButtonItem.init(image: #imageLiteral(resourceName: "appearance-settings-thicker"), style: .done, target: self, action: #selector(showAppearancePopover(_ :)))
+    private lazy var undoButton: BarButtonItem = {
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(redo(_ :)))
+        button.tintColorKeyPath = \Theme.colors.primaryText
+        return button
     }()
 
     // TODO
@@ -46,8 +60,28 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureNavigationButtonItems() {
+        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)))
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+        closeButton.tintColorKeyPath = \Theme.colors.secondaryAction
+
         navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItems = [progressButton, appearanceButton]
+
+        let appearanceButton = BarButtonItem(image: #imageLiteral(resourceName: "appearance-settings-thicker"), style: .plain, target: self, action: #selector(showAppearancePopover(_ :)))
+        appearanceButton.tintColorKeyPath = \Theme.colors.primaryText
+
+        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil)
+        separatorButton.tintColorKeyPath = \Theme.colors.border
+
+        navigationItem.rightBarButtonItems = [
+            progressButton,
+            separatorButton,
+            appearanceButton,
+            separatorButton,
+            redoButton,
+            separatorButton,
+            undoButton
+        ]
+
         enableProgressButton(false)
     }
 
@@ -84,10 +118,6 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
-    }
-
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
             webView.getWikitext { (result, error) in
@@ -110,6 +140,16 @@ class SectionEditorViewController: UIViewController {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
+    }
+
+    // MARK: - Navigation actions
+
+    @objc private func close(_ sender: UIBarButtonItem) {
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+    }
+
+    @objc private func redo(_ sender: UIBarButtonItem) {
+
     }
 
     @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
@@ -208,9 +248,14 @@ extension SectionEditorViewController: Themeable {
             return
         }
         webViewCover.backgroundColor = theme.colors.paperBackground
-        progressButton.tintColor = theme.colors.link
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
+        for case let barButonItem as BarButtonItem in navigationItem.rightBarButtonItems ?? [] {
+            barButonItem.apply(theme: theme)
+        }
+        for case let barButonItem as BarButtonItem in navigationItem.leftBarButtonItems ?? [] {
+            barButonItem.apply(theme: theme)
+        }
     }
 }
 
