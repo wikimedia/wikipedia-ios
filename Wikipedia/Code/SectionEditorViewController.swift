@@ -37,7 +37,7 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private lazy var undoButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(redo(_ :)))
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)))
         button.tintColorKeyPath = \Theme.colors.primaryText
         return button
     }()
@@ -124,12 +124,16 @@ class SectionEditorViewController: UIViewController {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
     }
 
+    @objc private func undo(_ sender: UIBarButtonItem) {
+        webView.undo(sender)
+    }
+
     @objc private func redo(_ sender: UIBarButtonItem) {
         webView.redo(sender)
     }
 
     @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-        webView.undo(sender)
+        //
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
