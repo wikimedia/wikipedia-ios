@@ -289,6 +289,14 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
+        editor.replaceSelection("'''" + editor.getSelection() + "'''", 'around')
+        const selections = editor.listSelections()
+        if (selections.length > 0) {
+          const selection = selections[0]
+          const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + 3, sticky: selection.anchor.sticky}
+          const head = {line: selection.head.line, ch: selection.head.ch - 3, sticky: selection.head.sticky}
+          editor.setSelection(anchor, head)
+        }
         //const isBold = isButtonSelected('bold')
         // if (!isBold) {
           // editor.replaceSelection(`''' '''`)
