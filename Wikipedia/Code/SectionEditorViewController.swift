@@ -9,9 +9,10 @@ class SectionEditorViewController: UIViewController {
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
     private var webViewCover: UIView = UIView()
-    private var rightButton: UIBarButtonItem?
 
     private var theme = Theme.standard
+
+    // MARK: - Navigation button items
 
     private lazy var closeButton: UIBarButtonItem = {
         let button = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
@@ -20,8 +21,11 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private lazy var progressButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
-        return button
+        return UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
+    }()
+
+    private lazy var appearanceButton: UIBarButtonItem = {
+        return UIBarButtonItem.init(image: #imageLiteral(resourceName: "appearance-settings-thicker"), style: .done, target: self, action: #selector(showAppearancePopover(_ :)))
     }()
 
     // TODO
@@ -32,15 +36,19 @@ class SectionEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItem = progressButton
-        enableProgressButton(false)
+        configureNavigationButtonItems()
 
         configureWebView()
         view.wmf_addSubviewWithConstraintsToEdges(webViewCover)
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+    }
+
+    private func configureNavigationButtonItems() {
+        navigationItem.leftBarButtonItem = closeButton
+        navigationItem.rightBarButtonItems = [progressButton, appearanceButton]
+        enableProgressButton(false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -102,6 +110,10 @@ class SectionEditorViewController: UIViewController {
             let message = WMFLocalizedString("wikitext-preview-changes-none", value: "No changes were made to be previewed.", comment: "Alert text shown if no changes were made to be previewed.")
             WMFAlertManager.sharedInstance.showAlert(message, sticky: false, dismissPreviousAlerts: true)
         }
+    }
+
+    @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
+
     }
 
     private func enableProgressButton(_ enabled: Bool) {
