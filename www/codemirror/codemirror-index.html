@@ -282,14 +282,41 @@
       }
     }
     
-    const wmf = {}
+    const reverseString = (string) => {
+      return string.split("").reverse().join("")
+    }
     
+    const unwrapSelectionWith = (markup) => {
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const selection = selections[0]
+        const lineIndex = selection.anchor.line
+        const line = editor.getLine(lineIndex)
+        const before = line.substring(0, selection.anchor.ch)
+        const after = line.substring(selection.anchor.ch, line.length)
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(markup), ""))
+        const adjustedAfter = after.replace(markup, "")
+        editor.replaceRange(adjustedBefore + adjustedAfter, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length - 1})
+      }
+    }
+    
+    const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
+    
+    const toggleMarkup = (button, markup) => {
+      const isSelected = isButtonSelected(button)
+      if (isSelected) {
+        unwrapSelectionWith(markup)
+      } else {
+        wrapSelectionWith(markup)
+      }
+    }
+    
+    const wmf = {}
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = () => setupCodemirror()
 
-    // const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     wmf.commands = {
       focus: () => {
         editor.focus()
@@ -301,21 +328,10 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-       wrapSelectionWith("'''")
-        //const isBold = isButtonSelected('bold')
-        // if (!isBold) {
-          // editor.replaceSelection(`''' '''`)
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // const cursor = editor.getCursor()
-          // editor.extendSelection(cursor, {line: cursor.line, ch: cursor.ch + 1})
-        // } else {
-        // }
+        toggleMarkup('bold', "'''")
       },
       italic: () => {
-        wrapSelectionWith("''")
+        toggleMarkup('italic', "''")
       },
       reference: () => {
         console.log('reference')
