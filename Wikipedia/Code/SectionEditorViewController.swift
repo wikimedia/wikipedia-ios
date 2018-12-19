@@ -125,11 +125,11 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func redo(_ sender: UIBarButtonItem) {
-
+        webView.redo(sender)
     }
 
     @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-
+        webView.undo(sender)
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
