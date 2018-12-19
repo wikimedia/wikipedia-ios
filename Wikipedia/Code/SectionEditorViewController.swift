@@ -20,7 +20,7 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private lazy var progressButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .plain, target: self, action: #selector(progress(_:)))
+        let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
         return button
     }()
 
@@ -196,6 +196,7 @@ extension SectionEditorViewController: Themeable {
             return
         }
         webViewCover.backgroundColor = theme.colors.paperBackground
+        progressButton.tintColor = theme.colors.link
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
     }
