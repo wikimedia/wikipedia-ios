@@ -290,6 +290,10 @@
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const selection = selections[0]
+        if (selection.anchor.line != selection.head.line || selection.anchor.ch != selection.head.ch) {
+          wrapSelectionWith(markup)
+          return
+        }
         const lineIndex = selection.anchor.line
         const line = editor.getLine(lineIndex)
         const before = line.substring(0, selection.anchor.ch)
