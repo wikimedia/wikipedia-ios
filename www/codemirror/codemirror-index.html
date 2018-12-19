@@ -270,14 +270,68 @@
       editor.on('cursorActivity', sendNativeMessages)
     }
     
-    const wmf = {}
+    const wrapSelectionWith = (markup) => {
+      var selectedText = editor.getSelection()
+      if (!selectedText || selectedText.length == 0) {
+        selectedText = " "
+      }
+      editor.replaceSelection(markup + selectedText + markup, 'around')
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const markupLength = markup.length
+        const selection = selections[0]
+        const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + markupLength, sticky: selection.anchor.sticky}
+        const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
+        editor.setSelection(anchor, head)
+      }
+    }
     
+    const reverseString = (string) => {
+      return string.split("").reverse().join("")
+    }
+    
+    const unwrapSelectionWith = (markup) => {
+      const selections = editor.listSelections()
+      if (selections.length > 0) {
+        const selection = selections[0]
+        if (selection.anchor.line != selection.head.line || selection.anchor.ch != selection.head.ch) {
+          wrapSelectionWith(markup)
+          return
+        }
+        const lineIndex = selection.anchor.line
+        const line = editor.getLine(lineIndex)
+        const before = line.substring(0, selection.anchor.ch)
+        const after = line.substring(selection.anchor.ch, line.length)
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(markup), ""))
+        const adjustedAfter = after.replace(markup, "")
+        const adjustedLine = adjustedBefore + adjustedAfter
+        if (line.length != adjustedLine.length) {
+          editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
+          const markupLength = markup.length
+          const anchor = {line: selection.anchor.line, ch: selection.anchor.ch - markupLength, sticky: selection.anchor.sticky}
+          const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
+          editor.setSelection(anchor, head)
+        }
+      }
+    }
+    
+    const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
+    
+    const toggleMarkup = (button, markup) => {
+      const isSelected = isButtonSelected(button)
+      if (isSelected) {
+        unwrapSelectionWith(markup)
+      } else {
+        wrapSelectionWith(markup)
+      }
+    }
+    
+    const wmf = {}
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = () => setupCodemirror()
 
-    // const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     wmf.commands = {
       focus: () => {
         editor.focus()
@@ -289,20 +343,10 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-        //const isBold = isButtonSelected('bold')
-        // if (!isBold) {
-          // editor.replaceSelection(`''' '''`)
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // editor.execCommand('goCharLeft')
-          // const cursor = editor.getCursor()
-          // editor.extendSelection(cursor, {line: cursor.line, ch: cursor.ch + 1})
-        // } else {
-        // }
+        toggleMarkup('bold', "'''")
       },
       italic: () => {
-        console.log('italic')
+        toggleMarkup('italic', "''")
       },
       reference: () => {
         console.log('reference')

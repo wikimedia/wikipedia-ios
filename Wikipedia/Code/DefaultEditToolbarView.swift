@@ -28,11 +28,60 @@ class DefaultEditToolbarView: EditToolbarView {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
 
+    @IBOutlet weak var formattingButton: TextFormattingButton!
+    @IBOutlet weak var headingButton: TextFormattingButton!
+    @IBOutlet weak var citationButton: TextFormattingButton!
+    @IBOutlet weak var linkButton: TextFormattingButton!
+    @IBOutlet weak var addButton: TextFormattingButton!
+    @IBOutlet weak var unorderedListButton: TextFormattingButton!
+    @IBOutlet weak var orderedListButton: TextFormattingButton!
+    @IBOutlet weak var indentDecreaseButton: TextFormattingButton!
+    @IBOutlet weak var indentIncreaseButton: TextFormattingButton!
+    @IBOutlet weak var moveUpButton: TextFormattingButton!
+    @IBOutlet weak var moveDownButton: TextFormattingButton!
+    @IBOutlet weak var moveLeftButton: TextFormattingButton!
+    @IBOutlet weak var moveRightButton: TextFormattingButton!
+    @IBOutlet weak var findButton: TextFormattingButton!
+    @IBOutlet weak var dotsButton: TextFormattingButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
     }
 
+    private func selectButton(type: EditButtonType, ordered: Bool) {
+        switch (type) {
+        case .link:
+            linkButton.isSelected = true
+        case .li:
+            if ordered {
+                orderedListButton.isSelected = true
+            } else {
+                unorderedListButton.isSelected = true
+            }
+        case .reference:
+            citationButton.isSelected = true
+        default:
+            print("button type not yet handled: \(type)")
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
+            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
+                self?.selectButton(type: message.type, ordered: message.ordered)
+                // print("buttonNeedsToBeSelectedMessage = \(message)")
+            }
+        }
+        
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func button(withTitle title: String, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
