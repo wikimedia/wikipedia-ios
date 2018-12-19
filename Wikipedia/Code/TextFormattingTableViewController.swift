@@ -56,14 +56,19 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     private let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
     private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
+    
+    weak override var delegate: TextFormattingDelegate? {
+        didSet {
+            textFormattingToolbarView?.delegate = delegate
+            textFormattingGroupedToolbarView?.delegate = delegate
+            textFormattingButtonView?.delegate = delegate
+        }
+    }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        textFormattingToolbarView?.delegate = delegate
-        textFormattingGroupedToolbarView?.delegate = delegate
         textFormattingButtonView?.buttonTitle = "Clear formatting"
         textFormattingButtonView?.buttonTitleColor = theme.colors.error
-        textFormattingButtonView?.delegate = delegate
     }
     
     private lazy var staticItems: [Item] = {
