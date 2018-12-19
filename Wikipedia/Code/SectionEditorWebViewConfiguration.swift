@@ -1,5 +1,25 @@
 import WebKit
 
+extension NSNotification.Name {
+    static let WMFSectionEditorSelectionChangedNotification = Notification.Name("WMFSectionEditorSelectionChangedNotification")
+    static let WMFSectionEditorButtonHighlightNotification = Notification.Name("WMFSectionEditorButtonHighlightNotification")
+}
+
+extension SectionEditorWebViewConfiguration {
+    static let WMFSectionEditorSelectionChanged = "WMFSectionEditorSelectionChanged"
+    static let WMFSectionEditorSelectionChangedSelectedButton = "WMFSectionEditorSelectionChangedSelectedButton"
+}
+
+struct ButtonNeedsToBeSelectedMessage {
+    let button: ButtonConstants
+    let ordered: Bool
+    let depth: Int
+}
+
+struct SelectionChangedMessage {
+    let selectionIsRange: Bool
+}
+
 protocol SectionEditorWebViewSelectionChangedDelegate: NSObjectProtocol {
     // Inside 'selectionChanged' the delegate should de-select all buttons.
     func selectionChanged(isRangeSelected: Bool)
@@ -39,7 +59,7 @@ private enum MessageConstants: String {
     case info
 }
 
-private enum ButtonConstants: String {
+enum ButtonConstants: String {
     case li
     case heading
     case indent
@@ -81,16 +101,38 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    private func post(selectionChangedMessage: SelectionChangedMessage) {
+        NotificationCenter.default.post(
+            name: Notification.Name.WMFSectionEditorSelectionChangedNotification,
+            object: nil,
+            userInfo: [SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChanged: selectionChangedMessage]
+        )
+    }
+
+    private func post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage) {
+        NotificationCenter.default.post(
+            name: Notification.Name.WMFSectionEditorButtonHighlightNotification,
+            object: nil,
+            userInfo: [SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton: buttonNeedsToBeSelectedMessage]
+        )
+    }
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch message.name {
         case MessageNameConstants.selectionChanged.rawValue:
             guard let isRangeSelected = message.body as? Bool else {
                 DDLogError("Unable to interpret Bool message.")
                 selectionChangedDelegate?.selectionChanged(isRangeSelected: false)
+                
+post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: false))
+                
                 break
             }
             selectionChangedDelegate?.selectionChanged(isRangeSelected: isRangeSelected)
+
+post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: isRangeSelected))
+
         case MessageNameConstants.highlightTheseButtons.rawValue:
             callButtonEnableHighlightMethods(name: message.name, body: message.body)
         case MessageNameConstants.event.rawValue:
@@ -118,7 +160,15 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
                     continue
                 }
                 let depth = buttonInfoDict?[ButtonInfoConstants.depth.rawValue] as? Int ?? 0
+                let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool ?? false
 
+if let buttonType = ButtonConstants(rawValue: button) {
+    post(buttonNeedsToBeSelectedMessage: ButtonNeedsToBeSelectedMessage(button: buttonType, ordered: ordered, depth: depth))
+}
+continue
+                
+
+                
                 switch button {
                 case ButtonConstants.li.rawValue:
                     guard let ordered = buttonInfoDict?[ButtonInfoConstants.ordered.rawValue] as? Bool else {

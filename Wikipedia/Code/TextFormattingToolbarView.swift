@@ -16,6 +16,51 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
     @IBAction private func toggleItalics(sender: UIButton) {
         delegate?.textFormattingProvidingDidTapItalicsButton(self, button: sender)
     }
+    
+    private func deselectAllButtons() {
+        allButtons.forEach() {
+            $0.isSelected = false
+        }
+    }
+    
+    private func select(button: ButtonConstants) {
+        switch (button) {
+        case .bold:
+            boldButton.isSelected = true
+        case .italic:
+            italicButton.isSelected = true
+        case .reference:
+            citationButton.isSelected = true
+        case .template:
+            templateButton.isSelected = true
+        case .link:
+            linkButton.isSelected = true
+        default:
+            print("button not yet handled: \(button)")
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
+            self?.deselectAllButtons()
+            // if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChanged] as? SelectionChangedMessage {
+            //     print("selectionChangedMessage = \(message)")
+            // }
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
+            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
+                self?.select(button: message.button)
+                // print("buttonNeedsToBeSelectedMessage = \(message)")
+            }
+        }
+        
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension TextFormattingToolbarView: Themeable {
