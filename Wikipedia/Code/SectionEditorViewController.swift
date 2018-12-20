@@ -22,7 +22,12 @@ class SectionEditorViewController: UIViewController {
         }
 
         convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
-            self.init(image: image, style: style, target: target, action: action)
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
+            if let target = target, let action = action {
+                button.addTarget(target, action: action, for: .touchUpInside)
+            }
+            self.init(customView: button)
             self.tintColorKeyPath = tintColorKeyPath
         }
         
@@ -30,7 +35,12 @@ class SectionEditorViewController: UIViewController {
             guard let tintColorKeyPath = tintColorKeyPath else {
                 return
             }
-            tintColor = theme[keyPath: tintColorKeyPath]
+            let newTintColor = theme[keyPath: tintColorKeyPath]
+            if customView == nil {
+                tintColor = newTintColor
+            } else if let button = customView as? UIButton {
+                button.tintColor = newTintColor
+            }
         }
     }
 
@@ -48,7 +58,7 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private lazy var separatorButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.primaryText)
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
         button.isEnabled = false
         return button
     }()
@@ -84,8 +94,11 @@ class SectionEditorViewController: UIViewController {
 
         navigationItem.rightBarButtonItems = [
             progressButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             separatorButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             redoButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             undoButton
         ]
 
