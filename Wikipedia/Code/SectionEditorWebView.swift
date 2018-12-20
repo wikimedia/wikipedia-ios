@@ -60,6 +60,7 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
     
     func apply(theme: Theme) {
         self.theme = theme
+        evaluateJavaScript("window.wmf.applyTheme(`\(theme.codemirrorName)`);", completionHandler: nil)
     }
 }
 

@@ -340,6 +340,7 @@
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = () => setupCodemirror()
+    wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     wmf.commands = {
       focus: () => {
