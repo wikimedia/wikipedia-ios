@@ -286,14 +286,6 @@ extension SectionEditorViewController: Themeable {
     }
 }
 
-// MARK: - UIPopoverPresentationControllerDelegate
-
-extension SectionEditorViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .none
-    }
-}
-
 // MARK: - Old localized strings
 
 extension SectionEditorViewController {
