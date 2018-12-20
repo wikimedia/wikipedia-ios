@@ -54,7 +54,7 @@ class DefaultEditToolbarView: EditToolbarView {
         case .heading:
             headingButton.isSelected = true
         default:
-            print("button type not yet handled: \(type)")
+            break
         }
     }
     

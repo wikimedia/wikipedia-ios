@@ -36,7 +36,7 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
         case .link:
             linkButton.isSelected = true
         default:
-            print("button type not yet handled: \(type)")
+            break
         }
     }
     

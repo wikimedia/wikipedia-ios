@@ -26,7 +26,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
                 unorderedList.isSelected = true
             }
         default:
-            print("button type not yet handled: \(type)")
+            break
         }
     }
 
