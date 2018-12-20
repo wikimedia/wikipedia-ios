@@ -251,7 +251,7 @@
       ))
      
       const historySize = doc.historySize()
-      if (historySize.undo > 0) {
+      if (historySize.undo > 1) {
         result.push(buttonPayload('undo'))
       }
       if (historySize.redo > 0) {
