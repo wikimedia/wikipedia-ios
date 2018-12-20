@@ -91,7 +91,8 @@ class SectionEditorViewController: UIViewController {
         navigationItem.leftBarButtonItem = closeButton
 
         let appearanceButton = BarButtonItem(image: #imageLiteral(resourceName: "appearance-settings-thicker"), target: self, action: #selector(showAppearancePopover(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
-        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.border)
+        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.primaryText)
+        separatorButton.isEnabled = false
 
         navigationItem.rightBarButtonItems = [
             progressButton,
