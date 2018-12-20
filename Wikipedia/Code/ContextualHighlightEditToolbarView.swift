@@ -8,6 +8,7 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
 
     @IBOutlet weak var boldButton: TextFormattingButton!
     @IBOutlet weak var italicButton: TextFormattingButton!
+    @IBOutlet weak var headingButton: TextFormattingButton!
 
     private func selectButton(type: EditButtonType, ordered: Bool) {
         switch (type) {
@@ -15,6 +16,8 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
             boldButton.isSelected = true
         case .italic:
             italicButton.isSelected = true
+        case .heading:
+            headingButton.isSelected = true
         default:
             break
         }
