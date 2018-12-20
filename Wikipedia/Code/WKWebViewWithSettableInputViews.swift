@@ -39,8 +39,6 @@ class WKWebViewWithSettableInputViews: WKWebView {
             self.storedInputView = newValue
         }
     }
-    
-//    @objc var keyboardAppearance: UIKeyboardAppearance = .dark
 
     private func add(selector: Selector, to target: AnyClass, origin: AnyClass, originSelector: Selector) {
         guard
@@ -93,13 +91,6 @@ class WKWebViewWithSettableInputViews: WKWebView {
             originSelector: #selector(getter: SectionEditorWebView.inputView)
         )
 
-//        self.add(
-//            selector: #selector(getter: UITextInputTraits.keyboardAppearance),
-//            to: newContentViewClass.self,
-//            origin: SectionEditorWebView.self,
-//            originSelector: #selector(getter: SectionEditorWebView.keyboardAppearance)
-//        )
-        
         objc_registerClassPair(newContentViewClass)
         object_setClass(contentView, newContentViewClass)
     }
