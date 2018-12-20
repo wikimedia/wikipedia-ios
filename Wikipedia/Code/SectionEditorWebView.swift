@@ -3,13 +3,14 @@ import WebKit
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebViewWithSettableInputViews {
+class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
     let config = SectionEditorWebViewConfiguration()
-    private let codeMirrorIndexFileName = "mediawiki-extensions-CodeMirror/codemirror-index.html"
-    
-    init() {
+    var theme: Theme
+
+    init(theme: Theme) {
+        self.theme = theme
         super.init(frame: .zero, configuration: config)
-        loadHTMLFromAssetsFile(codeMirrorIndexFileName, scrolledToFragment: nil)
+        loadAssetsHTML()
         scrollView.keyboardDismissMode = .interactive
     }
 
@@ -55,5 +56,26 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
             }
             DDLogError("Error setting up editor: \(error)")
         }
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+    }
+}
+
+extension SectionEditorWebView {
+    private func assetsHTMLURL() -> URL? {
+        guard let url = WMFURLSchemeHandler.shared().appSchemeURL(forRelativeFilePath: "mediawiki-extensions-CodeMirror/codemirror-index.html", fragment: "top") else {
+            DDLogError("Could not get assets url")
+            return nil
+        }
+        return (url as NSURL).wmf_url(withValue: theme.codemirrorName, forQueryKey: "theme")
+    }
+    private func loadAssetsHTML() {
+        guard let url = assetsHTMLURL() else {
+            DDLogError("Could not get assets url")
+            return
+        }
+        self.load(URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout))
     }
 }

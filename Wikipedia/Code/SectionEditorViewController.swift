@@ -8,7 +8,6 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
-    private var webViewCover: UIView = UIView()
     private var rightButton: UIBarButtonItem?
 
     private var theme = Theme.standard
@@ -37,7 +36,6 @@ class SectionEditorViewController: UIViewController {
         enableProgressButton(false)
 
         configureWebView()
-        view.wmf_addSubviewWithConstraintsToEdges(webViewCover)
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
@@ -58,7 +56,6 @@ class SectionEditorViewController: UIViewController {
         webView = SectionEditorWebViewWithEditToolbar(theme: self.theme)
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.config.eventDelegate = self
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         webView.configureInputAccessoryViews()
     }
@@ -195,7 +192,6 @@ extension SectionEditorViewController: Themeable {
             self.theme = theme
             return
         }
-        webViewCover.backgroundColor = theme.colors.paperBackground
         progressButton.tintColor = theme.colors.link
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
@@ -207,32 +203,4 @@ extension SectionEditorViewController: Themeable {
 extension SectionEditorViewController {
     // WMFLocalizedStringWithDefaultValue(@"wikitext-download-success", nil, nil, @"Content loaded.", @"Alert text shown when latest revision of the section being edited has been retrieved")
     // WMFLocalizedStringWithDefaultValue(@"wikitext-downloading", nil, nil, @"Loading content...", @"Alert text shown when obtaining latest revision of the section being edited")
-}
-
-extension SectionEditorViewController: SectionEditorWebViewEventDelegate {
-    func handleEvent(_ type: SectionEditorWebViewEventType, userInfo: [String : Any]) {
-        switch type {
-        case .atDocumentStart:
-            let js =
-            """
-            var css = 'body, .CodeMirror { background: #\(theme.colors.paperBackground.wmf_hexString); }';
-            var style = document.createElement('style');
-            style.type = 'text/css';
-            style.innerText = css;
-            document.head.appendChild(style);
-            """
-            webView.evaluateJavaScript(js)
-        case .atDocumentEnd:
-            let js =
-            """
-            document.getElementById('codemirror-theme').setAttribute('href', 'codemirror-\(theme.codemirrorName).css');
-            """
-            webView.evaluateJavaScript(js) { (obj, error) in
-                assert(error == nil)
-                DispatchQueue.main.async {
-                    self.webViewCover.removeFromSuperview()
-                }
-            }
-        }
-    }
 }

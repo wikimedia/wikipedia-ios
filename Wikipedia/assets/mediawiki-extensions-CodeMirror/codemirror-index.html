@@ -23,6 +23,15 @@
 
   <script>
 
+    const applyTheme = (themeName) => {
+      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = (new URL(window.location)).searchParams
+      applyTheme(params.get('theme'))
+    })
+
     let editor
     
     let codeMirrorSettings = {
