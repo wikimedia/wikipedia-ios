@@ -86,7 +86,6 @@ class SectionEditorViewController: UIViewController {
             progressButton,
             separatorButton,
             redoButton,
-            separatorButton,
             undoButton
         ]
 
