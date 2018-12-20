@@ -1,7 +1,7 @@
 class TextFormattingToolbarView: UIView, TextFormattingProviding {
     weak var delegate: TextFormattingDelegate?
 
-    @IBOutlet var allButtons: [TextFormattingButton]!
+    @IBOutlet var buttons: [TextFormattingButton]!
     @IBOutlet weak var boldButton: TextFormattingButton!
     @IBOutlet weak var italicButton: TextFormattingButton!
     @IBOutlet weak var citationButton: TextFormattingButton!
@@ -18,7 +18,7 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
     }
     
     private func deselectAllButtons() {
-        allButtons.forEach() {
+        buttons.forEach() {
             $0.isSelected = false
         }
     }

@@ -1,7 +1,7 @@
 class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     weak var delegate: TextFormattingDelegate?
 
-    @IBOutlet var allButtons: [TextFormattingButton]!
+    @IBOutlet var buttons: [TextFormattingButton]!
     @IBOutlet weak var indentDecrease: TextFormattingButton!
     @IBOutlet weak var indentIncrease: TextFormattingButton!
     @IBOutlet weak var unorderedList: TextFormattingButton!
@@ -12,7 +12,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     @IBOutlet weak var strikethrough: TextFormattingButton!
 
     private func deselectAllButtons() {
-        allButtons.forEach() {
+        buttons.forEach() {
             $0.isSelected = false
         }
     }

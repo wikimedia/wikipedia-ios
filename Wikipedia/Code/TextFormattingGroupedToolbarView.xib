@@ -114,14 +114,14 @@
                 <outlet property="unorderedList" destination="6mq-cE-h7g" id="JFR-lK-Zi6"/>
                 <outlet property="xDown" destination="DP4-MR-ibt" id="njt-Fs-zaj"/>
                 <outlet property="xUp" destination="2b9-qs-xai" id="pP6-r7-bBv"/>
-                <outletCollection property="allButtons" destination="sDr-K9-rDm" collectionClass="NSMutableArray" id="QPS-2i-K7L"/>
-                <outletCollection property="allButtons" destination="Bq0-nC-Jor" collectionClass="NSMutableArray" id="fex-P8-bCN"/>
-                <outletCollection property="allButtons" destination="6mq-cE-h7g" collectionClass="NSMutableArray" id="2YF-3u-ewW"/>
-                <outletCollection property="allButtons" destination="rTP-EO-B4B" collectionClass="NSMutableArray" id="0Zg-jG-bQe"/>
-                <outletCollection property="allButtons" destination="2b9-qs-xai" collectionClass="NSMutableArray" id="1eF-vL-cYR"/>
-                <outletCollection property="allButtons" destination="DP4-MR-ibt" collectionClass="NSMutableArray" id="JEW-zG-D8Z"/>
-                <outletCollection property="allButtons" destination="SR0-aa-rb8" collectionClass="NSMutableArray" id="Nsa-1d-f3O"/>
-                <outletCollection property="allButtons" destination="Pzf-Y3-YJe" collectionClass="NSMutableArray" id="SJE-mO-v80"/>
+                <outletCollection property="buttons" destination="sDr-K9-rDm" collectionClass="NSMutableArray" id="QPS-2i-K7L"/>
+                <outletCollection property="buttons" destination="Bq0-nC-Jor" collectionClass="NSMutableArray" id="fex-P8-bCN"/>
+                <outletCollection property="buttons" destination="6mq-cE-h7g" collectionClass="NSMutableArray" id="2YF-3u-ewW"/>
+                <outletCollection property="buttons" destination="rTP-EO-B4B" collectionClass="NSMutableArray" id="0Zg-jG-bQe"/>
+                <outletCollection property="buttons" destination="2b9-qs-xai" collectionClass="NSMutableArray" id="1eF-vL-cYR"/>
+                <outletCollection property="buttons" destination="DP4-MR-ibt" collectionClass="NSMutableArray" id="JEW-zG-D8Z"/>
+                <outletCollection property="buttons" destination="SR0-aa-rb8" collectionClass="NSMutableArray" id="Nsa-1d-f3O"/>
+                <outletCollection property="buttons" destination="Pzf-Y3-YJe" collectionClass="NSMutableArray" id="SJE-mO-v80"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>

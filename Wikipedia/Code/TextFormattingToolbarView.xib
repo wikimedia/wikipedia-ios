@@ -66,12 +66,12 @@
                 <outlet property="italicButton" destination="fM8-b0-I9N" id="iK2-I7-9Sy"/>
                 <outlet property="linkButton" destination="lyH-tA-Dma" id="yzE-Tp-13x"/>
                 <outlet property="templateButton" destination="oDq-hb-02O" id="ZrJ-HE-0M3"/>
-                <outletCollection property="allButtons" destination="9va-UE-Cjg" collectionClass="NSMutableArray" id="mIe-br-okB"/>
-                <outletCollection property="allButtons" destination="fM8-b0-I9N" collectionClass="NSMutableArray" id="eMC-CF-LHf"/>
-                <outletCollection property="allButtons" destination="Tha-bd-cfK" collectionClass="NSMutableArray" id="QDP-yB-ZqK"/>
-                <outletCollection property="allButtons" destination="oDq-hb-02O" collectionClass="NSMutableArray" id="hyf-b7-YEe"/>
-                <outletCollection property="allButtons" destination="DEU-F8-gGT" collectionClass="NSMutableArray" id="lJN-8f-mdV"/>
-                <outletCollection property="allButtons" destination="lyH-tA-Dma" collectionClass="NSMutableArray" id="iE5-jd-Dmc"/>
+                <outletCollection property="buttons" destination="9va-UE-Cjg" collectionClass="NSMutableArray" id="mIe-br-okB"/>
+                <outletCollection property="buttons" destination="fM8-b0-I9N" collectionClass="NSMutableArray" id="eMC-CF-LHf"/>
+                <outletCollection property="buttons" destination="Tha-bd-cfK" collectionClass="NSMutableArray" id="QDP-yB-ZqK"/>
+                <outletCollection property="buttons" destination="oDq-hb-02O" collectionClass="NSMutableArray" id="hyf-b7-YEe"/>
+                <outletCollection property="buttons" destination="DEU-F8-gGT" collectionClass="NSMutableArray" id="lJN-8f-mdV"/>
+                <outletCollection property="buttons" destination="lyH-tA-Dma" collectionClass="NSMutableArray" id="iE5-jd-Dmc"/>
             </connections>
             <point key="canvasLocation" x="-16.800000000000001" y="-200.14992503748127"/>
         </view>
