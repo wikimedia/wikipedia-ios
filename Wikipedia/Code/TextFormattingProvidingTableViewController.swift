@@ -34,6 +34,24 @@ enum TextStyleType: Int {
     }
 }
 
+enum TextSizeType {
+    case normal
+    case big
+    case small
+
+    #warning("Text size strings need to be localized")
+    var name: String {
+        switch self {
+        case .normal:
+            return "Normal"
+        case .big:
+            return "Big"
+        case .small:
+            return "Small"
+        }
+    }
+}
+
 class TextFormattingProvidingTableViewController: UITableViewController, TextFormattingProviding {
     weak var delegate: TextFormattingDelegate?
 
@@ -64,20 +82,13 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     private func selectTextStyleType(for type: EditButtonType, depth: Int) {
-        switch (type, depth) {
-        case (.heading, 1):
-            selectedTextStyleType = .heading
-        case (.heading, 2):
-            selectedTextStyleType = .subheading1
-        case (.heading, 3):
-            selectedTextStyleType = .subheading2
-        case (.heading, 4):
-            selectedTextStyleType = .subheading3
-        case (.heading, 5):
-            selectedTextStyleType = .subheading4
-        default:
-            break
+        guard type == .heading else {
+            return
         }
+        guard let newTextStyleType = TextStyleType(rawValue: depth) else {
+            return
+        }
+        selectedTextStyleType = newTextStyleType
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,6 +111,15 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
     
     final var selectedTextStyleType: TextStyleType = .paragraph {
+        didSet {
+            guard navigationController != nil else {
+                return
+            }
+            tableView.reloadData()
+        }
+    }
+
+    final var selectedTextSizeType: TextSizeType = .normal {
         didSet {
             guard navigationController != nil else {
                 return

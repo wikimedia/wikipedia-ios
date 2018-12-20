@@ -53,6 +53,16 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
     }
 
+    private var textSize: Item {
+        let showTextSizeFormattingTableViewController = {
+            let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
+            textSizeFormattingTableViewController.delegate = self.delegate
+            textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
+            self.navigationController?.pushViewController(textSizeFormattingTableViewController, animated: true)
+        }
+        return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
+    }
+
     private let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
     private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
@@ -76,16 +86,15 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
 
-        let textSize = Item(with: Content(type: .detail, title: "Text size", detailText: "Normal"))
-
         let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
 
-        return [toolbar, groupedToolbar, textSize, button]
+        return [toolbar, groupedToolbar, button]
     }()
 
     private var items: [Item] {
         var allItems = staticItems
         allItems.insert(textStyle, at: 2)
+        allItems.insert(textSize, at: 3)
         return allItems
     }
 

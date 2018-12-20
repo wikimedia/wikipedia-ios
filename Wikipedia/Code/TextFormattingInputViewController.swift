@@ -18,7 +18,9 @@ class TextFormattingInputViewController: UIInputViewController {
         }
     }
     private var theme = Theme.standard
+
     var selectedTextStyleType: TextStyleType?
+    var selectedTextSizeType: TextSizeType?
 
     enum InputViewType {
         case textFormatting
