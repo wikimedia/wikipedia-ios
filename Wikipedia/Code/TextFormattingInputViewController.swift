@@ -51,8 +51,6 @@ class TextFormattingInputViewController: UIInputViewController {
         case .textStyle:
             viewController = textStyleFormattingTableViewController
         }
-
-        viewController.selectedTextStyleType = selectedTextStyleType ?? .paragraph
         viewController.apply(theme: theme)
         return viewController
     }

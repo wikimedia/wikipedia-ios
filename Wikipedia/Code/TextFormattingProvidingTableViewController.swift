@@ -56,6 +56,44 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return button
     }()
 
+    private func resetSelectTextStyleType() {
+        selectedTextStyleType = .paragraph
+    }
+
+    private func selectTextStyleType(for type: EditButtonType, depth: Int) {
+        switch (type, depth) {
+        case (.heading, 1):
+            selectedTextStyleType = .heading
+        case (.heading, 2):
+            selectedTextStyleType = .subheading1
+        case (.heading, 3):
+            selectedTextStyleType = .subheading2
+        case (.heading, 4):
+            selectedTextStyleType = .subheading3
+        default:
+            break
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
+            self?.resetSelectTextStyleType()
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
+            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
+                self?.selectTextStyleType(for: message.type, depth: message.depth)
+                // print("buttonNeedsToBeSelectedMessage = \(message)")
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     final var selectedTextStyleType: TextStyleType = .paragraph {
         didSet {
             guard navigationController != nil else {
