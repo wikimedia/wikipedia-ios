@@ -47,6 +47,9 @@ class DefaultEditToolbarView: EditToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
+        
+        addButton.isEnabled = false
+        findButton.isEnabled = false
     }
 
     private func selectButton(type: EditButtonType, ordered: Bool) {
