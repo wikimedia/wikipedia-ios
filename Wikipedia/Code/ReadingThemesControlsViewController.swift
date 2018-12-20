@@ -220,6 +220,8 @@ extension ReadingThemesControlsViewController: Themeable {
         tLargeImageView.tintColor = theme.colors.secondaryText
         
         view.tintColor = theme.colors.link
+
+        popoverPresentationController?.backgroundColor = theme.colors.popoverBackground
     }
     
 }

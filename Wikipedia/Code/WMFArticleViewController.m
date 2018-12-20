@@ -104,7 +104,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 @property (nonatomic, strong) WebViewController *webViewController;
 
 @property (nonatomic, strong) WMFReadingThemesControlsViewController *readingThemesViewController;
-@property (nonatomic, strong) UIPopoverPresentationController *readingThemesPopoverPresenter;
 
 @property (nonatomic, strong, readwrite) NSURL *articleURL;
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
@@ -1456,19 +1455,19 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
     [self.readingThemesViewController setValuesWithSteps:fontSizes.count current:index];
 
-    self.readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
+    UIPopoverPresentationController *readingThemesPopoverPresenter = [self.readingThemesViewController popoverPresentationController];
 
     [self.readingThemesViewController applyTheme:self.theme];
 
-    self.readingThemesPopoverPresenter.delegate = self;
-    self.readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
-    self.readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    readingThemesPopoverPresenter.delegate = self;
+    readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
+    readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
-    self.readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
+    readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 
-    self.readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
+    readingThemesPopoverPresenter.passthroughViews = [NSArray arrayWithObject:self.navigationController.navigationBar];
 }
 
 - (void)dismissReadingThemesPopoverIfActive {
@@ -2213,8 +2212,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self.readingThemesViewController applyTheme:theme];
     self.tableOfContentsSeparatorView.backgroundColor = theme.colors.baseBackground;
     self.hideTableOfContentsToolbarItem.customView.backgroundColor = theme.colors.midBackground;
-    // Popover's arrow has to be updated when a new theme is being applied to readingThemesViewController
-    self.readingThemesPopoverPresenter.backgroundColor = theme.colors.popoverBackground;
 }
 
 @end
