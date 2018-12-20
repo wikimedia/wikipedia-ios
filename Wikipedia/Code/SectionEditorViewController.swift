@@ -31,14 +31,12 @@ class SectionEditorViewController: UIViewController {
         return button
     }()
 
-    // TODO: Enable/disable
     private lazy var redoButton: BarButtonItem = {
         let button = BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)))
         button.tintColorKeyPath = \Theme.colors.primaryText
         return button
     }()
 
-    // TODO: Enable/disable
     private lazy var undoButton: BarButtonItem = {
         let button = BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)))
         button.tintColorKeyPath = \Theme.colors.primaryText
