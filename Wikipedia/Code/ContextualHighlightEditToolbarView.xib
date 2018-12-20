@@ -92,11 +92,11 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ze-dhb" userLabel="Decrease Indent Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="255.5" y="0.0" width="18" height="44"/>
-                                            <state key="normal" image="text-formatting-decrease-indent"/>
+                                            <state key="normal" image="text-formatting-unordered-list"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-Wi-ngX" userLabel="Increase Indent Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="290" y="0.0" width="18" height="44"/>
-                                            <state key="normal" image="text-formatting-increase-indent"/>
+                                            <state key="normal" image="text-formatting-ordered-list"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FyV-8N-bkz" userLabel="Show More Formatting Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="325" y="0.0" width="18" height="44"/>
@@ -157,10 +157,10 @@
         <image name="text-formatting-add" width="18" height="18"/>
         <image name="text-formatting-add-citation" width="14" height="18"/>
         <image name="text-formatting-bold" width="14" height="18"/>
-        <image name="text-formatting-decrease-indent" width="18" height="16"/>
-        <image name="text-formatting-increase-indent" width="18" height="17"/>
         <image name="text-formatting-italics" width="9" height="18"/>
         <image name="text-formatting-link" width="18" height="9"/>
+        <image name="text-formatting-ordered-list" width="18" height="18"/>
         <image name="text-formatting-style" width="30" height="18"/>
+        <image name="text-formatting-unordered-list" width="18" height="17"/>
     </resources>
 </document>
