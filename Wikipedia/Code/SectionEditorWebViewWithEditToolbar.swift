@@ -9,15 +9,10 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: Menu items
@@ -166,7 +161,7 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
 
     // MARK: Notifications
 
-    @objc private func textSelectionDidChange(_ notification: Notification) {
+    func textSelectionDidChange(_ notification: Notification) {
         guard inputViewController == nil else {
             return
         }

@@ -62,6 +62,7 @@ class SectionEditorViewController: UIViewController {
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
 
         NotificationCenter.default.addObserver(self, selector: #selector(buttonSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
     }
 
     deinit {
@@ -142,7 +143,7 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-        //
+        #warning("showAppearancePopover needs to be implemented")
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
@@ -172,7 +173,26 @@ class SectionEditorViewController: UIViewController {
     // MARK: - Notifications
 
     @objc private func buttonSelectionDidChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        guard let message = userInfo[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage else {
+            return
+        }
+        switch message.type {
+        case .undo:
+            undoButton.isEnabled = true
+        case .redo:
+            redoButton.isEnabled = true
+        default:
+            return
+        }
+    }
 
+    @objc private func textSelectionDidChange(_ notification: Notification) {
+        webView.textSelectionDidChange(notification)
+        undoButton.isEnabled = false
+        redoButton.isEnabled = false
     }
 
     // MARK: - Accessibility
