@@ -20,19 +20,9 @@ struct SelectionChangedMessage {
     let selectionIsRange: Bool
 }
 
-enum SectionEditorWebViewEventType: String {
-    case atDocumentEnd
-    case atDocumentStart
-}
-
-protocol SectionEditorWebViewEventDelegate: NSObjectProtocol {
-    func handleEvent(_ type: SectionEditorWebViewEventType, userInfo: [String: Any])
-}
-
 private enum MessageNameConstants: String {
     case selectionChanged
     case highlightTheseButtons
-    case event
 }
 
 private enum MessageConstants: String {
@@ -63,8 +53,6 @@ private enum ButtonInfoConstants: String {
 
 class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessageHandler {
 
-    public weak var eventDelegate: SectionEditorWebViewEventDelegate?
-
     override init() {
         super.init()
         setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
@@ -72,9 +60,6 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
         let contentController = WKUserContentController()
         contentController.add(self, name: MessageNameConstants.selectionChanged.rawValue)
         contentController.add(self, name: MessageNameConstants.highlightTheseButtons.rawValue)
-        contentController.add(self, name: MessageNameConstants.event.rawValue)
-        contentController.addUserScript(WKUserScript(source: "window.webkit.messageHandlers.event.postMessage({'type':'atDocumentStart'});", injectionTime: .atDocumentStart, forMainFrameOnly: true))
-        contentController.addUserScript(WKUserScript(source: "window.webkit.messageHandlers.event.postMessage({'type':'atDocumentEnd'});", injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         userContentController = contentController
     }
     
@@ -109,18 +94,6 @@ class SectionEditorWebViewConfiguration: WKWebViewConfiguration, WKScriptMessage
             post(selectionChangedMessage: SelectionChangedMessage(selectionIsRange: isRangeSelected))
         case MessageNameConstants.highlightTheseButtons.rawValue:
             callButtonEnableHighlightMethods(name: message.name, body: message.body)
-        case MessageNameConstants.event.rawValue:
-            guard let body = message.body as? [String: Any] else {
-                return
-            }
-            guard let typeString = body["type"] as? String else {
-                return
-            }
-            guard let type = SectionEditorWebViewEventType(rawValue: typeString) else {
-                return
-            }
-            eventDelegate?.handleEvent(type, userInfo: body)
-            
         default:
             DDLogError("Unhandled JS message.")
         }

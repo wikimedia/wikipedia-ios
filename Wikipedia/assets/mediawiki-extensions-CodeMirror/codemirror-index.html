@@ -10,7 +10,19 @@
   <link rel="stylesheet" type="text/css" href="resources/mode/mediawiki/mediawiki.css">
   <link rel="stylesheet" type="text/css" href="codemirror-common.css">
   <link rel="stylesheet" id="codemirror-theme" type="text/css" href="">
+
+  <script>
+    const applyTheme = (themeName) => {
+      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = (new URL(window.location)).searchParams
+      applyTheme(params.get('theme'))
+    })
+  </script>
+
 </head>
+
 
 <body>
 
@@ -331,6 +343,7 @@
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = () => setupCodemirror()
+    wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     wmf.commands = {
       focus: () => {

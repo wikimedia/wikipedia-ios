@@ -47,22 +47,17 @@ class DefaultEditToolbarView: EditToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
+        
+        addButton.isEnabled = false
+        findButton.isEnabled = false
     }
 
     private func selectButton(type: EditButtonType, ordered: Bool) {
         switch (type) {
-        case .link:
-            linkButton.isSelected = true
-        case .li:
-            if ordered {
-                orderedListButton.isSelected = true
-            } else {
-                unorderedListButton.isSelected = true
-            }
-        case .reference:
-            citationButton.isSelected = true
+        case .heading:
+            headingButton.isSelected = true
         default:
-            print("button type not yet handled: \(type)")
+            break
         }
     }
     

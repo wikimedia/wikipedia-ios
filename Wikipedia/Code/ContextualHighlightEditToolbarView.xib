@@ -135,6 +135,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="boldButton" destination="dXv-8j-9yj" id="ygs-D5-D2j"/>
+                <outlet property="headingButton" destination="VmM-6l-4YM" id="xC1-7W-Usz"/>
+                <outlet property="italicButton" destination="DRa-Hw-fTT" id="sFy-lc-jg2"/>
                 <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="ALV-AP-btO"/>
                 <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="TNn-A8-Zpf"/>
                 <outletCollection property="buttons" destination="dXv-8j-9yj" collectionClass="NSMutableArray" id="fVf-el-Mrt"/>

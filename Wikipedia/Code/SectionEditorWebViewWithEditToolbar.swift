@@ -1,10 +1,8 @@
 class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
-    var theme: Theme
     
-    init(theme: Theme) {
-        self.theme = theme
+    override init(theme: Theme) {
         textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-        super.init()
+        super.init(theme: theme)
         setEditMenuItems()
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
@@ -177,16 +175,16 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
             inputAccessoryViewType = .default
         }
     }
-}
 
-extension SectionEditorWebViewWithEditToolbar: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
         scrollView.backgroundColor = theme.colors.baseBackground
         backgroundColor = theme.colors.baseBackground
         themeInputViews(theme: theme)
     }
+}
 
+extension SectionEditorWebViewWithEditToolbar {
     private func themeInputViews(theme: Theme) {
         (inputAccessoryView as? Themeable)?.apply(theme: theme)
         (inputView as? Themeable)?.apply(theme: theme)
