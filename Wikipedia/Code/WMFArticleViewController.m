@@ -1463,7 +1463,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     readingThemesPopoverPresenter.barButtonItem = self.readingThemesControlsToolbarItem;
     readingThemesPopoverPresenter.permittedArrowDirections = UIPopoverArrowDirectionDown;
 
-    readingThemesPopoverPresenter.backgroundColor = self.theme.colors.popoverBackground;
 
     [self presentViewController:self.readingThemesViewController animated:YES completion:nil];
 
