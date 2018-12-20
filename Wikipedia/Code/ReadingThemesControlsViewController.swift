@@ -1,12 +1,12 @@
 import UIKit
 
-@objc(WMFReadingThemesControlsViewControllerDelegate)
-public protocol ReadingThemesControlsViewControllerDelegate {
+@objc public protocol WMFReadingThemesControlsViewControllerDelegate {
+    
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
 }
 
 @objc(WMFReadingThemesControlsViewController)
-public class ReadingThemesControlsViewController: UIViewController {
+open class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
@@ -38,9 +38,9 @@ public class ReadingThemesControlsViewController: UIViewController {
     
     var visible = false
     
-    @objc weak var delegate: ReadingThemesControlsViewControllerDelegate?
+    @objc open weak var delegate: WMFReadingThemesControlsViewControllerDelegate?
     
-    override public func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         if let max = self.maximumValue {
             if let current = self.currentValue {
@@ -81,7 +81,7 @@ public class ReadingThemesControlsViewController: UIViewController {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
-    override public func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
@@ -112,7 +112,7 @@ public class ReadingThemesControlsViewController: UIViewController {
         }
     }
     
-    @objc func setValuesWithSteps(_ steps: Int, current: Int) {
+    @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
         }else{
@@ -127,7 +127,7 @@ public class ReadingThemesControlsViewController: UIViewController {
         self.slider.value = current
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         visible = true
         let currentTheme = UserDefaults.wmf.wmf_appTheme
