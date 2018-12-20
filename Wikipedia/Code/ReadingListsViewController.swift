@@ -242,7 +242,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     
     // MARK: - Batch editing
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.isClosed else {
             return
         }
@@ -266,7 +266,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         wmf_push(readingListDetailViewController, animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let _ = editController.isClosed
     }
     

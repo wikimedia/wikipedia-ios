@@ -373,8 +373,20 @@ extension ColumnarCollectionViewController: UICollectionViewDataSource {
     }
 }
 
+// These empty implementations are hack for a swift bug where if the subclass is generic over some
+// type then these methods are not called for instances of that subclass
 extension ColumnarCollectionViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+    }
 }
 
 // MARK: - WMFArticlePreviewingActionsDelegate

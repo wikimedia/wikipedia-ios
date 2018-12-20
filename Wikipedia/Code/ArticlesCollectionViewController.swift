@@ -2,62 +2,35 @@ import UIKit
 
 
 protocol ArticlesCollectionViewControllerDelegate: NSObjectProtocol {
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, shouldDelete articles: [WMFArticle], completion:@escaping (Bool) -> Void)
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, delete articles: [WMFArticle])
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, configure cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool)
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView)
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController)
+    func articlesCollectionViewController<T>(_ viewController: ArticlesCollectionViewController<T>, didUpdate collectionView: UICollectionView)
+    func articlesCollectionViewControllerDidChangeEmptyState<T>(_ viewController: ArticlesCollectionViewController<T>)
 }
 
 extension ArticlesCollectionViewControllerDelegate {
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView) {
+    func articlesCollectionViewController<T>(_ viewController: ArticlesCollectionViewController<T>, didUpdate collectionView: UICollectionView) {
         
     }
     
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController) {
+    func articlesCollectionViewControllerDidChangeEmptyState<T>(_ viewController: ArticlesCollectionViewController<T>) {
         
     }
 }
 
-func makeArticlesCollectionViewControllerForDefaultReadingList( dataStore: MWKDataStore) -> ArticlesCollectionViewController {
+class ArticlesCollectionViewController<ElementType: NSManagedObject>: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ArticleURLProvider, ActionDelegate, EventLoggingEventValuesProviding  {
     
-    func fetchDefaultReadingListWithSortOrder() -> ReadingList {
-        let fetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-        fetchRequest.fetchLimit = 1
-        fetchRequest.propertiesToFetch = ["sortOrder"]
-        fetchRequest.predicate = NSPredicate(format: "isDefault == YES")
-
-        guard let readingLists = try? dataStore.viewContext.fetch(fetchRequest),
-            let defaultReadingList = readingLists.first else {
-            assertionFailure("Failed to fetch default reading list with sort order")
-            fatalError()
-        }
-        return defaultReadingList
-    }
-    
-    let predicate = NSPredicate(format: "savedDate != NULL")
-    let readingList = fetchDefaultReadingListWithSortOrder()
-    let actions = [
-        BatchEditToolbarActionType.addToList.action(with: nil),
-        BatchEditToolbarActionType.unsave.action(with: nil)
-    ]
-    let viewController = ArticlesCollectionViewController(for: readingList, with: dataStore, basePredicate: predicate, sortDescriptors: [], batchEditActions: actions)
-    viewController.emptyViewType = .noSavedPages
-    return viewController
-}
-
-class ArticlesCollectionViewController: ColumnarCollectionViewController, EditableCollection, UpdatableCollection, SearchableCollection, ArticleURLProvider {
-    
-    typealias T = WMFArticle
+    typealias T = ElementType
     
     let dataStore: MWKDataStore
-    var fetchedResultsController: NSFetchedResultsController<WMFArticle>?
-    var collectionViewUpdater: CollectionViewUpdater<WMFArticle>?
+    var fetchedResultsController: NSFetchedResultsController<T>?
+    var collectionViewUpdater: CollectionViewUpdater<T>?
     let readingList: ReadingList
     
     var searchString: String?
     
-    let basePredicate: NSPredicate
+    var basePredicate: NSPredicate {
+        fatalError()
+    }
+    
     var searchPredicate: NSPredicate? {
         guard let searchString = searchString else {
             return nil
@@ -65,8 +38,21 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         return NSPredicate(format: "(displayTitle CONTAINS[cd] '\(searchString)') OR (snippet CONTAINS[cd] '\(searchString)')")
     }
     
-    let baseSortDescriptors: [NSSortDescriptor]
-    let availableBatchEditToolbarActions: [BatchEditToolbarAction]
+    func shouldDelete(_ articles: [WMFArticle], completion:@escaping (Bool) -> Void) {
+        completion(true)
+    }
+    
+    func delete(_ articles: [WMFArticle]) {
+        
+    }
+    
+    func configure(cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
+        
+    }
+    
+    var availableBatchEditToolbarActions: [BatchEditToolbarAction] {
+        return []
+    }
     
     var editController: CollectionViewEditController!
     
@@ -75,12 +61,9 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
     
     weak var delegate: ArticlesCollectionViewControllerDelegate?
     
-    init(for readingList: ReadingList, with dataStore: MWKDataStore, basePredicate: NSPredicate, searchPredicate: NSPredicate? = nil , sortDescriptors: [NSSortDescriptor], batchEditActions: [BatchEditToolbarAction]) {
+    init(for readingList: ReadingList, with dataStore: MWKDataStore) {
         self.readingList = readingList
         self.dataStore = dataStore
-        self.basePredicate = basePredicate
-        self.baseSortDescriptors = sortDescriptors
-        self.availableBatchEditToolbarActions = batchEditActions
         super.init()
     }
     
@@ -105,7 +88,6 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        #warning("Check this after implementation to see what other classes were doing here")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -144,11 +126,23 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         })
     }
     
-    private func article(at indexPath: IndexPath) -> WMFArticle? {
+    var sortActions: [SortActionType : SortAction] {
+        return [:]
+    }
+    
+    lazy var sortAlert: UIAlertController = {
+        return alert(title: CommonStrings.sortAlertTitle, message: nil)
+    }()
+    
+    private func getArticle(at indexPath: IndexPath) -> WMFArticle? {
         guard let fetchedResultsController = fetchedResultsController, fetchedResultsController.isValidIndexPath(indexPath) else {
             return nil
         }
-        return fetchedResultsController.object(at: indexPath)
+        return article(at: indexPath)
+    }
+    
+    func article(at indexPath: IndexPath) -> WMFArticle {
+        fatalError("must be implemented by subclasses")
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -157,7 +151,24 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
     }
     
     func articleURL(at indexPath: IndexPath) -> URL? {
-        return article(at: indexPath)?.url
+        return getArticle(at: indexPath)?.url
+    }
+    
+    func readingLists(for article: WMFArticle) -> [ReadingList] {
+        guard let moc = article.managedObjectContext else {
+            return []
+        }
+        
+        let request : NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
+        request.predicate = NSPredicate(format: "ANY articles == %@ && isDefault == NO", article)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
+        
+        do {
+            return try moc.fetch(request)
+        } catch let error {
+            DDLogError("Error fetching lists: \(error)")
+            return []
+        }
     }
     
     // MARK: - ColumnarCollectionViewLayoutDelegate
@@ -182,52 +193,9 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
-}
-
-// MARK: - SortableCollection
-
-extension ArticlesCollectionViewController: SortableCollection {
-    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
-        fatalError()
-    }
     
-    var defaultSortAction: SortAction? {
-        fatalError()
-    }
+    // MARK: - UICollectionViewDataSource
     
-    var sortActions: [SortActionType : SortAction] {
-        fatalError()
-    }
-    
-    var sortAlert: UIAlertController {
-        fatalError()
-    }
-}
-
-
-// MARK: - CollectionViewUpdaterDelegate
-
-extension ArticlesCollectionViewController: CollectionViewUpdaterDelegate {
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
-                continue
-            }
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
-        }
-        updateEmptyState()
-        collectionView.setNeedsLayout()
-        delegate?.articlesCollectionViewController(self, didUpdate: collectionView)
-    }
-    
-    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-    }
-}
-
-
-// MARK: - UICollectionViewDataSource
-
-extension ArticlesCollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         guard let sectionsCount = fetchedResultsController?.sections?.count else {
             return 0
@@ -243,8 +211,8 @@ extension ArticlesCollectionViewController {
     }
     
     private func configure(cell: SavedArticlesCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
-        guard let article = article(at: indexPath)  else { return }
-        delegate?.articlesCollectionViewController(self, configure: cell, for: article, at: indexPath, layoutOnly: false)
+        guard let article = getArticle(at: indexPath)  else { return }
+        configure(cell: cell, for: article, at: indexPath, layoutOnly: layoutOnly)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -257,16 +225,13 @@ extension ArticlesCollectionViewController {
         return cell
     }
     
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension ArticlesCollectionViewController {
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    //MARK: - UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard editController.isClosed else {
             return
         }
@@ -277,15 +242,11 @@ extension ArticlesCollectionViewController {
         ReadingListsFunnel.shared.logReadStartIReadingList(articleURL)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let _ = editController.isClosed
     }
-}
-
-
-// MARK: - ActionDelegate
-
-extension ArticlesCollectionViewController: ActionDelegate {
+    
+    //MARK: - ActionDelegate
     func availableActions(at indexPath: IndexPath) -> [Action] {
         var actions: [Action] = []
         
@@ -299,22 +260,20 @@ extension ArticlesCollectionViewController: ActionDelegate {
     }
     
     private func delete(at indexPath: IndexPath) {
-        guard let article = article(at: indexPath) else {
+        guard let article = getArticle(at: indexPath) else {
             return
         }
-        
-        delegate?.articlesCollectionViewController(self, delete: [article])
+        delete([article])
     }
     
     func willPerformAction(_ action: Action) -> Bool {
-        guard let article = article(at: action.indexPath) else {
+        guard let article = getArticle(at: action.indexPath) else {
             return false
         }
-        guard action.type == .delete, let delegate = delegate else {
+        guard action.type == .delete else {
             return self.editController.didPerformAction(action)
         }
-        
-        delegate.articlesCollectionViewController(self, shouldDelete: [article]) { shouldDelete in
+        shouldDelete([article]) { shouldDelete in
             if shouldDelete {
                 _ = self.editController.didPerformAction(action)
             }
@@ -355,16 +314,16 @@ extension ArticlesCollectionViewController: ActionDelegate {
                 completion(true)
             }
         case .unsave:
-            delegate?.articlesCollectionViewController(self, shouldDelete: articles, completion: { shouldDelete in
+            shouldDelete(articles) { shouldDelete in
                 if shouldDelete {
-                    self.delegate?.articlesCollectionViewController(self, delete: articles)
+                    self.delete(articles)
                     completion(true)
                 } else {
                     completion(false)
                 }
-            })
+            }
         case .remove:
-            delegate?.articlesCollectionViewController(self, delete: articles)
+            delete(articles)
             completion(true)
         case .moveTo:
             let addArticlesToReadingListViewController = AddArticlesToReadingListViewController(with: dataStore, articles: articles, moveFromReadingList: readingList, theme: theme)
@@ -378,16 +337,9 @@ extension ArticlesCollectionViewController: ActionDelegate {
             completion(false)
         }
     }
-}
-
-
-// MARK: - AddArticlesToReadingListViewControllerDelegate
-// default implementation for types conforming to EditableCollection defined in AddArticlesToReadingListViewController
-extension ArticlesCollectionViewController: AddArticlesToReadingListDelegate {}
-
-// MARK: - UIViewControllerPreviewingDelegate
-
-extension ArticlesCollectionViewController {
+    
+    //MARK: - UIViewControllerPreviewingDelegate
+    
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard !editController.isActive else {
             return nil // don't allow 3d touch when swipe actions are active
@@ -410,13 +362,9 @@ extension ArticlesCollectionViewController {
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         wmf_push(viewControllerToCommit, animated: true)
     }
-}
-
-extension ArticlesCollectionViewController: ShareableArticlesProvider {}
-
-// MARK: - EventLoggingEventValuesProviding
-
-extension ArticlesCollectionViewController: EventLoggingEventValuesProviding {
+    
+    //MARK: - EventLoggingEventValuesProviding
+    
     var eventLoggingLabel: EventLoggingLabel? {
         return nil
     }
@@ -425,6 +373,51 @@ extension ArticlesCollectionViewController: EventLoggingEventValuesProviding {
         return EventLoggingCategory.saved
     }
 }
+
+// MARK: - SortableCollection
+
+extension ArticlesCollectionViewController: SortableCollection {
+    var sort: (descriptors: [NSSortDescriptor], alertAction: UIAlertAction?) {
+        guard let sortOrder = readingList.sortOrder, let sortActionType = SortActionType(rawValue: sortOrder.intValue), let sortAction = sortActions[sortActionType] else {
+            return ([], nil)
+        }
+        return (sortAction.sortDescriptors, sortAction.alertAction)
+    }
+    
+    var defaultSortAction: SortAction? {
+        return sortActions[.byRecentlyAdded]
+    }
+    
+}
+
+
+// MARK: - CollectionViewUpdaterDelegate
+
+extension ArticlesCollectionViewController: CollectionViewUpdaterDelegate {
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? SavedArticlesCollectionViewCell else {
+                continue
+            }
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
+        updateEmptyState()
+        collectionView.setNeedsLayout()
+        delegate?.articlesCollectionViewController(self, didUpdate: collectionView)
+    }
+    
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+    }
+}
+
+
+// MARK: - AddArticlesToReadingListViewControllerDelegate
+// default implementation for types conforming to EditableCollection defined in AddArticlesToReadingListViewController
+extension ArticlesCollectionViewController: AddArticlesToReadingListDelegate {}
+
+
+extension ArticlesCollectionViewController: ShareableArticlesProvider {}
+
 
 // MARK: - SavedViewControllerDelegate
 
@@ -463,7 +456,7 @@ extension ArticlesCollectionViewController: SavedViewControllerDelegate {
 
 extension ArticlesCollectionViewController: SavedArticlesCollectionViewCellDelegate {
     func didSelect(_ tag: Tag) {
-        guard let article = article(at: tag.indexPath) else {
+        guard let article = getArticle(at: tag.indexPath) else {
             return
         }
         let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingLists(for: article)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)

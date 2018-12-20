@@ -11,7 +11,7 @@ protocol SavedViewControllerDelegate: NSObjectProtocol {
 @objc(WMFSavedViewController)
 class SavedViewController: ViewController {
 
-    private var savedArticlesViewController: ArticlesCollectionViewController!
+    private var savedArticlesViewController: SavedArticlesCollectionViewController!
     
     private lazy var readingListsViewController: ReadingListsViewController? = {
         guard let dataStore = dataStore else {
@@ -49,8 +49,7 @@ class SavedViewController: ViewController {
                 return
             }
             title = CommonStrings.savedTabTitle
-            savedArticlesViewController = makeArticlesCollectionViewControllerForDefaultReadingList(dataStore: newValue)
-            savedArticlesViewController.delegate = self
+            savedArticlesViewController = SavedArticlesCollectionViewController(with: newValue)
         }
     }
     
@@ -307,59 +306,4 @@ extension SavedViewController: UISearchBarDelegate {
     }
 }
 
-func readingLists(for article: WMFArticle) -> [ReadingList] {
-    guard let moc = article.managedObjectContext else {
-        return []
-    }
-    
-    let request : NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-    request.predicate = NSPredicate(format: "ANY articles == %@ && isDefault == NO", article)
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \ReadingList.canonicalName, ascending: true)]
-    
-    do {
-        return try moc.fetch(request)
-    } catch let error {
-        DDLogError("Error fetching lists: \(error)")
-        return []
-    }
-}
 
-// MARK: - ArticlesCollectionViewControllerDelegate
-extension SavedViewController: ArticlesCollectionViewControllerDelegate {
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, configure cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditing = viewController.editController.isBatchEditing
-        
-        cell.tags = (readingLists: readingLists(for: article), indexPath: indexPath)
-        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: viewController.theme, layoutOnly: layoutOnly)
-        cell.isBatchEditable = true
-        cell.layoutMargins = viewController.layout.itemLayoutMargins
-        viewController.editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-    }
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, delete articles: [WMFArticle]) {
-        guard let dataStore = dataStore else {
-            fatalError("unable to find dataStore")
-        }
-        dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
-        let articlesCount = articles.count
-        UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        let language = articles.count == 1 ? articles.first?.url?.wmf_language : nil
-        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
-    }
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, shouldDelete articles: [WMFArticle], completion: @escaping (Bool) -> Void) {
-        let alertController = ReadingListsAlertController()
-        let unsave = ReadingListsAlertActionType.unsave.action {
-            completion(true)
-        }
-        let cancel = ReadingListsAlertActionType.cancel.action {
-            completion(false)
-        }
-        alertController.showAlertIfNeeded(presenter: self, for: articles, with: [cancel, unsave]) { showed in
-            if !showed {
-                completion(true)
-            }
-        }
-    }
-}

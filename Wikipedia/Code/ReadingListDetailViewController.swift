@@ -4,25 +4,13 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-func makeArticlesViewController(for readingList: ReadingList, with dataStore: MWKDataStore) -> ArticlesCollectionViewController {
-    
-    let predicate = NSPredicate(format: "readingLists CONTAINS %@ && savedDate != NULL", readingList)
-    let actions = [
-        BatchEditToolbarActionType.addTo.action(with: nil),
-        BatchEditToolbarActionType.moveTo.action(with: nil),
-        BatchEditToolbarActionType.remove.action(with: nil)
-    ]
-    
-    let viewController = ArticlesCollectionViewController(for: readingList, with: dataStore, basePredicate: predicate, searchPredicate: nil, sortDescriptors: [], batchEditActions: actions)
-    viewController.emptyViewType = .noSavedPagesInReadingList
-    return viewController
-}
+
 
 class ReadingListDetailViewController: ViewController {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
-    let articlesCollectionViewController: ArticlesCollectionViewController
+    let articlesCollectionViewController: ReadingListArticlesCollectionViewController
     
     var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
@@ -34,7 +22,7 @@ class ReadingListDetailViewController: ViewController {
         self.dataStore = dataStore
         self.displayType = displayType
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
-        articlesCollectionViewController = makeArticlesViewController(for: readingList, with: dataStore)
+        articlesCollectionViewController = ReadingListArticlesCollectionViewController(for: readingList, with: dataStore)
         super.init()
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
@@ -283,9 +271,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         }
         switch buttonType {
         case .sort:
-            break
-            #warning("Fix this")
-           // presentSortAlert(from: button)
+            articlesCollectionViewController.presentSortAlert(from: button)
         case .cancel:
             makeSearchBarResignFirstResponder(searchBar)
         }
@@ -297,46 +283,12 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
 
 extension ReadingListDetailViewController: ArticlesCollectionViewControllerDelegate {
     
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, delete articles: [WMFArticle]) {
-        let url: URL? = articles.first?.url
-        let articlesCount = articles.count
-        do {
-            try dataStore.readingListsController.remove(articles: articles, readingList: readingList)
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        } catch let error {
-            DDLogError("Error removing entries from a reading list: \(error)")
-        }
-        guard let articleURL = url, dataStore.savedPageList.entry(for: articleURL) == nil else {
-            return
-        }
-        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: articleURL.wmf_language)
-    }
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, shouldDelete articles: [WMFArticle], completion: @escaping (Bool) -> Void) {
-        completion(true)
-    }
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, configure cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
-        cell.isBatchEditing = viewController.editController.isBatchEditing
-        
-        guard let entry = readingList.entry(for: article) else {
-            return
-        }
-        
-        cell.configureAlert(for: entry, with: article, in: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
-        cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
-        
-        cell.isBatchEditable = true
-        cell.layoutMargins = viewController.layout.itemLayoutMargins
-        viewController.editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
-    }
-    
-    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView) {
+    func articlesCollectionViewController<T>(_ viewController: ArticlesCollectionViewController<T>, didUpdate collectionView: UICollectionView) {
         readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
     }
 
-    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController) {
+    func articlesCollectionViewControllerDidChangeEmptyState<T>(_ viewController: ArticlesCollectionViewController<T>) {
         let isReadingListEmpty = readingList.countOfEntries == 0
         let isEmptyStateMatchingReadingListEmptyState = viewController.isEmpty == isReadingListEmpty
         if !isEmptyStateMatchingReadingListEmptyState {
