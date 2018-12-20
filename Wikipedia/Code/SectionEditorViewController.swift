@@ -183,7 +183,6 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func textSelectionDidChange(_ notification: Notification) {
-        webView.textSelectionDidChange(notification)
         undoButton.isEnabled = false
         redoButton.isEnabled = false
     }
