@@ -30,7 +30,7 @@ class SectionEditorViewController: UIViewController {
             guard let tintColorKeyPath = tintColorKeyPath else {
                 return
             }
-            button.tintColor = theme[keyPath: tintColorKeyPath]
+            tintColor = theme[keyPath: tintColorKeyPath]
         }
     }
 
@@ -137,19 +137,6 @@ class SectionEditorViewController: UIViewController {
 
     @objc private func redo(_ sender: UIBarButtonItem) {
         webView.redo(sender)
-    }
-
-    @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-        let appearanceControls = ReadingThemesControlsViewController(nibName: "ReadingThemesControlsViewController", bundle: nil)
-        appearanceControls.modalPresentationStyle = .popover
-        // appearanceControls.delegate = self
-        appearanceControls.setValuesWithSteps(2, current: 2)
-        let presenter = appearanceControls.popoverPresentationController
-        presenter?.delegate = self
-        presenter?.barButtonItem = sender
-        presenter?.permittedArrowDirections = .up
-
-        present(appearanceControls, animated: true)
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
