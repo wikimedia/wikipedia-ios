@@ -42,7 +42,10 @@ class TextStyleFormattingTableViewController: TextFormattingProvidingTableViewCo
         let subheading3Type = TextStyleType.subheading3
         let subheading3 = Style(type: subheading3Type, name: subheading3Type.name, font: UIFont.wmf_font(.semiboldFootnote))
 
-        return [paragraph, heading, subheading1, subheading2, subheading3]
+        let subheading4Type = TextStyleType.subheading4
+        let subheading4 = Style(type: subheading3Type, name: subheading4Type.name, font: UIFont.wmf_font(.semiboldCaption2))
+
+        return [paragraph, heading, subheading1, subheading2, subheading3, subheading4]
     }()
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

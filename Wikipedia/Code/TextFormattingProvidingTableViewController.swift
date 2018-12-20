@@ -14,6 +14,7 @@ enum TextStyleType: Int {
     case subheading1
     case subheading2
     case subheading3
+    case subheading4
 
     var name: String {
         switch self {
@@ -27,6 +28,8 @@ enum TextStyleType: Int {
             return "Sub-heading 2"
         case .subheading3:
             return "Sub-heading 3"
+        case .subheading4:
+            return "Sub-heading 4"
         }
     }
 }
@@ -70,6 +73,8 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
             selectedTextStyleType = .subheading2
         case (.heading, 4):
             selectedTextStyleType = .subheading3
+        case (.heading, 5):
+            selectedTextStyleType = .subheading4
         default:
             break
         }
