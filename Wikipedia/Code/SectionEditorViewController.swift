@@ -16,31 +16,49 @@ class SectionEditorViewController: UIViewController {
 
     private class BarButtonItem: UIBarButtonItem, Themeable {
         var tintColorKeyPath: KeyPath<Theme, UIColor>?
+
+        convenience init(image: UIImage, target: Any, action: Selector, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
+            button.sizeToFit()
+            button.addTarget(target, action: action, for: .touchUpInside)
+            self.init(customView: button)
+            self.tintColorKeyPath = tintColorKeyPath
+        }
+
+        convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+            self.init(title: title, style: style, target: target, action: action)
+            self.tintColorKeyPath = tintColorKeyPath
+        }
+
+        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+            self.init(image: image, style: style, target: target, action: action)
+            self.tintColorKeyPath = tintColorKeyPath
+        }
         
         func apply(theme: Theme) {
-            if let tintColorKeyPath = tintColorKeyPath {
+            guard let tintColorKeyPath = tintColorKeyPath else {
+                return
+            }
+            if customView == nil {
                 tintColor = theme[keyPath: tintColorKeyPath]
+            } else if let button = customView as? UIButton {
+                button.tintColor = theme[keyPath: tintColorKeyPath]
             }
         }
     }
 
     // TODO: Enable/disable
     private lazy var progressButton: BarButtonItem = {
-        let button = BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
-        button.tintColorKeyPath = \Theme.colors.link
-        return button
+        return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
     }()
 
     private lazy var redoButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)))
-        button.tintColorKeyPath = \Theme.colors.primaryText
-        return button
+        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
     }()
 
     private lazy var undoButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)))
-        button.tintColorKeyPath = \Theme.colors.primaryText
-        return button
+        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
     }()
 
     // TODO
@@ -68,17 +86,13 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureNavigationButtonItems() {
-        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)))
+        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-        closeButton.tintColorKeyPath = \Theme.colors.secondaryAction
 
         navigationItem.leftBarButtonItem = closeButton
 
-        let appearanceButton = BarButtonItem(image: #imageLiteral(resourceName: "appearance-settings-thicker"), style: .plain, target: self, action: #selector(showAppearancePopover(_ :)))
-        appearanceButton.tintColorKeyPath = \Theme.colors.primaryText
-
-        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil)
-        separatorButton.tintColorKeyPath = \Theme.colors.border
+        let appearanceButton = BarButtonItem(image: #imageLiteral(resourceName: "appearance-settings-thicker"), target: self, action: #selector(showAppearancePopover(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.border)
 
         navigationItem.rightBarButtonItems = [
             progressButton,
