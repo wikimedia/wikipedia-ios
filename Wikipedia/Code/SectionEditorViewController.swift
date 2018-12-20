@@ -8,7 +8,6 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
-    private var webViewCover: UIView = UIView()
 
     private var theme = Theme.standard
 
@@ -31,11 +30,7 @@ class SectionEditorViewController: UIViewController {
             guard let tintColorKeyPath = tintColorKeyPath else {
                 return
             }
-            if customView == nil {
-                tintColor = theme[keyPath: tintColorKeyPath]
-            } else if let button = customView as? UIButton {
-                button.tintColor = theme[keyPath: tintColorKeyPath]
-            }
+            button.tintColor = theme[keyPath: tintColorKeyPath]
         }
     }
 
@@ -293,7 +288,6 @@ extension SectionEditorViewController: Themeable {
             self.theme = theme
             return
         }
-        webViewCover.backgroundColor = theme.colors.paperBackground
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
         for case let barButonItem as BarButtonItem in navigationItem.rightBarButtonItems ?? [] {
