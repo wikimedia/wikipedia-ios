@@ -29,12 +29,6 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
             boldButton.isSelected = true
         case .italic:
             italicButton.isSelected = true
-        case .reference:
-            citationButton.isSelected = true
-        case .template:
-            templateButton.isSelected = true
-        case .link:
-            linkButton.isSelected = true
         default:
             break
         }

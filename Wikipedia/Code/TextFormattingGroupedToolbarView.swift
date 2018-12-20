@@ -18,6 +18,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     }
     
     private func selectButton(type: EditButtonType, ordered: Bool) {
+        /*
         switch (type) {
         case .li:
             if ordered {
@@ -28,6 +29,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
         default:
             break
         }
+        */
     }
 
     required init?(coder aDecoder: NSCoder) {
