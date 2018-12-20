@@ -8,18 +8,58 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
-    private var rightButton: UIBarButtonItem?
 
     private var theme = Theme.standard
 
-    private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem.wmf_buttonType(.X, target: self, action: #selector(close(_:)))
-        button.accessibilityLabel = CommonStrings.accessibilityBackTitle
-        return button
+    // MARK: - Bar buttons
+
+    private class BarButtonItem: UIBarButtonItem, Themeable {
+        var tintColorKeyPath: KeyPath<Theme, UIColor>?
+
+        convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+            self.init(title: title, style: style, target: target, action: action)
+            self.tintColorKeyPath = tintColorKeyPath
+        }
+
+        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
+            let button = UIButton(type: .system)
+            button.setImage(image, for: .normal)
+            if let target = target, let action = action {
+                button.addTarget(target, action: action, for: .touchUpInside)
+            }
+            self.init(customView: button)
+            self.tintColorKeyPath = tintColorKeyPath
+        }
+        
+        func apply(theme: Theme) {
+            guard let tintColorKeyPath = tintColorKeyPath else {
+                return
+            }
+            let newTintColor = theme[keyPath: tintColorKeyPath]
+            if customView == nil {
+                tintColor = newTintColor
+            } else if let button = customView as? UIButton {
+                button.tintColor = newTintColor
+            }
+        }
+    }
+
+    // TODO: Enable/disable
+    private lazy var progressButton: BarButtonItem = {
+        return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
     }()
 
-    private lazy var progressButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)))
+    private lazy var redoButton: BarButtonItem = {
+        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+    }()
+
+    private lazy var undoButton: BarButtonItem = {
+        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+    }()
+
+    private lazy var separatorButton: BarButtonItem = {
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
+        button.isEnabled = false
         return button
     }()
 
@@ -31,23 +71,47 @@ class SectionEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = closeButton
-        navigationItem.rightBarButtonItem = progressButton
-        enableProgressButton(false)
+        configureNavigationButtonItems()
 
         configureWebView()
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(buttonSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func configureNavigationButtonItems() {
+        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
+        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
+
+        navigationItem.leftBarButtonItem = closeButton
+
+        navigationItem.rightBarButtonItems = [
+            progressButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            separatorButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            redoButton,
+            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
+            undoButton
+        ]
+
+        progressButton.isEnabled = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        enableProgressButton(changesMade)
+        progressButton.isEnabled = changesMade
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        enableProgressButton(false)
+        progressButton.isEnabled = false
         UIMenuController.shared.menuItems = webView.originalMenuItems
         super.viewWillDisappear(animated)
     }
@@ -73,8 +137,18 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
+    // MARK: - Navigation actions
+
     @objc private func close(_ sender: UIBarButtonItem) {
         delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+    }
+
+    @objc private func undo(_ sender: UIBarButtonItem) {
+        webView.undo(sender)
+    }
+
+    @objc private func redo(_ sender: UIBarButtonItem) {
+        webView.redo(sender)
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
@@ -101,8 +175,28 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    private func enableProgressButton(_ enabled: Bool) {
-        progressButton.isEnabled = enabled
+    // MARK: - Notifications
+
+    @objc private func buttonSelectionDidChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        guard let message = userInfo[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage else {
+            return
+        }
+        switch message.type {
+        case .undo:
+            undoButton.isEnabled = true
+        case .redo:
+            redoButton.isEnabled = true
+        default:
+            return
+        }
+    }
+
+    @objc private func textSelectionDidChange(_ notification: Notification) {
+        undoButton.isEnabled = false
+        redoButton.isEnabled = false
     }
 
     // MARK: - Accessibility
@@ -174,7 +268,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                     DispatchQueue.main.async {
                         self.webView.focus(self)
                         // TODO: Remove
-                        self.enableProgressButton(true)
+                        self.progressButton.isEnabled = true
                     }
                 }
             }
@@ -192,9 +286,14 @@ extension SectionEditorViewController: Themeable {
             self.theme = theme
             return
         }
-        progressButton.tintColor = theme.colors.link
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
+        for case let barButonItem as BarButtonItem in navigationItem.rightBarButtonItems ?? [] {
+            barButonItem.apply(theme: theme)
+        }
+        for case let barButonItem as BarButtonItem in navigationItem.leftBarButtonItems ?? [] {
+            barButonItem.apply(theme: theme)
+        }
     }
 }
 
