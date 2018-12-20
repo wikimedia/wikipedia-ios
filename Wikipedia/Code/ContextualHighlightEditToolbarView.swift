@@ -4,7 +4,7 @@ protocol ContextualHighlightEditToolbarViewDelegate: class {
 }
 
 class ContextualHighlightEditToolbarView: EditToolbarView {
-    weak var delegate: ContextualHighlightEditToolbarViewDelegate?
+    weak var delegate: (SectionEditorWebView & ContextualHighlightEditToolbarViewDelegate)?
 
     @IBOutlet weak var boldButton: TextFormattingButton!
     @IBOutlet weak var italicButton: TextFormattingButton!
@@ -45,5 +45,36 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
 
     @IBAction private func formatText(_ sender: UIButton) {
         delegate?.contextualHighlightEditToolbarViewDidTapTextFormattingButton(self, button: sender)
+    }
+
+    @IBAction private func toggleBoldSelection(_ sender: UIButton) {
+        delegate?.toggleBoldSelection(sender)
+    }
+
+    @IBAction private func toggleItalicSelection(_ sender: UIButton) {
+        delegate?.toggleItalicSelection(sender)
+    }
+
+    @IBAction private func removeSelectionFormatting(_ sender: UIButton) {
+        // TODO: wire this up to JS land!
+        // delegate?.removeSelectionFormatting(sender)
+    }
+
+    @IBAction private func toggleReferenceSelection(_ sender: UIButton) {
+        delegate?.toggleReferenceSelection(sender)
+    }
+
+    @IBAction private func toggleAnchorSelection(_ sender: UIButton) {
+        delegate?.toggleAnchorSelection(sender)
+    }
+
+    @IBAction private func toggleUnorderedListSelection(_ sender: UIButton) {
+        // TODO: wire up separate methods for ordered vs unordered
+        delegate?.toggleListSelection(sender)
+    }
+
+    @IBAction private func toggleOrderedListSelection(_ sender: UIButton) {
+        // TODO: wire up separate methods for ordered vs unordered
+        delegate?.toggleListSelection(sender)
     }
 }
