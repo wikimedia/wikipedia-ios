@@ -17,15 +17,6 @@ class SectionEditorViewController: UIViewController {
     private class BarButtonItem: UIBarButtonItem, Themeable {
         var tintColorKeyPath: KeyPath<Theme, UIColor>?
 
-        convenience init(image: UIImage, target: Any, action: Selector, tintColorKeyPath: KeyPath<Theme, UIColor>) {
-            let button = UIButton(type: .system)
-            button.setImage(image, for: .normal)
-            button.sizeToFit()
-            button.addTarget(target, action: action, for: .touchUpInside)
-            self.init(customView: button)
-            self.tintColorKeyPath = tintColorKeyPath
-        }
-
         convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
             self.init(title: title, style: style, target: target, action: action)
             self.tintColorKeyPath = tintColorKeyPath
@@ -54,11 +45,17 @@ class SectionEditorViewController: UIViewController {
     }()
 
     private lazy var redoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
     }()
 
     private lazy var undoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
+    }()
+
+    private lazy var separatorButton: BarButtonItem = {
+        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.primaryText)
+        button.isEnabled = false
+        return button
     }()
 
     // TODO
@@ -90,14 +87,8 @@ class SectionEditorViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = closeButton
 
-        let appearanceButton = BarButtonItem(image: #imageLiteral(resourceName: "appearance-settings-thicker"), target: self, action: #selector(showAppearancePopover(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
-        let separatorButton = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.primaryText)
-        separatorButton.isEnabled = false
-
         navigationItem.rightBarButtonItems = [
             progressButton,
-            separatorButton,
-            appearanceButton,
             separatorButton,
             redoButton,
             separatorButton,
@@ -154,7 +145,16 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func showAppearancePopover(_ sender: UIBarButtonItem) {
-        #warning("showAppearancePopover needs to be implemented")
+        let appearanceControls = ReadingThemesControlsViewController(nibName: "ReadingThemesControlsViewController", bundle: nil)
+        appearanceControls.modalPresentationStyle = .popover
+        // appearanceControls.delegate = self
+        appearanceControls.setValuesWithSteps(2, current: 2)
+        let presenter = appearanceControls.popoverPresentationController
+        presenter?.delegate = self
+        presenter?.barButtonItem = sender
+        presenter?.permittedArrowDirections = .up
+
+        present(appearanceControls, animated: true)
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
@@ -302,6 +302,14 @@ extension SectionEditorViewController: Themeable {
         for case let barButonItem as BarButtonItem in navigationItem.leftBarButtonItems ?? [] {
             barButonItem.apply(theme: theme)
         }
+    }
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension SectionEditorViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }
 
