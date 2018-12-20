@@ -48,6 +48,39 @@ class DefaultEditToolbarView: EditToolbarView {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
     }
+
+    private func selectButton(type: EditButtonType, ordered: Bool) {
+        switch (type) {
+        case .link:
+            linkButton.isSelected = true
+        case .li:
+            if ordered {
+                orderedListButton.isSelected = true
+            } else {
+                unorderedListButton.isSelected = true
+            }
+        case .reference:
+            citationButton.isSelected = true
+        default:
+            print("button type not yet handled: \(type)")
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
+            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
+                self?.selectButton(type: message.type, ordered: message.ordered)
+                // print("buttonNeedsToBeSelectedMessage = \(message)")
+            }
+        }
+        
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     private func button(withTitle title: String, action: Selector) -> UIButton {
         let button = UIButton(type: .system)
