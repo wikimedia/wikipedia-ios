@@ -258,6 +258,36 @@ extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarVie
     func contextualHighlightEditToolbarViewDidTapTextFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
         setInputViewHidden(type: .textFormatting, hidden: false)
     }
+    
+    func contextualHighlightEditToolbarViewDidTapBoldToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        toggleBoldSelection(button)
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapItalicToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        toggleItalicSelection(button)
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapRemoveSelectionFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        print("TODO: wire up JS for this")
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapReferenceToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        toggleReferenceSelection(button)
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapAnchorToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        toggleAnchorSelection(button)
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapUnorderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        print("TODO: wire separate UL JS for this")
+        toggleListSelection(button)
+    }
+    
+    func contextualHighlightEditToolbarViewDidTapOrderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+        print("TODO: wire separate OL JS for this")
+        toggleListSelection(button)
+    }
 }
 
 extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
