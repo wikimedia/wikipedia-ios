@@ -272,11 +272,7 @@
       // native land should assume only these buttons should appear selected
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
-    
-    const editorDidRedraw = (doc) => {
-      window.webkit.messageHandlers.event.postMessage('windowDidLoad')
-    }
-    
+        
     const setupCodemirror = () => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
