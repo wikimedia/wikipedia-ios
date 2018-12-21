@@ -214,11 +214,11 @@ extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
     }
 
     func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection(button) // ?
+        toggleUnorderedListSelection(button)
     }
 
     func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection(button) // ?
+        toggleOrderedListSelection(button)
     }
 
     func defaultEditToolbarViewDidTapDecreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
@@ -280,13 +280,11 @@ extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarVie
     }
     
     func contextualHighlightEditToolbarViewDidTapUnorderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
-        print("TODO: wire separate UL JS for this")
-        toggleListSelection(button)
+        toggleUnorderedListSelection(button)
     }
     
     func contextualHighlightEditToolbarViewDidTapOrderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
-        print("TODO: wire separate OL JS for this")
-        toggleListSelection(button)
+        toggleOrderedListSelection(button)
     }
 }
 

@@ -6,7 +6,8 @@ private enum CodeMirrorCommandType: String {
     case anchor
     case indent
     case signature
-    case list
+    case orderedList
+    case unorderedList
     case heading
     case increaseIndentDepth
     case decreaseIndentDepth
@@ -44,8 +45,11 @@ extension SectionEditorWebView {
     @objc func toggleSignatureSelection(_ sender: Any) {
         execCommand(for: .signature)
     }
-    @objc func toggleListSelection(_ sender: Any) {
-        execCommand(for: .list)
+    @objc func toggleOrderedListSelection(_ sender: Any) {
+        execCommand(for: .orderedList)
+    }
+    @objc func toggleUnorderedListSelection(_ sender: Any) {
+        execCommand(for: .unorderedList)
     }
     @objc func toggleHeadingSelection(_ sender: Any) {
         execCommand(for: .heading)
