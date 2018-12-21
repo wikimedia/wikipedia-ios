@@ -292,9 +292,11 @@
       if (selections.length > 0) {
         const markupLength = markup.length
         const selection = selections[0]
-        const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + markupLength, sticky: selection.anchor.sticky}
-        const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
-        editor.setSelection(anchor, head)
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const from = {line: fromPos.line, ch: fromPos.ch + markupLength, sticky: fromPos.sticky}
+        const to = {line: toPos.line, ch: toPos.ch - markupLength, sticky: toPos.sticky}
+        editor.setSelection(from, to)
       }
     }
     
@@ -306,23 +308,25 @@
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const selection = selections[0]
-        if (selection.anchor.line != selection.head.line || selection.anchor.ch != selection.head.ch) {
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        if (fromPos.line != toPos.line || fromPos.ch != toPos.ch) {
           wrapSelectionWith(markup)
           return
         }
-        const lineIndex = selection.anchor.line
+        const lineIndex = fromPos.line
         const line = editor.getLine(lineIndex)
-        const before = line.substring(0, selection.anchor.ch)
-        const after = line.substring(selection.anchor.ch, line.length)
+        const before = line.substring(0, fromPos.ch)
+        const after = line.substring(fromPos.ch, line.length)
         const adjustedBefore = reverseString(reverseString(before).replace(reverseString(markup), ""))
         const adjustedAfter = after.replace(markup, "")
         const adjustedLine = adjustedBefore + adjustedAfter
         if (line.length != adjustedLine.length) {
           editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
           const markupLength = markup.length
-          const anchor = {line: selection.anchor.line, ch: selection.anchor.ch - markupLength, sticky: selection.anchor.sticky}
-          const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
-          editor.setSelection(anchor, head)
+          const from = {line: fromPos.line, ch: fromPos.ch - markupLength, sticky: fromPos.sticky}
+          const to = {line: toPos.line, ch: toPos.ch - markupLength, sticky: toPos.sticky}
+          editor.setSelection(from, to)
         }
       }
     }
