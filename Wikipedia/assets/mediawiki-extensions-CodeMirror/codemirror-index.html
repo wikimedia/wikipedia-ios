@@ -304,19 +304,42 @@
       return string.split('').reverse().join('')
     }
     
+    const isSelectionWrappedWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
+      const selections = editor.listSelections()
+      if (selections.length < 1) {
+        return false
+      }
+      const selection = selections[0]
+      const fromPos = selection.from()
+      const toPos = selection.to()
+      if (fromPos.line != toPos.line) {
+        return false
+      }
+      const lineIndex = fromPos.line
+      const line = editor.getLine(lineIndex)
+      const before = line.substring(0, fromPos.ch)
+      const after = line.substring(toPos.ch, line.length)
+      const beforeIndex = reverseString(before).indexOf(reverseString(openingMarkup))
+      const afterIndex = after.indexOf(closingMarkup)
+      return fromPos.ch == toPos.ch ? beforeIndex >= 0 && afterIndex >= 0 : beforeIndex == 0 && afterIndex == 0
+    }
+    
     const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
       if (closingMarkup === undefined) {
         closingMarkup = openingMarkup
+      }
+      const selectedText = editor.getSelection()
+      if (selectedText === ' ') { // remove single whitespace that was likely inserted by wrapSelection
+        editor.replaceSelection('', 'start')
       }
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const selection = selections[0]
         const fromPos = selection.from()
         const toPos = selection.to()
-        if (fromPos.line != toPos.line || fromPos.ch != toPos.ch) {
-          wrapSelectionWith(openingMarkup, closingMarkup)
-          return
-        }
         const lineIndex = fromPos.line
         const line = editor.getLine(lineIndex)
         const before = line.substring(0, fromPos.ch)
@@ -333,12 +356,10 @@
         }
       }
     }
-    
-    const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
-    
+      
     const toggleMarkup = (button, openingMarkup, closingMarkup) => {
-      const isSelected = isButtonSelected(button)
-      if (isSelected) {
+      const hasMarkup = isSelectionWrappedWith(openingMarkup, closingMarkup)
+      if (hasMarkup) {
         unwrapSelectionWith(openingMarkup, closingMarkup)
       } else {
         wrapSelectionWith(openingMarkup, closingMarkup)
