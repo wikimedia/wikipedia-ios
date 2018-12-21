@@ -39,6 +39,9 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
         removeSelectionFormattingButton.isEnabled = false
+        headingButton.isEnabled = false
+        unorderedListButton.isEnabled = false
+        orderedListButton.isEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) {

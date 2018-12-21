@@ -3,6 +3,12 @@ class TextFormattingButtonView: UIView, TextFormattingProviding {
 
     @IBOutlet private weak var button: UIButton!
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.setTitleColor(.lightGray, for: .disabled)
+        button.isEnabled = false
+    }
+    
     var buttonTitle: String? {
         didSet {
             button.setTitle(buttonTitle, for: .normal)

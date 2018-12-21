@@ -12,7 +12,14 @@ class TextFormattingDetailTableViewCell: TextFormattingTableViewCell {
 
     override func apply(theme: Theme) {
         super.apply(theme: theme)
-        textLabel?.textColor = theme.colors.primaryText
-        detailTextLabel?.textColor = theme.colors.primaryText
+        // textLabel?.textColor = theme.colors.primaryText
+        // detailTextLabel?.textColor = theme.colors.primaryText
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        isUserInteractionEnabled = false
+        detailTextLabel?.textColor = .lightGray
+        textLabel?.textColor = .lightGray
     }
 }

@@ -37,6 +37,13 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
         delegate?.strikethroughTapped(sender: self)
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        unorderedList.isEnabled = false
+        orderedList.isEnabled = false
+        indentDecrease.isEnabled = false
+        indentIncrease.isEnabled = false
+    }
     
     private func deselectAllButtons() {
         buttons.forEach() {
