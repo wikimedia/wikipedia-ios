@@ -1,14 +1,13 @@
 protocol ContextualHighlightEditToolbarViewDelegate: class {
-    func contextualHighlightEditToolbarViewDidTapTextFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-
-    func contextualHighlightEditToolbarViewDidTapBoldToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapItalicToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapRemoveSelectionFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapReferenceToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapAnchorToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapUnorderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapOrderedListToggleButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
+    func textFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func headerFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func boldTapped(sender: ContextualHighlightEditToolbarView)
+    func italicTapped(sender: ContextualHighlightEditToolbarView)
+    func removeSelectionFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func referenceTapped(sender: ContextualHighlightEditToolbarView)
+    func anchorTapped(sender: ContextualHighlightEditToolbarView)
+    func unorderedListTapped(sender: ContextualHighlightEditToolbarView)
+    func orderedListTapped(sender: ContextualHighlightEditToolbarView)
 }
 
 class ContextualHighlightEditToolbarView: EditToolbarView {
@@ -48,38 +47,38 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func toggleBoldSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapBoldToggleButton(self, button: sender)
+        delegate?.boldTapped(sender: self)
     }
 
     @IBAction private func toggleItalicSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapItalicToggleButton(self, button: sender)
+        delegate?.italicTapped(sender: self)
     }
 
     @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(self, button: sender)
+        delegate?.headerFormattingTapped(sender: self)
     }
 
     @IBAction private func removeSelectionFormatting(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapRemoveSelectionFormattingButton(self, button: sender)
+        delegate?.removeSelectionFormattingTapped(sender: self)
     }
 
     @IBAction private func toggleReferenceSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapReferenceToggleButton(self, button: sender)
+        delegate?.referenceTapped(sender: self)
     }
 
     @IBAction private func toggleAnchorSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapAnchorToggleButton(self, button: sender)
+        delegate?.anchorTapped(sender: self)
     }
 
     @IBAction private func toggleUnorderedListSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapUnorderedListToggleButton(self, button: sender)
+        delegate?.unorderedListTapped(sender: self)
     }
 
     @IBAction private func toggleOrderedListSelection(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapOrderedListToggleButton(self, button: sender)
+        delegate?.orderedListTapped(sender: self)
     }
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.textFormattingTapped(sender: self)
     }
 }

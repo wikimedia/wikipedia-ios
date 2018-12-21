@@ -22,7 +22,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="14" height="45"/>
                             <state key="normal" image="text-formatting-bold"/>
                             <connections>
-                                <action selector="toggleBold:" destination="iN0-l3-epB" eventType="touchUpInside" id="ayc-P9-ZYp"/>
+                                <action selector="toggleBoldWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="pGA-r8-ILT"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-b0-I9N" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">

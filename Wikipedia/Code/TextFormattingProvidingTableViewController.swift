@@ -3,14 +3,13 @@ protocol TextFormattingProviding: class {
 }
 
 protocol TextFormattingDelegate: class {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem)
-    func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-    func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-
-    func textFormattingProvidingDidTapReferenceButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-    func textFormattingProvidingDidTapTemplateButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-    func textFormattingProvidingDidTapCommentButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-    func textFormattingProvidingDidTapLinkButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func closeTapped(sender: TextFormattingProviding)
+    func boldTapped(sender: TextFormattingProviding)
+    func italicTapped(sender: TextFormattingProviding)
+    func referenceTapped(sender: TextFormattingProviding)
+    func templateTapped(sender: TextFormattingProviding)
+    func commentTapped(sender: TextFormattingProviding)
+    func linkTapped(sender: TextFormattingProviding)
 }
 
 enum TextStyleType: Int {
@@ -162,7 +161,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.textFormattingProvidingDidTapCloseButton(self, button: sender)
+        delegate?.closeTapped(sender: self)
     }
 }
 

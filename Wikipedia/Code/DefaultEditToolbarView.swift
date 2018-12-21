@@ -1,24 +1,19 @@
 import UIKit
 
 protocol DefaultEditToolbarViewDelegate: class {
-    func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    // Indentation
-    func defaultEditToolbarViewDidTapDecreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapIncreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    // Cursor movement
-    func defaultEditToolbarViewDidTapCursorUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapCursorDownButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapCursorLeftButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    func defaultEditToolbarViewDidTapCursorRightButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
-    // Find in page
-    // TODO
-    // More
-    func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton)
+    func textFormattingTapped(sender: DefaultEditToolbarView)
+    func headerFormattingTapped(sender: DefaultEditToolbarView)
+    func citationTapped(sender: DefaultEditToolbarView)
+    func linkTapped(sender: DefaultEditToolbarView)
+    func unorderedListTapped(sender: DefaultEditToolbarView)
+    func orderedListTapped(sender: DefaultEditToolbarView)
+    func decreaseIndentTapped(sender: DefaultEditToolbarView)
+    func increaseIndentTapped(sender: DefaultEditToolbarView)
+    func cursorUpTapped(sender: DefaultEditToolbarView)
+    func cursorDownTapped(sender: DefaultEditToolbarView)
+    func cursorLeftTapped(sender: DefaultEditToolbarView)
+    func cursorRightTapped(sender: DefaultEditToolbarView)
+    func moreTapped(sender: DefaultEditToolbarView)
 }
 
 class DefaultEditToolbarView: EditToolbarView {
@@ -96,55 +91,55 @@ class DefaultEditToolbarView: EditToolbarView {
     // MARK: Button actions
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.textFormattingTapped(sender: self)
     }
 
     @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapHeaderFormattingButton(self, button: sender)
+        delegate?.headerFormattingTapped(sender: self)
     }
 
     @IBAction private func toggleCitation(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapCitationButton(self, button: sender)
+        delegate?.citationTapped(sender: self)
     }
 
     @IBAction private func toggleLink(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapLinkButton(self, button: sender)
+        delegate?.linkTapped(sender: self)
     }
 
     @IBAction private func toggleUnorderedList(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapUnorderedListButton(self, button: sender)
+        delegate?.unorderedListTapped(sender: self)
     }
 
     @IBAction private func toggleOrderedList(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapOrderedListButton(self, button: sender)
+        delegate?.orderedListTapped(sender: self)
     }
 
     @IBAction private func decreaseIndentation(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapDecreaseIndentationUpButton(self, button: sender)
+        delegate?.decreaseIndentTapped(sender: self)
     }
 
     @IBAction private func increaseIndentation(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapIncreaseIndentationUpButton(self, button: sender)
+        delegate?.increaseIndentTapped(sender: self)
     }
 
     @IBAction private func moveCursorUp(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapCursorUpButton(self, button: sender)
+        delegate?.cursorUpTapped(sender: self)
     }
 
     @IBAction private func moveCursorDown(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapCursorDownButton(self, button: sender)
+        delegate?.cursorDownTapped(sender: self)
     }
 
     @IBAction private func moveCursorLeft(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapCursorLeftButton(self, button: sender)
+        delegate?.cursorLeftTapped(sender: self)
     }
 
     @IBAction private func moveCursorRight(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapCursorRightButton(self, button: sender)
+        delegate?.cursorRightTapped(sender: self)
     }
 
     @IBAction private func showMore(_ sender: UIButton) {
-        delegate?.defaultEditToolbarViewDidTapMoreButton(self, button: sender)
+        delegate?.moreTapped(sender: self)
     }
 
     private enum ActionsType: CGFloat {

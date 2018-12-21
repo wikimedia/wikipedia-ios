@@ -144,11 +144,11 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func undo(_ sender: UIBarButtonItem) {
-        webView.undo(sender)
+        webView.undo()
     }
 
     @objc private func redo(_ sender: UIBarButtonItem) {
-        webView.redo(sender)
+        webView.redo()
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
@@ -266,7 +266,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                     assertionFailure(error.localizedDescription)
                 } else {
                     DispatchQueue.main.async {
-                        self.webView.focus(self)
+                        self.webView.focus()
                         // TODO: Remove
                         self.progressButton.isEnabled = true
                     }
