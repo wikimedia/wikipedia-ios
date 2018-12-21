@@ -25,6 +25,9 @@ private enum CodeMirrorCommandType: String {
     case superscript
     case underline
     case strikethrough
+    case normalTextSize
+    case smallTextSize
+    case bigTextSize
 }
 
 extension SectionEditorWebView {
@@ -114,6 +117,16 @@ extension SectionEditorWebView {
     }
     @objc func toggleStrikethrough() {
         execCommand(for: .strikethrough)
+    }
+
+    @objc func normalTextSize() {
+        execCommand(for: .normalTextSize)
+    }
+    @objc func smallTextSize() {
+        execCommand(for: .smallTextSize)
+    }
+    @objc func bigTextSize() {
+        execCommand(for: .bigTextSize)
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {

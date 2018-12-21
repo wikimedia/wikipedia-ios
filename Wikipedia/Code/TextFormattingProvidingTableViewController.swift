@@ -90,30 +90,37 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return button
     }()
 
-    private func resetSelectTextStyleType() {
+    private func resetSelections() {
         selectedTextStyleType = .paragraph
+        selectedTextSizeType = .normal
     }
 
-    private func selectTextStyleType(for type: EditButtonType, depth: Int) {
-        guard type == .heading else {
-            return
+    private func updateSelections(for type: EditButtonType, depth: Int) {
+        switch type {
+        case .heading:
+            guard let newTextStyleType = TextStyleType(rawValue: depth) else {
+                return
+            }
+            selectedTextStyleType = newTextStyleType
+        case .smallTextSize:
+            selectedTextSizeType = .small
+        case .bigTextSize:
+            selectedTextSizeType = .big
+        default:
+            break
         }
-        guard let newTextStyleType = TextStyleType(rawValue: depth) else {
-            return
-        }
-        selectedTextStyleType = newTextStyleType
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
-            self?.resetSelectTextStyleType()
+            self?.resetSelections()
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
             if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.selectTextStyleType(for: message.type, depth: message.depth)
+                self?.updateSelections(for: message.type, depth: message.depth)
                 // print("buttonNeedsToBeSelectedMessage = \(message)")
             }
         }

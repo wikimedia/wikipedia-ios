@@ -421,6 +421,18 @@
       decreaseIndentDepth: () => {
         console.log('decreaseIndentDepth')
       },
+      normalTextSize: () => {
+        // TODO: remove either small or big tags
+        console.log('normalTextSize')
+      },
+      smallTextSize: () => {
+        // TODO: determine 'small' in selectedButtons
+        toggleMarkup('small', '<small>', '</small>')
+      },
+      bigTextSize: () => {
+        // TODO: determine 'big' in selectedButtons
+        toggleMarkup('big', '<big>', '</big>')
+      },
       selectAll: () => editor.execCommand('selectAll'),
       highlighting: () => {
         editor.setOption('maxHighlightLength', editor.getOption('maxHighlightLength') === -1 ? 10000 : -1)

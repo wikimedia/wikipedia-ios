@@ -44,6 +44,8 @@ enum EditButtonType: String {
     case redo
     case debug
     case comment
+    case smallTextSize
+    case bigTextSize
 }
 
 private enum ButtonInfoConstants: String {
