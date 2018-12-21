@@ -21,6 +21,10 @@ private enum CodeMirrorCommandType: String {
     case focus
     case selectAll
     case highlighting
+    case `subscript`
+    case superscript
+    case underline
+    case strikethrough
 }
 
 extension SectionEditorWebView {
@@ -97,6 +101,19 @@ extension SectionEditorWebView {
     
     @objc func toggleSyntaxHighlighting() {
         execCommand(for: .highlighting)
+    }
+
+    @objc func toggleSubscript() {
+        execCommand(for: .subscript)
+    }
+    @objc func toggleSuperscript() {
+        execCommand(for: .superscript)
+    }
+    @objc func toggleUnderline() {
+        execCommand(for: .underline)
+    }
+    @objc func toggleStrikethrough() {
+        execCommand(for: .strikethrough)
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {

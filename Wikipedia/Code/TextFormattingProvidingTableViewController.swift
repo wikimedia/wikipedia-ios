@@ -10,6 +10,15 @@ protocol TextFormattingDelegate: class {
     func templateTapped(sender: TextFormattingProviding)
     func commentTapped(sender: TextFormattingProviding)
     func linkTapped(sender: TextFormattingProviding)
+    
+    func increaseIndentTapped(sender: TextFormattingProviding)
+    func decreaseIndentTapped(sender: TextFormattingProviding)
+    func orderedListTapped(sender: TextFormattingProviding)
+    func unorderedListTapped(sender: TextFormattingProviding)
+    func superscriptTapped(sender: TextFormattingProviding)
+    func subscriptTapped(sender: TextFormattingProviding)
+    func underlineTapped(sender: TextFormattingProviding)
+    func strikethroughTapped(sender: TextFormattingProviding)
 }
 
 enum TextStyleType: Int {

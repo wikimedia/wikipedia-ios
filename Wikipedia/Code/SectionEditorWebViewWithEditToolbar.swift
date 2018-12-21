@@ -269,6 +269,30 @@ extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarVie
 }
 
 extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
+    func increaseIndentTapped(sender: TextFormattingProviding) {
+        increaseIndentDepth()
+    }
+    func decreaseIndentTapped(sender: TextFormattingProviding) {
+        decreaseIndentDepth()
+    }
+    func orderedListTapped(sender: TextFormattingProviding) {
+        toggleOrderedListSelection()
+    }
+    func unorderedListTapped(sender: TextFormattingProviding) {
+        toggleUnorderedListSelection()
+    }
+    func superscriptTapped(sender: TextFormattingProviding) {
+        toggleSuperscript()
+    }
+    func subscriptTapped(sender: TextFormattingProviding) {
+        toggleSubscript()
+    }
+    func underlineTapped(sender: TextFormattingProviding) {
+        toggleUnderline()
+    }
+    func strikethroughTapped(sender: TextFormattingProviding) {
+        toggleStrikethrough()
+    }
     func closeTapped(sender: TextFormattingProviding) {
         setInputViewHidden(hidden: true)
     }
