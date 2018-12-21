@@ -282,20 +282,24 @@
       editor.on('cursorActivity', sendNativeMessages)
     }
     
-    const wrapSelectionWith = (markup) => {
+    const wrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
       var selectedText = editor.getSelection()
       if (!selectedText || selectedText.length == 0) {
         selectedText = " "
       }
-      editor.replaceSelection(markup + selectedText + markup, 'around')
+      editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
       const selections = editor.listSelections()
       if (selections.length > 0) {
-        const markupLength = markup.length
+        const openingMarkupLength = openingMarkup.length
+        const closingMarkupLength = closingMarkup.length
         const selection = selections[0]
         const fromPos = selection.from()
         const toPos = selection.to()
-        const from = {line: fromPos.line, ch: fromPos.ch + markupLength, sticky: fromPos.sticky}
-        const to = {line: toPos.line, ch: toPos.ch - markupLength, sticky: toPos.sticky}
+        const from = {line: fromPos.line, ch: fromPos.ch + openingMarkupLength, sticky: fromPos.sticky}
+        const to = {line: toPos.line, ch: toPos.ch - closingMarkupLength, sticky: toPos.sticky}
         editor.setSelection(from, to)
       }
     }
@@ -304,28 +308,31 @@
       return string.split("").reverse().join("")
     }
     
-    const unwrapSelectionWith = (markup) => {
+    const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const selection = selections[0]
         const fromPos = selection.from()
         const toPos = selection.to()
         if (fromPos.line != toPos.line || fromPos.ch != toPos.ch) {
-          wrapSelectionWith(markup)
+          wrapSelectionWith(openingMarkup, closingMarkup)
           return
         }
         const lineIndex = fromPos.line
         const line = editor.getLine(lineIndex)
         const before = line.substring(0, fromPos.ch)
         const after = line.substring(fromPos.ch, line.length)
-        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(markup), ""))
-        const adjustedAfter = after.replace(markup, "")
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ""))
+        const adjustedAfter = after.replace(closingMarkup, "")
         const adjustedLine = adjustedBefore + adjustedAfter
         if (line.length != adjustedLine.length) {
           editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
-          const markupLength = markup.length
-          const from = {line: fromPos.line, ch: fromPos.ch - markupLength, sticky: fromPos.sticky}
-          const to = {line: toPos.line, ch: toPos.ch - markupLength, sticky: toPos.sticky}
+          const openingMarkupLength = openingMarkup.length
+          const from = {line: fromPos.line, ch: fromPos.ch - openingMarkupLength, sticky: fromPos.sticky}
+          const to = {line: toPos.line, ch: toPos.ch - openingMarkupLength, sticky: toPos.sticky}
           editor.setSelection(from, to)
         }
       }
@@ -333,12 +340,12 @@
     
     const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     
-    const toggleMarkup = (button, markup) => {
+    const toggleMarkup = (button, openingMarkup, closingMarkup) => {
       const isSelected = isButtonSelected(button)
       if (isSelected) {
-        unwrapSelectionWith(markup)
+        unwrapSelectionWith(openingMarkup, closingMarkup)
       } else {
-        wrapSelectionWith(markup)
+        wrapSelectionWith(openingMarkup, closingMarkup)
       }
     }
     
@@ -366,7 +373,7 @@
         toggleMarkup('italic', "''")
       },
       reference: () => {
-        console.log('reference')
+        toggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
         console.log('template')
