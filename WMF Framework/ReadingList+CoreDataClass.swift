@@ -17,7 +17,6 @@ public class ReadingList: NSManagedObject {
         return existingKeys
     }
     
-    
     private var previousCountOfEntries: Int64 = 0
     private var isEntriesLimitReached: Bool = false {
         didSet {

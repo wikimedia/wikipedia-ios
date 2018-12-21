@@ -1,7 +1,11 @@
 import UIKit
 
-class SavedArticlesCollectionViewController: ArticlesCollectionViewController<WMFArticle> {
-    convenience init(with dataStore: MWKDataStore) {
+class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
+    
+    //This is not a convenience initalizer because this allows us to not inherit
+    //the super class initializer, so clients can't pass any arbitrary reading list to this
+    //class
+    init(with dataStore: MWKDataStore) {
         func fetchDefaultReadingListWithSortOrder() -> ReadingList {
             let fetchRequest: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
             fetchRequest.fetchLimit = 1
@@ -10,24 +14,17 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController<WM
             
             guard let readingLists = try? dataStore.viewContext.fetch(fetchRequest),
                 let defaultReadingList = readingLists.first else {
-                    assertionFailure("Failed to fetch default reading list with sort order")
-                    fatalError()
+                assertionFailure("Failed to fetch default reading list with sort order")
+                fatalError()
             }
             return defaultReadingList
         }
         let readingList = fetchDefaultReadingListWithSortOrder()
-        self.init(for: readingList, with: dataStore)
+        super.init(for: readingList, with: dataStore)
     }
     
-    override func article(at indexPath: IndexPath) -> WMFArticle {
-        guard let fetchedResultsController = fetchedResultsController else {
-            fatalError("Could not find fetched result controller")
-        }
-        return fetchedResultsController.object(at: indexPath)
-    }
-    
-    override var basePredicate: NSPredicate {
-        return NSPredicate(format: "savedDate != NULL")
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override var availableBatchEditToolbarActions: [BatchEditToolbarAction] {
@@ -37,29 +34,12 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController<WM
         ]
     }
     
-    // workaround since we can't override with lazy properties
-    lazy var lazySortActions: [SortActionType : SortAction] = {
-        let moc = dataStore.viewContext
-        
-        let handler: ([NSSortDescriptor], UIAlertAction, Int) -> Void = { (sortDescriptors: [NSSortDescriptor], alertAction: UIAlertAction, rawValue: Int) in
-            self.readingList.sortOrder = NSNumber(value: rawValue)
-            if moc.hasChanges {
-                do {
-                    try moc.save()
-                } catch let error {
-                    DDLogError("Error updating sort order: \(error)")
-                }
-            }
-            self.reset()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())
+        if !isEmpty {
+            self.wmf_showLoginToSyncSavedArticlesToReadingListPanelOncePerDevice(theme: theme)
         }
-        
-        let title = SortActionType.byTitle.action(with: [NSSortDescriptor(keyPath: \WMFArticle.displayTitle, ascending: true)], handler: handler)
-        let recentlyAdded = SortActionType.byRecentlyAdded.action(with: [NSSortDescriptor(keyPath: \WMFArticle.savedDate, ascending: false)], handler: handler)
-        return [title.type: title, recentlyAdded.type: recentlyAdded]
-    }()
-    
-    override var sortActions: [SortActionType : SortAction] {
-        return lazySortActions
     }
     
     override func shouldDelete(_ articles: [WMFArticle], completion: @escaping (Bool) -> Void) {
@@ -87,16 +67,24 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController<WM
     
     override func configure(cell: SavedArticlesCollectionViewCell, for article: WMFArticle, at indexPath: IndexPath, layoutOnly: Bool) {
         cell.isBatchEditing = editController.isBatchEditing
-        
+        cell.delegate = self
         cell.tags = (readingLists: readingLists(for: article), indexPath: indexPath)
         cell.configure(article: article, index: indexPath.item, shouldShowSeparators: true, theme: theme, layoutOnly: layoutOnly)
         cell.isBatchEditable = true
         cell.layoutMargins = layout.itemLayoutMargins
         editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        emptyViewType = .noSavedPages
+}
+
+// MARK: - SavedArticlesCollectionViewCellDelegate
+
+extension SavedArticlesCollectionViewController: SavedArticlesCollectionViewCellDelegate {
+    func didSelect(_ tag: Tag) {
+        guard let article = article(at: tag.indexPath) else {
+            return
+        }
+        let viewController = tag.isLast ? ReadingListsViewController(with: dataStore, readingLists: readingLists(for: article)) : ReadingListDetailViewController(for: tag.readingList, with: dataStore)
+        viewController.apply(theme: theme)
+        wmf_push(viewController, animated: true)
     }
 }

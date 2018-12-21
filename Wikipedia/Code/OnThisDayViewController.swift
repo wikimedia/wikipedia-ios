@@ -224,7 +224,7 @@ extension OnThisDayViewController {
         cell.pauseDotsAnimation = false
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? OnThisDayCollectionViewCell else {
             return
         }

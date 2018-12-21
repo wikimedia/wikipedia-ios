@@ -171,7 +171,7 @@ extension NewsViewController {
         cell.selectionDelegate = self
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? NewsCollectionViewCell else {
             return
         }

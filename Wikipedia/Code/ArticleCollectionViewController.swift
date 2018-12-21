@@ -165,7 +165,7 @@ extension ArticleCollectionViewController {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let articleURL = articleURL(at: indexPath) else {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
@@ -174,7 +174,7 @@ extension ArticleCollectionViewController {
         wmf_pushArticle(with: articleURL, dataStore: dataStore, theme: theme, animated: true)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
 }

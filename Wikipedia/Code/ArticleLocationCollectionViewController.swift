@@ -150,7 +150,7 @@ extension ArticleLocationCollectionViewController: WMFLocationManagerDelegate {
 
 // MARK: - UICollectionViewDelegate
 extension ArticleLocationCollectionViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let context = feedFunnelContext {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: indexPath.item, maxViewed: maxViewed)
         }

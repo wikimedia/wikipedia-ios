@@ -4,25 +4,24 @@ enum ReadingListDetailDisplayType {
     case modal, pushed
 }
 
-
-
 class ReadingListDetailViewController: ViewController {
     let dataStore: MWKDataStore
     let readingList: ReadingList
     
-    let articlesCollectionViewController: ReadingListArticlesCollectionViewController
+    let articlesCollectionViewController: ArticlesCollectionViewController
     
     var updater: ArticleURLProviderEditControllerUpdater?
     private let readingListDetailUnderBarViewController: ReadingListDetailUnderBarViewController
     private var searchBarExtendedViewController: SearchBarExtendedViewController?
     private var displayType: ReadingListDetailDisplayType = .pushed
-
+    
     init(for readingList: ReadingList, with dataStore: MWKDataStore, displayType: ReadingListDetailDisplayType = .pushed) {
         self.readingList = readingList
         self.dataStore = dataStore
         self.displayType = displayType
         readingListDetailUnderBarViewController = ReadingListDetailUnderBarViewController()
-        articlesCollectionViewController = ReadingListArticlesCollectionViewController(for: readingList, with: dataStore)
+        articlesCollectionViewController = ArticlesCollectionViewController(for: readingList, with: dataStore)
+        articlesCollectionViewController.emptyViewType = .noSavedPagesInReadingList
         super.init()
         searchBarExtendedViewController = SearchBarExtendedViewController()
         searchBarExtendedViewController?.dataSource = self
@@ -76,12 +75,12 @@ class ReadingListDetailViewController: ViewController {
         articlesCollectionViewController.delegate = self
         articlesCollectionViewController.editController.navigationDelegate = self
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpArticlesViewController()
-
+        
         navigationBar.title = readingList.name
         navigationBar.addUnderNavigationBarView(readingListDetailUnderBarViewController.view)
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
@@ -94,7 +93,7 @@ class ReadingListDetailViewController: ViewController {
             title = readingList.name
         }
         
-        wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
+        wmf_add(childController: savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
         updater = ArticleURLProviderEditControllerUpdater(articleURLProvider: articlesCollectionViewController, collectionView: articlesCollectionViewController.collectionView, editController: articlesCollectionViewController.editController)
     }
     
@@ -109,7 +108,6 @@ class ReadingListDetailViewController: ViewController {
         navigationBar.isExtendedViewHidingEnabled = enabled
     }
     
-    
     @objc private func dismissController() {
         dismiss(animated: true)
     }
@@ -118,7 +116,7 @@ class ReadingListDetailViewController: ViewController {
         super.viewWillAppear(animated)
         readingListDetailUnderBarViewController.setup(for: readingList, listLimit: dataStore.viewContext.wmf_readingListsConfigMaxListsPerUser, entryLimit: dataStore.viewContext.wmf_readingListsConfigMaxEntriesPerList.intValue)
     }
-
+    
     // MARK: - Theme
     
     override func apply(theme: Theme) {
@@ -131,13 +129,13 @@ class ReadingListDetailViewController: ViewController {
 }
 
 // MARK: - NavigationDelegate
+
 extension ReadingListDetailViewController: CollectionViewEditControllerNavigationDelegate {
     var currentTheme: Theme {
-        return self.theme
+        return theme
     }
     
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState {
-        
         let newEditingState: EditingState
         
         switch currentEditingState {
@@ -192,8 +190,7 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
         title = name
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
-    }
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {}
     
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField) {
         navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
@@ -202,7 +199,6 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldWillClear textField: UITextField) {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
-
 }
 
 // MARK: - SearchBarExtendedViewControllerDataSource
@@ -220,11 +216,12 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDataSo
         return true
     }
 }
+
 // MARK: - SearchBarExtendedViewControllerDelegate
 
 extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       articlesCollectionViewController.updateSearchString(searchText)
+        articlesCollectionViewController.updateSearchString(searchText)
         
         if searchText.isEmpty {
             makeSearchBarResignFirstResponder(searchBar)
@@ -278,17 +275,15 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
 }
 
-
-//MARK: - ArticlesCollectionViewControllerDelegate
+// MARK: - ArticlesCollectionViewControllerDelegate
 
 extension ReadingListDetailViewController: ArticlesCollectionViewControllerDelegate {
-    
-    func articlesCollectionViewController<T>(_ viewController: ArticlesCollectionViewController<T>, didUpdate collectionView: UICollectionView) {
+    func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView) {
         readingListDetailUnderBarViewController.reconfigureAlert(for: readingList)
         readingListDetailUnderBarViewController.updateArticleCount(readingList.countOfEntries)
     }
-
-    func articlesCollectionViewControllerDidChangeEmptyState<T>(_ viewController: ArticlesCollectionViewController<T>) {
+    
+    func articlesCollectionViewControllerDidChangeEmptyState(_ viewController: ArticlesCollectionViewController) {
         let isReadingListEmpty = readingList.countOfEntries == 0
         let isEmptyStateMatchingReadingListEmptyState = viewController.isEmpty == isReadingListEmpty
         if !isEmptyStateMatchingReadingListEmptyState {

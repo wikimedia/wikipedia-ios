@@ -411,7 +411,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return group.isSelectable
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
             detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
             if

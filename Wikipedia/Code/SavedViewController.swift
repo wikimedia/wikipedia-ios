@@ -49,7 +49,9 @@ class SavedViewController: ViewController {
                 return
             }
             title = CommonStrings.savedTabTitle
-            savedArticlesViewController = SavedArticlesCollectionViewController(with: newValue)
+            let viewController = SavedArticlesCollectionViewController(with: newValue)
+            viewController.emptyViewType = .noSavedPages
+            savedArticlesViewController = viewController
         }
     }
     
