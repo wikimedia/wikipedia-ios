@@ -373,6 +373,9 @@
     wmf.setup = () => setupCodemirror()
     wmf.applyTheme = (themeName) => applyTheme(themeName)
 
+    const italicMarkup = "''"
+    const boldMarkup = "'''"
+
     wmf.commands = {
       focus: () => {
         editor.focus()
@@ -384,10 +387,16 @@
       cursorLeft: () => editor.execCommand('goCharLeft'),
       cursorRight: () => editor.execCommand('goCharRight'),
       bold: () => {
-        toggleMarkup('bold', "'''")
+        toggleMarkup('bold', boldMarkup)
       },
       italic: () => {
-        toggleMarkup('italic', "''")
+        if (isSelectionWrappedWith(boldMarkup + italicMarkup)) {
+          unwrapSelectionWith(italicMarkup)
+        } else if (isSelectionWrappedWith(boldMarkup)) {
+          wrapSelectionWith(italicMarkup)
+        } else {
+          toggleMarkup('italic', italicMarkup)
+        }
       },
       reference: () => {
         toggleMarkup('reference', '<ref>', '</ref>')
