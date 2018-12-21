@@ -6,6 +6,11 @@ protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem)
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
     func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+
+    func textFormattingProvidingDidTapReferenceButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func textFormattingProvidingDidTapTemplateButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func textFormattingProvidingDidTapCommentButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func textFormattingProvidingDidTapLinkButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
 }
 
 enum TextStyleType: Int {

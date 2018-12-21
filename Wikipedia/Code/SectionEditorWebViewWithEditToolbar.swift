@@ -301,4 +301,17 @@ extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
     func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
         toggleBoldSelection(button)
     }
+
+    func textFormattingProvidingDidTapReferenceButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleReferenceSelection(button)
+    }
+    func textFormattingProvidingDidTapTemplateButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleTemplateSelection(button)
+    }
+    func textFormattingProvidingDidTapCommentButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleComment(button)
+    }
+    func textFormattingProvidingDidTapLinkButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
+        toggleAnchorSelection(button)
+    }
 }
