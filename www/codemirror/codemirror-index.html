@@ -288,7 +288,7 @@
       }
       var selectedText = editor.getSelection()
       if (!selectedText || selectedText.length == 0) {
-        selectedText = " "
+        selectedText = ' '
       }
       editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
       const selections = editor.listSelections()
@@ -305,7 +305,7 @@
     }
     
     const reverseString = (string) => {
-      return string.split("").reverse().join("")
+      return string.split('').reverse().join('')
     }
     
     const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
@@ -325,8 +325,8 @@
         const line = editor.getLine(lineIndex)
         const before = line.substring(0, fromPos.ch)
         const after = line.substring(fromPos.ch, line.length)
-        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ""))
-        const adjustedAfter = after.replace(closingMarkup, "")
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ''))
+        const adjustedAfter = after.replace(closingMarkup, '')
         const adjustedLine = adjustedBefore + adjustedAfter
         if (line.length != adjustedLine.length) {
           editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
