@@ -23,11 +23,11 @@ protocol TextFormattingDelegate: class {
 
 enum TextStyleType: Int {
     case paragraph
-    case heading
-    case subheading1
-    case subheading2
-    case subheading3
-    case subheading4
+    case heading = 2 // Heading is 2 equals (we don't show a heading choice for 1 equals variant)
+    case subheading1 = 3
+    case subheading2 = 4
+    case subheading3 = 5
+    case subheading4 = 6
 
     var name: String {
         switch self {
