@@ -6,7 +6,8 @@ private enum CodeMirrorCommandType: String {
     case anchor
     case indent
     case signature
-    case list
+    case orderedList
+    case unorderedList
     case heading
     case increaseIndentDepth
     case decreaseIndentDepth
@@ -20,79 +21,112 @@ private enum CodeMirrorCommandType: String {
     case focus
     case selectAll
     case highlighting
+    case `subscript`
+    case superscript
+    case underline
+    case strikethrough
+    case normalTextSize
+    case smallTextSize
+    case bigTextSize
 }
 
 extension SectionEditorWebView {
-    @objc func toggleBoldSelection(_ sender: Any) {
+    @objc func toggleBoldSelection() {
         execCommand(for: .bold)
     }
-    @objc func toggleItalicSelection(_ sender: Any) {
+    @objc func toggleItalicSelection() {
         execCommand(for: .italic)
     }
-    @objc func toggleReferenceSelection(_ sender: Any) {
+    @objc func toggleReferenceSelection() {
         execCommand(for: .reference)
     }
-    @objc func toggleTemplateSelection(_ sender: Any) {
+    @objc func toggleTemplateSelection() {
         execCommand(for: .template)
     }
-    @objc func toggleAnchorSelection(_ sender: Any) {
+    @objc func toggleAnchorSelection() {
         execCommand(for: .anchor)
     }
-    @objc func toggleIndentSelection(_ sender: Any) {
+    @objc func toggleIndentSelection() {
         execCommand(for: .indent)
     }
-    @objc func toggleSignatureSelection(_ sender: Any) {
+    @objc func toggleSignatureSelection() {
         execCommand(for: .signature)
     }
-    @objc func toggleListSelection(_ sender: Any) {
-        execCommand(for: .list)
+    @objc func toggleOrderedListSelection() {
+        execCommand(for: .orderedList)
     }
-    @objc func toggleHeadingSelection(_ sender: Any) {
+    @objc func toggleUnorderedListSelection() {
+        execCommand(for: .unorderedList)
+    }
+    @objc func toggleHeadingSelection() {
         execCommand(for: .heading)
     }
-    @objc func increaseIndentDepth(_ sender: Any) {
+    @objc func increaseIndentDepth() {
         execCommand(for: .increaseIndentDepth)
     }
-    @objc func decreaseIndentDepth(_ sender: Any) {
+    @objc func decreaseIndentDepth() {
         execCommand(for: .decreaseIndentDepth)
     }
     
     
-    @objc func undo(_ sender: Any) {
+    @objc func undo() {
         execCommand(for: .undo)
     }
-    @objc func redo(_ sender: Any) {
+    @objc func redo() {
         execCommand(for: .redo)
     }
 
     
-    @objc func moveCursorDown(_ sender: Any) {
+    @objc func moveCursorDown() {
         execCommand(for: .cursorDown)
     }
-    @objc func moveCursorUp(_ sender: Any) {
+    @objc func moveCursorUp() {
         execCommand(for: .cursorUp)
     }
-    @objc func moveCursorLeft(_ sender: Any) {
+    @objc func moveCursorLeft() {
         execCommand(for: .cursorLeft)
     }
-    @objc func moveCursorRight(_ sender: Any) {
+    @objc func moveCursorRight() {
         execCommand(for: .cursorRight)
     }
 
-    @objc func toggleComment(_ sender: Any) {
+    @objc func toggleComment() {
         execCommand(for: .comment)
     }
     
-    @objc func focus(_ sender: Any) {
+    @objc func focus() {
         execCommand(for: .focus)
     }
 
-    func selectAllText(_ sender: Any?) {
+    func selectAllText() {
         execCommand(for: .selectAll)
     }
     
-    @objc func toggleSyntaxHighlighting(_ sender: Any) {
+    @objc func toggleSyntaxHighlighting() {
         execCommand(for: .highlighting)
+    }
+
+    @objc func toggleSubscript() {
+        execCommand(for: .subscript)
+    }
+    @objc func toggleSuperscript() {
+        execCommand(for: .superscript)
+    }
+    @objc func toggleUnderline() {
+        execCommand(for: .underline)
+    }
+    @objc func toggleStrikethrough() {
+        execCommand(for: .strikethrough)
+    }
+
+    @objc func normalTextSize() {
+        execCommand(for: .normalTextSize)
+    }
+    @objc func smallTextSize() {
+        execCommand(for: .smallTextSize)
+    }
+    @objc func bigTextSize() {
+        execCommand(for: .bigTextSize)
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType) -> String {

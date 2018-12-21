@@ -11,6 +11,33 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     @IBOutlet weak var underline: TextFormattingButton!
     @IBOutlet weak var strikethrough: TextFormattingButton!
 
+    
+    @IBAction private func increaseIndent(sender: UIButton) {
+        delegate?.increaseIndentTapped(sender: self)
+    }
+    @IBAction private func decreaseIndent(sender: UIButton) {
+        delegate?.decreaseIndentTapped(sender: self)
+    }
+    @IBAction private func toggleUnorderedList(sender: UIButton) {
+        delegate?.unorderedListTapped(sender: self)
+    }
+    @IBAction private func toggleOrderedList(sender: UIButton) {
+        delegate?.orderedListTapped(sender: self)
+    }
+    @IBAction private func toggleSuperscript(sender: UIButton) {
+        delegate?.superscriptTapped(sender: self)
+    }
+    @IBAction private func toggleSubscript(sender: UIButton) {
+        delegate?.subscriptTapped(sender: self)
+    }
+    @IBAction private func toggleUnderline(sender: UIButton) {
+        delegate?.underlineTapped(sender: self)
+    }
+    @IBAction private func toggleStrikethrough(sender: UIButton) {
+        delegate?.strikethroughTapped(sender: self)
+    }
+
+    
     private func deselectAllButtons() {
         buttons.forEach() {
             $0.isSelected = false

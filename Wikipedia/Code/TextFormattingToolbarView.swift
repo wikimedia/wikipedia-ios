@@ -9,12 +9,28 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
     @IBOutlet weak var exclamationButton: TextFormattingButton!
     @IBOutlet weak var linkButton: TextFormattingButton!
 
-    @IBAction private func toggleBold(_ sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapBoldButton(self, button: sender)
+    @IBAction private func toggleBold(sender: UIButton) {
+        delegate?.boldTapped(sender: self)
     }
 
     @IBAction private func toggleItalics(sender: UIButton) {
-        delegate?.textFormattingProvidingDidTapItalicsButton(self, button: sender)
+        delegate?.italicTapped(sender: self)
+    }
+
+    @IBAction private func toggleReference(sender: UIButton) {
+        delegate?.referenceTapped(sender: self)
+    }
+
+    @IBAction private func toggleTemplate(sender: UIButton) {
+        delegate?.templateTapped(sender: self)
+    }
+
+    @IBAction private func toggleComment(sender: UIButton) {
+        delegate?.commentTapped(sender: self)
+    }
+
+    @IBAction private func toggleLink(sender: UIButton) {
+        delegate?.linkTapped(sender: self)
     }
     
     private func deselectAllButtons() {

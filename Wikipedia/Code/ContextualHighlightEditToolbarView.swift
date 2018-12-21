@@ -1,6 +1,13 @@
 protocol ContextualHighlightEditToolbarViewDelegate: class {
-    func contextualHighlightEditToolbarViewDidTapTextFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
-    func contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton)
+    func textFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func headerFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func boldTapped(sender: ContextualHighlightEditToolbarView)
+    func italicTapped(sender: ContextualHighlightEditToolbarView)
+    func removeSelectionFormattingTapped(sender: ContextualHighlightEditToolbarView)
+    func referenceTapped(sender: ContextualHighlightEditToolbarView)
+    func anchorTapped(sender: ContextualHighlightEditToolbarView)
+    func unorderedListTapped(sender: ContextualHighlightEditToolbarView)
+    func orderedListTapped(sender: ContextualHighlightEditToolbarView)
 }
 
 class ContextualHighlightEditToolbarView: EditToolbarView {
@@ -9,6 +16,12 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     @IBOutlet weak var boldButton: TextFormattingButton!
     @IBOutlet weak var italicButton: TextFormattingButton!
     @IBOutlet weak var headingButton: TextFormattingButton!
+
+    @IBOutlet weak var removeSelectionFormattingButton: TextFormattingButton!
+    @IBOutlet weak var citationButton: TextFormattingButton!
+    @IBOutlet weak var linkButton: TextFormattingButton!
+    @IBOutlet weak var unorderedListButton: TextFormattingButton!
+    @IBOutlet weak var orderedListButton: TextFormattingButton!
 
     private func selectButton(type: EditButtonType, ordered: Bool) {
         switch (type) {
@@ -21,6 +34,11 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         default:
             break
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        removeSelectionFormattingButton.isEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,11 +57,39 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         NotificationCenter.default.removeObserver(self)
     }
 
+    @IBAction private func toggleBoldSelection(_ sender: UIButton) {
+        delegate?.boldTapped(sender: self)
+    }
+
+    @IBAction private func toggleItalicSelection(_ sender: UIButton) {
+        delegate?.italicTapped(sender: self)
+    }
+
     @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(self, button: sender)
+        delegate?.headerFormattingTapped(sender: self)
+    }
+
+    @IBAction private func removeSelectionFormatting(_ sender: UIButton) {
+        delegate?.removeSelectionFormattingTapped(sender: self)
+    }
+
+    @IBAction private func toggleReferenceSelection(_ sender: UIButton) {
+        delegate?.referenceTapped(sender: self)
+    }
+
+    @IBAction private func toggleAnchorSelection(_ sender: UIButton) {
+        delegate?.anchorTapped(sender: self)
+    }
+
+    @IBAction private func toggleUnorderedListSelection(_ sender: UIButton) {
+        delegate?.unorderedListTapped(sender: self)
+    }
+
+    @IBAction private func toggleOrderedListSelection(_ sender: UIButton) {
+        delegate?.orderedListTapped(sender: self)
     }
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.contextualHighlightEditToolbarViewDidTapTextFormattingButton(self, button: sender)
+        delegate?.textFormattingTapped(sender: self)
     }
 }

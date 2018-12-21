@@ -3,17 +3,31 @@ protocol TextFormattingProviding: class {
 }
 
 protocol TextFormattingDelegate: class {
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem)
-    func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
-    func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton)
+    func closeTapped(sender: TextFormattingProviding)
+    func boldTapped(sender: TextFormattingProviding)
+    func italicTapped(sender: TextFormattingProviding)
+    func referenceTapped(sender: TextFormattingProviding)
+    func templateTapped(sender: TextFormattingProviding)
+    func commentTapped(sender: TextFormattingProviding)
+    func linkTapped(sender: TextFormattingProviding)
+    
+    func increaseIndentTapped(sender: TextFormattingProviding)
+    func decreaseIndentTapped(sender: TextFormattingProviding)
+    func orderedListTapped(sender: TextFormattingProviding)
+    func unorderedListTapped(sender: TextFormattingProviding)
+    func superscriptTapped(sender: TextFormattingProviding)
+    func subscriptTapped(sender: TextFormattingProviding)
+    func underlineTapped(sender: TextFormattingProviding)
+    func strikethroughTapped(sender: TextFormattingProviding)
 }
 
 enum TextStyleType: Int {
     case paragraph
-    case heading
-    case subheading1
-    case subheading2
-    case subheading3
+    case heading = 2 // Heading is 2 equals (we don't show a heading choice for 1 equals variant)
+    case subheading1 = 3
+    case subheading2 = 4
+    case subheading3 = 5
+    case subheading4 = 6
 
     var name: String {
         switch self {
@@ -27,6 +41,26 @@ enum TextStyleType: Int {
             return "Sub-heading 2"
         case .subheading3:
             return "Sub-heading 3"
+        case .subheading4:
+            return "Sub-heading 4"
+        }
+    }
+}
+
+enum TextSizeType {
+    case normal
+    case big
+    case small
+
+    #warning("Text size strings need to be localized")
+    var name: String {
+        switch self {
+        case .normal:
+            return "Normal"
+        case .big:
+            return "Big"
+        case .small:
+            return "Small"
         }
     }
 }
@@ -56,20 +90,22 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         return button
     }()
 
-    private func resetSelectTextStyleType() {
+    private func resetSelections() {
         selectedTextStyleType = .paragraph
+        selectedTextSizeType = .normal
     }
 
-    private func selectTextStyleType(for type: EditButtonType, depth: Int) {
-        switch (type, depth) {
-        case (.heading, 1):
-            selectedTextStyleType = .heading
-        case (.heading, 2):
-            selectedTextStyleType = .subheading1
-        case (.heading, 3):
-            selectedTextStyleType = .subheading2
-        case (.heading, 4):
-            selectedTextStyleType = .subheading3
+    private func updateSelections(for type: EditButtonType, depth: Int) {
+        switch type {
+        case .heading:
+            guard let newTextStyleType = TextStyleType(rawValue: depth) else {
+                return
+            }
+            selectedTextStyleType = newTextStyleType
+        case .smallTextSize:
+            selectedTextSizeType = .small
+        case .bigTextSize:
+            selectedTextSizeType = .big
         default:
             break
         }
@@ -79,12 +115,12 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         super.init(coder: aDecoder)
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
-            self?.resetSelectTextStyleType()
+            self?.resetSelections()
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
             if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.selectTextStyleType(for: message.type, depth: message.depth)
+                self?.updateSelections(for: message.type, depth: message.depth)
                 // print("buttonNeedsToBeSelectedMessage = \(message)")
             }
         }
@@ -95,6 +131,15 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
     
     final var selectedTextStyleType: TextStyleType = .paragraph {
+        didSet {
+            guard navigationController != nil else {
+                return
+            }
+            tableView.reloadData()
+        }
+    }
+
+    final var selectedTextSizeType: TextSizeType = .normal {
         didSet {
             guard navigationController != nil else {
                 return
@@ -132,7 +177,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.textFormattingProvidingDidTapCloseButton(self, button: sender)
+        delegate?.closeTapped(sender: self)
     }
 }
 

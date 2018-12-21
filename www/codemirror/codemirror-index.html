@@ -251,7 +251,7 @@
       ))
      
       const historySize = doc.historySize()
-      if (historySize.undo > 0) {
+      if (historySize.undo > 1) {
         result.push(buttonPayload('undo'))
       }
       if (historySize.redo > 0) {
@@ -272,69 +272,76 @@
       // native land should assume only these buttons should appear selected
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
-    
-    const editorDidRedraw = (doc) => {
-      window.webkit.messageHandlers.event.postMessage('windowDidLoad')
-    }
-    
+        
     const setupCodemirror = () => {
       editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
     }
     
-    const wrapSelectionWith = (markup) => {
+    const wrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
       var selectedText = editor.getSelection()
       if (!selectedText || selectedText.length == 0) {
-        selectedText = " "
+        selectedText = ' '
       }
-      editor.replaceSelection(markup + selectedText + markup, 'around')
+      editor.replaceSelection(openingMarkup + selectedText + closingMarkup, 'around')
       const selections = editor.listSelections()
       if (selections.length > 0) {
-        const markupLength = markup.length
+        const openingMarkupLength = openingMarkup.length
+        const closingMarkupLength = closingMarkup.length
         const selection = selections[0]
-        const anchor = {line: selection.anchor.line, ch: selection.anchor.ch + markupLength, sticky: selection.anchor.sticky}
-        const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
-        editor.setSelection(anchor, head)
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        const from = {line: fromPos.line, ch: fromPos.ch + openingMarkupLength, sticky: fromPos.sticky}
+        const to = {line: toPos.line, ch: toPos.ch - closingMarkupLength, sticky: toPos.sticky}
+        editor.setSelection(from, to)
       }
     }
     
     const reverseString = (string) => {
-      return string.split("").reverse().join("")
+      return string.split('').reverse().join('')
     }
     
-    const unwrapSelectionWith = (markup) => {
+    const unwrapSelectionWith = (openingMarkup, closingMarkup) => {
+      if (closingMarkup === undefined) {
+        closingMarkup = openingMarkup
+      }
       const selections = editor.listSelections()
       if (selections.length > 0) {
         const selection = selections[0]
-        if (selection.anchor.line != selection.head.line || selection.anchor.ch != selection.head.ch) {
-          wrapSelectionWith(markup)
+        const fromPos = selection.from()
+        const toPos = selection.to()
+        if (fromPos.line != toPos.line || fromPos.ch != toPos.ch) {
+          wrapSelectionWith(openingMarkup, closingMarkup)
           return
         }
-        const lineIndex = selection.anchor.line
+        const lineIndex = fromPos.line
         const line = editor.getLine(lineIndex)
-        const before = line.substring(0, selection.anchor.ch)
-        const after = line.substring(selection.anchor.ch, line.length)
-        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(markup), ""))
-        const adjustedAfter = after.replace(markup, "")
+        const before = line.substring(0, fromPos.ch)
+        const after = line.substring(fromPos.ch, line.length)
+        const adjustedBefore = reverseString(reverseString(before).replace(reverseString(openingMarkup), ''))
+        const adjustedAfter = after.replace(closingMarkup, '')
         const adjustedLine = adjustedBefore + adjustedAfter
         if (line.length != adjustedLine.length) {
           editor.replaceRange(adjustedLine, {line: lineIndex, ch: 0}, {line: lineIndex, ch: line.length})
-          const markupLength = markup.length
-          const anchor = {line: selection.anchor.line, ch: selection.anchor.ch - markupLength, sticky: selection.anchor.sticky}
-          const head = {line: selection.head.line, ch: selection.head.ch - markupLength, sticky: selection.head.sticky}
-          editor.setSelection(anchor, head)
+          const openingMarkupLength = openingMarkup.length
+          const from = {line: fromPos.line, ch: fromPos.ch - openingMarkupLength, sticky: fromPos.sticky}
+          const to = {line: toPos.line, ch: toPos.ch - openingMarkupLength, sticky: toPos.sticky}
+          editor.setSelection(from, to)
         }
       }
     }
     
     const isButtonSelected = (buttonType) => selectedButtons(editor).filter((item) => {return item.button === buttonType}).length > 0
     
-    const toggleMarkup = (button, markup) => {
+    const toggleMarkup = (button, openingMarkup, closingMarkup) => {
       const isSelected = isButtonSelected(button)
       if (isSelected) {
-        unwrapSelectionWith(markup)
+        unwrapSelectionWith(openingMarkup, closingMarkup)
       } else {
-        wrapSelectionWith(markup)
+        wrapSelectionWith(openingMarkup, closingMarkup)
       }
     }
     
@@ -362,13 +369,16 @@
         toggleMarkup('italic', "''")
       },
       reference: () => {
-        console.log('reference')
+        toggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
-        console.log('template')
+        toggleMarkup('template', '{{', '}}')
       },
       anchor: () => {
-        console.log('anchor')
+        toggleMarkup('anchor', '[[', ']]')
+      },
+      comment: () => {
+        toggleMarkup('comment', '<!--', '-->')
       },
       indent: () => {
         console.log('indent')
@@ -376,8 +386,27 @@
       signature: () => {
         console.log('signature')
       },
-      list: () => {
-        console.log('list')
+      unorderedList: () => {
+        // toggleMarkup('list', 'UUU')
+      },
+      orderedList: () => {
+        // toggleMarkup('list', 'OOO')
+      },
+      superscript: () => {
+        // TODO: determine 'superscript' in selectedButtons
+        toggleMarkup('superscript', '<sup>', '</sup>')
+      },
+      subscript: () => {
+        // TODO: determine 'subscript' in selectedButtons
+        toggleMarkup('subscript', '<sub>', '</sub>')
+      },
+      underline: () => {
+        // TODO: determine 'underline' in selectedButtons
+        toggleMarkup('underline', '<u>', '</u>')
+      },
+      strikethrough: () => {
+        // TODO: determine 'strikethrough' in selectedButtons
+        toggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: () => {
         console.log('heading')
@@ -387,6 +416,18 @@
       },
       decreaseIndentDepth: () => {
         console.log('decreaseIndentDepth')
+      },
+      normalTextSize: () => {
+        // TODO: remove either small or big tags
+        console.log('normalTextSize')
+      },
+      smallTextSize: () => {
+        // TODO: determine 'small' in selectedButtons
+        toggleMarkup('small', '<small>', '</small>')
+      },
+      bigTextSize: () => {
+        // TODO: determine 'big' in selectedButtons
+        toggleMarkup('big', '<big>', '</big>')
       },
       selectAll: () => editor.execCommand('selectAll'),
       highlighting: () => {

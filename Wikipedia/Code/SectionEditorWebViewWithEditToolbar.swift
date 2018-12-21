@@ -10,12 +10,12 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Menu items
@@ -58,11 +58,11 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     }
 
     @objc private func toggleBoldface(menuItem: UIMenuItem) {
-        toggleBoldSelection(menuItem)
+        toggleBoldSelection()
     }
 
     @objc private func toggleItalics(menuItem: UIMenuItem) {
-        toggleItalicSelection(menuItem)
+        toggleItalicSelection()
     }
 
     // Keep original menu items
@@ -80,7 +80,7 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     }
 
     override func selectAll(_ sender: Any?) {
-        selectAllText(sender)
+        selectAllText()
     }
 
     // MARK: Accessory views
@@ -197,78 +197,121 @@ extension SectionEditorWebViewWithEditToolbar {
 }
 
 extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
-    func defaultEditToolbarViewDidTapTextFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+    func textFormattingTapped(sender: DefaultEditToolbarView) {
         setInputViewHidden(type: .textFormatting, hidden: false)
     }
-
-    func defaultEditToolbarViewDidTapHeaderFormattingButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+    func headerFormattingTapped(sender: DefaultEditToolbarView) {
         setInputViewHidden(type: .textStyle, hidden: false)
     }
-
-    func defaultEditToolbarViewDidTapCitationButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleReferenceSelection(button) // ?
+    func citationTapped(sender: DefaultEditToolbarView) {
+        toggleReferenceSelection()
     }
-
-    func defaultEditToolbarViewDidTapLinkButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleAnchorSelection(button) // ?
+    func linkTapped(sender: DefaultEditToolbarView) {
+        toggleAnchorSelection()
     }
-
-    func defaultEditToolbarViewDidTapUnorderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection(button) // ?
+    func unorderedListTapped(sender: DefaultEditToolbarView) {
+        toggleUnorderedListSelection()
     }
-
-    func defaultEditToolbarViewDidTapOrderedListButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        toggleListSelection(button) // ?
+    func orderedListTapped(sender: DefaultEditToolbarView) {
+        toggleOrderedListSelection()
     }
-
-    func defaultEditToolbarViewDidTapDecreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        decreaseIndentDepth(button)
+    func decreaseIndentTapped(sender: DefaultEditToolbarView) {
+        decreaseIndentDepth()
     }
-
-    func defaultEditToolbarViewDidTapIncreaseIndentationUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        increaseIndentDepth(button)
+    func increaseIndentTapped(sender: DefaultEditToolbarView) {
+        increaseIndentDepth()
     }
-
-    func defaultEditToolbarViewDidTapCursorUpButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorUp(button)
+    func cursorUpTapped(sender: DefaultEditToolbarView) {
+        moveCursorUp()
     }
-
-    func defaultEditToolbarViewDidTapCursorDownButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorDown(button)
+    func cursorDownTapped(sender: DefaultEditToolbarView) {
+        moveCursorDown()
     }
-
-    func defaultEditToolbarViewDidTapCursorLeftButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorLeft(button)
+    func cursorLeftTapped(sender: DefaultEditToolbarView) {
+        moveCursorLeft()
     }
-
-    func defaultEditToolbarViewDidTapCursorRightButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
-        moveCursorRight(button)
+    func cursorRightTapped(sender: DefaultEditToolbarView) {
+        moveCursorRight()
     }
-
-    func defaultEditToolbarViewDidTapMoreButton(_ defaultEditToolbarView: DefaultEditToolbarView, button: UIButton) {
+    func moreTapped(sender: DefaultEditToolbarView) {
         setInputViewHidden(type: .textFormatting, hidden: false)
     }
 }
 
 extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarViewDelegate {
-    func contextualHighlightEditToolbarViewDidTapHeaderFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+    func headerFormattingTapped(sender: ContextualHighlightEditToolbarView) {
         setInputViewHidden(type: .textStyle, hidden: false)
     }
-
-    func contextualHighlightEditToolbarViewDidTapTextFormattingButton(_ contextualHighlightEditToolbarView: ContextualHighlightEditToolbarView, button: UIButton) {
+    func textFormattingTapped(sender: ContextualHighlightEditToolbarView) {
         setInputViewHidden(type: .textFormatting, hidden: false)
+    }
+    func boldTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleBoldSelection()
+    }
+    func italicTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleItalicSelection()
+    }
+    func removeSelectionFormattingTapped(sender: ContextualHighlightEditToolbarView) {
+        print("TODO: wire up JS for this")
+    }
+    func referenceTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleReferenceSelection()
+    }
+    func anchorTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleAnchorSelection()
+    }
+    func unorderedListTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleUnorderedListSelection()
+    }
+    func orderedListTapped(sender: ContextualHighlightEditToolbarView) {
+        toggleOrderedListSelection()
     }
 }
 
 extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
-    func textFormattingProvidingDidTapItalicsButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
-        toggleItalicSelection(button)
+    func increaseIndentTapped(sender: TextFormattingProviding) {
+        increaseIndentDepth()
     }
-
-    func textFormattingProvidingDidTapCloseButton(_ textFormattingProviding: TextFormattingProviding, button: UIBarButtonItem) {
+    func decreaseIndentTapped(sender: TextFormattingProviding) {
+        decreaseIndentDepth()
+    }
+    func orderedListTapped(sender: TextFormattingProviding) {
+        toggleOrderedListSelection()
+    }
+    func unorderedListTapped(sender: TextFormattingProviding) {
+        toggleUnorderedListSelection()
+    }
+    func superscriptTapped(sender: TextFormattingProviding) {
+        toggleSuperscript()
+    }
+    func subscriptTapped(sender: TextFormattingProviding) {
+        toggleSubscript()
+    }
+    func underlineTapped(sender: TextFormattingProviding) {
+        toggleUnderline()
+    }
+    func strikethroughTapped(sender: TextFormattingProviding) {
+        toggleStrikethrough()
+    }
+    func closeTapped(sender: TextFormattingProviding) {
         setInputViewHidden(hidden: true)
     }
-    func textFormattingProvidingDidTapBoldButton(_ textFormattingProviding: TextFormattingProviding, button: UIButton) {
-        toggleBoldSelection(button)
+    func boldTapped(sender: TextFormattingProviding) {
+        toggleBoldSelection()
+    }
+    func italicTapped(sender: TextFormattingProviding) {
+        toggleItalicSelection()
+    }
+    func referenceTapped(sender: TextFormattingProviding) {
+        toggleReferenceSelection()
+    }
+    func templateTapped(sender: TextFormattingProviding) {
+        toggleTemplateSelection()
+    }
+    func commentTapped(sender: TextFormattingProviding) {
+        toggleComment()
+    }
+    func linkTapped(sender: TextFormattingProviding) {
+        toggleAnchorSelection()
     }
 }
