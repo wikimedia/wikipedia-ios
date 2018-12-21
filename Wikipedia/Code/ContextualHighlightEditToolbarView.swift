@@ -17,6 +17,12 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     @IBOutlet weak var italicButton: TextFormattingButton!
     @IBOutlet weak var headingButton: TextFormattingButton!
 
+    @IBOutlet weak var removeSelectionFormattingButton: TextFormattingButton!
+    @IBOutlet weak var citationButton: TextFormattingButton!
+    @IBOutlet weak var linkButton: TextFormattingButton!
+    @IBOutlet weak var unorderedListButton: TextFormattingButton!
+    @IBOutlet weak var orderedListButton: TextFormattingButton!
+
     private func selectButton(type: EditButtonType, ordered: Bool) {
         switch (type) {
         case .bold:
@@ -28,6 +34,11 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         default:
             break
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        removeSelectionFormattingButton.isEnabled = false
     }
     
     required init?(coder aDecoder: NSCoder) {

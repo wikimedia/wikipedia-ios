@@ -157,8 +157,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="boldButton" destination="dXv-8j-9yj" id="ygs-D5-D2j"/>
+                <outlet property="citationButton" destination="PUd-rt-UEE" id="c04-uE-FbY"/>
                 <outlet property="headingButton" destination="VmM-6l-4YM" id="xC1-7W-Usz"/>
                 <outlet property="italicButton" destination="DRa-Hw-fTT" id="sFy-lc-jg2"/>
+                <outlet property="linkButton" destination="QI6-mE-72P" id="YcX-oB-GWX"/>
+                <outlet property="orderedListButton" destination="q0m-Wi-ngX" id="TrZ-Vr-SBq"/>
+                <outlet property="removeSelectionFormattingButton" destination="d3I-Xa-dyz" id="5Xg-Iy-I5R"/>
+                <outlet property="unorderedListButton" destination="i6Q-ze-dhb" id="ix1-mx-CVl"/>
                 <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="ALV-AP-btO"/>
                 <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="TNn-A8-Zpf"/>
                 <outletCollection property="buttons" destination="dXv-8j-9yj" collectionClass="NSMutableArray" id="fVf-el-Mrt"/>
