@@ -27,7 +27,7 @@ class TextStyleFormattingTableViewController: TextFontFormattingTableViewControl
         let subheading3 = Style(type: subheading3Type, name: subheading3Type.name, font: UIFont.wmf_font(.semiboldFootnote))
 
         let subheading4Type = TextStyleType.subheading4
-        let subheading4 = Style(type: subheading3Type, name: subheading4Type.name, font: UIFont.wmf_font(.semiboldCaption2))
+        let subheading4 = Style(type: subheading4Type, name: subheading4Type.name, font: UIFont.wmf_font(.semiboldCaption2))
 
         return [paragraph, heading, subheading1, subheading2, subheading3, subheading4]
     }()
