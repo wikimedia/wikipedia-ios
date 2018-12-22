@@ -15,7 +15,7 @@ class TextFormattingButton: UIButton {
 
     override open var intrinsicContentSize: CGSize {
         get {
-            // Workaround for increasing touch targets
+            // Increase touch targets & make widths more consistent
             let superSize = super.intrinsicContentSize
             return CGSize(width: max(superSize.width, 35), height: superSize.height)
         }
