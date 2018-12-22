@@ -60,11 +60,19 @@
     const getSelectionRange = (doc) => {
       const fromCursor = doc.getCursor('from')
       const toCursor = doc.getCursor('to')
+
+      const start = fromCursor.ch
+      const end = toCursor.ch
+      const isSingleLine = (fromCursor.line === toCursor.line)
+      const line = fromCursor.line
+      const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
+
       return {
-        start: fromCursor.ch,
-        end: toCursor.ch,
-        isSingleLine: (fromCursor.line === toCursor.line),
-        line: fromCursor.line
+        start,
+        end,
+        isSingleLine,
+        line,
+        isSelectionMoreThanOneChar
       }
     }
     
