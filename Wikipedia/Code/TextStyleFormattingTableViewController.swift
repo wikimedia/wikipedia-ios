@@ -11,9 +11,6 @@ class TextStyleFormattingTableViewController: TextFontFormattingTableViewControl
     }
 
     private lazy var styles: [Style] = {
-        let paragraphType = TextStyleType.paragraph
-        let paragraph = Style(type: paragraphType, name: paragraphType.name, font: UIFont.wmf_font(.subheadline))
-
         let headingType = TextStyleType.heading
         let heading = Style(type: headingType, name: headingType.name, font: UIFont.wmf_font(.title2))
 
@@ -29,7 +26,7 @@ class TextStyleFormattingTableViewController: TextFontFormattingTableViewControl
         let subheading4Type = TextStyleType.subheading4
         let subheading4 = Style(type: subheading4Type, name: subheading4Type.name, font: UIFont.wmf_font(.semiboldCaption2))
 
-        return [paragraph, heading, subheading1, subheading2, subheading3, subheading4]
+        return [heading, subheading1, subheading2, subheading3, subheading4]
     }()
 
     override func configuredCell(_ cell: TextFormattingTableViewCell, at indexPath: IndexPath) -> UITableViewCell {
