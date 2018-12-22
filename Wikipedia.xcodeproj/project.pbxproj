@@ -6248,11 +6248,11 @@
 			isa = PBXGroup;
 			children = (
 				7ADF497921B45CEE009EA338 /* TextFormattingToolbarView.swift */,
+				7ADF497A21B45CEE009EA338 /* TextFormattingToolbarView.xib */,
 				7AE1FE2F21B4A9790068BE9F /* TextFormattingButtonView.swift */,
 				7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */,
 				7ADF498521B45E42009EA338 /* TextFormattingGroupedToolbarView.swift */,
 				7ADF498621B45E42009EA338 /* TextFormattingGroupedToolbarView.xib */,
-				7ADF497A21B45CEE009EA338 /* TextFormattingToolbarView.xib */,
 			);
 			name = "Custom Table View Cell Views";
 			sourceTree = "<group>";
