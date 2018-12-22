@@ -58,6 +58,8 @@ class DefaultEditToolbarView: EditToolbarView {
         switch (type) {
         case .heading:
             headingButton.isSelected = true
+        case .link:
+            linkButton.isSelected = true
         default:
             break
         }

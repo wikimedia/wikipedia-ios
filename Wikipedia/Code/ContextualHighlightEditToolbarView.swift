@@ -32,6 +32,8 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
             italicButton.isSelected = true
         case .heading:
             headingButton.isSelected = true
+        case .link:
+            linkButton.isSelected = true
         default:
             break
         }
