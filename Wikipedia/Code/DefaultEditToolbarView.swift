@@ -50,6 +50,8 @@ class DefaultEditToolbarView: EditToolbarView {
         orderedListButton.isEnabled = false
         indentDecreaseButton.isEnabled = false
         indentIncreaseButton.isEnabled = false
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
 
     private func selectButton(type: EditButtonType, ordered: Bool) {

@@ -133,6 +133,7 @@
                 <outlet property="indentDecrease" destination="sDr-K9-rDm" id="h2q-GI-v8O"/>
                 <outlet property="indentIncrease" destination="Bq0-nC-Jor" id="D4a-aG-SrV"/>
                 <outlet property="orderedList" destination="rTP-EO-B4B" id="uVv-5H-hm8"/>
+                <outlet property="stackView" destination="3dV-SU-XLo" id="whH-4a-D2g"/>
                 <outlet property="strikethrough" destination="Pzf-Y3-YJe" id="GoL-iL-8S4"/>
                 <outlet property="underline" destination="SR0-aa-rb8" id="PKT-gc-dkP"/>
                 <outlet property="unorderedList" destination="6mq-cE-h7g" id="JFR-lK-Zi6"/>

@@ -77,6 +77,7 @@
                 <outlet property="exclamationButton" destination="DEU-F8-gGT" id="91K-al-ycL"/>
                 <outlet property="italicButton" destination="fM8-b0-I9N" id="iK2-I7-9Sy"/>
                 <outlet property="linkButton" destination="lyH-tA-Dma" id="yzE-Tp-13x"/>
+                <outlet property="stackView" destination="Fhk-Dl-iSo" id="1Ge-N9-Se3"/>
                 <outlet property="templateButton" destination="oDq-hb-02O" id="ZrJ-HE-0M3"/>
                 <outletCollection property="buttons" destination="9va-UE-Cjg" collectionClass="NSMutableArray" id="mIe-br-okB"/>
                 <outletCollection property="buttons" destination="fM8-b0-I9N" collectionClass="NSMutableArray" id="eMC-CF-LHf"/>

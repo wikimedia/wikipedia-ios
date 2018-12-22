@@ -8,6 +8,12 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
     @IBOutlet weak var templateButton: TextFormattingButton!
     @IBOutlet weak var exclamationButton: TextFormattingButton!
     @IBOutlet weak var linkButton: TextFormattingButton!
+    @IBOutlet weak var stackView: UIStackView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        stackView.isLayoutMarginsRelativeArrangement = true
+    }
 
     @IBAction private func toggleBold(sender: UIButton) {
         delegate?.boldTapped(sender: self)

@@ -163,6 +163,7 @@
                 <outlet property="linkButton" destination="QI6-mE-72P" id="YcX-oB-GWX"/>
                 <outlet property="orderedListButton" destination="q0m-Wi-ngX" id="TrZ-Vr-SBq"/>
                 <outlet property="removeSelectionFormattingButton" destination="d3I-Xa-dyz" id="5Xg-Iy-I5R"/>
+                <outlet property="stackView" destination="cO2-kj-WCI" id="qel-pE-Y96"/>
                 <outlet property="unorderedListButton" destination="i6Q-ze-dhb" id="ix1-mx-CVl"/>
                 <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="ALV-AP-btO"/>
                 <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="TNn-A8-Zpf"/>

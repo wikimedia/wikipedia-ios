@@ -10,6 +10,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     @IBOutlet weak var xDown: TextFormattingButton!
     @IBOutlet weak var underline: TextFormattingButton!
     @IBOutlet weak var strikethrough: TextFormattingButton!
+    @IBOutlet weak var stackView: UIStackView!
 
     
     @IBAction private func increaseIndent(sender: UIButton) {
@@ -43,6 +44,7 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
         orderedList.isEnabled = false
         indentDecrease.isEnabled = false
         indentIncrease.isEnabled = false
+        stackView.isLayoutMarginsRelativeArrangement = true
     }
     
     private func deselectAllButtons() {
