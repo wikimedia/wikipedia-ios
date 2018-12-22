@@ -52,4 +52,10 @@ class TextStyleFormattingTableViewController: TextFontFormattingTableViewControl
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return styles.count
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let style = styles[indexPath.row]
+        let depth = style.type.rawValue
+        delegate?.headingTapped(depth: depth, sender: self)
+    }
 }

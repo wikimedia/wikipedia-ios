@@ -5,6 +5,7 @@ protocol TextFormattingProviding: class {
 protocol TextFormattingDelegate: class {
     func closeTapped(sender: TextFormattingProviding)
     func boldTapped(sender: TextFormattingProviding)
+    func headingTapped(depth: Int, sender: TextFormattingProviding)
     func italicTapped(sender: TextFormattingProviding)
     func referenceTapped(sender: TextFormattingProviding)
     func templateTapped(sender: TextFormattingProviding)

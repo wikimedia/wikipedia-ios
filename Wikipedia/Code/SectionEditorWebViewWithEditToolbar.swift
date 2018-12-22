@@ -269,6 +269,9 @@ extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarVie
 }
 
 extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
+    func headingTapped(depth: Int, sender: TextFormattingProviding) {
+        setHeadingSelection(depth: depth)
+    }
     func increaseIndentTapped(sender: TextFormattingProviding) {
         increaseIndentDepth()
     }

@@ -438,8 +438,11 @@
         // TODO: determine 'strikethrough' in selectedButtons
         toggleMarkup('strikethrough', '<s>', '</s>')
       },
-      heading: () => {
-        console.log('heading')
+      heading: (depth) => {
+
+        const equals = '='.repeat(depth)
+        toggleMarkup('heading', equals, equals)
+        
       },
       increaseIndentDepth: () => {
         console.log('increaseIndentDepth')

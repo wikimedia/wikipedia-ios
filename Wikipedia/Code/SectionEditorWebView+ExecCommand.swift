@@ -58,8 +58,8 @@ extension SectionEditorWebView {
     @objc func toggleUnorderedListSelection() {
         execCommand(for: .unorderedList)
     }
-    @objc func toggleHeadingSelection() {
-        execCommand(for: .heading)
+    @objc func setHeadingSelection(depth: Int) {
+        execCommand(for: .heading, argument: depth)
     }
     @objc func increaseIndentDepth() {
         execCommand(for: .increaseIndentDepth)
