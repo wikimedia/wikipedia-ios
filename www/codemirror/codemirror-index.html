@@ -460,10 +460,61 @@
         toggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: (depth) => {
+        const selectionRange = getSelectionRange(editor)
+        if (!selectionRange.isSingleLine) {
+          return
+        }
 
+        // Attempt to get details about any currenly selected heading.
+        const headingPayload = selectionPayloadForButton('heading')
+
+        // If cursor is in existing heading we'll have a payload telling us now many '=' it uses.
+        const isExistingHeadingSelected = headingPayload !== null
+        
+        // First toggle off existing selection heading.
+        if (isExistingHeadingSelected) {
+          // Expand selection to encompass current heading (you can't nest headings so this is better).
+          const lineTokens = enrichedLineTokens(editor, selectionRange.line)
+          const headerTextTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-section-header-text')
+          if (headerTextTokenIndex) {
+            const headerTextToken = lineTokens[headerTextTokenIndex]
+            editor.setSelection({line: selectionRange.line, ch: headerTextToken.start}, {line: selectionRange.line, ch: headerTextToken.end})
+          }
+          
+          // Now remove the existing heading equals so the toggle at the end of the method will add the new amount of equals.
+          const currentDepth = headingPayload.info.depth
+          // But don't remove the existing heading equals if new depth is same as old.
+          // This way the toggle at the end of the method will remove all equals when we try to set the same number of equals that are already present.
+          if (currentDepth !== depth) {
+            const currentEquals = '='.repeat(currentDepth)
+            toggleMarkup('heading', currentEquals, currentEquals)
+          }          
+        }
+
+        // If a heading isn't already selected, move the selection to its own line (and re-select it).
+        if (!isExistingHeadingSelected) {
+          const startOfSelectionIsNotStartOfLine = selectionRange.start !== 0
+          const endOfSelectionIsNotEndOfLine = selectionRange.end !== editor.getLine(selectionRange.line).length
+          if (startOfSelectionIsNotStartOfLine || endOfSelectionIsNotEndOfLine) {
+            const leadingBreak = startOfSelectionIsNotStartOfLine ? '\n' : ''
+            const trailingBreak = endOfSelectionIsNotEndOfLine ? '\n' : ''
+          
+            // Add leading or trailing line breaks as needed (heading must be on own line).
+            let from = {line: selectionRange.line, ch: selectionRange.start}
+            let to = {line: selectionRange.line, ch: selectionRange.end}
+            editor.replaceRange(`${leadingBreak}${editor.getSelection()}${trailingBreak}`, from, to)
+            
+            // Re-select selection after addition of leading and/or trailing line breaks.
+            const lineDelta = startOfSelectionIsNotStartOfLine ? 1 : 0
+            from = {line: selectionRange.line + lineDelta, ch: 0}
+            to = {line: selectionRange.line + lineDelta, ch: selectionRange.end - selectionRange.start}
+            editor.setSelection(from, to)
+          }
+        }
+
+        // Now actually toggle heading for selected depth.
         const equals = '='.repeat(depth)
         toggleMarkup('heading', equals, equals)
-        
       },
       increaseIndentDepth: () => {
         console.log('increaseIndentDepth')
