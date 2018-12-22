@@ -271,9 +271,7 @@
     const sendNativeMessages = (doc) => {
       // sends message to native land that selection has changed,
       // upon receipt native land should de-select all buttons
-      const selectionRange = getSelectionRange(doc)
-      const isSelectionMoreThanOneChar = !selectionRange.isSingleLine || (selectionRange.end - selectionRange.start) > 0
-      window.webkit.messageHandlers.selectionChanged.postMessage(isSelectionMoreThanOneChar)
+      window.webkit.messageHandlers.selectionChanged.postMessage(getSelectionRange(doc).isSelectionMoreThanOneChar)
 
       // sends message to native land about which buttons should be selected,
       // native land should assume only these buttons should appear selected
