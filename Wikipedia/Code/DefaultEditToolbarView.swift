@@ -45,7 +45,6 @@ class DefaultEditToolbarView: EditToolbarView {
         
         addButton.isEnabled = false
         findButton.isEnabled = false
-        headingButton.isEnabled = false
         unorderedListButton.isEnabled = false
         orderedListButton.isEnabled = false
         indentDecreaseButton.isEnabled = false
