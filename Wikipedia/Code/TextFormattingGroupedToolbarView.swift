@@ -54,18 +54,18 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
     }
     
     private func selectButton(type: EditButtonType, ordered: Bool) {
-        /*
         switch (type) {
-        case .li:
-            if ordered {
-                orderedList.isSelected = true
-            } else {
-                unorderedList.isSelected = true
-            }
+        case .superscript:
+            xUp.isSelected = true
+        case .subscript:
+            xDown.isSelected = true
+        case .underline:
+            underline.isSelected = true
+        case .strikethrough:
+            strikethrough.isSelected = true
         default:
             break
         }
-        */
     }
 
     required init?(coder aDecoder: NSCoder) {
