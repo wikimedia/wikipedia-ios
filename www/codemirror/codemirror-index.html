@@ -381,6 +381,22 @@
     const italicMarkup = "''"
     const boldMarkup = "'''"
 
+
+    // Method for easier mining of button payload information for current selection. 
+    // For example, if you want to know if the current selection is a heading, and if so how many
+    // '=' does it use, this will return a button payload IF the current selection has been 
+    // determined to be a button. This is the same payload we send to native land to tell it which
+    // buttons are selected and any associated relevant properties - in the case of a heading the
+    // payload's info.depth tells us how many '=' the currently selected heading has.
+    const selectionPayloadForButton = (buttonType) => {
+      const payloadsForButton = selectedButtons(editor).filter((item) => {return item.button === buttonType})
+      if (payloadsForButton.length === 0) {
+        return null
+      }
+      return payloadsForButton[0]
+    }
+
+
     wmf.commands = {
       focus: () => {
         editor.focus()
