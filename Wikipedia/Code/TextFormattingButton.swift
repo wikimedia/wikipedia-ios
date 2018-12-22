@@ -1,9 +1,10 @@
 
+// TODO: theme all the buttons
 class TextFormattingButton: UIButton {
     override var isSelected: Bool {
         didSet{
             self.tintColor = self.isSelected ? .black : .darkGray
-            self.backgroundColor = self.isSelected ? .lightGray : .clear
+            self.backgroundColor = self.isSelected ? UIColor(0xC8CCD1) : .clear
         }
     }
     
