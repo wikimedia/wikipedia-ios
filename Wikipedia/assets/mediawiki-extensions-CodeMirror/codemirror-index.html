@@ -197,6 +197,10 @@
         .forEach(supplementToken)
     }
 
+
+
+    const shallowFlatten = a => [].concat(...a)
+
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
@@ -211,8 +215,23 @@
           return s.trim().length > 0
         })
       
+      // Tokens have 'InHtmlTag' arrays which we can use for button types associated with html tags.
+      const inHtmlTagSet = new Set(shallowFlatten(intersectingTokens.filter(t => {return t.state.InHtmlTag.length > 0}).map(t => {return t.state.InHtmlTag})))
+      
       let result = []
       
+      if (inHtmlTagSet.has('u')) {
+        result.push(buttonPayload('underline'))
+      }
+      if (inHtmlTagSet.has('s')) {
+        result.push(buttonPayload('strikethrough'))
+      }
+      if (inHtmlTagSet.has('sup')) {
+        result.push(buttonPayload('superscript'))
+      }
+      if (inHtmlTagSet.has('sub')) {
+        result.push(buttonPayload('subscript'))
+      }
       if (typesArray.includes('strong')) {
         result.push(buttonPayload('bold'))
       }
