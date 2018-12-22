@@ -129,10 +129,10 @@ extension SectionEditorWebView {
         execCommand(for: .bigTextSize)
     }
 
-    private func commandJS(for commandType: CodeMirrorCommandType) -> String {
-        return "window.wmf.commands.\(commandType.rawValue)();"
+    private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
+        return "window.wmf.commands.\(commandType.rawValue)(\(argument ?? ""));"
     }
-    private func execCommand(for commandType: CodeMirrorCommandType) {
-        evaluateJavaScript(commandJS(for: commandType), completionHandler: nil)
+    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil) {
+        evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: nil)
     }
 }
