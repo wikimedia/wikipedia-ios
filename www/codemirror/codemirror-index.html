@@ -199,7 +199,6 @@
 
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
-      const multipleCharactersSelected = selection.length > 0
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
       
