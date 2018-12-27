@@ -5,6 +5,7 @@
 // Author: Anwar2
 // Author: Bsitzmann
 // Author: Chrumps
+// Author: CiaPan
 // Author: DeRudySoulStorm
 // Author: Debeet
 // Author: Devwebtel
@@ -157,8 +158,7 @@
 "explore-most-read-sub-heading-on-wikipedia" = "W Wikipedii";
 "explore-nearby-heading" = "Miejsca w pobliżu";
 "explore-nearby-placeholder-heading" = "Miejsca";
-// Fuzzy
-"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Na $1 Wikipedii";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Z $1 Wikipedii";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Z Wikipedii";
 "explore-nearby-sub-heading-your-location" = "Twoje położenie";
 "explore-potd-heading" = "Grafika dnia";
