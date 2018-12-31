@@ -150,7 +150,7 @@
 "description-help-about-wikidata" = "O Wikidatech";
 "description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytuje bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
 "description-help-more-info-title" = "Více informací";
-"description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začnejte, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
+"description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začíná, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
 "description-help-tips-example-description-one" = "popis článku o Mona Lise";
 "description-help-tips-example-description-two" = "popis titulku pro článek o Mount Everestu";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinciho";
@@ -323,7 +323,7 @@
 "home-news-footer" = "Více Aktuálních událostí";
 "home-reading-list-prompt" = "Vámi uložené články mohou být nyní organizovány do seznamů k přečtení a synchronizovány skrze zařízení. Přihlaste se, abyste povolili ukládání seznamů k přečtení do vašich uživatelských nastavení.";
 "home-themes-action-title" = "Spravujte předvolby";
-"home-themes-prompt" = "Upravit své předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
+"home-themes-prompt" = "Upravte předvolby pro čtení, včetně velikosti a motivu textu, z panelu nástrojů článku nebo z uživatelských nastavení pro pohodlnější čtení.";
 "home-title" = "Objevit";
 "home-title-accessibility-label" = "Wikipedie, přejít na začátek kanálu Objevit";
 "icon-shortcut-continue-reading-title" = "Pokračovat ve čtení";
