@@ -20,6 +20,10 @@ protocol TextFormattingDelegate: class {
     func subscriptTapped(sender: TextFormattingProviding)
     func underlineTapped(sender: TextFormattingProviding)
     func strikethroughTapped(sender: TextFormattingProviding)
+
+    func smallTextSizeTapped(sender: TextFormattingProviding)
+    func normalTextSizeTapped(sender: TextFormattingProviding)
+    func bigTextSizeTapped(sender: TextFormattingProviding)
 }
 
 enum TextStyleType: Int {

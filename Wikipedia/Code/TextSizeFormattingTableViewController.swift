@@ -40,7 +40,34 @@ class TextSizeFormattingTableViewController: TextFontFormattingTableViewControll
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tableView.indexPathsForSelectedRows?.forEach { selectedIndexPath in
+            let cell = tableView.cellForRow(at: selectedIndexPath)
+            cell?.accessoryType = .none
+            
+            // Ensure 'Normal' is always selected if no other size is active.
+            // Needed if user taps 'Normal' when it's already checked - in this case it needs to remain checked.
+            let isFirstCell = indexPath.row == 0 && indexPath.section == 0
+            if isFirstCell {
+                cell?.accessoryType = .checkmark
+            }
+        }
+        return indexPath
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sizes.count
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let size = sizes[indexPath.row]
+        switch size.type {
+        case .small:
+            delegate?.smallTextSizeTapped(sender: self)
+        case .normal:
+            delegate?.normalTextSizeTapped(sender: self)
+        case .big:
+            delegate?.bigTextSizeTapped(sender: self)
+        }
     }
 }

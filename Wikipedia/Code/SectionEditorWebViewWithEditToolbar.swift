@@ -317,4 +317,13 @@ extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
     func linkTapped(sender: TextFormattingProviding) {
         toggleAnchorSelection()
     }
+    func smallTextSizeTapped(sender: TextFormattingProviding) {
+        smallTextSize()
+    }
+    func normalTextSizeTapped(sender: TextFormattingProviding) {
+        normalTextSize()
+    }
+    func bigTextSizeTapped(sender: TextFormattingProviding) {
+        bigTextSize()
+    }
 }

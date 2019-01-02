@@ -20,6 +20,13 @@ class TextFontFormattingTableViewController: TextFormattingProvidingTableViewCon
         tableView.indexPathsForSelectedRows?.forEach { selectedIndexPath in
             let cell = tableView.cellForRow(at: selectedIndexPath)
             cell?.accessoryType = .none
+      
+            // Ensure 'Paragraph' is always selected if no other style is active.
+            // Needed if user taps 'Paragraph' when it's already checked - in this case it needs to remain checked.
+            let isFirstCell = indexPath.row == 0 && indexPath.section == 0
+            if isFirstCell {
+                cell?.accessoryType = .checkmark
+            }
         }
         return indexPath
     }
