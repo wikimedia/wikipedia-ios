@@ -21,6 +21,7 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
         }
         let readingList = fetchDefaultReadingListWithSortOrder()
         super.init(for: readingList, with: dataStore)
+        emptyViewType = .noSavedPages
     }
     
     required init?(coder aDecoder: NSCoder) {

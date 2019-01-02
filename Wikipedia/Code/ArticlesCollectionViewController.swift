@@ -126,14 +126,6 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         }
     }
     
-    open override func endRefreshing() {
-        let now = Date()
-        let timeInterval = 0.5 - now.timeIntervalSince(refreshStart)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + timeInterval, execute: {
-            self.collectionView.refreshControl?.endRefreshing()
-        })
-    }
-    
     lazy var sortActions: [SortActionType: SortAction] = {
         let moc = dataStore.viewContext
         let updateSortOrder: (Int) -> Void = { (rawValue: Int) in
