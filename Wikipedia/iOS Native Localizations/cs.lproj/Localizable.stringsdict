@@ -125,9 +125,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do tohoto seznamu nebudou uloženy.</string>
+			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do tohoto seznamu nebudou nadále mezi uloženými.</string>
 			<key>other</key>
-			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do těchto seznamů nebudou uloženy.</string>
+			<string>Tato akce nemůže být zrušena. Jakékoliv články uložené jenom do těchto seznamů nebudou nadále mezi uloženými.</string>
 		</dict>
 	</dict>
 	<key>reading-lists-delete-reading-list-alert-title</key>
@@ -229,9 +229,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Neuložit tento článek a odstranit je ze všech asociovaných seznamů k přečtení</string>
+			<string>Zruší uložení tohoto článku a odstraní jej ze všech seznamů k přečtení, kterých se nachází</string>
 			<key>other</key>
-			<string>Neuložit tyto články a odstranit je ze všech asociovaných seznamů k přečtení</string>
+			<string>Zruší uložení těchto článků a odstraní je ze všech seznamů k přečtení, kterých se nachází</string>
 		</dict>
 	</dict>
 	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
@@ -245,9 +245,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Neuložit článek?</string>
+			<string>Zrušit uložení článku?</string>
 			<key>other</key>
-			<string>Neuložit články?</string>
+			<string>Zrušit uložení článků?</string>
 		</dict>
 	</dict>
 </dict>
