@@ -61,6 +61,6 @@ class TextSizeFormattingTableViewController: TextFontFormattingTableViewControll
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let size = sizes[indexPath.row]
-        delegate?.textSizeTapped(newSize: size.name, sender: self)
+        delegate?.textSizeTapped(newSize: size.type.rawValue, sender: self)
     }
 }

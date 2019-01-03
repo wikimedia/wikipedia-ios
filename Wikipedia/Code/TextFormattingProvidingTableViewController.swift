@@ -49,7 +49,7 @@ enum TextStyleType: Int {
     }
 }
 
-enum TextSizeType {
+enum TextSizeType: String {
     case normal
     case big
     case small
