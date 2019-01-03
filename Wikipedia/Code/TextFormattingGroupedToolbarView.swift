@@ -14,28 +14,28 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
 
     
     @IBAction private func increaseIndent(sender: UIButton) {
-        delegate?.increaseIndentTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapIncreaseIndent()
     }
     @IBAction private func decreaseIndent(sender: UIButton) {
-        delegate?.decreaseIndentTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapDecreaseIndent()
     }
     @IBAction private func toggleUnorderedList(sender: UIButton) {
-        delegate?.unorderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapUnorderedList()
     }
     @IBAction private func toggleOrderedList(sender: UIButton) {
-        delegate?.orderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapOrderedList()
     }
     @IBAction private func toggleSuperscript(sender: UIButton) {
-        delegate?.superscriptTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapSuperscript()
     }
     @IBAction private func toggleSubscript(sender: UIButton) {
-        delegate?.subscriptTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapSubscript()
     }
     @IBAction private func toggleUnderline(sender: UIButton) {
-        delegate?.underlineTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapUnderline()
     }
     @IBAction private func toggleStrikethrough(sender: UIButton) {
-        delegate?.strikethroughTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapStrikethrough()
     }
 
     override func awakeFromNib() {

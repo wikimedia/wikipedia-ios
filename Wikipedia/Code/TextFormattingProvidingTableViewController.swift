@@ -3,23 +3,25 @@ protocol TextFormattingProviding: class {
 }
 
 protocol TextFormattingDelegate: class {
-    func closeTapped(sender: TextFormattingProviding)
-    func boldTapped(sender: TextFormattingProviding)
-    func headingTapped(depth: Int, sender: TextFormattingProviding)
-    func italicTapped(sender: TextFormattingProviding)
-    func referenceTapped(sender: TextFormattingProviding)
-    func templateTapped(sender: TextFormattingProviding)
-    func commentTapped(sender: TextFormattingProviding)
-    func linkTapped(sender: TextFormattingProviding)
-    
-    func increaseIndentTapped(sender: TextFormattingProviding)
-    func decreaseIndentTapped(sender: TextFormattingProviding)
-    func orderedListTapped(sender: TextFormattingProviding)
-    func unorderedListTapped(sender: TextFormattingProviding)
-    func superscriptTapped(sender: TextFormattingProviding)
-    func subscriptTapped(sender: TextFormattingProviding)
-    func underlineTapped(sender: TextFormattingProviding)
-    func strikethroughTapped(sender: TextFormattingProviding)
+    func textFormattingProvidingDidTapClose()
+    func textFormattingProvidingDidTapHeading(depth: Int)
+    func textFormattingProvidingDidTapBold()
+    func textFormattingProvidingDidTapItalics()
+    func textFormattingProvidingDidTapUnderline()
+    func textFormattingProvidingDidTapStrikethrough()
+    func textFormattingProvidingDidTapReference()
+    func textFormattingProvidingDidTapTemplate()
+    func textFormattingProvidingDidTapComment()
+    func textFormattingProvidingDidTapLink()
+    func textFormattingProvidingDidTapIncreaseIndent()
+    func textFormattingProvidingDidTapDecreaseIndent()
+    func textFormattingProvidingDidTapOrderedList()
+    func textFormattingProvidingDidTapUnorderedList()
+    func textFormattingProvidingDidTapSuperscript()
+    func textFormattingProvidingDidTapSubscript()
+
+    func textFormattingProvidingDidTapTextFormatting()
+    func textFormattingProvidingDidTapTextStyleFormatting()
 }
 
 enum TextStyleType: Int {
@@ -178,7 +180,7 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.closeTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapClose()
     }
 }
 

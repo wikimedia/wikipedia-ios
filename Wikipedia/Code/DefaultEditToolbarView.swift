@@ -1,23 +1,7 @@
 import UIKit
 
-protocol DefaultEditToolbarViewDelegate: class {
-    func textFormattingTapped(sender: DefaultEditToolbarView)
-    func headerFormattingTapped(sender: DefaultEditToolbarView)
-    func citationTapped(sender: DefaultEditToolbarView)
-    func linkTapped(sender: DefaultEditToolbarView)
-    func unorderedListTapped(sender: DefaultEditToolbarView)
-    func orderedListTapped(sender: DefaultEditToolbarView)
-    func decreaseIndentTapped(sender: DefaultEditToolbarView)
-    func increaseIndentTapped(sender: DefaultEditToolbarView)
-    func cursorUpTapped(sender: DefaultEditToolbarView)
-    func cursorDownTapped(sender: DefaultEditToolbarView)
-    func cursorLeftTapped(sender: DefaultEditToolbarView)
-    func cursorRightTapped(sender: DefaultEditToolbarView)
-    func moreTapped(sender: DefaultEditToolbarView)
-}
-
-class DefaultEditToolbarView: EditToolbarView {
-    weak var delegate: DefaultEditToolbarViewDelegate?
+class DefaultEditToolbarView: EditToolbarView, TextFormattingProviding {
+    weak var delegate: TextFormattingDelegate?
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
@@ -99,55 +83,55 @@ class DefaultEditToolbarView: EditToolbarView {
     // MARK: Button actions
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.textFormattingTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapTextFormatting()
     }
 
-    @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.headerFormattingTapped(sender: self)
+    @IBAction private func formatTextStyle(_ sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapTextStyleFormatting()
     }
 
     @IBAction private func toggleCitation(_ sender: UIButton) {
-        delegate?.citationTapped(sender: self)
+        //delegate?.citationTapped(sender: self)
     }
 
     @IBAction private func toggleLink(_ sender: UIButton) {
-        delegate?.linkTapped(sender: self)
+        //delegate?.linkTapped(sender: self)
     }
 
     @IBAction private func toggleUnorderedList(_ sender: UIButton) {
-        delegate?.unorderedListTapped(sender: self)
+        //delegate?.unorderedListTapped(sender: self)
     }
 
     @IBAction private func toggleOrderedList(_ sender: UIButton) {
-        delegate?.orderedListTapped(sender: self)
+        //delegate?.orderedListTapped(sender: self)
     }
 
     @IBAction private func decreaseIndentation(_ sender: UIButton) {
-        delegate?.decreaseIndentTapped(sender: self)
+        //delegate?.textFormattingProvidingDidTapDecreaseIndent(self)
     }
 
     @IBAction private func increaseIndentation(_ sender: UIButton) {
-        delegate?.increaseIndentTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapIncreaseIndent()
     }
 
     @IBAction private func moveCursorUp(_ sender: UIButton) {
-        delegate?.cursorUpTapped(sender: self)
+        //delegate?.cursorUpTapped(sender: self)
     }
 
     @IBAction private func moveCursorDown(_ sender: UIButton) {
-        delegate?.cursorDownTapped(sender: self)
+        //delegate?.cursorDownTapped(sender: self)
     }
 
     @IBAction private func moveCursorLeft(_ sender: UIButton) {
-        delegate?.cursorLeftTapped(sender: self)
+        //delegate?.cursorLeftTapped(sender: self)
     }
 
     @IBAction private func moveCursorRight(_ sender: UIButton) {
-        delegate?.cursorRightTapped(sender: self)
+        //delegate?.cursorRightTapped(sender: self)
     }
 
     @IBAction private func showMore(_ sender: UIButton) {
-        delegate?.moreTapped(sender: self)
+        //delegate?.moreTapped(sender: self)
     }
 
     private enum ActionsType: CGFloat {
