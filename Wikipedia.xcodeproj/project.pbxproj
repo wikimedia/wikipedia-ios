@@ -363,6 +363,11 @@
 		7ABAD6C120349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C220349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
 		7ABAD6C320349B91006A364C /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABAD6BE20349B91006A364C /* Collection.swift */; };
+		7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
+		7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
+		7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
+		7AC809C821DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
+		7AC809C921DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */; };
 		7ADB2A0E1FD1E96300B84818 /* BatchEditSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */; };
 		7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
 		7ADEAB041FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */; };
@@ -3464,6 +3469,7 @@
 		7ABAD6B220338CFA006A364C /* ReadingListDetailUnderBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListDetailUnderBarViewController.swift; sourceTree = "<group>"; };
 		7ABAD6B320338CFB006A364C /* ReadingListDetailUnderBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadingListDetailUnderBarViewController.xib; sourceTree = "<group>"; };
 		7ABAD6BE20349B91006A364C /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorInputViewsController.swift; sourceTree = "<group>"; };
 		7ADB2A081FD1E8C400B84818 /* BatchEditSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BatchEditSelectView.swift; path = ../Wikipedia/Code/BatchEditSelectView.swift; sourceTree = "<group>"; };
 		7ADEAB011FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddArticlesToReadingListViewController.swift; sourceTree = "<group>"; };
 		7ADF497921B45CEE009EA338 /* TextFormattingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingToolbarView.swift; sourceTree = "<group>"; };
@@ -5222,6 +5228,7 @@
 			isa = PBXGroup;
 			children = (
 				7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */,
+				7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */,
 				B00F3F9221B0CC10002EDF29 /* SectionEditorWebView.swift */,
 				B04AE84B21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift */,
 				7A196F5921BF199500D9E4B5 /* SectionEditorWebViewWithEditToolbar.swift */,
@@ -10553,6 +10560,7 @@
 				0E281A331DC263DE00FA1AB1 /* WMFReference.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A6F560521AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
+				7AC809C521DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				B083371E1DADB251002860D2 /* WMFWelcomePageViewController.swift in Sources */,
 				7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */,
@@ -10930,6 +10938,7 @@
 				D80ED3A51EE57F4800CE8C50 /* ReadingThemesControlsViewController.swift in Sources */,
 				D80ED3A61EE57F4800CE8C50 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C320349B91006A364C /* Collection.swift in Sources */,
+				7AC809C921DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D80ED3A91EE57F4800CE8C50 /* WMFLoginViewController.swift in Sources */,
 				D80ED3AC1EE57F4800CE8C50 /* WebViewController.m in Sources */,
 				7A0161E41FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
@@ -11604,6 +11613,7 @@
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
 				83836ECF1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				7A6F560821AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
+				7AC809C821DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				7ABAD6C220349B91006A364C /* Collection.swift in Sources */,
 				D8A42B821E815A9C00D8E281 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8A42B841E815A9C00D8E281 /* WMFAlertManager.swift in Sources */,
@@ -11989,6 +11999,7 @@
 				D8CE26111E698E2400DAE2E0 /* ReadingThemesControlsViewController.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C020349B91006A364C /* Collection.swift in Sources */,
+				7AC809C621DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				D8CE26171E698E2400DAE2E0 /* WebViewController.m in Sources */,
 				7A0161E11FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
@@ -12337,6 +12348,7 @@
 				D8EC3F101E9BDA35006712EB /* ReadingThemesControlsViewController.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C120349B91006A364C /* Collection.swift in Sources */,
+				7AC809C721DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift in Sources */,
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				D8EC3F161E9BDA35006712EB /* WebViewController.m in Sources */,
 				D8EC3F171E9BDA35006712EB /* MWKSection+TOCItem.swift in Sources */,
