@@ -8,6 +8,7 @@ class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     @objc var section: MWKSection?
     private var webView: SectionEditorWebViewWithEditToolbar!
+    private var inputViewsController: SectionEditorInputViewsController!
 
     private var theme = Theme.standard
 
@@ -70,10 +71,9 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureNavigationButtonItems()
-
         configureWebView()
+
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
@@ -119,9 +119,10 @@ class SectionEditorViewController: UIViewController {
     private func configureWebView() {
         webView = SectionEditorWebViewWithEditToolbar(theme: self.theme)
         webView.navigationDelegate = self
+        inputViewsController = SectionEditorInputViewsController(webView: webView)
+        webView.inputViewsSource = inputViewsController
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
-        webView.configureInputAccessoryViews()
     }
 
     private func loadWikitext() {
