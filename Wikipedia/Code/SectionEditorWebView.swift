@@ -3,7 +3,7 @@ import WebKit
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
+class SectionEditorWebView: WKWebViewWithSettableInputViews {
     let config = SectionEditorWebViewConfiguration()
     var theme: Theme
 
@@ -57,11 +57,6 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
             DDLogError("Error setting up editor: \(error)")
         }
     }
-    
-    func apply(theme: Theme) {
-        self.theme = theme
-        evaluateJavaScript("window.wmf.applyTheme(`\(theme.codemirrorName)`);", completionHandler: nil)
-    }
 }
 
 extension SectionEditorWebView {
@@ -78,5 +73,12 @@ extension SectionEditorWebView {
             return
         }
         self.load(URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout))
+    }
+}
+
+extension SectionEditorWebView: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        evaluateJavaScript("window.wmf.applyTheme(`\(theme.codemirrorName)`);", completionHandler: nil)
     }
 }
