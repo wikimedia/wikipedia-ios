@@ -32,6 +32,11 @@ protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapUnorderedList()
     func textFormattingProvidingDidTapSuperscript()
     func textFormattingProvidingDidTapSubscript()
+    func textFormattingProvidingDidTapCursorUp()
+    func textFormattingProvidingDidTapCursorDown()
+    func textFormattingProvidingDidTapCursorRight()
+    func textFormattingProvidingDidTapCursorLeft()
+    func textFormattingProvidingDidTapMore()
 
     func textFormattingProvidingDidTapTextFormatting()
     func textFormattingProvidingDidTapTextStyleFormatting()
