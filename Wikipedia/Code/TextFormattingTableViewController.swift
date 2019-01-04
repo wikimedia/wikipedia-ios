@@ -153,6 +153,16 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         item.onSelection?()
     }
 
+    override func textSelectionDidChange(isRangeSelected: Bool) {
+        textFormattingPlainToolbarView?.deselectAllButtons()
+        textFormattingGroupedToolbarView?.deselectAllButtons()
+    }
+
+    override func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+        textFormattingPlainToolbarView?.selectButton(button)
+        textFormattingGroupedToolbarView?.selectButton(button)
+    }
+
 }
 
 private extension UITableView {
