@@ -53,6 +53,12 @@ class TextFormattingToolbarView: UIView, TextFormattingProviding {
             italicButton.isSelected = true
         case .link:
             linkButton.isSelected = true
+        case .reference:
+            citationButton.isSelected = true
+        case .comment:
+            exclamationButton.isSelected = true
+        case .template:
+            templateButton.isSelected = true
         default:
             break
         }

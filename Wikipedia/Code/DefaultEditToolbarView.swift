@@ -59,6 +59,8 @@ class DefaultEditToolbarView: EditToolbarView {
             headingButton.isSelected = true
         case .link:
             linkButton.isSelected = true
+        case .reference:
+            citationButton.isSelected = true
         default:
             break
         }
