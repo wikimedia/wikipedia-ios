@@ -1,13 +1,9 @@
 class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
     weak var inputViewsSource: SectionEditorInputViewsSource?
 
-    override init(theme: Theme) {
-        super.init(theme: theme)
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
         setEditMenuItems()
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     required init?(coder: NSCoder) {
