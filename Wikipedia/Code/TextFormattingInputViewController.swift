@@ -29,7 +29,6 @@ class TextFormattingInputViewController: UIInputViewController {
     
     required init?(coder: NSCoder) {
         textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
-        
         textFormattingTableViewController = TextFormattingTableViewController.wmf_viewControllerFromStoryboardNamed(storyboardName)
         super.init(coder: coder)
     }
@@ -84,6 +83,18 @@ class TextFormattingInputViewController: UIInputViewController {
         view.layer.shadowOffset = CGSize(width: 0, height: -2)
         view.layer.shadowRadius = 10
         view.layer.shadowOpacity = 1.0
+    }
+
+    // MARK: Text & button selection messages
+
+    func textSelectionDidChange(isRangeSelected: Bool) {
+        textFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+        textStyleFormattingTableViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+    }
+
+    func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+        textFormattingTableViewController.buttonSelectionDidChange(button: button)
+        textStyleFormattingTableViewController.buttonSelectionDidChange(button: button)
     }
 }
 
