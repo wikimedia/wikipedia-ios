@@ -1,51 +1,10 @@
-class ContextualHighlightEditToolbarView: EditToolbarView, TextFormattingProviding {
-    weak var delegate: TextFormattingDelegate?
-
-    @IBOutlet weak var boldButton: TextFormattingButton!
-    @IBOutlet weak var italicButton: TextFormattingButton!
-    @IBOutlet weak var headingButton: TextFormattingButton!
-
-    @IBOutlet weak var removeSelectionFormattingButton: TextFormattingButton!
-    @IBOutlet weak var citationButton: TextFormattingButton!
-    @IBOutlet weak var linkButton: TextFormattingButton!
-    @IBOutlet weak var unorderedListButton: TextFormattingButton!
-    @IBOutlet weak var orderedListButton: TextFormattingButton!
+class ContextualHighlightEditToolbarView: EditToolbarView {
     @IBOutlet weak var stackView: UIStackView!
-
-    private func selectButton(type: EditButtonType, ordered: Bool) {
-        switch (type) {
-        case .bold:
-            boldButton.isSelected = true
-        case .italic:
-            italicButton.isSelected = true
-        case .heading:
-            headingButton.isSelected = true
-        case .link:
-            linkButton.isSelected = true
-        default:
-            break
-        }
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        removeSelectionFormattingButton.isEnabled = false
-        unorderedListButton.isEnabled = false
-        orderedListButton.isEnabled = false
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
-            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.selectButton(type: message.type, ordered: message.ordered)
-                // print("buttonNeedsToBeSelectedMessage = \(message)")
-            }
-        }
-        
     }
     
     deinit {
