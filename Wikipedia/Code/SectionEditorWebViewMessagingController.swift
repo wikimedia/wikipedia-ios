@@ -61,8 +61,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                 guard let kind = buttonKind(from: element) else {
                     continue
                 }
-                let info = buttonInfo(for: element)
-                let button = Button(kind: kind, info: info)
+                let button = Button(kind: kind)
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: button)
             }
         default:
@@ -74,13 +73,14 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         guard let rawValue = dictionary[Message.Body.Key.button] as? String else {
             return nil
         }
-        guard let kind = Button.Kind(rawValue: rawValue) else {
+        let info = buttonInfo(from: dictionary)
+        guard let kind = Button.Kind(rawValue: rawValue, info: info) else {
             return nil
         }
         return kind
     }
 
-    func buttonInfo(for dictionary: [String: Any]) -> Button.Info? {
+    func buttonInfo(from dictionary: [String: Any]) -> Button.Info? {
         guard let info = dictionary[Message.Body.Key.info] as? [String: Any] else {
             return nil
         }
@@ -106,9 +106,9 @@ extension SectionEditorWebViewMessagingController {
     }
 
     struct Button {
-        enum Kind: String {
-            case li
-            case heading
+        enum Kind {
+            case li(ordered: Bool)
+            case heading(depth: Int)
             case indent
             case signature
             case link
@@ -126,6 +126,101 @@ extension SectionEditorWebViewMessagingController {
             case `subscript`
             case underline
             case strikethrough
+
+            var identifier: Int? {
+                switch self {
+                case .li(let ordered) where ordered == true:
+                    return 1
+                case .li(let ordered) where ordered == false:
+                    return 2
+                case .indent:
+                    return 3
+                case .heading:
+                    return 4
+                case .signature:
+                    return 5
+                case .link:
+                    return 6
+                case .bold:
+                    return 7
+                case .italic:
+                    return 8
+                case .reference:
+                    return 9
+                case .template:
+                    return 10
+                case .undo:
+                    return 11
+                case .redo:
+                    return 12
+                case .debug:
+                    return 13
+                case .comment:
+                    return 14
+                case .smallTextSize:
+                    return 15
+                case .bigTextSize:
+                    return 16
+                case .superscript:
+                    return 17
+                case .subscript:
+                    return 18
+                case .underline:
+                    return 19
+                case .strikethrough:
+                    return 20
+                default:
+                    return nil
+                }
+            }
+
+
+            init?(rawValue: String, info: Button.Info? = nil) {
+                if rawValue == "li", let ordered = info?.ordered {
+                    self = .li(ordered: ordered)
+                } else if rawValue == "heading", let depth = info?.depth {
+                    self = .heading(depth: depth)
+                } else {
+                    switch rawValue {
+                    case "indent":
+                        self = .indent
+                    case "signature":
+                        self = .signature
+                    case "link":
+                        self = .link
+                    case "bold":
+                        self = .bold
+                    case "italic":
+                        self = .italic
+                    case "reference":
+                        self = .reference
+                    case "template":
+                        self = .template
+                    case "undo":
+                        self = .undo
+                    case "redo":
+                        self = .redo
+                    case "debug":
+                        self = .debug
+                    case "comment":
+                        self = .comment
+                    case "smallTextSize":
+                        self = .smallTextSize
+                    case "bigTextSize":
+                        self = .bigTextSize
+                    case "superscript":
+                        self = .superscript
+                    case "subscript":
+                        self = .subscript
+                    case "underline":
+                        self = .underline
+                    case "strikethrough":
+                        self = .strikethrough
+                    default:
+                        return nil
+                    }
+                }
+            }
         }
         struct Info {
             static let ordered = "ordered"
@@ -136,6 +231,5 @@ extension SectionEditorWebViewMessagingController {
 
         }
         let kind: Kind
-        let info: Info?
     }
 }
