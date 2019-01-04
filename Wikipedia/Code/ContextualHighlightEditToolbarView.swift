@@ -44,8 +44,6 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
         removeSelectionFormattingButton.isEnabled = false
-        unorderedListButton.isEnabled = false
-        orderedListButton.isEnabled = false
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }

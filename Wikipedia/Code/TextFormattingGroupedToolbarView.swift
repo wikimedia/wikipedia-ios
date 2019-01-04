@@ -40,10 +40,6 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        unorderedList.isEnabled = false
-        orderedList.isEnabled = false
-        indentDecrease.isEnabled = false
-        indentIncrease.isEnabled = false
         stackView.isLayoutMarginsRelativeArrangement = true
     }
     
