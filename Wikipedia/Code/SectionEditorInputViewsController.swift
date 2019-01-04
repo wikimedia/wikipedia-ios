@@ -20,9 +20,10 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
 
-        setInputViewTypes(inputViewType: nil, inputAccessoryViewType: .default)
 
         NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
+        inputViewType = nil
+        inputAccessoryViewType = .default
     }
 
     deinit {
@@ -89,28 +90,24 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
 
         return inputAccessoryView
     }
-
-    private func setInputViewTypes(inputViewType: TextFormattingInputViewController.InputViewType?, inputAccessoryViewType: InputAccessoryViewType?) {
-        self.inputViewType = inputViewType
-        self.inputAccessoryViewType = inputAccessoryViewType
-
-        webView.setInputAccessoryView(inputAccessoryView)
-    }
 }
 
 // MARK: TextFormattingDelegate
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapTextStyleFormatting() {
-        setInputViewTypes(inputViewType: .textStyle, inputAccessoryViewType: nil)
+        inputViewType = .textStyle
+        inputAccessoryViewType = nil
     }
 
     func textFormattingProvidingDidTapTextFormatting() {
-        setInputViewTypes(inputViewType: .textFormatting, inputAccessoryViewType: nil)
+        inputViewType = .textFormatting
+        inputAccessoryViewType = nil
     }
 
     func textFormattingProvidingDidTapClose() {
-        setInputViewTypes(inputViewType: nil, inputAccessoryViewType: previousInputAccessoryViewType)
+        inputViewType = nil
+        inputAccessoryViewType = previousInputAccessoryViewType
     }
 
     func textFormattingProvidingDidTapHeading(depth: Int) {
