@@ -20,31 +20,24 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
         defaultEditToolbarView?.delegate = self
         contextualHighlightEditToolbarView?.delegate = self
 
-
-        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
         inputViewType = nil
         inputAccessoryViewType = .default
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+
+    func textSelectionDidChange(isRangeSelected: Bool) {
+        if inputViewType == nil {
+            inputAccessoryViewType = isRangeSelected ? .highlight : .default
+        }
+        defaultEditToolbarView?.deselectAllButtons()
+        contextualHighlightEditToolbarView?.deselectAllButtons()
+        textFormattingInputViewController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 
-    @objc private func textSelectionDidChange(_ notification: Notification) {
-        guard inputViewController == nil else {
-            return
-        }
-        guard let userInfo = notification.userInfo else {
-            return
-        }
-        guard let message = userInfo[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChanged] as? SelectionChangedMessage else {
-            return
-        }
-        if message.selectionIsRange {
-            inputAccessoryViewType = .highlight
-        } else {
-            inputAccessoryViewType = .default
-        }
+    func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+        defaultEditToolbarView?.selectButton(button)
+        contextualHighlightEditToolbarView?.selectButton(button)
+        textFormattingInputViewController.buttonSelectionDidChange(button: button)
     }
 
     var inputViewType: TextFormattingInputViewController.InputViewType?
@@ -66,6 +59,7 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
     private var inputAccessoryViewType: InputAccessoryViewType? {
         didSet {
             previousInputAccessoryViewType = oldValue
+            webView.setInputAccessoryView(inputAccessoryView)
         }
     }
 
