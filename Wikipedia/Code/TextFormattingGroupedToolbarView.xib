@@ -81,7 +81,7 @@
                                         <action selector="toggleSuperscriptWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="oil-wu-xyL"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP4-MR-ibt" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="18" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP4-MR-ibt" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="17" y="0.0" width="12" height="45"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" image="text-formatting-x-down"/>
@@ -101,7 +101,7 @@
                         <stackView opaque="NO" tag="19" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-AT-OdF" userLabel="Text Decoration Stack View">
                             <rect key="frame" x="290" y="0.0" width="37" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SR0-aa-rb8" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="19" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SR0-aa-rb8" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="14" height="45"/>
                                     <state key="normal" image="text-formatting-underline"/>
                                     <connections>
