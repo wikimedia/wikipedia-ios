@@ -157,7 +157,7 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapLink() {
-        //
+        webView.toggleAnchorSelection()
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
