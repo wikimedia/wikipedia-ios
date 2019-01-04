@@ -154,11 +154,13 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     }
 
     override func textSelectionDidChange(isRangeSelected: Bool) {
+        super.textSelectionDidChange(isRangeSelected: isRangeSelected)
         textFormattingPlainToolbarView?.deselectAllButtons()
         textFormattingGroupedToolbarView?.deselectAllButtons()
     }
 
     override func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+        super.buttonSelectionDidChange(button: button)
         textFormattingPlainToolbarView?.selectButton(button)
         textFormattingGroupedToolbarView?.selectButton(button)
     }
