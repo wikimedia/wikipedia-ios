@@ -24,12 +24,11 @@ enum TextStyleType: Int {
     }
 }
 
-enum TextSizeType {
+enum TextSizeType: Int {
     case normal
     case big
     case small
 
-    #warning("Text size strings need to be localized")
     var name: String {
         switch self {
         case .normal:
@@ -63,31 +62,10 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }()
 
     private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem.init(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
         return button
     }()
 
-    private func resetSelections() {
-        selectedTextStyleType = .paragraph
-        selectedTextSizeType = .normal
-    }
-
-    private func updateSelections(for type: EditButtonType, depth: Int) {
-        switch type {
-        case .heading:
-            guard let newTextStyleType = TextStyleType(rawValue: depth) else {
-                return
-            }
-            selectedTextStyleType = newTextStyleType
-        case .smallTextSize:
-            selectedTextSizeType = .small
-        case .bigTextSize:
-            selectedTextSizeType = .big
-        default:
-            break
-        }
-    }
-    
     final var selectedTextStyleType: TextStyleType = .paragraph {
         didSet {
             guard navigationController != nil else {
