@@ -201,6 +201,7 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTe
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
         undoButton.isEnabled = false
         redoButton.isEnabled = false
+        inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 }
 
@@ -212,8 +213,9 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
         case .redo:
             redoButton.isEnabled = true
         default:
-            return
+            break
         }
+        inputViewsController.buttonSelectionDidChange(button: button)
     }
 }
 
