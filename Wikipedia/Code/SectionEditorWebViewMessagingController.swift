@@ -20,6 +20,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
                     continue
                 }
                 let button = Button(kind: kind)
+                // Ignore debug buttons for now
+                guard button.kind != .debug else {
+                    return
+                }
                 buttonSelectionDelegate?.sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(self, button: button)
             }
         default:
