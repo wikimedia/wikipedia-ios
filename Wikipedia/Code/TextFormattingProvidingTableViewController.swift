@@ -145,7 +145,12 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     open func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
-
+        switch button.kind {
+        case .heading(let type):
+            selectedTextStyleType = type
+        default:
+            break
+        }
     }
 }
 
