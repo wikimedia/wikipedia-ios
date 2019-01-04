@@ -95,6 +95,26 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
 // MARK: TextFormattingDelegate
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
+    func textFormattingProvidingDidTapMore() {
+        //
+    }
+
+    func textFormattingProvidingDidTapCursorUp() {
+        webView.moveCursorUp()
+    }
+
+    func textFormattingProvidingDidTapCursorDown() {
+        webView.moveCursorDown()
+    }
+
+    func textFormattingProvidingDidTapCursorRight() {
+        webView.moveCursorRight()
+    }
+
+    func textFormattingProvidingDidTapCursorLeft() {
+        webView.moveCursorLeft()
+    }
+
     func textFormattingProvidingDidTapTextStyleFormatting() {
         inputViewType = .textStyle
         inputAccessoryViewType = nil
