@@ -59,6 +59,12 @@ class TextFormattingGroupedToolbarView: UIView, TextFormattingProviding {
             underline.isSelected = true
         case .strikethrough:
             strikethrough.isSelected = true
+        case .li:
+            if ordered {
+                orderedList.isSelected = true
+            }else{
+                unorderedList.isSelected = true
+            }
         default:
             break
         }

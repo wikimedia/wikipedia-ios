@@ -57,6 +57,12 @@ class DefaultEditToolbarView: EditToolbarView {
             linkButton.isSelected = true
         case .reference:
             citationButton.isSelected = true
+        case .li:
+            if ordered {
+                orderedListButton.isSelected = true
+            }else{
+                unorderedListButton.isSelected = true
+            }
         default:
             break
         }
