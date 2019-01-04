@@ -63,13 +63,13 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
         return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
     }
 
-    private let textFormattingToolbarView = TextFormattingToolbarView.wmf_viewFromClassNib()
+    private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
     private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
     
     weak override var delegate: TextFormattingDelegate? {
         didSet {
-            textFormattingToolbarView?.delegate = delegate
+            textFormattingPlainToolbarView?.delegate = delegate
             textFormattingGroupedToolbarView?.delegate = delegate
             textFormattingButtonView?.delegate = delegate
         }
@@ -82,13 +82,13 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
     }
     
     private lazy var staticItems: [Item] = {
-        let toolbar = Item(with: Content(type: .customView, customView: textFormattingToolbarView))
+        let plainToolbar = Item(with: Content(type: .customView, customView: textFormattingPlainToolbarView))
 
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
 
         let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
 
-        return [toolbar, groupedToolbar, button]
+        return [plainToolbar, groupedToolbar, button]
     }()
 
     private var items: [Item] {
