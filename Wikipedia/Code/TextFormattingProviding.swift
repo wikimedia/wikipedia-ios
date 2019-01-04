@@ -2,6 +2,19 @@ protocol TextFormattingProviding: class {
     var delegate: TextFormattingDelegate? { get set }
 }
 
+protocol TextFormattingButtonsProviding: TextFormattingProviding {
+    var buttons: [TextFormattingButton] { get set }
+}
+
+extension TextFormattingButtonsProviding {
+    func selectButton(_ button: SectionEditorWebViewMessagingController.Button) {
+        buttons.lazy.first(where: { $0.tag == button.kind.identifier })?.isSelected = true
+    }
+
+    func deselectAllButtons() {
+        buttons.lazy.forEach { $0.isSelected = false }
+    }
+}
 protocol TextFormattingDelegate: class {
     func textFormattingProvidingDidTapClose()
     func textFormattingProvidingDidTapHeading(depth: Int)
