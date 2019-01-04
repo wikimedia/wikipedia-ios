@@ -198,14 +198,136 @@
     }
 
 
+    // Individual words within a tag are tokenized separately, this method 
+    // gives us the overall range for the entire tag's contents. Makes it
+    // easier see what tags the current selection intersects and also makes
+    // it easier to expand selection later to encompass entire tag contents.
+    /*
+      - loops through line tokens
+      - each time it encounters a tag it's not already tracking, it records start
+      - until it encounters token w/o that tracked tag, at which point it records end and stops tracking that tag
+      - end result will be array of ranges for all tags encountered (can be more that one for a given tag)
+      - returns array similar to:
+        [
+          sup: {start: 12, end: 25},
+          small: {start: 32, end: 98},
+          large: {start: 12, end: 108},
+          small: {start: 100, end: 102}
+        ]
+      - This is *vastly* simpler to use than large numbers of line tokens.
+      - then we can easily set this all encompassing range in the button payload for tags
+        (will just need to loop through this array with selection range )
+    */
+    const completeTagRangesForLineTokens = (lineTokens) => {
+     
+      let trackedTags = new Set()
+      let tagRanges = []
+      
+      const startAndStopTrackingTagRangesInToken = (token, index, tokens) => {
+        const tags = new Set(token.state.InHtmlTag)
+        
+        // Fix for tags like 'ref', which mediawiki parsing curiously 
+        // doesn't treat like other tags.
+        if (token.state.extName !== false) {
+          tags.add(token.state.extName)
+        }
+        
+        // Fix for nested tags.
+        if (token.state.extState !== false) {
+          token.state.extState.InHtmlTag.forEach(tags.add, tags)
+        }
 
-    const shallowFlatten = a => [].concat(...a)
+        const isNotAlreadyTrackingTag = (tag) => {
+          return !trackedTags.has(tag)
+        }
+        
+        // Add tag item to tagRanges (with `start` value and placeholder `end` value) 
+        // when we first encounter one. Also adds tag to trackedTags.
+        const startTrackingTag = (tag) => {
+          trackedTags.add(tag)
+          tagRanges.push({tag: tag, start: token.start + 1, end: -1})
+        }
+        
+        [...tags]
+          .filter(isNotAlreadyTrackingTag)
+          .forEach(startTrackingTag)
+
+        let tagsToStopTracking = new Set()
+        
+        // Update tagRange `end` when we're no longer part of a trackedTag
+        // (also removes tag from trackedTags)
+        const stopTrackingTag = (tag) => {
+          const prevToken = tokens[index - 1]
+          const end = prevToken.end
+          let existingRange = tagRanges.find(tagRange => {
+            return tagRange.tag === tag && tagRange.end === -1
+          })
+          existingRange.end = end
+          tagsToStopTracking.add(tag)
+        }
+        
+        const shouldStopTrackingTag = (tag) => {
+          return !tags.has(tag)
+        }
+        
+        [...trackedTags]
+          .filter(shouldStopTrackingTag)
+          .forEach(stopTrackingTag)
+        
+        tagsToStopTracking.forEach(trackedTags.delete, trackedTags)
+      }
+      
+      lineTokens.forEach(startAndStopTrackingTagRangesInToken)
+      
+      const isTagRangeComplete = (tagRange) => tagRange.end !== -1
+      
+      return tagRanges.filter(isTagRangeComplete)
+    }
+
+
+
 
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
       const selectionRange = getSelectionRange(doc)
       const lineTokens = enrichedLineTokens(doc, selectionRange.line)
       
+      let result = []
+
+
+      // Determine which html tag buttons are selected.
+      
+      const tagRanges = !selectionRange.isSingleLine ? [] : completeTagRangesForLineTokens(lineTokens)
+      const tagRangesIntersectingSelectionRange = tagRanges.filter(tagRange => rangesIntersect(selectionRange, tagRange))
+      tagRangesIntersectingSelectionRange.forEach(tagRange => {
+        const buttonInfoDict = {start: tagRange.start, end: tagRange.end}
+        if (tagRange.tag === 'u') {
+          result.push(buttonPayload('underline', buttonInfoDict))
+        }
+        if (tagRange.tag === 's') {
+          result.push(buttonPayload('strikethrough', buttonInfoDict))
+        }
+        if (tagRange.tag === 'sup') {
+          result.push(buttonPayload('superscript', buttonInfoDict))
+        }
+        if (tagRange.tag === 'sub') {
+          result.push(buttonPayload('subscript', buttonInfoDict))
+        }
+        if (tagRange.tag === 'small') {
+          result.push(buttonPayload('smallTextSize', buttonInfoDict))
+        }
+        if (tagRange.tag === 'big') {
+          result.push(buttonPayload('bigTextSize', buttonInfoDict))
+        }
+        if (tagRange.tag === 'ref') {
+          result.push(buttonPayload('reference', buttonInfoDict))
+        }
+      })
+
+      
+      
+      // Determine which wikitext buttons are selected.
+
       // For now only supports single line selection ranges.
       const intersectingTokens = selectionRange.isSingleLine ? tokensIntersectingSelection(selectionRange, lineTokens) : []
       const typesArray = intersectingTokens.map(token => token.type)
@@ -215,23 +337,7 @@
           return s.trim().length > 0
         })
       
-      // Tokens have 'InHtmlTag' arrays which we can use for button types associated with html tags.
-      const inHtmlTagSet = new Set(shallowFlatten(intersectingTokens.filter(t => {return t.state.InHtmlTag.length > 0}).map(t => {return t.state.InHtmlTag})))
       
-      let result = []
-      
-      if (inHtmlTagSet.has('u')) {
-        result.push(buttonPayload('underline'))
-      }
-      if (inHtmlTagSet.has('s')) {
-        result.push(buttonPayload('strikethrough'))
-      }
-      if (inHtmlTagSet.has('sup')) {
-        result.push(buttonPayload('superscript'))
-      }
-      if (inHtmlTagSet.has('sub')) {
-        result.push(buttonPayload('subscript'))
-      }
       if (typesArray.includes('strong')) {
         result.push(buttonPayload('bold'))
       }
@@ -240,9 +346,6 @@
       }
       if (typesArray.includes('mw-link-ground')) {
         result.push(buttonPayload('link'))
-      }
-      if (typesArray.includes('mw-tag-ref') || typesArray.includes('mw-ext-ref')) {
-        result.push(buttonPayload('reference'))
       }
       if (typesArray.includes('mw-template-ground')) {
         result.push(buttonPayload('template'))
@@ -415,6 +518,23 @@
       return payloadsForButton[0]
     }
 
+    const expandTagSelection = (button) => {
+      const selectionRange = getSelectionRange(editor)
+      if (!selectionRange.isSingleLine) {
+        return
+      }
+      const payload = selectionPayloadForButton(button)
+      if (payload === null) {
+        return
+      }
+      editor.setSelection({line: selectionRange.line, ch: payload.info.start}, {line: selectionRange.line, ch: payload.info.end})
+    }
+
+    const expandTagSelectionAndToggleMarkup = (button, openingMarkup, closingMarkup) => {
+      expandTagSelection(button)
+      toggleMarkup(button, openingMarkup, closingMarkup)        
+    }
+
 
     wmf.commands = {
       focus: () => {
@@ -439,7 +559,7 @@
         }
       },
       reference: () => {
-        toggleMarkup('reference', '<ref>', '</ref>')
+        expandTagSelectionAndToggleMarkup('reference', '<ref>', '</ref>')
       },
       template: () => {
         toggleMarkup('template', '{{', '}}')
@@ -463,20 +583,16 @@
         // toggleMarkup('list', 'OOO')
       },
       superscript: () => {
-        // TODO: determine 'superscript' in selectedButtons
-        toggleMarkup('superscript', '<sup>', '</sup>')
+        expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
       },
       subscript: () => {
-        // TODO: determine 'subscript' in selectedButtons
-        toggleMarkup('subscript', '<sub>', '</sub>')
+        expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
       },
       underline: () => {
-        // TODO: determine 'underline' in selectedButtons
-        toggleMarkup('underline', '<u>', '</u>')
+        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')        
       },
       strikethrough: () => {
-        // TODO: determine 'strikethrough' in selectedButtons
-        toggleMarkup('strikethrough', '<s>', '</s>')
+        expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')
       },
       heading: (depth) => {
         const selectionRange = getSelectionRange(editor)
@@ -541,17 +657,37 @@
       decreaseIndentDepth: () => {
         console.log('decreaseIndentDepth')
       },
-      normalTextSize: () => {
-        // TODO: remove either small or big tags
-        console.log('normalTextSize')
-      },
-      smallTextSize: () => {
-        // TODO: determine 'small' in selectedButtons
-        toggleMarkup('small', '<small>', '</small>')
-      },
-      bigTextSize: () => {
-        // TODO: determine 'big' in selectedButtons
-        toggleMarkup('big', '<big>', '</big>')
+      textSize: (newSize) => {
+        if (newSize === 'small') {
+          if (selectionPayloadForButton('bigTextSize')) {
+            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
+          }
+          if (selectionPayloadForButton('smallTextSize')) {
+            // If after toggle above the selection is still inside a 'small' (ie 'big' was nested in small before it was toggled off) expand the selection to encompass the small
+            expandTagSelection('smallTextSize')
+          }
+          expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')
+          return
+        }
+        if (newSize === 'big') {
+          if (selectionPayloadForButton('smallTextSize')) {
+            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
+          }
+          if (selectionPayloadForButton('bigTextSize')) {
+            // If after toggle above the selection is still inside a 'big' (ie 'small' was nested in big before it was toggled off) expand the selection to encompass the big
+            expandTagSelection('bigTextSize')
+          }
+          expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
+          return
+        }
+        if (newSize === 'normal') {
+          if (selectionPayloadForButton('smallTextSize')) {
+            expandTagSelectionAndToggleMarkup('smallTextSize', '<small>', '</small>')  
+          }
+          if (selectionPayloadForButton('bigTextSize')) {
+            expandTagSelectionAndToggleMarkup('bigTextSize', '<big>', '</big>')  
+          }
+        }
       },
       selectAll: () => editor.execCommand('selectAll'),
       highlighting: () => {

@@ -25,9 +25,7 @@ private enum CodeMirrorCommandType: String {
     case superscript
     case underline
     case strikethrough
-    case normalTextSize
-    case smallTextSize
-    case bigTextSize
+    case textSize
 }
 
 extension SectionEditorWebView {
@@ -119,14 +117,8 @@ extension SectionEditorWebView {
         execCommand(for: .strikethrough)
     }
 
-    @objc func normalTextSize() {
-        execCommand(for: .normalTextSize)
-    }
-    @objc func smallTextSize() {
-        execCommand(for: .smallTextSize)
-    }
-    @objc func bigTextSize() {
-        execCommand(for: .bigTextSize)
+    @objc func setTextSize(newSize: String) {
+        execCommand(for: .textSize, argument: "\"\(newSize)\"")
     }
 
     private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {

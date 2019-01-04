@@ -6,10 +6,6 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 
     @IBAction private func toggleBoldSelection(_ sender: UIButton) {
         delegate?.textFormattingProvidingDidTapBold()
@@ -32,7 +28,7 @@ class ContextualHighlightEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func toggleAnchorSelection(_ sender: UIButton) {
-        //
+        delegate?.textFormattingProvidingDidTapLink()
     }
 
     @IBAction private func toggleUnorderedListSelection(_ sender: UIButton) {
