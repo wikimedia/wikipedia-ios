@@ -141,7 +141,8 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     // MARK: Text & button selection messages
 
     open func textSelectionDidChange(isRangeSelected: Bool) {
-
+        selectedTextStyleType = .paragraph
+        selectedTextSizeType = .normal
     }
 
     open func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
