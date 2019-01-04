@@ -29,9 +29,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Szócikk törölve</string>
+			<string>szócikk törölve</string>
 			<key>other</key>
-			<string>Szócikk törölve</string>
+			<string>szócikk törölve</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
