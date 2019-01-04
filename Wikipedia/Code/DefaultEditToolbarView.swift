@@ -40,23 +40,23 @@ class DefaultEditToolbarView: EditToolbarView {
     }
 
     @IBAction private func toggleCitation(_ sender: UIButton) {
-        //delegate?.citationTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapReference()
     }
 
     @IBAction private func toggleLink(_ sender: UIButton) {
-        //delegate?.linkTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapLink()
     }
 
     @IBAction private func toggleUnorderedList(_ sender: UIButton) {
-        //delegate?.unorderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapUnorderedList()
     }
 
     @IBAction private func toggleOrderedList(_ sender: UIButton) {
-        //delegate?.orderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapOrderedList()
     }
 
     @IBAction private func decreaseIndentation(_ sender: UIButton) {
-        //delegate?.textFormattingProvidingDidTapDecreaseIndent(self)
+        delegate?.textFormattingProvidingDidTapDecreaseIndent()
     }
 
     @IBAction private func increaseIndentation(_ sender: UIButton) {
