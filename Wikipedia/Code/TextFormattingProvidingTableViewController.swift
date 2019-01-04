@@ -88,25 +88,6 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         }
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
-            self?.resetSelections()
-        }
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
-            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.updateSelections(for: message.type, depth: message.depth)
-                // print("buttonNeedsToBeSelectedMessage = \(message)")
-            }
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     final var selectedTextStyleType: TextStyleType = .paragraph {
         didSet {
             guard navigationController != nil else {
@@ -155,6 +136,16 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
 
     @objc private func close(_ sender: UIBarButtonItem) {
         delegate?.textFormattingProvidingDidTapClose()
+    }
+
+    // MARK: Text & button selection messages
+
+    open func textSelectionDidChange(isRangeSelected: Bool) {
+
+    }
+
+    open func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+
     }
 }
 
