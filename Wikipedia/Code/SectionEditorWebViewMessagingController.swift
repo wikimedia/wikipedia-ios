@@ -42,10 +42,15 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         guard let info = dictionary[Message.Body.Key.info] as? [String: Any] else {
             return nil
         }
-        let depth = info[Button.Info.depth] as? Int
+        let depth = info[Button.Info.depth] as? Int ?? 0
+        let textStyleType = TextStyleType(rawValue: depth)
+
+        let size = info[Button.Info.size] as? Int ?? 0
+        let textSizeType = TextSizeType(rawValue: size)
+
         let ordered = info[Button.Info.ordered] as? Bool
 
-        return Button.Info.init(depth: depth, ordered: ordered)
+        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
     }
 }
 
@@ -64,9 +69,9 @@ extension SectionEditorWebViewMessagingController {
     }
 
     struct Button {
-        enum Kind {
+        enum Kind: Equatable {
             case li(ordered: Bool)
-            case heading(depth: Int)
+            case heading(type: TextStyleType)
             case indent
             case signature
             case link
@@ -78,8 +83,7 @@ extension SectionEditorWebViewMessagingController {
             case redo
             case debug
             case comment
-            case smallTextSize
-            case bigTextSize
+            case textSize(type: TextSizeType)
             case superscript
             case `subscript`
             case underline
@@ -115,10 +119,6 @@ extension SectionEditorWebViewMessagingController {
                     return 13
                 case .comment:
                     return 14
-                case .smallTextSize:
-                    return 15
-                case .bigTextSize:
-                    return 16
                 case .superscript:
                     return 17
                 case .subscript:
@@ -136,8 +136,10 @@ extension SectionEditorWebViewMessagingController {
             init?(rawValue: String, info: Button.Info? = nil) {
                 if rawValue == "li", let ordered = info?.ordered {
                     self = .li(ordered: ordered)
-                } else if rawValue == "heading", let depth = info?.depth {
-                    self = .heading(depth: depth)
+                } else if rawValue == "heading", let textStyleType = info?.textStyleType {
+                    self = .heading(type: textStyleType)
+                } else if rawValue == "textSize", let textSizeType = info?.textSizeType {
+                    self = .textSize(type: textSizeType)
                 } else {
                     switch rawValue {
                     case "indent":
@@ -162,10 +164,6 @@ extension SectionEditorWebViewMessagingController {
                         self = .debug
                     case "comment":
                         self = .comment
-                    case "smallTextSize":
-                        self = .smallTextSize
-                    case "bigTextSize":
-                        self = .bigTextSize
                     case "superscript":
                         self = .superscript
                     case "subscript":
@@ -183,8 +181,10 @@ extension SectionEditorWebViewMessagingController {
         struct Info {
             static let ordered = "ordered"
             static let depth = "depth"
+            static let size = "size"
 
-            let depth: Int?
+            let textStyleType: TextStyleType?
+            let textSizeType: TextSizeType?
             let ordered: Bool?
 
         }
