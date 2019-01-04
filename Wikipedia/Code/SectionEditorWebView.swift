@@ -4,12 +4,10 @@ typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
 class SectionEditorWebView: WKWebViewWithSettableInputViews {
-    let config = SectionEditorWebViewConfiguration()
-    var theme: Theme
+    var theme = Theme.standard
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(frame: .zero, configuration: config)
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
         loadAssetsHTML()
         scrollView.keyboardDismissMode = .interactive
     }
