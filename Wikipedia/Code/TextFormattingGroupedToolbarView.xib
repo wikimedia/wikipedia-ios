@@ -16,20 +16,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3dV-SU-XLo">
+                <stackView opaque="NO" tag="18" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3dV-SU-XLo">
                     <rect key="frame" x="24" y="0.0" width="327" height="45"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ooB-ON-AdU" userLabel="List Stack View">
                             <rect key="frame" x="0.0" y="0.0" width="41" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-cE-h7g" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="18" height="45"/>
                                     <state key="normal" image="text-formatting-unordered-list"/>
                                     <connections>
                                         <action selector="toggleUnorderedListWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="PuW-fz-1zC"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-EO-B4B" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-EO-B4B" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="23" y="0.0" width="18" height="45"/>
                                     <state key="normal" image="text-formatting-ordered-list"/>
                                     <connections>
@@ -48,14 +48,14 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YBs-xI-rce" userLabel="Indentation Stack View">
                             <rect key="frame" x="100.5" y="0.0" width="41" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-K9-rDm" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-K9-rDm" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="18" height="45"/>
                                     <state key="normal" image="text-formatting-decrease-indent"/>
                                     <connections>
                                         <action selector="decreaseIndentWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="7KN-b7-8Er"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-nC-Jor" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq0-nC-Jor" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="23" y="0.0" width="18" height="45"/>
                                     <state key="normal" image="text-formatting-increase-indent"/>
                                     <connections>
@@ -74,7 +74,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ncz-dW-KBH">
                             <rect key="frame" x="201.5" y="0.0" width="29" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b9-qs-xai" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="17" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b9-qs-xai" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="12" height="45"/>
                                     <state key="normal" image="text-formatting-x-up"/>
                                     <connections>
@@ -98,7 +98,7 @@
                                 <constraint firstAttribute="width" constant="1" id="0tP-Om-ymc"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-AT-OdF" userLabel="Text Decoration Stack View">
+                        <stackView opaque="NO" tag="19" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-AT-OdF" userLabel="Text Decoration Stack View">
                             <rect key="frame" x="290" y="0.0" width="37" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SR0-aa-rb8" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
@@ -108,7 +108,7 @@
                                         <action selector="toggleUnderlineWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="4H5-XF-ZRY"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzf-Y3-YJe" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                <button opaque="NO" tag="20" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzf-Y3-YJe" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                     <rect key="frame" x="19" y="0.0" width="18" height="45"/>
                                     <state key="normal" image="text-formatting-strikethrough"/>
                                     <connections>
@@ -130,15 +130,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="indentDecrease" destination="sDr-K9-rDm" id="h2q-GI-v8O"/>
-                <outlet property="indentIncrease" destination="Bq0-nC-Jor" id="D4a-aG-SrV"/>
-                <outlet property="orderedList" destination="rTP-EO-B4B" id="uVv-5H-hm8"/>
-                <outlet property="stackView" destination="3dV-SU-XLo" id="whH-4a-D2g"/>
-                <outlet property="strikethrough" destination="Pzf-Y3-YJe" id="GoL-iL-8S4"/>
-                <outlet property="underline" destination="SR0-aa-rb8" id="PKT-gc-dkP"/>
-                <outlet property="unorderedList" destination="6mq-cE-h7g" id="JFR-lK-Zi6"/>
-                <outlet property="xDown" destination="DP4-MR-ibt" id="njt-Fs-zaj"/>
-                <outlet property="xUp" destination="2b9-qs-xai" id="pP6-r7-bBv"/>
                 <outletCollection property="buttons" destination="sDr-K9-rDm" collectionClass="NSMutableArray" id="QPS-2i-K7L"/>
                 <outletCollection property="buttons" destination="Bq0-nC-Jor" collectionClass="NSMutableArray" id="fex-P8-bCN"/>
                 <outletCollection property="buttons" destination="6mq-cE-h7g" collectionClass="NSMutableArray" id="2YF-3u-ewW"/>
