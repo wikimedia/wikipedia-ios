@@ -313,11 +313,9 @@
         if (tagRange.tag === 'sub') {
           result.push(buttonPayload('subscript', buttonInfoDict))
         }
-        if (tagRange.tag === 'small') {
-          result.push(buttonPayload('smallTextSize', buttonInfoDict))
-        }
-        if (tagRange.tag === 'big') {
-          result.push(buttonPayload('bigTextSize', buttonInfoDict))
+        if (tagRange.tag === 'small' || tagRange.tag === 'big') {
+          buttonInfoDict.size = tagRange.tag 
+          result.push(buttonPayload('textSize', buttonInfoDict))
         }
         if (tagRange.tag === 'ref') {
           result.push(buttonPayload('reference', buttonInfoDict))
