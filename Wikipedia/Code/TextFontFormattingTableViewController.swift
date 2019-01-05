@@ -17,8 +17,9 @@ class TextFontFormattingTableViewController: TextFormattingProvidingTableViewCon
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        tappedIndexPath = indexPath
         let firstIndexPath = IndexPath(row: 0, section: 0)
-        if indexPath ==  firstIndexPath || indexPath == lastSelectedIndexPath {
+        if indexPath ==  tableView.indexPathForSelectedRow || indexPath == lastSelectedIndexPath {
             return firstIndexPath
         } else {
             return indexPath
@@ -26,6 +27,8 @@ class TextFontFormattingTableViewController: TextFormattingProvidingTableViewCon
     }
 
     private var lastSelectedIndexPath: IndexPath?
+
+    var tappedIndexPath: IndexPath?
 
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
