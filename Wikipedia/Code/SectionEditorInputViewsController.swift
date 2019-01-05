@@ -89,6 +89,10 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
 // MARK: TextFormattingDelegate
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
+    func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
+        webView.setTextSize(newSize: newSize.rawValue)
+    }
+
     func textFormattingProvidingDidTapMore() {
         //
     }

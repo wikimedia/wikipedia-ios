@@ -49,7 +49,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         let depth = info[Button.Info.depth] as? Int ?? 0
         let textStyleType = TextStyleType(rawValue: depth)
 
-        let size = info[Button.Info.size] as? Int ?? 0
+        let size = info[Button.Info.size] as? String ?? "normal"
         let textSizeType = TextSizeType(rawValue: size)
 
         let ordered = info[Button.Info.ordered] as? Bool

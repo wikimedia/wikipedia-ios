@@ -24,7 +24,7 @@ enum TextStyleType: Int {
     }
 }
 
-enum TextSizeType: Int {
+enum TextSizeType: String {
     case normal
     case big
     case small
@@ -132,6 +132,8 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         switch button.kind {
         case .heading(let type):
             selectedTextStyleType = type
+        case .textSize(let type):
+            selectedTextSizeType = type
         default:
             break
         }
