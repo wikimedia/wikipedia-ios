@@ -8118,8 +8118,8 @@ function copyableRanges(cm) {
 }
 
 function disableBrowserMagic(field, spellcheck) {
-  field.setAttribute("autocorrect", "off");
-  field.setAttribute("autocapitalize", "off");
+  field.setAttribute("autocorrect", "on");
+  field.setAttribute("autocapitalize", "on");
   field.setAttribute("spellcheck", !!spellcheck);
 }
 
@@ -9017,10 +9017,10 @@ ContentEditableInput.prototype.setUneditable = function (node) {
 };
 
 ContentEditableInput.prototype.onKeyPress = function (e) {
-  if (e.charCode == 0) { return }
-  e.preventDefault();
-  if (!this.cm.isReadOnly())
-    { operation(this.cm, applyTextInput)(this.cm, String.fromCharCode(e.charCode == null ? e.keyCode : e.charCode), 0); }
+  //if (e.charCode == 0) { return }
+  //e.preventDefault();
+  // if (!this.cm.isReadOnly())
+  //   { operation(this.cm, applyTextInput)(this.cm, String.fromCharCode(e.charCode == null ? e.keyCode : e.charCode), 0); }
 };
 
 ContentEditableInput.prototype.readOnlyChanged = function (val) {

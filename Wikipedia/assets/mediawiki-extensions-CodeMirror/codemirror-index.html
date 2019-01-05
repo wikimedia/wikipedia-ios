@@ -533,6 +533,9 @@
       toggleMarkup(button, openingMarkup, closingMarkup)        
     }
 
+    const convertSelectedLinesToList = (char) => {
+      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n${char} `)
+    }
 
     wmf.commands = {
       focus: () => {
@@ -575,10 +578,10 @@
         console.log('signature')
       },
       unorderedList: () => {
-        // toggleMarkup('list', 'UUU')
+        convertSelectedLinesToList('*')
       },
       orderedList: () => {
-        // toggleMarkup('list', 'OOO')
+        convertSelectedLinesToList('#')
       },
       superscript: () => {
         expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
@@ -587,7 +590,7 @@
         expandTagSelectionAndToggleMarkup('subscript', '<sub>', '</sub>')
       },
       underline: () => {
-        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')        
+        expandTagSelectionAndToggleMarkup('underline', '<u>', '</u>')
       },
       strikethrough: () => {
         expandTagSelectionAndToggleMarkup('strikethrough', '<s>', '</s>')

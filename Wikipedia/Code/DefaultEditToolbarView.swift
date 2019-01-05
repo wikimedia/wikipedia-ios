@@ -8,7 +8,6 @@ class DefaultEditToolbarView: EditToolbarView {
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
-
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
