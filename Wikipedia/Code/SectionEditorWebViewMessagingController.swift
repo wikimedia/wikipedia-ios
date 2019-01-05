@@ -95,9 +95,9 @@ extension SectionEditorWebViewMessagingController {
 
             var identifier: Int? {
                 switch self {
-                case .li(let ordered) where ordered == true:
+                case .li(let ordered) where ordered:
                     return 1
-                case .li(let ordered) where ordered == false:
+                case .li(let ordered) where !ordered:
                     return 2
                 case .indent:
                     return 3
