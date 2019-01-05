@@ -136,7 +136,6 @@ extension SectionEditorWebViewMessagingController {
                 }
             }
 
-
             init?(rawValue: String, info: Button.Info? = nil) {
                 if rawValue == "li", let ordered = info?.ordered {
                     self = .li(ordered: ordered)
