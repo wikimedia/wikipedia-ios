@@ -94,6 +94,11 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         apply(theme: theme)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     private func leftAlignTitleItem() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
