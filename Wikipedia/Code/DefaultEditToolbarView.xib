@@ -105,14 +105,14 @@
                                                                         <constraint firstItem="0eV-lo-H48" firstAttribute="centerY" secondItem="YgV-15-pdj" secondAttribute="centerY" id="qff-e0-ZOI"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                                                     <rect key="frame" x="119" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-unordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleUnorderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="vwl-ZD-BZN"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                                                     <rect key="frame" x="138" y="0.0" width="18" height="44"/>
                                                                     <state key="normal" image="text-formatting-ordered-list"/>
                                                                     <connections>
