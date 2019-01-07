@@ -183,7 +183,7 @@ class SectionEditorViewController: UIViewController {
         guard isCodemirrorReady, let wikitext = wikitext else {
             return
         }
-        self.setWikitextToWebView(wikitext) { (error) in
+        setWikitextToWebView(wikitext) { [weak self] (error) in
             if let error = error {
                 assertionFailure(error.localizedDescription)
             } else {
@@ -191,7 +191,7 @@ class SectionEditorViewController: UIViewController {
                     self.webViewCoverView?.removeFromSuperview()
                     self.messagingController.focus()
                     // TODO: Remove
-                    self.progressButton.isEnabled = true
+                    self?.progressButton.isEnabled = true
                 }
             }
         }
