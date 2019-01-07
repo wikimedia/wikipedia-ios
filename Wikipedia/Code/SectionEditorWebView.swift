@@ -40,6 +40,10 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
         menuItemsDelegate?.sectionEditorWebViewDidTapItalics(self)
     }
 
+    @objc func toggleCitation(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapCitation(self)
+    }
+
     override func selectAll(_ sender: Any?) {
         menuItemsDelegate?.sectionEditorWebViewDidTapSelectAll(self)
     }
