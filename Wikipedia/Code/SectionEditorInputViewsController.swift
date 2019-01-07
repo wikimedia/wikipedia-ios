@@ -5,16 +5,19 @@ protocol SectionEditorInputViewsSource: class {
 class SectionEditorInputViewsController: SectionEditorInputViewsSource {
     let webView: SectionEditorWebView
 
+    let messagingController: SectionEditorWebViewMessagingController
+
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
 
-    init(webView: SectionEditorWebView) {
+    init(webView: SectionEditorWebView, messagingController: SectionEditorWebViewMessagingController) {
         defer {
             inputAccessoryViewType = .default
         }
 
         self.webView = webView
+        self.messagingController = messagingController
 
         textFormattingInputViewController.delegate = self
         defaultEditToolbarView?.delegate = self
@@ -90,7 +93,7 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
 
 extension SectionEditorInputViewsController: TextFormattingDelegate {
     func textFormattingProvidingDidTapTextSize(newSize: TextSizeType) {
-        webView.setTextSize(newSize: newSize.rawValue)
+        messagingController.setTextSize(newSize: newSize.rawValue)
     }
 
     func textFormattingProvidingDidTapMore() {
@@ -98,19 +101,19 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapCursorUp() {
-        webView.moveCursorUp()
+        messagingController.moveCursorUp()
     }
 
     func textFormattingProvidingDidTapCursorDown() {
-        webView.moveCursorDown()
+        messagingController.moveCursorDown()
     }
 
     func textFormattingProvidingDidTapCursorRight() {
-        webView.moveCursorRight()
+        messagingController.moveCursorRight()
     }
 
     func textFormattingProvidingDidTapCursorLeft() {
-        webView.moveCursorLeft()
+        messagingController.moveCursorLeft()
     }
 
     func textFormattingProvidingDidTapTextStyleFormatting() {
@@ -129,62 +132,62 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapHeading(depth: Int) {
-        webView.setHeadingSelection(depth: depth)
+        messagingController.setHeadingSelection(depth: depth)
     }
 
     func textFormattingProvidingDidTapBold() {
-        webView.toggleBoldSelection()
+        messagingController.toggleBoldSelection()
     }
 
     func textFormattingProvidingDidTapItalics() {
-        webView.toggleItalicSelection()
+        messagingController.toggleItalicSelection()
     }
 
     func textFormattingProvidingDidTapUnderline() {
-        webView.toggleUnderline()
+        messagingController.toggleUnderline()
     }
 
     func textFormattingProvidingDidTapStrikethrough() {
-        webView.toggleStrikethrough()
+        messagingController.toggleStrikethrough()
     }
 
     func textFormattingProvidingDidTapReference() {
-        webView.toggleReferenceSelection()
+        messagingController.toggleReferenceSelection()
     }
 
     func textFormattingProvidingDidTapTemplate() {
-        webView.toggleTemplateSelection()
+        messagingController.toggleTemplateSelection()
     }
 
     func textFormattingProvidingDidTapComment() {
-        webView.toggleComment()
+        messagingController.toggleComment()
     }
 
     func textFormattingProvidingDidTapLink() {
-        webView.toggleAnchorSelection()
+        messagingController.toggleAnchorSelection()
     }
 
     func textFormattingProvidingDidTapIncreaseIndent() {
-        webView.increaseIndentDepth()
+        messagingController.increaseIndentDepth()
     }
 
     func textFormattingProvidingDidTapDecreaseIndent() {
-        webView.decreaseIndentDepth()
+        messagingController.decreaseIndentDepth()
     }
 
     func textFormattingProvidingDidTapOrderedList() {
-        webView.toggleOrderedListSelection()
+        messagingController.toggleOrderedListSelection()
     }
 
     func textFormattingProvidingDidTapUnorderedList() {
-        webView.toggleUnorderedListSelection()
+        messagingController.toggleUnorderedListSelection()
     }
 
     func textFormattingProvidingDidTapSuperscript() {
-        webView.toggleSuperscript()
+        messagingController.toggleSuperscript()
     }
 
     func textFormattingProvidingDidTapSubscript() {
-        webView.toggleSubscript()
+        messagingController.toggleSubscript()
     }
 }

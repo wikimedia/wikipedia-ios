@@ -10,6 +10,10 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonSelectionDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
 
+    var webView: WKWebView!
+
+    // MARK: - Receiving messages
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         switch (message.name, message.body) {
         case (Message.Name.selectionChanged, let isRangeSelected as Bool):
@@ -55,6 +59,182 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
         let ordered = info[Button.Info.ordered] as? Bool
 
         return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
+    }
+
+    // MARK: - Sending messages
+
+    func performSetupJS(completionHandler: ((Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("""
+            window.wmf.setup();
+        """) { (_, error) in
+            guard let completionHandler = completionHandler else {
+                return
+            }
+            completionHandler(error)
+        }
+    }
+
+    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
+        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // (May consider switching other native-to-JS messaging to do same later.)
+        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
+            guard let completionHandler = completionHandler else {
+                return
+            }
+            completionHandler(error)
+        }
+    }
+
+    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+    }
+
+    private enum CodeMirrorCommandType: String {
+        case bold
+        case italic
+        case reference
+        case template
+        case anchor
+        case indent
+        case signature
+        case orderedList
+        case unorderedList
+        case heading
+        case increaseIndentDepth
+        case decreaseIndentDepth
+        case undo
+        case redo
+        case cursorDown
+        case cursorUp
+        case cursorLeft
+        case cursorRight
+        case comment
+        case focus
+        case selectAll
+        case highlighting
+        case `subscript`
+        case superscript
+        case underline
+        case strikethrough
+        case textSize
+    }
+
+    private func commandJS(for commandType: CodeMirrorCommandType, argument: Any? = nil) -> String {
+        return "window.wmf.commands.\(commandType.rawValue)(\(argument ?? ""));"
+    }
+
+    private func execCommand(for commandType: CodeMirrorCommandType, argument: Any? = nil) {
+        webView.evaluateJavaScript(commandJS(for: commandType, argument: argument), completionHandler: nil)
+    }
+
+    func toggleBoldSelection() {
+        execCommand(for: .bold)
+    }
+
+    func toggleItalicSelection() {
+        execCommand(for: .italic)
+    }
+
+    func toggleReferenceSelection() {
+        execCommand(for: .reference)
+    }
+
+    func toggleTemplateSelection() {
+        execCommand(for: .template)
+    }
+
+    func toggleAnchorSelection() {
+        execCommand(for: .anchor)
+    }
+
+    func toggleIndentSelection() {
+        execCommand(for: .indent)
+    }
+
+    func toggleSignatureSelection() {
+        execCommand(for: .signature)
+    }
+
+    func toggleOrderedListSelection() {
+        execCommand(for: .orderedList)
+    }
+
+    func toggleUnorderedListSelection() {
+        execCommand(for: .unorderedList)
+    }
+
+    func setHeadingSelection(depth: Int) {
+        execCommand(for: .heading, argument: depth)
+    }
+
+    func increaseIndentDepth() {
+        execCommand(for: .increaseIndentDepth)
+    }
+
+    func decreaseIndentDepth() {
+        execCommand(for: .decreaseIndentDepth)
+    }
+
+
+    func undo() {
+        execCommand(for: .undo)
+    }
+    func redo() {
+        execCommand(for: .redo)
+    }
+
+    func moveCursorDown() {
+        execCommand(for: .cursorDown)
+    }
+
+    func moveCursorUp() {
+        execCommand(for: .cursorUp)
+    }
+
+    func moveCursorLeft() {
+        execCommand(for: .cursorLeft)
+    }
+
+    func moveCursorRight() {
+        execCommand(for: .cursorRight)
+    }
+
+    func toggleComment() {
+        execCommand(for: .comment)
+    }
+
+    func focus() {
+        execCommand(for: .focus)
+    }
+
+    func selectAllText() {
+        execCommand(for: .selectAll)
+    }
+
+    func toggleSyntaxHighlighting() {
+        execCommand(for: .highlighting)
+    }
+
+    func toggleSubscript() {
+        execCommand(for: .subscript)
+    }
+
+    func toggleSuperscript() {
+        execCommand(for: .superscript)
+    }
+
+    func toggleUnderline() {
+        execCommand(for: .underline)
+    }
+
+    func toggleStrikethrough() {
+        execCommand(for: .strikethrough)
+    }
+
+    func setTextSize(newSize: String) {
+        execCommand(for: .textSize, argument: "\"\(newSize)\"")
     }
 }
 
