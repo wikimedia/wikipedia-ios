@@ -23,9 +23,7 @@
 
 
   <script>
-
-    let editor
-    
+        
     let codeMirrorSettings = {
       mwConfig: config,
       lineWrapping: true,
@@ -39,6 +37,8 @@
       spellcheck: false,
       viewportMargin: Infinity
     }
+    
+    let editor = CodeMirror(document.body, codeMirrorSettings)
 
     const rangesIntersect = (range1, range2) => {
       if (range1.start > range2.start + (range2.end - range2.start)) return false
@@ -388,7 +388,6 @@
     }
         
     const setupCodemirror = () => {
-      editor = CodeMirror(document.body, codeMirrorSettings)
       editor.on('cursorActivity', sendNativeMessages)
     }
     
@@ -480,8 +479,16 @@
       }
     }
     
-    const applyTheme = (themeName) => {
-      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+    const applyTheme = (themeName, callback) => {
+      const codemirrorThemeElement = document.getElementById('codemirror-theme')
+      var didCallCallback = false
+      editor.on('focus', () => {
+        if (didCallCallback || !callback) {
+          return
+        }
+        callback()
+      })
+      codemirrorThemeElement.setAttribute('href', `codemirror-${themeName}.css`)  
     }
     
     const wmf = {}
@@ -489,7 +496,7 @@
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
     wmf.setup = () => setupCodemirror()
-    wmf.applyTheme = (themeName) => applyTheme(themeName)
+    wmf.applyTheme = (themeName, callback) => applyTheme(themeName, callback)
 
     const italicMarkup = "''"
     const boldMarkup = "'''"

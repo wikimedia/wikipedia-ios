@@ -121,20 +121,28 @@ class SectionEditorViewController: UIViewController {
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
 
+        let webViewCoverView = UIView()
+        webViewCoverView.backgroundColor = theme.colors.paperBackground
+
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
-        let backgroundColorUserScript = ImmediateBackgroundColorUserScript(theme.colors.paperBackground.wmf_hexString)
-        contentController.addUserScript(backgroundColorUserScript)
-        let themeUserScript = ThemeUserScript(theme)
+        let themeUserScript = ThemeUserScript(theme) {
+            webViewCoverView.removeFromSuperview()
+        }
+        
         contentController.addUserScript(themeUserScript)
+        contentController.add(themeUserScript, name: themeUserScript.messageHandlerName)
+        
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
+        webView.wmf_addSubviewWithConstraintsToEdges(webViewCoverView)
 
         inputViewsController = SectionEditorInputViewsController(webView: webView)
         webView.inputViewsSource = inputViewsController

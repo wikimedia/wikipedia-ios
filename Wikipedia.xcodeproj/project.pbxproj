@@ -1607,11 +1607,6 @@
 		D818D3AC1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
 		D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
 		D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
-		D818FEB521E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */; };
-		D818FEB621E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */; };
-		D818FEB721E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */; };
-		D818FEB821E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */; };
-		D818FEB921E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */; };
 		D818FEBB21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
 		D818FEBC21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
 		D818FEBD21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
@@ -4515,7 +4510,6 @@
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationCellUpdating.swift; path = Wikipedia/Code/ArticleLocationCellUpdating.swift; sourceTree = SOURCE_ROOT; };
-		D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateBackgroundColorUserScript.swift; sourceTree = "<group>"; };
 		D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeUserScript.swift; sourceTree = "<group>"; };
 		D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreFeedContentController.h; sourceTree = "<group>"; };
 		D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreFeedContentController.m; sourceTree = "<group>"; };
@@ -7766,7 +7760,6 @@
 		D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */,
 				D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */,
 			);
 			name = WKWebViewConfiguration;
@@ -10325,7 +10318,6 @@
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
-				D818FEB521E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
@@ -10829,7 +10821,6 @@
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				832289DF1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D818FEB921E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				D80ED3351EE57F4800CE8C50 /* MenuButton.m in Sources */,
 				7A4B33402136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
@@ -11384,7 +11375,6 @@
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
-				D818FEB821E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A23CED3211A24FF00441A79 /* FeedFunnel.swift in Sources */,
@@ -11896,7 +11886,6 @@
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D818FEB621E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
@@ -12248,7 +12237,6 @@
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				D8EC3E941E9BDA35006712EB /* MenuButton.m in Sources */,
-				D818FEB721E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
