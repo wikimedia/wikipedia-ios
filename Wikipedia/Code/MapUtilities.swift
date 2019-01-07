@@ -1,12 +1,9 @@
 import MapKit
 
-extension Array { // seems you can no longer do extension [CLLocationCoordinate2D] ?
+extension Array where Element == CLLocationCoordinate2D {
     func wmf_boundingRegion(with boundingMetersPerPoint: Double) -> MKCoordinateRegion {
         var rect: MKMapRect?
-        for element in self {
-            guard let coordinate = element as? CLLocationCoordinate2D else {
-                continue
-            }
+        for coordinate in self {
             let point = MKMapPoint(coordinate)
             let mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(coordinate.latitude)
             let dimension = mapPointsPerMeter * boundingMetersPerPoint
@@ -33,4 +30,3 @@ extension Array { // seems you can no longer do extension [CLLocationCoordinate2
         return region
     }
 }
-

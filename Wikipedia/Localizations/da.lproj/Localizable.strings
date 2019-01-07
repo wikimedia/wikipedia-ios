@@ -109,6 +109,7 @@
 "button-skip" = "Udelad";
 "cancel" = "Afbryd";
 "cc-by-sa-3.0" = "CC BY-SA 3.0";
+"cc-zero" = "Creative Commons CC0";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
@@ -117,6 +118,7 @@
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Titelbeskrivelse for $1";
 "description-edit-learn-more" = "Lær mere";
+"description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Rediger introduktion";
 "description-edit-pencil-title" = "Rediger titelbeskrivelse";
 "description-edit-placeholder-title" = "Korte beskrivelser er de bedste";
@@ -162,6 +164,10 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-featured-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-feed-preferences-card-hidden-title" = "Kort skjult";
+"explore-feed-preferences-feed-card-visibility-all-languages-off" = "Fra";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alle på";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Til";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kort";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle %@ kort";
