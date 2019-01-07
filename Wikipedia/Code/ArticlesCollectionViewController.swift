@@ -17,6 +17,10 @@ class ArticlesCollectionViewController: ColumnarCollectionViewController, Editab
         return NSPredicate(format: "list == %@ && isDeletedLocally != YES", readingList)
     }
     
+    var shouldShowEditButtonsForEmptyState: Bool {
+        return !readingList.isDefault
+    }
+    
     var searchPredicate: NSPredicate? {
         guard let searchString = searchString else {
             return nil

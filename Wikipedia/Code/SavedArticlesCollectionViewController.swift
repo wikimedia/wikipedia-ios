@@ -35,6 +35,10 @@ class SavedArticlesCollectionViewController: ArticlesCollectionViewController {
         ]
     }
     
+    override var shouldShowEditButtonsForEmptyState: Bool {
+        return false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NSUserActivity.wmf_makeActive(NSUserActivity.wmf_savedPagesView())

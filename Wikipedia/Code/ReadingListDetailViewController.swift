@@ -86,6 +86,7 @@ class ReadingListDetailViewController: ViewController {
         navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
         navigationBar.isBarHidingEnabled = false
         navigationBar.isUnderBarViewHidingEnabled = true
+        navigationBar.isExtendedViewHidingEnabled = true
         addExtendedView()
         
         if displayType == .modal {
@@ -102,10 +103,6 @@ class ReadingListDetailViewController: ViewController {
             return
         }
         navigationBar.addExtendedNavigationBarView(extendedView)
-    }
-    
-    private func setNavigationBarHidingEnabled(_ enabled: Bool) {
-        navigationBar.isExtendedViewHidingEnabled = enabled
     }
     
     @objc private func dismissController() {
@@ -190,7 +187,9 @@ extension ReadingListDetailViewController: ReadingListDetailUnderBarViewControll
         title = name
     }
     
-    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {}
+    func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField) {
+        articlesCollectionViewController.editController.isTextEditing = true
+    }
     
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField) {
         navigationItem.rightBarButtonItem?.isEnabled = textField.text?.wmf_hasNonWhitespaceText ?? false
@@ -233,7 +232,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        setNavigationBarHidingEnabled(false)
+        navigationBar.isExtendedViewHidingEnabled = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -244,7 +243,7 @@ extension ReadingListDetailViewController: SearchBarExtendedViewControllerDelega
         searchBar.text = ""
         articlesCollectionViewController.updateSearchString("")
         searchBar.resignFirstResponder()
-        setNavigationBarHidingEnabled(true)
+        navigationBar.isExtendedViewHidingEnabled = true
     }
     
     func textStyle(for button: UIButton) -> DynamicTextStyle {
