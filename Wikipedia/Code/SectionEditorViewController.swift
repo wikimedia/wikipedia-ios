@@ -177,17 +177,6 @@ class SectionEditorViewController: UIViewController {
         webView.menuItemsDataSource = menuItemsController
         webView.menuItemsDelegate = menuItemsController
     }
-    
-    // Convenience kickoff method for initial setting of wikitext & codemirror setup.
-    @objc func setup(wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        messagingController.performSetupJS() { error in
-            guard let error = error else {
-                self.messagingController.setWikitext(wikitext, completionHandler: completionHandler)
-                return
-            }
-            DDLogError("Error setting up editor: \(error)")
-        }
-    }
 
     private func setWikitextToWebViewIfReady() {
         assert(Thread.isMainThread)
