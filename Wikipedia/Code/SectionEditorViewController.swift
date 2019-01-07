@@ -188,8 +188,8 @@ class SectionEditorViewController: UIViewController {
                 assertionFailure(error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    self.webViewCoverView?.removeFromSuperview()
-                    self.messagingController.focus()
+                    self?.webViewCoverView?.removeFromSuperview()
+                    self?.messagingController.focus()
                     // TODO: Remove
                     self?.progressButton.isEnabled = true
                 }
