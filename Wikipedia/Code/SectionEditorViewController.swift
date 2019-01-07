@@ -11,8 +11,10 @@ class SectionEditorViewController: UIViewController {
 
     private var webView: SectionEditorWebView!
     private var webViewCoverView: UIView?
+
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
+    private var menuItemsController: SectionEditorMenuItemsController!
 
     private var theme = Theme.standard
     
@@ -91,14 +93,9 @@ class SectionEditorViewController: UIViewController {
 
         configureNavigationButtonItems()
         configureWebView()
-
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 
     private func configureNavigationButtonItems() {
@@ -127,7 +124,7 @@ class SectionEditorViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         progressButton.isEnabled = false
-        UIMenuController.shared.menuItems = webView.originalMenuItems
+        UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
         super.viewWillDisappear(animated)
     }
 
@@ -164,7 +161,7 @@ class SectionEditorViewController: UIViewController {
         webView.wmf_addSubviewWithConstraintsToEdges(coverView)
         webViewCoverView = coverView
 
-        inputViewsController = SectionEditorInputViewsController(webView: webView)
+        inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
 
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -173,6 +170,23 @@ class SectionEditorViewController: UIViewController {
         let url = schemeHandler.appSchemeURL(forRelativeFilePath: "mediawiki-extensions-CodeMirror/codemirror-index.html", fragment: "top")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
         webView.load(request)
+
+        messagingController.webView = webView
+
+        menuItemsController = SectionEditorMenuItemsController(messagingController: messagingController)
+        webView.menuItemsDataSource = menuItemsController
+        webView.menuItemsDelegate = menuItemsController
+    }
+    
+    // Convenience kickoff method for initial setting of wikitext & codemirror setup.
+    @objc func setup(wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        messagingController.performSetupJS() { error in
+            guard let error = error else {
+                self.messagingController.setWikitext(wikitext, completionHandler: completionHandler)
+                return
+            }
+            DDLogError("Error setting up editor: \(error)")
+        }
     }
 
     private func setWikitextToWebViewIfReady() {
@@ -186,7 +200,7 @@ class SectionEditorViewController: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     self.webViewCoverView?.removeFromSuperview()
-                    self.webView.focus()
+                    self.messagingController.focus()
                     // TODO: Remove
                     self.progressButton.isEnabled = true
                 }
@@ -231,16 +245,16 @@ class SectionEditorViewController: UIViewController {
     }
 
     @objc private func undo(_ sender: UIBarButtonItem) {
-        webView.undo()
+        messagingController.undo()
     }
 
     @objc private func redo(_ sender: UIBarButtonItem) {
-        webView.redo()
+        messagingController.redo()
     }
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
-            getWikitext { (result, error) in
+            messagingController.getWikitext { (result, error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
