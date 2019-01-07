@@ -1,17 +1,9 @@
 class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
-    
-    override init(theme: Theme) {
-        textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
-        super.init(theme: theme)
-        setEditMenuItems()
-        textFormattingInputViewController.delegate = self
-        defaultEditToolbarView?.delegate = self
-        contextualHighlightEditToolbarView?.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
-    }
+    weak var inputViewsSource: SectionEditorInputViewsSource?
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
+        setEditMenuItems()
     }
 
     required init?(coder: NSCoder) {
@@ -83,102 +75,33 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         selectAllText()
     }
 
-    // MARK: Accessory views
-    private var defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
-    private var contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
+    // MARK: Input view controller
 
-    // MARK: Input view
-
-    private var inputViewType: TextFormattingInputViewController.InputViewType?
-
-    private var textFormattingInputViewController: TextFormattingInputViewController
-
+    // inputViewController is a get-only property
+    // so we can't set it the same way we're setting inputAccessoryView
     override var inputViewController: UIInputViewController? {
-        guard let inputViewType = inputViewType else {
-            return nil
-        }
-        textFormattingInputViewController.inputViewType = inputViewType
-        return textFormattingInputViewController
-    }
-
-    // MARK: - Showing input view
-
-    func setInputViewHidden(type: TextFormattingInputViewController.InputViewType? = nil, hidden: Bool) {
-        inputViewType = type
-
-        if hidden {
-            inputAccessoryViewType = previousInputAccessoryViewType
-        } else {
-            inputAccessoryViewType = nil
-        }
-
-        reloadInputViews()
+        return inputViewsSource?.inputViewController
     }
 
     // MARK: Input accessory view
 
-    func configureInputAccessoryViews() {
-        inputAccessoryViewType = .default
-    }
-
-    private var previousInputAccessoryViewType: InputAccessoryViewType?
-    private var inputAccessoryViewType: InputAccessoryViewType? = .default {
-        didSet {
-            previousInputAccessoryViewType = oldValue
-            inputAccessoryView = preferredInputAccessoryView()
-            reloadInputViews()
-        }
-    }
-
-    private enum InputAccessoryViewType {
-        case `default`
-        case highlight
+    func setInputAccessoryView(_ inputAccessoryView: UIView?) {
+        self.inputAccessoryView = inputAccessoryView
+        reloadInputViews()
     }
 
     override func reloadInputViews() {
         themeInputViews(theme: theme)
         super.reloadInputViews()
     }
+}
 
-    private func preferredInputAccessoryView() -> (UIView & Themeable)? {
-        guard let inputAccessoryViewType = inputAccessoryViewType else {
-            return nil
-        }
+// MARK: Themeable
 
-        let maybeView: Any?
-
-        switch inputAccessoryViewType {
-        case .default:
-            maybeView = defaultEditToolbarView
-        case .highlight:
-            maybeView = contextualHighlightEditToolbarView
-        }
-
-        guard let preferredInputAccessoryView = maybeView as? UIView & Themeable else {
-            assertionFailure("Couldn't get preferredInputAccessoryView")
-            return nil
-        }
-
-        return preferredInputAccessoryView
-    }
-
-    // MARK: Notifications
-
-    @objc private func textSelectionDidChange(_ notification: Notification) {
-        guard inputViewController == nil else {
-            return
-        }
-        guard let userInfo = notification.userInfo else {
-            return
-        }
-        guard let message = userInfo[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChanged] as? SelectionChangedMessage else {
-            return
-        }
-        if message.selectionIsRange {
-            inputAccessoryViewType = .highlight
-        } else {
-            inputAccessoryViewType = .default
-        }
+extension SectionEditorWebViewWithEditToolbar {
+    private func themeInputViews(theme: Theme) {
+        (inputAccessoryView as? Themeable)?.apply(theme: theme)
+        (inputView as? Themeable)?.apply(theme: theme)
     }
 
     override func apply(theme: Theme) {
@@ -186,138 +109,5 @@ class SectionEditorWebViewWithEditToolbar: SectionEditorWebView {
         scrollView.backgroundColor = theme.colors.baseBackground
         backgroundColor = theme.colors.baseBackground
         themeInputViews(theme: theme)
-    }
-}
-
-extension SectionEditorWebViewWithEditToolbar {
-    private func themeInputViews(theme: Theme) {
-        (inputAccessoryView as? Themeable)?.apply(theme: theme)
-        (inputView as? Themeable)?.apply(theme: theme)
-    }
-}
-
-extension SectionEditorWebViewWithEditToolbar: DefaultEditToolbarViewDelegate {
-    func textFormattingTapped(sender: DefaultEditToolbarView) {
-        setInputViewHidden(type: .textFormatting, hidden: false)
-    }
-    func headerFormattingTapped(sender: DefaultEditToolbarView) {
-        setInputViewHidden(type: .textStyle, hidden: false)
-    }
-    func citationTapped(sender: DefaultEditToolbarView) {
-        toggleReferenceSelection()
-    }
-    func linkTapped(sender: DefaultEditToolbarView) {
-        toggleAnchorSelection()
-    }
-    func unorderedListTapped(sender: DefaultEditToolbarView) {
-        toggleUnorderedListSelection()
-    }
-    func orderedListTapped(sender: DefaultEditToolbarView) {
-        toggleOrderedListSelection()
-    }
-    func decreaseIndentTapped(sender: DefaultEditToolbarView) {
-        decreaseIndentDepth()
-    }
-    func increaseIndentTapped(sender: DefaultEditToolbarView) {
-        increaseIndentDepth()
-    }
-    func cursorUpTapped(sender: DefaultEditToolbarView) {
-        moveCursorUp()
-    }
-    func cursorDownTapped(sender: DefaultEditToolbarView) {
-        moveCursorDown()
-    }
-    func cursorLeftTapped(sender: DefaultEditToolbarView) {
-        moveCursorLeft()
-    }
-    func cursorRightTapped(sender: DefaultEditToolbarView) {
-        moveCursorRight()
-    }
-    func moreTapped(sender: DefaultEditToolbarView) {
-        setInputViewHidden(type: .textFormatting, hidden: false)
-    }
-}
-
-extension SectionEditorWebViewWithEditToolbar: ContextualHighlightEditToolbarViewDelegate {
-    func headerFormattingTapped(sender: ContextualHighlightEditToolbarView) {
-        setInputViewHidden(type: .textStyle, hidden: false)
-    }
-    func textFormattingTapped(sender: ContextualHighlightEditToolbarView) {
-        setInputViewHidden(type: .textFormatting, hidden: false)
-    }
-    func boldTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleBoldSelection()
-    }
-    func italicTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleItalicSelection()
-    }
-    func removeSelectionFormattingTapped(sender: ContextualHighlightEditToolbarView) {
-        print("TODO: wire up JS for this")
-    }
-    func referenceTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleReferenceSelection()
-    }
-    func anchorTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleAnchorSelection()
-    }
-    func unorderedListTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleUnorderedListSelection()
-    }
-    func orderedListTapped(sender: ContextualHighlightEditToolbarView) {
-        toggleOrderedListSelection()
-    }
-}
-
-extension SectionEditorWebViewWithEditToolbar: TextFormattingDelegate {
-    func headingTapped(depth: Int, sender: TextFormattingProviding) {
-        setHeadingSelection(depth: depth)
-    }
-    func increaseIndentTapped(sender: TextFormattingProviding) {
-        increaseIndentDepth()
-    }
-    func decreaseIndentTapped(sender: TextFormattingProviding) {
-        decreaseIndentDepth()
-    }
-    func orderedListTapped(sender: TextFormattingProviding) {
-        toggleOrderedListSelection()
-    }
-    func unorderedListTapped(sender: TextFormattingProviding) {
-        toggleUnorderedListSelection()
-    }
-    func superscriptTapped(sender: TextFormattingProviding) {
-        toggleSuperscript()
-    }
-    func subscriptTapped(sender: TextFormattingProviding) {
-        toggleSubscript()
-    }
-    func underlineTapped(sender: TextFormattingProviding) {
-        toggleUnderline()
-    }
-    func strikethroughTapped(sender: TextFormattingProviding) {
-        toggleStrikethrough()
-    }
-    func closeTapped(sender: TextFormattingProviding) {
-        setInputViewHidden(hidden: true)
-    }
-    func boldTapped(sender: TextFormattingProviding) {
-        toggleBoldSelection()
-    }
-    func italicTapped(sender: TextFormattingProviding) {
-        toggleItalicSelection()
-    }
-    func referenceTapped(sender: TextFormattingProviding) {
-        toggleReferenceSelection()
-    }
-    func templateTapped(sender: TextFormattingProviding) {
-        toggleTemplateSelection()
-    }
-    func commentTapped(sender: TextFormattingProviding) {
-        toggleComment()
-    }
-    func linkTapped(sender: TextFormattingProviding) {
-        toggleAnchorSelection()
-    }
-    func textSizeTapped(newSize: String, sender: TextFormattingProviding) {
-        setTextSize(newSize: newSize)
     }
 }

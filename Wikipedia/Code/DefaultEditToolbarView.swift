@@ -1,87 +1,15 @@
 import UIKit
 
-protocol DefaultEditToolbarViewDelegate: class {
-    func textFormattingTapped(sender: DefaultEditToolbarView)
-    func headerFormattingTapped(sender: DefaultEditToolbarView)
-    func citationTapped(sender: DefaultEditToolbarView)
-    func linkTapped(sender: DefaultEditToolbarView)
-    func unorderedListTapped(sender: DefaultEditToolbarView)
-    func orderedListTapped(sender: DefaultEditToolbarView)
-    func decreaseIndentTapped(sender: DefaultEditToolbarView)
-    func increaseIndentTapped(sender: DefaultEditToolbarView)
-    func cursorUpTapped(sender: DefaultEditToolbarView)
-    func cursorDownTapped(sender: DefaultEditToolbarView)
-    func cursorLeftTapped(sender: DefaultEditToolbarView)
-    func cursorRightTapped(sender: DefaultEditToolbarView)
-    func moreTapped(sender: DefaultEditToolbarView)
-}
-
 class DefaultEditToolbarView: EditToolbarView {
-    weak var delegate: DefaultEditToolbarViewDelegate?
-
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chevronButton: UIButton!
 
-    @IBOutlet weak var formattingButton: TextFormattingButton!
-    @IBOutlet weak var headingButton: TextFormattingButton!
-    @IBOutlet weak var citationButton: TextFormattingButton!
-    @IBOutlet weak var linkButton: TextFormattingButton!
-    @IBOutlet weak var addButton: TextFormattingButton!
-    @IBOutlet weak var unorderedListButton: TextFormattingButton!
-    @IBOutlet weak var orderedListButton: TextFormattingButton!
-    @IBOutlet weak var indentDecreaseButton: TextFormattingButton!
-    @IBOutlet weak var indentIncreaseButton: TextFormattingButton!
-    @IBOutlet weak var moveUpButton: TextFormattingButton!
-    @IBOutlet weak var moveDownButton: TextFormattingButton!
-    @IBOutlet weak var moveLeftButton: TextFormattingButton!
-    @IBOutlet weak var moveRightButton: TextFormattingButton!
-    @IBOutlet weak var findButton: TextFormattingButton!
-    @IBOutlet weak var dotsButton: TextFormattingButton!
-
     override func awakeFromNib() {
         super.awakeFromNib()
         chevronButton.imageView?.contentMode = .scaleAspectFit
-        
-        addButton.isEnabled = false
-        findButton.isEnabled = false
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-    }
-
-    private func selectButton(type: EditButtonType, ordered: Bool) {
-        switch (type) {
-        case .heading:
-            headingButton.isSelected = true
-        case .link:
-            linkButton.isSelected = true
-        case .reference:
-            citationButton.isSelected = true
-        case .li:
-            if ordered {
-                orderedListButton.isSelected = true
-            }else{
-                unorderedListButton.isSelected = true
-            }
-        default:
-            break
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
-            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.selectButton(type: message.type, ordered: message.ordered)
-                // print("buttonNeedsToBeSelectedMessage = \(message)")
-            }
-        }
-        
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     private func button(withTitle title: String, action: Selector) -> UIButton {
@@ -103,55 +31,55 @@ class DefaultEditToolbarView: EditToolbarView {
     // MARK: Button actions
 
     @IBAction private func formatText(_ sender: UIButton) {
-        delegate?.textFormattingTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapTextFormatting()
     }
 
-    @IBAction private func formatHeader(_ sender: UIButton) {
-        delegate?.headerFormattingTapped(sender: self)
+    @IBAction private func formatTextStyle(_ sender: UIButton) {
+        delegate?.textFormattingProvidingDidTapTextStyleFormatting()
     }
 
     @IBAction private func toggleCitation(_ sender: UIButton) {
-        delegate?.citationTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapReference()
     }
 
     @IBAction private func toggleLink(_ sender: UIButton) {
-        delegate?.linkTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapLink()
     }
 
     @IBAction private func toggleUnorderedList(_ sender: UIButton) {
-        delegate?.unorderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapUnorderedList()
     }
 
     @IBAction private func toggleOrderedList(_ sender: UIButton) {
-        delegate?.orderedListTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapOrderedList()
     }
 
     @IBAction private func decreaseIndentation(_ sender: UIButton) {
-        delegate?.decreaseIndentTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapDecreaseIndent()
     }
 
     @IBAction private func increaseIndentation(_ sender: UIButton) {
-        delegate?.increaseIndentTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapIncreaseIndent()
     }
 
     @IBAction private func moveCursorUp(_ sender: UIButton) {
-        delegate?.cursorUpTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapCursorUp()
     }
 
     @IBAction private func moveCursorDown(_ sender: UIButton) {
-        delegate?.cursorDownTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapCursorDown()
     }
 
     @IBAction private func moveCursorLeft(_ sender: UIButton) {
-        delegate?.cursorLeftTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapCursorLeft()
     }
 
     @IBAction private func moveCursorRight(_ sender: UIButton) {
-        delegate?.cursorRightTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapCursorRight()
     }
 
     @IBAction private func showMore(_ sender: UIButton) {
-        delegate?.moreTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapMore()
     }
 
     private enum ActionsType: CGFloat {

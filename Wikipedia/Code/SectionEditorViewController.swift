@@ -6,8 +6,12 @@ protocol SectionEditorViewControllerDelegate: class {
 @objc(WMFSectionEditorViewController)
 class SectionEditorViewController: UIViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
+
     @objc var section: MWKSection?
+
     private var webView: SectionEditorWebViewWithEditToolbar!
+    private var inputViewsController: SectionEditorInputViewsController!
+    private var messagingController: SectionEditorWebViewMessagingController!
 
     private var theme = Theme.standard
 
@@ -70,16 +74,12 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureNavigationButtonItems()
-
         configureWebView()
+
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
-
-        NotificationCenter.default.addObserver(self, selector: #selector(buttonSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
     }
 
     deinit {
@@ -117,11 +117,25 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureWebView() {
-        webView = SectionEditorWebViewWithEditToolbar(theme: self.theme)
+        let configuration = WKWebViewConfiguration()
+        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+
+        let contentController = WKUserContentController()
+        messagingController = SectionEditorWebViewMessagingController()
+        messagingController.textSelectionDelegate = self
+        messagingController.buttonSelectionDelegate = self
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
+        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+        configuration.userContentController = contentController
+        webView = SectionEditorWebViewWithEditToolbar(frame: .zero, configuration: configuration)
+
         webView.navigationDelegate = self
+
+        inputViewsController = SectionEditorInputViewsController(webView: webView)
+        webView.inputViewsSource = inputViewsController
+
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
-        webView.configureInputAccessoryViews()
     }
 
     private func loadWikitext() {
@@ -175,35 +189,33 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    // MARK: - Notifications
-
-    @objc private func buttonSelectionDidChange(_ notification: Notification) {
-        guard let userInfo = notification.userInfo else {
-            return
-        }
-        guard let message = userInfo[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage else {
-            return
-        }
-        switch message.type {
-        case .undo:
-            undoButton.isEnabled = true
-        case .redo:
-            redoButton.isEnabled = true
-        default:
-            return
-        }
-    }
-
-    @objc private func textSelectionDidChange(_ notification: Notification) {
-        undoButton.isEnabled = false
-        redoButton.isEnabled = false
-    }
-
     // MARK: - Accessibility
 
     override func accessibilityPerformEscape() -> Bool {
         navigationController?.popViewController(animated: true)
         return true
+    }
+}
+
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
+        undoButton.isEnabled = false
+        redoButton.isEnabled = false
+        inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
+    }
+}
+
+extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
+    func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
+        switch button.kind {
+        case .undo:
+            undoButton.isEnabled = true
+        case .redo:
+            redoButton.isEnabled = true
+        default:
+            break
+        }
+        inputViewsController.buttonSelectionDidChange(button: button)
     }
 }
 

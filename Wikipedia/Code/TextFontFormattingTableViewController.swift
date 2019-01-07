@@ -17,23 +17,25 @@ class TextFontFormattingTableViewController: TextFormattingProvidingTableViewCon
     }
 
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        tableView.indexPathsForSelectedRows?.forEach { selectedIndexPath in
-            let cell = tableView.cellForRow(at: selectedIndexPath)
-            cell?.accessoryType = .none
-      
-            // Ensure 'Paragraph' is always selected if no other style is active.
-            // Needed if user taps 'Paragraph' when it's already checked - in this case it needs to remain checked.
-            let isFirstCell = indexPath.row == 0 && indexPath.section == 0
-            if isFirstCell {
-                cell?.accessoryType = .checkmark
-            }
+        let firstIndexPath = IndexPath(row: 0, section: 0)
+        if indexPath ==  tableView.indexPathForSelectedRow || indexPath == lastSelectedIndexPath {
+            return firstIndexPath
+        } else {
+            return indexPath
         }
-        return indexPath
+    }
+
+    private var lastSelectedIndexPath: IndexPath?
+
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .none
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
+        lastSelectedIndexPath = indexPath
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

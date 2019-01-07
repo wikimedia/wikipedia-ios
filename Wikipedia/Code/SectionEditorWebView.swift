@@ -3,13 +3,11 @@ import WebKit
 typealias SectionEditorWebViewCompletionBlock = (Error?) -> Void
 typealias SectionEditorWebViewCompletionWithResultBlock = (Any?, Error?) -> Void
 
-class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
-    let config = SectionEditorWebViewConfiguration()
-    var theme: Theme
+class SectionEditorWebView: WKWebViewWithSettableInputViews {
+    var theme = Theme.standard
 
-    init(theme: Theme) {
-        self.theme = theme
-        super.init(frame: .zero, configuration: config)
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
         loadAssetsHTML()
         scrollView.keyboardDismissMode = .interactive
     }
@@ -57,11 +55,6 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews, Themeable {
             DDLogError("Error setting up editor: \(error)")
         }
     }
-    
-    func apply(theme: Theme) {
-        self.theme = theme
-        evaluateJavaScript("window.wmf.applyTheme(`\(theme.codemirrorName)`);", completionHandler: nil)
-    }
 }
 
 extension SectionEditorWebView {
@@ -78,5 +71,12 @@ extension SectionEditorWebView {
             return
         }
         self.load(URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout))
+    }
+}
+
+extension SectionEditorWebView: Themeable {
+    func apply(theme: Theme) {
+        self.theme = theme
+        evaluateJavaScript("window.wmf.applyTheme(`\(theme.codemirrorName)`);", completionHandler: nil)
     }
 }

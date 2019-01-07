@@ -54,8 +54,9 @@ class TextStyleFormattingTableViewController: TextFontFormattingTableViewControl
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        super.tableView(tableView, didSelectRowAt: indexPath)
         let style = styles[indexPath.row]
         let depth = style.type.rawValue
-        delegate?.headingTapped(depth: depth, sender: self)
+        delegate?.textFormattingProvidingDidTapHeading(depth: depth)
     }
 }

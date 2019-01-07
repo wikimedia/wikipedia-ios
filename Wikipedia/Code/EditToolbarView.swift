@@ -1,11 +1,12 @@
-class EditToolbarView: UIView {
+class EditToolbarView: UIView, TextFormattingButtonsProviding {
+    var delegate: TextFormattingDelegate?
+    
     @IBOutlet var separatorViews: [UIView] = []
-    @IBOutlet var buttons: [UIButton] = []
+    @IBOutlet var buttons: [TextFormattingButton] = []
 
     override func awakeFromNib() {
         super.awakeFromNib()
         addTopShadow()
-        NotificationCenter.default.addObserver(self, selector: #selector(textSelectionDidChange(_:)), name: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil)
     }
 
     private func addTopShadow() {
@@ -14,16 +15,8 @@ class EditToolbarView: UIView {
         layer.shadowOpacity = 1.0
     }
 
-    // MARK: Size
-
     override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height + 1)
-    }
-
-    // MARK: Notifications
-
-    @objc private func textSelectionDidChange(_ notification: Notification) {
-        buttons.forEach { $0.isSelected = false }
     }
 }
 

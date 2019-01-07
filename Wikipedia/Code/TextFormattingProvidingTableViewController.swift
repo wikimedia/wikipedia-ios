@@ -1,28 +1,3 @@
-protocol TextFormattingProviding: class {
-    var delegate: TextFormattingDelegate? { get set }
-}
-
-protocol TextFormattingDelegate: class {
-    func closeTapped(sender: TextFormattingProviding)
-    func boldTapped(sender: TextFormattingProviding)
-    func headingTapped(depth: Int, sender: TextFormattingProviding)
-    func italicTapped(sender: TextFormattingProviding)
-    func referenceTapped(sender: TextFormattingProviding)
-    func templateTapped(sender: TextFormattingProviding)
-    func commentTapped(sender: TextFormattingProviding)
-    func linkTapped(sender: TextFormattingProviding)
-    
-    func increaseIndentTapped(sender: TextFormattingProviding)
-    func decreaseIndentTapped(sender: TextFormattingProviding)
-    func orderedListTapped(sender: TextFormattingProviding)
-    func unorderedListTapped(sender: TextFormattingProviding)
-    func superscriptTapped(sender: TextFormattingProviding)
-    func subscriptTapped(sender: TextFormattingProviding)
-    func underlineTapped(sender: TextFormattingProviding)
-    func strikethroughTapped(sender: TextFormattingProviding)
-    func textSizeTapped(newSize: String, sender: TextFormattingProviding)
-}
-
 enum TextStyleType: Int {
     case paragraph
     case heading = 2 // Heading is 2 equals (we don't show a heading choice for 1 equals variant)
@@ -54,7 +29,6 @@ enum TextSizeType: String {
     case big
     case small
 
-    #warning("Text size strings need to be localized")
     var name: String {
         switch self {
         case .normal:
@@ -88,50 +62,10 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }()
 
     private lazy var closeButton: UIBarButtonItem = {
-        let button = UIBarButtonItem.init(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_:)))
         return button
     }()
 
-    private func resetSelections() {
-        selectedTextStyleType = .paragraph
-        selectedTextSizeType = .normal
-    }
-
-    private func updateSelections(for type: EditButtonType, depth: Int) {
-        switch type {
-        case .heading:
-            guard let newTextStyleType = TextStyleType(rawValue: depth) else {
-                return
-            }
-            selectedTextStyleType = newTextStyleType
-        case .smallTextSize:
-            selectedTextSizeType = .small
-        case .bigTextSize:
-            selectedTextSizeType = .big
-        default:
-            break
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorSelectionChangedNotification, object: nil, queue: nil) { [weak self] notification in
-            self?.resetSelections()
-        }
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name.WMFSectionEditorButtonHighlightNotification, object: nil, queue: nil) { [weak self] notification in
-            if let message = notification.userInfo?[SectionEditorWebViewConfiguration.WMFSectionEditorSelectionChangedSelectedButton] as? ButtonNeedsToBeSelectedMessage {
-                self?.updateSelections(for: message.type, depth: message.depth)
-                // print("buttonNeedsToBeSelectedMessage = \(message)")
-            }
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     final var selectedTextStyleType: TextStyleType = .paragraph {
         didSet {
             guard navigationController != nil else {
@@ -160,6 +94,11 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
         apply(theme: theme)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+
     private func leftAlignTitleItem() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
@@ -179,7 +118,25 @@ class TextFormattingProvidingTableViewController: UITableViewController, TextFor
     }
 
     @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.closeTapped(sender: self)
+        delegate?.textFormattingProvidingDidTapClose()
+    }
+
+    // MARK: Text & button selection messages
+
+    open func textSelectionDidChange(isRangeSelected: Bool) {
+        selectedTextStyleType = .paragraph
+        selectedTextSizeType = .normal
+    }
+
+    open func buttonSelectionDidChange(button: SectionEditorWebViewMessagingController.Button) {
+        switch button.kind {
+        case .heading(let type):
+            selectedTextStyleType = type
+        case .textSize(let type):
+            selectedTextSizeType = type
+        default:
+            break
+        }
     }
 }
 

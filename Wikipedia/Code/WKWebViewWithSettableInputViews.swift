@@ -84,13 +84,6 @@ class WKWebViewWithSettableInputViews: WKWebView {
             origin: SectionEditorWebView.self,
             originSelector: #selector(getter: SectionEditorWebView.inputAccessoryView)
         )
-        self.add(
-            selector: #selector(getter: UIResponder.inputView),
-            to: newContentViewClass.self,
-            origin: SectionEditorWebView.self,
-            originSelector: #selector(getter: SectionEditorWebView.inputView)
-        )
-
         objc_registerClassPair(newContentViewClass)
         object_setClass(contentView, newContentViewClass)
     }
