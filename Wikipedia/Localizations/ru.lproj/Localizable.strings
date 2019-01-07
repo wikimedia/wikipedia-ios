@@ -47,7 +47,7 @@
 "about-libraries-licenses-title" = "Мы любим ПО с открытым исходным кодом $1";
 "about-places-maps-license" = "Лицензия карт для отображения мест";
 "about-places-maps-license-details" = "Для отображения мест используются карты от Apple Maps. $1.";
-"about-places-maps-license-details-link-text" = "Лицензию карты детально";
+"about-places-maps-license-details-link-text" = "Информация о лицензии";
 "about-product-of" = "Этот программный продукт разработал $1 при поддержке таких же добровольцев, как вы";
 "about-repositories" = "Репозитории";
 "about-repositories-app-source-license" = "Исходный текст доступен под $1.";
@@ -70,7 +70,7 @@
 "abuse-filter-warning-repeat" = "Повторяяяяяющиеся символы";
 "abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "account-creation-captcha-cannot-see-image" = "Не видите изображение? $1";
-"account-creation-captcha-obtaining" = "Получение новой капчи...";
+"account-creation-captcha-obtaining" = "Получение новой CAPTCHA...";
 "account-creation-captcha-request-account" = "Запрос учётной записи.";
 "account-creation-captcha-title" = "Проверка безопасности с помощью CAPTCHA";
 "account-creation-create-account" = "Создать учётную запись";
@@ -232,7 +232,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Не привязана к языку";
 "explore-feed-preferences-global-cards-title" = "Глобальные карточки";
 "explore-feed-preferences-hide-card-action-title" = "Скрыть эту карточку";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Скрыть все карточки \"%@\"";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Скрыть все карточки «%@»";
 "explore-feed-preferences-in-the-news-description" = "Статьи о текущих событиях";
 "explore-feed-preferences-languages-footer-text" = "Скрытие карточек всех типов приведёт к скрытию всей ленты.";
 "explore-feed-preferences-on-this-day-description" = "Исторические события в этот день";
@@ -260,13 +260,13 @@
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "Скрытие карточек всех типов приведёт к скрытию всей вкладки \"Лента\" и замене её вкладкой \"Настройки\".";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "Отключить вкладку ленты?";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "Отключить Ленту";
-"explore-feed-preferences-turn-off-explore-tab-message" = "Вернуть вкладку \"Лента\" можно в разделе настроек";
+"explore-feed-preferences-turn-off-explore-tab-message" = "Вернуть вкладку «Лента» можно в разделе настроек";
 "explore-feed-preferences-turn-off-explore-tab-title" = "Отключить Ленту?";
-"explore-feed-preferences-turn-off-feed-disclosure" = "Если выключить вкладку \"Лента\", то вместо неё будет показана вкладка \"Настройки\".";
+"explore-feed-preferences-turn-off-feed-disclosure" = "Если выключить вкладку «Лента», то вместо неё будет показана вкладка «Настройки».";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "Вкладка \"Лента\" будет включена, если будут включены к показу любые её карточки";
-"explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить Ленту";
-"explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка \"Настройки\" будет заменена вкладкой \"Лента\". Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
-"explore-feed-preferences-turn-on-explore-tab-title" = "Включить Ленту?";
+"explore-feed-preferences-turn-on-explore-tab-action-title" = "Включить «Ленту»";
+"explore-feed-preferences-turn-on-explore-tab-message" = "Вкладка «Настройки» будет заменена вкладкой «Лента». Вы можете вызвать настройки, нажав сверху на иконку с шестерёнкой";
+"explore-feed-preferences-turn-on-explore-tab-title" = "Включить «Ленту»?";
 "explore-feed-preferences-undo-customization" = "Отменить";
 "explore-hide-card-prompt" = "Скрыть эту карточку";
 "explore-main-page-description" = "Заглавная страница проектов Викимедиа";
@@ -274,7 +274,7 @@
 "explore-most-read-footer" = "Все самые читаемые статьи";
 "explore-most-read-generic-heading" = "Самые читаемые";
 "explore-most-read-more-list-title-for-date" = "Самое читаемое на $1";
-"explore-most-read-sub-heading-on-language-wikipedia" = "В Википедии ($1 раздел)";
+"explore-most-read-sub-heading-on-language-wikipedia" = "Раздел Википедии: $1";
 "explore-most-read-sub-heading-on-wikipedia" = "В Википедии";
 "explore-nearby-heading" = "Места поблизости";
 "explore-nearby-placeholder-heading" = "Места";
@@ -283,7 +283,7 @@
 "explore-nearby-sub-heading-your-location" = "Ваше местоположение";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "Местоположение, согласно разделу Википедии: $1";
 "explore-potd-heading" = "Изображение дня";
-"explore-potd-sub-heading" = "Из Викисклада";
+"explore-potd-sub-heading" = "С Викисклада";
 "explore-random-article-heading" = "Случайная статья";
 "explore-random-article-sub-heading-from-language-wikipedia" = "Раздел Википедии: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
@@ -293,10 +293,10 @@
 "field-alert-captcha-invalid" = "Неверная капча";
 "field-alert-password-confirm-mismatch" = "Пароли не совпадают";
 "field-alert-password-invalid" = "Неверный пароль";
-"field-alert-token-invalid" = "Неверный код.";
+"field-alert-token-invalid" = "Неверный код";
 "field-alert-username-unavailable" = "Имя пользователя не доступно";
 "field-backup-token-title" = "Сделать резервную копию кода";
-"field-captcha-placeholder" = "Текст капчи";
+"field-captcha-placeholder" = "Текст CAPTCHA";
 "field-captcha-title" = "Введите текст, который вы видите выше";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "Адрес электронной почты";
@@ -369,7 +369,7 @@
 "main-menu-account-logout" = "Выйти";
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-cancel" = "Отмена";
-"main-menu-account-title-logged-in" = "Вошёл как $1";
+"main-menu-account-title-logged-in" = "Вход выполнен как $1";
 "main-menu-debug-tweaks" = "Настройки для разработчиков";
 "main-menu-heading-debug" = "Отладка";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
@@ -395,11 +395,11 @@
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
 "number-thousands" = "$1 тыс.";
-"on-this-day-detail-header-date-range" = "С $1 по $2";
+"on-this-day-detail-header-date-range" = "с $1 по $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
-"on-this-day-footer-with-event-count" = "$1 больше исторических событий, произошедших в этот день";
-"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в $2 Википедии";
+"on-this-day-footer-with-event-count" = "Еще $1 исторических событий, произошедших в этот день";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "open-link-cancel" = "Отмена";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
@@ -413,7 +413,7 @@
 "page-protected-can-not-edit-title" = "Эта страница защищена";
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
-"page-read-in-other-languages" = "Доступно на $1 {{PLURAL:$1|one=другом языке|других языках}}";
+"page-read-in-other-languages" = "Доступно на других языках: $1";
 "page-similar-titles" = "Похожие страницы";
 "page-talk-page" = "Страница обсуждения";
 "pictured" = "иллюстрировано";
@@ -630,7 +630,7 @@
 "theme-default-display-name" = "По умолчанию";
 "theme-sepia-display-name" = "Сепия";
 "top-read-header-generic" = "Википедия";
-"top-read-header-with-language" = "Википедия ($1 раздел)";
+"top-read-header-with-language" = "Раздел Википедии: $1";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
