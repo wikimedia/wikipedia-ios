@@ -14,6 +14,35 @@ class SectionEditorViewController: UIViewController {
     private var messagingController: SectionEditorWebViewMessagingController!
 
     private var theme = Theme.standard
+    
+    private func setWikitextToWebViewIfReady() {
+        guard isCodemirrorReady, let wikitext = wikitext else {
+            return
+        }
+        self.setWikitextToWebView(wikitext) { (error) in
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            } else {
+                DispatchQueue.main.async {
+                    self.webView.focus()
+                    // TODO: Remove
+                    self.progressButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
+    private var wikitext: String? = nil {
+        didSet {
+            setWikitextToWebViewIfReady()
+        }
+    }
+    
+    private var isCodemirrorReady: Bool = false {
+        didSet {
+            setWikitextToWebViewIfReady()
+        }
+    }
 
     // MARK: - Bar buttons
 
@@ -74,6 +103,8 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadWikitext()
+
         configureNavigationButtonItems()
         configureWebView()
 
@@ -134,7 +165,7 @@ class SectionEditorViewController: UIViewController {
         messagingController.buttonSelectionDelegate = self
         let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
             webViewCoverView.removeFromSuperview()
-            self?.loadWikitext()
+            self?.isCodemirrorReady = true
         }
         
         contentController.addUserScript(setupUserScript)
@@ -161,7 +192,7 @@ class SectionEditorViewController: UIViewController {
     }
 
     
-    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+    func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
         // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
         // (May consider switching other native-to-JS messaging to do same later.)
@@ -311,17 +342,8 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             } else {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
-
-            self.setWikitext(revision) { (error) in
-                if let error = error {
-                    assertionFailure(error.localizedDescription)
-                } else {
-                    DispatchQueue.main.async {
-                        self.webView.focus()
-                        // TODO: Remove
-                        self.progressButton.isEnabled = true
-                    }
-                }
+            DispatchQueue.main.async {
+                self.wikitext = revision
             }
         case .FETCH_FINAL_STATUS_CANCELLED:
             fallthrough
