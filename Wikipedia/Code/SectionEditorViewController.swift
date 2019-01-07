@@ -117,6 +117,10 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureWebView() {
+        guard let language = section?.article?.url.wmf_language else {
+            return
+        }
+        
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
@@ -128,12 +132,13 @@ class SectionEditorViewController: UIViewController {
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
-        let themeUserScript = ThemeUserScript(theme) {
+        let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
             webViewCoverView.removeFromSuperview()
+            self?.loadWikitext()
         }
         
-        contentController.addUserScript(themeUserScript)
-        contentController.add(themeUserScript, name: themeUserScript.messageHandlerName)
+        contentController.addUserScript(setupUserScript)
+        contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
         
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
@@ -154,17 +159,7 @@ class SectionEditorViewController: UIViewController {
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
         webView.load(request)
     }
-    
-    private func performSetupJS(completionHandler: ((Error?) -> Void)? = nil) {
-        webView.evaluateJavaScript("""
-            window.wmf.setup();
-        """) { (_, error) in
-            guard let completionHandler = completionHandler else {
-                return
-            }
-            completionHandler(error)
-        }
-    }
+
     
     @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
@@ -181,18 +176,6 @@ class SectionEditorViewController: UIViewController {
     
     @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
         webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
-    }
-    
-    
-    // Convenience kickoff method for initial setting of wikitext & codemirror setup.
-    @objc func setup(wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
-        performSetupJS() { error in
-            guard let error = error else {
-                self.setWikitext(wikitext, completionHandler: completionHandler)
-                return
-            }
-            DDLogError("Error setting up editor: \(error)")
-        }
     }
 
     private func loadWikitext() {
@@ -280,7 +263,6 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 
 extension SectionEditorViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        loadWikitext()
     }
 }
 
@@ -330,7 +312,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
 
-            self.setup(wikitext: revision) { (error) in
+            self.setWikitext(revision) { (error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                 } else {

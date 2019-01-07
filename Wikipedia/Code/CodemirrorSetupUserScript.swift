@@ -1,14 +1,14 @@
 import Foundation
 
 // sets the theme using wmf.applyTheme atDocumentEnd
-class ThemeUserScript: WKUserScript, WKScriptMessageHandler {
+class CodemirrorSetupUserScript: WKUserScript, WKScriptMessageHandler {
     let messageHandlerName = "wmfThemeReady"
     let completion: () -> Void
     
-    init(_ theme: Theme, completion: @escaping () -> Void) {
+    init(language: String, theme: Theme, completion: @escaping () -> Void) {
         self.completion = completion
         let source = """
-        wmf.applyTheme('\(theme.webName)', () => {
+        wmf.setup('\(language)', '\(theme.webName)', () => {
             window.webkit.messageHandlers.\(messageHandlerName).postMessage({})
         })
         """

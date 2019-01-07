@@ -41,7 +41,7 @@ func getCodeMirrorConfigJSON(for wikiLanguage: String, completion: @escaping (St
             completion(nil)
             return
         }
-        completion(first)
+        completion(first.replacingOccurrences(of: "!0", with: "true"))
         }.resume()
 }
 

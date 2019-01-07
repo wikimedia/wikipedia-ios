@@ -1607,11 +1607,11 @@
 		D818D3AC1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
 		D818D3AD1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
 		D818D3AE1ED87E8F0076110D /* ArticleLocationCellUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */; };
-		D818FEBB21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
-		D818FEBC21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
-		D818FEBD21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
-		D818FEBE21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
-		D818FEBF21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */; };
+		D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */; };
+		D818FEBC21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */; };
+		D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */; };
+		D818FEBE21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */; };
+		D818FEBF21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */; };
 		D81930DA1E9F97B200554B19 /* WMFExploreFeedContentController.h in Headers */ = {isa = PBXBuildFile; fileRef = D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D81930DB1E9F97B200554B19 /* WMFExploreFeedContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */; };
 		D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */; };
@@ -4510,7 +4510,7 @@
 		D818D3851ED750E40076110D /* ArticleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D38A1ED765470076110D /* ArticleLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		D818D3AA1ED87E8F0076110D /* ArticleLocationCellUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleLocationCellUpdating.swift; path = Wikipedia/Code/ArticleLocationCellUpdating.swift; sourceTree = SOURCE_ROOT; };
-		D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeUserScript.swift; sourceTree = "<group>"; };
+		D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodemirrorSetupUserScript.swift; sourceTree = "<group>"; };
 		D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFExploreFeedContentController.h; sourceTree = "<group>"; };
 		D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFExploreFeedContentController.m; sourceTree = "<group>"; };
 		D81E5F871E5F2C8400E1A80C /* UIApplication+SystemSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+SystemSettings.swift"; path = "Wikipedia/Code/UIApplication+SystemSettings.swift"; sourceTree = SOURCE_ROOT; };
@@ -5239,6 +5239,7 @@
 		044BD6B218849AD000FFE4BE /* SectionEditor */ = {
 			isa = PBXGroup;
 			children = (
+				D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */,
 				7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */,
 				7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */,
 				7AF56C3421DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift */,
@@ -6673,7 +6674,6 @@
 		BC45D5471C31E1EA007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */,
 				BC45D5561C31EEBE007C72F3 /* Error Handling */,
 				BC45D5591C31EFF8007C72F3 /* i18n */,
 				BC628C791B389E2B00B3F85C /* Images */,
@@ -7755,14 +7755,6 @@
 				D8940CEA1DB56C0500E17F9E /* In The News */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */ = {
-			isa = PBXGroup;
-			children = (
-				D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */,
-			);
-			name = WKWebViewConfiguration;
 			sourceTree = "<group>";
 		};
 		D82014811E68693600BA8579 /* HexColors */ = {
@@ -10371,7 +10363,7 @@
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
 				B0016CC321362DB300FA1096 /* SetupGradientView.swift in Sources */,
-				D818FEBB21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */,
+				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				B0FFFB2A21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
@@ -10908,7 +10900,7 @@
 				7A2432C21FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D80ED37A1EE57F4800CE8C50 /* WMFHelpViewController.m in Sources */,
 				D80ED37B1EE57F4800CE8C50 /* NSString+FormattedAttributedString.m in Sources */,
-				D818FEBF21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */,
+				D818FEBF21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				7AE1D33D1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D80ED37C1EE57F4800CE8C50 /* WMFURLSchemeHandler.m in Sources */,
 				D80ED37E1EE57F4800CE8C50 /* WMFDeleteBackwardReportingTextField.swift in Sources */,
@@ -11428,7 +11420,7 @@
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				D8A42AA21E815A9C00D8E281 /* WMFArticleRequestSerializer.m in Sources */,
-				D818FEBE21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */,
+				D818FEBE21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8A42AA31E815A9C00D8E281 /* MenuLabel.m in Sources */,
 				D8A42AA61E815A9C00D8E281 /* WMFArticleRevisionFetcher.m in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
@@ -11973,7 +11965,7 @@
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
-				D818FEBC21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */,
+				D818FEBC21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E41E698E2400DAE2E0 /* WMFHelpViewController.m in Sources */,
@@ -12324,7 +12316,7 @@
 				D8EC3EDF1E9BDA35006712EB /* ArticlePopoverViewController.swift in Sources */,
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
-				D818FEBD21E39EE2001A7A00 /* ThemeUserScript.swift in Sources */,
+				D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8EC3EE31E9BDA35006712EB /* WMFHelpViewController.m in Sources */,

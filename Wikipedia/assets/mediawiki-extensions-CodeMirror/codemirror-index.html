@@ -14,31 +14,8 @@
 
 
 <body>
-
-  <!--TODO: load config by lang as needed-->
-  <script>
-  let config
-  </script>
-  <script src="codemirror-config.js" ></script>
-
-
-  <script>
-        
-    let codeMirrorSettings = {
-      mwConfig: config,
-      lineWrapping: true,
-      lineNumbers: true,
-      mode: "text/mediawiki",
-      matchBrackets: true,
-      extraKeys: {
-        // t.b.d.
-      }, 
-      inputStyle: 'contenteditable',
-      spellcheck: false,
-      viewportMargin: Infinity
-    }
-    
-    let editor = CodeMirror(document.body, codeMirrorSettings)
+  <script>    
+    let editor
 
     const rangesIntersect = (range1, range2) => {
       if (range1.start > range2.start + (range2.end - range2.start)) return false
@@ -387,10 +364,43 @@
       window.webkit.messageHandlers.highlightTheseButtons.postMessage(selectedButtons(doc))
     }
         
-    const setupCodemirror = () => {
+    const applyTheme = (themeName) => {
+      document.getElementById('codemirror-theme').setAttribute('href', `codemirror-${themeName}.css`)  
+    }
+    
+    const setupCodemirrorWithConfig = (config, callback) => {
+      let codeMirrorSettings = {
+        mwConfig: config,
+        lineWrapping: true,
+        lineNumbers: true,
+        mode: "text/mediawiki",
+        matchBrackets: true,
+        extraKeys: {
+          // t.b.d.
+        }, 
+        inputStyle: 'contenteditable',
+        spellcheck: false,
+        viewportMargin: Infinity
+      }
+      editor = CodeMirror(document.body, codeMirrorSettings)
+      if (callback) {
+        callback()
+      }
       editor.on('cursorActivity', sendNativeMessages)
     }
     
+    const setupCodemirror = (language, themeName, callback) => {
+      applyTheme(themeName)
+      let xhr = new XMLHttpRequest()
+      let url = `config/codemirror-config-${language}.json`
+      xhr.open('GET', url, true)
+      xhr.onload = () => {
+        let config = JSON.parse(xhr.responseText)
+        setupCodemirrorWithConfig(config['extCodeMirrorConfig'], callback)
+      };
+      xhr.send()
+    }
+      
     const wrapSelectionWith = (openingMarkup, closingMarkup) => {
       if (closingMarkup === undefined) {
         closingMarkup = openingMarkup
@@ -479,24 +489,12 @@
       }
     }
     
-    const applyTheme = (themeName, callback) => {
-      const codemirrorThemeElement = document.getElementById('codemirror-theme')
-      var didCallCallback = false
-      editor.on('focus', () => {
-        if (didCallCallback || !callback) {
-          return
-        }
-        callback()
-      })
-      codemirrorThemeElement.setAttribute('href', `codemirror-${themeName}.css`)  
-    }
-    
     const wmf = {}
     
     wmf.getWikitext = () => editor.getValue()
     wmf.setWikitext = (wikitext) => editor.setValue(wikitext)
-    wmf.setup = () => setupCodemirror()
-    wmf.applyTheme = (themeName, callback) => applyTheme(themeName, callback)
+    wmf.setup = (language, themeName, callback) => setupCodemirror(language, themeName, callback)
+    wmf.applyTheme = (themeName) => applyTheme(themeName)
 
     const italicMarkup = "''"
     const boldMarkup = "'''"
