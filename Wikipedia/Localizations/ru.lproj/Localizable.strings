@@ -398,7 +398,7 @@
 "on-this-day-detail-header-date-range" = "с $1 по $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
-"on-this-day-footer-with-event-count" = "Еще $1 исторических события, произошедших в этот день";
+"on-this-day-footer-with-event-count" = "Еще $1 исторических событий, произошедших в этот день";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "open-link-cancel" = "Отмена";
