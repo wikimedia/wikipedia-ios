@@ -10,29 +10,13 @@ class SectionEditorViewController: UIViewController {
     @objc var section: MWKSection?
 
     private var webView: SectionEditorWebView!
+    private var webViewCoverView: UIView?
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
 
     private var theme = Theme.standard
     
-    private func setWikitextToWebViewIfReady() {
-        guard isCodemirrorReady, let wikitext = wikitext else {
-            return
-        }
-        self.setWikitextToWebView(wikitext) { (error) in
-            if let error = error {
-                assertionFailure(error.localizedDescription)
-            } else {
-                DispatchQueue.main.async {
-                    self.webView.focus()
-                    // TODO: Remove
-                    self.progressButton.isEnabled = true
-                }
-            }
-        }
-    }
-    
-    private var wikitext: String? = nil {
+    private var wikitext: String? {
         didSet {
             setWikitextToWebViewIfReady()
         }
@@ -155,16 +139,15 @@ class SectionEditorViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
-
-        let webViewCoverView = UIView()
-        webViewCoverView.backgroundColor = theme.colors.paperBackground
+        
+        let coverView = UIView()
+        coverView.backgroundColor = theme.colors.paperBackground
 
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
         let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
-            webViewCoverView.removeFromSuperview()
             self?.isCodemirrorReady = true
         }
         
@@ -178,7 +161,8 @@ class SectionEditorViewController: UIViewController {
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
-        webView.wmf_addSubviewWithConstraintsToEdges(webViewCoverView)
+        webView.wmf_addSubviewWithConstraintsToEdges(coverView)
+        webViewCoverView = coverView
 
         inputViewsController = SectionEditorInputViewsController(webView: webView)
         webView.inputViewsSource = inputViewsController
@@ -191,6 +175,24 @@ class SectionEditorViewController: UIViewController {
         webView.load(request)
     }
 
+    private func setWikitextToWebViewIfReady() {
+        assert(Thread.isMainThread)
+        guard isCodemirrorReady, let wikitext = wikitext else {
+            return
+        }
+        self.setWikitextToWebView(wikitext) { (error) in
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            } else {
+                DispatchQueue.main.async {
+                    self.webViewCoverView?.removeFromSuperview()
+                    self.webView.focus()
+                    // TODO: Remove
+                    self.progressButton.isEnabled = true
+                }
+            }
+        }
+    }
     
     func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
         // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.

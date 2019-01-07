@@ -2,7 +2,7 @@ import Foundation
 
 // sets the theme using wmf.applyTheme atDocumentEnd
 class CodemirrorSetupUserScript: WKUserScript, WKScriptMessageHandler {
-    let messageHandlerName = "wmfThemeReady"
+    let messageHandlerName = "wmfCodemirrorReady"
     let completion: () -> Void
     
     init(language: String, theme: Theme, completion: @escaping () -> Void) {
