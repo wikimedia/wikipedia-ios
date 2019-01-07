@@ -3,13 +3,13 @@ protocol SectionEditorInputViewsSource: class {
 }
 
 class SectionEditorInputViewsController: SectionEditorInputViewsSource {
-    let webView: SectionEditorWebViewWithEditToolbar
+    let webView: SectionEditorWebView
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
     let defaultEditToolbarView = DefaultEditToolbarView.wmf_viewFromClassNib()
     let contextualHighlightEditToolbarView = ContextualHighlightEditToolbarView.wmf_viewFromClassNib()
 
-    init(webView: SectionEditorWebViewWithEditToolbar) {
+    init(webView: SectionEditorWebView) {
         defer {
             inputAccessoryViewType = .default
         }

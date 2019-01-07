@@ -9,7 +9,7 @@ class SectionEditorViewController: UIViewController {
 
     @objc var section: MWKSection?
 
-    private var webView: SectionEditorWebViewWithEditToolbar!
+    private var webView: SectionEditorWebView!
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
 
@@ -118,16 +118,21 @@ class SectionEditorViewController: UIViewController {
 
     private func configureWebView() {
         let configuration = WKWebViewConfiguration()
-        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+        let schemeHandler = WMFURLSchemeHandler.shared()
+        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
 
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
+        let backgroundColorUserScript = ImmediateBackgroundColorUserScript(theme.colors.paperBackground.wmf_hexString)
+        contentController.addUserScript(backgroundColorUserScript)
+        let themeUserScript = ThemeUserScript(theme)
+        contentController.addUserScript(themeUserScript)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
         configuration.userContentController = contentController
-        webView = SectionEditorWebViewWithEditToolbar(frame: .zero, configuration: configuration)
+        webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
 
@@ -136,6 +141,50 @@ class SectionEditorViewController: UIViewController {
 
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
+        
+        let url = schemeHandler.appSchemeURL(forRelativeFilePath: "mediawiki-extensions-CodeMirror/codemirror-index.html", fragment: "top")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
+        webView.load(request)
+    }
+    
+    private func performSetupJS(completionHandler: ((Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("""
+            window.wmf.setup();
+        """) { (_, error) in
+            guard let completionHandler = completionHandler else {
+                return
+            }
+            completionHandler(error)
+        }
+    }
+    
+    @objc func setWikitext(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
+        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // (May consider switching other native-to-JS messaging to do same later.)
+        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
+            guard let completionHandler = completionHandler else {
+                return
+            }
+            completionHandler(error)
+        }
+    }
+    
+    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
+    }
+    
+    
+    // Convenience kickoff method for initial setting of wikitext & codemirror setup.
+    @objc func setup(wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        performSetupJS() { error in
+            guard let error = error else {
+                self.setWikitext(wikitext, completionHandler: completionHandler)
+                return
+            }
+            DDLogError("Error setting up editor: \(error)")
+        }
     }
 
     private func loadWikitext() {
@@ -167,7 +216,7 @@ class SectionEditorViewController: UIViewController {
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
-            webView.getWikitext { (result, error) in
+            getWikitext { (result, error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
@@ -273,7 +322,7 @@ extension SectionEditorViewController: FetchFinishedDelegate {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
 
-            self.webView.setup(wikitext: revision) { (error) in
+            self.setup(wikitext: revision) { (error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                 } else {
@@ -294,8 +343,8 @@ extension SectionEditorViewController: FetchFinishedDelegate {
 
 extension SectionEditorViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground
