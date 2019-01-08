@@ -1,80 +1,10 @@
 class SectionEditorWebView: WKWebViewWithSettableInputViews {
     weak var inputViewsSource: SectionEditorInputViewsSource?
+
     var theme = Theme.standard
-    
-    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
-        super.init(frame: frame, configuration: configuration)
-        setEditMenuItems()
-    }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    // MARK: Menu items
-
-    lazy var menuItems: [UIMenuItem] = {
-        let addCitation = UIMenuItem(title: "Add Citation", action: #selector(toggleCitation(menuItem:)))
-        let addLink = UIMenuItem(title: "Add Link", action: #selector(toggleLink(menuItem:)))
-        let addCurlyBrackets = UIMenuItem(title: "｛ ｝", action: #selector(toggleCurlyBrackets(menuItem:)))
-        let makeBold = UIMenuItem(title: "𝗕", action: #selector(toggleBoldface(menuItem:)))
-        let makeItalic = UIMenuItem(title: "𝐼", action: #selector(toggleItalics(menuItem:)))
-        return [addCitation, addLink, addCurlyBrackets, makeBold, makeItalic]
-    }()
-
-    lazy var availableMenuActions: [Selector] = {
-        let actions = [
-            #selector(WKWebView.cut(_:)),
-            #selector(WKWebView.copy(_:)),
-            #selector(WKWebView.paste(_:)),
-            #selector(WKWebView.select(_:)),
-            #selector(WKWebView.selectAll(_:)),
-            #selector(SectionEditorWebView.toggleBoldface(menuItem:)),
-            #selector(SectionEditorWebView.toggleItalics(menuItem:)),
-            #selector(SectionEditorWebView.toggleCitation(menuItem:)),
-            #selector(SectionEditorWebView.toggleLink(menuItem:)),
-            #selector(SectionEditorWebView.toggleCurlyBrackets(menuItem:))
-        ]
-        return actions
-    }()
-
-    @objc private func toggleCitation(menuItem: UIMenuItem) {
-
-    }
-
-    @objc private func toggleLink(menuItem: UIMenuItem) {
-
-    }
-
-    @objc private func toggleCurlyBrackets(menuItem: UIMenuItem) {
-
-    }
-
-    @objc private func toggleBoldface(menuItem: UIMenuItem) {
-        toggleBoldSelection()
-    }
-
-    @objc private func toggleItalics(menuItem: UIMenuItem) {
-        toggleItalicSelection()
-    }
-
-    // Keep original menu items
-    // so that we can bring them back
-    // when web view disappears
-    var originalMenuItems: [UIMenuItem]?
-
-    private func setEditMenuItems() {
-        originalMenuItems = UIMenuController.shared.menuItems
-        UIMenuController.shared.menuItems = menuItems
-    }
-
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return availableMenuActions.contains(action)
-    }
-
-    override func selectAll(_ sender: Any?) {
-        selectAllText()
-    }
+    weak var menuItemsDataSource: SectionEditorMenuItemsDataSource?
+    weak var menuItemsDelegate: SectionEditorMenuItemsDelegate?
 
     // MARK: Input view controller
 
@@ -82,6 +12,40 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
     // so we can't set it the same way we're setting inputAccessoryView
     override var inputViewController: UIInputViewController? {
         return inputViewsSource?.inputViewController
+    }
+
+    // MARK: Menu items
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        guard let menuItemsDataSource = menuItemsDataSource else {
+            assertionFailure("menuItemsDataSource should be set by now")
+            return false
+        }
+        return menuItemsDataSource.availableMenuActions.contains(action)
+    }
+
+    @objc func toggleLink(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapLink(self)
+    }
+
+    @objc func toggleTemplate(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapTemplate(self)
+    }
+
+    @objc func toggleBoldface(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapBoldface(self)
+    }
+
+    @objc func toggleItalics(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapItalics(self)
+    }
+
+    @objc func toggleCitation(menuItem: UIMenuItem) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapCitation(self)
+    }
+
+    override func selectAll(_ sender: Any?) {
+        menuItemsDelegate?.sectionEditorWebViewDidTapSelectAll(self)
     }
 
     // MARK: Input accessory view
