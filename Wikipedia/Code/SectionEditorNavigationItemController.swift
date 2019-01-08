@@ -120,6 +120,8 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
             undoButton.isEnabled = true
         case .redo:
             redoButton.isEnabled = true
+        case .progress(let changesMade):
+            progressButton.isEnabled = changesMade
         default:
             break
         }

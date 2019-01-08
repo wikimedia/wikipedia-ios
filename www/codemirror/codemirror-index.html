@@ -344,9 +344,14 @@
       ))
      
       const historySize = doc.historySize()
-      if (historySize.undo > 1) {
+      
+      const changesMade = historySize.undo > 1
+      if (changesMade) {
         result.push(buttonPayload('undo'))
       }
+
+      result.push(buttonPayload('changesMade', {changesMade: changesMade}))
+
       if (historySize.redo > 0) {
         result.push(buttonPayload('redo'))
       }
