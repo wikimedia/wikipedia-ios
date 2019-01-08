@@ -75,7 +75,7 @@ enum WikidataPublishingError: LocalizedError {
             "format": "json",
             "formatversion": "2"]
 
-        let languageCodeComponents = configuration.mediaWikiAPIURForWikiLanguage(language, with: languageCodeParameters)
+        let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(language, with: languageCodeParameters)
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, response, authorized, error) in
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
             let queryParameters = ["action": "wbsetdescription",
