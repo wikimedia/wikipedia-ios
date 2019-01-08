@@ -70,7 +70,7 @@
                                                 <constraint firstItem="y41-nM-tJB" firstAttribute="centerY" secondItem="KDq-jx-cUC" secondAttribute="centerY" id="bKS-fc-JHo"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUd-rt-UEE" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                        <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUd-rt-UEE" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="169.5" y="0.0" width="14" height="44"/>
                                             <state key="normal" image="text-formatting-add-citation"/>
                                             <connections>
