@@ -10,7 +10,6 @@ class SectionEditorViewController: UIViewController {
     @objc var section: MWKSection?
 
     private var webView: SectionEditorWebView!
-    private var webViewCoverView: UIView?
 
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -136,9 +135,6 @@ class SectionEditorViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         let schemeHandler = WMFURLSchemeHandler.shared()
         configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
-        
-        let coverView = UIView()
-        coverView.backgroundColor = theme.colors.paperBackground
 
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
@@ -158,8 +154,7 @@ class SectionEditorViewController: UIViewController {
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
-        webView.wmf_addSubviewWithConstraintsToEdges(coverView)
-        webViewCoverView = coverView
+        webView.isHidden = true // hidden until wikitext is set
 
         inputViewsController = SectionEditorInputViewsController(webView: webView, messagingController: messagingController)
         webView.inputViewsSource = inputViewsController
@@ -188,8 +183,8 @@ class SectionEditorViewController: UIViewController {
                 assertionFailure(error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
-                    self?.webViewCoverView?.removeFromSuperview()
                     self?.messagingController.focus()
+                    self?.webView.isHidden = false
                     // TODO: Remove
                     self?.progressButton.isEnabled = true
                 }
