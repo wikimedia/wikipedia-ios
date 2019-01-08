@@ -55,7 +55,7 @@ for language in languages {
         guard let response = response else {
             return
         }
-        let outputComponents = pathComponents + ["Wikipedia", "assets", "mediawiki-extensions-CodeMirror", "config", "codemirror-config-\(language.code).json"]
+        let outputComponents = pathComponents + ["Wikipedia", "assets", "codemirror", "config", "codemirror-config-\(language.code).json"]
         let outputPath = outputComponents.joined(separator: "/")
         try! response.write(to: URL(fileURLWithPath: outputPath), atomically: true, encoding: .utf8)
     }
