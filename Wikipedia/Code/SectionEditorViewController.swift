@@ -14,6 +14,7 @@ class SectionEditorViewController: UIViewController {
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
     private var menuItemsController: SectionEditorMenuItemsController!
+    private var navigationItemController: SectionEditorNavigationItemController!
 
     private var theme = Theme.standard
     
@@ -29,58 +30,6 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    // MARK: - Bar buttons
-
-    private class BarButtonItem: UIBarButtonItem, Themeable {
-        var tintColorKeyPath: KeyPath<Theme, UIColor>?
-
-        convenience init(title: String?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
-            self.init(title: title, style: style, target: target, action: action)
-            self.tintColorKeyPath = tintColorKeyPath
-        }
-
-        convenience init(image: UIImage?, style: UIBarButtonItem.Style, target: Any?, action: Selector?, tintColorKeyPath: KeyPath<Theme, UIColor>) {
-            let button = UIButton(type: .system)
-            button.setImage(image, for: .normal)
-            if let target = target, let action = action {
-                button.addTarget(target, action: action, for: .touchUpInside)
-            }
-            self.init(customView: button)
-            self.tintColorKeyPath = tintColorKeyPath
-        }
-        
-        func apply(theme: Theme) {
-            guard let tintColorKeyPath = tintColorKeyPath else {
-                return
-            }
-            let newTintColor = theme[keyPath: tintColorKeyPath]
-            if customView == nil {
-                tintColor = newTintColor
-            } else if let button = customView as? UIButton {
-                button.tintColor = newTintColor
-            }
-        }
-    }
-
-    // TODO: Enable/disable
-    private lazy var progressButton: BarButtonItem = {
-        return BarButtonItem(title: CommonStrings.nextTitle, style: .done, target: self, action: #selector(progress(_:)), tintColorKeyPath: \Theme.colors.link)
-    }()
-
-    private lazy var redoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "redo"), style: .plain, target: self, action: #selector(redo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
-    }()
-
-    private lazy var undoButton: BarButtonItem = {
-        return BarButtonItem(image: #imageLiteral(resourceName: "undo"), style: .plain, target: self, action: #selector(undo(_ :)), tintColorKeyPath: \Theme.colors.primaryText)
-    }()
-
-    private lazy var separatorButton: BarButtonItem = {
-        let button = BarButtonItem(image: #imageLiteral(resourceName: "separator"), style: .plain, target: nil, action: nil, tintColorKeyPath: \Theme.colors.chromeText)
-        button.isEnabled = false
-        return button
-    }()
-
     // TODO
     private var changesMade: Bool {
         return true
@@ -90,39 +39,20 @@ class SectionEditorViewController: UIViewController {
         super.viewDidLoad()
         loadWikitext()
 
-        configureNavigationButtonItems()
+        navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
+        navigationItemController.delegate = self
+
         configureWebView()
         apply(theme: theme)
 
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
     }
 
-    private func configureNavigationButtonItems() {
-        let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
-        closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
-
-        navigationItem.leftBarButtonItem = closeButton
-
-        navigationItem.rightBarButtonItems = [
-            progressButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
-            separatorButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
-            redoButton,
-            UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
-            undoButton
-        ]
-
-        progressButton.isEnabled = false
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        progressButton.isEnabled = changesMade
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        progressButton.isEnabled = false
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
         super.viewWillDisappear(animated)
     }
@@ -185,8 +115,6 @@ class SectionEditorViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.messagingController.focus()
                     self?.webView.isHidden = false
-                    // TODO: Remove
-                    self?.progressButton.isEnabled = true
                 }
             }
         }
@@ -222,21 +150,16 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    // MARK: - Navigation actions
+    // MARK: - Accessibility
 
-    @objc private func close(_ sender: UIBarButtonItem) {
-        delegate?.sectionEditorDidFinishEditing(self, withChanges: false)
+    override func accessibilityPerformEscape() -> Bool {
+        navigationController?.popViewController(animated: true)
+        return true
     }
+}
 
-    @objc private func undo(_ sender: UIBarButtonItem) {
-        messagingController.undo()
-    }
-
-    @objc private func redo(_ sender: UIBarButtonItem) {
-        messagingController.redo()
-    }
-
-    @objc private func progress(_ sender: UIBarButtonItem) {
+extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         if changesMade {
             messagingController.getWikitext { (result, error) in
                 if let error = error {
@@ -260,32 +183,29 @@ class SectionEditorViewController: UIViewController {
         }
     }
 
-    // MARK: - Accessibility
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapCloseButton closeButton: UIBarButtonItem) {
+        delegate?.sectionEditorDidFinishEditing(self, withChanges: true) // TODO
+    }
 
-    override func accessibilityPerformEscape() -> Bool {
-        navigationController?.popViewController(animated: true)
-        return true
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapUndoButton undoButton: UIBarButtonItem) {
+        messagingController.undo()
+    }
+
+    func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapRedoButton redoButton: UIBarButtonItem) {
+        messagingController.redo()
     }
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerTextSelectionDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool) {
-        undoButton.isEnabled = false
-        redoButton.isEnabled = false
+        navigationItemController.textSelectionDidChange(isRangeSelected: isRangeSelected)
         inputViewsController.textSelectionDidChange(isRangeSelected: isRangeSelected)
     }
 }
 
 extension SectionEditorViewController: SectionEditorWebViewMessagingControllerButtonSelectionDelegate {
     func sectionEditorWebViewMessagingControllerDidReceiveButtonSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorWebViewMessagingController.Button) {
-        switch button.kind {
-        case .undo:
-            undoButton.isEnabled = true
-        case .redo:
-            redoButton.isEnabled = true
-        default:
-            break
-        }
+        navigationItemController.buttonSelectionDidChange(button: button)
         inputViewsController.buttonSelectionDidChange(button: button)
     }
 }
@@ -361,12 +281,7 @@ extension SectionEditorViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         webView.apply(theme: theme)
-        for case let barButonItem as BarButtonItem in navigationItem.rightBarButtonItems ?? [] {
-            barButonItem.apply(theme: theme)
-        }
-        for case let barButonItem as BarButtonItem in navigationItem.leftBarButtonItems ?? [] {
-            barButonItem.apply(theme: theme)
-        }
+        navigationItemController.apply(theme: theme)
     }
 }
 
