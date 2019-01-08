@@ -10,7 +10,7 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
     weak var buttonSelectionDelegate: SectionEditorWebViewMessagingControllerButtonSelectionDelegate?
     weak var textSelectionDelegate: SectionEditorWebViewMessagingControllerTextSelectionDelegate?
 
-    var webView: WKWebView!
+    weak var webView: WKWebView!
 
     // MARK: - Receiving messages
 
