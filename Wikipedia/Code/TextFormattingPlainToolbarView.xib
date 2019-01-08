@@ -32,7 +32,7 @@
                                 <action selector="toggleItalicsWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="wvq-1R-lLP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="9" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tha-bd-cfK" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                        <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tha-bd-cfK" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                             <rect key="frame" x="117.5" y="0.0" width="14" height="45"/>
                             <state key="normal" image="text-formatting-add-citation"/>
                             <connections>
