@@ -9,11 +9,23 @@ class SectionEditorViewController: UIViewController {
 
     @objc var section: MWKSection?
 
-    private var webView: SectionEditorWebViewWithEditToolbar!
+    private var webView: SectionEditorWebView!
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
 
     private var theme = Theme.standard
+    
+    private var wikitext: String? {
+        didSet {
+            setWikitextToWebViewIfReady()
+        }
+    }
+    
+    private var isCodemirrorReady: Bool = false {
+        didSet {
+            setWikitextToWebViewIfReady()
+        }
+    }
 
     // MARK: - Bar buttons
 
@@ -74,6 +86,8 @@ class SectionEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadWikitext()
+
         configureNavigationButtonItems()
         configureWebView()
 
@@ -117,25 +131,79 @@ class SectionEditorViewController: UIViewController {
     }
 
     private func configureWebView() {
+        guard let language = section?.article?.url.wmf_language else {
+            return
+        }
+        
         let configuration = WKWebViewConfiguration()
-        configuration.setURLSchemeHandler(WMFURLSchemeHandler.shared(), forURLScheme: WMFURLSchemeHandlerScheme)
+        let schemeHandler = WMFURLSchemeHandler.shared()
+        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: WMFURLSchemeHandlerScheme)
 
         let contentController = WKUserContentController()
         messagingController = SectionEditorWebViewMessagingController()
         messagingController.textSelectionDelegate = self
         messagingController.buttonSelectionDelegate = self
+        let setupUserScript = CodemirrorSetupUserScript(language: language, theme: theme) { [weak self] in
+            self?.isCodemirrorReady = true
+        }
+        
+        contentController.addUserScript(setupUserScript)
+        contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
+        
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.selectionChanged)
         contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.highlightTheseButtons)
+
         configuration.userContentController = contentController
-        webView = SectionEditorWebViewWithEditToolbar(frame: .zero, configuration: configuration)
+        webView = SectionEditorWebView(frame: .zero, configuration: configuration)
 
         webView.navigationDelegate = self
+        webView.isHidden = true // hidden until wikitext is set
 
         inputViewsController = SectionEditorInputViewsController(webView: webView)
         webView.inputViewsSource = inputViewsController
 
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.wmf_addSubviewWithConstraintsToEdges(webView)
+        
+        let url = schemeHandler.appSchemeURL(forRelativeFilePath: "mediawiki-extensions-CodeMirror/codemirror-index.html", fragment: "top")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: WKWebViewLoadAssetsHTMLRequestTimeout)
+        webView.load(request)
+    }
+
+    private func setWikitextToWebViewIfReady() {
+        assert(Thread.isMainThread)
+        guard isCodemirrorReady, let wikitext = wikitext else {
+            return
+        }
+        setWikitextToWebView(wikitext) { [weak self] (error) in
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            } else {
+                DispatchQueue.main.async {
+                    self?.webView.isHidden = false
+                    self?.webView.focus()
+                    // TODO: Remove
+                    self?.progressButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
+    func setWikitextToWebView(_ wikitext: String, completionHandler: ((Error?) -> Void)? = nil) {
+        // Can use ES6 backticks ` now instead of 'wmf_stringBySanitizingForJavaScript' with apostrophes.
+        // Doing so means we *only* have to escape backticks instead of apostrophes, quotes and line breaks.
+        // (May consider switching other native-to-JS messaging to do same later.)
+        let escapedWikitext = wikitext.replacingOccurrences(of: "`", with: "\\`", options: .literal, range: nil)
+        webView.evaluateJavaScript("window.wmf.setWikitext(`\(escapedWikitext)`);") { (_, error) in
+            guard let completionHandler = completionHandler else {
+                return
+            }
+            completionHandler(error)
+        }
+    }
+    
+    @objc func getWikitext(completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        webView.evaluateJavaScript("window.wmf.getWikitext();", completionHandler: completionHandler)
     }
 
     private func loadWikitext() {
@@ -167,7 +235,7 @@ class SectionEditorViewController: UIViewController {
 
     @objc private func progress(_ sender: UIBarButtonItem) {
         if changesMade {
-            webView.getWikitext { (result, error) in
+            getWikitext { (result, error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
                     return
@@ -223,7 +291,6 @@ extension SectionEditorViewController: SectionEditorWebViewMessagingControllerBu
 
 extension SectionEditorViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        loadWikitext()
     }
 }
 
@@ -272,17 +339,8 @@ extension SectionEditorViewController: FetchFinishedDelegate {
             } else {
                 WMFAlertManager.sharedInstance.dismissAlert()
             }
-
-            self.webView.setup(wikitext: revision) { (error) in
-                if let error = error {
-                    assertionFailure(error.localizedDescription)
-                } else {
-                    DispatchQueue.main.async {
-                        self.webView.focus()
-                        // TODO: Remove
-                        self.progressButton.isEnabled = true
-                    }
-                }
+            DispatchQueue.main.async {
+                self.wikitext = revision
             }
         case .FETCH_FINAL_STATUS_CANCELLED:
             fallthrough
@@ -294,8 +352,8 @@ extension SectionEditorViewController: FetchFinishedDelegate {
 
 extension SectionEditorViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground

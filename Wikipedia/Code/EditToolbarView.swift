@@ -1,5 +1,5 @@
 class EditToolbarView: UIView, TextFormattingButtonsProviding {
-    var delegate: TextFormattingDelegate?
+    weak var delegate: TextFormattingDelegate?
     
     @IBOutlet var separatorViews: [UIView] = []
     @IBOutlet var buttons: [TextFormattingButton] = []

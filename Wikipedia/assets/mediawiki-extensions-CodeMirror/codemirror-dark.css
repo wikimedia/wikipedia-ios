@@ -1,11 +1,11 @@
-body, .CodeMirror {
-  background-color: #000;
+html, body, .CodeMirror {
+  background-color: #2E3136;
   color: #FFF;
 }
 
 .CodeMirror-gutters {
-  background-color: #000;
-  border-right: 4px solid #000;
+  background-color: #2E3136;
+  border-right: 4px solid #2E3136;
 }
 
 .CodeMirror-linenumber {

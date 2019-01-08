@@ -1,20 +1,20 @@
 html, body, .CodeMirror {
-  background-color: #FFF;
-  color: #222;
+  background-color: #000;
+  color: #FFF;
 }
 
 .CodeMirror-gutters {
-  background-color: #FFF;
-  border-right: 4px solid #FFF;
+  background-color: #000;
+  border-right: 4px solid #000;
 }
 
 .CodeMirror-linenumber {
-  color: #72777D;
+  color: #C8CCD1;
   font-size: 0.8em;
 }
 
 .cm-mw-template {
-  color: #222; /* plain text color */
+  color: #FFF; /* plain text color */
 }
 
 .cm-mw-link,
@@ -30,7 +30,7 @@ html, body, .CodeMirror {
 .cm-mw-doubleUnderscore,
 .cm-mw-signature,
 .cm-mw-hr {
-  color: #36C;
+  color: #6699FF;
   font-weight: normal;
 }
 
@@ -48,13 +48,13 @@ html, body, .CodeMirror {
 .cm-mw-parserfunction-name,
 .cm-mw-parserfunction-bracket,
 .cm-mw-parserfunction-delimiter { 
-  color: #B32424;
+  color: #FF6E6E;
 }
 
 .cm-mw-table-bracket,
 .cm-mw-table-delimiter,
 .cm-mw-table-definition { 
-  color: #E6275d; 
+  color: #E6175D; 
   font-weight: normal; 
 }
 
@@ -62,7 +62,7 @@ html, body, .CodeMirror {
 .cm-mw-template-argument-name,
 .cm-mw-template-delimiter,
 .cm-mw-template-bracket  {
-  color: #97498F;
+  color: #C180BB;
   font-weight: normal;
 }
 
@@ -85,5 +85,5 @@ html, body, .CodeMirror {
 
 .cm-mw-comment,
 .cm-mw-skipformatting {
-  color: #72777D;
+  color: #C8CCD1;
 }
