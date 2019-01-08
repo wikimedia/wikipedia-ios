@@ -508,7 +508,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Tema claro";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Tema sepia";
 "reading-themes-controls-accessibility-text-size-slider" = "Cursor de tamaño do texto";
-"reference-title" = "Referenza $1";
+"reference-title" = "Referencia $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hoxe|Onte|Hai $1 días}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|Hai $1 hora|Hai $1 horas}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Xusto agora|Hai $1 minuto|Hai $1 minutos}}";

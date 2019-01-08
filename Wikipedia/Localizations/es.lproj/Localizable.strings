@@ -401,6 +401,9 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Recién|Hace $1 minuto|Hace $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Este año|El año pasado|Hace $1 años}}";
 "request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
+"reverted-edit-notification-read-more-action-title" = "Leer más";
+"reverted-edit-thanks-for-editing-title" = "¡Gracias por editar Wikipedia!";
+"reverted-edit-title" = "Edición revertida";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
