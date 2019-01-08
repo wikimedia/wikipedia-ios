@@ -379,7 +379,10 @@
           // t.b.d.
         }, 
         inputStyle: 'contenteditable',
+        autocorrect: true,
+        autocapitalize: true,
         spellcheck: false,
+        preventDefaultOnKeyPress: false,
         viewportMargin: Infinity
       }
       editor = CodeMirror(document.body, codeMirrorSettings)

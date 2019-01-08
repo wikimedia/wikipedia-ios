@@ -85,15 +85,15 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '../Carthage/Checkouts/mediawiki-extensions-CodeMirror/resources/',
+            cwd: '../Carthage/Checkouts/wikipedia-ios-codemirror/resources/',
             src: ['**'],
-            dest: `${distFolder}mediawiki-extensions-CodeMirror/resources/`
+            dest: `${distFolder}codemirror/resources/`
           },
           {
             expand: true,
             cwd: 'codemirror/',
             src: ['**'],
-            dest: `${distFolder}mediawiki-extensions-CodeMirror/`
+            dest: `${distFolder}codemirror/`
           }
         ]
       }
