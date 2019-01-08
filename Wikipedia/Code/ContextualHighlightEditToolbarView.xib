@@ -57,7 +57,7 @@
                                             <rect key="frame" x="150" y="0.0" width="3" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y41-nM-tJB">
-                                                    <rect key="frame" x="1" y="10" width="1" height="24"/>
+                                                    <rect key="frame" x="1" y="11" width="1" height="22"/>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="ZO2-XE-cig"/>
@@ -67,9 +67,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="3" id="Ijk-1N-J54"/>
                                                 <constraint firstItem="y41-nM-tJB" firstAttribute="centerX" secondItem="KDq-jx-cUC" secondAttribute="centerX" id="Skw-tB-NMG"/>
-                                                <constraint firstItem="y41-nM-tJB" firstAttribute="top" secondItem="KDq-jx-cUC" secondAttribute="top" constant="10" id="aKn-Rf-riB"/>
                                                 <constraint firstItem="y41-nM-tJB" firstAttribute="centerY" secondItem="KDq-jx-cUC" secondAttribute="centerY" id="bKS-fc-JHo"/>
-                                                <constraint firstAttribute="bottom" secondItem="y41-nM-tJB" secondAttribute="bottom" constant="10" id="pXS-z8-iIN"/>
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUd-rt-UEE" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
@@ -90,7 +88,7 @@
                                             <rect key="frame" x="235.5" y="0.0" width="3" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-ps-pge">
-                                                    <rect key="frame" x="1" y="10" width="1" height="24"/>
+                                                    <rect key="frame" x="1" y="11" width="1" height="22"/>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="DLq-qn-7hD"/>
@@ -99,8 +97,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="a6D-ps-pge" firstAttribute="centerY" secondItem="lIb-q6-29d" secondAttribute="centerY" id="FaR-2J-mfb"/>
-                                                <constraint firstAttribute="bottom" secondItem="a6D-ps-pge" secondAttribute="bottom" constant="10" id="PqH-Tv-Ac0"/>
-                                                <constraint firstItem="a6D-ps-pge" firstAttribute="top" secondItem="lIb-q6-29d" secondAttribute="top" constant="10" id="STv-vk-b2o"/>
                                                 <constraint firstItem="a6D-ps-pge" firstAttribute="centerX" secondItem="lIb-q6-29d" secondAttribute="centerX" id="Zci-ch-bDn"/>
                                                 <constraint firstAttribute="width" constant="3" id="zlX-g8-9MR"/>
                                             </constraints>
@@ -127,6 +123,10 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="y41-nM-tJB" firstAttribute="height" secondItem="cO2-kj-WCI" secondAttribute="height" multiplier="0.5" id="pXx-Rz-8Ax"/>
+                                        <constraint firstItem="a6D-ps-pge" firstAttribute="height" secondItem="y41-nM-tJB" secondAttribute="height" id="wUd-it-fWR"/>
+                                    </constraints>
                                 </stackView>
                             </subviews>
                             <constraints>
