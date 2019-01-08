@@ -107,6 +107,19 @@ public class Configuration: NSObject {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
         return builder.components(queryParameters: queryParameters)
     }
+    
+    public func mediaWikiAPIURForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+        guard let wikiLanguage = wikiLanguage else {
+            return mediaWikiAPIURForHost(nil, with: queryParameters)
+        }
+        let host = "\(wikiLanguage).\(Domain.wikipedia)"
+        return mediaWikiAPIURForHost(host, with: queryParameters)
+    }
+    
+    public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
+        let builder = mediaWikiAPIURLComponentsBuilderForHost("www.\(Domain.wikidata)")
+        return builder.components(queryParameters: queryParameters)
+    }
 
     @objc public static let current: Configuration = {
         switch Stage.current {
