@@ -97,7 +97,8 @@ extension SectionEditorInputViewsController: TextFormattingDelegate {
     }
 
     func textFormattingProvidingDidTapMore() {
-        //
+        inputViewType = .textFormatting
+        inputAccessoryViewType = nil
     }
 
     func textFormattingProvidingDidTapCursorUp() {
