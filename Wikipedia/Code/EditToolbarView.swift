@@ -26,5 +26,8 @@ extension EditToolbarView: Themeable {
         tintColor = theme.colors.link
         layer.shadowColor = theme.colors.shadow.cgColor
         separatorViews.forEach { $0.backgroundColor = theme.colors.border }
+        for button in buttons {
+            button.imageView?.tintColor = theme.colors.primaryText
+        }
     }
 }
