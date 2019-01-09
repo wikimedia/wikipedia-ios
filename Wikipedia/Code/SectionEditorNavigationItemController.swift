@@ -6,7 +6,7 @@ protocol SectionEditorNavigationItemControllerDelegate: class {
 }
 
 class SectionEditorNavigationItemController: NSObject, Themeable {
-    private let navigationItem: UINavigationItem
+    weak var navigationItem: UINavigationItem?
 
     init(navigationItem: UINavigationItem) {
         self.navigationItem = navigationItem
@@ -15,10 +15,10 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
     }
 
     func apply(theme: Theme) {
-        for case let barButonItem as BarButtonItem in navigationItem.rightBarButtonItems ?? [] {
+        for case let barButonItem as BarButtonItem in navigationItem?.rightBarButtonItems ?? [] {
             barButonItem.apply(theme: theme)
         }
-        for case let barButonItem as BarButtonItem in navigationItem.leftBarButtonItems ?? [] {
+        for case let barButonItem as BarButtonItem in navigationItem?.leftBarButtonItems ?? [] {
             barButonItem.apply(theme: theme)
         }
     }
@@ -94,9 +94,9 @@ class SectionEditorNavigationItemController: NSObject, Themeable {
         let closeButton = BarButtonItem(image: #imageLiteral(resourceName: "close"), style: .plain, target: self, action: #selector(close(_ :)), tintColorKeyPath: \Theme.colors.chromeText)
         closeButton.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        navigationItem.leftBarButtonItem = closeButton
+        navigationItem?.leftBarButtonItem = closeButton
 
-        navigationItem.rightBarButtonItems = [
+        navigationItem?.rightBarButtonItems = [
             progressButton,
             UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 20),
             separatorButton,
