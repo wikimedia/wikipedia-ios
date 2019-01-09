@@ -1,10 +1,9 @@
-
-// TODO: theme all the buttons
-class TextFormattingButton: UIButton {
+class TextFormattingButton: UIButton, Themeable {
+    var theme: Theme = Theme.standard
+    
     override var isSelected: Bool {
         didSet{
-            self.tintColor = self.isSelected ? .black : .darkGray
-            self.backgroundColor = self.isSelected ? UIColor(0xC8CCD1) : .clear
+            updateColors()
         }
     }
     
@@ -20,5 +19,15 @@ class TextFormattingButton: UIButton {
             let superSize = super.intrinsicContentSize
             return CGSize(width: max(superSize.width, 35), height: superSize.height)
         }
+    }
+    
+    private func updateColors() {
+        self.tintColor = self.isSelected ? theme.colors.primaryText : theme.colors.secondaryText
+        self.backgroundColor = self.isSelected ? theme.colors.midBackground : .clear
+    }
+    
+    func apply(theme: Theme) {
+        self.theme = theme
+        updateColors()
     }
 }

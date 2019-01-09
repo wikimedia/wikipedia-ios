@@ -43,7 +43,7 @@ class TextFormattingInputViewController: UIInputViewController {
         }
     }
 
-    private func rootViewController(for type: InputViewType) -> UIViewController {
+    private func rootViewController(for type: InputViewType) -> UIViewController & Themeable {
         var viewController: TextFormattingProvidingTableViewController
 
         switch type {
@@ -52,15 +52,13 @@ class TextFormattingInputViewController: UIInputViewController {
         case .textStyle:
             viewController = textStyleFormattingTableViewController
         }
-        viewController.apply(theme: theme)
         return viewController
     }
 
-    private lazy var embeddedNavigationController: UINavigationController = {
+    private lazy var embeddedNavigationController: WMFThemeableNavigationController = {
         let viewController = rootViewController(for: inputViewType)
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let navigationController = WMFThemeableNavigationController(rootViewController: viewController, theme: theme)
         navigationController.navigationBar.isTranslucent = false
-
         return navigationController
     }()
 
@@ -100,8 +98,10 @@ class TextFormattingInputViewController: UIInputViewController {
 
 extension TextFormattingInputViewController: Themeable {
     func apply(theme: Theme) {
+        self.theme = theme
+        textStyleFormattingTableViewController.apply(theme: theme)
+        textFormattingTableViewController.apply(theme: theme)
         guard viewIfLoaded != nil else {
-            self.theme = theme
             return
         }
         view.backgroundColor = theme.colors.paperBackground
