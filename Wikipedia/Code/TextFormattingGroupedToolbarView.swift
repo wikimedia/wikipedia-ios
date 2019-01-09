@@ -1,4 +1,7 @@
 class TextFormattingGroupedToolbarView: TextFormattingToolbarView {
+    
+    @IBOutlet var separators: [UIView]!
+    
     @IBAction private func increaseIndent(sender: UIButton) {
         delegate?.textFormattingProvidingDidTapIncreaseIndent()
     }
@@ -22,5 +25,12 @@ class TextFormattingGroupedToolbarView: TextFormattingToolbarView {
     }
     @IBAction private func toggleStrikethrough(sender: UIButton) {
         delegate?.textFormattingProvidingDidTapStrikethrough()
+    }
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        for separator in separators {
+            separator.backgroundColor = theme.colors.border
+        }
     }
 }

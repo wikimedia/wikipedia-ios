@@ -6,6 +6,9 @@ class TextFormattingToolbarView: UIView, TextFormattingButtonsProviding {
 
 extension TextFormattingToolbarView: Themeable {
     func apply(theme: Theme) {
-        //
+        backgroundColor = theme.colors.paperBackground
+        for button in buttons {
+            button.apply(theme: theme)
+        }
     }
 }

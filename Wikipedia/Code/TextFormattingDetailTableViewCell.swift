@@ -9,10 +9,4 @@ class TextFormattingDetailTableViewCell: TextFormattingTableViewCell {
         textLabel?.font = font
         detailTextLabel?.font = font
     }
-
-    override func apply(theme: Theme) {
-        super.apply(theme: theme)
-         textLabel?.textColor = theme.colors.primaryText
-         detailTextLabel?.textColor = theme.colors.primaryText
-    }
 }
