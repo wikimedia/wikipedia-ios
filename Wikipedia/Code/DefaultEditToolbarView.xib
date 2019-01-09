@@ -238,7 +238,7 @@
                                                                         <constraint firstAttribute="bottom" secondItem="OD4-kS-im6" secondAttribute="bottom" constant="10" id="vhG-TA-dpC"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEe-Fs-JAq" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                                                     <rect key="frame" x="137" y="0.0" width="19" height="44"/>
                                                                     <state key="normal" image="dots"/>
                                                                     <connections>
