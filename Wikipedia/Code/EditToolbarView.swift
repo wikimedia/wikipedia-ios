@@ -22,8 +22,12 @@ class EditToolbarView: UIView, TextFormattingButtonsProviding {
 
 extension EditToolbarView: Themeable {
     func apply(theme: Theme) {
-        backgroundColor = theme.colors.midBackground
+        backgroundColor = theme.colors.paperBackground
+        tintColor = theme.colors.link
         layer.shadowColor = theme.colors.shadow.cgColor
         separatorViews.forEach { $0.backgroundColor = theme.colors.border }
+        for button in buttons {
+            button.apply(theme: theme)
+        }
     }
 }

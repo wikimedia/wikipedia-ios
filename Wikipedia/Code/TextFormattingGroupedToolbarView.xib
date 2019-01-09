@@ -138,6 +138,9 @@
                 <outletCollection property="buttons" destination="DP4-MR-ibt" collectionClass="NSMutableArray" id="JEW-zG-D8Z"/>
                 <outletCollection property="buttons" destination="SR0-aa-rb8" collectionClass="NSMutableArray" id="Nsa-1d-f3O"/>
                 <outletCollection property="buttons" destination="Pzf-Y3-YJe" collectionClass="NSMutableArray" id="SJE-mO-v80"/>
+                <outletCollection property="separators" destination="Vzi-Bt-bK5" collectionClass="NSMutableArray" id="isW-Q7-ips"/>
+                <outletCollection property="separators" destination="MBt-uX-0EY" collectionClass="NSMutableArray" id="3el-Gl-jPp"/>
+                <outletCollection property="separators" destination="Xaa-ak-V1F" collectionClass="NSMutableArray" id="xwI-RO-8rQ"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>

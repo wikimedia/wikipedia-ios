@@ -1,8 +1,5 @@
 class SectionEditorWebView: WKWebViewWithSettableInputViews {
     weak var inputViewsSource: SectionEditorInputViewsSource?
-
-    var theme = Theme.standard
-
     weak var menuItemsDataSource: SectionEditorMenuItemsDataSource?
     weak var menuItemsDelegate: SectionEditorMenuItemsDelegate?
 
@@ -53,26 +50,5 @@ class SectionEditorWebView: WKWebViewWithSettableInputViews {
     func setInputAccessoryView(_ inputAccessoryView: UIView?) {
         self.inputAccessoryView = inputAccessoryView
         reloadInputViews()
-    }
-
-    override func reloadInputViews() {
-        themeInputViews(theme: theme)
-        super.reloadInputViews()
-    }
-}
-
-// MARK: Themeable
-
-extension SectionEditorWebView {
-    private func themeInputViews(theme: Theme) {
-        (inputAccessoryView as? Themeable)?.apply(theme: theme)
-        (inputView as? Themeable)?.apply(theme: theme)
-    }
-
-    func apply(theme: Theme) {
-        self.theme = theme
-        scrollView.backgroundColor = theme.colors.baseBackground
-        backgroundColor = theme.colors.baseBackground
-        themeInputViews(theme: theme)
     }
 }

@@ -1,7 +1,7 @@
 class TextSizeFormattingTableViewController: TextFontFormattingTableViewController {
 
     override var titleLabelText: String? {
-        return "Text size"
+        return WMFLocalizedString("edit-text-size-table-view-title", value: "Text size", comment: "Title for text size menu in the editing interface")
     }
 
     private struct Size {
