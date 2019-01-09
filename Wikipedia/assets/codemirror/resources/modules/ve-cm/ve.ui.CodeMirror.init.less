@@ -1,0 +1,85 @@
+.ve-init-mw-desktopArticleTarget {
+	.CodeMirror {
+		height: auto;
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		pointer-events: none;
+		background: transparent;
+
+		// Core VE default padding
+		padding: 1.5em;
+
+		// Skin specific paddings
+		.skin-vector & {
+			padding: 0 1.2em;
+
+			@media screen and ( min-width: 982px ) {
+				padding: 0 1.8em;
+			}
+		}
+
+		.skin-monobook & {
+			padding: 0;
+		}
+
+		.skin-timeless & {
+			padding-left: 2em;
+			padding-right: 2em;
+		}
+	}
+
+	.CodeMirror pre,
+	.CodeMirror-lines {
+		padding: 0;
+	}
+
+	.CodeMirror-scroll {
+		margin-right: 0;
+		overflow: auto !important; /* stylelint-disable-line declaration-no-important */
+	}
+
+	.CodeMirror-sizer {
+		border-right: 0;
+	}
+
+	.CodeMirror pre.cm-mw-section-1,
+	.CodeMirror pre.cm-mw-section-2 {
+		font-size: inherit;
+		line-height: inherit;
+	}
+
+	// Ensure surfaces are using identical font rules
+	.CodeMirror-code,
+	.CodeMirror-code *,
+	.ve-ui-mwWikitextSurface .ve-ce-paragraphNode {
+		// The following are already set by mw-editfont-monospace on the parent: font-size, font-family
+		line-height: 1.5em;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+		word-break: normal;
+		-webkit-hyphens: manual;
+		-moz-hyphens: manual;
+		-ms-hyphens: manual;
+		hyphens: manual;
+		-webkit-font-variant-ligatures: contextual;
+		font-variant-ligatures: contextual;
+
+		// Monospace fonts can change width when bold
+		// stylelint-disable-next-line declaration-no-important
+		font-weight: normal !important;
+	}
+}
+
+.ve-ce-documentNode-codeEditor-hide {
+	opacity: 0.4;
+}
+
+.ve-ce-documentNode-codeEditor-webkit-hide {
+	-webkit-text-fill-color: transparent;
+}

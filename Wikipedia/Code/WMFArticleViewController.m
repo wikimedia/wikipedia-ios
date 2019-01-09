@@ -6,7 +6,6 @@
 
 // Controller
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "SectionEditorViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFLanguagesViewController.h"
 #import "PageHistoryViewController.h"
@@ -81,7 +80,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 @end
 
-@interface WMFArticleViewController () <SectionEditorViewControllerDelegate,
+@interface WMFArticleViewController () <WMFSectionEditorViewControllerDelegate,
                                         UIViewControllerPreviewingDelegate,
                                         WMFLanguagesViewControllerDelegate,
                                         WMFReadingThemesControlsViewControllerDelegate,
@@ -1805,7 +1804,7 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 }
 
 - (void)showEditorForSection:(MWKSection *)section {
-    SectionEditorViewController *sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+    WMFSectionEditorViewController *sectionEditVC = [[WMFSectionEditorViewController alloc] init];
     sectionEditVC.section = section;
     sectionEditVC.delegate = self;
     [self presentViewControllerEmbeddedInNavigationController:sectionEditVC];
@@ -1875,9 +1874,9 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
-#pragma mark - SectionEditorViewControllerDelegate
+#pragma mark - WMFSectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
+- (void)sectionEditorDidFinishEditing:(WMFSectionEditorViewController *)sectionEditorViewController withChanges:(BOOL)didChange {
     self.skipFetchOnViewDidAppear = YES;
     [self dismissViewControllerAnimated:YES completion:NULL];
     if (didChange) {
