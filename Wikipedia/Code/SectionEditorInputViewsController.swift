@@ -2,9 +2,8 @@ protocol SectionEditorInputViewsSource: class {
     var inputViewController: UIInputViewController? { get }
 }
 
-class SectionEditorInputViewsController: SectionEditorInputViewsSource {
+class SectionEditorInputViewsController: SectionEditorInputViewsSource, Themeable {
     let webView: SectionEditorWebView
-
     let messagingController: SectionEditorWebViewMessagingController
 
     let textFormattingInputViewController = TextFormattingInputViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
@@ -66,7 +65,7 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
         }
     }
 
-    private var inputAccessoryView: (UIView & Themeable)? {
+    private var inputAccessoryView: UIView? {
         guard let inputAccessoryViewType = inputAccessoryViewType else {
             return nil
         }
@@ -80,12 +79,18 @@ class SectionEditorInputViewsController: SectionEditorInputViewsSource {
             maybeView = contextualHighlightEditToolbarView
         }
 
-        guard let inputAccessoryView = maybeView as? UIView & Themeable else {
+        guard let inputAccessoryView = maybeView as? UIView else {
             assertionFailure("Couldn't get preferredInputAccessoryView")
             return nil
         }
 
         return inputAccessoryView
+    }
+    
+    func apply(theme: Theme) {
+        textFormattingInputViewController.apply(theme: theme)
+        defaultEditToolbarView?.apply(theme: theme)
+        contextualHighlightEditToolbarView?.apply(theme: theme)
     }
 }
 

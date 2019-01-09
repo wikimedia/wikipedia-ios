@@ -48,6 +48,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             let textStyleFormattingTableViewController = TextStyleFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
             textStyleFormattingTableViewController.delegate = self.delegate
             textStyleFormattingTableViewController.selectedTextStyleType = self.selectedTextStyleType
+            textStyleFormattingTableViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(textStyleFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Style", detailText: selectedTextStyleType.name), onSelection: showTextStyleFormattingTableViewController)
@@ -58,6 +59,7 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
             let textSizeFormattingTableViewController = TextSizeFormattingTableViewController.wmf_viewControllerFromStoryboardNamed("TextFormatting")
             textSizeFormattingTableViewController.delegate = self.delegate
             textSizeFormattingTableViewController.selectedTextSizeType = self.selectedTextSizeType
+            textSizeFormattingTableViewController.apply(theme: self.theme)
             self.navigationController?.pushViewController(textSizeFormattingTableViewController, animated: true)
         }
         return Item(with: Content(type: .detail, title: "Text size", detailText: selectedTextSizeType.name), onSelection: showTextSizeFormattingTableViewController)
@@ -65,30 +67,24 @@ class TextFormattingTableViewController: TextFormattingProvidingTableViewControl
 
     private let textFormattingPlainToolbarView = TextFormattingPlainToolbarView.wmf_viewFromClassNib()
     private let textFormattingGroupedToolbarView = TextFormattingGroupedToolbarView.wmf_viewFromClassNib()
-    private let textFormattingButtonView = TextFormattingButtonView.wmf_viewFromClassNib()
     
     weak override var delegate: TextFormattingDelegate? {
         didSet {
             textFormattingPlainToolbarView?.delegate = delegate
             textFormattingGroupedToolbarView?.delegate = delegate
-            textFormattingButtonView?.delegate = delegate
         }
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        textFormattingButtonView?.buttonTitle = "Clear formatting"
-        textFormattingButtonView?.buttonTitleColor = theme.colors.error
     }
     
     private lazy var staticItems: [Item] = {
         let plainToolbar = Item(with: Content(type: .customView, customView: textFormattingPlainToolbarView))
 
         let groupedToolbar = Item(with: Content(type: .customView, customView: textFormattingGroupedToolbarView))
-
-        let button = Item(with: Content(type: .customView, customView: textFormattingButtonView))
-
-        return [plainToolbar, groupedToolbar, button]
+        
+        return [plainToolbar, groupedToolbar]
     }()
 
     private var items: [Item] {
