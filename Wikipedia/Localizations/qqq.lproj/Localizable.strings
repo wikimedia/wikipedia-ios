@@ -148,6 +148,7 @@
 "edit-summary-choice-other" = "Button text for quick \"other\" edit summary selection.\n{{Identical|Other}}";
 "edit-summary-field-placeholder-text" = "Placeholder text which appears initially in the free-form edit summary text box";
 "edit-summary-title" = "Title for edit summary area of the preview page";
+"edit-text-formatting-table-view-title" = "Title for text formatting menu in the editing interface";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
