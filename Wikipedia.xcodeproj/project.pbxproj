@@ -305,6 +305,11 @@
 		7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
 		7A6F560821AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
 		7A6F560921AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */; };
+		7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
+		7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
+		7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
+		7A73B48521E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
+		7A73B48621E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */; };
 		7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCB207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
 		7A741DCC207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */; };
@@ -3464,6 +3469,7 @@
 		7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Chunked.swift"; path = "../Wikipedia/Code/Array+Chunked.swift"; sourceTree = "<group>"; };
 		7A6F55FE21AF508B0076D184 /* TextFormatting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextFormatting.storyboard; sourceTree = "<group>"; };
 		7A6F560421AF527A0076D184 /* TextFormattingInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingInputViewController.swift; sourceTree = "<group>"; };
+		7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorNavigationItemController.swift; sourceTree = "<group>"; };
 		7A741DC8207FB9CB00CBAAE2 /* SearchBarExtendedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtendedViewController.swift; sourceTree = "<group>"; };
 		7A741DC9207FB9CC00CBAAE2 /* SearchBarExtendedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarExtendedViewController.xib; sourceTree = "<group>"; };
 		7A77B7801F9FCB2500753FF5 /* ArticlePeekPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePeekPreviewViewController.swift; sourceTree = "<group>"; };
@@ -5243,6 +5249,7 @@
 			children = (
 				D818FEBA21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift */,
 				7A7AC84521B6B89B003B849B /* SectionEditorViewController.swift */,
+				7A73B48121E54B4200249E09 /* SectionEditorNavigationItemController.swift */,
 				7AC809C421DD1FE100E8B6E1 /* SectionEditorInputViewsController.swift */,
 				7AF56C3421DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift */,
 				B04AE84B21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift */,
@@ -7764,8 +7771,6 @@
 		D818FEB321E39DFE001A7A00 /* WKWebViewConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				D818FEB421E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift */,
-				D818FEBA21E39EE2001A7A00 /* ThemeUserScript.swift */,
 			);
 			name = WKWebViewConfiguration;
 			sourceTree = "<group>";
@@ -10323,7 +10328,6 @@
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B083375D1DB16A09002860D2 /* WMFWelcomePanelViewController.swift in Sources */,
-				D818FEB521E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				B0379A281D8B747A00D973CF /* WebViewController+WMFReferencePopover.m in Sources */,
 				D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */,
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
@@ -10380,6 +10384,7 @@
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */,
+				7A73B48221E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				B0FFFB2A21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				B0E806E31C0CEB930065EBC0 /* PreviewLicenseView.m in Sources */,
 				B0E806811C0CE9C70065EBC0 /* WMFFixtureRecording.m in Sources */,
@@ -10828,7 +10833,6 @@
 				83AE1C841F34BB5B004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				832289DF1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D80ED3321EE57F4800CE8C50 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D818FEB921E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				D80ED3351EE57F4800CE8C50 /* MenuButton.m in Sources */,
 				7A4B33402136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D80ED3381EE57F4800CE8C50 /* WMFTableOfContentsHeader.swift in Sources */,
@@ -10968,6 +10972,7 @@
 				D80ED3A31EE57F4800CE8C50 /* WMFImageInfoController.m in Sources */,
 				D80ED3A41EE57F4800CE8C50 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBD21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
+				7A73B48621E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D80ED3A51EE57F4800CE8C50 /* ReadingThemesControlsViewController.swift in Sources */,
 				D80ED3A61EE57F4800CE8C50 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C320349B91006A364C /* Collection.swift in Sources */,
@@ -11383,7 +11388,6 @@
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
-				D818FEB821E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8A42A741E815A9C00D8E281 /* WebViewController+WMFReferencePopover.m in Sources */,
 				7A23CED3211A24FF00441A79 /* FeedFunnel.swift in Sources */,
@@ -11440,6 +11444,7 @@
 				D818FEBE21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8A42AA31E815A9C00D8E281 /* MenuLabel.m in Sources */,
 				D8A42AA61E815A9C00D8E281 /* WMFArticleRevisionFetcher.m in Sources */,
+				7A73B48521E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D8A42AA81E815A9C00D8E281 /* PreviewLicenseView.m in Sources */,
@@ -11896,7 +11901,6 @@
 				D8CE25951E698E2400DAE2E0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				832289DC1F7291BA0081A5FB /* SizeThatFitsReusableView.swift in Sources */,
 				D8CE25961E698E2400DAE2E0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
-				D818FEB621E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				BA7683C91F30D87F00A487AA /* ProminentSwitch.swift in Sources */,
 				D8CE25991E698E2400DAE2E0 /* MenuButton.m in Sources */,
 				7A4B333D2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
@@ -12036,6 +12040,7 @@
 				D8CE260F1E698E2400DAE2E0 /* WMFImageInfoController.m in Sources */,
 				D8CE26101E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBA21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
+				7A73B48321E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D8CE26111E698E2400DAE2E0 /* ReadingThemesControlsViewController.swift in Sources */,
 				D8CE26121E698E2400DAE2E0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C020349B91006A364C /* Collection.swift in Sources */,
@@ -12248,7 +12253,6 @@
 				D8EC3E901E9BDA35006712EB /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				D8EC3E911E9BDA35006712EB /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				D8EC3E941E9BDA35006712EB /* MenuButton.m in Sources */,
-				D818FEB721E39E13001A7A00 /* ImmediateBackgroundColorUserScript.swift in Sources */,
 				D8EC3E971E9BDA35006712EB /* WMFTableOfContentsHeader.swift in Sources */,
 				7A4B333E2136EDED00C6C820 /* UnderlineButton.swift in Sources */,
 				D8C4D3DA1FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
@@ -12388,6 +12392,7 @@
 				D8EC3F0E1E9BDA35006712EB /* WMFImageInfoController.m in Sources */,
 				D8EC3F0F1E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				B0016CBB21354D9D00FA1096 /* AutoLayoutSafeMultiLineButton.swift in Sources */,
+				7A73B48421E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D8EC3F101E9BDA35006712EB /* ReadingThemesControlsViewController.swift in Sources */,
 				D8EC3F111E9BDA35006712EB /* WMFTableOfContentsPresentationController.swift in Sources */,
 				7ABAD6C120349B91006A364C /* Collection.swift in Sources */,

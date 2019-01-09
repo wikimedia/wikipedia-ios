@@ -58,7 +58,9 @@ class SectionEditorWebViewMessagingController: NSObject, WKScriptMessageHandler 
 
         let ordered = info[Button.Info.ordered] as? Bool
 
-        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered)
+        let changesMade = info[Button.Info.changesMade] as? Bool
+
+        return Button.Info(textStyleType: textStyleType, textSizeType: textSizeType, ordered: ordered, changesMade: changesMade)
     }
 
     // MARK: - Sending messages
@@ -272,6 +274,7 @@ extension SectionEditorWebViewMessagingController {
             case `subscript`
             case underline
             case strikethrough
+            case progress(Bool)
 
             var identifier: Int? {
                 switch self {
@@ -323,6 +326,8 @@ extension SectionEditorWebViewMessagingController {
                     self = .heading(type: textStyleType)
                 } else if rawValue == "textSize", let textSizeType = info?.textSizeType {
                     self = .textSize(type: textSizeType)
+                } else if rawValue == "changesMade", let changesMade = info?.changesMade {
+                    self = .progress(changesMade)
                 } else {
                     switch rawValue {
                     case "indent":
@@ -365,11 +370,12 @@ extension SectionEditorWebViewMessagingController {
             static let ordered = "ordered"
             static let depth = "depth"
             static let size = "size"
+            static let changesMade = "changesMade"
 
             let textStyleType: TextStyleType?
             let textSizeType: TextSizeType?
             let ordered: Bool?
-
+            let changesMade: Bool?
         }
         let kind: Kind
     }
