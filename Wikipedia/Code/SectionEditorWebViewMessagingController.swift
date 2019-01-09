@@ -275,6 +275,8 @@ extension SectionEditorWebViewMessagingController {
             case underline
             case strikethrough
             case progress(Bool)
+            case decreaseIndentDepth
+            case increaseIndentDepth
 
             var identifier: Int? {
                 switch self {
@@ -314,6 +316,10 @@ extension SectionEditorWebViewMessagingController {
                     return 19
                 case .strikethrough:
                     return 20
+                case .decreaseIndentDepth:
+                    return 21
+                case .increaseIndentDepth:
+                    return 22
                 default:
                     return nil
                 }
@@ -360,6 +366,10 @@ extension SectionEditorWebViewMessagingController {
                         self = .underline
                     case "strikethrough":
                         self = .strikethrough
+                    case "decreaseIndentDepth":
+                        self = .decreaseIndentDepth
+                    case "increaseIndentDepth":
+                        self = .increaseIndentDepth
                     default:
                         return nil
                     }
