@@ -101,14 +101,14 @@
                                                 <constraint firstAttribute="width" constant="3" id="zlX-g8-9MR"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ze-dhb" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ze-dhb" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="254.5" y="0.0" width="18" height="44"/>
                                             <state key="normal" image="text-formatting-unordered-list"/>
                                             <connections>
                                                 <action selector="toggleUnorderedListSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="fnY-ux-uBx"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-Wi-ngX" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-Wi-ngX" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
                                             <rect key="frame" x="289.5" y="0.0" width="18" height="44"/>
                                             <state key="normal" image="text-formatting-ordered-list"/>
                                             <connections>
