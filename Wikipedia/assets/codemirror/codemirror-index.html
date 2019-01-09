@@ -75,7 +75,6 @@
       const lineTokens = doc.getLineTokens(line, true)
 
       enrichHeadingTokens(lineTokens)      
-      enrichListTokens(lineTokens)
       enrichIndentTokens(lineTokens)
       enrichSignatureTokens(lineTokens)
       
@@ -122,20 +121,6 @@
       return lineTokens.filter((token, thisIndex) => thisIndex >= index)
     }
     
-    const enrichListTokens = (lineTokens) => {
-      const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-list')
-      if (soughtTokenIndex < 0) {
-        return
-      }      
-      const soughtToken = lineTokens[soughtTokenIndex]
-      const supplementToken = (token) => {
-        addTypeToToken(token, `mw-list-depth-${soughtToken.end}`)
-        addTypeToToken(token, soughtToken.string.includes('#') ? `mw-list-ordered` : `mw-list-unordered`)
-      }
-      lineTokensFromTokenAtIndex(lineTokens, soughtTokenIndex)
-        .forEach(supplementToken)
-    }
-
     const enrichIndentTokens = (lineTokens) => {
       const soughtTokenIndex = indexOfFirstLineTokenWithType(lineTokens, 'mw-indenting')
       if (soughtTokenIndex < 0) {
@@ -250,8 +235,10 @@
       return tagRanges.filter(isTagRangeComplete)
     }
 
-
-
+    const countOcurrences = (str, value) => {
+      const regExp = new RegExp(value, 'gi')
+      return str.match(regExp) ? str.match(regExp).length : 0
+    }
 
     const selectedButtons = (doc) => {  
       const selection = doc.getSelection()
@@ -321,11 +308,7 @@
         const depth = numberFromPrefixedKey(typesArray, 'mw-section-header-depth-')
         result.push(buttonPayload('heading', {depth: depth}))
       }
-      if (typesArray.includes('mw-list-ordered') || typesArray.includes('mw-list-unordered')) {
-        const depth = numberFromPrefixedKey(typesArray, 'mw-list-depth-')
-        const ordered = typesArray.includes('mw-list-ordered')
-        result.push(buttonPayload('li', {depth: depth, ordered: ordered}))
-      }
+
       if (typesArray.includes('mw-indenting') || typesArray.includes('mw-indenting-contents')) {
         const depth = numberFromPrefixedKey(typesArray, 'mw-indenting-depth-')
         result.push(buttonPayload('indent', {depth: depth}))
@@ -343,6 +326,13 @@
        }
       ))
      
+      const listItemLineCallback = (char, depth, line) => {
+        result.push(buttonPayload('li', {depth: depth, ordered: (char === '#')}))
+        return false // No need to continue (only need to send one 'li' message)
+      }
+      performCallBackForSelectedListItemLines(doc, '#', listItemLineCallback)
+      performCallBackForSelectedListItemLines(doc, '*', listItemLineCallback)
+
       const historySize = doc.historySize()
       
       const changesMade = historySize.undo > 1
@@ -539,6 +529,45 @@
       toggleMarkup(button, openingMarkup, closingMarkup)        
     }
 
+    const toggleListForSelectedLines = (char) => {
+       const listPayload = selectionPayloadForButton('li')
+       const isExistingListSelected = listPayload !== null
+       if (isExistingListSelected) {
+         delistifySelectedLines(char)
+         return
+       }
+       convertSelectedLinesToList(char)
+    }
+
+    const leadingListItemCharactersAndWhitespace = (line, char) => {
+      const leadingCharAndWhitespace = line.match(new RegExp(`^\\${char}+\\s*`))
+      return leadingCharAndWhitespace ? leadingCharAndWhitespace[0] : ''
+    } 
+
+    const delistifySelectedLines = (char) => {
+      const listItemLineCallback = (char, depth, line, leadingCharsWithWhitespaceLength) => {
+        editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: leadingCharsWithWhitespaceLength})
+        return true
+      }
+      performCallBackForSelectedListItemLines(editor, char, listItemLineCallback)
+    }
+
+    const performCallBackForSelectedListItemLines = (doc, char, callback) => {
+      let toLine = doc.getCursor('to').line
+      let fromLine = doc.getCursor('from').line
+      for (let line = toLine; line >= fromLine; line--) {
+        const thisLineText = doc.getLine(line)
+        const leadingCharsWithWhitespace = leadingListItemCharactersAndWhitespace(thisLineText, char)
+        if (leadingCharsWithWhitespace.length > 0) {
+          const depth = countOcurrences(leadingCharsWithWhitespace, `\\${char}`)
+          const shouldContinue = callback(char, depth, line, leadingCharsWithWhitespace.length)
+          if (!shouldContinue) {
+            return
+          }
+        }
+      }
+    }
+
     const convertSelectedLinesToList = (char) => {
       editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n${char} `)
     }
@@ -584,10 +613,10 @@
         console.log('signature')
       },
       unorderedList: () => {
-        convertSelectedLinesToList('*')
+        toggleListForSelectedLines('*')
       },
       orderedList: () => {
-        convertSelectedLinesToList('#')
+        toggleListForSelectedLines('#')
       },
       superscript: () => {
         expandTagSelectionAndToggleMarkup('superscript', '<sup>', '</sup>')
@@ -659,10 +688,23 @@
         toggleMarkup('heading', equals, equals)
       },
       increaseIndentDepth: () => {
-        console.log('increaseIndentDepth')
+        const listItemLineCallback = (char, depth, line) => {
+          editor.replaceRange(char, {line: line, ch: 0})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
       },
       decreaseIndentDepth: () => {
-        console.log('decreaseIndentDepth')
+        const listItemLineCallback = (char, depth, line) => {
+          if (depth === 1) {
+            return true
+          }
+          editor.replaceRange('', {line: line, ch: 0}, {line: line, ch: 1})
+          return true
+        }
+        performCallBackForSelectedListItemLines(editor, '#', listItemLineCallback)
+        performCallBackForSelectedListItemLines(editor, '*', listItemLineCallback)
       },
       textSize: (newSize) => {
         if (newSize === 'small') {
