@@ -31,6 +31,7 @@
       const end = toCursor.ch
       const isSingleLine = (fromCursor.line === toCursor.line)
       const line = fromCursor.line
+      // TODO: rename 'isSelectionMoreThanOneChar' - it's actually isSelectionMoreThanZeroChar
       const isSelectionMoreThanOneChar = !isSingleLine || (end - start) > 0
 
       return {
@@ -568,8 +569,29 @@
       }
     }
 
-    const convertSelectedLinesToList = (char) => {
-      editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n${char} `)
+    const convertSelectedLinesToList = (char) => {      
+      const selectionRange = getSelectionRange(editor)
+      
+      if (selectionRange.isSingleLine) {
+        
+        const leadingBreak = selectionRange.start === 0 ? '' : '\n'
+        
+        if (selectionRange.isSelectionMoreThanOneChar) {
+          editor.replaceSelection(`${leadingBreak}${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}\n`)
+        } else {
+          editor.replaceSelection(`${leadingBreak}${char} \n`)
+        }        
+
+        // Move cursor up as needed
+        let newLineIndexForCursor = selectionRange.line 
+        if (selectionRange.start > 0) {
+          newLineIndexForCursor = newLineIndexForCursor + 1  
+        }
+        editor.setCursor({line: newLineIndexForCursor, char: editor.getLine(newLineIndexForCursor).length})
+        
+      } else {
+        editor.replaceSelection(`${char} ${editor.getSelection().replace(/\n/gi, `\n${char} `)}`)
+      }
     }
 
     wmf.commands = {
