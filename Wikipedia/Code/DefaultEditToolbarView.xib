@@ -21,95 +21,65 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnR-ux-s6T">
-                            <rect key="frame" x="0.0" y="0.0" width="180" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="256" height="44"/>
                             <subviews>
                                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="44" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhM-bx-p7p" userLabel="Stack View Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="528" height="44"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-7a-Sik" userLabel="Main Stack View">
-                                            <rect key="frame" x="0.0" y="0.0" width="368" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="520" height="44"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BWO-2h-I64" userLabel="Default View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="44"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Default Stack View">
-                                                            <rect key="frame" x="16" y="0.0" width="156" height="44"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g2p-oh-oje" userLabel="Default Stack View">
+                                                            <rect key="frame" x="16" y="0.0" width="232" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t52-tF-NuA" userLabel="Format Text Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="27" height="44"/>
+                                                                    <rect key="frame" x="0.0" y="11" width="27" height="22"/>
                                                                     <state key="normal" image="text-formatting"/>
                                                                     <connections>
                                                                         <action selector="formatText:" destination="iN0-l3-epB" eventType="touchUpInside" id="Cu4-x9-6NR"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-pz-I3S" userLabel="Format Text Style Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="30.666666666666664" y="0.0" width="30" height="44"/>
+                                                                    <rect key="frame" x="42" y="11" width="30" height="22"/>
                                                                     <state key="normal" image="text-formatting-style"/>
                                                                     <connections>
                                                                         <action selector="formatTextStyle:" destination="iN0-l3-epB" eventType="touchUpInside" id="1Zw-wT-rnd"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jxZ-pF-FjT" userLabel="Separator View">
-                                                                    <rect key="frame" x="64" y="0.0" width="3" height="44"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF">
-                                                                            <rect key="frame" x="1" y="10" width="1" height="24"/>
-                                                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="1" id="M0e-MB-fT6"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="jlu-Wy-agF" firstAttribute="top" secondItem="jxZ-pF-FjT" secondAttribute="top" constant="10" id="Ngb-Pf-pqK"/>
-                                                                        <constraint firstAttribute="width" constant="3" id="Yy4-PO-DDp"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="jlu-Wy-agF" secondAttribute="bottom" constant="10" id="ac7-8t-cyj"/>
-                                                                        <constraint firstItem="jlu-Wy-agF" firstAttribute="centerY" secondItem="jxZ-pF-FjT" secondAttribute="centerY" id="i8r-Xh-pqA"/>
-                                                                        <constraint firstItem="jlu-Wy-agF" firstAttribute="centerX" secondItem="jxZ-pF-FjT" secondAttribute="centerX" id="lYh-a4-Yck"/>
-                                                                    </constraints>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="jlu-Wy-agF" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
+                                                                    <rect key="frame" x="87" y="12" width="1" height="20"/>
+                                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" tag="9" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do1-By-Bqb" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="70.666666666666671" y="0.0" width="14" height="44"/>
+                                                                    <rect key="frame" x="103" y="11" width="14" height="22"/>
                                                                     <state key="normal" image="text-formatting-add-citation"/>
                                                                     <connections>
                                                                         <action selector="toggleCitation:" destination="iN0-l3-epB" eventType="touchUpInside" id="RWg-r0-cOq"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usu-sH-MMC" userLabel="Link Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="88.333333333333329" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="132" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-link"/>
                                                                     <connections>
                                                                         <action selector="toggleLink:" destination="iN0-l3-epB" eventType="touchUpInside" id="sdE-HW-jkI"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgV-15-pdj" userLabel="Separator View">
-                                                                    <rect key="frame" x="110" y="0.0" width="3" height="44"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eV-lo-H48">
-                                                                            <rect key="frame" x="1" y="10" width="1" height="24"/>
-                                                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="1" id="cg3-cN-V79"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="bottom" secondItem="0eV-lo-H48" secondAttribute="bottom" constant="10" id="41J-wQ-V5D"/>
-                                                                        <constraint firstAttribute="width" constant="3" id="6oZ-Ep-kPd"/>
-                                                                        <constraint firstItem="0eV-lo-H48" firstAttribute="centerX" secondItem="YgV-15-pdj" secondAttribute="centerX" id="aiM-dK-cb7"/>
-                                                                        <constraint firstItem="0eV-lo-H48" firstAttribute="top" secondItem="YgV-15-pdj" secondAttribute="top" constant="10" id="fJJ-fq-CMH"/>
-                                                                        <constraint firstItem="0eV-lo-H48" firstAttribute="centerY" secondItem="YgV-15-pdj" secondAttribute="centerY" id="qff-e0-ZOI"/>
-                                                                    </constraints>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="sz5-NF-B4w" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
+                                                                    <rect key="frame" x="165" y="12" width="1" height="20"/>
+                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPD-zD-NLL" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="116.33333333333334" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="181" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-unordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleUnorderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="vwl-ZD-BZN"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAl-6N-MGN" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="138" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="214" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-ordered-list"/>
                                                                     <connections>
                                                                         <action selector="toggleOrderedList:" destination="iN0-l3-epB" eventType="touchUpInside" id="MzF-6t-DLw"/>
@@ -126,67 +96,52 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51i-1d-Lli" userLabel="Secondary View">
-                                                    <rect key="frame" x="188" y="0.0" width="180" height="44"/>
+                                                    <rect key="frame" x="264" y="0.0" width="256" height="44"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
-                                                            <rect key="frame" x="16" y="0.0" width="156" height="44"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1bz-lo-Qsh" userLabel="Secondary Stack View">
+                                                            <rect key="frame" x="16" y="0.0" width="232" height="44"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-Up-JEt" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="0.0" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-decrease-indent"/>
                                                                     <connections>
                                                                         <action selector="decreaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="bGk-wN-Y56"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-FL-20t" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="27.666666666666657" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="40.666666666666686" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="text-formatting-increase-indent"/>
                                                                     <connections>
                                                                         <action selector="increaseIndentation:" destination="iN0-l3-epB" eventType="touchUpInside" id="chF-z3-SBA"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WtX-zz-09w" userLabel="Separator View">
-                                                                    <rect key="frame" x="55" y="0.0" width="3" height="44"/>
-                                                                    <subviews>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7Q-C7-3b0">
-                                                                            <rect key="frame" x="1" y="10" width="1" height="24"/>
-                                                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="1" id="TKt-8c-ebV"/>
-                                                                            </constraints>
-                                                                        </view>
-                                                                    </subviews>
-                                                                    <constraints>
-                                                                        <constraint firstItem="D7Q-C7-3b0" firstAttribute="centerX" secondItem="WtX-zz-09w" secondAttribute="centerX" id="JZw-FE-sI2"/>
-                                                                        <constraint firstItem="D7Q-C7-3b0" firstAttribute="top" secondItem="WtX-zz-09w" secondAttribute="top" constant="10" id="PO2-lq-Wro"/>
-                                                                        <constraint firstAttribute="width" constant="3" id="V2T-2c-8xl"/>
-                                                                        <constraint firstItem="D7Q-C7-3b0" firstAttribute="centerY" secondItem="WtX-zz-09w" secondAttribute="centerY" id="Yva-Mo-AMG"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="D7Q-C7-3b0" secondAttribute="bottom" constant="10" id="zCS-Dl-bNZ"/>
-                                                                    </constraints>
+                                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="zrK-Kd-SnN" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
+                                                                    <rect key="frame" x="81" y="12" width="1" height="20"/>
+                                                                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcH-OJ-MDT" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="67.666666666666686" y="0.0" width="19" height="44"/>
+                                                                    <rect key="frame" x="104.66666666666669" y="11" width="19" height="22"/>
                                                                     <state key="normal" image="directionUp"/>
                                                                     <connections>
                                                                         <action selector="moveCursorUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="SvW-C1-J2E"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r2W-3b-3SP" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="96" y="0.0" width="18" height="44"/>
+                                                                    <rect key="frame" x="146" y="11" width="18" height="22"/>
                                                                     <state key="normal" image="directionDown"/>
                                                                     <connections>
                                                                         <action selector="moveCursorDown:" destination="iN0-l3-epB" eventType="touchUpInside" id="i1T-s3-dx4"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3W-Xz-reX" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="123.66666666666669" y="0.0" width="12" height="44"/>
+                                                                    <rect key="frame" x="186.66666666666669" y="11" width="12" height="22"/>
                                                                     <state key="normal" image="directionLeft"/>
                                                                     <connections>
                                                                         <action selector="moveCursorLeft:" destination="iN0-l3-epB" eventType="touchUpInside" id="8ZI-Dx-nTQ"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSf-Yo-A6r" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                                                    <rect key="frame" x="145" y="0.0" width="11" height="44"/>
+                                                                    <rect key="frame" x="221" y="11" width="11" height="22"/>
                                                                     <state key="normal" image="directionRight"/>
                                                                     <connections>
                                                                         <action selector="moveCursorRight:" destination="iN0-l3-epB" eventType="touchUpInside" id="cxG-ce-e4c"/>
@@ -249,7 +204,7 @@
                             </variation>
                         </scrollView>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25k-rm-GLR">
-                            <rect key="frame" x="188" y="10" width="167" height="24"/>
+                            <rect key="frame" x="264" y="10" width="91" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" id="chZ-0u-nI7"/>
                                 <constraint firstAttribute="height" constant="24" id="rje-us-hjK"/>
@@ -322,9 +277,6 @@
                 <outlet property="chevronButton" destination="25k-rm-GLR" id="2zq-aJ-pCp"/>
                 <outlet property="scrollView" destination="ZnR-ux-s6T" id="cvF-Ya-s9R"/>
                 <outlet property="stackView" destination="ajR-7a-Sik" id="xc8-7a-mMJ"/>
-                <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="KqU-4Y-QrM"/>
-                <outletCollection property="separatorViews" destination="0eV-lo-H48" collectionClass="NSMutableArray" id="pjh-oX-xHF"/>
-                <outletCollection property="separatorViews" destination="D7Q-C7-3b0" collectionClass="NSMutableArray" id="xNa-i4-6EH"/>
                 <outletCollection property="buttons" destination="t52-tF-NuA" collectionClass="NSMutableArray" id="i2H-5h-olZ"/>
                 <outletCollection property="buttons" destination="yVB-pz-I3S" collectionClass="NSMutableArray" id="DpK-Sr-Z7h"/>
                 <outletCollection property="buttons" destination="Do1-By-Bqb" collectionClass="NSMutableArray" id="rek-As-gmW"/>
@@ -337,6 +289,10 @@
                 <outletCollection property="buttons" destination="r2W-3b-3SP" collectionClass="NSMutableArray" id="WRY-KI-7ef"/>
                 <outletCollection property="buttons" destination="G3W-Xz-reX" collectionClass="NSMutableArray" id="14d-5p-EGS"/>
                 <outletCollection property="buttons" destination="nSf-Yo-A6r" collectionClass="NSMutableArray" id="9q3-3f-E1a"/>
+                <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="KqU-4Y-QrM"/>
+                <outletCollection property="separatorViews" destination="zrK-Kd-SnN" collectionClass="NSMutableArray" id="kXp-md-qml"/>
+                <outletCollection property="separatorViews" destination="jlu-Wy-agF" collectionClass="NSMutableArray" id="y4R-qf-c2o"/>
+                <outletCollection property="separatorViews" destination="sz5-NF-B4w" collectionClass="NSMutableArray" id="yOe-nM-pQb"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>

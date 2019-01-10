@@ -22,104 +22,74 @@
                         <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Euq-9x-ZtU">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="cO2-kj-WCI">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cO2-kj-WCI">
                                     <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                     <subviews>
                                         <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXv-8j-9yj" userLabel="Bold Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="14" height="44"/>
+                                            <rect key="frame" x="0.0" y="11" width="14" height="22"/>
                                             <state key="normal" image="text-formatting-bold"/>
                                             <connections>
                                                 <action selector="toggleBoldSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="8Hh-Rr-vJD"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRa-Hw-fTT" userLabel="Italics Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="36" y="0.0" width="9" height="44"/>
+                                            <rect key="frame" x="36.5" y="11" width="9" height="22"/>
                                             <state key="normal" image="text-formatting-italics"/>
                                             <connections>
                                                 <action selector="toggleItalicSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="Asq-Rw-n6O"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-6l-4YM" userLabel="Format Heading Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="67" y="0.0" width="30" height="44"/>
+                                            <rect key="frame" x="67.5" y="11" width="30" height="22"/>
                                             <state key="normal" image="text-formatting-style"/>
                                             <connections>
                                                 <action selector="formatHeader:" destination="iN0-l3-epB" eventType="touchUpInside" id="EFs-vh-Ffh"/>
                                             </connections>
                                         </button>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDq-jx-cUC" userLabel="Separator View">
-                                            <rect key="frame" x="118.5" y="0.0" width="3" height="44"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y41-nM-tJB">
-                                                    <rect key="frame" x="1" y="11" width="1" height="22"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="1" id="ZO2-XE-cig"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="3" id="Ijk-1N-J54"/>
-                                                <constraint firstItem="y41-nM-tJB" firstAttribute="centerX" secondItem="KDq-jx-cUC" secondAttribute="centerX" id="Skw-tB-NMG"/>
-                                                <constraint firstItem="y41-nM-tJB" firstAttribute="centerY" secondItem="KDq-jx-cUC" secondAttribute="centerY" id="bKS-fc-JHo"/>
-                                            </constraints>
+                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="32" translatesAutoresizingMaskIntoConstraints="NO" id="y41-nM-tJB" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
+                                            <rect key="frame" x="120" y="6" width="1" height="32"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUd-rt-UEE" userLabel="Citation Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="143.5" y="0.0" width="14" height="44"/>
+                                            <rect key="frame" x="143.5" y="11" width="14" height="22"/>
                                             <state key="normal" image="text-formatting-add-citation"/>
                                             <connections>
                                                 <action selector="toggleReferenceSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="pLW-YI-dCV"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QI6-mE-72P" userLabel="Link Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="179.5" y="0.0" width="18" height="44"/>
+                                            <rect key="frame" x="179.5" y="11" width="18" height="22"/>
                                             <state key="normal" image="text-formatting-link"/>
                                             <connections>
                                                 <action selector="toggleAnchorSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="2OF-mV-CYu"/>
                                             </connections>
                                         </button>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lIb-q6-29d" userLabel="Separator View">
-                                            <rect key="frame" x="219.5" y="0.0" width="3" height="44"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-ps-pge">
-                                                    <rect key="frame" x="1" y="11" width="1" height="22"/>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="1" id="DLq-qn-7hD"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="a6D-ps-pge" firstAttribute="centerY" secondItem="lIb-q6-29d" secondAttribute="centerY" id="FaR-2J-mfb"/>
-                                                <constraint firstItem="a6D-ps-pge" firstAttribute="centerX" secondItem="lIb-q6-29d" secondAttribute="centerX" id="Zci-ch-bDn"/>
-                                                <constraint firstAttribute="width" constant="3" id="zlX-g8-9MR"/>
-                                            </constraints>
+                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="1" placeholderIntrinsicHeight="32" translatesAutoresizingMaskIntoConstraints="NO" id="a6D-ps-pge" customClass="ToolbarSeparatorView" customModule="Wikipedia" customModuleProvider="target">
+                                            <rect key="frame" x="220" y="6" width="1" height="32"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-ze-dhb" userLabel="Unordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="244" y="0.0" width="18" height="44"/>
+                                            <rect key="frame" x="243.5" y="11" width="18" height="22"/>
                                             <state key="normal" image="text-formatting-unordered-list"/>
                                             <connections>
                                                 <action selector="toggleUnorderedListSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="fnY-ux-uBx"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-Wi-ngX" userLabel="Ordered List Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="284" y="0.0" width="18" height="44"/>
+                                            <rect key="frame" x="283.5" y="11" width="18" height="22"/>
                                             <state key="normal" image="text-formatting-ordered-list"/>
                                             <connections>
                                                 <action selector="toggleOrderedListSelection:" destination="iN0-l3-epB" eventType="touchUpInside" id="XlR-al-9rp"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FyV-8N-bkz" userLabel="Show More Formatting Button" customClass="TextFormattingButton" customModule="Wikipedia" customModuleProvider="target">
-                                            <rect key="frame" x="324" y="0.0" width="19" height="44"/>
+                                            <rect key="frame" x="324" y="11" width="19" height="22"/>
                                             <state key="normal" image="dots"/>
                                             <connections>
                                                 <action selector="formatText:" destination="iN0-l3-epB" eventType="touchUpInside" id="odR-Kf-MTP"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="y41-nM-tJB" firstAttribute="height" secondItem="cO2-kj-WCI" secondAttribute="height" multiplier="0.5" id="pXx-Rz-8Ax"/>
-                                        <constraint firstItem="a6D-ps-pge" firstAttribute="height" secondItem="y41-nM-tJB" secondAttribute="height" id="wUd-it-fWR"/>
-                                    </constraints>
                                 </stackView>
                             </subviews>
                             <constraints>
@@ -150,8 +120,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="stackView" destination="cO2-kj-WCI" id="qel-pE-Y96"/>
-                <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="ALV-AP-btO"/>
-                <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="TNn-A8-Zpf"/>
                 <outletCollection property="buttons" destination="dXv-8j-9yj" collectionClass="NSMutableArray" id="fVf-el-Mrt"/>
                 <outletCollection property="buttons" destination="DRa-Hw-fTT" collectionClass="NSMutableArray" id="x81-QU-UG0"/>
                 <outletCollection property="buttons" destination="VmM-6l-4YM" collectionClass="NSMutableArray" id="AzX-ha-OQQ"/>
@@ -160,6 +128,10 @@
                 <outletCollection property="buttons" destination="FyV-8N-bkz" collectionClass="NSMutableArray" id="4qZ-z3-qQW"/>
                 <outletCollection property="buttons" destination="i6Q-ze-dhb" collectionClass="NSMutableArray" id="2Of-er-3Yh"/>
                 <outletCollection property="buttons" destination="q0m-Wi-ngX" collectionClass="NSMutableArray" id="39q-yR-v6s"/>
+                <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="ALV-AP-btO"/>
+                <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="TNn-A8-Zpf"/>
+                <outletCollection property="separatorViews" destination="y41-nM-tJB" collectionClass="NSMutableArray" id="B1K-3F-h67"/>
+                <outletCollection property="separatorViews" destination="a6D-ps-pge" collectionClass="NSMutableArray" id="M25-as-S22"/>
             </connections>
             <point key="canvasLocation" x="34.5" y="-156"/>
         </view>
